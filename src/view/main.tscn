@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://src/view/main.gd" id="1_main"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_counter"]
+size = Vector3(5, 0.9, 0.7)
+
+[sub_resource type="StandardMaterial3D" id="Mat_counter"]
+albedo_color = Color(0.36, 0.25, 0.14, 1)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_main")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.985, 0.174, 0, -0.174, 0.985, 1.7, 1.7, 1.6)
+
+[node name="Moon" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.87, -0.32, 0.37, 0, 0.76, 0.65, -0.49, -0.57, 0.66, 0, 5, 0)
+light_color = Color(0.62, 0.7, 0.9, 1)
+light_energy = 0.35
+
+[node name="Lantern" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 1.6, 0.6)
+light_color = Color(1, 0.78, 0.42, 1)
+light_energy = 1.2
+omni_range = 8.0
+
+[node name="Counter" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7, 0.45, 0.2)
+mesh = SubResource("BoxMesh_counter")
+material_override = SubResource("Mat_counter")
+
+[node name="Slots" type="Node3D" parent="."]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Text" type="Label" parent="HUD"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 12.0
+offset_right = -16.0
+offset_bottom = -12.0
+theme_override_colors/font_color = Color(0.9, 0.86, 0.76, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 14
