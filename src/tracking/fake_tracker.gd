@@ -27,6 +27,7 @@ func update(view: SceneView) -> Array[Track]:
 		if tr == null:
 			tr = Track.new(_next_track_id, o.kind, o.object_id)
 			tr.remembered_cloak = o.cloak
+			tr.remembered_order = o.order
 			_next_track_id += 1
 			_by_object[o.object_id] = tr
 		else:

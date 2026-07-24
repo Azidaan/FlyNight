@@ -14,7 +14,11 @@ var object_id: int
 var conf: float = 1.0
 var state: int = PN.TrackState.LOCKED
 var switched: bool = false
+# Признак и заказ фиксируются в момент захвата и НЕ пересчитываются от текущей
+# привязки. Без этого подмена была бы бессмысленной: панель показывала бы заказ
+# того рыцаря, к которому трек ведёт сейчас, и выданное зелье всегда подходило бы.
 var remembered_cloak: int = -1  # PN.Cloak
+var remembered_order: int = -1  # PN.Potion
 var last_known_pos: Vector3 = Vector3.ZERO
 var age: int = 0
 

@@ -27,6 +27,7 @@ static func from_state(s: GameState) -> SceneView:
 		var dist := float(k.slot) / float(PN.QUEUE_SLOTS - 1)
 		var o := SceneObject.new(k.id, &"knight", dist, 0.0)
 		o.cloak = k.cloak
+		o.order = k.order
 		o.slot = k.slot
 		v.objects.append(o)
 

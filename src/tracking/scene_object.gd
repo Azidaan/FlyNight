@@ -8,6 +8,7 @@ var kind: StringName
 var dist_norm: float
 var occlusion: float
 var cloak: int = -1             # PN.Cloak, только для рыцарей
+var order: int = -1             # PN.Potion, только для рыцарей
 var slot: int = -1              # позиция в очереди, только для рыцарей
 var position: Vector3 = Vector3.ZERO
 
