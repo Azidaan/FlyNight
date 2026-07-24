@@ -1,0 +1,21 @@
+# Конфигурация DRB-full (Этап 5). Читается training/train_drb.py.
+#
+# Полностью повторяет baseline.yaml (Этап 3) — сравнение честное только при
+# идентичных гиперпараметрах. Единственное отличие модели — DRB в neck
+# (вставляется DRBTrainer-ом, см. models/yolo_neck/neck_drb.py).
+# Аугментации — стандартные Ultralytics (усиленные появятся на Этапе 6).
+
+weights: weights/pretrained/yolo26s.pt
+data_name: full_step5          # та же генерируемая конфигурация данных, что у baseline
+frame_step_train: 5
+frame_step_val: 5
+
+epochs: 100
+batch: 16
+imgsz: 640
+workers: 4
+block_epochs: 10
+
+# Вариант DRB: both = полный блок (Этап 5).
+# Для ablation Этапа 7 переопределяется: lqa | fga (см. lqa_only.yaml, fga_only.yaml).
+drb_variant: both

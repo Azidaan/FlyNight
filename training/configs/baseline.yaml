@@ -1,0 +1,20 @@
+# Конфигурация baseline (Этап 3). Читается training/train_baseline.py.
+#
+# Валидация в ХОДЕ обучения идёт на прореженном val (step 5) — она нужна только
+# для выбора best.pt и кривых; полная оценка на поднаборах Normal/Night/Rain/Fog
+# выполняется отдельно (scripts/evaluate_baseline.py) на непрореженном val.
+# Прореживание train x5 — зафиксированное решение Части 2.9 плана.
+
+weights: weights/pretrained/yolo26s.pt
+data_name: full_step5          # имя генерируемой конфигурации данных
+frame_step_train: 5
+frame_step_val: 5
+
+epochs: 100
+batch: 16
+imgsz: 640
+workers: 4
+block_epochs: 10               # периодическая фиксация метрик (блоки плана)
+
+# Аугментации: стандартные значения Ultralytics по умолчанию (baseline
+# «без целенаправленных аугментаций» — усиленный набор появится на Этапе 6).

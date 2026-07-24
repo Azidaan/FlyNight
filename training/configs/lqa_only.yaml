@@ -1,0 +1,16 @@
+# Ablation Серия I: только LQA-ветвь (Этап 7). FGA не создаётся —
+# эквивалент фиксации w_FGA = −∞ (σ = 0) из плана, но без затрат FFT.
+# Сокращённый режим ablation: 50 эпох, 2 сида (42, 123).
+
+weights: weights/pretrained/yolo26s.pt
+data_name: full_step5
+frame_step_train: 5
+frame_step_val: 5
+
+epochs: 50
+batch: 16
+imgsz: 640
+workers: 4
+block_epochs: 10
+
+drb_variant: lqa

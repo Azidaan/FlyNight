@@ -1,0 +1,33 @@
+# Финальная конфигурация: YOLO + DRB + целенаправленные аугментации (Этап 6).
+# Модели этого конфига — ФИНАЛЬНЫЕ для работы: на них строятся Этапы 7-10.
+# Параметры аугментаций зафиксированы планом (подэтап 6.1):
+#   фотометрия — hsv_*, auto_augment; окклюзии — mosaic/mixup/erasing/copy_paste;
+#   геометрия — degrees/translate/scale. Локальные засветки и ISO-шум
+#   встроенным набором не покрываются (осознанный компромисс, см. план).
+
+weights: weights/pretrained/yolo26s.pt
+data_name: full_step5
+frame_step_train: 5
+frame_step_val: 5
+
+epochs: 100
+batch: 16
+imgsz: 640
+workers: 4
+block_epochs: 10
+
+drb_variant: both
+run_name: drb_aug_full          # веса в weights/drb_aug_full_seed<seed>/
+
+# --- аугментации (проброс в model.train, см. AUG_KEYS в train_drb.py) ---
+hsv_h: 0.015
+hsv_s: 0.7
+hsv_v: 0.4
+degrees: 5
+translate: 0.1
+scale: 0.5
+mosaic: 1.0
+mixup: 0.15
+copy_paste: 0.3
+erasing: 0.4
+auto_augment: randaugment

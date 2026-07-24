@@ -1,0 +1,14 @@
+# Целевые зависимости проекта (Часть 2.7 сводного плана).
+# Точные версии фиксируются в requirements.txt (pip freeze) после установки.
+# Установка: pip install --no-index --find-links wheelhouse -c constraints.txt -r requirements.in
+torch==2.10.0+cu130
+torchvision==0.25.0+cu130
+ultralytics
+opencv-python
+numpy
+scipy
+matplotlib
+thop
+fvcore
+pycocotools
+bdd100k  # официальные eval tools для MOT-метрик (HOTA/IDF1/MOTA), План А Этапа 1

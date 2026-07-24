@@ -1,0 +1,18 @@
+# Ablation Серия II: DRB на RGB-входе, до backbone (Этап 7, 3-й пункт новизны).
+# Один экземпляр DRB вместо трёх; сравнивается с DRB-в-neck (= drb_full Этапа 5).
+# Честная оговорка для раздела 2.5: C=3 на входе против сотен каналов в neck —
+# статистики LQA работают в другом режиме (фиксируется в тексте).
+# Сокращённый режим: 50 эпох, 1 сид (42); второй сид — если результат на грани.
+
+weights: weights/pretrained/yolo26s.pt
+data_name: full_step5
+frame_step_train: 5
+frame_step_val: 5
+
+epochs: 50
+batch: 16
+imgsz: 640
+workers: 4
+block_epochs: 10
+
+drb_variant: input

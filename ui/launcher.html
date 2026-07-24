@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Запусти меня — панель управления</title>
+<style>
+/* ————— IBM Plex, локальные файлы (офлайн) ————— */
+@font-face { font-family:'IBM Plex Sans'; font-weight:400; src:url('assets/fonts/ibm-plex-sans-cyrillic-400-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family:'IBM Plex Sans'; font-weight:400; src:url('assets/fonts/ibm-plex-sans-latin-400-normal.woff2') format('woff2'); unicode-range:U+0000-00FF,U+2000-206F; }
+@font-face { font-family:'IBM Plex Sans'; font-weight:600; src:url('assets/fonts/ibm-plex-sans-cyrillic-600-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family:'IBM Plex Sans'; font-weight:600; src:url('assets/fonts/ibm-plex-sans-latin-600-normal.woff2') format('woff2'); unicode-range:U+0000-00FF,U+2000-206F; }
+@font-face { font-family:'IBM Plex Mono'; font-weight:400; src:url('assets/fonts/ibm-plex-mono-cyrillic-400-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family:'IBM Plex Mono'; font-weight:400; src:url('assets/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); unicode-range:U+0000-00FF,U+2000-206F; }
+@font-face { font-family:'IBM Plex Mono'; font-weight:500; src:url('assets/fonts/ibm-plex-mono-cyrillic-500-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family:'IBM Plex Mono'; font-weight:500; src:url('assets/fonts/ibm-plex-mono-latin-500-normal.woff2') format('woff2'); unicode-range:U+0000-00FF,U+2000-206F; }
+
+:root{
+  --bg:#faf9f5; --surface:#ffffff;
+  --accent:#d97757; --accent-deep:#b85c3c;
+  --ink:#2f2a24; --sec:#6b6457; --cap:#a39b8c;
+  --line:#2f2a24; --aux:#bdb5a6; --div:#e7e2d8;
+  --ok:#3f9277;
+  --sans:'IBM Plex Sans','Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono','Cascadia Mono','Consolas',monospace;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%;}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--sans);
+  font-size:14px; overflow:hidden; user-select:none;
+}
+.mono{font-family:var(--mono); text-transform:uppercase; letter-spacing:.18em;}
+
+/* ————— верхняя линейка с рисками (деталь чертежа, не сетка) ————— */
+#ruler{
+  position:fixed; top:0; left:0; right:0; height:18px; z-index:5;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 79px, var(--aux) 79px 80px) bottom/100% 10px no-repeat,
+    repeating-linear-gradient(90deg, transparent 0 15px, var(--div) 15px 16px) bottom/100% 5px no-repeat;
+}
+#ruler .num{position:absolute; bottom:9px; font-family:var(--mono); font-size:8.5px; color:var(--cap); letter-spacing:.1em;}
+
+/* ————— каркас ————— */
+#app{display:flex; flex-direction:column; height:100vh; padding:34px 34px 14px;}
+header{display:flex; align-items:flex-end; justify-content:space-between; padding-bottom:12px;}
+.kicker{font-family:var(--mono); font-size:11px; letter-spacing:.24em; color:var(--accent); text-transform:uppercase; margin-bottom:7px;}
+h1{font-size:25px; font-weight:600; letter-spacing:-0.01em;}
+h1 .thin{color:var(--sec); font-weight:400;}
+#hw-stamp{text-align:right; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; color:var(--sec); text-transform:uppercase; line-height:1.9;}
+#hw-stamp b{color:var(--ink); font-weight:500;}
+
+/* размерная линия под шапкой */
+.dim{position:relative; height:14px; margin:2px 0 12px;}
+.dim .bar{position:absolute; left:0; right:0; top:6px; height:1.5px; background:var(--aux);}
+.dim .bar::before,.dim .bar::after{content:''; position:absolute; top:-3.2px; width:8px; height:8px; border-top:1.5px solid var(--aux); }
+.dim .bar::before{left:0; border-left:1.5px solid var(--aux); transform:rotate(-45deg);}
+.dim .bar::after{right:0; border-right:1.5px solid var(--aux); transform:rotate(45deg);}
+.dim .tag{position:absolute; left:50%; top:0; transform:translateX(-50%); background:var(--bg); padding:0 14px; font-family:var(--mono); font-size:9.5px; letter-spacing:.22em; color:var(--cap); text-transform:uppercase;}
+
+main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-height:0;}
+
+/* ————— панели ————— */
+.panel{background:var(--surface); border:1.6px solid var(--line); position:relative; padding:13px 14px 14px; display:flex; flex-direction:column; min-height:0;}
+.panel > .ptitle{font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:var(--sec); text-transform:uppercase; margin-bottom:11px; display:flex; justify-content:space-between;}
+.panel > .ptitle .idx{color:var(--accent);}
+/* регистрационные метки по углам панелей */
+.panel::before,.panel::after{content:''; position:absolute; width:9px; height:9px; pointer-events:none;}
+.panel::before{top:-5px; left:-5px; border-top:1.6px solid var(--line); border-left:1.6px solid var(--line);}
+.panel::after{bottom:-5px; right:-5px; border-bottom:1.6px solid var(--line); border-right:1.6px solid var(--line);}
+
+.rail{display:flex; flex-direction:column; gap:16px; min-height:0;}
+
+/* ————— лампы ————— */
+#lamps{display:grid; grid-template-columns:1fr 1fr; gap:9px 8px;}
+.lamp{display:flex; align-items:center; gap:8px;}
+.lamp .bulb{width:15px; height:15px; border-radius:50%; border:1.7px solid var(--aux); background:transparent; flex:none; position:relative; transition:all .3s;}
+.lamp .bulb::after{content:''; position:absolute; inset:-5px; border-radius:50%; border:1px solid transparent;}
+.lamp.ok .bulb{background:var(--ok); border-color:var(--ok);}
+.lamp.fail .bulb{background:var(--accent-deep); border-color:var(--accent-deep);}
+.lamp.busy .bulb{background:var(--accent); border-color:var(--accent); animation:pulse 1.1s ease-in-out infinite;}
+.lamp.busy .bulb::after{border-color:var(--accent); animation:ring 1.1s ease-in-out infinite;}
+@keyframes pulse{50%{opacity:.45;}}
+@keyframes ring{0%{transform:scale(.7); opacity:.8;} 100%{transform:scale(1.15); opacity:0;}}
+.lamp .llabel{font-family:var(--mono); font-size:9px; letter-spacing:.14em; color:var(--sec); text-transform:uppercase; line-height:1.25;}
+
+/* ————— конвейер обучений ————— */
+#pipeline{display:flex; flex-direction:column; gap:6px; overflow-y:auto; flex:1; min-height:0; padding-right:4px;}
+#pipeline::-webkit-scrollbar{width:8px;}
+#pipeline::-webkit-scrollbar-thumb{background:var(--div); border:2px solid var(--surface);}
+.step{border:1.6px solid var(--div); padding:6px 8px 7px; position:relative; transition:border-color .2s;}
+.step .srow{display:flex; align-items:center; gap:7px;}
+.step .snum{font-family:var(--mono); font-size:9px; letter-spacing:.1em; color:var(--cap); width:20px; flex:none;}
+.step .sname{font-size:11.5px; font-weight:600; color:var(--cap); flex:1; line-height:1.25;}
+.step .stime{font-family:var(--mono); font-size:8px; color:var(--cap); letter-spacing:.08em; flex:none;}
+.step .sdetail{font-family:var(--mono); font-size:8.5px; letter-spacing:.06em; color:var(--cap); margin:3px 0 0 27px; min-height:0;}
+.step .sbtn{display:none; margin:6px 0 0 27px; font-family:var(--mono); font-size:10px; letter-spacing:.18em;
+  text-transform:uppercase; padding:6px 12px; border:1.6px solid var(--accent-deep); background:var(--accent-deep);
+  color:#fff; cursor:pointer; width:calc(100% - 27px);}
+.step .sbtn:hover:not(:disabled){background:var(--accent); border-color:var(--accent);}
+.step .sbtn:disabled{opacity:.45; cursor:default;}
+/* сделано — зелёный */
+.step.done{border-color:var(--ok);}
+.step.done .sname{color:var(--ok);}
+.step.done .snum{color:var(--ok);}
+.step.done .snum::after{content:' ✓';}
+/* активный (следующий в очереди) — красный, пульсирует, с кнопкой */
+.step.active{border-color:var(--accent-deep); animation:stepglow 1.6s ease-in-out infinite;}
+.step.active .sname{color:var(--accent-deep);}
+.step.active .snum{color:var(--accent-deep); font-weight:600;}
+.step.active .sdetail{color:var(--accent-deep);}
+.step.active .sbtn{display:block;}
+@keyframes stepglow{50%{box-shadow:0 0 0 3px rgba(184,92,60,.18); border-color:var(--accent);}}
+/* выполняется — оранжевый, без пульса */
+.step.running{border-color:var(--accent); animation:none;}
+.step.running .sname{color:var(--accent-deep);}
+.step.running .sbtn{display:block; background:var(--surface); color:var(--accent-deep);}
+/* заблокирован — серый штриховой */
+.step.locked{border-style:dashed;}
+
+/* ————— операции (сервис, компактная сетка 2xN) ————— */
+#ops{display:grid; grid-template-columns:1fr 1fr; gap:5px;}
+#ops .op{min-width:0; padding:4px 6px; gap:5px;}   /* min-width:0 — иначе грид-ячейка не ужимается и вылезает за рамку */
+#ops .op .oid{width:auto; font-size:8.5px;}
+#ops .op .oname{font-size:10.5px;}
+.op{display:flex; align-items:center; gap:8px; background:var(--surface); border:1.5px solid var(--line);
+    padding:6px 9px; cursor:pointer; text-align:left; transition:border-color .15s, color .15s; font-family:var(--sans);}
+.op:hover:not(:disabled){border-color:var(--accent); }
+.op:hover:not(:disabled) .oname{color:var(--accent-deep);}
+.op:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+.op:disabled{cursor:default; border-color:var(--div); color:var(--cap);}
+.op .oid{font-family:var(--mono); font-size:9.5px; letter-spacing:.12em; color:var(--accent); width:32px; flex:none;}
+.op:disabled .oid{color:var(--cap);}
+.op .oname{font-size:12.5px; font-weight:600; color:var(--ink); flex:1; line-height:1.25;}
+.op:disabled .oname{color:var(--cap); font-weight:400;}
+.op .otime{font-family:var(--mono); font-size:8.5px; color:var(--cap); letter-spacing:.1em;}
+.op.running{border-color:var(--accent);}
+.op.running .oname{color:var(--accent-deep);}
+#stopbtn{margin-top:8px; border-color:var(--div); color:var(--sec); font-family:var(--mono); font-size:10px;
+  letter-spacing:.2em; text-transform:uppercase; padding:7px; background:var(--surface); border:1.5px solid var(--div); cursor:pointer; width:100%;}
+#stopbtn:not(:disabled){border-color:var(--accent-deep); color:var(--accent-deep);}
+#stopbtn:disabled{cursor:default;}
+
+/* ————— смотровое окно ————— */
+#viewpanel{min-height:0;}
+#viewport{position:relative; flex:1; background:var(--surface); border:2px solid var(--line); min-height:0; overflow:hidden;}
+#frame{width:100%; height:100%; object-fit:contain; display:block; background:#fff;}
+#frame.empty{opacity:0;}
+/* прицельные скобки */
+.reticle{position:absolute; width:26px; height:26px; pointer-events:none; z-index:3;}
+.reticle.tl{top:8px; left:8px; border-top:2.4px solid var(--accent); border-left:2.4px solid var(--accent);}
+.reticle.tr{top:8px; right:8px; border-top:2.4px solid var(--accent); border-right:2.4px solid var(--accent);}
+.reticle.bl{bottom:8px; left:8px; border-bottom:2.4px solid var(--accent); border-left:2.4px solid var(--accent);}
+.reticle.br{bottom:8px; right:8px; border-bottom:2.4px solid var(--accent); border-right:2.4px solid var(--accent);}
+/* перекрестие в центре */
+#crosshair{position:absolute; left:50%; top:50%; width:26px; height:26px; transform:translate(-50%,-50%); pointer-events:none; opacity:.55; z-index:3;}
+#crosshair::before,#crosshair::after{content:''; position:absolute; background:var(--accent);}
+#crosshair::before{left:50%; top:0; bottom:0; width:1.4px; transform:translateX(-50%);}
+#crosshair::after{top:50%; left:0; right:0; height:1.4px; transform:translateY(-50%);}
+/* сканирующая линия */
+#scanline{position:absolute; left:0; right:0; top:-3px; height:2.2px; background:var(--accent); box-shadow:0 0 9px rgba(217,119,87,.65); opacity:0; z-index:2;}
+#viewport.scanning #scanline{opacity:1; animation:scan 2.4s linear infinite;}
+@keyframes scan{0%{top:-2px;} 100%{top:100%;}}
+@media (prefers-reduced-motion:reduce){ *{animation:none !important;} }
+/* подпись под окном */
+#viewbar{display:flex; align-items:center; justify-content:space-between; margin-top:9px; gap:10px;}
+#framecap{font-family:var(--mono); font-size:10px; letter-spacing:.16em; color:var(--sec); text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+#framecap b{color:var(--accent-deep); font-weight:500;}
+.vbtn{font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; border:1.5px solid var(--line); background:var(--surface);
+  color:var(--ink); padding:4px 11px; cursor:pointer; text-transform:uppercase;}
+.vbtn:hover{border-color:var(--accent); color:var(--accent-deep);}
+.vbtn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+#phase{font-family:var(--mono); font-size:10px; color:var(--accent-deep); letter-spacing:.16em; text-transform:uppercase; margin-top:7px; min-height:14px;}
+
+/* ————— сводка ————— */
+.metric{padding:9px 0 10px; border-bottom:1px solid var(--div);}
+.metric:first-of-type{padding-top:2px;}
+.metric:last-of-type{border-bottom:none;}
+.metric .mval{font-size:26px; font-weight:600; letter-spacing:-0.01em; line-height:1.1;}
+.metric .mval .unit{font-size:13px; color:var(--sec); font-weight:400; margin-left:4px;}
+.metric .mlabel{font-family:var(--mono); font-size:8.6px; letter-spacing:.18em; color:var(--cap); text-transform:uppercase; margin-top:3px;}
+.metric .mval.ok{color:var(--ok);}
+.metric .mval.accent{color:var(--accent-deep);}
+#subsets-row{display:flex; gap:0; justify-content:space-between;}
+#subsets-row .scell{text-align:left;}
+#subsets-row .scell .mval{font-size:19px;}
+
+/* ————— тракт обработки ————— */
+#pipe{flex:1; min-height:120px;}
+#pipe svg{width:100%; height:100%;}
+#pipe text{font-family:var(--mono); font-size:8.2px; letter-spacing:.14em; fill:var(--sec); text-transform:uppercase;}
+#pipe .node{fill:var(--surface); stroke:var(--line); stroke-width:1.5;}
+#pipe .node.drb{stroke:var(--accent); stroke-width:1.8;}
+#pipe .wire{stroke:var(--aux); stroke-width:1.4; fill:none;}
+#pulse{fill:var(--accent); opacity:0;}
+#pipe.busy #pulse{opacity:1;}
+
+/* ————— журнал ————— */
+#logpanel{height:212px; flex:none; margin-top:16px;}
+#log{flex:1; overflow-y:auto; font-family:var(--mono); font-size:11px; line-height:1.62; color:var(--ink);
+  letter-spacing:.02em; white-space:pre-wrap; word-break:break-all; user-select:text; padding-right:6px;}
+#log .ok{color:var(--ok);}
+#log .err{color:var(--accent-deep);}
+#log .info{color:var(--sec);}
+#log::-webkit-scrollbar{width:9px;}
+#log::-webkit-scrollbar-thumb{background:var(--div); border:2px solid var(--surface);}
+#log::-webkit-scrollbar-track{background:var(--surface);}
+
+/* ————— нижний ряд: подпись + штамп ————— */
+footer{display:flex; align-items:flex-end; justify-content:space-between; padding-top:10px; gap:24px;}
+#footnote{font-family:var(--mono); font-size:9px; letter-spacing:.18em; color:var(--cap); text-transform:uppercase; line-height:1.8;}
+#stamp{display:grid; grid-template-columns:auto auto auto; border:1.6px solid var(--line); background:var(--surface); flex:none;}
+#stamp .cell{padding:4px 12px 5px; border-left:1px solid var(--div); display:flex; flex-direction:column; justify-content:center;}
+#stamp .cell:first-child{border-left:none;}
+#stamp .cl{font-family:var(--mono); font-size:7.6px; letter-spacing:.18em; color:var(--cap); text-transform:uppercase;}
+#stamp .cv{font-family:var(--mono); font-size:10.5px; letter-spacing:.1em; color:var(--ink); text-transform:uppercase; margin-top:1px;}
+#stamp .cv.acc{color:var(--accent-deep);}
+</style>
+</head>
+<body>
+<div id="ruler"></div>
+<div id="app">
+  <header>
+    <div>
+      <div class="kicker">ПУ · Панель управления обучением</div>
+      <h1>Трекинг объектов в сложных сценах <span class="thin">· YOLO26 + DRB</span></h1>
+    </div>
+    <div id="hw-stamp">
+      GPU <b>RTX 5070 · 12 ГБ</b> · CUDA <b>13.0</b><br>
+      Датасет <b>BDD100K MOT</b> · Детектор <b>YOLO26-S</b>
+    </div>
+  </header>
+  <div class="dim"><div class="bar"></div><div class="tag">Красный шаг — следующий по очереди · зелёный — пройден · серый — откроется позже</div></div>
+
+  <main>
+    <!-- ЛЕВАЯ КОЛОНКА -->
+    <div class="rail">
+      <section class="panel" style="flex:none">
+        <div class="ptitle"><span>Индикация</span><span class="idx">Узел А</span></div>
+        <div id="lamps">
+          <div class="lamp" id="lamp-gpu"><div class="bulb"></div><div class="llabel">GPU · CUDA</div></div>
+          <div class="lamp" id="lamp-dataset"><div class="bulb"></div><div class="llabel">Датасет</div></div>
+          <div class="lamp" id="lamp-labels"><div class="bulb"></div><div class="llabel">Разметка</div></div>
+          <div class="lamp" id="lamp-mini"><div class="bulb"></div><div class="llabel">Mini-BDD</div></div>
+          <div class="lamp" id="lamp-eval"><div class="bulb"></div><div class="llabel">Eval tools</div></div>
+          <div class="lamp" id="lamp-task"><div class="bulb"></div><div class="llabel">Задача</div></div>
+        </div>
+      </section>
+
+      <section class="panel" style="flex:1; min-height:150px">
+        <div class="ptitle"><span>Конвейер · по порядку</span><span class="idx">Узел Б</span></div>
+        <div id="pipeline"><!-- шаги рендерятся из pipeline_state() --></div>
+      </section>
+
+      <section class="panel" style="flex:none">
+        <div class="ptitle"><span>Сервис · проверки</span><span class="idx">Узел Е</span></div>
+        <div id="ops">
+          <button class="op" data-task="smoke" title="Smoke-тесты окружения (~6 мин)"><span class="oid">Т-01</span><span class="oname">Smoke-тесты</span></button>
+          <button class="op" data-task="subsets" title="Счётчики поднаборов (~2 мин)"><span class="oid">Т-02</span><span class="oname">Поднаборы</span></button>
+          <button class="op" data-task="verify" title="Проверка разметки (~1 мин)"><span class="oid">Т-03</span><span class="oname">Разметка</span></button>
+          <button class="op" data-task="visualize" title="Сэмплы поднаборов (~1 мин)"><span class="oid">Т-04</span><span class="oname">Сэмплы</span></button>
+          <button class="op" data-task="minitrain" title="Мини-обучение (~3 мин)"><span class="oid">Т-05</span><span class="oname">Мини-обучение</span></button>
+        </div>
+        <button id="stopbtn" disabled>■ Остановить</button>
+      </section>
+    </div>
+
+    <!-- ЦЕНТР: СМОТРОВОЕ ОКНО -->
+    <section class="panel" id="viewpanel">
+      <div class="ptitle"><span>Смотровое окно · как сеть видит данные</span><span class="idx">Узел В</span></div>
+      <div id="viewport">
+        <img id="frame" class="empty" alt="">
+        <div class="reticle tl"></div><div class="reticle tr"></div>
+        <div class="reticle bl"></div><div class="reticle br"></div>
+        <div id="crosshair"></div>
+        <div id="scanline"></div>
+      </div>
+      <div id="viewbar">
+        <div id="framecap">Кадры не найдены — запустите Т-04</div>
+        <div style="display:flex; gap:6px; flex:none">
+          <button class="vbtn" id="prev">‹</button>
+          <button class="vbtn" id="next">›</button>
+          <button class="vbtn active" id="auto">Авто</button>
+        </div>
+      </div>
+      <div id="phase"></div>
+    </section>
+
+    <!-- ПРАВАЯ КОЛОНКА -->
+    <div class="rail">
+      <section class="panel" style="flex:none">
+        <div class="ptitle"><span>Сводка</span><span class="idx">Узел Г</span></div>
+        <div class="metric"><div class="mval accent" id="m-version">—</div><div class="mlabel">Выбранный детектор</div></div>
+        <div class="metric"><div class="mval" id="m-fps">—<span class="unit">FPS</span></div><div class="mlabel">Инференс · батч 16 · 640×640</div></div>
+        <div class="metric"><div class="mval ok" id="m-map">—</div><div class="mlabel">mAP@0.50 · мини-проверка</div></div>
+        <div class="metric">
+          <div id="subsets-row">
+            <div class="scell"><div class="mval" id="m-normal">—</div><div class="mlabel">Normal</div></div>
+            <div class="scell"><div class="mval" id="m-night">—</div><div class="mlabel">Night</div></div>
+            <div class="scell"><div class="mval" id="m-rain">—</div><div class="mlabel">Rain</div></div>
+            <div class="scell"><div class="mval" id="m-fog">—</div><div class="mlabel">Fog</div></div>
+          </div>
+          <div class="mlabel" style="margin-top:5px">Видео в train-поднаборах</div>
+        </div>
+      </section>
+
+      <section class="panel" style="flex:1">
+        <div class="ptitle"><span>Тракт обработки</span><span class="idx">Узел Д</span></div>
+        <div id="pipe">
+          <svg viewBox="0 0 220 240" preserveAspectRatio="xMidYMid meet">
+            <path class="wire" d="M110 30 V 58"/><path class="wire" d="M110 88 V 116"/>
+            <path class="wire" d="M110 146 V 174"/><path class="wire" d="M110 204 V 218"/>
+            <rect class="node" x="45" y="8" width="130" height="24"/>
+            <text x="110" y="23.5" text-anchor="middle">Кадр 640×640</text>
+            <rect class="node" x="45" y="58" width="130" height="30"/>
+            <text x="110" y="76.5" text-anchor="middle">Backbone</text>
+            <rect class="node drb" x="45" y="116" width="130" height="30"/>
+            <text x="110" y="130" text-anchor="middle" fill="#b85c3c">Neck · DRB</text>
+            <text x="110" y="141" text-anchor="middle" style="font-size:6.8px">LQA + FGA · Этап 4</text>
+            <rect class="node" x="45" y="174" width="130" height="30"/>
+            <text x="110" y="192.5" text-anchor="middle">Head · детекции</text>
+            <text x="110" y="232" text-anchor="middle" fill="#a39b8c">→ трекер · карта Q</text>
+            <circle id="pulse" r="3.4" cx="110" cy="30">
+              <animate attributeName="cy" values="30;218" dur="1.6s" repeatCount="indefinite"/>
+            </circle>
+          </svg>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ЖУРНАЛ -->
+  <section class="panel" id="logpanel">
+    <div class="ptitle"><span>Журнал операций</span><span class="idx" id="logstate">Ожидание</span></div>
+    <div id="log"></div>
+  </section>
+
+  <footer>
+    <div id="footnote">
+      Сводный план · этап 1 — окружение · этап 2 — данные · этап 3 — baseline<br>
+      Всё окружение локально · E:\Dissertation · переживает переустановку ОС
+    </div>
+    <div id="stamp">
+      <div class="cell"><span class="cl">Наименование</span><span class="cv">Панель управления · YOLO26+DRB</span></div>
+      <div class="cell"><span class="cl">Автор</span><span class="cv acc">Мороз Е.С.</span></div>
+      <div class="cell"><span class="cl">Лист</span><span class="cv" id="stamp-date">1 · —</span></div>
+    </div>
+  </footer>
+</div>
+
+<script>
+'use strict';
+/* ——— утилиты интерфейса; вызываются и из Python через evaluate_js ——— */
+const $ = id => document.getElementById(id);
+const ui = {
+  images: [], idx: 0, autoTimer: null,
+
+  log(line, cls) {
+    const el = $('log');
+    const span = document.createElement('span');
+    if (cls) span.className = cls;
+    span.textContent = line + '\n';
+    el.appendChild(span);
+    while (el.childNodes.length > 900) el.removeChild(el.firstChild);
+    el.scrollTop = el.scrollHeight;
+  },
+  setLamp(id, state) {           // state: '', 'ok', 'fail', 'busy'
+    const el = $('lamp-' + id);
+    if (el) el.className = 'lamp' + (state ? ' ' + state : '');
+  },
+  setPhase(text) { $('phase').textContent = text || ''; },
+  setBusy(taskId, busy) {
+    document.querySelectorAll('.op').forEach(b => {
+      if (!b.dataset.task) return;
+      b.classList.toggle('running', busy && b.dataset.task === taskId);
+      b.disabled = busy;
+    });
+    document.querySelectorAll('.step').forEach(el => {
+      const running = busy && el.dataset.step === taskId;
+      el.classList.toggle('running', running);
+      const btn = el.querySelector('.sbtn');
+      if (btn) { btn.disabled = busy; if (running) btn.textContent = '■ Выполняется…'; }
+    });
+    $('stopbtn').disabled = !busy;
+    $('viewport').classList.toggle('scanning', busy);
+    $('pipe').classList.toggle('busy', busy);
+    $('logstate').textContent = busy ? 'Выполняется' : 'Ожидание';
+    ui.setLamp('task', busy ? 'busy' : '');
+  },
+  taskDone(taskId, code, lamp) {
+    ui.setBusy(taskId, false);
+    if (lamp) ui.setLamp(lamp, code === 0 ? 'ok' : 'fail');
+    ui.log(code === 0 ? '——— операция завершена: успех ———'
+                      : '——— операция завершена: код ' + code + ' ———',
+           code === 0 ? 'ok' : 'err');
+    ui.setPhase('');
+    pywebview.api.list_images().then(ui.setImages);
+    pywebview.api.state().then(applyState);
+    pywebview.api.pipeline_state().then(renderPipeline);
+  },
+  setImages(list) {
+    const had = ui.images.length;
+    ui.images = list || [];
+    if (!had && ui.images.length) { ui.idx = 0; ui.show(0); }
+    else if (ui.images.length) ui.show(Math.min(ui.idx, ui.images.length - 1));
+  },
+  show(i) {
+    if (!ui.images.length) return;
+    ui.idx = (i + ui.images.length) % ui.images.length;
+    const meta = ui.images[ui.idx];
+    pywebview.api.get_image(meta.path).then(data => {
+      if (!data) return;
+      $('frame').src = data; $('frame').classList.remove('empty');
+      $('framecap').innerHTML = 'Кадр <b>' + String(ui.idx + 1).padStart(2, '0') + '/' +
+        String(ui.images.length).padStart(2, '0') + '</b> · ' + meta.caption;
+    });
+  },
+};
+
+function renderPipeline(steps) {
+  const box = $('pipeline');
+  if (!steps || !steps.length) { box.textContent = ''; return; }
+  box.textContent = '';
+  steps.forEach((st, i) => {
+    const el = document.createElement('div');
+    el.className = 'step ' + st.role;         // done | active | locked
+    el.dataset.step = st.id;
+    const btnLabel = st.status === 'partial' ? '▶ Продолжить' : '▶ Запустить';
+    el.innerHTML =
+      '<div class="srow">' +
+        '<span class="snum">' + String(i + 1).padStart(2, '0') + '</span>' +
+        '<span class="sname"></span>' +
+        '<span class="stime">' + st.time + '</span>' +
+      '</div>' +
+      (st.detail ? '<div class="sdetail"></div>' : '') +
+      '<button class="sbtn">' + btnLabel + '</button>';
+    el.querySelector('.sname').textContent = st.name;
+    const d = el.querySelector('.sdetail');
+    if (d) d.textContent = st.detail;
+    const btn = el.querySelector('.sbtn');
+    btn.addEventListener('click', () => {
+      ui.setBusy(st.id, true);
+      ui.log('');
+      ui.log('——— конвейер · шаг ' + (i + 1) + ': ' + st.name + ' ———', 'info');
+      pywebview.api.run_step(st.id);
+    });
+    box.appendChild(el);
+  });
+  const act = box.querySelector('.step.active');
+  if (act) act.scrollIntoView({block: 'nearest'});
+}
+
+function applyState(s) {
+  if (!s) return;
+  for (const [k, v] of Object.entries(s.lamps || {})) ui.setLamp(k, v);
+  const m = s.metrics || {};
+  $('m-version').textContent = m.version || '—';
+  $('m-fps').innerHTML = (m.fps || '—') + '<span class="unit">FPS</span>';
+  $('m-map').textContent = m.map50 || '—';
+  $('m-normal').textContent = m.normal ?? '—';
+  $('m-night').textContent = m.night ?? '—';
+  $('m-rain').textContent = m.rain ?? '—';
+  $('m-fog').textContent = m.fog ?? '—';
+  $('stamp-date').textContent = '1 · ' + (s.date || '—');
+}
+
+function startAuto() {
+  stopAuto();
+  ui.autoTimer = setInterval(() => ui.show(ui.idx + 1), 3800);
+  $('auto').classList.add('active');
+}
+function stopAuto() {
+  if (ui.autoTimer) clearInterval(ui.autoTimer);
+  ui.autoTimer = null; $('auto').classList.remove('active');
+}
+
+window.onerror = (msg, src, line) => { ui.log('JS: ' + msg + ' @' + line, 'err'); };
+
+let booted = false;
+function boot() {
+  // мост готов только когда методы реально функции (api-объект появляется раньше)
+  if (booted || !window.pywebview || !window.pywebview.api
+      || typeof window.pywebview.api.state !== 'function'
+      || typeof window.pywebview.api.pipeline_state !== 'function') return;
+  booted = true;
+  Promise.allSettled([
+    pywebview.api.state().then(applyState),
+    pywebview.api.pipeline_state().then(renderPipeline),
+    pywebview.api.list_images().then(ui.setImages),
+  ]).then(() => pywebview.api.boot_done().catch(() => {}));
+  pywebview.api.gpu_check().catch(() => {});
+  startAuto();
+  ui.log('Панель управления готова. Окружение: E:\\Dissertation\\.venv', 'info');
+}
+window.addEventListener('pywebviewready', boot);
+const bootPoll = setInterval(() => { boot(); if (booted) clearInterval(bootPoll); }, 400);
+
+document.querySelectorAll('.op[data-task]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.task;
+    ui.setBusy(t, true);
+    ui.log('');
+    ui.log('——— запуск: ' + btn.querySelector('.oname').textContent + ' ———', 'info');
+    pywebview.api.run_task(t);
+  });
+});
+$('stopbtn').addEventListener('click', () => pywebview.api.stop_task());
+$('prev').addEventListener('click', () => { stopAuto(); ui.show(ui.idx - 1); });
+$('next').addEventListener('click', () => { stopAuto(); ui.show(ui.idx + 1); });
+$('auto').addEventListener('click', () => ui.autoTimer ? stopAuto() : startAuto());
+
+/* риски-цифры на линейке */
+(() => {
+  const r = $('ruler');
+  for (let x = 80; x < screen.width; x += 160) {
+    const n = document.createElement('span');
+    n.className = 'num'; n.style.left = (x + 3) + 'px'; n.textContent = x;
+    r.appendChild(n);
+  }
+})();
+</script>
+</body>
+</html>
