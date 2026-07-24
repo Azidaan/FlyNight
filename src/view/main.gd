@@ -1,19 +1,26 @@
 extends Node3D
 
-## Уродливый играбельный срез. Кубы вместо моделей, текст вместо панелей.
-## Смотреть не на что — играть можно. Это точка первого плейтеста.
+## Играбельный срез. Кубы вместо моделей, но рамки трекинга настоящие —
+## именно они, а не красота, делают игру понятной.
 
 const SLOT_X := [0.0, 1.7, 3.4]
-const SLOT_Z := [-2.0, -3.6, -5.2]
+const SLOT_Z := [-2.2, -3.9, -5.6]
+const KNIGHT_SIZE := Vector3(0.7, 1.7, 0.5)
+const WOLF_SIZE := Vector3(1.0, 0.6, 0.5)
 
 var state: GameState
 var tracker: FakeTracker
 var tracks: Array[Track] = []
 var selected: int = 0
 var log_lines: Array[String] = []
+var _node_of: Dictionary = {}   # object_id -> Node3D
 
-@onready var hud: Label = $HUD/Text
+@onready var camera: Camera3D = $Camera3D
 @onready var slots: Node3D = $Slots
+@onready var boxes: Control = $HUD/Boxes
+@onready var status: Label = $HUD/Status
+@onready var panel: Label = $HUD/Panel
+@onready var actions_label: Label = $HUD/Actions
 
 func _ready() -> void:
 	_new_night(randi() % 100000)
@@ -23,21 +30,10 @@ func _new_night(s: int) -> void:
 	tracker = FakeTracker.new(s + 1)
 	tracks = tracker.update(SceneView.from_state(state))
 	selected = 0
-	log_lines = ["Ночь началась. Сид %d" % s]
+	log_lines = ["Ночь началась. Сид %d." % s]
 	_redraw()
 
-func _knight_tracks() -> Array[Track]:
-	var out: Array[Track] = []
-	for tr in tracks:
-		if tr.kind == &"knight":
-			out.append(tr)
-	return out
-
-func _selected_track_id() -> int:
-	var kt := _knight_tracks()
-	if kt.is_empty():
-		return -1
-	return kt[selected % kt.size()].track_id
+# ── ввод ──────────────────────────────────────────────────────
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if not event.is_pressed() or event.is_echo():
@@ -56,6 +52,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		var kt := _knight_tracks()
 		if not kt.is_empty():
 			selected = (selected + 1) % kt.size()
+			_log("Цель: трек #%d." % kt[selected].track_id)
 			_redraw()
 		return
 
@@ -74,111 +71,232 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if r == null:
 		return
 	if not r.ok:
-		_log("отказ: " + r.reason)
+		_log("✗ Нельзя: %s." % r.reason)
 		_redraw()
 		return
 
 	_log_events(r.events)
 	_log_events(Turn.world_turn(state, tracker).events)
 	tracks = tracker.update(SceneView.from_state(state))
+	if selected >= _knight_tracks().size():
+		selected = 0
 	_redraw()
+
+# ── треки ─────────────────────────────────────────────────────
+
+func _knight_tracks() -> Array[Track]:
+	var out: Array[Track] = []
+	for tr in tracks:
+		if tr.kind == &"knight":
+			out.append(tr)
+	return out
+
+func _selected_track_id() -> int:
+	var kt := _knight_tracks()
+	if kt.is_empty():
+		return -1
+	return kt[selected % kt.size()].track_id
+
+# ── лог по-человечески ────────────────────────────────────────
 
 func _log(line: String) -> void:
 	log_lines.append(line)
-	while log_lines.size() > 7:
+	while log_lines.size() > 6:
 		log_lines.pop_front()
 
 func _log_events(events: Array[GameEvent]) -> void:
 	for e in events:
-		_log("  " + String(e.kind) + " " + str(e.data))
+		var line := _describe(e)
+		if line != "":
+			_log(line)
+
+func _describe(e: GameEvent) -> String:
+	var d := e.data
+	match e.kind:
+		&"POTION_PLACED":
+			return "Достал зелье %s на прилавок." % PN.potion_name(d["potion"])
+		&"POTION_HANDED":
+			return "✓ Рыцарь %d получил зелье %s — то, что просил." % [
+				d["knight"], PN.potion_name(d["potion"])]
+		&"POTION_REFUSED":
+			return "✗ Рыцарю %d не подошло зелье %s. Он злится, терпение −3." % [
+				d["knight"], PN.potion_name(d["potion"])]
+		&"KNIGHT_LEAVES_HAPPY":
+			return "Рыцарь %d уходит довольный." % d["knight"]
+		&"KNIGHT_LEAVES_ANGRY":
+			return "✗✗ Рыцарь %d устал ждать и ушёл ни с чем. ПРОМАХ." % d["knight"]
+		&"KNIGHT_ARRIVES":
+			return "К прилавку подошёл рыцарь %d (плащ %s)." % [
+				d["knight"], PN.cloak_name(d["cloak"])]
+		&"COIN_THROWN":
+			return "Монета покатилась по доскам — успей увидеть её трекером."
+		&"COIN_COLLECTED":
+			return "✓ Монета подобрана."
+		&"COIN_LOST":
+			return "✗ Монета укатилась в темноту — трекер её потерял."
+		&"LANTERN_LIT":
+			return "Зажёг фонарь на %d хода. Видно лучше, но волк осмелеет." % d["turns"]
+		&"LANTERN_DIED":
+			return "Фонарь погас."
+		&"ROCK_THROWN":
+			return "Бросил камень."
+		&"ROCK_MISSED":
+			return "✗ Промах — трекер потерял волка, кидал вслепую. Ход потрачен."
+		&"WOLF_APPEARS":
+			return "В темноте загорелись глаза. Волк близко."
+		&"WOLF_STEPS":
+			return "Волк подкрался ближе (дистанция %d)." % d["distance"]
+		&"WOLF_STEALS":
+			if d["potion"] < 0:
+				return "✗ Волк дошёл до прилавка, но красть было нечего."
+			return "✗ Волк утащил зелье %s!" % PN.potion_name(d["potion"])
+		&"WOLF_FLEES":
+			return "Волк скрылся в темноте."
+		&"TRACKER_RESET":
+			return "Перезахват: трекер сопоставил всё заново. Номера сменились."
+		&"DAWN":
+			return "═══ РАССВЕТ. Заработано монет: %d. ═══" % d["coins"]
+		&"NIGHT_FAILED":
+			return "═══ ТРИ ПРОМАХА. Ночь провалена. Монет: %d. ═══" % d["coins"]
+	return ""
+
+# ── отрисовка ─────────────────────────────────────────────────
 
 func _redraw() -> void:
-	_redraw_scene()
-	hud.text = "\n".join(_hud_lines())
+	_rebuild_scene()
+	status.text = _status_text()
+	panel.text = _panel_text()
+	actions_label.text = _actions_text()
+	_push_boxes()
 
-func _redraw_scene() -> void:
+func _rebuild_scene() -> void:
 	for c in slots.get_children():
 		c.queue_free()
+	_node_of.clear()
 
 	for k in state.knights:
 		if k.slot < 0:
 			continue
-		var box := MeshInstance3D.new()
-		var mesh := BoxMesh.new()
-		mesh.size = Vector3(0.6, 1.6, 0.4)
-		box.mesh = mesh
-		box.position = Vector3(SLOT_X[k.slot], 0.8, SLOT_Z[k.slot])
-		var mat := StandardMaterial3D.new()
-		mat.albedo_color = _cloak_color(k.cloak)
-		box.material_override = mat
+		var box := _make_box(KNIGHT_SIZE, _cloak_color(k.cloak))
+		box.position = Vector3(SLOT_X[k.slot], KNIGHT_SIZE.y * 0.5, SLOT_Z[k.slot])
 		slots.add_child(box)
+		_node_of[k.id] = box
+
+		# Правда мира прямо над рыцарем. Рамка трекера говорит своё —
+		# расхождение видно, не сводя глаз с одного места.
+		var truth := Label3D.new()
+		truth.text = "правда: %s / %s\nтерпение %d" % [
+			PN.cloak_name(k.cloak), PN.potion_name(k.order), k.patience]
+		truth.font_size = 28
+		truth.pixel_size = 0.004
+		truth.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+		truth.modulate = Color(0.65, 0.65, 0.7)
+		truth.outline_modulate = Color(0, 0, 0, 0.9)
+		truth.position = Vector3(0, KNIGHT_SIZE.y * 0.5 + 0.75, 0)
+		box.add_child(truth)
 
 	if state.wolf_distance >= 0:
-		var wolf := MeshInstance3D.new()
-		var wmesh := BoxMesh.new()
-		wmesh.size = Vector3(0.9, 0.5, 0.4)
-		wolf.mesh = wmesh
-		wolf.position = Vector3(-2.5, 0.3, -1.0 - state.wolf_distance * 0.8)
-		var wmat := StandardMaterial3D.new()
-		wmat.albedo_color = Color(0.5, 0.1, 0.1)
-		wolf.material_override = wmat
+		var wolf := _make_box(WOLF_SIZE, Color(0.45, 0.12, 0.12))
+		wolf.position = Vector3(-2.2, WOLF_SIZE.y * 0.5, -1.4 - state.wolf_distance * 0.75)
 		slots.add_child(wolf)
+		_node_of[-1] = wolf
+
+func _make_box(size: Vector3, colour: Color) -> MeshInstance3D:
+	var node := MeshInstance3D.new()
+	var mesh := BoxMesh.new()
+	mesh.size = size
+	node.mesh = mesh
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = colour
+	node.material_override = mat
+	return node
 
 func _cloak_color(cloak: int) -> Color:
 	match cloak:
-		PN.Cloak.RED: return Color(0.75, 0.2, 0.2)
-		PN.Cloak.BLUE: return Color(0.2, 0.35, 0.75)
-		PN.Cloak.GREEN: return Color(0.2, 0.6, 0.3)
-		PN.Cloak.YELLOW: return Color(0.8, 0.7, 0.2)
-		PN.Cloak.PURPLE: return Color(0.5, 0.3, 0.7)
+		PN.Cloak.RED: return Color(0.78, 0.19, 0.19)
+		PN.Cloak.BLUE: return Color(0.19, 0.34, 0.78)
+		PN.Cloak.GREEN: return Color(0.19, 0.6, 0.31)
+		PN.Cloak.YELLOW: return Color(0.83, 0.72, 0.2)
+		PN.Cloak.PURPLE: return Color(0.5, 0.28, 0.7)
 	return Color.WHITE
 
-func _hud_lines() -> Array[String]:
-	var lines: Array[String] = []
-	lines.append("ход %d/%d   монеты %d   промахи %d/%d   дождь %.2f   тьма %.2f   фонарь %s" % [
-		state.turn, PN.NIGHT_TURNS, state.coins, state.misses, PN.MAX_MISSES,
-		state.rain(), state.dark(), "горит" if state.lantern_on() else "нет"])
+func _push_boxes() -> void:
+	var list: Array = []
+	for tr in tracks:
+		if tr.kind == &"coin":
+			continue
+		var node: Node3D = _node_of.get(tr.object_id)
+		if node == null:
+			continue
+		var size := WOLF_SIZE if tr.kind == &"wolf" else KNIGHT_SIZE
+		list.append({"pos": node.global_position, "size": size, "track": tr})
+	boxes.set_entries(camera, list, _selected_track_id())
 
-	var shelf: Array[String] = []
-	for i in range(state.counter.size()):
-		shelf.append("%d:%s" % [i + 1, PN.potion_name(state.counter[i])])
-	lines.append("прилавок: " + (", ".join(shelf) if not shelf.is_empty() else "пусто"))
-	lines.append("сундук: лечения %d, силы %d, храбрости %d" % [
-		state.chest[PN.Potion.HEALING], state.chest[PN.Potion.STRENGTH],
-		state.chest[PN.Potion.COURAGE]])
-	lines.append("волк: " + ("нет" if state.wolf_distance < 0 else "дистанция %d" % state.wolf_distance))
+# ── тексты панелей ────────────────────────────────────────────
+
+func _status_text() -> String:
+	var lines: Array[String] = []
+	lines.append("НОЧЬ  ход %d из %d" % [state.turn, PN.NIGHT_TURNS])
+	lines.append("монеты   %d" % state.coins)
+	lines.append("промахи  %d из %d" % [state.misses, PN.MAX_MISSES])
 	lines.append("")
-	lines.append("--- ПОКАЗАНИЯ ТРЕКЕРА ---")
+	lines.append("дождь  %s" % _bar(state.rain()))
+	lines.append("тьма   %s" % _bar(state.dark()))
+	lines.append("фонарь %s" % ("горит, %d хода" % state.lantern_turns if state.lantern_on() else "погашен"))
+	lines.append("волк   %s" % ("нет" if state.wolf_distance < 0 else "дистанция %d" % state.wolf_distance))
+	return "\n".join(lines)
+
+func _bar(v: float) -> String:
+	var filled := int(round(v * 5.0))
+	return "█".repeat(filled) + "░".repeat(5 - filled) + " %.2f" % v
+
+func _panel_text() -> String:
+	var lines: Array[String] = []
+	lines.append("ПРИЛАВОК")
+	if state.counter.is_empty():
+		lines.append("  пусто — доставай из сундука")
+	else:
+		for i in range(state.counter.size()):
+			lines.append("  [%d] %s" % [i + 1, PN.potion_name(state.counter[i])])
+	lines.append("")
+	lines.append("СУНДУК")
+	lines.append("  [Q] лечения   %d" % state.chest[PN.Potion.HEALING])
+	lines.append("  [W] силы      %d" % state.chest[PN.Potion.STRENGTH])
+	lines.append("  [E] храбрости %d" % state.chest[PN.Potion.COURAGE])
+	lines.append("")
+	lines.append("СОБЫТИЯ")
+	for l in log_lines:
+		lines.append("  " + l)
+	return "\n".join(lines)
+
+func _actions_text() -> String:
+	if state.finished:
+		return "═══ %s ═══   монет %d   ·   ПРОБЕЛ — новая ночь   ·   ESC — выход" % [
+			"РАССВЕТ" if state.outcome == "dawn" else "ПРОВАЛ", state.coins]
 
 	var sel := _selected_track_id()
-	var state_names := ["ЗАХВАТ", "ДРЕЙФ ", "ПОТЕРЯ"]
+	var kt := _knight_tracks()
+	var head := "нет целей"
+	if sel >= 0:
+		var tr := _track_by_id(sel)
+		if tr != null:
+			head = "цель: рамка #%d — трекер уверяет, что он хочет %s" % [
+				tr.track_id, PN.potion_name(tr.remembered_order)]
+
+	var parts: Array[String] = []
+	for i in range(state.counter.size()):
+		parts.append("[%d] отдать %s" % [i + 1, PN.potion_name(state.counter[i])])
+	if parts.is_empty():
+		parts.append("прилавок пуст")
+
+	var lines: Array[String] = []
+	lines.append("%s        [TAB] следующая цель из %d" % [head, kt.size()])
+	lines.append("   ".join(parts))
+	lines.append("[Q][W][E] достать из сундука   [L] фонарь   [R] камень   [T] перезахват   [ESC] выход")
+	return "\n".join(lines)
+
+func _track_by_id(id: int) -> Track:
 	for tr in tracks:
-		var mark := ">" if tr.track_id == sel else " "
-		if tr.kind == &"knight":
-			var order_txt := "—" if tr.state == PN.TrackState.LOST \
-				else PN.potion_name(tr.remembered_order)
-			lines.append("%s #%-3d %s %.2f  плащ %-11s хочет %s" % [
-				mark, tr.track_id, state_names[tr.state], tr.conf,
-				PN.cloak_name(tr.remembered_cloak), order_txt])
-		else:
-			lines.append("%s #%-3d %s %.2f  [%s]" % [
-				mark, tr.track_id, state_names[tr.state], tr.conf, tr.kind])
-
-	lines.append("")
-	lines.append("--- ПРАВДА МИРА (для отладки, в готовой игре этого не будет) ---")
-	for k in state.knights:
-		lines.append("   рыцарь %d  слот %d  плащ %-11s хочет %-11s терпение %d" % [
-			k.id, k.slot, PN.cloak_name(k.cloak), PN.potion_name(k.order), k.patience])
-
-	lines.append("")
-	lines.append("TAB выбрать цель · 1-4 отдать зелье с прилавка · Q/W/E достать из сундука")
-	lines.append("L фонарь · R камень · T перезахват · ESC выход")
-
-	if state.finished:
-		lines.append("")
-		lines.append("═══ %s ═══  монет %d  ·  ПРОБЕЛ — новая ночь" % [
-			"РАССВЕТ" if state.outcome == "dawn" else "ПРОВАЛ", state.coins])
-
-	lines.append("")
-	lines.append_array(log_lines)
-	return lines
+		if tr.track_id == id:
+			return tr
+	return null
