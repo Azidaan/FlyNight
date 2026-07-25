@@ -17,6 +17,9 @@ var _node_of: Dictionary = {}   # object_id -> Node3D
 
 @onready var camera: Camera3D = $Camera3D
 @onready var world: Node3D = $World
+@onready var atmosphere: Node3D = $Atmosphere
+@onready var world_env: WorldEnvironment = $WorldEnvironment
+@onready var moon: DirectionalLight3D = $Moon
 @onready var slots: Node3D = $Slots
 @onready var boxes: Control = $HUD/Boxes
 @onready var status: Label = $HUD/Status
@@ -27,6 +30,7 @@ var _node_of: Dictionary = {}   # object_id -> Node3D
 
 func _ready() -> void:
 	SceneBuilder.build(world)
+	atmosphere.setup(world_env.environment, moon)
 	_new_night(randi() % 100000)
 	# Режим автоснимка: даёт посмотреть на сцену, не гоняя игру руками.
 	#   engine\Godot.exe --path . -- --shot
@@ -187,6 +191,9 @@ func _describe(e: GameEvent) -> String:
 # ── отрисовка ─────────────────────────────────────────────────
 
 func _redraw() -> void:
+	# Небо, свет и дождь ведутся теми же числами, что роняют уверенность
+	# трекера, — картинка и механика не расходятся по определению.
+	atmosphere.set_weather(state.rain(), state.dark(), state.turn, PN.NIGHT_TURNS)
 	_rebuild_scene()
 	status.text = _status_text()
 	panel.text = _panel_text()
