@@ -39,21 +39,35 @@ const TOWER_B := preload("res://assets/hex/castle/building_tower_B_red.gltf")
 ## Высота столешницы: на неё ставятся зелья.
 const COUNTER_TOP := 1.0
 
+## Место i-го зелья на столешнице. Прилавок развёрнут вдоль дороги,
+## поэтому места считаются по её направлению, а не по оси X.
+static func counter_spot(i: int) -> Vector3:
+	var offsets := [-2.6, -0.9, 0.8, 2.5]
+	return ROAD_DIR * offsets[i % offsets.size()] + Vector3(0.0, COUNTER_TOP, 0.0)
+
 ## Куда встают покупатели. Очередь уходит вглубь и вправо — так три слота
 ## реально отличаются по дистанции, и падение уверенности трекера
 ## с расстоянием выглядит обоснованным, а не выдуманным.
+## Очередь стоит на обочине у прилавка и вытягивается вдоль дороги
+## в сторону замка — оттуда покупатели и приходят.
 const SLOTS := [
-	Vector3(-0.8, 0.0, -3.0),
-	Vector3(1.8, 0.0, -5.2),
-	Vector3(4.2, 0.0, -7.4),
+	Vector3(-0.2, 0.0, -5.0),
+	Vector3(1.75, 0.0, -7.8),
+	Vector3(3.70, 0.0, -10.6),
 ]
 
-const WOLF_LANE_X := -5.0
+## Нежить выходит из леса по ту сторону дороги.
+const WOLF_LANE := Vector3(-6.5, 0.0, -9.0)
+const WOLF_STEP := Vector3(1.1, 0.0, 1.6)
 
-## Дорога идёт по x около нуля вглубь, к воротам замка. Лавка стоит
-## на обочине, покупатели подходят по дороге.
-const ROAD_HALF_WIDTH := 7.0
-const ROAD_FAR := -52.0
+## Дорога проходит МИМО лавки по диагонали: справа-вдали ворота замка,
+## влево-вперёд она уходит из кадра. Лавка стоит на обочине, а не на дороге.
+## Герои идут по дороге из замка и в замок, нежить выходит из леса
+## с противоположной стороны и дорогу пересекает.
+const ROAD_DIR := Vector3(0.574, 0.0, -0.819)
+const ROAD_CENTER := Vector3(0.0, 0.0, -7.0)
+const ROAD_HALF_WIDTH := 5.0
+const CASTLE_ALONG := 64.0
 
 static func build(root: Node3D) -> void:
 	_ground(root)
@@ -75,21 +89,36 @@ static func _ground(root: Node3D) -> void:
 	plane.material_override = mat
 	root.add_child(plane)
 
+## Расстояние от точки до осевой линии дороги — нужно, чтобы лес
+## не зарастал проезжую часть.
+static func dist_to_road(p: Vector3) -> float:
+	var v := p - ROAD_CENTER
+	var along := v.dot(ROAD_DIR)
+	return (v - ROAD_DIR * along).length()
+
 static func _road(root: Node3D) -> void:
-	for iz in range(-13, 3):
-		for ix in range(-1, 2):
-			_put(root, FLOOR, Vector3(ix * TILE, 0.0, iz * TILE))
+	var side := Vector3(ROAD_DIR.z, 0.0, -ROAD_DIR.x)
+	var t := -70.0
+	while t < CASTLE_ALONG + 6.0:
+		for lane in [-1.0, 0.0, 1.0]:
+			_put(root, FLOOR, ROAD_CENTER + ROAD_DIR * t + side * (lane * 3.4),
+				atan2(ROAD_DIR.x, ROAD_DIR.z))
+		t += 3.4
 
 ## Замок справа, как на наброске. Отодвинут и укрупнён: в родном масштабе
 ## гекс-пака он был бы по пояс покупателю.
 static func _castle(root: Node3D) -> void:
-	# Замок стоит воротами в створе дороги и должен нависать, а не маячить
-	# точкой на горизонте — как врата Штормграда в референсе.
-	_put(root, CASTLE, Vector3(3.0, 0.0, ROAD_FAR - 8.0), 0.0, 13.0)
-	_put(root, TOWER_B, Vector3(-13.0, 0.0, ROAD_FAR + 4.0), 0.0, 11.0)
-	_put(root, TOWER_B, Vector3(17.0, 0.0, ROAD_FAR + 4.0), 0.0, 11.0)
-	_put(root, TOWER_A, Vector3(-26.0, 0.0, ROAD_FAR - 6.0), 0.3, 9.0)
-	_put(root, TOWER_A, Vector3(30.0, 0.0, ROAD_FAR - 6.0), -0.3, 9.0)
+	# Замок стоит воротами в створе дороги, справа-вдали. Отсюда приходят
+	# и сюда уходят покупатели.
+	var yaw := atan2(ROAD_DIR.x, ROAD_DIR.z)
+	var side := Vector3(ROAD_DIR.z, 0.0, -ROAD_DIR.x)
+	var gate := ROAD_CENTER + ROAD_DIR * CASTLE_ALONG
+
+	_put(root, CASTLE, gate + ROAD_DIR * 10.0, yaw, 13.0)
+	_put(root, TOWER_B, gate + side * 13.0, yaw, 11.0)
+	_put(root, TOWER_B, gate - side * 13.0, yaw, 11.0)
+	_put(root, TOWER_A, gate + ROAD_DIR * 6.0 + side * 27.0, yaw + 0.3, 9.0)
+	_put(root, TOWER_A, gate + ROAD_DIR * 6.0 - side * 27.0, yaw - 0.3, 9.0)
 
 ## Густой лес по обе стороны дороги. Гор нет намеренно: в референсе
 ## (Элвиннский лес) горизонт закрывает именно лес, а не хребты.
@@ -100,31 +129,41 @@ static func _forest(root: Node3D) -> void:
 	var groves := [TREES_A_LARGE, TREES_B_LARGE, TREES_A_MED, TREES_B_MED]
 	var singles := [TREE_A, TREE_B]
 
-	for i in range(150):
-		var z := rng.randf_range(6.0, ROAD_FAR - 26.0)
-		var x: float = ROAD_HALF_WIDTH + rng.randf_range(1.0, 48.0)
-		if rng.randf() < 0.5:
-			x = -x
+	var planted := 0
+	var tries := 0
+	while planted < 190 and tries < 3000:
+		tries += 1
+		var p := Vector3(rng.randf_range(-95.0, 95.0), 0.0, rng.randf_range(-95.0, 14.0))
 
-		var far := z < -26.0
+		# дорогу не зарастаем, и пятачок вокруг лавки тоже
+		if dist_to_road(p) < ROAD_HALF_WIDTH + 2.5:
+			continue
+		if p.length() < 11.0:
+			continue
+
+		var far := p.z < -26.0
 		var scene: PackedScene = groves[rng.randi() % groves.size()] if far \
 			else singles[rng.randi() % singles.size()]
 		var factor := rng.randf_range(4.5, 7.0) if far else rng.randf_range(3.0, 4.4)
-		_put(root, scene, Vector3(x, 0.0, z), rng.randf() * TAU, factor)
+		_put(root, scene, p, rng.randf() * TAU, factor)
+		planted += 1
 
-	# сплошная стена леса на горизонте, чтобы за замком не зияла пустота
-	for i in range(46):
-		_put(root, groves[i % groves.size()],
-			Vector3(-112.0 + i * 5.0, 0.0, ROAD_FAR - 30.0 + rng.randf_range(-7.0, 7.0)),
-			rng.randf() * TAU, rng.randf_range(6.0, 8.5))
+	# сплошная стена леса на горизонте, чтобы по краям не зияла пустота
+	for i in range(56):
+		var p := Vector3(-140.0 + i * 5.0, 0.0, -102.0 + rng.randf_range(-7.0, 7.0))
+		if dist_to_road(p) < ROAD_HALF_WIDTH + 3.0:
+			continue
+		_put(root, groves[i % groves.size()], p, rng.randf() * TAU,
+			rng.randf_range(6.0, 8.5))
 
-	for spot in [Vector3(-8.6, 0.0, -9.0), Vector3(9.2, 0.0, -10.5),
-			Vector3(-10.4, 0.0, -2.0)]:
+	for spot in [Vector3(-9.0, 0.0, -2.5), Vector3(8.5, 0.0, -2.0),
+			Vector3(-11.5, 0.0, 2.0)]:
 		_put(root, ROCK_A, spot, spot.x, 4.0)
 
 static func _counter(root: Node3D) -> void:
-	# Стол в паке длинный вдоль Z — разворачиваем поперёк взгляда.
-	_put(root, TABLE, Vector3(0.0, 0.0, 0.0), PI * 0.5)
+	# Прилавок ставится параллельно дороге: он стоит на обочине,
+	# а не поперёк проезжей части.
+	_put(root, TABLE, Vector3(0.0, 0.0, 0.0), atan2(ROAD_DIR.x, ROAD_DIR.z))
 	_put(root, CHEST, Vector3(4.4, 0.0, 0.4), -PI * 0.35)
 	_put(root, STOOL, Vector3(-3.4, 0.0, 1.0))
 

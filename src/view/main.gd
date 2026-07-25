@@ -217,8 +217,10 @@ func _rebuild_scene() -> void:
 		var base: Vector3 = SceneBuilder.SLOTS[k.slot]
 		var actor := CustomerActor.spawn(k.id, _cloak_color(k.cloak))
 		actor.position = base
-		# Модель уже смотрит в +Z, то есть на камеру. Разворот на PI её
-		# отворачивал — оставляем как есть.
+		# Разворачиваем лицом к прилавку: покупатели стоят на обочине под
+		# разными углами, и «смотрит в +Z» здесь уже недостаточно.
+		var to_counter := (Vector3.ZERO - base).normalized()
+		actor.rotation.y = atan2(to_counter.x, to_counter.z)
 		slots.add_child(actor)
 		_node_of[k.id] = actor
 
@@ -241,7 +243,7 @@ func _rebuild_scene() -> void:
 
 	for i in range(state.counter.size()):
 		var bottle := Props.bottle(state.counter[i])
-		bottle.position = Vector3(COUNTER_SLOT_X[i] * 1.7, SceneBuilder.COUNTER_TOP, -0.7)
+		bottle.position = SceneBuilder.counter_spot(i)
 		slots.add_child(bottle)
 
 	for coin_id in state.coins_in_flight:
@@ -252,8 +254,11 @@ func _rebuild_scene() -> void:
 
 	if state.wolf_distance >= 0:
 		var undead := Props.skeleton()
-		undead.position = Vector3(
-			SceneBuilder.WOLF_LANE_X, 0.0, -2.0 - state.wolf_distance * 1.3)
+		# Выходит из леса по ту сторону дороги и идёт к лавке, дорогу пересекая.
+		undead.position = SceneBuilder.WOLF_LANE \
+			- SceneBuilder.WOLF_STEP * float(state.wolf_distance)
+		var to_shop := (Vector3.ZERO - undead.position).normalized()
+		undead.rotation.y = atan2(to_shop.x, to_shop.z)
 		slots.add_child(undead)
 		_node_of[-1] = undead
 
