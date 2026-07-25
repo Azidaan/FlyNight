@@ -27,6 +27,11 @@ const TREES_B_LARGE := preload("res://assets/hex/nature/trees_B_large.gltf")
 const TREES_B_MED := preload("res://assets/hex/nature/trees_B_medium.gltf")
 const TREE_A := preload("res://assets/hex/nature/tree_single_A.gltf")
 const TREE_B := preload("res://assets/hex/nature/tree_single_B.gltf")
+const TREES_A_SMALL := preload("res://assets/hex/nature/trees_A_small.gltf")
+const TREES_B_SMALL := preload("res://assets/hex/nature/trees_B_small.gltf")
+const HILL_TREES_A := preload("res://assets/hex/nature/hills_A_trees.gltf")
+const HILL_TREES_B := preload("res://assets/hex/nature/hills_B_trees.gltf")
+const HILL_TREES_C := preload("res://assets/hex/nature/hills_C_trees.gltf")
 const ROCK_A := preload("res://assets/hex/nature/rock_single_A.gltf")
 const ROCK_C := preload("res://assets/hex/nature/rock_single_C.gltf")
 
@@ -281,6 +286,28 @@ static func _castle(root: Node3D) -> void:
 	wash.omni_range = 70.0
 	root.add_child(wash)
 
+## Можно ли сажать в этой точке: не на дороге, не на пятачке лавки,
+## не перед замком и не на линии взгляда к нему.
+static func _spot_free(p: Vector3) -> bool:
+	if dist_to_road(p) < ROAD_HALF_WIDTH + 2.5:
+		return false
+	if Vector2(p.x, p.z).length() < 11.0:
+		return false
+	if Vector2(p.x - CASTLE_POS.x, p.z - CASTLE_POS.z).length() < CASTLE_CLEAR:
+		return false
+	if p.z < -14.0 and p.z > CASTLE_POS.z \
+			and absf(p.x - CASTLE_POS.x * (p.z / CASTLE_POS.z)) < 11.0:
+		return false
+	# тропа нежити: куртина выросла прямо на ней и скрыла скелета,
+	# рамка трекера висела пустой
+	var a := Vector2(WOLF_LANE.x, WOLF_LANE.z)
+	var b := a - Vector2(WOLF_STEP.x, WOLF_STEP.z) * 6.0
+	var ab := b - a
+	var t: float = clampf((Vector2(p.x, p.z) - a).dot(ab) / ab.length_squared(), 0.0, 1.0)
+	if (Vector2(p.x, p.z) - (a + ab * t)).length() < 4.5:
+		return false
+	return true
+
 ## Густой лес по обе стороны дороги. Гор нет намеренно: в референсе
 ## (Элвиннский лес) горизонт закрывает именно лес, а не хребты.
 static func _forest(root: Node3D) -> void:
@@ -290,32 +317,56 @@ static func _forest(root: Node3D) -> void:
 	var groves := [TREES_A_LARGE, TREES_B_LARGE, TREES_A_MED, TREES_B_MED]
 	var singles := [TREE_A, TREE_B]
 
-	var planted := 0
-	var tries := 0
-	while planted < 190 and tries < 3000:
-		tries += 1
-		var p := Vector3(rng.randf_range(-95.0, 95.0), 0.0, rng.randf_range(-95.0, 14.0))
+	# Дальняя гряда: холмы с лесом задают ярусный силуэт — кроны на разной
+	# высоте, а не ровная гребёнка одинаковых конусов.
+	for i in range(26):
+		var hx := rng.randf_range(-130.0, 130.0)
+		var hz := rng.randf_range(-118.0, -58.0)
+		if Vector2(hx - CASTLE_POS.x, hz - CASTLE_POS.z).length() < CASTLE_CLEAR + 8.0:
+			continue
+		var hill: PackedScene = [HILL_TREES_A, HILL_TREES_B, HILL_TREES_C][rng.randi() % 3]
+		_put(root, hill, Vector3(hx, rng.randf_range(-1.0, 5.0), hz),
+			rng.randf() * TAU, rng.randf_range(11.0, 20.0))
 
-		# дорогу не зарастаем, и пятачок вокруг лавки тоже
-		if dist_to_road(p) < ROAD_HALF_WIDTH + 2.5:
-			continue
-		if p.length() < 11.0:
-			continue
-		# и вокруг замка: несколько елей закрывали его целиком
-		if Vector2(p.x - CASTLE_POS.x, p.z - CASTLE_POS.z).length() < CASTLE_CLEAR:
-			continue
-		# заодно не заслоняем линию взгляда от камеры к замку
-		if p.z < -14.0 and p.z > CASTLE_POS.z \
-				and absf(p.x - CASTLE_POS.x * (p.z / CASTLE_POS.z)) < 11.0:
-			continue
+	# Чаща куртинами, а не ровной россыпью: у каждой куртины свой ярус высоты,
+	# оттого кроны стоят на разных уровнях и лес перестаёт быть гребёнкой
+	# одинаковых конусов.
+	var smalls := [TREES_A_SMALL, TREES_B_SMALL]
+	for i in range(64):
+		var cx := rng.randf_range(-105.0, 105.0)
+		var cz := rng.randf_range(-105.0, 12.0)
+		var spread := rng.randf_range(4.0, 13.0)
 
-		var far := p.z < -26.0
-		var scene: PackedScene = groves[rng.randi() % groves.size()] if far \
-			else singles[rng.randi() % singles.size()]
-		var factor := rng.randf_range(7.0, 10.5) if far else rng.randf_range(5.0, 7.0)
-		p.y = ground_height(p.x, p.z) - 0.3
-		_put(root, scene, p, rng.randf() * TAU, factor)
-		planted += 1
+		# ярус куртины: чем дальше, тем выше могут быть деревья
+		var depth: float = clampf((-cz) / 90.0, 0.0, 1.0)
+		var tier := rng.randf()
+		var lo := lerpf(3.4, 9.0, depth) * lerpf(0.7, 1.5, tier)
+		var hi := lo * rng.randf_range(1.3, 1.9)
+
+		for k in range(rng.randi_range(7, 15)):
+			var ang := rng.randf() * TAU
+			var rad := spread * sqrt(rng.randf())
+			var p := Vector3(cx + cos(ang) * rad, 0.0, cz + sin(ang) * rad)
+			if not _spot_free(p):
+				continue
+
+			var big := rng.randf() < 0.62
+			var pool: Array = groves if big else singles
+			var scene: PackedScene = pool[rng.randi() % pool.size()]
+			p.y = ground_height(p.x, p.z) - 0.3
+			_put(root, scene, p, rng.randf() * TAU,
+				rng.randf_range(lo, hi) * (1.0 if big else 0.55))
+
+		# подлесок под куртиной
+		for k in range(rng.randi_range(4, 9)):
+			var ang := rng.randf() * TAU
+			var rad := spread * 1.3 * sqrt(rng.randf())
+			var p := Vector3(cx + cos(ang) * rad, 0.0, cz + sin(ang) * rad)
+			if not _spot_free(p):
+				continue
+			p.y = ground_height(p.x, p.z) - 0.25
+			_put(root, smalls[rng.randi() % smalls.size()], p,
+				rng.randf() * TAU, rng.randf_range(2.2, 4.6))
 
 	# сплошная стена леса на горизонте, чтобы по краям не зияла пустота
 	for i in range(56):
