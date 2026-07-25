@@ -1,53 +1,53 @@
 extends SceneTree
 
-## Разбор KayKit'овского рыцаря: какие есть клипы, есть ли скелет,
-## как называются меши и материалы (нужно найти плащ, чтобы красить его
-## в опознавательный цвет).
+## Разбор всех персонажей пака: какие меши внутри. Нужно, чтобы понять,
+## что прятать (лишнее оружие) и что красить в опознавательный цвет.
 
-const MODEL := "res://assets/characters/Knight.glb"
+const MODELS := [
+	"res://assets/characters/Knight.glb",
+	"res://assets/characters/Barbarian.glb",
+	"res://assets/characters/Mage.glb",
+	"res://assets/characters/Rogue.glb",
+	"res://assets/characters/Rogue_Hooded.glb",
+]
 
 func _initialize() -> void:
-	var scene: PackedScene = load(MODEL)
-	if scene == null:
-		printerr("не загрузилось: ", MODEL)
-		quit(1)
-		return
+	for path in MODELS:
+		var scene: PackedScene = load(path)
+		if scene == null:
+			printerr("не загрузилось: ", path)
+			continue
+		var root: Node = scene.instantiate()
 
-	var root: Node = scene.instantiate()
-	print("корень: ", root.name, "  (", root.get_class(), ")")
+		var names: Array[String] = []
+		for mi in _meshes(root):
+			names.append(mi.name)
 
-	var player: AnimationPlayer = root.find_child("AnimationPlayer", true, false)
-	if player == null:
-		printerr("AnimationPlayer не найден")
-	else:
-		var names := player.get_animation_list()
-		print("\nанимаций: ", names.size())
-		var interesting := []
-		for n in names:
-			var low := n.to_lower()
-			if "idle" in low or "walk" in low or "run" in low or "death" in low or "interact" in low:
-				interesting.append("%s (%.2f с)" % [n, player.get_animation(n).length])
-		print("подходящие нам:")
-		for i in interesting:
-			print("  ", i)
+		var anim: AnimationPlayer = root.find_child("AnimationPlayer", true, false)
+		var clips := 0
+		var has_idle := false
+		var has_walk := false
+		if anim != null:
+			var list := anim.get_animation_list()
+			clips = list.size()
+			has_idle = anim.has_animation("Idle")
+			for n in list:
+				if "Walking_A" == n:
+					has_walk = true
 
-	print("\nструктура:")
-	_walk(root, 0)
+		var skel: Skeleton3D = root.find_child("Skeleton3D", true, false)
+		var bones := skel.get_bone_count() if skel != null else 0
+
+		print("\n=== ", path.get_file(), "  (клипов %d, костей %d, Idle:%s, Walking_A:%s)" % [
+			clips, bones, "да" if has_idle else "НЕТ", "да" if has_walk else "НЕТ"])
+		print("  ", ", ".join(names))
+		root.free()
 	quit(0)
 
-func _walk(node: Node, depth: int) -> void:
-	var pad := "  ".repeat(depth)
-	if node is Skeleton3D:
-		print(pad, node.name, "  [Skeleton3D, костей ", node.get_bone_count(), "]")
-	elif node is MeshInstance3D:
-		var mi := node as MeshInstance3D
-		var mats := []
-		if mi.mesh != null:
-			for i in range(mi.mesh.get_surface_count()):
-				var m := mi.mesh.surface_get_material(i)
-				mats.append(m.resource_name if m != null and m.resource_name != "" else "(без имени)")
-		print(pad, node.name, "  [Mesh, поверхностей ", mats.size(), ": ", ", ".join(mats), "]")
-	elif depth <= 2:
-		print(pad, node.name, "  [", node.get_class(), "]")
+func _meshes(node: Node) -> Array[MeshInstance3D]:
+	var out: Array[MeshInstance3D] = []
+	if node is MeshInstance3D:
+		out.append(node)
 	for c in node.get_children():
-		_walk(c, depth + 1)
+		out.append_array(_meshes(c))
+	return out

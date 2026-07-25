@@ -192,9 +192,10 @@ func _rebuild_scene() -> void:
 	for k in state.knights:
 		if k.slot < 0:
 			continue
-		var actor := KnightActor.spawn(_cloak_color(k.cloak))
+		var actor := CustomerActor.spawn(k.id, _cloak_color(k.cloak))
 		actor.position = Vector3(SLOT_X[k.slot], 0.0, SLOT_Z[k.slot])
-		actor.rotation.y = PI   # лицом к прилавку, то есть к камере
+		# Модель уже смотрит в +Z, то есть на камеру. Разворот на PI её
+		# отворачивал — оставляем как есть.
 		slots.add_child(actor)
 		_node_of[k.id] = actor
 
