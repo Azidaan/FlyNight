@@ -7,6 +7,8 @@ extends RefCounted
 ## поэтому они полностью взаимозаменяемы. У каждой есть меш плаща, который
 ## красится в опознавательный цвет: по нему игрок уличает трекер в подмене ID.
 
+const TORCH := preload("res://assets/props/torch_lit.glb")
+
 const MODELS := [
 	preload("res://assets/characters/Knight.glb"),
 	preload("res://assets/characters/Barbarian.glb"),
@@ -39,11 +41,40 @@ static func spawn(customer_id: int, cloak_color: Color) -> Node3D:
 		elif mi.name.ends_with("_Cape"):
 			_tint(mi, cloak_color)
 
+	_give_torch(node)
+
 	var anim: AnimationPlayer = node.find_child("AnimationPlayer", true, false)
 	if anim != null and anim.has_animation("Idle"):
 		anim.play("Idle")
 
 	return node
+
+## Факел в руку. В скелете пака есть отдельные кости-слоты под инвентарь —
+## handslot.l и handslot.r, — поэтому факел едет вместе с анимацией руки,
+## а не висит рядом с фигурой.
+static func _give_torch(node: Node3D) -> void:
+	var skel := node.find_child("Skeleton3D", true, false) as Skeleton3D
+	if skel == null:
+		return
+
+	var mount := BoneAttachment3D.new()
+	skel.add_child(mount)
+	mount.bone_name = "handslot.l"
+	if mount.bone_idx < 0:
+		mount.queue_free()
+		return
+
+	# Без доворота: кость-слот в паке уже сориентирована под инвентарь.
+	var torch: Node3D = TORCH.instantiate()
+	mount.add_child(torch)
+
+	var flame := OmniLight3D.new()
+	flame.position = Vector3(0.0, 0.55, 0.0)
+	flame.light_color = Color(1.0, 0.68, 0.32)
+	flame.light_energy = 2.6
+	flame.omni_range = 7.5
+	# тень выключена: покупателей до трёх, и каждая тень стоит прохода по сцене
+	mount.add_child(flame)
 
 static func _is_kept(mesh_name: String) -> bool:
 	for suffix in KEEP_SUFFIXES:
