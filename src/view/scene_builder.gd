@@ -289,8 +289,17 @@ static func _castle(root: Node3D) -> void:
 ## Можно ли сажать в этой точке: не на дороге, не на пятачке лавки,
 ## не перед замком и не на линии взгляда к нему.
 static func _spot_free(p: Vector3) -> bool:
-	if dist_to_road(p) < ROAD_HALF_WIDTH + 2.5:
+	var d := dist_to_road(p)
+	# Обочина расчищена: раньше чаща подступала вплотную и заслоняла
+	# и тропинку, и выходящую на неё нежить.
+	if d < ROAD_HALF_WIDTH + 7.5:
 		return false
+	# Дальше лес загустевает постепенно, а не встаёт стенкой по линейке.
+	if d < ROAD_HALF_WIDTH + 19.0:
+		var t := (d - ROAD_HALF_WIDTH - 7.5) / 11.5
+		var n := float(absi(hash(Vector2i(int(p.x * 4.0), int(p.z * 4.0)))) % 1000) / 1000.0
+		if n > t:
+			return false
 	if Vector2(p.x, p.z).length() < 11.0:
 		return false
 	if Vector2(p.x - CASTLE_POS.x, p.z - CASTLE_POS.z).length() < CASTLE_CLEAR:
@@ -304,7 +313,7 @@ static func _spot_free(p: Vector3) -> bool:
 	var b := a - Vector2(WOLF_STEP.x, WOLF_STEP.z) * 6.0
 	var ab := b - a
 	var t: float = clampf((Vector2(p.x, p.z) - a).dot(ab) / ab.length_squared(), 0.0, 1.0)
-	if (Vector2(p.x, p.z) - (a + ab * t)).length() < 4.5:
+	if (Vector2(p.x, p.z) - (a + ab * t)).length() < 8.0:
 		return false
 	return true
 
