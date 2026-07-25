@@ -14,6 +14,14 @@ if (-not (Test-Path $templates)) {
 
 New-Item -ItemType Directory -Force (Split-Path -Parent $out) | Out-Null
 
+# A running or locked previous build makes the export fail on the final
+# rename, and the stale exe silently stays in place.
+Get-Process -Name 'PotionNight' -ErrorAction SilentlyContinue |
+    Stop-Process -Force -ErrorAction SilentlyContinue
+foreach ($stale in @($out, [IO.Path]::ChangeExtension($out, '.tmp'))) {
+    if (Test-Path $stale) { Remove-Item $stale -Force }
+}
+
 Write-Output 'Importing assets...'
 & $godot --headless --path $root --import | Out-Null
 

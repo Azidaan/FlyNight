@@ -112,8 +112,14 @@ static func _maybe_arrive(s: GameState, r: ActionResult) -> void:
 	s.knights.append(k)
 	r.emit(&"KNIGHT_ARRIVES", {"knight": k.id, "slot": slot, "cloak": k.cloak})
 
+## Порог темноты, ниже которого нежить не выходит: в сумерках и на рассвете
+## дорога спокойна, тварей приносит только глухая ночь.
+const WOLF_DARK_GATE := 0.55
+
 static func _maybe_wolf_appears(s: GameState, r: ActionResult) -> void:
 	if s.wolf_distance >= 0:
+		return
+	if s.dark() < WOLF_DARK_GATE:
 		return
 	if s.rng.randf() < WOLF_BASE_CHANCE + WOLF_DARK_FACTOR * s.dark():
 		s.wolf_distance = WOLF_START_DISTANCE
