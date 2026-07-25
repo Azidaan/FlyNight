@@ -26,6 +26,7 @@ const TREES_B_MED := preload("res://assets/hex/nature/trees_B_medium.gltf")
 const TREE_A := preload("res://assets/hex/nature/tree_single_A.gltf")
 const TREE_B := preload("res://assets/hex/nature/tree_single_B.gltf")
 const ROCK_A := preload("res://assets/hex/nature/rock_single_A.gltf")
+const ROCK_C := preload("res://assets/hex/nature/rock_single_C.gltf")
 
 const CASTLE := preload("res://assets/hex/castle/building_castle_red.gltf")
 const TOWER_A := preload("res://assets/hex/castle/building_tower_A_red.gltf")
@@ -60,7 +61,7 @@ const WOLF_STEP := Vector3(1.2, 0.0, 1.7)
 ## Герои идут по дороге из замка и в замок, нежить выходит из леса
 ## с противоположной стороны и дорогу пересекает.
 const ROAD_Z := -7.5
-const ROAD_HALF_WIDTH := 5.0
+const ROAD_HALF_WIDTH := 4.6
 const CASTLE_ALONG := 96.0
 
 ## Рельеф. Возле лавки сглаживается в ноль, иначе прилавок и покупатели
@@ -70,12 +71,19 @@ static func ground_height(x: float, z: float) -> float:
 	var damp: float = clampf(Vector2(x, z + 3.0).length() / 20.0, 0.0, 1.0)
 	return h * damp
 
-## Осевая линия дороги. Перед лавкой идёт поперёк кадра, дальше загибается
-## вправо-вглубь к воротам замка — так дорога и фронтальна, и ведёт куда надо.
+## Осевая линия дороги — дуга окружности. У прилавка касательная идёт
+## поперёк кадра (дорога фронтальна), дальше вправо она плавно
+## разворачивается вглубь, и ворота замка попадают в кадр почти по центру.
+## Влево радиус много больше, поэтому там дорога уходит почти прямо.
+const ROAD_R_RIGHT := 42.0
+const ROAD_R_LEFT := 260.0
+
 static func road_point(s: float) -> Vector3:
-	var bend: float = 0.017 if s > 0.0 else 0.004
-	var z := ROAD_Z - s * s * bend
-	return Vector3(s, ground_height(s, z), z)
+	var r: float = ROAD_R_RIGHT if s > 0.0 else ROAD_R_LEFT
+	var th := s / r
+	var x := r * sin(th)
+	var z := ROAD_Z - r + r * cos(th)
+	return Vector3(x, ground_height(x, z), z)
 
 static func road_yaw(s: float) -> float:
 	var a := road_point(s - 0.5)
@@ -137,17 +145,56 @@ static func _ground(root: Node3D) -> void:
 	node.position.y = -0.08
 	root.add_child(node)
 
+## Дорога — не цельная плита, а утоптанная лента с россыпью булыжника.
 static func _road(root: Node3D) -> void:
-	var s := -100.0
-	while s < CASTLE_ALONG + 8.0:
-		var centre := road_point(s)
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+
+	var prev_l := Vector3.ZERO
+	var prev_r := Vector3.ZERO
+	var first := true
+	var s := -110.0
+	while s <= CASTLE_ALONG + 14.0:
 		var yaw := road_yaw(s)
 		var side := Vector3(cos(yaw), 0.0, -sin(yaw))
-		for lane: float in [-1.0, 0.0, 1.0]:
-			var p: Vector3 = centre + side * (lane * 3.4)
-			p.y = ground_height(p.x, p.z) + 0.02
-			_put(root, FLOOR, p, yaw)
-		s += 3.4
+		var centre := road_point(s)
+		var l := centre - side * ROAD_HALF_WIDTH
+		var r := centre + side * ROAD_HALF_WIDTH
+		l.y = ground_height(l.x, l.z) + 0.04
+		r.y = ground_height(r.x, r.z) + 0.04
+		if not first:
+			for v in [prev_l, prev_r, r, prev_l, r, l]:
+				st.add_vertex(v)
+		prev_l = l
+		prev_r = r
+		first = false
+		s += 2.5
+
+	st.generate_normals()
+	var band := MeshInstance3D.new()
+	band.mesh = st.commit()
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(0.29, 0.25, 0.20)
+	mat.roughness = 1.0
+	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	band.material_override = mat
+	root.add_child(band)
+
+	# булыжник поверх ленты
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 771
+	var t := -108.0
+	while t <= CASTLE_ALONG + 12.0:
+		var yaw := road_yaw(t)
+		var side := Vector3(cos(yaw), 0.0, -sin(yaw))
+		for k in range(9):
+			var off := rng.randf_range(-ROAD_HALF_WIDTH + 0.3, ROAD_HALF_WIDTH - 0.3)
+			var p := road_point(t + rng.randf_range(-1.3, 1.3)) + side * off
+			p.y = ground_height(p.x, p.z) + 0.01
+			# мелко: булыжник, а не валуны по колено
+			_put(root, ROCK_A if rng.randf() < 0.6 else ROCK_C, p,
+				rng.randf() * TAU, rng.randf_range(0.5, 1.1))
+		t += 2.6
 
 ## Замок справа, как на наброске. Отодвинут и укрупнён: в родном масштабе
 ## гекс-пака он был бы по пояс покупателю.
