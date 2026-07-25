@@ -125,7 +125,8 @@ static func _fence(root: Node3D) -> void:
 		# и дорогой и загородила всю сцену.
 		var p := road_point(s) + side * (ROAD_HALF_WIDTH + 2.2)
 		p.y = ground_height(p.x, p.z) - 0.15
-		_put(root, FENCE, p, yaw, 1.0)
+		# Модель в паке каменная — перекрашиваем в дерево.
+		_tint(_put(root, FENCE, p, yaw, 1.0), Color(0.42, 0.28, 0.16))
 		s += 4.0
 
 ## Холмистая земля вместо плоскости: сетка, поднятая по ground_height().
@@ -167,24 +168,29 @@ static func _road(root: Node3D) -> void:
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 
-	var prev_l := Vector3.ZERO
-	var prev_r := Vector3.ZERO
-	var first := true
+	# Поперёк лента дробится на полосы: по двум точкам на всю ширину она шла
+	# плоско и на неровностях висела над землёй воздушной прослойкой.
+	var cols := 6
+	var prev: Array[Vector3] = []
 	var s := -110.0
 	while s <= CASTLE_ALONG + 14.0:
 		var yaw := road_yaw(s)
 		var side := Vector3(cos(yaw), 0.0, -sin(yaw))
 		var centre := road_point(s)
-		var l := centre - side * ROAD_HALF_WIDTH
-		var r := centre + side * ROAD_HALF_WIDTH
-		l.y = ground_height(l.x, l.z) + 0.04
-		r.y = ground_height(r.x, r.z) + 0.04
-		if not first:
-			for v in [prev_l, prev_r, r, prev_l, r, l]:
-				st.add_vertex(v)
-		prev_l = l
-		prev_r = r
-		first = false
+
+		var row: Array[Vector3] = []
+		for c in range(cols + 1):
+			var f := -1.0 + 2.0 * float(c) / float(cols)
+			var p: Vector3 = centre + side * (ROAD_HALF_WIDTH * f)
+			p.y = ground_height(p.x, p.z) - 0.06   # чуть утоплена в грунт
+			row.append(p)
+
+		if not prev.is_empty():
+			for c in range(cols):
+				for v in [prev[c], prev[c + 1], row[c + 1],
+						prev[c], row[c + 1], row[c]]:
+					st.add_vertex(v)
+		prev = row
 		s += 2.5
 
 	st.generate_normals()
@@ -211,7 +217,7 @@ static func _road(root: Node3D) -> void:
 		for k in range(16):
 			var off := rng.randf_range(-ROAD_HALF_WIDTH - 1.2, ROAD_HALF_WIDTH + 1.2)
 			var p := road_point(t + rng.randf_range(-1.3, 1.3)) + side * off
-			p.y = ground_height(p.x, p.z) + 0.01
+			p.y = ground_height(p.x, p.z) - 0.09
 			var stone := _put(root, ROCK_A if rng.randf() < 0.6 else ROCK_C, p,
 				rng.randf() * TAU, rng.randf_range(0.9, 1.9))
 			_tint(stone, Color(
@@ -234,15 +240,15 @@ static func _castle(root: Node3D) -> void:
 	# видно только воротную башню и кусок стены, всё остальное поле занимают
 	# трава, дорога и лес. Координаты заданы явно, а не выведены из дуги
 	# дороги: по дуге он выходил ровно в центр экрана.
-	var keep := Vector3(52.0, 0.0, -60.0)
+	var keep := Vector3(44.0, 0.0, -49.0)
 	var wall_yaw := -0.55
 
-	_put(root, CASTLE, keep, wall_yaw, 10.0)
-	_put(root, TOWER_B, keep + Vector3(-17.0, 0.0, 9.0), wall_yaw, 8.5)
+	_put(root, CASTLE, keep, wall_yaw, 11.0)
+	_put(root, TOWER_B, keep + Vector3(-16.0, 0.0, 8.0), wall_yaw, 9.0)
 	# стена уходит вправо за край кадра
 	for i in range(4):
-		_put(root, TOWER_A, keep + Vector3(20.0 + i * 19.0, 0.0, -6.0 - i * 9.0),
-			wall_yaw, 8.0)
+		_put(root, TOWER_A, keep + Vector3(19.0 + i * 18.0, 0.0, -6.0 - i * 9.0),
+			wall_yaw, 8.5)
 
 ## Густой лес по обе стороны дороги. Гор нет намеренно: в референсе
 ## (Элвиннский лес) горизонт закрывает именно лес, а не хребты.
@@ -268,7 +274,7 @@ static func _forest(root: Node3D) -> void:
 		var far := p.z < -26.0
 		var scene: PackedScene = groves[rng.randi() % groves.size()] if far \
 			else singles[rng.randi() % singles.size()]
-		var factor := rng.randf_range(4.5, 7.0) if far else rng.randf_range(3.0, 4.4)
+		var factor := rng.randf_range(7.0, 10.5) if far else rng.randf_range(5.0, 7.0)
 		p.y = ground_height(p.x, p.z) - 0.3
 		_put(root, scene, p, rng.randf() * TAU, factor)
 		planted += 1
@@ -279,7 +285,7 @@ static func _forest(root: Node3D) -> void:
 		if dist_to_road(p) < ROAD_HALF_WIDTH + 3.0:
 			continue
 		_put(root, groves[i % groves.size()], p, rng.randf() * TAU,
-			rng.randf_range(6.0, 8.5))
+			rng.randf_range(9.0, 13.0))
 
 	for spot in [Vector3(-9.0, 0.0, -2.5), Vector3(8.5, 0.0, -2.0),
 			Vector3(-11.5, 0.0, 2.0)]:
