@@ -174,7 +174,9 @@ static func _road(root: Node3D) -> void:
 	var band := MeshInstance3D.new()
 	band.mesh = st.commit()
 	var mat := StandardMaterial3D.new()
-	mat.albedo_color = Color(0.29, 0.25, 0.20)
+	# Светлее травы: тёмно-бурая лента ночью сливалась в чёрное пятно
+	# и читалась как одна сплошная плита.
+	mat.albedo_color = Color(0.46, 0.38, 0.28)
 	mat.roughness = 1.0
 	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
 	band.material_override = mat
@@ -187,14 +189,19 @@ static func _road(root: Node3D) -> void:
 	while t <= CASTLE_ALONG + 12.0:
 		var yaw := road_yaw(t)
 		var side := Vector3(cos(yaw), 0.0, -sin(yaw))
-		for k in range(9):
-			var off := rng.randf_range(-ROAD_HALF_WIDTH + 0.3, ROAD_HALF_WIDTH - 0.3)
+		# Камни кладём и за кромку ленты: иначе край выходит линейкой,
+		# а не осыпью.
+		for k in range(16):
+			var off := rng.randf_range(-ROAD_HALF_WIDTH - 1.2, ROAD_HALF_WIDTH + 1.2)
 			var p := road_point(t + rng.randf_range(-1.3, 1.3)) + side * off
 			p.y = ground_height(p.x, p.z) + 0.01
-			# мелко: булыжник, а не валуны по колено
-			_put(root, ROCK_A if rng.randf() < 0.6 else ROCK_C, p,
-				rng.randf() * TAU, rng.randf_range(0.5, 1.1))
-		t += 2.6
+			var stone := _put(root, ROCK_A if rng.randf() < 0.6 else ROCK_C, p,
+				rng.randf() * TAU, rng.randf_range(0.9, 1.9))
+			_tint(stone, Color(
+				rng.randf_range(0.52, 0.66),
+				rng.randf_range(0.50, 0.62),
+				rng.randf_range(0.46, 0.58)))
+		t += 2.4
 
 ## Замок справа, как на наброске. Отодвинут и укрупнён: в родном масштабе
 ## гекс-пака он был бы по пояс покупателю.
@@ -206,11 +213,17 @@ static func _castle(root: Node3D) -> void:
 	var side := Vector3(cos(yaw), 0.0, -sin(yaw))
 	var fwd := Vector3(sin(yaw), 0.0, cos(yaw))
 
-	_put(root, CASTLE, gate + fwd * 12.0, yaw, 15.0)
-	_put(root, TOWER_B, gate + side * 14.0, yaw, 12.0)
-	_put(root, TOWER_B, gate - side * 14.0, yaw, 12.0)
-	_put(root, TOWER_A, gate + fwd * 6.0 + side * 30.0, yaw + 0.3, 10.0)
-	_put(root, TOWER_A, gate + fwd * 6.0 - side * 30.0, yaw - 0.3, 10.0)
+	# Замок должен нависать над сценой, а не стоять фигуркой на горизонте.
+	_put(root, CASTLE, gate + fwd * 14.0, yaw, 26.0)
+	_put(root, TOWER_B, gate + side * 26.0, yaw, 21.0)
+	_put(root, TOWER_B, gate - side * 26.0, yaw, 21.0)
+
+	# Крепостная стена уходит вправо за край кадра — она и делает замок
+	# протяжённым укреплением, а не одиноким домиком.
+	for i in range(5):
+		_put(root, TOWER_A, gate + fwd * (4.0 - i * 5.0) + side * (44.0 + i * 26.0),
+			yaw + 0.12 * i, 18.0 - i * 1.4)
+	_put(root, TOWER_A, gate + fwd * 8.0 - side * 48.0, yaw - 0.2, 16.0)
 
 ## Густой лес по обе стороны дороги. Гор нет намеренно: в референсе
 ## (Элвиннский лес) горизонт закрывает именно лес, а не хребты.
@@ -277,6 +290,15 @@ static func _dressing(root: Node3D) -> void:
 	_put(root, CRATES, Vector3(-7.0, 0.0, -3.4), -PI * 0.15)
 	_put(root, BARREL, Vector3(7.6, 0.0, -5.0))
 	_put(root, CRATES, Vector3(-8.2, 0.0, -7.6), PI * 0.4)
+
+static func _tint(node: Node, c: Color) -> void:
+	for child in node.get_children():
+		_tint(child, c)
+	if node is MeshInstance3D:
+		var mat := StandardMaterial3D.new()
+		mat.albedo_color = c
+		mat.roughness = 1.0
+		(node as MeshInstance3D).material_override = mat
 
 static func _put(root: Node3D, scene: PackedScene, pos: Vector3,
 		yaw: float = 0.0, scale_factor: float = 1.0) -> Node3D:
