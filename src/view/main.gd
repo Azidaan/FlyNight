@@ -5,7 +5,7 @@ extends Node3D
 
 const SLOT_X := [0.0, 1.7, 3.4]
 const SLOT_Z := [-2.2, -3.9, -5.6]
-const KNIGHT_SIZE := Vector3(0.7, 1.7, 0.5)
+const KNIGHT_SIZE := Vector3(0.95, 1.75, 0.6)
 const WOLF_SIZE := Vector3(1.0, 0.6, 0.5)
 
 var state: GameState
@@ -192,23 +192,26 @@ func _rebuild_scene() -> void:
 	for k in state.knights:
 		if k.slot < 0:
 			continue
-		var box := _make_box(KNIGHT_SIZE, _cloak_color(k.cloak))
-		box.position = Vector3(SLOT_X[k.slot], KNIGHT_SIZE.y * 0.5, SLOT_Z[k.slot])
-		slots.add_child(box)
-		_node_of[k.id] = box
+		var actor := KnightActor.spawn(_cloak_color(k.cloak))
+		actor.position = Vector3(SLOT_X[k.slot], 0.0, SLOT_Z[k.slot])
+		actor.rotation.y = PI   # лицом к прилавку, то есть к камере
+		slots.add_child(actor)
+		_node_of[k.id] = actor
 
-		# Правда мира прямо над рыцарем. Рамка трекера говорит своё —
-		# расхождение видно, не сводя глаз с одного места.
+		# Правда мира над рыцарем. Вешается в slots, а не в актёра: актёр
+		# отмасштабирован под рост, и дочерняя табличка уехала бы вместе с ним.
 		var truth := Label3D.new()
 		truth.text = "правда: %s / %s\nтерпение %d" % [
 			PN.cloak_name(k.cloak), PN.potion_name(k.order), k.patience]
-		truth.font_size = 28
-		truth.pixel_size = 0.004
+		truth.font_size = 32
+		truth.pixel_size = 0.0035
 		truth.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-		truth.modulate = Color(0.65, 0.65, 0.7)
+		truth.modulate = Color(0.66, 0.66, 0.72)
 		truth.outline_modulate = Color(0, 0, 0, 0.9)
-		truth.position = Vector3(0, KNIGHT_SIZE.y * 0.5 + 0.75, 0)
-		box.add_child(truth)
+		truth.outline_size = 10
+		truth.no_depth_test = true
+		truth.position = Vector3(SLOT_X[k.slot], KNIGHT_SIZE.y + 0.45, SLOT_Z[k.slot])
+		slots.add_child(truth)
 
 	if state.wolf_distance >= 0:
 		var wolf := _make_box(WOLF_SIZE, Color(0.45, 0.12, 0.12))
@@ -244,7 +247,11 @@ func _push_boxes() -> void:
 		if node == null:
 			continue
 		var size := WOLF_SIZE if tr.kind == &"wolf" else KNIGHT_SIZE
-		list.append({"pos": node.global_position, "size": size, "track": tr})
+		# у рыцаря точка отсчёта в ногах, у куба волка — в центре
+		var centre := node.global_position
+		if tr.kind != &"wolf":
+			centre.y += KNIGHT_SIZE.y * 0.5
+		list.append({"pos": centre, "size": size, "track": tr})
 	boxes.set_entries(camera, list, _selected_track_id())
 
 # ── тексты панелей ────────────────────────────────────────────
