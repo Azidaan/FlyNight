@@ -66,6 +66,12 @@ const ROAD_Z := -7.5
 const ROAD_HALF_WIDTH := 4.6
 const CASTLE_ALONG := 96.0
 
+## Замок стоит правее и дальше, чем раньше: так он опускается в кадре
+## и выходит из-под правой панели.
+const CASTLE_POS := Vector3(58.0, 0.0, -52.0)
+## Вокруг замка лес не сажаем — три ели закрывали его целиком.
+const CASTLE_CLEAR := 34.0
+
 ## Рельеф. Возле лавки сглаживается в ноль, иначе прилавок и покупатели
 ## встали бы на склоне и повисли в воздухе.
 static func ground_height(x: float, z: float) -> float:
@@ -240,15 +246,40 @@ static func _castle(root: Node3D) -> void:
 	# видно только воротную башню и кусок стены, всё остальное поле занимают
 	# трава, дорога и лес. Координаты заданы явно, а не выведены из дуги
 	# дороги: по дуге он выходил ровно в центр экрана.
-	var keep := Vector3(44.0, 0.0, -49.0)
+	var keep := CASTLE_POS
 	var wall_yaw := -0.55
 
-	_put(root, CASTLE, keep, wall_yaw, 11.0)
-	_put(root, TOWER_B, keep + Vector3(-16.0, 0.0, 8.0), wall_yaw, 9.0)
-	# стена уходит вправо за край кадра
+	_put(root, CASTLE, keep, wall_yaw, 10.0)
+	_put(root, TOWER_B, keep + Vector3(-16.0, 0.0, 8.0), wall_yaw, 8.5)
 	for i in range(4):
 		_put(root, TOWER_A, keep + Vector3(19.0 + i * 18.0, 0.0, -6.0 - i * 9.0),
-			wall_yaw, 8.5)
+			wall_yaw, 8.0)
+
+	# Факелы на стенах: без них замок сливался с ночным небом чёрным силуэтом.
+	# Тени у них выключены — это далёкий фон, а тень от каждого источника
+	# стоит полного прохода по сцене.
+	var torches := [
+		keep + Vector3(-13.0, 9.0, 10.0), keep + Vector3(-4.0, 11.0, 6.0),
+		keep + Vector3(7.0, 9.5, 3.0), keep + Vector3(18.0, 8.0, -4.0),
+		keep + Vector3(34.0, 7.5, -12.0), keep + Vector3(52.0, 7.0, -21.0),
+		keep + Vector3(-9.0, 2.5, 12.0), keep + Vector3(12.0, 2.5, 2.0),
+	]
+	for t in torches:
+		_put(root, TORCH, t, wall_yaw + PI, 3.2)
+		var fire := OmniLight3D.new()
+		fire.position = t + Vector3(0.0, 1.0, 1.6)
+		fire.light_color = Color(1.0, 0.66, 0.30)
+		fire.light_energy = 9.0
+		fire.omni_range = 26.0
+		root.add_child(fire)
+
+	# Общая подсветка стен, чтобы кладка читалась, а не тонула в чёрном.
+	var wash := OmniLight3D.new()
+	wash.position = keep + Vector3(6.0, 16.0, 16.0)
+	wash.light_color = Color(0.72, 0.72, 0.95)
+	wash.light_energy = 7.0
+	wash.omni_range = 70.0
+	root.add_child(wash)
 
 ## Густой лес по обе стороны дороги. Гор нет намеренно: в референсе
 ## (Элвиннский лес) горизонт закрывает именно лес, а не хребты.
@@ -270,6 +301,13 @@ static func _forest(root: Node3D) -> void:
 			continue
 		if p.length() < 11.0:
 			continue
+		# и вокруг замка: несколько елей закрывали его целиком
+		if Vector2(p.x - CASTLE_POS.x, p.z - CASTLE_POS.z).length() < CASTLE_CLEAR:
+			continue
+		# заодно не заслоняем линию взгляда от камеры к замку
+		if p.z < -14.0 and p.z > CASTLE_POS.z \
+				and absf(p.x - CASTLE_POS.x * (p.z / CASTLE_POS.z)) < 11.0:
+			continue
 
 		var far := p.z < -26.0
 		var scene: PackedScene = groves[rng.randi() % groves.size()] if far \
@@ -283,6 +321,8 @@ static func _forest(root: Node3D) -> void:
 	for i in range(56):
 		var p := Vector3(-140.0 + i * 5.0, 0.0, -102.0 + rng.randf_range(-7.0, 7.0))
 		if dist_to_road(p) < ROAD_HALF_WIDTH + 3.0:
+			continue
+		if Vector2(p.x - CASTLE_POS.x, p.z - CASTLE_POS.z).length() < CASTLE_CLEAR:
 			continue
 		_put(root, groves[i % groves.size()], p, rng.randf() * TAU,
 			rng.randf_range(9.0, 13.0))
