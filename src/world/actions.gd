@@ -35,6 +35,17 @@ static func give(s: GameState, tracks: Array[Track], track_id: int, counter_inde
 		return ActionResult.fail("нет такого трека")
 
 	var knight := s.knight_by_id(target.object_id)
+
+	# Трек ведёт к прохожему — значит трекер его подменил. Зелье уходит
+	# человеку, который просто смотрел на витрину: ход потрачен, товар тоже.
+	if knight == null and s.nearby_passers.has(target.object_id):
+		var lost: int = s.counter[counter_index]
+		s.counter.remove_at(counter_index)
+		s.misses += 1
+		var pr := ActionResult.new()
+		pr.emit(&"POTION_TO_PASSER", {"passer": target.object_id, "potion": lost})
+		return pr
+
 	if knight == null:
 		return ActionResult.fail("трек ведёт в пустоту")
 

@@ -21,8 +21,12 @@ var _passer_timer := 3.0
 ## Прохожие не участвуют в игре, но трекер их видит — как увидит и сеть,
 ## когда фейковый источник заменят настоящим. Треки для них живут здесь,
 ## а не в мире: на механику они не влияют.
-var _passer_tracks: Dictionary = {}   # instance_id -> Track
+var _passer_tracks: Dictionary = {}   # id прохожего -> Track (для дальних)
+var _passer_nodes: Dictionary = {}    # id прохожего -> Node3D
 var _next_passer_track := 900
+
+## Насколько близко надо подойти, чтобы трекер начал путать тебя с покупателем.
+const PASSER_NEAR := 9.0
 
 ## Скорость шага в единицах пака в секунду. Длительность любого перехода
 ## считается ОТ РАССТОЯНИЯ: фиксированная длительность на путь от края кадра
@@ -34,7 +38,7 @@ const ROAD_MEET_S := 1.5      # где сходят с дороги к прил�
 ## Куда встаёт зевака: сбоку от обслуживаемого, чтобы не лезть в кадр к нему.
 const BROWSE_SPOT := Vector3(-3.4, 0.0, -4.0)
 const PASSER_PERIOD := 7.0
-const PASSER_LIMIT := 3
+const PASSER_LIMIT := 2
 
 @onready var camera: Camera3D = $Camera3D
 @onready var world: Node3D = $World
@@ -183,6 +187,9 @@ func _describe(e: GameEvent) -> String:
 		&"POTION_HANDED":
 			return "✓ Рыцарь %d получил зелье %s — то, что просил." % [
 				d["knight"], PN.potion_name(d["potion"])]
+		&"POTION_TO_PASSER":
+			return "✗ Зелье %s ушло прохожему! Трекер подменил цель." % \
+				PN.potion_name(d["potion"])
 		&"POTION_REFUSED":
 			return "✗ Рыцарю %d не подошло зелье %s. Он злится, терпение −3." % [
 				d["knight"], PN.potion_name(d["potion"])]
@@ -430,12 +437,25 @@ func _process(delta: float) -> void:
 	_push_boxes()
 
 	var live: Array[Node3D] = []
+	var near: Array[int] = []
 	for p in _passers:
-		if is_instance_valid(p):
-			live.append(p)
-		else:
-			_passer_tracks.erase(p.get_instance_id())
+		if not is_instance_valid(p):
+			continue
+		live.append(p)
+		var pid: int = p.get_meta("passer_id", -1)
+		# Близко подошедший прохожий попадает в поле зрения трекера наравне
+		# с покупателем — и трекер начинает их путать.
+		if pid >= 0 and Vector2(p.position.x, p.position.z).length() < PASSER_NEAR:
+			near.append(pid)
 	_passers = live
+
+	for pid in _passer_nodes.keys():
+		if not is_instance_valid(_passer_nodes[pid]):
+			_passer_nodes.erase(pid)
+			_passer_tracks.erase(pid)
+
+	if state != null:
+		state.nearby_passers = near
 
 	if state == null or state.finished:
 		return
@@ -466,10 +486,16 @@ func _spawn_passer() -> void:
 	slots.add_child(actor)
 	_passers.append(actor)
 
-	var tr := Track.new(_next_passer_track, &"passer", -1)
-	tr.remembered_cloak = cloak
+	# Номер прохожего сквозной: по нему его знает и мир, когда прохожий
+	# подойдёт близко и станет кандидатом на подмену.
+	var pid := _next_passer_track
 	_next_passer_track += 1
-	_passer_tracks[actor.get_instance_id()] = tr
+	actor.set_meta("passer_id", pid)
+	_passer_nodes[pid] = actor
+
+	var tr := Track.new(pid, &"passer", pid)
+	tr.remembered_cloak = cloak
+	_passer_tracks[pid] = tr
 
 	# Часть прохожих сворачивает поглазеть на товар и идёт дальше своей дорогой.
 	if randf() < 0.4:
@@ -609,11 +635,20 @@ func _push_boxes() -> void:
 	for p in _passers:
 		if not is_instance_valid(p):
 			continue
-		var pt: Track = _passer_tracks.get(p.get_instance_id())
-		if pt == null:
+		var pid: int = p.get_meta("passer_id", -1)
+		if pid < 0:
 			continue
-		pt.conf = _passer_conf(p)
-		pt.refresh_state()
+
+		# У подошедших близко трек ведёт сам трекер — именно он их и путает
+		# с покупателем. У дальних трека в мире нет, показываем свой.
+		var pt: Track = tracker.track_for(pid)
+		if pt == null:
+			pt = _passer_tracks.get(pid)
+			if pt == null:
+				continue
+			pt.conf = _passer_conf(p)
+			pt.refresh_state()
+
 		var c := p.global_position
 		c.y += KNIGHT_SIZE.y * 0.5
 		list.append({"pos": c, "size": KNIGHT_SIZE, "track": pt})

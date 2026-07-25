@@ -120,6 +120,29 @@ func roll_switches(view: SceneView, rng: RandomNumberGenerator) -> void:
 		if should_switch(ta.conf, tb.conf, rng.randf()):
 			force_switch(a, b)
 
+	_roll_passer_switches(view, rng)
+
+## Подмена покупателя ПРОХОЖИМ. При обслуживании по одному соседей в очереди
+## нет и путать не с кем — а настоящий трекер ошибается именно в потоке
+## посторонних. Прохожий, подошедший к прилавку, и есть такой поток.
+func _roll_passer_switches(view: SceneView, rng: RandomNumberGenerator) -> void:
+	for guest in view.objects:
+		if guest.kind != &"knight":
+			continue
+		var tg := track_for(guest.object_id)
+		if tg == null:
+			continue
+
+		for other in view.objects:
+			if other.kind != &"passer":
+				continue
+			var tp := track_for(other.object_id)
+			if tp == null:
+				continue
+			if should_switch(tg.conf, tp.conf, rng.randf()):
+				force_switch(guest.object_id, other.object_id)
+				return   # одной подмены за ход достаточно
+
 func _object_in_slot(view: SceneView, slot: int) -> int:
 	for o in view.objects:
 		if o.kind == &"knight" and o.slot == slot:

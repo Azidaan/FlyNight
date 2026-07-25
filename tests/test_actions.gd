@@ -104,6 +104,31 @@ func run(t: AssertBag) -> void:
 	t.check(not Actions.give(g3, tr3, 9999, 0).ok, "по чужому номеру трека выдать нельзя")
 	t.check(not Actions.give(g3, tr3, id_a, 77).ok, "с несуществующего слота прилавка тоже")
 
+	# ── подмена ПРОХОЖИМ ──────────────────────────────────────
+	# Обслуживание идёт по одному, соседей в очереди нет. Путать трекер
+	# теперь может только с посторонним, подошедшим к прилавку.
+	var gp := GameState.new(77)
+	var buyer := Knight.new(1, PN.Potion.HEALING, PN.Cloak.RED, 8)
+	buyer.slot = 0
+	gp.knights.append(buyer)
+	gp.counter.append(PN.Potion.HEALING)
+	gp.nearby_passers.append(901)
+
+	var ftp := FakeTracker.new(3)
+	ftp.noise_amplitude = 0.0
+	var trp := ftp.update(SceneView.from_state(gp))
+	t.eq(trp.size(), 2, "трекер видит и покупателя, и подошедшего прохожего")
+
+	var buyer_track: int = ftp.track_for(1).track_id
+	ftp.force_switch(1, 901)
+
+	var stolen := Actions.give(gp, trp, buyer_track, 0)
+	t.check(stolen.ok, "выдача проходит: игрок не знает о подмене")
+	t.check(_has(stolen.events, &"POTION_TO_PASSER"), "зелье ушло прохожему")
+	t.eq(gp.counter.size(), 0, "зелье потрачено")
+	t.eq(gp.misses, 1, "засчитана ошибка")
+	t.eq(gp.knights.size(), 1, "покупатель так и стоит ни с чем")
+
 	# ── фонарь ────────────────────────────────────────────────
 	var g4 := GameState.new(6)
 	var lr := Actions.lantern(g4)

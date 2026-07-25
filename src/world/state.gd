@@ -19,6 +19,11 @@ var next_knight_id: int = 1
 var coins_in_flight: Array[int] = []
 var next_coin_id: int = 100
 
+## Прохожие, подошедшие вплотную к лавке. Двигает их слой вида, но мир
+## обязан о них знать: трекер может спутать с ними покупателя, и тогда
+## зелье уйдёт человеку, который просто смотрел на витрину.
+var nearby_passers: Array[int] = []
+
 var finished: bool = false
 var outcome: String = ""              # "" | "dawn" | "failed"
 

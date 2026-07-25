@@ -43,4 +43,9 @@ static func from_state(s: GameState) -> SceneView:
 		# монета лежит низко и частично закрыта прилавком
 		v.objects.append(SceneObject.new(coin_id, &"coin", 0.0, 0.30))
 
+	# Прохожие рядом с прилавком: для трекера это такие же цели,
+	# и именно с ними он теперь путает покупателя.
+	for pid in s.nearby_passers:
+		v.objects.append(SceneObject.new(pid, &"passer", 0.25, 0.0))
+
 	return v
