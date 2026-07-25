@@ -5,12 +5,13 @@ extends SceneTree
 
 func _initialize() -> void:
 	var paths: Array[String] = []
-	for dir_path in ["res://assets/props", "res://assets/characters"]:
+	for dir_path in ["res://assets/props", "res://assets/characters",
+			"res://assets/hex/nature", "res://assets/hex/castle"]:
 		var d := DirAccess.open(dir_path)
 		if d == null:
 			continue
 		for f in d.get_files():
-			if f.ends_with(".glb"):
+			if f.ends_with(".glb") or f.ends_with(".gltf"):
 				paths.append(dir_path + "/" + f)
 	paths.sort()
 
