@@ -11,9 +11,12 @@ enum TrackState { LOCKED, DRIFTING, LOST }
 enum ActionKind { GIVE, RESTOCK, LANTERN, ROCK, RECAPTURE }
 
 const COUNTER_SLOTS := 4
-const QUEUE_SLOTS := 3
+## Обслуживание по одному: подошёл, спросил, получил, ушёл. Очередей нет.
+const QUEUE_SLOTS := 1
 const CHEST_PER_TYPE := 6
 const NIGHT_TURNS := 30
+## Ошибочные выдачи считаются для отчёта, но ночь не обрывают: игра спокойная,
+## ограничений по времени обслуживания нет.
 const MAX_MISSES := 3
 
 const CONF_LOCKED := 0.70

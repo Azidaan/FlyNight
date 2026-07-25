@@ -53,7 +53,9 @@ static func give(s: GameState, tracks: Array[Track], track_id: int, counter_inde
 		s.coins_in_flight.append(coin_id)
 		r.emit(&"COIN_THROWN", {"knight": knight.id, "coin": coin_id})
 	else:
-		knight.patience = maxi(0, knight.patience - WRONG_POTION_PENALTY)
+		# Зелье потрачено впустую, но рыцарь никуда не уходит: времени
+		# на обслуживание не отведено, он дождётся нужного.
+		s.misses += 1
 		r.emit(&"POTION_REFUSED", {"knight": knight.id, "potion": potion})
 	return r
 

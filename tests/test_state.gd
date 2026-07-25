@@ -18,23 +18,17 @@ func run(t: AssertBag) -> void:
 	t.check(not s.finished, "ночь не закончена")
 	t.eq(s.coins_in_flight.size(), 0, "монет в полёте нет")
 
-	t.eq(s.free_queue_slot(), 0, "первый слот очереди свободен")
+	t.eq(s.free_queue_slot(), 0, "место у прилавка свободно")
 	var k1 := Knight.new(1, PN.Potion.HEALING, PN.Cloak.RED, 8)
 	k1.slot = 0
 	s.knights.append(k1)
-	t.eq(s.free_queue_slot(), 1, "занятый слот пропускается")
+	# Обслуживание по одному: пока стоит покупатель, следующий не подходит.
+	t.eq(s.free_queue_slot(), -1, "занятое место не даёт свободных слотов")
 
 	t.eq(s.knight_in_slot(0).id, 1, "рыцарь находится по слоту")
 	t.eq(s.knight_in_slot(2), null, "пустой слот даёт null")
 	t.eq(s.knight_by_id(1).id, 1, "рыцарь находится по номеру")
 	t.eq(s.knight_by_id(99), null, "несуществующий номер даёт null")
-
-	# очередь заполняется до отказа
-	for i in range(2):
-		var extra := Knight.new(10 + i, PN.Potion.HEALING, PN.Cloak.BLUE, 8)
-		extra.slot = i + 1
-		s.knights.append(extra)
-	t.eq(s.free_queue_slot(), -1, "полная очередь не даёт свободных слотов")
 
 	# доступные типы
 	var a := GameState.new(2)

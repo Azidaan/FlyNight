@@ -36,30 +36,28 @@ func run(t: AssertBag) -> void:
 
 	# сборка сцены из состояния мира
 	var s := GameState.new(400)
-	for i in range(3):
-		var k := Knight.new(i + 1, PN.Potion.HEALING, PN.Cloak.RED, 8)
-		k.slot = i
-		s.knights.append(k)
+	var served := Knight.new(1, PN.Potion.HEALING, PN.Cloak.RED, 8)
+	served.slot = 0
+	s.knights.append(served)
 	var built := SceneView.from_state(s)
-	t.eq(built.objects.size(), 3, "три рыцаря попали в сцену")
+	t.eq(built.objects.size(), 1, "обслуживаемый рыцарь попал в сцену")
 
-	var dists := {}
-	for obj in built.objects:
-		dists[obj.slot] = obj.dist_norm
-	t.almost(dists[0], 0.0, "слот у прилавка — дистанция ноль")
-	t.almost(dists[1], 0.5, "средний слот — половина")
-	t.almost(dists[2], 1.0, "хвост очереди — единица")
+	# При единственном слоте дистанция должна быть нулём, а не NaN:
+	# на NaN не проходит ни одно сравнение с порогом, и цель всегда «потеряна».
+	var d: float = built.objects[0].dist_norm
+	t.check(not is_nan(d), "дистанция не NaN при единственном слоте")
+	t.almost(d, 0.0, "место у прилавка — дистанция ноль")
 
 	# рыцарь вне очереди в сцену не попадает
 	var off := Knight.new(99, PN.Potion.HEALING, PN.Cloak.RED, 8)
 	s.knights.append(off)
-	t.eq(SceneView.from_state(s).objects.size(), 3, "рыцарь без слота невидим")
+	t.eq(SceneView.from_state(s).objects.size(), 1, "рыцарь без слота невидим")
 
 	# волк и монета
 	s.wolf_distance = 4
 	s.coins_in_flight.append(101)
 	var full := SceneView.from_state(s)
-	t.eq(full.objects.size(), 5, "волк и монета добавились")
+	t.eq(full.objects.size(), 3, "к покупателю добавились нежить и монета")
 	for obj in full.objects:
 		if obj.kind == &"wolf":
 			t.almost(obj.occlusion, 0.35, "волк перекрыт кромкой леса")

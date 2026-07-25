@@ -75,7 +75,9 @@ func run(t: AssertBag) -> void:
 	var tr2: Array[Track] = p2[1]
 	var wrong := Actions.give(g2, tr2, tr2[0].track_id, 0)
 	t.check(wrong.ok, "выдача не того зелья всё равно тратит ход")
-	t.eq(g2.knights[0].patience, 5, "терпение упало на три")
+	# Времени на обслуживание не отведено: рыцарь дождётся нужного зелья.
+	t.eq(g2.knights.size(), 1, "рыцарь остался ждать")
+	t.eq(g2.misses, 1, "засчитана ошибка")
 	t.eq(g2.counter.size(), 0, "зелье потрачено впустую")
 	t.check(_has(wrong.events, &"POTION_REFUSED"), "породилось событие отказа")
 	t.eq(g2.coins_in_flight.size(), 0, "монеты нет")
@@ -96,8 +98,8 @@ func run(t: AssertBag) -> void:
 	ft3.force_switch(1, 2)
 	var swapped := Actions.give(g3, tr3, id_a, 0)
 	t.check(swapped.ok, "выдача по подменённому треку проходит")
-	t.eq(g3.knight_by_id(1).patience, 8, "первый рыцарь ничего не получил")
-	t.eq(g3.knight_by_id(2).patience, 5, "зелье ушло второму и не подошло ему")
+	t.eq(g3.knights.size(), 2, "оба рыцаря на месте: зелье ушло не тому")
+	t.eq(g3.misses, 1, "ошибка засчитана")
 
 	t.check(not Actions.give(g3, tr3, 9999, 0).ok, "по чужому номеру трека выдать нельзя")
 	t.check(not Actions.give(g3, tr3, id_a, 77).ok, "с несуществующего слота прилавка тоже")

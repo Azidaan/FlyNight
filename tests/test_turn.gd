@@ -44,7 +44,7 @@ func run(t: AssertBag) -> void:
 	t.eq(murk.coins_in_flight.size(), 0, "но список всё равно очищен")
 	t.check(_has(r1.events, &"COIN_LOST"), "событие потери")
 
-	# ── терпение и уход ───────────────────────────────────────
+	# ── покупатель ждёт сколько угодно ────────────────────────
 	var s := GameState.new(31)
 	# номер заведомо далёкий: автоматически приходящие рыцари нумеруются
 	# с next_knight_id, и совпадение номеров спутало бы проверку
@@ -54,12 +54,11 @@ func run(t: AssertBag) -> void:
 
 	Turn.world_turn(s, _tracker())
 	t.eq(s.turn, 1, "номер хода вырос")
-	t.eq(s.knight_by_id(900).patience, 1, "терпение упало")
 
-	var r := Turn.world_turn(s, _tracker())
-	t.eq(s.knight_by_id(900), null, "терпение кончилось, рыцарь ушёл")
-	t.eq(s.misses, 1, "засчитан промах")
-	t.check(_has(r.events, &"KNIGHT_LEAVES_ANGRY"), "событие ухода")
+	for i in range(8):
+		Turn.world_turn(s, _tracker())
+	t.check(s.knight_by_id(900) != null, "рыцарь дождётся: таймеров обслуживания нет")
+	t.eq(s.misses, 0, "ошибок не засчитано — его никто не обслуживал неверно")
 
 	# ── фонарь догорает ───────────────────────────────────────
 	var s2 := GameState.new(32)
@@ -77,32 +76,29 @@ func run(t: AssertBag) -> void:
 	Turn.world_turn(s3, _tracker())
 	t.eq(s3.wolf_distance, 1, "при фонаре волк шагает вдвое")
 
+	# нежить тащит монеты — единственный источник напряжения в ночи
 	var s4 := GameState.new(34)
 	s4.wolf_distance = 1
-	s4.counter.append(PN.Potion.HEALING)
+	s4.coins = 12
 	var r4 := Turn.world_turn(s4, _tracker())
-	t.eq(s4.counter.size(), 0, "зелье украдено")
-	t.eq(s4.wolf_distance, -1, "волк убежал с добычей")
+	t.check(s4.coins < 12, "скелет унёс часть монет")
+	t.eq(s4.wolf_distance, -1, "скелет убежал с добычей")
 	t.check(_has(r4.events, &"WOLF_STEALS"), "событие кражи")
 
-	# волк доходит до пустого прилавка и всё равно убегает
+	# с пустым кошельком красть нечего, но уходит он всё равно
 	var s4b := GameState.new(340)
 	s4b.wolf_distance = 1
 	var r4b := Turn.world_turn(s4b, _tracker())
-	t.eq(s4b.wolf_distance, -1, "с пустого прилавка волк тоже уходит")
+	t.eq(s4b.coins, 0, "в минус кошелёк не уходит")
+	t.eq(s4b.wolf_distance, -1, "с пустого прилавка скелет тоже уходит")
 	t.check(_has(r4b.events, &"WOLF_STEALS"), "событие всё равно есть")
 
-	# ── провал по трём промахам ───────────────────────────────
+	# ── проигрыша нет ─────────────────────────────────────────
 	var s5 := GameState.new(35)
-	s5.misses = 2
-	var k5 := Knight.new(1, PN.Potion.HEALING, PN.Cloak.RED, 1)
-	k5.slot = 0
-	s5.knights.append(k5)
-	var r5 := Turn.world_turn(s5, _tracker())
-	t.eq(s5.misses, 3, "третий промах")
-	t.check(s5.finished, "ночь закончена")
-	t.eq(s5.outcome, "failed", "исход — провал")
-	t.check(_has(r5.events, &"NIGHT_FAILED"), "событие провала")
+	s5.misses = 9
+	for i in range(12):
+		Turn.world_turn(s5, _tracker())
+	t.check(not s5.finished, "накопленные ошибки ночь не обрывают")
 
 	# ── рассвет ───────────────────────────────────────────────
 	var s6 := GameState.new(36)

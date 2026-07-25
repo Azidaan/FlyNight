@@ -23,8 +23,12 @@ static func from_state(s: GameState) -> SceneView:
 	for k in s.knights:
 		if k.slot < 0:
 			continue
-		# слот 0 у самого прилавка, слот 2 в хвосте очереди
-		var dist := float(k.slot) / float(PN.QUEUE_SLOTS - 1)
+		# Слот 0 у самого прилавка. При единственном слоте делить не на что —
+		# без этой защиты получался NaN, и КАЖДЫЙ покупатель считался
+		# потерянным, потому что NaN не проходит ни одно сравнение с порогом.
+		var dist := 0.0
+		if PN.QUEUE_SLOTS > 1:
+			dist = float(k.slot) / float(PN.QUEUE_SLOTS - 1)
 		var o := SceneObject.new(k.id, &"knight", dist, 0.0)
 		o.cloak = k.cloak
 		o.order = k.order

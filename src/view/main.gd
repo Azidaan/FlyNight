@@ -31,6 +31,8 @@ const WALK_SPEED := 2.3
 const ROAD_ENTRY_S := 34.0
 const ROAD_EXIT_S := -46.0
 const ROAD_MEET_S := 1.5      # где сходят с дороги к прилавку
+## Куда встаёт зевака: сбоку от обслуживаемого, чтобы не лезть в кадр к нему.
+const BROWSE_SPOT := Vector3(-3.4, 0.0, -4.0)
 const PASSER_PERIOD := 7.0
 const PASSER_LIMIT := 3
 
@@ -206,13 +208,13 @@ func _describe(e: GameEvent) -> String:
 		&"ROCK_MISSED":
 			return "✗ Промах — трекер потерял волка, кидал вслепую. Ход потрачен."
 		&"WOLF_APPEARS":
-			return "В темноте загорелись глаза. Волк близко."
+			return "В темноте загорелись глаза. Скелет близко."
 		&"WOLF_STEPS":
-			return "Волк подкрался ближе (дистанция %d)." % d["distance"]
+			return "Скелет подкрался ближе (дистанция %d)." % d["distance"]
 		&"WOLF_STEALS":
-			if d["potion"] < 0:
-				return "✗ Волк дошёл до прилавка, но красть было нечего."
-			return "✗ Волк утащил зелье %s!" % PN.potion_name(d["potion"])
+			if d["coins"] <= 0:
+				return "Скелет дошёл до прилавка, но красть было нечего."
+			return "✗ Скелет утащил %d монет!" % d["coins"]
 		&"WOLF_FLEES":
 			return "Волк скрылся в темноте."
 		&"TRACKER_RESET":
@@ -469,8 +471,41 @@ func _spawn_passer() -> void:
 	_next_passer_track += 1
 	_passer_tracks[actor.get_instance_id()] = tr
 
-	var tw := _road_walk(actor, s_from, s_to, lane)
-	tw.tween_callback(actor.queue_free)
+	# Часть прохожих сворачивает поглазеть на товар и идёт дальше своей дорогой.
+	if randf() < 0.4:
+		_browse_then_leave(actor, s_from, s_to, lane)
+	else:
+		var tw := _road_walk(actor, s_from, s_to, lane)
+		tw.tween_callback(actor.queue_free)
+
+## Зевака: доходит до лавки, стоит и смотрит на прилавок, потом возвращается
+## на дорогу и уходит куда шёл. Покупателем не становится — трекер видит
+## его так же, как всех, но игре до него дела нет.
+func _browse_then_leave(actor: Node3D, s_from: float, s_to: float, lane: float) -> void:
+	var look_spot := BROWSE_SPOT
+	var to_road := _road_walk(actor, s_from, ROAD_MEET_S, lane)
+
+	to_road.finished.connect(func() -> void:
+		if not is_instance_valid(actor):
+			return
+		var approach := _walk(actor, look_spot, true)
+
+		approach.finished.connect(func() -> void:
+			if not is_instance_valid(actor):
+				return
+			var stare := create_tween()
+			stare.tween_interval(randf_range(3.5, 7.0))
+
+			stare.finished.connect(func() -> void:
+				if not is_instance_valid(actor):
+					return
+				var back := _walk(actor, SceneBuilder.road_point(ROAD_MEET_S), false)
+
+				back.finished.connect(func() -> void:
+					if not is_instance_valid(actor):
+						return
+					var away := _road_walk(actor, ROAD_MEET_S, s_to, lane)
+					away.tween_callback(actor.queue_free)))))
 
 ## Уверенность по прохожему считается той же формулой, что у FakeTracker:
 ## для трекера он такая же цель, просто игре до него дела нет.
@@ -591,7 +626,7 @@ func _status_text() -> String:
 	var lines: Array[String] = []
 	lines.append("НОЧЬ  ход %d из %d" % [state.turn, PN.NIGHT_TURNS])
 	lines.append("монеты   %d" % state.coins)
-	lines.append("промахи  %d из %d" % [state.misses, PN.MAX_MISSES])
+	lines.append("ошибок   %d" % state.misses)
 	lines.append("")
 	lines.append("дождь  %s" % _bar(state.rain()))
 	lines.append("тьма   %s" % _bar(state.dark()))

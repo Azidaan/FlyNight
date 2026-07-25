@@ -3,7 +3,9 @@ extends RefCounted
 
 ## Ход мира: то, что происходит после каждой разыгранной карты.
 
-const ARRIVAL_CHANCE := 0.45
+## Обслуживание по одному, поэтому место освобождается редко — и когда
+## освободилось, следующий подходит почти сразу, а не через полночи.
+const ARRIVAL_CHANCE := 0.85
 const WOLF_BASE_CHANCE := 0.10
 const WOLF_DARK_FACTOR := 0.25
 const WOLF_START_DISTANCE := 6
@@ -34,7 +36,6 @@ static func world_turn(s: GameState, tracker: FakeTracker) -> ActionResult:
 	var wolf_was_absent := s.wolf_distance < 0
 
 	resolve_coins(s, tracker.update(SceneView.from_state(s)), r)
-	_tick_patience(s, r)
 	_tick_lantern(s, r)
 	_step_wolf(s, r)
 	_advance_queue(s, r)
@@ -51,15 +52,6 @@ static func world_turn(s: GameState, tracker: FakeTracker) -> ActionResult:
 	_check_end(s, r)
 	return r
 
-static func _tick_patience(s: GameState, r: ActionResult) -> void:
-	# обход по копии: удаление из массива во время итерации пропускает элементы
-	for k in s.knights.duplicate():
-		k.patience -= 1
-		if k.patience <= 0:
-			s.knights.erase(k)
-			s.misses += 1
-			r.emit(&"KNIGHT_LEAVES_ANGRY", {"knight": k.id, "slot": k.slot})
-
 static func _tick_lantern(s: GameState, r: ActionResult) -> void:
 	if s.lantern_turns > 0:
 		s.lantern_turns -= 1
@@ -74,13 +66,11 @@ static func _step_wolf(s: GameState, r: ActionResult) -> void:
 		r.emit(&"WOLF_STEPS", {"distance": s.wolf_distance})
 		return
 
-	if not s.counter.is_empty():
-		var idx := s.rng.randi_range(0, s.counter.size() - 1)
-		var stolen: int = s.counter[idx]
-		s.counter.remove_at(idx)
-		r.emit(&"WOLF_STEALS", {"potion": stolen})
-	else:
-		r.emit(&"WOLF_STEALS", {"potion": -1})
+	# Нежить тащит МОНЕТЫ. Это единственный источник напряжения в ночи:
+	# ни терпения, ни таймеров обслуживания больше нет.
+	var loot: int = mini(s.coins, s.rng.randi_range(2, 5))
+	s.coins -= loot
+	r.emit(&"WOLF_STEALS", {"coins": loot})
 	s.wolf_distance = -1
 	r.emit(&"WOLF_FLEES", {})
 
@@ -125,12 +115,9 @@ static func _maybe_wolf_appears(s: GameState, r: ActionResult) -> void:
 		s.wolf_distance = WOLF_START_DISTANCE
 		r.emit(&"WOLF_APPEARS", {"distance": WOLF_START_DISTANCE})
 
+## Ночь кончается только рассветом: проигрыша нет, есть заработок.
 static func _check_end(s: GameState, r: ActionResult) -> void:
-	if s.misses >= PN.MAX_MISSES:
-		s.finished = true
-		s.outcome = "failed"
-		r.emit(&"NIGHT_FAILED", {"coins": s.coins})
-	elif s.turn >= PN.NIGHT_TURNS:
+	if s.turn >= PN.NIGHT_TURNS:
 		s.finished = true
 		s.outcome = "dawn"
 		r.emit(&"DAWN", {"coins": s.coins})
