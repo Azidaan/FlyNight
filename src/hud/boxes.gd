@@ -102,6 +102,9 @@ func _label_for(tr: Track) -> String:
 		return "#%d · ?? · %.2f" % [tr.track_id, tr.conf]
 	if tr.kind == &"coin":
 		return "#%d · монета · %.2f" % [tr.track_id, tr.conf]
+	if tr.kind == &"passer":
+		# Прохожий: трекер его видит, но к лавке он не идёт.
+		return "#%d · %.2f · прохожий" % [tr.track_id, tr.conf]
 	if tr.state == PN.TrackState.LOST:
 		return "#%d · ПОТЕРЯН · %.2f" % [tr.track_id, tr.conf]
 	return "#%d · %.2f · %s · %s" % [

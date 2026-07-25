@@ -18,11 +18,16 @@ var _actors: Dictionary = {}    # id покупателя -> Node3D, переж�
 var _undead: Node3D = null
 var _passers: Array[Node3D] = []
 var _passer_timer := 3.0
+## Прохожие не участвуют в игре, но трекер их видит — как увидит и сеть,
+## когда фейковый источник заменят настоящим. Треки для них живут здесь,
+## а не в мире: на механику они не влияют.
+var _passer_tracks: Dictionary = {}   # instance_id -> Track
+var _next_passer_track := 900
 
 ## Скорость шага в единицах пака в секунду. Длительность любого перехода
 ## считается ОТ РАССТОЯНИЯ: фиксированная длительность на путь от края кадра
 ## давала тринадцать метров в секунду, и персонаж не шёл, а летел.
-const WALK_SPEED := 3.4
+const WALK_SPEED := 2.3
 const ROAD_ENTRY_S := 34.0
 const ROAD_EXIT_S := -46.0
 const ROAD_MEET_S := 1.5      # где сходят с дороги к прилавку
@@ -67,8 +72,8 @@ func _shoot_and_quit() -> void:
 	state.wolf_distance = 3
 	tracks = tracker.update(SceneView.from_state(state))
 	_redraw()
-	# Ждём, пока покупатели дойдут: путь от замка занимает около десяти секунд.
-	await get_tree().create_timer(13.0).timeout
+	# Ждём, пока покупатели дойдут и заговорят: путь от замка небыстрый.
+	await get_tree().create_timer(24.0).timeout
 	var img := get_viewport().get_texture().get_image()
 	var err := img.save_png("res://tools/shot.png")
 	print("снимок: ", "res://tools/shot.png" if err == OK else "ОШИБКА %d" % err)
@@ -271,19 +276,24 @@ func _sync_customers() -> void:
 			actor.position = SceneBuilder.road_point(start_s)
 			slots.add_child(actor)
 			_actors[k.id] = actor
-			_attach_truth(actor)
 
 			var spot := target
 			var walking := actor
+			var guest := k
 			var arrive := _road_walk(actor, start_s, ROAD_MEET_S, lane)
 			arrive.finished.connect(func() -> void:
-				if is_instance_valid(walking):
-					_walk(walking, spot, true))
+				if not is_instance_valid(walking):
+					return
+				var step := _walk(walking, spot, true)
+				# Заказ называется, когда дошёл до прилавка, а не через
+				# полкарты — иначе реплика висит над идущей фигурой.
+				step.finished.connect(func() -> void:
+					if is_instance_valid(walking):
+						_say_order(walking, guest)))
 		elif actor.position.distance_to(target) > 0.25:
 			_walk(actor, target, true)
 
 		_node_of[k.id] = actor
-		_update_truth(actor, k)
 
 	for id in _actors.keys():
 		if alive.has(id):
@@ -421,6 +431,8 @@ func _process(delta: float) -> void:
 	for p in _passers:
 		if is_instance_valid(p):
 			live.append(p)
+		else:
+			_passer_tracks.erase(p.get_instance_id())
 	_passers = live
 
 	if state == null or state.finished:
@@ -446,38 +458,84 @@ func _spawn_passer() -> void:
 	# Плюс небольшой разброс по полосе, чтобы попутные не шли ровной ниткой.
 	var lane := (1.6 if to_castle else -1.6) + randf_range(-0.8, 0.8)
 
-	var actor := CustomerActor.spawn(randi() % 997, _cloak_color(randi() % PN.Cloak.size()))
+	var cloak := randi() % PN.Cloak.size()
+	var actor := CustomerActor.spawn(randi() % 997, _cloak_color(cloak))
 	actor.position = SceneBuilder.road_point(s_from)
 	slots.add_child(actor)
 	_passers.append(actor)
 
+	var tr := Track.new(_next_passer_track, &"passer", -1)
+	tr.remembered_cloak = cloak
+	_next_passer_track += 1
+	_passer_tracks[actor.get_instance_id()] = tr
+
 	var tw := _road_walk(actor, s_from, s_to, lane)
 	tw.tween_callback(actor.queue_free)
 
-# ── табличка правды ───────────────────────────────────────────
+## Уверенность по прохожему считается той же формулой, что у FakeTracker:
+## для трекера он такая же цель, просто игре до него дела нет.
+func _passer_conf(node: Node3D) -> float:
+	var dist := camera.global_position.distance_to(node.global_position)
+	var dist_norm: float = clampf(dist / 46.0, 0.0, 1.0)
+	var dark_factor := 0.25 if state.lantern_on() else 1.0
+	var c := 1.0
+	c -= 0.30 * state.rain()
+	c -= 0.35 * state.dark() * dark_factor
+	c -= 0.20 * dist_norm
+	return clampf(c, 0.0, 1.0)
 
-func _attach_truth(actor: Node3D) -> void:
-	var truth := Label3D.new()
-	truth.name = "Truth"
-	truth.font_size = 40
-	truth.pixel_size = 0.0038
-	truth.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-	truth.modulate = Color(0.66, 0.66, 0.72)
-	truth.outline_modulate = Color(0, 0, 0, 0.9)
-	truth.outline_size = 10
-	truth.no_depth_test = true
-	# У ног, а не над головой: сверху висит подпись трекера, и две надписи
-	# об одном персонаже дрались за одно место. Смещения вперёд нет —
-	# иначе она бы качалась при развороте актёра.
-	truth.position = Vector3(0.0, 0.3, 0.0)
-	actor.add_child(truth)
+# ── реплика ───────────────────────────────────────────────────
 
-func _update_truth(actor: Node3D, k: Knight) -> void:
-	var truth := actor.get_node_or_null("Truth") as Label3D
-	if truth == null:
-		return
-	truth.text = "правда: %s / %s\nтерпение %d" % [
-		PN.cloak_name(k.cloak), PN.potion_name(k.order), k.patience]
+const GREETINGS := [
+	"Мне бы зелья %s, хозяин.",
+	"Налей зелья %s.",
+	"Ищу зелье %s. Найдётся?",
+	"Зелья %s, и поживее.",
+]
+
+## Заказ называется ОДИН РАЗ, при подходе. Дальше рыцарь молчит, и игрок
+## полагается на панель трекера — а она может соврать. Поэтому диалог
+## не отменяет механику подмены ID, а даёт против неё память.
+func _say_order(actor: Node3D, k: Knight) -> void:
+	var old := actor.get_node_or_null("Bubble")
+	if old != null:
+		old.queue_free()
+
+	var bubble := Node3D.new()
+	bubble.name = "Bubble"
+	# Выше подписей рамок: на высоте головы реплика налезала на них.
+	bubble.position = Vector3(0.0, 5.2, 0.0)
+
+	var back := MeshInstance3D.new()
+	var quad := QuadMesh.new()
+	quad.size = Vector2(4.6, 1.1)
+	back.mesh = quad
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(0.07, 0.065, 0.055, 0.92)
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+	mat.no_depth_test = true
+	back.material_override = mat
+	bubble.add_child(back)
+
+	var label := Label3D.new()
+	label.text = GREETINGS[k.id % GREETINGS.size()] % PN.potion_name(k.order)
+	label.font_size = 44
+	label.pixel_size = 0.0058
+	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	label.no_depth_test = true
+	label.modulate = Color(0.96, 0.92, 0.82)
+	label.outline_size = 12
+	label.outline_modulate = Color(0.0, 0.0, 0.0, 0.95)
+	label.position = Vector3(0.0, 0.0, 0.03)
+	bubble.add_child(label)
+
+	actor.add_child(bubble)
+
+	var tw := create_tween()
+	tw.tween_interval(6.0)
+	tw.tween_callback(bubble.queue_free)
 
 func _make_box(size: Vector3, colour: Color) -> MeshInstance3D:
 	var node := MeshInstance3D.new()
@@ -512,6 +570,19 @@ func _push_boxes() -> void:
 		var centre := node.global_position
 		centre.y += size.y * 0.5
 		list.append({"pos": centre, "size": size, "track": tr})
+
+	for p in _passers:
+		if not is_instance_valid(p):
+			continue
+		var pt: Track = _passer_tracks.get(p.get_instance_id())
+		if pt == null:
+			continue
+		pt.conf = _passer_conf(p)
+		pt.refresh_state()
+		var c := p.global_position
+		c.y += KNIGHT_SIZE.y * 0.5
+		list.append({"pos": c, "size": KNIGHT_SIZE, "track": pt})
+
 	boxes.set_entries(camera, list, _selected_track_id())
 
 # ── тексты панелей ────────────────────────────────────────────
