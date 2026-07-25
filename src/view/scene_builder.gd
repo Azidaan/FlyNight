@@ -50,66 +50,76 @@ const SLOTS := [
 
 const WOLF_LANE_X := -5.0
 
+## Дорога идёт по x около нуля вглубь, к воротам замка. Лавка стоит
+## на обочине, покупатели подходят по дороге.
+const ROAD_HALF_WIDTH := 7.0
+const ROAD_FAR := -52.0
+
 static func build(root: Node3D) -> void:
 	_ground(root)
+	_road(root)
 	_castle(root)
-	_ridges(root)
 	_forest(root)
 	_counter(root)
 	_dressing(root)
 
 static func _ground(root: Node3D) -> void:
-	for ix in range(-3, 4):
-		for iz in range(-4, 2):
+	var plane := MeshInstance3D.new()
+	var mesh := PlaneMesh.new()
+	mesh.size = Vector2(260.0, 260.0)
+	plane.mesh = mesh
+	plane.position = Vector3(0.0, -0.05, -60.0)
+	var mat := StandardMaterial3D.new()
+	mat.albedo_color = Color(0.20, 0.31, 0.15)
+	mat.roughness = 1.0
+	plane.material_override = mat
+	root.add_child(plane)
+
+static func _road(root: Node3D) -> void:
+	for iz in range(-13, 3):
+		for ix in range(-1, 2):
 			_put(root, FLOOR, Vector3(ix * TILE, 0.0, iz * TILE))
 
 ## Замок справа, как на наброске. Отодвинут и укрупнён: в родном масштабе
 ## гекс-пака он был бы по пояс покупателю.
 static func _castle(root: Node3D) -> void:
-	_put(root, CASTLE, Vector3(26.0, 3.0, -40.0), -PI * 0.28, 9.0)
-	_put(root, TOWER_A, Vector3(13.0, 1.5, -30.0), 0.4, 7.0)
-	_put(root, TOWER_B, Vector3(40.0, 4.0, -54.0), -0.2, 8.0)
-	_put(root, TOWER_A, Vector3(21.0, 5.0, -62.0), 0.9, 6.5)
+	# Замок стоит воротами в створе дороги и должен нависать, а не маячить
+	# точкой на горизонте — как врата Штормграда в референсе.
+	_put(root, CASTLE, Vector3(3.0, 0.0, ROAD_FAR - 8.0), 0.0, 13.0)
+	_put(root, TOWER_B, Vector3(-13.0, 0.0, ROAD_FAR + 4.0), 0.0, 11.0)
+	_put(root, TOWER_B, Vector3(17.0, 0.0, ROAD_FAR + 4.0), 0.0, 11.0)
+	_put(root, TOWER_A, Vector3(-26.0, 0.0, ROAD_FAR - 6.0), 0.3, 9.0)
+	_put(root, TOWER_A, Vector3(30.0, 0.0, ROAD_FAR - 6.0), -0.3, 9.0)
 
-## Три гряды, уходящие влево и вдаль — зелёная, синяя, фиолетовая с наброска.
-## Дальние тонут в тумане сами, отдельного осветления не требуется.
-static func _ridges(root: Node3D) -> void:
-	# Ярусы поднимаются по Y: без этого гряды сливались в одну плоскую полосу,
-	# а на наброске они отчётливо стоят друг над другом.
-	for i in range(7):
-		_put(root, HILLS_NEAR, Vector3(-10.0 - i * 12.0, 1.0, -26.0 - i * 2.0),
-			i * 0.7, 7.0)
-	for i in range(7):
-		_put(root, HILLS_MID, Vector3(-2.0 - i * 15.0, 4.5, -48.0 - i * 3.0),
-			i * 1.1, 10.0)
-	for i in range(6):
-		_put(root, MOUNTAIN_A if i % 2 == 0 else MOUNTAIN_C,
-			Vector3(2.0 - i * 22.0, 9.0, -78.0 - i * 4.0), i * 0.5, 15.0)
-	for i in range(3):
-		_put(root, HILLS_FAR, Vector3(34.0 + i * 20.0, 3.0, -60.0 - i * 6.0),
-			i * 0.8, 10.0)
-
-## Лес среднего плана: кромка, из которой выходит нежить.
+## Густой лес по обе стороны дороги. Гор нет намеренно: в референсе
+## (Элвиннский лес) горизонт закрывает именно лес, а не хребты.
 static func _forest(root: Node3D) -> void:
-	# Лес разведён по краям: сплошной стеной он закрывал гряды,
-	# и глубина, ради которой всё затевалось, пропадала.
-	var spots := [
-		Vector3(-17.0, 0.0, -13.0), Vector3(-23.0, 0.0, -18.0),
-		Vector3(-29.0, 0.0, -13.0), Vector3(-21.0, 0.0, -24.0),
-		Vector3(-33.0, 0.0, -21.0), Vector3(-15.0, 0.0, -20.0),
-		Vector3(17.0, 0.0, -16.0), Vector3(23.0, 0.0, -22.0),
-		Vector3(14.0, 0.0, -24.0),
-	]
-	var kinds := [TREES_A_LARGE, TREES_B_LARGE, TREES_A_MED, TREES_B_MED]
-	for i in range(spots.size()):
-		_put(root, kinds[i % kinds.size()], spots[i], float(i) * 0.9, 4.5)
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 20260725   # сцена должна быть одинаковой при каждом запуске
 
-	# одиночные деревья ближе, чтобы кромка не обрывалась стеной
-	for spot in [Vector3(-9.5, 0.0, -10.5), Vector3(-13.5, 0.0, -8.0),
-			Vector3(9.5, 0.0, -12.0)]:
-		_put(root, TREE_A if spot.x < 0.0 else TREE_B, spot, spot.z, 3.2)
+	var groves := [TREES_A_LARGE, TREES_B_LARGE, TREES_A_MED, TREES_B_MED]
+	var singles := [TREE_A, TREE_B]
 
-	for spot in [Vector3(-7.0, 0.0, -9.0), Vector3(7.5, 0.0, -9.5)]:
+	for i in range(150):
+		var z := rng.randf_range(6.0, ROAD_FAR - 26.0)
+		var x: float = ROAD_HALF_WIDTH + rng.randf_range(1.0, 48.0)
+		if rng.randf() < 0.5:
+			x = -x
+
+		var far := z < -26.0
+		var scene: PackedScene = groves[rng.randi() % groves.size()] if far \
+			else singles[rng.randi() % singles.size()]
+		var factor := rng.randf_range(4.5, 7.0) if far else rng.randf_range(3.0, 4.4)
+		_put(root, scene, Vector3(x, 0.0, z), rng.randf() * TAU, factor)
+
+	# сплошная стена леса на горизонте, чтобы за замком не зияла пустота
+	for i in range(46):
+		_put(root, groves[i % groves.size()],
+			Vector3(-112.0 + i * 5.0, 0.0, ROAD_FAR - 30.0 + rng.randf_range(-7.0, 7.0)),
+			rng.randf() * TAU, rng.randf_range(6.0, 8.5))
+
+	for spot in [Vector3(-8.6, 0.0, -9.0), Vector3(9.2, 0.0, -10.5),
+			Vector3(-10.4, 0.0, -2.0)]:
 		_put(root, ROCK_A, spot, spot.x, 4.0)
 
 static func _counter(root: Node3D) -> void:
