@@ -334,8 +334,12 @@ static func _forest(root: Node3D) -> void:
 		if Vector2(hx - CASTLE_POS.x, hz - CASTLE_POS.z).length() < CASTLE_CLEAR + 8.0:
 			continue
 		var hill: PackedScene = [HILL_TREES_A, HILL_TREES_B, HILL_TREES_C][rng.randi() % 3]
-		_put(root, hill, Vector3(hx, rng.randf_range(-1.0, 5.0), hz),
-			rng.randf() * TAU, rng.randf_range(11.0, 20.0))
+		var f := rng.randf_range(11.0, 20.0)
+		# Это шестиугольные плитки с толстым основанием. Поднятые над землёй,
+		# они торчали из леса кубами — топим так, чтобы осталась только
+		# вершина с деревьями. Высота плитки в родном масштабе ~1.33.
+		var sink := -1.33 * f * 0.62
+		_put(root, hill, Vector3(hx, sink, hz), rng.randf() * TAU, f)
 
 	# Чаща куртинами, а не ровной россыпью: у каждой куртины свой ярус высоты,
 	# оттого кроны стоят на разных уровнях и лес перестаёт быть гребёнкой
