@@ -19,13 +19,14 @@ var _undead: Node3D = null
 var _passers: Array[Node3D] = []
 var _passer_timer := 3.0
 
-## Длительности переходов. Приход дольше ухода: гость идёт от края кадра,
-## а уходящий уже стоит рядом.
-const WALK_ARRIVE := 2.6
-const WALK_SHIFT := 1.1
-const WALK_LEAVE := 3.2
+## Скорость шага в единицах пака в секунду. Длительность любого перехода
+## считается ОТ РАССТОЯНИЯ: фиксированная длительность на путь от края кадра
+## давала тринадцать метров в секунду, и персонаж не шёл, а летел.
+const WALK_SPEED := 3.4
+const ROAD_ENTRY_S := 34.0
+const ROAD_EXIT_S := -46.0
+const ROAD_MEET_S := 1.5      # где сходят с дороги к прилавку
 const PASSER_PERIOD := 7.0
-const PASSER_TRAVEL := 26.0
 const PASSER_LIMIT := 3
 
 @onready var camera: Camera3D = $Camera3D
@@ -66,7 +67,8 @@ func _shoot_and_quit() -> void:
 	state.wolf_distance = 3
 	tracks = tracker.update(SceneView.from_state(state))
 	_redraw()
-	await get_tree().create_timer(1.2).timeout
+	# Ждём, пока покупатели дойдут: путь от замка занимает около десяти секунд.
+	await get_tree().create_timer(13.0).timeout
 	var img := get_viewport().get_texture().get_image()
 	var err := img.save_png("res://tools/shot.png")
 	print("снимок: ", "res://tools/shot.png" if err == OK else "ОШИБКА %d" % err)
@@ -260,15 +262,25 @@ func _sync_customers() -> void:
 		var actor: Node3D = _actors.get(k.id)
 
 		if actor == null:
-			# Приходит со стороны замка, из-за края кадра.
+			# Идёт по дороге от замка, у лавки сходит с неё к прилавку.
 			actor = CustomerActor.spawn(k.id, _cloak_color(k.cloak))
-			actor.position = SceneBuilder.road_entry()
+			# Стартовая точка и полоса разбрасываются: несколько покупателей,
+			# вышедших близко по времени, иначе идут слипшись в одну фигуру.
+			var start_s := ROAD_ENTRY_S + randf_range(0.0, 14.0)
+			var lane := 1.6 + randf_range(-0.9, 0.9)
+			actor.position = SceneBuilder.road_point(start_s)
 			slots.add_child(actor)
 			_actors[k.id] = actor
 			_attach_truth(actor)
-			_walk(actor, target, WALK_ARRIVE, true)
+
+			var spot := target
+			var walking := actor
+			var arrive := _road_walk(actor, start_s, ROAD_MEET_S, lane)
+			arrive.finished.connect(func() -> void:
+				if is_instance_valid(walking):
+					_walk(walking, spot, true))
 		elif actor.position.distance_to(target) > 0.25:
-			_walk(actor, target, WALK_SHIFT, true)
+			_walk(actor, target, true)
 
 		_node_of[k.id] = actor
 		_update_truth(actor, k)
@@ -300,7 +312,7 @@ func _sync_undead() -> void:
 		slots.add_child(_undead)
 
 	if _undead.position.distance_to(target) > 0.25:
-		_walk(_undead, target, WALK_SHIFT, true)
+		_walk(_undead, target, true)
 	_node_of[-1] = _undead
 
 ## Зелья и монеты неподвижны, их проще пересоздавать.
@@ -321,55 +333,92 @@ func _sync_props() -> void:
 
 # ── ходьба ────────────────────────────────────────────────────
 
-func _walk(actor: Node3D, to: Vector3, duration: float, face_counter: bool) -> void:
+func _anim_of(actor: Node3D) -> AnimationPlayer:
+	return actor.find_child("AnimationPlayer", true, false) as AnimationPlayer
+
+func _play(actor: Node3D, clip: String) -> void:
+	var anim := _anim_of(actor)
+	if anim != null and anim.has_animation(clip):
+		anim.play(clip)
+
+func _kill_walk(actor: Node3D) -> void:
 	var old = actor.get_meta("walk_tween", null)
 	if old is Tween and old.is_valid():
 		old.kill()
 
-	var anim := actor.find_child("AnimationPlayer", true, false) as AnimationPlayer
-	if anim != null and anim.has_animation("Walking_A"):
-		anim.play("Walking_A")
+## Прямой отрезок — только на короткие расстояния (сход с дороги к прилавку,
+## сдвиг по очереди). Высота берётся от рельефа, иначе персонаж плывёт
+## над землёй на неровностях.
+func _walk(actor: Node3D, to: Vector3, face_counter: bool) -> Tween:
+	_kill_walk(actor)
+	_play(actor, "Walking_A")
 
-	var dir := to - actor.position
+	var target := to
+	target.y = SceneBuilder.ground_height(target.x, target.z)
+	var dir := target - actor.position
 	if dir.length() > 0.05:
 		actor.rotation.y = atan2(dir.x, dir.z)
 
 	var tw := create_tween()
-	tw.tween_property(actor, "position", to, duration) \
-		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tw.tween_property(actor, "position", target,
+		maxf(0.35, dir.length() / WALK_SPEED))
 	actor.set_meta("walk_tween", tw)
 	tw.finished.connect(func() -> void:
 		if not is_instance_valid(actor):
 			return
-		if anim != null and anim.has_animation("Idle"):
-			anim.play("Idle")
+		_play(actor, "Idle")
 		if face_counter:
 			var back := Vector3.ZERO - actor.position
 			actor.rotation.y = atan2(back.x, back.z))
+	return tw
 
-func _walk_away(actor: Node3D) -> void:
-	var old = actor.get_meta("walk_tween", null)
-	if old is Tween and old.is_valid():
-		old.kill()
+## Ход ПО ДУГЕ дороги. Прямая между двумя точками кривой срезает угол
+## и уводит персонажа за обочину и забор — именно так они и «ходили мимо».
+func _road_walk(actor: Node3D, s_from: float, s_to: float, lane: float) -> Tween:
+	_kill_walk(actor)
+	_play(actor, "Walking_A")
 
-	var anim := actor.find_child("AnimationPlayer", true, false) as AnimationPlayer
-	if anim != null and anim.has_animation("Walking_A"):
-		anim.play("Walking_A")
-
-	var exit := SceneBuilder.road_exit()
-	var dir := exit - actor.position
-	if dir.length() > 0.05:
-		actor.rotation.y = atan2(dir.x, dir.z)
+	var forward := 1.0 if s_to > s_from else -1.0
+	var length := 0.0
+	var probe := s_from
+	while absf(probe - s_to) > 2.0:
+		length += (SceneBuilder.road_point(probe + forward * 2.0)
+			- SceneBuilder.road_point(probe)).length()
+		probe += forward * 2.0
 
 	var tw := create_tween()
-	tw.tween_property(actor, "position", exit, WALK_LEAVE)
-	tw.tween_callback(actor.queue_free)
+	tw.tween_method(func(s: float) -> void:
+			if not is_instance_valid(actor):
+				return
+			var here := SceneBuilder.road_point(s)
+			var ahead := SceneBuilder.road_point(s + forward * 1.0)
+			var side := (ahead - here).normalized().cross(Vector3.UP)
+			actor.position = here + side * lane
+			var d := ahead - here
+			actor.rotation.y = atan2(d.x, d.z),
+		s_from, s_to, maxf(0.5, length / WALK_SPEED))
+	actor.set_meta("walk_tween", tw)
+	return tw
+
+func _walk_away(actor: Node3D) -> void:
+	_kill_walk(actor)
+	# Сначала выходит на дорогу, потом уходит по ней — иначе срезает через лес.
+	var tw := _walk(actor, SceneBuilder.road_point(ROAD_MEET_S), false)
+	tw.finished.connect(func() -> void:
+		if not is_instance_valid(actor):
+			return
+		var away := _road_walk(actor, ROAD_MEET_S, ROAD_EXIT_S, -1.6)
+		away.tween_callback(actor.queue_free))
 
 # ── прохожие ──────────────────────────────────────────────────
 
 ## Просто идут мимо: из замка прочь и обратно в замок. К лавке отношения
 ## не имеют, трекер их не берёт — это фон, от которого дорога живая.
 func _process(delta: float) -> void:
+	# Рамки пересчитываются каждый кадр, а не раз в ход: актёры теперь ходят,
+	# и рамка, посчитанная в момент хода, оставалась там, где цель уже не стоит.
+	_push_boxes()
+
 	var live: Array[Node3D] = []
 	for p in _passers:
 		if is_instance_valid(p):
@@ -384,36 +433,27 @@ func _process(delta: float) -> void:
 		return
 
 	# В сумерках и на рассвете дорога людная, глубокой ночью почти пуста.
-	_passer_timer = PASSER_PERIOD / maxf(0.18, 1.0 - state.dark())
+	# Множитель случайный: при ровном периоде прохожие выходили в затылок
+	# друг другу и шли слипшейся группой.
+	_passer_timer = PASSER_PERIOD / maxf(0.18, 1.0 - state.dark()) \
+		* randf_range(0.55, 1.9)
 	if _passers.size() < PASSER_LIMIT:
 		_spawn_passer()
 
 func _spawn_passer() -> void:
 	var to_castle := randf() < 0.5
-	var from_p: Vector3 = SceneBuilder.road_exit() if to_castle \
-		else SceneBuilder.road_entry()
-	var to_p: Vector3 = SceneBuilder.road_entry() if to_castle \
-		else SceneBuilder.road_exit()
-
-	# Каждый держится своей стороны дороги, иначе встречные проходят насквозь.
-	var yaw := SceneBuilder.road_yaw(0.0)
-	var lane := Vector3(cos(yaw), 0.0, -sin(yaw)) * (1.7 if to_castle else -1.7)
+	var s_from := ROAD_EXIT_S if to_castle else ROAD_ENTRY_S
+	var s_to := ROAD_ENTRY_S if to_castle else ROAD_EXIT_S
+	# Каждый держится своей стороны дороги, иначе встречные идут сквозь друг друга.
+	# Плюс небольшой разброс по полосе, чтобы попутные не шли ровной ниткой.
+	var lane := (1.6 if to_castle else -1.6) + randf_range(-0.8, 0.8)
 
 	var actor := CustomerActor.spawn(randi() % 997, _cloak_color(randi() % PN.Cloak.size()))
-	actor.position = from_p + lane
+	actor.position = SceneBuilder.road_point(s_from)
 	slots.add_child(actor)
 	_passers.append(actor)
 
-	var anim := actor.find_child("AnimationPlayer", true, false) as AnimationPlayer
-	if anim != null and anim.has_animation("Walking_A"):
-		anim.play("Walking_A")
-
-	var target := to_p + lane
-	var dir := target - actor.position
-	actor.rotation.y = atan2(dir.x, dir.z)
-
-	var tw := create_tween()
-	tw.tween_property(actor, "position", target, PASSER_TRAVEL)
+	var tw := _road_walk(actor, s_from, s_to, lane)
 	tw.tween_callback(actor.queue_free)
 
 # ── табличка правды ───────────────────────────────────────────
