@@ -28,13 +28,18 @@ fov = 62.0
 [node name="Moon" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.87, -0.32, 0.37, 0, 0.76, 0.65, -0.49, -0.57, 0.66, 0, 12, 0)
 light_color = Color(0.56, 0.66, 0.92, 1)
-light_energy = 0.5
+light_energy = 0.55
+shadow_enabled = true
+directional_shadow_max_distance = 140.0
+shadow_bias = 0.06
 
 [node name="Lantern" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 2.4, 0.8)
 light_color = Color(1, 0.76, 0.4, 1)
 light_energy = 3.4
 omni_range = 12.0
+shadow_enabled = true
+shadow_bias = 0.05
 
 [node name="World" type="Node3D" parent="."]
 
