@@ -337,9 +337,7 @@ func _anim_of(actor: Node3D) -> AnimationPlayer:
 	return actor.find_child("AnimationPlayer", true, false) as AnimationPlayer
 
 func _play(actor: Node3D, clip: String) -> void:
-	var anim := _anim_of(actor)
-	if anim != null and anim.has_animation(clip):
-		anim.play(clip)
+	CustomerActor.play_looping(actor, clip)
 
 func _kill_walk(actor: Node3D) -> void:
 	var old = actor.get_meta("walk_tween", null)

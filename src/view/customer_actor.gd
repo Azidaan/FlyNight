@@ -47,11 +47,20 @@ static func spawn(customer_id: int, cloak_color: Color) -> Node3D:
 	if customer_id % 5 < 3:
 		_give_torch(node)
 
-	var anim: AnimationPlayer = node.find_child("AnimationPlayer", true, false)
-	if anim != null and anim.has_animation("Idle"):
-		anim.play("Idle")
-
+	play_looping(node, "Idle")
 	return node
+
+## Клипы из glTF импортируются БЕЗ зацикливания. Walking_A длится 1.07 с,
+## проигрывался один раз и замирал, а персонаж продолжал ехать ещё десяток
+## секунд — отсюда и застывшие фигуры, скользящие по дороге.
+static func play_looping(node: Node3D, clip: String) -> void:
+	var anim := node.find_child("AnimationPlayer", true, false) as AnimationPlayer
+	if anim == null or not anim.has_animation(clip):
+		return
+	var track := anim.get_animation(clip)
+	if track != null:
+		track.loop_mode = Animation.LOOP_LINEAR
+	anim.play(clip)
 
 ## Факел в руку. В скелете пака есть отдельные кости-слоты под инвентарь —
 ## handslot.l и handslot.r, — поэтому факел едет вместе с анимацией руки,

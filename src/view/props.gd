@@ -37,12 +37,13 @@ static func skeleton() -> Node3D:
 		if m != null:
 			m.visible = false
 
-	var anim: AnimationPlayer = node.find_child("AnimationPlayer", true, false)
-	if anim != null:
-		for clip in ["Walking_A", "Idle"]:
-			if anim.has_animation(clip):
-				anim.play(clip)
-				break
+	# Через play_looping: клипы glTF приходят незациклёнными, и скелет
+	# после одного прохода замирал в позе посреди шага.
+	for clip in ["Walking_A", "Idle"]:
+		var anim := node.find_child("AnimationPlayer", true, false) as AnimationPlayer
+		if anim != null and anim.has_animation(clip):
+			CustomerActor.play_looping(node, clip)
+			break
 	return node
 
 static func _tint_all(node: Node, c: Color, roughness: float, metallic: float) -> void:
