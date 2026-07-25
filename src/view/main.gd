@@ -21,6 +21,8 @@ var _node_of: Dictionary = {}   # object_id -> Node3D
 @onready var status: Label = $HUD/Status
 @onready var panel: Label = $HUD/Panel
 @onready var actions_label: Label = $HUD/Actions
+@onready var status_bg: ColorRect = $HUD/StatusBg
+@onready var panel_bg: ColorRect = $HUD/PanelBg
 
 func _ready() -> void:
 	_new_night(randi() % 100000)
@@ -168,6 +170,19 @@ func _redraw() -> void:
 	panel.text = _panel_text()
 	actions_label.text = _actions_text()
 	_push_boxes()
+	# Фоны подгоняются под содержимое: при длинном логе текст вылезал за блок.
+	# Отложено на кадр — до перерисовки Label ещё не знает своей высоты.
+	call_deferred("_fit_backgrounds")
+
+func _fit_backgrounds() -> void:
+	status_bg.size.y = _text_height(status) + 20.0
+	var wanted: float = _text_height(panel) + 20.0
+	panel_bg.size.y = wanted
+	panel.size.y = wanted - 20.0
+
+func _text_height(label: Label) -> float:
+	# get_content_height() у Label нет — считаем по строкам с учётом переноса
+	return float(label.get_line_count()) * float(label.get_line_height())
 
 func _rebuild_scene() -> void:
 	for c in slots.get_children():

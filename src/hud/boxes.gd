@@ -24,6 +24,15 @@ func _draw() -> void:
 		return
 
 	var font := ThemeDB.fallback_font
+	# Подписи раскладываются по этажам: близкие рыцари давали накладку.
+	# Слева направо, каждая следующая выше — и выноска до своей рамки.
+	var order: Array = entries.duplicate()
+	order.sort_custom(func(a, b):
+		return camera.unproject_position(a["pos"]).x < camera.unproject_position(b["pos"]).x)
+	var floor_of: Dictionary = {}
+	for i in range(order.size()):
+		floor_of[order[i]["track"].track_id] = i
+
 	for e in entries:
 		var world: Vector3 = e["pos"]
 		if camera.is_position_behind(world):
@@ -64,9 +73,20 @@ func _draw() -> void:
 			draw_rect(rect.grow(4.0), COLOR_SELECTED, false, 1.0)
 
 		var label := _label_for(tr)
-		var text_pos := Vector2(rect.position.x, rect.position.y - 8.0)
-		draw_string(font, text_pos + Vector2(1, 1), label,
-			HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color(0, 0, 0, 0.85))
+		var lvl: int = floor_of.get(tr.track_id, 0)
+		var label_y: float = rect.position.y - 12.0 - float(lvl) * 17.0
+		var text_pos := Vector2(rect.position.x, label_y)
+
+		# выноска от подписи к своей рамке, иначе на верхних этажах непонятно,
+		# к кому подпись относится
+		if lvl > 0:
+			draw_line(Vector2(rect.position.x + 2.0, label_y + 4.0),
+				Vector2(rect.position.x + 2.0, rect.position.y - 2.0),
+				Color(col.r, col.g, col.b, 0.5), 1.0)
+
+		var size := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 13)
+		draw_rect(Rect2(text_pos.x - 4.0, label_y - size.y + 1.0,
+			size.x + 8.0, size.y + 4.0), Color(0.04, 0.04, 0.05, 0.78))
 		draw_string(font, text_pos, label,
 			HORIZONTAL_ALIGNMENT_LEFT, -1, 13, col)
 
@@ -76,14 +96,15 @@ func _colour_for(tr: Track) -> Color:
 		PN.TrackState.DRIFTING: return COLOR_DRIFTING
 	return COLOR_LOST
 
+## Коротко: длинные подписи налезали друг на друга при близких рыцарях.
 func _label_for(tr: Track) -> String:
 	if tr.kind == &"wolf":
-		return "#%d  ??  %.2f" % [tr.track_id, tr.conf]
+		return "#%d · ?? · %.2f" % [tr.track_id, tr.conf]
 	if tr.kind == &"coin":
-		return "#%d  монета  %.2f" % [tr.track_id, tr.conf]
+		return "#%d · монета · %.2f" % [tr.track_id, tr.conf]
 	if tr.state == PN.TrackState.LOST:
-		return "#%d  ПОТЕРЯН  %.2f" % [tr.track_id, tr.conf]
-	return "#%d  %.2f  плащ %s  хочет %s" % [
+		return "#%d · ПОТЕРЯН · %.2f" % [tr.track_id, tr.conf]
+	return "#%d · %.2f · %s · %s" % [
 		tr.track_id, tr.conf,
 		PN.cloak_name(tr.remembered_cloak),
 		PN.potion_name(tr.remembered_order)]
