@@ -17,6 +17,8 @@ const BARREL := preload("res://assets/props/barrel_large.glb")
 const BARRELS_SMALL := preload("res://assets/props/barrel_small_stack.glb")
 const CRATES := preload("res://assets/props/crates_stacked.glb")
 const TORCH := preload("res://assets/props/torch_mounted.glb")
+const FENCE := preload("res://assets/props/barrier.glb")
+const FENCE_POST := preload("res://assets/props/barrier_column.glb")
 const STOOL := preload("res://assets/props/stool.glb")
 
 const TREES_A_LARGE := preload("res://assets/hex/nature/trees_A_large.gltf")
@@ -106,10 +108,25 @@ static func dist_to_road(p: Vector3) -> float:
 static func build(root: Node3D) -> void:
 	_ground(root)
 	_road(root)
+	_fence(root)
 	_castle(root)
 	_forest(root)
 	_counter(root)
 	_dressing(root)
+
+## Изгородь по дальней обочине — как в референсе, она держит перспективу
+## и отделяет дорогу от поля.
+static func _fence(root: Node3D) -> void:
+	var s := -70.0
+	while s < 46.0:
+		var yaw := road_yaw(s)
+		var side := Vector3(cos(yaw), 0.0, -sin(yaw))
+		# ДАЛЬНЯЯ обочина: со знаком минус изгородь встала между камерой
+		# и дорогой и загородила всю сцену.
+		var p := road_point(s) + side * (ROAD_HALF_WIDTH + 2.2)
+		p.y = ground_height(p.x, p.z) - 0.15
+		_put(root, FENCE, p, yaw, 1.0)
+		s += 4.0
 
 ## Холмистая земля вместо плоскости: сетка, поднятая по ground_height().
 static func _ground(root: Node3D) -> void:
@@ -213,17 +230,19 @@ static func _castle(root: Node3D) -> void:
 	var side := Vector3(cos(yaw), 0.0, -sin(yaw))
 	var fwd := Vector3(sin(yaw), 0.0, cos(yaw))
 
-	# Замок должен нависать над сценой, а не стоять фигуркой на горизонте.
-	_put(root, CASTLE, gate + fwd * 14.0, yaw, 26.0)
-	_put(root, TOWER_B, gate + side * 26.0, yaw, 21.0)
-	_put(root, TOWER_B, gate - side * 26.0, yaw, 21.0)
+	# Замок — в правом верхнем углу и по большей части ЗА кадром: в референсе
+	# видно только воротную башню и кусок стены, всё остальное поле занимают
+	# трава, дорога и лес. Координаты заданы явно, а не выведены из дуги
+	# дороги: по дуге он выходил ровно в центр экрана.
+	var keep := Vector3(52.0, 0.0, -60.0)
+	var wall_yaw := -0.55
 
-	# Крепостная стена уходит вправо за край кадра — она и делает замок
-	# протяжённым укреплением, а не одиноким домиком.
-	for i in range(5):
-		_put(root, TOWER_A, gate + fwd * (4.0 - i * 5.0) + side * (44.0 + i * 26.0),
-			yaw + 0.12 * i, 18.0 - i * 1.4)
-	_put(root, TOWER_A, gate + fwd * 8.0 - side * 48.0, yaw - 0.2, 16.0)
+	_put(root, CASTLE, keep, wall_yaw, 10.0)
+	_put(root, TOWER_B, keep + Vector3(-17.0, 0.0, 9.0), wall_yaw, 8.5)
+	# стена уходит вправо за край кадра
+	for i in range(4):
+		_put(root, TOWER_A, keep + Vector3(20.0 + i * 19.0, 0.0, -6.0 - i * 9.0),
+			wall_yaw, 8.0)
 
 ## Густой лес по обе стороны дороги. Гор нет намеренно: в референсе
 ## (Элвиннский лес) горизонт закрывает именно лес, а не хребты.
