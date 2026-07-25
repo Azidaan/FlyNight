@@ -3,10 +3,10 @@ extends Node3D
 ## Играбельный срез. Кубы вместо моделей, но рамки трекинга настоящие —
 ## именно они, а не красота, делают игру понятной.
 
-const SLOT_X := [0.0, 1.7, 3.4]
-const SLOT_Z := [-2.2, -3.9, -5.6]
-const KNIGHT_SIZE := Vector3(0.95, 1.75, 0.6)
-const WOLF_SIZE := Vector3(1.0, 0.6, 0.5)
+## Габариты в единицах пака: персонаж ~3.1 в высоту, скелет ~2.2.
+const KNIGHT_SIZE := Vector3(1.5, 3.1, 1.2)
+const WOLF_SIZE := Vector3(1.4, 2.2, 1.0)
+const COUNTER_SLOT_X := [-1.5, -0.5, 0.5, 1.5]
 
 var state: GameState
 var tracker: FakeTracker
@@ -16,6 +16,7 @@ var log_lines: Array[String] = []
 var _node_of: Dictionary = {}   # object_id -> Node3D
 
 @onready var camera: Camera3D = $Camera3D
+@onready var world: Node3D = $World
 @onready var slots: Node3D = $Slots
 @onready var boxes: Control = $HUD/Boxes
 @onready var status: Label = $HUD/Status
@@ -25,7 +26,28 @@ var _node_of: Dictionary = {}   # object_id -> Node3D
 @onready var panel_bg: ColorRect = $HUD/PanelBg
 
 func _ready() -> void:
+	SceneBuilder.build(world)
 	_new_night(randi() % 100000)
+	# Режим автоснимка: даёт посмотреть на сцену, не гоняя игру руками.
+	#   engine\Godot.exe --path . -- --shot
+	if "--shot" in OS.get_cmdline_user_args():
+		_shoot_and_quit()
+
+func _shoot_and_quit() -> void:
+	# Наполняем сцену: на нулевом ходу очередь пуста и смотреть не на что.
+	for i in range(6):
+		Turn.world_turn(state, tracker)
+	Actions.restock(state, PN.Potion.HEALING)
+	Actions.restock(state, PN.Potion.STRENGTH)
+	Actions.restock(state, PN.Potion.COURAGE)
+	state.wolf_distance = 3
+	tracks = tracker.update(SceneView.from_state(state))
+	_redraw()
+	await get_tree().create_timer(1.2).timeout
+	var img := get_viewport().get_texture().get_image()
+	var err := img.save_png("res://tools/shot.png")
+	print("снимок: ", "res://tools/shot.png" if err == OK else "ОШИБКА %d" % err)
+	get_tree().quit(0)
 
 func _new_night(s: int) -> void:
 	state = GameState.new(s)
@@ -192,8 +214,9 @@ func _rebuild_scene() -> void:
 	for k in state.knights:
 		if k.slot < 0:
 			continue
+		var base: Vector3 = SceneBuilder.SLOTS[k.slot]
 		var actor := CustomerActor.spawn(k.id, _cloak_color(k.cloak))
-		actor.position = Vector3(SLOT_X[k.slot], 0.0, SLOT_Z[k.slot])
+		actor.position = base
 		# Модель уже смотрит в +Z, то есть на камеру. Разворот на PI её
 		# отворачивал — оставляем как есть.
 		slots.add_child(actor)
@@ -204,21 +227,35 @@ func _rebuild_scene() -> void:
 		var truth := Label3D.new()
 		truth.text = "правда: %s / %s\nтерпение %d" % [
 			PN.cloak_name(k.cloak), PN.potion_name(k.order), k.patience]
-		truth.font_size = 32
-		truth.pixel_size = 0.0035
+		truth.font_size = 40
+		truth.pixel_size = 0.0038
 		truth.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 		truth.modulate = Color(0.66, 0.66, 0.72)
 		truth.outline_modulate = Color(0, 0, 0, 0.9)
 		truth.outline_size = 10
 		truth.no_depth_test = true
-		truth.position = Vector3(SLOT_X[k.slot], KNIGHT_SIZE.y + 0.45, SLOT_Z[k.slot])
+		# Правда уходит вниз, к ногам: наверху висит подпись трекера, и две
+		# надписи об одном и том же персонаже дрались за одно место.
+		truth.position = base + Vector3(0.0, 0.35, 0.9)
 		slots.add_child(truth)
 
+	for i in range(state.counter.size()):
+		var bottle := Props.bottle(state.counter[i])
+		bottle.position = Vector3(COUNTER_SLOT_X[i] * 1.7, SceneBuilder.COUNTER_TOP, -0.7)
+		slots.add_child(bottle)
+
+	for coin_id in state.coins_in_flight:
+		var coin := Props.coin()
+		coin.position = Vector3(-0.5, SceneBuilder.COUNTER_TOP + 0.15, -1.5)
+		slots.add_child(coin)
+		_node_of[coin_id] = coin
+
 	if state.wolf_distance >= 0:
-		var wolf := _make_box(WOLF_SIZE, Color(0.45, 0.12, 0.12))
-		wolf.position = Vector3(-2.2, WOLF_SIZE.y * 0.5, -1.4 - state.wolf_distance * 0.75)
-		slots.add_child(wolf)
-		_node_of[-1] = wolf
+		var undead := Props.skeleton()
+		undead.position = Vector3(
+			SceneBuilder.WOLF_LANE_X, 0.0, -2.0 - state.wolf_distance * 1.3)
+		slots.add_child(undead)
+		_node_of[-1] = undead
 
 func _make_box(size: Vector3, colour: Color) -> MeshInstance3D:
 	var node := MeshInstance3D.new()
@@ -242,16 +279,16 @@ func _cloak_color(cloak: int) -> Color:
 func _push_boxes() -> void:
 	var list: Array = []
 	for tr in tracks:
-		if tr.kind == &"coin":
-			continue
 		var node: Node3D = _node_of.get(tr.object_id)
 		if node == null:
 			continue
-		var size := WOLF_SIZE if tr.kind == &"wolf" else KNIGHT_SIZE
-		# у рыцаря точка отсчёта в ногах, у куба волка — в центре
+		# У всех моделей пака точка отсчёта в ногах, рамку центрируем сами.
+		var size := KNIGHT_SIZE
+		match tr.kind:
+			&"wolf": size = WOLF_SIZE
+			&"coin": size = Vector3(0.5, 0.4, 0.5)
 		var centre := node.global_position
-		if tr.kind != &"wolf":
-			centre.y += KNIGHT_SIZE.y * 0.5
+		centre.y += size.y * 0.5
 		list.append({"pos": centre, "size": size, "track": tr})
 	boxes.set_entries(camera, list, _selected_track_id())
 

@@ -15,7 +15,9 @@ const MODELS := [
 	preload("res://assets/characters/Rogue_Hooded.glb"),
 ]
 
-const TARGET_HEIGHT := 1.75
+## Масштаб не трогаем: весь пак живёт в одной сетке (4 единицы на тайл,
+## стена 4x4, персонаж ~3.1), поэтому в родных единицах модели сходятся
+## с реквизитом сами. Нормировка роста ломала бы это соответствие.
 
 ## Оставляем только тело, плащ и головной убор. Всё остальное в паке —
 ## мечи, топоры, арбалеты, посохи, щиты, кружка — это оружие в руках,
@@ -36,12 +38,6 @@ static func spawn(customer_id: int, cloak_color: Color) -> Node3D:
 			mi.visible = false
 		elif mi.name.ends_with("_Cape"):
 			_tint(mi, cloak_color)
-
-	# Рост нормируется по фактическим габаритам: если сменим пак,
-	# масштаб не поедет.
-	var box := _combined_aabb(node)
-	if box.size.y > 0.001:
-		node.scale = Vector3.ONE * (TARGET_HEIGHT / box.size.y)
 
 	var anim: AnimationPlayer = node.find_child("AnimationPlayer", true, false)
 	if anim != null and anim.has_animation("Idle"):
