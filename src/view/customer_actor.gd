@@ -41,7 +41,11 @@ static func spawn(customer_id: int, cloak_color: Color) -> Node3D:
 		elif mi.name.ends_with("_Cape"):
 			_tint(mi, cloak_color)
 
-	_give_torch(node)
+	# Факел не у всех: часть путников идёт налегке. Привязано к номеру,
+	# а не к случайности — сцена пересобирается каждый ход, и факел
+	# то появлялся бы, то гас прямо в очереди.
+	if customer_id % 5 < 3:
+		_give_torch(node)
 
 	var anim: AnimationPlayer = node.find_child("AnimationPlayer", true, false)
 	if anim != null and anim.has_animation("Idle"):

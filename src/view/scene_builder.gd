@@ -124,6 +124,32 @@ static func build(root: Node3D) -> void:
 	_forest(root)
 	_counter(root)
 	_dressing(root)
+	_matte(root, {})
+
+## Гасим зеркальный блик по всей статичной сцене.
+##
+## Шероховатости 1.0 мало: в StandardMaterial3D остаётся отдельный параметр
+## metallic_specular со значением 0.5 по умолчанию, и он даёт пластиковый
+## отсвет даже на матовой поверхности. Материалы у пака общие на атлас,
+## поэтому обработанные запоминаем и не трогаем повторно.
+static func _matte(node: Node, seen: Dictionary) -> void:
+	if node is MeshInstance3D:
+		var mi := node as MeshInstance3D
+		var mats: Array = []
+		if mi.material_override != null:
+			mats.append(mi.material_override)
+		if mi.mesh != null:
+			for i in range(mi.mesh.get_surface_count()):
+				mats.append(mi.mesh.surface_get_material(i))
+		for m in mats:
+			if m is BaseMaterial3D and not seen.has(m.get_instance_id()):
+				seen[m.get_instance_id()] = true
+				var b := m as BaseMaterial3D
+				b.roughness = 1.0
+				b.metallic = 0.0
+				b.metallic_specular = 0.0
+	for c in node.get_children():
+		_matte(c, seen)
 
 ## Изгородь по дальней обочине — как в референсе, она держит перспективу
 ## и отделяет дорогу от поля.
