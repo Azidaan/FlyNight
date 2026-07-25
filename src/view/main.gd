@@ -14,6 +14,19 @@ var tracks: Array[Track] = []
 var selected: int = 0
 var log_lines: Array[String] = []
 var _node_of: Dictionary = {}   # object_id -> Node3D
+var _actors: Dictionary = {}    # id покупателя -> Node3D, переживает ход
+var _undead: Node3D = null
+var _passers: Array[Node3D] = []
+var _passer_timer := 3.0
+
+## Длительности переходов. Приход дольше ухода: гость идёт от края кадра,
+## а уходящий уже стоит рядом.
+const WALK_ARRIVE := 2.6
+const WALK_SHIFT := 1.1
+const WALK_LEAVE := 3.2
+const PASSER_PERIOD := 7.0
+const PASSER_TRAVEL := 26.0
+const PASSER_LIMIT := 3
 
 @onready var camera: Camera3D = $Camera3D
 @onready var world: Node3D = $World
@@ -21,6 +34,9 @@ var _node_of: Dictionary = {}   # object_id -> Node3D
 @onready var world_env: WorldEnvironment = $WorldEnvironment
 @onready var moon: DirectionalLight3D = $Moon
 @onready var slots: Node3D = $Slots
+## Зелья и монеты неподвижны — их держим отдельно и пересоздаём целиком,
+## чтобы не мешать актёрам, которые обязаны пережить ход.
+var props_holder: Node3D
 @onready var boxes: Control = $HUD/Boxes
 @onready var status: Label = $HUD/Status
 @onready var panel: Label = $HUD/Panel
@@ -31,6 +47,9 @@ var _node_of: Dictionary = {}   # object_id -> Node3D
 func _ready() -> void:
 	SceneBuilder.build(world)
 	atmosphere.setup(world_env.environment, moon)
+	props_holder = Node3D.new()
+	props_holder.name = "Props"
+	slots.add_child(props_holder)
 	_new_night(randi() % 100000)
 	# Режим автоснимка: даёт посмотреть на сцену, не гоняя игру руками.
 	#   engine\Godot.exe --path . -- --shot
@@ -54,6 +73,15 @@ func _shoot_and_quit() -> void:
 	get_tree().quit(0)
 
 func _new_night(s: int) -> void:
+	# Новая ночь — новые люди: старых актёров убираем разом, без проводов.
+	for c in slots.get_children():
+		if c != props_holder:
+			c.queue_free()
+	_actors.clear()
+	_node_of.clear()
+	_passers.clear()
+	_undead = null
+
 	state = GameState.new(s)
 	tracker = FakeTracker.new(s + 1)
 	tracks = tracker.update(SceneView.from_state(state))
@@ -194,7 +222,7 @@ func _redraw() -> void:
 	# Небо, свет и дождь ведутся теми же числами, что роняют уверенность
 	# трекера, — картинка и механика не расходятся по определению.
 	atmosphere.set_weather(state.rain(), state.dark(), state.turn, PN.NIGHT_TURNS)
-	_rebuild_scene()
+	_sync_scene()
 	status.text = _status_text()
 	panel.text = _panel_text()
 	actions_label.text = _actions_text()
@@ -213,61 +241,205 @@ func _text_height(label: Label) -> float:
 	# get_content_height() у Label нет — считаем по строкам с учётом переноса
 	return float(label.get_line_count()) * float(label.get_line_height())
 
-func _rebuild_scene() -> void:
-	for c in slots.get_children():
-		c.queue_free()
-	_node_of.clear()
+## Сцена больше не пересобирается каждый ход — она синхронизируется.
+## Актёры переживают ход и переходят между позициями, иначе никакой ходьбы
+## быть не может: покупатель, которого сносят и создают заново, всегда
+## возникает из ниоткуда.
+func _sync_scene() -> void:
+	_sync_customers()
+	_sync_undead()
+	_sync_props()
 
+func _sync_customers() -> void:
+	var alive := {}
 	for k in state.knights:
 		if k.slot < 0:
 			continue
-		var base: Vector3 = SceneBuilder.SLOTS[k.slot]
-		var actor := CustomerActor.spawn(k.id, _cloak_color(k.cloak))
-		actor.position = base
-		# Разворачиваем лицом к прилавку: покупатели стоят на обочине под
-		# разными углами, и «смотрит в +Z» здесь уже недостаточно.
-		var to_counter := (Vector3.ZERO - base).normalized()
-		actor.rotation.y = atan2(to_counter.x, to_counter.z)
-		slots.add_child(actor)
-		_node_of[k.id] = actor
+		alive[k.id] = true
+		var target: Vector3 = SceneBuilder.SLOTS[k.slot]
+		var actor: Node3D = _actors.get(k.id)
 
-		# Правда мира над рыцарем. Вешается в slots, а не в актёра: актёр
-		# отмасштабирован под рост, и дочерняя табличка уехала бы вместе с ним.
-		var truth := Label3D.new()
-		truth.text = "правда: %s / %s\nтерпение %d" % [
-			PN.cloak_name(k.cloak), PN.potion_name(k.order), k.patience]
-		truth.font_size = 40
-		truth.pixel_size = 0.0038
-		truth.billboard = BaseMaterial3D.BILLBOARD_ENABLED
-		truth.modulate = Color(0.66, 0.66, 0.72)
-		truth.outline_modulate = Color(0, 0, 0, 0.9)
-		truth.outline_size = 10
-		truth.no_depth_test = true
-		# Правда уходит вниз, к ногам: наверху висит подпись трекера, и две
-		# надписи об одном и том же персонаже дрались за одно место.
-		truth.position = base + Vector3(0.0, 0.35, 0.9)
-		slots.add_child(truth)
+		if actor == null:
+			# Приходит со стороны замка, из-за края кадра.
+			actor = CustomerActor.spawn(k.id, _cloak_color(k.cloak))
+			actor.position = SceneBuilder.road_entry()
+			slots.add_child(actor)
+			_actors[k.id] = actor
+			_attach_truth(actor)
+			_walk(actor, target, WALK_ARRIVE, true)
+		elif actor.position.distance_to(target) > 0.25:
+			_walk(actor, target, WALK_SHIFT, true)
+
+		_node_of[k.id] = actor
+		_update_truth(actor, k)
+
+	for id in _actors.keys():
+		if alive.has(id):
+			continue
+		var leaving: Node3D = _actors[id]
+		_actors.erase(id)
+		_node_of.erase(id)
+		_walk_away(leaving)
+
+func _sync_undead() -> void:
+	if state.wolf_distance < 0:
+		if _undead != null and is_instance_valid(_undead):
+			_walk_away(_undead)
+		_undead = null
+		_node_of.erase(-1)
+		return
+
+	# Выходит из леса по ту сторону дороги и идёт к лавке, пересекая её.
+	var target: Vector3 = SceneBuilder.WOLF_LANE \
+		- SceneBuilder.WOLF_STEP * float(state.wolf_distance)
+
+	if _undead == null or not is_instance_valid(_undead):
+		_undead = Props.skeleton()
+		_undead.position = SceneBuilder.WOLF_LANE \
+			- SceneBuilder.WOLF_STEP * float(SceneBuilder.WOLF_SPAWN_DISTANCE)
+		slots.add_child(_undead)
+
+	if _undead.position.distance_to(target) > 0.25:
+		_walk(_undead, target, WALK_SHIFT, true)
+	_node_of[-1] = _undead
+
+## Зелья и монеты неподвижны, их проще пересоздавать.
+func _sync_props() -> void:
+	for c in props_holder.get_children():
+		c.queue_free()
 
 	for i in range(state.counter.size()):
 		var bottle := Props.bottle(state.counter[i])
 		bottle.position = SceneBuilder.counter_spot(i)
-		slots.add_child(bottle)
+		props_holder.add_child(bottle)
 
 	for coin_id in state.coins_in_flight:
 		var coin := Props.coin()
 		coin.position = Vector3(-0.5, SceneBuilder.COUNTER_TOP + 0.15, -1.5)
-		slots.add_child(coin)
+		props_holder.add_child(coin)
 		_node_of[coin_id] = coin
 
-	if state.wolf_distance >= 0:
-		var undead := Props.skeleton()
-		# Выходит из леса по ту сторону дороги и идёт к лавке, дорогу пересекая.
-		undead.position = SceneBuilder.WOLF_LANE \
-			- SceneBuilder.WOLF_STEP * float(state.wolf_distance)
-		var to_shop := (Vector3.ZERO - undead.position).normalized()
-		undead.rotation.y = atan2(to_shop.x, to_shop.z)
-		slots.add_child(undead)
-		_node_of[-1] = undead
+# ── ходьба ────────────────────────────────────────────────────
+
+func _walk(actor: Node3D, to: Vector3, duration: float, face_counter: bool) -> void:
+	var old = actor.get_meta("walk_tween", null)
+	if old is Tween and old.is_valid():
+		old.kill()
+
+	var anim := actor.find_child("AnimationPlayer", true, false) as AnimationPlayer
+	if anim != null and anim.has_animation("Walking_A"):
+		anim.play("Walking_A")
+
+	var dir := to - actor.position
+	if dir.length() > 0.05:
+		actor.rotation.y = atan2(dir.x, dir.z)
+
+	var tw := create_tween()
+	tw.tween_property(actor, "position", to, duration) \
+		.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	actor.set_meta("walk_tween", tw)
+	tw.finished.connect(func() -> void:
+		if not is_instance_valid(actor):
+			return
+		if anim != null and anim.has_animation("Idle"):
+			anim.play("Idle")
+		if face_counter:
+			var back := Vector3.ZERO - actor.position
+			actor.rotation.y = atan2(back.x, back.z))
+
+func _walk_away(actor: Node3D) -> void:
+	var old = actor.get_meta("walk_tween", null)
+	if old is Tween and old.is_valid():
+		old.kill()
+
+	var anim := actor.find_child("AnimationPlayer", true, false) as AnimationPlayer
+	if anim != null and anim.has_animation("Walking_A"):
+		anim.play("Walking_A")
+
+	var exit := SceneBuilder.road_exit()
+	var dir := exit - actor.position
+	if dir.length() > 0.05:
+		actor.rotation.y = atan2(dir.x, dir.z)
+
+	var tw := create_tween()
+	tw.tween_property(actor, "position", exit, WALK_LEAVE)
+	tw.tween_callback(actor.queue_free)
+
+# ── прохожие ──────────────────────────────────────────────────
+
+## Просто идут мимо: из замка прочь и обратно в замок. К лавке отношения
+## не имеют, трекер их не берёт — это фон, от которого дорога живая.
+func _process(delta: float) -> void:
+	var live: Array[Node3D] = []
+	for p in _passers:
+		if is_instance_valid(p):
+			live.append(p)
+	_passers = live
+
+	if state == null or state.finished:
+		return
+
+	_passer_timer -= delta
+	if _passer_timer > 0.0:
+		return
+
+	# В сумерках и на рассвете дорога людная, глубокой ночью почти пуста.
+	_passer_timer = PASSER_PERIOD / maxf(0.18, 1.0 - state.dark())
+	if _passers.size() < PASSER_LIMIT:
+		_spawn_passer()
+
+func _spawn_passer() -> void:
+	var to_castle := randf() < 0.5
+	var from_p: Vector3 = SceneBuilder.road_exit() if to_castle \
+		else SceneBuilder.road_entry()
+	var to_p: Vector3 = SceneBuilder.road_entry() if to_castle \
+		else SceneBuilder.road_exit()
+
+	# Каждый держится своей стороны дороги, иначе встречные проходят насквозь.
+	var yaw := SceneBuilder.road_yaw(0.0)
+	var lane := Vector3(cos(yaw), 0.0, -sin(yaw)) * (1.7 if to_castle else -1.7)
+
+	var actor := CustomerActor.spawn(randi() % 997, _cloak_color(randi() % PN.Cloak.size()))
+	actor.position = from_p + lane
+	slots.add_child(actor)
+	_passers.append(actor)
+
+	var anim := actor.find_child("AnimationPlayer", true, false) as AnimationPlayer
+	if anim != null and anim.has_animation("Walking_A"):
+		anim.play("Walking_A")
+
+	var target := to_p + lane
+	var dir := target - actor.position
+	actor.rotation.y = atan2(dir.x, dir.z)
+
+	var tw := create_tween()
+	tw.tween_property(actor, "position", target, PASSER_TRAVEL)
+	tw.tween_callback(actor.queue_free)
+
+# ── табличка правды ───────────────────────────────────────────
+
+func _attach_truth(actor: Node3D) -> void:
+	var truth := Label3D.new()
+	truth.name = "Truth"
+	truth.font_size = 40
+	truth.pixel_size = 0.0038
+	truth.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	truth.modulate = Color(0.66, 0.66, 0.72)
+	truth.outline_modulate = Color(0, 0, 0, 0.9)
+	truth.outline_size = 10
+	truth.no_depth_test = true
+	# У ног, а не над головой: сверху висит подпись трекера, и две надписи
+	# об одном персонаже дрались за одно место. Смещения вперёд нет —
+	# иначе она бы качалась при развороте актёра.
+	truth.position = Vector3(0.0, 0.3, 0.0)
+	actor.add_child(truth)
+
+func _update_truth(actor: Node3D, k: Knight) -> void:
+	var truth := actor.get_node_or_null("Truth") as Label3D
+	if truth == null:
+		return
+	truth.text = "правда: %s / %s\nтерпение %d" % [
+		PN.cloak_name(k.cloak), PN.potion_name(k.order), k.patience]
 
 func _make_box(size: Vector3, colour: Color) -> MeshInstance3D:
 	var node := MeshInstance3D.new()
