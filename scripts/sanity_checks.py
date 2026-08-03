@@ -356,8 +356,15 @@ def check_tracking_grid(root: Path = PROJECT_ROOT) -> list[Finding]:
     return out
 
 
+EXPECTED_MODES = ('standard', 'brightness', 'lqa', 'control_global')
+
+
 def check_tracking_modes(root: Path = PROJECT_ROOT) -> list[Finding]:
-    """Режимы трекинга: все на месте, LQA-режим не развалил ассоциацию."""
+    """Режимы трекинга: все четыре на месте, посчитаны подобранными параметрами.
+
+    Таблица в длинном формате (mode, subset, metric, value) — метрика лежит
+    в строке, а не в колонке.
+    """
     out: list[Finding] = []
     path = root / 'experiments' / 'results' / 'tracking_three_modes.csv'
     if not path.exists():
@@ -367,20 +374,42 @@ def check_tracking_modes(root: Path = PROJECT_ROOT) -> list[Finding]:
         return [fail('tracking_three_modes.csv пуст')]
 
     modes = {r.get('mode') for r in rows if r.get('mode')}
-    out.append(ok(f'режимы: {", ".join(sorted(modes))} ({len(rows)} строк)'))
+    missing = [m for m in EXPECTED_MODES if m not in modes]
+    if missing:
+        out.append(fail(f'не посчитаны режимы: {", ".join(missing)} — '
+                        f'сравнение неполное'))
+    else:
+        out.append(ok(f'все четыре режима на месте ({len(rows)} строк)'))
+
+    hota: dict[tuple[str, str], float] = {}
     for r in rows:
-        hota = _f(r.get('HOTA'))
-        if hota is None:
-            out.append(fail(f'строка без HOTA: {r.get("mode")}/{r.get("subset")}'))
-        elif not 0 <= hota <= 100:
-            out.append(fail(f'{r.get("mode")}/{r.get("subset")}: HOTA={hota} вне [0,100]'))
+        value = _f(r.get('value'))
+        mode, subset, metric = r.get('mode'), r.get('subset'), r.get('metric')
+        if metric == 'HOTA':
+            if value is None:
+                out.append(fail(f'{mode}/{subset}: HOTA не число'))
+            elif not 0 <= value <= 100:
+                out.append(fail(f'{mode}/{subset}: HOTA={value} вне [0,100]'))
+            else:
+                hota[(mode, subset)] = value
+
+    # параметры должны быть записаны — доказательство, что автоподбор сработал
+    tagged = {(r.get('mode'), r.get('subset')) for r in rows
+              if r.get('metric') == 'tau_used'}
+    pairs = {(m, s) for (m, s) in hota}
+    if pairs - tagged:
+        out.append(fail('в таблице нет строк tau_used — режимы посчитаны '
+                        'старой версией скрипта, без подобранного порога'))
+    else:
+        taus = {r.get('value') for r in rows if r.get('metric') == 'tau_used'}
+        out.append(ok(f'использованные пороги: {", ".join(sorted(taus))}'))
 
     by_mode: dict[str, list[float]] = {}
-    for r in rows:
-        hota = _f(r.get('HOTA'))
-        if r.get('mode') and hota is not None:
-            by_mode.setdefault(r['mode'], []).append(hota)
+    for (mode, _subset), value in hota.items():
+        by_mode.setdefault(mode, []).append(value)
     means = {m: sum(v) / len(v) for m, v in by_mode.items() if v}
+    for mode, value in sorted(means.items(), key=lambda kv: -kv[1]):
+        out.append(ok(f'{mode}: средний HOTA {value:.2f}'))
     if 'standard' in means:
         for mode, value in means.items():
             if mode != 'standard' and value < means['standard'] - 5:
@@ -390,16 +419,23 @@ def check_tracking_modes(root: Path = PROJECT_ROOT) -> list[Finding]:
 
 
 def check_final(root: Path = PROJECT_ROOT) -> list[Finding]:
-    """Финальные таблицы: производительность положительная, сводка не пуста."""
+    """Финальные таблицы: производительность положительная, сводка не пуста.
+
+    Колонки performance_table.csv задаёт utils/benchmark.py:
+    model, fps_b1, latency_ms_b1, ... — отсюда имена ниже.
+    """
     out = check_tables(['performance_table.csv', 'final/main_results.csv'], root)
     perf = root / 'experiments' / 'results' / 'performance_table.csv'
     if perf.exists():
         for r in _read_csv(perf):
-            fps = _f(r.get('fps') or r.get('FPS'))
-            if fps is not None and fps <= 0:
-                out.append(fail(f'{r.get("tag", "?")}: FPS={fps} — замер не удался'))
-            elif fps is not None:
-                out.append(ok(f'{r.get("tag", "?")}: {fps:.1f} FPS'))
+            name = r.get('model', '?')
+            fps = _f(r.get('fps_b1'))
+            if fps is None:
+                out.append(fail(f'{name}: в таблице нет числового fps_b1'))
+            elif fps <= 0:
+                out.append(fail(f'{name}: FPS={fps} — замер не удался'))
+            else:
+                out.append(ok(f'{name}: {fps:.1f} FPS (батч 1)'))
     return out
 
 
@@ -427,7 +463,8 @@ CHECKS: dict[str, Callable[[], list[Finding]]] = {
     'track_grid': lambda: (check_tracking_grid()
                            + check_tables(['brightness_optimal_tau.csv'])),
     'track_modes': lambda: (check_tracking_modes()
-                            + check_tables(['confidence_qi_correlation.csv',
+                            + check_tables(['lqa_k_sweep.csv',
+                                            'confidence_qi_correlation.csv',
                                             'q_aggregation_ablation.csv'])),
     'final': lambda: check_final(),
 }

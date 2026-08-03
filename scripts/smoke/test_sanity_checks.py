@@ -234,6 +234,121 @@ def test_grid(root: Path) -> None:
           and any('краю сетки' in x.text for x in f), texts(f))
 
 
+def make_modes_table(path: Path, modes=('standard', 'brightness', 'lqa',
+                                        'control_global'),
+                     with_params: bool = True, bad_hota: bool = False) -> None:
+    """Длинный формат (mode, subset, metric, value) — как пишет реальный скрипт."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, 'w', newline='', encoding='utf-8') as f:
+        w = csv.writer(f)
+        w.writerow(['mode', 'subset', 'metric', 'value'])
+        for mode in modes:
+            for subset in ('normal', 'night'):
+                hota = 140.0 if bad_hota else (48.0 if mode == 'standard' else 50.0)
+                w.writerow([mode, subset, 'HOTA', f'{hota:.2f}'])
+                w.writerow([mode, subset, 'IDF1', '55.0'])
+                if with_params:
+                    w.writerow([mode, subset, 'tau_used', '0.4'])
+                    w.writerow([mode, subset, 'buffer_used', '30'])
+
+
+def test_modes(root: Path) -> None:
+    path = root / 'experiments' / 'results' / 'tracking_three_modes.csv'
+    make_modes_table(path)
+    f = sc.check_tracking_modes(root)
+    check('полная таблица режимов проходит', levels(f) == 'ok', texts(f))
+
+    make_modes_table(path, modes=('standard', 'lqa', 'control_global'))
+    f = sc.check_tracking_modes(root)
+    check('пропавший режим brightness ловится', levels(f) == 'fail'
+          and any('brightness' in x.text for x in f))
+
+    make_modes_table(path, with_params=False)
+    f = sc.check_tracking_modes(root)
+    check('расчёт без подобранного порога ловится', levels(f) == 'fail'
+          and any('tau_used' in x.text for x in f))
+
+    make_modes_table(path, bad_hota=True)
+    f = sc.check_tracking_modes(root)
+    check('HOTA вне [0,100] ловится', levels(f) == 'fail'
+          and any('вне [0,100]' in x.text for x in f))
+
+
+def test_final(root: Path) -> None:
+    res = root / 'experiments' / 'results'
+    (res / 'final').mkdir(parents=True, exist_ok=True)
+    (res / 'final' / 'main_results.csv').write_text('a,b\n1,2\n', encoding='utf-8')
+    perf = res / 'performance_table.csv'
+    cols = ['model', 'fps_b1', 'latency_ms_b1', 'gpu_mem_mb_b1']
+
+    with open(perf, 'w', newline='', encoding='utf-8') as f:
+        w = csv.writer(f); w.writerow(cols); w.writerow(['baseline', '237.4', '4.2', '900'])
+    f = sc.check_final(root)
+    check('нормальная таблица производительности проходит', levels(f) == 'ok',
+          texts(f))
+
+    with open(perf, 'w', newline='', encoding='utf-8') as f:
+        w = csv.writer(f); w.writerow(cols); w.writerow(['baseline', '0', '4.2', '900'])
+    f = sc.check_final(root)
+    check('нулевой FPS ловится', levels(f) == 'fail'
+          and any('замер не удался' in x.text for x in f))
+
+
+def test_tuned_params(root: Path) -> None:
+    """Оптимум читается из артефактов, а не берётся по умолчанию."""
+    from scripts import tuned_params as tp
+    res = root / 'experiments' / 'results'
+    res.mkdir(parents=True, exist_ok=True)
+
+    check('без артефактов — умолчание',
+          tp.resolve_tau('night', root=root)[0] == tp.DEFAULT_TAU
+          and tp.resolve_k(root=root)[0] == tp.DEFAULT_K)
+
+    with open(res / 'tracking_param_search.csv', 'w', newline='',
+              encoding='utf-8') as f:
+        w = csv.writer(f)
+        w.writerow(['subset', 'track_high_thresh', 'track_buffer', 'HOTA'])
+        w.writerow(['night', '0.3', '15', '41.0'])
+        w.writerow(['night', '0.6', '60', '47.5'])       # лучший для night
+        w.writerow(['normal', '0.4', '30', '52.0'])      # лучший для normal
+        w.writerow(['normal', '0.6', '60', '50.0'])
+    tau, buf, src = tp.resolve_tau('night', root=root)
+    check('τ берётся из сетки для своего поднабора',
+          (tau, buf) == (0.6, 60), f'{tau}/{buf} ({src})')
+    tau_n, buf_n, _ = tp.resolve_tau('normal', root=root)
+    check('у другого поднабора свой оптимум', (tau_n, buf_n) == (0.4, 30),
+          f'{tau_n}/{buf_n}')
+    check('ручное значение перекрывает подобранное',
+          tp.resolve_tau('night', override=0.55, root=root)[0] == 0.55)
+
+    with open(res / 'lqa_k_sweep.csv', 'w', newline='', encoding='utf-8') as f:
+        w = csv.writer(f)
+        w.writerow(['k', 'subset', 'tau_base', 'track_buffer', 'HOTA'])
+        for k, h_norm, h_night in ((0.0, 50.0, 46.0), (0.3, 51.5, 49.0),
+                                   (0.4, 49.0, 45.0)):
+            w.writerow([k, 'normal', '0.4', 30, h_norm])
+            w.writerow([k, 'night', '0.6', 60, h_night])
+    k, src = tp.resolve_k(root=root)
+    check('k берётся по лучшему среднему HOTA', k == 0.3, f'{k} ({src})')
+
+    with open(res / 'brightness_coefficients.csv', 'w', newline='',
+              encoding='utf-8') as f:
+        w = csv.writer(f)
+        w.writerow(['a', 'b', 'r2', 'n_videos', 'split'])
+        w.writerow(['0.5500', '0.2500', '0.31', '120', 'val'])
+    check('коэффициенты яркости читаются',
+          tp.brightness_coefficients(root) == (0.55, 0.25))
+
+    (res / 'brightness_coefficients.csv').unlink()
+    notes = root / 'notes'
+    notes.mkdir(parents=True, exist_ok=True)
+    (notes / 'brightness_to_threshold.md').write_text(
+        'ерунда\n\n    tau_base(видео) = 0.4200 * brightness + 0.1900\n\nещё\n',
+        encoding='utf-8')
+    check('запасной разбор заметки работает',
+          tp.brightness_coefficients(root) == (0.42, 0.19))
+
+
 def test_runner_dry_run() -> None:
     """Автономный прогон видит все шаги и не падает на разборе аргументов."""
     import subprocess
@@ -263,6 +378,9 @@ def main() -> int:
         print('=== сводки оценки ==='); test_summary(tmp)
         print('=== обвал против baseline ==='); test_collapse(tmp)
         print('=== сетка трекера ===');  test_grid(tmp)
+        print('=== режимы трекинга ==='); test_modes(tmp)
+        print('=== финальные таблицы ==='); test_final(tmp)
+        print('=== подобранные параметры ==='); test_tuned_params(tmp)
         print('=== автономный прогон ==='); test_runner_dry_run()
     finally:
         shutil.rmtree(tmp, ignore_errors=True)

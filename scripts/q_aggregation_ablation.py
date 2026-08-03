@@ -20,6 +20,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from evaluation.tracking_metrics import evaluate_tracking_bdd  # noqa: E402
 from scripts.run_tracker_grid_search import subset_videos  # noqa: E402
+from scripts.tuned_params import resolve_k, resolve_tau  # noqa: E402
 from tracking.inference_with_q import build_detection_cache_with_q  # noqa: E402
 from tracking.lqa_guided_tracker import LQAGuidedByteTrack  # noqa: E402
 from tracking.offline_association import make_tracker_args, run_association  # noqa: E402
@@ -37,13 +38,19 @@ def main() -> int:
     ap.add_argument('--model', required=True)
     ap.add_argument('--split', default='val')
     ap.add_argument('--subsets', nargs='+', default=list(SUBSETS))
-    ap.add_argument('--tau-base', type=float, default=0.5)
-    ap.add_argument('--k', type=float, default=0.2)
+    ap.add_argument('--tau-base', type=float, default=None,
+                    help='перекрыть автоподбор τ (по умолчанию — оптимум сетки)')
+    ap.add_argument('--k', type=float, default=None,
+                    help='перекрыть автоподбор k (по умолчанию — оптимум свипа)')
     args = ap.parse_args()
 
     by_subset = subset_videos(args.split, args.subsets)
     all_ids = sorted({v for vids in by_subset.values() for v in vids})
     build_detection_cache_with_q(args.model, all_ids, args.split, Q_CACHE)
+
+    # те же параметры, что и в сравнении режимов — иначе строки несопоставимы
+    k_value, k_src = resolve_k(args.k)
+    print(f'[INFO] k = {k_value:g} ({k_src})')
 
     RESULTS_CSV.parent.mkdir(parents=True, exist_ok=True)
     with open(RESULTS_CSV, 'w', newline='', encoding='utf-8') as f:
@@ -53,8 +60,10 @@ def main() -> int:
             for subset in args.subsets:
                 vids = by_subset[subset]
                 out_dir = RUNS / f'{agg}_{subset}'
-                t_args = make_tracker_args(track_high_thresh=args.tau_base)
-                t_args.lqa_k = args.k
+                tau, buf, _ = resolve_tau(subset, args.tau_base)
+                t_args = make_tracker_args(track_high_thresh=tau,
+                                           track_buffer=buf)
+                t_args.lqa_k = k_value
                 run_association(Q_CACHE, vids, out_dir, args.split,
                                 args=t_args, tracker_cls=LQAGuidedByteTrack,
                                 q_key=f'q_{agg}')

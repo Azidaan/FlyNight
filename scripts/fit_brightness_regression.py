@@ -130,6 +130,16 @@ def main() -> int:
 с LQA-guided (per-detection).
 """, encoding='utf-8')
     print(f'[OK ] {md}')
+
+    # машиночитаемая копия: отсюда коэффициенты берёт Этап 9 автоматически
+    # (заметка выше — для человека, разбирать её регулярным выражением хрупко)
+    coef_csv = RESULTS / 'brightness_coefficients.csv'
+    coef_csv.parent.mkdir(parents=True, exist_ok=True)
+    with open(coef_csv, 'w', newline='', encoding='utf-8') as f:
+        w = csv.writer(f)
+        w.writerow(['a', 'b', 'r2', 'n_videos', 'split'])
+        w.writerow([f'{a:.6f}', f'{b:.6f}', f'{r2:.4f}', len(xs), args.split])
+    print(f'[OK ] {coef_csv}')
     return 0
 
 

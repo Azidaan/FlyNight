@@ -10,13 +10,21 @@
                     lqa > control_global (иначе работает среднее снижение
                     порога, а не индивидуальность).
 
+Параметры берутся из артефактов предыдущего этапа автоматически
+(scripts/tuned_params.py): τ и буфер — оптимум сеточного поиска ДЛЯ КАЖДОГО
+поднабора отдельно, k — оптимум свипа, коэффициенты яркости — из регрессии.
+Это принципиально: сравнивать предложенный режим с ненастроенным ByteTrack
+нельзя, такой выигрыш не защищается. Ручные --tau-base / --k / --brightness-coef
+перекрывают автоматику.
+
 Выход: experiments/results/tracking_three_modes.csv
-    (mode, subset, metric, value)
+    (mode, subset, metric, value); кроме метрик пишутся строки
+    tau_used / buffer_used / k_used — чем именно считался режим.
 
 Использование:
     python scripts/run_tracking_three_modes.py --model weights/drb_aug_full_seed42/best.pt
-    ... --brightness-coef 0.55 0.25     # a, b из notes/brightness_to_threshold.md
-    ... --skip-modes brightness         # пока коэффициентов нет
+    ... --tau-base 0.5                  # перекрыть автоподбор вручную
+    ... --skip-modes brightness         # исключить режим
 """
 import argparse
 import csv
@@ -35,6 +43,9 @@ from tracking.brightness_regression import apply_brightness_adaptive_threshold  
 from tracking.detection_cache import load_video_cache  # noqa: E402
 from tracking.inference_with_q import build_detection_cache_with_q  # noqa: E402
 from tracking.lqa_guided_tracker import LQAGuidedByteTrack  # noqa: E402
+from scripts.tuned_params import (  # noqa: E402
+    brightness_coefficients, resolve_k, resolve_tau,
+)
 from tracking.offline_association import make_tracker_args, run_association  # noqa: E402
 
 RESULTS_CSV = PROJECT_ROOT / 'experiments' / 'results' / 'tracking_three_modes.csv'
@@ -61,11 +72,13 @@ def main() -> int:
     ap.add_argument('--model', required=True)
     ap.add_argument('--split', default='val')
     ap.add_argument('--subsets', nargs='+', default=list(SUBSETS))
-    ap.add_argument('--tau-base', type=float, default=0.5)
-    ap.add_argument('--k', type=float, default=0.2, help='коэффициент адаптации')
+    ap.add_argument('--tau-base', type=float, default=None,
+                    help='перекрыть автоподбор τ (по умолчанию — оптимум сетки)')
+    ap.add_argument('--k', type=float, default=None,
+                    help='перекрыть автоподбор k (по умолчанию — оптимум свипа)')
     ap.add_argument('--agg', default='mean', help='агрегация q_i (кэш-ключ q_<agg>)')
     ap.add_argument('--brightness-coef', type=float, nargs=2, default=None,
-                    metavar=('A', 'B'), help='коэффициенты τ = a·brightness + b')
+                    metavar=('A', 'B'), help='перекрыть коэффициенты τ = a·brightness + b')
     ap.add_argument('--skip-modes', nargs='+', default=[], choices=list(MODES))
     args = ap.parse_args()
 
@@ -76,10 +89,23 @@ def main() -> int:
 
     q_key = f'q_{args.agg}'
     modes = [m for m in MODES if m not in args.skip_modes]
-    if 'brightness' in modes and args.brightness_coef is None:
-        print('[WARN] нет --brightness-coef — режим brightness пропущен '
-              '(коэффициенты даёт Этап 8, notes/brightness_to_threshold.md)')
+
+    k_value, k_src = resolve_k(args.k)
+    print(f'[INFO] коэффициент адаптации k = {k_value:g} ({k_src})')
+    tau_by_subset = {}
+    for subset in args.subsets:
+        tau, buf, src = resolve_tau(subset, args.tau_base)
+        tau_by_subset[subset] = (tau, buf)
+        print(f'[INFO] {subset}: τ = {tau:g}, буфер = {buf} ({src})')
+
+    bright_coef = args.brightness_coef or brightness_coefficients()
+    if 'brightness' in modes and bright_coef is None:
+        print('[WARN] коэффициентов яркости нет (их даёт Этап 8, '
+              'fit_brightness_regression.py) — режим brightness пропущен')
         modes.remove('brightness')
+    elif 'brightness' in modes:
+        print(f'[INFO] яркость: τ = {bright_coef[0]:.4f}·brightness '
+              f'+ {bright_coef[1]:.4f}')
 
     RESULTS_CSV.parent.mkdir(parents=True, exist_ok=True)
     done: set[tuple[str, str]] = set()
@@ -98,27 +124,32 @@ def main() -> int:
                     continue
                 vids = by_subset[subset]
                 out_dir = RUNS / f'{mode}_{subset}'
+                tau, buf = tau_by_subset[subset]
                 kw: dict = {}
                 if mode == 'standard':
-                    kw['args'] = make_tracker_args(track_high_thresh=args.tau_base)
+                    kw['args'] = make_tracker_args(track_high_thresh=tau,
+                                                   track_buffer=buf)
                 elif mode == 'brightness':
-                    a, b = args.brightness_coef
+                    a, b = bright_coef
                     bright = get_brightness_map(vids, args.split)
                     kw['per_video_args'] = {
-                        v: make_tracker_args(track_high_thresh=(
-                            apply_brightness_adaptive_threshold(bright[v], a, b)))
+                        v: make_tracker_args(
+                            track_high_thresh=apply_brightness_adaptive_threshold(
+                                bright[v], a, b), track_buffer=buf)
                         for v in vids}
                 elif mode == 'lqa':
-                    t_args = make_tracker_args(track_high_thresh=args.tau_base)
-                    t_args.lqa_k = args.k
+                    t_args = make_tracker_args(track_high_thresh=tau,
+                                               track_buffer=buf)
+                    t_args.lqa_k = k_value
                     kw['args'] = t_args
                     kw['tracker_cls'] = LQAGuidedByteTrack
                     kw['q_key'] = q_key
                 elif mode == 'control_global':
                     qbar = mean_q_per_video(Q_CACHE, args.split, vids, q_key)
                     kw['per_video_args'] = {
-                        v: make_tracker_args(track_high_thresh=(
-                            args.tau_base - args.k * (1.0 - qbar[v])))
+                        v: make_tracker_args(
+                            track_high_thresh=tau - k_value * (1.0 - qbar[v]),
+                            track_buffer=buf)
                         for v in vids}
 
                 run_association(Q_CACHE, vids, out_dir, args.split, **kw)
@@ -127,6 +158,11 @@ def main() -> int:
                 for mk in METRIC_KEYS:
                     if mk in metrics:
                         writer.writerow([mode, subset, mk, metrics[mk]])
+                # чем считалось — чтобы через полгода не гадать по коду
+                writer.writerow([mode, subset, 'tau_used', f'{tau:g}'])
+                writer.writerow([mode, subset, 'buffer_used', buf])
+                if mode in ('lqa', 'control_global'):
+                    writer.writerow([mode, subset, 'k_used', f'{k_value:g}'])
                 f.flush()
                 print(f'[OK ] {mode}/{subset}: '
                       f'HOTA={metrics.get("HOTA", "?")} '
