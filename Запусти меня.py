@@ -20,6 +20,7 @@ import re
 import subprocess
 import sys
 import threading
+import time
 from datetime import date
 from pathlib import Path
 
@@ -27,6 +28,10 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 VENV_PY = PROJECT_ROOT / '.venv' / 'Scripts' / 'python.exe'
 HTML = PROJECT_ROOT / 'ui' / 'launcher.html'
 DATA = PROJECT_ROOT / 'data' / 'bdd100k'
+# автономный прогон: журнал и метка процесса (переживают закрытие панели)
+FULL_RUNNER = PROJECT_ROOT / 'scripts' / 'run_full_pipeline.py'
+FULL_LOG = PROJECT_ROOT / 'runs' / 'full_pipeline.log'
+FULL_PID = PROJECT_ROOT / 'runs' / 'full_pipeline.pid'
 
 
 def reexec_into_venv() -> None:
@@ -240,6 +245,12 @@ class Api:
     def boot_done(self) -> None:
         """Вызывается из JS после успешной инициализации интерфейса."""
         self.boot_event.set()
+        if self._full_pid() is not None:
+            self._log('Обнаружен идущий автономный прогон — подключаюсь к его '
+                      'журналу (хвост последних строк).', 'info')
+            self._js('ui.setBusy("full", true)')
+            tail_from = max(0, FULL_LOG.stat().st_size - 4000) if FULL_LOG.exists() else 0
+            self._watch_full(tail_from)
 
     # ——— взаимодействие с интерфейсом ———
     def _js(self, code: str) -> None:
@@ -367,6 +378,76 @@ class Api:
                                    for c in cmds])
         self._js(f'ui.taskDone({json.dumps(step["id"])}, {code}, null)')
 
+    # ——— автономный прогон (переживает закрытие панели) ———
+    def _full_pid(self) -> int | None:
+        """PID идущего автономного прогона или None."""
+        if not FULL_PID.exists():
+            return None
+        try:
+            pid = int(FULL_PID.read_text(encoding='utf-8').strip())
+        except (ValueError, OSError):
+            return None
+        # tasklist без окна: живой процесс печатает строку со своим PID
+        out = subprocess.run(['tasklist', '/FI', f'PID eq {pid}', '/NH'],
+                             capture_output=True, text=True, errors='replace',
+                             creationflags=subprocess.CREATE_NO_WINDOW).stdout
+        return pid if str(pid) in out else None
+
+    def run_full(self) -> None:
+        """Автономный прогон всех оставшихся шагов с проверками.
+
+        Запускается ОТДЕЛЬНЫМ процессом (не дочерним): панель можно закрыть,
+        обучение продолжится. Панель показывает поток из runs/full_pipeline.log.
+        """
+        if self._full_pid() is not None:
+            self._log('Автономный прогон уже идёт — подключаюсь к журналу.', 'info')
+            self._watch_full()
+            return
+        # лог читаем с конца: старые прогоны в панель не тянем
+        start_at = FULL_LOG.stat().st_size if FULL_LOG.exists() else 0
+        proc = subprocess.Popen(
+            [str(VENV_PY), str(FULL_RUNNER)],
+            cwd=str(PROJECT_ROOT), stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL, env={**os.environ, 'PYTHONUTF8': '1'},
+            creationflags=subprocess.CREATE_NO_WINDOW | subprocess.DETACHED_PROCESS)
+        FULL_PID.write_text(str(proc.pid), encoding='utf-8')
+        self._log(f'Автономный прогон запущен отдельным процессом (PID {proc.pid}). '
+                  f'Панель можно закрыть — обучение продолжится.', 'ok')
+        self._watch_full(start_at)
+
+    def _watch_full(self, start_at: int | None = None) -> None:
+        threading.Thread(target=self._tail_full, args=(start_at,),
+                         daemon=True).start()
+
+    def _tail_full(self, start_at: int | None) -> None:
+        """Транслирует новые строки runs/full_pipeline.log в журнал панели."""
+        pos = start_at if start_at is not None else 0
+        while True:
+            alive = self._full_pid() is not None
+            if FULL_LOG.exists():
+                with open(FULL_LOG, encoding='utf-8', errors='replace') as f:
+                    f.seek(pos)
+                    for raw in f:
+                        line = raw.rstrip('\n')
+                        if not line:
+                            continue
+                        ep = RE_EPOCH.match(line)
+                        if ep:
+                            self._js(f'ui.setPhase({json.dumps(f"ЭПОХА {ep.group(1)}/{ep.group(2)}")})')
+                            continue
+                        if '%|' in line:
+                            continue
+                        cls = 'err' if any(t in line for t in (
+                            'FAIL', 'ПРОВАЛЕНЫ', 'Traceback', 'остановлен')) else (
+                            'ok' if ('[OK' in line or 'ПРОЙДЕН' in line) else '')
+                        self._log(line, cls)
+                    pos = f.tell()
+            if not alive:
+                break
+            time.sleep(2.0)
+        FULL_PID.unlink(missing_ok=True)
+        self._js('ui.taskDone("full", 0, null)')
+
     # ——— запуск операций ———
     def run_task(self, task_id: str) -> None:
         if task_id not in TASKS:
@@ -435,6 +516,13 @@ class Api:
                 subprocess.run(['taskkill', '/PID', str(self._proc.pid), '/T', '/F'],
                                capture_output=True,
                                creationflags=subprocess.CREATE_NO_WINDOW)
+        full_pid = self._full_pid()
+        if full_pid is not None:
+            subprocess.run(['taskkill', '/PID', str(full_pid), '/T', '/F'],
+                           capture_output=True,
+                           creationflags=subprocess.CREATE_NO_WINDOW)
+            FULL_PID.unlink(missing_ok=True)
+            self._log('Автономный прогон остановлен.', 'err')
         self._log('Остановлено пользователем (дерево процессов убито; '
                   'чекпойнты целы — шаг можно продолжить той же кнопкой).', 'err')
 

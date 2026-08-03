@@ -7,6 +7,7 @@
 Запуск: python scripts/smoke/test_launcher_pipeline.py
 """
 import importlib.util
+import shutil
 import sys
 from pathlib import Path
 
@@ -59,8 +60,63 @@ def main() -> int:
     check('все команды через супервизор',
           all(c[0].endswith('train_supervisor.py') for c in cmds))
 
+    test_detached_run(mod)
+
     print(f'\n--- {"OK: конвейер панели корректен" if not FAILURES else f"FAIL: {FAILURES}"} ---')
     return 1 if FAILURES else 0
+
+
+def test_detached_run(mod) -> None:
+    """Автономный прогон живёт отдельным процессом и переживает панель.
+
+    Настоящий run_full_pipeline.py подменяется безобидной заглушкой: она
+    пишет строки в журнал и завершается — проверяется сам механизм
+    (отдельный процесс, метка PID, чтение журнала), а не обучение.
+    """
+    import tempfile
+    import time
+
+    print('=== автономный прогон (заглушка вместо обучения) ===')
+    tmp = Path(tempfile.mkdtemp(prefix='detached_', dir=str(PROJECT_ROOT / 'runs')))
+    stub = tmp / 'stub_runner.py'
+    stub.write_text(
+        'import sys, time\n'
+        'from pathlib import Path\n'
+        'log = Path(sys.argv[0]).parent / "stub.log"\n'
+        'for i in range(3):\n'
+        '    with open(log, "a", encoding="utf-8") as f:\n'
+        '        f.write(f"строка {i} автономного прогона\\n")\n'
+        '    time.sleep(0.6)\n',
+        encoding='utf-8')
+
+    orig = (mod.FULL_RUNNER, mod.FULL_LOG, mod.FULL_PID)
+    mod.FULL_RUNNER, mod.FULL_LOG = stub, tmp / 'stub.log'
+    mod.FULL_PID = tmp / 'stub.pid'
+    try:
+        api = mod.Api()                       # без окна: _js/_log — пустышки
+        check('до запуска прогона нет', api._full_pid() is None)
+
+        api.run_full()
+        time.sleep(1.0)
+        pid = api._full_pid()
+        check('прогон запущен отдельным процессом', pid is not None, str(pid))
+        check('метка PID записана', mod.FULL_PID.exists())
+
+        deadline = time.time() + 20
+        while api._full_pid() is not None and time.time() < deadline:
+            time.sleep(0.5)
+        check('прогон завершился сам', api._full_pid() is None)
+        lines = mod.FULL_LOG.read_text(encoding='utf-8').splitlines()
+        check('журнал прогона наполнялся', len(lines) == 3, f'{len(lines)} строк')
+
+        time.sleep(2.5)                        # даём хвостовому потоку прибраться
+        check('метка PID убрана после завершения', not mod.FULL_PID.exists())
+
+        mod.FULL_PID.write_text('999999', encoding='utf-8')
+        check('устаревшая метка PID не считается живой', api._full_pid() is None)
+    finally:
+        mod.FULL_RUNNER, mod.FULL_LOG, mod.FULL_PID = orig
+        shutil.rmtree(tmp, ignore_errors=True)
 
 
 if __name__ == '__main__':

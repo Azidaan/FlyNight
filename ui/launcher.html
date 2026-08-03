@@ -135,6 +135,12 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
 .op .otime{font-family:var(--mono); font-size:8.5px; color:var(--cap); letter-spacing:.1em;}
 .op.running{border-color:var(--accent);}
 .op.running .oname{color:var(--accent-deep);}
+#autobtn{margin-top:8px; flex:none; font-family:var(--mono); font-size:10px; letter-spacing:.16em;
+  text-transform:uppercase; padding:8px 6px; width:100%; cursor:pointer;
+  background:var(--surface); color:var(--accent-deep); border:1.5px solid var(--accent-deep);}
+#autobtn:hover:not(:disabled){background:var(--accent); color:var(--surface); border-color:var(--accent);}
+#autobtn:disabled{opacity:.4; cursor:default;}
+
 #stopbtn{margin-top:8px; border-color:var(--div); color:var(--sec); font-family:var(--mono); font-size:10px;
   letter-spacing:.2em; text-transform:uppercase; padding:7px; background:var(--surface); border:1.5px solid var(--div); cursor:pointer; width:100%;}
 #stopbtn:not(:disabled){border-color:var(--accent-deep); color:var(--accent-deep);}
@@ -249,6 +255,7 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
       <section class="panel" style="flex:1; min-height:150px">
         <div class="ptitle"><span>Конвейер · по порядку</span><span class="idx">Узел Б</span></div>
         <div id="pipeline"><!-- шаги рендерятся из pipeline_state() --></div>
+        <button id="autobtn" title="Пройти все оставшиеся шаги подряд, с проверкой результатов после каждого. Остановится сам, если что-то пойдёт не так.">▶▶ Всё подряд · автономно</button>
       </section>
 
       <section class="panel" style="flex:none">
@@ -381,6 +388,7 @@ const ui = {
       if (btn) { btn.disabled = busy; if (running) btn.textContent = '■ Выполняется…'; }
     });
     $('stopbtn').disabled = !busy;
+    $('autobtn').disabled = busy;
     $('viewport').classList.toggle('scanning', busy);
     $('pipe').classList.toggle('busy', busy);
     $('logstate').textContent = busy ? 'Выполняется' : 'Ожидание';
@@ -504,6 +512,12 @@ document.querySelectorAll('.op[data-task]').forEach(btn => {
   });
 });
 $('stopbtn').addEventListener('click', () => pywebview.api.stop_task());
+$('autobtn').addEventListener('click', () => {
+  ui.setBusy('full', true);
+  ui.log('');
+  ui.log('——— автономный прогон: все оставшиеся шаги с проверками ———', 'info');
+  pywebview.api.run_full();
+});
 $('prev').addEventListener('click', () => { stopAuto(); ui.show(ui.idx - 1); });
 $('next').addEventListener('click', () => { stopAuto(); ui.show(ui.idx + 1); });
 $('auto').addEventListener('click', () => ui.autoTimer ? stopAuto() : startAuto());
