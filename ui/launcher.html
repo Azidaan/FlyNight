@@ -68,7 +68,12 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
 .panel::before{top:-5px; left:-5px; border-top:1.6px solid var(--line); border-left:1.6px solid var(--line);}
 .panel::after{bottom:-5px; right:-5px; border-bottom:1.6px solid var(--line); border-right:1.6px solid var(--line);}
 
-.rail{display:flex; flex-direction:column; gap:16px; min-height:0;}
+/* колонка прокручивается: на невысоком окне лучше прокрутка, чем обрезанная
+   кнопка «Остановить» — её не должно быть не видно никогда */
+.rail{display:flex; flex-direction:column; gap:16px; min-height:0;
+  overflow-y:auto; padding-right:4px;}
+.rail::-webkit-scrollbar{width:8px;}
+.rail::-webkit-scrollbar-thumb{background:var(--div); border:2px solid var(--paper);}
 
 /* ————— лампы ————— */
 #lamps{display:grid; grid-template-columns:1fr 1fr; gap:9px 8px;}
@@ -135,11 +140,25 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
 .op .otime{font-family:var(--mono); font-size:8.5px; color:var(--cap); letter-spacing:.1em;}
 .op.running{border-color:var(--accent);}
 .op.running .oname{color:var(--accent-deep);}
-#autobtn{margin-top:8px; flex:none; font-family:var(--mono); font-size:10px; letter-spacing:.16em;
-  text-transform:uppercase; padding:8px 6px; width:100%; cursor:pointer;
-  background:var(--surface); color:var(--accent-deep); border:1.5px solid var(--accent-deep);}
-#autobtn:hover:not(:disabled){background:var(--accent); color:var(--surface); border-color:var(--accent);}
-#autobtn:disabled{opacity:.4; cursor:default;}
+/* ————— строка состояния: идёт обучение или нет ————— */
+#runbanner{display:flex; align-items:center; gap:11px; margin:9px 0 0;
+  padding:7px 14px; border:1.8px solid var(--line); background:var(--surface);
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.1em; text-transform:uppercase;}
+#rundot{width:11px; height:11px; border-radius:50%; flex:none;}
+#runbanner.idle{border-color:var(--div); color:var(--sec);}
+#runbanner.idle #rundot{background:var(--div);}
+#runbanner.busy{border-color:var(--accent-deep); color:var(--accent-deep);}
+#runbanner.busy #rundot{background:var(--accent); animation:runpulse 1.4s ease-in-out infinite;}
+@keyframes runpulse{0%,100%{opacity:1; box-shadow:0 0 0 0 var(--accent);}
+  50%{opacity:.55; box-shadow:0 0 0 6px rgba(0,0,0,0);}}
+
+#runtext{flex:1;}
+#mainbtn{flex:none; font-family:var(--mono); font-size:11px; letter-spacing:.14em;
+  text-transform:uppercase; padding:7px 16px; cursor:pointer; border:1.5px solid var(--accent);
+  background:var(--accent); color:var(--surface);}
+#mainbtn:hover{background:var(--accent-deep); border-color:var(--accent-deep);}
+#runbanner.busy #mainbtn{background:var(--surface); color:var(--accent-deep);
+  border-color:var(--accent-deep);}
 
 #stopbtn{margin-top:8px; border-color:var(--div); color:var(--sec); font-family:var(--mono); font-size:10px;
   letter-spacing:.2em; text-transform:uppercase; padding:7px; background:var(--surface); border:1.5px solid var(--div); cursor:pointer; width:100%;}
@@ -235,6 +254,11 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
       Датасет <b>BDD100K MOT</b> · Детектор <b>YOLO26-S</b>
     </div>
   </header>
+  <div id="runbanner" class="idle">
+    <span id="rundot"></span>
+    <span id="runtext">Проверяю состояние…</span>
+    <button id="mainbtn">▶▶ Запустить всё подряд</button>
+  </div>
   <div class="dim"><div class="bar"></div><div class="tag">Красный шаг — следующий по очереди · зелёный — пройден · серый — откроется позже</div></div>
 
   <main>
@@ -252,10 +276,9 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
         </div>
       </section>
 
-      <section class="panel" style="flex:1; min-height:150px">
-        <div class="ptitle"><span>Конвейер · по порядку</span><span class="idx">Узел Б</span></div>
+      <section class="panel" style="flex:1 0 auto; min-height:190px">
+        <div class="ptitle"><span>Конвейер</span><span class="idx">Узел Б</span></div>
         <div id="pipeline"><!-- шаги рендерятся из pipeline_state() --></div>
-        <button id="autobtn" title="Пройти все оставшиеся шаги подряд, с проверкой результатов после каждого. Остановится сам, если что-то пойдёт не так.">▶▶ Всё подряд · автономно</button>
       </section>
 
       <section class="panel" style="flex:none">
@@ -267,7 +290,7 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
           <button class="op" data-task="visualize" title="Сэмплы поднаборов (~1 мин)"><span class="oid">Т-04</span><span class="oname">Сэмплы</span></button>
           <button class="op" data-task="minitrain" title="Мини-обучение (~3 мин)"><span class="oid">Т-05</span><span class="oname">Мини-обучение</span></button>
         </div>
-        <button id="stopbtn" disabled>■ Остановить</button>
+        <button id="stopbtn" disabled>■ Останавливать нечего</button>
       </section>
     </div>
 
@@ -375,6 +398,19 @@ const ui = {
     if (el) el.className = 'lamp' + (state ? ' ' + state : '');
   },
   setPhase(text) { $('phase').textContent = text || ''; },
+  // единственное место, где решается вопрос «идёт или не идёт»
+  setRunBanner(busy, what) {
+    const b = $('runbanner');
+    b.className = busy ? 'busy' : 'idle';
+    $('runtext').textContent = busy
+      ? 'Идёт: ' + (what || 'работа') + ' · окно можно закрыть, не прервётся'
+      : 'Обучение не идёт · панель ждёт команды';
+    const btn = $('mainbtn');
+    btn.textContent = busy ? '■ Остановить' : '▶▶ Запустить всё подряд';
+    btn.title = busy
+      ? 'Прервать работу. Всё посчитанное сохранится, продолжить можно этой же кнопкой.'
+      : 'Пройти все оставшиеся шаги подряд, с проверкой результатов после каждого.';
+  },
   setBusy(taskId, busy) {
     document.querySelectorAll('.op').forEach(b => {
       if (!b.dataset.task) return;
@@ -388,7 +424,10 @@ const ui = {
       if (btn) { btn.disabled = busy; if (running) btn.textContent = '■ Выполняется…'; }
     });
     $('stopbtn').disabled = !busy;
-    $('autobtn').disabled = busy;
+    $('stopbtn').textContent = busy ? '■ Остановить' : '■ Останавливать нечего';
+    const step = document.querySelector('.step[data-step="' + taskId + '"] .sname');
+    ui.setRunBanner(busy, taskId === 'full'
+      ? 'весь конвейер по порядку' : (step ? step.textContent : taskId));
     $('viewport').classList.toggle('scanning', busy);
     $('pipe').classList.toggle('busy', busy);
     $('logstate').textContent = busy ? 'Выполняется' : 'Ожидание';
@@ -432,7 +471,8 @@ function renderPipeline(steps) {
     const el = document.createElement('div');
     el.className = 'step ' + st.role;         // done | active | locked
     el.dataset.step = st.id;
-    const btnLabel = st.status === 'partial' ? '▶ Продолжить' : '▶ Запустить';
+    const btnLabel = st.status === 'partial'
+      ? '▶ Продолжить прерванное' : '▶ Начать этот шаг';
     el.innerHTML =
       '<div class="srow">' +
         '<span class="snum">' + String(i + 1).padStart(2, '0') + '</span>' +
@@ -494,9 +534,15 @@ function boot() {
     pywebview.api.state().then(applyState),
     pywebview.api.pipeline_state().then(renderPipeline),
     pywebview.api.list_images().then(ui.setImages),
-  ]).then(() => pywebview.api.boot_done().catch(() => {}));
+  ]).then(() => {
+    // состояние по умолчанию — «ничего не идёт»; если автономный прогон жив,
+    // Python сразу перебьёт его из boot_done
+    ui.setBusy(null, false);
+    return pywebview.api.boot_done().catch(() => {});
+  });
   pywebview.api.gpu_check().catch(() => {});
-  startAuto();
+  // слайд-шоу примеров НЕ включается само: мелькающие картинки читались как
+  // признак идущего обучения. Включается кнопкой «Авто» в узле В.
   ui.log('Панель управления готова. Окружение: E:\\Dissertation\\.venv', 'info');
 }
 window.addEventListener('pywebviewready', boot);
@@ -512,7 +558,11 @@ document.querySelectorAll('.op[data-task]').forEach(btn => {
   });
 });
 $('stopbtn').addEventListener('click', () => pywebview.api.stop_task());
-$('autobtn').addEventListener('click', () => {
+$('mainbtn').addEventListener('click', () => {
+  if ($('runbanner').classList.contains('busy')) {
+    pywebview.api.stop_task();
+    return;
+  }
   ui.setBusy('full', true);
   ui.log('');
   ui.log('——— автономный прогон: все оставшиеся шаги с проверками ———', 'info');
