@@ -69,6 +69,20 @@ def main() -> int:
         check('зависание: детект и убийство быстрые', dt < 90, f'{dt:.0f}s')
         check('лог: СТАГНАЦИЯ зафиксирована', 'СТАГНАЦИЯ' in r.stdout)
 
+        # 4. Голое «python» в команде = интерпретатор супервизора, а НЕ первый
+        # из PATH. Регрессия: при запуске панели без активированного окружения
+        # обучение уходило в системный Python и падало на import yaml.
+        w4 = tmp / 'interp'; w4.mkdir()
+        r = run_sup(w4, [], ['python', '-c',
+                             'import sys, yaml; print("ИНТЕРПРЕТАТОР", sys.executable)'])
+        check('«python» подменяется на интерпретатор супервизора',
+              r.returncode == 0, f'rc={r.returncode} {r.stdout[-160:]}')
+        check('пакеты проекта видны (import yaml прошёл)',
+              'ИНТЕРПРЕТАТОР' in r.stdout)
+        check('использован именно .venv проекта',
+              str(PROJECT_ROOT / '.venv').lower() in r.stdout.lower(),
+              r.stdout[-160:])
+
     print(f'\n--- {"OK: супервизор работает" if not FAILURES else f"FAIL: {FAILURES}"} ---')
     return 1 if FAILURES else 0
 

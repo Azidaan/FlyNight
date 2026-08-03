@@ -118,6 +118,13 @@ def main() -> int:
     if not cmd:
         ap.error('укажите команду обучения после --')
 
+    # «python» в команде — это интерпретатор ЭТОГО процесса, а не первый из PATH.
+    # Иначе при запуске без активированного окружения (панель, ярлык, планировщик)
+    # обучение уходит в системный Python и падает на отсутствующих пакетах.
+    if Path(cmd[0]).stem.lower() in ('python', 'pythonw', 'py'):
+        cmd[0] = sys.executable
+        log(PROJECT_ROOT / args.watch, f'интерпретатор: {sys.executable}')
+
     watch_dir = PROJECT_ROOT / args.watch
     watch_dir.mkdir(parents=True, exist_ok=True)
 
