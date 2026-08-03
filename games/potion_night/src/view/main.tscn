@@ -1,0 +1,115 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://src/view/main.gd" id="1_main"]
+[ext_resource type="Script" path="res://src/hud/boxes.gd" id="2_boxes"]
+[ext_resource type="Script" path="res://src/view/atmosphere.gd" id="3_atmo"]
+
+[sub_resource type="Environment" id="Env_night"]
+background_mode = 1
+background_color = Color(0.055, 0.068, 0.115, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.24, 0.29, 0.44, 1)
+ambient_light_energy = 0.35
+fog_enabled = true
+fog_light_color = Color(0.15, 0.18, 0.28, 1)
+fog_light_energy = 0.6
+fog_density = 0.016
+fog_sky_affect = 0.0
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_main")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env_night")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.996, -0.087, 0, 0.087, 0.996, -0.3, 2.5, 5.6)
+fov = 62.0
+
+[node name="Moon" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.87, -0.32, 0.37, 0, 0.76, 0.65, -0.49, -0.57, 0.66, 0, 12, 0)
+light_color = Color(0.56, 0.66, 0.92, 1)
+light_energy = 0.55
+shadow_enabled = true
+directional_shadow_max_distance = 140.0
+shadow_bias = 0.06
+
+[node name="Lantern" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2, 2.4, 0.8)
+light_color = Color(1, 0.76, 0.4, 1)
+light_energy = 3.4
+omni_range = 12.0
+shadow_enabled = true
+shadow_bias = 0.05
+
+[node name="Atmosphere" type="Node3D" parent="."]
+script = ExtResource("3_atmo")
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="Slots" type="Node3D" parent="."]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Boxes" type="Control" parent="HUD"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource("2_boxes")
+
+[node name="StatusBg" type="ColorRect" parent="HUD"]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 250.0
+offset_bottom = 190.0
+color = Color(0.06, 0.055, 0.045, 0.85)
+
+[node name="Status" type="Label" parent="HUD"]
+offset_left = 24.0
+offset_top = 22.0
+offset_right = 244.0
+offset_bottom = 184.0
+theme_override_colors/font_color = Color(0.93, 0.88, 0.77, 1)
+theme_override_font_sizes/font_size = 14
+
+[node name="PanelBg" type="ColorRect" parent="HUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -318.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = 400.0
+color = Color(0.06, 0.055, 0.045, 0.85)
+
+[node name="Panel" type="Label" parent="HUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -306.0
+offset_top = 22.0
+offset_right = -20.0
+offset_bottom = 392.0
+theme_override_colors/font_color = Color(0.93, 0.88, 0.77, 1)
+theme_override_font_sizes/font_size = 13
+autowrap_mode = 3
+
+[node name="ActionsBg" type="ColorRect" parent="HUD"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -86.0
+offset_right = -12.0
+offset_bottom = -12.0
+color = Color(0.06, 0.055, 0.045, 0.9)
+
+[node name="Actions" type="Label" parent="HUD"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = -78.0
+offset_right = -26.0
+offset_bottom = -18.0
+theme_override_colors/font_color = Color(0.96, 0.92, 0.82, 1)
+theme_override_font_sizes/font_size = 15
+autowrap_mode = 3
