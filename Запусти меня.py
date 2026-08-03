@@ -35,14 +35,26 @@ FULL_PID = PROJECT_ROOT / 'runs' / 'full_pipeline.pid'
 
 
 def reexec_into_venv() -> None:
-    """Перезапуск из .venv проекта, если запущены системным интерпретатором."""
+    """Перезапуск из .venv проекта, если запущены системным интерпретатором.
+
+    Новый процесс ОТСОЕДИНЯЕТСЯ от родителя: иначе среда, из которой
+    запустили (VS Code, IDE, терминал), убивает всю группу процессов сразу
+    после выхода родителя — окно панели успевало только мигнуть.
+    Под --selftest отсоединять нельзя: вызывающему нужен код возврата.
+    """
     try:
         same = Path(sys.executable).resolve() == VENV_PY.resolve()
     except OSError:
         same = False
     if not same and VENV_PY.exists():
-        subprocess.Popen([str(VENV_PY), str(Path(__file__).resolve()), *sys.argv[1:]],
-                         cwd=str(PROJECT_ROOT))
+        flags = 0 if '--selftest' in sys.argv else (
+            subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
+        proc = subprocess.Popen(
+            [str(VENV_PY), str(Path(__file__).resolve()), *sys.argv[1:]],
+            cwd=str(PROJECT_ROOT), creationflags=flags)
+        if flags == 0:
+            sys.exit(proc.wait())
+        print(f'Панель запущена из .venv проекта (PID {proc.pid}).')
         sys.exit(0)
 
 
