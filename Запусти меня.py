@@ -106,7 +106,9 @@ RE_TRAIN = re.compile(
     r'^\s*(\d+)/(\d+)\s+([\d.]+)G\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+'
     r'(\d+)\s+(\d+):\s*(\d+)%')
 # хвост той же строки: итерации, скорость, прошло<осталось
-RE_TRAIN_TAIL = re.compile(r'(\d+)/(\d+)\s+([\d.]+)(it/s|s/it)\s+([\d:]+)<([\d:?]+)')
+# время бывает и «29.2s», и «12:34», и «?» — принимаем все формы
+RE_TRAIN_TAIL = re.compile(
+    r'(\d+)/(\d+)\s+([\d.]+)(it/s|s/it)\s+([\d.:]+s?)<([\d.:?]+s?)')
 RE_STEP = re.compile(r'^==========\s*(\S+)')          # шаг run_all_smoke
 
 # ————— конвейер обучений (Этапы 3-10): статусы и команды —————
@@ -283,6 +285,7 @@ class Api:
         self._abort = False
         self._lock = threading.Lock()
         self._last_epoch: int | None = None    # для обновления картинок по эпохам
+        self._batch_cache: int | None = None   # размер батча идущего прогона
         self.boot_event = threading.Event()   # JS сигналит о конце boot()
 
     def boot_done(self) -> None:
@@ -332,7 +335,14 @@ class Api:
             if tail:
                 data['it'] = int(tail.group(1))
                 data['iters'] = int(tail.group(2))
-                data['rate'] = f'{tail.group(3)} {"кадр/с" if tail.group(4) == "it/s" else "с/кадр"}'
+                # ВАЖНО: it/s — это батчи в секунду, а не кадры. В батче
+                # обычно 16 кадров, и подпись «кадр/с» вводила в заблуждение.
+                rate = float(tail.group(3))
+                if tail.group(4) == 's/it':
+                    rate = 1.0 / rate if rate else 0.0
+                batch = self._active_batch()
+                data['rate'] = (f'{rate:.1f} батча/с'
+                                + (f'  ≈{rate * batch:.0f} кадр/с' if batch else ''))
                 data['eta'] = tail.group(6)
             self._js('ui.setTrain(' + json.dumps(data, ensure_ascii=False) + ')')
             phase = f'ЭПОХА {data["epoch"]}/{data["epochs"]}'
@@ -406,6 +416,23 @@ class Api:
         threading.Thread(target=worker, daemon=True).start()
 
     # ——— смотровое окно ———
+    def _active_batch(self) -> int | None:
+        """Размер батча идущего прогона — из args.yaml, который пишет Ultralytics."""
+        if self._batch_cache is not None:
+            return self._batch_cache or None
+        run = self._active_run_dir()
+        args = run / 'args.yaml' if run else None
+        if args and args.exists():
+            for line in args.read_text(encoding='utf-8', errors='replace').splitlines():
+                if line.startswith('batch:'):
+                    try:
+                        self._batch_cache = int(float(line.split(':', 1)[1]))
+                    except ValueError:
+                        self._batch_cache = 0
+                    return self._batch_cache or None
+        self._batch_cache = 0
+        return None
+
     def _active_run_dir(self) -> Path | None:
         """Папка прогона, который обучается прямо сейчас (свежайший results.csv)."""
         runs = PROJECT_ROOT / 'runs'
