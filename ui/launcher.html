@@ -148,6 +148,10 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
   color:var(--sec); border-top:1px solid var(--div); margin-top:7px; padding-top:6px;}
 #tbar{height:5px; background:var(--div); margin:3px 0 7px;}
 #tbarfill{height:100%; width:0%; background:var(--accent); transition:width .4s;}
+#thermnote{font-size:8.5px; color:var(--cap); margin-top:4px; line-height:1.4;}
+.tv.hot{color:var(--accent-deep);}
+.tv.crit{color:var(--surface); background:var(--accent-deep); padding:1px 5px;}
+.tv.none{font-size:9.5px; font-weight:400; color:var(--cap); letter-spacing:0;}
 
 /* ————— строка состояния: идёт обучение или нет ————— */
 #runbanner{display:flex; align-items:center; gap:11px; margin:9px 0 0;
@@ -362,6 +366,15 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
           <div class="trow"><span class="tk">Объектов в батче</span><span class="tv" id="t-inst">—</span></div>
         </div>
 
+        <!-- температуры показываются всегда, а не только во время обучения -->
+        <div id="thermbox">
+          <div class="tsep">Температура</div>
+          <div class="trow"><span class="tk">Видеокарта</span><span class="tv" id="t-tgpu">—</span></div>
+          <div class="trow"><span class="tk">Процессор</span><span class="tv" id="t-tcpu">—</span></div>
+          <div class="trow"><span class="tk">Загрузка видеокарты</span><span class="tv" id="t-load">—</span></div>
+          <div id="thermnote">Останов при 87 °C · внимание с 75 °C</div>
+        </div>
+
         <div id="staticbox">
         <div class="metric"><div class="mval accent" id="m-version">—</div><div class="mlabel">Выбранный детектор</div></div>
         <div class="metric"><div class="mval" id="m-fps">—<span class="unit">FPS</span></div><div class="mlabel">Инференс · батч 16 · 640×640</div></div>
@@ -559,6 +572,24 @@ const ui = {
     if (window.pywebview && pywebview.api && pywebview.api.training_curve)
       pywebview.api.training_curve().then(ui.drawCurve).catch(() => {});
   },
+  // температуры: цвет меняется на подходе к порогам, чтобы было заметно
+  setTemps(t) {
+    const put = (id, val, unit) => {
+      const el = $(id);
+      if (val === null || val === undefined) {
+        el.textContent = 'датчика нет';
+        el.className = 'tv none';
+        return;
+      }
+      el.textContent = Math.round(val) + unit;
+      el.className = 'tv' + (val >= t.stop ? ' crit' : (val >= t.warn ? ' hot' : ''));
+    };
+    put('t-tgpu', t.gpu, ' °C');
+    put('t-tcpu', t.cpu, ' °C');
+    const load = $('t-load');
+    load.textContent = (t.load === null || t.load === undefined) ? '—' : t.load + ' %';
+    load.className = 'tv';
+  },
   refreshImages() {
     if (window.pywebview && pywebview.api && pywebview.api.list_images)
       pywebview.api.list_images().then(ui.setImages).catch(() => {});
@@ -661,6 +692,7 @@ function boot() {
     return pywebview.api.boot_done().catch(() => {});
   });
   pywebview.api.gpu_check().catch(() => {});
+  pywebview.api.start_thermal_poll().catch(() => {});
   // слайд-шоу примеров НЕ включается само: мелькающие картинки читались как
   // признак идущего обучения. Включается кнопкой «Авто» в узле В.
   ui.log('Панель управления готова. Окружение: E:\\Dissertation\\.venv', 'info');

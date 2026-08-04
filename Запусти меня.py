@@ -418,6 +418,17 @@ class Api:
         items.sort(key=lambda t: -t[0])
         return [meta for _, meta in items[:32]]
 
+    def start_thermal_poll(self) -> None:
+        """Опрос температур раз в 10 с — показывается в узле Г всегда."""
+        def worker() -> None:
+            from utils.thermal import STOP_TEMP, WARN_TEMP, read_temps
+            while True:
+                t = read_temps()
+                t['warn'], t['stop'] = WARN_TEMP, STOP_TEMP
+                self._js('ui.setTemps(' + json.dumps(t) + ')')
+                time.sleep(10)
+        threading.Thread(target=worker, daemon=True).start()
+
     def training_curve(self) -> dict:
         """Ход обучения по эпохам для узла Д: ошибка и точность на проверке.
 

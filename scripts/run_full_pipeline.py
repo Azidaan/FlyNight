@@ -27,6 +27,7 @@ import os
 import re
 import subprocess
 import sys
+import threading
 import time
 from datetime import datetime
 from pathlib import Path
@@ -37,6 +38,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from scripts.sanity_checks import (  # noqa: E402
     check_step, format_findings, worst_level,
 )
+from utils.thermal import ThermalGuard, read_temps  # noqa: E402
 
 VENV_PY = PROJECT_ROOT / '.venv' / 'Scripts' / 'python.exe'
 LOG_PATH = PROJECT_ROOT / 'runs' / 'full_pipeline.log'
@@ -77,13 +79,64 @@ class Journal:
             f.write(text + '\n')
 
 
-def run_command(argv: list[str], jr: Journal) -> int:
-    """Запуск с построчной трансляцией вывода. Возвращает код возврата."""
+OVERHEAT_RC = 3          # остановлено перегревом и не остыло за отведённое время
+COOLDOWN_TEMP = 70.0     # ниже этого считаем, что железо остыло
+COOLDOWN_LIMIT_S = 1800  # сколько ждём охлаждения, прежде чем сдаться
+OVERHEAT_RETRIES = 5     # столько раз готовы остыть и продолжить
+
+
+def start_thermal_watch(proc: subprocess.Popen, jr: Journal,
+                        state: dict) -> threading.Thread:
+    """Фоновый сторож температуры: при перегреве убивает дерево обучения.
+
+    Работает внутри автономного прогона, а не в панели: панель можно закрыть,
+    а железо стеречь надо всё время.
+    """
+    guard = ThermalGuard()
+
+    def watch() -> None:
+        last_warn = 0.0
+        while proc.poll() is None:
+            temps = read_temps()
+            level, why = guard.update(time.time(), temps['gpu'])
+            if level == 'warn' and time.time() - last_warn > 120:
+                last_warn = time.time()
+                jr.write(f'ТЕМПЕРАТУРА: {why}')
+            if level == 'stop':
+                state['overheat'] = why
+                jr.write(f'ПЕРЕГРЕВ: {why} — останавливаю обучение')
+                subprocess.run(['taskkill', '/PID', str(proc.pid), '/T', '/F'],
+                               capture_output=True,
+                               creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+                return
+            time.sleep(20)
+
+    t = threading.Thread(target=watch, daemon=True)
+    t.start()
+    return t
+
+
+def wait_until_cool(jr: Journal) -> bool:
+    """Ждёт охлаждения до COOLDOWN_TEMP. True — остыло, False — не дождались."""
+    deadline = time.time() + COOLDOWN_LIMIT_S
+    while time.time() < deadline:
+        temp = read_temps()['gpu']
+        if temp is None or temp <= COOLDOWN_TEMP:
+            jr.write(f'остыло до {temp} °C — продолжаю')
+            return True
+        time.sleep(30)
+    jr.write(f'не остыло за {COOLDOWN_LIMIT_S // 60} мин — прогон остановлен')
+    return False
+
+
+def run_command_once(argv: list[str], jr: Journal, state: dict) -> int:
+    """Один запуск с построчной трансляцией вывода и сторожем температуры."""
     env = {**os.environ, 'PYTHONIOENCODING': 'utf-8', 'PYTHONUTF8': '1'}
     proc = subprocess.Popen(
         argv, cwd=str(PROJECT_ROOT), stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT, text=True, encoding='utf-8',
         errors='replace', bufsize=1, env=env)
+    start_thermal_watch(proc, jr, state)
     assert proc.stdout is not None
     for raw in proc.stdout:
         line = RE_ANSI.sub('', raw.rstrip('\n').split('\r')[-1]).rstrip()
@@ -91,6 +144,27 @@ def run_command(argv: list[str], jr: Journal) -> int:
             jr.raw(line)
     proc.wait()
     return proc.returncode or 0
+
+
+def run_command(argv: list[str], jr: Journal, state: dict) -> int:
+    """Запуск команды с автоматическим продолжением после перегрева.
+
+    Перегрев не обрывает работу: обучение гасится, железо остывает, и та же
+    команда запускается снова — она продолжит с последнего чекпойнта.
+    Терять двухнедельный прогон из-за жаркого дня незачем.
+    """
+    for attempt in range(1, OVERHEAT_RETRIES + 2):
+        state.pop('overheat', None)
+        code = run_command_once(argv, jr, state)
+        if not state.get('overheat'):
+            return code
+        if attempt > OVERHEAT_RETRIES:
+            jr.write(f'перегрев повторился {OVERHEAT_RETRIES} раз — сдаюсь')
+            return OVERHEAT_RC
+        jr.write(f'жду охлаждения (попытка {attempt} из {OVERHEAT_RETRIES})…')
+        if not wait_until_cool(jr):
+            return OVERHEAT_RC
+    return OVERHEAT_RC
 
 
 def run_checks(step_id: str, jr: Journal) -> str:
@@ -159,6 +233,11 @@ def main() -> int:
         return 1 if worst == 'fail' else 0
 
     started = time.time()
+    state: dict = {}                      # сюда сторож кладёт причину перегрева
+    t0 = read_temps()
+    jr.write(f'температура на старте: видеокарта {t0["gpu"]} °C'
+             + (f', процессор {t0["cpu"]} °C' if t0['cpu'] is not None
+                else ', процессорного датчика нет'))
     todo = [s for s in selected if s['status']()[0] != 'done']
     jr.write(f'к выполнению шагов: {len(todo)} из {len(selected)}')
     for step in todo:
@@ -175,7 +254,12 @@ def main() -> int:
         for i, cmd in enumerate(cmds, 1):
             argv = [str(VENV_PY), str(PROJECT_ROOT / cmd[0]), *cmd[1:]]
             jr.write(f'команда {i}/{len(cmds)}: {" ".join(cmd)}')
-            code = run_command(argv, jr)
+            code = run_command(argv, jr, state)
+            if code == OVERHEAT_RC:
+                jr.write('ПРОГОН ОСТАНОВЛЕН ИЗ-ЗА ПЕРЕГРЕВА: остыть не удалось. '
+                         'Чекпойнты целы — продолжите той же кнопкой.')
+                jr.write(f'проработано {human_time(time.time() - started)}')
+                return OVERHEAT_RC
             if code != 0:
                 jr.write(f'команда завершилась с кодом {code} — прогон остановлен')
                 jr.write(f'проработано {human_time(time.time() - started)}')
