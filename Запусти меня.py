@@ -15,6 +15,7 @@ ui/selftest_screenshot.png и закрыться (проверка, что ин�
 import base64
 import ctypes
 import json
+import logging
 import os
 import re
 import subprocess
@@ -694,6 +695,16 @@ def main() -> None:
         ctypes.windll.shcore.SetProcessDpiAwareness(2)
     except OSError:
         pass
+
+    # pywebview при создании окна рекурсивно обходит свойства .NET-объекта
+    # (Bounds.Empty.Empty…, ModifierKeys.A.A.A…) и упирается в предел
+    # вложенности, после чего печатает простыню ошибок. На работу это не
+    # влияет — глушим именно эти записи, настоящие ошибки остаются видны.
+    class _DropNativeProbeNoise(logging.Filter):
+        def filter(self, record: logging.LogRecord) -> bool:
+            return 'window.native' not in record.getMessage()
+
+    logging.getLogger('pywebview').addFilter(_DropNativeProbeNoise())
 
     selftest = '--selftest' in sys.argv
     api = Api()
