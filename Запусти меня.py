@@ -36,6 +36,9 @@ FULL_LOG = PROJECT_ROOT / 'runs' / 'full_pipeline.log'
 FULL_PID = PROJECT_ROOT / 'runs' / 'full_pipeline.pid'
 
 
+REEXEC_FLAG = '--in-venv'      # признак «этот процесс уже перезапущен»
+
+
 def reexec_into_venv() -> None:
     """Перезапуск из .venv проекта, если запущены системным интерпретатором.
 
@@ -43,7 +46,16 @@ def reexec_into_venv() -> None:
     запустили (VS Code, IDE, терминал), убивает всю группу процессов сразу
     после выхода родителя — окно панели успевало только мигнуть.
     Под --selftest отсоединять нельзя: вызывающему нужен код возврата.
+
+    Перезапуск строго однократный — по метке в аргументах, а не по сравнению
+    путей интерпретатора. Сравнение путей подводило: в некоторых средах
+    (запуск по F5 из VS Code) процесс из .venv считал себя «чужим» и
+    запускал ещё один, тот — третий, и два окна дрались за один профиль
+    WebView2. Итог выглядел как намертво зависшая программа.
     """
+    if REEXEC_FLAG in sys.argv:
+        sys.argv.remove(REEXEC_FLAG)
+        return
     try:
         same = Path(sys.executable).resolve() == VENV_PY.resolve()
     except OSError:
@@ -52,7 +64,8 @@ def reexec_into_venv() -> None:
         flags = 0 if '--selftest' in sys.argv else (
             subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP)
         proc = subprocess.Popen(
-            [str(VENV_PY), str(Path(__file__).resolve()), *sys.argv[1:]],
+            [str(VENV_PY), str(Path(__file__).resolve()), REEXEC_FLAG,
+             *sys.argv[1:]],
             cwd=str(PROJECT_ROOT), creationflags=flags)
         if flags == 0:
             sys.exit(proc.wait())
@@ -703,6 +716,31 @@ def _capture_window_by_title(title: str, out_path: Path) -> None:
     user32.ReleaseDC(hwnd, hdc)
 
 
+def _kill_orphan_webviews() -> None:
+    """Гасит процессы WebView2, оставшиеся от прошлого запуска панели.
+
+    Ищем строго по нашему профилю (.cache/webview2) — чужие браузеры и
+    другие приложения на WebView2 не трогаем.
+    """
+    storage = str(PROJECT_ROOT / '.cache' / 'webview2')
+    try:
+        out = subprocess.run(
+            ['powershell', '-NoProfile', '-Command',
+             "Get-CimInstance Win32_Process -Filter \"Name='msedgewebview2.exe'\" "
+             f"| Where-Object {{ $_.CommandLine -like '*{storage}*' }} "
+             "| Select-Object -ExpandProperty ProcessId"],
+            capture_output=True, text=True, timeout=20,
+            creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0)).stdout
+    except (OSError, subprocess.SubprocessError):
+        return
+    pids = [p for p in out.split() if p.isdigit()]
+    for pid in pids:
+        subprocess.run(['taskkill', '/PID', pid, '/T', '/F'], capture_output=True,
+                       creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+    if pids:
+        print(f'Убраны остатки прошлого запуска: {len(pids)} процесс(ов) WebView2.')
+
+
 def main() -> None:
     # Единственный экземпляр: два окна на одном WebView2-профиле дают
     # чёрный рендер второго. Повторный запуск НЕ показывает диалог: модальное
@@ -718,6 +756,11 @@ def main() -> None:
         else:
             print('Панель уже запущена (окно ещё открывается).')
         sys.exit(0)
+
+    # Мьютекс взят — значит, других панелей нет, и любой процесс WebView2,
+    # держащий НАШ профиль, остался от прошлого запуска. Такие «хвосты»
+    # блокируют профиль, и новое окно повисает при старте.
+    _kill_orphan_webviews()
 
     try:  # чёткий рендер на HiDPI
         ctypes.windll.shcore.SetProcessDpiAwareness(2)
