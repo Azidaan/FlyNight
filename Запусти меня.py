@@ -28,6 +28,7 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent
 VENV_PY = PROJECT_ROOT / '.venv' / 'Scripts' / 'python.exe'
 HTML = PROJECT_ROOT / 'ui' / 'launcher.html'
+WINDOW_TITLE = 'Запусти меня — панель управления обучением'
 DATA = PROJECT_ROOT / 'data' / 'bdd100k'
 # автономный прогон: журнал и метка процесса (переживают закрытие панели)
 FULL_RUNNER = PROJECT_ROOT / 'scripts' / 'run_full_pipeline.py'
@@ -682,13 +683,18 @@ def _capture_window_by_title(title: str, out_path: Path) -> None:
 
 def main() -> None:
     # Единственный экземпляр: два окна на одном WebView2-профиле дают
-    # чёрный рендер второго. При повторном запуске — просто сообщение.
+    # чёрный рендер второго. Повторный запуск НЕ показывает диалог: модальное
+    # окно уходило за другие и выглядело как зависшая программа. Вместо этого
+    # поднимаем уже открытое окно и тихо выходим.
     ctypes.windll.kernel32.CreateMutexW(None, False, 'Global\\ZapustiMenyaPanel')
     if ctypes.windll.kernel32.GetLastError() == 183:  # ERROR_ALREADY_EXISTS
-        ctypes.windll.user32.MessageBoxW(
-            None, 'Панель уже запущена — второе окно не откроется.\n'
-                  'Найдите открытое окно «Запусти меня» на панели задач.',
-            'Запусти меня', 0x40)
+        hwnd = ctypes.windll.user32.FindWindowW(None, WINDOW_TITLE)
+        if hwnd:
+            ctypes.windll.user32.ShowWindow(hwnd, 9)          # SW_RESTORE
+            ctypes.windll.user32.SetForegroundWindow(hwnd)
+            print('Панель уже запущена — поднял её окно.')
+        else:
+            print('Панель уже запущена (окно ещё открывается).')
         sys.exit(0)
 
     try:  # чёткий рендер на HiDPI
@@ -713,7 +719,7 @@ def main() -> None:
     # старая версия. Страница самодостаточна (стили и скрипт внутри неё,
     # картинки приходят через API как data:), внешних ссылок нет.
     window = webview.create_window(
-        'Запусти меня — панель управления обучением',
+        WINDOW_TITLE,
         html=HTML.read_text(encoding='utf-8'),
         js_api=api, x=24, y=24, width=1500, height=940,
         min_size=(1180, 760),
@@ -736,7 +742,7 @@ def main() -> None:
                 time.sleep(1.0)
             try:
                 _capture_window_by_title(
-                    'Запусти меня — панель управления обучением',
+                    WINDOW_TITLE,
                     PROJECT_ROOT / 'ui' / 'selftest_screenshot.png',
                 )
                 print('SELFTEST OK: скриншот сохранён')
