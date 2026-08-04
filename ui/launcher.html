@@ -140,6 +140,15 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
 .op .otime{font-family:var(--mono); font-size:8.5px; color:var(--cap); letter-spacing:.1em;}
 .op.running{border-color:var(--accent);}
 .op.running .oname{color:var(--accent-deep);}
+/* ————— живые показатели обучения (узел Г) ————— */
+.trow{display:flex; justify-content:space-between; align-items:baseline; gap:8px; padding:1.5px 0;}
+.tk{font-family:var(--mono); font-size:9px; letter-spacing:.13em; text-transform:uppercase; color:var(--cap);}
+.tv{font-family:var(--mono); font-size:12.5px; color:var(--ink); font-weight:600; white-space:nowrap;}
+.tsep{font-family:var(--mono); font-size:8.5px; letter-spacing:.13em; text-transform:uppercase;
+  color:var(--sec); border-top:1px solid var(--div); margin-top:7px; padding-top:6px;}
+#tbar{height:5px; background:var(--div); margin:3px 0 7px;}
+#tbarfill{height:100%; width:0%; background:var(--accent); transition:width .4s;}
+
 /* ————— строка состояния: идёт обучение или нет ————— */
 #runbanner{display:flex; align-items:center; gap:11px; margin:9px 0 0;
   padding:7px 14px; border:1.8px solid var(--line); background:var(--surface);
@@ -216,6 +225,23 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
 #pipe .node{fill:var(--surface); stroke:var(--line); stroke-width:1.5;}
 #pipe .node.drb{stroke:var(--accent); stroke-width:1.8;}
 #pipe .wire{stroke:var(--aux); stroke-width:1.4; fill:none;}
+/* ————— кривая обучения (узел Д) ————— */
+#curvewrap{display:flex; flex-direction:column; gap:6px;}
+#curvecap{font-family:var(--mono); font-size:9px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--cap);}
+#curve{width:100%; height:84px; border:1px solid var(--div); background:var(--paper);}
+#curve .gridline{stroke:var(--div); stroke-width:.5;}
+#curve .lmap{fill:none; stroke:var(--accent); stroke-width:2; vector-effect:non-scaling-stroke;}
+#curve .lloss{fill:none; stroke:var(--sec); stroke-width:1.4;
+  stroke-dasharray:3 2; vector-effect:non-scaling-stroke;}
+#curvelegend{display:flex; flex-direction:column; gap:3px; font-size:9px; color:var(--cap);}
+#curvelegend i{display:inline-block; width:11px; height:2px; margin-right:5px;
+  vertical-align:middle;}
+#curvelegend i.accent{background:var(--accent);}
+#curvelegend i.sec{background:var(--sec);}
+#pipedetails{margin-top:9px;}
+#pipedetails summary{font-family:var(--mono); font-size:9px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--sec); cursor:pointer;}
 #pulse{fill:var(--accent); opacity:0;}
 #pipe.busy #pulse{opacity:1;}
 
@@ -318,7 +344,25 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
     <!-- ПРАВАЯ КОЛОНКА -->
     <div class="rail">
       <section class="panel" style="flex:none">
-        <div class="ptitle"><span>Сводка</span><span class="idx">Узел Г</span></div>
+        <div class="ptitle"><span id="gtitle">Сводка</span><span class="idx">Узел Г</span></div>
+
+        <!-- живые показатели обучения; показывается вместо сводки, пока идёт обучение -->
+        <div id="trainbox" hidden>
+          <div class="trow"><span class="tk">Эпоха</span><span class="tv" id="t-epoch">—</span></div>
+          <div id="tbar"><div id="tbarfill"></div></div>
+          <div class="trow"><span class="tk">Пройдено в эпохе</span><span class="tv" id="t-iter">—</span></div>
+          <div class="trow"><span class="tk">Скорость</span><span class="tv" id="t-rate">—</span></div>
+          <div class="trow"><span class="tk">Осталось в эпохе</span><span class="tv" id="t-eta">—</span></div>
+          <div class="tsep">Ошибки · меньше — лучше</div>
+          <div class="trow"><span class="tk">Рамки (box)</span><span class="tv" id="t-box">—</span></div>
+          <div class="trow"><span class="tk">Классы (cls)</span><span class="tv" id="t-cls">—</span></div>
+          <div class="trow"><span class="tk">Границы (dfl)</span><span class="tv" id="t-dfl">—</span></div>
+          <div class="tsep">Ресурсы</div>
+          <div class="trow"><span class="tk">Память видеокарты</span><span class="tv" id="t-mem">—</span></div>
+          <div class="trow"><span class="tk">Объектов в батче</span><span class="tv" id="t-inst">—</span></div>
+        </div>
+
+        <div id="staticbox">
         <div class="metric"><div class="mval accent" id="m-version">—</div><div class="mlabel">Выбранный детектор</div></div>
         <div class="metric"><div class="mval" id="m-fps">—<span class="unit">FPS</span></div><div class="mlabel">Инференс · батч 16 · 640×640</div></div>
         <div class="metric"><div class="mval ok" id="m-map">—</div><div class="mlabel">mAP@0.50 · мини-проверка</div></div>
@@ -331,10 +375,21 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
           </div>
           <div class="mlabel" style="margin-top:5px">Видео в train-поднаборах</div>
         </div>
+        </div>
       </section>
 
       <section class="panel" style="flex:1">
-        <div class="ptitle"><span>Тракт обработки</span><span class="idx">Узел Д</span></div>
+        <div class="ptitle"><span>Ход обучения · по эпохам</span><span class="idx">Узел Д</span></div>
+        <div id="curvewrap">
+          <div id="curvecap">Данных пока нет — появятся после первой эпохи</div>
+          <svg id="curve" viewBox="0 0 220 120" preserveAspectRatio="none"></svg>
+          <div id="curvelegend">
+            <span><i class="ck accent"></i>Точность (mAP@0.50) — выше лучше</span>
+            <span><i class="ck sec"></i>Ошибка рамок — ниже лучше</span>
+          </div>
+        </div>
+        <details id="pipedetails">
+          <summary>Схема модели</summary>
         <div id="pipe">
           <svg viewBox="0 0 220 240" preserveAspectRatio="xMidYMid meet">
             <path class="wire" d="M110 30 V 58"/><path class="wire" d="M110 88 V 116"/>
@@ -354,6 +409,7 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
             </circle>
           </svg>
         </div>
+        </details>
       </section>
     </div>
   </main>
@@ -386,18 +442,43 @@ const ui = {
 
   log(line, cls) {
     const el = $('log');
+    // прокручиваем вниз, только если читатель и так внизу: иначе журнал
+    // выдёргивал бы из-под курсора то место, которое он читает
+    const atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 24;
     const span = document.createElement('span');
     if (cls) span.className = cls;
     span.textContent = line + '\n';
     el.appendChild(span);
     while (el.childNodes.length > 900) el.removeChild(el.firstChild);
-    el.scrollTop = el.scrollHeight;
+    if (atBottom) el.scrollTop = el.scrollHeight;
+    else $('logstate').textContent = 'Прокручено вверх';
   },
   setLamp(id, state) {           // state: '', 'ok', 'fail', 'busy'
     const el = $('lamp-' + id);
     if (el) el.className = 'lamp' + (state ? ' ' + state : '');
   },
   setPhase(text) { $('phase').textContent = text || ''; },
+  // живые показатели обучения: разобранная строка Ultralytics с подписями,
+  // чтобы не гадать, что означает каждая колонка
+  setTrain(d) {
+    if (!d) {                                  // обучение кончилось — вернуть сводку
+      $('trainbox').hidden = true;
+      $('staticbox').hidden = false;
+      $('gtitle').textContent = 'Сводка';
+      return;
+    }
+    $('trainbox').hidden = false;
+    $('staticbox').hidden = true;
+    $('gtitle').textContent = 'Обучение · сейчас';
+    const set = (id, v) => { if (v !== undefined && v !== null) $(id).textContent = v; };
+    set('t-epoch', d.epoch + ' из ' + d.epochs);
+    $('tbarfill').style.width = (d.pct || 0) + '%';
+    if (d.it) set('t-iter', d.it + ' из ' + d.iters + '  (' + d.pct + '%)');
+    if (d.rate) set('t-rate', d.rate);
+    if (d.eta) set('t-eta', d.eta);
+    set('t-box', d.box); set('t-cls', d.cls); set('t-dfl', d.dfl);
+    set('t-mem', d.mem + ' ГБ'); set('t-inst', d.inst);
+  },
   // единственное место, где решается вопрос «идёт или не идёт»
   setRunBanner(busy, what) {
     const b = $('runbanner');
@@ -435,6 +516,7 @@ const ui = {
   },
   taskDone(taskId, code, lamp) {
     ui.setBusy(taskId, false);
+    ui.setTrain(null);                     // вернуть обычную сводку в узел Г
     if (lamp) ui.setLamp(lamp, code === 0 ? 'ok' : 'fail');
     ui.log(code === 0 ? '——— операция завершена: успех ———'
                       : '——— операция завершена: код ' + code + ' ———',
@@ -443,6 +525,43 @@ const ui = {
     pywebview.api.list_images().then(ui.setImages);
     pywebview.api.state().then(applyState);
     pywebview.api.pipeline_state().then(renderPipeline);
+  },
+  // кривая обучения по эпохам: две линии в общих координатах, каждая
+  // растянута по своему диапазону — важна форма, а не абсолютная высота
+  drawCurve(d) {
+    const svg = $('curve');
+    if (!d || !d.epochs || d.epochs.length < 2) {
+      svg.innerHTML = '';
+      $('curvecap').textContent = 'Данных пока нет — появятся после первой эпохи';
+      return;
+    }
+    const W = 220, H = 120, pad = 6;
+    const n = d.epochs.length;
+    const line = (vals, cls) => {
+      const lo = Math.min(...vals), hi = Math.max(...vals);
+      const span = (hi - lo) || 1;
+      const pts = vals.map((v, i) => {
+        const x = pad + (W - 2 * pad) * (n === 1 ? 0 : i / (n - 1));
+        const y = H - pad - (H - 2 * pad) * ((v - lo) / span);
+        return x.toFixed(1) + ',' + y.toFixed(1);
+      });
+      return '<polyline class="' + cls + '" points="' + pts.join(' ') + '"/>';
+    };
+    svg.innerHTML =
+      '<line class="gridline" x1="0" y1="' + (H / 2) + '" x2="' + W + '" y2="' + (H / 2) + '"/>'
+      + line(d.loss, 'lloss') + line(d.map50, 'lmap');
+    const lastMap = d.map50[n - 1], bestMap = Math.max(...d.map50);
+    $('curvecap').textContent =
+      d.run + ' · эпох: ' + n + ' · mAP сейчас ' + lastMap.toFixed(3)
+      + ' · лучший ' + bestMap.toFixed(3);
+  },
+  refreshCurve() {
+    if (window.pywebview && pywebview.api && pywebview.api.training_curve)
+      pywebview.api.training_curve().then(ui.drawCurve).catch(() => {});
+  },
+  refreshImages() {
+    if (window.pywebview && pywebview.api && pywebview.api.list_images)
+      pywebview.api.list_images().then(ui.setImages).catch(() => {});
   },
   setImages(list) {
     const had = ui.images.length;
@@ -534,6 +653,7 @@ function boot() {
     pywebview.api.state().then(applyState),
     pywebview.api.pipeline_state().then(renderPipeline),
     pywebview.api.list_images().then(ui.setImages),
+    pywebview.api.training_curve().then(ui.drawCurve),
   ]).then(() => {
     // состояние по умолчанию — «ничего не идёт»; если автономный прогон жив,
     // Python сразу перебьёт его из boot_done

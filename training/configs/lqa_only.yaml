@@ -10,7 +10,7 @@ frame_step_val: 5
 epochs: 50
 batch: 16
 imgsz: 640
-workers: 4
+workers: 8                  # 16 ядер: на 4 воркерах видеокарта простаивала
 block_epochs: 10
 
 drb_variant: lqa

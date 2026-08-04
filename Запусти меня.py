@@ -79,6 +79,15 @@ TASKS: dict[str, dict] = {
 }
 
 RE_EPOCH = re.compile(r'^\s*(\d+)/(\d+)\s')          # строка эпохи Ultralytics
+# Ultralytics красит вывод, а WebView2 показывает управляющие последовательности
+# как мусор вида «[34m[1mtrain:» — вычищаем перед показом.
+RE_ANSI = re.compile(r'\x1b\[[0-9;?]*[A-Za-z]')
+# строка прогресса обучения: эпоха, память, три ошибки, объектов, размер, процент
+RE_TRAIN = re.compile(
+    r'^\s*(\d+)/(\d+)\s+([\d.]+)G\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+'
+    r'(\d+)\s+(\d+):\s*(\d+)%')
+# хвост той же строки: итерации, скорость, прошло<осталось
+RE_TRAIN_TAIL = re.compile(r'(\d+)/(\d+)\s+([\d.]+)(it/s|s/it)\s+([\d:]+)<([\d:?]+)')
 RE_STEP = re.compile(r'^==========\s*(\S+)')          # шаг run_all_smoke
 
 # ————— конвейер обучений (Этапы 3-10): статусы и команды —————
@@ -254,6 +263,7 @@ class Api:
         self._proc: subprocess.Popen | None = None
         self._abort = False
         self._lock = threading.Lock()
+        self._last_epoch: int | None = None    # для обновления картинок по эпохам
         self.boot_event = threading.Event()   # JS сигналит о конце boot()
 
     def boot_done(self) -> None:
@@ -280,6 +290,51 @@ class Api:
 
     def _log(self, line: str, cls: str = '') -> None:
         self._js(f'ui.log({json.dumps(line)}, {json.dumps(cls)})')
+
+    def _emit_line(self, raw: str) -> None:
+        """Одна строка вывода подпроцесса -> журнал или живые показатели.
+
+        Строки прогресса обучения в журнал НЕ попадают: их тысячи, и без
+        подписей колонки всё равно нечитаемы. Они разбираются и уходят в
+        узел Г с человеческими названиями.
+        """
+        line = RE_ANSI.sub('', raw.rstrip('\n').split('\r')[-1]).rstrip()
+        if not line:
+            return
+
+        m = RE_TRAIN.match(line)
+        if m:
+            data = {
+                'epoch': int(m.group(1)), 'epochs': int(m.group(2)),
+                'mem': m.group(3), 'box': m.group(4), 'cls': m.group(5),
+                'dfl': m.group(6), 'inst': m.group(7), 'pct': int(m.group(9)),
+            }
+            tail = RE_TRAIN_TAIL.search(line[m.end():])
+            if tail:
+                data['it'] = int(tail.group(1))
+                data['iters'] = int(tail.group(2))
+                data['rate'] = f'{tail.group(3)} {"кадр/с" if tail.group(4) == "it/s" else "с/кадр"}'
+                data['eta'] = tail.group(6)
+            self._js('ui.setTrain(' + json.dumps(data, ensure_ascii=False) + ')')
+            phase = f'ЭПОХА {data["epoch"]}/{data["epochs"]}'
+            self._js('ui.setPhase(' + json.dumps(phase) + ')')
+            if data['epoch'] != self._last_epoch:   # новая эпоха — новые картинки проверки
+                self._last_epoch = data['epoch']
+                self._js('ui.refreshImages()')
+                self._js('ui.refreshCurve()')
+            return
+
+        if '%|' in line or RE_EPOCH.match(line):
+            return                                   # прочие полосы прогресса
+        cls = ''
+        if '[OK' in line or 'OK:' in line:
+            cls = 'ok'
+        elif any(t in line for t in ('FAIL', 'Error', 'Traceback', 'ОШИБК',
+                                     'СТАГНАЦИЯ', 'ПРОВАЛЕНЫ')):
+            cls = 'err'
+        elif line.startswith(('[INFO', '[SUP', '»', '===', '[03', '[04')):
+            cls = 'info'
+        self._log(line, cls)
 
     # ——— состояние и метрики ———
     def state(self) -> dict:
@@ -334,25 +389,81 @@ class Api:
     # ——— смотровое окно ———
     def list_images(self) -> list[dict]:
         items: list[tuple[float, dict]] = []
+        # Сортировка строго по свежести: пока идёт обучение, первыми идут
+        # настоящие обучающие батчи (на них сеть и учится прямо сейчас),
+        # а не статичные примеры поднаборов.
         samples = PROJECT_ROOT / 'experiments' / 'results' / 'subset_samples'
         if samples.is_dir():
             for p in sorted(samples.glob('*.jpg')):
                 subset = p.stem.split('_')[0].upper()
-                items.append((1e12, {  # сэмплы поднаборов всегда первыми
+                items.append((p.stat().st_mtime, {
                     'path': str(p.relative_to(PROJECT_ROOT)),
-                    'caption': f'{subset} · {p.stem.split("_", 1)[1][:34]}',
+                    'caption': f'ПРИМЕР ПОДНАБОРА · {subset} · '
+                               f'{p.stem.split("_", 1)[1][:28]}',
                 }))
         runs = PROJECT_ROOT / 'runs'
         if runs.is_dir():
+            captions = {
+                'train_batch': 'РЕАЛЬНЫЙ ОБУЧАЮЩИЙ БАТЧ (с аугментациями)',
+                'val_batch': 'ПРОВЕРКА ПОСЛЕ ЭПОХИ',
+            }
             for pattern in ('**/train_batch*.jpg', '**/val_batch*_pred.jpg',
                             '**/val_batch*_labels.jpg'):
                 for p in runs.glob(pattern):
+                    kind = 'train_batch' if 'train_batch' in p.name else 'val_batch'
                     items.append((p.stat().st_mtime, {
                         'path': str(p.relative_to(PROJECT_ROOT)),
-                        'caption': f'ОБУЧЕНИЕ · {p.parent.name} · {p.stem}',
+                        'caption': f'{captions[kind]} · {p.parent.name}',
                     }))
         items.sort(key=lambda t: -t[0])
         return [meta for _, meta in items[:32]]
+
+    def training_curve(self) -> dict:
+        """Ход обучения по эпохам для узла Д: ошибка и точность на проверке.
+
+        Берётся самый свежий results.csv под runs/ — это и есть журнал
+        Ultralytics: одна строка на завершённую эпоху.
+        """
+        import csv as _csv
+        runs = PROJECT_ROOT / 'runs'
+        newest, newest_mtime = None, 0.0
+        if runs.is_dir():
+            for p in runs.glob('*/seed*/results.csv'):
+                mt = p.stat().st_mtime
+                if mt > newest_mtime:
+                    newest, newest_mtime = p, mt
+        if newest is None:
+            return {}
+        try:
+            with open(newest, encoding='utf-8') as f:
+                rows = list(_csv.DictReader(f))
+        except OSError:
+            return {}
+        if not rows:
+            return {}
+
+        def col(row: dict, needle: str) -> float | None:
+            for k, v in row.items():
+                if needle in k and v not in (None, ''):
+                    try:
+                        return float(v)
+                    except ValueError:
+                        return None
+            return None
+
+        epochs, loss, mapv = [], [], []
+        for r in rows:
+            e = col(r, 'epoch')
+            b, m = col(r, 'train/box_loss'), col(r, 'mAP50(B)')
+            if e is None:
+                continue
+            epochs.append(int(e))
+            loss.append(b if b is not None else 0.0)
+            mapv.append(m if m is not None else 0.0)
+        return {
+            'run': f'{newest.parent.parent.name}/{newest.parent.name}',
+            'epochs': epochs, 'loss': loss, 'map50': mapv,
+        }
 
     def get_image(self, rel_path: str) -> str:
         p = (PROJECT_ROOT / rel_path).resolve()
@@ -446,19 +557,7 @@ class Api:
                 with open(FULL_LOG, encoding='utf-8', errors='replace') as f:
                     f.seek(pos)
                     for raw in f:
-                        line = raw.rstrip('\n')
-                        if not line:
-                            continue
-                        ep = RE_EPOCH.match(line)
-                        if ep:
-                            self._js(f'ui.setPhase({json.dumps(f"ЭПОХА {ep.group(1)}/{ep.group(2)}")})')
-                            continue
-                        if '%|' in line:
-                            continue
-                        cls = 'err' if any(t in line for t in (
-                            'FAIL', 'ПРОВАЛЕНЫ', 'Traceback', 'остановлен')) else (
-                            'ok' if ('[OK' in line or 'ПРОЙДЕН' in line) else '')
-                        self._log(line, cls)
+                        self._emit_line(raw)
                     pos = f.tell()
             if not alive:
                 break
@@ -499,25 +598,7 @@ class Api:
                 )
             assert self._proc.stdout is not None
             for raw in self._proc.stdout:
-                # tqdm шлёт прогресс через \r в одной строке — берём последний кусок
-                line = raw.rstrip('\n').split('\r')[-1].rstrip()
-                if not line:
-                    continue
-                cls = ''
-                if '[OK' in line or 'OK:' in line:
-                    cls = 'ok'
-                elif any(t in line for t in ('FAIL', 'Error', 'Traceback', 'ОШИБК',
-                                             'СТАГНАЦИЯ')):
-                    cls = 'err'
-                elif line.startswith(('[INFO', '[SUP', '»', '===')):
-                    cls = 'info'
-                ep = RE_EPOCH.match(line)
-                if ep:
-                    self._js(f'ui.setPhase({json.dumps(f"ЭПОХА {ep.group(1)}/{ep.group(2)}")})')
-                    continue  # строки эпох не засоряют журнал
-                if '%|' in line:  # полосы tqdm валидации
-                    continue
-                self._log(line, cls)
+                self._emit_line(raw)
             self._proc.wait()
             code = self._proc.returncode or 0
             if code != 0:
@@ -605,9 +686,14 @@ def main() -> None:
 
     selftest = '--selftest' in sys.argv
     api = Api()
+    # Страница отдаётся содержимым, а не путём к файлу: WebView2 кэширует
+    # file://-страницы, и правки интерфейса не доезжали до окна — рисовалась
+    # старая версия. Страница самодостаточна (стили и скрипт внутри неё,
+    # картинки приходят через API как data:), внешних ссылок нет.
     window = webview.create_window(
         'Запусти меня — панель управления обучением',
-        str(HTML), js_api=api, x=24, y=24, width=1500, height=940,
+        html=HTML.read_text(encoding='utf-8'),
+        js_api=api, x=24, y=24, width=1500, height=940,
         min_size=(1180, 760),
     )
     api.window = window
@@ -618,6 +704,14 @@ def main() -> None:
             # ждём сигнала boot_done из JS (данные загружены), потом пост-рендер
             api.boot_event.wait(timeout=25)
             time.sleep(2.5)
+            if '--with-train' in sys.argv:
+                # снимок в состоянии «идёт обучение»: проверка живых показателей
+                api._js('ui.setBusy("full", true)')
+                api._emit_line(
+                    '\x1b[K     29/100      5.11G      1.425     0.8542   '
+                    '0.003134        273        640: 19% ━━──────── '
+                    '694/3522 3.9it/s 4:16<12:08')
+                time.sleep(1.0)
             try:
                 _capture_window_by_title(
                     'Запусти меня — панель управления обучением',

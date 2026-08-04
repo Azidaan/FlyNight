@@ -24,6 +24,7 @@ ablation, трекинг, финальные таблицы. После кажд
 import argparse
 import importlib.util
 import os
+import re
 import subprocess
 import sys
 import time
@@ -39,6 +40,9 @@ from scripts.sanity_checks import (  # noqa: E402
 
 VENV_PY = PROJECT_ROOT / '.venv' / 'Scripts' / 'python.exe'
 LOG_PATH = PROJECT_ROOT / 'runs' / 'full_pipeline.log'
+# Ultralytics красит вывод; в файле журнала управляющие последовательности
+# превращаются в мусор вида «[34m[1mtrain:» — вычищаем на входе.
+RE_ANSI = re.compile(r'\x1b\[[0-9;?]*[A-Za-z]')
 
 
 def load_pipeline() -> list[dict]:
@@ -82,7 +86,7 @@ def run_command(argv: list[str], jr: Journal) -> int:
         errors='replace', bufsize=1, env=env)
     assert proc.stdout is not None
     for raw in proc.stdout:
-        line = raw.rstrip('\n').split('\r')[-1].rstrip()
+        line = RE_ANSI.sub('', raw.rstrip('\n').split('\r')[-1]).rstrip()
         if line:
             jr.raw(line)
     proc.wait()
