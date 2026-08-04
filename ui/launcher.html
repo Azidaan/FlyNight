@@ -590,9 +590,14 @@ const ui = {
     load.textContent = (t.load === null || t.load === undefined) ? '—' : t.load + ' %';
     load.className = 'tv';
   },
-  refreshImages() {
+  // jump=true — перескочить на первую картинку: при обучении первым идёт
+  // кадр идущего прогона, и смотреть надо именно на него
+  refreshImages(jump) {
     if (window.pywebview && pywebview.api && pywebview.api.list_images)
-      pywebview.api.list_images().then(ui.setImages).catch(() => {});
+      pywebview.api.list_images().then(list => {
+        ui.setImages(list);
+        if (jump && ui.images.length) ui.show(0);
+      }).catch(() => {});
   },
   setImages(list) {
     const had = ui.images.length;

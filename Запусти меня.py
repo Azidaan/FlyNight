@@ -57,7 +57,11 @@ def reexec_into_venv() -> None:
         if flags == 0:
             sys.exit(proc.wait())
         print(f'Панель запущена из .venv проекта (PID {proc.pid}).')
-        sys.exit(0)
+        sys.stdout.flush()
+        # os._exit, а не sys.exit: родитель обязан исчезнуть немедленно.
+        # Иначе в списке процессов висят два «Запусти меня», и непонятно,
+        # какое окно живое — этим уже путались.
+        os._exit(0)
 
 
 reexec_into_venv()
@@ -322,7 +326,7 @@ class Api:
             self._js('ui.setPhase(' + json.dumps(phase) + ')')
             if data['epoch'] != self._last_epoch:   # новая эпоха — новые картинки проверки
                 self._last_epoch = data['epoch']
-                self._js('ui.refreshImages()')
+                self._js('ui.refreshImages(true)')
                 self._js('ui.refreshCurve()')
             return
 
@@ -389,7 +393,22 @@ class Api:
         threading.Thread(target=worker, daemon=True).start()
 
     # ——— смотровое окно ———
+    def _active_run_dir(self) -> Path | None:
+        """Папка прогона, который обучается прямо сейчас (свежайший results.csv)."""
+        runs = PROJECT_ROOT / 'runs'
+        newest, newest_mt = None, 0.0
+        if runs.is_dir():
+            for p in runs.glob('*/seed*/results.csv'):
+                mt = p.stat().st_mtime
+                if mt > newest_mt:
+                    newest, newest_mt = p.parent, mt
+        return newest
+
     def list_images(self) -> list[dict]:
+        # Картинки идущего прогона идут первыми, даже если файл не самый свежий:
+        # Ultralytics рисует мозаики обучающих батчей только при старте нового
+        # обучения и не перерисовывает их при продолжении с чекпойнта.
+        active = self._active_run_dir()
         items: list[tuple[float, dict]] = []
         # Сортировка строго по свежести: пока идёт обучение, первыми идут
         # настоящие обучающие батчи (на них сеть и учится прямо сейчас),
@@ -413,9 +432,12 @@ class Api:
                             '**/val_batch*_labels.jpg'):
                 for p in runs.glob(pattern):
                     kind = 'train_batch' if 'train_batch' in p.name else 'val_batch'
-                    items.append((p.stat().st_mtime, {
+                    is_active = active is not None and p.parent == active
+                    mark = 'ИДЁТ СЕЙЧАС · ' if is_active else ''
+                    run_name = f'{p.parent.parent.name}/{p.parent.name}'
+                    items.append((p.stat().st_mtime + (1e12 if is_active else 0), {
                         'path': str(p.relative_to(PROJECT_ROOT)),
-                        'caption': f'{captions[kind]} · {p.parent.name}',
+                        'caption': f'{mark}{captions[kind]} · {run_name}',
                     }))
         items.sort(key=lambda t: -t[0])
         return [meta for _, meta in items[:32]]
