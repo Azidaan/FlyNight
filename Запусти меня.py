@@ -190,6 +190,51 @@ def _best_final_model() -> str:
     return 'weights/drb_aug_full_seed42/best.pt'
 
 
+# ————— проба инициализации DRB (узел Е) —————
+# Короткие прогоны по 12 эпох: с какого вклада ветвей стартовать блоку.
+# 12 эпох выбраны не наугад — начиная с них Ultralytics переключается на тот
+# же оптимизатор (MuSGD), что и в настоящем прогоне.
+PROBE_ROOT = PROJECT_ROOT / 'runs' / 'init_probe'
+PROBE_EPOCHS = 12
+PROBE_SEED = 42
+PROBES: list[dict] = [
+    {'id': 'w0', 'w': 0.0, 'name': 'Вклад 50% — как в плане', 'time': '~3 ч'},
+    {'id': 'w2', 'w': -2.0, 'name': 'Вклад 12%', 'time': '~3 ч'},
+    {'id': 'w4', 'w': -4.0, 'name': 'Вклад 2% — почти тождественный старт',
+     'time': '~3 ч'},
+]
+
+
+def _probe_status(pid: str) -> tuple[str, str]:
+    """(status, detail) пробы по фактам на диске."""
+    run = PROBE_ROOT / pid / f'seed{PROBE_SEED}'
+    results = run / 'results.csv'
+    if results.exists():
+        try:
+            n = sum(1 for _ in open(results, encoding='utf-8')) - 1
+        except OSError:
+            n = 0
+        if n >= PROBE_EPOCHS:
+            return 'done', f'{n} эпох — готово'
+        if n > 0:
+            return 'partial', f'{n} из {PROBE_EPOCHS} эпох'
+    if (run / 'weights' / 'last.pt').exists():
+        return 'partial', 'есть чекпойнт — продолжить'
+    return 'todo', f'{PROBE_EPOCHS} эпох'
+
+
+def _probe_cmds(pid: str, w: float) -> list[list[str]]:
+    out = PROBE_ROOT / pid
+    cmd = ['scripts/train_supervisor.py', '--watch',
+           f'runs/init_probe/{pid}', '--', 'python', 'training/train_drb.py',
+           '--seed', str(PROBE_SEED), '--epochs', str(PROBE_EPOCHS),
+           '--output', str(out.relative_to(PROJECT_ROOT)).replace('\\', '/'),
+           '--alpha-init', str(w)]
+    if _probe_status(pid)[0] == 'partial':
+        cmd.append('--resume')
+    return [cmd]
+
+
 # Каждый шаг: id, name, время, status() -> (status, detail), cmds() -> [argv]
 PIPELINE: list[dict] = [
     {
@@ -493,24 +538,12 @@ class Api:
                 time.sleep(10)
         threading.Thread(target=worker, daemon=True).start()
 
-    def training_curve(self) -> dict:
-        """Ход обучения по эпохам для узла Д: ошибка и точность на проверке.
-
-        Берётся самый свежий results.csv под runs/ — это и есть журнал
-        Ultralytics: одна строка на завершённую эпоху.
-        """
+    @staticmethod
+    def _read_curve(path: Path) -> dict:
+        """Кривая одного прогона из results.csv Ultralytics (строка = эпоха)."""
         import csv as _csv
-        runs = PROJECT_ROOT / 'runs'
-        newest, newest_mtime = None, 0.0
-        if runs.is_dir():
-            for p in runs.glob('*/seed*/results.csv'):
-                mt = p.stat().st_mtime
-                if mt > newest_mtime:
-                    newest, newest_mtime = p, mt
-        if newest is None:
-            return {}
         try:
-            with open(newest, encoding='utf-8') as f:
+            with open(path, encoding='utf-8') as f:
                 rows = list(_csv.DictReader(f))
         except OSError:
             return {}
@@ -529,16 +562,51 @@ class Api:
         epochs, loss, mapv = [], [], []
         for r in rows:
             e = col(r, 'epoch')
-            b, m = col(r, 'train/box_loss'), col(r, 'mAP50(B)')
             if e is None:
                 continue
             epochs.append(int(e))
-            loss.append(b if b is not None else 0.0)
-            mapv.append(m if m is not None else 0.0)
-        return {
-            'run': f'{newest.parent.parent.name}/{newest.parent.name}',
-            'epochs': epochs, 'loss': loss, 'map50': mapv,
-        }
+            loss.append(col(r, 'train/box_loss') or 0.0)
+            mapv.append(col(r, 'mAP50(B)') or 0.0)
+        return {'epochs': epochs, 'loss': loss, 'map50': mapv}
+
+    def training_curve(self) -> dict:
+        """Данные для графика в узле Д.
+
+        Два режима. Если начата хоть одна проба инициализации — показываем
+        СРАВНЕНИЕ: все пробы и baseline на одних и тех же эпохах, чтобы прямо
+        по ходу дела было видно, какой стартовый вклад ветвей лучше. Иначе —
+        обычная кривая идущего прогона (точность и ошибка).
+        """
+        probes = []
+        for p in PROBES:
+            c = self._read_curve(PROBE_ROOT / p['id'] / f'seed{PROBE_SEED}'
+                                 / 'results.csv')
+            if c.get('epochs'):
+                probes.append((p, c))
+
+        if probes:
+            n = max(len(c['epochs']) for _, c in probes)
+            series = []
+            base = self._read_curve(
+                PROJECT_ROOT / 'runs' / 'baseline' / f'seed{PROBE_SEED}' / 'results.csv')
+            if base.get('epochs'):
+                series.append({'name': 'baseline (без DRB)', 'style': 'ref',
+                               'map50': base['map50'][:n]})
+            for p, c in probes:
+                series.append({'name': p['name'].split(' — ')[0],
+                               'style': p['id'], 'map50': c['map50']})
+            return {'mode': 'probe', 'series': series, 'limit': PROBE_EPOCHS,
+                    'title': f'проба инициализации · {n} из {PROBE_EPOCHS} эпох'}
+
+        run = self._active_run_dir()
+        if run is None:
+            return {}
+        c = self._read_curve(run / 'results.csv')
+        if not c.get('epochs'):
+            return {}
+        c['mode'] = 'single'
+        c['run'] = f'{run.parent.name}/{run.name}'
+        return c
 
     def get_image(self, rel_path: str) -> str:
         p = (PROJECT_ROOT / rel_path).resolve()
@@ -564,6 +632,49 @@ class Api:
                         'time': step['time'], 'status': status,
                         'role': role, 'detail': detail})
         return out
+
+    # ——— проба инициализации DRB (узел Е) ———
+    def probe_state(self) -> list[dict]:
+        out = []
+        for p in PROBES:
+            status, detail = _probe_status(p['id'])
+            out.append({'id': p['id'], 'name': p['name'], 'time': p['time'],
+                        'status': status, 'detail': detail})
+        return out
+
+    def run_probe(self, probe_id: str) -> None:
+        p = next((x for x in PROBES if x['id'] == probe_id), None)
+        if p is None:
+            return
+        threading.Thread(target=self._run_probe, args=(p,), daemon=True).start()
+
+    def _run_probe(self, p: dict) -> None:
+        self._log(f'Проба инициализации: {p["name"]} '
+                  f'({PROBE_EPOCHS} эпох, вклад ветви '
+                  f'{1/(1+pow(2.718281828, -p["w"])):.1%})', 'info')
+        code = self._run_commands(
+            [[str(VENV_PY), str(PROJECT_ROOT / c[0]), *c[1:]]
+             for c in _probe_cmds(p['id'], p['w'])])
+        self._js(f'ui.taskDone({json.dumps(p["id"])}, {code}, null)')
+
+    def reset_probe(self, probe_id: str) -> None:
+        """Сброс пробы: удаляются чекпойнты и журнал, шаг снова «не начат»."""
+        import shutil
+        target = PROBE_ROOT / probe_id if probe_id != 'all' else PROBE_ROOT
+        if target.exists():
+            shutil.rmtree(target, ignore_errors=True)
+            self._log(f'Проба сброшена: {probe_id}', 'err')
+        else:
+            self._log(f'Сбрасывать нечего: {probe_id}', 'info')
+        self._js('pywebview.api.probe_state().then(renderProbes)')
+
+    def compare_probes(self) -> None:
+        threading.Thread(target=self._compare_probes, daemon=True).start()
+
+    def _compare_probes(self) -> None:
+        code = self._run_commands(
+            [[str(VENV_PY), str(PROJECT_ROOT / 'scripts' / 'compare_init_probe.py')]])
+        self._js(f'ui.taskDone("probecmp", {code}, null)')
 
     def run_step(self, step_id: str) -> None:
         step = next((s for s in PIPELINE if s['id'] == step_id), None)
@@ -769,12 +880,19 @@ def _kill_orphan_webviews() -> None:
 
 
 def main() -> None:
+    # Служебная проверка (--selftest) работает в стороне от рабочей панели:
+    # свой профиль WebView2 и без блокировки «единственный экземпляр». Иначе
+    # проверить интерфейс можно было бы только закрыв рабочее окно, а во время
+    # многосуточного обучения это недопустимо.
+    selftest_mode = '--selftest' in sys.argv
+
     # Единственный экземпляр: два окна на одном WebView2-профиле дают
     # чёрный рендер второго. Повторный запуск НЕ показывает диалог: модальное
     # окно уходило за другие и выглядело как зависшая программа. Вместо этого
     # поднимаем уже открытое окно и тихо выходим.
-    ctypes.windll.kernel32.CreateMutexW(None, False, 'Global\\ZapustiMenyaPanel')
-    if ctypes.windll.kernel32.GetLastError() == 183:  # ERROR_ALREADY_EXISTS
+    if not selftest_mode:
+        ctypes.windll.kernel32.CreateMutexW(None, False, 'Global\\ZapustiMenyaPanel')
+    if not selftest_mode and ctypes.windll.kernel32.GetLastError() == 183:  # ERROR_ALREADY_EXISTS
         hwnd = ctypes.windll.user32.FindWindowW(None, WINDOW_TITLE)
         if hwnd:
             ctypes.windll.user32.ShowWindow(hwnd, 9)          # SW_RESTORE
@@ -786,8 +904,10 @@ def main() -> None:
 
     # Мьютекс взят — значит, других панелей нет, и любой процесс WebView2,
     # держащий НАШ профиль, остался от прошлого запуска. Такие «хвосты»
-    # блокируют профиль, и новое окно повисает при старте.
-    _kill_orphan_webviews()
+    # блокируют профиль, и новое окно повисает при старте. Под проверкой не
+    # трогаем: там свой профиль, а рабочую панель гасить нельзя.
+    if not selftest_mode:
+        _kill_orphan_webviews()
 
     try:  # чёткий рендер на HiDPI
         ctypes.windll.shcore.SetProcessDpiAwareness(2)
@@ -824,6 +944,12 @@ def main() -> None:
             # ждём сигнала boot_done из JS (данные загружены), потом пост-рендер
             api.boot_event.wait(timeout=25)
             time.sleep(2.5)
+            if '--scroll' in sys.argv:
+                # колонки прокручиваются — без этого нижние узлы не попадают
+                # в снимок, и проверить их вид нельзя
+                api._js('document.querySelectorAll(".rail")'
+                        '.forEach(r => r.scrollTop = 9999)')
+                time.sleep(0.6)
             if '--with-train' in sys.argv:
                 # снимок в состоянии «идёт обучение»: проверка живых показателей
                 api._js('ui.setBusy("full", true)')
@@ -842,7 +968,8 @@ def main() -> None:
                 window.destroy()
         threading.Thread(target=snap, daemon=True).start()
 
-    storage = PROJECT_ROOT / '.cache' / 'webview2'
+    storage = PROJECT_ROOT / '.cache' / (
+        'webview2_selftest' if selftest_mode else 'webview2')
     storage.mkdir(parents=True, exist_ok=True)
     webview.start(storage_path=str(storage), private_mode=False)
 

@@ -75,7 +75,8 @@ def make_alpha_logger(run_dir: Path):
 
 def train_drb(config_path: str, seed: int, output_dir: str | None = None,
               variant: str = 'both', resume: bool = False,
-              data_override: str | None = None) -> str:
+              data_override: str | None = None,
+              alpha_init: float | None = None) -> str:
     """Обучение одного сида YOLO+DRB. Возвращает путь к best.pt."""
     setup_compute_flags()
     from ultralytics import YOLO
@@ -106,8 +107,9 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
     hb.attach(model)
     model.add_callback('on_fit_epoch_end', make_alpha_logger(run_dir))
 
+    w0 = cfg.get('alpha_init', 0.0) if alpha_init is None else alpha_init
     model.train(
-        trainer=make_drb_trainer(variant),
+        trainer=make_drb_trainer(variant, alpha_init=w0),
         data=str(data_yaml), epochs=cfg['epochs'], batch=cfg['batch'],
         imgsz=cfg['imgsz'], workers=cfg['workers'], seed=seed, device=0,
         project=str(run_dir.parent), name=run_dir.name, exist_ok=True,
@@ -138,6 +140,9 @@ def main() -> int:
                     help='переопределить число эпох (smoke или ablation 50)')
     ap.add_argument('--data', default=None,
                     help='переопределить data-yaml (smoke на mini-BDD)')
+    ap.add_argument('--alpha-init', type=float, default=None,
+                    help='стартовые веса ветвей w_LQA=w_FGA (0 — вклад 50%%, '
+                         '-2 — 12%%, -4 — почти тождественный старт)')
     args = ap.parse_args()
 
     if args.epochs is not None:
@@ -151,7 +156,8 @@ def main() -> int:
         args.config = str(tmp)
 
     best = train_drb(args.config, args.seed, args.output, args.variant,
-                     args.resume, data_override=args.data)
+                     args.resume, data_override=args.data,
+                     alpha_init=args.alpha_init)
     print(f'[OK ] best.pt: {best}')
     return 0 if best else 1
 

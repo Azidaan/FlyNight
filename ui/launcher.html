@@ -148,6 +148,34 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
   color:var(--sec); border-top:1px solid var(--div); margin-top:5px; padding-top:4px;}
 #tbar{height:5px; background:var(--div); margin:3px 0 7px;}
 #tbarfill{height:100%; width:0%; background:var(--accent); transition:width .4s;}
+/* ————— проба инициализации DRB (узел Е) ————— */
+.subtitle{font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--sec); border-top:1px solid var(--div); margin-top:10px; padding-top:7px;}
+#probehint{font-size:9px; line-height:1.45; color:var(--cap); margin:4px 0 6px;}
+#probes{display:flex; flex-direction:column; gap:5px;}
+.probe{border:1.4px solid var(--div); padding:5px 7px;}
+.probe .prow{display:flex; align-items:baseline; gap:6px; justify-content:space-between;}
+.probe .pname{font-size:10.5px; line-height:1.3;}
+.probe .ptime{font-family:var(--mono); font-size:8.5px; color:var(--cap); flex:none;}
+.probe .pdet{font-family:var(--mono); font-size:8.5px; color:var(--cap); margin-top:2px;}
+.probe.done{border-color:var(--ok); background:rgba(93,138,96,.07);}
+.probe.done .pname::before{content:'✓ '; color:var(--ok);}
+.probe.running{border-color:var(--accent);}
+.probe .rbtn{display:block; width:100%; margin-top:5px; font-family:var(--mono);
+  font-size:9px; letter-spacing:.14em; text-transform:uppercase; padding:5px 4px;
+  cursor:pointer; background:var(--surface); color:var(--accent-deep);
+  border:1.3px solid var(--accent-deep);}
+.probe .rbtn:hover:not(:disabled){background:var(--accent); color:var(--surface);
+  border-color:var(--accent);}
+.probe .rbtn:disabled{opacity:.4; cursor:default;}
+.probe.done .rbtn{color:var(--sec); border-color:var(--div);}
+#probebar{display:flex; gap:6px; margin-top:7px;}
+.pbtn{flex:1; font-family:var(--mono); font-size:9px; letter-spacing:.12em;
+  text-transform:uppercase; padding:6px 4px; cursor:pointer; background:var(--surface);
+  color:var(--sec); border:1.3px solid var(--div);}
+.pbtn:hover:not(:disabled){border-color:var(--accent-deep); color:var(--accent-deep);}
+.pbtn:disabled{opacity:.4; cursor:default;}
+
 #thermnote{font-size:8.5px; color:var(--cap); margin-top:4px; line-height:1.4;}
 .tv.hot{color:var(--accent-deep);}
 .tv.crit{color:var(--surface); background:var(--accent-deep); padding:1px 5px;}
@@ -243,6 +271,16 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
   vertical-align:middle;}
 #curvelegend i.accent{background:var(--accent);}
 #curvelegend i.sec{background:var(--sec);}
+/* сравнение проб: свой цвет на вариант, baseline — серый пунктир */
+#curve .ln-ref{fill:none; stroke:var(--cap); stroke-width:1.3; stroke-dasharray:3 2;
+  vector-effect:non-scaling-stroke;}
+#curve .ln-w0{fill:none; stroke:var(--accent); stroke-width:2; vector-effect:non-scaling-stroke;}
+#curve .ln-w2{fill:none; stroke:var(--ok); stroke-width:2; vector-effect:non-scaling-stroke;}
+#curve .ln-w4{fill:none; stroke:#3f6ea8; stroke-width:2; vector-effect:non-scaling-stroke;}
+#curvelegend i.c-ref{background:var(--cap);}
+#curvelegend i.c-w0{background:var(--accent);}
+#curvelegend i.c-w2{background:var(--ok);}
+#curvelegend i.c-w4{background:#3f6ea8;}
 #pipedetails{margin-top:9px;}
 #pipedetails summary{font-family:var(--mono); font-size:9px; letter-spacing:.14em;
   text-transform:uppercase; color:var(--sec); cursor:pointer;}
@@ -321,6 +359,15 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
           <button class="op" data-task="minitrain" title="Мини-обучение (~3 мин)"><span class="oid">Т-05</span><span class="oname">Мини-обучение</span></button>
         </div>
         <button id="stopbtn" disabled>■ Останавливать нечего</button>
+
+        <div class="subtitle">Проба · с чего стартует DRB</div>
+        <div id="probehint">Три коротких обучения по 12 эпох: с какого вклада
+          ветвей блок должен начинать. Сравниваются между собой и с baseline.</div>
+        <div id="probes"></div>
+        <div id="probebar">
+          <button class="pbtn" id="probecmp">Сравнить</button>
+          <button class="pbtn" id="probereset">Сбросить всё</button>
+        </div>
       </section>
     </div>
 
@@ -519,6 +566,12 @@ const ui = {
     });
     $('stopbtn').disabled = !busy;
     $('stopbtn').textContent = busy ? '■ Остановить' : '■ Останавливать нечего';
+    document.querySelectorAll('.probe').forEach(el => {
+      el.classList.toggle('running', busy && el.dataset.step === taskId);
+      const b = el.querySelector('.rbtn');
+      if (b) { b.disabled = busy; if (busy && el.dataset.step === taskId) b.textContent = '■ Выполняется…'; }
+    });
+    document.querySelectorAll('.pbtn').forEach(b => { b.disabled = busy; });
     const step = document.querySelector('.step[data-step="' + taskId + '"] .sname');
     ui.setRunBanner(busy, taskId === 'full'
       ? 'весь конвейер по порядку' : (step ? step.textContent : taskId));
@@ -538,11 +591,14 @@ const ui = {
     pywebview.api.list_images().then(ui.setImages);
     pywebview.api.state().then(applyState);
     pywebview.api.pipeline_state().then(renderPipeline);
+    pywebview.api.probe_state().then(renderProbes);
   },
   // кривая обучения по эпохам: две линии в общих координатах, каждая
   // растянута по своему диапазону — важна форма, а не абсолютная высота
   drawCurve(d) {
     const svg = $('curve');
+    if (d && d.mode === 'probe') { ui.drawProbeCurves(d); return; }
+    $('curvelegend').hidden = false;
     if (!d || !d.epochs || d.epochs.length < 2) {
       svg.innerHTML = '';
       $('curvecap').textContent = 'Данных пока нет — появятся после первой эпохи';
@@ -569,6 +625,34 @@ const ui = {
       d.run + ' · эпох: ' + n + '<br>'
       + 'точность ' + lastMap.toFixed(3) + ' (лучшая ' + bestMap.toFixed(3) + ')<br>'
       + 'ошибка ' + lastLoss.toFixed(3) + ' (была ' + firstLoss.toFixed(3) + ')';
+  },
+  // сравнение проб инициализации: все кривые точности в одном масштабе,
+  // чтобы прямо по ходу обучения было видно, какой старт лучше
+  drawProbeCurves(d) {
+    const svg = $('curve'), W = 220, H = 120, pad = 7;
+    const live = (d.series || []).filter(s => s.map50 && s.map50.length);
+    if (!live.length) { svg.innerHTML = ''; return; }
+    const all = live.flatMap(s => s.map50);
+    const lo = Math.min(...all), hi = Math.max(...all), span = (hi - lo) || 1;
+    const maxN = Math.max(d.limit || 0, ...live.map(s => s.map50.length));
+    const path = vals => vals.map((v, i) => {
+      const x = pad + (W - 2 * pad) * (maxN > 1 ? i / (maxN - 1) : 0);
+      const y = H - pad - (H - 2 * pad) * ((v - lo) / span);
+      return x.toFixed(1) + ',' + y.toFixed(1);
+    }).join(' ');
+    svg.innerHTML = live.map(s =>
+      '<polyline class="ln-' + s.style + '" points="' + path(s.map50) + '"/>').join('');
+    $('curvecap').textContent = d.title;
+    // легенда со свежими значениями: сразу видно, кто впереди
+    const best = live.filter(s => s.style !== 'ref')
+      .sort((a, b) => b.map50[b.map50.length - 1] - a.map50[a.map50.length - 1])[0];
+    $('curvelegend').innerHTML = live.map(s => {
+      const v = s.map50[s.map50.length - 1];
+      const lead = (best && s.style === best.style) ? ' ◄ впереди' : '';
+      return '<span><i class="ck c-' + s.style + '"></i>' + s.name
+        + ' — ' + v.toFixed(4) + lead + '</span>';
+    }).join('');
+    $('curvelegend').hidden = false;
   },
   refreshCurve() {
     if (window.pywebview && pywebview.api && pywebview.api.training_curve)
@@ -654,6 +738,32 @@ function renderPipeline(steps) {
   if (act) act.scrollIntoView({block: 'nearest'});
 }
 
+function renderProbes(list) {
+  const box = $('probes');
+  box.textContent = '';
+  (list || []).forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'probe ' + p.status;
+    el.dataset.step = p.id;
+    const label = p.status === 'done' ? '↻ Пересчитать'
+      : (p.status === 'partial' ? '▶ Продолжить' : '▶ Запустить');
+    el.innerHTML =
+      '<div class="prow"><span class="pname"></span>'
+      + '<span class="ptime">' + p.time + '</span></div>'
+      + '<div class="pdet"></div>'
+      + '<button class="rbtn">' + label + '</button>';
+    el.querySelector('.pname').textContent = p.name;
+    el.querySelector('.pdet').textContent = p.detail;
+    el.querySelector('.rbtn').addEventListener('click', () => {
+      ui.setBusy(p.id, true);
+      ui.log('');
+      ui.log('——— проба инициализации: ' + p.name + ' ———', 'info');
+      pywebview.api.run_probe(p.id);
+    });
+    box.appendChild(el);
+  });
+}
+
 function applyState(s) {
   if (!s) return;
   for (const [k, v] of Object.entries(s.lamps || {})) ui.setLamp(k, v);
@@ -692,6 +802,7 @@ function boot() {
     pywebview.api.pipeline_state().then(renderPipeline),
     pywebview.api.list_images().then(ui.setImages),
     pywebview.api.training_curve().then(ui.drawCurve),
+    pywebview.api.probe_state().then(renderProbes),
   ]).then(() => {
     // состояние по умолчанию — «ничего не идёт»; если автономный прогон жив,
     // Python сразу перебьёт его из boot_done
@@ -717,6 +828,16 @@ document.querySelectorAll('.op[data-task]').forEach(btn => {
   });
 });
 $('stopbtn').addEventListener('click', () => pywebview.api.stop_task());
+$('probecmp').addEventListener('click', () => {
+  ui.setBusy('probecmp', true);
+  ui.log('');
+  ui.log('——— сравнение проб инициализации ———', 'info');
+  pywebview.api.compare_probes();
+});
+$('probereset').addEventListener('click', () => {
+  ui.log('Сброс всех проб инициализации.', 'err');
+  pywebview.api.reset_probe('all');
+});
 $('mainbtn').addEventListener('click', () => {
   if ($('runbanner').classList.contains('busy')) {
     pywebview.api.stop_task();

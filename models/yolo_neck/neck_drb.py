@@ -164,6 +164,7 @@ class DRBTrainer(DetectionTrainer):
     """
 
     drb_variant: str = 'both'
+    drb_alpha_init: float = 0.0     # начальное значение w_LQA и w_FGA
 
     def get_model(self, cfg=None, weights=None, verbose=True):
         if isinstance(weights, nn.Module) and (
@@ -177,10 +178,32 @@ class DRBTrainer(DetectionTrainer):
             wrapped = insert_drb(model, branches=self.drb_variant)
             print(f'[DRB] обёрнуты слои {wrapped} '
                   f'(входы головы Detect, ветви: {self.drb_variant})')
+        if self.drb_alpha_init != 0.0:
+            set_alpha_init(model, self.drb_alpha_init)
         return model
 
 
-def make_drb_trainer(variant: str = 'both') -> type[DRBTrainer]:
+def set_alpha_init(det_model: nn.Module, w0: float) -> float:
+    """Задаёт стартовые веса ветвей w_LQA = w_FGA = w0. Возвращает α = σ(w0).
+
+    При w0 = 0 вклад ветвей стартует с 50%, и блок на старте усиливает
+    признаки примерно в 1.8 раза — предобученная голова получает не тот
+    масштаб, к которому привыкла. Отрицательное w0 делает старт близким к
+    тождественному: блок «включается» по мере того, как обучение находит
+    его полезным (приём нулевой инициализации остаточной ветви).
+    """
+    alpha = float(torch.sigmoid(torch.tensor(w0)))
+    with torch.no_grad():
+        for _, drb in iter_drb(det_model):
+            for name in ('w_lqa', 'w_fga'):
+                if hasattr(drb, name):
+                    getattr(drb, name).fill_(w0)
+    print(f'[DRB] стартовые веса ветвей w = {w0:g} (вклад каждой ветви {alpha:.1%})')
+    return alpha
+
+
+def make_drb_trainer(variant: str = 'both',
+                     alpha_init: float = 0.0) -> type[DRBTrainer]:
     """Фабрика Trainer-класса с зафиксированным вариантом DRB.
 
     Нужна потому, что model.train(trainer=...) принимает класс, а не
@@ -188,4 +211,5 @@ def make_drb_trainer(variant: str = 'both') -> type[DRBTrainer]:
     """
     if variant not in ('both', 'lqa', 'fga', 'input'):
         raise ValueError(f'variant: both|lqa|fga|input, получено {variant!r}')
-    return type(f'DRBTrainer_{variant}', (DRBTrainer,), {'drb_variant': variant})
+    return type(f'DRBTrainer_{variant}', (DRBTrainer,),
+                {'drb_variant': variant, 'drb_alpha_init': float(alpha_init)})
