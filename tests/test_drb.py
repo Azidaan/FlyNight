@@ -92,6 +92,23 @@ def test_amp_cuda() -> None:
     check('AMP/cuda forward+backward без NaN', bool(ok))
 
 
+def test_optimizer_compatible_shapes() -> None:
+    """Формы параметров должны перевариваться оптимизатором MuSGD.
+
+    Регрессия: Ultralytics при длинных обучениях выбирает MuSGD и шлёт в
+    ветвь Muon ВСЕ параметры с ndim >= 2, а та умеет только 2 и 4 измерения
+    (4 — свёрточные фильтры, они разворачиваются в матрицу). Трёхмерная
+    маска FGA роняла обучение на первом же шаге оптимизатора, причём уже
+    после сканирования датасета — то есть через полторы минуты после старта.
+    """
+    for variant in ('both', 'lqa', 'fga'):
+        drb = DRB(256, 40, 40, branches=variant)
+        for name, p in drb.named_parameters():
+            ok = p.ndim in (1, 2, 4)
+            check(f'{variant}: {name} формы {tuple(p.shape)} пригодна для MuSGD', ok,
+                  '' if ok else f'ndim={p.ndim} — Muon умеет только 2 и 4')
+
+
 def main() -> int:
     devices = ['cpu'] + (['cuda'] if torch.cuda.is_available() else [])
     for device in devices:
@@ -100,6 +117,8 @@ def main() -> int:
         test_fga_identity(device)
     if 'cuda' in devices:
         test_amp_cuda()
+
+    test_optimizer_compatible_shapes()
 
     n_params = sum(p.numel() for p in DRB(256, 80, 80).parameters())
     print(f'\n[INFO] параметров DRB на P3 (C=256, 80×80): {n_params:,} '

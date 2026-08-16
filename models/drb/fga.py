@@ -27,14 +27,25 @@ class FGA(nn.Module):
         self.in_channels = in_channels
         self.height = height
         self.width = width
-        self.mask = nn.Parameter(torch.ones(in_channels, height, width // 2 + 1))
+        # Маска хранится ПЛОСКОЙ, (C, H*Wf), а не (C, H, Wf). Причина внешняя:
+        # при длинных обучениях Ultralytics выбирает оптимизатор MuSGD и
+        # отправляет в ветвь Muon все параметры с ndim >= 2, а Muon умеет
+        # только 2 и 4 измерения — на трёхмерной маске он падает с assert.
+        # Смысл и число параметров не меняются, меняется только раскладка;
+        # рабочий вид (C, H, Wf) выдаёт свойство mask3d.
+        self.mask = nn.Parameter(torch.ones(in_channels, height * (width // 2 + 1)))
+
+    @property
+    def mask3d(self) -> torch.Tensor:
+        """Маска в рабочем виде (C, H, W//2+1)."""
+        return self.mask.view(self.in_channels, self.height, self.width // 2 + 1)
 
     def _mask_for(self, h: int, w: int) -> torch.Tensor:
         wf = w // 2 + 1
         if (h, wf) == (self.height, self.width // 2 + 1):
-            return self.mask
+            return self.mask3d
         # другой размер входа: интерполяция маски (см. ограничение в докстринге)
-        m = self.mask.unsqueeze(0)                      # (1,C,H,Wf)
+        m = self.mask3d.unsqueeze(0)                    # (1,C,H,Wf)
         m = F.interpolate(m, size=(h, wf), mode='bilinear', align_corners=False)
         return m.squeeze(0)
 
