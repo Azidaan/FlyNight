@@ -21,6 +21,7 @@ $cpuTests = @(
     'scripts\smoke\test_launcher_pipeline.py',
     'scripts\smoke\test_sanity_checks.py',
     'scripts\smoke\test_thermal.py',
+    'scripts\smoke\test_coco_size_metrics.py',
     'tests\test_q_aggregation.py',
     'scripts\smoke\test_dataloader_workers.py',
     'scripts\smoke\test_train_supervisor.py'

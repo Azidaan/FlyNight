@@ -260,6 +260,18 @@ def check_summary(run_name: str, expected_seeds: int,
         if (f'delta_{stress}', 'mAP50') not in seen:
             out.append(warn(f'{path.name}: нет Δ-строки для {stress}'))
 
+    # AP по размерам не может быть кратно ниже общего mAP50-95: если это так,
+    # значит эталон COCO и предсказания разошлись в соглашениях (нумерация
+    # классов, координаты) и метрика считает мимо.
+    overall = _f(seen.get(('normal', 'mAP50_95'), {}).get('mean'))
+    ap_large = _f(seen.get(('normal', 'AP_large'), {}).get('mean'))
+    if overall and ap_large is not None:
+        if ap_large < overall * 0.3:
+            out.append(fail(f'AP_large={ap_large:.4f} при mAP50-95={overall:.3f} — '
+                            f'метрики по размерам считаются мимо эталона'))
+        else:
+            out.append(ok(f'AP по размерам согласован с общим (large {ap_large:.3f})'))
+
     # содержательная проверка: сложные условия должны быть не легче обычных
     normal = _f(seen.get(('normal', 'mAP50'), {}).get('mean'))
     night = _f(seen.get(('night', 'mAP50'), {}).get('mean'))

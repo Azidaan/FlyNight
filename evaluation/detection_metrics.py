@@ -47,13 +47,17 @@ def build_coco_gt(frames: list[Path], out_json: Path) -> dict[str, int]:
             x = float(cx) * IMG_W - bw / 2
             y = float(cy) * IMG_H - bh / 2
             annotations.append({
-                'id': ann_id, 'image_id': img_id, 'category_id': int(c),
+                # ВНИМАНИЕ: +1 — Ultralytics для нестандартных датасетов пишет
+                # в predictions.json категории с ЕДИНИЦЫ (class_map =
+                # range(1, len(names)+1)). Эталон с нуля означал сверку
+                # «пешеход против водителя» и обнулял AP по размерам.
+                'id': ann_id, 'image_id': img_id, 'category_id': int(c) + 1,
                 'bbox': [x, y, bw, bh], 'area': bw * bh, 'iscrowd': 0,
             })
             ann_id += 1
     gt = {
         'images': images, 'annotations': annotations,
-        'categories': [{'id': i, 'name': n} for i, n in CLASS_NAMES.items()],
+        'categories': [{'id': i + 1, 'name': n} for i, n in CLASS_NAMES.items()],
     }
     out_json.write_text(json.dumps(gt), encoding='utf-8')
     return stem2id
