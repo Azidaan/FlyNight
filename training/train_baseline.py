@@ -58,7 +58,12 @@ def train_baseline(config_path: str, seed: int, output_dir: str,
     from ultralytics import YOLO
 
     cfg = yaml.safe_load(Path(config_path).read_text(encoding='utf-8'))
-    run_dir = Path(output_dir) / f'seed{seed}'
+    # только абсолютный путь: относительный Ultralytics разрешает от своего
+    # каталога (runs/detect), и результаты уезжают мимо панели и супервизора
+    out_root = Path(output_dir)
+    if not out_root.is_absolute():
+        out_root = (PROJECT_ROOT / out_root).resolve()
+    run_dir = out_root / f'seed{seed}'
     weights_out = PROJECT_ROOT / 'weights' / f'baseline_seed{seed}'
 
     data_yaml = Path(data_override) if data_override else ensure_data_yaml(cfg)

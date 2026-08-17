@@ -75,6 +75,16 @@ h1{font-size:21px; font-weight:600; letter-spacing:-0.01em;}
 #tip i{width:10px; height:2.5px; flex:none;}
 #tip b{font-weight:500;}
 
+/* переключатели конфигураций */
+#filters{display:flex; flex-wrap:wrap; gap:7px; padding-top:10px; align-items:center;}
+#filters .fl{font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  text-transform:uppercase; padding:5px 12px; cursor:pointer; background:var(--surface);
+  color:var(--cap); border:1.4px solid var(--div); display:flex; align-items:center; gap:7px;}
+#filters .fl i{width:11px; height:3px; flex:none; background:var(--div);}
+#filters .fl.on{color:var(--ink); border-color:var(--line);}
+#filters .fl:hover{border-color:var(--accent-deep);}
+#filters .flall{color:var(--sec); border-style:dashed;}
+
 /* подвал: легенда и управление */
 footer{display:flex; align-items:flex-start; justify-content:space-between;
   gap:18px; padding-top:11px;}
@@ -115,6 +125,8 @@ footer{display:flex; align-items:flex-start; justify-content:space-between;
     <div id="tip"></div>
   </div>
 
+  <div id="filters"></div>
+
   <footer>
     <div>
       <div id="legend"></div>
@@ -132,7 +144,32 @@ footer{display:flex; align-items:flex-start; justify-content:space-between;
 <script>
 'use strict';
 const $ = id => document.getElementById(id);
-const S = {views: [], idx: 0, x0: null, x1: null, live: true, hover: null, drag: null};
+const S = {views: [], idx: 0, x0: null, x1: null, live: true, hover: null,
+           drag: null, groups: [], off: new Set()};
+
+/* линии выключенных семейств не рисуются: так можно оставить только
+   baseline и DRB и сравнить их без визуального шума */
+function visibleSeries(v) {
+  return (v.series || []).filter(s => !S.off.has(s.group));
+}
+
+function renderFilters() {
+  const box = $('filters');
+  if (!S.groups.length) { box.innerHTML = ''; return; }
+  const cols = {baseline: '#a39b8c', drb: '#d97757', aug: '#3f9277',
+                ablation: '#3f6ea8', probe: '#d97757', other: '#6b6457'};
+  box.innerHTML = S.groups.map(g =>
+    '<div class="fl' + (S.off.has(g.id) ? '' : ' on') + '" data-g="' + g.id + '">'
+    + '<i style="background:' + (cols[g.id] || '#6b6457') + '"></i>' + g.label + '</div>'
+  ).join('') + '<div class="fl flall" data-g="__all">показать все</div>';
+  box.querySelectorAll('.fl').forEach(b => b.addEventListener('click', () => {
+    const g = b.dataset.g;
+    if (g === '__all') S.off.clear();
+    else if (S.off.has(g)) S.off.delete(g);
+    else S.off.add(g);
+    renderFilters(); draw();
+  }));
+}
 
 const NS = 'http://www.w3.org/2000/svg';
 function el(tag, attrs, text) {
@@ -164,7 +201,8 @@ function draw() {
   const v = view();
   const W = svg.clientWidth, H = svg.clientHeight;
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-  if (!v || !v.series.length) {
+  const shown = v ? visibleSeries(v) : [];
+  if (!v || !shown.length) {
     svg.appendChild(el('text', {x: W / 2, y: H / 2, class: 'empty',
       'text-anchor': 'middle'}, 'Данных пока нет'));
     $('legend').innerHTML = '';
@@ -175,7 +213,7 @@ function draw() {
   const px0 = L, px1 = W - R, py0 = T, py1 = H - B;
 
   // диапазон по X — с учётом масштабирования колесом
-  const allX = v.series.flatMap(s => s.x);
+  const allX = shown.flatMap(s => s.x);
   const dataX0 = Math.min(...allX), dataX1 = Math.max(...allX);
   if (S.x0 === null) { S.x0 = dataX0; S.x1 = dataX1; }
   const x0 = S.x0, x1 = Math.max(S.x1, x0 + 1e-9);
@@ -184,7 +222,7 @@ function draw() {
   // границ против ошибки рамок) — тогда каждая линия приводится к своему
   // размаху, чтобы сравнивать ФОРМУ. Настоящие числа при этом остаются
   // в легенде и в подсказке: точка [x, показанное, настоящее].
-  const vis = v.series.map(s => {
+  const vis = shown.map(s => {
     let lo = 0, span = 1;
     if (v.norm && s.y.length) {
       lo = Math.min(...s.y);
@@ -273,7 +311,7 @@ function draw() {
   // легенда: последнее и лучшее значение по каждой линии
   const higherBetter = (v.id !== 'loss');
   let leader = null;
-  $('legend').innerHTML = v.series.map(s => {
+  $('legend').innerHTML = shown.map(s => {
     const last = s.y[s.y.length - 1];
     const best = higherBetter ? Math.max(...s.y) : Math.min(...s.y);
     if (leader === null || (higherBetter ? last > leader.v : last < leader.v))
@@ -306,6 +344,8 @@ function load(first) {
   pywebview.api.curves().then(d => {
     const keep = S.views.length ? view().id : null;
     S.views = d.views || [];
+    S.groups = d.groups || [];
+    renderFilters();
     $('stamp').textContent = d.stamp || '';
     if (!S.views.length) { $('title').textContent = 'Данных пока нет'; draw(); return; }
     if (first || keep === null) show(0);

@@ -68,9 +68,52 @@ def col(run: dict, needle: str) -> list[float]:
     return []
 
 
-def series(name, colour, xs, ys, dash=False, width=2.0) -> dict:
+def series(name, colour, xs, ys, dash=False, width=2.0, group='other') -> dict:
     return {'name': name, 'color': colour, 'x': xs, 'y': ys,
-            'dash': dash, 'width': width}
+            'dash': dash, 'width': width, 'group': group}
+
+
+# группы конфигураций — по ним в окне включаются и выключаются линии
+GROUPS = [('baseline', 'Baseline'), ('drb', 'DRB'), ('aug', 'DRB + аугментации'),
+          ('ablation', 'Ablation'), ('probe', 'Пробы')]
+
+
+def group_of(run_name: str) -> str:
+    if run_name.startswith('drb_aug'):
+        return 'aug'
+    if run_name.startswith('drb'):
+        return 'drb'
+    if run_name.startswith('ablation'):
+        return 'ablation'
+    if run_name.startswith('baseline'):
+        return 'baseline'
+    return 'other'
+
+
+def read_alphas(path: Path) -> dict[str, list[float]]:
+    """drb_alphas.csv -> средние по уровням пирамиды вклады ветвей по эпохам."""
+    if not path.exists():
+        return {}
+    try:
+        with open(path, newline='', encoding='utf-8') as f:
+            rows = list(csv.DictReader(f))
+    except OSError:
+        return {}
+    by_epoch: dict[int, list[tuple[float, float]]] = {}
+    for r in rows:
+        e = _num(r.get('epoch'))
+        a1, a2 = _num(r.get('alpha_lqa')), _num(r.get('alpha_fga'))
+        if e is None or a1 is None or a2 is None:
+            continue
+        by_epoch.setdefault(int(e), []).append((a1, a2))
+    xs = sorted(by_epoch)
+    if not xs:
+        return {}
+    return {
+        'x': [float(e) for e in xs],
+        'lqa': [sum(v[0] for v in by_epoch[e]) / len(by_epoch[e]) for e in xs],
+        'fga': [sum(v[1] for v in by_epoch[e]) / len(by_epoch[e]) for e in xs],
+    }
 
 
 class ChartApi:
@@ -80,41 +123,69 @@ class ChartApi:
         views = []
         runs_dir = PROJECT_ROOT / 'runs'
 
-        # ——— вид 1: проба инициализации DRB ———
-        probes = []
+        # ——— вид 1: проба инициализации DRB, точность ———
+        probes, alphas = [], []
         for pid, label, colour in PROBE_LABELS:
-            r = read_run(runs_dir / 'init_probe' / pid / 'seed42' / 'results.csv')
+            run = runs_dir / 'init_probe' / pid / 'seed42'
+            r = read_run(run / 'results.csv')
             m = col(r, 'mAP50(B)')
             if m:
-                probes.append(series(label, colour, col(r, 'epoch'), m))
+                probes.append(series(label, colour, col(r, 'epoch'), m,
+                                     group='probe'))
+            a = read_alphas(run / 'drb_alphas.csv')
+            if a:
+                alphas.append((label, colour, a))
         if probes:
             base = read_run(runs_dir / 'baseline' / 'seed42' / 'results.csv')
             n = max(len(s['y']) for s in probes)
             bm = col(base, 'mAP50(B)')[:n]
-            ref = [series('baseline (без DRB)', COL_REF,
-                          col(base, 'epoch')[:n], bm, dash=True, width=1.4)] if bm else []
+            ref = [series('baseline (без DRB)', COL_REF, col(base, 'epoch')[:n],
+                          bm, dash=True, width=1.4, group='baseline')] if bm else []
             views.append({
-                'id': 'probe', 'title': 'Проба инициализации DRB',
+                'id': 'probe', 'title': 'Проба инициализации DRB · точность',
                 'sub': 'с какого вклада ветвей стартовать блок · выше — лучше',
                 'ylabel': 'mAP@0.50', 'xlabel': 'эпоха',
                 'series': ref + probes})
 
+        # ——— вид 2: как «включаются» ветви блока ———
+        if alphas:
+            sr = []
+            for label, colour, a in alphas:
+                sr.append(series(f'{label} · LQA', colour, a['x'], a['lqa'],
+                                 group='probe'))
+                sr.append(series(f'{label} · FGA', colour, a['x'], a['fga'],
+                                 dash=True, width=1.5, group='probe'))
+            views.append({
+                'id': 'alpha', 'title': 'Вклад ветвей DRB по эпохам',
+                'sub': 'сплошная — пространственная ветвь, пунктир — частотная; '
+                       'растёт ли вклад, который дали на старте',
+                'ylabel': 'вклад ветви', 'xlabel': 'эпоха', 'series': sr})
+
         # ——— вид 2: точность всех обученных конфигураций ———
-        acc = []
-        palette = [COL_ACCENT, COL_OK, COL_BLUE, COL_SEC, COL_INK]
-        for i, p in enumerate(sorted(runs_dir.glob('*/seed*/results.csv'))):
+        # цвет по семейству конфигураций, оттенок — по сиду: сравнивать
+        # baseline с DRB нужно на глаз, а сиды внутри семейства не путать
+        family_col = {'baseline': COL_REF, 'drb': COL_ACCENT, 'aug': COL_OK,
+                      'ablation': COL_BLUE, 'other': COL_SEC}
+        acc, seen = [], {}
+        for p in sorted(runs_dir.glob('*/seed*/results.csv')):
             if 'init_probe' in p.parts or 'smoke' in p.parts[-3]:
                 continue
             r = read_run(p)
             m = col(r, 'mAP50(B)')
             if len(m) < 2:
                 continue
-            acc.append(series(f'{p.parts[-3]}/{p.parts[-2]}',
-                              palette[i % len(palette)], col(r, 'epoch'), m))
+            run_name = p.parts[-3]
+            g = group_of(run_name)
+            k = seen.get(g, 0)
+            seen[g] = k + 1
+            acc.append(series(f'{run_name}/{p.parts[-2]}', family_col.get(g, COL_SEC),
+                              col(r, 'epoch'), m, dash=(k % 2 == 1),
+                              width=2.0 - 0.35 * (k % 3), group=g))
         if acc:
             views.append({
-                'id': 'acc', 'title': 'Точность по эпохам',
-                'sub': 'mAP@0.50 на проверочной выборке · выше — лучше',
+                'id': 'acc', 'title': 'Точность по эпохам · все конфигурации',
+                'sub': 'mAP@0.50 на проверочной выборке · выше — лучше · '
+                       'кнопками ниже можно оставить только нужные',
                 'ylabel': 'mAP@0.50', 'xlabel': 'эпоха', 'series': acc})
 
         # ——— виды 3-4: свежайший прогон подробно ———
@@ -153,7 +224,10 @@ class ChartApi:
                         series('точность (mAP@0.50)', COL_OK, x, m),
                     ]})
 
+        present = {s['group'] for v in views for s in v['series']}
         return {'views': views,
+                'groups': [{'id': g, 'label': lab} for g, lab in GROUPS
+                           if g in present],
                 'stamp': datetime.now().strftime('обновлено %H:%M:%S')}
 
 

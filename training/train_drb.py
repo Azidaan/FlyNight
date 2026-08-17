@@ -87,7 +87,13 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
     aug_kwargs = {k: cfg[k] for k in AUG_KEYS if k in cfg}
     if aug_kwargs:
         print(f'[INFO] аугментации из конфига: {aug_kwargs}')
+    # Путь ОБЯЗАН быть абсолютным: относительный Ultralytics разрешает от
+    # своего каталога (runs/detect), и результаты уезжают в
+    # runs/detect/runs/... — панель их не видит, а супервизор не находит
+    # чекпойнт в наблюдаемой папке и через грацию убивает обучение как зависшее.
     run_root = Path(output_dir) if output_dir else PROJECT_ROOT / 'runs' / run_name
+    if not run_root.is_absolute():
+        run_root = (PROJECT_ROOT / run_root).resolve()
     run_dir = run_root / f'seed{seed}'
     weights_out = PROJECT_ROOT / 'weights' / f'{run_name}_seed{seed}'
 

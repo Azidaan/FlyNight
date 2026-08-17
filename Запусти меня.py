@@ -228,7 +228,7 @@ def _probe_cmds(pid: str, w: float) -> list[list[str]]:
     cmd = ['scripts/train_supervisor.py', '--watch',
            f'runs/init_probe/{pid}', '--', 'python', 'training/train_drb.py',
            '--seed', str(PROBE_SEED), '--epochs', str(PROBE_EPOCHS),
-           '--output', str(out.relative_to(PROJECT_ROOT)).replace('\\', '/'),
+           '--output', str(out),          # только абсолютный: см. train_drb.py
            '--alpha-init', str(w)]
     if _probe_status(pid)[0] == 'partial':
         cmd.append('--resume')
