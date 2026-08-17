@@ -633,6 +633,37 @@ class Api:
                         'role': role, 'detail': detail})
         return out
 
+    def _training_running(self) -> str:
+        """Описание уже идущего обучения или '' — защита от второго запуска.
+
+        Два обучения на одной видеокарте не просто делят её: каждое поднимает
+        свой набор загрузчиков, память кончается, и оба уползают в своп —
+        скорость падает в сорок раз. Дважды наступали, поэтому проверяем.
+        """
+        try:
+            out = subprocess.run(
+                ['powershell', '-NoProfile', '-Command',
+                 "Get-CimInstance Win32_Process -Filter \"Name='python.exe'\" "
+                 "| Where-Object { $_.CommandLine -like '*train_drb*' -or "
+                 "$_.CommandLine -like '*train_baseline*' } "
+                 "| Select-Object -ExpandProperty CommandLine"],
+                capture_output=True, text=True, timeout=25,
+                creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0)).stdout
+        except (OSError, subprocess.SubprocessError):
+            return ''
+        lines = [ln for ln in out.splitlines() if 'train_' in ln]
+        if not lines:
+            return ''
+        for ln in lines:                       # что именно считается
+            for mark, name in (('init_probe', 'проба инициализации'),
+                               ('drb_aug', 'DRB с аугментациями'),
+                               ('ablation', 'ablation'),
+                               ('train_drb', 'DRB'),
+                               ('train_baseline', 'baseline')):
+                if mark in ln:
+                    return name
+        return 'обучение'
+
     def open_chart(self) -> None:
         """Отдельное окно с подробным графиком — свой процесс и свой профиль."""
         try:
@@ -662,6 +693,13 @@ class Api:
         threading.Thread(target=self._run_probe, args=(p,), daemon=True).start()
 
     def _run_probe(self, p: dict) -> None:
+        busy = self._training_running()
+        if busy:
+            self._log(f'Уже идёт обучение ({busy}). Второе запускать нельзя: '
+                      f'кончится память и оба уползут в своп. Дождитесь конца '
+                      f'или остановите текущее.', 'err')
+            self._js(f'ui.taskDone({json.dumps(p["id"])}, 0, null)')
+            return
         self._log(f'Проба инициализации: {p["name"]} '
                   f'({PROBE_EPOCHS} эпох, вклад ветви '
                   f'{1/(1+pow(2.718281828, -p["w"])):.1%})', 'info')
@@ -696,6 +734,12 @@ class Api:
         threading.Thread(target=self._run_step, args=(step,), daemon=True).start()
 
     def _run_step(self, step: dict) -> None:
+        busy = self._training_running()
+        if busy:
+            self._log(f'Уже идёт обучение ({busy}) — второе запускать нельзя: '
+                      f'кончится память и оба уползут в своп.', 'err')
+            self._js(f'ui.taskDone({json.dumps(step["id"])}, 0, null)')
+            return
         cmds = step['cmds']()
         if not cmds:
             self._log('Все части шага уже готовы — нечего запускать.', 'ok')
@@ -730,6 +774,12 @@ class Api:
         if self._full_pid() is not None:
             self._log('Автономный прогон уже идёт — подключаюсь к журналу.', 'info')
             self._watch_full()
+            return
+        busy = self._training_running()
+        if busy:
+            self._log(f'Уже идёт обучение ({busy}) — прогон не запускаю: '
+                      f'два обучения не помещаются в память.', 'err')
+            self._js('ui.taskDone("full", 0, null)')
             return
         # лог читаем с конца: старые прогоны в панель не тянем
         start_at = FULL_LOG.stat().st_size if FULL_LOG.exists() else 0
