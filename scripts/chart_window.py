@@ -33,6 +33,16 @@ PROBE_LABELS = [('w0', 'Вклад 50% (план)', COL_ACCENT),
                 ('w4', 'Вклад 2%', COL_BLUE)]
 
 
+def shade(hex_colour: str, step: int) -> str:
+    """Оттенок того же цвета: сиды одного семейства различимы, но родственны."""
+    if step <= 0:
+        return hex_colour
+    r, g, b = (int(hex_colour[i:i + 2], 16) for i in (1, 3, 5))
+    k = min(0.42, 0.21 * step)                 # осветляем к фону, не выбеливая
+    r, g, b = (round(c + (255 - c) * k) for c in (r, g, b))
+    return f'#{r:02x}{g:02x}{b:02x}'
+
+
 def _num(v):
     try:
         f = float(v)
@@ -164,8 +174,8 @@ class ChartApi:
         # ——— вид 2: точность всех обученных конфигураций ———
         # цвет по семейству конфигураций, оттенок — по сиду: сравнивать
         # baseline с DRB нужно на глаз, а сиды внутри семейства не путать
-        family_col = {'baseline': COL_REF, 'drb': COL_ACCENT, 'aug': COL_OK,
-                      'ablation': COL_BLUE, 'other': COL_SEC}
+        family_col = {'baseline': COL_SEC, 'drb': COL_ACCENT, 'aug': COL_OK,
+                      'ablation': COL_BLUE, 'other': COL_INK}
         acc, seen = [], {}
         for p in sorted(runs_dir.glob('*/seed*/results.csv')):
             if 'init_probe' in p.parts or 'smoke' in p.parts[-3]:
@@ -178,9 +188,10 @@ class ChartApi:
             g = group_of(run_name)
             k = seen.get(g, 0)
             seen[g] = k + 1
-            acc.append(series(f'{run_name}/{p.parts[-2]}', family_col.get(g, COL_SEC),
+            acc.append(series(f'{run_name}/{p.parts[-2]}',
+                              shade(family_col.get(g, COL_SEC), k),
                               col(r, 'epoch'), m, dash=(k % 2 == 1),
-                              width=2.0 - 0.35 * (k % 3), group=g))
+                              width=2.0, group=g))
         if acc:
             views.append({
                 'id': 'acc', 'title': 'Точность по эпохам · все конфигурации',
