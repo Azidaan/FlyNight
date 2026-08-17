@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>График обучения — YOLO26 + DRB</title>
+<style>
+@font-face { font-family:'IBM Plex Sans'; font-weight:400; src:url('assets/fonts/ibm-plex-sans-cyrillic-400-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family:'IBM Plex Sans'; font-weight:400; src:url('assets/fonts/ibm-plex-sans-latin-400-normal.woff2') format('woff2'); unicode-range:U+0000-00FF,U+2000-206F; }
+@font-face { font-family:'IBM Plex Sans'; font-weight:600; src:url('assets/fonts/ibm-plex-sans-cyrillic-600-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family:'IBM Plex Mono'; font-weight:400; src:url('assets/fonts/ibm-plex-mono-cyrillic-400-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family:'IBM Plex Mono'; font-weight:400; src:url('assets/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); unicode-range:U+0000-00FF,U+2000-206F; }
+@font-face { font-family:'IBM Plex Mono'; font-weight:500; src:url('assets/fonts/ibm-plex-mono-cyrillic-500-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+
+:root{
+  --bg:#faf9f5; --surface:#ffffff;
+  --accent:#d97757; --accent-deep:#b85c3c;
+  --ink:#2f2a24; --sec:#6b6457; --cap:#a39b8c;
+  --line:#2f2a24; --aux:#bdb5a6; --div:#e7e2d8;
+  --ok:#3f9277;
+  --sans:'IBM Plex Sans','Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono','Cascadia Mono','Consolas',monospace;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%;}
+body{background:var(--bg); color:var(--ink); font-family:var(--sans);
+  font-size:14px; overflow:hidden; user-select:none;}
+
+/* линейка с рисками — как в панели */
+#ruler{position:fixed; top:0; left:0; right:0; height:16px; z-index:5;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 79px, var(--aux) 79px 80px) bottom/100% 9px no-repeat,
+    repeating-linear-gradient(90deg, transparent 0 15px, var(--div) 15px 16px) bottom/100% 4px no-repeat;}
+
+#app{display:flex; flex-direction:column; height:100vh; padding:28px 26px 12px;}
+
+header{display:flex; align-items:flex-end; justify-content:space-between; padding-bottom:9px;}
+.kicker{font-family:var(--mono); font-size:10px; letter-spacing:.24em;
+  color:var(--accent); text-transform:uppercase; margin-bottom:6px;}
+h1{font-size:21px; font-weight:600; letter-spacing:-0.01em;}
+#sub{font-size:11.5px; color:var(--sec); margin-top:4px;}
+#stamp{text-align:right; font-family:var(--mono); font-size:9.5px;
+  letter-spacing:.14em; color:var(--cap); text-transform:uppercase; line-height:1.9;}
+
+.dim{position:relative; height:12px; margin:2px 0 10px;}
+.dim .bar{position:absolute; left:0; right:0; top:5px; height:1.5px; background:var(--aux);}
+.dim .tag{position:absolute; left:50%; top:-1px; transform:translateX(-50%);
+  background:var(--bg); padding:0 12px; font-family:var(--mono); font-size:9px;
+  letter-spacing:.2em; color:var(--cap); text-transform:uppercase;}
+
+/* рамка графика с регистрационными метками по углам */
+#plotbox{position:relative; flex:1; min-height:0; background:var(--surface);
+  border:1.6px solid var(--line);}
+#plotbox::before,#plotbox::after{content:''; position:absolute; width:10px; height:10px; pointer-events:none;}
+#plotbox::before{top:-5px; left:-5px; border-top:1.6px solid var(--line); border-left:1.6px solid var(--line);}
+#plotbox::after{bottom:-5px; right:-5px; border-bottom:1.6px solid var(--line); border-right:1.6px solid var(--line);}
+#plot{width:100%; height:100%; display:block; cursor:crosshair;}
+
+#plot .grid{stroke:var(--div); stroke-width:1;}
+#plot .axis{stroke:var(--aux); stroke-width:1.4;}
+#plot .tick{font-family:var(--mono); font-size:10px; fill:var(--cap); letter-spacing:.06em;}
+#plot .axlabel{font-family:var(--mono); font-size:9.5px; fill:var(--sec);
+  letter-spacing:.18em; text-transform:uppercase;}
+#plot .ln{fill:none; stroke-linejoin:round; stroke-linecap:round;}
+#plot .cursor{stroke:var(--accent); stroke-width:1; stroke-dasharray:3 3;}
+#plot .dot{stroke:var(--surface); stroke-width:1.5;}
+#plot .empty{font-family:var(--mono); font-size:12px; fill:var(--cap); letter-spacing:.14em;}
+
+/* подсказка по точке */
+#tip{position:absolute; pointer-events:none; background:var(--surface);
+  border:1.4px solid var(--line); padding:7px 9px; font-family:var(--mono);
+  font-size:10.5px; line-height:1.65; white-space:nowrap; display:none; z-index:4;}
+#tip .th{color:var(--cap); letter-spacing:.12em; text-transform:uppercase;
+  font-size:9px; margin-bottom:3px;}
+#tip .row{display:flex; align-items:center; gap:7px; justify-content:space-between;}
+#tip i{width:10px; height:2.5px; flex:none;}
+#tip b{font-weight:500;}
+
+/* подвал: легенда и управление */
+footer{display:flex; align-items:flex-start; justify-content:space-between;
+  gap:18px; padding-top:11px;}
+#legend{display:flex; flex-wrap:wrap; gap:6px 20px; flex:1;}
+.lg{display:flex; align-items:center; gap:8px; font-size:11.5px;}
+.lg i{width:16px; height:3px; flex:none;}
+.lg .val{font-family:var(--mono); font-size:11px; color:var(--sec);}
+.lg .best{color:var(--accent-deep); font-family:var(--mono); font-size:9.5px;
+  letter-spacing:.1em; text-transform:uppercase;}
+
+#nav{display:flex; align-items:center; gap:8px; flex:none;}
+.nbtn{font-family:var(--mono); font-size:11px; letter-spacing:.16em;
+  text-transform:uppercase; padding:7px 13px; cursor:pointer;
+  background:var(--surface); color:var(--sec); border:1.5px solid var(--div);}
+.nbtn:hover{border-color:var(--accent-deep); color:var(--accent-deep);}
+.nbtn.on{background:var(--accent); border-color:var(--accent); color:#fff;}
+#pager{font-family:var(--mono); font-size:10px; letter-spacing:.14em;
+  color:var(--cap); text-transform:uppercase; min-width:78px; text-align:center;}
+#hint{font-family:var(--mono); font-size:9px; letter-spacing:.1em; color:var(--cap);
+  text-transform:uppercase; padding-top:8px;}
+</style>
+</head>
+<body>
+<div id="ruler"></div>
+<div id="app">
+  <header>
+    <div>
+      <div class="kicker">Ход обучения · подробный вид</div>
+      <h1 id="title">Загрузка данных…</h1>
+      <div id="sub"></div>
+    </div>
+    <div id="stamp">—</div>
+  </header>
+  <div class="dim"><div class="bar"></div><div class="tag" id="tag">график</div></div>
+
+  <div id="plotbox">
+    <svg id="plot"></svg>
+    <div id="tip"></div>
+  </div>
+
+  <footer>
+    <div>
+      <div id="legend"></div>
+      <div id="hint">клик по графику — следующий вид · колесо — масштаб · перетаскивание — сдвиг · двойной клик — сброс</div>
+    </div>
+    <div id="nav">
+      <button class="nbtn" id="prev">‹</button>
+      <span id="pager">— / —</span>
+      <button class="nbtn" id="next">›</button>
+      <button class="nbtn on" id="live">Живой</button>
+    </div>
+  </footer>
+</div>
+
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const S = {views: [], idx: 0, x0: null, x1: null, live: true, hover: null, drag: null};
+
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, text) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+/* «красивые» деления оси: 1, 2, 2.5, 5 на порядок */
+function ticks(lo, hi, count) {
+  if (!(hi > lo)) return [lo];
+  const raw = (hi - lo) / count;
+  const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const norm = raw / mag;
+  const step = (norm < 1.5 ? 1 : norm < 3 ? 2 : norm < 7 ? 5 : 10) * mag;
+  const out = [];
+  for (let v = Math.ceil(lo / step) * step; v <= hi + step * 1e-9; v += step) out.push(v);
+  return out;
+}
+const fmt = v => Math.abs(v) >= 100 ? v.toFixed(0)
+  : Math.abs(v) >= 1 ? v.toFixed(2) : v.toFixed(v === 0 ? 0 : 4);
+
+function view() { return S.views[S.idx] || null; }
+
+function draw() {
+  const svg = $('plot');
+  svg.innerHTML = '';
+  const v = view();
+  const W = svg.clientWidth, H = svg.clientHeight;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  if (!v || !v.series.length) {
+    svg.appendChild(el('text', {x: W / 2, y: H / 2, class: 'empty',
+      'text-anchor': 'middle'}, 'Данных пока нет'));
+    $('legend').innerHTML = '';
+    return;
+  }
+
+  const L = 74, R = 26, T = 22, B = 44;           // поля под подписи осей
+  const px0 = L, px1 = W - R, py0 = T, py1 = H - B;
+
+  // диапазон по X — с учётом масштабирования колесом
+  const allX = v.series.flatMap(s => s.x);
+  const dataX0 = Math.min(...allX), dataX1 = Math.max(...allX);
+  if (S.x0 === null) { S.x0 = dataX0; S.x1 = dataX1; }
+  const x0 = S.x0, x1 = Math.max(S.x1, x0 + 1e-9);
+
+  // Величины в одном виде могут отличаться в сотни раз (например, ошибка
+  // границ против ошибки рамок) — тогда каждая линия приводится к своему
+  // размаху, чтобы сравнивать ФОРМУ. Настоящие числа при этом остаются
+  // в легенде и в подсказке: точка [x, показанное, настоящее].
+  const vis = v.series.map(s => {
+    let lo = 0, span = 1;
+    if (v.norm && s.y.length) {
+      lo = Math.min(...s.y);
+      span = (Math.max(...s.y) - lo) || 1;
+    }
+    const pts = [];
+    for (let i = 0; i < s.x.length; i++)
+      if (s.x[i] >= x0 - 1e-9 && s.x[i] <= x1 + 1e-9)
+        pts.push([s.x[i], v.norm ? (s.y[i] - lo) / span : s.y[i], s.y[i]]);
+    return {...s, pts};
+  });
+  const ys = vis.flatMap(s => s.pts.map(p => p[1]));
+  let y0 = Math.min(...ys), y1 = Math.max(...ys);
+  if (!(y1 > y0)) { y0 -= 0.5; y1 += 0.5; }
+  const padY = (y1 - y0) * 0.12; y0 -= padY; y1 += padY;
+
+  const X = x => px0 + (px1 - px0) * (x - x0) / (x1 - x0);
+  const Y = y => py1 - (py1 - py0) * (y - y0) / (y1 - y0);
+
+  // сетка и деления
+  for (const t of ticks(y0, y1, 6)) {
+    const y = Y(t);
+    if (y < py0 - 1 || y > py1 + 1) continue;
+    svg.appendChild(el('line', {x1: px0, y1: y, x2: px1, y2: y, class: 'grid'}));
+    if (!v.norm) svg.appendChild(el('text', {x: px0 - 9, y: y + 3.5, class: 'tick',
+      'text-anchor': 'end'}, fmt(t)));
+  }
+  for (const t of ticks(x0, x1, 8)) {
+    const x = X(t);
+    if (x < px0 - 1 || x > px1 + 1) continue;
+    svg.appendChild(el('line', {x1: x, y1: py0, x2: x, y2: py1, class: 'grid'}));
+    svg.appendChild(el('text', {x: x, y: py1 + 17, class: 'tick',
+      'text-anchor': 'middle'}, Math.round(t)));
+  }
+  svg.appendChild(el('line', {x1: px0, y1: py1, x2: px1, y2: py1, class: 'axis'}));
+  svg.appendChild(el('line', {x1: px0, y1: py0, x2: px0, y2: py1, class: 'axis'}));
+  svg.appendChild(el('text', {x: (px0 + px1) / 2, y: H - 9, class: 'axlabel',
+    'text-anchor': 'middle'}, v.xlabel || ''));
+  const yl = el('text', {x: 14, y: (py0 + py1) / 2, class: 'axlabel',
+    'text-anchor': 'middle', transform: `rotate(-90 14 ${(py0 + py1) / 2})`},
+    v.norm ? 'нормировано к своему размаху' : (v.ylabel || ''));
+  svg.appendChild(yl);
+
+  // линии
+  for (const s of vis) {
+    if (s.pts.length < 1) continue;
+    const d = s.pts.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1)).join(' ');
+    svg.appendChild(el('path', {d, class: 'ln', stroke: s.color,
+      'stroke-width': s.width || 2,
+      'stroke-dasharray': s.dash ? '5 3' : ''}));
+    // точки, когда их немного — видно каждую эпоху
+    if (s.pts.length <= 40)
+      for (const p of s.pts)
+        svg.appendChild(el('circle', {cx: X(p[0]), cy: Y(p[1]), r: 2.6,
+          fill: s.color, class: 'dot'}));
+  }
+
+  // курсор и подсказка
+  if (S.hover !== null) {
+    const xv = x0 + (x1 - x0) * (S.hover - px0) / (px1 - px0);
+    const near = Math.round(xv);
+    const rows = [];
+    for (const s of vis) {
+      let best = null, bd = 1e9;
+      for (const p of s.pts) { const dd = Math.abs(p[0] - near); if (dd < bd) { bd = dd; best = p; } }
+      if (best && bd <= Math.max(1, (x1 - x0) / 40)) {
+        rows.push({name: s.name, color: s.color, y: best[2]});
+        svg.appendChild(el('circle', {cx: X(best[0]), cy: Y(best[1]), r: 4.2,
+          fill: s.color, class: 'dot'}));
+      }
+    }
+    if (rows.length) {
+      svg.appendChild(el('line', {x1: X(near), y1: py0, x2: X(near), y2: py1, class: 'cursor'}));
+      const tip = $('tip');
+      tip.innerHTML = '<div class="th">эпоха ' + near + '</div>'
+        + rows.map(r => '<div class="row"><span><i style="background:' + r.color
+          + '"></i>' + r.name + '</span><b>' + fmt(r.y) + '</b></div>').join('');
+      tip.style.display = 'block';
+      const bx = $('plotbox').getBoundingClientRect();
+      const tw = tip.offsetWidth, left = X(near) + 14;
+      tip.style.left = (left + tw > bx.width - 8 ? X(near) - tw - 14 : left) + 'px';
+      tip.style.top = Math.min(py0 + 8, py1 - tip.offsetHeight - 8) + 'px';
+    } else { $('tip').style.display = 'none'; }
+  } else { $('tip').style.display = 'none'; }
+
+  // легенда: последнее и лучшее значение по каждой линии
+  const higherBetter = (v.id !== 'loss');
+  let leader = null;
+  $('legend').innerHTML = v.series.map(s => {
+    const last = s.y[s.y.length - 1];
+    const best = higherBetter ? Math.max(...s.y) : Math.min(...s.y);
+    if (leader === null || (higherBetter ? last > leader.v : last < leader.v))
+      leader = {n: s.name, v: last};
+    // кириллица и цифры — в разных элементах: в одном моношрифтовом блоке
+    // на стыке появлялся квадратик недостающего глифа
+    return '<div class="lg"><i style="background:' + s.color + '"></i>'
+      + '<span>' + s.name + '</span>'
+      + '<span class="val">' + fmt(last) + '</span>'
+      + '<span class="best">' + (higherBetter ? 'лучшее' : 'минимум') + '</span>'
+      + '<span class="val">' + fmt(best) + '</span>'
+      + '</div>';
+  }).join('');
+}
+
+function show(i) {
+  if (!S.views.length) return;
+  S.idx = (i + S.views.length) % S.views.length;
+  S.x0 = S.x1 = null;
+  const v = view();
+  $('title').textContent = v.title;
+  $('sub').textContent = v.sub || '';
+  $('tag').textContent = v.title;
+  $('pager').textContent = (S.idx + 1) + ' / ' + S.views.length;
+  draw();
+}
+
+function load(first) {
+  if (!window.pywebview || !pywebview.api || !pywebview.api.curves) return;
+  pywebview.api.curves().then(d => {
+    const keep = S.views.length ? view().id : null;
+    S.views = d.views || [];
+    $('stamp').textContent = d.stamp || '';
+    if (!S.views.length) { $('title').textContent = 'Данных пока нет'; draw(); return; }
+    if (first || keep === null) show(0);
+    else {
+      const j = S.views.findIndex(v => v.id === keep);
+      S.idx = j < 0 ? 0 : j;
+      const v = view();
+      $('title').textContent = v.title; $('sub').textContent = v.sub || '';
+      $('tag').textContent = v.title;
+      $('pager').textContent = (S.idx + 1) + ' / ' + S.views.length;
+      draw();
+    }
+  }).catch(() => {});
+}
+
+/* ——— управление ——— */
+const plot = $('plot');
+plot.addEventListener('click', e => { if (!S.dragged) show(S.idx + 1); });
+plot.addEventListener('dblclick', () => { S.x0 = S.x1 = null; draw(); });
+plot.addEventListener('mousemove', e => {
+  const r = plot.getBoundingClientRect();
+  if (S.drag) {
+    const v = view(); if (!v) return;
+    const span = S.x1 - S.x0;
+    const dx = (e.clientX - S.drag.px) / r.width * span;
+    S.x0 = S.drag.x0 - dx; S.x1 = S.drag.x1 - dx;
+    S.dragged = true; draw(); return;
+  }
+  S.hover = e.clientX - r.left; draw();
+});
+plot.addEventListener('mouseleave', () => { S.hover = null; S.drag = null; draw(); });
+plot.addEventListener('mousedown', e => {
+  S.drag = {px: e.clientX, x0: S.x0, x1: S.x1}; S.dragged = false;
+});
+window.addEventListener('mouseup', () => { S.drag = null; setTimeout(() => { S.dragged = false; }, 30); });
+plot.addEventListener('wheel', e => {
+  e.preventDefault();
+  const v = view(); if (!v) return;
+  const r = plot.getBoundingClientRect();
+  const L = 74, R = 26;
+  const frac = Math.min(1, Math.max(0, (e.clientX - r.left - L) / (r.width - L - R)));
+  const at = S.x0 + (S.x1 - S.x0) * frac;
+  const k = e.deltaY > 0 ? 1.25 : 0.8;
+  const span = Math.max(1, (S.x1 - S.x0) * k);
+  S.x0 = at - span * frac; S.x1 = at + span * (1 - frac);
+  draw();
+}, {passive: false});
+
+$('prev').addEventListener('click', () => show(S.idx - 1));
+$('next').addEventListener('click', () => show(S.idx + 1));
+$('live').addEventListener('click', () => {
+  S.live = !S.live;
+  $('live').classList.toggle('on', S.live);
+  $('live').textContent = S.live ? 'Живой' : 'Пауза';
+});
+window.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') show(S.idx + 1);
+  if (e.key === 'ArrowLeft') show(S.idx - 1);
+  if (e.key === 'Escape') { S.x0 = S.x1 = null; draw(); }
+});
+window.addEventListener('resize', draw);
+
+window.addEventListener('pywebviewready', () => load(true));
+let boot = setInterval(() => {
+  if (window.pywebview && pywebview.api && pywebview.api.curves) {
+    clearInterval(boot); load(true);
+  }
+}, 300);
+setInterval(() => { if (S.live) load(false); }, 15000);
+</script>
+</body>
+</html>

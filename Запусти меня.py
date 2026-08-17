@@ -633,6 +633,19 @@ class Api:
                         'role': role, 'detail': detail})
         return out
 
+    def open_chart(self) -> None:
+        """Отдельное окно с подробным графиком — свой процесс и свой профиль."""
+        try:
+            proc = subprocess.Popen(
+                [str(VENV_PY), str(PROJECT_ROOT / 'scripts' / 'chart_window.py')],
+                cwd=str(PROJECT_ROOT), stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                creationflags=subprocess.CREATE_NO_WINDOW | subprocess.DETACHED_PROCESS)
+            self._log(f'Окно графика открыто (PID {proc.pid}). '
+                      f'Клик по графику — следующий вид, колесо — масштаб.', 'ok')
+        except OSError as e:
+            self._log(f'Не удалось открыть окно графика: {e}', 'err')
+
     # ——— проба инициализации DRB (узел Е) ———
     def probe_state(self) -> list[dict]:
         out = []

@@ -198,6 +198,12 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
   text-transform:uppercase; padding:7px 16px; cursor:pointer; border:1.5px solid var(--accent);
   background:var(--accent); color:var(--surface);}
 #mainbtn:hover{background:var(--accent-deep); border-color:var(--accent-deep);}
+/* та же типографика, что у главной кнопки — во всю ширину узла Д */
+#chartbtn{flex:none; width:100%; margin-top:9px; font-family:var(--mono); font-size:11px;
+  letter-spacing:.14em; text-transform:uppercase; padding:7px 10px; cursor:pointer;
+  border:1.5px solid var(--accent); background:var(--accent); color:var(--surface);}
+#chartbtn:hover:not(:disabled){background:var(--accent-deep); border-color:var(--accent-deep);}
+#chartbtn:disabled{opacity:.45; cursor:default;}
 #runbanner.busy #mainbtn{background:var(--surface); color:var(--accent-deep);
   border-color:var(--accent-deep);}
 
@@ -251,17 +257,12 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
 #subsets-row .scell .mval{font-size:19px;}
 
 /* ————— тракт обработки ————— */
-#pipe{flex:1; min-height:120px;}
-#pipe svg{width:100%; height:100%;}
-#pipe text{font-family:var(--mono); font-size:8.2px; letter-spacing:.14em; fill:var(--sec); text-transform:uppercase;}
-#pipe .node{fill:var(--surface); stroke:var(--line); stroke-width:1.5;}
-#pipe .node.drb{stroke:var(--accent); stroke-width:1.8;}
-#pipe .wire{stroke:var(--aux); stroke-width:1.4; fill:none;}
+
 /* ————— кривая обучения (узел Д) ————— */
-#curvewrap{display:flex; flex-direction:column; gap:6px;}
+#curvewrap{display:flex; flex-direction:column; gap:6px; flex:1; min-height:0;}
 #curvecap{font-family:var(--mono); font-size:9px; letter-spacing:.1em;
   text-transform:uppercase; color:var(--cap);}
-#curve{width:100%; height:68px; border:1px solid var(--div); background:var(--paper);}
+#curve{width:100%; flex:1; min-height:110px; border:1px solid var(--div); background:var(--surface);}
 #curve .gridline{stroke:var(--div); stroke-width:.5;}
 #curve .lmap{fill:none; stroke:var(--accent); stroke-width:2; vector-effect:non-scaling-stroke;}
 #curve .lloss{fill:none; stroke:var(--sec); stroke-width:1.4;
@@ -442,34 +443,13 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
         <div class="ptitle"><span>Ход обучения · по эпохам</span><span class="idx">Узел Д</span></div>
         <div id="curvewrap">
           <div id="curvecap">Данных пока нет — появятся после первой эпохи</div>
-          <svg id="curve" viewBox="0 0 220 120" preserveAspectRatio="none"></svg>
+          <svg id="curve" preserveAspectRatio="none"></svg>
           <div id="curvelegend">
             <span><i class="ck accent"></i>Точность (mAP@0.50) — выше лучше</span>
             <span><i class="ck sec"></i>Ошибка рамок — ниже лучше</span>
           </div>
         </div>
-        <details id="pipedetails">
-          <summary>Схема модели</summary>
-        <div id="pipe">
-          <svg viewBox="0 0 220 240" preserveAspectRatio="xMidYMid meet">
-            <path class="wire" d="M110 30 V 58"/><path class="wire" d="M110 88 V 116"/>
-            <path class="wire" d="M110 146 V 174"/><path class="wire" d="M110 204 V 218"/>
-            <rect class="node" x="45" y="8" width="130" height="24"/>
-            <text x="110" y="23.5" text-anchor="middle">Кадр 640×640</text>
-            <rect class="node" x="45" y="58" width="130" height="30"/>
-            <text x="110" y="76.5" text-anchor="middle">Backbone</text>
-            <rect class="node drb" x="45" y="116" width="130" height="30"/>
-            <text x="110" y="130" text-anchor="middle" fill="#b85c3c">Neck · DRB</text>
-            <text x="110" y="141" text-anchor="middle" style="font-size:6.8px">LQA + FGA · Этап 4</text>
-            <rect class="node" x="45" y="174" width="130" height="30"/>
-            <text x="110" y="192.5" text-anchor="middle">Head · детекции</text>
-            <text x="110" y="232" text-anchor="middle" fill="#a39b8c">→ трекер · карта Q</text>
-            <circle id="pulse" r="3.4" cx="110" cy="30">
-              <animate attributeName="cy" values="30;218" dur="1.6s" repeatCount="indefinite"/>
-            </circle>
-          </svg>
-        </div>
-        </details>
+        <button id="chartbtn" title="Отдельное окно: крупный график, оси, подсказки по точкам, перелистывание видов">⤢ Подробный график в отдельном окне</button>
       </section>
     </div>
   </main>
@@ -576,8 +556,7 @@ const ui = {
     ui.setRunBanner(busy, taskId === 'full'
       ? 'весь конвейер по порядку' : (step ? step.textContent : taskId));
     $('viewport').classList.toggle('scanning', busy);
-    $('pipe').classList.toggle('busy', busy);
-    $('logstate').textContent = busy ? 'Выполняется' : 'Ожидание';
+        $('logstate').textContent = busy ? 'Выполняется' : 'Ожидание';
     ui.setLamp('task', busy ? 'busy' : '');
   },
   taskDone(taskId, code, lamp) {
@@ -828,6 +807,7 @@ document.querySelectorAll('.op[data-task]').forEach(btn => {
   });
 });
 $('stopbtn').addEventListener('click', () => pywebview.api.stop_task());
+$('chartbtn').addEventListener('click', () => pywebview.api.open_chart());
 $('probecmp').addEventListener('click', () => {
   ui.setBusy('probecmp', true);
   ui.log('');

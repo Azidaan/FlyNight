@@ -74,10 +74,32 @@ def main() -> int:
               f'чекпойнт {"есть" if ckpt.exists() else "нет"}')
 
     test_probes(mod)
+    test_chart_data()
     test_detached_run(mod)
 
     print(f'\n--- {"OK: конвейер панели корректен" if not FAILURES else f"FAIL: {FAILURES}"} ---')
     return 1 if FAILURES else 0
+
+
+def test_chart_data() -> None:
+    """Отдельное окно графика: данные читаются и пригодны для отрисовки."""
+    print('=== данные окна графика ===')
+    from scripts.chart_window import ChartApi
+    d = ChartApi().curves()
+    check('есть отметка времени', bool(d.get('stamp')), d.get('stamp', ''))
+    views = d.get('views', [])
+    check('есть хотя бы один вид', len(views) > 0, str(len(views)))
+    for v in views:
+        check(f'{v["id"]}: есть заголовок и подписи осей',
+              bool(v.get('title') and v.get('xlabel') and v.get('ylabel')))
+        for s in v.get('series', []):
+            same = len(s['x']) == len(s['y'])
+            check(f'{v["id"]}/{s["name"]}: длины осей совпадают', same,
+                  f'{len(s["x"])} и {len(s["y"])}')
+            check(f'{v["id"]}/{s["name"]}: значения конечны',
+                  all(y == y and abs(y) != float('inf') for y in s['y']))
+            check(f'{v["id"]}/{s["name"]}: задан цвет',
+                  isinstance(s.get('color'), str) and s['color'].startswith('#'))
 
 
 def test_probes(mod) -> None:
