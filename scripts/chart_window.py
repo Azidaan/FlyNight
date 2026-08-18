@@ -254,9 +254,13 @@ def main() -> int:
             return 'window.native' not in record.getMessage()
     logging.getLogger('pywebview').addFilter(_Quiet())
 
+    # У служебного окна ОТДЕЛЬНЫЙ заголовок: иначе поиск окна по имени
+    # находит уже открытое пользователем окно графика и снимает его — то
+    # есть показывает старую страницу вместо проверяемой.
+    title = TITLE + ' · проверка' if args.selftest else TITLE
     api = ChartApi()
     win = webview.create_window(
-        TITLE, html=HTML.read_text(encoding='utf-8'), js_api=api,
+        title, html=HTML.read_text(encoding='utf-8'), js_api=api,
         width=1180, height=760, min_size=(760, 520))
 
     if args.selftest:
@@ -268,7 +272,7 @@ def main() -> int:
             time.sleep(7)
             try:
                 mod._capture_window_by_title(
-                    TITLE, PROJECT_ROOT / 'ui' / 'chart_screenshot.png')
+                    title, PROJECT_ROOT / 'ui' / 'chart_screenshot.png')
                 print('CHART SELFTEST OK: снимок сохранён')
             finally:
                 win.destroy()

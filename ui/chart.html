@@ -63,6 +63,8 @@ h1{font-size:21px; font-weight:600; letter-spacing:-0.01em;}
 #plot .ln{fill:none; stroke-linejoin:round; stroke-linecap:round;}
 #plot .cursor{stroke:var(--accent); stroke-width:1; stroke-dasharray:3 3;}
 #plot .dot{stroke:var(--surface); stroke-width:1.5;}
+#plot .endlab{font-family:var(--mono); font-size:10px; letter-spacing:.04em;
+  paint-order:stroke; stroke:var(--surface); stroke-width:3px; stroke-linejoin:round;}
 #plot .empty{font-family:var(--mono); font-size:12px; fill:var(--cap); letter-spacing:.14em;}
 
 /* подсказка по точке */
@@ -74,6 +76,9 @@ h1{font-size:21px; font-weight:600; letter-spacing:-0.01em;}
 #tip .row{display:flex; align-items:center; gap:7px; justify-content:space-between;}
 #tip i{width:10px; height:2.5px; flex:none;}
 #tip b{font-weight:500;}
+#tip .row{opacity:.55;}
+#tip .row.hot{opacity:1;}
+#tip .row.hot b{color:var(--accent-deep);}
 
 /* переключатели конфигураций */
 #filters{display:flex; flex-wrap:wrap; gap:7px; padding-top:10px; align-items:center;}
@@ -130,7 +135,7 @@ footer{display:flex; align-items:flex-start; justify-content:space-between;
   <footer>
     <div>
       <div id="legend"></div>
-      <div id="hint">клик по графику — следующий вид · колесо — масштаб · перетаскивание — сдвиг · двойной клик — сброс</div>
+      <div id="hint">наведите на линию — она подсветится и назовётся · клик — следующий вид · колесо — масштаб · перетаскивание — сдвиг</div>
     </div>
     <div id="nav">
       <button class="nbtn" id="prev">‹</button>
@@ -145,7 +150,7 @@ footer{display:flex; align-items:flex-start; justify-content:space-between;
 'use strict';
 const $ = id => document.getElementById(id);
 const S = {views: [], idx: 0, x0: null, x1: null, live: true, hover: null,
-           drag: null, groups: [], off: new Set()};
+           hoverY: null, drag: null, groups: [], off: new Set()};
 
 /* линии выключенных семейств не рисуются: так можно оставить только
    baseline и DRB и сравнить их без визуального шума */
@@ -266,45 +271,84 @@ function draw() {
     v.norm ? 'нормировано к своему размаху' : (v.ylabel || ''));
   svg.appendChild(yl);
 
+  // Какая линия под курсором: считаем расстояние по вертикали до значения
+  // линии в этой же эпохе. Ближайшая подсвечивается и подписывается прямо
+  // у курсора — иначе цвет приходится сопоставлять с легендой внизу.
+  let hot = -1;
+  const atEpoch = [];
+  if (S.hover !== null) {
+    const xv = x0 + (x1 - x0) * (S.hover - px0) / (px1 - px0);
+    let bestD = 1e9;
+    vis.forEach((s, k) => {
+      let pt = null, bd = 1e9;
+      for (const p of s.pts) { const dd = Math.abs(p[0] - xv); if (dd < bd) { bd = dd; pt = p; } }
+      atEpoch[k] = (pt && bd <= Math.max(1, (x1 - x0) / 30)) ? pt : null;
+      if (atEpoch[k] && S.hoverY !== null) {
+        const dy = Math.abs(Y(atEpoch[k][1]) - S.hoverY);
+        if (dy < bestD) { bestD = dy; hot = k; }
+      }
+    });
+    if (bestD > 34) hot = -1;             // курсор далеко от всех линий
+  }
+
   // линии
-  for (const s of vis) {
-    if (s.pts.length < 1) continue;
+  vis.forEach((s, k) => {
+    if (s.pts.length < 1) return;
+    const dim = hot >= 0 && k !== hot;
     const d = s.pts.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ' ' + Y(p[1]).toFixed(1)).join(' ');
     svg.appendChild(el('path', {d, class: 'ln', stroke: s.color,
-      'stroke-width': s.width || 2,
+      'stroke-width': (s.width || 2) + (k === hot ? 1.6 : 0),
+      'stroke-opacity': dim ? 0.25 : 1,
       'stroke-dasharray': s.dash ? '5 3' : ''}));
-    // точки, когда их немного — видно каждую эпоху
     if (s.pts.length <= 40)
       for (const p of s.pts)
         svg.appendChild(el('circle', {cx: X(p[0]), cy: Y(p[1]), r: 2.6,
-          fill: s.color, class: 'dot'}));
+          fill: s.color, class: 'dot', opacity: dim ? 0.25 : 1}));
+  });
+
+  // Подписи у правых концов линий: имя видно всегда, без наведения и без
+  // похода глазами в легенду. При совпадении высот метки разводятся.
+  const ends = vis.map((s, k) => s.pts.length
+    ? {k, name: s.name, color: s.color, x: X(s.pts[s.pts.length - 1][0]),
+       y: Y(s.pts[s.pts.length - 1][1])} : null).filter(Boolean);
+  ends.sort((a, b) => a.y - b.y);
+  for (let i = 1; i < ends.length; i++)
+    if (ends[i].y - ends[i - 1].y < 12) ends[i].y = ends[i - 1].y + 12;
+  for (const e of ends) {
+    const right = e.x + 8 + e.name.length * 5.4 < px1;
+    svg.appendChild(el('text', {
+      x: right ? e.x + 7 : e.x - 7, y: Math.min(Math.max(e.y + 3.5, py0 + 8), py1 - 4),
+      class: 'endlab', fill: e.color, 'text-anchor': right ? 'start' : 'end',
+      opacity: hot >= 0 && e.k !== hot ? 0.3 : 1}, e.name));
   }
 
-  // курсор и подсказка
+  // курсор, точки на эпохе и подсказка
   if (S.hover !== null) {
     const xv = x0 + (x1 - x0) * (S.hover - px0) / (px1 - px0);
     const near = Math.round(xv);
     const rows = [];
-    for (const s of vis) {
-      let best = null, bd = 1e9;
-      for (const p of s.pts) { const dd = Math.abs(p[0] - near); if (dd < bd) { bd = dd; best = p; } }
-      if (best && bd <= Math.max(1, (x1 - x0) / 40)) {
-        rows.push({name: s.name, color: s.color, y: best[2]});
-        svg.appendChild(el('circle', {cx: X(best[0]), cy: Y(best[1]), r: 4.2,
-          fill: s.color, class: 'dot'}));
-      }
-    }
+    vis.forEach((s, k) => {
+      const pt = atEpoch[k];
+      if (!pt) return;
+      rows.push({name: s.name, color: s.color, y: pt[2], hot: k === hot});
+      svg.appendChild(el('circle', {cx: X(pt[0]), cy: Y(pt[1]),
+        r: k === hot ? 5.4 : 4.2, fill: s.color, class: 'dot',
+        opacity: hot >= 0 && k !== hot ? 0.3 : 1}));
+    });
     if (rows.length) {
       svg.appendChild(el('line', {x1: X(near), y1: py0, x2: X(near), y2: py1, class: 'cursor'}));
       const tip = $('tip');
+      // подсвеченная линия — первой и выделена, чтобы не искать глазами
+      rows.sort((a, b) => (b.hot ? 1 : 0) - (a.hot ? 1 : 0));
       tip.innerHTML = '<div class="th">эпоха ' + near + '</div>'
-        + rows.map(r => '<div class="row"><span><i style="background:' + r.color
-          + '"></i>' + r.name + '</span><b>' + fmt(r.y) + '</b></div>').join('');
+        + rows.map(r => '<div class="row' + (r.hot ? ' hot' : '') + '"><span><i style="background:'
+          + r.color + '"></i>' + r.name + '</span><b>' + fmt(r.y) + '</b></div>').join('');
       tip.style.display = 'block';
       const bx = $('plotbox').getBoundingClientRect();
       const tw = tip.offsetWidth, left = X(near) + 14;
       tip.style.left = (left + tw > bx.width - 8 ? X(near) - tw - 14 : left) + 'px';
-      tip.style.top = Math.min(py0 + 8, py1 - tip.offsetHeight - 8) + 'px';
+      const ty = (S.hoverY !== null ? S.hoverY - tip.offsetHeight - 14 : py0 + 8);
+      tip.style.top = Math.min(Math.max(ty, py0 + 6), py1 - tip.offsetHeight - 6) + 'px';
     } else { $('tip').style.display = 'none'; }
   } else { $('tip').style.display = 'none'; }
 
@@ -374,9 +418,9 @@ plot.addEventListener('mousemove', e => {
     S.x0 = S.drag.x0 - dx; S.x1 = S.drag.x1 - dx;
     S.dragged = true; draw(); return;
   }
-  S.hover = e.clientX - r.left; draw();
+  S.hover = e.clientX - r.left; S.hoverY = e.clientY - r.top; draw();
 });
-plot.addEventListener('mouseleave', () => { S.hover = null; S.drag = null; draw(); });
+plot.addEventListener('mouseleave', () => { S.hover = null; S.hoverY = null; S.drag = null; draw(); });
 plot.addEventListener('mousedown', e => {
   S.drag = {px: e.clientX, x0: S.x0, x1: S.x1}; S.dragged = false;
 });
