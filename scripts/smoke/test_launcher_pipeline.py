@@ -122,7 +122,16 @@ def test_probes(mod) -> None:
     check('свой каталог, основной прогон не затрагивается',
           'runs/init_probe/w4' in line and 'runs/drb_full' not in line)
 
-    # состояние читается по диску: подсовываем журнал на 12 эпох
+    # Состояние читается по диску. КАТАЛОГ ПОДМЕНЯЕТСЯ на временный: раньше
+    # тест писал в настоящий runs/init_probe и в конце сносил его целиком —
+    # и однажды снёс идущую пробу вместе с одиннадцатью посчитанными эпохами
+    # и чекпойнтом. Тест не имеет права трогать рабочие данные.
+    import tempfile
+    real_root = mod.PROBE_ROOT
+    mod.PROBE_ROOT = Path(tempfile.mkdtemp(prefix='probe_test_',
+                                           dir=str(PROJECT_ROOT / 'runs')))
+    check('тест работает во временном каталоге, не в рабочем',
+          mod.PROBE_ROOT != real_root, str(mod.PROBE_ROOT.name))
     run = mod.PROBE_ROOT / 'w2' / f'seed{mod.PROBE_SEED}'
     try:
         run.mkdir(parents=True, exist_ok=True)
@@ -138,9 +147,10 @@ def test_probes(mod) -> None:
         check('для частичной добавляется продолжение',
               '--resume' in ' '.join(mod._probe_cmds('w2', -2.0)[0]))
     finally:
-        shutil.rmtree(mod.PROBE_ROOT, ignore_errors=True)
-    st = {p['id']: p for p in api.probe_state()}
-    check('после сброса снова «не начата»', st['w2']['status'] == 'todo')
+        shutil.rmtree(mod.PROBE_ROOT, ignore_errors=True)   # только временный
+        tmp_root, mod.PROBE_ROOT = mod.PROBE_ROOT, real_root
+    check('рабочий каталог проб не тронут',
+          not str(tmp_root).endswith('init_probe'), str(tmp_root.name))
 
 
 def test_busy_guard(mod) -> None:
