@@ -22,7 +22,7 @@ import subprocess
 import sys
 import threading
 import time
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -116,13 +116,35 @@ RESULTS = PROJECT_ROOT / 'experiments' / 'results'
 SEEDS3 = (42, 123, 2024)
 
 
+def _epochs_done(results_csv: Path) -> int:
+    """Сколько эпох записано в results.csv Ultralytics (0, если файла нет)."""
+    if not results_csv.exists():
+        return 0
+    try:
+        with open(results_csv, encoding='utf-8') as f:
+            return max(0, sum(1 for _ in f) - 1)
+    except OSError:
+        return 0
+
+
 def _seed_states(run_name: str, seeds: tuple[int, ...]) -> dict[int, str]:
-    """Состояние каждого сида: 'done' | 'resumable' | 'todo'."""
+    """Состояние каждого сида: 'done' | 'resumable' | 'todo'.
+
+    Одного файла весов мало. Короткие прогоны когда-то складывали свою
+    двенадцатиэпошную пробу под именем настоящего прогона, и панель считала
+    сид обученным: шаг показывал «1/3 сидов», при запуске молча пропускал
+    сид 42, а трекинг брал пробу за финальную модель. Поэтому рядом с
+    весами проверяется кривая обучения — эпох в ней должно быть больше,
+    чем в пробе.
+    """
     out = {}
     for s in seeds:
-        if (PROJECT_ROOT / 'weights' / f'{run_name}_seed{s}' / 'best.pt').exists():
+        run = PROJECT_ROOT / 'runs' / run_name / f'seed{s}'
+        done = ((PROJECT_ROOT / 'weights' / f'{run_name}_seed{s}' / 'best.pt').exists()
+                and _epochs_done(run / 'results.csv') > PROBE_EPOCHS)
+        if done:
             out[s] = 'done'
-        elif (PROJECT_ROOT / 'runs' / run_name / f'seed{s}' / 'weights' / 'last.pt').exists():
+        elif (run / 'weights' / 'last.pt').exists():
             out[s] = 'resumable'
         else:
             out[s] = 'todo'
@@ -182,10 +204,15 @@ def _ablation_status() -> tuple[str, str]:
 
 
 def _best_final_model() -> str:
-    """Лучшая финальная модель для трекинг-шагов (drb_aug_full seed42)."""
+    """Лучшая финальная модель для трекинг-шагов (drb_aug_full seed42).
+
+    Берётся только по-настоящему обученная: файл весов рядом с короткой
+    кривой — это проба, и двенадцать часов трекинга на ней дали бы
+    правдоподобные, но неверные числа в сводную таблицу.
+    """
     for run in ('drb_aug_full', 'drb_full', 'baseline'):
         p = PROJECT_ROOT / 'weights' / f'{run}_seed42' / 'best.pt'
-        if p.exists():
+        if p.exists() and _seed_states(run, (42,))[42] == 'done':
             return str(p.relative_to(PROJECT_ROOT)).replace('\\', '/')
     return 'weights/drb_aug_full_seed42/best.pt'
 
@@ -198,41 +225,84 @@ PROBE_ROOT = PROJECT_ROOT / 'runs' / 'init_probe'
 PROBE_EPOCHS = 12
 PROBE_SEED = 42
 PROBES: list[dict] = [
-    {'id': 'w0', 'w': 0.0, 'name': 'Вклад 50% — как в плане', 'time': '~3 ч'},
-    {'id': 'w2', 'w': -2.0, 'name': 'Вклад 12%', 'time': '~3 ч'},
+    {'id': 'w0', 'w': 0.0, 'name': 'Вклад 50% — как в плане', 'time': '~5 ч'},
+    {'id': 'w2', 'w': -2.0, 'name': 'Вклад 12%', 'time': '~5 ч'},
     {'id': 'w4', 'w': -4.0, 'name': 'Вклад 2% — почти тождественный старт',
-     'time': '~3 ч'},
+     'time': '~5 ч'},
+    # Контроль: тот же короткий прогон, но БЕЗ блока (w = None). Нужен
+    # потому, что стосерийный baseline на 12-й эпохе с пробами несопоставим:
+    # там втрое выше скорость обучения и ещё включена мозаика. Сравнивать
+    # пробы можно только с прогоном на том же расписании.
+    {'id': 'base12', 'w': None, 'name': 'Контроль — без DRB, равные условия',
+     'time': '~45 мин'},
 ]
 
 
 def _probe_status(pid: str) -> tuple[str, str]:
     """(status, detail) пробы по фактам на диске."""
     run = PROBE_ROOT / pid / f'seed{PROBE_SEED}'
-    results = run / 'results.csv'
-    if results.exists():
-        try:
-            n = sum(1 for _ in open(results, encoding='utf-8')) - 1
-        except OSError:
-            n = 0
-        if n >= PROBE_EPOCHS:
-            return 'done', f'{n} эпох — готово'
-        if n > 0:
-            return 'partial', f'{n} из {PROBE_EPOCHS} эпох'
+    n = _epochs_done(run / 'results.csv')
+    if n >= PROBE_EPOCHS:
+        return 'done', f'{n} эпох — готово'
+    if n > 0:
+        return 'partial', f'{n} из {PROBE_EPOCHS} эпох'
     if (run / 'weights' / 'last.pt').exists():
         return 'partial', 'есть чекпойнт — продолжить'
     return 'todo', f'{PROBE_EPOCHS} эпох'
 
 
-def _probe_cmds(pid: str, w: float) -> list[list[str]]:
+def _probe_cmds(pid: str, w: float | None) -> list[list[str]]:
+    """Команда прогона. w = None — контроль без DRB, обычный baseline."""
     out = PROBE_ROOT / pid
+    script = 'training/train_baseline.py' if w is None else 'training/train_drb.py'
     cmd = ['scripts/train_supervisor.py', '--watch',
-           f'runs/init_probe/{pid}', '--', 'python', 'training/train_drb.py',
+           f'runs/init_probe/{pid}', '--', 'python', script,
            '--seed', str(PROBE_SEED), '--epochs', str(PROBE_EPOCHS),
-           '--output', str(out),          # только абсолютный: см. train_drb.py
-           '--alpha-init', str(w)]
+           '--output', str(out)]          # только абсолютный: см. train_drb.py
+    if w is not None:
+        cmd += ['--alpha-init', str(w)]
     if _probe_status(pid)[0] == 'partial':
         cmd.append('--resume')
     return [cmd]
+
+
+def _probe_archive_root() -> Path:
+    """Куда уезжают прошлые версии проб.
+
+    Считается на месте, а не константой: тест подменяет PROBE_ROOT на
+    временный каталог, и архив обязан переехать вместе с ним.
+    """
+    return PROBE_ROOT / '_archive'
+
+
+def _probe_archives(pid: str) -> list[Path]:
+    """Отложенные версии пробы, от старых к свежим."""
+    root = _probe_archive_root()
+    if not root.exists():
+        return []
+    return sorted(p for p in root.glob(f'{pid}_*') if p.is_dir())
+
+
+def _archive_probe(pid: str) -> Path | None:
+    """Убрать готовую пробу в архив, чтобы пересчёт её не затёр.
+
+    Повторный запуск завершённой пробы начинается с первой эпохи и пишет в
+    ту же папку (exist_ok=True в train_drb.py) — то есть затирает прошлый
+    результат вместе с весами и графиками. Здесь он переезжает в _archive
+    под меткой времени и остаётся доступным для сравнения.
+    """
+    import shutil
+    src = PROBE_ROOT / pid
+    if not src.exists():
+        return None
+    root = _probe_archive_root()
+    root.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now().strftime('%d-%m_%H%M')
+    dst, k = root / f'{pid}_{stamp}', 2
+    while dst.exists():                    # два пересчёта в одну минуту
+        dst, k = root / f'{pid}_{stamp}_{k}', k + 1
+    shutil.move(str(src), str(dst))
+    return dst
 
 
 # Каждый шаг: id, name, время, status() -> (status, detail), cmds() -> [argv]
@@ -664,6 +734,45 @@ class Api:
                     return name
         return 'обучение'
 
+    def backup_results(self) -> None:
+        threading.Thread(target=self._backup_results, daemon=True).start()
+
+    def _backup_results(self) -> None:
+        """Снимок весов и результатов в папку, выбранную родным диалогом.
+
+        Копирование идёт прямо здесь, а не через _run_commands: там один
+        общий слот подпроцесса, и кнопка «остановить» гасила бы копию
+        вместо обучения.
+        """
+        try:
+            picked = self.window.create_file_dialog(webview.FileDialog.FOLDER)
+        except Exception as exc:
+            self._log(f'Не удалось открыть выбор папки: {exc}', 'err')
+            self._js('ui.saveDone()')
+            return
+        if not picked:
+            self._log('Сохранение отменено', 'info')
+            self._js('ui.saveDone()')
+            return
+
+        dest = Path(picked[0])
+        busy = self._training_running()
+        if busy:
+            self._log(f'Идёт обучение ({busy}) — копирование будет делить с ним '
+                      f'диск, обе задачи пойдут медленнее. Это не опасно.', 'info')
+        try:
+            if str(PROJECT_ROOT) not in sys.path:
+                sys.path.insert(0, str(PROJECT_ROOT))
+            from scripts.backup_results import backup
+            snap = backup(dest, log=lambda line: self._log(line))
+            self._log(f'Сохранено: {snap}', 'ok')
+            self._log('Рядом со снимком лежит ВОЗВРАТ.md — там написано, '
+                      'куда что класть, чтобы проект ожил на другой машине.',
+                      'ok')
+        except Exception as exc:
+            self._log(f'Сохранить не удалось: {exc}', 'err')
+        self._js('ui.saveDone()')
+
     def open_chart(self) -> None:
         """Отдельное окно с подробным графиком — свой процесс и свой профиль."""
         try:
@@ -682,8 +791,11 @@ class Api:
         out = []
         for p in PROBES:
             status, detail = _probe_status(p['id'])
+            kept = len(_probe_archives(p['id']))
+            if kept:
+                detail += f' · в архиве {kept}'
             out.append({'id': p['id'], 'name': p['name'], 'time': p['time'],
-                        'status': status, 'detail': detail})
+                        'status': status, 'detail': detail, 'kept': kept})
         return out
 
     def run_probe(self, probe_id: str) -> None:
@@ -700,21 +812,42 @@ class Api:
                       f'или остановите текущее.', 'err')
             self._js(f'ui.taskDone({json.dumps(p["id"])}, 0, null)')
             return
-        self._log(f'Проба инициализации: {p["name"]} '
-                  f'({PROBE_EPOCHS} эпох, вклад ветви '
-                  f'{1/(1+pow(2.718281828, -p["w"])):.1%})', 'info')
+        # Готовая проба считается заново с первой эпохи и пишет в ту же
+        # папку — прошлый результат сначала откладываем, иначе он пропадёт.
+        if _probe_status(p['id'])[0] == 'done':
+            kept = _archive_probe(p['id'])
+            if kept is not None:
+                self._log(f'Прошлый результат отложен в архив: '
+                          f'{kept.relative_to(PROJECT_ROOT)}', 'ok')
+        if p['w'] is None:
+            self._log(f'Контрольный прогон: {p["name"]} ({PROBE_EPOCHS} эпох, '
+                      f'без блока — эталон для проб на том же расписании)',
+                      'info')
+        else:
+            self._log(f'Проба инициализации: {p["name"]} '
+                      f'({PROBE_EPOCHS} эпох, вклад ветви '
+                      f'{1/(1+pow(2.718281828, -p["w"])):.1%})', 'info')
         code = self._run_commands(
             [[str(VENV_PY), str(PROJECT_ROOT / c[0]), *c[1:]]
              for c in _probe_cmds(p['id'], p['w'])])
         self._js(f'ui.taskDone({json.dumps(p["id"])}, {code}, null)')
 
     def reset_probe(self, probe_id: str) -> None:
-        """Сброс пробы: удаляются чекпойнты и журнал, шаг снова «не начат»."""
+        """Сброс пробы: удаляются чекпойнты и журнал, шаг снова «не начат».
+
+        Архив прошлых пересчётов не трогается: он заведён ровно для того,
+        чтобы посчитанное не пропадало. Раньше сброс «всего» сносил корень
+        целиком — теперь перечисляются именно пробы.
+        """
         import shutil
-        target = PROBE_ROOT / probe_id if probe_id != 'all' else PROBE_ROOT
-        if target.exists():
-            shutil.rmtree(target, ignore_errors=True)
-            self._log(f'Проба сброшена: {probe_id}', 'err')
+        targets = ([PROBE_ROOT / x['id'] for x in PROBES] if probe_id == 'all'
+                   else [PROBE_ROOT / probe_id])
+        gone = [t.name for t in targets if t.exists()]
+        for t in targets:
+            shutil.rmtree(t, ignore_errors=True)
+        if gone:
+            self._log(f'Проба сброшена: {", ".join(gone)} · архив не тронут',
+                      'err')
         else:
             self._log(f'Сбрасывать нечего: {probe_id}', 'info')
         self._js('pywebview.api.probe_state().then(renderProbes)')

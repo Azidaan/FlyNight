@@ -7,8 +7,10 @@
 Отрицательный стартовый вес делает блок почти тождественным, и он
 «включается» по мере того, как обучение находит его полезным.
 
-Сравнение честное: пробы и baseline идут на одних и тех же эпохах, одном
-сиде и одной конфигурации данных; отличается только стартовый вес ветвей.
+Эталон — контрольный прогон base12: те же 12 эпох, тот же сид и та же
+конфигурация данных, но без блока. Стосерийный baseline для этого не
+годится: на 12-й эпохе у него втрое выше скорость обучения и ещё включена
+мозаичная аугментация, то есть он учится в другом режиме.
 
 Выход: experiments/results/init_probe.csv + таблица в консоль.
 
@@ -22,7 +24,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 PROBE_ROOT = PROJECT_ROOT / 'runs' / 'init_probe'
-BASELINE = PROJECT_ROOT / 'runs' / 'baseline' / 'seed42' / 'results.csv'
+BASELINE = PROBE_ROOT / 'base12' / 'seed42' / 'results.csv'   # контроль
 OUT_CSV = PROJECT_ROOT / 'experiments' / 'results' / 'init_probe.csv'
 VARIANTS = [('w0', 0.0, 'вклад 50% (план)'),
             ('w2', -2.0, 'вклад 12%'),
@@ -78,10 +80,13 @@ def main() -> int:
         b = series(base, 'mAP50(B)')[:n]
         bl = series(base, 'train/box_loss')[:n]
         if b:
-            print(f'{"baseline (без DRB)":<22}{"—":>15}{b[-1]:>17.4f}'
+            print(f'{"контроль (без DRB)":<22}{"—":>15}{b[-1]:>17.4f}'
                   f'{max(b):>15.4f}{bl[-1]:>15.4f}')
-            rows_out.append(['baseline', '', f'{b[-1]:.5f}', f'{max(b):.5f}',
+            rows_out.append(['base12', '', f'{b[-1]:.5f}', f'{max(b):.5f}',
                              f'{bl[-1]:.5f}', n])
+    else:
+        print('[WARN] контрольный прогон без DRB не посчитан — пробы сравнимы '
+              'только между собой (запустите «Контроль» в узле Е)')
 
     best_id, best_val = None, -1.0
     for pid, (w, label, rows) in curves.items():

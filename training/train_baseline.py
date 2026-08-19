@@ -64,7 +64,11 @@ def train_baseline(config_path: str, seed: int, output_dir: str,
     if not out_root.is_absolute():
         out_root = (PROJECT_ROOT / out_root).resolve()
     run_dir = out_root / f'seed{seed}'
-    weights_out = PROJECT_ROOT / 'weights' / f'baseline_seed{seed}'
+    # Имя берётся из фактического каталога прогона, а не зашито. Иначе
+    # короткий контрольный прогон, запущенный с --output, затирает веса
+    # настоящего baseline — а на них опираются оценка по поднаборам,
+    # трекинг и замер скорости.
+    weights_out = PROJECT_ROOT / 'weights' / f'{out_root.name}_seed{seed}'
 
     data_yaml = Path(data_override) if data_override else ensure_data_yaml(cfg)
 

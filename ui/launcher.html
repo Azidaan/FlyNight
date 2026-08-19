@@ -48,6 +48,12 @@ h1{font-size:25px; font-weight:600; letter-spacing:-0.01em;}
 h1 .thin{color:var(--sec); font-weight:400;}
 #hw-stamp{text-align:right; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; color:var(--sec); text-transform:uppercase; line-height:1.9;}
 #hw-stamp b{color:var(--ink); font-weight:500;}
+/* вторичная кнопка — та же типографика, что у «Сравнить» и «Сбросить всё» */
+#savebtn{display:inline-block; margin-top:8px; font-family:var(--mono); font-size:9px;
+  letter-spacing:.12em; text-transform:uppercase; padding:6px 12px; cursor:pointer;
+  background:var(--surface); color:var(--sec); border:1.3px solid var(--div);}
+#savebtn:hover:not(:disabled){border-color:var(--accent-deep); color:var(--accent-deep);}
+#savebtn:disabled{opacity:.4; cursor:default;}
 
 /* размерная линия под шапкой */
 .dim{position:relative; height:14px; margin:2px 0 12px;}
@@ -321,6 +327,7 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
     <div id="hw-stamp">
       GPU <b>RTX 5070 · 12 ГБ</b> · CUDA <b>13.0</b><br>
       Датасет <b>BDD100K MOT</b> · Детектор <b>YOLO26-S</b>
+      <button id="savebtn" title="Скопировать веса, чекпойнты и таблицы в выбранную папку. Рядом ляжет инструкция по возврату и опись с контрольными суммами">⤓ Сохранить результаты</button>
     </div>
   </header>
   <div id="runbanner" class="idle">
@@ -363,7 +370,9 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
 
         <div class="subtitle">Проба · с чего стартует DRB</div>
         <div id="probehint">Три коротких обучения по 12 эпох: с какого вклада
-          ветвей блок должен начинать. Сравниваются между собой и с baseline.</div>
+          ветвей блок должен начинать. Четвёртый пункт — контроль без блока
+          на том же расписании: только с ним сравнение честное, стосерийный
+          baseline на 12-й эпохе учится в другом режиме.</div>
         <div id="probes"></div>
         <div id="probebar">
           <button class="pbtn" id="probecmp">Сравнить</button>
@@ -558,6 +567,11 @@ const ui = {
     $('viewport').classList.toggle('scanning', busy);
         $('logstate').textContent = busy ? 'Выполняется' : 'Ожидание';
     ui.setLamp('task', busy ? 'busy' : '');
+  },
+  saveDone() {
+    const b = $('savebtn');
+    b.disabled = false;
+    b.textContent = '⤓ Сохранить результаты';
   },
   taskDone(taskId, code, lamp) {
     ui.setBusy(taskId, false);
@@ -808,6 +822,15 @@ document.querySelectorAll('.op[data-task]').forEach(btn => {
 });
 $('stopbtn').addEventListener('click', () => pywebview.api.stop_task());
 $('chartbtn').addEventListener('click', () => pywebview.api.open_chart());
+
+$('savebtn').addEventListener('click', () => {
+  const b = $('savebtn');
+  b.disabled = true;
+  b.textContent = '… сохраняю';
+  ui.log('');
+  ui.log('——— сохранение результатов ———', 'info');
+  pywebview.api.backup_results();
+});
 $('probecmp').addEventListener('click', () => {
   ui.setBusy('probecmp', true);
   ui.log('');

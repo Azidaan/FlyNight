@@ -95,7 +95,11 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
     if not run_root.is_absolute():
         run_root = (PROJECT_ROOT / run_root).resolve()
     run_dir = run_root / f'seed{seed}'
-    weights_out = PROJECT_ROOT / 'weights' / f'{run_name}_seed{seed}'
+    # Имя из фактического каталога прогона, а не из конфига: пробы идут с
+    # --output в runs/init_probe/<вариант>, и по имени из конфига их
+    # 12-эпошные веса ложились в weights/drb_full_seed42, то есть под
+    # именем настоящего прогона.
+    weights_out = PROJECT_ROOT / 'weights' / f'{run_root.name}_seed{seed}'
 
     data_yaml = Path(data_override) if data_override else ensure_data_yaml(cfg)
 

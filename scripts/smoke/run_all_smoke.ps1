@@ -19,6 +19,7 @@ $cpuTests = @(
     'scripts\smoke\test_bdd_annotations_parse.py',
     'scripts\smoke\test_bdd_eval_tools.py',
     'scripts\smoke\test_launcher_pipeline.py',
+    'scripts\smoke\test_backup.py',
     'scripts\smoke\test_sanity_checks.py',
     'scripts\smoke\test_thermal.py',
     'scripts\smoke\test_coco_size_metrics.py',

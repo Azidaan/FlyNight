@@ -74,6 +74,8 @@ def main() -> int:
               f'чекпойнт {"есть" if ckpt.exists() else "нет"}')
 
     test_probes(mod)
+    test_probe_archive(mod)
+    test_short_run_guard(mod)
     test_chart_data()
     test_detached_run(mod)
     test_busy_guard(mod)
@@ -108,9 +110,9 @@ def test_probes(mod) -> None:
     print('=== проба инициализации DRB (узел Е) ===')
     api = mod.Api()
     st = api.probe_state()
-    check('три варианта пробы', len(st) == 3, str([p['id'] for p in st]))
-    check('стартовые веса 0 / -2 / -4',
-          [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0],
+    check('три пробы и контроль', len(st) == 4, str([p['id'] for p in st]))
+    check('стартовые веса 0 / -2 / -4, у контроля веса нет',
+          [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0, None],
           str([p['w'] for p in mod.PROBES]))
 
     cmds = mod._probe_cmds('w4', -4.0)
@@ -121,6 +123,27 @@ def test_probes(mod) -> None:
           f'--epochs {mod.PROBE_EPOCHS}' in line and mod.PROBE_EPOCHS >= 12)
     check('свой каталог, основной прогон не затрагивается',
           'runs/init_probe/w4' in line and 'runs/drb_full' not in line)
+
+    # Контроль — тот же короткий прогон, но без блока: только с ним пробы
+    # сравнимы, стосерийный baseline на 12-й эпохе учится в другом режиме.
+    cline = ' '.join(mod._probe_cmds('base12', None)[0])
+    check('контроль идёт обычным baseline, без DRB',
+          'train_baseline.py' in cline and 'train_drb.py' not in cline)
+    check('контролю не передаётся стартовый вес', '--alpha-init' not in cline)
+    check('у контроля те же эпохи, что у проб',
+          f'--epochs {mod.PROBE_EPOCHS}' in cline)
+    check('контроль пишет в свой каталог',
+          'init_probe' in cline and 'base12' in cline)
+
+    # Итоговые веса копируются в weights/<имя каталога>_seed42. Раньше имя
+    # было зашито, и короткий прогон затирал веса настоящего прогона — а на
+    # них опираются оценка, трекинг и бенчмарк. Проверяем в исходниках:
+    # настоящий путь считается внутри обучения, которому нужна видеокарта.
+    for src_name in ('training/train_baseline.py', 'training/train_drb.py'):
+        src = (PROJECT_ROOT / src_name).read_text(encoding='utf-8')
+        check(f'{src_name}: папка весов из каталога прогона, а не зашита',
+              "_root.name}_seed{seed}'" in src,
+              'иначе короткий прогон затрёт веса настоящего')
 
     # Состояние читается по диску. КАТАЛОГ ПОДМЕНЯЕТСЯ на временный: раньше
     # тест писал в настоящий runs/init_probe и в конце сносил его целиком —
@@ -151,6 +174,122 @@ def test_probes(mod) -> None:
         tmp_root, mod.PROBE_ROOT = mod.PROBE_ROOT, real_root
     check('рабочий каталог проб не тронут',
           not str(tmp_root).endswith('init_probe'), str(tmp_root.name))
+
+
+def test_probe_archive(mod) -> None:
+    """Пересчёт готовой пробы не затирает прошлый результат, а откладывает его.
+
+    Повторный запуск идёт с первой эпохи в ту же папку, так что без архива
+    прошлые двенадцать эпох пропадали бесследно. Здесь проверяется, что
+    старая версия уезжает в _archive, что таких версий может быть несколько
+    и что сброс проб её не трогает.
+    """
+    import tempfile
+
+    print('=== архив прошлых версий проб ===')
+    api = mod.Api()
+    api._log = lambda line, cls='': None
+    api._js = lambda code: None
+    api._training_running = lambda: ''
+    api._run_commands = lambda cmds: 0          # обучение не запускаем
+
+    real_root = mod.PROBE_ROOT
+    mod.PROBE_ROOT = Path(tempfile.mkdtemp(prefix='probe_arch_',
+                                           dir=str(PROJECT_ROOT / 'runs')))
+    check('тест работает во временном каталоге, не в рабочем',
+          mod.PROBE_ROOT != real_root, str(mod.PROBE_ROOT.name))
+    run = mod.PROBE_ROOT / 'w2' / f'seed{mod.PROBE_SEED}'
+    full = 'epoch\n' + '\n'.join(str(i) for i in range(1, 13))
+    try:
+        run.mkdir(parents=True, exist_ok=True)
+        (run / 'results.csv').write_text(full, encoding='utf-8')
+        check('до пересчёта архив пуст', mod._probe_archives('w2') == [])
+
+        api._run_probe({'id': 'w2', 'w': -2.0, 'name': 'тест', 'time': ''})
+        kept = mod._probe_archives('w2')
+        check('готовая проба уехала в архив', len(kept) == 1,
+              kept[0].name if kept else 'ничего')
+        check('в архиве лежат все 12 эпох', kept and (
+            kept[0] / f'seed{mod.PROBE_SEED}' / 'results.csv'
+        ).read_text(encoding='utf-8') == full)
+        check('рабочая папка освобождена под новый счёт',
+              not (mod.PROBE_ROOT / 'w2').exists())
+        check('статус вернулся к «не начат»',
+              mod._probe_status('w2')[0] == 'todo')
+
+        # вторая версия не затирает первую
+        run.mkdir(parents=True, exist_ok=True)
+        (run / 'results.csv').write_text(full, encoding='utf-8')
+        api._run_probe({'id': 'w2', 'w': -2.0, 'name': 'тест', 'time': ''})
+        check('второй пересчёт добавляет версию, а не затирает',
+              len(mod._probe_archives('w2')) == 2,
+              str([p.name for p in mod._probe_archives('w2')]))
+
+        st = {p['id']: p for p in api.probe_state()}
+        check('панель показывает число отложенных версий',
+              st['w2']['kept'] == 2 and 'в архиве 2' in st['w2']['detail'],
+              st['w2']['detail'])
+        check('архив не притворяется ещё одной пробой', len(st) == 4)
+
+        api.reset_probe('all')
+        check('сброс проб архив не трогает',
+              len(mod._probe_archives('w2')) == 2,
+              str(len(mod._probe_archives('w2'))))
+    finally:
+        shutil.rmtree(mod.PROBE_ROOT, ignore_errors=True)   # только временный
+        tmp_root, mod.PROBE_ROOT = mod.PROBE_ROOT, real_root
+    check('рабочий каталог проб не тронут',
+          not str(tmp_root).endswith('init_probe'), str(tmp_root.name))
+
+
+def test_short_run_guard(mod) -> None:
+    """Короткий прогон не выдаёт себя за обученный сид.
+
+    Пробы когда-то складывали свои 12 эпох в weights/drb_full_seed42, и
+    панель считала сид 42 обученным: шаг показывал «1/3 сидов», при запуске
+    молча пропускал этот сид, а трекинг брал пробу за финальную модель.
+    """
+    import tempfile
+
+    print('=== защита от подмены короткой пробой ===')
+    real = mod.PROJECT_ROOT
+    root = Path(tempfile.mkdtemp(prefix='guard_', dir=str(PROJECT_ROOT / 'runs')))
+    mod.PROJECT_ROOT = root
+    check('тест работает во временном каталоге, не в рабочем',
+          mod.PROJECT_ROOT != real, root.name)
+    try:
+        w = root / 'weights' / 'drb_full_seed42'
+        w.mkdir(parents=True)
+        (w / 'best.pt').write_text('веса-заглушка', encoding='utf-8')
+        run = root / 'runs' / 'drb_full' / 'seed42'
+        run.mkdir(parents=True)
+
+        def curve(n: int) -> None:
+            (run / 'results.csv').write_text(
+                'epoch\n' + '\n'.join(str(i) for i in range(1, n + 1)),
+                encoding='utf-8')
+
+        curve(mod.PROBE_EPOCHS)
+        check('12 эпох не считаются обученным сидом',
+              mod._seed_states('drb_full', (42,))[42] != 'done',
+              mod._seed_states('drb_full', (42,))[42])
+        check('короткий прогон не подставляется как финальная модель',
+              'drb_full' not in mod._best_final_model(),
+              mod._best_final_model())
+        check('такой сид попадает в очередь на обучение',
+              '42' in [c[c.index('--seed') + 1] for c in
+                       mod._train_cmds('training/train_drb.py', 'drb_full', (42,))])
+
+        curve(100)
+        check('100 эпох считаются обученным сидом',
+              mod._seed_states('drb_full', (42,))[42] == 'done')
+        check('настоящий прогон становится финальной моделью',
+              'drb_full' in mod._best_final_model(), mod._best_final_model())
+        check('готовый сид больше не переобучается',
+              mod._train_cmds('training/train_drb.py', 'drb_full', (42,)) == [])
+    finally:
+        mod.PROJECT_ROOT = real
+        shutil.rmtree(root, ignore_errors=True)
 
 
 def test_busy_guard(mod) -> None:

@@ -31,6 +31,8 @@ COL_REF, COL_SEC, COL_INK = '#a39b8c', '#6b6457', '#2f2a24'
 PROBE_LABELS = [('w0', 'Вклад 50% (план)', COL_ACCENT),
                 ('w2', 'Вклад 12%', COL_OK),
                 ('w4', 'Вклад 2%', COL_BLUE)]
+# Эталон для проб — короткий прогон БЕЗ блока на том же расписании.
+CONTROL = ('base12', 'Контроль · без DRB, равные условия', COL_REF)
 
 
 def shade(hex_colour: str, step: int) -> str:
@@ -146,14 +148,26 @@ class ChartApi:
             if a:
                 alphas.append((label, colour, a))
         if probes:
-            base = read_run(runs_dir / 'baseline' / 'seed42' / 'results.csv')
-            n = max(len(s['y']) for s in probes)
-            bm = col(base, 'mAP50(B)')[:n]
-            ref = [series('baseline (без DRB)', COL_REF, col(base, 'epoch')[:n],
-                          bm, dash=True, width=1.4, group='baseline')] if bm else []
+            # Эталоном может быть только прогон на ТОМ ЖЕ расписании.
+            # Стосерийный baseline на 12-й эпохе идёт с втрое большей
+            # скоростью обучения и с ещё включённой мозаикой — рядом с
+            # пробами он создавал ложную картину, поэтому здесь его нет.
+            cid, clabel, ccol = CONTROL
+            cr = read_run(runs_dir / 'init_probe' / cid / 'seed42' / 'results.csv')
+            cm = col(cr, 'mAP50(B)')
+            if cm:
+                ref = [series(clabel, ccol, col(cr, 'epoch'), cm,
+                              dash=True, width=1.6, group='baseline')]
+                sub = ('с какого вклада ветвей стартовать блок · выше — лучше · '
+                       'пунктир — контроль без DRB на том же расписании')
+            else:
+                ref = []
+                sub = ('с какого вклада ветвей стартовать блок · выше — лучше · '
+                       'эталона пока нет: контрольный прогон без DRB '
+                       'не посчитан (узел Е)')
             views.append({
                 'id': 'probe', 'title': 'Проба инициализации DRB · точность',
-                'sub': 'с какого вклада ветвей стартовать блок · выше — лучше',
+                'sub': sub,
                 'ylabel': 'mAP@0.50', 'xlabel': 'эпоха',
                 'series': ref + probes})
 
