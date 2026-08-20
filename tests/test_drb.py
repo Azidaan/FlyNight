@@ -55,7 +55,7 @@ def test_level(level: str, c: int, h: int, w: int, device: str) -> None:
         'вход x': x.grad,
         'w_LQA': drb.w_lqa.grad,
         'w_FGA': drb.w_fga.grad,
-        'маска FGA': drb.fga.mask.grad,
+        'отклонение маски FGA': drb.fga.delta.grad,
         'Conv LQA': drb.lqa.conv_merge.weight.grad,
     }
     for gname, g in grads.items():
@@ -88,8 +88,61 @@ def test_amp_cuda() -> None:
         x_out, q = drb(x)
         loss = x_out.float().square().mean() + q.float().mean()
     loss.backward()
-    ok = torch.isfinite(x_out).all().item() and torch.isfinite(drb.fga.mask.grad).all().item()
+    ok = torch.isfinite(x_out).all().item() and torch.isfinite(drb.fga.delta.grad).all().item()
     check('AMP/cuda forward+backward без NaN', bool(ok))
+
+
+def _decay_only(module) -> None:
+    """Прогон оптимизатора без сигнала обучения: работает только штраф."""
+    for _ in range(200):
+        for p in module.parameters():
+            p.grad = torch.zeros_like(p)
+        yield
+
+
+def test_mask_neutral_under_decay() -> None:
+    """Штраф за величину больше не гасит маску частот.
+
+    Регрессия: раньше хранилась сама маска (старт — единицы), и штраф тянул
+    её к нулю, то есть к «вырезать все частоты». За 12 эпох она уезжала с
+    1.0 до 0.71, причём одинаково при вкладе ветви 50%, 12% и 2% — то есть
+    это было затухание, а не обучение, и блок отставал от контроля на
+    0.025 mAP50. Теперь хранится отклонение от единицы, сжимать нечего.
+    """
+    drb = DRB(16, 8, 8)
+    opt = torch.optim.SGD(drb.parameters(), lr=0.1, weight_decay=0.5)
+    for _ in _decay_only(drb):
+        opt.step()
+    dev = (drb.fga.mask3d - 1.0).abs().max().item()
+    check('маска остаётся нейтральной под штрафом', dev < 1e-6, f'отклонение {dev:.2e}')
+
+
+def test_block_excluded_from_decay() -> None:
+    """Маска и веса ветвей выводятся из-под штрафа в оптимизаторе.
+
+    Отклонение маски спасает её саму, но логит α спасать нечем: его нейтраль
+    там, куда его поставили, а не в нуле. Поэтому параметры блока переносятся
+    в группу без штрафа — иначе стартовый вклад ветвей уползал к 50%
+    независимо от того, каким его задали.
+    """
+    from models.yolo_neck.neck_drb import separate_block_params
+
+    drb = DRB(16, 8, 8)
+    with torch.no_grad():
+        drb.w_lqa.fill_(-2.0)
+        drb.w_fga.fill_(-2.0)
+    opt = torch.optim.SGD(drb.parameters(), lr=0.1, weight_decay=0.5)
+    moved = separate_block_params(opt, drb)
+    check('из-под штрафа выведены маска и два веса ветвей', moved == 3, str(moved))
+    check('свёртка LQA штраф сохранила — она обычный слой', any(
+        g['weight_decay'] == 0.5
+        and any(p is drb.lqa.conv_merge.weight for p in g['params'])
+        for g in opt.param_groups))
+    for _ in _decay_only(drb):
+        opt.step()
+    w = drb.w_lqa.mean().item()          # вес ветви теперь вектор по каналам
+    check('стартовый вклад ветви не уползает', abs(w + 2.0) < 1e-6,
+          f'w_lqa {w:+.4f} (задавали -2.0)')
 
 
 def test_optimizer_compatible_shapes() -> None:
@@ -119,10 +172,12 @@ def main() -> int:
         test_amp_cuda()
 
     test_optimizer_compatible_shapes()
+    test_mask_neutral_under_decay()
+    test_block_excluded_from_decay()
 
     n_params = sum(p.numel() for p in DRB(256, 80, 80).parameters())
     print(f'\n[INFO] параметров DRB на P3 (C=256, 80×80): {n_params:,} '
-          f'(маска FGA доминирует: 256×80×41)')
+          f'(маска радиальная: 256 каналов × 24 кольца)')
 
     if FAILURES:
         print(f'\n--- ПРОВАЛЕНО {len(FAILURES)} ПРОВЕРОК ---')

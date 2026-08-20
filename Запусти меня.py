@@ -224,6 +224,20 @@ def _best_final_model() -> str:
 PROBE_ROOT = PROJECT_ROOT / 'runs' / 'init_probe'
 PROBE_EPOCHS = 12
 PROBE_SEED = 42
+# Во сколько раз быстрее учить сам блок. Он приделан к предобученной сети:
+# её веса настроены, его случайны, и на общей скорости он не двигается — за
+# 12 эпох маска сдвинулась на 0.0004, вклад ветвей на 0.0036, то есть ни на
+# что. Замер относительного шага (|градиент| / |вес|) это подтвердил: у
+# отклонения маски он 0.02-0.03, у логитов α 0.7-4.2, а у свежей головы
+# детектора 7575 — на четыре-пять порядков больше.
+#
+# Разгон достаётся только весам ветвей: маска после перехода на радиальные
+# кольца собирает градиент со 137 отсчётов спектра вместо одного и учится
+# сама. А вес ветви стал вектором по каналам, каждый элемент видит только
+# свой канал, и его градиент разбавился — вот ему разгон и нужен. При 200
+# вклад ветвей может за 12 эпох пройти около 0.7 в логите, то есть с 1.8%
+# почти до 3.5%: меньше — не отличить от шума, больше — поймаем скачок.
+PROBE_LR_MULT = 200.0
 PROBES: list[dict] = [
     {'id': 'w0', 'w': 0.0, 'name': 'Вклад 50% — как в плане', 'time': '~5 ч'},
     {'id': 'w2', 'w': -2.0, 'name': 'Вклад 12%', 'time': '~5 ч'},
@@ -235,6 +249,12 @@ PROBES: list[dict] = [
     # пробы можно только с прогоном на том же расписании.
     {'id': 'base12', 'w': None, 'name': 'Контроль — без DRB, равные условия',
      'time': '~45 мин'},
+    # Проверка после разбора с эквалайзером: блок стартует тождественным
+    # (вклад 1.8% — прямой замер показал, что при 50% он рушит mAP50-95
+    # вдвое ещё до всякого обучения) и получает повышенную скорость, иначе
+    # его веса стоят на месте. Вопрос пробы: двигается ли блок вообще.
+    {'id': 'boost', 'w': -4.0, 'lr': PROBE_LR_MULT,
+     'name': 'Тождественный старт + разгон блока', 'time': '~5 ч'},
 ]
 
 
@@ -251,7 +271,8 @@ def _probe_status(pid: str) -> tuple[str, str]:
     return 'todo', f'{PROBE_EPOCHS} эпох'
 
 
-def _probe_cmds(pid: str, w: float | None) -> list[list[str]]:
+def _probe_cmds(pid: str, w: float | None,
+                lr_mult: float = 1.0) -> list[list[str]]:
     """Команда прогона. w = None — контроль без DRB, обычный baseline."""
     out = PROBE_ROOT / pid
     script = 'training/train_baseline.py' if w is None else 'training/train_drb.py'
@@ -261,6 +282,8 @@ def _probe_cmds(pid: str, w: float | None) -> list[list[str]]:
            '--output', str(out)]          # только абсолютный: см. train_drb.py
     if w is not None:
         cmd += ['--alpha-init', str(w)]
+    if lr_mult != 1.0:
+        cmd += ['--lr-mult', str(lr_mult)]
     if _probe_status(pid)[0] == 'partial':
         cmd.append('--resume')
     return [cmd]
@@ -824,12 +847,14 @@ class Api:
                       f'без блока — эталон для проб на том же расписании)',
                       'info')
         else:
+            boost = (f', скорость блока ×{p["lr"]:g}'
+                     if p.get('lr', 1.0) != 1.0 else '')
             self._log(f'Проба инициализации: {p["name"]} '
                       f'({PROBE_EPOCHS} эпох, вклад ветви '
-                      f'{1/(1+pow(2.718281828, -p["w"])):.1%})', 'info')
+                      f'{1/(1+pow(2.718281828, -p["w"])):.1%}{boost})', 'info')
         code = self._run_commands(
             [[str(VENV_PY), str(PROJECT_ROOT / c[0]), *c[1:]]
-             for c in _probe_cmds(p['id'], p['w'])])
+             for c in _probe_cmds(p['id'], p['w'], p.get('lr', 1.0))])
         self._js(f'ui.taskDone({json.dumps(p["id"])}, {code}, null)')
 
     def reset_probe(self, probe_id: str) -> None:

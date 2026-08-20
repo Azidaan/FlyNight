@@ -24,8 +24,12 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
-# Целиком: маленькие и незаменимые.
-WHOLE_DIRS = ['weights', 'experiments/results', 'notes']
+# Целиком: маленькие и незаменимые. Каталог dissertation и сводный план
+# лежат в .gitignore — по требованию в репозиторий заливается только код, —
+# поэтому никакой git их не восстановит, и снимок для них единственная
+# страховка. Весят они около сотни килобайт.
+WHOLE_DIRS = ['weights', 'experiments/results', 'notes', 'dissertation']
+WHOLE_FILES = ['СВОДНЫЙ_ПЛАН1.md']
 # Из runs/ берём выборочно. Модели (.pt) — всегда: их не восстановить
 # ничем, кроме повторного обучения на сутки. Остальное — только если файл
 # не разросся: дампы предсказаний из оценки занимают там 3.6 ГБ и заново
@@ -45,6 +49,10 @@ def _iter_files() -> list[tuple[Path, Path]]:
         for p in root.rglob('*'):
             if p.is_file():
                 out.append((p, p.relative_to(PROJECT_ROOT)))
+    for f in WHOLE_FILES:
+        p = PROJECT_ROOT / f
+        if p.is_file():
+            out.append((p, p.relative_to(PROJECT_ROOT)))
     runs = PROJECT_ROOT / 'runs'
     if runs.exists():
         for p in runs.rglob('*'):
@@ -93,6 +101,10 @@ README = """# Как вернуть эти результаты в проект
   по эпохам), `args.yaml` (с какими параметрами шло), `weights/last.pt`
   (чекпойнт, с него можно продолжить прерванное обучение).
 - `проект/experiments/results/` — посчитанные таблицы для текста диссертации.
+- `проект/dissertation/` — черновики глав и хроника работы над блоком DRB.
+  Этого нет в git: в репозиторий заливается только код. Восстанавливается
+  единственным способом — отсюда.
+- `проект/СВОДНЫЙ_ПЛАН1.md` — план работы по этапам, тоже только отсюда.
 
 ## Проверка целостности
 

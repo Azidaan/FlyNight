@@ -34,6 +34,9 @@ def make_fake_project(root: Path) -> None:
     put('weights/pretrained/yolo26s.pt', b'P' * 1024)
     put('experiments/results/baseline_metrics.csv', 'сид,значение\n42,0.47\n'.encode())
     put('notes/tracker_choice.md', 'выбран ByteTrack\n'.encode())
+    put('dissertation/drafts/2.1_drb.md', 'глава 2.1\n'.encode())
+    put('dissertation/хроника_DRB.md', 'хроника правок\n'.encode())
+    put('СВОДНЫЙ_ПЛАН1.md', 'план по этапам\n'.encode())
     put('runs/baseline/seed42/results.csv', 'epoch,mAP50\n1,0.31\n'.encode())
     put('runs/baseline/seed42/args.yaml', 'epochs: 100\n'.encode())
     put('runs/baseline/seed42/weights/last.pt', b'L' * 4096)
@@ -67,6 +70,13 @@ def main() -> int:
         check('посчитанные таблицы попадают в снимок',
               'experiments/results/baseline_metrics.csv' in picked)
         check('заметки попадают в снимок', 'notes/tracker_choice.md' in picked)
+        # Текста диссертации нет в git — по требованию туда заливается только
+        # код. Значит снимок для него единственная страховка.
+        check('черновики глав попадают в снимок',
+              'dissertation/drafts/2.1_drb.md' in picked)
+        check('хроника правок попадает в снимок',
+              'dissertation/хроника_DRB.md' in picked)
+        check('сводный план попадает в снимок', 'СВОДНЫЙ_ПЛАН1.md' in picked)
         check('мелкий служебный json остаётся',
               'runs/baseline/seed42/heartbeat.json' in picked)
 
@@ -88,6 +98,8 @@ def main() -> int:
               'BDD100K' in readme and '45' in readme)
         check('в инструкции есть команда клонирования проекта',
               'git clone' in readme)
+        check('инструкция предупреждает, что текста диссертации нет в git',
+              'dissertation' in readme)
 
         opis = list(csv.DictReader(
             open(snap / 'ОПИСЬ.csv', encoding='utf-8')))

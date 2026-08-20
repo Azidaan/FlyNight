@@ -155,6 +155,69 @@ def collect_q_maps(det_model: nn.Module) -> dict[int, torch.Tensor]:
             and m.last_q is not None}
 
 
+# Параметры блока, которым штраф за величину весов противопоказан: у них
+# нейтраль не в нуле. У маски частот нейтраль — единица (спектр проходит без
+# изменений), у логита α — выбранный стартовый вклад ветви. Под общим правилом
+# оба равномерно гасли, и блок вместо обучения затухал.
+DECAY_FREE_KEYS = ('fga.delta', 'w_lqa', 'w_fga')
+# Разгон достаётся ТОЛЬКО весам ветвей, но не маске. Причина в измерениях.
+# Маска стала радиальной, и каждый её параметр теперь собирает градиент
+# примерно со 137 отсчётов спектра вместо одного — она и так учится
+# на два порядка быстрее прежнего, разгонять её сверху значит взорвать.
+# А вес ветви, наоборот, стал вектором по каналам: каждый элемент видит
+# только свой канал, и его градиент разбавился во столько раз, сколько
+# каналов. Ему разгон нужен.
+LR_BOOST_KEYS = ('w_lqa', 'w_fga')
+
+
+def separate_block_params(optimizer, model, lr_mult: float = 1.0,
+                          keys=DECAY_FREE_KEYS) -> int:
+    """Выносит параметры блока в свои группы. Возвращает их число.
+
+    Две причины. Первая — штраф за величину: у маски и логитов α нейтраль не
+    в нуле, и общее правило их разрушает. Вторая — скорость обучения: блок
+    приделан к предобученной сети, его веса случайны, и на общей скорости он
+    почти не двигается. Ultralytics так же поступает со своей головой
+    детектора, давая ей тройную скорость.
+
+    Группа не создаётся с нуля, а клонируется с теми же моментом и прочими
+    настройками — меняется только weight_decay и, если задано, lr. Иначе
+    пришлось бы гадать, какие ключи ждёт конкретный оптимизатор: у MuSGD
+    их больше, чем у обычного SGD. Клонирование происходит ДО создания
+    планировщика, поэтому множитель переживает и разогрев, и спад скорости.
+    """
+    def hit(nm, ks):
+        return any(k in nm for k in ks)
+
+    plain, boost = set(), set()
+    for nm, pm in model.named_parameters():
+        if not hit(nm, keys):
+            continue
+        if lr_mult != 1.0 and hit(nm, LR_BOOST_KEYS):
+            boost.add(id(pm))
+        else:
+            plain.add(id(pm))
+    if not (plain or boost):
+        return 0
+
+    extra = []
+    for g in optimizer.param_groups:
+        for ids, mult in ((plain, 1.0), (boost, lr_mult)):
+            mine = [pm for pm in g['params'] if id(pm) in ids]
+            if not mine:
+                continue
+            g['params'] = [pm for pm in g['params'] if id(pm) not in ids]
+            twin = {k: v for k, v in g.items() if k != 'params'}
+            twin['params'] = mine
+            twin['weight_decay'] = 0.0
+            if mult != 1.0 and 'lr' in twin:
+                twin['lr'] = twin['lr'] * mult
+            extra.append(twin)
+    for g in extra:
+        optimizer.add_param_group(g)
+    return sum(len(g['params']) for g in extra)
+
+
 class DRBTrainer(DetectionTrainer):
     """DetectionTrainer, вставляющий DRB в пересобранную модель.
 
@@ -165,6 +228,7 @@ class DRBTrainer(DetectionTrainer):
 
     drb_variant: str = 'both'
     drb_alpha_init: float = 0.0     # начальное значение w_LQA и w_FGA
+    drb_lr_mult: float = 1.0        # во сколько раз быстрее учить сам блок
 
     def get_model(self, cfg=None, weights=None, verbose=True):
         if isinstance(weights, nn.Module) and (
@@ -181,6 +245,18 @@ class DRBTrainer(DetectionTrainer):
         if self.drb_alpha_init != 0.0:
             set_alpha_init(model, self.drb_alpha_init)
         return model
+
+    def build_optimizer(self, model, name='auto', lr=0.001, momentum=0.9,
+                        decay=1e-5, iterations=1e5):
+        """Как у Ultralytics, но параметры блока — без штрафа за величину."""
+        opt = super().build_optimizer(model, name, lr, momentum, decay,
+                                      iterations)
+        moved = separate_block_params(opt, model, self.drb_lr_mult)
+        speed = ('обычная скорость' if self.drb_lr_mult == 1.0
+                 else f'веса ветвей ×{self.drb_lr_mult:g}, маска ×1')
+        print(f'[DRB] в своих группах: {moved} параметров '
+              f'(маска частот и веса ветвей), без штрафа за величину, {speed}')
+        return opt
 
 
 def set_alpha_init(det_model: nn.Module, w0: float) -> float:
@@ -202,8 +278,8 @@ def set_alpha_init(det_model: nn.Module, w0: float) -> float:
     return alpha
 
 
-def make_drb_trainer(variant: str = 'both',
-                     alpha_init: float = 0.0) -> type[DRBTrainer]:
+def make_drb_trainer(variant: str = 'both', alpha_init: float = 0.0,
+                     lr_mult: float = 1.0) -> type[DRBTrainer]:
     """Фабрика Trainer-класса с зафиксированным вариантом DRB.
 
     Нужна потому, что model.train(trainer=...) принимает класс, а не
@@ -212,4 +288,5 @@ def make_drb_trainer(variant: str = 'both',
     if variant not in ('both', 'lqa', 'fga', 'input'):
         raise ValueError(f'variant: both|lqa|fga|input, получено {variant!r}')
     return type(f'DRBTrainer_{variant}', (DRBTrainer,),
-                {'drb_variant': variant, 'drb_alpha_init': float(alpha_init)})
+                {'drb_variant': variant, 'drb_alpha_init': float(alpha_init),
+                 'drb_lr_mult': float(lr_mult)})

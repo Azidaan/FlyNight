@@ -28,7 +28,8 @@ BASELINE = PROBE_ROOT / 'base12' / 'seed42' / 'results.csv'   # контроль
 OUT_CSV = PROJECT_ROOT / 'experiments' / 'results' / 'init_probe.csv'
 VARIANTS = [('w0', 0.0, 'вклад 50% (план)'),
             ('w2', -2.0, 'вклад 12%'),
-            ('w4', -4.0, 'вклад 2%')]
+            ('w4', -4.0, 'вклад 2%'),
+            ('boost', -4.0, 'тождеств. + разгон')]
 
 
 def read_curve(path: Path) -> list[dict]:

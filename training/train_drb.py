@@ -76,7 +76,8 @@ def make_alpha_logger(run_dir: Path):
 def train_drb(config_path: str, seed: int, output_dir: str | None = None,
               variant: str = 'both', resume: bool = False,
               data_override: str | None = None,
-              alpha_init: float | None = None) -> str:
+              alpha_init: float | None = None,
+              lr_mult: float = 1.0) -> str:
     """Обучение одного сида YOLO+DRB. Возвращает путь к best.pt."""
     setup_compute_flags()
     from ultralytics import YOLO
@@ -119,7 +120,7 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
 
     w0 = cfg.get('alpha_init', 0.0) if alpha_init is None else alpha_init
     model.train(
-        trainer=make_drb_trainer(variant, alpha_init=w0),
+        trainer=make_drb_trainer(variant, alpha_init=w0, lr_mult=lr_mult),
         data=str(data_yaml), epochs=cfg['epochs'], batch=cfg['batch'],
         imgsz=cfg['imgsz'], workers=cfg['workers'], seed=seed, device=0,
         project=str(run_dir.parent), name=run_dir.name, exist_ok=True,
@@ -153,6 +154,10 @@ def main() -> int:
     ap.add_argument('--alpha-init', type=float, default=None,
                     help='стартовые веса ветвей w_LQA=w_FGA (0 — вклад 50%%, '
                          '-2 — 12%%, -4 — почти тождественный старт)')
+    ap.add_argument('--lr-mult', type=float, default=1.0,
+                    help='во сколько раз быстрее учить параметры блока; '
+                         'блок приделан к предобученной сети, и на общей '
+                         'скорости его веса почти не двигаются')
     args = ap.parse_args()
 
     if args.epochs is not None:
@@ -167,7 +172,7 @@ def main() -> int:
 
     best = train_drb(args.config, args.seed, args.output, args.variant,
                      args.resume, data_override=args.data,
-                     alpha_init=args.alpha_init)
+                     alpha_init=args.alpha_init, lr_mult=args.lr_mult)
     print(f'[OK ] best.pt: {best}')
     return 0 if best else 1
 

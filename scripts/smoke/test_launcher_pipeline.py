@@ -110,9 +110,9 @@ def test_probes(mod) -> None:
     print('=== проба инициализации DRB (узел Е) ===')
     api = mod.Api()
     st = api.probe_state()
-    check('три пробы и контроль', len(st) == 4, str([p['id'] for p in st]))
+    check('четыре пробы и контроль', len(st) == 5, str([p['id'] for p in st]))
     check('стартовые веса 0 / -2 / -4, у контроля веса нет',
-          [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0, None],
+          [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0, None, -4.0],
           str([p['w'] for p in mod.PROBES]))
 
     cmds = mod._probe_cmds('w4', -4.0)
@@ -134,6 +134,20 @@ def test_probes(mod) -> None:
           f'--epochs {mod.PROBE_EPOCHS}' in cline)
     check('контроль пишет в свой каталог',
           'init_probe' in cline and 'base12' in cline)
+
+    # Разгонная проба: блок стартует тождественным и учится быстрее остальной
+    # сети. Без разгона его веса стояли на месте — за 12 эпох маска
+    # сдвигалась на 0.0004, а вклад ветвей на 0.0036.
+    boost = next(p for p in mod.PROBES if p['id'] == 'boost')
+    check('у разгонной пробы тождественный старт', boost['w'] == -4.0,
+          str(boost['w']))
+    check('разгон задан больше единицы', boost['lr'] > 1.0,
+          f'×{boost["lr"]:g}')
+    bline = ' '.join(mod._probe_cmds('boost', boost['w'], boost['lr'])[0])
+    check('разгон доезжает до обучения', f'--lr-mult {boost["lr"]}' in bline,
+          bline[-40:])
+    check('обычным пробам лишний ключ не приписывается',
+          '--lr-mult' not in ' '.join(mod._probe_cmds('w0', 0.0)[0]))
 
     # Итоговые веса копируются в weights/<имя каталога>_seed42. Раньше имя
     # было зашито, и короткий прогон затирал веса настоящего прогона — а на
@@ -229,7 +243,7 @@ def test_probe_archive(mod) -> None:
         check('панель показывает число отложенных версий',
               st['w2']['kept'] == 2 and 'в архиве 2' in st['w2']['detail'],
               st['w2']['detail'])
-        check('архив не притворяется ещё одной пробой', len(st) == 4)
+        check('архив не притворяется ещё одной пробой', len(st) == 5)
 
         api.reset_probe('all')
         check('сброс проб архив не трогает',
