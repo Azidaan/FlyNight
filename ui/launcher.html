@@ -376,6 +376,7 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
         <div id="probes"></div>
         <div id="probebar">
           <button class="pbtn" id="probecmp">Сравнить</button>
+          <button class="pbtn" id="probeeval" title="Посчитать точность обученных проб отдельно по ночи, дождю, туману и по размерам объектов. Обучения не запускает, но занимает видеокарту">Ночь и размеры</button>
           <button class="pbtn" id="probereset">Сбросить всё</button>
         </div>
       </section>
@@ -830,6 +831,12 @@ $('savebtn').addEventListener('click', () => {
   ui.log('');
   ui.log('——— сохранение результатов ———', 'info');
   pywebview.api.backup_results();
+});
+$('probeeval').addEventListener('click', () => {
+  ui.setBusy('probeeval', true);
+  ui.log('');
+  ui.log('——— оценка проб по поднаборам ———', 'info');
+  pywebview.api.eval_probes();
 });
 $('probecmp').addEventListener('click', () => {
   ui.setBusy('probecmp', true);

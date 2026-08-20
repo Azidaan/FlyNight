@@ -67,7 +67,23 @@ class FGA(nn.Module):
 
         То, что рисуется одной кривой от низких частот к высоким.
         """
-        return 1.0 + self.delta.view(self.in_channels, self.bands)
+        bands = getattr(self, 'bands', None)
+        if bands is None or self.delta.numel() != self.in_channels * bands:
+            raise RuntimeError(
+                f'маска из чекпойнта старого формата: {self.delta.numel()} '
+                f'значений на {self.in_channels} каналов. Такие прогоны '
+                f'считались до перехода на радиальные кольца, и новым кодом '
+                f'модель не читается — их надо пересчитать заново.')
+        return 1.0 + self.delta.view(self.in_channels, bands)
+
+    def _idx(self) -> torch.Tensor:
+        """Разметка колец. Буфер непостоянный, и при распаковке сохранённой
+        модели его может не оказаться — тогда считаем на месте."""
+        idx = getattr(self, 'band_idx', None)
+        if idx is None:
+            idx = self._bands_for(self.height, self.width).to(self.delta.device)
+            self.register_buffer('band_idx', idx, persistent=False)
+        return idx
 
     @property
     def mask3d(self) -> torch.Tensor:
@@ -75,7 +91,7 @@ class FGA(nn.Module):
         return self._mask_for(self.height, self.width)
 
     def _mask_for(self, h: int, w: int) -> torch.Tensor:
-        idx = self.band_idx
+        idx = self._idx()
         if (h, w) != (self.height, self.width):
             # другой размер входа: кольца пересчитываются, маска переносится
             # без интерполяции — она задана в нормированных частотах

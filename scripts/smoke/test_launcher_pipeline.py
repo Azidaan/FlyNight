@@ -110,10 +110,24 @@ def test_probes(mod) -> None:
     print('=== проба инициализации DRB (узел Е) ===')
     api = mod.Api()
     st = api.probe_state()
-    check('шесть пунктов узла Е', len(st) == 6, str([p['id'] for p in st]))
+    check('семь пунктов узла Е', len(st) == 7, str([p['id'] for p in st]))
     check('у прогонов без блока стартового веса нет',
-          [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0, None, None, -2.0],
+          [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0, None, -2.0,
+                                           None, -2.0],
           str([p['w'] for p in mod.PROBES]))
+
+    # Главный прогон: всё как у контроля, кроме блока. Никакого дообучения —
+    # иначе сравнивать его с контролем 0.4415 будет нельзя.
+    main = next(p for p in mod.PROBES if p['id'] == 'drb12')
+    mline = ' '.join(mod._probe_cmds(main)[0])
+    check('главный прогон учится с нуля, как контроль',
+          '--init-weights' not in mline and '--optimizer' not in mline)
+    check('вклад ветвей рабочий, не разрушительный', main['w'] == -2.0,
+          f'{1/(1+pow(2.718281828, -main["w"])):.1%}')
+    check('маска стартует подъёмом высоких частот',
+          '--mask-init highpass' in mline)
+    check('разгон умеренный', f'--lr-mult {main["lr"]}' in mline
+          and main['lr'] <= 20, f'×{main["lr"]:g}')
 
     cmds = mod._probe_cmds(next(p for p in mod.PROBES if p['id'] == 'w4'))
     line = ' '.join(cmds[0])
@@ -264,7 +278,7 @@ def test_probe_archive(mod) -> None:
         check('панель показывает число отложенных версий',
               st['w2']['kept'] == 2 and 'в архиве 2' in st['w2']['detail'],
               st['w2']['detail'])
-        check('архив не притворяется ещё одной пробой', len(st) == 6)
+        check('архив не притворяется ещё одной пробой', len(st) == 7)
 
         api.reset_probe('all')
         check('сброс проб архив не трогает',
