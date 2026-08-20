@@ -110,12 +110,12 @@ def test_probes(mod) -> None:
     print('=== проба инициализации DRB (узел Е) ===')
     api = mod.Api()
     st = api.probe_state()
-    check('четыре пробы и контроль', len(st) == 5, str([p['id'] for p in st]))
-    check('стартовые веса 0 / -2 / -4, у контроля веса нет',
-          [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0, None, -4.0],
+    check('шесть пунктов узла Е', len(st) == 6, str([p['id'] for p in st]))
+    check('у прогонов без блока стартового веса нет',
+          [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0, None, None, -2.0],
           str([p['w'] for p in mod.PROBES]))
 
-    cmds = mod._probe_cmds('w4', -4.0)
+    cmds = mod._probe_cmds(next(p for p in mod.PROBES if p['id'] == 'w4'))
     line = ' '.join(cmds[0])
     check('команда идёт через супервизор', cmds[0][0].endswith('train_supervisor.py'))
     check('передан стартовый вес', '--alpha-init -4.0' in line, line[-60:])
@@ -126,7 +126,8 @@ def test_probes(mod) -> None:
 
     # Контроль — тот же короткий прогон, но без блока: только с ним пробы
     # сравнимы, стосерийный baseline на 12-й эпохе учится в другом режиме.
-    cline = ' '.join(mod._probe_cmds('base12', None)[0])
+    cline = ' '.join(mod._probe_cmds(
+        next(p for p in mod.PROBES if p['id'] == 'base12'))[0])
     check('контроль идёт обычным baseline, без DRB',
           'train_baseline.py' in cline and 'train_drb.py' not in cline)
     check('контролю не передаётся стартовый вес', '--alpha-init' not in cline)
@@ -138,16 +139,35 @@ def test_probes(mod) -> None:
     # Разгонная проба: блок стартует тождественным и учится быстрее остальной
     # сети. Без разгона его веса стояли на месте — за 12 эпох маска
     # сдвигалась на 0.0004, а вклад ветвей на 0.0036.
-    boost = next(p for p in mod.PROBES if p['id'] == 'boost')
-    check('у разгонной пробы тождественный старт', boost['w'] == -4.0,
-          str(boost['w']))
-    check('разгон задан больше единицы', boost['lr'] > 1.0,
-          f'×{boost["lr"]:g}')
-    bline = ' '.join(mod._probe_cmds('boost', boost['w'], boost['lr'])[0])
-    check('разгон доезжает до обучения', f'--lr-mult {boost["lr"]}' in bline,
-          bline[-40:])
-    check('обычным пробам лишний ключ не приписывается',
-          '--lr-mult' not in ' '.join(mod._probe_cmds('w0', 0.0)[0]))
+    # Дообучение: обе модели стартуют с одной точности, долга нет ни у кого,
+    # и разница в конце — заслуга блока. Контроль обязателен, иначе не
+    # отличить пользу блока от пользы лишних эпох.
+    ftd = next(p for p in mod.PROBES if p['id'] == 'ft_drb')
+    ftb = next(p for p in mod.PROBES if p['id'] == 'ft_base')
+    dline = ' '.join(mod._probe_cmds(ftd)[0])
+    bline2 = ' '.join(mod._probe_cmds(ftb)[0])
+    check('дообучение стартует с обученного baseline, а не с весов COCO',
+          mod.FT_INIT in dline and mod.FT_INIT in bline2)
+    check('оптимизатор задан явно, иначе скорость игнорируется',
+          f'--optimizer {mod.FT_OPTIM}' in dline)
+    check('скорость обучения низкая', f'--lr0 {mod.FT_LR0}' in dline
+          and mod.FT_LR0 < 0.01, f'{mod.FT_LR0:g}')
+    check('маска стартует подъёмом высоких частот',
+          '--mask-init highpass' in dline)
+    check('блок учится быстрее остальной сети', f'--lr-mult {ftd["lr"]}' in dline,
+          f'×{ftd["lr"]:g}')
+    check('разгон умеренный — двухсоткратный ломал баланс каналов',
+          ftd['lr'] <= 20, f'×{ftd["lr"]:g}')
+    check('обычным пробам лишние ключи не приписываются',
+          '--lr-mult' not in ' '.join(mod._probe_cmds(
+              next(p for p in mod.PROBES if p['id'] == 'w0'))[0]))
+    check('контроль идёт без блока',
+          'train_baseline.py' in bline2 and '--alpha-init' not in bline2)
+    check('у контроля и у блока условия дообучения одинаковые',
+          all(k in bline2 for k in ('--optimizer', '--lr0', '--warmup')))
+    check('обычным пробам дообучение не приписывается',
+          '--init-weights' not in ' '.join(mod._probe_cmds(
+              next(p for p in mod.PROBES if p['id'] == 'w0'))[0]))
 
     # Итоговые веса копируются в weights/<имя каталога>_seed42. Раньше имя
     # было зашито, и короткий прогон затирал веса настоящего прогона — а на
@@ -182,7 +202,8 @@ def test_probes(mod) -> None:
         check('неполная проба помечается частичной', st['w2']['status'] == 'partial',
               st['w2']['detail'])
         check('для частичной добавляется продолжение',
-              '--resume' in ' '.join(mod._probe_cmds('w2', -2.0)[0]))
+              '--resume' in ' '.join(mod._probe_cmds(
+                  next(p for p in mod.PROBES if p['id'] == 'w2'))[0]))
     finally:
         shutil.rmtree(mod.PROBE_ROOT, ignore_errors=True)   # только временный
         tmp_root, mod.PROBE_ROOT = mod.PROBE_ROOT, real_root
@@ -243,7 +264,7 @@ def test_probe_archive(mod) -> None:
         check('панель показывает число отложенных версий',
               st['w2']['kept'] == 2 and 'в архиве 2' in st['w2']['detail'],
               st['w2']['detail'])
-        check('архив не притворяется ещё одной пробой', len(st) == 5)
+        check('архив не притворяется ещё одной пробой', len(st) == 6)
 
         api.reset_probe('all')
         check('сброс проб архив не трогает',

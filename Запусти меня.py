@@ -237,7 +237,15 @@ PROBE_SEED = 42
 # свой канал, и его градиент разбавился — вот ему разгон и нужен. При 200
 # вклад ветвей может за 12 эпох пройти около 0.7 в логите, то есть с 1.8%
 # почти до 3.5%: меньше — не отличить от шума, больше — поймаем скачок.
-PROBE_LR_MULT = 200.0
+PROBE_LR_MULT = 10.0
+# Дообучение: стартуем не с весов COCO, а с уже сошедшегося baseline.
+# Скорость обучения низкая и оптимизатор задан явно — при 'auto' Ultralytics
+# берёт MuSGD со своей скоростью 0.01 и заданную игнорирует, а это не
+# дообучение, а перезапуск с нуля.
+FT_INIT = 'weights/baseline_seed42/best.pt'
+FT_OPTIM = 'SGD'
+FT_LR0 = 0.002
+FT_WARMUP = 1.0
 PROBES: list[dict] = [
     {'id': 'w0', 'w': 0.0, 'name': 'Вклад 50% — как в плане', 'time': '~5 ч'},
     {'id': 'w2', 'w': -2.0, 'name': 'Вклад 12%', 'time': '~5 ч'},
@@ -249,12 +257,21 @@ PROBES: list[dict] = [
     # пробы можно только с прогоном на том же расписании.
     {'id': 'base12', 'w': None, 'name': 'Контроль — без DRB, равные условия',
      'time': '~45 мин'},
-    # Проверка после разбора с эквалайзером: блок стартует тождественным
-    # (вклад 1.8% — прямой замер показал, что при 50% он рушит mAP50-95
-    # вдвое ещё до всякого обучения) и получает повышенную скорость, иначе
-    # его веса стоят на месте. Вопрос пробы: двигается ли блок вообще.
-    {'id': 'boost', 'w': -4.0, 'lr': PROBE_LR_MULT,
-     'name': 'Тождественный старт + разгон блока', 'time': '~5 ч'},
+    # Дообучение поверх сошедшегося baseline. Прежние пробы учили с нуля, а
+    # там блок сначала возмущает признаки, и этот долг надо отработать —
+    # двенадцать эпох это уже почти сходимость, отрабатывать негде. То есть
+    # выиграть в них блок не мог в принципе. Здесь обе модели стартуют с
+    # одной и той же точности 0.4396, долга нет ни у кого, и вся разница в
+    # конце — заслуга блока. Контроль обязателен: без него не отличить
+    # пользу блока от пользы лишних эпох.
+    {'id': 'ft_base', 'w': None, 'ft': True,
+     'name': 'Дообучение · контроль без блока', 'time': '~45 мин'},
+    # Вклад 12%: прямой замер показал, что он стоит 3% от точности рамок и
+    # ничего от mAP50, тогда как 27% стоят 19%, а 50% рушат вдвое. Маска
+    # стартует подъёмом высоких частот — там живут мелкие объекты, худшее
+    # место baseline (AP 0.051 ночью против 0.485 на крупных).
+    {'id': 'ft_drb', 'w': -2.0, 'lr': PROBE_LR_MULT, 'mask': 'highpass',
+     'ft': True, 'name': 'Дообучение · с блоком DRB', 'time': '~5 ч'},
 ]
 
 
@@ -271,9 +288,9 @@ def _probe_status(pid: str) -> tuple[str, str]:
     return 'todo', f'{PROBE_EPOCHS} эпох'
 
 
-def _probe_cmds(pid: str, w: float | None,
-                lr_mult: float = 1.0) -> list[list[str]]:
-    """Команда прогона. w = None — контроль без DRB, обычный baseline."""
+def _probe_cmds(p: dict) -> list[list[str]]:
+    """Команда прогона пробы. w = None — без DRB, обычный baseline."""
+    pid, w = p['id'], p['w']
     out = PROBE_ROOT / pid
     script = 'training/train_baseline.py' if w is None else 'training/train_drb.py'
     cmd = ['scripts/train_supervisor.py', '--watch',
@@ -282,8 +299,13 @@ def _probe_cmds(pid: str, w: float | None,
            '--output', str(out)]          # только абсолютный: см. train_drb.py
     if w is not None:
         cmd += ['--alpha-init', str(w)]
-    if lr_mult != 1.0:
-        cmd += ['--lr-mult', str(lr_mult)]
+        if p.get('lr', 1.0) != 1.0:
+            cmd += ['--lr-mult', str(p['lr'])]
+        if p.get('mask', 'flat') != 'flat':
+            cmd += ['--mask-init', p['mask']]
+    if p.get('ft'):
+        cmd += ['--init-weights', FT_INIT, '--optimizer', FT_OPTIM,
+                '--lr0', str(FT_LR0), '--warmup', str(FT_WARMUP)]
     if _probe_status(pid)[0] == 'partial':
         cmd.append('--resume')
     return [cmd]
@@ -842,7 +864,13 @@ class Api:
             if kept is not None:
                 self._log(f'Прошлый результат отложен в архив: '
                           f'{kept.relative_to(PROJECT_ROOT)}', 'ok')
-        if p['w'] is None:
+        if p.get('ft'):
+            what = ('без блока' if p['w'] is None else
+                    f'вклад ветви {1/(1+pow(2.718281828, -p["w"])):.1%}')
+            self._log(f'Дообучение поверх сошедшегося baseline: {p["name"]} '
+                      f'({PROBE_EPOCHS} эпох, {what}, скорость {FT_LR0:g})',
+                      'info')
+        elif p['w'] is None:
             self._log(f'Контрольный прогон: {p["name"]} ({PROBE_EPOCHS} эпох, '
                       f'без блока — эталон для проб на том же расписании)',
                       'info')
@@ -854,7 +882,7 @@ class Api:
                       f'{1/(1+pow(2.718281828, -p["w"])):.1%}{boost})', 'info')
         code = self._run_commands(
             [[str(VENV_PY), str(PROJECT_ROOT / c[0]), *c[1:]]
-             for c in _probe_cmds(p['id'], p['w'], p.get('lr', 1.0))])
+             for c in _probe_cmds(p)])
         self._js(f'ui.taskDone({json.dumps(p["id"])}, {code}, null)')
 
     def reset_probe(self, probe_id: str) -> None:

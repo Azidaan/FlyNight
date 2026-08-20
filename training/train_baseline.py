@@ -52,7 +52,10 @@ def ensure_data_yaml(cfg: dict) -> Path:
 
 
 def train_baseline(config_path: str, seed: int, output_dir: str,
-                   resume: bool = False, data_override: str | None = None) -> str:
+                   resume: bool = False, data_override: str | None = None,
+                   init_weights: str | None = None,
+                   optimizer: str | None = None, lr0: float | None = None,
+                   warmup: float | None = None) -> str:
     """Запускает обучение одного сида. Возвращает путь к best.pt."""
     setup_compute_flags()
     from ultralytics import YOLO
@@ -76,9 +79,14 @@ def train_baseline(config_path: str, seed: int, output_dir: str,
     if resume and not last.exists():
         print(f'[WARN] --resume указан, но {last} нет — начинаю с нуля')
         resume = False
-    start_weights = str(last) if resume else str(PROJECT_ROOT / cfg['weights'])
-    if not check_checkpoint_compatibility(start_weights,
-                                          NUM_CLASSES if resume else 80):
+    if resume:
+        start_weights, expect_nc = str(last), NUM_CLASSES
+    elif init_weights:
+        start_weights, expect_nc = str(init_weights), NUM_CLASSES
+        print(f'[BASE] дообучение поверх {init_weights}')
+    else:
+        start_weights, expect_nc = str(PROJECT_ROOT / cfg['weights']), 80
+    if not check_checkpoint_compatibility(start_weights, expect_nc):
         # предобученные веса COCO имеют 80 классов — это норма для старта;
         # проверка на 8 классов актуальна только при resume
         raise SystemExit(1)
@@ -87,7 +95,10 @@ def train_baseline(config_path: str, seed: int, output_dir: str,
     hb = HeartbeatLogger(run_dir, block_epochs=cfg['block_epochs'])
     hb.attach(model)
 
+    tune = {k: v for k, v in (('optimizer', optimizer), ('lr0', lr0),
+                              ('warmup_epochs', warmup)) if v is not None}
     model.train(
+        **tune,
         data=str(data_yaml), epochs=cfg['epochs'], batch=cfg['batch'],
         imgsz=cfg['imgsz'], workers=cfg['workers'], seed=seed, device=0,
         project=str(run_dir.parent), name=run_dir.name, exist_ok=True,
@@ -114,6 +125,17 @@ def main() -> int:
                     help='переопределить число эпох (для smoke-проверки обвязки)')
     ap.add_argument('--data', default=None,
                     help='переопределить data-yaml (smoke на mini-BDD)')
+    ap.add_argument('--init-weights', default=None,
+                    help='стартовать не с предобученных весов COCO, а с '
+                         'указанного чекпойнта — режим дообучения')
+    ap.add_argument('--optimizer', default=None,
+                    help='переопределить оптимизатор (auto выбирает MuSGD '
+                         'и игнорирует lr0)')
+    ap.add_argument('--lr0', type=float, default=None,
+                    help='скорость обучения; действует только если '
+                         'оптимизатор задан явно')
+    ap.add_argument('--warmup', type=float, default=None,
+                    help='эпох разогрева; при дообучении их нужно меньше')
     args = ap.parse_args()
 
     if args.epochs is not None:  # smoke-режим: короткий прогон
@@ -126,7 +148,10 @@ def main() -> int:
         args.config = str(tmp)
 
     best = train_baseline(args.config, args.seed, args.output, args.resume,
-                          data_override=args.data)
+                          data_override=args.data,
+                          init_weights=args.init_weights,
+                          optimizer=args.optimizer, lr0=args.lr0,
+                          warmup=args.warmup)
     print(f'[OK ] best.pt: {best}')
     return 0 if best else 1
 

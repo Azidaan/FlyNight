@@ -229,6 +229,8 @@ class DRBTrainer(DetectionTrainer):
     drb_variant: str = 'both'
     drb_alpha_init: float = 0.0     # начальное значение w_LQA и w_FGA
     drb_lr_mult: float = 1.0        # во сколько раз быстрее учить сам блок
+    drb_mask_init: str = 'flat'     # стартовая форма характеристики
+    drb_mask_k: float = 0.3         # насколько поднять высокие частоты
 
     def get_model(self, cfg=None, weights=None, verbose=True):
         if isinstance(weights, nn.Module) and (
@@ -244,6 +246,7 @@ class DRBTrainer(DetectionTrainer):
                   f'(входы головы Detect, ветви: {self.drb_variant})')
         if self.drb_alpha_init != 0.0:
             set_alpha_init(model, self.drb_alpha_init)
+        set_mask_init(model, self.drb_mask_init, self.drb_mask_k)
         return model
 
     def build_optimizer(self, model, name='auto', lr=0.001, momentum=0.9,
@@ -278,8 +281,35 @@ def set_alpha_init(det_model: nn.Module, w0: float) -> float:
     return alpha
 
 
+def set_mask_init(det_model: nn.Module, kind: str, k: float = 0.3) -> None:
+    """Стартовая форма частотной характеристики.
+
+    'flat' — единицы, блок стартует тождественным.
+    'highpass' — характеристика линейно растёт с частотой: 1.0 на нуле и
+    1+k у предела. Приём из работ по частотному вниманию: маску задают не
+    нейтральной и не случайной, а осмысленным фильтром, который обучение
+    дальше уточняет. Для нашей задачи осмысленный — подъём высоких частот:
+    мелкие объекты живут именно там, и у baseline по ним худший показатель
+    из всей таблицы (AP 0.051 ночью против 0.485 на крупных).
+    """
+    if kind == 'flat':
+        return
+    if kind != 'highpass':
+        raise ValueError(f'mask_init: flat|highpass, получено {kind!r}')
+    with torch.no_grad():
+        for _, drb in iter_drb(det_model):
+            fga = getattr(drb, 'fga', None)
+            if fga is None:
+                continue
+            bands = fga.bands
+            r = (torch.arange(bands, dtype=torch.float32) + 0.5) / bands
+            fga.delta.copy_((k * r).repeat(fga.in_channels))
+    print(f'[DRB] маска стартует подъёмом высоких частот: 1.0 -> {1 + k:.2f}')
+
+
 def make_drb_trainer(variant: str = 'both', alpha_init: float = 0.0,
-                     lr_mult: float = 1.0) -> type[DRBTrainer]:
+                     lr_mult: float = 1.0,
+                     mask_init: str = 'flat') -> type[DRBTrainer]:
     """Фабрика Trainer-класса с зафиксированным вариантом DRB.
 
     Нужна потому, что model.train(trainer=...) принимает класс, а не
@@ -289,4 +319,4 @@ def make_drb_trainer(variant: str = 'both', alpha_init: float = 0.0,
         raise ValueError(f'variant: both|lqa|fga|input, получено {variant!r}')
     return type(f'DRBTrainer_{variant}', (DRBTrainer,),
                 {'drb_variant': variant, 'drb_alpha_init': float(alpha_init),
-                 'drb_lr_mult': float(lr_mult)})
+                 'drb_lr_mult': float(lr_mult), 'drb_mask_init': mask_init})

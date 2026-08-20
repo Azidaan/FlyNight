@@ -29,7 +29,9 @@ OUT_CSV = PROJECT_ROOT / 'experiments' / 'results' / 'init_probe.csv'
 VARIANTS = [('w0', 0.0, 'вклад 50% (план)'),
             ('w2', -2.0, 'вклад 12%'),
             ('w4', -4.0, 'вклад 2%'),
-            ('boost', -4.0, 'тождеств. + разгон')]
+            ('boost', -4.0, 'тождеств. + разгон'),
+            ('ft_base', None, 'дообуч. без блока'),
+            ('ft_drb', -2.0, 'дообуч. с блоком')]
 
 
 def read_curve(path: Path) -> list[dict]:
@@ -95,9 +97,10 @@ def main() -> int:
         loss = series(rows, 'train/box_loss')[:n]
         if not m:
             continue
-        print(f'{label:<22}{w:>15g}{m[-1]:>17.4f}{max(m):>15.4f}'
+        wtxt = '—' if w is None else f'{w:g}'
+        print(f'{label:<22}{wtxt:>15}{m[-1]:>17.4f}{max(m):>15.4f}'
               f'{(loss[-1] if loss else float("nan")):>15.4f}')
-        rows_out.append([pid, w, f'{m[-1]:.5f}', f'{max(m):.5f}',
+        rows_out.append([pid, '' if w is None else w, f'{m[-1]:.5f}', f'{max(m):.5f}',
                          f'{loss[-1]:.5f}' if loss else '', n])
         if m[-1] > best_val:
             best_id, best_val = label, m[-1]

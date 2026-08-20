@@ -77,7 +77,9 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
               variant: str = 'both', resume: bool = False,
               data_override: str | None = None,
               alpha_init: float | None = None,
-              lr_mult: float = 1.0) -> str:
+              lr_mult: float = 1.0, init_weights: str | None = None,
+              optimizer: str | None = None, lr0: float | None = None,
+              warmup: float | None = None, mask_init: str = 'flat') -> str:
     """Обучение одного сида YOLO+DRB. Возвращает путь к best.pt."""
     setup_compute_flags()
     from ultralytics import YOLO
@@ -108,9 +110,16 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
     if resume and not last.exists():
         print(f'[WARN] --resume указан, но {last} нет — начинаю с нуля')
         resume = False
-    start_weights = str(last) if resume else str(PROJECT_ROOT / cfg['weights'])
-    if not check_checkpoint_compatibility(start_weights,
-                                          NUM_CLASSES if resume else 80):
+    if resume:
+        start_weights, expect_nc = str(last), NUM_CLASSES
+    elif init_weights:
+        # дообучение поверх уже обученной модели: голова у неё уже под
+        # наши 8 классов, а не под 80 классов COCO
+        start_weights, expect_nc = str(init_weights), NUM_CLASSES
+        print(f'[DRB] дообучение поверх {init_weights}')
+    else:
+        start_weights, expect_nc = str(PROJECT_ROOT / cfg['weights']), 80
+    if not check_checkpoint_compatibility(start_weights, expect_nc):
         raise SystemExit(1)
 
     model = YOLO(start_weights)
@@ -119,8 +128,12 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
     model.add_callback('on_fit_epoch_end', make_alpha_logger(run_dir))
 
     w0 = cfg.get('alpha_init', 0.0) if alpha_init is None else alpha_init
+    tune = {k: v for k, v in (('optimizer', optimizer), ('lr0', lr0),
+                              ('warmup_epochs', warmup)) if v is not None}
     model.train(
-        trainer=make_drb_trainer(variant, alpha_init=w0, lr_mult=lr_mult),
+        trainer=make_drb_trainer(variant, alpha_init=w0, lr_mult=lr_mult,
+                                 mask_init=mask_init),
+        **tune,
         data=str(data_yaml), epochs=cfg['epochs'], batch=cfg['batch'],
         imgsz=cfg['imgsz'], workers=cfg['workers'], seed=seed, device=0,
         project=str(run_dir.parent), name=run_dir.name, exist_ok=True,
@@ -158,6 +171,20 @@ def main() -> int:
                     help='во сколько раз быстрее учить параметры блока; '
                          'блок приделан к предобученной сети, и на общей '
                          'скорости его веса почти не двигаются')
+    ap.add_argument('--init-weights', default=None,
+                    help='стартовать не с предобученных весов COCO, а с '
+                         'указанного чекпойнта — режим дообучения')
+    ap.add_argument('--optimizer', default=None,
+                    help='переопределить оптимизатор (auto выбирает MuSGD '
+                         'и игнорирует lr0)')
+    ap.add_argument('--lr0', type=float, default=None,
+                    help='скорость обучения; действует только если '
+                         'оптимизатор задан явно')
+    ap.add_argument('--warmup', type=float, default=None,
+                    help='эпох разогрева; при дообучении их нужно меньше')
+    ap.add_argument('--mask-init', default='flat',
+                    choices=['flat', 'highpass'],
+                    help='стартовая форма частотной характеристики')
     args = ap.parse_args()
 
     if args.epochs is not None:
@@ -172,7 +199,10 @@ def main() -> int:
 
     best = train_drb(args.config, args.seed, args.output, args.variant,
                      args.resume, data_override=args.data,
-                     alpha_init=args.alpha_init, lr_mult=args.lr_mult)
+                     alpha_init=args.alpha_init, lr_mult=args.lr_mult,
+                     init_weights=args.init_weights, optimizer=args.optimizer,
+                     lr0=args.lr0, warmup=args.warmup,
+                     mask_init=args.mask_init)
     print(f'[OK ] best.pt: {best}')
     return 0 if best else 1
 
