@@ -110,11 +110,31 @@ def test_probes(mod) -> None:
     print('=== проба инициализации DRB (узел Е) ===')
     api = mod.Api()
     st = api.probe_state()
-    check('девять пунктов узла Е', len(st) == 9, str([p['id'] for p in st]))
+    check('десять пунктов узла Е', len(st) == 10, str([p['id'] for p in st]))
     check('у прогонов без блока стартового веса нет',
-          [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0, None, -2.0, 0.0,
-                                           0.0, None, -2.0],
+          [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0, None, None, -2.0,
+                                           0.0, 0.0, None, -2.0],
           str([p['w'] for p in mod.PROBES]))
+
+    # Замер шума дописывает два сида в папку УЖЕ ПОСЧИТАННОГО контроля.
+    # Проверяем, что готовый seed42 при этом не попадает под пересчёт: иначе
+    # кнопка «сколько тут шума» стёрла бы контроль, с которым всё сравнивается.
+    noise = next(p for p in mod.PROBES if p['id'] == 'base12_noise')
+    ncmds = mod._probe_cmds(noise)
+    nseeds = [c[c.index('--seed') + 1] for c in ncmds]
+    check('замер шума считает ровно недостающие сиды',
+          nseeds == ['123', '2024'], str(nseeds))
+    check('замер шума не трогает готовый сид 42',
+          '42' not in nseeds, str(nseeds))
+    check('замер шума пишет в папку контроля',
+          all(c[c.index('--output') + 1].endswith('base12') for c in ncmds),
+          str([c[c.index('--output') + 1] for c in ncmds]))
+    check('у каждого сида свой наблюдаемый каталог',
+          [c[2] for c in ncmds] == ['runs/init_probe/base12/seed123',
+                                    'runs/init_probe/base12/seed2024'],
+          str([c[2] for c in ncmds]))
+    check('замер шума идёт без блока',
+          all('--alpha-init' not in c for c in ncmds))
 
     # Адаптивный: подъём высоких частот предсказывается по самому кадру.
     # Статическая маска сходится к нейтрали, потому что усреднённая по дню
@@ -309,7 +329,7 @@ def test_probe_archive(mod) -> None:
         check('панель показывает число отложенных версий',
               st['w2']['kept'] == 2 and 'в архиве 2' in st['w2']['detail'],
               st['w2']['detail'])
-        check('архив не притворяется ещё одной пробой', len(st) == 9)
+        check('архив не притворяется ещё одной пробой', len(st) == 10)
 
         api.reset_probe('all')
         check('сброс проб архив не трогает',

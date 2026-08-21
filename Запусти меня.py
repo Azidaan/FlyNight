@@ -257,6 +257,16 @@ PROBES: list[dict] = [
     # пробы можно только с прогоном на том же расписании.
     {'id': 'base12', 'w': None, 'name': 'Контроль — без DRB, равные условия',
      'time': '~3.5 ч'},
+    # Замер шума: тот же контроль ещё на двух сидах, в ту же папку base12.
+    # Зачем: весь опубликованный выигрыш частотного модуля для ночной
+    # детекции на BDD100K составляет +0.7 пункта (NF-DETR, абляция: 0.779
+    # без частотной ветви против 0.786 с ней), а разброс нашего baseline
+    # между тремя сидами на ста эпохах — ровно 0.70 пункта. То есть на
+    # одном сиде эффект такого размера неотличим от смены зерна. Пока
+    # неизвестно, сколько шума на двенадцати эпохах, любое сравнение проб
+    # между собой висит в воздухе. Готовый seed42 не трогается.
+    {'id': 'base12_noise', 'w': None, 'out': 'base12', 'seeds': (123, 2024),
+     'name': 'Контроль · ещё два сида — сколько тут шума', 'time': '~7 ч'},
     # Главный прогон: те же условия, что у контроля 0.4415 — с весов COCO,
     # двенадцать эпох, то же расписание, — отличается только блок. Настройки
     # собраны из всего, что намерено за 19–20 августа: вклад 12% (стоит 3%
@@ -310,44 +320,102 @@ PROBES: list[dict] = [
 ]
 
 
-def _probe_status(pid: str) -> tuple[str, str]:
-    """(status, detail) пробы по фактам на диске."""
-    run = PROBE_ROOT / pid / f'seed{PROBE_SEED}'
+def _probe_entry(pid: str) -> dict:
+    """Описание пробы по id; для неизвестного — заглушка с одним сидом."""
+    return next((x for x in PROBES if x['id'] == pid), {'id': pid})
+
+
+def _probe_out(p: dict) -> Path:
+    """Куда проба пишет прогоны.
+
+    Обычно совпадает с id. Исключение — замер шума: он дописывает сиды в
+    папку уже посчитанного контроля, чтобы кривые лежали рядом.
+    """
+    return PROBE_ROOT / p.get('out', p['id'])
+
+
+def _probe_seeds(p: dict) -> tuple[int, ...]:
+    return tuple(p.get('seeds', (PROBE_SEED,)))
+
+
+def _seed_state(p: dict, seed: int) -> tuple[str, int]:
+    """(состояние, посчитано эпох) одного сида пробы."""
+    run = _probe_out(p) / f'seed{seed}'
     n = _epochs_done(run / 'results.csv')
     if n >= PROBE_EPOCHS:
+        return 'done', n
+    if n > 0 or (run / 'weights' / 'last.pt').exists():
+        return 'partial', n
+    return 'todo', n
+
+
+def _probe_status(pid: str) -> tuple[str, str]:
+    """(status, detail) пробы по фактам на диске.
+
+    У пробы может быть несколько сидов — тогда «готово» только когда
+    досчитан каждый, а в подписи видно, сколько уже есть.
+    """
+    p = _probe_entry(pid)
+    seeds = _probe_seeds(p)
+    if len(seeds) > 1:
+        states = [_seed_state(p, s)[0] for s in seeds]
+        ready = states.count('done')
+        if ready == len(seeds):
+            return 'done', f'{ready} сида из {len(seeds)} — готово'
+        if ready or 'partial' in states:
+            return 'partial', f'{ready} из {len(seeds)} сидов'
+        return 'todo', f'{len(seeds)} сида × {PROBE_EPOCHS} эпох'
+    state, n = _seed_state(p, seeds[0])
+    if state == 'done':
         return 'done', f'{n} эпох — готово'
-    if n > 0:
-        return 'partial', f'{n} из {PROBE_EPOCHS} эпох'
-    if (run / 'weights' / 'last.pt').exists():
-        return 'partial', 'есть чекпойнт — продолжить'
+    if state == 'partial':
+        return 'partial', (f'{n} из {PROBE_EPOCHS} эпох' if n
+                           else 'есть чекпойнт — продолжить')
     return 'todo', f'{PROBE_EPOCHS} эпох'
 
 
 def _probe_cmds(p: dict) -> list[list[str]]:
-    """Команда прогона пробы. w = None — без DRB, обычный baseline."""
-    pid, w = p['id'], p['w']
-    out = PROBE_ROOT / pid
+    """Команды прогона пробы: по одной на сид. w = None — без DRB.
+
+    У проб с несколькими сидами досчитанные пропускаются: замер шума
+    дописывает сиды туда, где уже лежит готовый контроль, и затирать его
+    нельзя. У однососедных проб поведение прежнее — пересчёт с первой эпохи
+    (прошлый результат перед этим уезжает в архив, см. _archive_probe).
+    """
+    w = p['w']
+    out = _probe_out(p)
+    seeds = _probe_seeds(p)
     script = 'training/train_baseline.py' if w is None else 'training/train_drb.py'
-    cmd = ['scripts/train_supervisor.py', '--watch',
-           f'runs/init_probe/{pid}', '--', 'python', script,
-           '--seed', str(PROBE_SEED), '--epochs', str(PROBE_EPOCHS),
-           '--output', str(out)]          # только абсолютный: см. train_drb.py
-    if w is not None:
-        cmd += ['--alpha-init', str(w)]
-        if p.get('lr', 1.0) != 1.0:
-            cmd += ['--lr-mult', str(p['lr'])]
-        if p.get('mask', 'flat') != 'flat':
-            cmd += ['--mask-init', p['mask']]
-        if p.get('fusion', 'add') != 'add':
-            cmd += ['--fusion', p['fusion']]
-        if p.get('adaptive'):
-            cmd += ['--adaptive']
-    if p.get('ft'):
-        cmd += ['--init-weights', FT_INIT, '--optimizer', FT_OPTIM,
-                '--lr0', str(FT_LR0), '--warmup', str(FT_WARMUP)]
-    if _probe_status(pid)[0] == 'partial':
-        cmd.append('--resume')
-    return [cmd]
+    cmds = []
+    for seed in seeds:
+        state, _ = _seed_state(p, seed)
+        if state == 'done' and len(seeds) > 1:
+            continue
+        # Наблюдаемый каталог: у многосидовой пробы — свой на каждый сид,
+        # иначе супервизор принял бы чужой чекпойнт за собственный прогресс.
+        watch = (out / f'seed{seed}') if len(seeds) > 1 else PROBE_ROOT / p['id']
+        cmd = ['scripts/train_supervisor.py', '--watch',
+               watch.relative_to(PROJECT_ROOT).as_posix(),
+               '--', 'python', script,
+               '--seed', str(seed), '--epochs', str(PROBE_EPOCHS),
+               '--output', str(out)]      # только абсолютный: см. train_drb.py
+        if w is not None:
+            cmd += ['--alpha-init', str(w)]
+            if p.get('lr', 1.0) != 1.0:
+                cmd += ['--lr-mult', str(p['lr'])]
+            if p.get('mask', 'flat') != 'flat':
+                cmd += ['--mask-init', p['mask']]
+            if p.get('fusion', 'add') != 'add':
+                cmd += ['--fusion', p['fusion']]
+            if p.get('adaptive'):
+                cmd += ['--adaptive']
+        if p.get('ft'):
+            cmd += ['--init-weights', FT_INIT, '--optimizer', FT_OPTIM,
+                    '--lr0', str(FT_LR0), '--warmup', str(FT_WARMUP)]
+        if state == 'partial':
+            cmd.append('--resume')
+        cmds.append(cmd)
+    return cmds
 
 
 def _probe_archive_root() -> Path:
@@ -733,7 +801,7 @@ class Api:
         """
         probes = []
         for p in PROBES:
-            c = self._read_curve(PROBE_ROOT / p['id'] / f'seed{PROBE_SEED}'
+            c = self._read_curve(_probe_out(p) / f'seed{_probe_seeds(p)[0]}'
                                  / 'results.csv')
             if c.get('epochs'):
                 probes.append((p, c))
@@ -896,9 +964,17 @@ class Api:
                       f'или остановите текущее.', 'err')
             self._js(f'ui.taskDone({json.dumps(p["id"])}, 0, null)')
             return
+        cmds = _probe_cmds(p)
+        if not cmds:
+            self._log(f'Считать нечего: у пробы «{p["name"]}» все сиды уже '
+                      f'посчитаны.', 'info')
+            self._js(f'ui.taskDone({json.dumps(p["id"])}, 0, null)')
+            return
         # Готовая проба считается заново с первой эпохи и пишет в ту же
         # папку — прошлый результат сначала откладываем, иначе он пропадёт.
-        if _probe_status(p['id'])[0] == 'done':
+        # Многосидовую не архивируем: она дописывает сиды в чужую папку и
+        # готовые не пересчитывает, затирать там нечего.
+        if len(_probe_seeds(p)) == 1 and _probe_status(p['id'])[0] == 'done':
             kept = _archive_probe(p['id'])
             if kept is not None:
                 self._log(f'Прошлый результат отложен в архив: '
@@ -909,6 +985,12 @@ class Api:
             self._log(f'Дообучение поверх сошедшегося baseline: {p["name"]} '
                       f'({PROBE_EPOCHS} эпох, {what}, скорость {FT_LR0:g})',
                       'info')
+        elif len(_probe_seeds(p)) > 1:
+            todo = [c[c.index('--seed') + 1] for c in cmds]
+            self._log(f'Замер шума: {p["name"]} — сиды {", ".join(todo)} по '
+                      f'{PROBE_EPOCHS} эпох. Готовые сиды не трогаются. Нужно, '
+                      f'чтобы знать, какая разница между прогонами значима, а '
+                      f'какая объясняется зерном генератора.', 'info')
         elif p['w'] is None:
             self._log(f'Контрольный прогон: {p["name"]} ({PROBE_EPOCHS} эпох, '
                       f'без блока — эталон для проб на том же расписании)',
@@ -920,8 +1002,7 @@ class Api:
                       f'({PROBE_EPOCHS} эпох, вклад ветви '
                       f'{1/(1+pow(2.718281828, -p["w"])):.1%}{boost})', 'info')
         code = self._run_commands(
-            [[str(VENV_PY), str(PROJECT_ROOT / c[0]), *c[1:]]
-             for c in _probe_cmds(p)])
+            [[str(VENV_PY), str(PROJECT_ROOT / c[0]), *c[1:]] for c in cmds])
         self._js(f'ui.taskDone({json.dumps(p["id"])}, {code}, null)')
 
     def reset_probe(self, probe_id: str) -> None:
