@@ -145,6 +145,28 @@ def test_block_excluded_from_decay() -> None:
           f'w_lqa {w:+.4f} (задавали -2.0)')
 
 
+def test_adaptive_survives_other_sizes() -> None:
+    """Адаптивный подъём работает на картах любого размера, не только обучающего.
+
+    Регрессия 21.08: разметка колец бралась для обучающего размера, а
+    проверка в Ultralytics идёт прямоугольными пачками, где карты признаков
+    другой формы. Прогон падал на проверке после первой эпохи и делал это
+    пять раз подряд, теряя по получасу на попытку.
+    """
+    fga = FGA(4, 80, 80)
+    fga.enable_adaptive()
+    x = torch.randn(2, 4, 80, 80)
+    check('обучающий размер работает', tuple(fga(x).shape) == (2, 4, 80, 80))
+    for h, w in ((48, 80), (80, 48), (32, 32)):
+        try:
+            out = fga(torch.randn(2, 4, h, w))
+            ok = tuple(out.shape) == (2, 4, h, w)
+        except RuntimeError as exc:
+            ok = False
+            print(f'      {h}x{w}: {exc}')
+        check(f'размер {h}x{w} работает', ok)
+
+
 def test_gated_fusion_is_identity() -> None:
     """В режиме поправки блок тождественен при ЛЮБОМ вкладе ветвей.
 
@@ -203,6 +225,7 @@ def main() -> int:
     test_mask_neutral_under_decay()
     test_block_excluded_from_decay()
     test_gated_fusion_is_identity()
+    test_adaptive_survives_other_sizes()
 
     n_params = sum(p.numel() for p in DRB(256, 80, 80).parameters())
     print(f'\n[INFO] параметров DRB на P3 (C=256, 80×80): {n_params:,} '

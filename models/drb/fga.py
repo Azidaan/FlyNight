@@ -76,11 +76,18 @@ class FGA(nn.Module):
                 f'модель не читается — их надо пересчитать заново.')
         return 1.0 + self.delta.view(self.in_channels, bands)
 
-    def _idx(self) -> torch.Tensor:
-        """Разметка колец. Буфер непостоянный, и при распаковке сохранённой
-        модели его может не оказаться — тогда считаем на месте."""
+    def _idx_for(self, h: int, w: int) -> torch.Tensor:
+        """Разметка колец для КОНКРЕТНОГО размера карты признаков.
+
+        Размер не всегда обучающий: проверка идёт прямоугольными пачками,
+        и карты там другой формы. Разметка для обучающего размера кэшируется
+        в буфер, для прочих считается на месте — она задана в нормированных
+        частотах, поэтому переносится без интерполяции.
+        """
+        if (h, w) != (self.height, self.width):
+            return self._bands_for(h, w).to(self.delta.device)
         idx = getattr(self, 'band_idx', None)
-        if idx is None:
+        if idx is None:                     # у распакованной модели буфера нет
             idx = self._bands_for(self.height, self.width).to(self.delta.device)
             self.register_buffer('band_idx', idx, persistent=False)
         return idx
@@ -124,10 +131,15 @@ class FGA(nn.Module):
         self.last_gain = 0.0
         self.last_knee = 0.0
 
-    def _adaptive_gain(self, spec: torch.Tensor) -> torch.Tensor:
-        """Маска-подъём (B,1,H,Wf), предсказанная по спектру самого кадра."""
+    def _adaptive_gain(self, spec: torch.Tensor, h: int, w: int) -> torch.Tensor:
+        """Маска-подъём (B,1,H,Wf), предсказанная по спектру самого кадра.
+
+        Разметка колец берётся под ФАКТИЧЕСКИЙ размер карты: на проверке
+        пачки прямоугольные, и разметка обучающего размера туда не подходит.
+        Без этого прогон падал на проверке после первой эпохи.
+        """
         mag = spec.abs()                                   # (B,C,H,Wf)
-        idx = self._idx()
+        idx = self._idx_for(h, w)
         high = (idx >= (2 * self.bands) // 3)              # верхняя треть колец
         e_all = mag.sum(dim=(1, 2, 3)) + 1e-6
         e_hi = (mag * high).sum(dim=(1, 2, 3))
@@ -149,12 +161,7 @@ class FGA(nn.Module):
         return (1.0 + gain[:, None, None] * shape).unsqueeze(1)
 
     def _mask_for(self, h: int, w: int) -> torch.Tensor:
-        idx = self._idx()
-        if (h, w) != (self.height, self.width):
-            # другой размер входа: кольца пересчитываются, маска переносится
-            # без интерполяции — она задана в нормированных частотах
-            idx = self._bands_for(h, w).to(self.delta.device)
-        return self.response[:, idx]
+        return self.response[:, self._idx_for(h, w)]
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         _, _, h, w = x.shape
@@ -163,7 +170,7 @@ class FGA(nn.Module):
             mask = self._mask_for(h, w).to(spec.real.dtype)
             if hasattr(self, 'pred'):
                 # два множителя: выученный по набору и предсказанный по кадру
-                mask = mask * self._adaptive_gain(spec)
+                mask = mask * self._adaptive_gain(spec, h, w)
             spec = spec * mask
             y = torch.fft.irfft2(spec, s=(h, w))
         return y.to(x.dtype)
