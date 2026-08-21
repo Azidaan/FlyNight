@@ -110,11 +110,25 @@ def test_probes(mod) -> None:
     print('=== проба инициализации DRB (узел Е) ===')
     api = mod.Api()
     st = api.probe_state()
-    check('восемь пунктов узла Е', len(st) == 8, str([p['id'] for p in st]))
+    check('девять пунктов узла Е', len(st) == 9, str([p['id'] for p in st]))
     check('у прогонов без блока стартового веса нет',
           [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0, None, -2.0, 0.0,
-                                           None, -2.0],
+                                           0.0, None, -2.0],
           str([p['w'] for p in mod.PROBES]))
+
+    # Адаптивный: подъём высоких частот предсказывается по самому кадру.
+    # Статическая маска сходится к нейтрали, потому что усреднённая по дню
+    # и ночи она вынуждена выбрать «ничего не делать».
+    ad = next(p for p in mod.PROBES if p['id'] == 'drb_ad')
+    aline = ' '.join(mod._probe_cmds(ad)[0])
+    check('адаптивный режим доезжает до обучения', '--adaptive' in aline)
+    check('адаптивный идёт с поправкой, а не с копией',
+          '--fusion gated' in aline)
+    check('маска не навязана — форму задаёт предсказатель',
+          '--mask-init' not in aline)
+    check('остальным пробам адаптивность не приписывается',
+          '--adaptive' not in ' '.join(mod._probe_cmds(
+              next(p for p in mod.PROBES if p['id'] == 'drb_bp'))[0]))
 
     # Решающий прогон: поправка через затвор вместо копии и полосовая маска.
     # При поправке блок остаётся тождеством при любом вкладе, поэтому вклад
@@ -295,7 +309,7 @@ def test_probe_archive(mod) -> None:
         check('панель показывает число отложенных версий',
               st['w2']['kept'] == 2 and 'в архиве 2' in st['w2']['detail'],
               st['w2']['detail'])
-        check('архив не притворяется ещё одной пробой', len(st) == 8)
+        check('архив не притворяется ещё одной пробой', len(st) == 9)
 
         api.reset_probe('all')
         check('сброс проб архив не трогает',

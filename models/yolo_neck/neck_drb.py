@@ -159,7 +159,7 @@ def collect_q_maps(det_model: nn.Module) -> dict[int, torch.Tensor]:
 # нейтраль не в нуле. У маски частот нейтраль — единица (спектр проходит без
 # изменений), у логита α — выбранный стартовый вклад ветви. Под общим правилом
 # оба равномерно гасли, и блок вместо обучения затухал.
-DECAY_FREE_KEYS = ('fga.delta', 'w_lqa', 'w_fga')
+DECAY_FREE_KEYS = ('fga.delta', 'w_lqa', 'w_fga', 'fga.pred')
 # Разгон достаётся ТОЛЬКО весам ветвей, но не маске. Причина в измерениях.
 # Маска стала радиальной, и каждый её параметр теперь собирает градиент
 # примерно со 137 отсчётов спектра вместо одного — она и так учится
@@ -167,7 +167,7 @@ DECAY_FREE_KEYS = ('fga.delta', 'w_lqa', 'w_fga')
 # А вес ветви, наоборот, стал вектором по каналам: каждый элемент видит
 # только свой канал, и его градиент разбавился во столько раз, сколько
 # каналов. Ему разгон нужен.
-LR_BOOST_KEYS = ('w_lqa', 'w_fga')
+LR_BOOST_KEYS = ('w_lqa', 'w_fga', 'fga.pred')
 
 
 def separate_block_params(optimizer, model, lr_mult: float = 1.0,
@@ -232,6 +232,7 @@ class DRBTrainer(DetectionTrainer):
     drb_mask_init: str = 'flat'     # стартовая форма характеристики
     drb_mask_k: float = 0.3         # глубина подъёма или подавления
     drb_fusion: str = 'add'         # 'add' или 'gated', см. DRB.forward
+    drb_adaptive: bool = False      # предсказывать подъём по кадру
 
     def get_model(self, cfg=None, weights=None, verbose=True):
         if isinstance(weights, nn.Module) and (
@@ -249,6 +250,7 @@ class DRBTrainer(DetectionTrainer):
             set_alpha_init(model, self.drb_alpha_init)
         set_mask_init(model, self.drb_mask_init, self.drb_mask_k)
         set_fusion(model, self.drb_fusion)
+        set_adaptive(model, self.drb_adaptive)
         return model
 
     def build_optimizer(self, model, name='auto', lr=0.001, momentum=0.9,
@@ -284,6 +286,26 @@ def set_alpha_init(det_model: nn.Module, w0: float) -> float:
 
 
 BAND_LO, BAND_HI = 0.15, 0.60          # границы полосы пропускания
+
+
+def set_adaptive(det_model: nn.Module, on: bool, gain_max: float = 0.5) -> None:
+    """Включает предсказание подъёма высоких частот по самому кадру.
+
+    Статическая маска сходится к нейтрали: усреднённая по дню и ночи, она
+    вынуждена выбрать «ничего не делать». Замер 21.08 показал, что кадры
+    отличаются сильно — у ночных вдвое меньше высокочастотной энергии, —
+    и различает их дескриптор почти безошибочно. См. FGA.enable_adaptive.
+    """
+    if not on:
+        return
+    k = 0
+    for _, drb in iter_drb(det_model):
+        fga = getattr(drb, 'fga', None)
+        if fga is not None:
+            fga.enable_adaptive(gain_max)
+            k += 1
+    print(f'[DRB] подъём высоких частот предсказывается по кадру '
+          f'(уровней {k}, потолок подъёма {gain_max:g})')
 
 
 def set_fusion(det_model: nn.Module, mode: str) -> None:
@@ -340,7 +362,8 @@ def set_mask_init(det_model: nn.Module, kind: str, k: float = 0.3) -> None:
 
 def make_drb_trainer(variant: str = 'both', alpha_init: float = 0.0,
                      lr_mult: float = 1.0, mask_init: str = 'flat',
-                     fusion: str = 'add') -> type[DRBTrainer]:
+                     fusion: str = 'add',
+                     adaptive: bool = False) -> type[DRBTrainer]:
     """Фабрика Trainer-класса с зафиксированным вариантом DRB.
 
     Нужна потому, что model.train(trainer=...) принимает класс, а не
@@ -351,4 +374,4 @@ def make_drb_trainer(variant: str = 'both', alpha_init: float = 0.0,
     return type(f'DRBTrainer_{variant}', (DRBTrainer,),
                 {'drb_variant': variant, 'drb_alpha_init': float(alpha_init),
                  'drb_lr_mult': float(lr_mult), 'drb_mask_init': mask_init,
-                 'drb_fusion': fusion})
+                 'drb_fusion': fusion, 'drb_adaptive': bool(adaptive)})

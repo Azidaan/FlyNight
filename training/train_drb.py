@@ -54,6 +54,7 @@ AUG_KEYS = ('hsv_h', 'hsv_s', 'hsv_v', 'degrees', 'translate', 'scale',
 def make_alpha_logger(run_dir: Path):
     """Callback on_fit_epoch_end: дописывает α по уровням в drb_alphas.csv."""
     csv_path = run_dir / 'drb_alphas.csv'
+    filt_path = run_dir / 'drb_filter.csv'      # предсказанный подъём по кадру
 
     def _log(trainer) -> None:
         rows = []
@@ -62,6 +63,23 @@ def make_alpha_logger(run_dir: Path):
             rows.append([trainer.epoch, idx, f'{a1:.6f}', f'{a2:.6f}'])
         if not rows:
             return
+        # Предсказанный фильтр: даже при нулевом приросте точности остаётся
+        # демонстрируемый факт — научился ли предсказатель поднимать сильнее
+        # на тусклых кадрах. Это кривая для текста, а не отговорка.
+        frows = []
+        for idx, drb in iter_drb(trainer.model):
+            fga = getattr(drb, 'fga', None)
+            if fga is not None and hasattr(fga, 'last_gain'):
+                frows.append([trainer.epoch, idx, f'{fga.last_gain:.6f}',
+                              f'{fga.last_knee:.6f}'])
+        if frows:
+            fresh = not filt_path.exists()
+            with open(filt_path, 'a', newline='', encoding='utf-8') as f:
+                w = csv.writer(f)
+                if fresh:
+                    w.writerow(['epoch', 'layer_idx', 'gain', 'knee'])
+                w.writerows(frows)
+
         write_header = not csv_path.exists()
         csv_path.parent.mkdir(parents=True, exist_ok=True)
         with open(csv_path, 'a', newline='', encoding='utf-8') as f:
@@ -80,7 +98,7 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
               lr_mult: float = 1.0, init_weights: str | None = None,
               optimizer: str | None = None, lr0: float | None = None,
               warmup: float | None = None, mask_init: str = 'flat',
-              fusion: str = 'add') -> str:
+              fusion: str = 'add', adaptive: bool = False) -> str:
     """Обучение одного сида YOLO+DRB. Возвращает путь к best.pt."""
     setup_compute_flags()
     from ultralytics import YOLO
@@ -133,7 +151,8 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
                               ('warmup_epochs', warmup)) if v is not None}
     model.train(
         trainer=make_drb_trainer(variant, alpha_init=w0, lr_mult=lr_mult,
-                                 mask_init=mask_init, fusion=fusion),
+                                 mask_init=mask_init, fusion=fusion,
+                                 adaptive=adaptive),
         **tune,
         data=str(data_yaml), epochs=cfg['epochs'], batch=cfg['batch'],
         imgsz=cfg['imgsz'], workers=cfg['workers'], seed=seed, device=0,
@@ -186,6 +205,9 @@ def main() -> int:
     ap.add_argument('--mask-init', default='flat',
                     choices=['flat', 'highpass', 'bandpass'],
                     help='стартовая форма частотной характеристики')
+    ap.add_argument('--adaptive', action='store_true',
+                    help='подъём высоких частот предсказывается по кадру, а '
+                         'не выучивается один на весь набор')
     ap.add_argument('--fusion', default='add', choices=['add', 'gated'],
                     help='add — прибавить выход ветви, gated — внести '
                          'поправку через затвор по карте качества')
@@ -206,7 +228,8 @@ def main() -> int:
                      alpha_init=args.alpha_init, lr_mult=args.lr_mult,
                      init_weights=args.init_weights, optimizer=args.optimizer,
                      lr0=args.lr0, warmup=args.warmup,
-                     mask_init=args.mask_init, fusion=args.fusion)
+                     mask_init=args.mask_init, fusion=args.fusion,
+                     adaptive=args.adaptive)
     print(f'[OK ] best.pt: {best}')
     return 0 if best else 1
 

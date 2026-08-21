@@ -90,6 +90,64 @@ class FGA(nn.Module):
         """Маска в рабочем виде (C, H, W//2+1); нейтраль — единицы."""
         return self._mask_for(self.height, self.width)
 
+    def enable_adaptive(self, gain_max: float = 0.5) -> None:
+        """Включает предсказание подъёма высоких частот по самому кадру.
+
+        Зачем. Статическая маска, выученная по всему набору, сходится к
+        нейтрали: усреднённая по дню и ночи, никакая фильтрация не лучше
+        никакой. Замер 21.08 показал, почему — кадры разные. У ночных кадров
+        BDD100K вдвое меньше высокочастотной энергии (доля 0.119 против
+        0.140) и вдвое слабее градиент. Причём шума в них МЕНЬШЕ, а не
+        больше (0.0030 против 0.0076): это видео с регистратора, камера сама
+        давит шум и жмёт в JPEG. Значит ночью сигнал не тонет в шуме, а
+        ослабевает — и нужна компенсирующая добавка, а не подавление.
+
+        Предсказываются два числа: насколько поднять верх и с какой частоты
+        начинать. Всего два, а не значение на каждое кольцо, — динамические
+        фильтры с большой свободой схлопываются в константу, это известный
+        вырожденный исход. Заодно выученную зависимость можно нарисовать
+        одной кривой.
+
+        Выходной слой обнулён, а смещение подобрано так, чтобы подъём на
+        старте был около нуля: блок начинает точным тождеством.
+        """
+        self.gain_max = gain_max
+        # Создаётся там же, где уже лежит блок: включение бывает и после
+        # переноса модели на видеокарту, и тогда новый слой остался бы на
+        # процессоре, а прямой проход упал бы на разных устройствах.
+        self.pred = nn.Sequential(
+            nn.Linear(3, 16), nn.SiLU(), nn.Linear(16, 2)
+        ).to(self.delta.device, self.delta.dtype)
+        with torch.no_grad():
+            self.pred[2].weight.zero_()
+            self.pred[2].bias.copy_(torch.tensor([-4.0, 0.0]))
+        self.last_gain = 0.0
+        self.last_knee = 0.0
+
+    def _adaptive_gain(self, spec: torch.Tensor) -> torch.Tensor:
+        """Маска-подъём (B,1,H,Wf), предсказанная по спектру самого кадра."""
+        mag = spec.abs()                                   # (B,C,H,Wf)
+        idx = self._idx()
+        high = (idx >= (2 * self.bands) // 3)              # верхняя треть колец
+        e_all = mag.sum(dim=(1, 2, 3)) + 1e-6
+        e_hi = (mag * high).sum(dim=(1, 2, 3))
+        desc = torch.stack([
+            e_hi / e_all,                                  # доля верхней энергии
+            (e_all.log1p() / 20.0).clamp(-5, 5),           # общий масштаб
+            (mag.mean(dim=(1, 2, 3)).log1p() * 10.0).clamp(-5, 5),
+        ], dim=1).to(self.pred[0].weight.dtype)
+
+        out = self.pred(desc)
+        gain = self.gain_max * torch.sigmoid(out[:, 0])    # насколько поднять
+        knee = 0.20 + 0.50 * torch.sigmoid(out[:, 1])      # с какой частоты
+        self.last_gain = float(gain.mean().detach())
+        self.last_knee = float(knee.mean().detach())
+
+        r = (idx.to(gain.dtype) + 0.5) / self.bands        # (H,Wf)
+        shape = ((r[None] - knee[:, None, None])
+                 / (1.0 - knee[:, None, None])).clamp(0.0, 1.0)
+        return (1.0 + gain[:, None, None] * shape).unsqueeze(1)
+
     def _mask_for(self, h: int, w: int) -> torch.Tensor:
         idx = self._idx()
         if (h, w) != (self.height, self.width):
@@ -102,6 +160,10 @@ class FGA(nn.Module):
         _, _, h, w = x.shape
         with torch.autocast(device_type=x.device.type, enabled=False):
             spec = torch.fft.rfft2(x.float())            # (B,C,H,W//2+1) complex
-            spec = spec * self._mask_for(h, w).to(spec.real.dtype)
+            mask = self._mask_for(h, w).to(spec.real.dtype)
+            if hasattr(self, 'pred'):
+                # два множителя: выученный по набору и предсказанный по кадру
+                mask = mask * self._adaptive_gain(spec)
+            spec = spec * mask
             y = torch.fft.irfft2(spec, s=(h, w))
         return y.to(x.dtype)
