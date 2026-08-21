@@ -34,6 +34,9 @@ class DRB(nn.Module):
         if branches not in ('both', 'lqa', 'fga'):
             raise ValueError(f'branches: both|lqa|fga, получено {branches!r}')
         self.branches = branches
+        # 'add' — прибавить выход ветви (как в плане), 'gated' — внести
+        # поправку через затвор по карте качества, см. forward.
+        self.fusion = 'add'
         # Вес ветви — ВЕКТОР по каналам, а не одно число на весь уровень.
         # Одним числом судьба всех каналов решалась разом, хотя одни несут
         # текстуру, другие контекст, и ветвь нужна им по-разному. Плюс
@@ -58,9 +61,23 @@ class DRB(nn.Module):
 
     def forward(self, x: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor | None]:
         q = None
-        y = torch.zeros_like(x)
         if self.branches in ('both', 'lqa'):
             q = self.lqa(x)                               # (B,1,H,W), [0,1]
+
+        # Режим 'gated': в признаки вносится ПОПРАВКА, а не копия ветви.
+        # При нейтральной маске fga(x) == x, поправка равна точному нулю при
+        # любом вкладе, и раздуть признаки невозможно в принципе. Прежняя
+        # форма прибавляла копию: при вкладе 50% выходило почти 2x, и точность
+        # рамок предобученной головы падала вдвое ещё до обучения (замер
+        # 20.08). Карта качества здесь работает затвором: поправка вносится
+        # там, где локальное качество говорит, что есть за что цепляться.
+        if getattr(self, 'fusion', 'add') == 'gated' and self.branches in ('both', 'fga'):
+            a2 = torch.sigmoid(self.w_fga).view(1, -1, 1, 1)
+            gate = a2 if q is None else a2 * q
+            return x + gate * (self.fga(x) - x), q
+
+        y = torch.zeros_like(x)
+        if self.branches in ('both', 'lqa'):
             a1 = torch.sigmoid(self.w_lqa).view(1, -1, 1, 1)
             y = y + a1 * (q * x)                          # broadcast Q по C
         if self.branches in ('both', 'fga'):

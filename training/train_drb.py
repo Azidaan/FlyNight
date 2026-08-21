@@ -79,7 +79,8 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
               alpha_init: float | None = None,
               lr_mult: float = 1.0, init_weights: str | None = None,
               optimizer: str | None = None, lr0: float | None = None,
-              warmup: float | None = None, mask_init: str = 'flat') -> str:
+              warmup: float | None = None, mask_init: str = 'flat',
+              fusion: str = 'add') -> str:
     """Обучение одного сида YOLO+DRB. Возвращает путь к best.pt."""
     setup_compute_flags()
     from ultralytics import YOLO
@@ -132,7 +133,7 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
                               ('warmup_epochs', warmup)) if v is not None}
     model.train(
         trainer=make_drb_trainer(variant, alpha_init=w0, lr_mult=lr_mult,
-                                 mask_init=mask_init),
+                                 mask_init=mask_init, fusion=fusion),
         **tune,
         data=str(data_yaml), epochs=cfg['epochs'], batch=cfg['batch'],
         imgsz=cfg['imgsz'], workers=cfg['workers'], seed=seed, device=0,
@@ -183,8 +184,11 @@ def main() -> int:
     ap.add_argument('--warmup', type=float, default=None,
                     help='эпох разогрева; при дообучении их нужно меньше')
     ap.add_argument('--mask-init', default='flat',
-                    choices=['flat', 'highpass'],
+                    choices=['flat', 'highpass', 'bandpass'],
                     help='стартовая форма частотной характеристики')
+    ap.add_argument('--fusion', default='add', choices=['add', 'gated'],
+                    help='add — прибавить выход ветви, gated — внести '
+                         'поправку через затвор по карте качества')
     args = ap.parse_args()
 
     if args.epochs is not None:
@@ -202,7 +206,7 @@ def main() -> int:
                      alpha_init=args.alpha_init, lr_mult=args.lr_mult,
                      init_weights=args.init_weights, optimizer=args.optimizer,
                      lr0=args.lr0, warmup=args.warmup,
-                     mask_init=args.mask_init)
+                     mask_init=args.mask_init, fusion=args.fusion)
     print(f'[OK ] best.pt: {best}')
     return 0 if best else 1
 

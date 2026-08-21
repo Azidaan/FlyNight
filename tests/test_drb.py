@@ -145,6 +145,34 @@ def test_block_excluded_from_decay() -> None:
           f'w_lqa {w:+.4f} (задавали -2.0)')
 
 
+def test_gated_fusion_is_identity() -> None:
+    """В режиме поправки блок тождественен при ЛЮБОМ вкладе ветвей.
+
+    Прежняя форма прибавляла выход ветви: при нейтральной маске это копия
+    входа, и при вкладе 50% получалось почти 2x. Прямой замер 20.08: точность
+    рамок предобученной головы падала вдвое ещё до начала обучения. Поправка
+    (разность с входом) при нейтральной маске равна нулю независимо от вклада,
+    поэтому подбирать стартовый вклад больше не требуется.
+    """
+    drb = DRB(8, 16, 16)
+    x = torch.randn(2, 8, 16, 16)
+
+    drb.fusion = 'add'
+    dev_add = (drb(x)[0] - x).abs().max().item()
+    check('прежняя форма при нейтральной маске меняет признаки',
+          dev_add > 0.1, f'{dev_add:.3e}')
+
+    drb.fusion = 'gated'
+    for w in (0.0, 3.0):                       # вклад 50% и 95%
+        with torch.no_grad():
+            drb.w_lqa.fill_(w)
+            drb.w_fga.fill_(w)
+        dev = (drb(x)[0] - x).abs().max().item()
+        a = 1 / (1 + pow(2.718281828, -w))
+        check(f'поправка тождественна при вкладе {a:.0%}', dev < 1e-5,
+              f'{dev:.3e}')
+
+
 def test_optimizer_compatible_shapes() -> None:
     """Формы параметров должны перевариваться оптимизатором MuSGD.
 
@@ -174,6 +202,7 @@ def main() -> int:
     test_optimizer_compatible_shapes()
     test_mask_neutral_under_decay()
     test_block_excluded_from_decay()
+    test_gated_fusion_is_identity()
 
     n_params = sum(p.numel() for p in DRB(256, 80, 80).parameters())
     print(f'\n[INFO] параметров DRB на P3 (C=256, 80×80): {n_params:,} '

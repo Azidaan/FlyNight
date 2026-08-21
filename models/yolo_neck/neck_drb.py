@@ -230,7 +230,8 @@ class DRBTrainer(DetectionTrainer):
     drb_alpha_init: float = 0.0     # начальное значение w_LQA и w_FGA
     drb_lr_mult: float = 1.0        # во сколько раз быстрее учить сам блок
     drb_mask_init: str = 'flat'     # стартовая форма характеристики
-    drb_mask_k: float = 0.3         # насколько поднять высокие частоты
+    drb_mask_k: float = 0.3         # глубина подъёма или подавления
+    drb_fusion: str = 'add'         # 'add' или 'gated', см. DRB.forward
 
     def get_model(self, cfg=None, weights=None, verbose=True):
         if isinstance(weights, nn.Module) and (
@@ -247,6 +248,7 @@ class DRBTrainer(DetectionTrainer):
         if self.drb_alpha_init != 0.0:
             set_alpha_init(model, self.drb_alpha_init)
         set_mask_init(model, self.drb_mask_init, self.drb_mask_k)
+        set_fusion(model, self.drb_fusion)
         return model
 
     def build_optimizer(self, model, name='auto', lr=0.001, momentum=0.9,
@@ -281,35 +283,64 @@ def set_alpha_init(det_model: nn.Module, w0: float) -> float:
     return alpha
 
 
+BAND_LO, BAND_HI = 0.15, 0.60          # границы полосы пропускания
+
+
+def set_fusion(det_model: nn.Module, mode: str) -> None:
+    """Как ветви подмешиваются в признаки: 'add' или 'gated'. См. DRB.forward."""
+    if mode not in ('add', 'gated'):
+        raise ValueError(f'fusion: add|gated, получено {mode!r}')
+    for _, drb in iter_drb(det_model):
+        drb.fusion = mode
+    if mode == 'gated':
+        print('[DRB] ветви вносят поправку через затвор, а не прибавляют копию')
+
+
 def set_mask_init(det_model: nn.Module, kind: str, k: float = 0.3) -> None:
     """Стартовая форма частотной характеристики.
 
     'flat' — единицы, блок стартует тождественным.
-    'highpass' — характеристика линейно растёт с частотой: 1.0 на нуле и
-    1+k у предела. Приём из работ по частотному вниманию: маску задают не
-    нейтральной и не случайной, а осмысленным фильтром, который обучение
-    дальше уточняет. Для нашей задачи осмысленный — подъём высоких частот:
-    мелкие объекты живут именно там, и у baseline по ним худший показатель
-    из всей таблицы (AP 0.051 ночью против 0.485 на крупных).
+
+    'highpass' — характеристика линейно растёт с частотой. Замысел был такой:
+    мелкие объекты живут в высоких частотах, поднимем их. Диагностика 21.08
+    этот замысел опровергла: ночь почти не мешает НАХОДИТЬ мелкие объекты
+    (полнота 0.5138 против 0.5186 днём), поднимать нечего. Оставлено для
+    аблации как заведомо неверный вариант.
+
+    'bandpass' — гасятся оба края: снизу крупноструктурная избыточность,
+    сверху шум. Именно это и нужно по замерам: ночью на мелких объектах
+    падает точность (ложные срабатывания, −28% AP@0.5 при неизменной
+    полноте) и локализация (47% -> 38%). Обе беды даёт шум, а он живёт в
+    верхних частотах вместе с деталью. Приём из работ по подавлению частот
+    для мелких объектов, где показано, что одностороннего среза мало.
     """
     if kind == 'flat':
         return
-    if kind != 'highpass':
-        raise ValueError(f'mask_init: flat|highpass, получено {kind!r}')
+    if kind not in ('highpass', 'bandpass'):
+        raise ValueError(f'mask_init: flat|highpass|bandpass, получено {kind!r}')
     with torch.no_grad():
         for _, drb in iter_drb(det_model):
             fga = getattr(drb, 'fga', None)
             if fga is None:
                 continue
-            bands = fga.bands
-            r = (torch.arange(bands, dtype=torch.float32) + 0.5) / bands
-            fga.delta.copy_((k * r).repeat(fga.in_channels))
-    print(f'[DRB] маска стартует подъёмом высоких частот: 1.0 -> {1 + k:.2f}')
+            r = (torch.arange(fga.bands, dtype=torch.float32) + 0.5) / fga.bands
+            if kind == 'highpass':
+                w = 1.0 + k * r
+            else:
+                lo = ((BAND_LO - r) / BAND_LO).clamp(0.0, 1.0)
+                hi = ((r - BAND_HI) / (1.0 - BAND_HI)).clamp(0.0, 1.0)
+                w = 1.0 - k * (lo + hi)
+            fga.delta.copy_((w - 1.0).repeat(fga.in_channels))
+    if kind == 'highpass':
+        print(f'[DRB] маска стартует подъёмом высоких частот: 1.0 -> {1 + k:.2f}')
+    else:
+        print(f'[DRB] маска стартует полосовой: края придавлены до '
+              f'{1 - k:.2f}, полоса {BAND_LO:g}..{BAND_HI:g} нетронута')
 
 
 def make_drb_trainer(variant: str = 'both', alpha_init: float = 0.0,
-                     lr_mult: float = 1.0,
-                     mask_init: str = 'flat') -> type[DRBTrainer]:
+                     lr_mult: float = 1.0, mask_init: str = 'flat',
+                     fusion: str = 'add') -> type[DRBTrainer]:
     """Фабрика Trainer-класса с зафиксированным вариантом DRB.
 
     Нужна потому, что model.train(trainer=...) принимает класс, а не
@@ -319,4 +350,5 @@ def make_drb_trainer(variant: str = 'both', alpha_init: float = 0.0,
         raise ValueError(f'variant: both|lqa|fga|input, получено {variant!r}')
     return type(f'DRBTrainer_{variant}', (DRBTrainer,),
                 {'drb_variant': variant, 'drb_alpha_init': float(alpha_init),
-                 'drb_lr_mult': float(lr_mult), 'drb_mask_init': mask_init})
+                 'drb_lr_mult': float(lr_mult), 'drb_mask_init': mask_init,
+                 'drb_fusion': fusion})

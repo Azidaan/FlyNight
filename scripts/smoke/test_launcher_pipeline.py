@@ -110,11 +110,28 @@ def test_probes(mod) -> None:
     print('=== проба инициализации DRB (узел Е) ===')
     api = mod.Api()
     st = api.probe_state()
-    check('семь пунктов узла Е', len(st) == 7, str([p['id'] for p in st]))
+    check('восемь пунктов узла Е', len(st) == 8, str([p['id'] for p in st]))
     check('у прогонов без блока стартового веса нет',
-          [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0, None, -2.0,
+          [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0, None, -2.0, 0.0,
                                            None, -2.0],
           str([p['w'] for p in mod.PROBES]))
+
+    # Решающий прогон: поправка через затвор вместо копии и полосовая маска.
+    # При поправке блок остаётся тождеством при любом вкладе, поэтому вклад
+    # взят нейтральным — там же его не искажает и регуляризация.
+    dec = next(p for p in mod.PROBES if p['id'] == 'drb_bp')
+    dline = ' '.join(mod._probe_cmds(dec)[0])
+    check('решающий прогон вносит поправку, а не копию',
+          '--fusion gated' in dline)
+    check('маска стартует полосовой, а не подъёмом высоких',
+          '--mask-init bandpass' in dline)
+    check('вклад нейтральный — при поправке подбирать его не нужно',
+          dec['w'] == 0.0, str(dec['w']))
+    check('учится с нуля, как контроль, без дообучения',
+          '--init-weights' not in dline)
+    check('старым пробам режим поправки не приписывается',
+          '--fusion' not in ' '.join(mod._probe_cmds(
+              next(p for p in mod.PROBES if p['id'] == 'drb12'))[0]))
 
     # Главный прогон: всё как у контроля, кроме блока. Никакого дообучения —
     # иначе сравнивать его с контролем 0.4415 будет нельзя.
@@ -278,7 +295,7 @@ def test_probe_archive(mod) -> None:
         check('панель показывает число отложенных версий',
               st['w2']['kept'] == 2 and 'в архиве 2' in st['w2']['detail'],
               st['w2']['detail'])
-        check('архив не притворяется ещё одной пробой', len(st) == 7)
+        check('архив не притворяется ещё одной пробой', len(st) == 8)
 
         api.reset_probe('all')
         check('сброс проб архив не трогает',
