@@ -85,7 +85,19 @@ def remap_prediction_ids(pred_json: Path, stem2id: dict[str, int],
 
 
 def coco_size_metrics(gt_json: Path, pred_json: Path) -> dict[str, float]:
-    """AP_small / AP_medium / AP_large (индексы 3,4,5 stats COCOeval)."""
+    """Метрики по размерам объектов.
+
+    Штатные AP_small/medium/large (индексы 3,4,5 в stats COCOeval) усреднены
+    по перекрытиям от 0.5 до 0.95, то есть строгие. По ним нельзя понять, в
+    чём беда: объект не найден вовсе или найден, но рамка гуляет. Это две
+    разные болезни с разными лекарствами, поэтому рядом считаются мягкие
+    метрики при перекрытии 0.5 — их COCOeval считает, но в сводку не выводит.
+
+    Разделение читается так:
+      AR50 низкая              -> объекты не находятся, нужна чувствительность;
+      AR50 высокая, AP низкая  -> находятся, но локализуются плохо.
+    """
+    import numpy as np
     from pycocotools.coco import COCO
     from pycocotools.cocoeval import COCOeval
 
@@ -94,11 +106,23 @@ def coco_size_metrics(gt_json: Path, pred_json: Path) -> dict[str, float]:
         coco_dt = coco_gt.loadRes(str(pred_json))
         ev = COCOeval(coco_gt, coco_dt, 'bbox')
         ev.evaluate(); ev.accumulate(); ev.summarize()
-    return {
+
+    out = {
         'AP_small': float(ev.stats[3]),
         'AP_medium': float(ev.stats[4]),
         'AP_large': float(ev.stats[5]),
     }
+    # precision: [перекрытие, полнота, класс, размер, макс.детекций]
+    # recall:    [перекрытие,          класс, размер, макс.детекций]
+    # Индекс 0 по перекрытию — это 0.5; индекс 2 по детекциям — 100 штук;
+    # размеры идут в порядке: все, мелкие, средние, крупные.
+    pr, rc = ev.eval['precision'], ev.eval['recall']
+    for name, a in (('all', 0), ('small', 1), ('medium', 2), ('large', 3)):
+        v = pr[0, :, :, a, 2]
+        out[f'AP50_{name}'] = float(v[v > -1].mean()) if (v > -1).any() else -1.0
+        v = rc[0, :, a, 2]
+        out[f'AR50_{name}'] = float(v[v > -1].mean()) if (v > -1).any() else -1.0
+    return out
 
 
 # ——————————————————— основной вход ———————————————————

@@ -22,6 +22,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from evaluation.detection_metrics import evaluate_on_subsets  # noqa: E402
+from datasets.subset_filter import filter_videos_by_subset, load_video_attributes  # noqa: E402
 
 PROBE_ROOT = PROJECT_ROOT / 'runs' / 'init_probe'
 OUT_CSV = PROJECT_ROOT / 'experiments' / 'results' / 'probe_subsets.csv'
@@ -33,11 +34,71 @@ CONTROL = 'base12'
 # спектра, а не по кольцам, и размеры не сходятся.
 DEFAULT = ('base12', 'drb12', 'boost')
 # Метрики, ради которых всё затевается.
-KEY = ('mAP50', 'AP_small', 'AP_medium', 'AP_large')
+KEY = ('mAP50', 'AP_small', 'AP_medium', 'AP_large',
+       'AR50_small', 'AP50_small')
+# Метрики трекинга: HOTA раскладывается на качество детекции (DetA) и
+# качество связывания (AssA) — по ним и видно, что является узким местом.
+TRACK_KEY = ('HOTA', 'DetA', 'AssA', 'IDF1', 'MOTA', 'IDSw')
 
 
 def weights_of(pid: str) -> Path:
-    return PROBE_ROOT / pid / 'seed42' / 'weights' / 'best.pt'
+    """Веса по имени: сначала среди проб узла Е, потом среди обученных моделей.
+
+    Второй путь нужен, чтобы сравнивать пробы с настоящим стосерийным
+    baseline, не трогая evaluate_baseline.py — тот переписывает свою
+    таблицу целиком и при запуске на одном сиде потерял бы два других.
+    """
+    probe = PROBE_ROOT / pid / 'seed42' / 'weights' / 'best.pt'
+    if probe.exists():
+        return probe
+    return PROJECT_ROOT / 'weights' / pid / 'best.pt'
+
+
+def run_tracking(todo, subsets) -> int:
+    """Метрики трекинга по поднаборам. Пишет свою таблицу, чужие не трогает."""
+    from evaluation.tracking_metrics import evaluate_tracking_bdd, run_tracker_on_videos
+
+    det_json = (PROJECT_ROOT / 'data' / 'bdd100k' / 'labels'
+                / 'bdd100k_labels_images_val.json')
+    attrs = load_video_attributes(str(det_json))
+    all_ids = sorted(p.name for p in
+                     (PROJECT_ROOT / 'data' / 'bdd100k' / 'images' / 'track'
+                      / 'val').iterdir() if p.is_dir())
+
+    rows, res = [], {}
+    for name, w in todo:
+        res[name] = {}
+        for subset in subsets:
+            vids = filter_videos_by_subset(attrs, all_ids, subset)
+            print(f'\n=== {name} / {subset}: {len(vids)} видео ===', flush=True)
+            track_dir = PROJECT_ROOT / 'runs' / 'track' / f'{name}_{subset}'
+            run_tracker_on_videos(str(w), vids, track_dir)
+            m = evaluate_tracking_bdd(
+                track_dir, vids,
+                PROJECT_ROOT / 'experiments' / 'results'
+                / f'track_{name}_{subset}.json')
+            res[name][subset] = m
+            for metric, value in m.items():
+                rows.append([name, subset, metric, value])
+            print(f'[OK ] {subset}: ' + ', '.join(
+                f'{k} {m[k]:.2f}' for k in TRACK_KEY if k in m), flush=True)
+
+    out = PROJECT_ROOT / 'experiments' / 'results' / 'probe_tracking.csv'
+    out.parent.mkdir(parents=True, exist_ok=True)
+    with open(out, 'w', newline='', encoding='utf-8') as f:
+        wr = csv.writer(f)
+        wr.writerow(['модель', 'поднабор', 'метрика', 'значение'])
+        wr.writerows(rows)
+
+    print('\nЧто является узким местом (DetA — детекция, AssA — связывание):')
+    for name in res:
+        for subset, m in res[name].items():
+            if 'DetA' in m and 'AssA' in m:
+                who = 'детекция' if m['DetA'] < m['AssA'] else 'связывание'
+                print(f'  {name} / {subset:<7} DetA {m["DetA"]:.2f}  '
+                      f'AssA {m["AssA"]:.2f}  ->  слабее {who}')
+    print(f'\n[OK ] {out}')
+    return 0
 
 
 def main() -> int:
@@ -48,7 +109,14 @@ def main() -> int:
                     help='какие прогоны из узла Е оценивать')
     ap.add_argument('--step', type=int, default=1,
                     help='шаг прореживания кадров; 1 — полная выборка')
+    ap.add_argument('--subsets', nargs='+', default=list(SUBSETS),
+                    help='какие поднаборы считать')
+    ap.add_argument('--tracking', action='store_true',
+                    help='вместо детекции посчитать метрики трекинга: HOTA '
+                         'раскладывается на DetA и AssA, и видно, детекция '
+                         'узкое место или связывание (долго, ~30-60 мин)')
     args = ap.parse_args()
+    subsets = tuple(args.subsets)
 
     todo = [(m, weights_of(m)) for m in args.models]
     missing = [m for m, w in todo if not w.exists()]
@@ -58,6 +126,9 @@ def main() -> int:
     if not todo:
         print('[ERR ] оценивать нечего — ни одного прогона не найдено')
         return 1
+
+    if args.tracking:
+        return run_tracking(todo, subsets)
 
     rows, res = [], {}
     for name, w in todo:

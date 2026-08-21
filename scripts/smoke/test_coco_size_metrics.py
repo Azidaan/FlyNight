@@ -54,15 +54,25 @@ def build_case(root: Path) -> tuple[list[Path], Path]:
     return [frame], root / 'gt.json'
 
 
-def predictions_from_gt(gt_json: Path, out: Path, shift: int) -> None:
-    """Идеальные предсказания из эталона; shift — сдвиг нумерации классов."""
+def predictions_from_gt(gt_json: Path, out: Path, shift: int,
+                        nudge: float = 0.0) -> None:
+    """Предсказания из эталона.
+
+    shift — сдвиг нумерации классов (проверка совместимости форматов).
+    nudge — сдвиг рамки в долях её ширины и высоты: объект найден, но
+    локализован неточно. Ради этого случая метрики при перекрытии 0.5 и
+    заведены — строгие AP на нём проседают, а полнота остаётся высокой.
+    """
     gt = json.loads(gt_json.read_text(encoding='utf-8'))
-    preds = [{
-        'image_id': a['image_id'],
-        'category_id': a['category_id'] + shift,
-        'bbox': a['bbox'],
-        'score': 0.9,
-    } for a in gt['annotations']]
+    preds = []
+    for a in gt['annotations']:
+        x, y, w, h = a['bbox']
+        preds.append({
+            'image_id': a['image_id'],
+            'category_id': a['category_id'] + shift,
+            'bbox': [x + w * nudge, y + h * nudge, w, h],
+            'score': 0.9,
+        })
     out.write_text(json.dumps(preds), encoding='utf-8')
 
 
@@ -92,6 +102,22 @@ def main() -> int:
         predictions_from_gt(gt_json, pred, shift=1)
         bad = coco_size_metrics(gt_json, pred)
         print('    со сдвигом нумерации:', {k: round(v, 3) for k, v in bad.items()})
+        # Ради чего метрики и заведены: объект найден, но рамка сдвинута
+        # на 15% своего размера. Мягкая метрика это прощает, строгая — нет.
+        nudged = Path(tmp) / 'pred_nudged.json'
+        predictions_from_gt(gt_json, nudged, shift=0, nudge=0.15)
+        mn = coco_size_metrics(gt_json, nudged)
+        print(f'    сдвинутые рамки: AR50_all {mn["AR50_all"]:.3f}, '
+              f'AP50_all {mn["AP50_all"]:.3f}, строгая AP_small {mn["AP_small"]:.3f}')
+        check('сдвинутые рамки всё ещё находятся (полнота при 0.5 высокая)',
+              mn['AR50_all'] > 0.9, f'{mn["AR50_all"]:.3f}')
+        check('но строгая метрика их наказывает',
+              mn['AP_small'] < m['AP_small'],
+              f'{mn["AP_small"]:.3f} против {m["AP_small"]:.3f}')
+        check('мягкая и строгая метрики разошлись — разделение работает',
+              mn['AP50_all'] - mn['AP_small'] > 0.2,
+              f'разрыв {mn["AP50_all"] - mn["AP_small"]:.3f}')
+
         check('сдвиг нумерации действительно обнуляет AP',
               max(bad.values()) < 0.1, str(bad))
 
