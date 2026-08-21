@@ -8,6 +8,7 @@ from models.yolo_neck.neck_drb import (
     insert_drb,
     insert_drb_at_input,
     iter_drb,
+    make_bn_freezer,
     make_drb_trainer,
     set_alpha_init,
 )
@@ -15,5 +16,5 @@ from models.yolo_neck.neck_drb import (
 __all__ = [
     'DRBInputLayer', 'DRBTrainer', 'DRBWrappedLayer', 'collect_q_maps',
     'has_drb', 'insert_drb', 'insert_drb_at_input', 'iter_drb',
-    'make_drb_trainer', 'set_alpha_init',
+    'make_bn_freezer', 'make_drb_trainer', 'set_alpha_init',
 ]

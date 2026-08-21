@@ -110,11 +110,34 @@ def test_probes(mod) -> None:
     print('=== проба инициализации DRB (узел Е) ===')
     api = mod.Api()
     st = api.probe_state()
-    check('десять пунктов узла Е', len(st) == 10, str([p['id'] for p in st]))
+    check('одиннадцать пунктов узла Е', len(st) == 11,
+          str([p['id'] for p in st]))
     check('у прогонов без блока стартового веса нет',
           [p['w'] for p in mod.PROBES] == [0.0, -2.0, -4.0, None, None, -2.0,
-                                           0.0, 0.0, None, -2.0],
+                                           0.0, 0.0, 0.0, None, -2.0],
           str([p['w'] for p in mod.PROBES]))
+
+    # Ступенчатое обучение идёт в две команды: сперва замороженная фаза в
+    # свой каталог, потом обычный прогон с её весов. Проверяем и порядок, и
+    # что вторая фаза стартует ИМЕННО с первой, а не с весов COCO.
+    lp = next(p for p in mod.PROBES if p['id'] == 'lp_ft')
+    lc = mod._probe_cmds(lp)
+    check('ступенчатое обучение — две фазы', len(lc) == 2, str(len(lc)))
+    warm, full = (' '.join(c) for c in lc)
+    check('первая фаза морозит сеть', '--freeze-base' in warm)
+    check('первая фаза короткая', f'--epochs {lp["warm"]}' in warm, warm)
+    check('первая фаза пишет отдельно, не в каталог пробы',
+          lc[0][lc[0].index('--output') + 1].endswith('lp_ft_warm')
+          and lc[1][lc[1].index('--output') + 1].endswith('lp_ft'),
+          str([c[c.index('--output') + 1] for c in lc]))
+    check('вторая фаза не морозит', '--freeze-base' not in full)
+    check('вторая фаза идёт полные эпохи',
+          f'--epochs {mod.PROBE_EPOCHS}' in full, full)
+    check('вторая фаза стартует с весов первой',
+          'lp_ft_warm' in full and 'best.pt' in full, full)
+    check('у обеих фаз одинаковые настройки блока',
+          all(k in warm and k in full
+              for k in ('--fusion gated', '--adaptive', '--alpha-init 0.0')))
 
     # Замер шума дописывает два сида в папку УЖЕ ПОСЧИТАННОГО контроля.
     # Проверяем, что готовый seed42 при этом не попадает под пересчёт: иначе
@@ -329,7 +352,7 @@ def test_probe_archive(mod) -> None:
         check('панель показывает число отложенных версий',
               st['w2']['kept'] == 2 and 'в архиве 2' in st['w2']['detail'],
               st['w2']['detail'])
-        check('архив не притворяется ещё одной пробой', len(st) == 10)
+        check('архив не притворяется ещё одной пробой', len(st) == 11)
 
         api.reset_probe('all')
         check('сброс проб архив не трогает',

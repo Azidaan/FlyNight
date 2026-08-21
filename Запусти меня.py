@@ -302,6 +302,24 @@ PROBES: list[dict] = [
     {'id': 'drb_ad', 'w': 0.0, 'lr': PROBE_LR_MULT, 'fusion': 'gated',
      'adaptive': True, 'name': 'DRB · подъём по кадру (адаптивный)',
      'time': '~5 ч'},
+    # Ступенчатое обучение. Настройки — от лучшей версии блока (адаптивной,
+    # 0.4255 против 0.4415 у контроля), отличается ТОЛЬКО порядок: сперва
+    # три эпохи с замороженной сетью, где подгоняется один блок, потом
+    # обычные двенадцать со всеми размороженными.
+    #
+    # Почему именно это. Замерено, что вред наносится в начале: на четвёртой
+    # эпохе подъём был 0.130 и точность 0.3311 против 0.3527 у контроля, а
+    # дальше фильтр сам себя выключил (к финалу ровно ноль на слое 16), но
+    # отставание 0.016 так и не отыгралось — двенадцати эпох не хватает на
+    # долг. Плюс прямая улика против рецепта: дообучение уронило модель с
+    # 0.4396 до 0.4192 БЕЗ всякого блока. Приём известен как LP-FT.
+    #
+    # Ствол сети получает те же двенадцать эпох, что и контроль: первая
+    # фаза его не трогает — ни весов, ни бегущих средних нормировки.
+    {'id': 'lp_ft', 'w': 0.0, 'lr': PROBE_LR_MULT, 'fusion': 'gated',
+     'adaptive': True, 'warm': 3,
+     'name': 'DRB · ступенчато: сперва блок, потом вся сеть',
+     'time': '~5 ч'},
     # Дообучение поверх сошедшегося baseline. Прежние пробы учили с нуля, а
     # там блок сначала возмущает признаки, и этот долг надо отработать —
     # двенадцать эпох это уже почти сходимость, отрабатывать негде. То есть
@@ -336,6 +354,11 @@ def _probe_out(p: dict) -> Path:
 
 def _probe_seeds(p: dict) -> tuple[int, ...]:
     return tuple(p.get('seeds', (PROBE_SEED,)))
+
+
+def _probe_warm_root(p: dict) -> Path:
+    """Каталог первой фазы ступенчатого обучения (сеть заморожена)."""
+    return PROBE_ROOT / f'{_probe_out(p).name}_warm'
 
 
 def _seed_state(p: dict, seed: int) -> tuple[str, int]:
@@ -374,8 +397,45 @@ def _probe_status(pid: str) -> tuple[str, str]:
     return 'todo', f'{PROBE_EPOCHS} эпох'
 
 
+def _probe_phase(p: dict, seed: int, script: str, out: Path, epochs: int,
+                 freeze: bool = False, init: Path | None = None,
+                 resume: bool = False, watch: Path | None = None) -> list[str]:
+    """Одна команда обучения: сид, каталог, число эпох, настройки блока."""
+    w = p['w']
+    watch = out / f'seed{seed}' if watch is None else watch
+    cmd = ['scripts/train_supervisor.py', '--watch',
+           watch.relative_to(PROJECT_ROOT).as_posix(),
+           '--', 'python', script,
+           '--seed', str(seed), '--epochs', str(epochs),
+           '--output', str(out)]          # только абсолютный: см. train_drb.py
+    if w is not None:
+        cmd += ['--alpha-init', str(w)]
+        if p.get('lr', 1.0) != 1.0:
+            cmd += ['--lr-mult', str(p['lr'])]
+        if p.get('mask', 'flat') != 'flat':
+            cmd += ['--mask-init', p['mask']]
+        if p.get('fusion', 'add') != 'add':
+            cmd += ['--fusion', p['fusion']]
+        if p.get('adaptive'):
+            cmd += ['--adaptive']
+    if freeze:
+        cmd.append('--freeze-base')
+    if p.get('ft'):
+        cmd += ['--init-weights', FT_INIT, '--optimizer', FT_OPTIM,
+                '--lr0', str(FT_LR0), '--warmup', str(FT_WARMUP)]
+    elif init is not None:
+        cmd += ['--init-weights', str(init)]
+    if resume:
+        cmd.append('--resume')
+    return cmd
+
+
 def _probe_cmds(p: dict) -> list[list[str]]:
-    """Команды прогона пробы: по одной на сид. w = None — без DRB.
+    """Команды прогона пробы. w = None — без DRB, обычный baseline.
+
+    По одной команде на сид, а у ступенчатого обучения — по две: сперва
+    короткая фаза с замороженной сетью, где подгоняется один блок, потом
+    обычный прогон с её весов.
 
     У проб с несколькими сидами досчитанные пропускаются: замер шума
     дописывает сиды туда, где уже лежит готовый контроль, и затирать его
@@ -391,30 +451,19 @@ def _probe_cmds(p: dict) -> list[list[str]]:
         state, _ = _seed_state(p, seed)
         if state == 'done' and len(seeds) > 1:
             continue
+        init, warm = None, p.get('warm')
+        if warm:
+            warm_root = _probe_warm_root(p)
+            init = warm_root / f'seed{seed}' / 'weights' / 'best.pt'
+            if not init.exists():      # готовую первую фазу не пересчитываем
+                cmds.append(_probe_phase(p, seed, script, warm_root,
+                                         epochs=warm, freeze=True))
         # Наблюдаемый каталог: у многосидовой пробы — свой на каждый сид,
         # иначе супервизор принял бы чужой чекпойнт за собственный прогресс.
-        watch = (out / f'seed{seed}') if len(seeds) > 1 else PROBE_ROOT / p['id']
-        cmd = ['scripts/train_supervisor.py', '--watch',
-               watch.relative_to(PROJECT_ROOT).as_posix(),
-               '--', 'python', script,
-               '--seed', str(seed), '--epochs', str(PROBE_EPOCHS),
-               '--output', str(out)]      # только абсолютный: см. train_drb.py
-        if w is not None:
-            cmd += ['--alpha-init', str(w)]
-            if p.get('lr', 1.0) != 1.0:
-                cmd += ['--lr-mult', str(p['lr'])]
-            if p.get('mask', 'flat') != 'flat':
-                cmd += ['--mask-init', p['mask']]
-            if p.get('fusion', 'add') != 'add':
-                cmd += ['--fusion', p['fusion']]
-            if p.get('adaptive'):
-                cmd += ['--adaptive']
-        if p.get('ft'):
-            cmd += ['--init-weights', FT_INIT, '--optimizer', FT_OPTIM,
-                    '--lr0', str(FT_LR0), '--warmup', str(FT_WARMUP)]
-        if state == 'partial':
-            cmd.append('--resume')
-        cmds.append(cmd)
+        watch = None if len(seeds) > 1 else PROBE_ROOT / p['id']
+        cmds.append(_probe_phase(p, seed, script, out, epochs=PROBE_EPOCHS,
+                                 init=init, resume=(state == 'partial'),
+                                 watch=watch))
     return cmds
 
 
@@ -1013,8 +1062,11 @@ class Api:
         целиком — теперь перечисляются именно пробы.
         """
         import shutil
-        targets = ([PROBE_ROOT / x['id'] for x in PROBES] if probe_id == 'all'
-                   else [PROBE_ROOT / probe_id])
+        chosen = PROBES if probe_id == 'all' else [_probe_entry(probe_id)]
+        # У ступенчатого обучения две папки; без второй сброс оставил бы
+        # готовую первую фазу, и следующий запуск молча стартовал бы с неё.
+        targets = [PROBE_ROOT / x['id'] for x in chosen]
+        targets += [_probe_warm_root(x) for x in chosen if x.get('warm')]
         gone = [t.name for t in targets if t.exists()]
         for t in targets:
             shutil.rmtree(t, ignore_errors=True)

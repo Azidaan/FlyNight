@@ -29,7 +29,8 @@ import yaml
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from models.yolo_neck import iter_drb, make_drb_trainer  # noqa: E402
+from models.yolo_neck import (iter_drb, make_bn_freezer,  # noqa: E402
+                              make_drb_trainer)
 from training.train_baseline import ensure_data_yaml  # noqa: E402
 from training.trainer_utils import (  # noqa: E402
     HeartbeatLogger, check_checkpoint_compatibility, setup_compute_flags,
@@ -98,7 +99,8 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
               lr_mult: float = 1.0, init_weights: str | None = None,
               optimizer: str | None = None, lr0: float | None = None,
               warmup: float | None = None, mask_init: str = 'flat',
-              fusion: str = 'add', adaptive: bool = False) -> str:
+              fusion: str = 'add', adaptive: bool = False,
+              freeze_base: bool = False) -> str:
     """Обучение одного сида YOLO+DRB. Возвращает путь к best.pt."""
     setup_compute_flags()
     from ultralytics import YOLO
@@ -145,6 +147,11 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
     hb = HeartbeatLogger(run_dir, block_epochs=cfg['block_epochs'])
     hb.attach(model)
     model.add_callback('on_fit_epoch_end', make_alpha_logger(run_dir))
+    if freeze_base:
+        # Веса держит requires_grad, а бегущие средние нормировки — этот
+        # callback: без него «замороженная» сеть всё равно бы менялась.
+        model.add_callback('on_train_batch_start', make_bn_freezer())
+        print('[DRB] первая фаза LP-FT: сеть заморожена, учится только блок')
 
     w0 = cfg.get('alpha_init', 0.0) if alpha_init is None else alpha_init
     tune = {k: v for k, v in (('optimizer', optimizer), ('lr0', lr0),
@@ -152,7 +159,7 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
     model.train(
         trainer=make_drb_trainer(variant, alpha_init=w0, lr_mult=lr_mult,
                                  mask_init=mask_init, fusion=fusion,
-                                 adaptive=adaptive),
+                                 adaptive=adaptive, freeze_base=freeze_base),
         **tune,
         data=str(data_yaml), epochs=cfg['epochs'], batch=cfg['batch'],
         imgsz=cfg['imgsz'], workers=cfg['workers'], seed=seed, device=0,
@@ -211,6 +218,10 @@ def main() -> int:
     ap.add_argument('--fusion', default='add', choices=['add', 'gated'],
                     help='add — прибавить выход ветви, gated — внести '
                          'поправку через затвор по карте качества')
+    ap.add_argument('--freeze-base', action='store_true',
+                    help='первая фаза LP-FT: сеть заморожена, учится только '
+                         'блок. Полное дообучение портит предобученные '
+                         'признаки, пока новая часть ещё не подогнана')
     args = ap.parse_args()
 
     if args.epochs is not None:
@@ -229,7 +240,7 @@ def main() -> int:
                      init_weights=args.init_weights, optimizer=args.optimizer,
                      lr0=args.lr0, warmup=args.warmup,
                      mask_init=args.mask_init, fusion=args.fusion,
-                     adaptive=args.adaptive)
+                     adaptive=args.adaptive, freeze_base=args.freeze_base)
     print(f'[OK ] best.pt: {best}')
     return 0 if best else 1
 

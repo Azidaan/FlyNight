@@ -23,6 +23,7 @@ from pathlib import Path
 
 import torch
 from torch import nn
+from torch.nn.modules.batchnorm import _BatchNorm
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
@@ -170,6 +171,59 @@ DECAY_FREE_KEYS = ('fga.delta', 'w_lqa', 'w_fga', 'fga.pred')
 LR_BOOST_KEYS = ('w_lqa', 'w_fga', 'fga.pred')
 
 
+def freeze_outside_drb(det_model: nn.Module) -> tuple[int, int]:
+    """Замораживает всё, кроме параметров блока. Возвращает (сколько, сколько).
+
+    Первая фаза приёма LP-FT (Kumar et al., ICLR 2022): полное дообучение
+    обновляет нижние слои, пока новая часть ещё не подогнана, и разрушает
+    предобученные признаки — у них дообучение проигрывает обучению одной
+    головы 7% на сдвинутом распределении. Лечение: сперва подогнать новую
+    часть на неподвижных признаках, и лишь потом размораживать всё.
+
+    Наш случай ровно такой. Замерено: первые четыре-пять эпох блок портит
+    признаки (на четвёртой подъём был 0.130, точность 0.3311 против 0.3527
+    у контроля), и двенадцати эпох не хватает, чтобы долг отработать. Плюс
+    прямое подтверждение дефекта самого рецепта: дообучение уронило модель
+    с 0.4396 до 0.4192 БЕЗ всякого блока.
+
+    Параметры без градиента обычные оптимизаторы пропускают, поэтому из
+    групп их выбрасывать не нужно — достаточно снять requires_grad.
+    """
+    keep = {id(p) for _, drb in iter_drb(det_model) for p in drb.parameters()}
+    frozen = kept = 0
+    for p in det_model.parameters():
+        if id(p) in keep:
+            kept += 1
+        else:
+            p.requires_grad_(False)
+            frozen += 1
+    return frozen, kept
+
+
+def make_bn_freezer():
+    """Callback on_train_batch_start: нормировка замороженной части — в вывод.
+
+    requires_grad=False останавливает веса, но НЕ бегущие средние
+    BatchNorm: они пересчитываются в режиме обучения независимо от
+    градиента. Без этого «замороженная» сеть продолжала бы меняться, и
+    первая фаза перестала бы быть подгонкой блока к неподвижным признакам.
+    """
+    cache: dict[int, set[int]] = {}
+
+    def _freeze(trainer) -> None:
+        m = trainer.model
+        keep = cache.get(id(m))
+        if keep is None:
+            keep = {id(x) for _, drb in iter_drb(m) for x in drb.modules()}
+            cache.clear()
+            cache[id(m)] = keep
+        for mod in m.modules():
+            if isinstance(mod, _BatchNorm) and id(mod) not in keep:
+                mod.eval()
+
+    return _freeze
+
+
 def separate_block_params(optimizer, model, lr_mult: float = 1.0,
                           keys=DECAY_FREE_KEYS) -> int:
     """Выносит параметры блока в свои группы. Возвращает их число.
@@ -233,6 +287,7 @@ class DRBTrainer(DetectionTrainer):
     drb_mask_k: float = 0.3         # глубина подъёма или подавления
     drb_fusion: str = 'add'         # 'add' или 'gated', см. DRB.forward
     drb_adaptive: bool = False      # предсказывать подъём по кадру
+    drb_freeze_base: bool = False   # учить только блок (первая фаза LP-FT)
 
     def get_model(self, cfg=None, weights=None, verbose=True):
         if isinstance(weights, nn.Module) and (
@@ -255,7 +310,16 @@ class DRBTrainer(DetectionTrainer):
 
     def build_optimizer(self, model, name='auto', lr=0.001, momentum=0.9,
                         decay=1e-5, iterations=1e5):
-        """Как у Ultralytics, но параметры блока — без штрафа за величину."""
+        """Как у Ultralytics, но параметры блока — без штрафа за величину.
+
+        Заморозка делается здесь, а не в get_model: Ultralytics строит
+        оптимизатор после подготовки модели, и снятый requires_grad успевает
+        подействовать на то, какие параметры оптимизатор реально трогает.
+        """
+        if self.drb_freeze_base:
+            frozen, kept = freeze_outside_drb(model)
+            print(f'[DRB] заморожено {frozen} тензоров сети, учится только '
+                  f'блок — {kept} тензоров')
         opt = super().build_optimizer(model, name, lr, momentum, decay,
                                       iterations)
         moved = separate_block_params(opt, model, self.drb_lr_mult)
@@ -363,7 +427,8 @@ def set_mask_init(det_model: nn.Module, kind: str, k: float = 0.3) -> None:
 def make_drb_trainer(variant: str = 'both', alpha_init: float = 0.0,
                      lr_mult: float = 1.0, mask_init: str = 'flat',
                      fusion: str = 'add',
-                     adaptive: bool = False) -> type[DRBTrainer]:
+                     adaptive: bool = False,
+                     freeze_base: bool = False) -> type[DRBTrainer]:
     """Фабрика Trainer-класса с зафиксированным вариантом DRB.
 
     Нужна потому, что model.train(trainer=...) принимает класс, а не
@@ -374,4 +439,5 @@ def make_drb_trainer(variant: str = 'both', alpha_init: float = 0.0,
     return type(f'DRBTrainer_{variant}', (DRBTrainer,),
                 {'drb_variant': variant, 'drb_alpha_init': float(alpha_init),
                  'drb_lr_mult': float(lr_mult), 'drb_mask_init': mask_init,
-                 'drb_fusion': fusion, 'drb_adaptive': bool(adaptive)})
+                 'drb_fusion': fusion, 'drb_adaptive': bool(adaptive),
+                 'drb_freeze_base': bool(freeze_base)})
