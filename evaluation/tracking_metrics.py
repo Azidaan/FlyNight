@@ -97,19 +97,52 @@ def evaluate_tracking_bdd(
                 raise FileNotFoundError(f'Нет результата трекинга: {src}')
             shutil.copy2(src, res_dir / f'{vid}.json')
 
-        cmd = [str(VENV_PY), '-m', 'bdd100k.eval.run', 'mot',
+        # Задача передаётся ключом --task, а не позиционно, и называется
+        # box_track. Прежний вызов ('mot' позиционно) остался от старой
+        # версии инструмента и падал с кодом 2 на разборе аргументов.
+        # Через свою обёртку, а не напрямую: scalabel писался под pydantic 1
+        # и с установленным pydantic 2 падает на собственных же данных, см.
+        # evaluation/scalabel_compat.py. Задача передаётся ключом --task и
+        # называется box_track; прежний вызов ('mot' позиционно) остался от
+        # старой версии инструмента.
+        cmd = [str(VENV_PY), str(PROJECT_ROOT / 'evaluation' / 'run_bdd_eval.py'),
+               '--task', 'box_track',
                '--gt', str(gt_dir), '--result', str(res_dir),
+               # В один процесс: штатная многопроцессность инструмента на
+               # Windows зависает намертво — пусковая заглушка venv плюс
+               # нестандартный главный модуль, дочерние процессы не стартуют,
+               # а родитель их ждёт. Считается дольше, но считается.
+               '--nproc', '1',
                '--out-file', str(out_json)]
         proc = subprocess.run(cmd, capture_output=True, text=True,
                               encoding='utf-8', errors='replace')
         if proc.returncode != 0:
             print(proc.stdout[-3000:])
             print(proc.stderr[-3000:])
-            raise RuntimeError(f'bdd100k.eval.run mot завершился с кодом {proc.returncode}')
+            raise RuntimeError(
+                f'bdd100k.eval.run box_track завершился с кодом {proc.returncode}')
+
+    def flat(v):
+        """Метрика в одно число.
+
+        Инструмент отдаёт список из трёх словарей: по классам, по группам
+        классов и сводка с ключами AVERAGE (среднее по классам) и OVERALL
+        (по всем объектам сразу). Берём OVERALL — он не даёт редким классам
+        вроде поезда перевесить частые.
+        """
+        if isinstance(v, list) and v and isinstance(v[-1], dict):
+            return v[-1].get('OVERALL', v[-1].get('AVERAGE'))
+        return v
 
     data = json.loads(Path(out_json).read_text(encoding='utf-8'))
+    data = {k: flat(v) for k, v in data.items()}
     # сводка: в выходе bdd100k метрики лежат по категориям + OVERALL
     overall = data.get('OVERALL', data)
-    keys = ('HOTA', 'IDF1', 'MOTA', 'IDSw', 'MOTP', 'DetA', 'AssA')
+    # HOTA с разбивкой на DetA и AssA инструмент bdd100k не считает — он даёт
+    # классические CLEAR MOT. Разбивка ошибок отвечает на тот же вопрос даже
+    # прямее: пропуски (FN) — провал детекции, перебросы (IDSw) — провал
+    # связывания, ложные (FP) — провал точности. MT/PT/ML — сколько треков
+    # велось устойчиво, частично и было потеряно.
+    keys = ('MOTA', 'MOTP', 'IDF1', 'FN', 'FP', 'IDSw', 'MT', 'PT', 'ML', 'FM')
     summary = {k: overall[k] for k in keys if k in overall}
     return summary or data

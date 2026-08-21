@@ -36,9 +36,11 @@ DEFAULT = ('base12', 'drb12', 'boost')
 # Метрики, ради которых всё затевается.
 KEY = ('mAP50', 'AP_small', 'AP_medium', 'AP_large',
        'AR50_small', 'AP50_small')
-# Метрики трекинга: HOTA раскладывается на качество детекции (DetA) и
-# качество связывания (AssA) — по ним и видно, что является узким местом.
-TRACK_KEY = ('HOTA', 'DetA', 'AssA', 'IDF1', 'MOTA', 'IDSw')
+# Метрики трекинга. HOTA с разбивкой на DetA и AssA инструмент bdd100k не
+# считает — он даёт классические CLEAR MOT. Но разбивка ошибок отвечает на
+# тот же вопрос даже прямее: пропуски (FN) — это провал детекции, переброс
+# личности (IDSw) — провал связывания, ложные (FP) — провал точности.
+TRACK_KEY = ('MOTA', 'IDF1', 'MOTP', 'FN', 'FP', 'IDSw', 'MT', 'ML')
 
 
 def weights_of(pid: str) -> Path:
@@ -81,7 +83,8 @@ def run_tracking(todo, subsets) -> int:
             for metric, value in m.items():
                 rows.append([name, subset, metric, value])
             print(f'[OK ] {subset}: ' + ', '.join(
-                f'{k} {m[k]:.2f}' for k in TRACK_KEY if k in m), flush=True)
+                f'{k} {m[k]:.1f}' for k in TRACK_KEY
+                if isinstance(m.get(k), (int, float))), flush=True)
 
     out = PROJECT_ROOT / 'experiments' / 'results' / 'probe_tracking.csv'
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -90,13 +93,19 @@ def run_tracking(todo, subsets) -> int:
         wr.writerow(['модель', 'поднабор', 'метрика', 'значение'])
         wr.writerows(rows)
 
-    print('\nЧто является узким местом (DetA — детекция, AssA — связывание):')
+    print('\nИз чего складывается потеря качества трекинга:')
     for name in res:
         for subset, m in res[name].items():
-            if 'DetA' in m and 'AssA' in m:
-                who = 'детекция' if m['DetA'] < m['AssA'] else 'связывание'
-                print(f'  {name} / {subset:<7} DetA {m["DetA"]:.2f}  '
-                      f'AssA {m["AssA"]:.2f}  ->  слабее {who}')
+            fn, fp, ids = m.get('FN'), m.get('FP'), m.get('IDSw')
+            if None in (fn, fp, ids):
+                continue
+            tot = fn + fp + ids
+            print(f'  {name} / {subset}')
+            print(f'    пропуски (провал детекции)  {fn:>7.0f}  {fn/tot:>5.0%}')
+            print(f'    ложные (провал точности)    {fp:>7.0f}  {fp/tot:>5.0%}')
+            print(f'    перебросы (провал связей)   {ids:>7.0f}  {ids/tot:>5.0%}')
+            worst = max((fn, 'детекция'), (fp, 'точность'), (ids, 'связывание'))[1]
+            print(f'    -> главный источник потерь: {worst}')
     print(f'\n[OK ] {out}')
     return 0
 
