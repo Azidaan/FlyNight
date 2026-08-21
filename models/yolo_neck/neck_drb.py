@@ -288,6 +288,7 @@ class DRBTrainer(DetectionTrainer):
     drb_fusion: str = 'add'         # 'add' или 'gated', см. DRB.forward
     drb_adaptive: bool = False      # предсказывать подъём по кадру
     drb_freeze_base: bool = False   # учить только блок (первая фаза LP-FT)
+    drb_mask_fixed: bool = False    # характеристику задать и не обучать
 
     def get_model(self, cfg=None, weights=None, verbose=True):
         if isinstance(weights, nn.Module) and (
@@ -306,6 +307,10 @@ class DRBTrainer(DetectionTrainer):
         set_mask_init(model, self.drb_mask_init, self.drb_mask_k)
         set_fusion(model, self.drb_fusion)
         set_adaptive(model, self.drb_adaptive)
+        if self.drb_mask_fixed:
+            n = freeze_mask(model)
+            print(f'[DRB] характеристика зафиксирована на {n} уровнях — '
+                  f'обучаемых частотных параметров ноль')
         return model
 
     def build_optimizer(self, model, name='auto', lr=0.001, momentum=0.9,
@@ -399,36 +404,86 @@ def set_mask_init(det_model: nn.Module, kind: str, k: float = 0.3) -> None:
     полноте) и локализация (47% -> 38%). Обе беды даёт шум, а он живёт в
     верхних частотах вместе с деталью. Приём из работ по подавлению частот
     для мелких объектов, где показано, что одностороннего среза мало.
+    Прогон это опроверг: 0.4073 — худший результат из всех версий блока.
+    Собственный замер спектров объясняет почему: у ночных кадров BDD100K
+    высокочастотной энергии ВДВОЕ МЕНЬШЕ (0.119 против 0.140) и шума тоже
+    меньше (0.0030 против 0.0076) — это видео с регистратора, камера уже
+    подавила шум. Верхний срез убивал сигнал, а не помеху.
+
+    'lowcut' — та же нижняя половина полосовой, но БЕЗ верхнего среза:
+    гасится только крупноструктурная избыточность, детали проходят
+    нетронутыми. Ровно то, что делает высокочастотный модуль HS-FPN в
+    своей FPN, получая +2.2 AP и +2.6 у крошечных объектов. Новых констант
+    не вводится — отсечка та же BAND_LO, что и у полосовой, чтобы разница
+    между прогонами сводилась к одному: убран верхний срез.
+
+    Смысл эта форма имеет только вместе с запретом на обучение маски (см.
+    freeze_mask). Обучаемая маска трижды из трёх сходилась к нейтрали.
     """
     if kind == 'flat':
         return
-    if kind not in ('highpass', 'bandpass'):
-        raise ValueError(f'mask_init: flat|highpass|bandpass, получено {kind!r}')
+    if kind not in ('highpass', 'bandpass', 'lowcut'):
+        raise ValueError(
+            f'mask_init: flat|highpass|bandpass|lowcut, получено {kind!r}')
     with torch.no_grad():
         for _, drb in iter_drb(det_model):
             fga = getattr(drb, 'fga', None)
             if fga is None:
                 continue
             r = (torch.arange(fga.bands, dtype=torch.float32) + 0.5) / fga.bands
+            lo = ((BAND_LO - r) / BAND_LO).clamp(0.0, 1.0)
             if kind == 'highpass':
                 w = 1.0 + k * r
+            elif kind == 'lowcut':
+                w = 1.0 - k * lo
             else:
-                lo = ((BAND_LO - r) / BAND_LO).clamp(0.0, 1.0)
                 hi = ((r - BAND_HI) / (1.0 - BAND_HI)).clamp(0.0, 1.0)
                 w = 1.0 - k * (lo + hi)
             fga.delta.copy_((w - 1.0).repeat(fga.in_channels))
     if kind == 'highpass':
         print(f'[DRB] маска стартует подъёмом высоких частот: 1.0 -> {1 + k:.2f}')
+    elif kind == 'lowcut':
+        print(f'[DRB] маска срезает низ: ниже {BAND_LO:g} придавлено до '
+              f'{1 - k:.2f}, выше — без изменений')
     else:
         print(f'[DRB] маска стартует полосовой: края придавлены до '
               f'{1 - k:.2f}, полоса {BAND_LO:g}..{BAND_HI:g} нетронута')
+
+
+def freeze_mask(det_model: nn.Module) -> int:
+    """Запрещает обучать частотную характеристику. Возвращает число тензоров.
+
+    Смысл — исключить наблюдавшийся режим отказа. Обучаемая маска сходилась
+    к нейтрали трижды из трёх, тремя разными параметризациями: по отсчётам
+    спектра, по радиальным кольцам и предсказанная по кадру. Причина
+    правдоподобна: свёрточный стек уже обучен и уже реализует нужную
+    частотную избирательность, домножать его выход на дополнительную
+    спектральную маску нечем, и оптимизация находит это первой.
+
+    Литература сходится туда же. Число обучаемых частотных параметров и
+    выигрыш связаны обратно: FcaNet с фиксированным базисом DCT обходит
+    свой же обучаемый вариант, HS-FPN с одним скаляром отсечки даёт +2.2,
+    FDA-DETR с четырьмя числами на масштаб +3.9, частотная ветвь NF-DETR
+    с обучаемыми весами +0.7, наши 23 308 параметров — минус 1.6.
+
+    Вес ветви при этом обучаемым остаётся: это сила вмешательства, а не
+    форма фильтра. Так же устроен FDA-DETR.
+    """
+    n = 0
+    for _, drb in iter_drb(det_model):
+        fga = getattr(drb, 'fga', None)
+        if fga is not None and hasattr(fga, 'delta'):
+            fga.delta.requires_grad_(False)
+            n += 1
+    return n
 
 
 def make_drb_trainer(variant: str = 'both', alpha_init: float = 0.0,
                      lr_mult: float = 1.0, mask_init: str = 'flat',
                      fusion: str = 'add',
                      adaptive: bool = False,
-                     freeze_base: bool = False) -> type[DRBTrainer]:
+                     freeze_base: bool = False,
+                     mask_fixed: bool = False) -> type[DRBTrainer]:
     """Фабрика Trainer-класса с зафиксированным вариантом DRB.
 
     Нужна потому, что model.train(trainer=...) принимает класс, а не
@@ -440,4 +495,5 @@ def make_drb_trainer(variant: str = 'both', alpha_init: float = 0.0,
                 {'drb_variant': variant, 'drb_alpha_init': float(alpha_init),
                  'drb_lr_mult': float(lr_mult), 'drb_mask_init': mask_init,
                  'drb_fusion': fusion, 'drb_adaptive': bool(adaptive),
-                 'drb_freeze_base': bool(freeze_base)})
+                 'drb_freeze_base': bool(freeze_base),
+                 'drb_mask_fixed': bool(mask_fixed)})
