@@ -94,7 +94,14 @@ h1{font-size:21px; font-weight:600; letter-spacing:-0.01em;}
 footer{display:flex; align-items:flex-start; justify-content:space-between;
   gap:18px; padding-top:11px;}
 #legend{display:flex; flex-wrap:wrap; gap:6px 20px; flex:1;}
-.lg{display:flex; align-items:center; gap:8px; font-size:11.5px;}
+/* Каждая строка легенды — галочка своей линии. Кнопки семейств оставлены:
+   они переключают сразу группу, галочки — по одной линии. Проб стало
+   двенадцать, и на первом виде они ложились друг на друга сплошным пучком. */
+.lg{display:flex; align-items:center; gap:8px; font-size:11.5px; cursor:pointer;}
+.lg input{cursor:pointer; accent-color:var(--accent-deep); margin:0; flex:none;
+  width:12px; height:12px;}
+.lg.off{opacity:.38;}
+.lg.off i{background:var(--div) !important;}
 .lg i{width:16px; height:3px; flex:none;}
 .lg .val{font-family:var(--mono); font-size:11px; color:var(--sec);}
 .lg .best{color:var(--accent-deep); font-family:var(--mono); font-size:9.5px;
@@ -150,12 +157,49 @@ footer{display:flex; align-items:flex-start; justify-content:space-between;
 'use strict';
 const $ = id => document.getElementById(id);
 const S = {views: [], idx: 0, x0: null, x1: null, live: true, hover: null,
-           hoverY: null, drag: null, groups: [], off: new Set()};
+           hoverY: null, drag: null, groups: [], off: new Set(),
+           offLine: new Set()};
 
-/* линии выключенных семейств не рисуются: так можно оставить только
-   baseline и DRB и сравнить их без визуального шума */
+/* Две независимые выключалки. off — семейства целиком (кнопки над графиком),
+   offLine — отдельные линии (галочки в легенде). Ключ линии includes id вида:
+   одно и то же имя на разных видах значит разное. */
+function lineKey(v, s) { return v.id + '|' + s.name; }
+
 function visibleSeries(v) {
-  return (v.series || []).filter(s => !S.off.has(s.group));
+  return (v.series || []).filter(
+    s => !S.off.has(s.group) && !S.offLine.has(lineKey(v, s)));
+}
+
+/* Легенда строится по ВСЕМ линиям вида, а не только по нарисованным:
+   иначе выключенную линию нечем было бы включить обратно. */
+function renderLegend(v) {
+  const box = $('legend');
+  if (!v || !(v.series || []).length) { box.innerHTML = ''; return; }
+  const higherBetter = (v.id !== 'loss');
+  box.innerHTML = v.series.map(s => {
+    const key = lineKey(v, s);
+    const onLine = !S.offLine.has(key);          // состояние самой галочки
+    const drawn = onLine && !S.off.has(s.group); // рисуется ли сейчас
+    const last = s.y[s.y.length - 1];
+    const best = higherBetter ? Math.max(...s.y) : Math.min(...s.y);
+    // кириллица и цифры — в разных элементах: в одном моношрифтовом блоке
+    // на стыке появлялся квадратик недостающего глифа
+    return '<label class="lg' + (drawn ? '' : ' off') + '" data-k="'
+      + key.replace(/"/g, '&quot;') + '">'
+      + '<input type="checkbox"' + (onLine ? ' checked' : '') + '>'
+      + '<i style="background:' + s.color + '"></i>'
+      + '<span>' + s.name + '</span>'
+      + '<span class="val">' + fmt(last) + '</span>'
+      + '<span class="best">' + (higherBetter ? 'лучшее' : 'минимум') + '</span>'
+      + '<span class="val">' + fmt(best) + '</span>'
+      + '</label>';
+  }).join('');
+  box.querySelectorAll('.lg').forEach(l =>
+    l.querySelector('input').addEventListener('change', () => {
+      const k = l.dataset.k;
+      if (S.offLine.has(k)) S.offLine.delete(k); else S.offLine.add(k);
+      draw();
+    }));
 }
 
 function renderFilters() {
@@ -169,7 +213,9 @@ function renderFilters() {
   ).join('') + '<div class="fl flall" data-g="__all">показать все</div>';
   box.querySelectorAll('.fl').forEach(b => b.addEventListener('click', () => {
     const g = b.dataset.g;
-    if (g === '__all') S.off.clear();
+    // «показать все» возвращает и семейства, и личные галочки: иначе кнопка
+    // обещает больше, чем делает — часть линий осталась бы выключенной.
+    if (g === '__all') { S.off.clear(); S.offLine.clear(); }
     else if (S.off.has(g)) S.off.delete(g);
     else S.off.add(g);
     renderFilters(); draw();
@@ -209,8 +255,11 @@ function draw() {
   const shown = v ? visibleSeries(v) : [];
   if (!v || !shown.length) {
     svg.appendChild(el('text', {x: W / 2, y: H / 2, class: 'empty',
-      'text-anchor': 'middle'}, 'Данных пока нет'));
-    $('legend').innerHTML = '';
+      'text-anchor': 'middle'},
+      v && (v.series || []).length ? 'Все линии выключены' : 'Данных пока нет'));
+    // Легенду тут очищать нельзя: если выключены все линии, включить их
+    // обратно было бы уже нечем.
+    renderLegend(v);
     return;
   }
 
@@ -352,23 +401,7 @@ function draw() {
     } else { $('tip').style.display = 'none'; }
   } else { $('tip').style.display = 'none'; }
 
-  // легенда: последнее и лучшее значение по каждой линии
-  const higherBetter = (v.id !== 'loss');
-  let leader = null;
-  $('legend').innerHTML = shown.map(s => {
-    const last = s.y[s.y.length - 1];
-    const best = higherBetter ? Math.max(...s.y) : Math.min(...s.y);
-    if (leader === null || (higherBetter ? last > leader.v : last < leader.v))
-      leader = {n: s.name, v: last};
-    // кириллица и цифры — в разных элементах: в одном моношрифтовом блоке
-    // на стыке появлялся квадратик недостающего глифа
-    return '<div class="lg"><i style="background:' + s.color + '"></i>'
-      + '<span>' + s.name + '</span>'
-      + '<span class="val">' + fmt(last) + '</span>'
-      + '<span class="best">' + (higherBetter ? 'лучшее' : 'минимум') + '</span>'
-      + '<span class="val">' + fmt(best) + '</span>'
-      + '</div>';
-  }).join('');
+  renderLegend(v);   // последнее и лучшее по каждой линии, с галочками
 }
 
 function show(i) {
