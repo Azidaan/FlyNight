@@ -198,7 +198,23 @@ def test_probes(mod) -> None:
     # Статическая маска сходится к нейтрали, потому что усреднённая по дню
     # и ночи она вынуждена выбрать «ничего не делать».
     ad = next(p for p in mod.PROBES if p['id'] == 'drb_ad')
-    aline = ' '.join(mod._probe_cmds(ad)[0])
+    # Второй сид — проверка на повторяемость. Готовый сид 42 пересчёту не
+    # подлежит: он и есть тот результат, который проверяется.
+    acmds = mod._probe_cmds(ad)
+    aseeds = [c[c.index('--seed') + 1] for c in acmds]
+    apend = [str(x) for x in mod._probe_seeds(ad)
+             if mod._seed_state(ad, x)[0] != 'done']
+    check('подъём по кадру считает только недосчитанные сиды',
+          aseeds == apend, f'команды {aseeds}, недосчитано {apend}')
+    check('подъём по кадру не пересчитывает проверяемый сид 42',
+          '42' not in aseeds, str(aseeds))
+    check('второй сид пишет в ту же папку пробы',
+          all(c[c.index('--output') + 1].endswith('drb_ad') for c in acmds),
+          str([c[c.index('--output') + 1] for c in acmds]))
+    aline = ' '.join(acmds[0]) if acmds else ''
+    check('у второго сида те же настройки блока, что у первого',
+          all(k in aline for k in ('--adaptive', '--fusion gated',
+                                   '--alpha-init 0.0', '--lr-mult')), aline)
     check('адаптивный режим доезжает до обучения', '--adaptive' in aline)
     check('адаптивный идёт с поправкой, а не с копией',
           '--fusion gated' in aline)
