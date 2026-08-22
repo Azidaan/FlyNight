@@ -158,32 +158,19 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
 .subtitle{font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase;
   color:var(--sec); border-top:1px solid var(--div); margin-top:10px; padding-top:7px;}
 #probehint{font-size:9px; line-height:1.45; color:var(--cap); margin:4px 0 6px;}
-/* Проб стало двенадцать. Столбиком по три строки на каждую список занимал
-   пол-экрана, и найти нужную было нельзя — теперь одна проба = одна строка,
-   а весь список сворачивается галочкой под ним.
-   Столбец узкий, около 216 px: время и подробности в строку не влезают и
-   отбирают ширину у имени (замер: имя схлопывалось в ноль). Поэтому в
-   строке только имя и кнопка, а время и состояние — во всплывающей
-   подсказке по наведению. */
-#probes{display:flex; flex-direction:column; gap:3px;}
-.probe{border:1.4px solid var(--div); padding:3px 5px;
-  display:flex; align-items:center; gap:5px;}
-.probe .pname{font-size:10px; line-height:1.25; flex:1 1 auto; min-width:0;
-  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-.probe .ptime, .probe .pdet{display:none;}
-.probe.partial{border-color:var(--accent-deep);}
-.probe.partial .pname::before{content:'▸ '; color:var(--accent-deep);}
+#probes{display:flex; flex-direction:column; gap:5px;}
+.probe{border:1.4px solid var(--div); padding:5px 7px;}
+.probe .prow{display:flex; align-items:baseline; gap:6px; justify-content:space-between;}
+.probe .pname{font-size:10.5px; line-height:1.3;}
+.probe .ptime{font-family:var(--mono); font-size:8.5px; color:var(--cap); flex:none;}
+.probe .pdet{font-family:var(--mono); font-size:8.5px; color:var(--cap); margin-top:2px;}
 .probe.done{border-color:var(--ok); background:rgba(93,138,96,.07);}
 .probe.done .pname::before{content:'✓ '; color:var(--ok);}
 .probe.running{border-color:var(--accent);}
-.probe .rbtn{flex:none; margin:0; font-family:var(--mono);
-  font-size:8.5px; letter-spacing:.1em; text-transform:uppercase; padding:4px 7px;
+.probe .rbtn{display:block; width:100%; margin-top:5px; font-family:var(--mono);
+  font-size:9px; letter-spacing:.14em; text-transform:uppercase; padding:5px 4px;
   cursor:pointer; background:var(--surface); color:var(--accent-deep);
-  border:1.3px solid var(--accent-deep); white-space:nowrap;}
-#probetoggle{display:flex; align-items:center; gap:6px; margin-top:6px;
-  font-family:var(--mono); font-size:8.5px; letter-spacing:.1em;
-  text-transform:uppercase; color:var(--sec); cursor:pointer; user-select:none;}
-#probetoggle input{cursor:pointer; accent-color:var(--accent-deep); margin:0;}
+  border:1.3px solid var(--accent-deep);}
 .probe .rbtn:hover:not(:disabled){background:var(--accent); color:var(--surface);
   border-color:var(--accent);}
 .probe .rbtn:disabled{opacity:.4; cursor:default;}
@@ -381,14 +368,12 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
         </div>
         <button id="stopbtn" disabled>■ Останавливать нечего</button>
 
-        <div class="subtitle">Короткие пробы · 12 эпох</div>
-        <div id="probehint">Короткие обучения для сравнения вариантов блока
-          между собой. Контроль без блока идёт на том же расписании — только
-          с ним сравнение честное. Разброс контроля между сидами 0.014, так
-          что различия меньше этого о блоке ничего не говорят.</div>
+        <div class="subtitle">Проба · с чего стартует DRB</div>
+        <div id="probehint">Три коротких обучения по 12 эпох: с какого вклада
+          ветвей блок должен начинать. Четвёртый пункт — контроль без блока
+          на том же расписании: только с ним сравнение честное, стосерийный
+          baseline на 12-й эпохе учится в другом режиме.</div>
         <div id="probes"></div>
-        <label id="probetoggle" title="Свернуть список коротких проб">
-          <input type="checkbox" id="probeshow" checked>показывать короткие пробы</label>
         <div id="probebar">
           <button class="pbtn" id="probecmp">Сравнить</button>
           <button class="pbtn" id="probeeval" title="Посчитать точность обученных проб отдельно по ночи, дождю, туману и по размерам объектов. Обучения не запускает, но занимает видеокарту">Ночь и размеры</button>
@@ -754,18 +739,15 @@ function renderProbes(list) {
     const el = document.createElement('div');
     el.className = 'probe ' + p.status;
     el.dataset.step = p.id;
-    // Ярлык короткий: в узком столбце длинный отбирал ширину у имени пробы.
-    const label = p.status === 'done' ? '↻ Заново'
-      : (p.status === 'partial' ? '▶ Далее' : '▶ Пуск');
+    const label = p.status === 'done' ? '↻ Пересчитать'
+      : (p.status === 'partial' ? '▶ Продолжить' : '▶ Запустить');
     el.innerHTML =
-      '<span class="pname"></span>'
-      + '<span class="ptime">' + p.time + '</span>'
-      + '<span class="pdet"></span>'
+      '<div class="prow"><span class="pname"></span>'
+      + '<span class="ptime">' + p.time + '</span></div>'
+      + '<div class="pdet"></div>'
       + '<button class="rbtn">' + label + '</button>';
     el.querySelector('.pname').textContent = p.name;
     el.querySelector('.pdet').textContent = p.detail;
-    // Имя обрезается по ширине столбца — полное показываем подсказкой.
-    el.title = p.name + ' · ' + p.time + ' · ' + p.detail;
     el.querySelector('.rbtn').addEventListener('click', () => {
       ui.setBusy(p.id, true);
       ui.log('');
@@ -866,16 +848,6 @@ $('probereset').addEventListener('click', () => {
   ui.log('Сброс всех проб инициализации.', 'err');
   pywebview.api.reset_probe('all');
 });
-/* Свёрнутый список остаётся свёрнутым и после перезапуска панели: она
-   перезапускается по многу раз в день, и снимать галочку каждый раз глупо. */
-function applyProbeVis() {
-  const on = $('probeshow').checked;
-  $('probes').style.display = on ? 'flex' : 'none';
-  try { localStorage.setItem('probeshow', on ? '1' : '0'); } catch (e) {}
-}
-try { $('probeshow').checked = localStorage.getItem('probeshow') !== '0'; } catch (e) {}
-$('probeshow').addEventListener('change', applyProbeVis);
-applyProbeVis();
 $('mainbtn').addEventListener('click', () => {
   if ($('runbanner').classList.contains('busy')) {
     pywebview.api.stop_task();
