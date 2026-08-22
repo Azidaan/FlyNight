@@ -35,7 +35,23 @@ def main() -> int:
         print(f'  {i:02d} {s["role"]:7s} {s["status"]:8s} {s["name"]}'
               f'  [{s["detail"]}]')
 
-    check('11 шагов', len(steps) == 11, str(len(steps)))
+    check('12 шагов', len(steps) == 12, str(len(steps)))
+
+    # Стоэпошный прогон подъёма по кадру. Проверяем, что он идёт в СВОЙ
+    # каталог и со своими настройками: у шага 'drb' рядом настройки старого
+    # блока, и перепутанный --output затёр бы чужой прогон.
+    ad = next(x for x in mod.PIPELINE if x['id'] == 'drb_ad100')
+    ac = ad['cmds']()
+    if ac:
+        line = ' '.join(ac[0])
+        check('стоэпошный подъём идёт со своими настройками',
+              all(k in line for k in ('--adaptive', '--fusion gated',
+                                      '--alpha-init 0.0')), line)
+        check('стоэпошный подъём пишет в свой каталог',
+              line.count('drb_ad100') >= 2 and 'drb_full' not in line, line)
+        check('стоэпошный подъём идёт на одном сиде', len(ac) == 1, str(len(ac)))
+        check('число эпох берётся из конфига, не из пробы',
+              '--epochs' not in line, line)
     active = [s for s in steps if s['role'] == 'active']
     check('ровно один активный шаг', len(active) == 1,
           active[0]['id'] if active else 'нет')
@@ -160,16 +176,20 @@ def test_probes(mod) -> None:
     noise = next(p for p in mod.PROBES if p['id'] == 'base12_noise')
     ncmds = mod._probe_cmds(noise)
     nseeds = [c[c.index('--seed') + 1] for c in ncmds]
-    check('замер шума считает ровно недостающие сиды',
-          nseeds == ['123', '2024'], str(nseeds))
+    # Список сидов берём с диска, а не вписываем: когда замер досчитан,
+    # команд не остаётся вовсе, и жёстко вписанный список ломал бы тест.
+    pending = [str(x) for x in mod._probe_seeds(noise)
+               if mod._seed_state(noise, x)[0] != 'done']
+    check('замер шума считает ровно недосчитанные сиды', nseeds == pending,
+          f'команды {nseeds}, недосчитано {pending}')
     check('замер шума не трогает готовый сид 42',
           '42' not in nseeds, str(nseeds))
     check('замер шума пишет в папку контроля',
           all(c[c.index('--output') + 1].endswith('base12') for c in ncmds),
           str([c[c.index('--output') + 1] for c in ncmds]))
     check('у каждого сида свой наблюдаемый каталог',
-          [c[2] for c in ncmds] == ['runs/init_probe/base12/seed123',
-                                    'runs/init_probe/base12/seed2024'],
+          [c[2] for c in ncmds] ==
+          [f'runs/init_probe/base12/seed{x}' for x in nseeds],
           str([c[2] for c in ncmds]))
     check('замер шума идёт без блока',
           all('--alpha-init' not in c for c in ncmds))
