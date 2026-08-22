@@ -144,35 +144,61 @@ class ChartApi:
         runs_dir = PROJECT_ROOT / 'runs'
 
         # ——— вид 1: проба инициализации DRB, точность ———
+        # Сидов у пробы может быть несколько: у контроля их три (замер шума),
+        # у подъёма по кадру два (проверка на повторяемость). Раньше читался
+        # жёстко seed42, и второй сид на график не попадал вовсе.
+        def seed_runs(pid: str) -> list[tuple[int, Path]]:
+            root = runs_dir / 'init_probe' / pid
+            out = []
+            for d in sorted(root.glob('seed*')):
+                if d.is_dir() and d.name[4:].isdigit():
+                    out.append((int(d.name[4:]), d))
+            return sorted(out)
+
         probes, alphas = [], []
         for pid, label, colour in PROBE_LABELS:
-            run = runs_dir / 'init_probe' / pid / 'seed42'
-            r = read_run(run / 'results.csv')
-            m = col(r, 'mAP50(B)')
-            if m:
-                probes.append(series(label, colour, col(r, 'epoch'), m,
-                                     group='probe'))
-            a = read_alphas(run / 'drb_alphas.csv')
-            if a:
-                alphas.append((label, colour, a))
+            runs = seed_runs(pid)
+            for k, (seed, run) in enumerate(runs):
+                # Подпись с сидом — только когда сидов больше одного, иначе
+                # у одиннадцати проб из двенадцати легенда распухла бы зря.
+                name = label if len(runs) == 1 else f'{label} · сид {seed}'
+                r = read_run(run / 'results.csv')
+                m = col(r, 'mAP50(B)')
+                if m:
+                    probes.append(series(name, shade(colour, k),
+                                         col(r, 'epoch'), m,
+                                         dash=(k % 2 == 1), group='probe'))
+                a = read_alphas(run / 'drb_alphas.csv')
+                if a:
+                    alphas.append((name, shade(colour, k), a))
         if probes:
             # Эталоном может быть только прогон на ТОМ ЖЕ расписании.
             # Стосерийный baseline на 12-й эпохе идёт с втрое большей
             # скоростью обучения и с ещё включённой мозаикой — рядом с
             # пробами он создавал ложную картину, поэтому здесь его нет.
+            #
+            # Все сиды контроля рисуются отдельными линиями: расстояние между
+            # ними и есть разброс от случайного зерна, и любая проба, лежащая
+            # внутри этого пучка, о блоке ничего не говорит. Пока была видна
+            # одна контрольная линия, разброс был не виден вообще.
             cid, clabel, ccol = CONTROL
-            cr = read_run(runs_dir / 'init_probe' / cid / 'seed42' / 'results.csv')
-            cm = col(cr, 'mAP50(B)')
-            if cm:
-                ref = [series(clabel, ccol, col(cr, 'epoch'), cm,
-                              dash=True, width=1.6, group='baseline')]
-                sub = ('с какого вклада ветвей стартовать блок · выше — лучше · '
-                       'пунктир — контроль без DRB на том же расписании')
+            cruns = seed_runs(cid)
+            ref = []
+            for k, (seed, run) in enumerate(cruns):
+                cm = col(read_run(run / 'results.csv'), 'mAP50(B)')
+                if not cm:
+                    continue
+                cname = clabel if len(cruns) == 1 else f'{clabel} · сид {seed}'
+                ref.append(series(cname, shade(ccol, k),
+                                  col(read_run(run / 'results.csv'), 'epoch'),
+                                  cm, dash=True, width=1.6, group='baseline'))
+            if ref:
+                sub = ('выше — лучше · пунктир — контроль без DRB на том же '
+                       'расписании; расстояние между его сидами — это разброс '
+                       'от случайного зерна')
             else:
-                ref = []
-                sub = ('с какого вклада ветвей стартовать блок · выше — лучше · '
-                       'эталона пока нет: контрольный прогон без DRB '
-                       'не посчитан (узел Е)')
+                sub = ('выше — лучше · эталона пока нет: контрольный прогон '
+                       'без DRB не посчитан (узел Е)')
             views.append({
                 'id': 'probe', 'title': 'Проба инициализации DRB · точность',
                 'sub': sub,
