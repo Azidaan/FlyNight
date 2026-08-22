@@ -120,12 +120,19 @@ def main() -> int:
                     help='шаг прореживания кадров; 1 — полная выборка')
     ap.add_argument('--subsets', nargs='+', default=list(SUBSETS),
                     help='какие поднаборы считать')
+    ap.add_argument('--out', default=None,
+                    help='куда писать таблицу; по умолчанию probe_subsets.csv. '
+                         'Отдельный файл нужен для разовых замеров: таблица '
+                         'переписывается целиком, и прошлые строки пропали бы')
     ap.add_argument('--tracking', action='store_true',
                     help='вместо детекции посчитать метрики трекинга: HOTA '
                          'раскладывается на DetA и AssA, и видно, детекция '
                          'узкое место или связывание (долго, ~30-60 мин)')
     args = ap.parse_args()
     subsets = tuple(args.subsets)
+    out_csv = Path(args.out) if args.out else OUT_CSV
+    if not out_csv.is_absolute():
+        out_csv = PROJECT_ROOT / 'experiments' / 'results' / out_csv
 
     todo = [(m, weights_of(m)) for m in args.models]
     missing = [m for m, w in todo if not w.exists()]
@@ -145,15 +152,15 @@ def main() -> int:
         # Своя рабочая папка на прогон: иначе все пробы писали бы в один
         # каталог (имя берётся из родителя весов, а он у всех «weights»).
         det = evaluate_on_subsets(
-            str(w), list(SUBSETS), frame_step=args.step,
+            str(w), list(subsets), frame_step=args.step,
             workdir=PROJECT_ROOT / 'runs' / 'eval_probe' / name)
         res[name] = det
         for subset, metrics in det.items():
             for metric, value in metrics.items():
                 rows.append([name, subset, metric, f'{value:.6f}'])
 
-    OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
-    with open(OUT_CSV, 'w', newline='', encoding='utf-8') as f:
+    out_csv.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_csv, 'w', newline='', encoding='utf-8') as f:
         wr = csv.writer(f)
         wr.writerow(['модель', 'поднабор', 'метрика', 'значение'])
         wr.writerows(rows)
@@ -162,12 +169,12 @@ def main() -> int:
     for metric in KEY:
         print(f'\n{metric} по поднаборам'
               + (f' (в скобках — разница с контролем {CONTROL})' if base else ''))
-        head = f'{"модель":<12}' + ''.join(f'{s:>18}' for s in SUBSETS)
+        head = f'{"модель":<12}' + ''.join(f'{s:>18}' for s in subsets)
         print(head)
         print('-' * len(head))
         for name in res:
             line = f'{name:<12}'
-            for s in SUBSETS:
+            for s in subsets:
                 v = res[name].get(s, {}).get(metric)
                 if v is None:
                     line += f'{"—":>18}'
