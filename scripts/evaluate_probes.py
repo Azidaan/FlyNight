@@ -56,7 +56,7 @@ def weights_of(pid: str) -> Path:
     return PROJECT_ROOT / 'weights' / pid / 'best.pt'
 
 
-def run_tracking(todo, subsets) -> int:
+def run_tracking(todo, subsets, out_csv: Path) -> int:
     """Метрики трекинга по поднаборам. Пишет свою таблицу, чужие не трогает."""
     from evaluation.tracking_metrics import evaluate_tracking_bdd, run_tracker_on_videos
 
@@ -86,7 +86,7 @@ def run_tracking(todo, subsets) -> int:
                 f'{k} {m[k]:.1f}' for k in TRACK_KEY
                 if isinstance(m.get(k), (int, float))), flush=True)
 
-    out = PROJECT_ROOT / 'experiments' / 'results' / 'probe_tracking.csv'
+    out = out_csv
     out.parent.mkdir(parents=True, exist_ok=True)
     with open(out, 'w', newline='', encoding='utf-8') as f:
         wr = csv.writer(f)
@@ -144,7 +144,11 @@ def main() -> int:
         return 1
 
     if args.tracking:
-        return run_tracking(todo, subsets)
+        # Своя таблица: probe_tracking.csv переписывается целиком, и прогон
+        # одной модели стёр бы уже посчитанный baseline.
+        if args.out is None:
+            out_csv = PROJECT_ROOT / 'experiments' / 'results' / 'probe_tracking.csv'
+        return run_tracking(todo, subsets, out_csv)
 
     rows, res = [], {}
     for name, w in todo:
