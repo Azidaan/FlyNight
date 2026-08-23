@@ -1056,6 +1056,24 @@ class Api:
             self._log(f'Сохранить не удалось: {exc}', 'err')
         self._js('ui.saveDone()')
 
+    def open_results(self) -> None:
+        """Окно результатов: какие прогоны учитываются и что из них следует.
+
+        Отдельным процессом, как и окно графика: своё окно, свой профиль,
+        падение одного не уносит панель.
+        """
+        try:
+            proc = subprocess.Popen(
+                [str(VENV_PY), str(PROJECT_ROOT / 'scripts' / 'results_window.py')],
+                cwd=str(PROJECT_ROOT), stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                creationflags=subprocess.CREATE_NO_WINDOW | subprocess.DETACHED_PROCESS)
+            self._log(f'Окно результатов открыто (PID {proc.pid}). Снятая '
+                      f'галочка убирает прогон из всех расчётов и графиков.',
+                      'ok')
+        except OSError as e:
+            self._log(f'Не удалось открыть окно результатов: {e}', 'err')
+
     def open_chart(self) -> None:
         """Отдельное окно с подробным графиком — свой процесс и свой профиль."""
         try:

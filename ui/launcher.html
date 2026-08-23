@@ -49,10 +49,12 @@ h1 .thin{color:var(--sec); font-weight:400;}
 #hw-stamp{text-align:right; font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; color:var(--sec); text-transform:uppercase; line-height:1.9;}
 #hw-stamp b{color:var(--ink); font-weight:500;}
 /* вторичная кнопка — та же типографика, что у «Сравнить» и «Сбросить всё» */
-#savebtn{display:inline-block; margin-top:8px; font-family:var(--mono); font-size:9px;
+/* «Результаты» — та же типографика, что у «Сохранить»: две кнопки в
+   одном ряду, разделять их внешне не за что. */
+#resbtn,#savebtn{display:inline-block; margin-top:8px; font-family:var(--mono); font-size:9px;
   letter-spacing:.12em; text-transform:uppercase; padding:6px 12px; cursor:pointer;
   background:var(--surface); color:var(--sec); border:1.3px solid var(--div);}
-#savebtn:hover:not(:disabled){border-color:var(--accent-deep); color:var(--accent-deep);}
+#resbtn:hover,#savebtn:hover:not(:disabled){border-color:var(--accent-deep); color:var(--accent-deep);}
 #savebtn:disabled{opacity:.4; cursor:default;}
 
 /* размерная линия под шапкой */
@@ -337,6 +339,7 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
     <div id="hw-stamp">
       GPU <b>RTX 5070 · 12 ГБ</b> · CUDA <b>13.0</b><br>
       Датасет <b>BDD100K MOT</b> · Детектор <b>YOLO26-S</b>
+      <button id="resbtn" title="Все прогоны с переключателем «учитывать», и сводка по трём метрикам: общая точность, мелкие объекты ночью, трекинг">▤ Результаты</button>
       <button id="savebtn" title="Скопировать веса, чекпойнты и таблицы в выбранную папку. Рядом ляжет инструкция по возврату и опись с контрольными суммами">⤓ Сохранить результаты</button>
     </div>
   </header>
@@ -844,6 +847,10 @@ document.querySelectorAll('.op[data-task]').forEach(btn => {
 $('stopbtn').addEventListener('click', () => pywebview.api.stop_task());
 $('chartbtn').addEventListener('click', () => pywebview.api.open_chart());
 
+$('resbtn').addEventListener('click', () => {
+  ui.log('Открываю окно результатов.', 'info');
+  pywebview.api.open_results();
+});
 $('savebtn').addEventListener('click', () => {
   const b = $('savebtn');
   b.disabled = true;

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Результаты — YOLO26 + DRB</title>
+<style>
+@font-face { font-family:'IBM Plex Sans'; font-weight:400; src:url('assets/fonts/ibm-plex-sans-cyrillic-400-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family:'IBM Plex Sans'; font-weight:400; src:url('assets/fonts/ibm-plex-sans-latin-400-normal.woff2') format('woff2'); unicode-range:U+0000-00FF,U+2000-206F; }
+@font-face { font-family:'IBM Plex Sans'; font-weight:600; src:url('assets/fonts/ibm-plex-sans-cyrillic-600-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family:'IBM Plex Mono'; font-weight:400; src:url('assets/fonts/ibm-plex-mono-cyrillic-400-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family:'IBM Plex Mono'; font-weight:400; src:url('assets/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); unicode-range:U+0000-00FF,U+2000-206F; }
+@font-face { font-family:'IBM Plex Mono'; font-weight:500; src:url('assets/fonts/ibm-plex-mono-cyrillic-500-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+
+:root{
+  --bg:#faf9f5; --surface:#ffffff;
+  --accent:#d97757; --accent-deep:#b85c3c;
+  --ink:#2f2a24; --sec:#6b6457; --cap:#a39b8c;
+  --line:#2f2a24; --aux:#bdb5a6; --div:#e7e2d8; --ok:#3f9277;
+  --sans:'IBM Plex Sans','Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono','Cascadia Mono','Consolas',monospace;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%;}
+body{background:var(--bg); color:var(--ink); font-family:var(--sans);
+  font-size:13px; overflow:hidden; user-select:none;}
+
+#app{display:flex; flex-direction:column; height:100vh; padding:22px 26px 14px;}
+header{display:flex; align-items:flex-end; justify-content:space-between;
+  padding-bottom:10px; border-bottom:1.6px solid var(--line); margin-bottom:14px;}
+.kicker{font-family:var(--mono); font-size:9.5px; letter-spacing:.24em;
+  color:var(--accent); text-transform:uppercase; margin-bottom:5px;}
+h1{font-size:21px; font-weight:600;}
+h1 .thin{color:var(--sec); font-weight:400;}
+#stamp{font-family:var(--mono); font-size:9.5px; letter-spacing:.14em;
+  color:var(--cap); text-transform:uppercase;}
+
+main{flex:1; display:grid; grid-template-columns:1fr 330px; gap:18px; min-height:0;}
+
+.panel{background:var(--surface); border:1.6px solid var(--line); position:relative;
+  padding:12px 14px 14px; display:flex; flex-direction:column; min-height:0;}
+.panel::before,.panel::after{content:''; position:absolute; width:9px; height:9px; pointer-events:none;}
+.panel::before{top:-5px; left:-5px; border-top:1.6px solid var(--line); border-left:1.6px solid var(--line);}
+.panel::after{bottom:-5px; right:-5px; border-bottom:1.6px solid var(--line); border-right:1.6px solid var(--line);}
+.ptitle{font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:var(--sec);
+  text-transform:uppercase; margin-bottom:10px; display:flex; justify-content:space-between;
+  align-items:center; cursor:pointer;}
+.ptitle .idx{color:var(--accent);}
+
+/* ————— таблица прогонов ————— */
+#tablewrap{flex:1; overflow-y:auto; min-height:0; padding-right:4px;}
+#tablewrap::-webkit-scrollbar{width:8px;}
+#tablewrap::-webkit-scrollbar-thumb{background:var(--div); border:2px solid var(--surface);}
+table{width:100%; border-collapse:collapse; font-size:11.5px;}
+th{font-family:var(--mono); font-size:8.5px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--cap); text-align:right; padding:4px 6px; border-bottom:1.3px solid var(--div);
+  position:sticky; top:0; background:var(--surface);}
+th.l,td.l{text-align:left;}
+td{padding:4px 6px; border-bottom:1px solid var(--div); text-align:right;
+  font-family:var(--mono); font-size:11px;}
+td.l{font-family:var(--sans); font-size:11.5px;}
+tr.grp td{background:#f6f4ee; font-family:var(--mono); font-size:8.5px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--sec);}
+/* отключённый прогон виден и зачёркнут — он не исчезает из таблицы,
+   иначе о его существовании можно забыть */
+tr.off td{color:var(--cap); text-decoration:line-through;}
+tr.off td.sw{text-decoration:none;}
+td.sw{text-align:center; width:34px;}
+td.sw input{cursor:pointer; accent-color:var(--accent-deep); width:13px; height:13px;}
+tr:hover td{background:#faf8f3;}
+tr.off:hover td{background:#f7f5f0;}
+
+/* ————— сводка справа ————— */
+#metrics{display:flex; flex-direction:column; gap:12px; overflow-y:auto; min-height:0;
+  padding-right:4px;}
+#metrics::-webkit-scrollbar{width:8px;}
+#metrics::-webkit-scrollbar-thumb{background:var(--div); border:2px solid var(--surface);}
+.mb{border:1.4px solid var(--div); padding:9px 10px 10px;}
+.mb h3{font-family:var(--mono); font-size:9.5px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--ink); margin-bottom:2px;}
+.mb .msub{font-size:9.5px; color:var(--cap); line-height:1.35; margin-bottom:7px;}
+.mrow{border-top:1px solid var(--div); padding-top:6px; margin-top:6px;}
+.mrow:first-of-type{border-top:none; padding-top:0; margin-top:0;}
+.mlabel{font-family:var(--mono); font-size:8px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--cap); margin-bottom:3px;}
+.mline{display:flex; justify-content:space-between; font-family:var(--mono);
+  font-size:11px; line-height:1.6;}
+.mline .nm{font-family:var(--sans); font-size:11px; color:var(--sec);}
+.mdelta{font-family:var(--mono); font-size:13px; font-weight:500; margin-top:3px;}
+.mdelta.up{color:var(--ok);} .mdelta.down{color:var(--accent-deep);}
+.mnone{font-size:10.5px; color:var(--cap); font-style:italic;}
+/* когда отключения меняют вывод — это должно бросаться в глаза */
+.mwarn{margin-top:6px; font-size:9.5px; line-height:1.4; color:var(--accent-deep);
+  border-top:1px dashed var(--accent); padding-top:5px;}
+
+/* Панель — элемент сетки и по умолчанию растягивается на всю высоту.
+   Чтобы свёрнутая осела в одну строку, ей нужно align-self, а не flex. */
+.collapsed #tablewrap{display:none;}
+.collapsed{align-self:start;}
+.collapsed .ptitle{margin-bottom:0;}
+#hint{font-family:var(--mono); font-size:8.5px; letter-spacing:.1em; color:var(--cap);
+  text-transform:uppercase; padding-top:9px;}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div>
+      <div class="kicker">Панель управления обучением · результаты</div>
+      <h1>Результаты прогонов <span class="thin">· что учитывается в расчёте</span></h1>
+    </div>
+    <div id="stamp">—</div>
+  </header>
+
+  <main>
+    <section class="panel" id="tablepanel">
+      <div class="ptitle" id="tabletitle">
+        <span>Результаты · <span id="cnt">—</span></span>
+        <span class="idx" id="fold">свернуть ▲</span>
+      </div>
+      <div id="tablewrap"><table id="tbl"></table></div>
+    </section>
+
+    <section class="panel">
+      <div class="ptitle" style="cursor:default"><span>Что из этого следует</span><span class="idx">Сводка</span></div>
+      <div id="metrics"></div>
+    </section>
+  </main>
+
+  <div id="hint">Снятая галочка — прогон не участвует ни в расчётах, ни на графиках · сводка считается и с учётом отключений, и по всем прогонам</div>
+</div>
+
+<script>
+'use strict';
+const $ = id => document.getElementById(id);
+const fmt = (v, n) => (v === null || v === undefined) ? '—' : v.toFixed(n === undefined ? 4 : n);
+
+function stat(s, n) {
+  if (!s) return '—';
+  return fmt(s.mean, n) + (s.n > 1 ? '  ±' + fmt(s.sd, n) : '') + '  (n=' + s.n + ')';
+}
+
+function renderTable(runs) {
+  $('cnt').textContent = runs.length + ' прогонов, учитывается '
+    + runs.filter(r => r.on).length;
+  const byGroup = {};
+  runs.forEach(r => { (byGroup[r.group] = byGroup[r.group] || []).push(r); });
+  let html = '<tr><th class="sw"></th><th class="l">прогон</th><th>сид</th>'
+    + '<th>эпох</th><th>итог</th><th>пик</th><th>ночь · мелкие</th></tr>';
+  Object.keys(byGroup).sort().forEach(g => {
+    html += '<tr class="grp"><td colspan="7">' + g + '</td></tr>';
+    byGroup[g].sort((a, b) => a.seed - b.seed).forEach(r => {
+      html += '<tr class="' + (r.on ? '' : 'off') + '" data-k="' + r.key + '">'
+        + '<td class="sw"><input type="checkbox"' + (r.on ? ' checked' : '') + '></td>'
+        + '<td class="l">' + r.group + '</td>'
+        + '<td>' + r.seed + '</td><td>' + r.epochs + '</td>'
+        + '<td>' + fmt(r.final) + '</td><td>' + fmt(r.best) + '</td>'
+        + '<td>' + fmt(r.target) + '</td></tr>';
+    });
+  });
+  $('tbl').innerHTML = html;
+  $('tbl').querySelectorAll('tr[data-k] input').forEach(cb =>
+    cb.addEventListener('change', () => {
+      pywebview.api.toggle_run(cb.closest('tr').dataset.k).then(load);
+    }));
+}
+
+function renderMetrics(blocks) {
+  $('metrics').innerHTML = blocks.map(b => {
+    const rows = b.rows.map(r => {
+      if (!r.control && !r.block)
+        return '<div class="mrow"><div class="mlabel">' + r.label + '</div>'
+          + '<div class="mnone">не посчитано</div></div>';
+      const cls = r.delta === null ? '' : (r.delta >= 0 ? ' up' : ' down');
+      const d = r.delta === null ? '' : '<div class="mdelta' + cls + '">'
+        + (r.delta >= 0 ? '+' : '') + fmt(r.delta) + '</div>';
+      return '<div class="mrow"><div class="mlabel">' + r.label + '</div>'
+        + '<div class="mline"><span class="nm">без блока</span><span>' + stat(r.control) + '</span></div>'
+        + '<div class="mline"><span class="nm">с блоком</span><span>' + stat(r.block) + '</span></div>'
+        + d + '</div>';
+    }).join('');
+    // если отключения сдвинули вывод — говорим об этом прямо
+    let warn = '';
+    const a = b.rows[0], z = b.rows[1];
+    if (a.delta !== null && z.delta !== null && Math.abs(a.delta - z.delta) > 1e-9)
+      warn = '<div class="mwarn">Отключения меняют разницу с '
+        + fmt(z.delta) + ' на ' + fmt(a.delta) + '</div>';
+    return '<div class="mb"><h3>' + b.title + '</h3>'
+      + '<div class="msub">' + b.sub + '</div>' + rows + warn + '</div>';
+  }).join('');
+}
+
+function load() {
+  return pywebview.api.state().then(d => {
+    $('stamp').textContent = d.stamp || '';
+    renderTable(d.runs || []);
+    renderMetrics(d.blocks || []);
+  });
+}
+
+$('tabletitle').addEventListener('click', () => {
+  const p = $('tablepanel');
+  p.classList.toggle('collapsed');
+  $('fold').textContent = p.classList.contains('collapsed') ? 'развернуть ▼' : 'свернуть ▲';
+});
+
+window.onerror = (m, s, l) => { $('stamp').textContent = 'JS: ' + m + ' @' + l; };
+let booted = false;
+function boot() {
+  if (booted || !window.pywebview || !window.pywebview.api
+      || typeof window.pywebview.api.state !== 'function') return;
+  booted = true; load();
+}
+window.addEventListener('pywebviewready', boot);
+setInterval(boot, 200);
+</script>
+</body>
+</html>
