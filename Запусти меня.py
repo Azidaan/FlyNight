@@ -376,8 +376,40 @@ def _probe_out(p: dict) -> Path:
     return PROBE_ROOT / p.get('out', p['id'])
 
 
+# Запас сидов для кнопки «+». Первые три исторические, дальше произвольные:
+# важно только, чтобы они были разными и записанными заранее, а не
+# подобранными после просмотра результата.
+SEED_POOL = (42, 123, 2024, 7, 1337, 2718, 31337, 8191, 65537, 99991)
+
+
+def _extra_seeds_file() -> Path:
+    """Где хранятся сиды, добавленные кнопкой.
+
+    В файле, а не в коде: список должен переживать перезапуск панели, а
+    править исходник ради каждого лишнего прогона незачем.
+    """
+    return PROBE_ROOT / 'extra_seeds.json'
+
+
+def _extra_seeds() -> dict[str, list[int]]:
+    f = _extra_seeds_file()
+    if not f.exists():
+        return {}
+    try:
+        with open(f, encoding='utf-8') as fh:
+            data = json.load(fh)
+        return {k: [int(x) for x in v] for k, v in data.items()}
+    except (OSError, ValueError):
+        return {}
+
+
 def _probe_seeds(p: dict) -> tuple[int, ...]:
-    return tuple(p.get('seeds', (PROBE_SEED,)))
+    """Сиды пробы: заданные в коде плюс добавленные кнопкой, без повторов."""
+    base = list(p.get('seeds', (PROBE_SEED,)))
+    for s in _extra_seeds().get(p['id'], []):
+        if s not in base:
+            base.append(s)
+    return tuple(base)
 
 
 def _probe_warm_root(p: dict) -> Path:
@@ -1103,6 +1135,46 @@ class Api:
         code = self._run_commands(
             [[str(VENV_PY), str(PROJECT_ROOT / c[0]), *c[1:]] for c in cmds])
         self._js(f'ui.taskDone({json.dumps(p["id"])}, {code}, null)')
+
+    def add_probe_seed(self, probe_id: str) -> None:
+        """Добавить пробе ещё один сид из запаса.
+
+        Зачем кнопка. Разброс между прогонами оказался главной величиной во
+        всей работе: он больше любой разницы, которую мы неделю обсуждали.
+        А по трём точкам его не оценить — выброс среди трёх формально не
+        выявляется вообще (предельное значение критерия Граббса при n=3 и
+        порог отклонения совпадают до третьего знака).
+
+        Сид берётся из заранее записанного запаса по порядку — не «какой
+        получше», а следующий неиспользованный.
+        """
+        p = _probe_entry(probe_id)
+        if 'w' not in p:
+            self._log(f'Нет такой пробы: {probe_id}', 'err')
+            return
+        # Заняты не только сиды из списка, но и всё, что уже лежит на диске:
+        # у контроля 123 и 2024 посчитаны отдельной кнопкой замера шума, и
+        # без этой проверки «+» предлагал бы их заново.
+        used = set(_probe_seeds(p))
+        out = _probe_out(p)
+        if out.exists():
+            used |= {int(d.name[4:]) for d in out.glob('seed*')
+                     if d.is_dir() and d.name[4:].isdigit()}
+        nxt = next((s for s in SEED_POOL if s not in used), None)
+        if nxt is None:
+            self._log(f'Запас сидов исчерпан ({len(SEED_POOL)} шт.) — '
+                      f'добавьте новые в SEED_POOL.', 'err')
+            return
+        extra = _extra_seeds()
+        extra.setdefault(probe_id, []).append(nxt)
+        f = _extra_seeds_file()
+        f.parent.mkdir(parents=True, exist_ok=True)
+        with open(f, 'w', encoding='utf-8') as fh:
+            json.dump(extra, fh, ensure_ascii=False, indent=1)
+        self._log(f'Пробе «{p["name"]}» добавлен сид {nxt}. Всего сидов: '
+                  f'{len(used) + 1}. Считаться будет только он — уже '
+                  f'посчитанные не трогаются.', 'ok')
+        self._js('pywebview.api.probe_state().then(renderProbes)')
 
     def reset_probe(self, probe_id: str) -> None:
         """Сброс пробы: удаляются чекпойнты и журнал, шаг снова «не начат».

@@ -211,7 +211,12 @@ def test_probes(mod) -> None:
     check('второй сид пишет в ту же папку пробы',
           all(c[c.index('--output') + 1].endswith('drb_ad') for c in acmds),
           str([c[c.index('--output') + 1] for c in acmds]))
-    aline = ' '.join(acmds[0]) if acmds else ''
+    # Команду для проверки настроек строим явно, а не берём из очереди:
+    # когда все сиды досчитаны, очередь пуста, и проверки читали бы
+    # пустую строку. Настройки блока от состояния диска не зависят.
+    aline = ' '.join(mod._probe_phase(ad, mod.PROBE_SEED,
+                                      'training/train_drb.py',
+                                      mod._probe_out(ad), mod.PROBE_EPOCHS))
     check('у второго сида те же настройки блока, что у первого',
           all(k in aline for k in ('--adaptive', '--fusion gated',
                                    '--alpha-init 0.0', '--lr-mult')), aline)

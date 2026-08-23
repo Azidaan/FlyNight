@@ -180,7 +180,10 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
 
 def main() -> int:
     ap = argparse.ArgumentParser(description='Обучение YOLO + DRB (Этапы 5, 7)')
-    ap.add_argument('--seed', type=int, required=True, choices=[42, 123, 2024])
+    # Ограничение тремя сидами снято: разброс между прогонами оказался
+    # главной величиной во всей работе, и оценивать его по трём точкам
+    # нельзя — выброс среди трёх формально не выявляется вообще.
+    ap.add_argument('--seed', type=int, required=True)
     ap.add_argument('--variant', default='both',
                     choices=['both', 'lqa', 'fga', 'input'])
     ap.add_argument('--config', default=str(

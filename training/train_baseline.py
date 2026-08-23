@@ -117,7 +117,10 @@ def train_baseline(config_path: str, seed: int, output_dir: str,
 
 def main() -> int:
     ap = argparse.ArgumentParser(description='Обучение baseline YOLO (Этап 3)')
-    ap.add_argument('--seed', type=int, required=True, choices=[42, 123, 2024])
+    # Ограничение тремя сидами снято: разброс между прогонами оказался
+    # главной величиной во всей работе, и оценивать его по трём точкам
+    # нельзя — выброс среди трёх формально не выявляется вообще.
+    ap.add_argument('--seed', type=int, required=True)
     ap.add_argument('--config', default=str(PROJECT_ROOT / 'training' / 'configs' / 'baseline.yaml'))
     ap.add_argument('--output', default=str(PROJECT_ROOT / 'runs' / 'baseline'))
     ap.add_argument('--resume', action='store_true')

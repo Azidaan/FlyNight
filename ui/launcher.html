@@ -167,10 +167,19 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
 .probe.done{border-color:var(--ok); background:rgba(93,138,96,.07);}
 .probe.done .pname::before{content:'✓ '; color:var(--ok);}
 .probe.running{border-color:var(--accent);}
-.probe .rbtn{display:block; width:100%; margin-top:5px; font-family:var(--mono);
+.probe .pbtns{display:flex; gap:4px; margin-top:5px;}
+.probe .rbtn{flex:1; font-family:var(--mono);
   font-size:9px; letter-spacing:.14em; text-transform:uppercase; padding:5px 4px;
   cursor:pointer; background:var(--surface); color:var(--accent-deep);
   border:1.3px solid var(--accent-deep);}
+/* «+ сид» — отдельной кнопкой, потому что разброс между прогонами оказался
+   больше любой разницы, которую мы сравнивали, а по трём точкам его не
+   оценить: выброс среди трёх формально не выявляется вообще. */
+.probe .addbtn{flex:none; font-family:var(--mono); font-size:9px;
+  letter-spacing:.1em; text-transform:uppercase; padding:5px 8px;
+  cursor:pointer; background:var(--surface); color:var(--sec);
+  border:1.3px solid var(--div);}
+.probe .addbtn:hover{border-color:var(--accent-deep); color:var(--accent-deep);}
 .probe .rbtn:hover:not(:disabled){background:var(--accent); color:var(--surface);
   border-color:var(--accent);}
 .probe .rbtn:disabled{opacity:.4; cursor:default;}
@@ -745,7 +754,10 @@ function renderProbes(list) {
       '<div class="prow"><span class="pname"></span>'
       + '<span class="ptime">' + p.time + '</span></div>'
       + '<div class="pdet"></div>'
-      + '<button class="rbtn">' + label + '</button>';
+      + '<div class="pbtns"><button class="rbtn">' + label + '</button>'
+      + '<button class="addbtn" title="Добавить пробе ещё один сид из запаса.'
+      + ' Разброс между прогонами больше любой разницы, которую мы сравниваем,'
+      + ' а по трём точкам его не оценить">+ сид</button></div>';
     el.querySelector('.pname').textContent = p.name;
     el.querySelector('.pdet').textContent = p.detail;
     el.querySelector('.rbtn').addEventListener('click', () => {
@@ -753,6 +765,9 @@ function renderProbes(list) {
       ui.log('');
       ui.log('——— проба инициализации: ' + p.name + ' ———', 'info');
       pywebview.api.run_probe(p.id);
+    });
+    el.querySelector('.addbtn').addEventListener('click', () => {
+      pywebview.api.add_probe_seed(p.id);
     });
     box.appendChild(el);
   });
