@@ -102,6 +102,12 @@ footer{display:flex; align-items:flex-start; justify-content:space-between;
   width:12px; height:12px;}
 .lg.off{opacity:.38;}
 .lg.off i{background:var(--div) !important;}
+/* Прогон, который считается прямо сейчас: его число ещё изменится, и
+   путать его с досчитанными нельзя. */
+.lg.live span{color:var(--accent-deep);}
+.lg.live .livedot{display:inline-block; width:6px; height:6px; border-radius:50%;
+  background:var(--accent); flex:none; animation:lpulse 1.3s ease-in-out infinite;}
+@keyframes lpulse{50%{opacity:.35;}}
 .lg i{width:16px; height:3px; flex:none;}
 .lg .val{font-family:var(--mono); font-size:11px; color:var(--sec);}
 .lg .best{color:var(--accent-deep); font-family:var(--mono); font-size:9.5px;
@@ -176,7 +182,13 @@ function renderLegend(v) {
   const box = $('legend');
   if (!v || !(v.series || []).length) { box.innerHTML = ''; return; }
   const higherBetter = (v.id !== 'loss');
-  box.innerHTML = v.series.map(s => {
+  // Строки идут по результату от большего к меньшему: так видно порядок,
+  // а не порядок объявления линий в коде.
+  const ordered = v.series.slice().sort((a, b) => {
+    const la = a.y[a.y.length - 1], lb = b.y[b.y.length - 1];
+    return higherBetter ? lb - la : la - lb;
+  });
+  box.innerHTML = ordered.map(s => {
     const key = lineKey(v, s);
     const onLine = !S.offLine.has(key);          // состояние самой галочки
     const drawn = onLine && !S.off.has(s.group); // рисуется ли сейчас
@@ -184,22 +196,32 @@ function renderLegend(v) {
     const best = higherBetter ? Math.max(...s.y) : Math.min(...s.y);
     // кириллица и цифры — в разных элементах: в одном моношрифтовом блоке
     // на стыке появлялся квадратик недостающего глифа
-    return '<label class="lg' + (drawn ? '' : ' off') + '" data-k="'
+    return '<label class="lg' + (drawn ? '' : ' off')
+      + (s.live ? ' live' : '') + '" data-k="'
       + key.replace(/"/g, '&quot;') + '">'
       + '<input type="checkbox"' + (onLine ? ' checked' : '') + '>'
       + '<i style="background:' + s.color + '"></i>'
+      + (s.live ? '<i class="livedot"></i>' : '')
       + '<span>' + s.name + '</span>'
       + '<span class="val">' + fmt(last) + '</span>'
       + '<span class="best">' + (higherBetter ? 'лучшее' : 'минимум') + '</span>'
       + '<span class="val">' + fmt(best) + '</span>'
       + '</label>';
   }).join('');
-  box.querySelectorAll('.lg').forEach(l =>
+  box.querySelectorAll('.lg').forEach(l => {
     l.querySelector('input').addEventListener('change', () => {
       const k = l.dataset.k;
       if (S.offLine.has(k)) S.offLine.delete(k); else S.offLine.add(k);
       draw();
-    }));
+    });
+    // Щелчок по самой строке (мимо галочки) ведёт в окно результатов —
+    // там видно, какие прогоны учитываются и что из них следует.
+    l.addEventListener('click', e => {
+      if (e.target.tagName === 'INPUT') return;
+      e.preventDefault();
+      if (window.pywebview && pywebview.api.open_results) pywebview.api.open_results();
+    });
+  });
 }
 
 function renderFilters() {

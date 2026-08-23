@@ -88,9 +88,35 @@ def col(run: dict, needle: str) -> list[float]:
     return []
 
 
-def series(name, colour, xs, ys, dash=False, width=2.0, group='other') -> dict:
+def series(name, colour, xs, ys, dash=False, width=2.0, group='other',
+           live=False) -> dict:
     return {'name': name, 'color': colour, 'x': xs, 'y': ys,
-            'dash': dash, 'width': width, 'group': group}
+            'dash': dash, 'width': width, 'group': group, 'live': live}
+
+
+# Сколько минут без записи в results.csv считать прогон остановившимся.
+# Эпоха идёт около двадцати минут, так что порог должен быть заметно больше.
+LIVE_WINDOW_MIN = 45
+
+
+def live_run_dir() -> Path | None:
+    """Каталог прогона, который считается прямо сейчас, или None.
+
+    Определяется по свежести results.csv: если в него писали недавно, значит
+    обучение идёт. Точнее без обращения к списку процессов не выйдет, а
+    лезть туда из окна графика незачем.
+    """
+    newest, mt = None, 0.0
+    for p in (PROJECT_ROOT / 'runs').glob('*/seed*/results.csv'):
+        try:
+            t = p.stat().st_mtime
+        except OSError:
+            continue
+        if t > mt:
+            newest, mt = p.parent, t
+    if newest is None:
+        return None
+    return newest if (time.time() - mt) < LIVE_WINDOW_MIN * 60 else None
 
 
 # группы конфигураций — по ним в окне включаются и выключаются линии
@@ -139,9 +165,34 @@ def read_alphas(path: Path) -> dict[str, list[float]]:
 class ChartApi:
     """Данные для графика. Ничего не запускает — только читает файлы."""
 
+    def open_results(self) -> None:
+        """Окно результатов — тем же путём, что и из панели."""
+        import subprocess
+        try:
+            subprocess.Popen(
+                [sys.executable,
+                 str(PROJECT_ROOT / 'scripts' / 'results_window.py')],
+                cwd=str(PROJECT_ROOT), stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                creationflags=(subprocess.CREATE_NO_WINDOW
+                               | subprocess.DETACHED_PROCESS))
+        except OSError:
+            pass
+
     def curves(self) -> dict:
         views = []
         runs_dir = PROJECT_ROOT / 'runs'
+        live = live_run_dir()
+        # Отключённые в окне результатов не рисуются нигде — иначе снятая
+        # там галочка меняла бы числа, но не картинку.
+        try:
+            from evaluation.results_store import load_excluded, run_key
+            excluded = set(load_excluded())
+        except Exception:                                   # noqa: BLE001
+            excluded, run_key = set(), lambda g, s: ''
+
+        def skip(run: Path) -> bool:
+            return run_key(run.parent.name, int(run.name[4:])) in excluded
 
         # ——— вид 1: проба инициализации DRB, точность ———
         # Сидов у пробы может быть несколько: у контроля их три (замер шума),
@@ -162,12 +213,15 @@ class ChartApi:
                 # Подпись с сидом — только когда сидов больше одного, иначе
                 # у одиннадцати проб из двенадцати легенда распухла бы зря.
                 name = label if len(runs) == 1 else f'{label} · сид {seed}'
+                if skip(run):
+                    continue
                 r = read_run(run / 'results.csv')
                 m = col(r, 'mAP50(B)')
                 if m:
                     probes.append(series(name, shade(colour, k),
                                          col(r, 'epoch'), m,
-                                         dash=(k % 2 == 1), group='probe'))
+                                         dash=(k % 2 == 1), group='probe',
+                                         live=(run == live)))
                 a = read_alphas(run / 'drb_alphas.csv')
                 if a:
                     alphas.append((name, shade(colour, k), a))
@@ -185,13 +239,16 @@ class ChartApi:
             cruns = seed_runs(cid)
             ref = []
             for k, (seed, run) in enumerate(cruns):
+                if skip(run):
+                    continue
                 cm = col(read_run(run / 'results.csv'), 'mAP50(B)')
                 if not cm:
                     continue
                 cname = clabel if len(cruns) == 1 else f'{clabel} · сид {seed}'
                 ref.append(series(cname, shade(ccol, k),
                                   col(read_run(run / 'results.csv'), 'epoch'),
-                                  cm, dash=True, width=1.6, group='baseline'))
+                                  cm, dash=True, width=1.6, group='baseline',
+                                  live=(run == live)))
             if ref:
                 sub = ('выше — лучше · пунктир — контроль без DRB на том же '
                        'расписании; расстояние между его сидами — это разброс '
@@ -228,6 +285,8 @@ class ChartApi:
         for p in sorted(runs_dir.glob('*/seed*/results.csv')):
             if 'init_probe' in p.parts or 'smoke' in p.parts[-3]:
                 continue
+            if skip(p.parent):
+                continue
             r = read_run(p)
             m = col(r, 'mAP50(B)')
             if len(m) < 2:
@@ -239,7 +298,7 @@ class ChartApi:
             acc.append(series(f'{run_name}/{p.parts[-2]}',
                               shade(family_col.get(g, COL_SEC), k),
                               col(r, 'epoch'), m, dash=(k % 2 == 1),
-                              width=2.0, group=g))
+                              width=2.0, group=g, live=(p.parent == live)))
         if acc:
             views.append({
                 'id': 'acc', 'title': 'Точность по эпохам · все конфигурации',

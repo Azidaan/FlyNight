@@ -90,7 +90,13 @@ tr.off:hover td{background:#f7f5f0;}
 .mnone{font-size:10.5px; color:var(--cap); font-style:italic;}
 /* когда отключения меняют вывод — это должно бросаться в глаза */
 .mwarn{margin-top:6px; font-size:9.5px; line-height:1.4; color:var(--accent-deep);
-  border-top:1px dashed var(--accent); padding-top:5px;}
+  border-top:1px dashed var(--accent); padding-top:5px;
+  display:flex; align-items:baseline; gap:6px; justify-content:space-between;}
+/* Стрелка показывает, куда отключения двигают вывод: вверх и зелёная —
+   заявленная разница выросла, вниз и красная — уменьшилась. */
+.mwarn .arr{font-size:14px; line-height:1; flex:none;}
+.mwarn .arr.up{color:var(--ok);} .mwarn .arr.down{color:var(--accent-deep);}
+.nowarn .mwarn{display:none;}
 
 /* Панель — элемент сетки и по умолчанию растягивается на всю высоту.
    Чтобы свёрнутая осела в одну строку, ей нужно align-self, а не flex. */
@@ -98,7 +104,10 @@ tr.off:hover td{background:#f7f5f0;}
 .collapsed{align-self:start;}
 .collapsed .ptitle{margin-bottom:0;}
 #hint{font-family:var(--mono); font-size:8.5px; letter-spacing:.1em; color:var(--cap);
-  text-transform:uppercase; padding-top:9px;}
+  text-transform:uppercase; padding-top:9px; display:flex; align-items:center;
+  gap:8px; cursor:pointer; user-select:none;}
+#hint input{cursor:pointer; accent-color:var(--accent-deep); width:12px;
+  height:12px; margin:0; flex:none;}
 </style>
 </head>
 <body>
@@ -126,7 +135,10 @@ tr.off:hover td{background:#f7f5f0;}
     </section>
   </main>
 
-  <div id="hint">Снятая галочка — прогон не участвует ни в расчётах, ни на графиках · сводка считается и с учётом отключений, и по всем прогонам</div>
+  <label id="hint" title="Скрыть строки «Отключения меняют разницу» в сводке">
+    <input type="checkbox" id="warnon" checked>
+    <span>Снятая галочка — прогон не участвует ни в расчётах, ни на графиках · сводка считается и с учётом отключений, и по всем прогонам</span>
+  </label>
 </div>
 
 <script>
@@ -181,9 +193,12 @@ function renderMetrics(blocks) {
     // если отключения сдвинули вывод — говорим об этом прямо
     let warn = '';
     const a = b.rows[0], z = b.rows[1];
-    if (a.delta !== null && z.delta !== null && Math.abs(a.delta - z.delta) > 1e-9)
-      warn = '<div class="mwarn">Отключения меняют разницу с '
-        + fmt(z.delta) + ' на ' + fmt(a.delta) + '</div>';
+    if (a.delta !== null && z.delta !== null && Math.abs(a.delta - z.delta) > 1e-9) {
+      const up = a.delta > z.delta;
+      warn = '<div class="mwarn"><span>Отключения меняют разницу с '
+        + fmt(z.delta) + ' на ' + fmt(a.delta) + '</span>'
+        + '<span class="arr ' + (up ? 'up">▲' : 'down">▼') + '</span></div>';
+    }
     return '<div class="mb"><h3>' + b.title + '</h3>'
       + '<div class="msub">' + b.sub + '</div>' + rows + warn + '</div>';
   }).join('');
@@ -196,6 +211,15 @@ function load() {
     renderMetrics(d.blocks || []);
   });
 }
+
+function applyWarn() {
+  const on = $('warnon').checked;
+  document.body.classList.toggle('nowarn', !on);
+  try { localStorage.setItem('warnon', on ? '1' : '0'); } catch (e) {}
+}
+try { $('warnon').checked = localStorage.getItem('warnon') !== '0'; } catch (e) {}
+$('warnon').addEventListener('change', applyWarn);
+applyWarn();
 
 $('tabletitle').addEventListener('click', () => {
   const p = $('tablepanel');
