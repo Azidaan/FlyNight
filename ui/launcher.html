@@ -274,6 +274,7 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
 /* ————— тракт обработки ————— */
 
 /* ————— кривая обучения (узел Д) ————— */
+#curvepanel{min-height:238px;}   /* заголовок + подпись + график 110 + легенда + кнопка */
 #curvewrap{display:flex; flex-direction:column; gap:6px; flex:1; min-height:0;}
 #curvecap{font-family:var(--mono); font-size:9px; letter-spacing:.1em;
   text-transform:uppercase; color:var(--cap);}
@@ -458,7 +459,11 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
         </div>
       </section>
 
-      <section class="panel" style="flex:1">
+      <!-- min-height обязателен: без него на невысоком окне сводка
+           съедала колонку, панель графика сжималась до 71 px при
+           нужных 212, и кнопка вылезала за её границу поверх графика.
+           Теперь вместо сжатия колонка прокручивается. -->
+      <section class="panel" id="curvepanel" style="flex:1">
         <div class="ptitle"><span>Ход обучения · по эпохам</span><span class="idx">Узел Д</span></div>
         <div id="curvewrap">
           <div id="curvecap">Данных пока нет — появятся после первой эпохи</div>
