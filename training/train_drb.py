@@ -31,7 +31,9 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from models.yolo_neck import (iter_drb, make_bn_freezer,  # noqa: E402
                               make_drb_trainer)
-from training.train_baseline import ensure_data_yaml  # noqa: E402
+from training.train_baseline import (  # noqa: E402
+    ensure_data_yaml, make_epoch_limiter,
+)
 from training.trainer_utils import (  # noqa: E402
     HeartbeatLogger, check_checkpoint_compatibility, setup_compute_flags,
 )
@@ -100,7 +102,8 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
               optimizer: str | None = None, lr0: float | None = None,
               warmup: float | None = None, mask_init: str = 'flat',
               fusion: str = 'add', adaptive: bool = False,
-              freeze_base: bool = False, fix_mask: bool = False) -> str:
+              freeze_base: bool = False, fix_mask: bool = False,
+              stop_after: int | None = None) -> str:
     """Обучение одного сида YOLO+DRB. Возвращает путь к best.pt."""
     setup_compute_flags()
     from ultralytics import YOLO
@@ -147,6 +150,8 @@ def train_drb(config_path: str, seed: int, output_dir: str | None = None,
     hb = HeartbeatLogger(run_dir, block_epochs=cfg['block_epochs'])
     hb.attach(model)
     model.add_callback('on_fit_epoch_end', make_alpha_logger(run_dir))
+    if stop_after:
+        model.add_callback('on_fit_epoch_end', make_epoch_limiter(stop_after))
     if freeze_base:
         # Веса держит requires_grad, а бегущие средние нормировки — этот
         # callback: без него «замороженная» сеть всё равно бы менялась.
@@ -222,6 +227,10 @@ def main() -> int:
     ap.add_argument('--fusion', default='add', choices=['add', 'gated'],
                     help='add — прибавить выход ветви, gated — внести '
                          'поправку через затвор по карте качества')
+    ap.add_argument('--stop-after', type=int, default=None,
+                    help='остановиться после N-й эпохи, не меняя расписания '
+                         'скорости обучения. Нужно, чтобы прогон остался '
+                         'сопоставим с полным контролем')
     ap.add_argument('--fix-mask', action='store_true',
                     help='задать характеристику и НЕ обучать её. Обучаемая '
                          'маска сходилась к нейтрали трижды из трёх; в '
@@ -250,7 +259,7 @@ def main() -> int:
                      lr0=args.lr0, warmup=args.warmup,
                      mask_init=args.mask_init, fusion=args.fusion,
                      adaptive=args.adaptive, freeze_base=args.freeze_base,
-                     fix_mask=args.fix_mask)
+                     fix_mask=args.fix_mask, stop_after=args.stop_after)
     print(f'[OK ] best.pt: {best}')
     return 0 if best else 1
 

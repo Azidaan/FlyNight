@@ -51,7 +51,30 @@ def ensure_data_yaml(cfg: dict) -> Path:
     return build_subset_yaml(cfg['data_name'], train_frames, val_frames)
 
 
+def make_epoch_limiter(stop_after: int):
+    """Callback on_fit_epoch_end: остановить обучение после N-й эпохи.
+
+    Зачем не --epochs N. Число эпох задаёт РАСПИСАНИЕ скорости обучения:
+    при --epochs 60 спад растянется на шестьдесят эпох, и режим станет
+    другим, несопоставимым с стоэпошным контролем. Здесь расписание
+    остаётся стоэпошным, а обучение просто прерывается на нужной эпохе —
+    ровно как при ручной остановке, только без присмотра.
+
+    Останавливаемся штатным флагом trainer.stop: Ultralytics проверяет его
+    и между пачками, и на границе эпохи, так что чекпойнты и итоговая
+    проверка отрабатывают нормально.
+    """
+    def _limit(trainer) -> None:
+        if trainer.epoch + 1 >= stop_after:
+            trainer.stop = True
+            print(f'[STOP] достигнута эпоха {trainer.epoch + 1} из '
+                  f'{stop_after} — останавливаюсь. Расписание скорости '
+                  f'обучения при этом осталось полным.')
+    return _limit
+
+
 def train_baseline(config_path: str, seed: int, output_dir: str,
+                   stop_after: int | None = None,
                    resume: bool = False, data_override: str | None = None,
                    init_weights: str | None = None,
                    optimizer: str | None = None, lr0: float | None = None,
@@ -94,6 +117,9 @@ def train_baseline(config_path: str, seed: int, output_dir: str,
     model = YOLO(start_weights)
     hb = HeartbeatLogger(run_dir, block_epochs=cfg['block_epochs'])
     hb.attach(model)
+    if stop_after:
+        model.add_callback('on_fit_epoch_end',
+                           make_epoch_limiter(stop_after))
 
     tune = {k: v for k, v in (('optimizer', optimizer), ('lr0', lr0),
                               ('warmup_epochs', warmup)) if v is not None}
@@ -124,6 +150,10 @@ def main() -> int:
     ap.add_argument('--config', default=str(PROJECT_ROOT / 'training' / 'configs' / 'baseline.yaml'))
     ap.add_argument('--output', default=str(PROJECT_ROOT / 'runs' / 'baseline'))
     ap.add_argument('--resume', action='store_true')
+    ap.add_argument('--stop-after', type=int, default=None,
+                    help='остановиться после N-й эпохи, не меняя расписания '
+                         'скорости обучения — прогон остаётся сопоставим '
+                         'с полным контролем')
     ap.add_argument('--epochs', type=int, default=None,
                     help='переопределить число эпох (для smoke-проверки обвязки)')
     ap.add_argument('--data', default=None,
@@ -150,7 +180,8 @@ def main() -> int:
         tmp.write_text(yaml.safe_dump(cfg, allow_unicode=True), encoding='utf-8')
         args.config = str(tmp)
 
-    best = train_baseline(args.config, args.seed, args.output, args.resume,
+    best = train_baseline(args.config, args.seed, args.output,
+                          args.stop_after, args.resume,
                           data_override=args.data,
                           init_weights=args.init_weights,
                           optimizer=args.optimizer, lr0=args.lr0,

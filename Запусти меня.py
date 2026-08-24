@@ -114,6 +114,10 @@ RE_STEP = re.compile(r'^==========\s*(\S+)')          # шаг run_all_smoke
 # ————— конвейер обучений (Этапы 3-10): статусы и команды —————
 RESULTS = PROJECT_ROOT / 'experiments' / 'results'
 SEEDS3 = (42, 123, 2024)
+# Стоэпошные прогоны останавливаются здесь. Полные сто эпох не нужны:
+# пики приходятся на 32-47 эпоху, а разница в скорости переобучения видна
+# уже к 75-80. Расписание при этом остаётся стоэпошным — см. --stop-after.
+LONG_STOP_AFTER = 80
 
 
 def _epochs_done(results_csv: Path) -> int:
@@ -412,6 +416,19 @@ def _probe_seeds(p: dict) -> tuple[int, ...]:
     return tuple(base)
 
 
+def _step_seeds(step_id: str, base: tuple[int, ...] = (PROBE_SEED,)) -> tuple[int, ...]:
+    """Сиды шага конвейера: заданные в коде плюс добавленные кнопкой «+ сид».
+
+    Хранятся там же, где сиды проб: один файл на всё, чтобы не заводить
+    второй механизм ради того же самого.
+    """
+    out = list(base)
+    for s in _extra_seeds().get(step_id, []):
+        if s not in out:
+            out.append(s)
+    return tuple(out)
+
+
 def _probe_warm_root(p: dict) -> Path:
     """Каталог первой фазы ступенчатого обучения (сеть заморожена)."""
     return PROBE_ROOT / f'{_probe_out(p).name}_warm'
@@ -595,10 +612,14 @@ PIPELINE: list[dict] = [
         'name': 'DRB · подъём по кадру · 100 эпох · 1 сид', 'time': '~1.5 сут',
         'status': lambda: _train_step_status('drb_ad100', (PROBE_SEED,)),
         'cmds': lambda: _train_cmds(
-            'training/train_drb.py', 'drb_ad100', (PROBE_SEED,),
+            'training/train_drb.py', 'drb_ad100', _step_seeds('drb_ad100'),
             ['--output', str(PROJECT_ROOT / 'runs' / 'drb_ad100'),
              '--alpha-init', '0.0', '--lr-mult', str(PROBE_LR_MULT),
-             '--fusion', 'gated', '--adaptive']),
+             '--fusion', 'gated', '--adaptive',
+             # Останавливаемся на 80-й эпохе, но расписание остаётся
+             # стоэпошным: спад от пика к 80-й уже вдвое отличается от
+             # контрольного (0.006 против 0.011-0.014), а к 60-й ещё нет.
+             '--stop-after', str(LONG_STOP_AFTER)]),
     },
     {
         'id': 'drb', 'name': 'DRB-full · 3 сида × 100 эпох', 'time': '~2.5 сут',
@@ -1153,6 +1174,33 @@ class Api:
         code = self._run_commands(
             [[str(VENV_PY), str(PROJECT_ROOT / c[0]), *c[1:]] for c in cmds])
         self._js(f'ui.taskDone({json.dumps(p["id"])}, {code}, null)')
+
+    def add_step_seed(self, step_id: str) -> None:
+        """Добавить шагу конвейера ещё один сид из запаса.
+
+        Механика та же, что у проб: следующий неиспользованный сид из
+        заранее записанного списка. Занятыми считаются и заданные в коде, и
+        те, чьи каталоги уже есть на диске, — чтобы кнопка не предлагала
+        пересчитать готовое.
+        """
+        used = set(_step_seeds(step_id))
+        root = PROJECT_ROOT / 'runs' / step_id
+        if root.exists():
+            used |= {int(d.name[4:]) for d in root.glob('seed*')
+                     if d.is_dir() and d.name[4:].isdigit()}
+        nxt = next((x for x in SEED_POOL if x not in used), None)
+        if nxt is None:
+            self._log(f'Запас сидов исчерпан ({len(SEED_POOL)} шт.).', 'err')
+            return
+        extra = _extra_seeds()
+        extra.setdefault(step_id, []).append(nxt)
+        f = _extra_seeds_file()
+        f.parent.mkdir(parents=True, exist_ok=True)
+        with open(f, 'w', encoding='utf-8') as fh:
+            json.dump(extra, fh, ensure_ascii=False, indent=1)
+        self._log(f'Шагу «{step_id}» добавлен сид {nxt}. Считаться будет '
+                  f'только он — посчитанные не трогаются.', 'ok')
+        self._js('pywebview.api.pipeline_state().then(renderPipeline)')
 
     def add_probe_seed(self, probe_id: str) -> None:
         """Добавить пробе ещё один сид из запаса.

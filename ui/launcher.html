@@ -224,6 +224,42 @@ main{flex:1; display:grid; grid-template-columns:258px 1fr 268px; gap:18px; min-
 #runbanner.busy #mainbtn{background:var(--surface); color:var(--accent-deep);
   border-color:var(--accent-deep);}
 
+/* Подкнопки шага: остановить и добавить сид. Мелкие и справа от главной,
+   чтобы не спорить с ней за внимание. */
+.step .sbtns{display:flex; gap:4px; margin-top:6px;}
+.step .sbtn{flex:1;}
+.step .ssub{flex:none; font-family:var(--mono); font-size:9px;
+  letter-spacing:.1em; text-transform:uppercase; padding:5px 8px;
+  cursor:pointer; background:var(--surface); color:var(--sec);
+  border:1.3px solid var(--div);}
+.step .ssub:hover:not(:disabled){border-color:var(--accent-deep);
+  color:var(--accent-deep);}
+.step .ssub:disabled{opacity:.35; cursor:default;}
+.step.locked .ssub{display:none;}
+
+/* Подтверждение — по центру окна, поверх всего. */
+#confirm{position:fixed; inset:0; z-index:50; display:none;
+  align-items:center; justify-content:center; background:rgba(47,42,36,.45);}
+#confirm.on{display:flex;}
+#confirmbox{background:var(--surface); border:1.8px solid var(--line);
+  padding:22px 26px 20px; max-width:430px; position:relative;}
+#confirmbox::before,#confirmbox::after{content:''; position:absolute;
+  width:11px; height:11px;}
+#confirmbox::before{top:-6px; left:-6px; border-top:1.8px solid var(--line);
+  border-left:1.8px solid var(--line);}
+#confirmbox::after{bottom:-6px; right:-6px;
+  border-bottom:1.8px solid var(--line); border-right:1.8px solid var(--line);}
+#confirmtitle{font-size:16px; font-weight:600; margin-bottom:8px;}
+#confirmtext{font-size:12px; line-height:1.5; color:var(--sec); margin-bottom:16px;}
+#confirmbtns{display:flex; gap:8px; justify-content:flex-end;}
+#confirmbtns button{font-family:var(--mono); font-size:10px;
+  letter-spacing:.14em; text-transform:uppercase; padding:8px 16px;
+  cursor:pointer; background:var(--surface); border:1.4px solid var(--div);
+  color:var(--sec);}
+#confirmno:hover{border-color:var(--line); color:var(--ink);}
+#confirmyes{border-color:var(--accent-deep); color:var(--accent-deep);}
+#confirmyes:hover{background:var(--accent-deep); color:var(--surface);}
+
 #stopbtn{margin-top:8px; border-color:var(--div); color:var(--sec); font-family:var(--mono); font-size:10px;
   letter-spacing:.2em; text-transform:uppercase; padding:7px; background:var(--surface); border:1.5px solid var(--div); cursor:pointer; width:100%;}
 #stopbtn:not(:disabled){border-color:var(--accent-deep); color:var(--accent-deep);}
@@ -481,6 +517,18 @@ footer{display:flex; align-items:flex-end; justify-content:space-between; paddin
     </div>
   </main>
 
+  <!-- ПОДТВЕРЖДЕНИЕ (по центру окна) -->
+  <div id="confirm">
+    <div id="confirmbox">
+      <div id="confirmtitle">&#8212;</div>
+      <div id="confirmtext">&#8212;</div>
+      <div id="confirmbtns">
+        <button id="confirmno">Отмена</button>
+        <button id="confirmyes">Да</button>
+      </div>
+    </div>
+  </div>
+
   <!-- ЖУРНАЛ -->
   <section class="panel" id="logpanel">
     <div class="ptitle"><span>Журнал операций</span><span class="idx" id="logstate">Ожидание</span></div>
@@ -732,7 +780,9 @@ function renderPipeline(steps) {
         '<span class="stime">' + st.time + '</span>' +
       '</div>' +
       (st.detail ? '<div class="sdetail"></div>' : '') +
-      '<button class="sbtn">' + btnLabel + '</button>';
+      '<div class="sbtns"><button class="sbtn">' + btnLabel + '</button>' +
+        '<button class="ssub sstop" title="Остановить обучение. Чекпойнты целы, шаг можно продолжить той же кнопкой">&#9632;</button>' +
+        '<button class="ssub sseed" title="Добавить шагу ещё один сид из запаса. Уже посчитанные не пересчитываются">+ сид</button></div>';
     el.querySelector('.sname').textContent = st.name;
     const d = el.querySelector('.sdetail');
     if (d) d.textContent = st.detail;
@@ -742,6 +792,14 @@ function renderPipeline(steps) {
       ui.log('');
       ui.log('——— конвейер · шаг ' + (i + 1) + ': ' + st.name + ' ———', 'info');
       pywebview.api.run_step(st.id);
+    });
+    el.querySelector('.sstop').addEventListener('click', () => {
+      confirmBox('Остановить обучение?',
+        'Шаг «' + st.name + '» будет прерван. Чекпойнты целы — продолжить можно той же кнопкой, с того же места.',
+        'Остановить', () => pywebview.api.stop_task());
+    });
+    el.querySelector('.sseed').addEventListener('click', () => {
+      pywebview.api.add_step_seed(st.id);
     });
     box.appendChild(el);
   });
@@ -844,7 +902,31 @@ document.querySelectorAll('.op[data-task]').forEach(btn => {
     pywebview.api.run_task(t);
   });
 });
-$('stopbtn').addEventListener('click', () => pywebview.api.stop_task());
+/* Подтверждение по центру окна. Действие выполняется только по «да»;
+   Esc и клик по фону отменяют. */
+let confirmAction = null;
+function confirmBox(title, text, yesLabel, action) {
+  $('confirmtitle').textContent = title;
+  $('confirmtext').textContent = text;
+  $('confirmyes').textContent = yesLabel;
+  confirmAction = action;
+  $('confirm').classList.add('on');
+}
+function confirmClose() { $('confirm').classList.remove('on'); confirmAction = null; }
+$('confirmno').addEventListener('click', confirmClose);
+$('confirm').addEventListener('click', e => { if (e.target.id === 'confirm') confirmClose(); });
+$('confirmyes').addEventListener('click', () => {
+  const a = confirmAction; confirmClose(); if (a) a();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && $('confirm').classList.contains('on')) confirmClose();
+});
+
+$('stopbtn').addEventListener('click', () => {
+  confirmBox('Остановить обучение?',
+    'Текущий шаг будет прерван. Чекпойнты целы — продолжить можно той же кнопкой, с того же места.',
+    'Остановить', () => pywebview.api.stop_task());
+});
 $('chartbtn').addEventListener('click', () => pywebview.api.open_chart());
 
 $('resbtn').addEventListener('click', () => {
