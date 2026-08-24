@@ -91,6 +91,11 @@ tr.off td{color:var(--cap); text-decoration:line-through;}
 tr.off td.sw{text-decoration:none;}
 td.sw{text-align:center; width:34px;}
 td.sw input{cursor:pointer; accent-color:var(--accent-deep); width:13px; height:13px;}
+/* Пустая клетка объясняет себя: метрика считается отдельной кнопкой, а
+   не при обучении, и прочерк читался как «ноль» или как поломка. */
+.miss{font-size:8.5px; letter-spacing:.06em; color:var(--cap);
+  text-transform:uppercase; cursor:help;}
+th i{font-style:normal; color:var(--accent); cursor:help;}
 tr:hover td{background:#faf8f3;}
 tr.off:hover td{background:#f7f5f0;}
 
@@ -235,7 +240,10 @@ function renderTable(runs) {
   $('cnt').textContent = runs.length + ' прогонов, учитывается '
     + runs.filter(r => r.on).length;
   let html = '<tr><th class="sw"></th><th class="l">прогон</th><th>сид</th>'
-    + '<th>эпох</th><th>итог</th><th>пик</th><th>ночь · мелкие</th></tr>';
+    + '<th>эпох</th><th>итог</th><th>пик</th>'
+    + '<th title="Полнота по мелким объектам ночью. Считается не при '
+    + 'обучении, а отдельно — кнопкой в сводке справа. Пустая клетка '
+    + 'значит, что этот прогон ещё не оценивали.">ночь · мелкие <i>?</i></th></tr>';
   const sections = [
     ['short', 'Короткие пробы', '12 эпох', 'сравниваются между собой'],
     ['full', 'Полные прогоны', '100 эпох', 'свой контроль, другое расписание'],
@@ -255,7 +263,10 @@ function renderTable(runs) {
           + '<td class="l">' + r.group + '</td>'
           + '<td>' + r.seed + '</td><td>' + epochCell(r) + '</td>'
           + '<td>' + fmt(r.final) + '</td><td>' + fmt(r.best) + '</td>'
-          + '<td>' + fmt(r.target) + '</td></tr>';
+          + '<td>' + (r.target === null || r.target === undefined
+              ? '<span class="miss" title="не посчитано — кнопка «посчитать» '
+                + 'в сводке справа">не посчитано</span>'
+              : fmt(r.target)) + '</td></tr>';
       });
     });
   });

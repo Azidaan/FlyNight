@@ -92,18 +92,14 @@ def _subset_values(metric: str, subset: str) -> dict[str, float]:
 
 
 def _track_values(metric: str, subset: str) -> dict[str, float]:
-    p = RESULTS / 'probe_tracking.csv'
-    out: dict[str, float] = {}
-    if not p.exists():
-        return out
-    try:
-        with open(p, encoding='utf-8') as fh:
-            for r in csv.DictReader(fh):
-                if r['поднабор'] == subset and r['метрика'] == metric:
-                    out[r['модель']] = float(r['значение'])
-    except (OSError, ValueError, KeyError):
-        return {}
-    return out
+    """Метрики трекинга. Читаются из ВСЕХ таблиц, а не только из одной.
+
+    Расчёт по кнопке пишет в свой файл (tracking_full_night.csv), а раньше
+    здесь смотрели только probe_tracking.csv — числа лежали на диске, но в
+    окно не попадали. Устройство таблиц одинаковое, различаются только
+    названия метрик, поэтому сборщик у них общий.
+    """
+    return _subset_values(metric, subset)
 
 
 def collect_runs() -> list[dict]:
