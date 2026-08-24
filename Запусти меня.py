@@ -610,7 +610,7 @@ PIPELINE: list[dict] = [
     {
         'id': 'drb_ad100',
         'name': 'DRB · подъём по кадру · 100 эпох · 1 сид', 'time': '~1.5 сут',
-        'status': lambda: _train_step_status('drb_ad100', (PROBE_SEED,)),
+        'status': lambda: _train_step_status('drb_ad100', _step_seeds('drb_ad100')),
         'cmds': lambda: _train_cmds(
             'training/train_drb.py', 'drb_ad100', _step_seeds('drb_ad100'),
             ['--output', str(PROJECT_ROOT / 'runs' / 'drb_ad100'),
