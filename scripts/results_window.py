@@ -36,11 +36,14 @@ HTML = PROJECT_ROOT / 'ui' / 'results.html'
 TITLE = 'Результаты — YOLO26 + DRB'
 JOB_LOG = PROJECT_ROOT / 'runs' / 'results_job.log'
 
-# Строка «=== имя: ... ===» печатается на каждую считаемую модель — по ним
-# и считается, сколько сделано. Внутри модели прогресс берётся из счётчика
-# Ultralytics вида «45/892».
-RE_MODEL = re.compile(r'^===\s')
-RE_STEP = re.compile(r'(\d+)/(\d+)\s')
+# Строка «=== имя ... ===» печатается на каждую считаемую модель — по ним
+# считается, сколько сделано.
+RE_MODEL = re.compile(r'^===\s*(.+?)\s*===')
+# Счётчик внутри модели. Форматов два: «трекинг 29/71:» с двоеточием и
+# «45/892 6.4it/s» с пробелом. Прежний шаблон требовал пробел после и на
+# трекинге не срабатывал вовсе — полоса стояла на нуле до конца модели.
+RE_STEP = re.compile(r'(\d+)/(\d+)(?=[\s:,]|$)')
+RE_TRACK = re.compile(r'трекинг\s+(\d+)/(\d+)')
 
 
 def training_busy() -> str:
@@ -125,29 +128,47 @@ class ResultsApi:
         return {'ok': True, 'text': f'Считаю {len(models)} моделей'}
 
     def job_status(self) -> dict:
-        """Доля выполненного: по числу пройденных моделей и счётчику внутри."""
+        """Доля выполненного: пройденные модели плюс счётчик внутри текущей.
+
+        Что именно идёт, пишется словами: у трекинга это видео, у оценки по
+        поднаборам — пачки кадров. Без этого полоса была немой.
+        """
         if self.proc is None:
             return {'running': False}
         alive = self.proc.poll() is None
-        done, cur, tot = 0, 0, 0
+        done, cur, tot, what, name = 0, 0, 0, '', ''
         try:
             with open(JOB_LOG, encoding='utf-8', errors='replace') as f:
-                for line in f:
-                    if RE_MODEL.match(line):
-                        done += 1
-                    m = RE_STEP.search(line)
-                    if m:
-                        cur, tot = int(m.group(1)), int(m.group(2))
+                for raw in f:
+                    for line in raw.replace('\r', '\n').split('\n'):
+                        m = RE_MODEL.match(line)
+                        if m:
+                            done += 1
+                            name = m.group(1).split('/')[0].strip()
+                            cur, tot, what = 0, 0, ''
+                            continue
+                        t = RE_TRACK.search(line)
+                        if t:
+                            cur, tot, what = int(t.group(1)), int(t.group(2)), 'видео'
+                            continue
+                        st = RE_STEP.search(line)
+                        if st:
+                            cur, tot, what = int(st.group(1)), int(st.group(2)), 'кадры'
         except OSError:
             pass
-        # Начатая модель считается сделанной на долю своего внутреннего счётчика
         inner = (cur / tot) if tot else 0.0
         n = max(1, self.job_total)
         pct = min(99.0, 100.0 * (max(0, done - 1) + inner) / n) if alive else 100.0
+        if not alive:
+            text = 'расчёт завершён'
+        else:
+            text = f'модель {min(max(done, 1), n)} из {n}'
+            if name:
+                text += f' · {name}'
+            if tot:
+                text += f' · {what} {cur} из {tot}'
         return {'running': alive, 'block': self.job_block,
-                'percent': round(pct, 1),
-                'text': (f'модель {min(done, n)} из {n}' if alive
-                         else 'расчёт завершён')}
+                'percent': round(pct, 1), 'text': text}
 
 
 def main() -> int:
