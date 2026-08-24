@@ -97,6 +97,31 @@ tr.off:hover td{background:#f7f5f0;}
 .mwarn .arr{font-size:14px; line-height:1; flex:none;}
 .mwarn .arr.up{color:var(--ok);} .mwarn .arr.down{color:var(--accent-deep);}
 .nowarn .mwarn{display:none;}
+.mb h3{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.mbtn{font-family:var(--mono); font-size:8.5px; letter-spacing:.1em;
+  text-transform:uppercase; padding:3px 8px; cursor:pointer; flex:none;
+  background:var(--surface); color:var(--accent-deep);
+  border:1.2px solid var(--accent-deep);}
+.mbtn:hover:not(:disabled){background:var(--accent); color:var(--surface);
+  border-color:var(--accent);}
+.mbtn:disabled{opacity:.35; cursor:default; color:var(--sec);
+  border-color:var(--div);}
+/* Метка свежести: сколько прогонов не посчитано или устарело. */
+.mstale{font-family:var(--mono); font-size:8.5px; letter-spacing:.06em;
+  color:var(--accent-deep); margin-bottom:6px;}
+.mfresh{font-family:var(--mono); font-size:8.5px; letter-spacing:.06em;
+  color:var(--ok); margin-bottom:6px;}
+
+/* Полоса расчёта внизу окна: видно, сколько осталось. */
+#job{display:none; margin-top:10px; border:1.4px solid var(--accent-deep);
+  padding:7px 10px 8px; background:var(--surface);}
+#job.on{display:block;}
+#jobtop{display:flex; justify-content:space-between; font-family:var(--mono);
+  font-size:9px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--accent-deep); margin-bottom:5px;}
+#jobbar{height:7px; background:var(--div); position:relative; overflow:hidden;}
+#jobfill{position:absolute; left:0; top:0; bottom:0; width:0%;
+  background:var(--accent); transition:width .4s ease;}
 
 /* Панель — элемент сетки и по умолчанию растягивается на всю высоту.
    Чтобы свёрнутая осела в одну строку, ей нужно align-self, а не flex. */
@@ -134,6 +159,11 @@ tr.off:hover td{background:#f7f5f0;}
       <div id="metrics"></div>
     </section>
   </main>
+
+  <div id="job">
+    <div id="jobtop"><span id="jobname">—</span><span id="jobpct">0%</span></div>
+    <div id="jobbar"><div id="jobfill"></div></div>
+  </div>
 
   <label id="hint" title="Скрыть строки «Отключения меняют разницу» в сводке">
     <input type="checkbox" id="warnon" checked>
@@ -199,9 +229,37 @@ function renderMetrics(blocks) {
         + fmt(z.delta) + ' на ' + fmt(a.delta) + '</span>'
         + '<span class="arr ' + (up ? 'up">▲' : 'down">▼') + '</span></div>';
     }
-    return '<div class="mb"><h3>' + b.title + '</h3>'
-      + '<div class="msub">' + b.sub + '</div>' + rows + warn + '</div>';
+    const st = b.state || {};
+    const need = (st.missing || []).length + (st.stale || []).length;
+    let btn = '', mark = '';
+    if (!st.job) {
+      mark = '<div class="mfresh">берётся из кривых обучения — всегда актуально</div>';
+    } else if (need) {
+      const miss = (st.missing || []).length, old = (st.stale || []).length;
+      mark = '<div class="mstale">не посчитано: ' + miss
+        + (old ? ' · устарело: ' + old : '') + '</div>';
+      btn = '<button class="mbtn" data-b="' + b.id + '">▶ посчитать</button>';
+    } else {
+      mark = '<div class="mfresh">актуально · ' + (st.ready || 0) + ' прогонов</div>';
+      btn = '<button class="mbtn" data-b="' + b.id + '" disabled>актуально</button>';
+    }
+    return '<div class="mb"><h3><span>' + b.title + '</span>' + btn + '</h3>'
+      + '<div class="msub">' + b.sub + '</div>' + mark + rows + warn + '</div>';
   }).join('');
+}
+
+function renderJob(j) {
+  const box = $('job');
+  if (!j || !j.running) {
+    box.classList.remove('on');
+    return false;
+  }
+  box.classList.add('on');
+  $('jobname').textContent = 'Считаю · ' + (j.block || '') + ' · ' + (j.text || '');
+  $('jobpct').textContent = (j.percent || 0).toFixed(0) + '%  ·  осталось '
+    + (100 - (j.percent || 0)).toFixed(0) + '%';
+  $('jobfill').style.width = (j.percent || 0) + '%';
+  return true;
 }
 
 function load() {
@@ -209,7 +267,31 @@ function load() {
     $('stamp').textContent = d.stamp || '';
     renderTable(d.runs || []);
     renderMetrics(d.blocks || []);
+    document.querySelectorAll('.mbtn:not(:disabled)').forEach(b =>
+      b.addEventListener('click', () => {
+        b.disabled = true;
+        pywebview.api.compute(b.dataset.b).then(r => {
+          $('stamp').textContent = r.text || '';
+          if (r.ok) poll(); else b.disabled = false;
+        });
+      }));
+    renderJob(d.job);
   });
+}
+
+/* Пока расчёт идёт — опрашиваем состояние раз в две секунды. Когда
+   закончился, перечитываем таблицу: числа уже на диске. */
+let polling = null;
+function poll() {
+  if (polling) return;
+  polling = setInterval(() => {
+    pywebview.api.state().then(d => {
+      if (!renderJob(d.job)) {
+        clearInterval(polling); polling = null;
+        load();
+      }
+    });
+  }, 2000);
 }
 
 function applyWarn() {

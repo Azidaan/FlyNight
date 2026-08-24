@@ -25,16 +25,56 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
+import re
+import subprocess
+
 from evaluation.results_store import (  # noqa: E402
     collect_runs, metric_blocks, toggle,
 )
 
 HTML = PROJECT_ROOT / 'ui' / 'results.html'
 TITLE = 'Результаты — YOLO26 + DRB'
+JOB_LOG = PROJECT_ROOT / 'runs' / 'results_job.log'
+
+# Строка «=== имя: ... ===» печатается на каждую считаемую модель — по ним
+# и считается, сколько сделано. Внутри модели прогресс берётся из счётчика
+# Ultralytics вида «45/892».
+RE_MODEL = re.compile(r'^===\s')
+RE_STEP = re.compile(r'(\d+)/(\d+)\s')
+
+
+def training_busy() -> str:
+    """Идёт ли обучение: оценка займёт ту же видеокарту.
+
+    Через PowerShell, а НЕ через wmic: в Windows 11 wmic удалён, вызов
+    молча падал, и проверка возвращала «свободно» при идущем обучении.
+    При любой ошибке считаем, что занято — пропустить второй расчёт на
+    занятой карте хуже, чем лишний раз не дать его запустить.
+    """
+    ps = ("Get-CimInstance Win32_Process -Filter \"Name='python.exe'\" | "
+          "Select-Object -ExpandProperty CommandLine")
+    try:
+        r = subprocess.run(
+            ['powershell', '-NoProfile', '-NonInteractive', '-Command', ps],
+            capture_output=True, text=True, timeout=20,
+            creationflags=subprocess.CREATE_NO_WINDOW)
+    except (OSError, subprocess.SubprocessError):
+        return 'проверку занятости выполнить не удалось'
+    if r.returncode != 0:
+        return 'проверку занятости выполнить не удалось'
+    for line in (r.stdout or '').splitlines():
+        if 'train_drb.py' in line or 'train_baseline.py' in line:
+            return 'обучение'
+    return ''
 
 
 class ResultsApi:
-    """Мост в окно: состояние и переключение учёта прогона."""
+    """Мост в окно: состояние, переключение учёта и запуск расчёта."""
+
+    def __init__(self) -> None:
+        self.proc: subprocess.Popen | None = None
+        self.job_block = ''
+        self.job_total = 0
 
     def state(self) -> dict:
         runs = collect_runs()
@@ -42,10 +82,66 @@ class ResultsApi:
             'runs': runs,
             'blocks': metric_blocks(runs),
             'stamp': 'обновлено ' + datetime.now().strftime('%H:%M:%S'),
+            'job': self.job_status(),
         }
 
     def toggle_run(self, key: str) -> bool:
         return toggle(key)
+
+    def compute(self, block_id: str) -> dict:
+        """Запустить расчёт величины. Считаются только недостающие модели."""
+        if self.proc is not None and self.proc.poll() is None:
+            return {'ok': False, 'text': 'Расчёт уже идёт'}
+        busy = training_busy()
+        if busy:
+            return {'ok': False,
+                    'text': f'Идёт {busy} — оценка займёт ту же видеокарту'}
+        runs = collect_runs()
+        block = next((b for b in metric_blocks(runs) if b['id'] == block_id), None)
+        if block is None or not block['state']['job']:
+            return {'ok': False, 'text': 'Здесь считать нечего'}
+        models = block['state']['missing'] + block['state']['stale']
+        if not models:
+            return {'ok': False, 'text': 'Всё уже посчитано'}
+        cmd = [sys.executable, str(PROJECT_ROOT / 'scripts' / 'evaluate_probes.py'),
+               '--models', *models, '--subsets', 'night',
+               '--out', f'{block_id}_night.csv']
+        if block['state']['job'] == 'track':
+            cmd.append('--tracking')
+        JOB_LOG.parent.mkdir(parents=True, exist_ok=True)
+        self.job_block, self.job_total = block_id, len(models)
+        with open(JOB_LOG, 'w', encoding='utf-8') as log:
+            self.proc = subprocess.Popen(
+                cmd, cwd=str(PROJECT_ROOT), stdout=log,
+                stderr=subprocess.STDOUT,
+                creationflags=(subprocess.CREATE_NO_WINDOW
+                               | subprocess.DETACHED_PROCESS))
+        return {'ok': True, 'text': f'Считаю {len(models)} моделей'}
+
+    def job_status(self) -> dict:
+        """Доля выполненного: по числу пройденных моделей и счётчику внутри."""
+        if self.proc is None:
+            return {'running': False}
+        alive = self.proc.poll() is None
+        done, cur, tot = 0, 0, 0
+        try:
+            with open(JOB_LOG, encoding='utf-8', errors='replace') as f:
+                for line in f:
+                    if RE_MODEL.match(line):
+                        done += 1
+                    m = RE_STEP.search(line)
+                    if m:
+                        cur, tot = int(m.group(1)), int(m.group(2))
+        except OSError:
+            pass
+        # Начатая модель считается сделанной на долю своего внутреннего счётчика
+        inner = (cur / tot) if tot else 0.0
+        n = max(1, self.job_total)
+        pct = min(99.0, 100.0 * (max(0, done - 1) + inner) / n) if alive else 100.0
+        return {'running': alive, 'block': self.job_block,
+                'percent': round(pct, 1),
+                'text': (f'модель {min(done, n)} из {n}' if alive
+                         else 'расчёт завершён')}
 
 
 def main() -> int:

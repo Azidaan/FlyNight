@@ -169,6 +169,60 @@ def summarize(runs: list[dict], groups: list[str], field: str,
     return _stat([r.get(field) for r in sel])
 
 
+# Что нужно посчитать для каждой величины и чем.
+#   fresh  — берётся прямо из кривых обучения, считать нечего;
+#   subset — прогон весов по ночному срезу (evaluate_probes.py);
+#   track  — то же плюс трекер и метрики MOT (долго).
+BLOCK_JOBS = {
+    'overall': None,
+    'target': 'subset',
+    'tracking': 'track',
+}
+
+
+def model_name(run: dict) -> str:
+    """Как прогон называется в таблицах метрик: <группа>_seed<сид>."""
+    return f"{run['group']}_seed{run['seed']}"
+
+
+def _weights_of(run: dict) -> Path:
+    return PROJECT_ROOT / 'weights' / model_name(run) / 'best.pt'
+
+
+def block_state(runs: list[dict], block_id: str, groups: list[str],
+                field: str) -> dict:
+    """Свежесть величины и список прогонов, которые надо посчитать.
+
+    Устаревшим считается прогон, чьи веса новее таблицы с метрикой: значит
+    обучение продолжилось, а число осталось от прошлого раза.
+    """
+    job = BLOCK_JOBS.get(block_id)
+    sel = [r for r in runs if r['group'] in groups]
+    if job is None:
+        return {'job': None, 'missing': [], 'stale': [], 'ready': len(sel)}
+    table_mt = 0.0
+    for f in RESULTS.glob('*.csv'):
+        try:
+            table_mt = max(table_mt, f.stat().st_mtime)
+        except OSError:
+            pass
+    missing, stale = [], []
+    for r in sel:
+        w = _weights_of(r)
+        if not w.exists():
+            continue
+        if r.get(field) is None:
+            missing.append(model_name(r))
+        else:
+            try:
+                if w.stat().st_mtime > table_mt:
+                    stale.append(model_name(r))
+            except OSError:
+                pass
+    return {'job': job, 'missing': missing, 'stale': stale,
+            'ready': len(sel) - len(missing)}
+
+
 def metric_blocks(runs: list[dict]) -> list[dict]:
     """Три интересующие величины, каждая — с учётом отключений и без.
 
@@ -177,16 +231,17 @@ def metric_blocks(runs: list[dict]) -> list[dict]:
     нескольких сидах в одинаковых условиях.
     """
     pairs = [
-        ('Общая точность', 'best', ['base12'], ['drb_ad'],
-         'mAP@0.50 по всему набору · лучшая эпоха'),
-        ('Целевая клетка', 'target', ['base12'], ['drb_ad'],
+        ('overall', 'Общая точность', 'best', ['base12'], ['drb_ad'],
+         'mAP@0.50 по всему набору · лучшая эпоха · берётся из кривых обучения'),
+        ('target', 'Целевая клетка', 'target', ['base12'], ['drb_ad'],
          'полнота по мелким объектам ночью · ради этого работа'),
-        ('Трекинг', 'mota', ['base12'], ['drb_ad'],
-         'MOTA ночью · пока не посчитано'),
+        ('tracking', 'Трекинг', 'mota', ['base12'], ['drb_ad'],
+         'MOTA ночью · главная метрика работы'),
     ]
     out = []
-    for title, field, ctl, exp, sub in pairs:
-        block = {'title': title, 'sub': sub, 'rows': []}
+    for bid, title, field, ctl, exp, sub in pairs:
+        block = {'id': bid, 'title': title, 'sub': sub, 'rows': [],
+                 'state': block_state(runs, bid, ctl + exp, field)}
         for label, only_on in (('с учётом отключений', True), ('все прогоны', False)):
             c = summarize(runs, ctl, field, only_on)
             e = summarize(runs, exp, field, only_on)
