@@ -96,17 +96,23 @@ class ResultsApi:
         if busy:
             return {'ok': False,
                     'text': f'Идёт {busy} — оценка займёт ту же видеокарту'}
+        # Ключ вида «target_full»: величина и длина обучения. Считать их
+        # вместе нельзя — у каждой длины свой контроль и своё расписание.
         runs = collect_runs()
-        block = next((b for b in metric_blocks(runs) if b['id'] == block_id), None)
-        if block is None or not block['state']['job']:
+        target = None
+        for b in metric_blocks(runs):
+            for L in b['lens']:
+                if L['id'] == block_id:
+                    target = L
+        if target is None or not target['state']['job']:
             return {'ok': False, 'text': 'Здесь считать нечего'}
-        models = block['state']['missing'] + block['state']['stale']
+        models = target['state']['missing'] + target['state']['stale']
         if not models:
             return {'ok': False, 'text': 'Всё уже посчитано'}
         cmd = [sys.executable, str(PROJECT_ROOT / 'scripts' / 'evaluate_probes.py'),
                '--models', *models, '--subsets', 'night',
                '--out', f'{block_id}_night.csv']
-        if block['state']['job'] == 'track':
+        if target['state']['job'] == 'track':
             cmd.append('--tracking')
         JOB_LOG.parent.mkdir(parents=True, exist_ok=True)
         self.job_block, self.job_total = block_id, len(models)

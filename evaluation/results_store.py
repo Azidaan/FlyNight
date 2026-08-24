@@ -190,27 +190,54 @@ def _weights_of(run: dict) -> Path:
     return PROJECT_ROOT / 'weights' / model_name(run) / 'best.pt'
 
 
-def block_state(runs: list[dict], block_id: str, groups: list[str],
+# Две независимые пары сравнения. Смешивать их нельзя: расписание обучения
+# разное (на двенадцати эпохах мозаика работает две эпохи из двенадцати, на
+# ста — девяносто из ста), и контроль у каждой свой.
+LENGTHS = [
+    ('short', '12 эпох', ['base12'], ['drb_ad']),
+    ('full', '100 эпох', ['baseline'], ['drb_ad100']),
+]
+
+METRICS = [
+    ('overall', 'Общая точность', 'best',
+     'mAP@0.50 по всему набору · лучшая эпоха · берётся из кривых обучения'),
+    ('target', 'Целевая клетка', 'target',
+     'полнота по мелким объектам ночью · ради этого работа'),
+    ('tracking', 'Трекинг', 'mota',
+     'MOTA ночью · главная метрика работы'),
+]
+
+
+def block_state(runs: list[dict], metric_id: str, groups: list[str],
                 field: str) -> dict:
     """Свежесть величины и список прогонов, которые надо посчитать.
+
+    Считаются ТОЛЬКО учитываемые прогоны: отключённый в расчёт не входит,
+    значит и досчитывать его незачем. Без этого окно писало «актуально»,
+    когда у всех включённых прогонов чисел не было вовсе.
 
     Устаревшим считается прогон, чьи веса новее таблицы с метрикой: значит
     обучение продолжилось, а число осталось от прошлого раза.
     """
-    job = BLOCK_JOBS.get(block_id)
-    sel = [r for r in runs if r['group'] in groups]
+    job = BLOCK_JOBS.get(metric_id)
+    sel = [r for r in runs if r['group'] in groups and r['on']]
+    if not sel:
+        return {'job': job, 'missing': [], 'stale': [], 'ready': 0,
+                'total': 0, 'why': 'все прогоны этой длины отключены'}
     if job is None:
-        return {'job': None, 'missing': [], 'stale': [], 'ready': len(sel)}
+        return {'job': None, 'missing': [], 'stale': [], 'ready': len(sel),
+                'total': len(sel), 'why': ''}
     table_mt = 0.0
     for f in RESULTS.glob('*.csv'):
         try:
             table_mt = max(table_mt, f.stat().st_mtime)
         except OSError:
             pass
-    missing, stale = [], []
+    missing, stale, noweights = [], [], 0
     for r in sel:
         w = _weights_of(r)
         if not w.exists():
+            noweights += 1
             continue
         if r.get(field) is None:
             missing.append(model_name(r))
@@ -220,35 +247,36 @@ def block_state(runs: list[dict], block_id: str, groups: list[str],
                     stale.append(model_name(r))
             except OSError:
                 pass
+    why = ''
+    if noweights and not missing and not stale:
+        why = f'у {noweights} прогонов нет сохранённых весов'
     return {'job': job, 'missing': missing, 'stale': stale,
-            'ready': len(sel) - len(missing)}
+            'ready': len(sel) - len(missing) - noweights,
+            'total': len(sel), 'why': why}
 
 
 def metric_blocks(runs: list[dict]) -> list[dict]:
-    """Три интересующие величины, каждая — с учётом отключений и без.
+    """Три величины, каждая — отдельно по двенадцати и по ста эпохам.
 
-    Сравниваются двенадцатиэпошные пробы: контроль base12 против подъёма по
-    кадру drb_ad. Это единственная пара, где обе стороны посчитаны на
-    нескольких сидах в одинаковых условиях.
+    Раньше сводка знала только двенадцатиэпошную пару, и стоэпошные прогоны
+    в неё не попадали вовсе. Теперь у каждой длины своя строка, свой набор
+    прогонов и своя кнопка расчёта — считать их вместе нельзя.
     """
-    pairs = [
-        ('overall', 'Общая точность', 'best', ['base12'], ['drb_ad'],
-         'mAP@0.50 по всему набору · лучшая эпоха · берётся из кривых обучения'),
-        ('target', 'Целевая клетка', 'target', ['base12'], ['drb_ad'],
-         'полнота по мелким объектам ночью · ради этого работа'),
-        ('tracking', 'Трекинг', 'mota', ['base12'], ['drb_ad'],
-         'MOTA ночью · главная метрика работы'),
-    ]
     out = []
-    for bid, title, field, ctl, exp, sub in pairs:
-        block = {'id': bid, 'title': title, 'sub': sub, 'rows': [],
-                 'state': block_state(runs, bid, ctl + exp, field)}
-        for label, only_on in (('с учётом отключений', True), ('все прогоны', False)):
-            c = summarize(runs, ctl, field, only_on)
-            e = summarize(runs, exp, field, only_on)
-            block['rows'].append({
-                'label': label, 'control': c, 'block': e,
-                'delta': (e['mean'] - c['mean']) if (c and e) else None,
+    for mid, title, field, sub in METRICS:
+        block = {'id': mid, 'title': title, 'sub': sub, 'lens': []}
+        for lid, llabel, ctl, exp in LENGTHS:
+            st = block_state(runs, mid, ctl + exp, field)
+            c = summarize(runs, ctl, field, True)
+            e = summarize(runs, exp, field, True)
+            c_all = summarize(runs, ctl, field, False)
+            e_all = summarize(runs, exp, field, False)
+            delta = (e['mean'] - c['mean']) if (c and e) else None
+            delta_all = (e_all['mean'] - c_all['mean']) if (c_all and e_all) else None
+            block['lens'].append({
+                'id': f'{mid}_{lid}', 'label': llabel,
+                'control': c, 'block': e, 'delta': delta,
+                'delta_all': delta_all, 'state': st,
             })
         out.append(block)
     return out

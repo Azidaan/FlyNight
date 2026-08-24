@@ -123,6 +123,15 @@ tr.off:hover td{background:#f7f5f0;}
 .mwarn .arr.up{color:var(--ok);} .mwarn .arr.down{color:var(--accent-deep);}
 .nowarn .mwarn{display:none;}
 .mb h3{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+/* Внутри величины — по строке на длину обучения. Считать их вместе нельзя:
+   расписание разное и контроль у каждой свой. */
+.mlen{border-top:1.3px solid var(--div); margin-top:9px; padding-top:8px;}
+.mlen:first-of-type{border-top:none; margin-top:2px; padding-top:0;}
+.mlenhead{display:flex; align-items:center; justify-content:space-between;
+  gap:8px; margin-bottom:5px;}
+.mlenname{font-family:var(--mono); font-size:9px; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--ink);}
+.mlenname b{color:var(--accent); font-weight:400;}
 .mbtn{font-family:var(--mono); font-size:8.5px; letter-spacing:.1em;
   text-transform:uppercase; padding:3px 8px; cursor:pointer; flex:none;
   background:var(--surface); color:var(--accent-deep);
@@ -257,47 +266,50 @@ function renderTable(runs) {
 
 function renderMetrics(blocks) {
   $('metrics').innerHTML = blocks.map(b => {
-    // Показываем ОДИН набор чисел — тот, что с учётом отключений: ради
-    // этого переключатели и сделаны. Что именно даёт отключение, видно
-    // строкой ниже, со стрелкой направления.
-    const r = b.rows[0];
-    let rows;
-    if (!r.control && !r.block) {
-      rows = '<div class="mrow"><div class="mnone">не посчитано</div></div>';
-    } else {
-      const cls = r.delta === null ? '' : (r.delta >= 0 ? ' up' : ' down');
-      const d = r.delta === null ? '' : '<div class="mdelta' + cls + '">'
-        + (r.delta >= 0 ? '+' : '') + fmt(r.delta) + '</div>';
-      rows = '<div class="mrow">'
-        + '<div class="mline"><span class="nm">без блока</span><span>' + stat(r.control) + '</span></div>'
-        + '<div class="mline"><span class="nm">с блоком</span><span>' + stat(r.block) + '</span></div>'
-        + d + '</div>';
-    }
-    // если отключения сдвинули вывод — говорим об этом прямо
-    let warn = '';
-    const a = b.rows[0], z = b.rows[1];
-    if (a.delta !== null && z.delta !== null && Math.abs(a.delta - z.delta) > 1e-9) {
-      const up = a.delta > z.delta;
-      warn = '<div class="mwarn"><span>Отключения меняют разницу с '
-        + fmt(z.delta) + ' на ' + fmt(a.delta) + '</span>'
-        + '<span class="arr ' + (up ? 'up">▲' : 'down">▼') + '</span></div>';
-    }
-    const st = b.state || {};
-    const need = (st.missing || []).length + (st.stale || []).length;
-    let btn = '', mark = '';
-    if (!st.job) {
-      mark = '<div class="mfresh">берётся из кривых обучения — всегда актуально</div>';
-    } else if (need) {
-      const miss = (st.missing || []).length, old = (st.stale || []).length;
-      mark = '<div class="mstale">не посчитано: ' + miss
-        + (old ? ' · устарело: ' + old : '') + '</div>';
-      btn = '<button class="mbtn" data-b="' + b.id + '">▶ посчитать</button>';
-    } else {
-      mark = '<div class="mfresh">актуально · ' + (st.ready || 0) + ' прогонов</div>';
-      btn = '<button class="mbtn" data-b="' + b.id + '" disabled>актуально</button>';
-    }
-    return '<div class="mb"><h3><span>' + b.title + '</span>' + btn + '</h3>'
-      + '<div class="msub">' + b.sub + '</div>' + mark + rows + warn + '</div>';
+    const lens = b.lens.map(L => {
+      const st = L.state || {};
+      const need = (st.missing || []).length + (st.stale || []).length;
+      let btn = '', mark = '';
+      if (st.why) {
+        mark = '<div class="mstale">' + st.why + '</div>';
+        btn = '<button class="mbtn" data-b="' + L.id + '" disabled>нечего считать</button>';
+      } else if (!st.job) {
+        mark = '<div class="mfresh">из кривых обучения · ' + (st.ready || 0) + ' прогонов</div>';
+      } else if (need) {
+        mark = '<div class="mstale">не посчитано: ' + (st.missing || []).length
+          + ((st.stale || []).length ? ' · устарело: ' + st.stale.length : '') + '</div>';
+        btn = '<button class="mbtn" data-b="' + L.id + '">▶ посчитать</button>';
+      } else {
+        mark = '<div class="mfresh">актуально · ' + (st.ready || 0) + ' прогонов</div>';
+        btn = '<button class="mbtn" data-b="' + L.id + '" disabled>актуально</button>';
+      }
+      let body;
+      if (!L.control && !L.block) {
+        body = '<div class="mnone">' + (st.why ? 'сравнивать нечего' : 'не посчитано') + '</div>';
+      } else {
+        const cls = L.delta === null ? '' : (L.delta >= 0 ? ' up' : ' down');
+        const d = L.delta === null ? '' : '<div class="mdelta' + cls + '">'
+          + (L.delta >= 0 ? '+' : '') + fmt(L.delta) + '</div>';
+        body = '<div class="mline"><span class="nm">без блока</span><span>'
+          + stat(L.control) + '</span></div>'
+          + '<div class="mline"><span class="nm">с блоком</span><span>'
+          + stat(L.block) + '</span></div>' + d;
+      }
+      // строка со стрелкой — только если отключения реально сдвинули вывод
+      let warn = '';
+      if (L.delta !== null && L.delta_all !== null
+          && Math.abs(L.delta - L.delta_all) > 1e-9) {
+        const up = L.delta > L.delta_all;
+        warn = '<div class="mwarn"><span>Отключения меняют разницу с '
+          + fmt(L.delta_all) + ' на ' + fmt(L.delta) + '</span>'
+          + '<span class="arr ' + (up ? 'up">▲' : 'down">▼') + '</span></div>';
+      }
+      return '<div class="mlen"><div class="mlenhead">'
+        + '<span class="mlenname"><b>' + L.label + '</b></span>' + btn + '</div>'
+        + mark + body + warn + '</div>';
+    }).join('');
+    return '<div class="mb"><h3><span>' + b.title + '</span></h3>'
+      + '<div class="msub">' + b.sub + '</div>' + lens + '</div>';
   }).join('');
 }
 
