@@ -53,6 +53,16 @@ def weights_of(pid: str) -> Path:
     probe = PROBE_ROOT / pid / 'seed42' / 'weights' / 'best.pt'
     if probe.exists():
         return probe
+    # Имя вида «drb_ad100_seed42» — ищем каталог самого прогона. Копия в
+    # weights/ делается после обучения, у идущего прогона её ещё нет, а
+    # best.pt в его каталоге уже есть и пригоден к оценке.
+    if '_seed' in pid:
+        grp, _, sd = pid.rpartition('_seed')
+        if sd.isdigit():
+            for base in (PROJECT_ROOT / 'runs', PROBE_ROOT):
+                w = base / grp / f'seed{sd}' / 'weights' / 'best.pt'
+                if w.exists():
+                    return w
     return PROJECT_ROOT / 'weights' / pid / 'best.pt'
 
 

@@ -187,6 +187,17 @@ def model_name(run: dict) -> str:
 
 
 def _weights_of(run: dict) -> Path:
+    """Веса прогона. Сначала в его собственном каталоге, потом в копии.
+
+    Копия в weights/ делается ПОСЛЕ обучения, поэтому у идущего прогона её
+    ещё нет — а best.pt в каталоге прогона Ultralytics пишет по ходу, и его
+    уже можно оценивать. Без этой проверки идущий прогон значился как «без
+    весов», то есть якобы непригодный к расчёту.
+    """
+    for base in (RUNS, RUNS / 'init_probe'):
+        w = base / run['group'] / f"seed{run['seed']}" / 'weights' / 'best.pt'
+        if w.exists():
+            return w
     return PROJECT_ROOT / 'weights' / model_name(run) / 'best.pt'
 
 
@@ -198,6 +209,11 @@ LENGTHS = [
     ('full', '100 эпох', ['baseline'], ['drb_ad100']),
 ]
 
+
+def section_of(run: dict) -> str:
+    """К какой длине обучения относится прогон. Порог тот же, что в таблице."""
+    return 'full' if run['epochs'] > 12 else 'short'
+
 METRICS = [
     ('overall', 'Общая точность', 'best',
      'mAP@0.50 по всему набору · лучшая эпоха · берётся из кривых обучения'),
@@ -208,19 +224,24 @@ METRICS = [
 ]
 
 
-def block_state(runs: list[dict], metric_id: str, groups: list[str],
+def block_state(runs: list[dict], metric_id: str, section: str,
                 field: str) -> dict:
     """Свежесть величины и список прогонов, которые надо посчитать.
 
-    Считаются ТОЛЬКО учитываемые прогоны: отключённый в расчёт не входит,
-    значит и досчитывать его незачем. Без этого окно писало «актуально»,
-    когда у всех включённых прогонов чисел не было вовсе.
+    Берутся ВСЕ учитываемые прогоны этой длины, а не только та пара, что
+    сравнивается. Иначе выходило расхождение: в таблице у w0, w2 и w4
+    пусто, а сводка писала «актуально», потому что смотрела лишь на
+    base12 и drb_ad. Лишние числа сравнению не мешают, а дыры в таблице
+    мешают читать.
+
+    Отключённые не в счёт: раз прогон не участвует в расчёте, досчитывать
+    его незачем.
 
     Устаревшим считается прогон, чьи веса новее таблицы с метрикой: значит
     обучение продолжилось, а число осталось от прошлого раза.
     """
     job = BLOCK_JOBS.get(metric_id)
-    sel = [r for r in runs if r['group'] in groups and r['on']]
+    sel = [r for r in runs if section_of(r) == section and r['on']]
     if not sel:
         return {'job': job, 'missing': [], 'stale': [], 'ready': 0,
                 'total': 0, 'why': 'все прогоны этой длины отключены'}
@@ -247,12 +268,13 @@ def block_state(runs: list[dict], metric_id: str, groups: list[str],
                     stale.append(model_name(r))
             except OSError:
                 pass
-    why = ''
-    if noweights and not missing and not stale:
-        why = f'у {noweights} прогонов нет сохранённых весов'
+    # Прогоны без сохранённых весов посчитать нельзя вообще: модели больше
+    # нет. Молчать об этом нельзя — иначе в таблице остаётся необъяснимая
+    # дыра, а сводка говорит «актуально».
     return {'job': job, 'missing': missing, 'stale': stale,
+            'noweights': noweights,
             'ready': len(sel) - len(missing) - noweights,
-            'total': len(sel), 'why': why}
+            'total': len(sel), 'why': ''}
 
 
 def metric_blocks(runs: list[dict]) -> list[dict]:
@@ -266,7 +288,8 @@ def metric_blocks(runs: list[dict]) -> list[dict]:
     for mid, title, field, sub in METRICS:
         block = {'id': mid, 'title': title, 'sub': sub, 'lens': []}
         for lid, llabel, ctl, exp in LENGTHS:
-            st = block_state(runs, mid, ctl + exp, field)
+            st = block_state(runs, mid, lid, field)
+            st['pair'] = ' и '.join(ctl + exp)
             c = summarize(runs, ctl, field, True)
             e = summarize(runs, exp, field, True)
             c_all = summarize(runs, ctl, field, False)
