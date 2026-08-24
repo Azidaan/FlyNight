@@ -608,6 +608,7 @@ const ui = {
       : 'Пройти все оставшиеся шаги подряд, с проверкой результатов после каждого.';
   },
   setBusy(taskId, busy) {
+    this.busyId = busy ? taskId : null;   // чем занята САМА панель
     document.querySelectorAll('.op').forEach(b => {
       if (!b.dataset.task) return;
       b.classList.toggle('running', busy && b.dataset.task === taskId);
@@ -851,6 +852,16 @@ function applyState(s) {
   $('m-rain').textContent = m.rain ?? '—';
   $('m-fog').textContent = m.fog ?? '—';
   $('stamp-date').textContent = '1 · ' + (s.date || '—');
+  /* Кнопка «стоп» включается по факту идущего обучения, а не по тому,
+     запускала ли его эта панель: после перезапуска ручка теряется, а
+     обучение продолжается, и кнопка была серой. */
+  if (s.training) {
+    $('stopbtn').disabled = false;
+    $('stopbtn').textContent = '■ Остановить · ' + s.training;
+  } else if (!ui.busyId) {
+    $('stopbtn').disabled = true;
+    $('stopbtn').textContent = '■ Останавливать нечего';
+  }
 }
 
 function startAuto() {

@@ -793,7 +793,11 @@ class Api:
             'eval': 'ok' if (PROJECT_ROOT / '.venv' / 'Lib' / 'site-packages' / 'bdd100k').is_dir() else '',
         }
         return {'lamps': lamps, 'metrics': self._metrics(),
-                'date': date.today().strftime('%d.%m.%Y')}
+                'date': date.today().strftime('%d.%m.%Y'),
+                # Идёт ли обучение вообще — по процессам, а не по тому,
+                # запускала ли его ЭТА панель. Иначе после перезапуска
+                # кнопка «стоп» оставалась серой при идущем обучении.
+                'training': self._training_running()}
 
     def _metrics(self) -> dict:
         m: dict = {}
@@ -1425,9 +1429,47 @@ class Api:
             self._proc = None
         return code
 
+    def _training_pids(self) -> list[int]:
+        """PID всех процессов обучения и супервизоров — по командной строке.
+
+        Ручка на запущенный процесс есть только у той панели, которая его
+        запустила. После перезапуска панели она теряется, и кнопка «стоп»
+        не могла остановить ничего. Поэтому ищем так же, как ищет проверка
+        занятости, — по командной строке.
+        """
+        ps = ("Get-CimInstance Win32_Process -Filter \"Name='python.exe'\" | "
+              "Where-Object { $_.CommandLine -like '*train_drb*' -or "
+              "$_.CommandLine -like '*train_baseline*' -or "
+              "$_.CommandLine -like '*train_supervisor*' } | "
+              "ForEach-Object { \"$($_.ProcessId) $($_.CommandLine)\" }")
+        try:
+            out = subprocess.run(
+                ['powershell', '-NoProfile', '-NonInteractive', '-Command', ps],
+                capture_output=True, text=True, timeout=25,
+                creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0)).stdout
+        except (OSError, subprocess.SubprocessError):
+            return []
+        sup, train = [], []
+        for line in (out or '').splitlines():
+            head, _, rest = line.strip().partition(' ')
+            if not head.isdigit():
+                continue
+            # Супервизор первым: иначе он перезапустит убитое обучение.
+            (sup if 'train_supervisor' in rest else train).append(int(head))
+        return sup + train
+
     def stop_task(self) -> None:
         """Стоп: убить всё дерево (супервизор + обучение + воркеры)."""
         self._abort = True
+        killed = 0
+        for pid in self._training_pids():
+            r = subprocess.run(['taskkill', '/PID', str(pid), '/T', '/F'],
+                               capture_output=True,
+                               creationflags=subprocess.CREATE_NO_WINDOW)
+            if r.returncode == 0:
+                killed += 1
+        if killed:
+            self._log(f'Остановлено процессов обучения: {killed}.', 'err')
         with self._lock:
             if self._proc is not None:
                 subprocess.run(['taskkill', '/PID', str(self._proc.pid), '/T', '/F'],

@@ -49,7 +49,13 @@ def main() -> int:
                                       '--alpha-init 0.0')), line)
         check('стоэпошный подъём пишет в свой каталог',
               line.count('drb_ad100') >= 2 and 'drb_full' not in line, line)
-        check('стоэпошный подъём идёт на одном сиде', len(ac) == 1, str(len(ac)))
+        # Сидов может быть больше одного: их добавляют кнопкой «+ сид».
+        # Проверяем не количество, а что считаются ровно недосчитанные.
+        pend = [str(x) for x in mod._step_seeds('drb_ad100')
+                if mod._seed_states('drb_ad100', (x,))[x] != 'done']
+        check('стоэпошный подъём считает недосчитанные сиды',
+              [c[c.index('--seed') + 1] for c in ac] == pend,
+              str([c[c.index('--seed') + 1] for c in ac]) + ' против ' + str(pend))
         check('число эпох берётся из конфига, не из пробы',
               '--epochs' not in line, line)
     active = [s for s in steps if s['role'] == 'active']
