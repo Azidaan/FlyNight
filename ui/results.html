@@ -60,6 +60,31 @@ td{padding:4px 6px; border-bottom:1px solid var(--div); text-align:right;
 td.l{font-family:var(--sans); font-size:11.5px;}
 tr.grp td{background:#f6f4ee; font-family:var(--mono); font-size:8.5px;
   letter-spacing:.14em; text-transform:uppercase; color:var(--sec);}
+
+/* ————— разделение по длине обучения —————
+   Двенадцать эпох и сто — разные эксперименты с разными контролями, и в
+   одном списке они путаются. Разделены размерной линией — тем же приёмом,
+   что и заголовки разделов в панели: линия с подписью посередине. */
+tr.sect td{padding:16px 0 7px; border-bottom:none; background:none;}
+tr.sect:first-child td{padding-top:2px;}
+.sline{position:relative; text-align:center;}
+.sline::before{content:''; position:absolute; left:0; right:0; top:50%;
+  height:1.4px; background:var(--aux);}
+.sline span{position:relative; background:var(--surface); padding:0 12px;
+  font-family:var(--mono); font-size:9px; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--ink);}
+.sline b{color:var(--accent); font-weight:400;}
+
+/* Длина обучения полоской: 100 эпох — полная ширина, 12 — короткая.
+   У идущего прогона полоса накрашена лишь на пройденную часть. */
+.ebar{display:inline-flex; align-items:center; gap:6px; justify-content:flex-end;}
+.ebar u{display:block; width:46px; height:5px; background:var(--div);
+  position:relative; text-decoration:none; flex:none;}
+.ebar u i{position:absolute; left:0; top:0; bottom:0; background:var(--aux);}
+.ebar.live u i{background:var(--accent); animation:ebpulse 1.4s ease-in-out infinite;}
+@keyframes ebpulse{50%{opacity:.5;}}
+.ebar em{font-style:normal; min-width:26px; text-align:right;}
+tr.off .ebar u i{background:var(--div);}
 /* отключённый прогон виден и зачёркнут — он не исчезает из таблицы,
    иначе о его существовании можно забыть */
 tr.off td{color:var(--cap); text-decoration:line-through;}
@@ -167,7 +192,7 @@ tr.off:hover td{background:#f7f5f0;}
 
   <label id="hint" title="Скрыть строки «Отключения меняют разницу» в сводке">
     <input type="checkbox" id="warnon" checked>
-    <span>Снятая галочка — прогон не участвует ни в расчётах, ни на графиках · сводка считается и с учётом отключений, и по всем прогонам</span>
+    <span>Снятая галочка — прогон не участвует ни в расчётах, ни на графиках · сводка показана с учётом отключений, строка со стрелкой говорит, что они изменили</span>
   </label>
 </div>
 
@@ -181,22 +206,46 @@ function stat(s, n) {
   return fmt(s.mean, n) + (s.n > 1 ? '  ±' + fmt(s.sd, n) : '') + '  (n=' + s.n + ')';
 }
 
+/* Длина обучения: короткие пробы ровно 12 эпох, полные — до ста.
+   Идущий прогон сюда же, по его целевой длине, а не по пройденной. */
+const FULL_LEN = 100;
+function section(r) { return r.epochs > 12 ? 'full' : 'short'; }
+
+function epochCell(r) {
+  const target = section(r) === 'full' ? FULL_LEN : 12;
+  const pct = Math.max(4, Math.round(100 * r.epochs / FULL_LEN));
+  const running = section(r) === 'full' && r.epochs < FULL_LEN;
+  return '<span class="ebar' + (running ? ' live' : '') + '">'
+    + '<u><i style="width:' + pct + '%"></i></u>'
+    + '<em>' + r.epochs + (running ? '/' + target : '') + '</em></span>';
+}
+
 function renderTable(runs) {
   $('cnt').textContent = runs.length + ' прогонов, учитывается '
     + runs.filter(r => r.on).length;
-  const byGroup = {};
-  runs.forEach(r => { (byGroup[r.group] = byGroup[r.group] || []).push(r); });
   let html = '<tr><th class="sw"></th><th class="l">прогон</th><th>сид</th>'
     + '<th>эпох</th><th>итог</th><th>пик</th><th>ночь · мелкие</th></tr>';
-  Object.keys(byGroup).sort().forEach(g => {
-    html += '<tr class="grp"><td colspan="7">' + g + '</td></tr>';
-    byGroup[g].sort((a, b) => a.seed - b.seed).forEach(r => {
-      html += '<tr class="' + (r.on ? '' : 'off') + '" data-k="' + r.key + '">'
-        + '<td class="sw"><input type="checkbox"' + (r.on ? ' checked' : '') + '></td>'
-        + '<td class="l">' + r.group + '</td>'
-        + '<td>' + r.seed + '</td><td>' + r.epochs + '</td>'
-        + '<td>' + fmt(r.final) + '</td><td>' + fmt(r.best) + '</td>'
-        + '<td>' + fmt(r.target) + '</td></tr>';
+  const sections = [
+    ['short', 'Короткие пробы', '12 эпох', 'сравниваются между собой'],
+    ['full', 'Полные прогоны', '100 эпох', 'свой контроль, другое расписание'],
+  ];
+  sections.forEach(([sid, name, len, note]) => {
+    const part = runs.filter(r => section(r) === sid);
+    if (!part.length) return;
+    html += '<tr class="sect"><td colspan="7"><div class="sline"><span>'
+      + name + ' · <b>' + len + '</b> · ' + note + '</span></div></td></tr>';
+    const byGroup = {};
+    part.forEach(r => { (byGroup[r.group] = byGroup[r.group] || []).push(r); });
+    Object.keys(byGroup).sort().forEach(g => {
+      html += '<tr class="grp"><td colspan="7">' + g + '</td></tr>';
+      byGroup[g].sort((a, b) => a.seed - b.seed).forEach(r => {
+        html += '<tr class="' + (r.on ? '' : 'off') + '" data-k="' + r.key + '">'
+          + '<td class="sw"><input type="checkbox"' + (r.on ? ' checked' : '') + '></td>'
+          + '<td class="l">' + r.group + '</td>'
+          + '<td>' + r.seed + '</td><td>' + epochCell(r) + '</td>'
+          + '<td>' + fmt(r.final) + '</td><td>' + fmt(r.best) + '</td>'
+          + '<td>' + fmt(r.target) + '</td></tr>';
+      });
     });
   });
   $('tbl').innerHTML = html;
@@ -208,18 +257,22 @@ function renderTable(runs) {
 
 function renderMetrics(blocks) {
   $('metrics').innerHTML = blocks.map(b => {
-    const rows = b.rows.map(r => {
-      if (!r.control && !r.block)
-        return '<div class="mrow"><div class="mlabel">' + r.label + '</div>'
-          + '<div class="mnone">не посчитано</div></div>';
+    // Показываем ОДИН набор чисел — тот, что с учётом отключений: ради
+    // этого переключатели и сделаны. Что именно даёт отключение, видно
+    // строкой ниже, со стрелкой направления.
+    const r = b.rows[0];
+    let rows;
+    if (!r.control && !r.block) {
+      rows = '<div class="mrow"><div class="mnone">не посчитано</div></div>';
+    } else {
       const cls = r.delta === null ? '' : (r.delta >= 0 ? ' up' : ' down');
       const d = r.delta === null ? '' : '<div class="mdelta' + cls + '">'
         + (r.delta >= 0 ? '+' : '') + fmt(r.delta) + '</div>';
-      return '<div class="mrow"><div class="mlabel">' + r.label + '</div>'
+      rows = '<div class="mrow">'
         + '<div class="mline"><span class="nm">без блока</span><span>' + stat(r.control) + '</span></div>'
         + '<div class="mline"><span class="nm">с блоком</span><span>' + stat(r.block) + '</span></div>'
         + d + '</div>';
-    }).join('');
+    }
     // если отключения сдвинули вывод — говорим об этом прямо
     let warn = '';
     const a = b.rows[0], z = b.rows[1];
