@@ -132,11 +132,15 @@ def build_detection_cache_with_q(
     split: str = 'val',
     cache_dir: str | Path = PROJECT_ROOT / 'runs' / 'det_cache_q',
     aggregations: tuple[str, ...] = tuple(AGGREGATIONS),
+    device: str | int = 0,
 ) -> Path:
     """Кэш детекций с q_i — формат detection_cache.py + q_<agg> + stride.
 
     Совместим с tracking.offline_association (лишние массивы игнорируются)
     и используется LQA-guided трекером и режимом Control-Global (Этап 9).
+
+    device='cpu' считает мимо видеокарты — медленнее, но не мешает идущему
+    обучению. Обучения этап 9 не требует, детектор зафиксирован.
     """
     cache_dir = Path(cache_dir)
     out_dir = cache_dir / split
@@ -156,7 +160,7 @@ def build_detection_cache_with_q(
     else:
         meta_path.write_text(json.dumps(meta, indent=2), encoding='utf-8')
 
-    qi = QInference(model_path)
+    qi = QInference(model_path, device=device)
     if not qi.with_drb:
         print('[WARN] модель без DRB — q_i не будут посчитаны (нейтральные 1.0)')
 

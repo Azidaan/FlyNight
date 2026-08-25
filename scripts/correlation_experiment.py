@@ -63,13 +63,22 @@ def main() -> int:
     ap.add_argument('--min-conf', type=float, default=0.1,
                     help='шумовые детекции ниже порога не учитываются')
     ap.add_argument('--top-divergent', type=int, default=30)
+    ap.add_argument('--device', default=0,
+                    help="0 — видеокарта, 'cpu' — мимо неё, чтобы не мешать "
+                         'идущему обучению (обучения этот опыт не требует)')
+    ap.add_argument('--max-videos', type=int, default=0,
+                    help='ограничить число видео поднабора (0 — все); '
+                         'для быстрой прикидки знака и разброса хватает 5')
     args = ap.parse_args()
 
     from scipy.stats import pearsonr, spearmanr
 
     by_subset = subset_videos(args.split, args.subsets)
+    if args.max_videos:
+        by_subset = {k: sorted(v)[:args.max_videos] for k, v in by_subset.items()}
     all_ids = sorted({v for vids in by_subset.values() for v in vids})
-    build_detection_cache_with_q(args.model, all_ids, args.split, Q_CACHE)
+    build_detection_cache_with_q(args.model, all_ids, args.split, Q_CACHE,
+                                 device=args.device)
 
     RESULTS.mkdir(parents=True, exist_ok=True)
     FIGS.mkdir(parents=True, exist_ok=True)
