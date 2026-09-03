@@ -31,6 +31,10 @@ def main() -> int:
     ap.add_argument('--videos', type=int, default=25,
                     help='сколько видео на каждое условие')
     ap.add_argument('--conds', nargs='+', default=['normal', 'night'])
+    ap.add_argument('--from-json', default=None,
+                    help='взять список видео из json со списком (например '
+                         'overexposed_videos.json), а не из поднаборов')
+    ap.add_argument('--cache', default=None, help='куда писать кэш')
     args = ap.parse_args()
 
     import warnings
@@ -40,6 +44,15 @@ def main() -> int:
 
     if not WEIGHTS.exists():
         raise SystemExit(f'нет весов контроля: {WEIGHTS}')
+
+    cache_dir = Path(args.cache) if args.cache else CACHE
+    if args.from_json:
+        import json
+        picked = json.loads(Path(args.from_json).read_text(encoding='utf-8'))['videos']
+        print(f'[INFO] из списка: {len(picked)} видео', flush=True)
+        out = build_detection_cache(str(WEIGHTS), picked, 'val', cache_dir)
+        print(f'[OK ] кэш: {out}')
+        return 0
 
     det_json = (PROJECT_ROOT / 'data' / 'bdd100k' / 'labels'
                 / 'bdd100k_labels_images_val.json')
@@ -54,7 +67,7 @@ def main() -> int:
         picked += vids
 
     print(f'[INFO] всего {len(picked)} видео, модель {WEIGHTS.name}', flush=True)
-    out = build_detection_cache(str(WEIGHTS), picked, 'val', CACHE)
+    out = build_detection_cache(str(WEIGHTS), picked, 'val', cache_dir)
     print(f'[OK ] кэш: {out}')
     return 0
 

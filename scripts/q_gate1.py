@@ -208,11 +208,14 @@ def main() -> int:
     ap.add_argument('--step', type=int, default=6, help='прореживание кадров')
     ap.add_argument('--imgsz', type=int, default=640)
     ap.add_argument('--splits', type=int, default=6, help='разбиений для разброса')
+    ap.add_argument('--cache', default=str(CACHE),
+                    help='каталог кэша детекций; для сильной версии гипотезы о '
+                         'пересвете указывается кэш засвеченного поднабора')
     args = ap.parse_args()
 
-    files = sorted(CACHE.glob('*.npz'))[:args.videos]
+    files = sorted(Path(args.cache).glob('*.npz'))[:args.videos]
     if not files:
-        raise SystemExit(f'кэш пуст: {CACHE}')
+        raise SystemExit(f'кэш пуст: {args.cache}')
     print(f'слой {args.layer}, характеристика «{args.stat}», видео {len(files)}\n')
 
     D = collect(files, args.layer, args.stat, args.imgsz, args.step)
