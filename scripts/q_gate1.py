@@ -102,6 +102,24 @@ def level_from_area(xyxy: np.ndarray) -> np.ndarray:
     return np.where(a < 32 ** 2, 8, np.where(a < 96 ** 2, 16, 32)).astype(np.int32)
 
 
+def box_spread(fm, box, sx: float, sy: float) -> float:
+    """Размах активаций ВНУТРИ рамки: разность 95-го и 5-го процентилей.
+
+    Отличается от остальных признаков тем, что берётся не с карты статистик, а
+    прямо с признаков слоя: замер 31.08 показал, что именно размах различает
+    день и ночь в ранних слоях (0.651 на слое 0, 0.724 на слое 1), а к слою 3
+    разница пропадает. Вопрос гейта: предсказывает ли низкий размах неудачу
+    детекции — то есть есть ли у «компрессора» мишень.
+    """
+    c, h, w = fm.shape
+    x1 = int(np.clip(box[0] * sx, 0, w - 1)); x2 = int(np.clip(box[2] * sx, 0, w - 1))
+    y1 = int(np.clip(box[1] * sy, 0, h - 1)); y2 = int(np.clip(box[3] * sy, 0, h - 1))
+    patch = fm[:, y1:y2 + 1, x1:x2 + 1]
+    if patch.size < 4:
+        return float('nan')
+    return float(np.percentile(patch, 95) - np.percentile(patch, 5))
+
+
 def collect(videos, layer: int, stat: str, imgsz: int, step: int):
     """Признаки и метки по видео: conf, q, страйд, TP/FP."""
     import warnings
@@ -138,13 +156,19 @@ def collect(videos, layer: int, stat: str, imgsz: int, step: int):
             t = torch.from_numpy(t[:, :, ::-1].copy()).permute(2, 0, 1)
             with torch.no_grad():
                 model((t.float() / 255.0).unsqueeze(0).cuda())
-            smap = lqa_stats(grabbed['x'])[stat][0, 0].float().cpu().numpy()
-            sx, sy = smap.shape[1] / W0, smap.shape[0] / H0
             boxes, cf, cl, st = xyxy[sel], conf[sel], cls[sel], sd[sel]
             gtb, gtc = load_gt(vid, str(names[fi]), W0, H0)
             y = label_tp(boxes, cl.astype(np.int32), gtb, gtc)
+            if stat == 'размах':
+                fm = grabbed['x'][0].float().cpu().numpy()
+                sx, sy = fm.shape[2] / W0, fm.shape[1] / H0
+                vals = [box_spread(fm, b, sx, sy) for b in boxes]
+            else:
+                smap = lqa_stats(grabbed['x'])[stat][0, 0].float().cpu().numpy()
+                sx, sy = smap.shape[1] / W0, smap.shape[0] / H0
+                vals = [box_min(smap, b, sx, sy) for b in boxes]
             out['conf'].append(cf)
-            out['q'].append(np.array([box_min(smap, b, sx, sy) for b in boxes], np.float32))
+            out['q'].append(np.array(vals, np.float32))
             out['stride'].append(st.astype(np.int32))
             out['y'].append(y)
             out['vid'].append(np.full(len(boxes), vi, np.int32))
@@ -203,7 +227,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--layer', type=int, default=2, help='откуда снимать карту')
     ap.add_argument('--stat', default='градиент',
-                    choices=['градиент', 'дисперсия', 'пик'])
+                    choices=['градиент', 'дисперсия', 'пик', 'размах'])
     ap.add_argument('--videos', type=int, default=50)
     ap.add_argument('--step', type=int, default=6, help='прореживание кадров')
     ap.add_argument('--imgsz', type=int, default=640)
