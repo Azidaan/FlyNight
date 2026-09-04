@@ -1,7 +1,7 @@
 """Автономный прогон всего конвейера обучений с проверками (Этапы 3-10).
 
-Один процесс проходит все незавершённые шаги подряд: обучения, оценки,
-ablation, трекинг, финальные таблицы. После каждого шага — проверки
+Один процесс проходит все незавершённые шаги подряд: замеры на процессоре,
+обучения, оценки, трекинг, финальные таблицы. После каждого шага — проверки
 адекватности из scripts/sanity_checks.py. Находка уровня fail
 останавливает прогон: дальше считать нечего, все последующие шаги
 опирались бы на негодный результат.
@@ -17,8 +17,8 @@ ablation, трекинг, финальные таблицы. После кажд
     python scripts/run_full_pipeline.py                 # всё, что не готово
     python scripts/run_full_pipeline.py --dry-run       # план без запуска
     python scripts/run_full_pipeline.py --check-only    # только проверки
-    python scripts/run_full_pipeline.py --from drb      # начиная с шага
-    python scripts/run_full_pipeline.py --only track_grid track_modes
+    python scripts/run_full_pipeline.py --from baseline # начиная с шага
+    python scripts/run_full_pipeline.py --only miss_ladder calibration
     python scripts/run_full_pipeline.py --skip-checks   # без проверок
 """
 import argparse

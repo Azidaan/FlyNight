@@ -48,27 +48,29 @@ def main() -> int:
     check('у каждого шага есть имя и статус',
           all(s.get('name') and s.get('status') for s in steps))
 
-    # Стоэпошный прогон подъёма по кадру. Проверяем, что он идёт в СВОЙ
-    # каталог и со своими настройками: у шага 'drb' рядом настройки старого
-    # блока, и перепутанный --output затёр бы чужой прогон.
-    ad = next(x for x in mod.PIPELINE if x['id'] == 'drb_ad100')
-    ac = ad['cmds']()
-    if ac:
-        line = ' '.join(ac[0])
-        check('стоэпошный подъём идёт со своими настройками',
-              all(k in line for k in ('--adaptive', '--fusion gated',
-                                      '--alpha-init 0.0')), line)
-        check('стоэпошный подъём пишет в свой каталог',
-              line.count('drb_ad100') >= 2 and 'drb_full' not in line, line)
-        # Сидов может быть больше одного: их добавляют кнопкой «+ сид».
-        # Проверяем не количество, а что считаются ровно недосчитанные.
-        pend = [str(x) for x in mod._step_seeds('drb_ad100')
-                if mod._seed_states('drb_ad100', (x,))[x] != 'done']
-        check('стоэпошный подъём считает недосчитанные сиды',
-              [c[c.index('--seed') + 1] for c in ac] == pend,
-              str([c[c.index('--seed') + 1] for c in ac]) + ' против ' + str(pend))
-        check('число эпох берётся из конфига, не из пробы',
-              '--epochs' not in line, line)
+    # Шаги-замеры (04.09). Считаются на процессоре и читают ОДИН И ТОТ ЖЕ
+    # кэш детекций. Порядок здесь несущий: все три падают, если кэша нет,
+    # поэтому шаг кэша обязан стоять раньше любого из них.
+    order = [x['id'] for x in mod.PIPELINE]
+    readers = ['miss_ladder', 'tracker_ladder', 'calibration']
+    check('шаги-замеры на месте',
+          'det_cache' in order and all(r in order for r in readers),
+          ', '.join(order))
+    if 'det_cache' in order:
+        check('кэш детекций стоит раньше замеров, которые его читают',
+              all(order.index('det_cache') < order.index(r)
+                  for r in readers if r in order))
+    # Замер не должен трогать видеокарту. Если сюда попадёт обучение,
+    # панель предложит его как «десять минут» и займёт карту на сутки.
+    for sid in readers:
+        st = next((x for x in mod.PIPELINE if x['id'] == sid), None)
+        if st is None:
+            continue
+        line = ' '.join(sum(st['cmds'](), []))
+        check(f'замер «{sid}» не обучает',
+              '--seed' not in line and '--epochs' not in line, line)
+        check(f'скрипт замера «{sid}» существует',
+              (PROJECT_ROOT / line.split()[0]).exists(), line.split()[0])
     active = [s for s in steps if s['role'] == 'active']
     check('ровно один активный шаг', len(active) == 1,
           active[0]['id'] if active else 'нет')

@@ -582,7 +582,59 @@ def _archive_probe(pid: str) -> Path | None:
 
 
 # Каждый шаг: id, name, время, status() -> (status, detail), cmds() -> [argv]
+#
+# Шаги DRB убраны 04.09: направление закрыто заранее записанным правилом
+# (второй сид провалил два порога из трёх, 31.08), а замер лестницы потерь
+# показал, что блок всех версий целился в наименьшую из ступеней. Убраны
+# drb_ad100, lowpass12, drb, eval_drb, drb_aug, eval_drb_aug, ablation,
+# eval_ablation, track_modes. Код и данные прогонов на месте: сами обучения
+# лежат в runs/, а определения шагов — в истории git до этой правки.
 PIPELINE: list[dict] = [
+    # ————— разбор потерь: где именно теряются объекты —————
+    #
+    # Замер 04.09 переставил приоритеты всей работы. Раскладка 95 468
+    # эталонных объектов по ступеням выпадения показала: ночью детектор не
+    # слепнет (слепота 4.6% против 5.8% днём), а перестаёт себе верить —
+    # 22.7% объектов найдены верно, с верным классом и верной рамкой, и
+    # отсечены порогом. Блок все версии целился в слепоту, то есть в
+    # наименьшую из ступеней.
+    #
+    # Все четыре шага считаются на процессоре, без обучения, минутами.
+    # Кэш идёт первым: остальные три читают его.
+    {
+        'id': 'det_cache',
+        'name': 'Кэш детекций контроля · день + ночь', 'time': '~20 мин',
+        'status': lambda: _files_status(['runs/det_cache_ctl/val']),
+        'cmds': lambda: [['scripts/build_day_cache.py', '--videos', '25']],
+    },
+    {
+        'id': 'miss_ladder',
+        'name': 'Лестница потерь · слепота / порог / локализация', 'time': '~2 мин',
+        'status': lambda: _files_status(['miss_ladder.csv']),
+        'cmds': lambda: [['scripts/miss_ladder.py']],
+    },
+    {
+        'id': 'tracker_ladder',
+        'name': 'Лестница трекера · что теряется после детектора', 'time': '~3 мин',
+        'status': lambda: _files_status(['tracker_ladder.csv']),
+        'cmds': lambda: [['scripts/tracker_ladder.py']],
+    },
+    # Калибровка отвечает на вопрос, которого не задавали три гейта. Они
+    # спрашивали, упорядочивает ли карта качества детекции лучше уверенности,
+    # и трижды получили ноль. Дефект же не в порядке, а в сдвиге: ночная
+    # детекция с тем же баллом верна чаще дневной (+0.098 в полосе 0.1..0.5
+    # при контроле по классу, размеру и скученности одновременно).
+    {
+        'id': 'calibration',
+        'name': 'Калибровка · занижена ли уверенность ночью', 'time': '~10 мин',
+        'status': lambda: _files_status(['confidence_calibration.csv']),
+        'cmds': lambda: [['scripts/confidence_calibration.py']],
+    },
+    # ————— базовая линия —————
+    #
+    # Контрольная модель без блока. Убирать нельзя ни при каких обстоятельствах:
+    # на её весах стоят кэш детекций, все три замера выше и любое будущее
+    # сравнение. Это единственная точка отсчёта работы.
     {
         'id': 'baseline', 'name': 'Baseline · 3 сида × 100 эпох', 'time': '~2 сут',
         'status': lambda: _train_step_status('baseline', SEEDS3),
@@ -593,102 +645,13 @@ PIPELINE: list[dict] = [
         'status': lambda: _files_status(['baseline_summary.csv']),
         'cmds': lambda: [['scripts/evaluate_baseline.py']],
     },
-    # Подъём по кадру на полной длине. Двенадцатиэпошные пробы показали
-    # ровно одно: на такой длине блок ничего не успевает. Первые четыре-пять
-    # эпох он портит признаки, к двенадцатой почти догоняет контроль, и на
-    # этом обучение кончается. Сто эпох дают на выправление в восемь раз
-    # больше времени — это единственная непроверенная причина, по которой
-    # ответ может оказаться другим, а не просто точнее.
+    # ————— трекинг —————
     #
-    # Один сид, не три. Разброс контроля на ста эпохах 0.0037 против 0.0144
-    # на двенадцати; одного прогона хватает, чтобы заметить разницу от
-    # 0.0085. Три сида опустили бы порог до 0.0060 ценой втрое большего
-    # счёта — сделка плохая, пока неизвестно, есть ли там что замечать.
-    #
-    # Плечо сравнения готово: стоэпошный baseline на трёх сидах. Конфигурации
-    # совпадают целиком, отличается одна строка — включён блок.
-    {
-        'id': 'drb_ad100',
-        'name': 'DRB · подъём по кадру · 100 эпох · 1 сид', 'time': '~1.5 сут',
-        'status': lambda: _train_step_status('drb_ad100', _step_seeds('drb_ad100')),
-        'cmds': lambda: _train_cmds(
-            'training/train_drb.py', 'drb_ad100', _step_seeds('drb_ad100'),
-            ['--output', str(PROJECT_ROOT / 'runs' / 'drb_ad100'),
-             '--alpha-init', '0.0', '--lr-mult', str(PROBE_LR_MULT),
-             '--fusion', 'gated', '--adaptive',
-             # Останавливаемся на 80-й эпохе, но расписание остаётся
-             # стоэпошным: спад от пика к 80-й уже вдвое отличается от
-             # контрольного (0.006 против 0.011-0.014), а к 60-й ещё нет.
-             '--stop-after', str(LONG_STOP_AFTER)]),
-    },
-    # Фиксированный фильтр — тот самый вариант, который 21.08 решили пускать
-    # на сто эпох, а запустили вместо него предсказываемый по кадру. Дважды,
-    # 54 часа. Оба прогона провалили заранее записанный порог 31.08, то есть
-    # длинная проверка досталась версии, которая себя ВЫКЛЮЧАЕТ (усиление
-    # сошлось к ровно нулю на слое 16), а решённая к проверке не проверялась.
-    #
-    # Здесь обучаемых чисел ноль: ни маски, ни весов ветвей, ни силы. Сеть не
-    # может ни изменить форму фильтра, ни свести его вклад к нулю.
-    #
-    # Двенадцать эпох — СЛУЖЕБНЫЙ гейт, не источник выводов. На такой длине
-    # мозаика работает 2 эпохи из 12 против 90 из 100, и знак эффекта по
-    # мелким объектам переворачивается (+0.027 обернулись −0.032). Смотрим
-    # только: доходит ли до конца, падает ли лосс, нет ли NaN, не провалилась
-    # ли mAP50 против двенадцатиэпошного контроля 0.4254 ± 0.0144.
-    {
-        'id': 'lowpass12',
-        'name': 'Фикс. фильтр · 12 эпох · служебный гейт', 'time': '~3.5 ч',
-        'status': lambda: _train_step_status('lowpass12', _step_seeds('lowpass12')),
-        'cmds': lambda: _train_cmds(
-            'training/train_lowpass.py', 'lowpass12', _step_seeds('lowpass12'),
-            ['--output', str(PROJECT_ROOT / 'runs' / 'lowpass12')]),
-    },
-    {
-        'id': 'drb', 'name': 'DRB-full · 3 сида × 100 эпох', 'time': '~2.5 сут',
-        'status': lambda: _train_step_status('drb_full', SEEDS3),
-        'cmds': lambda: _train_cmds('training/train_drb.py', 'drb_full', SEEDS3),
-    },
-    {
-        'id': 'eval_drb', 'name': 'Оценка DRB + сравнение с baseline', 'time': '~1 ч',
-        'status': lambda: _files_status(['drb_full_summary.csv', 'drb_vs_baseline.csv']),
-        'cmds': lambda: [['scripts/evaluate_run.py', '--run', 'drb_full'],
-                         ['scripts/compare_runs.py', '--runs', 'baseline', 'drb_full',
-                          '--out', 'drb_vs_baseline'],
-                         ['scripts/extract_drb_weights.py']],
-    },
-    {
-        'id': 'drb_aug', 'name': 'DRB + аугментации · ФИНАЛ · 3 сида', 'time': '~2.5 сут',
-        'status': lambda: _train_step_status('drb_aug_full', SEEDS3),
-        'cmds': lambda: _train_cmds('training/train_drb.py', 'drb_aug_full', SEEDS3,
-                                    ['--config', 'training/configs/drb_aug_full.yaml']),
-    },
-    {
-        'id': 'eval_drb_aug', 'name': 'Оценка финала + тройное сравнение', 'time': '~1 ч',
-        'status': lambda: _files_status(['drb_aug_full_summary.csv',
-                                         'drb_aug_vs_drb_vs_baseline.csv']),
-        'cmds': lambda: [['scripts/evaluate_run.py', '--run', 'drb_aug_full'],
-                         ['scripts/compare_runs.py', '--runs', 'baseline', 'drb_full',
-                          'drb_aug_full', '--out', 'drb_aug_vs_drb_vs_baseline']],
-    },
-    {
-        'id': 'ablation', 'name': 'Ablation · 5 обучений × 50 эпох', 'time': '~2 сут',
-        'status': lambda: _ablation_status(),
-        'cmds': lambda: (
-            _train_cmds('training/train_drb.py', 'ablation_lqa_only', (42, 123),
-                        ['--variant', 'lqa', '--config', 'training/configs/lqa_only.yaml'])
-            + _train_cmds('training/train_drb.py', 'ablation_fga_only', (42, 123),
-                          ['--variant', 'fga', '--config', 'training/configs/fga_only.yaml'])
-            + _train_cmds('training/train_drb.py', 'ablation_drb_input', (42,),
-                          ['--variant', 'input', '--config', 'training/configs/drb_at_input.yaml'])),
-    },
-    {
-        'id': 'eval_ablation', 'name': 'Оценка ablation + таблицы синергии', 'time': '~2 ч',
-        'status': lambda: _files_status(['ablation_synergy.csv', 'ablation_paradigm.csv']),
-        'cmds': lambda: [['scripts/evaluate_run.py', '--run', 'ablation_lqa_only', '--seeds', '42', '123'],
-                         ['scripts/evaluate_run.py', '--run', 'ablation_fga_only', '--seeds', '42', '123'],
-                         ['scripts/evaluate_run.py', '--run', 'ablation_drb_input', '--seeds', '42'],
-                         ['scripts/build_ablation_tables.py']],
-    },
+    # Сетка порогов стала главным направлением, а не служебным шагом.
+    # Лестница трекера показала: вторая волна ByteTrack спасает 18 объектов
+    # из 3622 (0.5%) — слабая полоса ей недоступна конструктивно, потому что
+    # трек создаётся только по сильной детекции. Ночью в этой полосе и ниже
+    # лежит 22.8% всех объектов.
     {
         'id': 'track_grid', 'name': 'Трекинг · сетка порогов + яркость', 'time': '~6 ч',
         'status': lambda: _files_status(['tracking_param_search.csv',
@@ -697,23 +660,10 @@ PIPELINE: list[dict] = [
                          ['scripts/fit_brightness_regression.py', '--cache', 'runs/det_cache']],
     },
     {
-        'id': 'track_modes', 'name': 'Трекинг · 4 режима + корреляция q/conf', 'time': '~5 ч',
-        'status': lambda: _files_status(['lqa_k_sweep.csv',
-                                         'tracking_three_modes.csv',
-                                         'confidence_qi_correlation.csv',
-                                         'q_aggregation_ablation.csv']),
-        'cmds': lambda: [['scripts/sweep_lqa_k.py', '--model', _best_final_model()],
-                         ['scripts/run_tracking_three_modes.py', '--model', _best_final_model()],
-                         ['scripts/q_aggregation_ablation.py', '--model', _best_final_model()],
-                         ['scripts/correlation_experiment.py', '--model', _best_final_model()]],
-    },
-    {
         'id': 'final', 'name': 'Финал · benchmark + сводная таблица', 'time': '~1 ч',
         'status': lambda: _files_status(['performance_table.csv', 'final/main_results.csv']),
         'cmds': lambda: [['utils/benchmark.py', '--model', 'weights/baseline_seed42/best.pt',
                           '--tag', 'baseline'],
-                         ['utils/benchmark.py', '--model', _best_final_model(),
-                          '--tag', 'drb_aug_full'],
                          ['scripts/build_final_summary.py']],
     },
 ]
