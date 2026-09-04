@@ -653,11 +653,37 @@ PIPELINE: list[dict] = [
     # трек создаётся только по сильной детекции. Ночью в этой полосе и ниже
     # лежит 22.8% всех объектов.
     {
-        'id': 'track_grid', 'name': 'Трекинг · сетка порогов + яркость', 'time': '~6 ч',
-        'status': lambda: _files_status(['tracking_param_search.csv',
-                                         'brightness_optimal_tau.csv']),
-        'cmds': lambda: [['scripts/run_tracker_grid_search.py', '--model', _best_final_model()],
-                         ['scripts/fit_brightness_regression.py', '--cache', 'runs/det_cache']],
+        'id': 'track_grid', 'name': 'Трекинг · сетка порогов вниз от умолчания',
+        'time': '~10 мин',
+        # Сетка идёт ВНИЗ от умолчания 0.25, а не вверх, как раньше: замеры
+        # 04-05.09 показали, что ночью верные объекты лежат НИЖЕ порога.
+        # Регрессия по яркости отсюда убрана — её делает шаг adaptive_thr,
+        # и делает честно, с разбиением на обучающие и отложенные видео.
+        'status': lambda: _files_status(['tracking_param_search.csv']),
+        'cmds': lambda: [['scripts/run_tracker_grid_search.py',
+                          '--model', 'weights/baseline_seed42/best.pt',
+                          '--cache-dir', 'runs/det_cache_ctl', '--cached-only',
+                          '--subsets', 'normal', 'night', '--buffers', '30',
+                          '--thresholds', '0.1', '0.15', '0.2', '0.25', '0.3', '0.4']],
+    },
+    # Проверка устойчивости: 25 видео на условие — мало, и разный оптимум мог
+    # оказаться свойством выборки. Видео делятся через одно (не пополам по
+    # списку: идентификаторы отсортированы, соседние часто из одной поездки),
+    # и оптимум ищется на каждой половине отдельно.
+    {
+        'id': 'thr_split',
+        'name': 'Порог · проверка разбиением по видео', 'time': '~10 мин',
+        'status': lambda: _files_status(['threshold_split_check.csv']),
+        'cmds': lambda: [['scripts/threshold_split_check.py']],
+    },
+    # Метод: порог выводится из наблюдаемой яркости, потому что метки «ночь»
+    # на применении нет. Всё настраивается на обучающей половине видео, всё
+    # заявляемое меряется на отложенной — иначе выйдет прирост-мираж.
+    {
+        'id': 'adaptive_thr',
+        'name': 'Порог по яркости · настройка и замер на отложенных', 'time': '~40 мин',
+        'status': lambda: _files_status(['adaptive_threshold.csv']),
+        'cmds': lambda: [['scripts/adaptive_threshold.py']],
     },
     {
         'id': 'final', 'name': 'Финал · benchmark + сводная таблица', 'time': '~1 ч',

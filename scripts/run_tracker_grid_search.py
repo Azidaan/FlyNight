@@ -57,15 +57,28 @@ def main() -> int:
                     default=[0.3, 0.4, 0.5, 0.6])
     ap.add_argument('--buffers', nargs='+', type=int, default=[15, 30, 60])
     ap.add_argument('--cache-dir', default=str(CACHE_ROOT))
+    ap.add_argument('--cached-only', action='store_true',
+                    help='взять только видео, уже лежащие в кэше, и НЕ трогать '
+                         'видеокарту: сетка гоняется целиком на процессоре')
     args = ap.parse_args()
 
     by_subset = subset_videos(args.split, args.subsets)
+    if args.cached_only:
+        # Первый прогон сетки отвечает на вопрос ЗНАКА («ниже ли оптимум
+        # ночью»), а не величины, и для знака хватает готового кэша.
+        # Расширять выборку есть смысл только после подтверждения знака.
+        have = {p.stem for p in (Path(args.cache_dir) / args.split).glob('*.npz')}
+        by_subset = {s: [v for v in vids if v in have]
+                     for s, vids in by_subset.items()}
     for s, vids in by_subset.items():
         print(f'[INFO] поднабор {s}: {len(vids)} видео')
 
     all_ids = sorted({v for vids in by_subset.values() for v in vids})
     print(f'[INFO] всего уникальных видео: {len(all_ids)}')
-    build_detection_cache(args.model, all_ids, args.split, args.cache_dir)
+    if not all_ids:
+        raise SystemExit('в кэше нет видео выбранных поднаборов')
+    if not args.cached_only:
+        build_detection_cache(args.model, all_ids, args.split, args.cache_dir)
 
     RESULTS_CSV.parent.mkdir(parents=True, exist_ok=True)
     done: set[tuple[str, float, int]] = set()
