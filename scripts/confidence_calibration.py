@@ -117,7 +117,17 @@ def main() -> int:
     ap.add_argument('--min-cell', type=int, default=30,
                     help='минимум детекций в ячейке с каждой стороны')
     ap.add_argument('--limit', type=int, default=0)
+    ap.add_argument('--cache', default=None,
+                    help='каталог кэша детекций; стенд сменился на 960, '
+                         'и карту мишеней надо считать на нём')
+    ap.add_argument('--suffix', default='',
+                    help='приписка к имени выходного файла')
     args = ap.parse_args()
+    global CACHE, OUT
+    if args.cache:
+        CACHE = Path(args.cache)
+    if args.suffix:
+        OUT = OUT.with_name(OUT.stem + args.suffix + OUT.suffix)
 
     from datasets.bdd100k_loader import CLASS_NAMES
     from datasets.subset_filter import filter_videos_by_subset, load_video_attributes
