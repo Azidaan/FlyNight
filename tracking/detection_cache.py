@@ -39,6 +39,7 @@ def build_detection_cache(
     split: str = 'val',
     cache_dir: str | Path = CACHE_ROOT,
     device: str | int = 0,
+    imgsz: int = 640,
 ) -> Path:
     """Прогоняет детектор по видео и пишет npz-кэш. Пропускает готовые видео.
 
@@ -52,14 +53,21 @@ def build_detection_cache(
     img_root = DATA_ROOT / 'images' / 'track' / split
 
     meta_path = cache_dir / 'meta.json'
+    # imgsz пишется в мету намеренно: кэши на 640 и 960 внешне неразличимы
+    # (рамки в обоих случаях в координатах исходного кадра), и перепутать их
+    # значило бы сравнивать разные стенды, не заметив этого.
     meta = {'model': str(model_path), 'conf': CACHE_CONF, 'iou': CACHE_IOU,
-            'date': time.strftime('%Y-%m-%d %H:%M:%S')}
+            'imgsz': imgsz, 'date': time.strftime('%Y-%m-%d %H:%M:%S')}
     if meta_path.exists():
         old = json.loads(meta_path.read_text(encoding='utf-8'))
         if old.get('model') != meta['model']:
             raise RuntimeError(
                 f'Кэш уже построен другой моделью ({old.get("model")}). '
                 f'Удалите {cache_dir} или укажите другую директорию.')
+        if old.get('imgsz', 640) != imgsz:
+            raise RuntimeError(
+                f'Кэш уже построен на разрешении {old.get("imgsz", 640)}, '
+                f'запрошено {imgsz}. Укажите другую директорию.')
     else:
         meta_path.write_text(json.dumps(meta, indent=2), encoding='utf-8')
 
@@ -73,7 +81,7 @@ def build_detection_cache(
         t0 = time.time()
         results = model.predict(source=str(img_root / vid), conf=CACHE_CONF,
                                 iou=CACHE_IOU, device=device, stream=True,
-                                verbose=False)
+                                imgsz=imgsz, verbose=False)
         for fidx, res in enumerate(results):
             boxes = res.boxes
             if boxes is None or len(boxes) == 0:
