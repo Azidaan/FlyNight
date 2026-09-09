@@ -48,6 +48,17 @@ class _DetSlice:
         wh = self._xyxy[:, 2:] - self._xyxy[:, :2]
         return np.concatenate([xy, wh], axis=1)
 
+    @property
+    def xyxy(self) -> np.ndarray:
+        """Нужен компенсации движения камеры: gmc.apply(img, results.xyxy).
+
+        Без этого свойства BoT-SORT и TrackTrack молча откатывались к
+        тождественному преобразованию (предупреждение «GMC failed, falling back
+        to identity»), то есть на движущейся камере работали БЕЗ компенсации.
+        Обнаружено 08.09 по логам зоопарка трекеров.
+        """
+        return self._xyxy
+
     def __len__(self) -> int:
         return len(self.conf)
 
