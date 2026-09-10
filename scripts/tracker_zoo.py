@@ -102,15 +102,43 @@ def run_tracker(name: str, vids: list[str], overrides: dict,
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--videos', type=int, default=50)
+    ap.add_argument('--videos', type=int, default=50,
+                    help='сколько видео взять; 0 — все, что есть в кэше')
     ap.add_argument('--trackers', nargs='+', default=list(ALL))
     ap.add_argument('--tau', type=float, default=None,
                     help='общий track_high_thresh; по умолчанию — из YAML трекера')
     ap.add_argument('--buffer', type=int, default=None)
+    ap.add_argument('--cache', default=None,
+                    help='каталог кэша детекций; стенд применения — 960')
+    ap.add_argument('--ids-from', default=None,
+                    help='взять СПИСОК видео из другого кэша. Нужно, чтобы '
+                         'сохранить исходный набор 50 видео: после дозаписи '
+                         'кэша до 200 первые 50 по алфавиту — уже другой набор, '
+                         'и сравнение молча поменяло бы два условия сразу')
+    ap.add_argument('--suffix', default='',
+                    help='приписка к именам выходного файла и каталога прогонов')
     args = ap.parse_args()
 
-    vids = sorted(p.stem for p in (CACHE / 'val').glob('*.npz')
-                  if (GT / f'{p.stem}.json').exists())[:args.videos]
+    global CACHE, OUT, RUNS
+    if args.cache:
+        CACHE = PROJECT_ROOT / args.cache if not Path(args.cache).is_absolute() \
+            else Path(args.cache)
+    if args.suffix:
+        OUT = OUT.with_name(OUT.stem + args.suffix + OUT.suffix)
+        RUNS = RUNS.with_name(RUNS.name + args.suffix)
+
+    src = (PROJECT_ROOT / args.ids_from) if args.ids_from else CACHE
+    vids = sorted(p.stem for p in (src / 'val').glob('*.npz')
+                  if (GT / f'{p.stem}.json').exists())
+    have = {p.stem for p in (CACHE / 'val').glob('*.npz')}
+    missing = [v for v in vids if v not in have]
+    if missing:
+        raise SystemExit(f'в кэше {CACHE} нет {len(missing)} видео из списка: '
+                         f'{missing[:3]}...')
+    if args.videos:
+        vids = vids[:args.videos]
+    print(f'[INFO] кэш: {CACHE}')
+    print(f'[INFO] источник списка видео: {src}')
     over = {}
     if args.tau is not None:
         over['track_high_thresh'] = args.tau
