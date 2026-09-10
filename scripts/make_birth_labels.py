@@ -91,7 +91,18 @@ def main() -> int:
                     help='каталог с изображениями; будет создана связь '
                          '<out>/images на него (junction на Windows)')
     ap.add_argument('--limit', type=int, default=0, help='0 — все видео')
+    ap.add_argument('--frames', default=None,
+                    help='список кадров обучения; писать метки только для них. '
+                         'Возраст всё равно считается по ПОЛНОМУ видео — иначе '
+                         'первая встреча в прореженной выборке не совпадёт с '
+                         'первой встречей в сцене')
     args = ap.parse_args()
+
+    keep = None
+    if args.frames:
+        keep = {Path(p).stem for p in
+                Path(args.frames).read_text(encoding='utf-8').split()}
+        print(f'отбор по списку: {len(keep)} кадров')
 
     ann_dir = Path(args.ann)
     out_root = Path(args.out)
@@ -134,6 +145,10 @@ def main() -> int:
         out_dir.mkdir(parents=True, exist_ok=True)
 
         for fr in frames:
+            name = Path(fr.get('name')
+                        or f'{vid}-{fr["frameIndex"]:07d}.jpg').stem
+            if keep is not None and name not in keep:
+                continue
             lines = []
             for l in fr.get('labels') or []:
                 b, c = l.get('box2d'), l.get('category')
@@ -156,7 +171,6 @@ def main() -> int:
                 lines.append('%.4f %.6f %.6f %.6f %.6f'
                              % (encode(CATS[c], bkt), cx, cy, bw, bh))
                 n_obj += 1
-            name = Path(fr.get('name') or f'{vid}-{fr["frameIndex"]:07d}.jpg').stem
             (out_dir / f'{name}.txt').write_text('\n'.join(lines) + '\n'
                                                 if lines else '', encoding='utf-8')
             n_frames += 1
