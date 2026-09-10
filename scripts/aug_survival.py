@@ -90,9 +90,16 @@ def run_epoch(tag: str, yml: Path, over: dict, seed: int) -> dict[int, float]:
                 seed=seed, deterministic=True, project=str(RUNS), name=tag,
                 exist_ok=True, verbose=False, plots=False, val=False, **over)
 
-    total = sum(birth_weight.STATS.values())
-    shares = {b: 100.0 * n / total for b, n in birth_weight.STATS.items()} \
-        if total else {}
+    # Корзина -1 — объекты БЕЗ признака, то есть валидационные: их метки
+    # обычные, целочисленные. Валидатор тоже считает потери и потому проходит
+    # через патч. Доля этих объектов зависит от режима: при мозаике обучающие
+    # объекты проходят через потери вчетверо чаще, и валидация «весит» меньше.
+    # Если их не исключить, доли корзин между режимами несопоставимы.
+    stats = {b: n for b, n in birth_weight.STATS.items() if b >= 0}
+    n_val = birth_weight.STATS.get(-1, 0)
+    total = sum(stats.values())
+    shares = {b: 100.0 * n / total for b, n in stats.items()} if total else {}
+    print(f'    объектов обучения {total}, валидации отброшено {n_val}')
     birth_weight.uninstall()
     return shares
 
@@ -172,12 +179,23 @@ def main() -> int:
             rows.append((m, NAMES.get(b, b), 'выживаемость', round(r, 3)))
         print(line)
 
+    print('\n=== ВЫЖИВАЕМОСТЬ ВОЗРАСТА 0 ОТНОСИТЕЛЬНО ЗРЕЛЫХ ===')
+    print('главный показатель: он не зависит от того, сколько раз объект')
+    print('проходит через потери, и потому сравним между режимами')
+    rel = {}
+    for m in got:
+        s0 = got[m].get(0, 0.0) / ref[0] if ref.get(0) else 0.0
+        s4 = got[m].get(4, 0.0) / ref[4] if ref.get(4) else 0.0
+        rel[m] = s0 / s4 if s4 else 0.0
+        rows.append((m, 'возраст 0', 'выживаемость_к_зрелым', round(rel[m], 3)))
+        print('  %-12s %.3f' % (m, rel[m]))
+
     if 'full' in got and 'no_geom' in got:
-        d_full = got['full'].get(0, 0.0) - ref.get(0, 0.0)
-        d_geom = got['no_geom'].get(0, 0.0) - ref.get(0, 0.0)
-        print(f'\nдефицит корзины 0: full {d_full:+.2f} пп, '
-              f'no_geom {d_geom:+.2f} пп')
-        if d_full < -0.1 and d_geom > d_full + 0.1:
+        d_full = rel['full'] - 1.0
+        d_geom = rel['no_geom'] - 1.0
+        print(f'\nотставание возраста 0 от зрелых: full {100 * d_full:+.1f}%, '
+              f'no_geom {100 * d_geom:+.1f}%')
+        if d_full < -0.02 and d_geom > d_full + 0.02:
             print('ВЫВОД: гипотеза подтверждена — геометрическая аугментация')
             print('  выбивает молодые объекты чаще прочих. Значит она ослабляет')
             print('  ровно тот сигнал, который усиливает метод, и параметры')
