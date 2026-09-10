@@ -43,15 +43,18 @@ import torch
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
+from ultralytics.trackers.bot_sort import BOTSORT  # noqa: E402
 from ultralytics.trackers.byte_tracker import BYTETracker, STrack  # noqa: E402
 
 from datasets.bdd100k_loader import CLASS_NAMES  # noqa: E402
 from evaluation.tracking_metrics import evaluate_tracking_bdd  # noqa: E402
 from models.wtconv1d import build_model  # noqa: E402
 from scripts.tracker_gate_a import CACHE, GT, iou_matrix  # noqa: E402
+from scripts.tracker_zoo import load_args  # noqa: E402
 from tracking.detection_cache import iter_frames, load_video_cache  # noqa: E402
 from tracking.offline_association import _DetSlice, make_tracker_args  # noqa: E402
 
+IMAGES = PROJECT_ROOT / 'data' / 'bdd100k' / 'images' / 'track' / 'val'
 RUNS = PROJECT_ROOT / 'runs' / 'gate2'
 CKPT = PROJECT_ROOT / 'runs' / 'wtconv1d'
 OUT = PROJECT_ROOT / 'experiments' / 'results' / 'gate2_predictor.csv'
@@ -59,8 +62,18 @@ METRIC_KEYS = ('HOTA', 'IDF1', 'MOTA', 'IDSw', 'MOTP', 'DetA', 'AssA')
 SCALE = 10.0          # тот же масштаб, что при обучении
 
 
-class PredictorByteTrack(BYTETracker):
-    """ByteTrack, у которого предсказание центра даёт обученная модель."""
+class _PredictorMixin:
+    """Подмена предсказания центра обученной моделью.
+
+    Оформлено примесью, а не наследником одного трекера, потому что метод
+    должен меряться поверх ЛУЧШЕЙ доступной базы, а не поверх устаревшей.
+    На стенде 960 лучшая база — BoT-SORT (mMOTA 26.78 против 21.07 у
+    ByteTrack), и прирост над ByteTrack не переносится на неё автоматически.
+
+    Подменяется только центр рамки (`mean[0]`, `mean[1]`), размер остаётся за
+    фильтром Калмана. Оба трекера используют KalmanFilterXYWH, поэтому
+    раскладка состояния одна и та же и примесь работает без изменений.
+    """
 
     def __init__(self, args, model=None, gaps=(1, 2, 3, 4, 5, 6, 8, 10),
                  window: int = 12, device: str = 'cpu'):
@@ -138,17 +151,43 @@ class PredictorByteTrack(BYTETracker):
             self.hist[t.track_id].append((frame, np.array(c, np.float32)))
 
 
+class PredictorByteTrack(_PredictorMixin, BYTETracker):
+    """ByteTrack с обучаемым предсказанием центра."""
+
+
+class PredictorBotSort(_PredictorMixin, BOTSORT):
+    """BoT-SORT с обучаемым предсказанием центра.
+
+    BoT-SORT компенсирует движение камеры, и для этого ему нужен сам кадр:
+    без него он молча откатывается к тождественному преобразованию. Поэтому
+    в этом режиме кадры читаются с диска, и прогон дольше примерно в двадцать
+    раз — это цена честного сравнения с лучшей базой.
+    """
+
+
+TRACKERS = {'bytetrack': PredictorByteTrack, 'botsort': PredictorBotSort}
+
+
 def run_mode(vids, model, args, tr_args, out_dir: Path, device: str):
     out_dir.mkdir(parents=True, exist_ok=True)
+    cls_tracker = TRACKERS[args.tracker]
+    with_img = str(getattr(tr_args, 'gmc_method', 'none')).lower() \
+        not in ('none', '')
+    if with_img:
+        import cv2
     ov = fb = 0
     for vid in vids:
         cache = load_video_cache(CACHE, 'val', vid)
-        tracker = PredictorByteTrack(tr_args, model=model, gaps=args.gaps,
-                                     window=args.window, device=device)
+        tracker = cls_tracker(tr_args, model=model, gaps=args.gaps,
+                              window=args.window, device=device)
         STrack.reset_id()
         frames = []
         for fidx, fname, xyxy, conf, cls in iter_frames(cache):
-            out = tracker.update(_DetSlice(xyxy, conf, cls))
+            dets = _DetSlice(xyxy, conf, cls)
+            if with_img:
+                out = tracker.update(dets, cv2.imread(str(IMAGES / vid / fname)))
+            else:
+                out = tracker.update(dets)
             keep = conf >= tr_args.track_high_thresh
             tracker.observe(fidx, xyxy[keep])
             labels = []
@@ -184,6 +223,11 @@ def main() -> int:
                     help='каталог кэша детекций; стенд применения — 960')
     ap.add_argument('--suffix', default='',
                     help='приписка к именам выходного файла и каталога прогонов')
+    ap.add_argument('--tracker', default='bytetrack', choices=list(TRACKERS),
+                    help='база, поверх которой меряется предсказатель. '
+                         'На стенде 960 лучшая база — botsort (mMOTA 26.78 '
+                         'против 21.07 у bytetrack), и мерить надо от неё: '
+                         'прирост над устаревшей базой не переносится')
     args = ap.parse_args()
 
     global CACHE, OUT, RUNS
@@ -203,8 +247,15 @@ def main() -> int:
     print(f'[INFO] видео {len(vids)}, τ={args.tau}, буфер={args.buffer}, '
           f'разрывы {args.gaps}, устройство {device}')
 
-    tr_args = make_tracker_args(track_high_thresh=args.tau,
-                                track_buffer=args.buffer)
+    # Настройки берутся из YAML самого трекера, как в зоопарке: так условия
+    # у метода и у чужих трекеров совпадают. Эквивалентность проверена —
+    # baseline гейта 2 сошёлся с bytetrack зоопарка до четвёртого знака по
+    # всем метрикам на одном кэше и тех же 200 видео.
+    tr_args = load_args(args.tracker, {'track_high_thresh': args.tau,
+                                       'new_track_thresh': args.tau,
+                                       'track_buffer': args.buffer})
+    print(f'[INFO] база: {args.tracker}, компенсация движения: '
+          f'{getattr(tr_args, "gmc_method", "нет")}')
     res, rows = {}, []
     for mode in args.modes:
         model = None
@@ -228,7 +279,7 @@ def main() -> int:
             for k in METRIC_KEYS if k in met))
 
     base = res.get('baseline')
-    print('\n=== гейт 2: прирост к штатному ByteTrack ===')
+    print(f'\n=== гейт 2: прирост к штатному {args.tracker} ===')
     for mode in res:
         m = res[mode]
         if base and mode != 'baseline':
