@@ -56,6 +56,19 @@ AGE_BINS = [(0, 0, 0), (1, 1, 1), (2, 2, 2), (3, 4, 3), (5, 10 ** 9, 4)]
 STEP = 0.1                        # шаг кодирования корзины в дробной части
 
 
+def is_crowd(label: dict) -> bool:
+    """Рамки с attributes.crowd пропускаются.
+
+    Так делает штатный конвертер проекта (`datasets/format_converter.py`,
+    строка 57) — этого требует официальный протокол BDD100K. Без этого правила
+    метки расходятся с обучающими метками baseline, и сравнение перестаёт
+    отличаться ровно одним условием. Гейт Этапа 2 поймал ровно это: два
+    объекта-crowd в одном кадре из 617 давали воспроизводимую разницу
+    +0.008 mAP50-95.
+    """
+    return bool((label.get('attributes') or {}).get('crowd'))
+
+
 def bucket_of(age: int) -> int:
     for lo, hi, b in AGE_BINS:
         if lo <= age <= hi:
@@ -96,7 +109,7 @@ def main() -> int:
     print(f'видео: {len(files)}\n', flush=True)
 
     per_bucket = Counter()
-    n_obj = n_frames = n_tracks = 0
+    n_obj = n_frames = n_tracks = n_crowd = 0
     skipped_cat = Counter()
 
     for vi, f in enumerate(files, 1):
@@ -107,6 +120,8 @@ def main() -> int:
         seen = defaultdict(list)
         for fr in frames:
             for l in fr.get('labels') or []:
+                if is_crowd(l):
+                    continue
                 if l.get('box2d') and l.get('category') in CATS:
                     seen[l['id']].append(fr['frameIndex'])
         age_of = {(t, fi): k
@@ -123,6 +138,9 @@ def main() -> int:
             for l in fr.get('labels') or []:
                 b, c = l.get('box2d'), l.get('category')
                 if not b:
+                    continue
+                if is_crowd(l):
+                    n_crowd += 1
                     continue
                 if c not in CATS:
                     skipped_cat[c] += 1
@@ -150,6 +168,7 @@ def main() -> int:
     print(f'кадров: {n_frames}')
     print(f'треков: {n_tracks}')
     print(f'объектов: {n_obj}')
+    print(f'пропущено crowd: {n_crowd}')
     if skipped_cat:
         print(f'пропущено по категории: {dict(skipped_cat)}')
     print('\nраспределение по корзинам возраста:')
