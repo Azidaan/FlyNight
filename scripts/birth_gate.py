@@ -102,13 +102,14 @@ def make_lists(tag: str, train_root: str, val_root: str) -> Path:
     return yml
 
 
-def run(tag: str, yml: Path, epochs: int, patched: bool, seed: int) -> dict:
+def run(tag: str, yml: Path, epochs: int, patched: bool, seed: int,
+        alpha: float = 0.0, profile: str = 'smooth') -> dict:
     from ultralytics import YOLO
 
     if patched:
         from training import birth_weight
         birth_weight.reset()
-        birth_weight.install(alpha=0.0)
+        birth_weight.install(alpha=alpha, profile=profile)
 
     out_dir = RUNS / tag
     if out_dir.exists():
@@ -133,6 +134,12 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument('--epochs', type=int, default=3)
     ap.add_argument('--seed', type=int, default=42)
+    ap.add_argument('--alpha', type=float, default=0.0,
+                    help='вес. При 0 гейт проверяет ТОЖДЕСТВЕННОСТЬ доставки. '
+                         'При alpha > 0 это дымовой прогон Этапа 4: критерий 3 '
+                         'переворачивается — метрики ОБЯЗАНЫ отличаться, иначе '
+                         'веса не применяются')
+    ap.add_argument('--profile', default='smooth', choices=['smooth', 'binary'])
     ap.add_argument('--variance', type=int, default=2,
                     help='сколько раз прогнать control для измерения разброса; '
                          'допуск критерия 3 берётся из него, а не назначается')
@@ -167,7 +174,8 @@ def main() -> int:
                         patched=False, seed=args.seed))
     ctl = reps[0]
     print('--- прогон birth (метки с признаком, патч установлен) ---', flush=True)
-    bir = run('birth', yml_bir, args.epochs, patched=True, seed=args.seed)
+    bir = run('birth', yml_bir, args.epochs, patched=True, seed=args.seed,
+              alpha=args.alpha, profile=args.profile)
 
     print('\n=== РЕЗУЛЬТАТ ГЕЙТА ===')
     key = 'mAP50-95' if 'mAP50-95' in ctl['metrics'] else None
@@ -189,7 +197,9 @@ def main() -> int:
     spread = hi - lo
     tol = max(spread, 0.002)
     bv = bir['metrics'].get(key, 0.0)
-    ok3 = (lo - tol) <= bv <= (hi + tol)
+    inside = (lo - tol) <= bv <= (hi + tol)
+    # при alpha > 0 совпадение означало бы, что веса не применяются
+    ok3 = inside if args.alpha == 0.0 else not inside
     print(f'\nразброс контрольных прогонов по {key}: '
           + ', '.join(f'{v:.5f}' for v in vals)
           + f'  (размах {spread:.5f})')
@@ -219,8 +229,9 @@ def main() -> int:
     print(f'критерий 2 (доля 0-1 = {expected:.2f} ± 1.5 пп):      '
           f'{"ПРОЙДЕН" if ok2 else "ПРОВАЛЕН"}'
           + (f', получено {young:.2f}%' if young is not None else ', нет данных'))
-    print(f'критерий 3 (birth = control):                '
-          f'{"ПРОЙДЕН" if ok3 else "ПРОВАЛЕН"}')
+    lab3 = 'birth = control' if args.alpha == 0.0 else 'birth != control'
+    print(f'критерий 3 ({lab3}):'.ljust(44)
+          + f'{"ПРОЙДЕН" if ok3 else "ПРОВАЛЕН"}')
     print()
     print('ВЫВОД: ' + ('гейт пройден, признак доезжает до функции потерь '
                        'неискажённым — можно строить Этап 4'

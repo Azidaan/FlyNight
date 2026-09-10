@@ -35,7 +35,13 @@ def main() -> int:
     ap.add_argument('--imgsz', type=int, default=960)
     ap.add_argument('--split', default='val')
     ap.add_argument('--limit', type=int, default=0, help='0 — все видео сплита')
+    ap.add_argument('--model', default=None,
+                    help='веса детектора; по умолчанию контрольный baseline')
     args = ap.parse_args()
+
+    global MODEL
+    if args.model:
+        MODEL = args.model
 
     import warnings
     warnings.filterwarnings('ignore')
