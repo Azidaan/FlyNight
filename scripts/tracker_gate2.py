@@ -180,11 +180,26 @@ def main() -> int:
     ap.add_argument('--blocks', type=int, default=3)
     ap.add_argument('--wt-levels', type=int, default=2)
     ap.add_argument('--modes', nargs='+', default=['baseline', 'wtconv', 'plain'])
+    ap.add_argument('--cache', default=None,
+                    help='каталог кэша детекций; стенд применения — 960')
+    ap.add_argument('--suffix', default='',
+                    help='приписка к именам выходного файла и каталога прогонов')
     args = ap.parse_args()
+
+    global CACHE, OUT, RUNS
+    if args.cache:
+        p = Path(args.cache)
+        CACHE = p if p.is_absolute() else PROJECT_ROOT / p
+    if args.suffix:
+        OUT = OUT.with_name(OUT.stem + args.suffix + OUT.suffix)
+        RUNS = RUNS.with_name(RUNS.name + args.suffix)
 
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     vids = sorted(p.stem for p in (CACHE / 'val').glob('*.npz')
-                  if (GT / f'{p.stem}.json').exists())[:args.videos]
+                  if (GT / f'{p.stem}.json').exists())
+    if args.videos:
+        vids = vids[:args.videos]
+    print(f'[INFO] кэш {CACHE}')
     print(f'[INFO] видео {len(vids)}, τ={args.tau}, буфер={args.buffer}, '
           f'разрывы {args.gaps}, устройство {device}')
 
