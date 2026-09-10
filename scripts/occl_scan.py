@@ -40,6 +40,8 @@ CACHE = PROJECT_ROOT / 'runs' / 'det_cache_ctl' / 'val'
 GT_JSON = PROJECT_ROOT / 'data' / 'bdd100k' / 'labels' / 'box_track_20' / 'val'
 OUT = PROJECT_ROOT / 'experiments' / 'results' / 'occl_scan.csv'
 
+from scripts.birth_cost import STEPS, classify_frame  # noqa: E402
+
 CATS = {'pedestrian': 0, 'rider': 1, 'car': 2, 'truck': 3,
         'bus': 4, 'train': 5, 'motorcycle': 6, 'bicycle': 7}
 ATTRS = ['occluded', 'не occluded', 'truncated', 'не truncated',
@@ -89,6 +91,8 @@ def pct(hit: int, tot: int) -> float:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument('--conf', type=float, default=0.25)
+    ap.add_argument('--iou-loc', type=float, default=0.3,
+                    help='нижняя граница «рамка примерно на месте»')
     ap.add_argument('--videos', type=int, default=0, help='0 — все из кэша')
     ap.add_argument('--cache', default=None)
     ap.add_argument('--suffix', default='')
@@ -127,6 +131,7 @@ def main() -> int:
     death = Counter()      # (условие, уходящий, найден) -> N
     cross = Counter()      # (молодой, заслонён, найден) -> N
     births = Counter()     # (заслонён на первом кадре, найден) -> N
+    stage_occ = Counter()  # (заслонён, ступень) -> N
     n_obj = n_videos = 0
 
     for f in files:
@@ -169,7 +174,12 @@ def main() -> int:
             gb = np.array(boxes, np.float32)
             gc = np.array(clss, np.int32)
             sel = fidx == fi
-            ok = found_flags(gb, gc, xyxy[sel], cls[sel], conf[sel], args.conf)
+            # полная лестница ступеней, а не только «найден/не найден»:
+            # нужно знать, через какой механизм действует заслонение —
+            # через недооценку уверенности или через настоящую слепоту
+            step, _ = classify_frame(gb, gc, xyxy[sel], cls[sel], conf[sel],
+                                     args.conf, args.iou_loc)
+            ok = step == 0
             area = (gb[:, 2] - gb[:, 0]) * (gb[:, 3] - gb[:, 1])
             n_obj += len(gb)
 
@@ -184,6 +194,7 @@ def main() -> int:
                 age_band[(band_label(float(area[k])), young, hit)] += 1
                 cross[(young, occ[k], hit)] += 1
                 death[(cond, dying, hit)] += 1
+                stage_occ[(occ[k], STEPS[step[k]])] += 1
                 if not tru[k]:
                     age_ntr[(cond, young, hit)] += 1
                 if fi == first[t]:
@@ -325,6 +336,52 @@ def main() -> int:
         rows.append(('рождение_окклюзия', '', lab,
                      'найден_на_первом_кадре_%', p))
         print(f'  {lab:10s} треков {tot:6d}  найден на первом кадре {p:6.2f}%')
+    print()
+
+    print('=== 8. Через какую ступень действует заслонение ===')
+    print('Ключевой вопрос: заслонение отнимает объекты через НЕДООЦЕНКУ')
+    print('уверенности или через настоящую СЛЕПОТУ. От ответа зависит,')
+    print('подействует ли на них взвешивание при обучении: недооценку')
+    print('поднять можно, отсутствующий отклик — нет.')
+    print('%-12s %10s %8s %8s %8s %11s %8s'
+          % ('категория', 'объектов', *STEPS))
+    pct_by = {}
+    for o, lab in ((False, 'чистые'), (True, 'заслонённые')):
+        tot = sum(v for (oo, _), v in stage_occ.items() if oo == o)
+        vals = []
+        for st in STEPS:
+            p = pct(stage_occ[(o, st)], tot)
+            vals.append(p)
+            rows.append(('ступени_окклюзия', '', lab, f'{st}_%', p))
+        pct_by[o] = dict(zip(STEPS, vals))
+        rows.append(('ступени_окклюзия', '', lab, 'объектов', tot))
+        print('%-12s %10d %7.2f%% %7.2f%% %7.2f%% %10.2f%% %7.2f%%'
+              % (lab, tot, *vals))
+
+    if pct_by:
+        gap = pct_by[False]['НАЙДЕН'] - pct_by[True]['НАЙДЕН']
+        print(f'\nразрыв по найденным: {gap:.2f} пп. Из чего он складывается:')
+        parts = []
+        for st in STEPS[1:]:
+            d = pct_by[True][st] - pct_by[False][st]
+            share = 100.0 * d / gap if gap else 0.0
+            parts.append((st, d, share))
+            rows.append(('вклад_ступени_окклюзия', '', st, 'вклад_пп',
+                         round(d, 2)))
+            rows.append(('вклад_ступени_окклюзия', '', st, 'доля_разрыва_%',
+                         round(share, 2)))
+        for st, d, share in sorted(parts, key=lambda x: -x[1]):
+            print('  %-12s %+7.2f пп  %6.2f%% разрыва' % (st, d, share))
+        top = max(parts, key=lambda x: x[1])
+        print(f'\nВЫВОД: заслонение действует прежде всего через «{top[0]}» '
+              f'({top[2]:.0f}% разрыва).')
+        if top[0] == 'ПОРОГ':
+            print('  Это тот же механизм, что у возраста — недооценка. Значит')
+            print('  окклюзия встаёт в ту же цепочку, и взвешивание применимо.')
+        else:
+            print('  Это НЕ механизм недооценки. Значит взвешивание при')
+            print('  обучении на заслонённые объекты подействует слабо, и')
+            print('  вариант Г требует другого метода, а не веса.')
     print()
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
