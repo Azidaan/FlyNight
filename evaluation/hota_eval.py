@@ -65,7 +65,7 @@ def _convert(frames: list, is_gt: bool) -> list:
 
 def evaluate_hota(result_dir: str | Path, video_ids: list[str],
                   split: str = 'val', tracker_name: str = 'run',
-                  quiet: bool = True) -> dict:
+                  quiet: bool = True, details_path: str | Path | None = None) -> dict:
     """HOTA/DetA/AssA/IDF1/MOTA/IDSw для каталога scalabel-результатов.
 
     Возвращает и усреднение по классам (как mHOTA в статьях по BDD100K), и
@@ -114,7 +114,18 @@ def evaluate_hota(result_dir: str | Path, video_ids: list[str],
         res, _ = trackeval.Evaluator(eval_cfg).evaluate(
             [trackeval.datasets.BDD100K(ds_cfg)], metrics)
 
-    combined = res['BDD100K'][tracker_name]['COMBINED_SEQ']
+    sequence_results = res['BDD100K'][tracker_name]
+    if details_path is not None:
+        # Сохраняем компоненты по видео для корректного повторного
+        # агрегирования метрик, а не усреднения готовых процентов HOTA.
+        import gzip
+        details_path = Path(details_path)
+        details_path.parent.mkdir(parents=True, exist_ok=True)
+        opener = gzip.open if details_path.suffix == '.gz' else open
+        with opener(details_path, 'wt', encoding='utf-8') as fh:
+            json.dump({k: v for k, v in sequence_results.items() if k != 'COMBINED_SEQ'},
+                      fh, default=lambda x: x.tolist() if hasattr(x, 'tolist') else float(x))
+    combined = sequence_results['COMBINED_SEQ']
     out = {}
     # cls_comb_cls_av — среднее по классам (аналог mHOTA/mIDF1 в статьях),
     # cls_comb_det_av — среднее по объектам (ближе к OVERALL нашего конвейера)
@@ -128,6 +139,10 @@ def evaluate_hota(result_dir: str | Path, video_ids: list[str],
             if v is not None:
                 out[name + suffix] = float(v.mean() * 100)
         c = block.get('CLEAR', {})
+        if not suffix:
+            for name in ('CLR_TP', 'CLR_FP', 'CLR_FN', 'Frag'):
+                if name in c:
+                    out[name] = int(c[name])
         for src, dst in (('MOTA', 'MOTA'), ('MOTP', 'MOTP'), ('IDSW', 'IDSw')):
             if src in c:
                 out[dst + suffix] = float(c[src]) * (100 if dst != 'IDSw' else 1)
