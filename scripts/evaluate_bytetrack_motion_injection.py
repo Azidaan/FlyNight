@@ -43,6 +43,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--blends", nargs="+", type=float, default=(0.25, 0.5, 1.0))
     parser.add_argument("--apply-to", nargs="+", default=("all", "lost"))
     parser.add_argument(
+        "--agreement-scales",
+        nargs="+",
+        type=float,
+        default=[],
+        help="масштабы экспоненциального согласования с прогнозом Калмана",
+    )
+    parser.add_argument(
+        "--ungated-lost",
+        action="store_true",
+        help="не применять согласование с Калманом к потерянным траекториям",
+    )
+    parser.add_argument(
         "--without-confidence",
         action="store_true",
         help="не ослаблять поправку по пространственной согласованности поля",
@@ -78,50 +90,68 @@ def main() -> int:
         )
         for apply_to in args.apply_to:
             for blend in args.blends:
-                confidence_tag = "fixed" if args.without_confidence else "gated"
-                name = f"bytetrack_{source}_{apply_to}_{confidence_tag}_a{blend:g}"
-                print(f"[RUN] {name}", flush=True)
-                tracker = MotionAugmentedByteTrack(
-                    make_tracker_args(),
-                    blend=blend,
-                    apply_to=apply_to,
-                    use_confidence=not args.without_confidence,
-                )
-                rows, timings = [], []
-                frame_count = int(detections["frame_count"])
-                for frame_index in range(frame_count):
-                    xyxy, confidence, classes = detections_for_frame(
-                        detections, frame_index
+                agreement_values = args.agreement_scales or [None]
+                for agreement_scale in agreement_values:
+                    agreement_tag = (
+                        "" if agreement_scale is None else f"_agree{agreement_scale:g}"
                     )
-                    tracker.set_motion_field(MotionField(points, vectors[frame_index]))
-                    started = time.perf_counter()
-                    output = tracker.update(_DetSlice(xyxy, confidence, classes))
-                    timings.append(time.perf_counter() - started)
-                    if frame_index in anchor_by_raw:
-                        reference_index = anchor_by_raw[frame_index]
-                        rows.append(
-                            scalabel_frame(
-                                args.video_id, truth[reference_index], output
-                            )
+                    if args.ungated_lost:
+                        agreement_tag += "_lostraw"
+                    confidence_tag = "fixed" if args.without_confidence else "gated"
+                    name = (
+                        f"bytetrack_{source}_{apply_to}_{confidence_tag}_a{blend:g}"
+                        f"{agreement_tag}"
+                    )
+                    print(f"[RUN] {name}", flush=True)
+                    tracker = MotionAugmentedByteTrack(
+                        make_tracker_args(),
+                        blend=blend,
+                        apply_to=apply_to,
+                        use_confidence=not args.without_confidence,
+                        agreement_scale=agreement_scale,
+                        ungated_lost=args.ungated_lost,
+                    )
+                    rows, timings = [], []
+                    frame_count = int(detections["frame_count"])
+                    for frame_index in range(frame_count):
+                        xyxy, confidence, classes = detections_for_frame(
+                            detections, frame_index
                         )
-                result_dir = args.experiment_dir / "results" / name
-                save_json(result_dir / f"{args.video_id}.json", rows)
-                metrics = evaluate_hota(result_dir, [args.video_id])
-                weights = [row["weight"] for row in tracker.motion_audit]
-                summaries[name] = {
-                    "source": source,
-                    "source_gain": gain,
-                    "apply_to": apply_to,
-                    "blend": blend,
-                    "use_confidence": not args.without_confidence,
-                    "motion_updates": len(weights),
-                    "mean_effective_weight": float(np.mean(weights)) if weights else 0.0,
-                    "timing": distribution(timings),
-                    "metrics": metrics,
-                }
+                        tracker.set_motion_field(MotionField(points, vectors[frame_index]))
+                        started = time.perf_counter()
+                        output = tracker.update(_DetSlice(xyxy, confidence, classes))
+                        timings.append(time.perf_counter() - started)
+                        if frame_index in anchor_by_raw:
+                            reference_index = anchor_by_raw[frame_index]
+                            rows.append(
+                                scalabel_frame(
+                                    args.video_id, truth[reference_index], output
+                                )
+                            )
+                    result_dir = args.experiment_dir / "results" / name
+                    save_json(result_dir / f"{args.video_id}.json", rows)
+                    metrics = evaluate_hota(result_dir, [args.video_id])
+                    weights = [row["weight"] for row in tracker.motion_audit]
+                    summaries[name] = {
+                        "source": source,
+                        "source_gain": gain,
+                        "apply_to": apply_to,
+                        "blend": blend,
+                        "use_confidence": not args.without_confidence,
+                        "agreement_scale": agreement_scale,
+                        "ungated_lost": args.ungated_lost,
+                        "motion_updates": len(weights),
+                        "mean_effective_weight": float(np.mean(weights)) if weights else 0.0,
+                        "timing": distribution(timings),
+                        "metrics": metrics,
+                    }
     suffix = "fixed" if args.without_confidence else "gated"
     output = args.experiment_dir / f"bytetrack_motion_injection_{suffix}.json"
-    save_json(output, summaries)
+    merged = {}
+    if output.exists():
+        merged.update(json.loads(output.read_text(encoding="utf-8")))
+    merged.update(summaries)
+    save_json(output, merged)
     ranking = sorted(
         (
             {
@@ -132,7 +162,7 @@ def main() -> int:
                 "IDSw": row["metrics"]["IDSw"],
                 "mean_effective_weight": row["mean_effective_weight"],
             }
-            for name, row in summaries.items()
+            for name, row in merged.items()
         ),
         key=lambda row: row["HOTA"],
         reverse=True,

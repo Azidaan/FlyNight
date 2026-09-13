@@ -63,7 +63,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--motion-sources",
         nargs="+",
-        choices=("dis", "farneback", "flyvis_full", "flyvis_tiled"),
+        choices=(
+            "dis",
+            "dis_half",
+            "dis_quarter",
+            "farneback",
+            "flyvis_full",
+            "flyvis_tiled",
+        ),
         default=("dis", "flyvis_full", "flyvis_tiled"),
     )
     parser.add_argument(
@@ -86,6 +93,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--force-detections", action="store_true")
     parser.add_argument("--force-motion", action="store_true")
+    parser.add_argument("--motion-only", action="store_true")
     parser.add_argument("--skip-evaluation", action="store_true")
     return parser.parse_args()
 
@@ -318,8 +326,10 @@ def detections_for_frame(cache: dict, frame_index: int):
 
 
 def make_motion_estimator(source: str, fps: float, max_dt: float):
-    if source in {"dis", "farneback"}:
-        return OpenCVMotionEstimator(source, processing_scale=1.0, sample_step=8)
+    if source in {"dis", "dis_half", "dis_quarter", "farneback"}:
+        method = "dis" if source.startswith("dis") else source
+        scale = {"dis_half": 0.5, "dis_quarter": 0.25}.get(source, 1.0)
+        return OpenCVMotionEstimator(method, processing_scale=scale, sample_step=8)
     mode = source.removeprefix("flyvis_")
     return FlyVisMotionEstimator(
         mode=mode,
@@ -602,6 +612,10 @@ def main() -> int:
             max_dt=args.max_dt,
             force=args.force_motion,
         )
+
+    if args.motion_only:
+        print(json.dumps(motion_meta, ensure_ascii=False, indent=2), flush=True)
+        return 0
 
     tracker_results = {}
     required_sources = set()

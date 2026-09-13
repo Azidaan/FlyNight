@@ -25,6 +25,8 @@ class MotionAugmentedByteTrack(BYTETracker):
         blend: float,
         apply_to: str = "all",
         use_confidence: bool = True,
+        agreement_scale: float | None = None,
+        ungated_lost: bool = False,
         context_scale: float = 2.0,
         min_motion_samples: int = 3,
     ) -> None:
@@ -33,9 +35,13 @@ class MotionAugmentedByteTrack(BYTETracker):
             raise ValueError("blend должен находиться в диапазоне [0, 1]")
         if apply_to not in {"all", "tracked", "lost"}:
             raise ValueError("apply_to должен быть all, tracked или lost")
+        if agreement_scale is not None and agreement_scale <= 0:
+            raise ValueError("agreement_scale должен быть положительным")
         self.blend = float(blend)
         self.apply_to = apply_to
         self.use_confidence = bool(use_confidence)
+        self.agreement_scale = agreement_scale
+        self.ungated_lost = bool(ungated_lost)
         self.context_scale = float(context_scale)
         self.min_motion_samples = int(min_motion_samples)
         self.motion_field = MotionField.empty()
@@ -71,6 +77,22 @@ class MotionAugmentedByteTrack(BYTETracker):
             if self.use_confidence:
                 weight *= float(np.clip(estimate.confidence, 0.0, 1.0))
             kalman_displacement = track.mean[:2] - center_before
+            agreement = 1.0
+            agreement_scale = self.agreement_scale
+            if self.ungated_lost and track.state == TrackState.Lost:
+                agreement_scale = None
+            if agreement_scale is not None:
+                box_diagonal = float(np.linalg.norm(box_before[2:] - box_before[:2]))
+                disagreement = float(
+                    np.linalg.norm(estimate.vector_xy - kalman_displacement)
+                )
+                agreement = float(
+                    np.exp(
+                        -disagreement
+                        / max(agreement_scale * box_diagonal, 1e-6)
+                    )
+                )
+                weight *= agreement
             blended = (
                 (1.0 - weight) * kalman_displacement
                 + weight * estimate.vector_xy
@@ -83,6 +105,7 @@ class MotionAugmentedByteTrack(BYTETracker):
                     "state": int(track.state),
                     "weight": float(weight),
                     "confidence": float(estimate.confidence),
+                    "agreement": agreement,
                     "kalman_dx": float(kalman_displacement[0]),
                     "kalman_dy": float(kalman_displacement[1]),
                     "motion_dx": float(estimate.vector_xy[0]),

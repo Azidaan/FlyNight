@@ -44,7 +44,45 @@ def test_lost_only_does_not_change_tracked_prediction() -> None:
     np.testing.assert_allclose(track.mean[:2], before, atol=1e-5)
 
 
+def test_agreement_gate_reduces_external_motion_weight() -> None:
+    tracker = MotionAugmentedByteTrack(
+        make_tracker_args(),
+        blend=1.0,
+        use_confidence=False,
+        agreement_scale=0.5,
+    )
+    track = active_track()
+    before = track.mean[:2].copy()
+    tracker.set_motion_field(uniform_field(10.0, 0.0))
+    tracker.multi_predict([track])
+    expected_weight = np.exp(-10.0 / (0.5 * np.sqrt(20.0**2 + 20.0**2)))
+    np.testing.assert_allclose(
+        track.mean[:2], before + [10.0 * expected_weight, 0.0], atol=1e-5
+    )
+
+
 @pytest.mark.parametrize("blend", [-0.01, 1.01])
 def test_invalid_blend_rejected(blend: float) -> None:
     with pytest.raises(ValueError):
         MotionAugmentedByteTrack(make_tracker_args(), blend=blend)
+
+
+def test_invalid_agreement_scale_rejected() -> None:
+    with pytest.raises(ValueError):
+        MotionAugmentedByteTrack(make_tracker_args(), blend=1.0, agreement_scale=0.0)
+
+
+def test_lost_track_can_bypass_agreement_gate() -> None:
+    tracker = MotionAugmentedByteTrack(
+        make_tracker_args(),
+        blend=1.0,
+        use_confidence=False,
+        agreement_scale=0.1,
+        ungated_lost=True,
+    )
+    track = active_track()
+    track.mark_lost()
+    before = track.mean[:2].copy()
+    tracker.set_motion_field(uniform_field(10.0, 0.0))
+    tracker.multi_predict([track])
+    np.testing.assert_allclose(track.mean[:2], before + [10.0, 0.0], atol=1e-5)
