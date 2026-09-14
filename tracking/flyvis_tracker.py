@@ -222,6 +222,134 @@ class FlyVisTrackerConfig:
             raise ValueError("new_track_threshold не может быть ниже detection_threshold")
 
 
+class MotionFusionPolicy(Protocol):
+    """Правило превращения сырой оценки движения в применяемую скорость."""
+
+    def fuse(
+        self,
+        estimate: MotionEstimate,
+        previous_velocity: np.ndarray,
+        config: FlyVisTrackerConfig,
+    ) -> tuple[np.ndarray, float]: ...
+
+
+class HeuristicMotionFusion:
+    """Текущее правило смешивания, выделенное как заменяемый контроль.
+
+    Возвращаемое число является весом внутреннего согласия поля, а не
+    откалиброванной вероятностью правильного движения.
+    """
+
+    def fuse(
+        self,
+        estimate: MotionEstimate,
+        previous_velocity: np.ndarray,
+        config: FlyVisTrackerConfig,
+    ) -> tuple[np.ndarray, float]:
+        weight = float(np.clip(estimate.confidence, 0.0, 1.0))
+        if config.reuse_last_motion:
+            velocity = (
+                weight * estimate.vector_xy
+                + (1.0 - weight) * previous_velocity
+            )
+        else:
+            velocity = weight * estimate.vector_xy
+        return np.asarray(velocity, dtype=np.float32), weight
+
+
+class AssignmentPolicy(Protocol):
+    """Интерфейс стоимости и назначения пар «трек — детекция»."""
+
+    def cost(
+        self,
+        tracks: list[Track],
+        predicted: np.ndarray,
+        detections: np.ndarray,
+        classes: np.ndarray,
+        config: FlyVisTrackerConfig,
+    ) -> tuple[np.ndarray, np.ndarray]: ...
+
+    def assign(
+        self,
+        tracks: list[Track],
+        predicted: np.ndarray,
+        detections: np.ndarray,
+        classes: np.ndarray,
+        config: FlyVisTrackerConfig,
+    ) -> tuple[list[tuple[int, int]], set[int], set[int]]: ...
+
+
+class WeightedGeometryAssignment:
+    """Текущая взвешенная геометрическая ассоциация как явный контроль."""
+
+    def cost(
+        self,
+        tracks: list[Track],
+        predicted: np.ndarray,
+        detections: np.ndarray,
+        classes: np.ndarray,
+        config: FlyVisTrackerConfig,
+    ) -> tuple[np.ndarray, np.ndarray]:
+        if not len(tracks) or not len(detections):
+            shape = (len(tracks), len(detections))
+            return np.zeros(shape, np.float32), np.zeros(shape, dtype=bool)
+
+        iou = box_iou(predicted, detections)
+        track_centers = _centers(predicted)
+        detection_centers = _centers(detections)
+        scale = np.sqrt(_areas(predicted))[:, None]
+        motion_distance = np.linalg.norm(
+            track_centers[:, None, :] - detection_centers[None, :, :], axis=2
+        ) / np.maximum(scale, 1.0)
+
+        track_wh = np.maximum(predicted[:, 2:] - predicted[:, :2], 1.0)
+        detection_wh = np.maximum(detections[:, 2:] - detections[:, :2], 1.0)
+        size_distance = np.mean(
+            np.abs(np.log(detection_wh[None, :, :] / track_wh[:, None, :])), axis=2
+        )
+        track_classes = np.asarray([track.class_id for track in tracks], dtype=np.int64)
+        same_class = track_classes[:, None] == classes[None, :]
+        valid = (
+            same_class
+            & (size_distance <= config.max_size_log_change)
+            & (
+                (motion_distance <= config.max_motion_distance)
+                | (iou >= config.min_iou_gate)
+            )
+        )
+        cost = (
+            config.iou_weight * (1.0 - iou)
+            + config.motion_weight * motion_distance
+            + config.size_weight * size_distance
+        ).astype(np.float32)
+        cost[~valid] = np.inf
+        return cost, valid
+
+    def assign(
+        self,
+        tracks: list[Track],
+        predicted: np.ndarray,
+        detections: np.ndarray,
+        classes: np.ndarray,
+        config: FlyVisTrackerConfig,
+    ) -> tuple[list[tuple[int, int]], set[int], set[int]]:
+        unmatched_tracks = set(range(len(tracks)))
+        unmatched_detections = set(range(len(detections)))
+        if not len(tracks) or not len(detections):
+            return [], unmatched_tracks, unmatched_detections
+        cost, valid = self.cost(tracks, predicted, detections, classes, config)
+        finite_cost = np.where(np.isfinite(cost), cost, 1e6)
+        rows, cols = linear_sum_assignment(finite_cost)
+        matches = []
+        for row, col in zip(rows.tolist(), cols.tolist()):
+            if not valid[row, col] or cost[row, col] > config.max_assignment_cost:
+                continue
+            matches.append((row, col))
+            unmatched_tracks.discard(row)
+            unmatched_detections.discard(col)
+        return matches, unmatched_tracks, unmatched_detections
+
+
 class FlyVisTracker:
     """Независимый трекер: FlyVis-движение, назначение и жизненный цикл ID."""
 
@@ -229,9 +357,13 @@ class FlyVisTracker:
         self,
         config: FlyVisTrackerConfig | None = None,
         motion_estimator: MotionFieldEstimator | None = None,
+        motion_fusion: MotionFusionPolicy | None = None,
+        assignment: AssignmentPolicy | None = None,
     ) -> None:
         self.config = config or FlyVisTrackerConfig()
         self.motion_estimator = motion_estimator
+        self.motion_fusion = motion_fusion or HeuristicMotionFusion()
+        self.assignment = assignment or WeightedGeometryAssignment()
         self.reset()
 
     def reset(self) -> None:
@@ -256,27 +388,18 @@ class FlyVisTracker:
                 context_scale=self.config.context_scale,
                 min_samples=self.config.min_motion_samples,
             )
-            confidence = float(np.clip(estimate.confidence, 0.0, 1.0))
-            previous_velocity = track.velocity_xy
-            if self.config.reuse_last_motion:
-                # Пространственно несогласованный поток не должен одним кадром
-                # перебрасывать траекторию. Confidence служит коэффициентом
-                # обновления, а не только диагностическим числом.
-                velocity = (
-                    confidence * estimate.vector_xy
-                    + (1.0 - confidence) * previous_velocity
-                )
-            else:
-                velocity = confidence * estimate.vector_xy
-            track.velocity_xy = np.asarray(velocity, dtype=np.float32)
-            track.motion_confidence = confidence
+            velocity, reliability_weight = self.motion_fusion.fuse(
+                estimate, track.velocity_xy, self.config
+            )
+            track.velocity_xy = velocity
+            track.motion_confidence = reliability_weight
             self.motion_history.append(
                 {
                     "frame": self.frame_index,
                     "track_id": track.track_id,
                     "dx": float(track.velocity_xy[0]),
                     "dy": float(track.velocity_xy[1]),
-                    "confidence": confidence,
+                    "confidence": reliability_weight,
                     "object_samples": estimate.object_samples,
                     "background_samples": estimate.background_samples,
                 }
@@ -293,40 +416,9 @@ class FlyVisTracker:
         detections: np.ndarray,
         classes: np.ndarray,
     ) -> tuple[np.ndarray, np.ndarray]:
-        if not len(tracks) or not len(detections):
-            shape = (len(tracks), len(detections))
-            return np.zeros(shape, np.float32), np.zeros(shape, dtype=bool)
-
-        iou = box_iou(predicted, detections)
-        track_centers = _centers(predicted)
-        detection_centers = _centers(detections)
-        scale = np.sqrt(_areas(predicted))[:, None]
-        motion_distance = np.linalg.norm(
-            track_centers[:, None, :] - detection_centers[None, :, :], axis=2
-        ) / np.maximum(scale, 1.0)
-
-        track_wh = np.maximum(predicted[:, 2:] - predicted[:, :2], 1.0)
-        detection_wh = np.maximum(detections[:, 2:] - detections[:, :2], 1.0)
-        size_distance = np.mean(
-            np.abs(np.log(detection_wh[None, :, :] / track_wh[:, None, :])), axis=2
+        return self.assignment.cost(
+            tracks, predicted, detections, classes, self.config
         )
-        track_classes = np.asarray([track.class_id for track in tracks], dtype=np.int64)
-        same_class = track_classes[:, None] == classes[None, :]
-        valid = (
-            same_class
-            & (size_distance <= self.config.max_size_log_change)
-            & (
-                (motion_distance <= self.config.max_motion_distance)
-                | (iou >= self.config.min_iou_gate)
-            )
-        )
-        cost = (
-            self.config.iou_weight * (1.0 - iou)
-            + self.config.motion_weight * motion_distance
-            + self.config.size_weight * size_distance
-        ).astype(np.float32)
-        cost[~valid] = np.inf
-        return cost, valid
 
     def _assign(
         self,
@@ -335,21 +427,9 @@ class FlyVisTracker:
         detections: np.ndarray,
         classes: np.ndarray,
     ) -> tuple[list[tuple[int, int]], set[int], set[int]]:
-        unmatched_tracks = set(range(len(tracks)))
-        unmatched_detections = set(range(len(detections)))
-        if not len(tracks) or not len(detections):
-            return [], unmatched_tracks, unmatched_detections
-        cost, valid = self._cost(tracks, predicted, detections, classes)
-        finite_cost = np.where(np.isfinite(cost), cost, 1e6)
-        rows, cols = linear_sum_assignment(finite_cost)
-        matches = []
-        for row, col in zip(rows.tolist(), cols.tolist()):
-            if not valid[row, col] or cost[row, col] > self.config.max_assignment_cost:
-                continue
-            matches.append((row, col))
-            unmatched_tracks.discard(row)
-            unmatched_detections.discard(col)
-        return matches, unmatched_tracks, unmatched_detections
+        return self.assignment.assign(
+            tracks, predicted, detections, classes, self.config
+        )
 
     def update(
         self,

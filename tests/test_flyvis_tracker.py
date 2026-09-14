@@ -9,8 +9,10 @@ from tracking.flyvis_motion import TileLayout, fixed_tile_bounds, integration_pl
 from tracking.flyvis_tracker import (
     FlyVisTracker,
     FlyVisTrackerConfig,
+    HeuristicMotionFusion,
     MotionField,
     TrackStatus,
+    WeightedGeometryAssignment,
 )
 
 
@@ -173,6 +175,34 @@ def test_constant_velocity_control_is_learned_from_matches() -> None:
     out = update(tracker, [[10, 0, 20, 10]])
     assert out[:, 4].tolist() == [1]
     np.testing.assert_allclose(tracker.active_tracks[0].velocity_xy, [5, 0])
+
+
+def test_explicit_default_modules_match_implicit_defaults() -> None:
+    config = FlyVisTrackerConfig(max_age=2)
+    implicit = FlyVisTracker(config)
+    explicit = FlyVisTracker(
+        config,
+        motion_fusion=HeuristicMotionFusion(),
+        assignment=WeightedGeometryAssignment(),
+    )
+    sequence = (
+        ([[0, 0, 10, 10], [40, 0, 50, 10]], MotionField.empty()),
+        (
+            [[10, 0, 20, 10], [30, 0, 40, 10]],
+            motion_field(
+                [([0, 0, 10, 10], [10, 0]), ([40, 0, 50, 10], [-10, 0])]
+            ),
+        ),
+        ([], MotionField.empty()),
+        ([[20, 0, 30, 10]], MotionField.empty()),
+    )
+
+    for boxes, field in sequence:
+        expected = update(implicit, boxes, field=field)
+        actual = update(explicit, boxes, field=field)
+        np.testing.assert_allclose(actual, expected, atol=1e-6)
+        assert explicit.events == implicit.events
+        assert explicit.motion_history == implicit.motion_history
 
 
 @pytest.mark.parametrize("method", ["farneback", "dis"])

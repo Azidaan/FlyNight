@@ -519,6 +519,88 @@ def truth_tracks(frame: dict) -> dict[tuple[str, str], np.ndarray]:
     return tracks
 
 
+def motion_confidence_reliability(
+    confidence: list[float] | np.ndarray,
+    errors: list[float] | np.ndarray,
+    normalized_errors: list[float] | np.ndarray,
+) -> dict:
+    """Проверить, ранжирует ли эвристика уверенности точные движения выше.
+
+    Значение confidence не трактуется как вероятность. Для проверки сохраняются
+    фиксированные интервалы, корреляция с ошибкой и риск при выборе наиболее
+    уверенных 25/50/75/100 процентов сегментов.
+    """
+    confidence = np.asarray(confidence, dtype=np.float64)
+    errors = np.asarray(errors, dtype=np.float64)
+    normalized = np.asarray(normalized_errors, dtype=np.float64)
+    if not (len(confidence) == len(errors) == len(normalized)):
+        raise ValueError("Уверенность и ошибки должны иметь одинаковую длину")
+    if not len(confidence):
+        return {
+            "definition": "segment mean confidence versus open-loop endpoint error",
+            "segments": 0,
+            "confidence_error_pearson": None,
+            "confidence_normalized_error_pearson": None,
+            "bins": [],
+            "top_confidence_fractions": {},
+        }
+    if (
+        not np.isfinite(confidence).all()
+        or not np.isfinite(errors).all()
+        or not np.isfinite(normalized).all()
+    ):
+        raise ValueError("Уверенность и ошибки должны быть конечными")
+
+    def correlation(left: np.ndarray, right: np.ndarray) -> float | None:
+        if len(left) < 2 or np.std(left) <= 1e-12 or np.std(right) <= 1e-12:
+            return None
+        return float(np.corrcoef(left, right)[0, 1])
+
+    bins = []
+    edges = np.linspace(0.0, 1.0, 11)
+    for index, (lower, upper) in enumerate(zip(edges[:-1], edges[1:])):
+        mask = (confidence >= lower) & (
+            confidence <= upper if index == len(edges) - 2 else confidence < upper
+        )
+        if not np.any(mask):
+            continue
+        bins.append(
+            {
+                "lower": float(lower),
+                "upper": float(upper),
+                "count": int(mask.sum()),
+                "mean_confidence": float(confidence[mask].mean()),
+                "mean_endpoint_error_pixels": float(errors[mask].mean()),
+                "mean_normalized_error": float(normalized[mask].mean()),
+                "acceptable_rate_norm_0.10": float(np.mean(normalized[mask] <= 0.10)),
+                "acceptable_rate_norm_0.25": float(np.mean(normalized[mask] <= 0.25)),
+                "acceptable_rate_norm_0.50": float(np.mean(normalized[mask] <= 0.50)),
+            }
+        )
+
+    order = np.argsort(-confidence, kind="stable")
+    selective = {}
+    for fraction in (0.25, 0.50, 0.75, 1.00):
+        count = max(1, int(np.ceil(len(order) * fraction)))
+        chosen = order[:count]
+        selective[f"{fraction:.2f}"] = {
+            "count": count,
+            "minimum_confidence": float(confidence[chosen].min()),
+            "mean_endpoint_error_pixels": float(errors[chosen].mean()),
+            "mean_normalized_error": float(normalized[chosen].mean()),
+            "acceptable_rate_norm_0.25": float(np.mean(normalized[chosen] <= 0.25)),
+        }
+
+    return {
+        "definition": "segment mean confidence versus open-loop endpoint error",
+        "segments": int(len(confidence)),
+        "confidence_error_pearson": correlation(confidence, errors),
+        "confidence_normalized_error_pearson": correlation(confidence, normalized),
+        "bins": bins,
+        "top_confidence_fractions": selective,
+    }
+
+
 def endpoint_motion_audit(
     truth: list[dict],
     matches: list[dict],
@@ -527,6 +609,7 @@ def endpoint_motion_audit(
 ) -> dict:
     errors, normalized, target_lengths, predicted_lengths, directions = [], [], [], [], []
     confidences = []
+    segment_confidences = []
     for reference_index in range(1, len(truth)):
         previous = truth_tracks(truth[reference_index - 1])
         current = truth_tracks(truth[reference_index])
@@ -537,6 +620,7 @@ def endpoint_motion_audit(
             box = previous[key].copy()
             start_center = (box[:2] + box[2:]) * 0.5
             velocity = np.zeros(2, dtype=np.float32)
+            interval_confidences = []
             for raw_index in range(raw_start + 1, raw_stop + 1):
                 estimate = MotionField(points, vectors[raw_index]).estimate_box(
                     box, context_scale=2.0, min_samples=3
@@ -545,6 +629,7 @@ def endpoint_motion_audit(
                 velocity = confidence * estimate.vector_xy + (1.0 - confidence) * velocity
                 box = shift_box(box, velocity)
                 confidences.append(confidence)
+                interval_confidences.append(confidence)
             predicted_center = (box[:2] + box[2:]) * 0.5
             target_center = (current[key][:2] + current[key][2:]) * 0.5
             predicted_displacement = predicted_center - start_center
@@ -553,6 +638,9 @@ def endpoint_motion_audit(
             diagonal = float(np.linalg.norm(previous[key][2:] - previous[key][:2]))
             errors.append(error)
             normalized.append(error / max(diagonal, 1.0))
+            segment_confidences.append(
+                float(np.mean(interval_confidences)) if interval_confidences else 0.0
+            )
             target_lengths.append(float(np.linalg.norm(target_displacement)))
             predicted_lengths.append(float(np.linalg.norm(predicted_displacement)))
             if np.linalg.norm(target_displacement) >= 0.5:
@@ -572,6 +660,9 @@ def endpoint_motion_audit(
         "mean_target_displacement_pixels": float(np.mean(target_lengths)),
         "mean_predicted_displacement_pixels": float(np.mean(predicted_lengths)),
         "mean_motion_confidence": float(np.mean(confidences)),
+        "confidence_reliability": motion_confidence_reliability(
+            segment_confidences, errors, normalized
+        ),
     }
 
 

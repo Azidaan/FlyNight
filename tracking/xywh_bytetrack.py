@@ -30,3 +30,22 @@ class XYWHByteTrack(BYTETracker):
 
     def multi_predict(self, tracks: list[BOTrack]) -> None:
         BOTrack.multi_predict(tracks)
+
+
+class XYWHIoUSecondByteTrack(XYWHByteTrack):
+    """XYWHByteTrack с чистым IoU на второй ассоциации.
+
+    Первая ассоциация остаётся штатной: расстояние по IoU объединяется с
+    confidence детекции, если ``fuse_score=True``. На второй ассоциации уже
+    отобраны низкоуверенные детекции, поэтому повторное умножение сходства на
+    confidence способно отвергнуть даже геометрически идеальное продолжение.
+    Здесь только для этого этапа ``fuse_score`` временно отключается.
+    """
+
+    def _second_association(self, *args) -> None:
+        saved_fuse_score = self.args.fuse_score
+        try:
+            self.args.fuse_score = False
+            return super()._second_association(*args)
+        finally:
+            self.args.fuse_score = saved_fuse_score

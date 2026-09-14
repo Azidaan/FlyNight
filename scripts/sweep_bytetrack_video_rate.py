@@ -42,7 +42,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--buffer", nargs="+", type=int, default=(30, 60))
     parser.add_argument("--match", nargs="+", type=float, default=(0.80,))
     parser.add_argument(
-        "--tracker-class", choices=("byte", "xywh"), default="byte"
+        "--tracker-class",
+        choices=("byte", "xywh", "xywh_iou_second"),
+        default="byte",
     )
     parser.add_argument(
         "--output",
@@ -72,9 +74,14 @@ def run_configuration(
     tracker_class: str = "byte",
 ) -> dict:
     from ultralytics.trackers.byte_tracker import BYTETracker
-    from tracking.xywh_bytetrack import XYWHByteTrack
+    from tracking.xywh_bytetrack import XYWHByteTrack, XYWHIoUSecondByteTrack
 
-    tracker_type = XYWHByteTrack if tracker_class == "xywh" else BYTETracker
+    tracker_types = {
+        "byte": BYTETracker,
+        "xywh": XYWHByteTrack,
+        "xywh_iou_second": XYWHIoUSecondByteTrack,
+    }
+    tracker_type = tracker_types[tracker_class]
 
     timings = []
     for video_id in video_ids:
