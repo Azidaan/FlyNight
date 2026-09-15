@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>История проекта — эксперименты, коммиты, план</title>
+<style>
+@font-face { font-family:'IBM Plex Sans'; font-weight:400; src:url('assets/fonts/ibm-plex-sans-cyrillic-400-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family:'IBM Plex Sans'; font-weight:400; src:url('assets/fonts/ibm-plex-sans-latin-400-normal.woff2') format('woff2'); unicode-range:U+0000-00FF,U+2000-206F; }
+@font-face { font-family:'IBM Plex Sans'; font-weight:600; src:url('assets/fonts/ibm-plex-sans-cyrillic-600-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family:'IBM Plex Mono'; font-weight:400; src:url('assets/fonts/ibm-plex-mono-cyrillic-400-normal.woff2') format('woff2'); unicode-range:U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116; }
+@font-face { font-family:'IBM Plex Mono'; font-weight:400; src:url('assets/fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2'); unicode-range:U+0000-00FF,U+2000-206F; }
+
+:root{
+  --bg:#faf9f5; --surface:#ffffff;
+  --accent:#d97757; --accent-deep:#b85c3c;
+  --ink:#2f2a24; --sec:#6b6457; --cap:#a39b8c;
+  --line:#2f2a24; --aux:#bdb5a6; --div:#e7e2d8; --ok:#3f9277;
+  --amber:#b8892b; --blue:#3f6ea8;
+  --sans:'IBM Plex Sans','Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono','Cascadia Mono','Consolas',monospace;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%;}
+body{background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:13px;
+  overflow:hidden; user-select:none;}
+.mono{font-family:var(--mono); text-transform:uppercase; letter-spacing:.14em;}
+
+#app{display:flex; flex-direction:column; height:100vh; padding:18px 22px 10px; min-width:0;}
+header{display:flex; align-items:flex-end; justify-content:space-between; gap:14px;
+  padding-bottom:8px; border-bottom:1.6px solid var(--line);}
+.kicker{font-family:var(--mono); font-size:9.5px; letter-spacing:.24em; color:var(--accent);
+  text-transform:uppercase; margin-bottom:4px;}
+h1{font-size:20px; font-weight:600; white-space:nowrap;}
+h1 .thin{color:var(--sec); font-weight:400;}
+#stamp{font-family:var(--mono); font-size:9px; letter-spacing:.12em; color:var(--cap);
+  text-transform:uppercase; text-align:right; line-height:1.8;}
+#stamp b{color:var(--ink); font-weight:500;}
+.btn{font-family:var(--mono); font-size:9px; letter-spacing:.12em; text-transform:uppercase;
+  padding:5px 10px; cursor:pointer; background:var(--surface); color:var(--sec);
+  border:1.3px solid var(--div);}
+.btn:hover:not(:disabled){border-color:var(--accent-deep); color:var(--accent-deep);}
+.btn:disabled{opacity:.45; cursor:default;}
+.btn.primary{background:var(--accent-deep); border-color:var(--accent-deep); color:#fff;}
+
+/* ————— вкладки ————— */
+#tabs{display:flex; gap:2px; margin:8px 0 10px; flex-wrap:wrap;}
+#tabs button{font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase;
+  padding:6px 12px; border:1.4px solid var(--div); background:var(--surface); color:var(--sec); cursor:pointer;}
+#tabs button.on{border-color:var(--line); color:var(--ink); border-bottom-color:var(--surface);}
+#tabs button .n{color:var(--cap); margin-left:6px;}
+
+/* ————— каркас ————— */
+main{flex:1; display:grid; grid-template-columns:236px minmax(0,1fr) 380px; gap:14px; min-height:0;}
+#app.norail main{grid-template-columns:minmax(0,1fr) 380px;}
+#app.norail #rail{display:none;}
+#app.nodetail main{grid-template-columns:236px minmax(0,1fr);}
+#app.nodetail #detail{display:none;}
+#app.norail.nodetail main{grid-template-columns:minmax(0,1fr);}
+.panel{background:var(--surface); border:1.6px solid var(--line); position:relative;
+  padding:11px 12px 12px; display:flex; flex-direction:column; min-height:0; min-width:0;}
+.panel::before,.panel::after{content:''; position:absolute; width:9px; height:9px; pointer-events:none;}
+.panel::before{top:-5px; left:-5px; border-top:1.6px solid var(--line); border-left:1.6px solid var(--line);}
+.panel::after{bottom:-5px; right:-5px; border-bottom:1.6px solid var(--line); border-right:1.6px solid var(--line);}
+.ptitle{font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; color:var(--sec);
+  text-transform:uppercase; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; gap:8px;}
+.ptitle .idx{color:var(--accent);}
+[hidden]{display:none !important;}
+.scroll{flex:1; overflow-y:auto; overflow-x:hidden; min-height:0; padding-right:4px; user-select:text; overflow-wrap:anywhere;}
+.scroll::-webkit-scrollbar{width:8px;}
+.scroll::-webkit-scrollbar-thumb{background:var(--div); border:2px solid var(--surface);}
+
+/* узкое окно: рейки ужимаются, средняя колонка остаётся читаемой */
+@media (max-width:1180px){
+  main{grid-template-columns:196px minmax(0,1fr) 300px;}
+  #app.norail main{grid-template-columns:minmax(0,1fr) 300px;}
+  #app.nodetail main{grid-template-columns:196px minmax(0,1fr);}
+  .cmp{grid-template-columns:1fr;}
+}
+@media (max-width:1020px){
+  main{grid-template-columns:170px minmax(0,1fr) 260px;}
+  #app.norail main{grid-template-columns:minmax(0,1fr) 260px;}
+  #app.nodetail main{grid-template-columns:170px minmax(0,1fr);}
+  h1{font-size:17px;} h1 .thin{display:none;}
+  .card .kv{grid-template-columns:1fr;}
+}
+
+/* ————— фильтры ————— */
+#rail input[type=text],#rail input[type=date],#plansearch,#glsearch{width:100%; font-family:var(--sans); font-size:12px;
+  padding:5px 7px; border:1.3px solid var(--div); background:var(--surface); color:var(--ink);}
+#rail input:focus,#plansearch:focus,#glsearch:focus{outline:none; border-color:var(--accent);}
+.fgroup{margin-top:9px;}
+.fgroup .fl{font-family:var(--mono); font-size:8.5px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--cap); margin-bottom:4px; display:flex; justify-content:space-between;}
+.chips{display:flex; flex-wrap:wrap; gap:3px;}
+.chip{font-size:10.5px; padding:2px 7px; border:1.2px solid var(--div); cursor:pointer; color:var(--sec);
+  background:var(--surface); max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+.chip:hover{border-color:var(--aux);}
+.chip.on{border-color:var(--accent-deep); color:var(--accent-deep); background:#fbf1ec;}
+.tri{display:flex; gap:3px;}
+.tri .chip{flex:1; text-align:center;}
+.dates{display:flex; gap:4px; min-width:0;}
+.dates input{min-width:0; flex:1; font-size:10.5px !important; padding:4px 3px !important;}
+#fcount{font-family:var(--mono); font-size:9px; letter-spacing:.1em; color:var(--sec); margin-top:10px;}
+#freset{margin-top:8px; width:100%;}
+
+/* ————— списки ————— */
+.card{border:1.4px solid var(--div); padding:8px 10px; margin-bottom:6px; cursor:pointer; transition:border-color .15s;}
+.card:hover{border-color:var(--aux);}
+.card.sel{border-color:var(--accent-deep);}
+.card .row{display:flex; align-items:baseline; gap:8px; min-width:0; flex-wrap:wrap;}
+.card .ttl{font-weight:600; font-size:12.5px; flex:1; min-width:0;}
+.card .meta{font-family:var(--mono); font-size:8.5px; letter-spacing:.08em; color:var(--cap); white-space:nowrap;}
+.card .sub{font-size:11.5px; color:var(--sec); margin-top:3px; line-height:1.4;}
+.card .kv{display:grid; grid-template-columns:auto 1fr; gap:2px 10px; margin-top:5px; font-size:11px;}
+.card .kv b{font-family:var(--mono); font-size:8.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--cap); font-weight:400; padding-top:2px;}
+.badges{display:flex; flex-wrap:wrap; gap:4px; margin-top:5px;}
+.bd{font-family:var(--mono); font-size:8px; letter-spacing:.1em; text-transform:uppercase; padding:1px 6px;
+  border:1.2px solid var(--div); color:var(--sec);}
+.bd.on{border-color:var(--ok); color:var(--ok);}
+.bd.off{border-style:dashed; color:var(--cap);}
+.bd.warn{border-color:var(--accent-deep); color:var(--accent-deep);}
+/* состояния — цвета результатов различимы: зелёный / красный / янтарный / синий / серый */
+.st{font-family:var(--mono); font-size:8.5px; letter-spacing:.1em; text-transform:uppercase; padding:2px 7px;
+  border:1.3px solid var(--cap); color:var(--cap); white-space:nowrap;}
+.st.completed_positive{border-color:var(--ok); color:var(--ok); background:#eef6f2;}
+.st.completed_negative,.st.closed{border-color:var(--accent-deep); color:var(--accent-deep); background:#fbf1ec;}
+.st.closed{border-style:double;}
+.st.inconclusive{border-color:var(--amber); color:var(--amber); background:#faf4e6;}
+.st.infrastructure{border-color:var(--blue); color:var(--blue); background:#eef3f9;}
+.st.running{border-color:var(--accent); color:var(--accent); animation:pulse 1.2s ease-in-out infinite;}
+.st.planned,.st.ready{border-style:dashed; color:var(--sec); border-color:var(--sec);}
+.st.superseded{text-decoration:line-through;}
+@keyframes pulse{50%{opacity:.5;}}
+.area{font-family:var(--mono); font-size:8.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--blue);}
+
+/* коммиты — таблица */
+table.ct{width:100%; border-collapse:collapse; font-size:11.5px;}
+table.ct th{font-family:var(--mono); font-size:8.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--cap);
+  text-align:left; padding:4px 6px; border-bottom:1.3px solid var(--div); position:sticky; top:0; background:var(--surface);}
+table.ct td{padding:4px 6px; border-bottom:1px solid var(--div); vertical-align:top;}
+table.ct tr{cursor:pointer;}
+table.ct tr:hover td{background:#f6f4ee;}
+table.ct tr.sel td{background:#fbf1ec;}
+table.ct td.h{font-family:var(--mono); font-size:10.5px; white-space:nowrap;}
+table.ct td.d{font-family:var(--mono); font-size:9.5px; color:var(--sec); white-space:nowrap;}
+table.ct td.n{font-family:var(--mono); font-size:9.5px; text-align:right; white-space:nowrap;}
+.plus{color:var(--ok);} .minus{color:var(--accent-deep);}
+
+/* хронология */
+.tl{border-left:1.6px solid var(--div); margin-left:6px; padding-left:14px;}
+.tday{font-family:var(--mono); font-size:9.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink);
+  margin:10px 0 5px; position:relative;}
+.tday::before{content:''; position:absolute; left:-19.5px; top:3px; width:8px; height:8px; background:var(--surface); border:1.6px solid var(--line);}
+.tday:first-child{margin-top:0;}
+.tev{border:1.4px solid var(--div); padding:6px 9px; margin-bottom:5px; cursor:pointer;}
+.tev:hover{border-color:var(--aux);}
+.tev.sel{border-color:var(--accent-deep);}
+.tev .row{display:flex; gap:8px; align-items:baseline; flex-wrap:wrap;}
+.tev .ttl{font-weight:600; font-size:12px; flex:1; min-width:120px;}
+.tev .txt{font-size:11.5px; color:var(--sec); margin-top:3px; line-height:1.4; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
+.kind{font-family:var(--mono); font-size:8px; letter-spacing:.1em; text-transform:uppercase; color:var(--cap);}
+.kind.commit{color:var(--blue);} .kind.uncommitted{color:var(--accent);} .kind.plan_closed{color:var(--accent-deep);}
+
+/* детали */
+#detail .scroll{font-size:12px; line-height:1.45;}
+.dh{font-size:14px; font-weight:600; margin-bottom:4px;}
+.dsec{margin-top:10px;}
+.dsec .dl{font-family:var(--mono); font-size:8.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--cap); margin-bottom:3px;}
+.dsec .dl .q{margin-left:4px;}
+.dsec p{color:var(--ink);}
+.dsec .none{color:var(--cap); font-style:italic;}
+.list{list-style:none;}
+.list li{padding:3px 0; border-bottom:1px solid var(--div); display:flex; gap:8px; align-items:baseline;}
+.list li:last-child{border-bottom:none;}
+.list .p{font-family:var(--mono); font-size:10px; flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis;}
+.lnk{color:var(--blue); cursor:pointer; text-decoration:underline dotted;}
+.lnk:hover{color:var(--accent-deep);}
+pre.diff{font-family:var(--mono); font-size:10px; line-height:1.4; white-space:pre; overflow:auto; max-height:360px;}
+pre.diff.raw{white-space:pre-wrap; word-break:break-word;}
+pre.diff{
+  border:1px solid var(--div); padding:6px; background:#fcfbf8; user-select:text;}
+pre.diff .a{color:var(--ok);} pre.diff .d{color:var(--accent-deep);} pre.diff .m{color:var(--blue); font-weight:600;}
+.mt{width:100%; border-collapse:collapse; font-size:11.5px; margin-top:4px;}
+.mt td{padding:3px 5px; border-bottom:1px solid var(--div); vertical-align:top;}
+.mt td.k{font-weight:600; white-space:nowrap;}
+.mt td.v{font-family:var(--mono); font-size:11px; text-align:right; white-space:nowrap;}
+.mt td.pct{font-family:var(--mono); font-size:10px; text-align:right; white-space:nowrap;}
+.mt .up{color:var(--ok);} .mt .down{color:var(--accent-deep);} .mt .zero{color:var(--sec);}
+.mt .nodesc{color:var(--accent-deep); font-family:var(--mono); font-size:8px; letter-spacing:.08em;}
+/* подсказка «?» */
+.q{display:inline-block; width:13px; height:13px; line-height:12px; text-align:center; border:1.2px solid var(--aux);
+  border-radius:50%; font-family:var(--mono); font-size:9px; color:var(--sec); cursor:help; vertical-align:middle; user-select:none;}
+.q:hover{border-color:var(--accent-deep); color:var(--accent-deep);}
+#tip{position:fixed; z-index:50; max-width:360px; background:var(--surface); border:1.6px solid var(--line);
+  padding:9px 11px; font-size:11.5px; line-height:1.45; box-shadow:4px 4px 0 rgba(47,42,36,.08); display:none; user-select:text;}
+#tip .th{font-weight:600; margin-bottom:3px;}
+#tip .tf{font-family:var(--mono); font-size:8.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--cap); margin-top:5px;}
+
+/* обзор */
+.ov{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; align-content:start;}
+.ov .box{border:1.4px solid var(--div); padding:9px 11px;}
+.ov .box h3{font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase; color:var(--sec); margin-bottom:6px;}
+.ov .big{font-size:22px; font-weight:600;}
+.ov .big .u{font-size:11px; color:var(--sec); font-weight:400; margin-left:4px;}
+.ov .kv{display:grid; grid-template-columns:auto 1fr; gap:3px 10px; font-size:11.5px;}
+.ov .kv b{font-family:var(--mono); font-size:8.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--cap); font-weight:400; padding-top:2px;}
+.ov ul{list-style:none; font-size:11.5px;}
+.ov li{padding:2px 0; border-bottom:1px solid var(--div);}
+.ov li:last-child{border-bottom:none;}
+.warn{color:var(--accent-deep);} .note{color:var(--cap);}
+.stgrid{display:flex; flex-wrap:wrap; gap:5px;}
+.stgrid .st{cursor:pointer;}
+
+/* сравнение */
+.cmp{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+.cmp .col{border:1.4px solid var(--div); padding:9px 11px;}
+.cmp .col h3{font-family:var(--mono); font-size:9px; letter-spacing:.16em; text-transform:uppercase; margin-bottom:6px;}
+.cmp .col.exp h3{color:var(--blue);} .cmp .col.act h3{color:var(--ok);}
+.cmp p{font-size:12.5px; line-height:1.5;}
+.verdict{margin:12px 0 8px; padding:8px 11px; border:1.6px solid var(--line); font-weight:600; display:flex; gap:10px; align-items:center;}
+.verdict.match{border-color:var(--ok); color:var(--ok);}
+.verdict.mismatch{border-color:var(--accent-deep); color:var(--accent-deep);}
+.verdict.partial{border-color:var(--amber); color:var(--amber);}
+.verdict.unconfirmed{border-color:var(--cap); color:var(--sec); border-style:dashed;}
+.crit li{display:flex; gap:8px; align-items:baseline; padding:3px 0; border-bottom:1px solid var(--div);}
+.crit .mk{font-family:var(--mono); width:18px; flex:none; text-align:center;}
+.crit .ok{color:var(--ok);} .crit .no{color:var(--accent-deep);} .crit .un{color:var(--cap);}
+#cmpsel{width:100%; font-family:var(--sans); font-size:12px; padding:5px; border:1.3px solid var(--div); background:var(--surface); margin-bottom:10px;}
+
+/* план */
+#plan{font-size:12.5px; line-height:1.55; user-select:text;}
+#plan h1,#plan h2,#plan h3,#plan h4{margin:16px 0 6px; scroll-margin-top:8px;}
+#plan h1{font-size:18px;} #plan h2{font-size:15px; border-bottom:1.3px solid var(--div); padding-bottom:3px;} #plan h3{font-size:13.5px;} #plan h4{font-size:12.5px;}
+#plan p{margin:5px 0;} #plan ul{margin:5px 0 5px 18px;} #plan code{font-family:var(--mono); font-size:11px; background:#f6f4ee; padding:0 3px;}
+#plan pre{font-family:var(--mono); font-size:10.5px; background:#f6f4ee; padding:6px; overflow:auto;}
+#plan .tblwrap{overflow-x:auto; margin:6px 0;}
+#plan table{border-collapse:collapse; font-size:11.5px;}
+#plan th,#plan td{border:1px solid var(--div); padding:3px 6px; text-align:left;}
+#plan th{font-family:var(--mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--sec); background:#f6f4ee;}
+#plan hr{border:none; border-top:1.4px solid var(--aux); margin:12px 0;}
+#plan .hit{background:#ffe9a8;} #plan .hit.cur{background:var(--accent); color:#fff;}
+#plan .flash{outline:2px solid var(--accent); outline-offset:2px;}
+#toc{font-size:11px;}
+#toc div{padding:2px 0; cursor:pointer; color:var(--sec); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+#toc div:hover{color:var(--accent-deep);}
+#toc .l2{padding-left:8px;} #toc .l3{padding-left:18px; font-size:10.5px;} #toc .l4{padding-left:28px; font-size:10px;}
+#planbar{display:flex; gap:6px; align-items:center; margin-bottom:8px;}
+#planbar #plansearch{flex:1;}
+#plancnt{font-family:var(--mono); font-size:9px; color:var(--sec); white-space:nowrap;}
+
+/* словарь */
+.gl{border:1.4px solid var(--div); padding:8px 10px; margin-bottom:6px; user-select:text;}
+.gl .gh{font-weight:600; font-size:13px; display:flex; gap:8px; align-items:baseline;}
+.gl .gh .full{font-weight:400; color:var(--sec); font-size:11.5px;}
+.gl p{font-size:12px; margin-top:3px; line-height:1.45;}
+.gl .gm{font-family:var(--mono); font-size:8.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--cap); margin-top:4px;}
+
+footer{display:flex; justify-content:space-between; padding-top:8px; font-family:var(--mono); font-size:8.5px;
+  letter-spacing:.14em; color:var(--cap); text-transform:uppercase;}
+#status{color:var(--sec);}
+.empty{color:var(--cap); font-style:italic; padding:8px 0;}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div>
+      <div class="kicker">ИП · История проекта · только просмотр</div>
+      <h1>История проекта <span class="thin">· эксперименты, коммиты, единый план</span></h1>
+    </div>
+    <div id="stamp">
+      <span id="stamp-git">—</span><br>
+      <span id="stamp-built">—</span>
+      <button class="btn" id="refresh" title="Перечитать Git, единый план, каталог и артефакты; пересобрать индекс. Ничего не запускает и не меняет">↻ Обновить</button>
+    </div>
+  </header>
+
+  <div id="tabs">
+    <button data-tab="overview" class="on">Обзор</button>
+    <button data-tab="experiments">Эксперименты<span class="n" id="n-exp"></span></button>
+    <button data-tab="commits">Коммиты<span class="n" id="n-com"></span></button>
+    <button data-tab="timeline">Хронология<span class="n" id="n-tl"></span></button>
+    <button data-tab="compare">Ожидалось — сделано</button>
+    <button data-tab="plan">Единый план</button>
+    <button data-tab="glossary">Словарь<span class="n" id="n-gl"></span></button>
+  </div>
+
+  <main>
+    <section class="panel" id="rail">
+      <div class="ptitle"><span id="railtitle">Фильтры</span><span class="idx" id="railidx">—</span></div>
+      <div class="scroll" id="tocbody" hidden></div>
+      <div class="scroll" id="railbody">
+        <input type="text" id="fq" placeholder="Поиск по тексту…" title="Все слова должны встретиться в записи">
+        <div id="fgroups"></div>
+        <div class="fgroup" id="fdates">
+          <div class="fl"><span>Даты</span></div>
+          <div class="dates"><input type="date" id="fdfrom" title="с"><input type="date" id="fdto" title="по"></div>
+        </div>
+        <div id="ftri"></div>
+        <div id="fcount">—</div>
+        <button class="btn" id="freset">Сбросить фильтры</button>
+      </div>
+    </section>
+
+    <section class="panel" id="content">
+      <div class="ptitle"><span id="ctitle">Обзор</span><span class="idx" id="cidx"></span></div>
+      <div class="scroll" id="cbody"><div class="empty">Загрузка…</div></div>
+    </section>
+
+    <section class="panel" id="detail">
+      <div class="ptitle"><span id="dtitle">Подробности</span><span class="idx" id="didx"></span></div>
+      <div class="scroll" id="dbody"><div class="empty">Выберите запись слева</div></div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Окно ничего не запускает и не меняет: ни Git, ни план, ни runs · просмотр коммита не переключает рабочую директорию</span>
+    <span id="status">—</span>
+  </footer>
+</div>
+<div id="tip"></div>
+<script>
+'use strict';
+/* Все строки из Git, плана и JSON проходят через esc() — единственная точка вставки текста в разметку. */
+const $ = id => document.getElementById(id);
+const esc = s => String(s === null || s === undefined ? '' : s)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+const fmtDate = iso => {
+  if (!iso) return '—';
+  const s = String(iso);
+  const d = s.slice(0, 10).split('-');
+  const date = d.length === 3 ? `${d[2]}.${d[1]}.${d[0]}` : s;
+  return s.length > 10 && s[10] === 'T' ? date + ' ' + s.slice(11, 16) : date;
+};
+const num = v => (typeof v === 'number' && isFinite(v)) ? (Math.abs(v) >= 100 ? v.toFixed(2) : v.toFixed(4)).replace(/\.?0+$/, '') : esc(v);
+const PREC = {exact: '', day: '', range: 'период', month: 'месяц', derived: 'дата не разобрана'};
+
+const S = {
+  tab: 'overview', labels: {states: {}, results: {}, kinds: {}}, glossary: {metrics: {}, aliases: {}, terms: {}},
+  filters: {experiments: {}, commits: {}, timeline: {}},
+  data: {experiments: null, commits: null, timeline: null, plan: null, overview: null},
+  sel: {experiments: null, commits: null, timeline: null, compare: null},
+};
+const FACET_LABELS = {area: 'Направление', state: 'Состояние', result: 'Результат', kind: 'Тип события',
+  source_kind: 'Источник', tag: 'Теги', seed: 'Сид', detector: 'Детектор', tracker: 'Трекер',
+  dataset: 'Данные', condition: 'Условие сцены', author: 'Автор'};
+const FACETS_BY_TAB = {
+  experiments: ['area', 'state', 'result', 'source_kind', 'tag', 'seed', 'detector', 'tracker', 'dataset', 'condition'],
+  commits: ['author'],
+  timeline: ['kind', 'area', 'state'],
+};
+const TRI_BY_TAB = {
+  experiments: [['has_commit', 'Коммит'], ['has_metrics', 'Метрики'], ['has_artifacts', 'Артефакты']],
+  commits: [],
+  timeline: [['has_commit', 'Коммит'], ['has_artifact', 'Артефакт']],
+};
+const SOURCE_LABELS = {git: 'Git', plan: 'план', json: 'JSON', csv: 'CSV', markdown: 'Markdown', runs: 'runs', file: 'файл', figure: 'рисунок', runs_dir: 'runs'};
+const TERMS = {}; // заполняется из словаря: ключ в нижнем регистре → описание
+
+function stateChip(st) {
+  const lbl = S.labels.states[st] || st;
+  return `<span class="st ${esc(st)}" title="${esc(lbl)}">${esc(lbl)}</span>`;
+}
+function areaTitle(id) {
+  const a = (S.data.experiments && S.data.experiments.areas || {})[id];
+  return a ? a.title : (id || '');
+}
+function lookupTerm(key) {
+  if (!key) return null;
+  const g = S.glossary;
+  let k = key;
+  if (!g.metrics[k] && g.aliases[k]) k = g.aliases[k];
+  if (g.metrics[k]) return Object.assign({_kind: 'метрика', _key: k}, g.metrics[k]);
+  const low = String(key).toLowerCase();
+  for (const mk of Object.keys(g.metrics)) if (mk.toLowerCase() === low) return Object.assign({_kind: 'метрика', _key: mk}, g.metrics[mk]);
+  if (TERMS[low]) return TERMS[low];
+  return null;
+}
+/* «?» рядом с метрикой или термином: содержимое из словаря, не из HTML */
+function qmark(key) {
+  const t = lookupTerm(key);
+  if (!t) return `<span class="q nodesc" data-q="${esc(key)}" title="описания нет в словаре">?</span>`;
+  return `<span class="q" data-q="${esc(key)}">?</span>`;
+}
+const tip = $('tip');
+function showTip(el) {
+  const key = el.dataset.q;
+  const t = lookupTerm(key);
+  let html;
+  if (!t) {
+    html = `<div class="th">${esc(key)}</div><div class="warn">Описания нет в experiments/metrics_glossary.json — добавьте его, прежде чем использовать метрику в каталоге.</div>`;
+  } else {
+    const better = t.better === 'higher' ? 'выше — лучше' : t.better === 'lower' ? 'ниже — лучше' : t.better === 'none' ? 'направления нет' : '';
+    html = `<div class="th">${esc(t.title || t._key || key)}${t.full ? ` <span class="note">· ${esc(t.full)}</span>` : ''}</div>`
+      + `<div>${esc(t.ru || '')}</div>`
+      + (t.caveat ? `<div class="warn" style="margin-top:4px">${esc(t.caveat)}</div>` : '')
+      + `<div class="tf">${[t._kind, better, t.unit ? 'ед.: ' + t.unit : '', t.range ? 'диапазон ' + t.range.join('…') : '',
+          t.tool ? 'инструмент: ' + t.tool : '', t.source ? 'источник: ' + t.source : ''].filter(Boolean).map(esc).join(' · ')}</div>`;
+  }
+  tip.innerHTML = html;
+  tip.style.display = 'block';
+  const r = el.getBoundingClientRect();
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  let x = r.left, y = r.bottom + 6;
+  if (x + w > window.innerWidth - 10) x = window.innerWidth - w - 10;
+  if (y + h > window.innerHeight - 10) y = r.top - h - 6;
+  tip.style.left = Math.max(6, x) + 'px'; tip.style.top = Math.max(6, y) + 'px';
+}
+let tipPinned = false;
+document.addEventListener('mouseover', e => { const q = e.target.closest('.q'); if (q && !tipPinned) showTip(q); });
+document.addEventListener('mouseout', e => { if (e.target.closest('.q') && !tipPinned) tip.style.display = 'none'; });
+document.addEventListener('click', e => {
+  const q = e.target.closest('.q');
+  if (q) { tipPinned = !tipPinned; if (tipPinned) showTip(q); else tip.style.display = 'none'; e.stopPropagation(); return; }
+  if (!e.target.closest('#tip')) { tipPinned = false; tip.style.display = 'none'; }
+});
+
+function setStatus(t) { $('status').textContent = t || ''; }
+function api() { return window.pywebview && window.pywebview.api; }
+
+/* ————— вкладки ————— */
+const TAB_TITLES = {overview: 'Обзор', experiments: 'Эксперименты', commits: 'Коммиты Git', timeline: 'Хронология',
+  compare: 'Ожидалось — сделано', plan: 'Единый план · только чтение', glossary: 'Словарь метрик и терминов'};
+const ui = {};
+ui.selectTab = function (tab) {
+  S.tab = tab;
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('on', b.dataset.tab === tab));
+  const app = $('app');
+  app.classList.toggle('norail', !(tab in FACETS_BY_TAB) && tab !== 'plan');
+  app.classList.toggle('nodetail', !(tab in FACETS_BY_TAB));
+  $('ctitle').textContent = TAB_TITLES[tab];
+  $('cidx').textContent = '';
+  $('railbody').hidden = tab === 'plan';
+  $('tocbody').hidden = tab !== 'plan';
+  if (tab in FACETS_BY_TAB) { $('railtitle').textContent = 'Фильтры'; $('railidx').textContent = TAB_TITLES[tab]; renderRail(); }
+  if (tab === 'plan') { $('railtitle').textContent = 'Оглавление'; $('railidx').textContent = ''; }
+  renderTab();
+};
+document.querySelectorAll('#tabs button').forEach(b => b.addEventListener('click', () => ui.selectTab(b.dataset.tab)));
+
+/* ————— фильтры ————— */
+function curFilter() { return S.filters[S.tab] || (S.filters[S.tab] = {}); }
+function renderRail() {
+  const tab = S.tab;
+  if (!(tab in FACETS_BY_TAB)) return;
+  const f = curFilter();
+  const d = S.data[tab];
+  const facets = d ? d.facets : {};
+  $('fq').value = f.q || '';
+  $('fdfrom').value = f.date_from || ''; $('fdto').value = f.date_to || '';
+  let html = '';
+  for (const key of FACETS_BY_TAB[tab]) {
+    const vals = facets[key] || [];
+    if (!vals.length) continue;
+    const on = new Set(f[key] || []);
+    html += `<div class="fgroup"><div class="fl"><span>${esc(FACET_LABELS[key])}</span><span>${on.size ? on.size + ' выбр.' : ''}</span></div><div class="chips">`
+      + vals.map(v => {
+        const label = key === 'state' ? (S.labels.states[v] || v) : key === 'result' ? (S.labels.results[v] || v)
+          : key === 'kind' ? (S.labels.kinds[v] || v) : key === 'area' ? areaTitle(v) : key === 'source_kind' ? (SOURCE_LABELS[v] || v) : v;
+        return `<span class="chip${on.has(v) ? ' on' : ''}" data-k="${esc(key)}" data-v="${esc(v)}" title="${esc(label)}">${esc(label)}</span>`;
+      }).join('') + '</div></div>';
+  }
+  $('fgroups').innerHTML = html;
+  let tri = '';
+  for (const [key, label] of TRI_BY_TAB[tab]) {
+    const v = f[key];
+    tri += `<div class="fgroup"><div class="fl"><span>${esc(label)}</span></div><div class="tri">`
+      + [['', 'все'], [true, 'есть'], [false, 'нет']].map(([val, lbl]) =>
+        `<span class="chip${(v === val || (val === '' && (v === undefined || v === null || v === ''))) ? ' on' : ''}" data-t="${esc(key)}" data-tv="${val === '' ? '' : val}">${lbl}</span>`).join('')
+      + '</div></div>';
+  }
+  $('ftri').innerHTML = tri;
+  $('fcount').textContent = d ? `найдено ${d.shown} из ${d.total}` : '—';
+}
+$('fgroups').addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if (!c) return;
+  const f = curFilter(); const arr = f[c.dataset.k] || [];
+  const i = arr.indexOf(c.dataset.v);
+  if (i >= 0) arr.splice(i, 1); else arr.push(c.dataset.v);
+  f[c.dataset.k] = arr; reload();
+});
+$('ftri').addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if (!c) return;
+  const f = curFilter(); const v = c.dataset.tv;
+  f[c.dataset.t] = v === '' ? null : v === 'true'; reload();
+});
+let qTimer = null;
+$('fq').addEventListener('input', () => { clearTimeout(qTimer); qTimer = setTimeout(() => { curFilter().q = $('fq').value; reload(); }, 250); });
+$('fdfrom').addEventListener('change', () => { curFilter().date_from = $('fdfrom').value; reload(); });
+$('fdto').addEventListener('change', () => { curFilter().date_to = $('fdto').value; reload(); });
+$('freset').addEventListener('click', () => { S.filters[S.tab] = {}; reload(); });
+function reload() {
+  const tab = S.tab;
+  if (!(tab in FACETS_BY_TAB)) return Promise.resolve();
+  const f = Object.assign({}, curFilter());
+  for (const k of Object.keys(f)) if (f[k] === null || f[k] === '' || (Array.isArray(f[k]) && !f[k].length)) delete f[k];
+  return api()[tab](f).then(d => { S.data[tab] = d; renderRail(); renderTab(); });
+}
+
+/* ————— рендер вкладок ————— */
+function renderTab() {
+  const tab = S.tab;
+  if (tab === 'overview') return renderOverview();
+  if (tab === 'experiments') return renderExperiments();
+  if (tab === 'commits') return renderCommits();
+  if (tab === 'timeline') return renderTimeline();
+  if (tab === 'compare') return renderCompare();
+  if (tab === 'plan') return renderPlan();
+  if (tab === 'glossary') return renderGlossary();
+}
+
+function renderOverview() {
+  const o = S.data.overview;
+  if (!o) { $('cbody').innerHTML = '<div class="empty">Загрузка…</div>'; return; }
+  const wt = o.working_tree || {};
+  const st = o.stats || {};
+  const states = Object.entries(st.by_state || {}).map(([k, n]) =>
+    `<span class="st ${esc(k)}" data-st="${esc(k)}" title="показать эксперименты в этом состоянии">${esc(S.labels.states[k] || k)} · ${n}</span>`).join('');
+  const remotes = (o.remote_refs || []).map(r =>
+    `<li><span class="mono">${esc(r.name)}</span> ${esc(r.short)} · ${fmtDate(r.date)}</li>`).join('') || '<li class="note">локальных копий удалённых веток нет</li>';
+  const recent = (o.recent || []).map(t =>
+    `<li class="lnk" data-ev="${esc(t.id)}">${fmtDate(t.when)} · <span class="kind ${esc(t.kind)}">${esc(t.kind_label)}</span> ${esc(t.title)}${t.has_commit ? '' : ' <span class="bd off">без отдельного коммита</span>'}</li>`).join('');
+  const problems = (o.errors || []).map(e => `<li class="warn">${esc(e)}</li>`).join('')
+    + (o.warnings || []).map(w => `<li class="note">${esc(w)}</li>`).join('');
+  $('cbody').innerHTML = `<div class="ov">
+    <div class="box"><h3>Репозиторий</h3>
+      <div class="kv"><b>ветка</b><span>${esc(wt.branch || '—')}</span>
+        <b>HEAD</b><span class="mono" style="text-transform:none">${esc(wt.short || '—')}</span>
+        <b>директория</b><span>${wt.is_clean ? '<span class="plus">чистая</span>' : `<span class="minus">изменена</span> · изменённых ${(wt.modified || []).length}, новых ${(wt.untracked || []).length}`}</span>
+        <b>remote</b><span><ul>${remotes}</ul><span class="note">по локальным ссылкам; fetch не выполнялся, состояние на сервере могло уйти вперёд</span></span></div></div>
+    <div class="box"><h3>Эксперименты</h3><div class="big">${st.experiments || 0}<span class="u">карточек · ${st.areas || 0} направлений</span></div>
+      <div class="stgrid" style="margin-top:6px">${states || '<span class="note">каталог пуст</span>'}</div></div>
+    <div class="box"><h3>Коммиты</h3><div class="big">${st.commits || 0}<span class="u">в истории</span></div>
+      <div class="kv"><b>пустых</b><span>${st.empty_commits || 0} <span class="note">— метки без изменений файлов</span></span></div></div>
+    <div class="box"><h3>Хронология</h3><div class="big">${st.events || 0}<span class="u">событий</span></div>
+      <div class="kv"><b>без коммита</b><span>${st.events_without_commit || 0} <span class="note">записей плана не связаны с отдельным коммитом</span></span>
+      <b>артефактов</b><span>${st.artifacts || 0} <span class="note">таблиц, JSON, отчётов в обходе</span></span></div></div>
+    <div class="box" style="grid-column:1/-1"><h3>Последние события плана</h3><ul>${recent || '<li class="note">нет</li>'}</ul></div>
+    <div class="box" style="grid-column:1/-1"><h3>Предупреждения источников</h3><ul>${problems || '<li class="note">нет</li>'}</ul></div>
+  </div>`;
+  $('cbody').querySelectorAll('[data-st]').forEach(el => el.addEventListener('click', () => {
+    S.filters.experiments = {state: [el.dataset.st]}; ui.selectTab('experiments'); reload();
+  }));
+  $('cbody').querySelectorAll('[data-ev]').forEach(el => el.addEventListener('click', () => {
+    ui.selectTab('timeline'); reload().then(() => selectEvent(el.dataset.ev));
+  }));
+}
+
+/* ——— эксперименты ——— */
+function metricsTable(ms) {
+  if (!ms || !ms.length) return '<div class="none">численных метрик нет</div>';
+  return '<table class="mt">' + ms.map(m => {
+    let pct = '';
+    if (m.delta_pct !== null && m.delta_pct !== undefined) {
+      const good = m.better === 'higher' ? m.delta_pct > 0 : m.better === 'lower' ? m.delta_pct < 0 : null;
+      const cls = Math.abs(m.delta_pct) < 1e-9 ? 'zero' : good === null ? '' : good ? 'up' : 'down';
+      pct = `<span class="${cls}">${m.delta_pct > 0 ? '+' : ''}${m.delta_pct.toFixed(2)}%</span>`;
+    }
+    const base = (m.baseline !== null && m.baseline !== undefined) ? `<span class="note"> / ${num(m.baseline)}</span>` : '';
+    return `<tr><td class="k">${esc(m.title || m.key)} ${qmark(m.key)}${m.described ? '' : ' <span class="nodesc">нет описания</span>'}</td>`
+      + `<td class="v">${num(m.value)}${base}</td><td class="pct" title="к baseline">${pct}</td>`
+      + `<td><span class="note">${esc(m.subset || '')}</span>${m.source ? ` <span class="lnk p" data-open="${esc(m.source)}" title="${esc(m.locator || '')}">${m.source_exists === false ? '⚠ ' : ''}${esc(m.source.split('/').pop())}</span>` : ''}${m.note ? `<div class="note">${esc(m.note)}</div>` : ''}</td></tr>`;
+  }).join('') + '</table>';
+}
+function bindOpen(root) {
+  root.querySelectorAll('[data-open]').forEach(el => el.addEventListener('click', ev => {
+    ev.stopPropagation();
+    api().open_path(el.dataset.open).then(r => setStatus(r.text));
+  }));
+  root.querySelectorAll('[data-commit]').forEach(el => el.addEventListener('click', ev => {
+    ev.stopPropagation(); ui.selectTab('commits'); reload().then(() => selectCommit(el.dataset.commit));
+  }));
+  root.querySelectorAll('[data-exp]').forEach(el => el.addEventListener('click', ev => {
+    ev.stopPropagation(); ui.selectTab('experiments'); reload().then(() => selectExperiment(el.dataset.exp));
+  }));
+  root.querySelectorAll('[data-line]').forEach(el => el.addEventListener('click', ev => {
+    ev.stopPropagation(); ui.selectTab('plan'); ui.gotoLine(parseInt(el.dataset.line, 10));
+  }));
+  root.querySelectorAll('[data-ev]').forEach(el => el.addEventListener('click', ev => {
+    ev.stopPropagation(); ui.selectTab('timeline'); reload().then(() => selectEvent(el.dataset.ev));
+  }));
+}
+function expCard(e) {
+  const unc = '<span class="none">не подтверждено</span>';
+  return `<div class="card${S.sel.experiments === e.id ? ' sel' : ''}" data-id="${esc(e.id)}">
+    <div class="row"><span class="area">${esc(areaTitle(e.area))}</span><span class="ttl">${esc(e.title)}</span>${stateChip(e.state)}</div>
+    <div class="meta">${fmtDate(e.started)}${e.finished && e.finished !== e.started ? ' — ' + fmtDate(e.finished) : ''}${e.tracker ? ' · ' + esc(e.tracker) : ''}${e.detector ? ' · ' + esc(e.detector) : ''}</div>
+    ${e.summary ? `<div class="sub">${esc(e.summary)}</div>` : ''}
+    <div class="kv"><b>ожидалось</b><span>${e.expected ? esc(e.expected) : unc}</span><b>получено</b><span>${e.obtained ? esc(e.obtained) : unc}</span>
+      ${e.metrics.length ? `<b>метрики</b><span>${e.metrics.slice(0, 4).map(m => `${esc(m.title || m.key)} ${num(m.value)}`).join(' · ')}${e.metrics.length > 4 ? ' …' : ''}</span>` : ''}
+      <b>решение</b><span>${e.decision ? esc(e.decision) : unc}</span></div>
+    <div class="badges"><span class="bd ${e.has_commit ? 'on' : 'off'}">${e.has_commit ? 'коммит' : 'без отдельного коммита'}</span>
+      <span class="bd ${e.has_metrics ? 'on' : 'off'}">метрики</span><span class="bd ${e.has_artifacts ? 'on' : 'off'}">артефакты</span>
+      <span class="bd ${e.confirmed ? 'on' : 'warn'}">${e.confirmed ? 'доказательства на месте' : 'не всё подтверждено'}</span></div></div>`;
+}
+function renderExperiments() {
+  const d = S.data.experiments;
+  if (!d) { $('cbody').innerHTML = '<div class="empty">Загрузка…</div>'; return; }
+  $('cidx').textContent = `${d.shown} из ${d.total}`;
+  $('cbody').innerHTML = d.items.length ? d.items.map(expCard).join('') : '<div class="empty">Ничего не найдено — измените фильтры</div>';
+  $('cbody').querySelectorAll('.card').forEach(c => c.addEventListener('click', () => selectExperiment(c.dataset.id)));
+  if (S.sel.experiments && !$('dbody').dataset.exp) selectExperiment(S.sel.experiments);
+}
+function selectExperiment(id) {
+  S.sel.experiments = id;
+  $('cbody').querySelectorAll('.card').forEach(c => c.classList.toggle('sel', c.dataset.id === id));
+  api().experiment(id).then(e => {
+    if (e.error) { $('dbody').innerHTML = `<div class="warn">${esc(e.error)}</div>`; return; }
+    $('dtitle').textContent = 'Эксперимент';
+    $('didx').textContent = e.id;
+    const unc = '<p class="none">Не подтверждено источником</p>';
+    const sec = (label, val, key) => `<div class="dsec"><div class="dl">${esc(label)}${key ? qmark(key) : ''}</div>${val ? `<p>${esc(val)}</p>` : unc}</div>`;
+    const commits = (e.commit_info || []).map(c =>
+      `<li><span class="lnk mono" style="text-transform:none" data-commit="${esc(c.short)}">${esc(c.short)}</span><span class="p">${esc(c.subject)}${c.is_empty ? ' <span class="bd off">пустой</span>' : ''}${c.missing ? ' <span class="bd warn">нет в истории</span>' : ''}</span></li>`).join('');
+    const files = [...e.files, ...e.runs, ...e.reports].map(p => `<li><span class="lnk p" data-open="${esc(p)}">${esc(p)}</span></li>`).join('');
+    const evid = (e.evidence || []).map(v =>
+      `<li><span class="bd ${v.exists ? 'on' : v.exists === false ? 'warn' : ''}">${esc(SOURCE_LABELS[v.kind] || v.kind)}</span><span class="p">${v.kind === 'commit' ? `<span class="lnk" data-commit="${esc(v.ref.slice(0, 7))}">${esc(v.ref.slice(0, 7))}</span>` : `<span class="lnk" data-open="${esc(v.ref)}">${esc(v.ref)}</span>`}${v.locator ? ' · ' + esc(v.locator) : ''}${v.claim ? ' — ' + esc(v.claim) : ''}${v.note ? ` <span class="note">(${esc(v.note)})</span>` : ''}${v.exists === false ? ' <span class="warn">— источник не найден</span>' : ''}</span></li>`).join('');
+    const events = (e.events || []).map(t => `<li><span class="lnk" data-ev="${esc(t.id)}">${fmtDate(t.when)}</span><span class="p">${esc(t.title)}</span></li>`).join('');
+    $('dbody').innerHTML = `<div class="dh">${esc(e.title)}</div>
+      <div class="row" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="area">${esc(e.area_title)}</span>${stateChip(e.state)}<span class="note">${esc(e.result_label)}</span></div>
+      <div class="dsec"><div class="dl">Условия</div><div class="kv" style="display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:11.5px">
+        <b class="note">даты</b><span>${fmtDate(e.started)} — ${fmtDate(e.finished)}</span>
+        <b class="note">детектор</b><span>${esc(e.detector) || '—'}</span><b class="note">трекер</b><span>${esc(e.tracker) || '—'}</span>
+        <b class="note">данные</b><span>${esc(e.dataset) || '—'}${e.split ? ' · ' + esc(e.split) : ''}</span>
+        <b class="note">сиды</b><span>${e.seeds.length ? e.seeds.join(', ') : '—'}</span><b class="note">чекпойнт</b><span>${e.checkpoint ? `<span class="lnk" data-open="${esc(e.checkpoint)}">${esc(e.checkpoint)}</span>` : '—'}</span>
+        <b class="note">baseline</b><span>${esc(e.baseline) || '—'}</span><b class="note">вариант</b><span>${esc(e.variant) || '—'}</span></div></div>
+      ${sec('Вопрос', e.question)}${sec('Гипотеза', e.hypothesis)}${sec('Ожидалось', e.expected)}${sec('Сделано', e.done)}${sec('Получено', e.obtained)}
+      <div class="dsec"><div class="dl">Метрики</div>${metricsTable(e.metrics)}</div>
+      ${sec('Интерпретация', e.interpretation)}${sec('Решение', e.decision)}${sec('Ограничения', e.limitations)}${sec('Чего пока нельзя утверждать', e.cannot_claim)}${sec('Следующий шаг', e.next_step)}
+      <div class="dsec"><div class="dl">Коммиты</div>${commits ? `<ul class="list">${commits}</ul>` : '<p class="none">без отдельного коммита</p>'}</div>
+      <div class="dsec"><div class="dl">Файлы и каталоги</div>${files ? `<ul class="list">${files}</ul>` : '<p class="none">не указаны</p>'}</div>
+      <div class="dsec"><div class="dl">Доказательства</div>${evid ? `<ul class="list">${evid}</ul>` : '<p class="none">не указаны</p>'}</div>
+      <div class="dsec"><div class="dl">События плана</div>${events ? `<ul class="list">${events}</ul>` : '<p class="none">не связаны</p>'}</div>
+      <div class="dsec"><button class="btn" id="tocompare">Открыть сравнение «ожидалось — сделано»</button></div>`;
+    $('dbody').dataset.exp = id;
+    bindOpen($('dbody'));
+    $('tocompare').addEventListener('click', () => { S.sel.compare = id; ui.selectTab('compare'); });
+  });
+}
+
+/* ——— коммиты ——— */
+function renderCommits() {
+  const d = S.data.commits;
+  if (!d) { $('cbody').innerHTML = '<div class="empty">Загрузка…</div>'; return; }
+  $('cidx').textContent = `${d.shown} из ${d.total}`;
+  const rows = d.items.map(c => `<tr data-h="${esc(c.short)}" class="${S.sel.commits === c.short ? 'sel' : ''}">
+      <td class="h">${esc(c.short)}</td><td class="d">${fmtDate(c.date)}</td>
+      <td>${esc(c.subject)}${c.is_empty ? ' <span class="bd off">пустой</span>' : ''}${c.is_merge ? ' <span class="bd">слияние</span>' : ''}${(c.experiments || []).map(x => ` <span class="bd on">${esc(x)}</span>`).join('')}${c.result ? ` <span class="note">· ${esc(c.result)}</span>` : ''}</td>
+      <td class="n">${c.n_files || 0}</td><td class="n"><span class="plus">+${c.added || 0}</span> <span class="minus">−${c.deleted || 0}</span></td></tr>`).join('');
+  $('cbody').innerHTML = d.items.length ? `<table class="ct"><thead><tr><th>hash</th><th>дата</th><th>сообщение</th><th>файлов</th><th>строк</th></tr></thead><tbody>${rows}</tbody></table>`
+    : '<div class="empty">Ничего не найдено</div>';
+  $('cbody').querySelectorAll('tr[data-h]').forEach(r => r.addEventListener('click', () => selectCommit(r.dataset.h)));
+}
+function colorDiff(text) {
+  return esc(text).split('\n').map(l => {
+    if (l.startsWith('+++') || l.startsWith('---') || l.startsWith('diff ') || l.startsWith('index ') || l.startsWith('@@')) return `<span class="m">${l}</span>`;
+    if (l.startsWith('+')) return `<span class="a">${l}</span>`;
+    if (l.startsWith('-')) return `<span class="d">${l}</span>`;
+    return l;
+  }).join('\n');
+}
+function selectCommit(h) {
+  S.sel.commits = h;
+  $('cbody').querySelectorAll('tr[data-h]').forEach(r => r.classList.toggle('sel', r.dataset.h === h));
+  const row = $('cbody').querySelector(`tr[data-h="${h}"]`); if (row) row.scrollIntoView({block: 'nearest'});
+  $('dbody').innerHTML = '<div class="empty">Читаю коммит…</div>';
+  api().commit(h).then(c => {
+    if (c.error) { $('dbody').innerHTML = `<div class="warn">${esc(c.error)}</div>`; return; }
+    $('dtitle').textContent = 'Коммит'; $('didx').textContent = c.short;
+    const files = (c.files || []).map(f => `<li><span class="bd">${esc(f.status)}</span><span class="p ${f.exists ? 'lnk' : ''}" ${f.exists ? `data-open="${esc(f.path)}"` : 'title="файла сейчас нет в рабочей директории"'}>${esc(f.path)}</span>
+        <span class="n mono" style="text-transform:none;font-size:9.5px"><span class="plus">+${f.added === null ? '·' : f.added}</span> <span class="minus">−${f.deleted === null ? '·' : f.deleted}</span></span>
+        <span class="lnk" data-fdiff="${esc(f.path)}" title="diff только этого файла">diff</span></li>`).join('');
+    const exps = (c.experiments || []).map(x => `<li><span class="lnk" data-exp="${esc(x)}">${esc(c.experiment_titles[x] || x)}</span></li>`).join('');
+    const evs = (c.events || []).map(t => `<li><span class="lnk" data-ev="${esc(t.id)}">${fmtDate(t.when)}</span><span class="p">${esc(t.title)}</span></li>`).join('');
+    $('dbody').innerHTML = `<div class="dh">${esc(c.subject)}</div>
+      <div class="dsec"><div class="kv" style="display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:11.5px">
+        <b class="note">hash</b><span class="mono" style="text-transform:none;font-size:10px;user-select:text">${esc(c.hash)} <button class="btn" id="copyhash">копировать</button></span>
+        <b class="note">автор</b><span>${esc(c.author)}</span><b class="note">дата</b><span>${fmtDate(c.date)}</span>
+        <b class="note">ветка</b><span>${esc(c.branch || '—')}</span>
+        <b class="note">родители</b><span>${(c.parents || []).map(p => `<span class="lnk" data-commit="${esc(p.slice(0, 7))}">${esc(p.slice(0, 7))}</span>`).join(', ') || '— (корневой)'}</span>
+        <b class="note">итог</b><span>${c.result ? esc(c.result) + ` <span class="note">(${esc(c.result_source)})</span>` : '<span class="none">не подтверждён планом или каталогом</span>'}</span></div></div>
+      ${c.body ? `<div class="dsec"><div class="dl">Сообщение</div><p style="white-space:pre-wrap">${esc(c.body)}</p></div>` : ''}
+      <div class="dsec"><div class="dl">Файлы · ${c.n_files} · <span class="plus">+${c.added}</span> <span class="minus">−${c.deleted}</span></div>${c.is_empty ? '<p class="none">Пустой коммит: изменений файлов нет, это метка в истории.</p>' : `<ul class="list">${files}</ul>`}</div>
+      <div class="dsec"><div class="dl">Эксперименты</div>${exps ? `<ul class="list">${exps}</ul>` : '<p class="none">не связан с карточкой</p>'}</div>
+      <div class="dsec"><div class="dl">Записи единого плана</div>${evs ? `<ul class="list">${evs}</ul>` : '<p class="none">в плане не упомянут</p>'}</div>
+      ${c.is_empty ? '' : `<div class="dsec"><div class="dl">Diff${c.diff_truncated ? ` · обрезан до ${c.diff_limit_kb} КБ` : ''}</div><pre class="diff" id="diffbox">${colorDiff(c.diff)}</pre></div>`}`;
+    bindOpen($('dbody'));
+    $('copyhash').addEventListener('click', () => api().copy_text(c.hash).then(r => setStatus(r.text)));
+    $('dbody').querySelectorAll('[data-fdiff]').forEach(el => el.addEventListener('click', ev => {
+      ev.stopPropagation();
+      api().commit_file_diff(c.short, el.dataset.fdiff).then(r => {
+        const box = $('diffbox'); if (!box) return;
+        box.innerHTML = r.error ? esc(r.error) : colorDiff(r.diff) + (r.truncated ? '\n… обрезано' : '');
+        box.scrollIntoView({block: 'nearest'});
+      });
+    }));
+  });
+}
+
+/* ——— хронология ——— */
+function renderTimeline() {
+  const d = S.data.timeline;
+  if (!d) { $('cbody').innerHTML = '<div class="empty">Загрузка…</div>'; return; }
+  $('cidx').textContent = `${d.shown} из ${d.total}`;
+  let html = '<div class="tl">', day = null;
+  for (const t of d.items) {
+    const dk = t.when ? t.when.slice(0, 10) : 'без даты';
+    if (dk !== day) { day = dk; html += `<div class="tday">${dk === 'без даты' ? dk : fmtDate(dk)}</div>`; }
+    html += `<div class="tev${S.sel.timeline === t.id ? ' sel' : ''}" data-id="${esc(t.id)}"><div class="row">
+      <span class="kind ${esc(t.kind)}">${esc(t.kind_label)}</span>${t.area ? `<span class="area">${esc(areaTitle(t.area))}</span>` : ''}
+      <span class="ttl">${esc(t.title)}</span>${t.state !== 'unknown' ? stateChip(t.state) : ''}
+      ${t.when_end ? `<span class="meta note">до ${fmtDate(t.when_end)}</span>` : ''}${PREC[t.date_precision] ? `<span class="bd off">${PREC[t.date_precision]}</span>` : ''}
+      ${t.kind === 'commit' ? '' : `<span class="bd ${t.has_commit ? 'on' : 'off'}">${t.has_commit ? 'коммит ' + t.commits.join(', ') : 'без отдельного коммита'}</span>`}
+      ${t.has_artifact ? '<span class="bd on">артефакт</span>' : ''}</div>
+      ${t.text ? `<div class="txt">${esc(t.text)}</div>` : ''}</div>`;
+  }
+  $('cbody').innerHTML = d.items.length ? html + '</div>' : '<div class="empty">Ничего не найдено</div>';
+  $('cbody').querySelectorAll('.tev').forEach(el => el.addEventListener('click', () => selectEvent(el.dataset.id)));
+}
+function selectEvent(id) {
+  S.sel.timeline = id;
+  const d = S.data.timeline; if (!d) return;
+  const t = d.items.find(x => x.id === id); if (!t) return;
+  $('cbody').querySelectorAll('.tev').forEach(el => el.classList.toggle('sel', el.dataset.id === id));
+  const el = $('cbody').querySelector(`.tev[data-id="${CSS.escape(id)}"]`); if (el) el.scrollIntoView({block: 'nearest'});
+  $('dtitle').textContent = 'Событие'; $('didx').textContent = t.kind_label;
+  let extra = '';
+  if (t.kind === 'uncommitted') {
+    let un = [];
+    try { un = JSON.parse(t.raw || '{}').unlinked_plan_events || []; } catch (e) {}
+    extra = `<div class="dsec"><div class="dl">Изменённые и новые файлы</div>${t.files.length ? `<ul class="list">${t.files.map(f => `<li><span class="lnk p" data-open="${esc(f)}">${esc(f)}</span></li>`).join('')}</ul>` : '<p class="none">нет</p>'}</div>
+      <div class="dsec"><div class="dl">События плана без коммита · ${un.length}</div>${un.length ? `<ul class="list">${un.slice(0, 60).map(x => `<li><span class="lnk" data-ev="${esc(x)}">${esc(x)}</span></li>`).join('')}</ul>` : '<p class="none">нет</p>'}</div>`;
+  }
+  $('dbody').innerHTML = `<div class="dh">${esc(t.title)}</div>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><span class="kind ${esc(t.kind)}">${esc(t.kind_label)}</span>${t.area ? `<span class="area">${esc(areaTitle(t.area))}</span>` : ''}${t.state !== 'unknown' ? stateChip(t.state) : ''}</div>
+    <div class="dsec"><div class="dl">Когда</div><p>${fmtDate(t.when)}${t.when_end ? ' — ' + fmtDate(t.when_end) : ''}${PREC[t.date_precision] ? ` <span class="note">(${PREC[t.date_precision]})</span>` : ''}</p></div>
+    <div class="dsec"><div class="dl">Содержание</div><p style="white-space:pre-wrap">${esc(t.text) || '<span class="none">—</span>'}</p></div>
+    ${t.raw && t.kind !== 'uncommitted' ? `<div class="dsec"><div class="dl">Исходный фрагмент</div><pre class="diff raw">${esc(t.raw)}</pre></div>` : ''}
+    <div class="dsec"><div class="dl">Коммиты</div>${t.commits.length ? `<ul class="list">${t.commits.map(h => `<li><span class="lnk" data-commit="${esc(h)}">${esc(h)}</span></li>`).join('')}</ul>` : '<p class="none">без отдельного коммита — это не значит «не выполнено»</p>'}</div>
+    ${t.experiment_id ? `<div class="dsec"><div class="dl">Эксперимент</div><p><span class="lnk" data-exp="${esc(t.experiment_id)}">${esc(t.experiment_id)}</span></p></div>` : ''}
+    <div class="dsec"><div class="dl">Источник</div><p>${t.plan_lines && t.plan_lines.length ? `<span class="lnk" data-line="${t.plan_lines[0]}">${esc(t.source)}</span> · строки ${t.plan_lines[0]}–${t.plan_lines[1]}` : esc(t.source)}</p></div>
+    ${extra}`;
+  bindOpen($('dbody'));
+}
+
+/* ——— ожидалось — сделано ——— */
+function renderCompare() {
+  const d = S.data.experiments;
+  if (!d) { api().experiments({}).then(x => { S.data.experiments = x; renderCompare(); }); return; }
+  const all = d.items;
+  if (!all.length) { $('cbody').innerHTML = '<div class="empty">Каталог экспериментов пуст</div>'; return; }
+  if (!S.sel.compare) S.sel.compare = S.sel.experiments || all[0].id;
+  const opts = all.map(e => `<option value="${esc(e.id)}"${e.id === S.sel.compare ? ' selected' : ''}>${esc(areaTitle(e.area))} · ${esc(e.title)} · ${esc(S.labels.states[e.state] || e.state)}</option>`).join('');
+  $('cbody').innerHTML = `<select id="cmpsel">${opts}</select><div id="cmpbody"><div class="empty">Загрузка…</div></div>`;
+  $('cmpsel').addEventListener('change', () => { S.sel.compare = $('cmpsel').value; renderCompare(); });
+  api().experiment(S.sel.compare).then(e => {
+    if (e.error) { $('cmpbody').innerHTML = `<div class="warn">${esc(e.error)}</div>`; return; }
+    const c = e.compare || {};
+    const V = {match: 'Ожидание совпало с результатом', mismatch: 'Ожидание не подтвердилось', partial: 'Совпало частично',
+      unconfirmed: 'Сравнить нельзя: поля не подтверждены источником'};
+    const unc = '<p class="none">Не подтверждено источником</p>';
+    const crit = (e.acceptance || []).map(a => {
+      const mk = a.met === true ? '<span class="mk ok">✓</span>' : a.met === false ? '<span class="mk no">✗</span>' : '<span class="mk un">?</span>';
+      return `<li>${mk}<span>${esc(a.criterion)}${a.evidence ? ` <span class="note">— ${esc(a.evidence)}</span>` : ''}${a.met !== true && a.met !== false ? ' <span class="note">(не проверено)</span>' : ''}</span></li>`;
+    }).join('');
+    const evid = (e.evidence || []).map(v => `<li>${v.exists ? '<span class="mk ok">●</span>' : v.exists === false ? '<span class="mk no">○</span>' : '<span class="mk un">·</span>'}<span>${esc(SOURCE_LABELS[v.kind] || v.kind)} · ${v.kind === 'commit' ? `<span class="lnk" data-commit="${esc(v.ref.slice(0, 7))}">${esc(v.ref.slice(0, 7))}</span>` : `<span class="lnk" data-open="${esc(v.ref)}">${esc(v.ref)}</span>`}${v.locator ? ' · ' + esc(v.locator) : ''}${v.claim ? ` — ${esc(v.claim)}` : ''}${v.exists === false ? ' <span class="warn">не найден</span>' : ''}</span></li>`).join('');
+    $('cmpbody').innerHTML = `
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px"><span class="area">${esc(e.area_title)}</span><b>${esc(e.title)}</b>${stateChip(e.state)}<span class="note">${fmtDate(e.started)} — ${fmtDate(e.finished)}</span></div>
+      <div class="cmp">
+        <div class="col exp"><h3>До эксперимента ожидалось</h3>${e.expected ? `<p>${esc(e.expected)}</p>` : unc}
+          ${e.hypothesis ? `<div class="dsec"><div class="dl">Гипотеза</div><p>${esc(e.hypothesis)}</p></div>` : ''}${e.question ? `<div class="dsec"><div class="dl">Вопрос</div><p>${esc(e.question)}</p></div>` : ''}</div>
+        <div class="col act"><h3>Фактически выполнено и получено</h3>${e.done ? `<div class="dsec"><div class="dl">Сделано</div><p>${esc(e.done)}</p></div>` : ''}${e.obtained ? `<div class="dsec"><div class="dl">Получено</div><p>${esc(e.obtained)}</p></div>` : unc}
+          <div class="dsec"><div class="dl">Метрики</div>${metricsTable(e.metrics)}</div></div>
+      </div>
+      <div class="verdict ${esc(c.verdict)}"><span>${esc(V[c.verdict] || c.verdict)}</span><span class="note" style="font-weight:400">· критериев выполнено ${(c.met || []).length}, не выполнено ${(c.unmet || []).length}, не проверено ${(c.unknown || []).length}</span></div>
+      <div class="cmp">
+        <div class="col"><h3>Критерии приёмки</h3>${crit ? `<ul class="crit list">${crit}</ul>` : '<p class="none">Критерии в каталоге не записаны</p>'}</div>
+        <div class="col"><h3>Доказательства · на месте ${c.evidence_ok || 0}${c.evidence_missing ? `, <span class="warn">не найдено ${c.evidence_missing}</span>` : ''}</h3>${evid ? `<ul class="crit list">${evid}</ul>` : '<p class="none">Не указаны</p>'}</div>
+        <div class="col"><h3>Интерпретация и решение</h3>${e.interpretation ? `<p>${esc(e.interpretation)}</p>` : ''}${e.decision ? `<p style="margin-top:6px"><b>Решение:</b> ${esc(e.decision)}</p>` : unc}</div>
+        <div class="col"><h3>Чего пока нельзя утверждать</h3>${e.cannot_claim ? `<p>${esc(e.cannot_claim)}</p>` : '<p class="none">Не записано</p>'}${e.limitations ? `<div class="dsec"><div class="dl">Ограничения</div><p>${esc(e.limitations)}</p></div>` : ''}
+          <div class="dsec"><div class="dl">Следующий шаг</div>${e.next_step ? `<p>${esc(e.next_step)}</p>` : '<p class="none">Не зафиксирован</p>'}</div></div>
+      </div>`;
+    bindOpen($('cmpbody'));
+  });
+}
+
+/* ——— единый план ——— */
+let planHits = [], planCur = -1;
+function renderPlan() {
+  const p = S.data.plan;
+  if (!p) { $('cbody').innerHTML = '<div class="empty">Читаю план…</div>'; api().plan().then(x => { S.data.plan = x; renderPlan(); }); return; }
+  $('cidx').textContent = `${p.path} · ${p.n_lines} строк`;
+  $('cbody').innerHTML = `<div id="planbar"><input type="text" id="plansearch" placeholder="Поиск по плану… (Enter — следующее)"><span id="plancnt"></span><button class="btn" id="planprev">↑</button><button class="btn" id="plannext">↓</button></div><div id="plan">${p.html}</div>`;
+  $('tocbody').innerHTML = `<div id="toc">${(p.headings || []).map(h => `<div class="l${h.level}" data-line="${h.line}" title="строка ${h.line}">${esc(h.title.replace(/~~/g, ''))}</div>`).join('')}</div>`;
+  $('tocbody').querySelectorAll('[data-line]').forEach(el => el.addEventListener('click', () => ui.gotoLine(parseInt(el.dataset.line, 10))));
+  const box = $('plansearch');
+  box.addEventListener('input', () => planSearch(box.value));
+  box.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); planStep(e.shiftKey ? -1 : 1); } });
+  $('planprev').addEventListener('click', () => planStep(-1));
+  $('plannext').addEventListener('click', () => planStep(1));
+  if (S.pendingLine) { const l = S.pendingLine; S.pendingLine = null; ui.gotoLine(l); }
+}
+ui.gotoLine = function (line) {
+  if (S.tab !== 'plan') ui.selectTab('plan');
+  const plan = $('plan');
+  if (!plan) { S.pendingLine = line; return; }
+  let el = null;
+  for (let l = line; l >= 1 && !el; l--) el = document.getElementById('L' + l);
+  if (!el) return;
+  el.scrollIntoView({block: 'start'});
+  plan.querySelectorAll('.flash').forEach(x => x.classList.remove('flash'));
+  el.classList.add('flash');
+};
+function clearHits() {
+  const plan = $('plan'); if (!plan) return;
+  plan.querySelectorAll('mark.hit').forEach(m => { m.replaceWith(document.createTextNode(m.textContent)); });
+  plan.normalize();
+  planHits = []; planCur = -1;
+}
+function planSearch(q) {
+  clearHits();
+  q = q.trim().toLowerCase();
+  const cnt = $('plancnt');
+  if (q.length < 2) { cnt.textContent = ''; return; }
+  const plan = $('plan');
+  const walker = document.createTreeWalker(plan, NodeFilter.SHOW_TEXT);
+  const nodes = []; let n;
+  while ((n = walker.nextNode())) nodes.push(n);
+  for (const node of nodes) {
+    const text = node.nodeValue, low = text.toLowerCase();
+    let i = low.indexOf(q); if (i < 0) continue;
+    const frag = document.createDocumentFragment(); let last = 0;
+    while (i >= 0) {
+      frag.appendChild(document.createTextNode(text.slice(last, i)));
+      const m = document.createElement('mark'); m.className = 'hit'; m.textContent = text.slice(i, i + q.length);
+      frag.appendChild(m); planHits.push(m);
+      last = i + q.length; i = low.indexOf(q, last);
+    }
+    frag.appendChild(document.createTextNode(text.slice(last)));
+    node.parentNode.replaceChild(frag, node);
+  }
+  cnt.textContent = planHits.length ? `${planHits.length} совп.` : 'не найдено';
+  if (planHits.length) planStep(1);
+}
+function planStep(dir) {
+  if (!planHits.length) return;
+  if (planCur >= 0) planHits[planCur].classList.remove('cur');
+  planCur = (planCur + dir + planHits.length) % planHits.length;
+  planHits[planCur].classList.add('cur');
+  planHits[planCur].scrollIntoView({block: 'center'});
+  $('plancnt').textContent = `${planCur + 1} / ${planHits.length}`;
+}
+
+/* ——— словарь ——— */
+function renderGlossary() {
+  const g = S.glossary;
+  const items = [];
+  for (const [k, v] of Object.entries(g.metrics || {})) items.push(Object.assign({_key: k, _kind: 'метрика'}, v));
+  for (const [k, v] of Object.entries(g.terms || {})) items.push(Object.assign({_key: k, _kind: 'термин'}, v));
+  items.sort((a, b) => a._key.localeCompare(b._key, 'ru'));
+  const aliases = {};
+  for (const [a, c] of Object.entries(g.aliases || {})) (aliases[c] = aliases[c] || []).push(a);
+  const draw = q => {
+    q = (q || '').toLowerCase();
+    const shown = items.filter(t => !q || [t._key, t.title, t.full, t.ru].join(' ').toLowerCase().includes(q));
+    $('glbody').innerHTML = shown.length ? shown.map(t => `<div class="gl"><div class="gh"><span>${esc(t.title || t._key)}</span>${t.full ? `<span class="full">${esc(t.full)}</span>` : ''}<span class="bd">${esc(t._kind)}</span></div>
+      <p>${esc(t.ru || '')}</p>${t.caveat ? `<p class="warn">${esc(t.caveat)}</p>` : ''}
+      <div class="gm">${[t.better === 'higher' ? 'выше — лучше' : t.better === 'lower' ? 'ниже — лучше' : '', t.unit ? 'ед. ' + t.unit : '', t.range ? 'диапазон ' + t.range.join('…') : '',
+        t.tool ? 'инструмент: ' + t.tool : '', t.source ? 'источник: ' + t.source : '', aliases[t._key] ? 'алиасы: ' + aliases[t._key].join(', ') : ''].filter(Boolean).map(esc).join(' · ')}</div></div>`).join('')
+      : '<div class="empty">Ничего не найдено</div>';
+    $('cidx').textContent = `${shown.length} из ${items.length}`;
+  };
+  $('cbody').innerHTML = `<input type="text" id="glsearch" placeholder="Поиск термина…" style="margin-bottom:8px"><div id="glbody"></div>`;
+  $('glsearch').addEventListener('input', () => draw($('glsearch').value));
+  draw('');
+}
+
+/* ————— загрузка ————— */
+function loadOverview() {
+  return api().overview().then(o => {
+    S.data.overview = o; S.labels = o.labels || S.labels;
+    const wt = o.working_tree || {};
+    $('stamp-git').innerHTML = `ветка <b>${esc(wt.branch || '?')}</b> · HEAD <b>${esc(wt.short || '?')}</b> · ${wt.is_clean ? 'чисто' : 'изменения есть'}`;
+    $('stamp-built').textContent = `индекс ${o.from_cache ? 'из кэша' : 'собран'} · ${o.built_at ? o.built_at.replace('T', ' ') : ''}`;
+    $('n-exp').textContent = (o.stats || {}).experiments || '';
+    $('n-com').textContent = (o.stats || {}).commits || '';
+    $('n-tl').textContent = (o.stats || {}).events || '';
+    if (o.errors && o.errors.length) setStatus('ошибки источников: ' + o.errors.length); else setStatus('готово');
+  });
+}
+function loadAll() {
+  return Promise.all([
+    loadOverview(),
+    api().glossary().then(g => {
+      S.glossary = g || S.glossary;
+      for (const [k, v] of Object.entries(S.glossary.terms || {})) TERMS[k.toLowerCase()] = Object.assign({_kind: 'термин', _key: k}, v);
+      $('n-gl').textContent = Object.keys(S.glossary.metrics || {}).length + Object.keys(S.glossary.terms || {}).length || '';
+    }),
+    api().experiments({}).then(d => { S.data.experiments = d; }),
+    api().commits({}).then(d => { S.data.commits = d; }),
+    api().timeline({}).then(d => { S.data.timeline = d; }),
+  ]);
+}
+$('refresh').addEventListener('click', () => {
+  $('refresh').disabled = true; setStatus('пересобираю индекс…');
+  api().refresh().then(() => { S.data.plan = null; return loadAll(); }).then(() => { renderTab(); renderRail(); $('refresh').disabled = false; });
+});
+/* Селфтест: показать вкладке что-нибудь содержательное для снимка */
+ui.selftestPrepare = function (tab) {
+  if (tab === 'experiments' && S.data.experiments && S.data.experiments.items[0]) selectExperiment(S.data.experiments.items[0].id);
+  if (tab === 'commits' && S.data.commits && S.data.commits.items[0]) {
+    const c = S.data.commits.items.find(x => !x.is_empty) || S.data.commits.items[0]; selectCommit(c.short);
+  }
+  if (tab === 'timeline' && S.data.timeline && S.data.timeline.items[0]) selectEvent(S.data.timeline.items[1] ? S.data.timeline.items[1].id : S.data.timeline.items[0].id);
+};
+window.onerror = (m, s, l) => { setStatus('JS: ' + m + ' @' + l); };
+let booted = false;
+function boot() {
+  if (booted || !api() || typeof api().overview !== 'function') return;
+  booted = true;
+  loadAll().then(() => { ui.selectTab('overview'); return api().boot_done(); })
+    .catch(e => setStatus('ошибка загрузки: ' + e));
+}
+window.addEventListener('pywebviewready', boot);
+setInterval(boot, 200);
+</script>
+</body>
+</html>

@@ -1097,6 +1097,23 @@ class Api:
         except OSError as e:
             self._log(f'Не удалось открыть окно результатов: {e}', 'err')
 
+    def open_history(self) -> None:
+        """Окно «История проекта»: эксперименты, коммиты, хронология плана.
+
+        Только просмотр — ничего не запускает и не меняет. Отдельным
+        процессом и с отдельным профилем WebView2, как результаты и график.
+        """
+        try:
+            proc = subprocess.Popen(
+                [str(VENV_PY), str(PROJECT_ROOT / 'scripts' / 'project_history_window.py')],
+                cwd=str(PROJECT_ROOT), stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                creationflags=subprocess.CREATE_NO_WINDOW | subprocess.DETACHED_PROCESS)
+            self._log(f'Окно истории проекта открыто (PID {proc.pid}). Оно только '
+                      f'показывает: Git, план и runs не меняются.', 'ok')
+        except OSError as e:
+            self._log(f'Не удалось открыть окно истории: {e}', 'err')
+
     def open_chart(self) -> None:
         """Отдельное окно с подробным графиком — свой процесс и свой профиль."""
         try:
