@@ -117,6 +117,11 @@ def parse_args() -> argparse.Namespace:
         default=PROJECT_ROOT / "runs" / "qmatch_flyvis_gate",
     )
     parser.add_argument("--detection-iou", type=float, default=0.5)
+    parser.add_argument(
+        "--pairs-only",
+        action="store_true",
+        help="только построить и сохранить pairs.npz без обучения моделей",
+    )
     parser.add_argument("--candidate-distance", type=float, default=2.5)
     parser.add_argument(
         "--candidate-set",
@@ -439,6 +444,7 @@ def build_video_pairs(
         raise ValueError(f"Неизвестный набор кандидатов: {candidate_set}")
     features, targets, previous_occluded, current_occluded = [], [], [], []
     current_truth_matched = []
+    pair_frames, previous_boxes, current_boxes = [], [], []
     positive_eligible = 0
     positive_in_gate = 0
     transition_count = 0
@@ -482,6 +488,9 @@ def build_video_pairs(
                 previous_occluded.append(left.occluded)
                 current_occluded.append(right.occluded)
                 current_truth_matched.append(right.gt_id is not None)
+                pair_frames.append((raw_start, raw_stop))
+                previous_boxes.append(left.box)
+                current_boxes.append(right.box)
     if not features:
         raise RuntimeError(f"Для {video_id} не построено ни одной пары")
     return {
@@ -490,6 +499,9 @@ def build_video_pairs(
         "previous_occluded": np.asarray(previous_occluded, dtype=bool),
         "current_occluded": np.asarray(current_occluded, dtype=bool),
         "current_truth_matched": np.asarray(current_truth_matched, dtype=bool),
+        "pair_frames": np.asarray(pair_frames, dtype=np.int32),
+        "previous_boxes": np.stack(previous_boxes).astype(np.float32),
+        "current_boxes": np.stack(current_boxes).astype(np.float32),
         "positive_eligible": int(positive_eligible),
         "positive_in_gate": int(positive_in_gate),
         "transitions": transition_count,
@@ -570,8 +582,9 @@ def fit_and_evaluate(
     feature_names: tuple[str, ...],
     train_count: int,
     video_ids: tuple[str, ...],
+    all_feature_names: tuple[str, ...] = FEATURE_NAMES,
 ) -> dict:
-    indices = [FEATURE_NAMES.index(name) for name in feature_names]
+    indices = [all_feature_names.index(name) for name in feature_names]
     train = video_indices < train_count
     test = ~train
     model = make_pipeline(
@@ -690,9 +703,15 @@ def main() -> int:
         previous_occluded=previous_occluded,
         current_occluded=current_occluded,
         current_truth_matched=current_truth_matched,
+        pair_frames=np.concatenate([row["pair_frames"] for row in built]),
+        previous_boxes=np.concatenate([row["previous_boxes"] for row in built]),
+        current_boxes=np.concatenate([row["current_boxes"] for row in built]),
         feature_names=np.asarray(FEATURE_NAMES),
         video_ids=np.asarray(video_ids),
     )
+    if args.pairs_only:
+        print(f"[OK] pairs only: {args.output / 'pairs.npz'}", flush=True)
+        return 0
 
     results = {
         name: fit_and_evaluate(

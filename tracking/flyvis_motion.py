@@ -145,6 +145,8 @@ class FlyVisMotionEstimator:
         self._last_hex = None
         self._state = None
         self.last_decoded = None
+        self.last_activity = None
+        self.baseline_activity = None
         self._baseline_flow = None
         self._frame_size: tuple[int, int] | None = None
         self._bounds: list[tuple[int, int, int, int]] | None = None
@@ -250,6 +252,8 @@ class FlyVisMotionEstimator:
             self.stats["network_seconds"] += network_seconds
             self.stats["decoder_seconds"] += decoder_seconds
             self._baseline_flow = initial_decoded[:, 0].detach()
+            # Активность после fade-in: (tiles, nodes) — baseline для считывания.
+            self.baseline_activity = initial_activity[:, 0].detach().cpu().numpy()
             self._last_hex = rendered[:, 0:1]
             self.last_decoded = None
             zero_flow = self.torch.zeros(
@@ -290,6 +294,8 @@ class FlyVisMotionEstimator:
         self._state = states[-1]
         self._last_hex = rendered[:, 0:1]
         self.last_decoded = decoded.detach()
+        # Активность внутренних шагов текущего кадра: (tiles, steps, nodes).
+        self.last_activity = activity.detach().cpu().numpy()
         return self.field_from_last(self.flow_aggregation)
 
     def field_from_last(self, aggregation: str = "mean") -> MotionField:
