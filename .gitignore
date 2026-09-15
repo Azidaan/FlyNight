@@ -3,7 +3,11 @@
 data/
 
 # ═══ Артефакты обучения и прогонов ════════════════════
-runs/
+runs/*
+# манифест и отчёт воспроизводимости стенда (цель 0) — маленькие JSON, нужны в репозитории
+!runs/bench_freeze/
+runs/bench_freeze/*
+!runs/bench_freeze/*.json
 weights/
 figs/
 ods_probe/
@@ -34,6 +38,7 @@ tools/
 # и должны переживать переустановку системы наравне с кодом.
 dissertation/*
 !dissertation/ЕДИНЫЙ_ПЛАН.md
+!dissertation/План целей по Трекеру.md
 # обзор с дословными цитатами: нужен во введении, восстановить поиском нельзя
 !dissertation/lit_confidence_open_problems.md
 !dissertation/схема_проекта.drawio
