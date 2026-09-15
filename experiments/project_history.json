@@ -2528,7 +2528,7 @@
    "id": "flyvis_foveation_readout_v1",
    "title": "Цель 2: фовеация — глаз FlyVis на каждый трек XYWHByteTrack, то же считывание T4/T5 и all34",
    "area": "flyvis",
-   "state": "planned",
+   "state": "completed_negative",
    "tags": [
     "goal2",
     "foveation",
@@ -2550,7 +2550,7 @@
    },
    "expected": "Лестница на тех же парах: base+DIS+eye → +decoded tiled → +fovea T4T5 → +fovea all34 → +shuffled fovea T4T5 (перестановка строк внутри видео среди пар с глазом) → +tiled T4T5 (из flyvis_internal_readout_v1, для прямого сравнения охватов). Обучение и пороги на 4 обучающих видео, парный бутстрап по 3 отложенным.",
    "done": "Карточка записана до кода (16.09.2026, 02:0x MSK). Глаза, кэш и гейт не реализованы; сеть не запускалась.",
-   "decision": "",
+   "decision": "Отрицательный по критериям 2, 3, 5 (4 выполнен: лучше shuffled). ТОЧКА ОСТАНОВКИ A1 СРАБОТАЛА (План целей 1.6): линия A перестаёт быть кандидатом на основной метод; FlyVis закрывается как исследованная ветвь с отрицательным результатом; основной метод — линия B (XYWHByteTrack + раздельная событийная уверенность); цель 3, дообучение FlyVis и сборка линии A не начинаются. Изменение маршрута согласуется с пользователем (6.5).",
    "started": "2026-09-16",
    "detector": "weights/baseline_seed42/best.pt (манифест bench_freeze_v1)",
    "tracker": "XYWHByteTrack h0.25/l0.1/b30/m0.8 — только как источник треков для глаз; его выходы совпадают с bench_freeze_v1",
@@ -2576,19 +2576,23 @@
     },
     {
      "criterion": "доля пар с глазом (has_eye) отчётливо указана по видео и по классу пары; положительные пары покрыты не менее чем на 80%",
-     "met": null
+     "met": false,
+     "evidence": "runs/qmatch_readout_gate/fovea_30hz/report.json → eye_coverage: положительные с глазом 0,779 на b251064f (< 0,8), остальные 0,85–0,94"
     },
     {
      "criterion": "основной: base+DIS+eye+fovea T4T5 против base+DIS+eye — AP выше и Brier не хуже на каждом из трёх отложенных видео",
-     "met": null
+     "met": false,
+     "evidence": "runs/qmatch_readout_gate/fovea_30hz/report.json → acceptance.primary_ap_up_every_video = false, primary_brier_not_worse_every_video = false"
     },
     {
      "criterion": "прирост fovea T4T5 превосходит прирост shuffled fovea T4T5 на каждом отложенном видео",
-     "met": null
+     "met": true,
+     "evidence": "runs/qmatch_readout_gate/fovea_30hz/report.json → acceptance.fovea_beats_shuffled_every_video = true; comparisons.fovea_vs_shuffled ДИ положительный"
     },
     {
      "criterion": "fovea T4T5 не хуже tiled T4T5 и декодированного потока по AP на отложенных",
-     "met": null
+     "met": false,
+     "evidence": "runs/qmatch_readout_gate/fovea_30hz/report.json → fovea_not_worse_than_tiled_ap = true, fovea_not_worse_than_decoded_ap = false"
     },
     {
      "criterion": "подтверждение на уровне трекера: HOTA, AssA, IDSw",
@@ -2607,11 +2611,143 @@
      "ref": "dissertation/План целей по Трекеру.md",
      "locator": "1.6. Точки остановки линии A",
      "claim": "A1 после лучшего варианта считывания и охвата"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/qmatch_readout_gate/fovea_30hz/report.json",
+     "locator": "comparisons",
+     "claim": "пять парных бутстрапов"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/qmatch_readout_gate/nonlinear_diag/report.json",
+     "locator": "feature_groups",
+     "claim": "нелинейная диагностика"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/flyvis_fovea/summary.json",
+     "locator": "*",
+     "claim": "кэш фовеальных считываний"
+    },
+    {
+     "kind": "plan_section",
+     "ref": "dissertation/ЕДИНЫЙ_ПЛАН.md",
+     "locator": "Журнал изменений",
+     "claim": "16.09 — точка A1"
     }
    ],
    "limitations": "Глаза существуют только у подтверждённых треков: пары «новая детекция → новая детекция» без глаза оцениваются только контролем. Псевдометки 30 Гц, три отложенных видео. Если критерии 3–5 не выполнены — точка остановки A1: FlyVis закрывается как исследованная ветвь, основной становится линия B.",
-   "cannot_claim": "Пользу для траекторий; что фовеация помогла бы при других дизайнах глаза (иной контекст вырезки, иной fade-in) — один фиксированный до опыта дизайн.",
-   "confirmed": true
+   "cannot_claim": "Что FlyVis бесполезен для событий q_alive/q_birth или как источник достоверности движения (не проверялось); что иной дизайн глаза (контекст, fade-in, размер) дал бы иной знак; что 5-Гц режим повторил бы результат (не запускался для считывания).",
+   "confirmed": true,
+   "finished": "2026-09-16",
+   "obtained": "Покрытие глазами: у положительных пар 0,78–0,94 по видео (сложный фон 0,779 < 0,8), у отрицательных 0,48–0,75. Отложенные видео, контроль base+DIS+has_eye AP 0.944843: +fovea T4T5 AP 0.945237 (Δ −0,000436, ДИ [−0,002667; +0,001196], по видео +0,0012/−0,0027/+0,0002), Brier 0.011516 против 0.011384 — хуже на каждом видео. Против shuffled fovea: ΔAP +0,002093, ДИ [+0,001009; +0,003450], положительно на каждом видео — признаки несут реальную информацию. Против tiled T4T5: +0,001308, ДИ [−0,000042; +0,002451] — фовеация лучше сетки. Против декодированного потока: −0,003430, ДИ [−0,005749; −0,000751]. all34: +0,001872, ДИ через ноль, Brier хуже. Нелинейная диагностика (HGB): base+DIS+eye AP 0,967989; все варианты FlyVis 0,9660–0,9671, decoded 0,967990 — ни один не выше базы.",
+   "interpretation": "Фовеальное считывание содержит информацию (отличимо от shuffled на каждом видео) и лучше сетки, но эта информация избыточна относительно геометрии пары и DIS и беднее декодированного потока; при сильной модели база насыщает задачу. Гипотеза о разрешении подтверждена лишь в части «фовеация > сетка», не в части «есть условный вклад». Лучший вариант охвата и считывания не даёт прироста над base + DIS, устойчивого по видео — условие точки A1 выполнено. Полнокадровое считывание не строилось: оно строго грубее сетки, которая уже проиграла.",
+   "metrics": [
+    {
+     "key": "AP",
+     "value": 0.9452374402827249,
+     "baseline": 0.9448432390892452,
+     "subset": "30 Гц, отложенные: base+DIS+eye+fovea T4T5 / base+DIS+eye",
+     "source": "runs/qmatch_readout_gate/fovea_30hz/report.json",
+     "locator": "feature_groups.base_dis_eye_fovea_t4t5.test.average_precision",
+     "note": "ДИ [−0,002667; +0,001196] через ноль; на тёмном видео −0,0027"
+    },
+    {
+     "key": "Brier",
+     "value": 0.011515590404385153,
+     "baseline": 0.011384469628060888,
+     "subset": "то же",
+     "source": "runs/qmatch_readout_gate/fovea_30hz/report.json",
+     "locator": "feature_groups.base_dis_eye_fovea_t4t5.test.brier",
+     "note": "хуже на каждом видео"
+    },
+    {
+     "key": "AP",
+     "value": 0.9428629741037131,
+     "baseline": 0.9452374402827249,
+     "subset": "shuffled fovea / fovea — фовеа отличима от шума",
+     "source": "runs/qmatch_readout_gate/fovea_30hz/report.json",
+     "locator": "feature_groups.base_dis_eye_shuffled_fovea.test.average_precision"
+    },
+    {
+     "key": "AP",
+     "value": 0.9440523480853691,
+     "baseline": 0.9452374402827249,
+     "subset": "tiled T4T5 / fovea T4T5 — фовеа лучше сетки",
+     "source": "runs/qmatch_readout_gate/fovea_30hz/report.json",
+     "locator": "feature_groups.base_dis_eye_tiled_t4t5.test.average_precision"
+    },
+    {
+     "key": "AP",
+     "value": 0.9497669421022101,
+     "baseline": 0.9452374402827249,
+     "subset": "decoded / fovea — декодер богаче",
+     "source": "runs/qmatch_readout_gate/fovea_30hz/report.json",
+     "locator": "feature_groups.base_dis_eye_decoded.test.average_precision"
+    }
+   ]
+  },
+  {
+   "id": "flyvis_readout_nonlinear_diag",
+   "title": "Диагностика: нелинейная модель на признаках считывания FlyVis (tiled и фовеация)",
+   "area": "flyvis",
+   "state": "completed_negative",
+   "tags": [
+    "goal2",
+    "diagnostic",
+    "nonlinear"
+   ],
+   "summary": "Не критерий. Проверка возражения «логистическая регрессия слишком слаба»: HistGradientBoosting на тех же парах и разбиении по группам base+DIS+eye, +decoded, +fovea T4T5/all34, +shuffled, +tiled T4T5/all34, +fovea all34+decoded.",
+   "question": "Появляется ли условный вклад считывания FlyVis при нелинейной модели там, где линейная его не нашла?",
+   "expected": "Если и здесь прирост над base+DIS+eye не устойчив по видео и не превосходит decoded — закрытие по точке A1 устойчиво к выбору модели.",
+   "done": "Скрипт scripts/diag_readout_nonlinear.py; запуск 16.09, 02:3x MSK на CPU.",
+   "decision": "Возражение о слабости линейной модели снято: при нелинейной модели вклад считывания FlyVis отсутствует. Закрытие по A1 устойчиво.",
+   "started": "2026-09-16",
+   "commits": [],
+   "files": [
+    "scripts/diag_readout_nonlinear.py"
+   ],
+   "runs": [
+    "runs/qmatch_readout_gate/nonlinear_diag"
+   ],
+   "acceptance": [
+    {
+     "criterion": "диагностика выполнена, повидео-разности AP записаны",
+     "met": true,
+     "evidence": "runs/qmatch_readout_gate/nonlinear_diag/report.json → per_video_ap_deltas"
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "plan_section",
+     "ref": "dissertation/План целей по Трекеру.md",
+     "locator": "1.6. Точки остановки линии A",
+     "claim": "решение по A1 должно быть устойчиво к очевидным возражениям"
+    }
+   ],
+   "limitations": "Один сид, без настройки гиперпараметров; сравнение по повидео-разностям AP без бутстрапа.",
+   "confirmed": true,
+   "finished": "2026-09-16",
+   "obtained": "HGB на отложенных: base+DIS+eye AP 0,967989 (Brier 0,010923); +decoded 0,967990; +fovea T4T5 0,966360; +fovea all34 0,967054; +shuffled fovea 0,965983; +tiled T4T5 0,967031; +tiled all34 0,966626; +fovea all34+decoded 0,966787. Ни один вариант FlyVis не выше базы; повидео-разности fovea all34 − база: −0,00014, −0,00073, −0,00172.",
+   "metrics": [
+    {
+     "key": "AP",
+     "value": 0.9670541805276605,
+     "baseline": 0.9679893852465502,
+     "subset": "HGB, отложенные: +fovea all34 / base+DIS+eye",
+     "source": "runs/qmatch_readout_gate/nonlinear_diag/report.json",
+     "locator": "feature_groups.base_dis_eye_fovea_all34.test.average_precision"
+    },
+    {
+     "key": "AP",
+     "value": 0.967990066444518,
+     "baseline": 0.9679893852465502,
+     "subset": "HGB: +decoded / base",
+     "source": "runs/qmatch_readout_gate/nonlinear_diag/report.json",
+     "locator": "feature_groups.base_dis_eye_decoded.test.average_precision"
+    }
+   ]
   }
  ],
  "manual_events": [
