@@ -69,3 +69,24 @@ def test_shuffle_within_video_permutes_rows_only_inside_each_video() -> None:
         np.testing.assert_array_equal(np.sort(shuffled[video == v], axis=0), np.sort(matrix[video == v], axis=0))
     assert not np.array_equal(shuffled, matrix)
     np.testing.assert_array_equal(shuffle_within_video(matrix, video, seed=0), shuffled)
+
+
+def test_join_fovea_rows_matches_pairs_by_frame_and_detection_indices() -> None:
+    from scripts.evaluate_flyvis_readout_gate import join_fovea_rows
+
+    pairs = {
+        "pair_frames": np.asarray([[4, 5], [4, 5], [7, 8]], np.int32),
+        "previous_index": np.asarray([10, 11, 3], np.int32),
+        "current_index": np.asarray([20, 21, 9], np.int32),
+    }
+    rows = {
+        "frame": np.asarray([5, 5, 8], np.int32),
+        "prev_detection_index": np.asarray([10, 10, 3], np.int32),
+        "detection_index": np.asarray([20, -1, 9], np.int32),
+        "t4t5": np.asarray([[1.0, 2.0], [9.0, 9.0], [3.0, 4.0]], np.float32),
+    }
+    matrix, has_eye = join_fovea_rows(pairs, rows, key="t4t5", width=2)
+    np.testing.assert_array_equal(has_eye, [1, 0, 1])
+    np.testing.assert_array_equal(matrix[0], [1.0, 2.0])
+    np.testing.assert_array_equal(matrix[1], [0.0, 0.0])
+    np.testing.assert_array_equal(matrix[2], [3.0, 4.0])

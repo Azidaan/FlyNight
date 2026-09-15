@@ -137,7 +137,6 @@ def test_box_readout_t4t5_subtracts_baseline() -> None:
     assert features_zero["inside_energy_total"] == pytest.approx(0.0, abs=1e-6)
 
 
-@pytest.mark.slow
 def test_estimator_exposes_internal_activity_of_current_frame_only() -> None:
     """Настоящая сеть FlyVis: после кадра доступны baseline и активность внутренних шагов."""
     from tracking.flyvis_motion import FlyVisMotionEstimator, TileLayout

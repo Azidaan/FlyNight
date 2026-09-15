@@ -445,6 +445,7 @@ def build_video_pairs(
     features, targets, previous_occluded, current_occluded = [], [], [], []
     current_truth_matched = []
     pair_frames, previous_boxes, current_boxes = [], [], []
+    previous_index, current_index = [], []
     positive_eligible = 0
     positive_in_gate = 0
     transition_count = 0
@@ -491,6 +492,8 @@ def build_video_pairs(
                 pair_frames.append((raw_start, raw_stop))
                 previous_boxes.append(left.box)
                 current_boxes.append(right.box)
+                previous_index.append(left.detection_index)
+                current_index.append(right.detection_index)
     if not features:
         raise RuntimeError(f"Для {video_id} не построено ни одной пары")
     return {
@@ -502,6 +505,8 @@ def build_video_pairs(
         "pair_frames": np.asarray(pair_frames, dtype=np.int32),
         "previous_boxes": np.stack(previous_boxes).astype(np.float32),
         "current_boxes": np.stack(current_boxes).astype(np.float32),
+        "previous_index": np.asarray(previous_index, dtype=np.int32),
+        "current_index": np.asarray(current_index, dtype=np.int32),
         "positive_eligible": int(positive_eligible),
         "positive_in_gate": int(positive_in_gate),
         "transitions": transition_count,
@@ -706,6 +711,8 @@ def main() -> int:
         pair_frames=np.concatenate([row["pair_frames"] for row in built]),
         previous_boxes=np.concatenate([row["previous_boxes"] for row in built]),
         current_boxes=np.concatenate([row["current_boxes"] for row in built]),
+        previous_index=np.concatenate([row["previous_index"] for row in built]),
+        current_index=np.concatenate([row["current_index"] for row in built]),
         feature_names=np.asarray(FEATURE_NAMES),
         video_ids=np.asarray(video_ids),
     )
