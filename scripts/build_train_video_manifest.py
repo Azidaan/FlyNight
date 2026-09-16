@@ -24,7 +24,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from scripts.run_bdd_video_rate_experiment import build_alignment, save_json  # noqa: E402
 
 MAX_MATCH_MAE = 2.5      # у семи val-видео максимум 1,29
-MAX_STEP = 12            # шаг между опорными кадрами (у val 1–10)
+MAX_STEP = 36            # шаг между опорными кадрами: в разметке бывают пропуски опорных кадров (val 1–10, train до 18+)
 
 
 def parse_args() -> argparse.Namespace:
@@ -36,6 +36,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", type=Path, default=PROJECT_ROOT / "runs" / "train_videos")
     parser.add_argument("--search-radius", type=int, default=24)
     parser.add_argument("--limit", type=int, default=0)
+    parser.add_argument("--retry-failed", action="store_true")
+    parser.add_argument("--shard", default="0/1", help="i/n: обрабатывать ID с индексом ≡ i (mod n), писать manifest_i.json")
+    parser.add_argument("--merge", action="store_true", help="слить manifest_*.json в manifest.json и выйти")
     return parser.parse_args()
 
 
@@ -50,14 +53,26 @@ def main() -> int:
     fetch_manifest = json.loads((args.videos / f"{args.split}_manifest.json").read_text(encoding="utf-8"))
     out = args.output
     out.mkdir(parents=True, exist_ok=True)
-    manifest_path = out / "manifest.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.exists() else {"split_rule": "sha1(id)[:8] % 100: <70 train, <85 dev, else test", "videos": {}}
-    ids = sorted(v for v in fetch_manifest["videos"] if (args.videos / args.split / f"{v}.mov").exists())
+    shard_index, shard_count = (int(x) for x in args.shard.split("/"))
+    manifest_path = out / ("manifest.json" if shard_count == 1 else f"manifest_{shard_index}.json")
+    base = out / "manifest.json"
+    if args.merge:
+        merged = {"split_rule": "sha1(id)[:8] % 100: <70 train, <85 dev, else test", "videos": {}}
+        for part in sorted(out.glob("manifest_*.json")) + ([base] if base.exists() else []):
+            merged["videos"].update(json.loads(part.read_text(encoding="utf-8")).get("videos", {}))
+        manifest, manifest_path = merged, base
+        ids = []
+    else:
+        seed = manifest_path if manifest_path.exists() else base
+        manifest = json.loads(seed.read_text(encoding="utf-8")) if seed.exists() else {"split_rule": "sha1(id)[:8] % 100: <70 train, <85 dev, else test", "videos": {}}
+        ids = sorted(v for v in fetch_manifest["videos"] if (args.videos / args.split / f"{v}.mov").exists())
+        ids = [v for k, v in enumerate(ids) if k % shard_count == shard_index]
     if args.limit:
         ids = ids[: args.limit]
     started = time.perf_counter()
     for index, video_id in enumerate(ids, 1):
-        if video_id in manifest["videos"] and manifest["videos"][video_id].get("alignment_ok") is not None:
+        previous = manifest["videos"].get(video_id)
+        if previous is not None and previous.get("alignment_ok") is not None and not (args.retry_failed and not previous.get("alignment_ok")):
             continue
         video = args.videos / args.split / f"{video_id}.mov"
         images = sorted((args.images / args.split / video_id).glob("*.jpg"))
@@ -65,7 +80,15 @@ def main() -> int:
         record = {"sha256": fetch_manifest["videos"][video_id]["sha256"], "bytes": fetch_manifest["videos"][video_id]["bytes"], "container": {k: fetch_manifest["videos"][video_id].get(k) for k in ("frames", "fps", "width", "height", "opened")},
                   "labelled_frames": len(labels), "reference_images": len(images), "split": assign_split(video_id)}
         try:
-            rows, metadata = build_alignment(video, images, out / video_id / "alignment.json", args.search_radius)
+            rows = metadata = None
+            for radius in (args.search_radius, args.search_radius * 2, args.search_radius * 4):
+                try:
+                    rows, metadata = build_alignment(video, images, out / video_id / "alignment.json", radius)
+                    record["search_radius"] = radius
+                    break
+                except ValueError as error:
+                    if "монотонно" not in str(error) or radius == args.search_radius * 4:
+                        raise
             errors = [r["mean_absolute_error"] for r in rows]
             steps = np.diff([r["video_frame_index"] for r in rows]) if len(rows) > 1 else np.asarray([])
             record.update({"decoded_frames": metadata.get("frame_count", metadata.get("frames")), "alignment": {"max_mae": float(max(errors)), "median_mae": float(np.median(errors)), "max_step": int(steps.max()) if steps.size else None, "min_step": int(steps.min()) if steps.size else None, "monotone": bool((steps > 0).all()) if steps.size else True},
