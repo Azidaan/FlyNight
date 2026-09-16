@@ -47,15 +47,17 @@ def alive_fly_features(data: dict, video_ids: list[str], fovea_root: Path) -> tu
     for vi, video_id in enumerate(video_ids):
         rows = np.flatnonzero(data["video"] == vi)
         with np.load(fovea_root / video_id / "fovea_readout.npz") as f:
-            self_rows = np.flatnonzero(f["detection_index"] == -1)
-            lookup = {(int(f["frame"][i]), int(f["track_id"][i])): i for i in self_rows}
-            for r in rows:
-                key = (int(data["meta"][r, mn.index("frame")]), int(data["meta"][r, mn.index("track_id")]))
-                hit = lookup.get(key)
-                if hit is not None:
-                    t4[r] = f["t4t5"][hit][: len(FLY_T4T5)]      # первые 24 — self-рамка
-                    a34[r] = f["all34"][hit][: len(FLY_ALL34)]
-                    has[r] = 1
+            frames, tracks, dets = f["frame"], f["track_id"], f["detection_index"]
+            self_rows = np.flatnonzero(dets == -1)
+            fov_t4, fov_34 = f["t4t5"][self_rows], f["all34"][self_rows]  # читаем массивы один раз
+        lookup = {(int(frames[i]), int(tracks[i])): k for k, i in enumerate(self_rows)}
+        for r in rows:
+            key = (int(data["meta"][r, mn.index("frame")]), int(data["meta"][r, mn.index("track_id")]))
+            hit = lookup.get(key)
+            if hit is not None:
+                t4[r] = fov_t4[hit][: len(FLY_T4T5)]      # первые 24 — self-рамка
+                a34[r] = fov_34[hit][: len(FLY_ALL34)]
+                has[r] = 1
         coverage[video_id] = float(has[rows].mean()) if rows.size else None
     return t4, a34, has, coverage
 
@@ -69,12 +71,13 @@ def birth_fly_features(data: dict, video_ids: list[str], activity_root: Path, de
             continue
         cache = load_activity_cache(activity_root / video_id / "flyvis_tiled_activity.npz")
         points = cache["points"]; baseline = frame_activity_matrix(cache["baseline"]); spacing = column_spacing(points)
+        frames_all = cache["frames"]
         detections = load_detection_cache(detections_root / video_id / "detections" / "raw_video.npz")
         cached: dict[int, np.ndarray] = {}
         for r in rows[np.argsort(data["meta"][rows, mn.index("frame")], kind="stable")]:
             frame = int(data["meta"][r, mn.index("frame")]); det = int(data["meta"][r, mn.index("det_index")])
             if frame not in cached:
-                cached = {frame: frame_activity_matrix(cache["frames"][frame])}
+                cached = {frame: frame_activity_matrix(frames_all[frame])}
             box = detections_for_frame(detections, frame)[0][det]
             f1 = box_readout_t4t5(cached[frame], baseline, points, box, min_margin=spacing)
             f2 = box_readout_all_types(cached[frame], baseline, points, box, min_margin=spacing)
