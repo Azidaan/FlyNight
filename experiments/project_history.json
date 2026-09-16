@@ -2989,7 +2989,7 @@
    "id": "birth_policy_qbirth_v1",
    "title": "Цель 6: вето рождений по q_birth в неизменённом XYWHByteTrack (парная точка по точности рождений)",
    "area": "event_confidence",
-   "state": "planned",
+   "state": "completed_negative",
    "tags": [
     "goal6",
     "line-B",
@@ -3008,8 +3008,8 @@
     "identity_test": "При τ = 0 выходы побайтово совпадают со стендом (тест); при τ = 1 рождений нет вовсе (тест)."
    },
    "expected": "Тест того, можно ли снизить ложные рождения без платы идентичностью. Приёмка по плану 3.7: ложные рождения и FP ниже контроля на каждом отложенном видео при парной точке; IDSw не выше; HOTA и IDF1 не ниже контроля (допуск −0,1 пункта); иначе — отрицательный результат уровня трекера при положительном уровне событий.",
-   "done": "Карточка записана до кода (16.09.2026, 23:5x MSK).",
-   "decision": "",
+   "done": "Карточка записана до кода (16.09.2026, 23:5x MSK). Реализованы tracking/birth_policy.py (QBirthByteTrack, 4 теста: тождество при τ=0, полное вето при τ=1, журнал q_birth) и scripts/evaluate_birth_policy.py; прогон трёх вариантов по 7 видео 16.09 23:3x–23:5x MSK (CPU).",
+   "decision": "Отрицательный по HOTA-критерию (3 из 4 критериев выполнены). Жёсткое вето не встраивается. Следующая карточка цели 6 — отложенное подтверждение: рождение с низким q_birth не запрещается, а переводится в предварительное состояние с требованием N подтверждений (tentative) — истинные объекты рождаются с задержкой, одно-кадровые ложные не публикуются.",
    "started": "2026-09-16",
    "detector": "weights/baseline_seed42/best.pt",
    "tracker": "XYWHByteTrack стенда + вето рождений по q_birth",
@@ -3029,23 +3029,28 @@
    "acceptance": [
     {
      "criterion": "τ = 0 воспроизводит стенд побайтово; первый и второй проходы не изменены",
-     "met": null
+     "met": true,
+     "evidence": "tests/test_birth_policy.py::test_tau_zero_reproduces_frozen_tracker_byte_for_byte; _init_new_tracks — единственный переопределённый шаг"
     },
     {
      "criterion": "ложные рождения на отложенных видео ниже контроля на каждом видео (при τ_prec)",
-     "met": null
+     "met": true,
+     "evidence": "runs/birth_policy/report.json → summary.tau_prec.false_births_test и summary.tau_f1.false_births_test: ниже на каждом видео"
     },
     {
      "criterion": "FP ниже контроля, IDSw не выше на каждом отложенном видео",
-     "met": null
+     "met": true,
+     "evidence": "runs/birth_policy/report.json → summary.*.acceptance.fp_lower_every_video, idsw_not_higher_every_video = true"
     },
     {
      "criterion": "HOTA и IDF1 не ниже контроля минус 0,1 пункта на агрегате отложенных",
-     "met": null
+     "met": false,
+     "evidence": "runs/birth_policy/report.json → summary.tau_f1.delta_test.HOTA = −0,301, tau_prec −0,236; IDF1 +0,160 / −0,093"
     },
     {
      "criterion": "цена: FN и задержка первого правильного выхода отчётливо указаны",
-     "met": null
+     "met": true,
+     "evidence": "runs/birth_policy/report.json → summary.*.delay_test, delta_test.CLR_FN, per_video objects_found"
     }
    ],
    "evidence": [
@@ -3054,11 +3059,84 @@
      "ref": "dissertation/План целей по Трекеру.md",
      "locator": "3.7. Цель 6",
      "claim": "один событийный компонент за раз; парная точка по точности рождений; первый проход неизменен"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/birth_policy/report.json",
+     "locator": "summary",
+     "claim": "разности к контролю, ложные/истинные рождения, задержки, критерии"
+    },
+    {
+     "kind": "plan_section",
+     "ref": "dissertation/ЕДИНЫЙ_ПЛАН.md",
+     "locator": "Журнал изменений",
+     "claim": "16.09, 23:58 — вето рождений"
     }
    ],
    "limitations": "Только вето среди рождений с score ≥ 0,25; три отложенных видео; метки рождений — по опорным кадрам.",
    "cannot_claim": "Спасение слабых истинных детекций (не проверяется); новизну политики рождения до сравнения с литературой.",
-   "confirmed": true
+   "confirmed": true,
+   "finished": "2026-09-16",
+   "obtained": "Голова на train: 4 236 рождений (1 916+), точность контроля 0,452; τ_F1 = 0,327, τ_prec = 0,198 (точность ≥ 0,502 при полноте 0,963 на train). Отложенные видео, контроль: HOTA 52.675, DetA 58.204, AssA 48.310, IDF1 57.685, IDSw 310, FP 552, FN 2584, Frag 380; ложных рождений 2212, истинных 2269. τ_F1: ложные рождения 2212 → 1086 (−51 %, ниже на каждом видео), истинные 2269 → 1775; FP 552 → 417, IDSw 310 → 274, Frag 380 → 352, AssA +0.552, IDF1 +0.160; цена: FN 2584 → 2841, DetA -1.253, HOTA -0.301; объектов, найденных хотя бы раз, 289 → 272 из 339; задержка первого правильного выхода +0,07–0,57 опорного кадра. τ_prec: ложные рождения → 1455, FP → 507, IDSw → 302, FN → 2717, HOTA -0.236, IDF1 -0.093. На обучающих видео (in-sample) τ_F1 улучшает всё: HOTA +0,285, IDF1 +0,607, IDSw −26, FP −93.",
+   "interpretation": "Вето по q_birth делает то, что обещает уровень событий: вдвое меньше ложных рождений, меньше FP, IDSw и фрагментаций, лучше AssA. Но голова с AP 0,70 отсекает и ~22 % истинных рождений, часть объектов не рождается вовсе (−17 из 339) — покрытие падает сильнее, чем растёт идентичность, и HOTA снижается на 0,24–0,30. По правилу плана 3.8 это компромисс покрытия, а не улучшение идентичности. Жёсткое вето — слишком грубый механизм для головы такой точности.",
+   "metrics": [
+    {
+     "key": "HOTA",
+     "value": 52.37353290792649,
+     "baseline": 52.67491393303034,
+     "subset": "3 отложенных видео, τ_F1 / контроль",
+     "source": "runs/birth_policy/report.json",
+     "locator": "variants.tau_f1.metrics_test.HOTA"
+    },
+    {
+     "key": "IDF1",
+     "value": 57.845663108821,
+     "baseline": 57.68539595064095,
+     "subset": "то же",
+     "source": "runs/birth_policy/report.json",
+     "locator": "variants.tau_f1.metrics_test.IDF1"
+    },
+    {
+     "key": "AssA",
+     "value": 48.86226709469906,
+     "baseline": 48.30984716299449,
+     "subset": "то же",
+     "source": "runs/birth_policy/report.json",
+     "locator": "variants.tau_f1.metrics_test.AssA"
+    },
+    {
+     "key": "IDSw",
+     "value": 274.0,
+     "baseline": 310.0,
+     "subset": "то же",
+     "source": "runs/birth_policy/report.json",
+     "locator": "variants.tau_f1.metrics_test.IDSw"
+    },
+    {
+     "key": "FP",
+     "value": 417,
+     "baseline": 552,
+     "subset": "то же",
+     "source": "runs/birth_policy/report.json",
+     "locator": "variants.tau_f1.metrics_test.CLR_FP"
+    },
+    {
+     "key": "FN",
+     "value": 2841,
+     "baseline": 2584,
+     "subset": "то же",
+     "source": "runs/birth_policy/report.json",
+     "locator": "variants.tau_f1.metrics_test.CLR_FN"
+    },
+    {
+     "key": "HOTA",
+     "value": 52.438580438847424,
+     "baseline": 52.67491393303034,
+     "subset": "3 отложенных видео, τ_prec / контроль",
+     "source": "runs/birth_policy/report.json",
+     "locator": "variants.tau_prec.metrics_test.HOTA"
+    }
+   ]
   }
  ],
  "manual_events": [
