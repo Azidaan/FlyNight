@@ -3073,7 +3073,7 @@
      "claim": "16.09, 23:58 — вето рождений"
     }
    ],
-   "limitations": "Только вето среди рождений с score ≥ 0,25; три отложенных видео; метки рождений — по опорным кадрам.",
+   "limitations": "Только вето среди рождений с score ≥ 0,25; три отложенных видео; метки рождений — по опорным кадрам. ПОПРАВКА 17.09: числа «ложных/истинных рождений» в этой карточке считались по внутреннему событию created и включают неподтверждённые треки, которые никогда не публиковались (у контроля 2 212 против 291 опубликованных по счёту birth_policy_deferred_v1); TrackEval-метрики (FP, IDSw, HOTA) от этого не зависят и остаются в силе.",
    "cannot_claim": "Спасение слабых истинных детекций (не проверяется); новизну политики рождения до сравнения с литературой.",
    "confirmed": true,
    "finished": "2026-09-16",
@@ -3142,7 +3142,7 @@
    "id": "birth_policy_deferred_v1",
    "title": "Цель 6: отложенное подтверждение рождений с низким q_birth (N подтверждений вместо вето)",
    "area": "event_confidence",
-   "state": "planned",
+   "state": "completed_positive",
    "tags": [
     "goal6",
     "line-B",
@@ -3161,8 +3161,8 @@
     "evaluation": "Как в birth_policy_qbirth_v1: TrackEval на отложенных, ложные/истинные рождения по birth_label, задержка первого правильного выхода, объектов найдено."
    },
    "expected": "Ложные рождения и FP ниже контроля на каждом отложенном видео; IDSw не выше; HOTA и IDF1 не ниже контроля − 0,1; если диагностический контроль «N для всех» даёт тот же выигрыш, вклад головы не подтверждён.",
-   "done": "Карточка записана до кода (17.09.2026, 00:0x MSK).",
-   "decision": "",
+   "done": "Карточка записана до кода (17.09.2026, 00:0x MSK). Реализован DeferredBirthByteTrack (tracking/birth_policy.py; 6 тестов: тождество при N=1, подавление двухкадрового мерцания), режим deferred в scripts/evaluate_birth_policy.py; рождение считается по первому опубликованному ID (одинаково для всех вариантов). Прогон пяти вариантов по 7 видео 17.09 00:1x–00:5x MSK (CPU). N выбран по обучающим видео: deferred_n3 (максимум HOTA на train при ложных рождениях ниже контроля).",
+   "decision": "Положительный по всем пяти записанным критериям (критерий 5 — по HOTA: селективная задержка выше безусловной; по IDF1/IDSw безусловная выше, что и ожидалось при потере покрытия). DeferredBirthByteTrack(τ_F1 = 0,327, N = 3) становится текущим лучшим вариантом линии B и контролем для следующих компонентов (q_match во втором проходе, q_alive для буфера). Число видео мало — независимая проверка остаётся обязательной.",
    "started": "2026-09-17",
    "detector": "weights/baseline_seed42/best.pt",
    "tracker": "XYWHByteTrack стенда + отложенное подтверждение",
@@ -3182,23 +3182,28 @@
    "acceptance": [
     {
      "criterion": "N = 1 воспроизводит стенд побайтово",
-     "met": null
+     "met": true,
+     "evidence": "tests/test_birth_policy.py::test_deferred_with_one_confirmation_reproduces_frozen_tracker"
     },
     {
      "criterion": "ложные рождения и FP ниже контроля на каждом отложенном видео при выбранном N",
-     "met": null
+     "met": true,
+     "evidence": "runs/birth_policy_deferred/report.json → summary.deferred_n3.acceptance.false_births_lower_every_video, fp_lower_every_video"
     },
     {
      "criterion": "IDSw не выше контроля на каждом отложенном видео",
-     "met": null
+     "met": true,
+     "evidence": "runs/birth_policy_deferred/report.json → summary.deferred_n3.acceptance.idsw_not_higher_every_video"
     },
     {
      "criterion": "HOTA и IDF1 не ниже контроля − 0,1 на агрегате отложенных",
-     "met": null
+     "met": true,
+     "evidence": "runs/birth_policy_deferred/report.json → summary.deferred_n3.delta_test: HOTA +0,366, IDF1 +0,846"
     },
     {
      "criterion": "выигрыш превосходит диагностический контроль «N для всех рождений» (вклад головы, не задержки)",
-     "met": null
+     "met": true,
+     "evidence": "runs/birth_policy_deferred/report.json → variants.defer_all_n3.metrics_test.HOTA −0,166 против +0,366 у селективной; по IDF1/IDSw безусловная выше ценой FN +308 — селективность головы подтверждена по HOTA"
     }
    ],
    "evidence": [
@@ -3207,11 +3212,92 @@
      "ref": "dissertation/План целей по Трекеру.md",
      "locator": "3.7. Цель 6",
      "claim": "один компонент за раз; парное сравнение; политика рождения не наследует порог продолжения"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/birth_policy_deferred/report.json",
+     "locator": "summary, selected_on_train, train_hota",
+     "claim": "выбор N на train и разности к контролю"
+    },
+    {
+     "kind": "plan_section",
+     "ref": "dissertation/ЕДИНЫЙ_ПЛАН.md",
+     "locator": "Журнал изменений",
+     "claim": "17.09 — отложенное подтверждение"
     }
    ],
-   "limitations": "Три отложенных видео; метки рождений по опорным кадрам; τ и голова унаследованы.",
+   "limitations": "Три отложенных видео; метки рождений по опорным кадрам; τ и голова унаследованы. Прирост HOTA сосредоточен на видео с пересветом; бутстрап по видео не считался (три видео); голова и τ унаследованы без пересмотра.",
    "cannot_claim": "Новизну N-подтверждения (min_hits — стандартный механизм SORT/DeepSORT); собственный вклад — только условное применение по q_birth, если он подтвердится относительно диагностического контроля.",
-   "confirmed": true
+   "confirmed": true,
+   "finished": "2026-09-17",
+   "obtained": "Отложенные видео, контроль: HOTA 52.675, AssA 48.310, IDF1 57.685, IDSw 310, FP 552, FN 2584; опубликованных ложных рождений 291. Выбранный на train N = 3: HOTA 53.041 (+0.366), AssA +0.735, IDF1 +0.846, IDSw 291 (-19), FP 455 (-97), FN 2660 (+76), Frag -9; ложные рождения 291 → 192, ниже на каждом видео; задержка первого правильного выхода +0,17–0,26 опорного кадра; объектов найдено 289 → 278 из 339. По видео HOTA: пересвет +1,27, темнота −0,19, сложный фон −0,28. N = 2: HOTA +0.395, IDF1 +0.895, IDSw -14, FP -63, FN +35. N = 5: HOTA +0,237. Диагностический контроль «N = 3 для всех рождений без головы»: HOTA -0.166, IDF1 +1.721, IDSw -120, FP -243, FN +308 — идентичность лучше, покрытие хуже, HOTA ниже контроля; на train HOTA −1,216.",
+   "interpretation": "Отложенное подтверждение, управляемое q_birth, даёт первый прирост на уровне трекера: HOTA +0,37, IDF1 +0,85, IDSw −19, FP −97 при FN +76. Безусловная задержка (диагностический контроль) выигрывает больше по идентичности (IDSw −120, IDF1 +1,72), но теряет покрытие (FN +308) и HOTA (−0,17): роль головы — селективность, то есть выбор, какие рождения задерживать. Прирост неоднороден: почти весь по HOTA — на видео с пересветом (+1,27); на темноте и сложном фоне HOTA в пределах −0,2…−0,3 при лучших FP/IDSw. Три видео — интервалы не считались; результат пилотный.",
+   "metrics": [
+    {
+     "key": "HOTA",
+     "value": 53.04107492500015,
+     "baseline": 52.67491393303034,
+     "subset": "3 отложенных видео, deferred N=3 (выбран на train) / контроль",
+     "source": "runs/birth_policy_deferred/report.json",
+     "locator": "variants.deferred_n3.metrics_test.HOTA"
+    },
+    {
+     "key": "IDF1",
+     "value": 58.53156588584226,
+     "baseline": 57.68539595064095,
+     "subset": "то же",
+     "source": "runs/birth_policy_deferred/report.json",
+     "locator": "variants.deferred_n3.metrics_test.IDF1"
+    },
+    {
+     "key": "AssA",
+     "value": 49.04465899167915,
+     "baseline": 48.30984716299449,
+     "subset": "то же",
+     "source": "runs/birth_policy_deferred/report.json",
+     "locator": "variants.deferred_n3.metrics_test.AssA"
+    },
+    {
+     "key": "IDSw",
+     "value": 291.0,
+     "baseline": 310.0,
+     "subset": "то же",
+     "source": "runs/birth_policy_deferred/report.json",
+     "locator": "variants.deferred_n3.metrics_test.IDSw"
+    },
+    {
+     "key": "FP",
+     "value": 455,
+     "baseline": 552,
+     "subset": "то же",
+     "source": "runs/birth_policy_deferred/report.json",
+     "locator": "variants.deferred_n3.metrics_test.CLR_FP"
+    },
+    {
+     "key": "FN",
+     "value": 2660,
+     "baseline": 2584,
+     "subset": "то же (цена)",
+     "source": "runs/birth_policy_deferred/report.json",
+     "locator": "variants.deferred_n3.metrics_test.CLR_FN"
+    },
+    {
+     "key": "HOTA",
+     "value": 52.509117510893496,
+     "baseline": 52.67491393303034,
+     "subset": "диагностический контроль: N=3 для всех рождений без головы",
+     "source": "runs/birth_policy_deferred/report.json",
+     "locator": "variants.defer_all_n3.metrics_test.HOTA"
+    },
+    {
+     "key": "IDSw",
+     "value": 190.0,
+     "baseline": 310.0,
+     "subset": "диагностический контроль: N=3 для всех",
+     "source": "runs/birth_policy_deferred/report.json",
+     "locator": "variants.defer_all_n3.metrics_test.IDSw"
+    }
+   ]
   }
  ],
  "manual_events": [
