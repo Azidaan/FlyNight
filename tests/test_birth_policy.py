@@ -77,3 +77,50 @@ def test_birth_log_records_q_birth_for_every_candidate() -> None:
         policy.update(IndexedDetections(*f))
     candidates = [e for e in policy.birth_log if e["frame"] == 4]
     assert candidates and all(abs(e["q_birth"] - 0.7) < 1e-6 and not e["vetoed"] for e in candidates)
+
+
+def _flicker_frames(n: int = 8):
+    """Устойчивый объект с кадра 0; ложная рамка живёт ровно два кадра (3–4); второй объект появляется с кадра 2 и живёт."""
+    frames = []
+    for t in range(n):
+        boxes, scores = [[10 + 2 * t, 10, 40 + 2 * t, 40]], [0.9]
+        if t in (3, 4):
+            boxes.append([400, 300, 430, 330]); scores.append(0.5)
+        if t >= 2:
+            boxes.append([200 - t, 100, 260 - t, 160]); scores.append(0.6)
+        frames.append((np.asarray(boxes, np.float32), np.asarray(scores, np.float32), np.full(len(scores), 2, np.float32)))
+    return frames
+
+
+def _run_deferred(frames, *, tau: float, confirm_hits: int, head=None):
+    from tracking.birth_policy import DeferredBirthByteTrack
+
+    BaseTrack.reset_id()
+    tracker = DeferredBirthByteTrack(make_tracker_args(**ARGS), head=head or _constant_head(0.5), tau=tau, confirm_hits=confirm_hits)
+    outputs = []
+    for f in frames:
+        tracker.set_frame_context(gray=_gray(), prev_propagated=np.zeros((0, 4), np.float32), frame_size=(600, 400))
+        outputs.append(np.array(tracker.update(IndexedDetections(*f)), copy=True))
+    return outputs
+
+
+def test_deferred_with_one_confirmation_reproduces_frozen_tracker() -> None:
+    frames = _flicker_frames()
+    BaseTrack.reset_id()
+    plain = XYWHByteTrack(make_tracker_args(**ARGS))
+    expected = [np.array(plain.update(_DetSlice(*f)), copy=True) for f in frames]
+    for a, b in zip(_run_deferred(frames, tau=1.0, confirm_hits=1), expected):
+        np.testing.assert_array_equal(a, b)
+
+
+def test_deferred_confirmation_hides_two_frame_flicker_but_keeps_persistent_object() -> None:
+    frames = _flicker_frames()
+    outputs = _run_deferred(frames, tau=1.0, confirm_hits=3)  # все рождения «низкие» -> 3 подтверждения
+    published = {t: {int(row[4]) for row in out} for t, out in enumerate(outputs)}
+    # объект 2 (с кадра 2) должен появиться, но не раньше кадра 2 + 3
+    first_seen = min(t for t, ids in published.items() if len(ids) >= 2)
+    assert first_seen == 5
+    # ложная рамка (кадры 3–4) никогда не публикуется: на кадре 4 не больше двух ID
+    assert all(len(ids) <= 2 for ids in published.values())
+    control = _run_deferred(frames, tau=1.0, confirm_hits=1)
+    assert any(len({int(row[4]) for row in out}) == 3 for out in control)  # в контроле ложная рамка публикуется

@@ -29,7 +29,7 @@ from scripts.build_event_dataset import BIRTH_HORIZON, BIRTH_MAX_GAP, CLASS_IDS,
 from scripts.evaluate_flyvis_qmatch_gate import TEST_VIDEO_IDS, TRAIN_VIDEO_IDS, propagate_box, truth_arrays  # noqa: E402
 from scripts.freeze_bench import XYWH_CONFIG  # noqa: E402
 from scripts.run_bdd_video_rate_experiment import detections_for_frame, load_detection_cache, load_motion_cache, save_json, scalabel_frame  # noqa: E402
-from tracking.birth_policy import BirthHead, QBirthByteTrack  # noqa: E402
+from tracking.birth_policy import BirthHead, DeferredBirthByteTrack, QBirthByteTrack  # noqa: E402
 from tracking.decision_log import IndexedDetections  # noqa: E402
 from tracking.event_dataset import birth_label  # noqa: E402
 from tracking.flyvis_tracker import box_iou  # noqa: E402
@@ -44,6 +44,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--labels", type=Path, default=PROJECT_ROOT / "data" / "bdd100k" / "labels" / "box_track_20" / "val")
     parser.add_argument("--output", type=Path, default=PROJECT_ROOT / "runs" / "birth_policy")
     parser.add_argument("--precision-margin", type=float, default=0.05)
+    parser.add_argument("--mode", choices=("veto", "deferred"), default="veto")
+    parser.add_argument("--head-json", type=Path, default=None, help="deferred: голова и τ из прежнего прогона (runs/birth_policy)")
+    parser.add_argument("--confirm-hits", nargs="+", type=int, default=(2, 3, 5))
     return parser.parse_args()
 
 
@@ -70,7 +73,13 @@ def train_head(dataset: Path) -> tuple[BirthHead, dict]:
     return head, info
 
 
-def run_variant(name: str, tau: float, head: BirthHead, args: argparse.Namespace, video_ids: list[str], result_dir: Path) -> dict:
+def make_tracker(spec: dict, head: BirthHead):
+    if spec.get("kind") == "deferred":
+        return DeferredBirthByteTrack(make_tracker_args(**XYWH_CONFIG), head=head, tau=spec["tau"], confirm_hits=spec["confirm_hits"], class_ids=CLASS_IDS, defer_all=spec.get("defer_all", False))
+    return QBirthByteTrack(make_tracker_args(**XYWH_CONFIG), head=head, tau=spec["tau"], class_ids=CLASS_IDS)
+
+
+def run_variant(name: str, spec: dict, head: BirthHead, args: argparse.Namespace, video_ids: list[str], result_dir: Path) -> dict:
     per_video = {}
     for video_id in video_ids:
         detections = load_detection_cache(args.root / video_id / "detections" / "raw_video.npz")
@@ -87,8 +96,9 @@ def run_variant(name: str, tau: float, head: BirthHead, args: argparse.Namespace
         capture = cv2.VideoCapture(str(args.videos / f"{video_id}.mov"))
         frame_size = (int(capture.get(cv2.CAP_PROP_FRAME_WIDTH)), int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT)))
         BaseTrack.reset_id()
-        tracker = QBirthByteTrack(make_tracker_args(**XYWH_CONFIG), head=head, tau=tau, class_ids=CLASS_IDS)
+        tracker = make_tracker(spec, head)
         rows, pending, counters = [], [], Counter()
+        seen_ids: set[int] = set()
         births_out: list[tuple[int, int]] = []
         first_correct: dict[str, int] = {}
         prev_boxes = np.zeros((0, 4), np.float32)
@@ -106,9 +116,12 @@ def run_variant(name: str, tau: float, head: BirthHead, args: argparse.Namespace
             log = tracker.update_with_log(IndexedDetections(xyxy, conf, cls))
             timings.append(time.perf_counter() - tick)
             output = log["output"]
-            for e in log["events"]:
-                if e["event"] == "created":
-                    pending.append({"track_id": e["track_id"], "frame": t, "det_box": xyxy[e["det_index"]].copy(), "class_id": int(cls[e["det_index"]])})
+            # рождение = первое появление ID в выходе (опубликованный новый ID), одинаково для всех вариантов
+            for row in output:
+                tid = int(row[4])
+                if tid not in seen_ids:
+                    seen_ids.add(tid)
+                    pending.append({"track_id": tid, "frame": t, "det_box": row[:4].astype(np.float32).copy(), "class_id": int(row[6])})
             if t in ref_of_raw:
                 r = ref_of_raw[t]
                 rows.append(scalabel_frame(video_id, truth[r], output))
@@ -149,7 +162,7 @@ def run_variant(name: str, tau: float, head: BirthHead, args: argparse.Namespace
         found = [g for g in first_seen if len(presence[g]) >= BIRTH_HORIZON]
         per_video[video_id] = {
             "births": int(len(labels)), "true_births": int(labels.sum()), "false_births": int((labels == 0).sum()), "birth_precision": float(labels.mean()) if len(labels) else None,
-            "candidates_seen": int(len(tracker.birth_log)), "vetoed": int(sum(e["vetoed"] for e in tracker.birth_log)),
+            "candidates_seen": int(len(tracker.birth_log)), "vetoed": int(sum(e["vetoed"] for e in tracker.birth_log)), "deferred": int(sum(e.get("deferred", False) for e in tracker.birth_log)),
             "objects_eligible": int(len(found)), "objects_found": int(len(delays)), "mean_first_output_delay_ref": float(np.mean(delays)) if delays else None,
             "counters": dict(counters), "association_ms_mean": float(np.mean(timings) * 1000),
         }
@@ -160,17 +173,28 @@ def run_variant(name: str, tau: float, head: BirthHead, args: argparse.Namespace
 def main() -> int:
     args = parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
-    head, head_info = train_head(args.dataset)
-    save_json(args.output / "head.json", head.to_json())
+    if args.mode == "deferred" and args.head_json is not None:
+        head = BirthHead.from_json(args.head_json)
+        head_info = json.loads((args.head_json.parent / "report.json").read_text(encoding="utf-8"))["head"]
+        head_info["reused_from"] = str(args.head_json)
+    else:
+        head, head_info = train_head(args.dataset)
+        save_json(args.output / "head.json", head.to_json())
     print(f"[HEAD] {head_info}", flush=True)
-    variants = {"control": 0.0, "tau_f1": head_info["tau_f1"], "tau_prec": head_info["tau_prec"]}
+    if args.mode == "deferred":
+        variants = {"control": {"kind": "veto", "tau": 0.0}}
+        for n in args.confirm_hits:
+            variants[f"deferred_n{n}"] = {"kind": "deferred", "tau": head_info["tau_f1"], "confirm_hits": n}
+        variants["defer_all_n3"] = {"kind": "deferred", "tau": 1.0, "confirm_hits": 3, "defer_all": True}
+    else:
+        variants = {"control": {"kind": "veto", "tau": 0.0}, "tau_f1": {"kind": "veto", "tau": head_info["tau_f1"]}, "tau_prec": {"kind": "veto", "tau": head_info["tau_prec"]}}
     video_ids = list(TRAIN_VIDEO_IDS + TEST_VIDEO_IDS)
     report = {"protocol": {"head": "StandardScaler + LogisticRegression(C=1) на q_birth четырёх обучающих видео (base + DIS)", "tau_rule": "τ_F1 — максимум F1 на train; τ_prec — минимальное τ с точностью рождений ≥ контроль + 0,05 на train", "tracker": XYWH_CONFIG, "train_video_ids": list(TRAIN_VIDEO_IDS), "test_video_ids": list(TEST_VIDEO_IDS)}, "head": head_info, "variants": {}}
-    for name, tau in variants.items():
-        print(f"[RUN] {name} τ={tau:.4f}", flush=True)
+    for name, spec in variants.items():
+        print(f"[RUN] {name} {spec}", flush=True)
         result_dir = args.output / name
-        run = run_variant(name, tau, head, args, video_ids, result_dir)
-        run["tau"] = tau
+        run = run_variant(name, spec, head, args, video_ids, result_dir)
+        run["tau"] = spec["tau"]; run["spec"] = spec
         run["metrics_test"] = evaluate_hota(result_dir, list(TEST_VIDEO_IDS))
         run["metrics_train"] = evaluate_hota(result_dir, list(TRAIN_VIDEO_IDS))
         run["metrics_test_by_video"] = {v: evaluate_hota(result_dir, [v]) for v in TEST_VIDEO_IDS}
@@ -180,7 +204,7 @@ def main() -> int:
     keys = ("HOTA", "DetA", "AssA", "IDF1", "MOTA", "IDSw", "CLR_FP", "CLR_FN", "Frag")
     ctrl = report["variants"]["control"]
     summary = {}
-    for name in ("tau_f1", "tau_prec"):
+    for name in [k for k in report["variants"] if k != "control"]:
         var = report["variants"][name]
         summary[name] = {
             "delta_test": {k: var["metrics_test"][k] - ctrl["metrics_test"][k] for k in keys},
@@ -196,6 +220,12 @@ def main() -> int:
             "idsw_not_higher_every_video": all(d["IDSw"] <= 0 for d in s["per_video_delta"].values()),
             "hota_idf1_not_below_control_minus_0_1": s["delta_test"]["HOTA"] >= -0.1 and s["delta_test"]["IDF1"] >= -0.1,
         }
+    if args.mode == "deferred":
+        # выбор N по обучающим видео: максимум HOTA при ложных рождениях ниже контроля
+        ctrl_fb_train = sum(ctrl["per_video"][v]["false_births"] for v in TRAIN_VIDEO_IDS)
+        eligible = {n: report["variants"][n]["metrics_train"]["HOTA"] for n in summary if n.startswith("deferred") and sum(report["variants"][n]["per_video"][v]["false_births"] for v in TRAIN_VIDEO_IDS) < ctrl_fb_train}
+        report["selected_on_train"] = max(eligible, key=eligible.get) if eligible else None
+        report["train_hota"] = {n: report["variants"][n]["metrics_train"]["HOTA"] for n in report["variants"]}
     report["summary"] = summary
     save_json(args.output / "report.json", report)
     print(json.dumps({k: {"delta_test": {kk: round(vv, 4) for kk, vv in v["delta_test"].items()}, "acceptance": v["acceptance"]} for k, v in summary.items()}, ensure_ascii=False, indent=1))

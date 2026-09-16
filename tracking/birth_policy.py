@@ -121,3 +121,53 @@ class QBirthByteTrack(AuditedXYWHByteTrack):
             if not vetoed:
                 allowed.append(inew)
         return super()._init_new_tracks(allowed, detections, activated, refind)
+
+
+class DeferredBirthByteTrack(QBirthByteTrack):
+    """Рождение с q_birth < τ публикуется только после confirm_hits повторных совпадений подряд.
+
+    Рождение с q_birth ≥ τ подтверждается как в ByteTrack (одно повторное совпадение).
+    Любой пропуск до подтверждения удаляет трек — штатная семантика неподтверждённых.
+    confirm_hits = 1 для всех рождений тождествен стенду.
+    """
+
+    def __init__(self, args, *, head: BirthHead, tau: float, confirm_hits: int, class_ids=(0, 1, 2, 3, 4, 5, 6, 7), defer_all: bool = False) -> None:
+        super().__init__(args, head=head, tau=tau, class_ids=class_ids)
+        self.confirm_hits = int(confirm_hits)
+        self.defer_all = bool(defer_all)  # диагностический контроль: задержка для всех рождений без головы
+
+    def _init_new_tracks(self, u_detection, detections, activated, refind=None):
+        if self._context is None:
+            raise RuntimeError("set_frame_context() должен вызываться перед update()")
+        tracked_boxes = self._tracked_prediction_boxes()
+        before = len(activated)
+        candidates = []
+        for inew in u_detection:
+            track = detections[inew]
+            if track.score < self.args.new_track_thresh:
+                continue
+            if self.defer_all:
+                q, deferred = float("nan"), True
+            else:
+                features = birth_features(box_xyxy=track.xyxy, score=float(track.score), class_id=int(track.cls), class_ids=self.class_ids, gray=self._context["gray"], frame_size=self._context["frame_size"], tracked_boxes=tracked_boxes, prev_propagated=self._context["prev_propagated"])
+                q = self.head.probability(features)
+                deferred = q < self.tau
+            self.birth_log.append({"frame": int(self.frame_id), "det_index": int(track.idx), "score": float(track.score), "q_birth": q, "vetoed": False, "deferred": bool(deferred)})
+            track.required_hits = self.confirm_hits if deferred else 1
+            candidates.append(inew)
+        AuditedXYWHByteTrack._init_new_tracks(self, candidates, detections, activated, refind)
+        # На первом кадре ByteTrack активирует сразу; отложенные рождения всё равно ждут подтверждений.
+        for track in activated[before:]:
+            if getattr(track, "required_hits", 1) > 1 and track.is_activated and track.tracklet_len < track.required_hits:
+                track.is_activated = False
+
+    def _unconfirmed_association(self, unconfirmed, u_detection, detections, activated, removed):
+        result = super()._unconfirmed_association(unconfirmed, u_detection, detections, activated, removed)
+        held = set()
+        for track in unconfirmed:
+            if track.frame_id == self.frame_id and track.is_activated and track.tracklet_len < getattr(track, "required_hits", 1):
+                track.is_activated = False  # совпал, но подтверждений ещё недостаточно
+                held.add(int(track.track_id))
+        if held:
+            self.events = [e for e in self.events if not (e["event"] == "confirmed" and e["track_id"] in held)]
+        return result
