@@ -3298,6 +3298,72 @@
      "locator": "variants.defer_all_n3.metrics_test.IDSw"
     }
    ]
+  },
+  {
+   "id": "flyvis_event_features_v1",
+   "title": "Н3: считывание FlyVis как признак событий без пары — q_alive (фовеальный глаз на кадре потери) и q_birth (тайловое считывание рамки рождения)",
+   "area": "flyvis",
+   "state": "planned",
+   "tags": [
+    "registry-H3",
+    "q_alive",
+    "q_birth",
+    "readout",
+    "shuffled-control",
+    "line-A"
+   ],
+   "summary": "Смена мишени после трёх отрицательных гейтов q_match: геометрия пары насыщает ассоциацию соседних кадров, но у событий существования пары нет. Проверяется, добавляют ли те же считывания T4/T5 и all34 информацию сверх base + DIS для q_alive (жив ли объект потерянного трека) и q_birth (безопасно ли рождение). Всё на готовых кэшах: runs/flyvis_fovea (self-строки глаза трека на кадре перехода в lost), runs/flyvis_activity (тайловая активность на кадре рождения), выборки runs/event_dataset.",
+   "question": "Несёт ли внутренняя активность FlyVis условную информацию о существовании объекта (q_alive) и безопасности рождения (q_birth) сверх признаков трека, изображения и DIS?",
+   "hypothesis": "Для существования объекта важны не смещение, а согласованность и «объектность» локального движения (энтропия направлений, контраст объект/фон, ON/OFF), которые не выражаются геометрией пары.",
+   "protocol": {
+    "q_alive": "Единица — строка q_alive.npz (кадр потери l, track_id). Признак FlyVis — self-строка фовеального глаза этого трека на кадре l (detection_index = −1): 24 признака T4T5 self-рамки (+3 парных члена self–self отбрасываются), 69 признаков all34 self. Пары без глаза получают нули и флаг has_eye; флаг входит и в контроль.",
+    "q_birth": "Единица — строка q_birth.npz (кадр рождения b, det_index). Признак FlyVis — тайловое считывание рамки рождающей детекции на кадре b из runs/flyvis_activity: 24 T4T5 + 69 all34, baseline вычитается, min_margin = шаг колонок.",
+    "ladder": "control = base + DIS (+ has_eye для q_alive) — та же спецификация, что event_heads_v1; + FlyVis T4T5; + FlyVis all34; + shuffled T4T5 (перестановка внутри видео среди единиц с признаком). Логистическая регрессия, обучение и порог на 4 обучающих видео, парный бутстрап по 3 отложенным.",
+    "readout_generality": "Считывание не переопределяется под событие: используется tracking/flyvis_activity.py как есть."
+   },
+   "expected": "Для каждого события: AP выше контроля и Brier не хуже на каждом отложенном видео, прирост выше shuffled. Если оба события отрицательны — гипотеза «мишень без пары» закрывается для ручного считывания; остаются Н1 (движение при фовеации) и обучаемое считывание.",
+   "done": "Карточка записана до кода (17.09.2026, 00:2x MSK).",
+   "decision": "",
+   "started": "2026-09-17",
+   "detector": "weights/baseline_seed42/best.pt",
+   "tracker": "XYWHByteTrack стенда (события и глаза)",
+   "dataset": "runs/event_dataset, runs/flyvis_fovea, runs/flyvis_activity",
+   "split": "4 обучающих / 3 отложенных",
+   "baseline": "base + DIS (+ has_eye)",
+   "variant": "+ FlyVis T4T5 / all34",
+   "commits": [],
+   "files": [
+    "scripts/evaluate_fly_event_features.py",
+    "tests/test_fly_event_features.py"
+   ],
+   "runs": [
+    "runs/flyvis_event_features"
+   ],
+   "acceptance": [
+    {
+     "criterion": "q_alive: доля единиц с глазом ≥ 0,8 на каждом видео; AP выше контроля и Brier не хуже на каждом отложенном видео; выше shuffled",
+     "met": null
+    },
+    {
+     "criterion": "q_birth: AP выше контроля и Brier не хуже на каждом отложенном видео; выше shuffled",
+     "met": null
+    },
+    {
+     "criterion": "признаки FlyVis зависят только от кадров ≤ кадра события (по построению кэшей)",
+     "met": null
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "plan_section",
+     "ref": "dissertation/План целей по Трекеру.md",
+     "locator": "1.7. Реестр",
+     "claim": "Н3 — смена мишени"
+    }
+   ],
+   "limitations": "Три отложенных видео; q_alive — 1 148 тестовых единиц с 84 % положительных; фовеальные глаза только у tracked-треков (lost-страта q_match не покрыта — следующая карточка требует глаз через lost).",
+   "cannot_claim": "Пользу для траекторий до встраивания; перенос на другие считывания.",
+   "confirmed": true
   }
  ],
  "manual_events": [
