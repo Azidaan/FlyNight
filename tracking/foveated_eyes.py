@@ -47,8 +47,11 @@ def original_detection_index(conf: np.ndarray, *, subset_index: int, score: floa
 class EyeBank:
     """Батч глаз FlyVis с переменным составом; состояния режутся и склеиваются по track_id."""
 
-    def __init__(self, estimator, *, context: float = 2.0, min_side: int = 64, fade_in_seconds: float = 1.0) -> None:
+    def __init__(self, estimator, *, context: float = 2.0, min_side: int = 64, fade_in_seconds: float = 1.0, decode_flow: bool = False) -> None:
         self.estimator = estimator
+        self.decode_flow = bool(decode_flow)
+        self._baseline_flow: dict[int, "torch.Tensor"] = {}
+        self._last_flow: dict[int, np.ndarray] = {}
         self.torch = estimator.torch
         self.network = estimator.network
         self.eye = estimator.eye
@@ -75,6 +78,16 @@ class EyeBank:
 
     def baseline(self, track_id: int) -> np.ndarray:
         return self._baseline[track_id]
+
+    def last_flow(self, track_id: int) -> np.ndarray:
+        """Остаточный декодированный поток глаза (hexals, 2) в единицах декодера, минус базовый после fade-in."""
+        return self._last_flow[track_id]
+
+    def _decode(self, activity_steps: "torch.Tensor") -> "torch.Tensor":
+        """(B, steps, nodes) -> (B, 2, hexals): среднее декодированное поле по шагам."""
+        with self.torch.inference_mode():
+            decoded = self.estimator.decoder(activity_steps)  # (B, steps, 2, hexals)
+        return decoded.mean(dim=1)
 
     def _render(self, gray: np.ndarray, crops: list[tuple[int, int, int, int]]):
         import cv2
@@ -109,11 +122,15 @@ class EyeBank:
         with self.torch.inference_mode():
             state = self.network.fade_in_state(self.fade_in_seconds, self.dt, hexes[:, 0])
         activity = state.nodes.activity  # (B, nodes)
+        base_flow = self._decode(activity.unsqueeze(1)) if self.decode_flow else None
         for row, tid in enumerate(ids):
             self._activity[tid] = activity[row].clone()
             self._last_hex[tid] = hexes[row].clone()
             self._baseline[tid] = self._by_type(activity[row : row + 1])
             self.crops[tid] = crops[row]
+            if base_flow is not None:
+                self._baseline_flow[tid] = base_flow[row].clone()
+                self._last_flow[tid] = np.zeros((base_flow.shape[-1], 2), np.float32)
         self.stats["births"] += len(ids)
         self.stats["fade_in_seconds_total"] += self.fade_in_seconds * len(ids)
 
@@ -134,12 +151,16 @@ class EyeBank:
         with self.torch.inference_mode():
             states = self.network.simulate(stimulus, self.dt, initial_state=initial, as_states=True)
         activity = self.torch.stack([state.nodes.activity for state in states], dim=1)  # (B, steps, nodes)
+        flow = self._decode(activity) if self.decode_flow else None
         result = {}
         for row, tid in enumerate(ids):
             self._activity[tid] = activity[row, -1].clone()
             self._last_hex[tid] = new_hex[row].clone()
             self.crops[tid] = crops[row]
             result[tid] = self._by_type(activity[row])
+            if flow is not None:
+                residual = (flow[row] - self._baseline_flow[tid]).detach().cpu().numpy().astype(np.float32)  # (2, hexals)
+                self._last_flow[tid] = residual.T.copy()
         self.stats["steps"] += len(ids)
         return result
 
@@ -149,3 +170,5 @@ class EyeBank:
             self._last_hex.pop(tid, None)
             self._baseline.pop(tid, None)
             self.crops.pop(tid, None)
+            self._baseline_flow.pop(tid, None)
+            self._last_flow.pop(tid, None)

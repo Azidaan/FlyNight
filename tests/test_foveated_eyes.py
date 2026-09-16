@@ -68,3 +68,21 @@ def test_eye_bank_births_steps_and_removes_eyes_deterministically() -> None:
     _, first_b, second_b = run([2, 1])
     np.testing.assert_allclose(second[1], second_b[1], atol=1e-4)  # порядок в батче не важен
     assert np.isfinite(second[3]).all()
+
+
+def test_eye_bank_decodes_residual_flow_per_eye_when_enabled() -> None:
+    from tracking.flyvis_motion import FlyVisMotionEstimator, TileLayout
+    from tracking.foveated_eyes import EyeBank
+
+    estimator = FlyVisMotionEstimator(mode="tiled", layout=TileLayout(2, 3, 0.20), source_fps=30.0, dt=0.02, flow_gain=1.0, temporal_resampling="linear")
+    rng = np.random.default_rng(2)
+    frames = [rng.integers(0, 255, (180, 320), dtype=np.uint8) for _ in range(2)]
+    bank = EyeBank(estimator, context=2.0, min_side=64, fade_in_seconds=0.2, decode_flow=True)
+    bank.birth(frames[0], {1: (60.0, 60.0, 30.0, 20.0)})
+    bank.step(frames[1], {1: (62.0, 60.0, 30.0, 20.0)})
+    flow = bank.last_flow(1)
+    assert flow.shape == (721, 2) and np.isfinite(flow).all()
+    # базовый поток после fade-in вычтен: до первого шага остаточный поток глаза нулевой
+    bank2 = EyeBank(estimator, context=2.0, min_side=64, fade_in_seconds=0.2, decode_flow=True)
+    bank2.birth(frames[0], {1: (60.0, 60.0, 30.0, 20.0)})
+    np.testing.assert_allclose(bank2.last_flow(1), 0.0)
