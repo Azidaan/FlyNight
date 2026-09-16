@@ -3508,6 +3508,64 @@
      "locator": "aggregate.fitted_on_train.test.oracle.mean"
     }
    ]
+  },
+  {
+   "id": "train_videos_1a",
+   "title": "Цель 1а: исходные обучающие видео BDD100K MOT — загрузка, манифест, выравнивание с разметкой, разбиение",
+   "area": "infra",
+   "state": "running",
+   "tags": [
+    "goal1a",
+    "data",
+    "manifest",
+    "split"
+   ],
+   "summary": "1 400 MOT-train роликов выкачиваются по диапазонам байт из официального bdd100k_videos.zip (1,97 ТБ; Zip64-каталог читается с конца; CRC32/sha256); для каждого — частота и кадры по контейнеру, сопоставление размеченных кадров с исходными по содержимому (tracking.video_alignment, радиус 24, как у семи val-видео), аудит (max MAE ≤ 2,5, шаги 1–12, монотонность); разбиение train/dev/test 70/15/15 по sha1(ID), фиксируется до обучения. Семь val-видео остаются отдельным отложенным набором.",
+   "question": "Инфраструктурный: пригодны ли обучающие видео для обучения голов FlyVis и линии B (частота ~30 Гц, читаемость, соответствие разметке)?",
+   "expected": "Манифест с числом пригодных роликов, диапазоном частот, числом отказов выравнивания и составом разбиения; без научных выводов.",
+   "done": "scripts/zip_range_fetch.py (4 теста), scripts/fetch_bdd100k_videos.py (12 потоков, докачка), scripts/build_train_video_manifest.py (дымовой прогон 3 видео: все выровнены, 30,04–30,15 fps). Загрузка (PID 17380) и выравнивание (PID 24056, ~18 с/видео) идут 17.09 с 01:1x MSK.",
+   "decision": "",
+   "started": "2026-09-17",
+   "dataset": "data/bdd100k/videos/train (1 400 .mov, 27,86 ГБ), images/track/train, labels/box_track_20/train",
+   "commits": [],
+   "files": [
+    "scripts/zip_range_fetch.py",
+    "scripts/fetch_bdd100k_videos.py",
+    "scripts/build_train_video_manifest.py",
+    "tests/test_zip_range_fetch.py"
+   ],
+   "runs": [
+    "runs/train_videos",
+    "data/bdd100k/videos/train_manifest.json"
+   ],
+   "acceptance": [
+    {
+     "criterion": "все 1 400 роликов скачаны и проходят CRC32 из каталога архива",
+     "met": null
+    },
+    {
+     "criterion": "частота по контейнеру 29–31 кадр/с, ролик читается, число размеченных кадров = число опорных изображений",
+     "met": null
+    },
+    {
+     "criterion": "выравнивание по содержимому: max MAE ≤ 2,5, шаги монотонны и ≤ 12 — доля пригодных роликов и список отказов записаны",
+     "met": null
+    },
+    {
+     "criterion": "разбиение train/dev/test зафиксировано в манифесте до любого обучения; val-семёрка вне обучения",
+     "met": null
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "plan_section",
+     "ref": "dissertation/План целей по Трекеру.md",
+     "locator": "3.2а. Цель 1а",
+     "claim": "требования к манифесту и разбиению"
+    }
+   ],
+   "limitations": "Разбиение по хэшу ID — без стратификации по условиям съёмки; при необходимости стратификация оформляется отдельной версией разбиения.",
+   "confirmed": true
   }
  ],
  "manual_events": [
