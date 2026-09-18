@@ -58,7 +58,7 @@ def collect(video_id: str, args: argparse.Namespace) -> dict:
             continue
         gt_c = center(tb[k]); pred_c = center(flow["pred_box"][i]); out_c = center(flow["out_box"][i])
         dis_c = center(flow["dis_box"][i]) if not np.isnan(flow["dis_box"][i, 0]) else pred_c
-        rows.append({"frame": t, "track_id": int(flow["track_id"][i]), "side": int(flow["crop_side"][i]), "gt": gt_c, "pred": pred_c, "delta": flow["delta"][i].astype(np.float64), "dis": dis_c, "oracle": out_c, "magnitude": float(flow["magnitude"][i]), "scale": float(np.sqrt(max((tb[k][2] - tb[k][0]) * (tb[k][3] - tb[k][1]), 1.0)))})
+        rows.append({"frame": t, "track_id": int(flow["track_id"][i]), "side": int(flow["crop_side"][i]), "gt": gt_c, "pred": pred_c, "delta": flow["delta"][i].astype(np.float64), "dis": dis_c, "oracle": out_c, "magnitude": float(flow["magnitude"][i]), "pred_box": flow["pred_box"][i].astype(np.float64), "n_inside": int(flow["n_inside"][i]), "scale": float(np.sqrt(max((tb[k][2] - tb[k][0]) * (tb[k][3] - tb[k][1]), 1.0)))})
     return {"rows": rows, "flow_rows": int(len(flow["frame"]))}
 
 
