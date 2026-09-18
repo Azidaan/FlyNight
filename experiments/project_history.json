@@ -3737,6 +3737,83 @@
      "locator": "groups.geometry_dis.test.average_precision"
     }
    ]
+  },
+  {
+   "id": "flyvis_retina_frontend_v1",
+   "title": "Н9/М1: фронт-энд «фоторецептор + ламина» перед глазом FlyVis — восстанавливается ли сигнал мухи на тёмных видео",
+   "area": "flyvis",
+   "state": "in_progress",
+   "tags": [
+    "registry-H9",
+    "modernization-M1",
+    "foveation",
+    "retina",
+    "night",
+    "learned-head"
+   ],
+   "summary": "Муха получала gray/255 без адаптации, тогда как обучена при яркости ~0,45 и контрасте exp(N(0, 0,2)); на 27 тёмных роликах (motion_reliability_v1, стратификация по яркости) муха без DIS даёт −0,003 AP к геометрии против +0,013 на светлых; на тёмном val-видео b1d22449 ρ(|δ|, ошибка) = −0,036, голова geometry+fly 0,475 < geometry 0,502 (LOVO). Перед глазом ставится tracking/retina.py: фоторецептор R1–R6 (Нака–Раштон I/(I+I_adapt+dark_floor) с адаптацией I_adapt по τ = 0,3 с и σ = 24 px, усиление 2, темновой порог 0,05) и ламина L1/L2 (центр-окружение σ = 12 px, деление на локальный размах с порогом 0,1); контроль norm — глобальная нормализация кадра без биологии. Сама сеть, декодер и параметры мухи не меняются. Ступень A: пересчёт фовеального потока на val-семёрке для трёх режимов (build_foveated_readout_cache.py --decode-flow --retina <mode>), оценка scripts/evaluate_retina_frontend.py: ρ по видео, ошибка после поправки g·δ, головы «исключить одно видео». Ступень B (по итогам A, по разрешению — >1 ч GPU): пересчёт на тёмных роликах кэша ступени 1 и повтор лестницы Н2 на тёмной/светлой подвыборках.",
+   "question": "Возвращает ли адаптивный вход (достроенная сетчатка) мухе сигнал надёжности/движения на тёмных видео, где сейчас его нет?",
+   "hypothesis": "Причина пустоты мухи ночью — вход вне обучающего распределения, а не коннектом; после адаптации входа ρ и вклад головы на тёмном видео станут положительными, на светлых не ухудшатся.",
+   "expected": "На b1d22449: ρ(|δ|, ошибка) > +0,1 (сейчас −0,036); прибавка головы geometry+fly над geometry больше, чем без сетчатки (сейчас −0,027) и выше shuffled. Средний LOVO AP geometry+fly по 7 видео не ниже, чем без сетчатки, минус 0,005. Режим norm — контроль: если он даёт то же, что фоторецептор, биологическая форма не нужна, достаточно нормализации.",
+   "done": "Карточка записана до расчёта (18.09.2026, 20:5x MSK). Модуль tracking/retina.py (8 тестов), --retina в сборщике фовеи, evaluate_retina_frontend.py. Прогон трёх режимов на val7 запущен 18.09 20:47 (PID 25068, лог runs/fovea_retina_val7.log).",
+   "decision": "",
+   "started": "2026-09-18",
+   "dataset": "val-семёрка (runs/video_rate детекции и DIS; фовеальный поток по режимам в runs/flyvis_fovea_flow_retina_{norm,photo,lamina})",
+   "split": "LOVO по 7 видео; порог события τ_e = 75-й перцентиль ошибки на train-четвёрке режима none",
+   "baseline": "режим none (runs/flyvis_fovea_flow, карточка flyvis_fovea_motion_v1)",
+   "variant": "photoreceptor; lamina; norm (контроль)",
+   "commits": [],
+   "files": [
+    "tracking/retina.py",
+    "tests/test_retina.py",
+    "scripts/build_foveated_readout_cache.py",
+    "scripts/evaluate_retina_frontend.py"
+   ],
+   "runs": [
+    "runs/retina_frontend",
+    "runs/flyvis_fovea_flow_retina_photo"
+   ],
+   "acceptance": [
+    {
+     "criterion": "ρ(|δ|, ошибка) на тёмном видео b1d22449 > +0,1 (без сетчатки −0,036)",
+     "met": null,
+     "evidence": "runs/retina_frontend/report_val7.json → modes.<mode>.rho_dark"
+    },
+    {
+     "criterion": "прибавка головы geometry+fly над geometry на тёмном видео больше, чем в режиме none, и выше shuffled",
+     "met": null,
+     "evidence": "runs/retina_frontend/report_val7.json → acceptance.<mode>.dark_improves, fly_beats_shuffled_dark"
+    },
+    {
+     "criterion": "средний LOVO AP geometry+fly по 7 видео не ниже режима none − 0,005",
+     "met": null,
+     "evidence": "runs/retina_frontend/report_val7.json → acceptance.<mode>.mean_not_worse"
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "plan_section",
+     "ref": "dissertation/План целей по Трекеру.md",
+     "locator": "1.7. Реестр, Н9",
+     "claim": "вход вне распределения при слабом освещении; решение — фронт-энд"
+    },
+    {
+     "kind": "markdown",
+     "ref": "dissertation/Исследование_модернизация_мухи.md",
+     "locator": "1.1, 3 (М1)",
+     "claim": "диагноз по стратификации motion_reliability_v1 и постановка М1"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/retina_frontend/report_val7.json",
+     "locator": "modes, acceptance",
+     "claim": "ступень A на val7"
+    }
+   ],
+   "limitations": "Ступень A — 7 видео, одно тёмное; LOVO-головы малы; параметры сетчатки выбраны заранее по физиологии, не подбирались (один набор на режим). Сжатие видео даёт блочный шум, который адаптация усиливает — гасится dark_floor и усреднением фасеток.",
+   "cannot_claim": "Перенос на тёмные train-видео и пользу для HOTA до ступени B и встраивания.",
+   "confirmed": false,
+   "metrics": []
   }
  ],
  "manual_events": [

@@ -26,6 +26,7 @@ from scripts.run_bdd_video_rate_experiment import detections_for_frame, distribu
 from scripts.evaluate_flyvis_qmatch_gate import propagate_box  # noqa: E402
 from tracking.flyvis_activity import box_readout_all_types, box_readout_t4t5, column_spacing  # noqa: E402
 from tracking.foveated_eyes import EyeBank, box_to_crop_frame, original_detection_index  # noqa: E402
+from tracking.retina import make_retina  # noqa: E402
 from tracking.offline_association import _DetSlice, make_tracker_args  # noqa: E402
 
 VIDEO_IDS = (
@@ -47,6 +48,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--ring-scale", type=float, default=1.5)
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--decode-flow", action="store_true", help="Н1: остаточный поток глаза и поправка к предсказанию; считывания не считаются")
+    parser.add_argument("--retina", default="none", help="Н9/М1: фронт-энд перед глазом: none | norm | photoreceptor | lamina")
+    parser.add_argument("--retina-tau", type=float, default=0.3, help="постоянная времени адаптации фоторецептора, с")
+    parser.add_argument("--retina-gain", type=float, default=2.0)
+    parser.add_argument("--retina-filter", type=float, default=0.0, help="временной ФНЧ фоторецептора, с (0 — выключен)")
     return parser.parse_args()
 
 
@@ -76,6 +81,7 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
     fps = float(json.loads((args.flow_root / video_id / "motion" / "flyvis_tiled.json").read_text(encoding="utf-8"))["fps"])
     estimator = make_motion_estimator("flyvis_tiled", fps, 0.02)
     bank = EyeBank(estimator, context=args.context, min_side=args.min_side, fade_in_seconds=args.fade_in, decode_flow=args.decode_flow)
+    retina = make_retina(args.retina, fps, tau_adapt=args.retina_tau, gain=args.retina_gain, tau_filter=args.retina_filter)
     dis_points, dis_vectors = load_motion_cache(args.detections_root / video_id / "motion" / "dis_quarter.npz", 1.0) if args.decode_flow else (None, None)
     flow_rows: list[list[float]] = []
     prev_output_boxes: dict[int, np.ndarray] = {}
@@ -96,10 +102,11 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         if not ok:
             break
         tick = time.perf_counter()
+        eye_frame = retina.process(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY))  # (H, W) float32 в единицах 0..255; при retina=none равно gray
         xyxy, conf, classes = detections_for_frame(detections, frame_index)
         # 1. Глаза существующих треков смотрят туда, где трек предсказан на этом кадре.
         predictions = {int(t.track_id): tuple((t.mean[:4] + t.mean[4:8]).tolist()) for t in prev_tracked if int(t.track_id) in bank.track_ids}
-        activity = bank.step(frame, predictions)
+        activity = bank.step(eye_frame, predictions)
         if args.decode_flow:
             for tid in activity:
                 crop = bank.crops[tid]; side = crop[2] - crop[0]
@@ -150,7 +157,7 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         prev_det_index = {int(t.track_id): original_detection_index(conf, subset_index=int(t.idx), score=float(t.score), high=high, low=low) for t in tracked}
         # 3. Рождение глаз новых треков на текущем кадре, удаление потерянных.
         births = {int(t.track_id): tuple(t.mean[:4].tolist()) for t in tracked if int(t.track_id) not in bank.track_ids}
-        bank.birth(frame, births)
+        bank.birth(eye_frame, births)
         bank.remove(set(bank.track_ids) - current_ids)
         prev_tracked = tracked
         eyes_per_frame.append(len(current_ids))
@@ -166,7 +173,7 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         flow_rows = [row + [np.nan] * (19 - len(row)) for row in flow_rows]  # глаз без рамки после обновления (трек потерян на этом кадре)
         arr = np.asarray(flow_rows, dtype=np.float64).reshape(-1, 19)
         np.savez_compressed(data_path, frame=arr[:, 0].astype(np.int32), track_id=arr[:, 1].astype(np.int32), crop_side=arr[:, 2].astype(np.int32), pred_box=arr[:, 3:7].astype(np.float32), delta=arr[:, 7:9].astype(np.float32), magnitude=arr[:, 9].astype(np.float32), n_inside=arr[:, 10].astype(np.int32), dis_box=arr[:, 11:15].astype(np.float32), out_box=arr[:, 15:19].astype(np.float32))
-        save_json(meta_path, {"video_id": video_id, "frame_count": frame_index, "fps": fps, "rows": int(len(arr)), "eye": {"context": args.context, "min_side": args.min_side, "fade_in_seconds": args.fade_in, "kernel_area": estimator.kernel_area, "gain": 1.0}, "tracker": {"class": "XYWHByteTrack", **XYWH_CONFIG}, "frame_seconds": distribution(frame_seconds), "births": bank.stats["births"]})
+        save_json(meta_path, {"video_id": video_id, "frame_count": frame_index, "fps": fps, "rows": int(len(arr)), "eye": {"context": args.context, "min_side": args.min_side, "fade_in_seconds": args.fade_in, "kernel_area": estimator.kernel_area, "gain": 1.0}, "retina": retina.describe(), "tracker": {"class": "XYWHByteTrack", **XYWH_CONFIG}, "frame_seconds": distribution(frame_seconds), "births": bank.stats["births"]})
         print(f"[OK] {video_id}: {frame_index} кадров, {len(arr)} строк потока, {np.mean(frame_seconds)*1000:.0f} мс/кадр", flush=True)
         return {"video_id": video_id, "rows": int(len(arr))}
     meta = np.asarray(rows_meta, dtype=np.int32).reshape(-1, 5)
@@ -180,6 +187,7 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
     metadata = {
         "video_id": video_id, "frame_count": frame_index, "fps": fps, "rows": int(len(rows_meta)),
         "eye": {"context": args.context, "min_side": args.min_side, "fade_in_seconds": args.fade_in, "eye_size": bank.eye_size, "column_spacing_eye_px": spacing, "steps_per_frame": bank.steps, "dt": bank.dt},
+        "retina": retina.describe(),
         "tracker": {"class": "XYWHByteTrack", **XYWH_CONFIG},
         "eyes_per_frame": distribution(eyes_per_frame), "births": bank.stats["births"], "eye_steps": bank.stats["steps"],
         "frame_seconds": distribution(frame_seconds), "bytes": data_path.stat().st_size,
