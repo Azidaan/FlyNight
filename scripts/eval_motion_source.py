@@ -9,6 +9,7 @@ val-семёрке. HOTA/IDF1/AssA — по каждому видео отдел
 from __future__ import annotations
 
 import argparse
+import os
 import json
 import sys
 import tempfile
@@ -54,14 +55,28 @@ def make_tracker(config: dict, root: Path, video_id: str):
     from tracking.motion_source_bytetrack import MotionSourceByteTrack
     from tracking.offline_association import make_tracker_args
 
-    kwargs = {k: v for k, v in config.items() if k not in {"head"}}
+    kwargs = {k: v for k, v in config.items() if k not in {"head", "fly_root"}}
     needs_dis = kwargs.get("motion", "kalman") != "kalman" or config.get("head")
     if needs_dis:
         points, vectors = load_motion_cache(root / video_id / "motion" / "dis_quarter.npz", 1.0)
-        kwargs["dis_propagate"] = lambda box, raw: propagate_box(box, points, vectors, raw - 1, raw)[0] if raw > 0 else np.full(4, np.nan)
+        def dis_propagate(box, raw):
+            box = np.asarray(box, dtype=np.float64)
+            if raw <= 0 or not np.isfinite(box).all() or box[2] - box[0] < 1.0 or box[3] - box[1] < 1.0:
+                return np.full(4, np.nan)  # вырожденная рамка потерянного трека: остаётся Калман
+            return propagate_box(box, points, vectors, raw - 1, raw)[0]
+
+        kwargs["dis_propagate"] = dis_propagate
     if config.get("head"):
         from tracking.reliability_head import load_reliability_head
-        kwargs["reliability"] = load_reliability_head(Path(config["head"]))
+        fly_npz = None
+        if config.get("fly_root"):
+            fly_root = Path(config["fly_root"])
+            fly_root = fly_root if fly_root.is_absolute() else PROJECT_ROOT / fly_root
+            candidate = fly_root / video_id / "fovea_flow.npz"
+            fly_npz = candidate if candidate.exists() else None
+            if fly_npz is None:
+                raise FileNotFoundError(f"нет кэша мухи {candidate}")
+        kwargs["reliability"] = load_reliability_head(Path(config["head"]), fly_npz=fly_npz)
     return MotionSourceByteTrack(make_tracker_args(**XYWH), **kwargs)
 
 
@@ -90,6 +105,8 @@ def run_video(task: tuple) -> dict:
 
 def main() -> int:
     args = parse_args()
+    for key in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS"):
+        os.environ.setdefault(key, "1")  # наследуют процессы пула: по одному потоку на прогон
     configs = json.loads(args.configs.read_text(encoding="utf-8"))
     splits = split_videos(args)
     tasks = [(name, cfg, split, v, root, label_split, str(args.output)) for name, cfg in configs.items() for split, (vids, root, label_split) in splits.items() for v in vids]

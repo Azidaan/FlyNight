@@ -9,6 +9,7 @@ T4/T5 и all34 в координатах глаза; затем трекер о�
 from __future__ import annotations
 
 import argparse
+import os
 import json
 import sys
 import time
@@ -85,6 +86,10 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
     bank = EyeBank(estimator, context=args.context, min_side=args.min_side, fade_in_seconds=args.fade_in, decode_flow=args.decode_flow, max_batch=args.max_eyes)
     retina = make_retina(args.retina, fps, tau_adapt=args.retina_tau, gain=args.retina_gain, tau_filter=args.retina_filter)
     torch = estimator.torch
+    threads = int(os.environ.get("FOVEA_THREADS", "0"))
+    if threads > 0:  # параллельные процессы: ограничить потоки torch и OpenCV
+        torch.set_num_threads(threads)
+        cv2.setNumThreads(threads)
     if args.gpu_mem_fraction > 0 and torch.cuda.is_available():
         torch.cuda.set_per_process_memory_fraction(args.gpu_mem_fraction)
     dis_points, dis_vectors = load_motion_cache(args.detections_root / video_id / "motion" / "dis_quarter.npz", 1.0) if args.decode_flow else (None, None)
@@ -181,7 +186,8 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         arr = np.asarray(flow_rows, dtype=np.float64).reshape(-1, 19)
         np.savez_compressed(data_path, frame=arr[:, 0].astype(np.int32), track_id=arr[:, 1].astype(np.int32), crop_side=arr[:, 2].astype(np.int32), pred_box=arr[:, 3:7].astype(np.float32), delta=arr[:, 7:9].astype(np.float32), magnitude=arr[:, 9].astype(np.float32), n_inside=arr[:, 10].astype(np.int32), dis_box=arr[:, 11:15].astype(np.float32), out_box=arr[:, 15:19].astype(np.float32))
         save_json(meta_path, {"video_id": video_id, "frame_count": frame_index, "fps": fps, "rows": int(len(arr)), "eye": {"context": args.context, "min_side": args.min_side, "fade_in_seconds": args.fade_in, "kernel_area": estimator.kernel_area, "gain": 1.0}, "retina": retina.describe(), "tracker": {"class": "XYWHByteTrack", **XYWH_CONFIG}, "frame_seconds": distribution(frame_seconds), "births": bank.stats["births"]})
-        print(f"[OK] {video_id}: {frame_index} кадров, {len(arr)} строк потока, {np.mean(frame_seconds)*1000:.0f} мс/кадр", flush=True)
+        peak = torch.cuda.max_memory_allocated() / 2**30 if torch.cuda.is_available() else 0.0
+        print(f"[OK] {video_id}: {frame_index} кадров, {len(arr)} строк потока, {np.mean(frame_seconds)*1000:.0f} мс/кадр, пик памяти {peak:.2f} ГБ", flush=True)
         return {"video_id": video_id, "rows": int(len(arr))}
     meta = np.asarray(rows_meta, dtype=np.int32).reshape(-1, 5)
     np.savez_compressed(

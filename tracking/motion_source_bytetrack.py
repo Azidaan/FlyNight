@@ -24,7 +24,7 @@ from ultralytics.trackers.utils import matching
 
 from tracking.xywh_bytetrack import XYWHByteTrack
 
-ReliabilityFn = Callable[[np.ndarray, np.ndarray, np.ndarray], np.ndarray]
+ReliabilityFn = Callable[[np.ndarray, np.ndarray, int], np.ndarray]  # (предсказания xywh, DIS xyxy, номер кадра) -> p(ненадёжно)
 
 
 def xywh_to_xyxy(xywh: np.ndarray) -> np.ndarray:
@@ -89,7 +89,7 @@ class MotionSourceByteTrack(XYWHByteTrack):
         pred_xywh = np.stack([np.asarray(t.mean[:4], dtype=np.float64) for t in tracks])
         prev_xyxy = xywh_to_xyxy(np.stack([self._previous_xywh[id(t)] for t in tracks]))
         dis_xyxy = np.stack([self.dis_propagate(box, raw_index) for box in prev_xyxy]) if self.dis_propagate is not None else None
-        p_bad = self.reliability(pred_xywh, dis_xyxy, np.asarray([t.frame_id for t in tracks])) if self.reliability is not None else None
+        p_bad = self.reliability(pred_xywh, dis_xyxy, raw_index) if self.reliability is not None else None
         self.stats["tracks_seen"] += len(tracks)
         for k, track in enumerate(tracks):
             if p_bad is not None:

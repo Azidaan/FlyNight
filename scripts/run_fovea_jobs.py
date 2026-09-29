@@ -27,7 +27,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--workers", type=int, default=3)
     parser.add_argument("--gpu-mem-fraction", type=float, default=0.25)
     parser.add_argument("--max-eyes", type=int, default=12)
-    parser.add_argument("--stall", type=float, default=300.0)
+    parser.add_argument("--threads", type=int, default=2, help="потоков CPU на процесс (torch/OpenCV/BLAS); без ограничения 6 процессов × 16 потоков душат друг друга")
+    parser.add_argument("--stall", type=float, default=900.0)
     parser.add_argument("--timeout", type=float, default=1800.0)
     parser.add_argument("--retries", type=int, default=2)
     parser.add_argument("--status", type=Path, required=True)
@@ -75,7 +76,9 @@ class Runner:
     def run_one(self, worker: int, job: dict) -> bool:
         for attempt in range(1, self.args.retries + 2):
             start = time.time()
-            proc = subprocess.Popen(self.command(job), cwd=PROJECT_ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace")
+            import os
+            env = {**os.environ, **{k: str(self.args.threads) for k in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS", "FOVEA_THREADS")}}
+            proc = subprocess.Popen(self.command(job), cwd=PROJECT_ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace", env=env)
             state = {"job": job, "start": start, "last_output": start}
             with self.lock:
                 self.active[worker] = state
