@@ -52,6 +52,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--retina-tau", type=float, default=0.3, help="постоянная времени адаптации фоторецептора, с")
     parser.add_argument("--retina-gain", type=float, default=2.0)
     parser.add_argument("--retina-filter", type=float, default=0.0, help="временной ФНЧ фоторецептора, с (0 — выключен)")
+    parser.add_argument("--max-eyes", type=int, default=0, help="глаз в одном батче сети (0 — все); ограничивает память, результат не меняется")
+    parser.add_argument("--gpu-mem-fraction", type=float, default=0.0, help="потолок доли видеопамяти на процесс (0 — без потолка); кэш PyTorch растёт до 9+ ГБ от переменного числа глаз")
     return parser.parse_args()
 
 
@@ -80,8 +82,11 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
     detections = load_detection_cache(args.detections_root / video_id / "detections" / "raw_video.npz")
     fps = float(json.loads((args.flow_root / video_id / "motion" / "flyvis_tiled.json").read_text(encoding="utf-8"))["fps"])
     estimator = make_motion_estimator("flyvis_tiled", fps, 0.02)
-    bank = EyeBank(estimator, context=args.context, min_side=args.min_side, fade_in_seconds=args.fade_in, decode_flow=args.decode_flow)
+    bank = EyeBank(estimator, context=args.context, min_side=args.min_side, fade_in_seconds=args.fade_in, decode_flow=args.decode_flow, max_batch=args.max_eyes)
     retina = make_retina(args.retina, fps, tau_adapt=args.retina_tau, gain=args.retina_gain, tau_filter=args.retina_filter)
+    torch = estimator.torch
+    if args.gpu_mem_fraction > 0 and torch.cuda.is_available():
+        torch.cuda.set_per_process_memory_fraction(args.gpu_mem_fraction)
     dis_points, dis_vectors = load_motion_cache(args.detections_root / video_id / "motion" / "dis_quarter.npz", 1.0) if args.decode_flow else (None, None)
     flow_rows: list[list[float]] = []
     prev_output_boxes: dict[int, np.ndarray] = {}
@@ -164,6 +169,8 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         frame_seconds.append(time.perf_counter() - tick)
         frame_index += 1
         if frame_index % 100 == 0:
+            if args.gpu_mem_fraction > 0 and torch.cuda.is_available():
+                torch.cuda.empty_cache()  # вернуть фрагменты кэша, чтобы параллельные процессы не упирались в потолок
             print(f"[{video_id}] {frame_index} кадров, глаз {len(current_ids)}, строк {len(rows_meta)}", flush=True)
     capture.release()
     if frame_index != int(detections["frame_count"]):

@@ -3814,6 +3814,69 @@
    "cannot_claim": "Перенос на тёмные train-видео и пользу для HOTA до ступени B и встраивания.",
    "confirmed": false,
    "metrics": []
+  },
+  {
+   "id": "e2e_motion_source_v1",
+   "title": "Сквозной трекер: рычаги надёжности предсказания (источник движения Калман/DIS, буфер IoU) и голова надёжности без мухи и с мухой — HOTA на обучающих видео",
+   "area": "flyvis",
+   "state": "running",
+   "tags": [
+    "end-to-end",
+    "hota",
+    "reliability",
+    "modernization-M1",
+    "registry-H2",
+    "c-biou"
+   ],
+   "summary": "Главный риск диссертации — нет сквозного результата «трекер с мухой лучше трекера без мухи». MotionSourceByteTrack (надстройка над XYWHByteTrack, в режиме по умолчанию байт-в-байт равна стенду — тест) имеет два рычага: (1) центр рамки при ассоциации из Калмана или из переноса DIS; (2) буфер IoU первой ассоциации (заимствовано: C-BIoU, Yang et al., WACV 2023). Этап 1 — статические варианты (всегда DIS; буфер 0,1/0,2/0,3), чтобы найти рычаг с запасом по HOTA. Этап 2 — тот же рычаг, управляемый головой надёжности предсказания (Н2): geometry+DIS против geometry+DIS+муха (с сетчаткой М1); переключение/буфер по вероятности ненадёжности. Выбор параметров — на dev (35 видео), отчёт — test (35) и val7; параметры трекера — стенда.",
+   "question": "Даёт ли сигнал надёжности предсказания (и вклад мухи в него) прирост HOTA/IDF1 в самом трекере?",
+   "hypothesis": "Хотя бы один рычаг имеет запас по HOTA; управление им по голове надёжности лучше статического варианта, а голова с мухой — лучше головы без мухи.",
+   "expected": "Этап 1: лучший статический рычаг (выбран на dev) даёт HOTA test > стенда. Этап 2: адаптивный вариант с мухой > адаптивного без мухи > стенда на test, парный бутстреп по видео с ДИ > 0 для «с мухой − без мухи»; val7 — знак тот же.",
+   "done": "Карточка записана до результатов (30.09.2026, 01:4x MSK). tracking/motion_source_bytetrack.py (4 теста), scripts/eval_motion_source.py; этап 1 запущен 01:42 (5 конфигураций × 77 видео).",
+   "decision": "",
+   "started": "2026-09-30",
+   "dataset": "runs/train_cache (dev 35, test 35; детекции YOLO26 стенда, DIS quarter, выравнивание) + runs/video_rate (val7)",
+   "split": "выбор на dev, отчёт test и val7",
+   "baseline": "MotionSourceByteTrack(kalman) = XYWHByteTrack стенда",
+   "variant": "dis; buf0.1–0.3; адаптивные с головой geometry+DIS и geometry+DIS+муха",
+   "commits": [],
+   "files": [
+    "tracking/motion_source_bytetrack.py",
+    "tests/test_motion_source_bytetrack.py",
+    "scripts/eval_motion_source.py"
+   ],
+   "runs": [
+    "runs/e2e_motion_source"
+   ],
+   "acceptance": [
+    {
+     "criterion": "этап 1: лучший статический рычаг (выбран на dev) даёт HOTA test выше стенда",
+     "met": null,
+     "evidence": "runs/e2e_motion_source/static/report.json → summary"
+    },
+    {
+     "criterion": "этап 2: адаптивный с мухой лучше адаптивного без мухи по HOTA test, парный бутстреп по видео ДИ > 0",
+     "met": null,
+     "evidence": "runs/e2e_motion_source/adaptive/report.json"
+    },
+    {
+     "criterion": "этап 2: знак «с мухой − без мухи» на val7 тот же",
+     "met": null,
+     "evidence": "runs/e2e_motion_source/adaptive/report.json"
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "plan_section",
+     "ref": "dissertation/План целей по Трекеру.md",
+     "locator": "1.7. Реестр, Н2, Н9",
+     "claim": "надёжность через остаточный поток; сетчатка"
+    }
+   ],
+   "limitations": "Истина только на опорных кадрах 5 Гц; признаки мухи на этапе 2 берутся из кэша фовеи, построенного на треках стенда (сопоставление по кадру и id) — точно только до первого расхождения треков; окончательная проверка — с глазами онлайн.",
+   "cannot_claim": "Перенос на другие детекторы и наборы данных.",
+   "confirmed": false,
+   "metrics": []
   }
  ],
  "manual_events": [

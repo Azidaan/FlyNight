@@ -47,7 +47,8 @@ def original_detection_index(conf: np.ndarray, *, subset_index: int, score: floa
 class EyeBank:
     """Батч глаз FlyVis с переменным составом; состояния режутся и склеиваются по track_id."""
 
-    def __init__(self, estimator, *, context: float = 2.0, min_side: int = 64, fade_in_seconds: float = 1.0, decode_flow: bool = False) -> None:
+    def __init__(self, estimator, *, context: float = 2.0, min_side: int = 64, fade_in_seconds: float = 1.0, decode_flow: bool = False, max_batch: int = 0) -> None:
+        self.max_batch = int(max_batch)  # 0 — все глаза одним батчем; иначе порциями (память сети ∝ числу глаз, результат тот же)
         self.estimator = estimator
         self.decode_flow = bool(decode_flow)
         self._baseline_flow: dict[int, "torch.Tensor"] = {}
@@ -112,6 +113,37 @@ class EyeBank:
         return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) if frame.ndim == 3 else frame
 
     def birth(self, frame: np.ndarray, boxes_xywh: dict[int, tuple]) -> None:
+        for chunk in self._chunks(list(boxes_xywh)):
+            self._birth({tid: boxes_xywh[tid] for tid in chunk}, frame)
+
+    def _chunks(self, ids: list) -> list[list]:
+        if self.max_batch <= 0 or len(ids) <= self.max_batch:
+            return [ids] if ids else []
+        return [ids[k : k + self.max_batch] for k in range(0, len(ids), self.max_batch)]
+
+    def _fade_in(self, initial_frames: "torch.Tensor"):
+        """Как `Network.fade_in_state`, но без списка состояний всех шагов разгона: хранится только текущее.
+
+        Оригинал держит полное состояние сети (с синапсами) на каждом из int(fade_in/dt) шагов —
+        память растёт как шаги × глаза × синапсы (до 9+ ГБ на населённых роликах). Результат тот же (тест).
+        """
+        torch = self.torch
+        net = self.network
+        steps = int(self.fade_in_seconds / self.dt)
+        batch = initial_frames.shape[0]
+        net.stimulus.zero(batch, steps)
+        frames = torch.linspace(0, 1, steps)[None, :, None] * (initial_frames.repeat(1, steps, 1) - 0.5) + 0.5
+        net.stimulus.add_input(frames[:, :, None])
+        with torch.inference_mode():
+            x = net.stimulus()
+            net.clamp()
+            params = net._param_api()
+            state = net._initial_state(params, batch)
+            for i in range(x.shape[1]):
+                state = net._next_state(params, state, x[:, i], self.dt)
+        return state
+
+    def _birth(self, boxes_xywh: dict[int, tuple], frame: np.ndarray) -> None:
         """Родить глаза на кадре frame по текущим рамкам треков (fade-in на вырезке)."""
         if not boxes_xywh:
             return
@@ -120,7 +152,7 @@ class EyeBank:
         crops = [crop_box(boxes_xywh[tid], (gray.shape[1], gray.shape[0]), context=self.context, min_side=self.min_side) for tid in ids]
         hexes = self._render(gray, crops)
         with self.torch.inference_mode():
-            state = self.network.fade_in_state(self.fade_in_seconds, self.dt, hexes[:, 0])
+            state = self._fade_in(hexes[:, 0])
         activity = state.nodes.activity  # (B, nodes)
         base_flow = self._decode(activity.unsqueeze(1)) if self.decode_flow else None
         for row, tid in enumerate(ids):
@@ -135,6 +167,13 @@ class EyeBank:
         self.stats["fade_in_seconds_total"] += self.fade_in_seconds * len(ids)
 
     def step(self, frame: np.ndarray, predictions_xywh: dict[int, tuple]) -> dict[int, np.ndarray]:
+        ids = [tid for tid in predictions_xywh if tid in self._activity]
+        result: dict[int, np.ndarray] = {}
+        for chunk in self._chunks(ids):
+            result.update(self._step(frame, {tid: predictions_xywh[tid] for tid in chunk}))
+        return result
+
+    def _step(self, frame: np.ndarray, predictions_xywh: dict[int, tuple]) -> dict[int, np.ndarray]:
         """Продвинуть существующие глаза на кадр frame к предсказанным рамкам; вернуть активность (types, columns)."""
         ids = [tid for tid in predictions_xywh if tid in self._activity]
         if not ids:
