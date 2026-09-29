@@ -68,6 +68,8 @@ class Runner:
 
     def command(self, job: dict) -> list[str]:
         cmd = [sys.executable, "-u", str(BUILDER), "--decode-flow", "--retina", job["retina"], "--output", job["output"], "--video-id", job["video_id"], "--gpu-mem-fraction", str(self.args.gpu_mem_fraction), "--max-eyes", str(self.args.max_eyes)]
+        if job.get("retina_downscale"):
+            cmd += ["--retina-downscale", str(job["retina_downscale"])]
         for key, flag in (("videos", "--videos"), ("detections_root", "--detections-root"), ("flow_root", "--flow-root")):
             if job.get(key):
                 cmd += [flag, job[key]]

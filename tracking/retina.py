@@ -38,6 +38,7 @@ class RetinaConfig:
     target_mean: float = 0.45   # средняя яркость обученного распределения
     target_std: float = 0.2     # размах для режима norm
     eps: float = 1e-3
+    blur_downscale: int = 1     # >1: гладкие поля считаются на уменьшенном кадре (ускорение ~16× при 4)
 
     def __post_init__(self) -> None:
         if self.mode not in MODES:
@@ -71,6 +72,14 @@ class Retina:
 
         if sigma <= 0:
             return image
+        factor = self.config.blur_downscale
+        if factor > 1 and sigma >= 2.0 * factor:
+            # Гладкое поле (σ ≫ пикселя): размытие на кадре, уменьшенном в factor раз, и билинейный возврат.
+            # На полном кадре 1280×720 σ = 24 стоит ~60 мс на CPU, так — ~4 мс; поле низкочастотное.
+            h, w = image.shape[:2]
+            small = cv2.resize(image, (max(w // factor, 1), max(h // factor, 1)), interpolation=cv2.INTER_AREA)
+            small = cv2.GaussianBlur(small, (0, 0), sigmaX=float(sigma) / factor, sigmaY=float(sigma) / factor, borderType=cv2.BORDER_REFLECT)
+            return cv2.resize(small, (w, h), interpolation=cv2.INTER_LINEAR)
         return cv2.GaussianBlur(image, (0, 0), sigmaX=float(sigma), sigmaY=float(sigma), borderType=cv2.BORDER_REFLECT)
 
     def process(self, gray: np.ndarray) -> np.ndarray:

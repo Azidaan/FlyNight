@@ -52,6 +52,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--retina", default="none", help="Н9/М1: фронт-энд перед глазом: none | norm | photoreceptor | lamina")
     parser.add_argument("--retina-tau", type=float, default=0.3, help="постоянная времени адаптации фоторецептора, с")
     parser.add_argument("--retina-gain", type=float, default=2.0)
+    parser.add_argument("--retina-downscale", type=int, default=1, help="гладкие поля сетчатки на кадре, уменьшенном в N раз (скорость)")
     parser.add_argument("--retina-filter", type=float, default=0.0, help="временной ФНЧ фоторецептора, с (0 — выключен)")
     parser.add_argument("--max-eyes", type=int, default=0, help="глаз в одном батче сети (0 — все); ограничивает память, результат не меняется")
     parser.add_argument("--gpu-mem-fraction", type=float, default=0.0, help="потолок доли видеопамяти на процесс (0 — без потолка); кэш PyTorch растёт до 9+ ГБ от переменного числа глаз")
@@ -84,7 +85,7 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
     fps = float(json.loads((args.flow_root / video_id / "motion" / "flyvis_tiled.json").read_text(encoding="utf-8"))["fps"])
     estimator = make_motion_estimator("flyvis_tiled", fps, 0.02)
     bank = EyeBank(estimator, context=args.context, min_side=args.min_side, fade_in_seconds=args.fade_in, decode_flow=args.decode_flow, max_batch=args.max_eyes)
-    retina = make_retina(args.retina, fps, tau_adapt=args.retina_tau, gain=args.retina_gain, tau_filter=args.retina_filter)
+    retina = make_retina(args.retina, fps, tau_adapt=args.retina_tau, gain=args.retina_gain, tau_filter=args.retina_filter, blur_downscale=args.retina_downscale)
     torch = estimator.torch
     threads = int(os.environ.get("FOVEA_THREADS", "0"))
     if threads > 0:  # параллельные процессы: ограничить потоки torch и OpenCV
