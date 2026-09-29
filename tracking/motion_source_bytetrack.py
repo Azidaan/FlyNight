@@ -107,7 +107,14 @@ class MotionSourceByteTrack(XYWHByteTrack):
         track_boxes = np.asarray([t.xyxy for t in tracks], dtype=np.float64).reshape(-1, 4)
         det_boxes = np.asarray([d.xyxy for d in detections], dtype=np.float64).reshape(-1, 4)
         b_track = np.asarray([self.buffer + self.buffer_gain * self._p_bad.get(id(t), 0.0) for t in tracks])
-        iou = iou_matrix(buffered(track_boxes, b_track), buffered(det_boxes, self.buffer))
+        if not self.buffer_gain:
+            iou = iou_matrix(buffered(track_boxes, self.buffer), buffered(det_boxes, self.buffer))
+        else:
+            # В каждой паре обе рамки расширяются на буфер трека (как в C-BIoU); при разных буферах
+            # идеально совпадающая пара получила бы IoU < 1.
+            iou = np.zeros((len(track_boxes), len(det_boxes)))
+            for i in range(len(track_boxes)):
+                iou[i] = iou_matrix(buffered(track_boxes[i : i + 1], b_track[i]), buffered(det_boxes, b_track[i]))[0]
         dists = 1.0 - iou
         if self.args.fuse_score:
             dists = matching.fuse_score(dists, detections)

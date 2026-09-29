@@ -46,3 +46,13 @@ def test_buffered_iou_grows_overlap():
 def test_switch_requires_head():
     with pytest.raises(ValueError):
         MotionSourceByteTrack(make_tracker_args(**XYWH), motion="switch", dis_propagate=lambda b, r: b)
+
+
+def test_adaptive_buffer_keeps_perfect_pair_at_one():
+    """Совпадающие рамки трека и детекции должны давать IoU = 1 при любом буфере трека."""
+    from types import SimpleNamespace
+    t = MotionSourceByteTrack(make_tracker_args(**XYWH), buffer=0.2, buffer_gain=1.0, reliability=lambda a, b, c: np.ones(len(a)))
+    trk = SimpleNamespace(xyxy=np.array([10, 10, 50, 90.0])); det = SimpleNamespace(xyxy=np.array([10, 10, 50, 90.0]), score=1.0)
+    t._p_bad = {id(trk): 0.9}
+    t.args.fuse_score = False
+    assert t.get_dists([trk], [det])[0, 0] == pytest.approx(0.0)
