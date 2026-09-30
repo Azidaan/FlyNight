@@ -118,8 +118,56 @@ def video_pairs(task: tuple) -> dict:
             ap = [cos(S["last_thumb"][a].astype(np.float64), S["first_thumb"][b].astype(np.float64)), float(np.abs(S["last_hist"][a].astype(np.float64) - S["first_hist"][b].astype(np.float64)).sum())]
             hx = [cos(S["last_hexin"][a].astype(np.float64), S["first_hexin"][b].astype(np.float64))]
             fl = fly_feats(S["last_fly"][a], S["first_fly"][b]); sh = fly_feats(S["last_fly"][a], S["first_fly"][other])
-            feats.append(geo + ap + hx + fl + sh); labels.append(int(end_gt[a] == start_gt[b])); meta.append((a, b))
-    return {"video_id": video_id, "X": np.asarray(feats, np.float64).reshape(-1, len(NAMES)), "y": np.asarray(labels, np.int8), "pairs": np.asarray(meta, np.int32).reshape(-1, 2)}
+            feats.append(geo + ap + hx + fl + sh); labels.append(int(end_gt[a] == start_gt[b])); meta.append((a, b, other))
+    meta = np.asarray(meta, np.int32).reshape(-1, 3)
+    diffs = {}
+    if len(meta):
+        A, Bi, O = meta[:, 0], meta[:, 1], meta[:, 2]
+        f32 = lambda k: S[k].astype(np.float32).reshape(len(S[k]), -1)
+        diffs = {"fly": np.abs(f32("last_fly")[A] - f32("first_fly")[Bi]), "shuf": np.abs(f32("last_fly")[A] - f32("first_fly")[O]),
+                 "hexin": np.abs(f32("last_hexin")[A] - f32("first_hexin")[Bi]),
+                 "app": np.concatenate([np.abs(f32("last_thumb")[A] - f32("first_thumb")[Bi]), np.abs(f32("last_hist")[A] - f32("first_hist")[Bi])], axis=1)}
+    return {"video_id": video_id, "X": np.asarray(feats, np.float64).reshape(-1, len(NAMES)), "y": np.asarray(labels, np.int8), "pairs": meta, "D": diffs}
+
+
+def stitch_video(task: tuple) -> dict:
+    """Сшить жизни по вероятностям p (пары A→B), записать scalabel на опорных кадрах, HOTA по видео."""
+    video_id, sig_dir, root, label_split, pairs, probs, thr, out_dir = task
+    from evaluation.hota_eval import evaluate_hota
+    from scripts.run_bdd_video_rate_experiment import scalabel_frame
+
+    z = np.load(Path(sig_dir) / video_id / "signatures.npz")
+    tids, outputs = z["track_id"], z["outputs"]
+    order = np.argsort(-probs) if len(probs) else []
+    used_a, used_b, parent = set(), set(), {}
+    for k in order:
+        if probs[k] <= thr:
+            break
+        a, b = int(pairs[k, 0]), int(pairs[k, 1])
+        if a in used_a or b in used_b:
+            continue
+        used_a.add(a); used_b.add(b); parent[int(tids[b])] = int(tids[a])
+    def root_of(t):
+        seen = set()
+        while t in parent and t not in seen:
+            seen.add(t); t = parent[t]
+        return t
+    matches = json.loads((Path(root) / video_id / "alignment.json").read_text(encoding="utf-8"))["matches"]
+    truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / label_split / f"{video_id}.json").read_text(encoding="utf-8"))
+    by_frame = {}
+    for r in outputs:
+        by_frame.setdefault(int(r[0]), []).append(r[1:8].copy())
+    rows = []
+    for i, m in enumerate(matches):
+        out = np.asarray(by_frame.get(int(m["video_frame_index"]), []), np.float64).reshape(-1, 7)
+        if len(out):
+            out[:, 4] = [root_of(int(t)) for t in out[:, 4]]
+        rows.append(scalabel_frame(video_id, truth[i], out))
+    result_dir = Path(out_dir)
+    result_dir.mkdir(parents=True, exist_ok=True)
+    save_json(result_dir / f"{video_id}.json", rows)
+    metrics = evaluate_hota(result_dir, [video_id], split=label_split)
+    return {"video_id": video_id, "links": len(parent), "metrics": {k: metrics.get(k) for k in ("HOTA", "IDF1", "AssA", "IDSw")}}
 
 
 def fit(X: np.ndarray, y: np.ndarray, cols: list[int]):
@@ -178,6 +226,66 @@ def main() -> int:
             rng = np.random.default_rng(42); boot = d[rng.integers(0, len(d), (5000, len(d)))].mean(1)
             report.setdefault("bootstrap", {})[f"{p[1]}-{p[0]}|{s}"] = {"mean": float(d.mean()), "ci95": [float(np.quantile(boot, 0.025)), float(np.quantile(boot, 0.975))], "better": int((d > 0).sum()), "worse": int((d < 0).sum())}
             print(f"[BOOT] {p[1]} − {p[0]} {s}: {d.mean():+.4f} [{np.quantile(boot, 0.025):+.4f}; {np.quantile(boot, 0.975):+.4f}] {int((d > 0).sum())}/{int((d < 0).sum())}", flush=True)
+    # Обучаемая метрика: поэлементные разности полных векторов (+ все скалярные признаки лестницы без мухи/с мухой).
+    from sklearn.linear_model import LogisticRegression
+    from sklearn.pipeline import make_pipeline
+    from sklearn.preprocessing import StandardScaler
+
+    base_cols = [NAMES.index(c) for c in GEOMETRY + APPEAR + HEXIN]
+    fly_cols = [NAMES.index(c) for c in FLY]; shuf_cols = [NAMES.index(c) for c in SHUF]
+    def mat(split, parts, scalar_cols):
+        rows = [np.concatenate([d["X"][:, scalar_cols]] + [d["D"][p] for p in parts], axis=1) for d in data[split] if len(d["y"])]
+        return np.concatenate(rows).astype(np.float32), np.concatenate([d["y"] for d in data[split] if len(d["y"])])
+    learned = {"L_app": (["app"], base_cols), "L_app_hexin": (["app", "hexin"], base_cols), "L_app_hexin_fly": (["app", "hexin", "fly"], base_cols + fly_cols),
+               "L_app_hexin_shuffled": (["app", "hexin", "shuf"], base_cols + shuf_cols), "L_geometry_fly": (["fly"], [NAMES.index(c) for c in GEOMETRY] + fly_cols)}
+    for name, (parts, cols) in learned.items():
+        Xtr_l, ytr_l = mat("train", parts, cols)
+        best = None
+        for C in (0.01, 0.1, 1.0):
+            m = make_pipeline(StandardScaler(), LogisticRegression(C=C, max_iter=2000, random_state=42)).fit(Xtr_l, ytr_l)
+            Xd, yd = mat("dev", parts, cols); ap_dev = float(average_precision_score(yd, m.predict_proba(Xd)[:, 1]))
+            if best is None or ap_dev > best[0]:
+                best = (ap_dev, C, m)
+        rec = {"C": best[1], "dev": best[0]}
+        for s_ in ("test", "val7"):
+            Xs, ys = mat(s_, parts, cols); rec[s_] = float(average_precision_score(ys, best[2].predict_proba(Xs)[:, 1]))
+            byv = {}
+            for d in data[s_]:
+                if len(d["y"]) > 5 and 0 < d["y"].sum() < len(d["y"]):
+                    Xv = np.concatenate([d["X"][:, cols]] + [d["D"][p] for p in parts], axis=1).astype(np.float32)
+                    byv[d["video_id"]] = float(average_precision_score(d["y"], best[2].predict_proba(Xv)[:, 1]))
+            rec[f"{s_}_by_video"] = byv
+        report["ladder"][name] = rec
+        print(f"[AP] {name:36s} C={best[1]} dev {rec['dev']:.4f} test {rec['test']:.4f} val7 {rec['val7']:.4f}", flush=True)
+    for s_ in ("test", "val7"):
+        for p in (("L_app_hexin", "L_app_hexin_fly"), ("L_app_hexin_shuffled", "L_app_hexin_fly")):
+            a, b = report["ladder"][p[0]][f"{s_}_by_video"], report["ladder"][p[1]][f"{s_}_by_video"]
+            d = np.asarray([b[v] - a[v] for v in a if v in b])
+            rng = np.random.default_rng(42); boot = d[rng.integers(0, len(d), (5000, len(d)))].mean(1)
+            report["bootstrap"][f"{p[1]}-{p[0]}|{s_}"] = {"mean": float(d.mean()), "ci95": [float(np.quantile(boot, 0.025)), float(np.quantile(boot, 0.975))], "better": int((d > 0).sum()), "worse": int((d < 0).sum())}
+            print(f"[BOOT] {p[1]} − {p[0]} {s_}: {d.mean():+.4f} [{np.quantile(boot, 0.025):+.4f}; {np.quantile(boot, 0.975):+.4f}] {int((d > 0).sum())}/{int((d < 0).sum())}", flush=True)
+    # Сшивка: без сшивки (стенд) / голова без мухи / голова с мухой; порог — максимум IDF1 на dev.
+    from evaluation.hota_eval import evaluate_hota
+
+    heads = {"stitch_base": models["geometry_appearance_hexin"], "stitch_fly": models["geometry_appearance_hexin_fly"]}
+    split_meta = {s_: (tasks[0][1], tasks[0][2], tasks[0][3]) for s_, tasks in splits.items() if tasks}
+    def run_stitch(name, head, split, thr):
+        m, idx = head
+        out_dir = args.output / "stitch" / f"{name}_{thr:.2f}" / split
+        tasks = [(d["video_id"], *split_meta[split], d["pairs"][:, :2] if len(d["y"]) else np.zeros((0, 2), np.int32),
+                  m.predict_proba(d["X"][:, idx])[:, 1] if len(d["y"]) else np.zeros(0), thr, str(out_dir)) for d in data[split]]
+        with ProcessPoolExecutor(max_workers=args.workers) as pool:
+            per = {r["video_id"]: r for r in pool.map(stitch_video, tasks)}
+        agg = evaluate_hota(out_dir, [d["video_id"] for d in data[split]], split=split_meta[split][2])
+        return {"per_video": per, "summary": {k: agg.get(k) for k in ("HOTA", "IDF1", "AssA", "IDSw")}, "links": int(sum(r["links"] for r in per.values()))}
+    stitch = {"none": {s_: run_stitch("none", heads["stitch_base"], s_, 2.0) for s_ in ("dev", "test", "val7")}}
+    for name, head in heads.items():
+        dev_runs = {thr: run_stitch(name, head, "dev", thr) for thr in (0.5, 0.7, 0.85)}
+        thr = max(dev_runs, key=lambda t: dev_runs[t]["summary"]["IDF1"])
+        stitch[name] = {"threshold": thr, "dev": dev_runs[thr], "dev_grid": {str(t): r["summary"] for t, r in dev_runs.items()}, "test": run_stitch(name, head, "test", thr), "val7": run_stitch(name, head, "val7", thr)}
+    for name, r in stitch.items():
+        print(f"[STITCH] {name:12s} " + " | ".join(f"{s_}: HOTA {r[s_]['summary']['HOTA']:.3f} IDF1 {r[s_]['summary']['IDF1']:.3f} IDSw {r[s_]['summary']['IDSw']:.0f} связей {r[s_]['links']}" for s_ in ("dev", "test", "val7")) + (f" (порог {r['threshold']})" if 'threshold' in r else ""), flush=True)
+    report["stitch"] = {n: {k: (v if k in ("threshold", "dev_grid") else {"summary": v["summary"], "links": v["links"], "per_video": {vid: x["metrics"] for vid, x in v["per_video"].items()}}) for k, v in r.items()} for n, r in stitch.items()}
     import pickle
     with open(args.output / "models.pkl", "wb") as fh:
         pickle.dump({k: v for k, v in models.items()}, fh)

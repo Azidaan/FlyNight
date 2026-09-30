@@ -158,6 +158,8 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         bank.remove(lost)
         prev_tracked = tracked
         frame_index += 1
+        if frame_index % 100 == 0 and estimator.torch.cuda.is_available():
+            estimator.torch.cuda.empty_cache()  # кэш PyTorch растёт до ~1,5 ГБ на процесс; 7 процессов забивали 12 ГБ и драйвер выгружал память
         if frame_index % 25 == 0:
             print(f"[{video_id}] {frame_index} кадров, глаз {len(bank.track_ids)}, жизней {len(done)}", flush=True)
     capture.release()
