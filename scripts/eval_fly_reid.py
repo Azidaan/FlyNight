@@ -138,20 +138,28 @@ def stitch_video(task: tuple) -> dict:
 
     z = np.load(Path(sig_dir) / video_id / "signatures.npz")
     tids, outputs = z["track_id"], z["outputs"]
+    frames_of: dict[int, set] = {}
+    for r in outputs:
+        frames_of.setdefault(int(r[5]), set()).add(int(r[0]))
     order = np.argsort(-probs) if len(probs) else []
     used_a, used_b, parent = set(), set(), {}
-    for k in order:
-        if probs[k] <= thr:
-            break
-        a, b = int(pairs[k, 0]), int(pairs[k, 1])
-        if a in used_a or b in used_b:
-            continue
-        used_a.add(a); used_b.add(b); parent[int(tids[b])] = int(tids[a])
     def root_of(t):
         seen = set()
         while t in parent and t not in seen:
             seen.add(t); t = parent[t]
         return t
+    merged = {t: set(f) for t, f in frames_of.items()}  # кадры объединённой цепочки по корню
+    for k in order:
+        if probs[k] <= thr:
+            break
+        a, b = int(pairs[k, 0]), int(pairs[k, 1])
+        ra, rb = root_of(int(tids[a])), root_of(int(tids[b]))
+        if a in used_a or b in used_b or ra == rb:
+            continue
+        if merged.get(ra, set()) & merged.get(rb, set()):
+            continue  # у цепочек есть общие кадры (трекер позже сам восстановил трек) — одна рамка на ID в кадре
+        used_a.add(a); used_b.add(b); parent[rb] = ra
+        merged[ra] = merged.get(ra, set()) | merged.pop(rb, set())
     matches = json.loads((Path(root) / video_id / "alignment.json").read_text(encoding="utf-8"))["matches"]
     truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / label_split / f"{video_id}.json").read_text(encoding="utf-8"))
     by_frame = {}
@@ -280,11 +288,20 @@ def main() -> int:
         return {"per_video": per, "summary": {k: agg.get(k) for k in ("HOTA", "IDF1", "AssA", "IDSw")}, "links": int(sum(r["links"] for r in per.values()))}
     stitch = {"none": {s_: run_stitch("none", heads["stitch_base"], s_, 2.0) for s_ in ("dev", "test", "val7")}}
     for name, head in heads.items():
-        dev_runs = {thr: run_stitch(name, head, "dev", thr) for thr in (0.5, 0.7, 0.85)}
+        dev_runs = {thr: run_stitch(name, head, "dev", thr) for thr in (0.2, 0.3, 0.4, 0.5, 0.7)}
         thr = max(dev_runs, key=lambda t: dev_runs[t]["summary"]["IDF1"])
         stitch[name] = {"threshold": thr, "dev": dev_runs[thr], "dev_grid": {str(t): r["summary"] for t, r in dev_runs.items()}, "test": run_stitch(name, head, "test", thr), "val7": run_stitch(name, head, "val7", thr)}
     for name, r in stitch.items():
         print(f"[STITCH] {name:12s} " + " | ".join(f"{s_}: HOTA {r[s_]['summary']['HOTA']:.3f} IDF1 {r[s_]['summary']['IDF1']:.3f} IDSw {r[s_]['summary']['IDSw']:.0f} связей {r[s_]['links']}" for s_ in ("dev", "test", "val7")) + (f" (порог {r['threshold']})" if 'threshold' in r else ""), flush=True)
+    for pair in (("none", "stitch_base"), ("none", "stitch_fly"), ("stitch_base", "stitch_fly")):
+        for s_ in ("test", "val7"):
+            a, b = stitch[pair[0]][s_]["per_video"], stitch[pair[1]][s_]["per_video"]
+            for met in ("HOTA", "IDF1", "IDSw"):
+                d = np.asarray([b[v]["metrics"][met] - a[v]["metrics"][met] for v in a if v in b], np.float64)
+                rng = np.random.default_rng(42); boot = d[rng.integers(0, len(d), (5000, len(d)))].mean(1)
+                report.setdefault("stitch_bootstrap", {})[f"{pair[1]}-{pair[0]}|{s_}|{met}"] = {"mean": float(d.mean()), "ci95": [float(np.quantile(boot, 0.025)), float(np.quantile(boot, 0.975))], "better": int(((d < 0) if met == "IDSw" else (d > 0)).sum()), "worse": int(((d > 0) if met == "IDSw" else (d < 0)).sum())}
+            k = f"{pair[1]}-{pair[0]}|{s_}"
+            print(f"[SBOOT] {k}: HOTA {report['stitch_bootstrap'][k + '|HOTA']['mean']:+.3f} {report['stitch_bootstrap'][k + '|HOTA']['ci95']}, IDF1 {report['stitch_bootstrap'][k + '|IDF1']['mean']:+.3f} {report['stitch_bootstrap'][k + '|IDF1']['ci95']}, IDSw {report['stitch_bootstrap'][k + '|IDSw']['mean']:+.2f} {report['stitch_bootstrap'][k + '|IDSw']['ci95']}", flush=True)
     report["stitch"] = {n: {k: (v if k in ("threshold", "dev_grid") else {"summary": v["summary"], "links": v["links"], "per_video": {vid: x["metrics"] for vid, x in v["per_video"].items()}}) for k, v in r.items()} for n, r in stitch.items()}
     import pickle
     with open(args.output / "models.pkl", "wb") as fh:
