@@ -125,6 +125,8 @@ class Runner:
                 if not self.queue:
                     return
                 job = self.queue.pop(0)
+            if (PROJECT_ROOT / job["output"] / job["video_id"] / "fovea_flow.npz").exists():
+                continue  # готов другим сторожем, запущенным по тому же списку
             ok = self.run_one(worker, job)
             with self.lock:
                 (self.done if ok else self.failed).append({"video_id": job["video_id"], "retina": job["retina"], "output": job["output"]})
