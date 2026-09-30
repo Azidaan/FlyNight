@@ -1,0 +1,22 @@
+categories:
+  - name: Суть
+    fields:
+      - {name: essence, description: "Суть метода или направления, 2–4 предложения, простым языком", detail_level: moderate}
+      - {name: sources, description: "Первичные источники: статья, год, ссылка; код, если есть", detail_level: brief}
+  - name: Относимость к проекту
+    fields:
+      - {name: relevance, description: "Какую проблему проекта закрывает (реестр Н1–Н12, провал в ночи/пересвете, IDSw, скорость и т. п.)", detail_level: moderate}
+      - {name: novelty_overlap, description: "Кто уже делал похожее (особенно FlyVis/коннектом как признак); что это значит для cannot_claim", detail_level: moderate}
+  - name: Доказательства
+    fields:
+      - {name: author_results, description: "Результаты у авторов: набор данных, метрика, числа; частота кадров и движение камеры у них", detail_level: detailed}
+      - {name: measured_level, description: "На каком уровне измерен эффект: пары (AP), связи, HOTA/IDF1 после TrackEval", detail_level: brief}
+      - {name: matched_control, description: "Есть ли контроль того же объёма информации и нулевая модель графа; что показали", detail_level: moderate}
+      - {name: conditions_breakdown, description: "Есть ли разрез по условиям (ночь, пересвет, окклюзия, плотность)", detail_level: brief}
+  - name: Проверка у нас
+    fields:
+      - {name: cost_here, description: "Стоимость проверки у нас: данные, GPU/CPU-часы, можно ли на уже собранных кэшах (runs/fly_signatures, runs/train_cache*)", detail_level: moderate}
+      - {name: expected_effect, description: "Ожидаемый эффект у нас с обоснованием (числа проекта, похожие результаты)", detail_level: moderate}
+      - {name: risks, description: "Риски и ограничения, в том числе нарушение правил проекта (детектор заморожен, парные контроли)", detail_level: moderate}
+      - {name: attribution, description: "Как подписать заимствование в диссертации (что наше, что чужое)", detail_level: brief}
+uncertain: []

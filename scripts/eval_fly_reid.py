@@ -275,7 +275,7 @@ def main() -> int:
     # Сшивка: без сшивки (стенд) / голова без мухи / голова с мухой; порог — максимум IDF1 на dev.
     from evaluation.hota_eval import evaluate_hota
 
-    heads = {"stitch_base": models["geometry_appearance_hexin"], "stitch_fly": models["geometry_appearance_hexin_fly"]}
+    heads = {"stitch_geo": models["geometry"], "stitch_app": models["geometry_appearance"], "stitch_base": models["geometry_appearance_hexin"], "stitch_fly": models["geometry_appearance_hexin_fly"], "stitch_geo_fly": models["geometry_fly"]}
     split_meta = {s_: (tasks[0][1], tasks[0][2], tasks[0][3]) for s_, tasks in splits.items() if tasks}
     def run_stitch(name, head, split, thr):
         m, idx = head
@@ -293,7 +293,7 @@ def main() -> int:
         stitch[name] = {"threshold": thr, "dev": dev_runs[thr], "dev_grid": {str(t): r["summary"] for t, r in dev_runs.items()}, "test": run_stitch(name, head, "test", thr), "val7": run_stitch(name, head, "val7", thr)}
     for name, r in stitch.items():
         print(f"[STITCH] {name:12s} " + " | ".join(f"{s_}: HOTA {r[s_]['summary']['HOTA']:.3f} IDF1 {r[s_]['summary']['IDF1']:.3f} IDSw {r[s_]['summary']['IDSw']:.0f} связей {r[s_]['links']}" for s_ in ("dev", "test", "val7")) + (f" (порог {r['threshold']})" if 'threshold' in r else ""), flush=True)
-    for pair in (("none", "stitch_base"), ("none", "stitch_fly"), ("stitch_base", "stitch_fly")):
+    for pair in (("none", "stitch_base"), ("none", "stitch_fly"), ("stitch_base", "stitch_fly"), ("stitch_app", "stitch_base"), ("stitch_geo", "stitch_app"), ("stitch_geo", "stitch_geo_fly"), ("none", "stitch_geo")):
         for s_ in ("test", "val7"):
             a, b = stitch[pair[0]][s_]["per_video"], stitch[pair[1]][s_]["per_video"]
             for met in ("HOTA", "IDF1", "IDSw"):
