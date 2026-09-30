@@ -14,6 +14,9 @@ XYWH = dict(track_high_thresh=0.25, track_low_thresh=0.1, track_buffer=30, match
 
 
 def _run(tracker, detections, frames):
+    from ultralytics.trackers.basetrack import BaseTrack
+
+    BaseTrack.reset_id()  # глобальный счётчик ID: без сброса второй прогон нумерует треки дальше
     out = []
     for f in range(frames):
         xyxy, conf, cls = detections_for_frame(detections, f)
@@ -56,3 +59,17 @@ def test_adaptive_buffer_keeps_perfect_pair_at_one():
     t._p_bad = {id(trk): 0.9}
     t.args.fuse_score = False
     assert t.get_dists([trk], [det])[0, 0] == pytest.approx(0.0)
+
+
+@pytest.mark.skipif(not CACHE.exists(), reason="нет кэша детекций val")
+def test_buffered_mixin_matches_motion_source_buffer():
+    from tracking.motion_source_bytetrack import BufferedIoUMixin
+
+    class Buffered(BufferedIoUMixin, XYWHByteTrack):
+        pass
+
+    det = load_detection_cache(CACHE)
+    a = Buffered(make_tracker_args(**XYWH)); a.buffer = 0.3
+    b = MotionSourceByteTrack(make_tracker_args(**XYWH), buffer=0.3)
+    ra, rb = _run(a, det, 200), _run(b, det, 200)
+    assert all(np.array_equal(x, y) for x, y in zip(ra, rb))

@@ -119,3 +119,34 @@ class MotionSourceByteTrack(XYWHByteTrack):
         if self.args.fuse_score:
             dists = matching.fuse_score(dists, detections)
         return dists
+
+
+class BufferedIoUMixin:
+    """Статический буфер IoU (C-BIoU, заимствовано) для любого наследника BYTETracker.
+
+    Ставится первым в списке базовых классов; `self.buffer` задаёт наследник.
+    """
+
+    buffer: float = 0.0
+
+    def get_dists(self, tracks, detections):
+        if self.buffer <= 0:
+            return super().get_dists(tracks, detections)
+        track_boxes = np.asarray([t.xyxy for t in tracks], dtype=np.float64).reshape(-1, 4)
+        det_boxes = np.asarray([d.xyxy for d in detections], dtype=np.float64).reshape(-1, 4)
+        dists = 1.0 - iou_matrix(buffered(track_boxes, self.buffer), buffered(det_boxes, self.buffer))
+        if self.args.fuse_score:
+            dists = matching.fuse_score(dists, detections)
+        return dists
+
+
+def make_deferred_buffered(args, *, buffer: float, **kwargs):
+    """Отложенное рождение по q_birth (tracking.birth_policy) + буфер IoU."""
+    from tracking.birth_policy import DeferredBirthByteTrack
+
+    class DeferredBufferedByteTrack(BufferedIoUMixin, DeferredBirthByteTrack):
+        pass
+
+    tracker = DeferredBufferedByteTrack(args, **kwargs)
+    tracker.buffer = float(buffer)
+    return tracker

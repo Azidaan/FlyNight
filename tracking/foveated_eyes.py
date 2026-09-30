@@ -49,6 +49,9 @@ class EyeBank:
 
     def __init__(self, estimator, *, context: float = 2.0, min_side: int = 64, fade_in_seconds: float = 1.0, decode_flow: bool = False, max_batch: int = 0) -> None:
         _patch_constant_dt(estimator.network)
+        from tracking.gpu_lock import from_env
+
+        self.gpu_lock = from_env()  # FOVEA_GPU_LOCK=<имя> — очередь к GPU между процессами; без переменной — без блокировки
         self.max_batch = int(max_batch)  # 0 — все глаза одним батчем; иначе порциями (память сети ∝ числу глаз, результат тот же)
         self.estimator = estimator
         self.decode_flow = bool(decode_flow)
@@ -115,7 +118,8 @@ class EyeBank:
 
     def birth(self, frame: np.ndarray, boxes_xywh: dict[int, tuple]) -> None:
         for chunk in self._chunks(list(boxes_xywh)):
-            self._birth({tid: boxes_xywh[tid] for tid in chunk}, frame)
+            with self.gpu_lock:
+                self._birth({tid: boxes_xywh[tid] for tid in chunk}, frame)
 
     def _chunks(self, ids: list) -> list[list]:
         if self.max_batch <= 0 or len(ids) <= self.max_batch:
@@ -171,7 +175,8 @@ class EyeBank:
         ids = [tid for tid in predictions_xywh if tid in self._activity]
         result: dict[int, np.ndarray] = {}
         for chunk in self._chunks(ids):
-            result.update(self._step(frame, {tid: predictions_xywh[tid] for tid in chunk}))
+            with self.gpu_lock:
+                result.update(self._step(frame, {tid: predictions_xywh[tid] for tid in chunk}))
         return result
 
     def _step(self, frame: np.ndarray, predictions_xywh: dict[int, tuple]) -> dict[int, np.ndarray]:

@@ -80,7 +80,7 @@ class Runner:
         for attempt in range(1, self.args.retries + 2):
             start = time.time()
             import os
-            env = {**os.environ, **{k: str(self.args.threads) for k in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS", "FOVEA_THREADS")}}
+            env = {**os.environ, **{k: str(self.args.threads) for k in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS", "FOVEA_THREADS")}, "FOVEA_GPU_LOCK": "flyvis_fovea_gpu"}
             proc = subprocess.Popen(self.command(job), cwd=PROJECT_ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace", env=env)
             state = {"job": job, "start": start, "last_output": start}
             with self.lock:
