@@ -61,9 +61,13 @@ def main() -> int:
     ns = argparse.Namespace(flow_root=args.fly_root, root=args.train_cache, labels=args.labels, min_iou=0.5)
     data = {}
     for split in ("train", "dev", "test"):
-        parts = [matrices(r) for r in (collect(v, ns)["rows"] for v in selection[split]) if r]
+        ready = [v for v in selection[split] if (args.fly_root / v / "fovea_flow.npz").exists()]
+        parts = [matrices(r) for r in (collect(v, ns)["rows"] for v in ready) if r]
+        if not parts:
+            print(f"[DATA] {split}: нет роликов с кэшем мухи — пропущен", flush=True)
+            continue
         data[split] = tuple(np.concatenate([p[k] for p in parts]) for k in range(3))
-        print(f"[DATA] {split}: {len(data[split][2])} наблюдений", flush=True)
+        print(f"[DATA] {split}: {len(data[split][2])} наблюдений, роликов с кэшем мухи {len(ready)}/{len(selection[split])}", flush=True)
     tau = float(np.quantile(data["train"][2], 1.0 - args.positive_rate))
     y = {s: (d[2] > tau).astype(np.int8) for s, d in data.items()}
     base_spec, *_ = fit(data["train"][0], y["train"], list(BASE_FEATURES))

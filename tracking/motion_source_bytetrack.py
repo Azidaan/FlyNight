@@ -56,8 +56,12 @@ class MotionSourceByteTrack(XYWHByteTrack):
     def __init__(self, args, *, motion: str = "kalman", buffer: float = 0.0,
                  buffer_gain: float = 0.0, switch_threshold: float = 0.5,
                  dis_propagate: Callable[[np.ndarray, int], np.ndarray] | None = None,
-                 reliability: ReliabilityFn | None = None) -> None:
+                 reliability: ReliabilityFn | None = None, cascade_buffer: float = 0.0, second_buffer: float = 0.0) -> None:
         super().__init__(args)
+        # C-BIoU (заимствовано): каскад — после первой ассоциации оставшиеся треки и детекции
+        # сопоставляются ещё раз с большим буфером; second_buffer — буфер во второй (низкие баллы).
+        self.cascade_buffer = float(cascade_buffer)
+        self.second_buffer = float(second_buffer)
         if motion not in {"kalman", "dis", "switch"}:
             raise ValueError("motion должен быть kalman, dis или switch")
         if motion != "kalman" and dis_propagate is None:
@@ -99,6 +103,42 @@ class MotionSourceByteTrack(XYWHByteTrack):
                 center = (dis_xyxy[k, :2] + dis_xyxy[k, 2:]) / 2.0
                 track.mean[:2] = center
                 self.stats["switched"] += 1
+
+    def _buffered_dists(self, tracks, detections, b: float):
+        track_boxes = np.asarray([t.xyxy for t in tracks], dtype=np.float64).reshape(-1, 4)
+        det_boxes = np.asarray([d.xyxy for d in detections], dtype=np.float64).reshape(-1, 4)
+        dists = 1.0 - iou_matrix(buffered(track_boxes, b), buffered(det_boxes, b))
+        if self.args.fuse_score:
+            dists = matching.fuse_score(dists, detections)
+        return dists
+
+    def _post_first_association(self, strack_pool, detections, u_track, u_detection, activated, refind):
+        u_track, u_detection = super()._post_first_association(strack_pool, detections, u_track, u_detection, activated, refind)
+        if self.cascade_buffer <= 0 or not len(u_track) or not len(u_detection):
+            return u_track, u_detection
+        tracks = [strack_pool[i] for i in u_track]
+        dets = [detections[i] for i in u_detection]
+        matches, rest_t, rest_d = matching.linear_assignment(self._buffered_dists(tracks, dets, self.cascade_buffer), thresh=self.args.match_thresh)
+        for it, idet in matches:
+            self._apply_match(tracks[it], dets[idet], activated, refind)
+        return [u_track[i] for i in rest_t], [u_detection[i] for i in rest_d]
+
+    def _second_association(self, strack_pool, u_track, detections_second, activated, refind, lost):
+        if self.second_buffer <= 0:
+            return super()._second_association(strack_pool, u_track, detections_second, activated, refind, lost)
+        from ultralytics.trackers.basetrack import TrackState
+
+        r_tracked = [strack_pool[i] for i in u_track if strack_pool[i].state == TrackState.Tracked]
+        if r_tracked and detections_second:
+            matches, rest, _ = matching.linear_assignment(self._buffered_dists(r_tracked, detections_second, self.second_buffer), thresh=0.5)
+            self._apply_matches(matches, r_tracked, detections_second, activated, refind)
+        else:
+            rest = list(range(len(r_tracked)))
+        for it in rest:
+            track = r_tracked[it]
+            if track.state != TrackState.Lost:
+                track.mark_lost()
+                lost.append(track)
 
     # Первая ассоциация: буферизованный IoU (C-BIoU), буфер трека — фиксированный или по надёжности.
     def get_dists(self, tracks, detections):

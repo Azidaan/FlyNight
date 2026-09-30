@@ -68,6 +68,8 @@ def collect_split(flow_root: Path, root: Path, labels: Path, video_ids: list[str
     Xs, errs, vids = [], [], []
     ns = argparse.Namespace(flow_root=flow_root, root=root, labels=labels, min_iou=0.5)
     for k, v in enumerate(video_ids):
+        if not (flow_root / v / "fovea_flow.npz").exists():
+            continue  # кэш мухи для ролика ещё не посчитан
         rows = collect(v, ns)["rows"]
         if not rows:
             continue

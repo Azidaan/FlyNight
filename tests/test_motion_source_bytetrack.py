@@ -73,3 +73,13 @@ def test_buffered_mixin_matches_motion_source_buffer():
     b = MotionSourceByteTrack(make_tracker_args(**XYWH), buffer=0.3)
     ra, rb = _run(a, det, 200), _run(b, det, 200)
     assert all(np.array_equal(x, y) for x, y in zip(ra, rb))
+
+
+@pytest.mark.skipif(not CACHE.exists(), reason="нет кэша детекций val")
+def test_cascade_and_second_buffer_default_off_equal_bench():
+    det = load_detection_cache(CACHE)
+    a = _run(XYWHByteTrack(make_tracker_args(**XYWH)), det, 150)
+    b = _run(MotionSourceByteTrack(make_tracker_args(**XYWH), cascade_buffer=0.0, second_buffer=0.0), det, 150)
+    assert all(np.array_equal(x, y) for x, y in zip(a, b))
+    c = MotionSourceByteTrack(make_tracker_args(**XYWH), buffer=0.3, cascade_buffer=0.6, second_buffer=0.3)
+    _run(c, det, 150)

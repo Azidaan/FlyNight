@@ -36,6 +36,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--val-root", type=Path, default=PROJECT_ROOT / "runs" / "video_rate")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--workers", type=int, default=12)
+    parser.add_argument("--require-fly", type=Path, default=None, help="оставить в dev/test только ролики с <root>/<id>/fovea_flow.npz (частичные кэши)")
     return parser.parse_args()
 
 
@@ -46,7 +47,10 @@ def split_videos(args: argparse.Namespace) -> dict[str, tuple[list[str], Path, s
         if split == "val7":
             out[split] = (VAL7, args.val_root, "val")
         else:
-            out[split] = (selection[split], args.train_cache, "train")
+            vids = selection[split]
+            if args.require_fly is not None:
+                vids = [v for v in vids if (args.require_fly / v / "fovea_flow.npz").exists()]
+            out[split] = (vids, args.train_cache, "train")
     return out
 
 
