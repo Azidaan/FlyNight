@@ -49,6 +49,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--retina", default="lamina")
     parser.add_argument("--retina-downscale", type=int, default=4)
     parser.add_argument("--max-eyes", type=int, default=16)
+    parser.add_argument("--rewire", default="none", help="нулевая модель коннектома: none | type_sign | spatial (tracking/connectome_null.py)")
+    parser.add_argument("--rewire-seed", type=int, default=0)
     # совместимость с run_fovea_jobs.py (эти флаги ему передаются всегда)
     parser.add_argument("--decode-flow", action="store_true")
     parser.add_argument("--gpu-mem-fraction", type=float, default=0.0)
@@ -110,6 +112,9 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         estimator.torch.set_num_threads(threads); cv2.setNumThreads(threads)
     if args.gpu_mem_fraction > 0 and estimator.torch.cuda.is_available():
         estimator.torch.cuda.set_per_process_memory_fraction(args.gpu_mem_fraction)  # 7 процессов без потолка забивали 12 ГБ
+    from tracking.connectome_null import rewire
+
+    rewire_info = rewire(estimator.network, args.rewire, args.rewire_seed)
     bank = EyeBank(estimator, max_batch=args.max_eyes)
     retina = make_retina(args.retina, fps, blur_downscale=args.retina_downscale)
     cells = macro_cells(bank.points_local)
@@ -178,7 +183,7 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         **{f"first_{n}": np.stack([f[k] for f in firsts]).astype(np.float16) for k, n in enumerate(("fly", "hexin", "thumb", "hist"))},
         **{f"last_{n}": np.stack([f[k] for f in lasts]).astype(np.float16) for k, n in enumerate(("fly", "hexin", "thumb", "hist"))},
         outputs=np.concatenate(outputs) if outputs else np.zeros((0, 8), np.float32), frame_count=np.asarray(frame_index))
-    save_json(args.output / video_id / "signatures.json", {"video_id": video_id, "frames": frame_index, "lives": len(done), "retina": retina.describe(), "macro_cells": MACRO, "K": K, "seconds": time.perf_counter() - t0})
+    save_json(args.output / video_id / "signatures.json", {"video_id": video_id, "frames": frame_index, "lives": len(done), "retina": retina.describe(), "macro_cells": MACRO, "K": K, "rewire": rewire_info, "seconds": time.perf_counter() - t0})
     print(f"[OK] {video_id}: {frame_index} кадров, {len(done)} жизней глаз, {1000 * (time.perf_counter() - t0) / max(frame_index, 1):.0f} мс/кадр", flush=True)
     return {}
 
