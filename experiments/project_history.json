@@ -4483,7 +4483,7 @@
    "id": "line_b_combined_v1",
    "title": "Итоговый трекер линии B: каскад буферов IoU + отложенное рождение по q_birth + сшивка обрывков по геометрии",
    "area": "own_tracker",
-   "state": "running",
+   "state": "inconclusive",
    "tags": [
     "line-B",
     "end-to-end",
@@ -4497,8 +4497,8 @@
    "question": "Складываются ли эффекты каскада (HOTA/IDF1), отложенного рождения (IDSw) и сшивки (HOTA/IDF1/IDSw)?",
    "hypothesis": "Модули закрывают разные ошибки (ассоциация, ложные рождения, обрывы) и складываются почти независимо.",
    "expected": "Каскад + отложенное + сшивка: HOTA test выше лучшего одиночного модуля (сшивка по геометрии, 59,283) и выше стенда с ДИ > 0; IDSw test ниже, чем у каждого модуля по отдельности (сшивка 1795).",
-   "done": "Карточка записана до прогона (30.09.2026, 19:3x MSK).",
-   "decision": "",
+   "done": "Карточка записана до прогона (30.09.2026, 19:3x MSK). Прогон 30.09 19:3x–22:04; первая версия сшивки брала жизни как любые непрерывные отрезки выхода (включая однокадровые) — втрое больше склеек, стенд + сшивка 59,029 (отчёт сохранён: runs/line_b_combined/report_minlen1.json); исправлено: минимальная длина жизни 2 кадра (как жизни глаза в build_fly_signatures), пересчёт сшивки 22:1x–22:3x.",
+   "decision": "Критерий 1 (HOTA test выше 59,283) не выполнен (59,265), критерий 2 (IDSw ниже 1795) выполнен (1718) → inconclusive. Итоговое ядро линии B для диссертации: каскад 0,3→0,6 + отложенное рождение N = 2 + сшивка по геометрии — HOTA +1,4 %, IDF1 +3,3 %, IDSw −22,6 % к стенду на test. Дальше HOTA упирается в детекцию (DetA), а не в ассоциацию.",
    "started": "2026-09-30",
    "dataset": "runs/train_cache (dev 35, test 35), runs/video_rate (val7)",
    "split": "порог сшивки — dev; отчёт test и val7",
@@ -4510,24 +4510,69 @@
     "tracking/motion_source_bytetrack.py",
     "tests/test_motion_source_bytetrack.py"
    ],
-   "runs": [],
+   "runs": [
+    "runs/line_b_combined"
+   ],
    "acceptance": [
     {
      "criterion": "каскад + отложенное + сшивка: HOTA test > 59,283 (сшивка по геометрии) и > стенда с ДИ > 0",
-     "met": null,
-     "evidence": ""
+     "met": false,
+     "evidence": "runs/line_b_combined/report.json → results.cascade_deferred.stitch.test.summary.HOTA = 59.265 < 59,283"
     },
     {
      "criterion": "IDSw test ниже 1795 (лучший одиночный модуль)",
-     "met": null,
-     "evidence": ""
+     "met": true,
+     "evidence": "runs/line_b_combined/report.json → results.cascade_deferred.stitch.test.summary.IDSw = 1718 < 1795"
     }
    ],
-   "evidence": [],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/line_b_combined/report.json",
+     "locator": "results, bootstrap_vs_stand",
+     "claim": "4 трекера × со сшивкой и без"
+    }
+   ],
    "limitations": "Голова сшивки обучена на выходах стенда, применяется к выходам других трекеров без переобучения; один сид.",
    "cannot_claim": "Новизну модулей: C-BIoU, AFLink-подобная сшивка — заимствования; своё — сборка, отложенное рождение по q_birth и протокол.",
    "confirmed": false,
-   "metrics": []
+   "metrics": [
+    {
+     "key": "HOTA",
+     "value": 59.26548238685684,
+     "baseline": 58.46862614225555,
+     "subset": "test 35: каскад + отложенное + сшивка / стенд",
+     "source": "runs/line_b_combined/report.json",
+     "locator": "results.cascade_deferred.stitch.test.summary.HOTA"
+    },
+    {
+     "key": "IDF1",
+     "value": 69.18252317003973,
+     "baseline": 66.965404625375,
+     "subset": "test 35: каскад + отложенное + сшивка / стенд",
+     "source": "runs/line_b_combined/report.json",
+     "locator": "results.cascade_deferred.stitch.test.summary.IDF1"
+    },
+    {
+     "key": "IDSw",
+     "value": 1718.0,
+     "baseline": 2221.0,
+     "subset": "test 35: каскад + отложенное + сшивка / стенд",
+     "source": "runs/line_b_combined/report.json",
+     "locator": "results.cascade_deferred.stitch.test.summary.IDSw"
+    },
+    {
+     "key": "HOTA",
+     "value": 54.94788368502137,
+     "baseline": 54.57308976106422,
+     "subset": "val7: каскад + отложенное + сшивка / стенд",
+     "source": "runs/line_b_combined/report.json",
+     "locator": "results.cascade_deferred.stitch.val7.summary.HOTA"
+    }
+   ],
+   "finished": "2026-09-30",
+   "obtained": "test (35): стенд: HOTA 58.469 / IDF1 66.965 / IDSw 2221 (val7 HOTA 54.573); стенд + сшивка: HOTA 59.125 / IDF1 68.743 / IDSw 1847 (val7 HOTA 55.449); каскад: HOTA 59.106 / IDF1 68.350 / IDSw 1968 (val7 HOTA 55.076); каскад + сшивка: HOTA 59.169 / IDF1 68.913 / IDSw 1795 (val7 HOTA 55.066); отложенное: HOTA 58.425 / IDF1 67.033 / IDSw 2072 (val7 HOTA 54.635); отложенное + сшивка: HOTA 59.144 / IDF1 68.873 / IDSw 1728 (val7 HOTA 55.365); каскад + отложенное: HOTA 59.139 / IDF1 68.524 / IDSw 1877 (val7 HOTA 55.217); каскад + отложенное + сшивка: HOTA 59.265 / IDF1 69.183 / IDSw 1718 (val7 HOTA 54.948). Бутстреп к стенду, каскад + отложенное + сшивка: ΔHOTA test +0.723 [+0.082; +1.443], ΔIDF1 +2.049 [+0.886; +3.360], ΔIDSw на ролик -14.37 [-18.51; -10.60] (лучше в 32 из 35); val7 ΔHOTA +0.030 [-0.753; +0.930].",
+   "interpretation": "По HOTA модули не складываются: все сборки дают +0,6…+0,8 к стенду, как каждый модуль по отдельности (потолок прироста HOTA при этом детекторе и этих модулях ≈ +0,8). По идентичности складываются: полная сборка даёт лучший IDF1 (+2,2 абс., +3,3 %) и наименьшие IDSw (−22,6 %, лучше в 32 из 35 роликов). Сшивка по жизням из выхода трекера немного слабее сшивки по жизням глаза (стенд + сшивка 59,125 против 59,283): определение жизни влияет на результат."
   }
  ],
  "manual_events": [

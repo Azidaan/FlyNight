@@ -27,6 +27,7 @@ VAL7 = ["b1c66a42-6f7d68ca", "b1c81faa-3df17267", "b1cac6a7-04e33135", "b1cebfb7
 TRACKERS = {"stand": {}, "cascade": {"buffer": 0.3, "cascade_buffer": 0.6}, "deferred": {"deferred": True}, "cascade_deferred": {"buffer": 0.3, "cascade_buffer": 0.6, "deferred": True}}
 THRESHOLDS = (0.05, 0.1, 0.2, 0.3)
 MAX_GAP, MAX_DIST = 60, 3.0
+MIN_LIFE = 2
 METRICS = ("HOTA", "IDF1", "AssA", "DetA", "IDSw")
 
 
@@ -99,6 +100,8 @@ def lives_from_outputs(outputs: np.ndarray) -> list[dict]:
         rows = outputs[outputs[:, 5] == tid]; rows = rows[np.argsort(rows[:, 0])]
         cut = np.flatnonzero(np.diff(rows[:, 0]) > 1) + 1
         for seg in np.split(rows, cut):
+            if len(seg) < MIN_LIFE:
+                continue  # как жизни глаза в build_fly_signatures: трек, не доживший до следующего кадра, в сшивку не входит
             lives.append({"tid": int(tid), "start": int(seg[0, 0]), "end": int(seg[-1, 0]), "first_box": seg[0, 1:5].astype(np.float64), "last_box": seg[-1, 1:5].astype(np.float64), "cls": int(seg[0, 7]), "n": min(len(seg), 5)})
     return lives
 
