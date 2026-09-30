@@ -3930,7 +3930,7 @@
    "id": "birth_deferred_train_v1",
    "title": "Отложенное рождение по q_birth на обучающих видео (130/35/35) и его совмещение с буфером IoU",
    "area": "event_confidence",
-   "state": "running",
+   "state": "inconclusive",
    "tags": [
     "line-B",
     "q_birth",
@@ -3944,7 +3944,7 @@
    "hypothesis": "Отложенное рождение снижает ложные рождения и IDSw без потери HOTA и складывается с буфером.",
    "expected": "Выбранный на dev вариант: HOTA test не ниже стенда и IDSw ниже; с буфером — HOTA test выше одного буфера. На dev (до теста) выбранный N = 2 дал HOTA 61,317 против 61,336 у стенда (−0,02) и IDSw 1865 против 1990; с буфером 61,736 против 61,766 у одного буфера.",
    "done": "Карточка записана после выбора на dev, до прогона test/val7 (30.09.2026, 03:5x MSK). scripts/eval_birth_train.py, runs/event_dataset_train (165 роликов), runs/birth_train/report_dev.json.",
-   "decision": "",
+   "decision": "Критерий 1 (HOTA ≥ стенда и IDSw ниже) не выполнен строго: HOTA −0,04 (ДИ через ноль), IDSw ниже значимо; критерий 2 выполнен формально (+0,02, ДИ через ноль) → inconclusive по HOTA, положительный по IDSw. Сборка «буфер 0,5 + отложенное рождение N = 2» — текущий лучший трекер линии B на обучающих видео по IDSw; по HOTA равна буферу.",
    "started": "2026-09-30",
    "dataset": "runs/train_cache + runs/event_dataset_train; val7 — runs/video_rate",
    "split": "голова — train 130; выбор N — dev 35; отчёт — test 35 и val7",
@@ -3963,13 +3963,13 @@
    "acceptance": [
     {
      "criterion": "deferred_n2: HOTA test ≥ стенда и IDSw test ниже стенда",
-     "met": null,
-     "evidence": "runs/birth_train/report_final.json vs runs/e2e_motion_source/static/report.json"
+     "met": false,
+     "evidence": "runs/birth_train/report_final.json → summary.deferred_n2.test.HOTA = 58.425 < стенд 58.469; IDSw 2072 < 2221"
     },
     {
      "criterion": "deferred_n2 + буфер 0,5: HOTA test выше буфера 0,5",
-     "met": null,
-     "evidence": "runs/birth_train/report_final.json vs runs/e2e_motion_source/buffer2/report.json"
+     "met": true,
+     "evidence": "runs/birth_train/report_final.json → summary.deferred_n2+buf0.5.test.HOTA = 59.144 > буфер 59.121 (ДИ через ноль)"
     }
    ],
    "evidence": [
@@ -3983,7 +3983,51 @@
    "limitations": "Один сид; признаки рождения без мухи; истина на опорных кадрах 5 Гц.",
    "cannot_claim": "Перенос на другие детекторы.",
    "confirmed": false,
-   "metrics": []
+   "metrics": [
+    {
+     "key": "HOTA",
+     "value": 58.42513978145013,
+     "baseline": 58.46862614225555,
+     "subset": "test 35: deferred_n2 / стенд",
+     "source": "runs/birth_train/report_final.json",
+     "locator": "summary.deferred_n2.test.HOTA"
+    },
+    {
+     "key": "IDSw",
+     "value": 2072.0,
+     "baseline": 2221.0,
+     "subset": "test 35: deferred_n2 / стенд",
+     "source": "runs/birth_train/report_final.json",
+     "locator": "summary.deferred_n2.test.IDSw"
+    },
+    {
+     "key": "HOTA",
+     "value": 59.14396772548896,
+     "baseline": 58.46862614225555,
+     "subset": "test 35: deferred_n2 + буфер 0,5 / стенд",
+     "source": "runs/birth_train/report_final.json",
+     "locator": "summary.deferred_n2+buf0.5.test.HOTA"
+    },
+    {
+     "key": "IDF1",
+     "value": 68.40150386177785,
+     "baseline": 66.965404625375,
+     "subset": "test 35: deferred_n2 + буфер 0,5 / стенд",
+     "source": "runs/birth_train/report_final.json",
+     "locator": "summary.deferred_n2+buf0.5.test.IDF1"
+    },
+    {
+     "key": "IDSw",
+     "value": 1929.0,
+     "baseline": 2221.0,
+     "subset": "test 35: deferred_n2 + буфер 0,5 / стенд",
+     "source": "runs/birth_train/report_final.json",
+     "locator": "summary.deferred_n2+buf0.5.test.IDSw"
+    }
+   ],
+   "finished": "2026-09-30",
+   "obtained": "test: стенд HOTA 58.469 / IDF1 66.965 / IDSw 2221; deferred_n2 58.425 / 67.033 / 2072; буфер 0,5 59.121 / 68.307 / 2034; deferred_n2+буфер 59.144 / 68.402 / 1929. val7: стенд 54.573 / IDSw 526; deferred_n2 54.635 / 504; буфер 54.680 / 507; deferred_n2+буфер 54.802 / 475. Бутстреп по видео (runs/birth_train/bootstrap_final.json): deferred_n2 − стенд, test ΔHOTA -0.083 ДИ [-0.179; +0.008], ΔIDSw на видео -4.26 ДИ [-5.69; -2.97], лучше/хуже по IDSw 29/0; (deferred_n2+буфер) − буфер, test ΔHOTA ДИ [-0.151; +0.067], IDSw лучше/хуже 26/4; (deferred_n2+буфер) − стенд, test ΔHOTA +0.717 ДИ [+0.205; +1.464], ΔIDF1 ДИ [+0.697; +2.956].",
+   "interpretation": "На 35 отложенных обучающих роликах отложенное рождение не меняет HOTA (прирост +0,37 на трёх val-видео не обобщился), но значимо и почти без исключений снижает число переключений ID (29 из 35 роликов лучше, ни одного хуже). Эффекты буфера IoU (HOTA/IDF1) и отложенного рождения (IDSw) почти независимы: сборка даёт HOTA +0,68 и IDF1 +1,44 к стенду с ДИ > 0 и IDSw −13 %."
   }
  ],
  "manual_events": [
