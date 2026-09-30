@@ -43,7 +43,7 @@ def stamp() -> str:
 class Runner:
     def __init__(self, args: argparse.Namespace, jobs: list[dict]) -> None:
         self.args = args
-        self.queue = [j for j in jobs if not (PROJECT_ROOT / j["output"] / j["video_id"] / "fovea_flow.npz").exists()]
+        self.queue = [j for j in jobs if not (PROJECT_ROOT / j["output"] / j["video_id"] / j.get("marker", "fovea_flow.npz")).exists()]
         self.skipped = len(jobs) - len(self.queue)
         self.total = len(jobs)
         self.lock = threading.Lock()
@@ -68,7 +68,8 @@ class Runner:
             self.args.status.write_text(json.dumps(status, ensure_ascii=False, indent=1), encoding="utf-8")
 
     def command(self, job: dict) -> list[str]:
-        cmd = [sys.executable, "-u", str(BUILDER), "--decode-flow", "--retina", job["retina"], "--output", job["output"], "--video-id", job["video_id"], "--gpu-mem-fraction", str(self.args.gpu_mem_fraction), "--max-eyes", str(self.args.max_eyes)]
+        builder = PROJECT_ROOT / job["builder"] if job.get("builder") else BUILDER
+        cmd = [sys.executable, "-u", str(builder), "--decode-flow", "--retina", job["retina"], "--output", job["output"], "--video-id", job["video_id"], "--gpu-mem-fraction", str(self.args.gpu_mem_fraction), "--max-eyes", str(self.args.max_eyes)]
         if job.get("retina_downscale"):
             cmd += ["--retina-downscale", str(job["retina_downscale"])]
         for key, flag in (("videos", "--videos"), ("detections_root", "--detections-root"), ("flow_root", "--flow-root")):
@@ -125,7 +126,7 @@ class Runner:
                 if not self.queue:
                     return
                 job = self.queue.pop(0)
-            if (PROJECT_ROOT / job["output"] / job["video_id"] / "fovea_flow.npz").exists():
+            if (PROJECT_ROOT / job["output"] / job["video_id"] / job.get("marker", "fovea_flow.npz")).exists():
                 continue  # готов другим сторожем, запущенным по тому же списку
             ok = self.run_one(worker, job)
             with self.lock:

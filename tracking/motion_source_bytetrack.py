@@ -56,12 +56,13 @@ class MotionSourceByteTrack(XYWHByteTrack):
     def __init__(self, args, *, motion: str = "kalman", buffer: float = 0.0,
                  buffer_gain: float = 0.0, switch_threshold: float = 0.5,
                  dis_propagate: Callable[[np.ndarray, int], np.ndarray] | None = None,
-                 reliability: ReliabilityFn | None = None, cascade_buffer: float = 0.0, second_buffer: float = 0.0) -> None:
+                 reliability: ReliabilityFn | None = None, cascade_buffer: float = 0.0, second_buffer: float = 0.0, second_no_fuse: bool = False) -> None:
         super().__init__(args)
         # C-BIoU (заимствовано): каскад — после первой ассоциации оставшиеся треки и детекции
         # сопоставляются ещё раз с большим буфером; second_buffer — буфер во второй (низкие баллы).
         self.cascade_buffer = float(cascade_buffer)
         self.second_buffer = float(second_buffer)
+        self.second_no_fuse = bool(second_no_fuse)  # как XYWHIoUSecondByteTrack: без умножения на уверенность во второй ассоциации
         if motion not in {"kalman", "dis", "switch"}:
             raise ValueError("motion должен быть kalman, dis или switch")
         if motion != "kalman" and dis_propagate is None:
@@ -124,6 +125,15 @@ class MotionSourceByteTrack(XYWHByteTrack):
         return [u_track[i] for i in rest_t], [u_detection[i] for i in rest_d]
 
     def _second_association(self, strack_pool, u_track, detections_second, activated, refind, lost):
+        saved = self.args.fuse_score
+        if self.second_no_fuse:
+            self.args.fuse_score = False
+        try:
+            return self._second_association_impl(strack_pool, u_track, detections_second, activated, refind, lost)
+        finally:
+            self.args.fuse_score = saved
+
+    def _second_association_impl(self, strack_pool, u_track, detections_second, activated, refind, lost):
         if self.second_buffer <= 0:
             return super()._second_association(strack_pool, u_track, detections_second, activated, refind, lost)
         from ultralytics.trackers.basetrack import TrackState
