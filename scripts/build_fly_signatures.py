@@ -108,6 +108,8 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
     threads = int(os.environ.get("FOVEA_THREADS", "0"))
     if threads > 0:
         estimator.torch.set_num_threads(threads); cv2.setNumThreads(threads)
+    if args.gpu_mem_fraction > 0 and estimator.torch.cuda.is_available():
+        estimator.torch.cuda.set_per_process_memory_fraction(args.gpu_mem_fraction)  # 7 процессов без потолка забивали 12 ГБ
     bank = EyeBank(estimator, max_batch=args.max_eyes)
     retina = make_retina(args.retina, fps, blur_downscale=args.retina_downscale)
     cells = macro_cells(bank.points_local)
