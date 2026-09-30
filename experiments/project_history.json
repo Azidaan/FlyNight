@@ -3925,6 +3925,65 @@
    "cannot_claim": "Перенос на другие детекторы и наборы данных.",
    "confirmed": false,
    "metrics": []
+  },
+  {
+   "id": "birth_deferred_train_v1",
+   "title": "Отложенное рождение по q_birth на обучающих видео (130/35/35) и его совмещение с буфером IoU",
+   "area": "event_confidence",
+   "state": "running",
+   "tags": [
+    "line-B",
+    "q_birth",
+    "deferred-birth",
+    "train-videos",
+    "end-to-end",
+    "c-biou"
+   ],
+   "summary": "Перенос положительного результата birth_policy_deferred_v1 (+0,37 HOTA на 3 отложенных val-видео, голова на 4 val-видео) на обучающие видео цели 1а: голова q_birth (StandardScaler + LogisticRegression, base + DIS) на 156 193 кандидатах 130 train-роликов (runs/event_dataset_train), τ = максимум F1 на train (0,329; на val-четвёрке было 0,327). N ∈ {2, 3, 5} выбирается на dev по HOTA; отчёт — test и val7; варианты без буфера и с буфером IoU 0,5. Эталоны — стенд и буфер 0,5 из e2e_motion_source_v1 (тот же трекер).",
+   "question": "Обобщается ли прирост HOTA от отложенного рождения с 3 видео на 35 отложенных обучающих роликов и складывается ли он с буфером IoU?",
+   "hypothesis": "Отложенное рождение снижает ложные рождения и IDSw без потери HOTA и складывается с буфером.",
+   "expected": "Выбранный на dev вариант: HOTA test не ниже стенда и IDSw ниже; с буфером — HOTA test выше одного буфера. На dev (до теста) выбранный N = 2 дал HOTA 61,317 против 61,336 у стенда (−0,02) и IDSw 1865 против 1990; с буфером 61,736 против 61,766 у одного буфера.",
+   "done": "Карточка записана после выбора на dev, до прогона test/val7 (30.09.2026, 03:5x MSK). scripts/eval_birth_train.py, runs/event_dataset_train (165 роликов), runs/birth_train/report_dev.json.",
+   "decision": "",
+   "started": "2026-09-30",
+   "dataset": "runs/train_cache + runs/event_dataset_train; val7 — runs/video_rate",
+   "split": "голова — train 130; выбор N — dev 35; отчёт — test 35 и val7",
+   "baseline": "стенд XYWHByteTrack и буфер 0,5 (runs/e2e_motion_source)",
+   "variant": "deferred_n2; deferred_n2 + буфер 0,5",
+   "commits": [],
+   "files": [
+    "scripts/eval_birth_train.py",
+    "tracking/motion_source_bytetrack.py",
+    "tracking/birth_policy.py"
+   ],
+   "runs": [
+    "runs/birth_train",
+    "runs/event_dataset_train"
+   ],
+   "acceptance": [
+    {
+     "criterion": "deferred_n2: HOTA test ≥ стенда и IDSw test ниже стенда",
+     "met": null,
+     "evidence": "runs/birth_train/report_final.json vs runs/e2e_motion_source/static/report.json"
+    },
+    {
+     "criterion": "deferred_n2 + буфер 0,5: HOTA test выше буфера 0,5",
+     "met": null,
+     "evidence": "runs/birth_train/report_final.json vs runs/e2e_motion_source/buffer2/report.json"
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/birth_train/report_dev.json",
+     "locator": "summary",
+     "claim": "выбор N на dev"
+    }
+   ],
+   "limitations": "Один сид; признаки рождения без мухи; истина на опорных кадрах 5 Гц.",
+   "cannot_claim": "Перенос на другие детекторы.",
+   "confirmed": false,
+   "metrics": []
   }
  ],
  "manual_events": [

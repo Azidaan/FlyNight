@@ -38,6 +38,10 @@ GROUPS = {"geometry": GEOMETRY, "geometry_dis": GEOMETRY + DIS, "geometry_fly": 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--train-cache", type=Path, default=PROJECT_ROOT / "runs" / "train_cache")
+    parser.add_argument("--train-flow", type=Path, default=None, help="где лежат <id>/fovea_flow.npz обучающих роликов (по умолчанию = --train-cache)")
+    parser.add_argument("--dark-threshold", type=float, default=60.0, help="порог средней яркости ролика (0..255) для тёмной подвыборки")
+    parser.add_argument("--train-videos", type=Path, default=PROJECT_ROOT / "data" / "bdd100k" / "videos" / "train")
+    parser.add_argument("--val-videos", type=Path, default=PROJECT_ROOT / "data" / "bdd100k" / "videos" / "val")
     parser.add_argument("--train-labels", type=Path, default=PROJECT_ROOT / "data" / "bdd100k" / "labels" / "box_track_20" / "train")
     parser.add_argument("--val-flow", type=Path, default=PROJECT_ROOT / "runs" / "flyvis_fovea_flow")
     parser.add_argument("--val-root", type=Path, default=PROJECT_ROOT / "runs" / "video_rate")
@@ -72,12 +76,33 @@ def collect_split(flow_root: Path, root: Path, labels: Path, video_ids: list[str
     return np.concatenate(Xs), np.concatenate(errs), np.concatenate(vids)
 
 
+def video_luminance(video_roots: dict, selection: dict, val_ids: list[str], cache: Path) -> dict[str, float]:
+    """Средняя яркость ролика (0..255) по 6 равномерно взятым кадрам; кэш в JSON."""
+    import cv2
+
+    values = json.loads(cache.read_text(encoding="utf-8")) if cache.exists() else {}
+    todo = [(v, video_roots["train"]) for s in ("train", "dev", "test") for v in selection[s]] + [(v, video_roots["val"]) for v in val_ids]
+    for v, root in todo:
+        if v in values:
+            continue
+        cap = cv2.VideoCapture(str(Path(root) / f"{v}.mov")); n = int(cap.get(cv2.CAP_PROP_FRAME_COUNT)); vals = []
+        for t in np.linspace(0, max(n - 1, 0), 6).astype(int):
+            cap.set(cv2.CAP_PROP_POS_FRAMES, int(t)); ok, frame = cap.read()
+            if ok:
+                vals.append(float(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY).mean()))
+        cap.release()
+        values[v] = float(np.mean(vals)) if vals else float("nan")
+    cache.parent.mkdir(parents=True, exist_ok=True)
+    cache.write_text(json.dumps(values, indent=1), encoding="utf-8")
+    return values
+
+
 def main() -> int:
     args = parse_args()
     selection = json.loads((args.train_cache / "selection.json").read_text(encoding="utf-8"))["videos"]
     data = {}
     for split in ("train", "dev", "test"):
-        data[split] = collect_split(args.train_cache, args.train_cache, args.train_labels, selection[split]) + (selection[split],)
+        data[split] = collect_split(args.train_flow or args.train_cache, args.train_cache, args.train_labels, selection[split]) + (selection[split],)
         print(f"[DATA] {split}: {len(data[split][1])} наблюдений на {len(selection[split])} видео", flush=True)
     val_ids = list(TRAIN_VIDEO_IDS + TEST_VIDEO_IDS)
     data["val7"] = collect_split(args.val_flow, args.val_root, args.val_labels, val_ids) + (val_ids,)
@@ -113,6 +138,15 @@ def main() -> int:
         wrap = lambda n: {"test_by_video": results[n][f"{s}_by_video"]}
         return {m: paired_video_bootstrap(wrap(a), wrap(b), m) for m in ("average_precision", "brier")}
 
+    luminance = video_luminance({"train": args.train_videos, "val": args.val_videos}, selection, list(TRAIN_VIDEO_IDS + TEST_VIDEO_IDS), args.output / "luminance.json")
+    strata = {}
+    for group, test in (("dark", lambda L: L < args.dark_threshold), ("bright", lambda L: L >= args.dark_threshold)):
+        vids = [v for s in ("dev", "test") for v in data[s][3] if test(luminance[v])]
+        strata[group] = {"videos": len(vids)}
+        for name in GROUPS:
+            aps = [results[name][f"{s}_by_video"][v]["average_precision"] for s in ("dev", "test") for v in data[s][3] if v in results[name][f"{s}_by_video"] and test(luminance[v])]
+            strata[group][name] = float(np.mean(aps)) if aps else None
+        print(f"[STRATA] {group} ({len(vids)} видео dev+test): " + ", ".join(f"{n} {strata[group][n]:.4f}" for n in GROUPS if strata[group][n] is not None), flush=True)
     comparisons = {f"fly_vs_dis_{s}": boot("geometry_dis", "geometry_dis_fly", s) for s in ("dev", "test", "val7")}
     comparisons.update({f"fly_vs_shuffled_{s}": boot("geometry_dis_shuffled", "geometry_dis_fly", s) for s in ("test", "val7")})
     ap = lambda n, s: results[n][s]["average_precision"]; br = lambda n, s: results[n][s]["brier"]
@@ -124,7 +158,7 @@ def main() -> int:
         "ci_excludes_zero_test": comparisons["fly_vs_dis_test"]["average_precision"]["ci95_percentile"][0] > 0,
     }
     args.output.mkdir(parents=True, exist_ok=True)
-    save_json(args.output / "report.json", {"protocol": {"event": f"нормированная ошибка центра предсказания > τ_e = {tau:.4f} (≈{args.positive_rate:.0%} положительных на train)", "model": "StandardScaler + LogisticRegression(C=1), порог F1 на train", "splits": {s: len(d[3]) for s, d in data.items()}}, "tau": tau, "positive_rate": {s: float(labels[s].mean()) for s in labels}, "groups": results, "comparisons": comparisons, "acceptance": acceptance})
+    save_json(args.output / "report.json", {"strata": strata, "dark_threshold": args.dark_threshold, "protocol": {"event": f"нормированная ошибка центра предсказания > τ_e = {tau:.4f} (≈{args.positive_rate:.0%} положительных на train)", "model": "StandardScaler + LogisticRegression(C=1), порог F1 на train", "splits": {s: len(d[3]) for s, d in data.items()}}, "tau": tau, "positive_rate": {s: float(labels[s].mean()) for s in labels}, "groups": results, "comparisons": comparisons, "acceptance": acceptance})
     print(json.dumps(acceptance, ensure_ascii=False))
     print(f"[OK] {args.output / 'report.json'}")
     return 0
