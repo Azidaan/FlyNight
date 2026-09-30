@@ -83,3 +83,29 @@ def test_cascade_and_second_buffer_default_off_equal_bench():
     assert all(np.array_equal(x, y) for x, y in zip(a, b))
     c = MotionSourceByteTrack(make_tracker_args(**XYWH), buffer=0.3, cascade_buffer=0.6, second_buffer=0.3)
     _run(c, det, 150)
+
+
+@pytest.mark.skipif(not CACHE.exists(), reason="нет кэша детекций val")
+def test_deferred_cascade_zero_buffers_equals_deferred_birth():
+    import cv2
+    from ultralytics.trackers.basetrack import BaseTrack
+    from tracking.birth_policy import BirthHead, DeferredBirthByteTrack
+    from tracking.decision_log import IndexedDetections
+    from tracking.motion_source_bytetrack import make_deferred_cascade
+
+    head_path = Path("runs/birth_train/head.json")
+    if not head_path.exists():
+        pytest.skip("нет головы q_birth")
+    head = BirthHead.from_json(head_path)
+    det = load_detection_cache(CACHE)
+    gray = np.zeros((720, 1280), np.uint8)
+    outs = []
+    for make in (lambda: DeferredBirthByteTrack(make_tracker_args(**XYWH), head=head, tau=0.33, confirm_hits=2),
+                 lambda: make_deferred_cascade(make_tracker_args(**XYWH), buffer=0.0, cascade_buffer=0.0, head=head, tau=0.33, confirm_hits=2)):
+        BaseTrack.reset_id(); t = make(); o = []
+        for f in range(120):
+            xyxy, conf, cls = detections_for_frame(det, f)
+            t.set_frame_context(gray=gray, prev_propagated=np.zeros((0, 4), np.float32), frame_size=(1280, 720))
+            o.append(np.asarray(t.update_with_log(IndexedDetections(xyxy, conf, cls))["output"]).copy())
+        outs.append(o)
+    assert all(np.array_equal(x, y) for x, y in zip(*outs))

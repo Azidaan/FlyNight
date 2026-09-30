@@ -200,3 +200,23 @@ def make_deferred_buffered(args, *, buffer: float, **kwargs):
     tracker = DeferredBufferedByteTrack(args, **kwargs)
     tracker.buffer = float(buffer)
     return tracker
+
+
+def make_deferred_cascade(args, *, buffer: float, cascade_buffer: float, head, tau: float, confirm_hits: int, class_ids=(0, 1, 2, 3, 4, 5, 6, 7)):
+    """Итоговое ядро линии B: каскад буферов IoU (C-BIoU) + отложенное рождение по q_birth.
+
+    Ассоциация — из MotionSourceByteTrack (стоит первым в MRO), рождение и журнал событий —
+    из DeferredBirthByteTrack. При buffer = cascade_buffer = 0 равен DeferredBirthByteTrack (тест).
+    """
+    from tracking.birth_policy import DeferredBirthByteTrack
+
+    class DeferredCascadeByteTrack(MotionSourceByteTrack, DeferredBirthByteTrack):
+        def __init__(self, a):
+            DeferredBirthByteTrack.__init__(self, a, head=head, tau=tau, confirm_hits=confirm_hits, class_ids=class_ids)
+            self.cascade_buffer, self.second_buffer, self.second_no_fuse = float(cascade_buffer), 0.0, False
+            self.motion, self.buffer, self.buffer_gain, self.switch_threshold = "kalman", float(buffer), 0.0, 0.5
+            self.dis_propagate, self.reliability = None, None
+            self._previous_xywh, self._p_bad = {}, {}
+            self.stats = {"switched": 0, "tracks_seen": 0}
+
+    return DeferredCascadeByteTrack(args)

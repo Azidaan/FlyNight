@@ -4478,6 +4478,56 @@
      "locator": "stitch.stitch_geo.test.summary.HOTA"
     }
    ]
+  },
+  {
+   "id": "line_b_combined_v1",
+   "title": "Итоговый трекер линии B: каскад буферов IoU + отложенное рождение по q_birth + сшивка обрывков по геометрии",
+   "area": "own_tracker",
+   "state": "running",
+   "tags": [
+    "line-B",
+    "end-to-end",
+    "hota",
+    "idsw",
+    "c-biou",
+    "deferred-birth",
+    "tracklet-stitching"
+   ],
+   "summary": "Модули, проверенные по отдельности (cbiou_cascade_v1, birth_deferred_train_v1, stitch_appearance_v1), впервые вместе. Трекеры: стенд; каскад 0,3→0,6; отложенное рождение N = 2; каскад + отложенное (tracking.motion_source_bytetrack.make_deferred_cascade — при нулевых буферах байт-в-байт равен DeferredBirthByteTrack, тест). Каждый — без сшивки и со сшивкой по геометрии (голова geometry, обученная на парах стенда 70 train-роликов, runs/fly_reid_ablation/models.pkl; жизни — непрерывные отрезки выхода трекера). Порог сшивки из {0,05; 0,1; 0,2; 0,3} — максимум IDF1 на dev для каждого трекера; отчёт — test (35) и val7; бутстреп по видео к стенду. scripts/eval_combined.py.",
+   "question": "Складываются ли эффекты каскада (HOTA/IDF1), отложенного рождения (IDSw) и сшивки (HOTA/IDF1/IDSw)?",
+   "hypothesis": "Модули закрывают разные ошибки (ассоциация, ложные рождения, обрывы) и складываются почти независимо.",
+   "expected": "Каскад + отложенное + сшивка: HOTA test выше лучшего одиночного модуля (сшивка по геометрии, 59,283) и выше стенда с ДИ > 0; IDSw test ниже, чем у каждого модуля по отдельности (сшивка 1795).",
+   "done": "Карточка записана до прогона (30.09.2026, 19:3x MSK).",
+   "decision": "",
+   "started": "2026-09-30",
+   "dataset": "runs/train_cache (dev 35, test 35), runs/video_rate (val7)",
+   "split": "порог сшивки — dev; отчёт test и val7",
+   "baseline": "стенд XYWHByteTrack",
+   "variant": "каскад + отложенное рождение + сшивка по геометрии",
+   "commits": [],
+   "files": [
+    "scripts/eval_combined.py",
+    "tracking/motion_source_bytetrack.py",
+    "tests/test_motion_source_bytetrack.py"
+   ],
+   "runs": [],
+   "acceptance": [
+    {
+     "criterion": "каскад + отложенное + сшивка: HOTA test > 59,283 (сшивка по геометрии) и > стенда с ДИ > 0",
+     "met": null,
+     "evidence": ""
+    },
+    {
+     "criterion": "IDSw test ниже 1795 (лучший одиночный модуль)",
+     "met": null,
+     "evidence": ""
+    }
+   ],
+   "evidence": [],
+   "limitations": "Голова сшивки обучена на выходах стенда, применяется к выходам других трекеров без переобучения; один сид.",
+   "cannot_claim": "Новизну модулей: C-BIoU, AFLink-подобная сшивка — заимствования; своё — сборка, отложенное рождение по q_birth и протокол.",
+   "confirmed": false,
+   "metrics": []
   }
  ],
  "manual_events": [
