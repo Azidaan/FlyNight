@@ -4085,11 +4085,11 @@
    "question": "Устраняет ли сетчатка-ламина провал мухи на тёмных роликах, обнаруженный стратификацией motion_reliability_v1 (муха без DIS хуже геометрии на тёмных)?",
    "hypothesis": "Провал вызван входом вне обучающего распределения; с ламиной голова «геометрия + муха» на тёмных не хуже геометрии, а «геометрия + DIS + муха» не хуже «геометрия + DIS».",
    "expected": "На тёмных test-роликах: geometry_fly(ламина) ≥ geometry и > geometry_fly(без сетчатки); geometry_dis_fly(ламина) ≥ geometry_dis и > перемешанного контроля. Критерии следуют из ступени A и стратификации motion_reliability_v1 (без сетчатки на тёмных dev+test: fly 0,447 < geometry 0,450; dis+fly 0,515 < dis 0,522).",
-   "done": "Карточка записана 30.09.2026, 09:1x MSK по предварительному расчёту: к 08:50 ступень B досчитана не полностью (train 119/130, test 26/35, dev 0/35, val7 7/7) из-за зависаний CUDA и ночного простоя; расчёт ограничен роликами, готовыми для обоих режимов (одни и те же наблюдения). Скрипт — scratchpad h2_partial.py (collect_split/GROUPS из scripts/evaluate_motion_reliability.py), отчёт runs/retina_frontend/stageB_partial.json. Полный пересчёт — scripts/evaluate_motion_reliability.py --train-flow runs/train_cache_retina_lamina4 после окончания ступени B.",
+   "done": "Карточка записана 30.09.2026, 09:1x MSK по предварительному расчёту (119/26 роликов, runs/retina_frontend/stageB_partial.json, scripts/evaluate_retina_stageB_partial.py); критерии не менялись. Ступень B закончена 30.09 11:25 (+3 ролика 14:08): 200/200 обучающих + val7. Полный пересчёт 14:1x: scripts/evaluate_motion_reliability.py --train-flow runs/train_cache_retina_lamina4 --val-flow runs/flyvis_fovea_flow_retina_lamina4 → runs/motion_reliability_lamina/report.json; эталон без сетчатки тем же скриптом → runs/motion_reliability_none_strata/report.json; бутстреп по видео внутри подвыборок → runs/motion_reliability_lamina/strata_bootstrap.json.",
    "started": "2026-09-30",
    "finished": "2026-09-30",
    "dataset": "runs/train_cache_retina_lamina4 (ламина), runs/train_cache (без сетчатки); val7 — runs/flyvis_fovea_flow_retina_lamina4 и runs/flyvis_fovea_flow",
-   "split": "train 119 → test 26 (8 тёмных, 18 светлых) и val7",
+   "split": "train 130 → dev 35 + test 35 (27 тёмных, 43 светлых; порог средней яркости 60/255) и val7",
    "baseline": "та же лестница без сетчатки на тех же роликах",
    "variant": "ламина",
    "commits": [],
@@ -4100,60 +4100,185 @@
     "tracking/gpu_lock.py"
    ],
    "runs": [
+    "runs/flyvis_fovea_flow_retina_lamina4",
+    "runs/motion_reliability_lamina",
+    "runs/motion_reliability_none_strata",
     "runs/retina_frontend",
-    "runs/train_cache_retina_lamina4",
-    "runs/flyvis_fovea_flow_retina_lamina4"
+    "runs/train_cache_retina_lamina4"
    ],
    "acceptance": [
     {
      "criterion": "тёмные test: geometry_fly(ламина) ≥ geometry и > geometry_fly(без сетчатки)",
      "met": true,
-     "evidence": "runs/retina_frontend/stageB_partial.json → lamina.geometry_fly.test_dark = 0.4755; lamina.geometry.test_dark = 0.4749; none.geometry_fly.test_dark = 0.4624"
+     "evidence": "runs/motion_reliability_lamina/report.json → strata.dark.geometry_fly = 0.4659 ≥ geometry 0.4497; runs/motion_reliability_none_strata/report.json → strata.dark.geometry_fly = 0.4471"
     },
     {
      "criterion": "тёмные test: geometry_dis_fly(ламина) ≥ geometry_dis и > перемешанного",
      "met": true,
-     "evidence": "runs/retina_frontend/stageB_partial.json → lamina.geometry_dis_fly.test_dark = 0.5219; geometry_dis 0.5208; shuffled 0.5181"
+     "evidence": "runs/motion_reliability_lamina/report.json → strata.dark.geometry_dis_fly = 0.5242 ≥ geometry_dis 0.5215 и > shuffled 0.5197; бутстреп strata_bootstrap.json"
     }
    ],
    "evidence": [
     {
      "kind": "json",
+     "ref": "runs/motion_reliability_lamina/report.json",
+     "locator": "strata, groups",
+     "claim": "лестница Н2 с ламиной"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/motion_reliability_none_strata/report.json",
+     "locator": "strata, groups",
+     "claim": "эталон без сетчатки"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/motion_reliability_lamina/strata_bootstrap.json",
+     "locator": "lamina-none|dark|geometry_dis_fly",
+     "claim": "парный бутстреп по тёмным роликам"
+    },
+    {
+     "kind": "json",
      "ref": "runs/retina_frontend/stageB_partial.json",
      "locator": "none, lamina",
-     "claim": "лестница Н2 без сетчатки и с ламиной на одних роликах"
+     "claim": "предварительный расчёт 09:1x"
     }
    ],
-   "limitations": "Предварительно: 119/130 train, 26/35 test, dev не готов; тёмных test-роликов 8 — различия малы (+0,001…+0,013 AP), бутстреп не считался; один сид перестановки.",
+   "limitations": "Тёмные ролики — 27 (порог яркости 60/255 задан заранее по motion_reliability_v1); прибавка сверх DIS на тёмных +0,003 с ДИ, задевающим ноль; один сид перестановки; порог события τ_e одинаков для обоих режимов.",
    "cannot_claim": "Прирост мухи сверх DIS; пользу для HOTA (см. e2e_motion_source_v1: ноль).",
    "confirmed": false,
-   "obtained": "Тёмные test (8) / светлые (18) / val7: geometry 0.4749 / 0.4709 / 0.3433; +муха без сетчатки 0.4624 / 0.4775 / 0.3694; +муха-ламина 0.4755 / 0.4782 / 0.3854; geometry+DIS 0.5208 / 0.5546 / 0.4819; +DIS+муха без сетчатки 0.5149 / 0.5519 / 0.4826; +DIS+муха-ламина 0.5219 / 0.5518 / 0.4838; перемешанный контроль (ламина) 0.5181 / 0.5539 / 0.4803.",
-   "interpretation": "Ночной провал мухи устранён входом: без сетчатки добавление мухи ухудшало голову на тёмных роликах (−0,013 без DIS, −0,006 поверх DIS), с ламиной — не ухудшает (+0,001 и +0,001) и выше перемешанного контроля; на val7 прибавка мухи без DIS выросла с +0,026 до +0,042. Сверх DIS муха почти ничего не добавляет ни в тёмных, ни в светлых сценах: сигнал надёжности мухи с ламиной достоверен, но избыточен относительно рассогласования DIS.",
-   "decision": "Оба критерия выполнены (на предварительном наборе) → completed_positive в узкой постановке «ламина устраняет ночной провал». Прироста сверх DIS нет — Н2 остаётся закрытой; вклад мухи в трекер искать в функциях, где у DIS нет аналога (Н11: эго-движение, лоуминг, сигнатура состояния). Полный пересчёт после окончания ступени B.",
+   "obtained": "dev+test, тёмные (27) / светлые (43): geometry 0.4497 / 0.4535; +муха без сетчатки 0.4471 / 0.4657; +муха-ламина 0.4659 / 0.4661; geometry+DIS 0.5215 / 0.5430; +DIS+муха без сетчатки 0.5148 / 0.5420; +DIS+муха-ламина 0.5242 / 0.5422; перемешанный (ламина) 0.5197 / 0.5422. Бутстреп по видео (тёмные): без сетчатки DIS+муха − DIS -0.0066 [-0.0109; -0.0023] (хуже в 20 из 27); ламина: муха − геометрия +0.0161 [+0.0036; +0.0294]; DIS+муха − DIS +0.0028 [-0.0007; +0.0064]; DIS+муха − перемешанный +0.0046 [+0.0011; +0.0082]; ламина − без сетчатки (голова DIS+муха) +0.0094 [+0.0049; +0.0142]; то же на светлых +0.0003 [-0.0010; +0.0015]. Агрегат test / val7 (ламина): geometry+DIS 0.5490 / 0.4818, +муха 0.5482 / 0.4840; geometry+муха 0.4692 / 0.3853 (без сетчатки 0.4674 / 0.3692).",
+   "interpretation": "Без сетчатки муха на тёмных роликах значимо портит голову надёжности поверх DIS (вход вне обучающего распределения: шум сжатия принимается за движение). Сетчатка-ламина (фоторецептор Вебера + центр-окружение) устраняет это: на тёмных роликах голова с мухой-ламиной значимо лучше головы с мухой без сетчатки (+0,009 AP) и значимо лучше перемешанного контроля; сама по себе муха-ламина на тёмных даёт +0,016 к геометрии. На светлых роликах сетчатка ничего не меняет. Сверх DIS муха-ламина даёт прибавку только в тёмных сценах (+0,003, ДИ задевает ноль); на агрегате test — ноль. Это первый результат, где у мухи есть свойство, зависящее от условий объекта исследования: её полезность ночью определяется биологической предобработкой входа.",
+   "decision": "Оба заранее записанных критерия выполнены на полном наборе → completed_positive (узкая постановка: ламина устраняет ночной провал мухи). Прибавка сверх DIS на тёмных — на грани значимости; на агрегате и в трекере (e2e_motion_source_v1) — ноль. Дальше по мухе: функции без аналога у DIS (Н11) и сетчатка как обязательная часть любого следующего опыта с мухой.",
    "metrics": [
     {
      "key": "AP",
-     "value": 0.47549030858181973,
-     "baseline": 0.4624472512267711,
-     "subset": "тёмные test (8): geometry+муха, ламина / без сетчатки",
-     "source": "runs/retina_frontend/stageB_partial.json",
-     "locator": "lamina.geometry_fly.test_dark"
+     "value": 0.5242342972245125,
+     "baseline": 0.5148270462426626,
+     "subset": "тёмные dev+test (27): geometry+DIS+муха, ламина / без сетчатки",
+     "source": "runs/motion_reliability_lamina/report.json",
+     "locator": "strata.dark.geometry_dis_fly"
     },
     {
      "key": "AP",
-     "value": 0.5218814241798586,
-     "baseline": 0.5149436794050251,
-     "subset": "тёмные test (8): geometry+DIS+муха, ламина / без сетчатки",
-     "source": "runs/retina_frontend/stageB_partial.json",
-     "locator": "lamina.geometry_dis_fly.test_dark"
+     "value": 0.4658596834096219,
+     "baseline": 0.4497132039440513,
+     "subset": "тёмные dev+test (27): geometry+муха-ламина / geometry",
+     "source": "runs/motion_reliability_lamina/report.json",
+     "locator": "strata.dark.geometry_fly"
     },
     {
      "key": "AP",
-     "value": 0.38536613853856805,
-     "baseline": 0.3694200646015593,
+     "value": 0.5242342972245125,
+     "baseline": 0.5214502454533669,
+     "subset": "тёмные dev+test (27): geometry+DIS+муха-ламина / geometry+DIS",
+     "source": "runs/motion_reliability_lamina/report.json",
+     "locator": "strata.dark.geometry_dis_fly"
+    },
+    {
+     "key": "AP",
+     "value": 0.5422218451185353,
+     "baseline": 0.542968110857222,
+     "subset": "светлые dev+test (43): geometry+DIS+муха-ламина / geometry+DIS",
+     "source": "runs/motion_reliability_lamina/report.json",
+     "locator": "strata.bright.geometry_dis_fly"
+    },
+    {
+     "key": "AP",
+     "value": 0.38533621625589337,
+     "baseline": 0.36918534406515546,
      "subset": "val7: geometry+муха, ламина / без сетчатки",
-     "source": "runs/retina_frontend/stageB_partial.json",
-     "locator": "lamina.geometry_fly.val7"
+     "source": "runs/motion_reliability_lamina/report.json",
+     "locator": "groups.geometry_fly.val7.average_precision"
+    }
+   ]
+  },
+  {
+   "id": "cbiou_cascade_v1",
+   "title": "Каскад буферов IoU (C-BIoU) и буфер второй ассоциации на стенде XYWHByteTrack — HOTA на обучающих видео",
+   "area": "own_tracker",
+   "state": "completed_positive",
+   "tags": [
+    "line-B",
+    "c-biou",
+    "end-to-end",
+    "hota",
+    "idsw"
+   ],
+   "summary": "Заимствовано: C-BIoU (Yang et al., WACV 2023) — после первой ассоциации с малым буфером оставшиеся треки и детекции сопоставляются ещё раз с большим буфером; дополнительно — буфер во второй ассоциации (детекции низкой уверенности). tracking/motion_source_bytetrack.py (cascade_buffer, second_buffer; при нулях байт-в-байт равен стенду — тест). Конфигурации заданы заранее файлом runs/e2e_motion_source/configs_cascade.json; выбор — на dev (35), отчёт — test (35) и val7.",
+   "question": "Добавляет ли каскад буферов что-то сверх одиночного буфера 0,5?",
+   "hypothesis": "Малый буфер сначала сохраняет точные пары, большой затем подбирает быстрые объекты — меньше переключений ID.",
+   "expected": "",
+   "done": "Прогон 30.09.2026 09:0x упал на имени конфигурации с символом «>» (недопустим в путях Windows); переименовано, перезапуск 14:00–14:15. Карточка до прогона не записывалась — поле «ожидалось» пустое; выбор варианта по dev задан протоколом скрипта заранее.",
+   "decision": "Каскад 0,3→0,6 — лучшая конфигурация ассоциации линии B на обучающих видео по совокупности (HOTA как у буфера, IDSw ниже, val7 выше). Отдельная открытая задача: вторая ассоциация стенда мертва при fuse_score — проверить её без умножения на уверенность (XYWHIoUSecondByteTrack) на обучающих видео.",
+   "started": "2026-09-30",
+   "finished": "2026-09-30",
+   "dataset": "runs/train_cache (dev 35, test 35) + runs/video_rate (val7)",
+   "split": "выбор на dev, отчёт test и val7",
+   "baseline": "стенд XYWHByteTrack; буфер 0,5",
+   "variant": "каскад 0,3 → 0,6 (лучший на dev: HOTA 61,810)",
+   "commits": [],
+   "files": [
+    "tracking/motion_source_bytetrack.py",
+    "tests/test_motion_source_bytetrack.py",
+    "scripts/eval_motion_source.py",
+    "scripts/analyze_e2e.py"
+   ],
+   "runs": [
+    "runs/e2e_motion_source/cascade"
+   ],
+   "acceptance": [],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/e2e_motion_source/cascade/report.json",
+     "locator": "summary",
+     "claim": "HOTA/IDF1/IDSw по конфигурациям"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/e2e_motion_source/bootstrap_cascade.json",
+     "locator": "comparisons",
+     "claim": "парный бутстреп по видео"
+    }
+   ],
+   "limitations": "Критерии до прогона не записаны; один сид; буфер второй ассоциации проверить нельзя, пока в стенде fuse_score=True (см. интерпретацию).",
+   "cannot_claim": "Новизну: каскад — заимствованный метод C-BIoU.",
+   "confirmed": false,
+   "obtained": "dev / test / val7 HOTA: стенд 61.336 / 58.469 / 54.573; буфер 0,5 61.766 / 59.121 / 54.680; каскад 0,3→0,6 61.810 / 59.106 / 55.076 (IDF1 test 68.350 против 66.965 у стенда; IDSw test 2221 / 2034 / 1968). Бутстреп по видео: каскад − стенд на test ΔHOTA +0.745 ДИ [+0.220; +1.487], ΔIDF1 ДИ [+0.699; +2.918]; каскад − буфер 0,5: test ΔHOTA ДИ [-0.163; +0.141], ΔIDSw на ролик -1.89 ДИ [-3.00; -0.80]; val7 ΔHOTA +0.261 ДИ [+0.059; +0.494]. Буфер второй ассоциации 0,3 и 0,5: результаты в точности равны буферу 0,5.",
+   "interpretation": "Каскад сохраняет прирост одиночного буфера по HOTA/IDF1 к стенду и значимо снижает переключения ID сверх него (test: 23 ролика лучше, 7 хуже), на val7 даёт +0,40 HOTA. Буфер второй ассоциации ничего не меняет по устройству стенда: при fuse_score=True сходство второй ассоциации умножается на уверенность детекции 0,1–0,25, расстояние всегда больше порога 0,5 — вторая ассоциация стенда фактически не сопоставляет ничего (проверено: вызывается на каждом кадре с непустым набором детекций).",
+   "metrics": [
+    {
+     "key": "HOTA",
+     "value": 59.105528305270774,
+     "baseline": 58.46862614225555,
+     "subset": "test 35: каскад 0,3→0,6 / стенд",
+     "source": "runs/e2e_motion_source/cascade/report.json",
+     "locator": "summary.casc0.3-0.6.test.HOTA"
+    },
+    {
+     "key": "IDF1",
+     "value": 68.35041153192194,
+     "baseline": 66.965404625375,
+     "subset": "test 35: каскад 0,3→0,6 / стенд",
+     "source": "runs/e2e_motion_source/cascade/report.json",
+     "locator": "summary.casc0.3-0.6.test.IDF1"
+    },
+    {
+     "key": "IDSw",
+     "value": 1968.0,
+     "baseline": 2221.0,
+     "subset": "test 35: каскад 0,3→0,6 / стенд",
+     "source": "runs/e2e_motion_source/cascade/report.json",
+     "locator": "summary.casc0.3-0.6.test.IDSw"
+    },
+    {
+     "key": "HOTA",
+     "value": 55.076122959275565,
+     "baseline": 54.57308976106422,
+     "subset": "val7: каскад 0,3→0,6 / стенд",
+     "source": "runs/e2e_motion_source/cascade/report.json",
+     "locator": "summary.casc0.3-0.6.val7.HOTA"
     }
    ]
   }
