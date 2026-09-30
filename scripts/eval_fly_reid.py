@@ -36,7 +36,7 @@ SHUF = tuple(f"shuf_{n}" for n in FLY)
 NAMES = GEOMETRY + APPEAR + HEXIN + FLY + SHUF
 LADDER = {"geometry": GEOMETRY, "geometry_appearance": GEOMETRY + APPEAR, "geometry_appearance_hexin": GEOMETRY + APPEAR + HEXIN,
           "geometry_appearance_hexin_fly": GEOMETRY + APPEAR + HEXIN + FLY, "geometry_appearance_hexin_shuffled": GEOMETRY + APPEAR + HEXIN + SHUF,
-          "geometry_fly": GEOMETRY + FLY}
+          "geometry_fly": GEOMETRY + FLY, "geometry_hexin": GEOMETRY + HEXIN, "geometry_hexin_fly": GEOMETRY + HEXIN + FLY, "geometry_shuffled": GEOMETRY + SHUF}
 
 
 def parse_args() -> argparse.Namespace:
@@ -47,6 +47,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", type=Path, default=PROJECT_ROOT / "runs" / "fly_reid")
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--val-only", action="store_true", help="разведка: только val7 (LOVO), без сшивки")
+    parser.add_argument("--ladder-only", action="store_true", help="только лестница косинусных голов и бутстреп (без обучаемой метрики и сшивки)")
     return parser.parse_args()
 
 
@@ -228,12 +229,16 @@ def main() -> int:
         report["ladder"][name] = rec
         print(f"[AP] {name:36s} dev {rec['dev']:.4f} test {rec['test']:.4f} val7 {rec['val7']:.4f}", flush=True)
     for s in ("dev", "test", "val7"):
-        for p in (("geometry_appearance_hexin", "geometry_appearance_hexin_fly"), ("geometry_appearance_hexin_shuffled", "geometry_appearance_hexin_fly")):
+        for p in (("geometry_appearance_hexin", "geometry_appearance_hexin_fly"), ("geometry_appearance_hexin_shuffled", "geometry_appearance_hexin_fly"), ("geometry_hexin", "geometry_fly"), ("geometry_hexin", "geometry_hexin_fly"), ("geometry_shuffled", "geometry_fly"), ("geometry", "geometry_hexin")):
             a, b = report["ladder"][p[0]][f"{s}_by_video"], report["ladder"][p[1]][f"{s}_by_video"]
             d = np.asarray([b[v] - a[v] for v in a if v in b])
             rng = np.random.default_rng(42); boot = d[rng.integers(0, len(d), (5000, len(d)))].mean(1)
             report.setdefault("bootstrap", {})[f"{p[1]}-{p[0]}|{s}"] = {"mean": float(d.mean()), "ci95": [float(np.quantile(boot, 0.025)), float(np.quantile(boot, 0.975))], "better": int((d > 0).sum()), "worse": int((d < 0).sum())}
             print(f"[BOOT] {p[1]} − {p[0]} {s}: {d.mean():+.4f} [{np.quantile(boot, 0.025):+.4f}; {np.quantile(boot, 0.975):+.4f}] {int((d > 0).sum())}/{int((d < 0).sum())}", flush=True)
+    if args.ladder_only:
+        save_json(args.output / "report.json", report)
+        print(f"[OK] {args.output / 'report.json'}")
+        return 0
     # Обучаемая метрика: поэлементные разности полных векторов (+ все скалярные признаки лестницы без мухи/с мухой).
     from sklearn.linear_model import LogisticRegression
     from sklearn.pipeline import make_pipeline
