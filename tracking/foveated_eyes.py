@@ -48,6 +48,7 @@ class EyeBank:
     """Батч глаз FlyVis с переменным составом; состояния режутся и склеиваются по track_id."""
 
     def __init__(self, estimator, *, context: float = 2.0, min_side: int = 64, fade_in_seconds: float = 1.0, decode_flow: bool = False, max_batch: int = 0) -> None:
+        _patch_constant_dt(estimator.network)
         self.max_batch = int(max_batch)  # 0 — все глаза одним батчем; иначе порциями (память сети ∝ числу глаз, результат тот же)
         self.estimator = estimator
         self.decode_flow = bool(decode_flow)
@@ -191,6 +192,11 @@ class EyeBank:
             states = self.network.simulate(stimulus, self.dt, initial_state=initial, as_states=True)
         activity = self.torch.stack([state.nodes.activity for state in states], dim=1)  # (B, steps, nodes)
         flow = self._decode(activity) if self.decode_flow else None
+        residual_all = None
+        if flow is not None:
+            # одна копия на CPU на весь батч (раньше — по копии на глаз: синхронизация GPU на каждый глаз и кадр)
+            base = self.torch.stack([self._baseline_flow[tid] for tid in ids])
+            residual_all = (flow - base).detach().cpu().numpy().astype(np.float32)  # (B, 2, hexals)
         result = {}
         for row, tid in enumerate(ids):
             self._activity[tid] = activity[row, -1].clone()
@@ -198,7 +204,7 @@ class EyeBank:
             self.crops[tid] = crops[row]
             result[tid] = self._by_type(activity[row])
             if flow is not None:
-                residual = (flow[row] - self._baseline_flow[tid]).detach().cpu().numpy().astype(np.float32)  # (2, hexals)
+                residual = residual_all[row]  # (2, hexals)
                 self._last_flow[tid] = residual.T.copy()
         self.stats["steps"] += len(ids)
         return result
@@ -211,3 +217,32 @@ class EyeBank:
             self.crops.pop(tid, None)
             self._baseline_flow.pop(tid, None)
             self._last_flow.pop(tid, None)
+
+
+def _patch_constant_dt(network) -> None:
+    """Убрать синхронизацию GPU из каждого шага FlyVis (численно то же самое).
+
+    `PPNeuronIGRSynapses.write_state_velocity` на каждом шаге делает `torch.tensor(dt).float()`;
+    при устройстве по умолчанию CUDA это копия хост→GPU с `cudaStreamSynchronize`. При нескольких
+    CUDA-процессах на Windows такие синхронизации изредка зависали навсегда (py-spy, 30.09).
+    Здесь `dt` кэшируется тензором на устройстве сети.
+    """
+    import torch
+
+    dynamics = network.dynamics
+    if getattr(dynamics, "_constant_dt_patched", False):
+        return
+    cache: dict = {}
+
+    def write_state_velocity(vel, state, params, target_sum, x_t, dt, **kwargs):
+        key = (float(dt), params.nodes.time_const.device)
+        if key not in cache:
+            cache[key] = torch.tensor(float(dt), dtype=torch.float32, device=params.nodes.time_const.device)
+        vel.nodes.activity = (
+            1
+            / torch.max(params.nodes.time_const, cache[key])
+            * (-state.nodes.activity + params.nodes.bias + target_sum(params.edges.weight * dynamics.activation(state.sources.activity)) + x_t)
+        )
+
+    dynamics.write_state_velocity = write_state_velocity
+    dynamics._constant_dt_patched = True

@@ -50,12 +50,12 @@ def split_videos(args: argparse.Namespace) -> dict[str, tuple[list[str], Path, s
     return out
 
 
-def make_tracker(config: dict, root: Path, video_id: str):
+def make_tracker(config: dict, root: Path, video_id: str, label_split: str = "train"):
     from scripts.evaluate_flyvis_qmatch_gate import propagate_box
     from tracking.motion_source_bytetrack import MotionSourceByteTrack
     from tracking.offline_association import make_tracker_args
 
-    kwargs = {k: v for k, v in config.items() if k not in {"head", "fly_root"}}
+    kwargs = {k: v for k, v in config.items() if k not in {"head", "fly_root", "fly_roots"}}
     needs_dis = kwargs.get("motion", "kalman") != "kalman" or config.get("head")
     if needs_dis:
         points, vectors = load_motion_cache(root / video_id / "motion" / "dis_quarter.npz", 1.0)
@@ -69,8 +69,9 @@ def make_tracker(config: dict, root: Path, video_id: str):
     if config.get("head"):
         from tracking.reliability_head import load_reliability_head
         fly_npz = None
-        if config.get("fly_root"):
-            fly_root = Path(config["fly_root"])
+        fly_root_value = (config.get("fly_roots") or {}).get(label_split) or config.get("fly_root")
+        if fly_root_value:
+            fly_root = Path(fly_root_value)
             fly_root = fly_root if fly_root.is_absolute() else PROJECT_ROOT / fly_root
             candidate = fly_root / video_id / "fovea_flow.npz"
             fly_npz = candidate if candidate.exists() else None
@@ -91,7 +92,7 @@ def run_video(task: tuple) -> dict:
     alignment = json.loads((root / video_id / "alignment.json").read_text(encoding="utf-8"))
     truth = json.loads((PROJECT_ROOT / "data" / "bdd100k" / "labels" / "box_track_20" / label_split / f"{video_id}.json").read_text(encoding="utf-8"))
     anchor = {int(r["video_frame_index"]): i for i, r in enumerate(alignment["matches"])}
-    tracker = make_tracker(config, root, video_id)
+    tracker = make_tracker(config, root, video_id, label_split)
     rows = []
     for frame_index in range(int(detections["frame_count"])):
         xyxy, conf, classes = detections_for_frame(detections, frame_index)
@@ -100,7 +101,11 @@ def run_video(task: tuple) -> dict:
             rows.append(scalabel_frame(video_id, truth[anchor[frame_index]], output))
     save_json(result_dir / f"{video_id}.json", rows)
     metrics = evaluate_hota(result_dir, [video_id], split=label_split)
-    return {"name": name, "split": split, "video_id": video_id, "metrics": {k: metrics.get(k) for k in METRICS}, "stats": dict(tracker.stats)}
+    stats = dict(tracker.stats)
+    lookup = getattr(getattr(tracker, "reliability", None), "lookup", None)
+    if lookup is not None:
+        stats.update({f"fly_{k}": v for k, v in lookup.stats.items()})
+    return {"name": name, "split": split, "video_id": video_id, "metrics": {k: metrics.get(k) for k in METRICS}, "stats": stats}
 
 
 def main() -> int:

@@ -71,7 +71,31 @@ def intersects(box_xyxy: np.ndarray, crop: tuple[int, int, int, int]) -> bool:
     return bool(box_xyxy[2] > x1 and box_xyxy[0] < x2 and box_xyxy[3] > y1 and box_xyxy[1] < y2)
 
 
+def _watch_stack(output: Path, video_id: str):
+    """Диагностика зависаний под сторожем: стек всех потоков каждые 120 с в <output>/<id>.stack.txt."""
+    import faulthandler
+
+    output.mkdir(parents=True, exist_ok=True)
+    handle = open(output / f"{video_id}.stack.txt", "w", encoding="utf-8")
+    faulthandler.dump_traceback_later(120, repeat=True, file=handle)
+    return handle
+
+
 def build_video(video_id: str, args: argparse.Namespace) -> dict:
+    stack_file = _watch_stack(args.output, video_id)
+    try:
+        return _build_video(video_id, args)
+    finally:
+        import faulthandler
+
+        faulthandler.cancel_dump_traceback_later()
+        stack_file.close()
+        stack_path = args.output / f"{video_id}.stack.txt"
+        if stack_path.exists() and stack_path.stat().st_size == 0:
+            stack_path.unlink()
+
+
+def _build_video(video_id: str, args: argparse.Namespace) -> dict:
     from tracking.xywh_bytetrack import XYWHByteTrack
 
     output = args.output / video_id
@@ -174,9 +198,9 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         eyes_per_frame.append(len(current_ids))
         frame_seconds.append(time.perf_counter() - tick)
         frame_index += 1
-        if frame_index % 100 == 0:
-            if args.gpu_mem_fraction > 0 and torch.cuda.is_available():
-                torch.cuda.empty_cache()  # вернуть фрагменты кэша, чтобы параллельные процессы не упирались в потолок
+        if frame_index % 100 == 0 and args.gpu_mem_fraction > 0 and torch.cuda.is_available():
+            torch.cuda.empty_cache()  # вернуть фрагменты кэша, чтобы параллельные процессы не упирались в потолок
+        if frame_index % 25 == 0:  # частое сердцебиение: сторож отличает зависание CUDA от медленной работы за ~1 мин
             print(f"[{video_id}] {frame_index} кадров, глаз {len(current_ids)}, строк {len(rows_meta)}", flush=True)
     capture.release()
     if frame_index != int(detections["frame_count"]):

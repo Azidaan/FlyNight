@@ -31,6 +31,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--stall", type=float, default=900.0)
     parser.add_argument("--timeout", type=float, default=1800.0)
     parser.add_argument("--retries", type=int, default=2)
+    parser.add_argument("--stagger", type=float, default=0.0, help="пауза между стартами процессов, с (одновременный старт нескольких CUDA-процессов на Windows зависал)")
     parser.add_argument("--status", type=Path, required=True)
     return parser.parse_args()
 
@@ -133,6 +134,7 @@ class Runner:
         threads = [threading.Thread(target=self.worker, args=(k,), daemon=True) for k in range(self.args.workers)]
         for t in threads:
             t.start()
+            time.sleep(self.args.stagger)
         while any(t.is_alive() for t in threads):
             self.write_status()
             time.sleep(15)
