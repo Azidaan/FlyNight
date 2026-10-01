@@ -1,0 +1,62 @@
+field_categories:
+- category: Суть
+  fields:
+  - name: essence
+    description: Суть метода или направления, 2–4 предложения, простым языком
+    detail_level: moderate
+    required: true
+  - name: sources
+    description: 'Первичные источники: статья, год, площадка, ссылка; код и веса, если есть (лицензия)'
+    detail_level: brief
+    required: true
+- category: Место мухи
+  fields:
+  - name: fly_role
+    description: 'Как сюда встраивается муха (FlyVis): входной канал детектора, ветвь/адаптер, источник предложений рамок, пересчёт уверенности кандидатов, учитель/вспомогательная цель, фронт-энд; что именно из мухи (какие типы клеток/слои, сетчатка-ламина, T4/T5) и почему это осмысленно'
+    detail_level: detailed
+    required: true
+  - name: loss_mechanism_targeted
+    description: 'Какой механизм потерь детектора проекта закрывает: ПОРОГ (заниженная уверенность реальных кандидатов, 21% ночью против 15,5% днём), СЛЕПОТА (4,5%), рождение объекта (возраст 0: 31% против 68%), мелкие (56,7% найдено), заслонение ночью, пересвет; с обоснованием'
+    detail_level: moderate
+    required: true
+  - name: novelty_overlap
+    description: Кто уже делал похожее (особенно коннектом/FlyVis/насекомые модели как часть детектора); что это значит для cannot_claim
+    detail_level: moderate
+    required: true
+- category: Доказательства
+  fields:
+  - name: author_results
+    description: 'Результаты у авторов: набор данных, метрика, числа до/после; база сравнения (насколько сильная — современный YOLO/DETR или устаревшая); частота кадров и движение камеры'
+    detail_level: detailed
+    required: true
+  - name: strong_baseline_check
+    description: 'Держится ли прирост против сильной современной базы при равном бюджете обучения и с контролем того же объёма информации (например, тот же вход без биомодели); есть ли независимые воспроизведения'
+    detail_level: moderate
+    required: true
+  - name: conditions_breakdown
+    description: Есть ли разрез по условиям (ночь, пересвет, мелкие, заслонение, первое появление объекта) и BDD100K в частности
+    detail_level: brief
+    required: true
+- category: Проверка у нас
+  fields:
+  - name: cheap_gate
+    description: 'Дешёвая предварительная проверка до обучения детектора (часы, не сутки): на уже собранных кэшах детекций conf 0.01, кадрах val7/test, фовеальных глазах; что измерить и какой порог записать заранее'
+    detail_level: detailed
+    required: true
+  - name: cost_here
+    description: 'Стоимость полной проверки у нас: RTX 5070 12 ГБ, YOLO26s 12 эпох ≈ 4,3 ч, 100 эпох ≈ 35 ч; дообучение от best.pt или с нуля; время инференса'
+    detail_level: moderate
+    required: true
+  - name: expected_effect
+    description: Ожидаемый эффект у нас с обоснованием (числа проекта, похожие результаты) — mAP/ночная mAP50, доля найденных на пороге, DetA и FN трекера
+    detail_level: moderate
+    required: true
+  - name: risks
+    description: 'Риски и уроки DRB: шум сидов 0,0144 на 12 эпохах, переворот знака на 100 эпохах, ветвь без градиента, +17% времени; несопоставимые сравнения; лицензии'
+    detail_level: moderate
+    required: true
+  - name: attribution
+    description: Как подписать заимствование в диссертации (что наше, что чужое)
+    detail_level: brief
+    required: true
+uncertain: []
