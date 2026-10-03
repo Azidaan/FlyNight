@@ -1,0 +1,58 @@
+field_categories:
+- category: Механизм
+  fields:
+  - name: mechanism
+    description: 'Почему проблема возникает: теория и механизм простым языком, с первоисточниками'
+    detail_level: detailed
+    required: true
+  - name: evidence_here
+    description: Где эта проблема видна в проекте — с конкретными числами из описания (DRB, муха, гейты, трекер)
+    detail_level: detailed
+    required: true
+  - name: sources
+    description: 'Первоисточники: статья, год, площадка, ссылка; код, если есть'
+    detail_level: brief
+    required: true
+- category: Решения
+  fields:
+  - name: solutions
+    description: 'Как это лечат в литературе: методы и числа против сильной базы'
+    detail_level: detailed
+    required: true
+  - name: fly_transfer
+    description: Что конкретно сделать с FlyVis (место подключения, обучение, что заморожено), чтобы обойти проблему
+    detail_level: detailed
+    required: true
+- category: Проверка заранее
+  fields:
+  - name: pre_build_diagnostic
+    description: Тест, который до постройки модуля покажет, сработает ли он (проба, CKA, оракул, MDE), на уже собранных данных проекта
+    detail_level: detailed
+    required: true
+  - name: ceiling
+    description: 'Потолок: максимум, который даёт идеальная версия решения, в % от разрыва до оракула или к метрике'
+    detail_level: moderate
+    required: true
+  - name: target_subset
+    description: Подмножество, где решение обязано помогать (ночь, пересвет, заслонение, сдвиг), и проверка отсутствия вреда на остальном
+    detail_level: moderate
+    required: true
+  - name: negative_control
+    description: Отрицательный и согласованный контроли, без которых прирост нельзя засчитать мухе
+    detail_level: moderate
+    required: true
+  - name: branch_contribution
+    description: Как следить за вкладом ветви во время обучения (норма весов, отношение градиентов, абляция по эпохам)
+    detail_level: brief
+    required: true
+  - name: mde_and_cost
+    description: Минимально обнаружимый эффект, нужное число прогонов, стоимость у нас (RTX 5070 12 ГБ; 12 эпох ≈ 4,3 ч)
+    detail_level: moderate
+    required: true
+- category: Вывод
+  fields:
+  - name: verdict_for_project
+    description: Насколько эта проблема объясняет наши неудачи (главная / вторичная / не про нас) и приоритет решения
+    detail_level: moderate
+    required: true
+uncertain: []
