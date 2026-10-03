@@ -36,7 +36,9 @@ def main():
             st = json.loads(STATUS.read_text(encoding="utf-8"))
         except Exception:  # noqa: BLE001
             time.sleep(3); continue
-        total, done = st.get("total", 1), st.get("done", 0)
+        # готовые видео — по файлам: счётчик основного процесса идёт по порядку pool.map и застревает на медленном видео
+        total = st.get("total", 1)
+        done = len(list((STATUS.parent / "det").glob("*.npz")))
         workers = {k: v for k, v in st.items() if k.startswith("w") and isinstance(v, dict)}
         part = sum(w["done_frames"] / max(w["frames"], 1) for w in workers.values() if w["done_frames"] < w["frames"])
         frac = min((done + part) / max(total, 1), 1.0)
