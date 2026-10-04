@@ -61,10 +61,13 @@ FLY_THEMES = [
     ("Трекер на мухе", ["flyvis_standalone", "fly_tracker_lifecycle_v1"]),
 ]
 FLY_OTHER = "Прочее о мухе"
+FINAL = {"completed_positive", "completed_negative", "inconclusive", "closed", "superseded"}
+PLANNED = {"planned", "ready", "running"}
+JOURNAL_RESULT = re.compile(r"закрыт|ЗАКРЫТ|отрицательн|положительн|completed_|inconclusive|итог|сведен|не помогает|не возвращает|вредит|провал", re.I)
 
-HUB = {"01": "01 Муха/Муха (FlyVis)", "02": "02 Эксперименты/Эксперименты", "04": "04 Термины и метрики/Термины и метрики",
+HUB = {"09": "09 Запланировано/Запланировано", "01": "01 Муха/Муха (FlyVis)", "02": "02 Эксперименты/Эксперименты", "04": "04 Термины и метрики/Термины и метрики",
        "05": "05 План/Единый план", "06": "06 Журнал/Журнал изменений", "07": "07 Исследования/Исследования", "08": "08 Документы/Документы"}
-BLOCK_TITLE = {"01": "Муха (FlyVis)", "02": "Эксперименты", "04": "Термины и метрики", "05": "Единый план", "06": "Журнал изменений", "07": "Исследования", "08": "Документы"}
+BLOCK_TITLE = {"09": "Запланировано", "01": "Муха (FlyVis)", "02": "Эксперименты", "04": "Термины и метрики", "05": "Единый план", "06": "Журнал изменений", "07": "Исследования", "08": "Документы"}
 
 
 def _trim(name: str, n: int) -> str:
@@ -182,7 +185,12 @@ def main() -> int:
 
     H = json.loads((ROOT / "experiments/project_history.json").read_text(encoding="utf-8"))
     G = json.loads((ROOT / "experiments/metrics_glossary.json").read_text(encoding="utf-8"))
-    cards = {e["id"]: e for e in H["experiments"]}
+    cards_all = {e["id"]: e for e in H["experiments"]}
+    # в граф попадают только завершённые эксперименты и закрытые ветки (решение автора 04.10);
+    # запланированные, идущие и инфраструктура остаются только в плане и каталоге
+    cards = {i: e for i, e in cards_all.items() if e["state"] in FINAL}
+    # запланированное и идущее — отдельный красный блок 09 (решение автора 04.10)
+    planned = {i: e for i, e in cards_all.items() if e["state"] in PLANNED}
     areas = {a["id"]: a for a in H["areas"]}
 
     # где живёт каждая карточка: муха — в блоке 01 по темам, остальные — в 02 по направлениям
@@ -195,6 +203,8 @@ def main() -> int:
         if e["area"] == "flyvis" and i not in fly_theme:
             fly_theme[i] = FLY_OTHER
     card_path = {i: (f"01 Муха/Эксперименты/{i}" if i in fly_theme else f"02 Эксперименты/{i}") for i in cards}
+    card_path.update({i: f"09 Запланировано/{i}" for i in planned})
+    plan_group = {aid: f"09 Запланировано/{safe(a['title'])} — планы" for aid, a in areas.items()}
     area_path = {aid: f"02 Эксперименты/Направления/{safe(a['title'])}" for aid, a in areas.items()}
     theme_path = {t: f"01 Муха/Темы/{safe(t)}" for t in [t for t, _ in FLY_THEMES] + [FLY_OTHER]}
 
@@ -239,10 +249,12 @@ def main() -> int:
     V.write(HUB["04"] + ".md", fm({"tags": ["центр"]}) + hub)
 
     # ---------------- карточки ----------------
-    for e in cards.values():
+    for e in list(cards.values()) + list(planned.values()):
         p = card_path[e["id"]]; src = block(p)
         a = areas.get(e["area"], {"title": e["area"]})
-        if src == "01":
+        if src == "09":
+            up = ref(src, plan_group[e["area"]], a["title"], structural=True)
+        elif src == "01":
             up = ref(src, theme_path[fly_theme[e["id"]]], fly_theme[e["id"]], structural=True)
         else:
             up = ref(src, area_path[e["area"]], a["title"], structural=True)
@@ -293,10 +305,46 @@ def main() -> int:
     n_state = defaultdict(int)
     for e in cards.values():
         n_state[e["state"]] += 1
-    hub = f"# {BLOCK_TITLE['02']}\n\n↑ [[00 Главная|Главная]]\n\nВсе эксперименты по направлениям. Эксперименты мухи живут в блоке {ref('02', HUB['01'], 'Муха')} (ссылки на них отмечены ↗).\n\n"
+    hub = f"# {BLOCK_TITLE['02']}\n\n↑ [[00 Главная|Главная]]\n\nЗавершённые эксперименты по направлениям (запланированные и идущие — только в плане и каталоге). Эксперименты мухи живут в блоке {ref('02', HUB['01'], 'Муха')} (ссылки на них отмечены ↗).\n\n"
     hub += "## Направления\n" + "".join(f"- [[{area_path[aid]}|{a['title']}]] ({len(by_area.get(aid, []))})\n" for aid, a in sorted(areas.items(), key=lambda x: x[1].get("order", 0)))
     hub += "\n## По исходам\n" + "".join(f"- {STATE_ICON.get(s, '')} {STATE_RU.get(s, s)}: {n}\n" for s, n in sorted(n_state.items(), key=lambda x: -x[1]))
     V.write(HUB["02"] + ".md", fm({"tags": ["центр"]}) + hub)
+
+    # ---------------- 09 Запланировано ----------------
+    p_area = defaultdict(list)
+    for e in planned.values():
+        p_area[e["area"]].append(e)
+    for aid, es in p_area.items():
+        body = f"# {areas[aid]['title']} — планы\n\n↑ [[{HUB['09']}|{BLOCK_TITLE['09']}]]\n\n"
+        body += "".join(f"- {STATE_ICON.get(x['state'], '')} {ref('09', card_path[x['id']], x['title'], structural=True)} — {STATE_RU.get(x['state'], x['state'])}\n" for x in es)
+        V.write(plan_group[aid] + ".md", fm({"tags": ["запланировано"]}) + body)
+    hub = f"# {BLOCK_TITLE['09']}\n\n↑ [[00 Главная|Главная]]\n\nИдеи и эксперименты, которые ещё не завершены: запланированные, готовые к запуску и идущие. После завершения карточка переезжает в блок экспериментов (или мухи).\n\n"
+    hub += "".join(f"- [[{plan_group[aid]}|{areas[aid]['title']}]] ({len(es)})\n" for aid, es in sorted(p_area.items(), key=lambda x: areas[x[0]].get("order", 0)))
+    # идеи из текста плана (7.6 — кандидаты К, 7.7 — проверки Д, 7.8 — этапы трекера на мухе), ещё не ставшие карточками
+    S = {num: c for lv, num, t, c in secs}
+    done_tags = {t for e in cards_all.values() for t in e.get("tags", [])}
+    done = {"Д" + t.split("-D")[1][:1] for t in done_tags if t.startswith("fundamental-D")} | {"К" + t[1:] for t in done_tags if re.fullmatch(r"K\d+", t)}
+    ideas = []
+    for code, title, basis in re.findall(r"^\| (К\d+) \| (.+?) \| (.+?) \|", S.get("7.6", ""), re.M):
+        ideas.append((code, re.sub(r"\*\*", "", title), basis, "7.6"))
+    for code, title in re.findall(r"(Д\d) ([^;]+?)(?:;|\. Затем)", S.get("7.7", "")):
+        ideas.append((code, title, "", "7.7"))
+    for n, title, rest in re.findall(r"^(\d)\. \*([^*]+)\*(.*)$", S.get("7.8", ""), re.M):
+        if n != "1":  # этап 1 — карточка fly_tracker_lifecycle_v1
+            ideas.append((f"Т{n}", f"Трекер на мухе, этап {n}: {title}", rest.strip(" —"), "7.8"))
+    ideas = [x for x in ideas if x[0] not in done]
+    igroup = "09 Запланировано/Идеи из плана"
+    for code, title, basis, sec in ideas:
+        nm = f"09 Запланировано/Идеи из плана/{safe(code + ' ' + title, 90)}"
+        body = f"# {code} — {title}\n\n↑ [[{igroup}|Идеи из плана]] · источник: {ref('09', sec_note.get(sec, HUB['05']), 'раздел ' + sec + ' плана')}\n\n"
+        if basis:
+            body += f"**Опора:** {L(basis, '09')}\n"
+        V.write(nm + ".md", fm({"tags": ["запланировано", "идея"] + (["идея/муха"] if re.search(r"мух|FlyVis", title, re.I) else [])}) + body)
+    if ideas:
+        V.write(igroup + ".md", fm({"tags": ["запланировано"]}) + f"# Идеи из плана\n\n↑ [[{HUB['09']}|{BLOCK_TITLE['09']}]]\n\nЕщё не ставшие карточками идеи из разделов 7.6–7.8 плана; сделанные исключены автоматически по меткам карточек.\n\n" +
+                "".join(f"- [[09 Запланировано/Идеи из плана/{safe(c + ' ' + t, 90)}|{c} — {lab(t)[:90]}]]\n" for c, t, b, sc in ideas))
+        hub += f"\n- [[{igroup}|Идеи из плана]] ({len(ideas)})\n"
+    V.write(HUB["09"] + ".md", fm({"tags": ["центр", "запланировано"]}) + hub)
 
     # ---------------- 05 План ----------------
     children, parent = defaultdict(list), None
@@ -318,7 +366,9 @@ def main() -> int:
 
     # ---------------- 06 Журнал ----------------
     jnames = []
-    for en in split_journal(journal_text):
+    final_re = re.compile(r"(?<![\w/])(" + "|".join(map(re.escape, sorted(cards, key=len, reverse=True))) + r")(?!\w)")
+    entries = [en for en in split_journal(journal_text) if final_re.search(en["topic"] + " " + en["body"]) or JOURNAL_RESULT.search(en["topic"])]
+    for en in entries:
         nm = f"06 Журнал/{en['date']} {en['time'].replace(':', '-')} {safe(en['topic'], 70)}"
         fly = bool(re.search(r"мух|FlyVis|сетчат|коннектом", en["topic"] + en["body"][:400], re.I))
         day = f"06 Журнал/Дни/{en['date']}"
@@ -331,7 +381,7 @@ def main() -> int:
     for d, items in by_day.items():
         V.write(f"06 Журнал/Дни/{d}.md", fm({"tags": ["журнал"]}) + f"# {d}\n\n↑ [[{HUB['06']}|{BLOCK_TITLE['06']}]]\n\n" +
                 "".join(f"- {'🪰 ' if fly else ''}[[{nm}|{en['time']} — {lab(en['topic'])}]]\n" for en, nm, fly in sorted(items, key=lambda x: x[0]['time'])))
-    jidx = f"# {BLOCK_TITLE['06']}\n\n↑ [[00 Главная|Главная]]\n\nЗаписи из `dissertation/ЕДИНЫЙ_ПЛАН.md`, новые сверху. 🪰 — запись о мухе.\n\n"
+    jidx = f"# {BLOCK_TITLE['06']}\n\n↑ [[00 Главная|Главная]]\n\nИтоги экспериментов и закрытия веток из журнала `dissertation/ЕДИНЫЙ_ПЛАН.md` (полная хроника — в самом плане), новые сверху. 🪰 — запись о мухе.\n\n"
     for d in sorted(by_day, reverse=True):
         jidx += f"## [[06 Журнал/Дни/{d}|{d}]]\n" + "".join(f"- {'🪰 ' if fly else ''}{en['time']} — {lab(en['topic'])}\n" for en, nm, fly in sorted(by_day[d], key=lambda x: x[0]['time'], reverse=True)) + "\n"
     V.write(HUB["06"] + ".md", fm({"tags": ["центр"]}) + jidx)
@@ -397,13 +447,13 @@ def main() -> int:
     V.write(HUB["08"] + ".md", fm({"tags": ["центр"]}) + didx)
 
     # ---------------- 01 Муха ----------------
-    build_fly(V, cards, card_path, fly_theme, theme_path, jnames, L)
+    build_fly(V, cards, card_path, fly_theme, theme_path, jnames, L, cards_all)
 
     # ---------------- 00 Главная ----------------
     home = "# Диссертация: трекинг и муха (FlyVis)\n\nХранилище собрано скриптом `scripts/build_obsidian_vault.py`; пересобирается без потери ваших заметок.\n\n"
-    home += "## Блоки\n" + "".join(f"- [[{HUB[b]}|{BLOCK_TITLE[b]}]]\n" for b in ("01", "02", "05", "06", "04", "07", "08"))
+    home += "## Блоки\n" + "".join(f"- [[{HUB[b]}|{BLOCK_TITLE[b]}]]\n" for b in ("01", "02", "09", "05", "06", "04", "07", "08"))
     home += f"\n- Карта мухи (холст): [[01 Муха/Карта мухи.canvas|открыть]]\n"
-    home += "\n## Как читать граф\nКаждый блок — свой кластер; рёбра — только структура (центр блока → его заметки). Ссылки между блоками помечены ↗: они открывают заметку, но в графе не рисуются.\n\nЦвета: оранжевый — муха; зелёный / красный / жёлтый — исход эксперимента; синий — план; серый — журнал; фиолетовый — термины; бирюзовый — исследования; коричневый — документы.\n"
+    home += "\n## Как читать граф\nКаждый блок — свой кластер; рёбра — только структура (центр блока → его заметки). Ссылки между блоками помечены ↗: они открывают заметку, но в графе не рисуются.\n\nЦвета: оранжевый — муха; красный — запланированное и идущее (отдельный кластер); зелёный / малиновый / жёлтый — исход завершённого эксперимента (положительный / отрицательный / неопределённый); синий — план; серый — журнал; фиолетовый — термины; бирюзовый — исследования; коричневый — документы.\n"
     V.write("00 Главная.md", fm({"tags": ["главная"]}) + home)
 
     graph_settings(args.vault)
@@ -423,9 +473,12 @@ def main() -> int:
     return 0
 
 
-def build_fly(V, cards, card_path, fly_theme, theme_path, jnames, L) -> None:
+def build_fly(V, cards, card_path, fly_theme, theme_path, jnames, L, cards_all) -> None:
     def c(cid, label=None):
-        return ref("01", card_path[cid], label or cards[cid]["title"]) if cid in cards else (label or cid)
+        if cid in card_path:
+            return ref("01", card_path[cid], label or cards_all[cid]["title"])
+        e = cards_all.get(cid)
+        return f"«{label or (e['title'] if e else cid)}» ({STATE_RU.get(e['state'], '') if e else 'нет в каталоге'}; в граф попадёт после завершения)"
     H01 = HUB["01"]
     concepts = {
         "Коннектом и 734 параметра": f"""Схема связей (коннектом) фиксирована: какие типы нейронов с какими соединены, знак и число синапсов. Обучаются 734 числа: 65 постоянных времени, 65 потенциалов покоя, 604 силы связей «тип → тип». Поэтому любое дообучение остаётся «мушиным» по устройству, но может потерять «мушиность» по работе — её проверяют сравнением с биологией (`dsi_correlation_to_known`, `fri_correlation_to_known` в flyvis).
@@ -549,9 +602,10 @@ def graph_settings(vault: Path) -> None:
     g = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
     rgb = lambda h: int(h.lstrip("#"), 16)
     g["colorGroups"] = [
+        {"query": 'path:"09 Запланировано"', "color": {"a": 1, "rgb": rgb("#ff2d2d")}},
         {"query": 'path:"01 Муха"', "color": {"a": 1, "rgb": rgb("#f28c28")}},
         {"query": "tag:#исход/completed_positive", "color": {"a": 1, "rgb": rgb("#3fb950")}},
-        {"query": "tag:#исход/completed_negative", "color": {"a": 1, "rgb": rgb("#e5534b")}},
+        {"query": "tag:#исход/completed_negative", "color": {"a": 1, "rgb": rgb("#db61a2")}},
         {"query": "tag:#исход/inconclusive", "color": {"a": 1, "rgb": rgb("#d4a72c")}},
         {"query": 'path:"02 Эксперименты"', "color": {"a": 1, "rgb": rgb("#7ee787")}},
         {"query": 'path:"05 План"', "color": {"a": 1, "rgb": rgb("#4c8ef7")}},

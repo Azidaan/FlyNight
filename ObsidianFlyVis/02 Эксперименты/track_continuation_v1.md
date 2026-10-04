@@ -46,7 +46,7 @@ scripts/gate_track_continuation.py: 6 вариантов × 42 видео, 8 п�
 Что порог второй волны не влияет: при fuse_score = True он не участвует; вторая волна без слияния баллов проверялась отдельно раньше.
 
 ## Условия
-- **baseline:** стенд [bench_freeze_v1↗](obsidian://open?vault=ObsidianFlyVis&file=02%20%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fbench_freeze_v1)
+- **baseline:** стенд bench_freeze_v1
 - **variant:** low05, low01, coast3, coast6, combo
 - **dataset:** runs/train_cache (test), runs/video_rate (val7)
 - **split:** test 35, val7

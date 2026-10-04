@@ -56,8 +56,8 @@ tags:
 - **variant:** base + DIS + has_eye + fovea T4T5 (основной); + fovea all34 (широкий)
 - **dataset:** 7 исходных val-видео ~30 Гц; пары runs/qmatch_readout_gate/pairs_30hz
 - **split:** как в [qmatch_30hz_pseudo↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fqmatch_30hz_pseudo): 4 обучающих / 3 отложенных
-- **detector:** weights/baseline_seed42/best.pt (манифест [bench_freeze_v1↗](obsidian://open?vault=ObsidianFlyVis&file=02%20%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fbench_freeze_v1))
-- **tracker:** XYWHByteTrack h0.25/l0.1/b30/m0.8 — только как источник треков для глаз; его выходы совпадают с [bench_freeze_v1↗](obsidian://open?vault=ObsidianFlyVis&file=02%20%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fbench_freeze_v1)
+- **detector:** weights/baseline_seed42/best.pt (манифест bench_freeze_v1)
+- **tracker:** XYWHByteTrack h0.25/l0.1/b30/m0.8 — только как источник треков для глаз; его выходы совпадают с bench_freeze_v1
 
 ## Критерии приёмки (записаны до прогона)
 - ⏳ глаза детерминированы: повторный прогон одного видео даёт те же строки признаков; состояние глаза зависит только от кадров ≤ t; трекер не читает разметку

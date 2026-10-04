@@ -23,4 +23,3 @@ tags:
 ## Где используется
 - [DRB v1 и v2: синергия ветвей LQA + FGA↗](obsidian://open?vault=ObsidianFlyVis&file=02%20%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fdrb_v1_v2)
 - [Фиксированный частотный фильтр (срез снизу, ноль обучаемых частот)↗](obsidian://open?vault=ObsidianFlyVis&file=02%20%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Ffixed_filter)
-- [Каркас: BDD100K, кэш детекций, три baseline-детектора↗](obsidian://open?vault=ObsidianFlyVis&file=02%20%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Finfra_bdd_baseline)

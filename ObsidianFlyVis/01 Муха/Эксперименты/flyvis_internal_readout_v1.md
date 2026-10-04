@@ -53,9 +53,9 @@ tags:
 ## Условия
 - **baseline:** base + DIS на тех же парах; вторичный контроль — base + DIS + FlyVis decoded tiled
 - **variant:** base + DIS + FlyVis T4T5 (основной); base + DIS + FlyVis all34 (широкий)
-- **dataset:** 7 исходных val-видео ~30 Гц; тот же манифест, что [bench_freeze_v1↗](obsidian://open?vault=ObsidianFlyVis&file=02%20%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fbench_freeze_v1)
+- **dataset:** 7 исходных val-видео ~30 Гц; тот же манифест, что bench_freeze_v1
 - **split:** обучение: b1c66a42, b1c81faa, b1cac6a7, b1cebfb7; отложенные: b232c7c9 (пересвет), b1d22449 (темнота), b251064f (сложный фон) — как в [qmatch_30hz_pseudo↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fqmatch_30hz_pseudo)
-- **detector:** weights/baseline_seed42/best.pt (из манифеста [bench_freeze_v1↗](obsidian://open?vault=ObsidianFlyVis&file=02%20%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fbench_freeze_v1))
+- **detector:** weights/baseline_seed42/best.pt (из манифеста bench_freeze_v1)
 
 ## Критерии приёмки (записаны до прогона)
 - ✅ кэш активности построен для 7 видео в режиме tiled с тем же числом кадров, что кэш потока; признак зависит только от текущего и прошлых кадров (тест на отсутствие будущего)  
