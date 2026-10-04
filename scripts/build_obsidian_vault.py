@@ -322,8 +322,11 @@ def main() -> int:
     hub += "".join(f"- [[{plan_group[aid]}|{areas[aid]['title']}]] ({len(es)})\n" for aid, es in sorted(p_area.items(), key=lambda x: areas[x[0]].get("order", 0)))
     # идеи из текста плана (7.6 — кандидаты К, 7.7 — проверки Д, 7.8 — этапы трекера на мухе), ещё не ставшие карточками
     S = {num: c for lv, num, t, c in secs}
-    done_tags = {t for e in cards_all.values() for t in e.get("tags", [])}
-    done = {"Д" + t.split("-D")[1][:1] for t in done_tags if t.startswith("fundamental-D")} | {"К" + t[1:] for t in done_tags if re.fullmatch(r"K\d+", t)}
+    def codes(states):
+        tags = {t for e in cards_all.values() if e["state"] in states for t in e.get("tags", [])}
+        return {"Д" + t.split("-D")[1][:1] for t in tags if t.startswith("fundamental-D")} | {"К" + t[1:] for t in tags if re.fullmatch(r"K\d+", t)}
+    done = codes(FINAL)                       # идея выполнена — у карточки итоговый исход
+    inwork = codes({"running"}) - done        # идёт эксперимент
     ideas = []
     for code, title, basis in re.findall(r"^\| (К\d+) \| (.+?) \| (.+?) \|", S.get("7.6", ""), re.M):
         ideas.append((code, re.sub(r"\*\*", "", title), basis, "7.6"))
@@ -332,7 +335,7 @@ def main() -> int:
     for n, title, rest in re.findall(r"^(\d)\. \*([^*]+)\*(.*)$", S.get("7.8", ""), re.M):
         if n != "1":  # этап 1 — карточка fly_tracker_lifecycle_v1
             ideas.append((f"Т{n}", f"Трекер на мухе, этап {n}: {title}", rest.strip(" —"), "7.8"))
-    ideas = [x for x in ideas if x[0] not in done]
+    # выполненные идеи не убираются, а перекрашиваются в зелёный (решение автора 05.10)
     igroup = "09 Запланировано/Идеи из плана"
     idea_path = {}
     for code, title, basis, sec in ideas:
@@ -341,10 +344,12 @@ def main() -> int:
         body = f"# {code} — {title}\n\n↑ [[{igroup}|Идеи из плана]] · источник: {ref('09', sec_note.get(sec, HUB['05']), 'раздел ' + sec + ' плана')}\n\n"
         if basis:
             body += f"**Опора:** {L(basis, '09')}\n"
-        V.write(nm + ".md", fm({"tags": ["запланировано", "идея"] + (["идея/муха"] if re.search(r"мух|FlyVis", title, re.I) else [])}) + body)
+        st = "статус/выполнено" if code in done else ("статус/частично" if code in inwork else "статус/открыто")
+        body = body.replace(f"# {code} — {title}", f"# {'✅' if code in done else ('🔄' if code in inwork else '⏳')} {code} — {title}", 1)
+        V.write(nm + ".md", fm({"tags": ["запланировано", "идея", st] + (["идея/муха"] if re.search(r"мух|FlyVis", title, re.I) else []), "статус": "выполнено" if code in done else ("в работе" if code in inwork else "открыто")}) + body)
     if ideas:
         V.write(igroup + ".md", fm({"tags": ["запланировано"]}) + f"# Идеи из плана\n\n↑ [[{HUB['09']}|{BLOCK_TITLE['09']}]]\n\nЕщё не ставшие карточками идеи из разделов 7.6–7.8 плана; сделанные исключены автоматически по меткам карточек.\n\n" +
-                "".join(f"- [[09 Запланировано/Идеи из плана/{safe(c + ' ' + t, 90)}|{c} — {lab(t)[:90]}]]\n" for c, t, b, sc in ideas))
+                "".join(f"- {'✅' if c in done else ('🔄' if c in inwork else '⏳')} [[09 Запланировано/Идеи из плана/{safe(c + ' ' + t, 90)}|{c} — {lab(t)[:90]}]]\n" for c, t, b, sc in ideas))
         hub += f"\n- [[{igroup}|Идеи из плана]] ({len(ideas)})\n"
     V.write(HUB["09"] + ".md", fm({"tags": ["центр", "запланировано"]}) + hub)
 
@@ -612,6 +617,9 @@ def graph_settings(vault: Path) -> None:
     g = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
     rgb = lambda h: int(h.lstrip("#"), 16)
     g["colorGroups"] = [
+        # статус — первым: зелёный (решено / выполнено) и жёлтый (частично) перекрывают красные блоки 09 и 10
+        {"query": "tag:#статус/решено OR tag:#статус/выполнено", "color": {"a": 1, "rgb": rgb("#2ea043")}},
+        {"query": "tag:#статус/частично", "color": {"a": 1, "rgb": rgb("#e3b341")}},
         {"query": 'path:"10 Проблемы мухи"', "color": {"a": 1, "rgb": rgb("#b3001b")}},
         {"query": 'path:"09 Запланировано"', "color": {"a": 1, "rgb": rgb("#ff2d2d")}},
         {"query": 'path:"01 Муха"', "color": {"a": 1, "rgb": rgb("#f28c28")}},
