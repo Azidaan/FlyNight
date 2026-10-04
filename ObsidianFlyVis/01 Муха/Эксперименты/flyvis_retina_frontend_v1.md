@@ -52,7 +52,7 @@ tags:
 Перенос на тёмные train-видео и пользу для HOTA до ступени B и встраивания.
 
 ## Условия
-- **baseline:** режим none (runs/flyvis_fovea_flow, карточка [[01 Муха/Эксперименты/flyvis_fovea_motion_v1|flyvis_fovea_motion_v1]])
+- **baseline:** режим none (runs/flyvis_fovea_flow, карточка [flyvis_fovea_motion_v1↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_fovea_motion_v1))
 - **variant:** photoreceptor; lamina; norm (контроль)
 - **dataset:** val-семёрка (runs/video_rate детекции и DIS; фовеальный поток по режимам в runs/flyvis_fovea_flow_retina_{norm,photo,lamina})
 - **split:** LOVO по 7 видео; порог события τ_e = 75-й перцентиль ошибки на train-четвёрке режима none

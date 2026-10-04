@@ -92,10 +92,12 @@ def lab(s: str) -> str:
     return str(s).replace("[", "(").replace("]", ")").replace("|", "/")
 
 
-def ref(src_block: str, path: str, label: str) -> str:
-    """Внутри блока — вики-ссылка (ребро графа); между блоками — obsidian://open (без ребра)."""
+def ref(src_block: str, path: str, label: str, structural: bool = False) -> str:
+    """Структурная ссылка внутри блока — вики-ссылка (ребро графа: дерево «центр → группа → заметка»).
+    Все остальные ссылки (по тексту, между заметками одного блока и между блоками) — obsidian://open:
+    кликабельны, но рёбер в графе не дают, чтобы каждый блок оставался деревом, а не клубком."""
     label = lab(label)
-    if block(path) == src_block:
+    if structural and block(path) == src_block:
         return f"[[{path}|{label}]]"
     return f"[{label}↗](obsidian://open?vault={quote(VAULT_NAME)}&file={quote(path, safe='')})"
 
@@ -241,9 +243,9 @@ def main() -> int:
         p = card_path[e["id"]]; src = block(p)
         a = areas.get(e["area"], {"title": e["area"]})
         if src == "01":
-            up = ref(src, theme_path[fly_theme[e["id"]]], fly_theme[e["id"]])
+            up = ref(src, theme_path[fly_theme[e["id"]]], fly_theme[e["id"]], structural=True)
         else:
-            up = ref(src, area_path[e["area"]], a["title"])
+            up = ref(src, area_path[e["area"]], a["title"], structural=True)
         tags = ["эксперимент", f"исход/{e['state']}", f"направление/{tag(e['area'])}"] + [f"метка/{tag(t)}" for t in e.get("tags", [])] + (["муха"] if src == "01" else [])
         props = {"aliases": [e["title"]], "tags": tags, "исход": STATE_RU.get(e["state"], e["state"]), "направление": a["title"],
                  "начат": e.get("started") or None, "завершён": e.get("finished") or None}
@@ -286,7 +288,7 @@ def main() -> int:
     for aid, a in areas.items():
         es = sorted(by_area.get(aid, []), key=lambda x: x.get("started") or "")
         body = f"# {a['title']}\n\n↑ [[{HUB['02']}|{BLOCK_TITLE['02']}]]\n\n{a.get('description', '')}\n\n## Эксперименты ({len(es)})\n"
-        body += "".join(f"- {STATE_ICON.get(x['state'], '')} {ref('02', card_path[x['id']], x['title'])} — {STATE_RU.get(x['state'], x['state'])}, {x.get('started') or '—'}\n" for x in es)
+        body += "".join(f"- {STATE_ICON.get(x['state'], '')} {ref('02', card_path[x['id']], x['title'], structural=True)} — {STATE_RU.get(x['state'], x['state'])}, {x.get('started') or '—'}\n" for x in es)
         V.write(area_path[aid] + ".md", fm({"tags": ["направление"]}) + body)
     n_state = defaultdict(int)
     for e in cards.values():
@@ -474,8 +476,9 @@ def build_fly(V, cards, card_path, fly_theme, theme_path, jnames, L) -> None:
     for title in concepts:
         p = V.path / f"01 Муха/Понятия/{title}.md"
         t = p.read_text(encoding="utf-8")
-        for other in concepts:
-            t = t.replace(f"[[01 Муха/{other}|", f"[[01 Муха/Понятия/{other}|")
+        t = re.sub(r"\[\[01 Муха/([^|\]]+)\|([^\]]+)\]\]",
+                   lambda m: ref("01", f"01 Муха/Понятия/{m.group(1)}" if m.group(1) in concepts else f"01 Муха/{m.group(1)}", m.group(2))
+                   if m.group(1) != "Муха (FlyVis)" else m.group(0), t)
         p.write_text(t, encoding="utf-8")
 
     themes = [t for t, _ in FLY_THEMES] + [FLY_OTHER]

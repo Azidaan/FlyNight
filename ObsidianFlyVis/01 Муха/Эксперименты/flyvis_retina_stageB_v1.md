@@ -22,16 +22,16 @@ tags:
 
 ↑ [[01 Муха/Темы/Глаз и сетчатка-ламина|Глаз и сетчатка-ламина]] · **Исход:** положительный · `flyvis_retina_stageB_v1`
 
-Фовеальный поток с ламиной (быстрая версия: гладкие поля на кадре ×1/4) на обучающих видео (runs/train_cache_retina_lamina4) и val7 (runs/flyvis_fovea_flow_retina_lamina4) — сторож scripts/run_fovea_jobs.py с межпроцессной очередью к GPU. Лестница Н2 (geometry → +DIS → +муха → +оба; перемешанный контроль) обучается на train-роликах, отчёт — test и val7 с разбивкой test по средней яркости ролика (< 60/255 — тёмные). Парное сравнение «без сетчатки / ламина» на одних и тех же роликах и наблюдениях (τ_e = 0,0903 из [[01 Муха/Эксперименты/motion_reliability_v1|motion_reliability_v1]]).
+Фовеальный поток с ламиной (быстрая версия: гладкие поля на кадре ×1/4) на обучающих видео (runs/train_cache_retina_lamina4) и val7 (runs/flyvis_fovea_flow_retina_lamina4) — сторож scripts/run_fovea_jobs.py с межпроцессной очередью к GPU. Лестница Н2 (geometry → +DIS → +муха → +оба; перемешанный контроль) обучается на train-роликах, отчёт — test и val7 с разбивкой test по средней яркости ролика (< 60/255 — тёмные). Парное сравнение «без сетчатки / ламина» на одних и тех же роликах и наблюдениях (τ_e = 0,0903 из [motion_reliability_v1↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fmotion_reliability_v1)).
 
 ## Вопрос
-Устраняет ли сетчатка-ламина провал мухи на тёмных роликах, обнаруженный стратификацией [[01 Муха/Эксперименты/motion_reliability_v1|motion_reliability_v1]] (муха без DIS хуже геометрии на тёмных)?
+Устраняет ли сетчатка-ламина провал мухи на тёмных роликах, обнаруженный стратификацией [motion_reliability_v1↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fmotion_reliability_v1) (муха без DIS хуже геометрии на тёмных)?
 
 ## Гипотеза
 Провал вызван входом вне обучающего распределения; с ламиной голова «геометрия + муха» на тёмных не хуже геометрии, а «геометрия + DIS + муха» не хуже «геометрия + DIS».
 
 ## Ожидалось (до прогона)
-На тёмных test-роликах: geometry_fly(ламина) ≥ geometry и > geometry_fly(без сетчатки); geometry_dis_fly(ламина) ≥ geometry_dis и > перемешанного контроля. Критерии следуют из ступени A и стратификации [[01 Муха/Эксперименты/motion_reliability_v1|motion_reliability_v1]] (без сетчатки на тёмных dev+test: fly 0,447 < geometry 0,450; dis+fly 0,515 < dis 0,522).
+На тёмных test-роликах: geometry_fly(ламина) ≥ geometry и > geometry_fly(без сетчатки); geometry_dis_fly(ламина) ≥ geometry_dis и > перемешанного контроля. Критерии следуют из ступени A и стратификации [motion_reliability_v1↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fmotion_reliability_v1) (без сетчатки на тёмных dev+test: fly 0,447 < geometry 0,450; dis+fly 0,515 < dis 0,522).
 
 ## Что сделано
 Карточка записана 30.09.2026, 09:1x MSK по предварительному расчёту (119/26 роликов, runs/retina_frontend/stageB_partial.json, scripts/evaluate_retina_stageB_partial.py); критерии не менялись. Ступень B закончена 30.09 11:25 (+3 ролика 14:08): 200/200 обучающих + val7. Полный пересчёт 14:1x: scripts/evaluate_motion_reliability.py --train-flow runs/train_cache_retina_lamina4 --val-flow runs/flyvis_fovea_flow_retina_lamina4 → runs/motion_reliability_lamina/report.json; эталон без сетчатки тем же скриптом → runs/motion_reliability_none_strata/report.json; бутстреп по видео внутри подвыборок → runs/motion_reliability_lamina/strata_bootstrap.json.
@@ -46,10 +46,10 @@ dev+test, тёмные (27) / светлые (43): geometry 0.4497 / 0.4535; +м
 Оба заранее записанных критерия выполнены на полном наборе → completed_positive (узкая постановка: ламина устраняет ночной провал мухи). Прибавка сверх DIS на тёмных — на грани значимости; на агрегате и в трекере (e2e_motion_source_v1) — ноль. Дальше по мухе: функции без аналога у DIS (Н11) и сетчатка как обязательная часть любого следующего опыта с мухой. Контроль «тот же вход для DIS» (dis_retina_control_v1): DIS от сетчатки не выигрывает (+0,001 ночью, ДИ через ноль) — выигрыш специфичен для мухи.
 
 ## Ограничения
-Тёмные ролики — 27 (порог яркости 60/255 задан заранее по [[01 Муха/Эксперименты/motion_reliability_v1|motion_reliability_v1]]); прибавка сверх DIS на тёмных +0,003 с ДИ, задевающим ноль; один сид перестановки; порог события τ_e одинаков для обоих режимов.
+Тёмные ролики — 27 (порог яркости 60/255 задан заранее по [motion_reliability_v1↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fmotion_reliability_v1)); прибавка сверх DIS на тёмных +0,003 с ДИ, задевающим ноль; один сид перестановки; порог события τ_e одинаков для обоих режимов.
 
 ## Нельзя заявлять
-Прирост мухи сверх DIS; пользу для HOTA (см. [[01 Муха/Эксперименты/e2e_motion_source_v1|e2e_motion_source_v1]]: ноль). Поправка 03.10 (F13): результат получен на одной модели ансамбля FlyVis (flow/0000/000); интервалы учитывают разброс видео, но не моделей ансамбля.
+Прирост мухи сверх DIS; пользу для HOTA (см. [e2e_motion_source_v1↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fe2e_motion_source_v1): ноль). Поправка 03.10 (F13): результат получен на одной модели ансамбля FlyVis (flow/0000/000); интервалы учитывают разброс видео, но не моделей ансамбля.
 
 ## Условия
 - **baseline:** та же лестница без сетчатки на тех же роликах
