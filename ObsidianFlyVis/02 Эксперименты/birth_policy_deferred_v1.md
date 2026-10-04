@@ -19,9 +19,9 @@ tags:
 
 # 🟢 Цель 6: отложенное подтверждение рождений с низким q_birth (N подтверждений вместо вето)
 
-**Направление:** [[03 Направления/Раздельная событийная уверенность (линия B)|Раздельная событийная уверенность (линия B)]] · **Исход:** положительный · `birth_policy_deferred_v1`
+↑ [[02 Эксперименты/Направления/Раздельная событийная уверенность (линия B)|Раздельная событийная уверенность (линия B)]] · **Исход:** положительный · `birth_policy_deferred_v1`
 
-Ответ на компромисс покрытия [[birth_policy_qbirth_v1]]. Единственное изменение относительно стенда — правило подтверждения нового трека: рождение с q_birth ≥ τ подтверждается как в ByteTrack (первое повторное совпадение), рождение с q_birth < τ требует N последовательных повторных совпадений до публикации; любой пропуск до подтверждения удаляет трек (штатная семантика неподтверждённых). Ассоциация, пороги и буфер не тронуты.
+Ответ на компромисс покрытия [[02 Эксперименты/birth_policy_qbirth_v1|birth_policy_qbirth_v1]]. Единственное изменение относительно стенда — правило подтверждения нового трека: рождение с q_birth ≥ τ подтверждается как в ByteTrack (первое повторное совпадение), рождение с q_birth < τ требует N последовательных повторных совпадений до публикации; любой пропуск до подтверждения удаляет трек (штатная семантика неподтверждённых). Ассоциация, пороги и буфер не тронуты.
 
 ## Вопрос
 Сохраняется ли выигрыш вето по ложным рождениям, FP и IDSw при возврате покрытия (HOTA не ниже контроля − 0,1), если низкие рождения задерживать, а не запрещать?
@@ -73,14 +73,14 @@ tags:
 ## Метрики
 | метрика | значение | baseline | подмножество | источник |
 |---|---|---|---|---|
-| [[04 Термины и метрики/HOTA|HOTA]] | 53.04107492500015 | 52.67491393303034 | 3 отложенных видео, deferred N=3 (выбран на train) / контроль | `runs/birth_policy_deferred/report.json` · variants.deferred_n3.metrics_test.HOTA |
-| [[04 Термины и метрики/IDF1|IDF1]] | 58.53156588584226 | 57.68539595064095 | то же | `runs/birth_policy_deferred/report.json` · variants.deferred_n3.metrics_test.IDF1 |
-| [[04 Термины и метрики/AssA|AssA]] | 49.04465899167915 | 48.30984716299449 | то же | `runs/birth_policy_deferred/report.json` · variants.deferred_n3.metrics_test.AssA |
-| [[04 Термины и метрики/IDSw|IDSw]] | 291.0 | 310.0 | то же | `runs/birth_policy_deferred/report.json` · variants.deferred_n3.metrics_test.IDSw |
-| [[04 Термины и метрики/FP|FP]] | 455 | 552 | то же | `runs/birth_policy_deferred/report.json` · variants.deferred_n3.metrics_test.CLR_FP |
-| [[04 Термины и метрики/FN|FN]] | 2660 | 2584 | то же (цена) | `runs/birth_policy_deferred/report.json` · variants.deferred_n3.metrics_test.CLR_FN |
-| [[04 Термины и метрики/HOTA|HOTA]] | 52.509117510893496 | 52.67491393303034 | диагностический контроль: N=3 для всех рождений без головы | `runs/birth_policy_deferred/report.json` · variants.defer_all_n3.metrics_test.HOTA |
-| [[04 Термины и метрики/IDSw|IDSw]] | 190.0 | 310.0 | диагностический контроль: N=3 для всех | `runs/birth_policy_deferred/report.json` · variants.defer_all_n3.metrics_test.IDSw |
+| [HOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FHOTA) | 53.04107492500015 | 52.67491393303034 | 3 отложенных видео, deferred N=3 (выбран на train) / контроль | `runs/birth_policy_deferred/report.json` · variants.deferred_n3.metrics_test.HOTA |
+| [IDF1↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDF1) | 58.53156588584226 | 57.68539595064095 | то же | `runs/birth_policy_deferred/report.json` · variants.deferred_n3.metrics_test.IDF1 |
+| [AssA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FAssA) | 49.04465899167915 | 48.30984716299449 | то же | `runs/birth_policy_deferred/report.json` · variants.deferred_n3.metrics_test.AssA |
+| [IDSw↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDSw) | 291.0 | 310.0 | то же | `runs/birth_policy_deferred/report.json` · variants.deferred_n3.metrics_test.IDSw |
+| [FP↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FFP) | 455 | 552 | то же | `runs/birth_policy_deferred/report.json` · variants.deferred_n3.metrics_test.CLR_FP |
+| [FN↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FFN) | 2660 | 2584 | то же (цена) | `runs/birth_policy_deferred/report.json` · variants.deferred_n3.metrics_test.CLR_FN |
+| [HOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FHOTA) | 52.509117510893496 | 52.67491393303034 | диагностический контроль: N=3 для всех рождений без головы | `runs/birth_policy_deferred/report.json` · variants.defer_all_n3.metrics_test.HOTA |
+| [IDSw↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDSw) | 190.0 | 310.0 | диагностический контроль: N=3 для всех | `runs/birth_policy_deferred/report.json` · variants.defer_all_n3.metrics_test.IDSw |
 
 ## Доказательства
 - один компонент за раз; парное сравнение; политика рождения не наследует порог продолжения: 3.7. Цель 6

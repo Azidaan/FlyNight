@@ -16,7 +16,7 @@ tags:
 
 # 🔧 Каркас: BDD100K, кэш детекций, три baseline-детектора
 
-**Направление:** [[03 Направления/Инфраструктура и данные|Инфраструктура и данные]] · **Исход:** инфраструктура · `infra_bdd_baseline`
+↑ [[02 Эксперименты/Направления/Инфраструктура и данные|Инфраструктура и данные]] · **Исход:** инфраструктура · `infra_bdd_baseline`
 
 Собраны данные (1400 обучающих и 200 проверочных видео), обучены три базовых детектора, построены кэширование детекций и офлайн-ассоциация — инфраструктура, пережившая всё последующее.
 
@@ -33,7 +33,7 @@ Baseline на 50 видео val (τ=0.25, буфер 30): IDF1 51.014, MOTA 40.0
 Стенд принят; baseline — единственная точка отсчёта работы, убирать нельзя.
 
 ## Ограничения
-Дата начала — по [[05 План/2.1. Июнь — июль каркас|разделу 2.1]] плана («июнь — июль»), точнее не зафиксирована; первый коммит репозитория 25.07.
+Дата начала — по [разделу 2.1↗](obsidian://open?vault=ObsidianFlyVis&file=05%20%D0%9F%D0%BB%D0%B0%D0%BD%2F2.1.%20%D0%98%D1%8E%D0%BD%D1%8C%20%E2%80%94%20%D0%B8%D1%8E%D0%BB%D1%8C%20%D0%BA%D0%B0%D1%80%D0%BA%D0%B0%D1%81) плана («июнь — июль»), точнее не зафиксирована; первый коммит репозитория 25.07.
 
 ## Условия
 - **baseline:** —
@@ -48,15 +48,15 @@ Baseline на 50 видео val (τ=0.25, буфер 30): IDF1 51.014, MOTA 40.0
 ## Метрики
 | метрика | значение | baseline | подмножество | источник |
 |---|---|---|---|---|
-| [[04 Термины и метрики/IDF1|IDF1]] | 51.0137 | None | 50 видео val, bdd100k | `experiments/results/gate_a_oracle.csv` · режим=baseline;метрика=IDF1;col=значение |
-| [[04 Термины и метрики/MOTA|MOTA]] | 40.0237 | None | 50 видео val | `experiments/results/gate_a_oracle.csv` · режим=baseline;метрика=MOTA;col=значение |
-| [[04 Термины и метрики/mAP50|mAP50]] | 0.375729 | None | ночь, seed42 | `experiments/results/target_full_night.csv` · модель=baseline_seed42;поднабор=night;метрика=mAP50;col=значение |
-| [[04 Термины и метрики/mAP50|mAP50]] | 0.375121 | None | ночь, seed123 | `experiments/results/target_full_night.csv` · модель=baseline_seed123;поднабор=night;метрика=mAP50;col=значение |
-| [[04 Термины и метрики/mAP50|mAP50]] | 0.380805 | None | ночь, seed2024 | `experiments/results/target_full_night.csv` · модель=baseline_seed2024;поднабор=night;метрика=mAP50;col=значение |
+| [IDF1↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDF1) | 51.0137 | None | 50 видео val, bdd100k | `experiments/results/gate_a_oracle.csv` · режим=baseline;метрика=IDF1;col=значение |
+| [MOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FMOTA) | 40.0237 | None | 50 видео val | `experiments/results/gate_a_oracle.csv` · режим=baseline;метрика=MOTA;col=значение |
+| [mAP50↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FmAP50) | 0.375729 | None | ночь, seed42 | `experiments/results/target_full_night.csv` · модель=baseline_seed42;поднабор=night;метрика=mAP50;col=значение |
+| [mAP50↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FmAP50) | 0.375121 | None | ночь, seed123 | `experiments/results/target_full_night.csv` · модель=baseline_seed123;поднабор=night;метрика=mAP50;col=значение |
+| [mAP50↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FmAP50) | 0.380805 | None | ночь, seed2024 | `experiments/results/target_full_night.csv` · модель=baseline_seed2024;поднабор=night;метрика=mAP50;col=значение |
 
 ## Доказательства
-- каркас июнь–июль: [[05 План/2.1. Июнь — июль каркас|§2.1]]
-- baseline IDF1 51.014, MOTA 40.024: [[05 План/3. Все измеренные числа|§3]]
+- каркас июнь–июль: [§2.1↗](obsidian://open?vault=ObsidianFlyVis&file=05%20%D0%9F%D0%BB%D0%B0%D0%BD%2F2.1.%20%D0%98%D1%8E%D0%BD%D1%8C%20%E2%80%94%20%D0%B8%D1%8E%D0%BB%D1%8C%20%D0%BA%D0%B0%D1%80%D0%BA%D0%B0%D1%81)
+- baseline IDF1 51.014, MOTA 40.024: [§3↗](obsidian://open?vault=ObsidianFlyVis&file=05%20%D0%9F%D0%BB%D0%B0%D0%BD%2F3.%20%D0%92%D1%81%D0%B5%20%D0%B8%D0%B7%D0%BC%D0%B5%D1%80%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5%20%D1%87%D0%B8%D1%81%D0%BB%D0%B0)
 - оценка baseline по поднаборам: `experiments/results/baseline_summary.csv` · 
 
 ## Код

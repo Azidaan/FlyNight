@@ -17,7 +17,7 @@ tags:
 
 # ⚫ DRB v1 и v2: синергия ветвей LQA + FGA
 
-**Направление:** [[03 Направления/DRB|DRB]] · **Исход:** закрыт · `drb_v1_v2`
+↑ [[02 Эксперименты/Направления/DRB|DRB]] · **Исход:** закрыт · `drb_v1_v2`
 
 Блок с пространственной картой качества и обучаемой частотной маской, объединяемыми затвором. Первый пункт новизны СВОДНЫЙ_ПЛАН1.
 
@@ -59,24 +59,24 @@ tags:
 
 ## Критерии приёмки (записаны до прогона)
 - ❌ второй сид drb_ad100 выше порога по ночной mAP50  
-  *план [[05 План/2.2. 18–25.08 DRB, версии 1 и 2|§2.2]]: 0.3768 внутри разброса контроля*
+  *план [§2.2↗](obsidian://open?vault=ObsidianFlyVis&file=05%20%D0%9F%D0%BB%D0%B0%D0%BD%2F2.2.%2018%E2%80%9325.08%20DRB%2C%20%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D0%B8%201%20%D0%B8%202): 0.3768 внутри разброса контроля*
 - ❌ прирост полноты мелких ночью сохраняется на 100 эпохах  
-  *план [[05 План/2.2. 18–25.08 DRB, версии 1 и 2|§2.2]]: +0.027 → −0.032*
+  *план [§2.2↗](obsidian://open?vault=ObsidianFlyVis&file=05%20%D0%9F%D0%BB%D0%B0%D0%BD%2F2.2.%2018%E2%80%9325.08%20DRB%2C%20%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D0%B8%201%20%D0%B8%202): +0.027 → −0.032*
 - ❌ цена инференса приемлема  
-  *план [[05 План/2.2. 18–25.08 DRB, версии 1 и 2|§2.2]]: 28.13 → 32.83 мс*
+  *план [§2.2↗](obsidian://open?vault=ObsidianFlyVis&file=05%20%D0%9F%D0%BB%D0%B0%D0%BD%2F2.2.%2018%E2%80%9325.08%20DRB%2C%20%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D0%B8%201%20%D0%B8%202): 28.13 → 32.83 мс*
 
 ## Метрики
 | метрика | значение | baseline | подмножество | источник |
 |---|---|---|---|---|
-| [[04 Термины и метрики/mAP50|mAP50]] | 0.38384 | 0.375729 | ночь, 100 эпох, seed42 | `experiments/results/target_full_night.csv` · модель=drb_ad100_seed42;поднабор=night;метрика=mAP50;col=значение |
-| [[04 Термины и метрики/mAP50|mAP50]] | 0.367406 | 0.383404 | ночь, 12 эпох (drb_ad / base12) | `experiments/results/probe_subsets.csv` · модель=drb_ad;поднабор=night;метрика=mAP50;col=значение |
-| [[04 Термины и метрики/AR50 (мелкие)|AR50_small]] | 0.528224 | 0.510342 | ночь, 12 эпох (drb_ad / base12) | `experiments/results/probe_subsets.csv` · модель=drb_ad;поднабор=night;метрика=AR50_small;col=значение |
-| [[04 Термины и метрики/разброс между сидами|spread_seeds]] | 0.0144 | None | 12 эпох, mAP50 | `dissertation/ЕДИНЫЙ_ПЛАН.md` ·  |
-| [[04 Термины и метрики/мс кадр|ms_per_frame]] | 32.83 | 28.13 | цена блока на кадр | `dissertation/ЕДИНЫЙ_ПЛАН.md` ·  |
+| [mAP50↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FmAP50) | 0.38384 | 0.375729 | ночь, 100 эпох, seed42 | `experiments/results/target_full_night.csv` · модель=drb_ad100_seed42;поднабор=night;метрика=mAP50;col=значение |
+| [mAP50↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FmAP50) | 0.367406 | 0.383404 | ночь, 12 эпох (drb_ad / base12) | `experiments/results/probe_subsets.csv` · модель=drb_ad;поднабор=night;метрика=mAP50;col=значение |
+| [AR50_small↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FAR50%20%28%D0%BC%D0%B5%D0%BB%D0%BA%D0%B8%D0%B5%29) | 0.528224 | 0.510342 | ночь, 12 эпох (drb_ad / base12) | `experiments/results/probe_subsets.csv` · модель=drb_ad;поднабор=night;метрика=AR50_small;col=значение |
+| [spread_seeds↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2F%D1%80%D0%B0%D0%B7%D0%B1%D1%80%D0%BE%D1%81%20%D0%BC%D0%B5%D0%B6%D0%B4%D1%83%20%D1%81%D0%B8%D0%B4%D0%B0%D0%BC%D0%B8) | 0.0144 | None | 12 эпох, mAP50 | `dissertation/ЕДИНЫЙ_ПЛАН.md` ·  |
+| [ms_per_frame↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2F%D0%BC%D1%81%20%D0%BA%D0%B0%D0%B4%D1%80) | 32.83 | 28.13 | цена блока на кадр | `dissertation/ЕДИНЫЙ_ПЛАН.md` ·  |
 
 ## Доказательства
-- хроника 18–31.08 и итог DRB: [[05 План/2.2. 18–25.08 DRB, версии 1 и 2|§2.2]]
-- основание закрытия: [[05 План/4. Что закрыто, и по какому основанию|§4]]
+- хроника 18–31.08 и итог DRB: [§2.2↗](obsidian://open?vault=ObsidianFlyVis&file=05%20%D0%9F%D0%BB%D0%B0%D0%BD%2F2.2.%2018%E2%80%9325.08%20DRB%2C%20%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D0%B8%201%20%D0%B8%202)
+- основание закрытия: [§4↗](obsidian://open?vault=ObsidianFlyVis&file=05%20%D0%9F%D0%BB%D0%B0%D0%BD%2F4.%20%D0%A7%D1%82%D0%BE%20%D0%B7%D0%B0%D0%BA%D1%80%D1%8B%D1%82%D0%BE%2C%20%D0%B8%20%D0%BF%D0%BE%20%D0%BA%D0%B0%D0%BA%D0%BE%D0%BC%D1%83%20%D0%BE%D1%81%D0%BD%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8E)
 - разбор неудачи DRB v1–v2, порог провален: `19fb8d3` · 
 
 ## Код

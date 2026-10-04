@@ -19,9 +19,9 @@ tags:
 
 # 🟡 Отложенное рождение по q_birth на обучающих видео (130/35/35) и его совмещение с буфером IoU
 
-**Направление:** [[03 Направления/Раздельная событийная уверенность (линия B)|Раздельная событийная уверенность (линия B)]] · **Исход:** неопределённый · `birth_deferred_train_v1`
+↑ [[02 Эксперименты/Направления/Раздельная событийная уверенность (линия B)|Раздельная событийная уверенность (линия B)]] · **Исход:** неопределённый · `birth_deferred_train_v1`
 
-Перенос положительного результата [[birth_policy_deferred_v1]] (+0,37 HOTA на 3 отложенных val-видео, голова на 4 val-видео) на обучающие видео цели 1а: голова q_birth (StandardScaler + LogisticRegression, base + DIS) на 156 193 кандидатах 130 train-роликов (runs/event_dataset_train), τ = максимум F1 на train (0,329; на val-четвёрке было 0,327). N ∈ {2, 3, 5} выбирается на dev по HOTA; отчёт — test и val7; варианты без буфера и с буфером IoU 0,5. Эталоны — стенд и буфер 0,5 из [[e2e_motion_source_v1]] (тот же трекер).
+Перенос положительного результата [[02 Эксперименты/birth_policy_deferred_v1|birth_policy_deferred_v1]] (+0,37 HOTA на 3 отложенных val-видео, голова на 4 val-видео) на обучающие видео цели 1а: голова q_birth (StandardScaler + LogisticRegression, base + DIS) на 156 193 кандидатах 130 train-роликов (runs/event_dataset_train), τ = максимум F1 на train (0,329; на val-четвёрке было 0,327). N ∈ {2, 3, 5} выбирается на dev по HOTA; отчёт — test и val7; варианты без буфера и с буфером IoU 0,5. Эталоны — стенд и буфер 0,5 из [e2e_motion_source_v1↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fe2e_motion_source_v1) (тот же трекер).
 
 ## Вопрос
 Обобщается ли прирост HOTA от отложенного рождения с 3 видео на 35 отложенных обучающих роликов и складывается ли он с буфером IoU?
@@ -65,11 +65,11 @@ test: стенд HOTA 58.469 / IDF1 66.965 / IDSw 2221; deferred_n2 58.425 / 67.
 ## Метрики
 | метрика | значение | baseline | подмножество | источник |
 |---|---|---|---|---|
-| [[04 Термины и метрики/HOTA|HOTA]] | 58.42513978145013 | 58.46862614225555 | test 35: deferred_n2 / стенд | `runs/birth_train/report_final.json` · summary.deferred_n2.test.HOTA |
-| [[04 Термины и метрики/IDSw|IDSw]] | 2072.0 | 2221.0 | test 35: deferred_n2 / стенд | `runs/birth_train/report_final.json` · summary.deferred_n2.test.IDSw |
-| [[04 Термины и метрики/HOTA|HOTA]] | 59.14396772548896 | 58.46862614225555 | test 35: deferred_n2 + буфер 0,5 / стенд | `runs/birth_train/report_final.json` · summary.deferred_n2+buf0.5.test.HOTA |
-| [[04 Термины и метрики/IDF1|IDF1]] | 68.40150386177785 | 66.965404625375 | test 35: deferred_n2 + буфер 0,5 / стенд | `runs/birth_train/report_final.json` · summary.deferred_n2+buf0.5.test.IDF1 |
-| [[04 Термины и метрики/IDSw|IDSw]] | 1929.0 | 2221.0 | test 35: deferred_n2 + буфер 0,5 / стенд | `runs/birth_train/report_final.json` · summary.deferred_n2+buf0.5.test.IDSw |
+| [HOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FHOTA) | 58.42513978145013 | 58.46862614225555 | test 35: deferred_n2 / стенд | `runs/birth_train/report_final.json` · summary.deferred_n2.test.HOTA |
+| [IDSw↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDSw) | 2072.0 | 2221.0 | test 35: deferred_n2 / стенд | `runs/birth_train/report_final.json` · summary.deferred_n2.test.IDSw |
+| [HOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FHOTA) | 59.14396772548896 | 58.46862614225555 | test 35: deferred_n2 + буфер 0,5 / стенд | `runs/birth_train/report_final.json` · summary.deferred_n2+buf0.5.test.HOTA |
+| [IDF1↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDF1) | 68.40150386177785 | 66.965404625375 | test 35: deferred_n2 + буфер 0,5 / стенд | `runs/birth_train/report_final.json` · summary.deferred_n2+buf0.5.test.IDF1 |
+| [IDSw↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDSw) | 1929.0 | 2221.0 | test 35: deferred_n2 + буфер 0,5 / стенд | `runs/birth_train/report_final.json` · summary.deferred_n2+buf0.5.test.IDSw |
 
 ## Доказательства
 - выбор N на dev: `runs/birth_train/report_dev.json` · summary

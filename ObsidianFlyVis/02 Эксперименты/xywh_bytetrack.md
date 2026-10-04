@@ -17,7 +17,7 @@ tags:
 
 # 🟢 XYWHByteTrack: модель рамки с независимыми шириной и высотой
 
-**Направление:** [[03 Направления/Tracker 1,0 и слабые детекции|Tracker 1,0 и слабые детекции]] · **Исход:** положительный · `xywh_bytetrack`
+↑ [[02 Эксперименты/Направления/Tracker 1,0 и слабые детекции|Tracker 1,0 и слабые детекции]] · **Исход:** положительный · `xywh_bytetrack`
 
 Собственный вариант ByteTrack с фильтром Калмана по (x, y, w, h). На семи исходных видео ~30 Гц воспроизвёл BoT-SORT без компенсации камеры и без ReID.
 
@@ -57,10 +57,10 @@ HOTA 52.44 → 54.57, AssA 52.97 → 54.57, IDF1 59.82 → 60.38, IDSw 573 → 5
 ## Метрики
 | метрика | значение | baseline | подмножество | источник |
 |---|---|---|---|---|
-| [[04 Термины и метрики/HOTA|HOTA]] | 54.57308976106422 | 52.43696923664447 | 7 видео / ByteTrack | `runs/video_rate/xywh_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.HOTA |
-| [[04 Термины и метрики/AssA|AssA]] | 54.571813137230265 | 52.97481252366944 | 7 видео / ByteTrack | `runs/video_rate/xywh_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.AssA |
-| [[04 Термины и метрики/IDF1|IDF1]] | 60.37998146431881 | 59.824299685065476 | 7 видео / ByteTrack | `runs/video_rate/xywh_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.IDF1 |
-| [[04 Термины и метрики/IDSw|IDSw]] | 526 | 573 | 7 видео / ByteTrack | `runs/video_rate/xywh_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.IDSw |
+| [HOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FHOTA) | 54.57308976106422 | 52.43696923664447 | 7 видео / ByteTrack | `runs/video_rate/xywh_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.HOTA |
+| [AssA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FAssA) | 54.571813137230265 | 52.97481252366944 | 7 видео / ByteTrack | `runs/video_rate/xywh_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.AssA |
+| [IDF1↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDF1) | 60.37998146431881 | 59.824299685065476 | 7 видео / ByteTrack | `runs/video_rate/xywh_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.IDF1 |
+| [IDSw↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDSw) | 526 | 573 | 7 видео / ByteTrack | `runs/video_rate/xywh_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.IDSw |
 
 ## Доказательства
 - метрики на семи видео: `runs/video_rate/xywh_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics

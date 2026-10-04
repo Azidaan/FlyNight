@@ -16,7 +16,7 @@ tags:
 
 # 🟢 Лестница потерь детектора и трекера
 
-**Направление:** [[03 Направления/Уверенность детектора|Уверенность детектора]] · **Исход:** положительный · `miss_ladder`
+↑ [[02 Эксперименты/Направления/Уверенность детектора|Уверенность детектора]] · **Исход:** положительный · `miss_ladder`
 
 Самый результативный отрезок: ночью детектор не слепнет, а перестаёт себе верить. Весь ночной дефицит — ступень порога.
 
@@ -50,13 +50,13 @@ scripts/miss_ladder.py на кэше детекций (640 и 960), scripts/trac
 ## Метрики
 | метрика | значение | baseline | подмножество | источник |
 |---|---|---|---|---|
-| [[04 Термины и метрики/потери на пороге|threshold_loss_pct]] | 43.98 | 27.86 | мелкие объекты, ночь / день, 960 | `experiments/results/miss_ladder_960.csv` · условие=night;размер=мелкие;ступень=ПОРОГ;col=доля_% |
-| [[04 Термины и метрики/слепота|blindness_pct]] | 8.23 | None | мелкие объекты, ночь, 960 | `experiments/results/miss_ladder_960.csv` · условие=night;размер=мелкие;ступень=СЛЕПОТА;col=доля_% |
-| [[04 Термины и метрики/покрыто треком|tracked_pct]] | 78.21 | None | ночь, сильная полоса | `experiments/results/tracker_ladder.csv` · условие=night;полоса=ВЫСОКАЯ;col=доля_% |
-| [[04 Термины и метрики/покрыто треком|tracked_pct]] | 0.5 | None | ночь, слабая полоса | `experiments/results/tracker_ladder.csv` · условие=night;полоса=СЛАБАЯ;col=доля_% |
+| [threshold_loss_pct↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2F%D0%BF%D0%BE%D1%82%D0%B5%D1%80%D0%B8%20%D0%BD%D0%B0%20%D0%BF%D0%BE%D1%80%D0%BE%D0%B3%D0%B5) | 43.98 | 27.86 | мелкие объекты, ночь / день, 960 | `experiments/results/miss_ladder_960.csv` · условие=night;размер=мелкие;ступень=ПОРОГ;col=доля_% |
+| [blindness_pct↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2F%D1%81%D0%BB%D0%B5%D0%BF%D0%BE%D1%82%D0%B0) | 8.23 | None | мелкие объекты, ночь, 960 | `experiments/results/miss_ladder_960.csv` · условие=night;размер=мелкие;ступень=СЛЕПОТА;col=доля_% |
+| [tracked_pct↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2F%D0%BF%D0%BE%D0%BA%D1%80%D1%8B%D1%82%D0%BE%20%D1%82%D1%80%D0%B5%D0%BA%D0%BE%D0%BC) | 78.21 | None | ночь, сильная полоса | `experiments/results/tracker_ladder.csv` · условие=night;полоса=ВЫСОКАЯ;col=доля_% |
+| [tracked_pct↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2F%D0%BF%D0%BE%D0%BA%D1%80%D1%8B%D1%82%D0%BE%20%D1%82%D1%80%D0%B5%D0%BA%D0%BE%D0%BC) | 0.5 | None | ночь, слабая полоса | `experiments/results/tracker_ladder.csv` · условие=night;полоса=СЛАБАЯ;col=доля_% |
 
 ## Доказательства
-- лестница потерь и лестница трекера: [[05 План/2.5. 04–05.09 карта потерь, и где они на самом деле|§2.5]]
+- лестница потерь и лестница трекера: [§2.5↗](obsidian://open?vault=ObsidianFlyVis&file=05%20%D0%9F%D0%BB%D0%B0%D0%BD%2F2.5.%2004%E2%80%9305.09%20%D0%BA%D0%B0%D1%80%D1%82%D0%B0%20%D0%BF%D0%BE%D1%82%D0%B5%D1%80%D1%8C%2C%20%D0%B8%20%D0%B3%D0%B4%D0%B5%20%D0%BE%D0%BD%D0%B8%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BC%20%D0%B4%D0%B5%D0%BB%D0%B5)
 - доли по ступеням: `experiments/results/miss_ladder_960.csv` · 
 - покрытие треком по полосам: `experiments/results/tracker_ladder.csv` · 
 

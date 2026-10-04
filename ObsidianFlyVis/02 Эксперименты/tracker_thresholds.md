@@ -17,7 +17,7 @@ tags:
 
 # ⚫ Пороги трекера: сетка вниз, порог по яркости, разрешение 960
 
-**Направление:** [[03 Направления/Пороги трекера|Пороги трекера]] · **Исход:** закрыт · `tracker_thresholds`
+↑ [[02 Эксперименты/Направления/Пороги трекера|Пороги трекера]] · **Исход:** закрыт · `tracker_thresholds`
 
 Три попытки монетизировать занижение уверенности ночью через пороги — все неудачные; разрешение 960 дало в одиннадцать раз больше.
 
@@ -56,12 +56,12 @@ tags:
 ## Метрики
 | метрика | значение | baseline | подмножество | источник |
 |---|---|---|---|---|
-| [[04 Термины и метрики/IDF1|IDF1]] | 52.3097 | 52.1796 | регрессия по яркости / порог 0.25, отложенные видео | `experiments/results/adaptive_threshold.csv` · плечо=регрессия по яркости;col=IDF1 |
-| [[04 Термины и метрики/MOTA|MOTA]] | 44.8091638671146 | 41.717991787980594 | ночь, 960 / 640, порог 0.25 | `experiments/results/resolution_tracking.csv` · условие=night;разрешение=960;порог=0.25;col=MOTA |
-| [[04 Термины и метрики/R²|R2]] | 0.043 | None | регрессия «яркость → порог» | `experiments/results/brightness_per_video.csv` ·  |
+| [IDF1↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDF1) | 52.3097 | 52.1796 | регрессия по яркости / порог 0.25, отложенные видео | `experiments/results/adaptive_threshold.csv` · плечо=регрессия по яркости;col=IDF1 |
+| [MOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FMOTA) | 44.8091638671146 | 41.717991787980594 | ночь, 960 / 640, порог 0.25 | `experiments/results/resolution_tracking.csv` · условие=night;разрешение=960;порог=0.25;col=MOTA |
+| [R2↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FR%C2%B2) | 0.043 | None | регрессия «яркость → порог» | `experiments/results/brightness_per_video.csv` ·  |
 
 ## Доказательства
-- три попытки монетизировать: [[05 План/2.5. 04–05.09 карта потерь, и где они на самом деле|§2.5]]
+- три попытки монетизировать: [§2.5↗](obsidian://open?vault=ObsidianFlyVis&file=05%20%D0%9F%D0%BB%D0%B0%D0%BD%2F2.5.%2004%E2%80%9305.09%20%D0%BA%D0%B0%D1%80%D1%82%D0%B0%20%D0%BF%D0%BE%D1%82%D0%B5%D1%80%D1%8C%2C%20%D0%B8%20%D0%B3%D0%B4%D0%B5%20%D0%BE%D0%BD%D0%B8%20%D0%BD%D0%B0%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BC%20%D0%B4%D0%B5%D0%BB%D0%B5)
 - плечи адаптации: `experiments/results/adaptive_threshold.csv` · 
 - 960 против 640: `experiments/results/resolution_tracking.csv` · 
 

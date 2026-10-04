@@ -1,0 +1,31 @@
+---
+tags:
+- направление
+---
+
+# FlyVis
+
+↑ [[02 Эксперименты/Эксперименты|Эксперименты]]
+
+Коннектомно-ограниченный источник признаков движения; самостоятельный FlyVisTracker (линия A).
+
+## Эксперименты (19)
+- 🔧 [Самостоятельный FlyVisTracker (линия A, первая версия)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_standalone) — инфраструктура, 2026-09-13
+- 🔴 [Стресс-проверка FlyVis: полный кадр и перекрывающиеся фрагменты на семи видео↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_stress) — отрицательный, 2026-09-13
+- 🔴 [Аудит motion_confidence FlyVis: антиинформативна в рабочем диапазоне↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fmotion_confidence_audit) — отрицательный, 2026-09-13
+- 🔴 [Цель 2: считывание внутренней активности FlyVis (T4/T5, 34 типа) для q_match против декодированного потока и shuffled↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_internal_readout_v1) — отрицательный, 2026-09-16
+- 🔴 [Цель 2: фовеация — глаз FlyVis на каждый трек XYWHByteTrack, то же считывание T4/T5 и all34↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_foveation_readout_v1) — отрицательный, 2026-09-16
+- 🔴 [Диагностика: нелинейная модель на признаках считывания FlyVis (tiled и фовеация)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_readout_nonlinear_diag) — отрицательный, 2026-09-16
+- 🔴 [Н3: считывание FlyVis как признак событий без пары — q_alive (фовеальный глаз на кадре потери) и q_birth (тайловое считывание рамки рождения)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_event_features_v1) — отрицательный, 2026-09-17
+- 🔴 [Н1: остаточный поток фовеального глаза как поправка к предсказанию фильтра трека↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_fovea_motion_v1) — отрицательный, 2026-09-17
+- 🔴 [Н2: голова достоверности движения — предсказывает ли остаточный поток фовеального глаза FlyVis большую ошибку предсказания фильтра↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fmotion_reliability_v1) — отрицательный, 2026-09-18
+- 🟡 [Н9/М1: фронт-энд «фоторецептор + ламина» перед глазом FlyVis — восстанавливается ли сигнал мухи на тёмных видео↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_retina_frontend_v1) — неопределённый, 2026-09-18
+- 🔴 [Сквозной трекер: рычаги надёжности предсказания (источник движения Калман/DIS, буфер IoU) и голова надёжности без мухи и с мухой — HOTA на обучающих видео↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fe2e_motion_source_v1) — отрицательный, 2026-09-30
+- 🟢 [Н9/М1, ступень B: муха с сетчаткой-ламиной на обучающих видео — убирает ли ламина ночной провал мухи в голове надёжности (разбивка тёмные/светлые)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_retina_stageB_v1) — положительный, 2026-09-30
+- 🟡 [Н11: сигнатура состояния фовеального глаза FlyVis (с сетчаткой-ламиной) для повторного опознания объекта после потери трека↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Ffly_signature_reid_v1) — неопределённый, 2026-09-30
+- 🟢 [Н11, контроль того же объёма информации: схема мухи против её собственного входа (721 фасетка, то же поле зрения) и разрез по времени суток↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Ffly_matched_controls_v1) — положительный, 2026-09-30
+- 🟡 [Нулевая модель коннектома: муха с перемешанными связями (степени и знаки сохранены) против настоящей — в повторном опознании поверх входа глаза↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Ffly_connectome_null_v1) — неопределённый, 2026-09-30
+- 🟢 [Контроль «тот же вход для DIS»: помогает ли сетчатка-ламина только мухе или любому оценщику движения (голова надёжности, тёмные/светлые ролики)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fdis_retina_control_v1) — положительный, 2026-10-01
+- 🔴 [Г3: глаз мухи перед детектором — замороженный YOLO26 на кадрах после фоторецептора и накопления (без обучения)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Ffly_eye_frontend_v1) — отрицательный, 2026-10-03
+- 🟡 [Д4: ошибка движения мухи — от декодера Sintel или от представления (новый декодер на сохранённой активности, val7)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Ffly_decoder_refit_v1) — неопределённый, 2026-10-03
+- 🔵 [Д5: держатся ли выводы о мухе на других моделях ансамбля FlyVis (012, 025, 037 против 000)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Ffly_ensemble_members_v1) — идёт, 2026-10-04

@@ -18,7 +18,7 @@ tags:
 
 # 🟢 Каскад буферов IoU (C-BIoU) и буфер второй ассоциации на стенде XYWHByteTrack — HOTA на обучающих видео
 
-**Направление:** [[03 Направления/Собственная архитектура трекера|Собственная архитектура трекера]] · **Исход:** положительный · `cbiou_cascade_v1`
+↑ [[02 Эксперименты/Направления/Собственная архитектура трекера|Собственная архитектура трекера]] · **Исход:** положительный · `cbiou_cascade_v1`
 
 Заимствовано: C-BIoU (Yang et al., WACV 2023) — после первой ассоциации с малым буфером оставшиеся треки и детекции сопоставляются ещё раз с большим буфером; дополнительно — буфер во второй ассоциации (детекции низкой уверенности). tracking/motion_source_bytetrack.py (cascade_buffer, second_buffer; при нулях байт-в-байт равен стенду — тест). Конфигурации заданы заранее файлом runs/e2e_motion_source/configs_cascade.json; выбор — на dev (35), отчёт — test (35) и val7.
 
@@ -55,10 +55,10 @@ dev / test / val7 HOTA: стенд 61.336 / 58.469 / 54.573; буфер 0,5 61.7
 ## Метрики
 | метрика | значение | baseline | подмножество | источник |
 |---|---|---|---|---|
-| [[04 Термины и метрики/HOTA|HOTA]] | 59.105528305270774 | 58.46862614225555 | test 35: каскад 0,3→0,6 / стенд | `runs/e2e_motion_source/cascade/report.json` · summary.casc0.3-0.6.test.HOTA |
-| [[04 Термины и метрики/IDF1|IDF1]] | 68.35041153192194 | 66.965404625375 | test 35: каскад 0,3→0,6 / стенд | `runs/e2e_motion_source/cascade/report.json` · summary.casc0.3-0.6.test.IDF1 |
-| [[04 Термины и метрики/IDSw|IDSw]] | 1968.0 | 2221.0 | test 35: каскад 0,3→0,6 / стенд | `runs/e2e_motion_source/cascade/report.json` · summary.casc0.3-0.6.test.IDSw |
-| [[04 Термины и метрики/HOTA|HOTA]] | 55.076122959275565 | 54.57308976106422 | val7: каскад 0,3→0,6 / стенд | `runs/e2e_motion_source/cascade/report.json` · summary.casc0.3-0.6.val7.HOTA |
+| [HOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FHOTA) | 59.105528305270774 | 58.46862614225555 | test 35: каскад 0,3→0,6 / стенд | `runs/e2e_motion_source/cascade/report.json` · summary.casc0.3-0.6.test.HOTA |
+| [IDF1↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDF1) | 68.35041153192194 | 66.965404625375 | test 35: каскад 0,3→0,6 / стенд | `runs/e2e_motion_source/cascade/report.json` · summary.casc0.3-0.6.test.IDF1 |
+| [IDSw↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDSw) | 1968.0 | 2221.0 | test 35: каскад 0,3→0,6 / стенд | `runs/e2e_motion_source/cascade/report.json` · summary.casc0.3-0.6.test.IDSw |
+| [HOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FHOTA) | 55.076122959275565 | 54.57308976106422 | val7: каскад 0,3→0,6 / стенд | `runs/e2e_motion_source/cascade/report.json` · summary.casc0.3-0.6.val7.HOTA |
 
 ## Доказательства
 - HOTA/IDF1/IDSw по конфигурациям: `runs/e2e_motion_source/cascade/report.json` · summary

@@ -16,7 +16,7 @@ tags:
 
 # 🔴 Второй проход чистым IoU: возвращает FN, добавляет FP
 
-**Направление:** [[03 Направления/Tracker 1,0 и слабые детекции|Tracker 1,0 и слабые детекции]] · **Исход:** отрицательный · `xywh_iou_second`
+↑ [[02 Эксперименты/Направления/Tracker 1,0 и слабые детекции|Tracker 1,0 и слабые детекции]] · **Исход:** отрицательный · `xywh_iou_second`
 
 XYWHIoUSecondByteTrack: первая ассоциация без изменений, на второй — чистое IoU вместо IoU × confidence. Отрицательная диагностическая абляция.
 
@@ -60,16 +60,16 @@ FN −406, фрагментаций −47, но FP +456, IDSw +19; HOTA 54.5731 
 ## Метрики
 | метрика | значение | baseline | подмножество | источник |
 |---|---|---|---|---|
-| [[04 Термины и метрики/HOTA|HOTA]] | 54.424665774463 | 54.57308976106422 | 7 видео / XYWHByteTrack | `runs/video_rate/xywh_iou_second_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.HOTA |
-| [[04 Термины и метрики/AssA|AssA]] | 53.98526121155564 | 54.571813137230265 | 7 видео / XYWHByteTrack | `runs/video_rate/xywh_iou_second_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.AssA |
-| [[04 Термины и метрики/FN|FN]] | 4970 | 5376 | 7 видео / XYWHByteTrack | `runs/video_rate/xywh_iou_second_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.CLR_FN |
-| [[04 Термины и метрики/FP|FP]] | 1738 | 1282 | 7 видео / XYWHByteTrack | `runs/video_rate/xywh_iou_second_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.CLR_FP |
-| [[04 Термины и метрики/IDSw|IDSw]] | 545 | 526 | 7 видео / XYWHByteTrack | `runs/video_rate/xywh_iou_second_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.IDSw |
+| [HOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FHOTA) | 54.424665774463 | 54.57308976106422 | 7 видео / XYWHByteTrack | `runs/video_rate/xywh_iou_second_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.HOTA |
+| [AssA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FAssA) | 53.98526121155564 | 54.571813137230265 | 7 видео / XYWHByteTrack | `runs/video_rate/xywh_iou_second_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.AssA |
+| [FN↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FFN) | 4970 | 5376 | 7 видео / XYWHByteTrack | `runs/video_rate/xywh_iou_second_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.CLR_FN |
+| [FP↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FFP) | 1738 | 1282 | 7 видео / XYWHByteTrack | `runs/video_rate/xywh_iou_second_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.CLR_FP |
+| [IDSw↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDSw) | 545 | 526 | 7 видео / XYWHByteTrack | `runs/video_rate/xywh_iou_second_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics.IDSw |
 
 ## Доказательства
 - метрики абляции: `runs/video_rate/xywh_iou_second_validation7.json` · results.h0p25_l0p1_b30_m0p8.metrics
 - исправленная вторая ассоциация: `FLYVIS_STRESS_AND_SECOND_ASSOCIATION_REPORT.md` · §7
-- итог по второй ассоциации: [[05 План/0. Текущее состояние на 13.09.2026|§0]]
+- итог по второй ассоциации: [§0↗](obsidian://open?vault=ObsidianFlyVis&file=05%20%D0%9F%D0%BB%D0%B0%D0%BD%2F0.%20%D0%A2%D0%B5%D0%BA%D1%83%D1%89%D0%B5%D0%B5%20%D1%81%D0%BE%D1%81%D1%82%D0%BE%D1%8F%D0%BD%D0%B8%D0%B5%20%D0%BD%D0%B0%2013.09.2026)
 
 ## Код
 - `tracking/xywh_bytetrack.py`

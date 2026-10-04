@@ -7,6 +7,8 @@ tags:
 
 # MOTA
 
+↑ [[04 Термины и метрики/Термины и метрики|Термины и метрики]]
+
 *Multiple Object Tracking Accuracy*
 
 Классическая точность трекинга: 1 − (пропуски + ложные + переключения ID) / число эталонных объектов. Сильно зависит от детектора.
@@ -17,5 +19,5 @@ tags:
 - **Оговорка:** Может быть отрицательной при большом числе ложных рамок.
 
 ## Где используется
-- [[infra_bdd_baseline]]
-- [[tracker_thresholds]]
+- [Каркас: BDD100K, кэш детекций, три baseline-детектора↗](obsidian://open?vault=ObsidianFlyVis&file=02%20%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Finfra_bdd_baseline)
+- [Пороги трекера: сетка вниз, порог по яркости, разрешение 960↗](obsidian://open?vault=ObsidianFlyVis&file=02%20%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Ftracker_thresholds)

@@ -20,9 +20,9 @@ tags:
 
 # 🟡 Итоговый трекер линии B: каскад буферов IoU + отложенное рождение по q_birth + сшивка обрывков по геометрии
 
-**Направление:** [[03 Направления/Собственная архитектура трекера|Собственная архитектура трекера]] · **Исход:** неопределённый · `line_b_combined_v1`
+↑ [[02 Эксперименты/Направления/Собственная архитектура трекера|Собственная архитектура трекера]] · **Исход:** неопределённый · `line_b_combined_v1`
 
-Модули, проверенные по отдельности ([[cbiou_cascade_v1]], [[birth_deferred_train_v1]], [[stitch_appearance_v1]]), впервые вместе. Трекеры: стенд; каскад 0,3→0,6; отложенное рождение N = 2; каскад + отложенное (tracking.motion_source_bytetrack.make_deferred_cascade — при нулевых буферах байт-в-байт равен DeferredBirthByteTrack, тест). Каждый — без сшивки и со сшивкой по геометрии (голова geometry, обученная на парах стенда 70 train-роликов, runs/fly_reid_ablation/models.pkl; жизни — непрерывные отрезки выхода трекера). Порог сшивки из {0,05; 0,1; 0,2; 0,3} — максимум IDF1 на dev для каждого трекера; отчёт — test (35) и val7; бутстреп по видео к стенду. scripts/eval_combined.py.
+Модули, проверенные по отдельности (cbiou_cascade_v1, [[02 Эксперименты/birth_deferred_train_v1|birth_deferred_train_v1]], [stitch_appearance_v1↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fstitch_appearance_v1)), впервые вместе. Трекеры: стенд; каскад 0,3→0,6; отложенное рождение N = 2; каскад + отложенное (tracking.motion_source_bytetrack.make_deferred_cascade — при нулевых буферах байт-в-байт равен DeferredBirthByteTrack, тест). Каждый — без сшивки и со сшивкой по геометрии (голова geometry, обученная на парах стенда 70 train-роликов, runs/fly_reid_ablation/models.pkl; жизни — непрерывные отрезки выхода трекера). Порог сшивки из {0,05; 0,1; 0,2; 0,3} — максимум IDF1 на dev для каждого трекера; отчёт — test (35) и val7; бутстреп по видео к стенду. scripts/eval_combined.py.
 
 ## Вопрос
 Складываются ли эффекты каскада (HOTA/IDF1), отложенного рождения (IDSw) и сшивки (HOTA/IDF1/IDSw)?
@@ -66,10 +66,10 @@ test (35): стенд: HOTA 58.469 / IDF1 66.965 / IDSw 2221 (val7 HOTA 54.573);
 ## Метрики
 | метрика | значение | baseline | подмножество | источник |
 |---|---|---|---|---|
-| [[04 Термины и метрики/HOTA|HOTA]] | 59.26548238685684 | 58.46862614225555 | test 35: каскад + отложенное + сшивка / стенд | `runs/line_b_combined/report.json` · results.cascade_deferred.stitch.test.summary.HOTA |
-| [[04 Термины и метрики/IDF1|IDF1]] | 69.18252317003973 | 66.965404625375 | test 35: каскад + отложенное + сшивка / стенд | `runs/line_b_combined/report.json` · results.cascade_deferred.stitch.test.summary.IDF1 |
-| [[04 Термины и метрики/IDSw|IDSw]] | 1718.0 | 2221.0 | test 35: каскад + отложенное + сшивка / стенд | `runs/line_b_combined/report.json` · results.cascade_deferred.stitch.test.summary.IDSw |
-| [[04 Термины и метрики/HOTA|HOTA]] | 54.94788368502137 | 54.57308976106422 | val7: каскад + отложенное + сшивка / стенд | `runs/line_b_combined/report.json` · results.cascade_deferred.stitch.val7.summary.HOTA |
+| [HOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FHOTA) | 59.26548238685684 | 58.46862614225555 | test 35: каскад + отложенное + сшивка / стенд | `runs/line_b_combined/report.json` · results.cascade_deferred.stitch.test.summary.HOTA |
+| [IDF1↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDF1) | 69.18252317003973 | 66.965404625375 | test 35: каскад + отложенное + сшивка / стенд | `runs/line_b_combined/report.json` · results.cascade_deferred.stitch.test.summary.IDF1 |
+| [IDSw↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FIDSw) | 1718.0 | 2221.0 | test 35: каскад + отложенное + сшивка / стенд | `runs/line_b_combined/report.json` · results.cascade_deferred.stitch.test.summary.IDSw |
+| [HOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FHOTA) | 54.94788368502137 | 54.57308976106422 | val7: каскад + отложенное + сшивка / стенд | `runs/line_b_combined/report.json` · results.cascade_deferred.stitch.val7.summary.HOTA |
 
 ## Доказательства
 - 4 трекера × со сшивкой и без: `runs/line_b_combined/report.json` · results, bootstrap_vs_stand

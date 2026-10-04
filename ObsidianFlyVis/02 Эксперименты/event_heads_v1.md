@@ -17,9 +17,9 @@ tags:
 
 # 🟢 Цель 4: головы q_det / q_match / q_birth / q_alive без FlyVis — ранжирование, калибровка, контроль монотонного преобразования
 
-**Направление:** [[03 Направления/Раздельная событийная уверенность (линия B)|Раздельная событийная уверенность (линия B)]] · **Исход:** положительный · `event_heads_v1`
+↑ [[02 Эксперименты/Направления/Раздельная событийная уверенность (линия B)|Раздельная событийная уверенность (линия B)]] · **Исход:** положительный · `event_heads_v1`
 
-Логистические головы на выборках [[event_dataset_v1]]; лестница control (монотонное преобразование исходной оценки: conf для q_det/q_birth, IoU+conf для q_match, возраст для q_alive) → base (все признаки без DIS) → base + DIS. Критерии — из Плана целей 3.5 (записаны до опыта): встраивается только голова, чей вклад подтверждён относительно той же модели без неё; новая модель должна менять ранжирование, а не масштабировать confidence.
+Логистические головы на выборках [[02 Эксперименты/event_dataset_v1|event_dataset_v1]]; лестница control (монотонное преобразование исходной оценки: conf для q_det/q_birth, IoU+conf для q_match, возраст для q_alive) → base (все признаки без DIS) → base + DIS. Критерии — из Плана целей 3.5 (записаны до опыта): встраивается только голова, чей вклад подтверждён относительно той же модели без неё; новая модель должна менять ранжирование, а не масштабировать confidence.
 
 ## Вопрос
 Какие события предсказуемы сверх исходной оценки и меняет ли голова ранжирование?
@@ -69,12 +69,12 @@ scripts/evaluate_event_heads.py, прогон 16.09 23:4x MSK (CPU, секунд
 ## Метрики
 | метрика | значение | baseline | подмножество | источник |
 |---|---|---|---|---|
-| [[04 Термины и метрики/AP|AP]] | 0.6931338172896222 | 0.5480199550003195 | q_birth, отложенные: base / control(conf) | `runs/event_heads/report.json` · events.q_birth.groups.base.test.average_precision |
-| [[04 Термины и метрики/AP|AP]] | 0.9209282901129066 | 0.9043054040671763 | q_match, отложенные: base / control(IoU+conf) | `runs/event_heads/report.json` · events.q_match.groups.base.test.average_precision |
-| [[04 Термины и метрики/AP|AP]] | 0.9549913384486244 | 0.8592585712815901 | q_alive, отложенные: base / control(age) | `runs/event_heads/report.json` · events.q_alive.groups.base.test.average_precision |
-| [[04 Термины и метрики/AP|AP]] | 0.9197464084998922 | 0.9189593089306165 | q_det, отложенные: base / control(conf) — нет вклада | `runs/event_heads/report.json` · events.q_det.groups.base.test.average_precision |
-| [[04 Термины и метрики/Brier score|Brier]] | 0.08254910737464174 | 0.14005729398200775 | q_alive, отложенные | `runs/event_heads/report.json` · events.q_alive.groups.base.test.brier |
-| [[04 Термины и метрики/ECE|ECE]] | 0.10894460676684162 | 0.060947205222609505 | q_birth, отложенные: голова хуже контроля по калибровке | `runs/event_heads/report.json` · events.q_birth.groups.base.test.ece |
+| [AP↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FAP) | 0.6931338172896222 | 0.5480199550003195 | q_birth, отложенные: base / control(conf) | `runs/event_heads/report.json` · events.q_birth.groups.base.test.average_precision |
+| [AP↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FAP) | 0.9209282901129066 | 0.9043054040671763 | q_match, отложенные: base / control(IoU+conf) | `runs/event_heads/report.json` · events.q_match.groups.base.test.average_precision |
+| [AP↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FAP) | 0.9549913384486244 | 0.8592585712815901 | q_alive, отложенные: base / control(age) | `runs/event_heads/report.json` · events.q_alive.groups.base.test.average_precision |
+| [AP↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FAP) | 0.9197464084998922 | 0.9189593089306165 | q_det, отложенные: base / control(conf) — нет вклада | `runs/event_heads/report.json` · events.q_det.groups.base.test.average_precision |
+| [Brier↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FBrier%20score) | 0.08254910737464174 | 0.14005729398200775 | q_alive, отложенные | `runs/event_heads/report.json` · events.q_alive.groups.base.test.brier |
+| [ECE↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FECE) | 0.10894460676684162 | 0.060947205222609505 | q_birth, отложенные: голова хуже контроля по калибровке | `runs/event_heads/report.json` · events.q_birth.groups.base.test.ece |
 
 ## Доказательства
 - критерии информативности и запрет монотонного масштабирования: 3.5. Цель 4

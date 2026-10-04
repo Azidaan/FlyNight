@@ -17,7 +17,7 @@ tags:
 
 # 🔧 Цель 0: заморозка воспроизводимого стенда трекера (7 видео, 30 Гц)
 
-**Направление:** [[03 Направления/Инфраструктура и данные|Инфраструктура и данные]] · **Исход:** инфраструктура · `bench_freeze_v1`
+↑ [[02 Эксперименты/Направления/Инфраструктура и данные|Инфраструктура и данные]] · **Исход:** инфраструктура · `bench_freeze_v1`
 
 Манифест хэшей весов, видео, кэшей детекций и полей движения, версий библиотек и параметров трекеров; повторный прогон неизменённых XYWHByteTrack, ByteTrack и FlyVisTracker по сохранённым кэшам с побайтовым сравнением рамок и ID с опубликованными выходами; проверка тождества двух копий кэша детекций; инвариантность к порядку видео; статическая проверка отсутствия доступа к разметке в tracking/.
 
@@ -67,8 +67,8 @@ tags:
 ## Метрики
 | метрика | значение | baseline | подмножество | источник |
 |---|---|---|---|---|
-| [[04 Термины и метрики/HOTA|HOTA]] | 54.57308976106422 | 54.57308976106422 | 7 видео, XYWHByteTrack, повторный прогон против xywh_validation7 | `runs/bench_freeze/reproduction.json` · xywh.metrics.HOTA.rerun |
-| [[04 Термины и метрики/HOTA|HOTA]] | 29.112995077709662 | 29.112995077709662 | 7 видео, flyvis_tiled_calibrated, повторный прогон против flyvis_stress_gate | `runs/bench_freeze/reproduction.json` · stress.flyvis_tiled_calibrated.metrics.HOTA.rerun |
+| [HOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FHOTA) | 54.57308976106422 | 54.57308976106422 | 7 видео, XYWHByteTrack, повторный прогон против xywh_validation7 | `runs/bench_freeze/reproduction.json` · xywh.metrics.HOTA.rerun |
+| [HOTA↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FHOTA) | 29.112995077709662 | 29.112995077709662 | 7 видео, flyvis_tiled_calibrated, повторный прогон против flyvis_stress_gate | `runs/bench_freeze/reproduction.json` · stress.flyvis_tiled_calibrated.metrics.HOTA.rerun |
 
 ## Доказательства
 - критерии и выходы цели 0: 3.1. Цель 0
