@@ -51,6 +51,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-eyes", type=int, default=16)
     parser.add_argument("--rewire", default="none", help="нулевая модель коннектома: none | type_sign | spatial (tracking/connectome_null.py)")
     parser.add_argument("--rewire-seed", type=int, default=0)
+    parser.add_argument("--model", default="flow/0000/000", help="модель ансамбля FlyVis (Д5: проверка выводов на нескольких моделях)")
     # совместимость с run_fovea_jobs.py (эти флаги ему передаются всегда)
     parser.add_argument("--decode-flow", action="store_true")
     parser.add_argument("--gpu-mem-fraction", type=float, default=0.0)
@@ -106,7 +107,7 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         return {}
     detections = load_detection_cache(args.detections_root / video_id / "detections" / "raw_video.npz")
     fps = float(json.loads((args.flow_root / video_id / "motion" / "flyvis_tiled.json").read_text(encoding="utf-8"))["fps"])
-    estimator = make_motion_estimator("flyvis_tiled", fps, 0.02)
+    estimator = make_motion_estimator("flyvis_tiled", fps, 0.02, model=args.model)
     threads = int(os.environ.get("FOVEA_THREADS", "0"))
     if threads > 0:
         estimator.torch.set_num_threads(threads); cv2.setNumThreads(threads)

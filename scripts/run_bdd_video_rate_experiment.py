@@ -325,7 +325,7 @@ def detections_for_frame(cache: dict, frame_index: int):
     return cache["xyxy"][mask], cache["conf"][mask], cache["cls"][mask]
 
 
-def make_motion_estimator(source: str, fps: float, max_dt: float):
+def make_motion_estimator(source: str, fps: float, max_dt: float, model: str = "flow/0000/000"):
     if source in {"dis", "dis_half", "dis_quarter", "farneback"}:
         method = "dis" if source.startswith("dis") else source
         scale = {"dis_half": 0.5, "dis_quarter": 0.25}.get(source, 1.0)
@@ -339,6 +339,7 @@ def make_motion_estimator(source: str, fps: float, max_dt: float):
         flow_gain=1.0,
         temporal_resampling="linear",
         flow_aggregation="mean",
+        model=model,
     )
 
 
