@@ -5368,6 +5368,61 @@
      "locator": "sets.cascade_deferred|test.summary.det.all.HOTA"
     }
    ]
+  },
+  {
+   "id": "res960_probe_v1",
+   "title": "К3 (проба): дообучение YOLO26 при 960 против того же дообучения при 640 — точность рамок и полнота",
+   "area": "baseline",
+   "state": "running",
+   "tags": [
+    "K3",
+    "resolution",
+    "localization",
+    "training",
+    "rpm-selected"
+   ],
+   "summary": "Отобрано по схеме RPM (план 7.6) и подкреплено лестницей оракулов: точные рамки — крупнейший рычаг HOTA (+5,4), а рамка детекции точнее оценки Калмана (box_smoothing_v1). Плечо res960: дообучение от weights/baseline_seed42/best.pt на full_step5, 2 эпохи, imgsz 960, SGD lr0 0,002 без разогрева, batch 8 (при 16 память 11,2/12 ГБ и 3,5 с/итерация — подкачка; Ultralytics накапливает градиенты до nbs = 64, эффективный батч тот же, что у ctl с batch 16; отличается только батч BatchNorm), сид 42; контроль — готовое ctl_s42 (то же при 640; conf_target_probe_v1). Меняется одно условие — разрешение обучения. Оценка: кэш val при 960, conf 0,01; полнота при равном FP с исходным YOLO26 (scripts/eval_conf_probe.py --arm res960), средний IoU сопоставленных рамок, mAP50 Ultralytics. Разброс сидов не измеряется (правило 6.12): одно повторение на плечо, ДИ по видео.",
+   "question": "Улучшает ли обучение при 960 точность рамок и полноту по сравнению с тем же дообучением при 640?",
+   "hypothesis": "Обучение в том же разрешении, что и вывод, повышает IoU сопоставленных рамок и полноту мелких/ночных объектов.",
+   "expected": "res960 − ctl: средний IoU сопоставленных ≥ +0,005; ночная полнота при равном FP ≥ +1,0 пп, ДИ по видео > 0. Если выполнено — переносить в трекер (test 35/val7, HOTA) и думать о полном обучении при 960.",
+   "started": "2026-10-04",
+   "dataset": "train full_step5; оценка runs/conf_probe_cache/res960_s42/val",
+   "split": "val: 107 видео с атрибутом день/ночь",
+   "baseline": "ctl_s42 — то же дообучение при 640",
+   "variant": "res960_s42 — дообучение при 960",
+   "commits": [],
+   "files": [
+    "scripts/conf_target_probe.py",
+    "scripts/eval_conf_probe.py"
+   ],
+   "runs": [
+    "runs/conf_probe/res960_s42",
+    "runs/conf_probe_cache/res960_s42"
+   ],
+   "acceptance": [
+    {
+     "criterion": "средний IoU сопоставленных рамок (все видео, порог равного FP): res960 − ctl ≥ +0,005",
+     "met": null
+    },
+    {
+     "criterion": "ночная полнота при равном FP: res960 − ctl ≥ +1,0 пп, ДИ по видео > 0",
+     "met": null
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/oracle_ladder/report.json",
+     "locator": "sets.test.summary.box",
+     "claim": "потолок точных рамок"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/gate_box/report.json",
+     "locator": "sets.stand|test.bootstrap_vs_base.det|HOTA",
+     "claim": "рамка детекции точнее Калмана"
+    }
+   ]
   }
  ],
  "manual_events": [

@@ -32,10 +32,13 @@ CACHES = PROJECT_ROOT / "runs" / "conf_probe_cache"
 STATUS = RUNS / "status.json"
 ARMS = ("ctl", "iou_free")
 SEEDS = (42, 123, 2024)
+IMGSZ = {"res960": 960}  # плечо К3: то же дообучение при 960 (карточка res960_probe_v1); остальные — 640
+# при 960 batch 16 не помещается в 12 ГБ без подкачки (3,5 с/итерация); batch 8 + накопление до nbs = 64 — тот же эффективный батч
+BATCH = {"res960": 8}
 
 
-def plan() -> list[tuple[str, int]]:
-    return [(a, s) for s in SEEDS for a in ARMS]
+def plan(arms=ARMS, seeds=SEEDS) -> list[tuple[str, int]]:
+    return [(a, s) for s in seeds for a in arms]
 
 
 def write_status(**kw) -> None:
@@ -66,7 +69,7 @@ def train(arm: str, seed: int, epochs: int) -> Path:
         conf_target.install()
     model = YOLO(str(INIT))
     model.add_callback("on_train_batch_end", on_batch)
-    model.train(data=str(DATA), epochs=epochs, imgsz=640, batch=16, workers=4, seed=seed, deterministic=True, device=0,
+    model.train(data=str(DATA), epochs=epochs, imgsz=IMGSZ.get(arm, 640), batch=BATCH.get(arm, 16), workers=4, seed=seed, deterministic=True, device=0,
                 optimizer="SGD", lr0=0.002, warmup_epochs=0, val=False, plots=False, verbose=False,
                 project=str(RUNS), name=tag, exist_ok=True)
     if arm == "iou_free":
@@ -79,9 +82,12 @@ def train(arm: str, seed: int, epochs: int) -> Path:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--epochs", type=int, default=2)
+    ap.add_argument("--arms", nargs="+", default=list(ARMS))
+    ap.add_argument("--seeds", nargs="+", type=int, default=list(SEEDS))
+    ap.add_argument("--no-eval", action="store_true")
     args = ap.parse_args()
     RUNS.mkdir(parents=True, exist_ok=True)
-    jobs = plan()
+    jobs = plan(args.arms, args.seeds)
     write_status(stage="start", jobs=[f"{a}_s{s}" for a, s in jobs], done=[], started=time.time())
     done = []
     for k, (arm, seed) in enumerate(jobs, 1):
@@ -101,8 +107,9 @@ def main() -> int:
                         "--imgsz", "960", "--model", str(w.relative_to(PROJECT_ROOT))], cwd=str(PROJECT_ROOT), check=True)
         done.append(tag)
         write_status(done=done, stage="job_done")
-    write_status(stage="eval")
-    subprocess.run([str(PY), "-u", "scripts/eval_conf_probe.py"], cwd=str(PROJECT_ROOT), check=False)
+    if not args.no_eval:
+        write_status(stage="eval")
+        subprocess.run([str(PY), "-u", "scripts/eval_conf_probe.py"], cwd=str(PROJECT_ROOT), check=False)
     write_status(stage="finished")
     print("[OK] проба завершена", flush=True)
     return 0
