@@ -61,8 +61,9 @@ def weak_flags(task):
     return out
 
 
-def load_events(workers):
-    S = sets(PROJECT_ROOT / "runs/fly_signatures", PROJECT_ROOT / "runs/fly_signatures_val")
+def load_events(workers, member="000"):
+    sfx = "" if member == "000" else f"_m{member}"
+    S = sets(PROJECT_ROOT / f"runs/fly_signatures{sfx}", PROJECT_ROOT / f"runs/fly_signatures{sfx}_val")
     ev = {}
     with ProcessPoolExecutor(max_workers=workers) as pool:
         for s, tasks in S.items():
@@ -174,13 +175,14 @@ def main() -> int:
     ap_.add_argument("--p5", action="store_true")
     ap_.add_argument("--p10", action="store_true")
     ap_.add_argument("--workers", type=int, default=6)
+    ap_.add_argument("--member", default="000", help="модель ансамбля FlyVis (сигнатуры runs/fly_signatures_m<id>)")
     args = ap_.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
-    S, ev = load_events(args.workers)
+    S, ev = load_events(args.workers, args.member)
     if args.p5:
         (OUT / "p5.json").write_text(json.dumps(p5(S, ev, args.workers), ensure_ascii=False, indent=1), encoding="utf-8")
     if args.p10:
-        (OUT / "p10.json").write_text(json.dumps(p10(S, ev), ensure_ascii=False, indent=1), encoding="utf-8")
+        (OUT / ("p10.json" if args.member == "000" else f"p10_m{args.member}.json")).write_text(json.dumps(p10(S, ev), ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"[OK] {OUT}")
     return 0
 
