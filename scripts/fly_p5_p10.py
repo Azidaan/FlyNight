@@ -176,13 +176,14 @@ def main() -> int:
     ap_.add_argument("--p10", action="store_true")
     ap_.add_argument("--workers", type=int, default=6)
     ap_.add_argument("--member", default="000", help="модель ансамбля FlyVis (сигнатуры runs/fly_signatures_m<id>)")
+    ap_.add_argument("--tag", default="", help="приписка к имени выходного файла (например, _train130)")
     args = ap_.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     S, ev = load_events(args.workers, args.member)
     if args.p5:
-        (OUT / "p5.json").write_text(json.dumps(p5(S, ev, args.workers), ensure_ascii=False, indent=1), encoding="utf-8")
+        (OUT / f"p5{args.tag}.json").write_text(json.dumps(p5(S, ev, args.workers), ensure_ascii=False, indent=1), encoding="utf-8")
     if args.p10:
-        (OUT / ("p10.json" if args.member == "000" else f"p10_m{args.member}.json")).write_text(json.dumps(p10(S, ev), ensure_ascii=False, indent=1), encoding="utf-8")
+        (OUT / (("p10" if args.member == "000" else f"p10_m{args.member}") + args.tag + ".json")).write_text(json.dumps(p10(S, ev), ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"[OK] {OUT}")
     return 0
 
