@@ -228,15 +228,15 @@ def build_problems(V, ref, fm, lab, hub_path: str, card_path: dict, cards_all: d
 
     group_path = {g: f"10 Проблемы мухи/{g}" for g, _ in GROUPS}
     for g, ids in GROUPS:
-        body = f"# {g}\n\n↑ [[{hub_path}|Проблемы мухи]]\n\n" + "".join(f"- {STATUS_ICON[status_of(i)[0]]} [[10 Проблемы мухи/{PROBLEMS[i]['title']}|{PROBLEMS[i]['title']}]] — {status_of(i)[0]}\n" for i in ids)
+        body = f"# {g}\n\n↑ [[{hub_path}|Проблемы мухи]]\n\n" + "".join(f"- {STATUS_ICON[status_of(i)[0]]} [[10 Проблемы мухи/{i} — {PROBLEMS[i]['title']}|{i} — {PROBLEMS[i]['title']}]] — {status_of(i)[0]}\n" for i in ids)
         V.write(group_path[g] + ".md", fm({"tags": ["проблема-мухи"]}) + body)
         for i in ids:
             pr = PROBLEMS[i]
             stt, note = status_of(i)
-            body = f"# {STATUS_ICON[stt]} {pr['title']}\n\n↑ [[{group_path[g]}|{g}]] · **Статус:** {stt}" + (f" — {note}" if note else "") + "\n\n## Суть\n{render(pr['essence'])}\n\n## Доказательства\n" + "".join(f"- {render(x)}\n" for x in pr["evidence"])
+            body = f"# {STATUS_ICON[stt]} {i} — {pr['title']}\n\n↑ [[{group_path[g]}|{g}]] · **Статус:** {stt}" + (f" — {note}" if note else "") + f"\n\n## Суть\n{render(pr['essence'])}\n\n## Доказательства\n" + "".join(f"- {render(x)}\n" for x in pr["evidence"])
             body += f"\n## Почему так\n{render(pr['why'])}\n\n## Как решать (по приоритету)\n" + "".join(f"{k}. {render(x)}\n" for k, x in enumerate(pr["solutions"], 1))
             body += f"\n## Первый шаг\n{render(pr['first_step'])}\n\n## Когда считать решённой\n{render(pr['criterion'])}\n"
-            V.write(f"10 Проблемы мухи/{pr['title']}.md", fm({"tags": ["проблема-мухи", f"статус/{ {'открыта': 'открыто', 'частично': 'частично', 'решена': 'решено'}[status_of(i)[0]] }"], "aliases": [i], "статус": status_of(i)[0]}) + body)
+            V.write(f"10 Проблемы мухи/{i} — {pr['title']}.md", fm({"tags": ["проблема-мухи", f"статус/{ {'открыта': 'открыто', 'частично': 'частично', 'решена': 'решено'}[status_of(i)[0]] }"], "aliases": [i], "статус": status_of(i)[0]}) + body)
     hub = f"# Проблемы мухи и как их решать\n\n↑ [[00 Главная|Главная]]\n\nСведение по всем проверкам мухи. Главная мысль: **муха знает правильные вещи, но не те, которые сейчас ограничивают результат; а там, где ограничение (движение, рамки), она слабее простых алгоритмов — потому что обучена на Sintel.** У каждой проблемы — доказательства, причина, решения по приоритету, первый шаг и критерий.\n\n"
     hub += "".join(f"- [[{group_path[g]}|{g}]]\n" for g, _ in GROUPS)
     hub += "\n## Порядок работы\n1. Подтвердить, что умения мухи — свойство ансамбля (Д5), и посчитать долю спорных решений для каждого действия трекера.\n2. Дать мухе действия, где её знание меняет исход (удаление треков, долгие разрывы, ночное рождение).\n3. Дообучить муху на наших видео (движение → рамки), с нулевой моделью «перемешанная и переобученная» и обычной сетью того же размера.\n4. Переформулировать заявку на устойчивость и экономию данных.\n"
