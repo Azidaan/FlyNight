@@ -67,12 +67,13 @@ def conditions(vids, split):
 class Fly:
     """Муха стенда (FlyVisMotionEstimator: tiled, linear, mean) в виде, пригодном для градиента."""
 
-    def __init__(self, fps: float, model="flow/0000/000"):
+    def __init__(self, fps: float, model="flow/0000/000", layout=None, gain=None):
         import torch
-        from tracking.flyvis_motion import FlyVisMotionEstimator
+        from tracking.flyvis_motion import FlyVisMotionEstimator, TileLayout
         self.torch = torch
         # усиление стенда для плиток (DEFAULT_GAINS в run_bdd_video_rate_experiment.py): «штатная муха» = муха трекера
-        self.base = FlyVisMotionEstimator(model=model, mode="tiled", source_fps=fps, temporal_resampling="linear", flow_aggregation="mean", flow_gain=STAND_GAIN)
+        self.base = FlyVisMotionEstimator(model=model, mode="tiled", source_fps=fps, temporal_resampling="linear", flow_aggregation="mean", flow_gain=STAND_GAIN if gain is None else gain,
+                                          layout=layout or TileLayout(2, 3, 0.20))
         self.net, self.eye = self.base.network, self.base.eye
         self.dev = self.base.flyvis.device
         self.H = self.base.eye_height
@@ -87,7 +88,7 @@ class Fly:
 
     def points_scale(self):
         """Координаты колонок (6·721, 2) в пикселях кадра и множитель «выход декодера → px» по плиткам."""
-        f = self.base._points_and_vectors(self.torch.zeros((6, 2, 721), device=self.dev))
+        f = self.base._points_and_vectors(self.torch.zeros((len(self.bounds), 2, 721), device=self.dev))
         sc = np.array([self.base.flow_gain * (y2 - y1) / self.base.kernel_area for _, y1, _, y2 in self.bounds], np.float32)
         return f.points_xy, sc
 
@@ -156,9 +157,9 @@ class FrontEnd:
 
 
 def to_px(dec_flow, sc, log_gain):
-    """(6, 2, 721) выход декодера минус базовый → (6·721, 2) px, ось y вниз."""
+    """(плитки, 2, 721) выход декодера минус базовый → (плитки·721, 2) px, ось y вниз."""
     t = dec_flow
-    v = t.permute(0, 2, 1) * (sc.view(6, 1, 1) * log_gain.exp())
+    v = t.permute(0, 2, 1) * (sc.view(-1, 1, 1) * log_gain.exp())
     v = v * v.new_tensor([1.0, -1.0])
     return v.reshape(-1, 2)
 
