@@ -328,12 +328,15 @@ def main() -> int:
     S = {num: c for lv, num, t, c in secs}
     def codes(states):
         tags = {t for e in cards_all.values() if e["state"] in states for t in e.get("tags", [])}
-        return {"Д" + t.split("-D")[1][:1] for t in tags if t.startswith("fundamental-D")} | {"К" + t[1:] for t in tags if re.fullmatch(r"K\d+", t)}
+        return ({"Д" + t.split("-D")[1][:1] for t in tags if t.startswith("fundamental-D")} | {"К" + t[1:] for t in tags if re.fullmatch(r"K\d+", t)}
+                | {"З" + t[1:] for t in tags if re.fullmatch(r"Z\d+", t)})
     done = codes(FINAL)                       # идея выполнена — у карточки итоговый исход
     inwork = codes({"running"}) - done        # идёт эксперимент
     ideas = []
     for code, title, basis in re.findall(r"^\| (К\d+) \| (.+?) \| (.+?) \|", S.get("7.6", ""), re.M):
         ideas.append((code, re.sub(r"\*\*", "", title), basis, "7.6"))
+    for code, title, basis in re.findall(r"^\| (З\d+) \| (.+?) \| (.+?) \|", S.get("7.9", ""), re.M):   # задумки вне таблиц (07.10)
+        ideas.append((code, re.sub(r"\*\*", "", title), basis, "7.9"))
     for code, title in re.findall(r"(Д\d) ([^;]+?)(?:;|\. Затем)", S.get("7.7", "")):
         ideas.append((code, title, "", "7.7"))
     for n, title, rest in re.findall(r"^(\d)\. \*([^*]+)\*(.*)$", S.get("7.8", ""), re.M):
@@ -352,7 +355,7 @@ def main() -> int:
         body = body.replace(f"# {code} — {title}", f"# {'✅' if code in done else ('🔄' if code in inwork else '⏳')} {code} — {title}", 1)
         V.write(nm + ".md", fm({"tags": ["запланировано", "идея", st] + (["идея/муха"] if re.search(r"мух|FlyVis", title, re.I) else []), "статус": "выполнено" if code in done else ("в работе" if code in inwork else "открыто")}) + body)
     if ideas:
-        V.write(igroup + ".md", fm({"tags": ["запланировано"]}) + f"# Идеи из плана\n\n↑ [[{HUB['09']}|{BLOCK_TITLE['09']}]]\n\nЕщё не ставшие карточками идеи из разделов 7.6–7.8 плана; сделанные исключены автоматически по меткам карточек.\n\n" +
+        V.write(igroup + ".md", fm({"tags": ["запланировано"]}) + f"# Идеи из плана\n\n↑ [[{HUB['09']}|{BLOCK_TITLE['09']}]]\n\nИдеи и задумки из разделов 7.6–7.9 плана; сделанные исключены автоматически по меткам карточек.\n\n" +
                 "".join(f"- {'✅' if c in done else ('🔄' if c in inwork else '⏳')} [[09 Запланировано/Идеи из плана/{safe(c + ' ' + t, 90)}|{c} — {lab(t)[:90]}]]\n" for c, t, b, sc in ideas))
         hub += f"\n- [[{igroup}|Идеи из плана]] ({len(ideas)})\n"
     # теории и задумки (решение автора 07.10): FlyWire — донор анатомии (К16)
