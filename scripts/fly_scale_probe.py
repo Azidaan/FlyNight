@@ -13,7 +13,7 @@
 эталонной рамки между соседними размеченными кадрами), сравнение с нулевым движением и DIS, бутстрэп по видео.
 
 Запуск: python scripts/fly_scale_probe.py --synthetic
-        python scripts/fly_scale_probe.py --real 3x5s2 5x9s4
+        python scripts/fly_scale_probe.py --real 3x5s2 5x9s4 2x3s1_lcn24 2x3s1_retina
 """
 from __future__ import annotations
 
@@ -34,11 +34,27 @@ OUT = PROJECT_ROOT / "runs" / "fly_scale_probe"
 LAYOUTS = {"2x3": (2, 3), "3x5": (3, 5), "5x9": (5, 9)}
 STRIDES = (1, 2, 4)
 WARM, LEN = 4, 8
-GAINS = [0.25, 0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 6.0]
+GAINS = [0.25, 0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 6.0, 8.0, 12.0]
 
 
 def parse(cfg):
-    lay, s = cfg.split("s"); return lay, int(s)
+    """«3x5s2» или «2x3s1_lcn24» → (сетка, прореживание, вход)."""
+    base, _, inp = cfg.partition("_")
+    lay, s = base.split("s"); return lay, int(s), inp or "raw"
+
+
+def input_transform(inp, fps):
+    """Вход перед глазом: raw — штатный; lcnN — нормализация локального контраста (σ = N px); retina — tracking/retina.py (lamina)."""
+    if inp == "raw":
+        return lambda g: g
+    if inp.startswith("lcn"):
+        from scripts.fly_noise_probe import lcn
+        return lcn(float(inp[3:]))
+    if inp == "retina":
+        from tracking.retina import make_retina
+        ret = make_retina("lamina", fps)
+        return lambda g: ret.process(g).astype(np.float32)
+    raise ValueError(inp)
 
 
 def make_fly(fps, lay, stride):
@@ -119,10 +135,10 @@ def synthetic(fps, only=None):
     return res
 
 
-def video_field(fly, path, stride):
+def video_field(fly, path, stride, tf=lambda g: g):
     """Поле на каждый сырой кадр: поток за интервал мухи делится поровну между k сырыми кадрами интервала."""
     raw = list(K.read_gray(path))
-    flows = run_frames(fly, (fly.tiles(raw[i]) for i in range(0, len(raw), stride)))
+    flows = run_frames(fly, (fly.tiles(tf(raw[i])) for i in range(0, len(raw), stride)))
     n = len(raw); pts, _ = fly.points_scale()
     vec = np.zeros((n, len(pts), 2), np.float32)
     for i, fl in enumerate(flows):
@@ -166,7 +182,7 @@ def real(fps, cfgs):
     out_path = OUT / "real.json"
     allres = json.loads(out_path.read_text(encoding="utf-8")) if out_path.exists() else {}
     for cfg in cfgs:
-        lay, k = parse(cfg)
+        lay, k, inp = parse(cfg)
         fly = make_fly(fps, lay, k)
         R = allres.get(cfg, {"train": {}, "dev": {}})
         t0 = time.time(); todo = [("train", v) for v in tr] + [("dev", v) for v in ev]
@@ -174,7 +190,7 @@ def real(fps, cfgs):
             if v in R[part]:
                 continue
             fly.bounds = None; fly.base.reset()
-            pts, vec = video_field(fly, PROJECT_ROOT / "data/bdd100k/videos/train" / f"{v}.mov", k)
+            pts, vec = video_field(fly, PROJECT_ROOT / "data/bdd100k/videos/train" / f"{v}.mov", k, input_transform(inp, fps))
             dq = np.load(K.TC / v / "motion/dis_quarter.npz")
             nf = min(len(vec), len(dq["vectors"]))
             R[part][v] = errors(pts, vec, GAINS, (dq["points"], dq["vectors"]), v, nf)

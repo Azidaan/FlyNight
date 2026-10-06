@@ -59,6 +59,12 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="не ослаблять поправку по пространственной согласованности поля",
     )
+    parser.add_argument(
+        "--gain-override",
+        type=float,
+        default=None,
+        help="усиление потока вместо DEFAULT_GAINS (06.10: усиление стенда для мухи завышено); имя прогона получает суффикс _g<усиление>",
+    )
     return parser.parse_args()
 
 
@@ -84,7 +90,8 @@ def main() -> int:
     }
     summaries = {}
     for source in args.sources:
-        gain = DEFAULT_GAINS.get(source, 1.0)
+        gain = DEFAULT_GAINS.get(source, 1.0) if args.gain_override is None else args.gain_override
+        gain_tag = "" if args.gain_override is None else f"_g{args.gain_override:g}"
         points, vectors = load_motion_cache(
             args.experiment_dir / "motion" / f"{source}.npz", gain
         )
@@ -100,7 +107,7 @@ def main() -> int:
                     confidence_tag = "fixed" if args.without_confidence else "gated"
                     name = (
                         f"bytetrack_{source}_{apply_to}_{confidence_tag}_a{blend:g}"
-                        f"{agreement_tag}"
+                        f"{agreement_tag}{gain_tag}"
                     )
                     print(f"[RUN] {name}", flush=True)
                     tracker = MotionAugmentedByteTrack(
