@@ -186,16 +186,20 @@ def real(fps, cfgs):
         fly = make_fly(fps, lay, k)
         R = allres.get(cfg, {"train": {}, "dev": {}})
         t0 = time.time(); todo = [("train", v) for v in tr] + [("dev", v) for v in ev]
+        g_star = None
         for i, (part, v) in enumerate(todo):
+            if part == "dev" and g_star is None:
+                # масштаб выбирается только по train; на dev считаются ноль, DIS и выбранный масштаб (ускорение ×4)
+                g_star = min(GAINS, key=lambda g: np.mean([R["train"][u][f"g{g}"] for u in R["train"]]))
             if v in R[part]:
                 continue
             fly.bounds = None; fly.base.reset()
             pts, vec = video_field(fly, PROJECT_ROOT / "data/bdd100k/videos/train" / f"{v}.mov", k, input_transform(inp, fps))
             dq = np.load(K.TC / v / "motion/dis_quarter.npz")
             nf = min(len(vec), len(dq["vectors"]))
-            R[part][v] = errors(pts, vec, GAINS, (dq["points"], dq["vectors"]), v, nf)
+            R[part][v] = errors(pts, vec, GAINS if part == "train" else [g_star], (dq["points"], dq["vectors"]), v, nf)
             el = time.time() - t0; eta = el / (i + 1) * (len(todo) - i - 1)
-            best = min(GAINS, key=lambda g: R[part][v][f"g{g}"])
+            best = min((g for g in GAINS if f"g{g}" in R[part][v]), key=lambda g: R[part][v][f"g{g}"])
             print(f"[REAL {cfg}] {i + 1}/{len(todo)} {part} {v} ({cond.get(v)}): ноль {R[part][v]['zero']:.2f} DIS {R[part][v]['dis']:.2f} лучший g{best} {R[part][v][f'g{best}']:.2f} | осталось ~{eta / 60:.0f} мин", flush=True)
             K.status(stage="real", cfg=cfg, done=i + 1, total=len(todo), eta_min=eta / 60)
             allres[cfg] = R; out_path.write_text(json.dumps(allres, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -209,7 +213,7 @@ def real(fps, cfgs):
             R[f"summary_{grp}"] = {"videos": len(vs), "zero": float(np.mean([R["dev"][v]["zero"] for v in vs])), "dis": float(np.mean([R["dev"][v]["dis"] for v in vs])),
                                    "fly": float(np.mean([R["dev"][v][f"g{g_star}"] for v in vs])), "fly-zero": float(d.mean()),
                                    "ci95": [float(np.quantile(bs, .025)), float(np.quantile(bs, .975))],
-                                   "per_gain": {f"g{g}": float(np.mean([R["dev"][v][f"g{g}"] for v in vs])) for g in GAINS}}
+                                   "per_gain_train": {f"g{g}": float(np.mean([R["train"][u][f"g{g}"] for u in R["train"]])) for g in GAINS}}
             s = R[f"summary_{grp}"]
             print(f"== {cfg} {grp} ({s['videos']}): ноль {s['zero']:.2f} DIS {s['dis']:.2f} муха (g={g_star} с train) {s['fly']:.2f}; муха − ноль {s['fly-zero']:+.3f} ДИ [{s['ci95'][0]:+.3f}; {s['ci95'][1]:+.3f}]", flush=True)
         allres[cfg] = R; out_path.write_text(json.dumps(allres, ensure_ascii=False, indent=1), encoding="utf-8")
