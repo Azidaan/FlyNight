@@ -6330,6 +6330,54 @@
      "claim": "разгон 60 кадров"
     }
    ]
+  },
+  {
+   "id": "fly_input_norm_hota_v1",
+   "title": "Муха с нормализацией контраста как источник движения в трекере: даёт ли HOTA",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-06",
+   "tags": [
+    "fly-problem-P2",
+    "motion",
+    "front-end",
+    "hota"
+   ],
+   "summary": "Продолжение fly_input_norm_v1: поле мухи + lcn24 (усиление 3,0, выбрано по train, на val не подбирается) подмешивается в ByteTrack так же, как в fly_gain_tracker_recheck_v1 (scripts/evaluate_bytetrack_motion_injection.py, вес 1, все треки / только потерянные). Сравнение с ByteTrack без движения и с DIS на 7 видео val7 (детектор их не видел).",
+   "question": "Переходит ли выигрыш мухи + lcn24 в переносе рамки в HOTA трекера?",
+   "hypothesis": "Поле, лучше нулевого движения по переносу рамки, не вредит трекеру и даёт прирост HOTA.",
+   "expected": "Среднее HOTA по val7: муха + lcn24 (все треки или только потерянные — выбор по val7 запрещён, сообщаются оба) не ниже ByteTrack без движения; прирост с ДИ > 0 (бутстрэп по видео) — положительный исход. Ниже без движения при ДИ < 0 — отрицательный.",
+   "dataset": "BDD100K MOT val (val7)",
+   "split": "val7",
+   "baseline": "ByteTrack без движения; DIS — потолок; прежняя муха (усиление 1,6) −0,24 HOTA",
+   "variant": "ByteTrack + поле мухи с нормализацией контраста",
+   "commits": [],
+   "files": [
+    "scripts/build_fly_lcn_motion.py",
+    "scripts/evaluate_bytetrack_motion_injection.py"
+   ],
+   "runs": [
+    "runs/video_rate/<id>/motion/flyvis_tiled_lcn24.npz",
+    "runs/video_rate/<id>/bytetrack_motion_injection_gated.json"
+   ],
+   "acceptance": [
+    {
+     "criterion": "среднее HOTA по val7 (все треки) не ниже ByteTrack без движения",
+     "met": null
+    },
+    {
+     "criterion": "прирост HOTA (все треки или только потерянные) с ДИ > 0",
+     "met": null
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/fly_scale_probe/real.json",
+     "locator": "2x3s1_lcn24",
+     "claim": "выигрыш в переносе рамки и масштаб 3,0 по train"
+    }
+   ]
   }
  ],
  "manual_events": [
