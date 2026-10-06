@@ -57,6 +57,8 @@ class MotionXYWH(XYWHByteTrack):
         for t, c0, b0 in zip(tracks, before_c, before_b):
             if self.apply_to == "lost" and t.state != TrackState.Lost:
                 continue
+            if not (np.isfinite(b0).all() and b0[2] - b0[0] > 1 and b0[3] - b0[1] > 1):
+                continue   # вырожденная рамка прогноза — поле не оценивает, остаётся Калман
             vec, conf = self.motion(b0)
             w = float(np.clip(conf, 0, 1))
             kal = t.mean[:2] - c0
