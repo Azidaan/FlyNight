@@ -17,7 +17,7 @@ tags:
 
 # 🔴 Муха с нормализацией контраста как источник движения в трекере: даёт ли HOTA
 
-↑ [[01 Муха/Темы/Прочее о мухе|Прочее о мухе]] · **Исход:** отрицательный · `fly_input_norm_hota_v1`
+↑ [[01 Муха/Темы/Движение мухи в трекере|Движение мухи в трекере]] · **Исход:** отрицательный · `fly_input_norm_hota_v1`
 
 Продолжение [fly_input_norm_v1↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Ffly_input_norm_v1): поле мухи + lcn24 (усиление 3,0, выбрано по train, на val не подбирается) подмешивается в ByteTrack так же, как в [fly_gain_tracker_recheck_v1↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Ffly_gain_tracker_recheck_v1) (scripts/evaluate_bytetrack_motion_injection.py, вес 1, все треки / только потерянные). Сравнение с ByteTrack без движения и с DIS на 7 видео val7 (детектор их не видел).
 
