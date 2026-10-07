@@ -52,6 +52,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--rewire", default="none", help="нулевая модель коннектома: none | type_sign | spatial (tracking/connectome_null.py)")
     parser.add_argument("--rewire-seed", type=int, default=0)
     parser.add_argument("--model", default="flow/0000/000", help="модель ансамбля FlyVis (Д5: проверка выводов на нескольких моделях)")
+    parser.add_argument("--connectome-json", type=Path, default=None, help="К16-1: файл связей варианта (tracking/flyvis_connectome_swap.py); обученные параметры — из --model")
     # совместимость с run_fovea_jobs.py (эти флаги ему передаются всегда)
     parser.add_argument("--decode-flow", action="store_true")
     parser.add_argument("--gpu-mem-fraction", type=float, default=0.0)
@@ -113,6 +114,9 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         estimator.torch.set_num_threads(threads); cv2.setNumThreads(threads)
     if args.gpu_mem_fraction > 0 and estimator.torch.cuda.is_available():
         estimator.torch.cuda.set_per_process_memory_fraction(args.gpu_mem_fraction)  # 7 процессов без потолка забивали 12 ГБ
+    if args.connectome_json is not None:   # К16-1: та же модель, связи — из варианта (FlyWire / перемешанный)
+        from tracking.flyvis_connectome_swap import make_network
+        estimator.network = make_network(args.connectome_json, args.model)[0]
     from tracking.connectome_null import rewire
 
     rewire_info = rewire(estimator.network, args.rewire, args.rewire_seed)
