@@ -46,6 +46,7 @@ class MotionXYWH(XYWHByteTrack):
         self.apply_to = apply_to
         self.motion = None          # функция box_xyxy → (вектор, уверенность) или None
         self.oracle = None          # диагностика (fly_motion_trust_v1): функция (рамка до, центр Калмана, центр с поправкой) → брать ли поправку
+        self.w_scale, self.min_inside, self.points = 1.0, 0, None   # дешёвое доверие (fly_motion_trust_cheap_v1)
         self.audit = []
 
     def multi_predict(self, tracks):
@@ -61,8 +62,10 @@ class MotionXYWH(XYWHByteTrack):
                 continue
             if not (np.isfinite(b0).all() and b0[2] - b0[0] > 1 and b0[3] - b0[1] > 1):
                 continue   # вырожденная рамка прогноза — поле не оценивает, остаётся Калман
+            if self.min_inside and self.points is not None and int(np.all((self.points >= b0[:2]) & (self.points <= b0[2:]), axis=1).sum()) < self.min_inside:
+                continue   # мало колонок поля внутри рамки — поправки нет, остаётся Калман
             vec, conf = self.motion(b0)
-            w = float(np.clip(conf, 0, 1))
+            w = float(np.clip(conf * self.w_scale, 0, 1))
             kal = t.mean[:2] - c0
             if self.oracle is not None:   # идеальный выбор по разметке: поправка целиком или чистый Калман
                 w = 1.0 if self.oracle(b0, c0 + kal, c0 + vec) else 0.0
@@ -106,7 +109,9 @@ def run_one(vid, root, split, scheme, source):
     anchor = {int(m["video_frame_index"]): i for i, m in enumerate(matches)}
     field = None
     oracle_mode = source.endswith("_oracle")
-    base_source = source.removesuffix("_oracle")
+    base_source, _, knobs = source.removesuffix("_oracle").partition("@")   # «fly@w0.3m3» — вес × 0,3, запрет при < 3 колонок
+    w_scale = float(knobs.split("w")[1].split("m")[0]) if knobs else 1.0
+    min_inside = int(knobs.split("m")[1]) if knobs else 0
     if source != "none":
         name, gain = SOURCES[base_source]
         path = root / vid / "motion" / f"{name}.npz"
@@ -128,6 +133,7 @@ def run_one(vid, root, split, scheme, source):
                 rows.append(scalabel_frame(vid, truth[anchor[f]], out))
     else:
         tr = MotionXYWH(make_tracker_args(track_high_thresh=0.25, track_low_thresh=0.1, track_buffer=5, match_thresh=0.8), apply_to)
+        tr.w_scale, tr.min_inside, tr.points = w_scale, min_inside, (field[0] if field is not None else None)
         prev = None
         gt = [{l["id"]: np.array([l["box2d"]["x1"], l["box2d"]["y1"], l["box2d"]["x2"], l["box2d"]["y2"]], np.float32)
                for l in fr.get("labels") or [] if l.get("box2d")} for fr in truth] if oracle_mode else None
@@ -141,7 +147,7 @@ def run_one(vid, root, split, scheme, source):
             out = tr.update(_DetSlice(*detections_for_frame(det, f)))
             rows.append(scalabel_frame(vid, truth[i], out))
             prev = f
-    d = OUT / "results" / f"{scheme}_{source}"
+    d = OUT / "results" / f"{scheme}_{source.replace('@', '_')}"
     save_json(d / f"{vid}.json", rows)
     met = evaluate_hota(d, [vid], split=split)
     return {"HOTA": met["HOTA"], "AssA": met["AssA"], "DetA": met["DetA"], "IDF1": met["IDF1"], "mean_weight": float(np.mean(tr.audit)) if tr.audit else 0.0}
@@ -152,6 +158,8 @@ def main() -> int:
     ap.add_argument("--set", choices=("dev", "val7"), default="dev")
     ap.add_argument("--schemes", nargs="+", default=["r5_all", "r5_lost", "r30_all", "r30_lost"])
     ap.add_argument("--sources", nargs="+", default=["none", "dis"])
+    ap.add_argument("--videos", nargs="*", default=None, help="подмножество видео набора (подбор / проверка)")
+    ap.add_argument("--tag", default="", help="суффикс файла результатов")
     a = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
     if a.set == "dev":
@@ -159,7 +167,9 @@ def main() -> int:
         root, split = PROJECT_ROOT / "runs/train_cache", "train"
     else:
         vids, root, split = VAL7, PROJECT_ROOT / "runs/video_rate", "val"
-    out_path = OUT / f"{a.set}.json"
+    if a.videos:
+        vids = [v for v in vids if v in set(a.videos)]
+    out_path = OUT / f"{a.set}{a.tag}.json"
     res = json.loads(out_path.read_text(encoding="utf-8")) if out_path.exists() else {}
     t0 = time.time(); todo = [(s, src, v) for s in a.schemes for src in a.sources for v in vids]
     for i, (s, src, v) in enumerate(todo):
