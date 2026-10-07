@@ -9,7 +9,7 @@
 Сводка: различает ли уверенность полезные и вредные поправки (Спирмен, AUC «муха лучше постоянной скорости»),
 по размеру и числу колонок; потолок идеального выбора «муха / постоянная скорость» на уровне переходов.
 
-Запуск: python scripts/fly_trust_diagnostic.py
+Запуск: python scripts/fly_trust_diagnostic.py [--set val7]
 """
 from __future__ import annotations
 
@@ -28,18 +28,27 @@ CATS = {"pedestrian", "rider", "car", "truck", "bus", "train", "motorcycle", "bi
 
 
 def main() -> int:
+    global OUT
     from scripts.evaluate_flyvis_qmatch_gate import propagate_box
     from scripts.run_bdd_video_rate_experiment import load_motion_cache
     from tracking.flyvis_tracker import MotionField
     OUT.mkdir(parents=True, exist_ok=True)
-    tc = PROJECT_ROOT / "runs/train_cache"
-    vids = json.loads((tc / "selection.json").read_text(encoding="utf-8"))["videos"]["dev"]
+    import argparse
+    ap = argparse.ArgumentParser(); ap.add_argument("--set", choices=("dev", "val7"), default="dev"); a = ap.parse_args()
+    if a.set == "dev":
+        tc = PROJECT_ROOT / "runs/train_cache"; split = "train"
+        vids = json.loads((tc / "selection.json").read_text(encoding="utf-8"))["videos"]["dev"]
+    else:   # проверка поля мухи на val7 (08.10)
+        from scripts.build_fly_lcn_motion import VAL7
+        tc = PROJECT_ROOT / "runs/video_rate"; split = "val"; vids = VAL7
+    if a.set != "dev":
+        OUT = OUT / a.set; OUT.mkdir(parents=True, exist_ok=True)
     rows = []; t0 = time.time()
     for i, v in enumerate(vids):
         fpts, fvec = load_motion_cache(tc / v / "motion/flyvis_tiled_lcn24.npz", 3.0)
         dpts, dvec = load_motion_cache(tc / v / "motion/dis_quarter.npz", 1.0)
         al = json.loads((tc / v / "alignment.json").read_text(encoding="utf-8"))["matches"]
-        truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20/train" / f"{v}.json").read_text(encoding="utf-8"))
+        truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / split / f"{v}.json").read_text(encoding="utf-8"))
         boxes = [(int(m["video_frame_index"]), {l["id"]: np.array([l["box2d"]["x1"], l["box2d"]["y1"], l["box2d"]["x2"], l["box2d"]["y2"]], np.float32)
                                                 for l in fr.get("labels") or [] if l.get("box2d") and l.get("category") in CATS}) for m, fr in zip(al, truth)]
         nf = min(len(fvec), len(dvec))
