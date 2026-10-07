@@ -102,17 +102,70 @@ def make_oracle(prev_gt, cur_gt):
     return oracle
 
 
+def ncc(a, b):
+    a = a - a.mean(); b = b - b.mean(); d = float(np.sqrt((a * a).sum() * (b * b).sum()))
+    return float((a * b).sum() / d) if d > 1e-6 else -1.0
+
+
+def crop(img, box):
+    h, w = img.shape
+    x1, y1, x2, y2 = (int(round(v)) for v in box)
+    if x1 < 0 or y1 < 0 or x2 > w or y2 > h or x2 - x1 < 4 or y2 - y1 < 4:
+        return None
+    return img[y1:y2, x1:x2]
+
+
+def make_photo_verifier(f0, f1, scale=0.5):
+    """Фотометрическая проверка (fly_motion_photometric_v1): шаблон объекта из кадра r0 сравнивается (нормированная
+    корреляция) с кадром r1 в рамке, сдвинутой прогнозом Калмана и предложенной поправкой; принимается поправка, если её
+    совпадение лучше. Разметка не используется — только изображение (постоянство яркости, как проверка шаблона в KLT)."""
+    def verify(b0, c_kal, c_fix):
+        b = np.asarray(b0, np.float64) * scale
+        tpl = crop(f0, b)
+        if tpl is None:
+            return False
+        half = (b[2:] - b[:2]) / 2
+        sc = []
+        for c in (np.asarray(c_kal) * scale, np.asarray(c_fix) * scale):
+            pt = crop(f1, np.r_[c - half, c + half])
+            if pt is None or pt.shape != tpl.shape:
+                return False
+            sc.append(ncc(tpl, pt))
+        return sc[1] > sc[0]
+    return verify
+
+
+def labeled_frames(path, idx, scale=0.5):
+    import cv2
+    want = set(idx); out = {}
+    cap = cv2.VideoCapture(str(path)); f = 0
+    while True:
+        ok, fr = cap.read()
+        if not ok:
+            break
+        if f in want:
+            g = cv2.cvtColor(fr, cv2.COLOR_BGR2GRAY)
+            out[f] = cv2.resize(g, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA).astype(np.float32)
+        f += 1
+        if f > max(want):
+            break
+    cap.release()
+    return out
+
+
 def run_one(vid, root, split, scheme, source):
     det = load_detection_cache(root / vid / "detections" / "raw_video.npz")
     matches = json.loads((root / vid / "alignment.json").read_text(encoding="utf-8"))["matches"]
     truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / split / f"{vid}.json").read_text(encoding="utf-8"))
     anchor = {int(m["video_frame_index"]): i for i, m in enumerate(matches)}
     field = None
-    oracle_mode = source.endswith("_oracle")
-    base_source, _, knobs = source.removesuffix("_oracle").partition("@")   # «fly@w0.3m3» — вес × 0,3, запрет при < 3 колонок
+    photo_mode = source.endswith("#photo")
+    source_core = source.removesuffix("#photo")
+    oracle_mode = source_core.endswith("_oracle")
+    base_source, _, knobs = source_core.removesuffix("_oracle").partition("@")   # «fly@w0.3m3» — вес × 0,3, запрет при < 3 колонок
     w_scale = float(knobs.split("w")[1].split("m")[0]) if knobs else 1.0
     min_inside = int(knobs.split("m")[1]) if knobs else 0
-    if source != "none":
+    if source != "none" and base_source != "zero":
         name, gain = SOURCES[base_source]
         path = root / vid / "motion" / f"{name}.npz"
         if not path.exists():
@@ -133,21 +186,33 @@ def run_one(vid, root, split, scheme, source):
                 rows.append(scalabel_frame(vid, truth[anchor[f]], out))
     else:
         tr = MotionXYWH(make_tracker_args(track_high_thresh=0.25, track_low_thresh=0.1, track_buffer=5, match_thresh=0.8), apply_to)
-        tr.w_scale, tr.min_inside, tr.points = w_scale, min_inside, (field[0] if field is not None else None)
+        tr.w_scale, tr.min_inside, tr.points = w_scale, min_inside, (field[0] if field is not None and base_source != "zero" else None)
         prev = None
         gt = [{l["id"]: np.array([l["box2d"]["x1"], l["box2d"]["y1"], l["box2d"]["x2"], l["box2d"]["y2"]], np.float32)
                for l in fr.get("labels") or [] if l.get("box2d")} for fr in truth] if oracle_mode else None
+        frames = None
+        if photo_mode:
+            vdir = PROJECT_ROOT / "data/bdd100k/videos" / ("val" if split == "val" else "train")
+            frames = labeled_frames(vdir / f"{vid}.mov", [int(m["video_frame_index"]) for m in matches])
+        if base_source == "zero":   # контроль: предложение «нулевое движение» вместо поля
+            field = (np.zeros((1, 2), np.float32), None)
         for i, m in enumerate(matches):
             f = int(m["video_frame_index"])
-            if field is not None and prev is not None and f < len(field[1]):
+            if base_source == "zero" and prev is not None:
+                tr.motion = (lambda b: (np.zeros(2, np.float32), 1.0))
+                tr.oracle = make_photo_verifier(frames[prev], frames[f]) if photo_mode and prev in frames and f in frames else None
+            elif field is not None and prev is not None and f < len(field[1]):
                 tr.motion = (lambda b, r0=prev, r1=f: propagate(b, field[0], field[1], r0, r1))
-                tr.oracle = make_oracle(gt[i - 1], gt[i]) if oracle_mode else None
+                if photo_mode:
+                    tr.oracle = make_photo_verifier(frames[prev], frames[f]) if prev in frames and f in frames else None
+                else:
+                    tr.oracle = make_oracle(gt[i - 1], gt[i]) if oracle_mode else None
             else:
                 tr.motion = None; tr.oracle = None
             out = tr.update(_DetSlice(*detections_for_frame(det, f)))
             rows.append(scalabel_frame(vid, truth[i], out))
             prev = f
-    d = OUT / "results" / f"{scheme}_{source.replace('@', '_')}"
+    d = OUT / "results" / f"{scheme}_{source.replace('@', '_').replace('#', '_')}"
     save_json(d / f"{vid}.json", rows)
     met = evaluate_hota(d, [vid], split=split)
     return {"HOTA": met["HOTA"], "AssA": met["AssA"], "DetA": met["DetA"], "IDF1": met["IDF1"], "mean_weight": float(np.mean(tr.audit)) if tr.audit else 0.0}
