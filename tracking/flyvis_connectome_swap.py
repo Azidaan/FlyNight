@@ -6,7 +6,8 @@
                    у которых оба типа найдены в FlyWire и там ≥ 0,5 синапса
                    на клетку-приёмник, распределение по смещениям колонок — из FlyWire (runs/flywire_flyvis/flywire_counts.json,
                    оси уже приведены к FlyVis; смещения с < 0,05 синапса и дальше радиуса решётки отброшены); остальные — FlyVis;
-                   Общее число синапсов ребра сохраняется как в FlyVis («та же доза»), из FlyWire берётся профиль по смещениям.
+                   Общее число синапсов ребра сохраняется как в FlyVis («та же доза»), из FlyWire берётся профиль по смещениям;
+                   число смещений ребра — как в FlyVis (k самых сильных из FlyWire: «та же разреженность»).
   flywire_shuf   — контроль: профили FlyWire перемешаны между заменёнными рёбрами одного знака (seed 0), доза — своя.
 make_network(json, model) строит сеть FlyVis из файла и переносит обученные свободные параметры модели (nodes_bias,
 nodes_time_const, edges_syn_strength — по парам типов, их набор не меняется); закреплённые edges_sign и edges_syn_count
@@ -57,6 +58,9 @@ def build_variants(seed: int = 0) -> dict:
         if k not in fw or e["src"] in sparse or e["tar"] in sparse:
             continue   # у разрежённых типов чужие смещения могут не попадать на клетки — оставить FlyVis
         offs = [[list(map(int, o)), float(w)] for o, w in fw[k] if w >= MIN_OFFSET and hexdist(int(o[0]), int(o[1])) <= EXTENT]
+        # та же разреженность: k самых сильных смещений FlyWire, k = числу смещений ребра в FlyVis (иначе сеть ×3 тяжелее —
+        # 7408 чисел синапсов против 2355 — и 6 процессов сигнатур не помещались в 12 ГБ GPU, 08.10)
+        offs = sorted(offs, key=lambda x: -x[1])[:len(e["offsets"])]
         tot_fw = sum(w for _, w in offs)
         if tot_fw >= MIN_TOTAL and offs:
             # «та же доза»: общее число синапсов ребра — как в FlyVis, из FlyWire — только профиль по смещениям колонок

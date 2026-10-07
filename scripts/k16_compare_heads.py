@@ -24,7 +24,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from scripts.fly_lifecycle_alive import HEADS, ap, build_X, video_events  # noqa: E402
 
 OUT = PROJECT_ROOT / "runs" / "fly_flywire_swap"
-ROOTS = {"stock": PROJECT_ROOT / "runs/fly_signatures", "flywire": PROJECT_ROOT / "runs/fly_signatures_k16_flywire", "shuf": PROJECT_ROOT / "runs/fly_signatures_k16_shuf"}
+ROOTS = {"stock": PROJECT_ROOT / "runs/fly_signatures", "flywire": PROJECT_ROOT / "runs/fly_signatures_k16b_flywire", "shuf": PROJECT_ROOT / "runs/fly_signatures_k16b_shuf"}
 USE = ["geometry", "geometry_fly", "geometry_hexin", "geometry_hexin_fly"]
 
 
