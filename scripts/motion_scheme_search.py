@@ -11,7 +11,8 @@ tracking/motion_augmented_bytetrack.py). Схемы:
 там, где есть кэш). Данные: dev 35 видео train_cache (детекции, DIS) — для поиска схемы; val7 — проверка.
 Детекции dev — от детектора, видевшего эти видео (оптимистичны), но одинаковы для всех вариантов.
 
-Запуск: python scripts/motion_scheme_search.py --set dev [--schemes r5_all r5_lost r30_all r30_lost] [--sources none dis]
+Запуск: python scripts/motion_scheme_search.py --set dev [--schemes r5_all r5_lost r30_all r30_lost] [--sources none dis fly fly_oracle dis_oracle]
+  *_oracle — диагностика (fly_motion_trust_v1): поправка берётся только там, где по разметке она ближе к правде, чем Калман (потолок, не для применения)
 """
 from __future__ import annotations
 
@@ -44,6 +45,7 @@ class MotionXYWH(XYWHByteTrack):
         super().__init__(args)
         self.apply_to = apply_to
         self.motion = None          # функция box_xyxy → (вектор, уверенность) или None
+        self.oracle = None          # диагностика (fly_motion_trust_v1): функция (рамка до, центр Калмана, центр с поправкой) → брать ли поправку
         self.audit = []
 
     def multi_predict(self, tracks):
@@ -62,6 +64,8 @@ class MotionXYWH(XYWHByteTrack):
             vec, conf = self.motion(b0)
             w = float(np.clip(conf, 0, 1))
             kal = t.mean[:2] - c0
+            if self.oracle is not None:   # идеальный выбор по разметке: поправка целиком или чистый Калман
+                w = 1.0 if self.oracle(b0, c0 + kal, c0 + vec) else 0.0
             t.mean[:2] = c0 + (1 - w) * kal + w * vec
             self.audit.append(w)
 
@@ -73,14 +77,38 @@ def propagate(box, points, vectors, r0, r1):
     return c1 - c0, conf
 
 
+def _iou(a, b):
+    x1, y1 = max(a[0], b[0]), max(a[1], b[1]); x2, y2 = min(a[2], b[2]), min(a[3], b[3])
+    inter = max(0.0, x2 - x1) * max(0.0, y2 - y1)
+    return inter / ((a[2] - a[0]) * (a[3] - a[1]) + (b[2] - b[0]) * (b[3] - b[1]) - inter + 1e-9)
+
+
+def make_oracle(prev_gt, cur_gt):
+    """Трек сопоставляется с эталоном прошлого размеченного кадра (IoU ≥ 0,3); если объект есть и на текущем —
+    выбирается прогноз, чей центр ближе к его центру; иначе — Калман. Использует разметку: только потолок."""
+    def oracle(b0, c_kal, c_fix):
+        best, bid = 0.3, None
+        for gid, gb in prev_gt.items():
+            v = _iou(b0, gb)
+            if v >= best:
+                best, bid = v, gid
+        if bid is None or bid not in cur_gt:
+            return False
+        g = (cur_gt[bid][:2] + cur_gt[bid][2:]) / 2
+        return float(np.linalg.norm(c_fix - g)) < float(np.linalg.norm(c_kal - g))
+    return oracle
+
+
 def run_one(vid, root, split, scheme, source):
     det = load_detection_cache(root / vid / "detections" / "raw_video.npz")
     matches = json.loads((root / vid / "alignment.json").read_text(encoding="utf-8"))["matches"]
     truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / split / f"{vid}.json").read_text(encoding="utf-8"))
     anchor = {int(m["video_frame_index"]): i for i, m in enumerate(matches)}
     field = None
+    oracle_mode = source.endswith("_oracle")
+    base_source = source.removesuffix("_oracle")
     if source != "none":
-        name, gain = SOURCES[source]
+        name, gain = SOURCES[base_source]
         path = root / vid / "motion" / f"{name}.npz"
         if not path.exists():
             return None
@@ -101,12 +129,15 @@ def run_one(vid, root, split, scheme, source):
     else:
         tr = MotionXYWH(make_tracker_args(track_high_thresh=0.25, track_low_thresh=0.1, track_buffer=5, match_thresh=0.8), apply_to)
         prev = None
+        gt = [{l["id"]: np.array([l["box2d"]["x1"], l["box2d"]["y1"], l["box2d"]["x2"], l["box2d"]["y2"]], np.float32)
+               for l in fr.get("labels") or [] if l.get("box2d")} for fr in truth] if oracle_mode else None
         for i, m in enumerate(matches):
             f = int(m["video_frame_index"])
             if field is not None and prev is not None and f < len(field[1]):
                 tr.motion = (lambda b, r0=prev, r1=f: propagate(b, field[0], field[1], r0, r1))
+                tr.oracle = make_oracle(gt[i - 1], gt[i]) if oracle_mode else None
             else:
-                tr.motion = None
+                tr.motion = None; tr.oracle = None
             out = tr.update(_DetSlice(*detections_for_frame(det, f)))
             rows.append(scalabel_frame(vid, truth[i], out))
             prev = f
