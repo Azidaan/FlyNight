@@ -113,6 +113,31 @@ def video_pairs(task):
     return {"video_id": vid, "X": np.asarray(feats, np.float32).reshape(-1, len(NAMES)), "y": np.asarray(labels, np.int8), "pairs": np.asarray(meta, np.int32).reshape(-1, 2)}
 
 
+def global_pairs(pairs: np.ndarray, probs: np.ndarray, thr: float) -> np.ndarray:
+    """Глобальное назначение (stitch_global_assign_v1): из кандидатов с p > порога — паросочетание «конец A → начало B»
+    наибольшего суммарного веса logit(p) − logit(порог) (венгерский алгоритм, scipy linear_sum_assignment) вместо жадного
+    выбора по убыванию p. Возвращает индексы выбранных пар; запрет общих кадров у цепочек проверяет stitch_video."""
+    from scipy.optimize import linear_sum_assignment
+    keep = np.nonzero(probs > thr)[0]
+    if not len(keep):
+        return keep
+    lg = lambda x: np.log(np.clip(x, 1e-9, 1 - 1e-9) / (1 - np.clip(x, 1e-9, 1 - 1e-9)))
+    w = lg(probs[keep]) - lg(np.float64(thr))
+    ua, ra = np.unique(pairs[keep, 0], return_inverse=True); ub, rb = np.unique(pairs[keep, 1], return_inverse=True)
+    cost = np.zeros((len(ua), len(ub))); cost[ra, rb] = -w
+    r, c = linear_sum_assignment(cost)
+    sel = cost[r, c] < 0
+    pos = {(i, j): k for k, (i, j) in enumerate(zip(ra, rb))}
+    return keep[np.array([pos[(i, j)] for i, j in zip(r[sel], c[sel])], dtype=np.int64)]
+
+
+def stitch_global(task):
+    from scripts.eval_fly_reid import stitch_video
+    vid, sig, root, split, pairs, probs, thr, out_dir = task
+    k = global_pairs(pairs, probs, thr) if len(probs) else np.zeros(0, np.int64)
+    return stitch_video((vid, sig, root, split, pairs[k].reshape(-1, 2), probs[k], thr, out_dir))
+
+
 def main() -> int:
     from sklearn.linear_model import LogisticRegression
     from sklearn.metrics import average_precision_score
@@ -124,10 +149,16 @@ def main() -> int:
     ap_ = argparse.ArgumentParser(); ap_.add_argument("--max-gap", type=int, default=150); ap_.add_argument("--max-dist", type=float, default=5.0)
     ap_.add_argument("--thresholds", type=float, nargs="+", default=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6])
     ap_.add_argument("--workers", type=int, default=6)
+    ap_.add_argument("--assign", choices=["greedy", "global", "both"], default="greedy", help="сшиватель: жадный (eval_fly_reid) / глобальное назначение / оба")
+    ap_.add_argument("--heads", nargs="+", default=None, help="подмножество голов для сшивки")
     ap_.add_argument("--no-masa", action="store_true", help="пилот до готовности эмбеддингов MASA: головы без MASA"); a = ap_.parse_args()
     global HEADS, STITCH_HEADS
     if a.no_masa:
         HEADS = {h: c for h, c in HEADS.items() if "masa_cos" not in c}; STITCH_HEADS = [h for h in STITCH_HEADS if h in HEADS]
+    if a.heads:
+        STITCH_HEADS = [h for h in a.heads if h in HEADS]
+    modes = ["greedy", "global"] if a.assign == "both" else [a.assign]
+    rep_name = "report.json" if a.assign == "greedy" else f"report_{a.assign}.json"
     out = OUT / (f"gap{a.max_gap}_dist{a.max_dist:g}" + ("_nomasa" if a.no_masa else "")); out.mkdir(parents=True, exist_ok=True)
     S = sets(PROJECT_ROOT / "runs/fly_signatures", PROJECT_ROOT / "runs/fly_signatures_val")
     data = {}
@@ -148,11 +179,11 @@ def main() -> int:
             rep["AP"][h][s] = float(average_precision_score(y, models[h][0].predict_proba(X[:, idx])[:, 1]))
         print(f"[AP] {h:16s} dev {rep['AP'][h]['dev']:.4f} test {rep['AP'][h]['test']:.4f} val7 {rep['AP'][h]['val7']:.4f}", flush=True)
 
-    def run(h, s, thr):
-        m, idx = models[h]; d_out = out / "stitch" / f"{h}_{thr:g}" / s
+    def run(h, s, thr, mode="greedy"):
+        m, idx = models[h]; d_out = out / ("stitch" if mode == "greedy" else f"stitch_{mode}") / f"{h}_{thr:g}" / s
         tasks = [(d["video_id"], *meta[s], d["pairs"], m.predict_proba(d["X"][:, idx])[:, 1] if len(d["y"]) else np.zeros(0), thr, str(d_out)) for d in data[s]]
         with ProcessPoolExecutor(max_workers=a.workers) as pool:
-            per = {r["video_id"]: r["metrics"] for r in pool.map(stitch_video, tasks)}
+            per = {r["video_id"]: r["metrics"] for r in pool.map(stitch_video if mode == "greedy" else stitch_global, tasks)}
         agg = evaluate_hota(d_out, [d["video_id"] for d in data[s]], split=meta[s][2])   # общий HOTA по всем видео — как в eval_fly_reid
         per["__pooled__"] = {k: agg.get(k) for k in ("HOTA", "IDF1", "AssA", "IDSw")}
         return per
@@ -162,15 +193,17 @@ def main() -> int:
     print(f"[STITCH] none: HOTA dev {rep['stitch']['none']['dev']:.3f} test {rep['stitch']['none']['test']:.3f} val7 {rep['stitch']['none']['val7']:.3f}", flush=True)
     per_head = {}
     for h in STITCH_HEADS:
-        dev = {t: run(h, "dev", t) for t in a.thresholds}
-        thr = max(dev, key=lambda t: H(dev[t]))
-        per_head[h] = {"dev": dev[thr], "test": run(h, "test", thr), "val7": run(h, "val7", thr)}
-        rep["stitch"][h] = {"threshold": thr, **{s: H(per_head[h][s]) for s in ("dev", "test", "val7")}, "pooled": {s: per_head[h][s]["__pooled__"] for s in ("dev", "test", "val7")},
-                            "dev_grid": {str(t): H(r) for t, r in dev.items()}}
-        print(f"[STITCH] {h:16s} порог {thr}: HOTA dev {rep['stitch'][h]['dev']:.3f} test {rep['stitch'][h]['test']:.3f} val7 {rep['stitch'][h]['val7']:.3f} | Δ test {rep['stitch'][h]['test'] - rep['stitch']['none']['test']:+.3f} val7 {rep['stitch'][h]['val7'] - rep['stitch']['none']['val7']:+.3f}", flush=True)
-        (out / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
+        for mode in modes:
+            key = h if mode == "greedy" else f"{h}@{mode}"
+            dev = {t: run(h, "dev", t, mode) for t in a.thresholds}
+            thr = max(dev, key=lambda t: H(dev[t]))
+            per_head[key] = {"dev": dev[thr], "test": run(h, "test", thr, mode), "val7": run(h, "val7", thr, mode)}
+            rep["stitch"][key] = {"threshold": thr, **{s: H(per_head[key][s]) for s in ("dev", "test", "val7")}, "pooled": {s: per_head[key][s]["__pooled__"] for s in ("dev", "test", "val7")},
+                                  "dev_grid": {str(t): H(r) for t, r in dev.items()}}
+            print(f"[STITCH] {key:22s} порог {thr}: HOTA dev {rep['stitch'][key]['dev']:.3f} test {rep['stitch'][key]['test']:.3f} val7 {rep['stitch'][key]['val7']:.3f} | Δ test {rep['stitch'][key]['test'] - rep['stitch']['none']['test']:+.3f} val7 {rep['stitch'][key]['val7'] - rep['stitch']['none']['val7']:+.3f}", flush=True)
+            (out / rep_name).write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
     rng = np.random.default_rng(1)
-    pairs = [(h, "none") for h in STITCH_HEADS] + DIFFS
+    pairs = [(k, "none") for k in per_head] + DIFFS + [(f"{h}@global", h) for h in STITCH_HEADS]         + [(f"{x}@global", f"{y}@global") for x, y in DIFFS]
     pairs = [(x, y) for x, y in pairs if x in per_head and (y == "none" or y in per_head)]
     for x, y in pairs:
         for s in ("test", "val7"):
@@ -180,7 +213,7 @@ def main() -> int:
                 rep["diff"][f"{x}-{y}|{s}|{met}"] = {"mean": float(d.mean()), "ci95": [float(np.quantile(b, .025)), float(np.quantile(b, .975))], "better": int((d > 0).sum()), "n": len(d)}
             r = rep["diff"][f"{x}-{y}|{s}|HOTA"]
             print(f"[DIFF] {x} − {y} {s}: HOTA {r['mean']:+.3f} [{r['ci95'][0]:+.3f}; {r['ci95'][1]:+.3f}] лучше {r['better']}/{r['n']}", flush=True)
-    (out / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
+    (out / rep_name).write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[OK]")
     return 0
 

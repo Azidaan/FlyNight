@@ -7387,6 +7387,54 @@
      "locator": "stitch.base_masa.test"
     }
    ]
+  },
+  {
+   "id": "stitch_global_assign_v1",
+   "title": "Сшивка обрывков: глобальное назначение пар вместо жадного (замена узла «сшиватель»)",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-08",
+   "tags": [
+    "fly-problem-P1",
+    "tracker",
+    "association"
+   ],
+   "summary": "stitch_appearance_models_v1: MASA-R50 подняла AP узнавания пар 0,576 → 0,643, но HOTA сшивки не выросла (MASA − база test +0,03, ДИ содержит 0) — узел потери, по гипотезе, жадный сшиватель с одним порогом. Замена по правилу 6.15: глобальное паросочетание «конец → начало» наибольшего суммарного веса logit(p) − logit(порог) (венгерский алгоритм; офлайн-ассоциация как в GTR, Zhou et al., CVPR 2022, и связывание треклетов в офлайн-трекерах). Отличие от stitch_appearance_models_v1 — ровно одно: способ выбора связей (те же кандидаты окна 150; 5, те же головы и вероятности, та же сетка порогов, порог по HOTA на dev, тот же запрет общих кадров у цепочек). Жадный сшиватель пересчитывается в том же прогоне (проверка воспроизводимости). Код — scripts/stitch_eval_v2.py --assign both, global_pairs; проверка на игрушечном случае: глобальное выбирает 1→20 и 2→10 там, где жадное — только 1→10.",
+   "question": "Переводит ли глобальное назначение пар лучшую ранжировку (AP) в прирост HOTA сшивки?",
+   "hypothesis": "С глобальным назначением голова с MASA обгоняет базу по HOTA; глобальное ≥ жадного для каждой головы.",
+   "expected": "test: (1) base_masa@global − base_masa (жадный) > 0, ДИ > 0; (2) base_masa@global − base@global > 0, ДИ > 0; (3) муха: base_masa_fly@global − base_masa@global > 0, ДИ > 0; val7 — тот же знак.",
+   "dataset": "BDD100K MOT train_cache (train 130 / dev 35 / test 35) + val7",
+   "baseline": "жадный сшиватель (stitch_appearance_models_v1)",
+   "variant": "глобальное назначение",
+   "commits": [],
+   "files": [
+    "scripts/stitch_eval_v2.py"
+   ],
+   "runs": [
+    "runs/stitch_v2/gap150_dist5/report_both.json"
+   ],
+   "acceptance": [
+    {
+     "criterion": "test: base_masa@global − base_masa > 0, ДИ > 0",
+     "met": null
+    },
+    {
+     "criterion": "test: base_masa@global − base@global > 0, ДИ > 0",
+     "met": null
+    },
+    {
+     "criterion": "test: base_masa_fly@global − base_masa@global > 0, ДИ > 0",
+     "met": null
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/stitch_v2/gap150_dist5/report.json",
+     "locator": "AP, stitch, diff",
+     "claim": "AP растёт с MASA, HOTA — нет"
+    }
+   ]
   }
  ],
  "manual_events": [
