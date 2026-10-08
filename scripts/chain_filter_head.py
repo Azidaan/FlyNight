@@ -93,10 +93,12 @@ def chain_task(task):
     res = json.loads((Path(out_dir) / f"{vid}.json").read_text(encoding="utf-8"))
     gt = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / split / f"{vid}.json").read_text(encoding="utf-8"))
     tags = classify_ids(res, gt)
-    cnt = {}
+    cnt, tp_of = {}, {}
     for fr, tg in zip(res, tags):
-        for l, (t, _) in zip(fr.get("labels") or [], tg):
+        for l, (t, g) in zip(fr.get("labels") or [], tg):
             d = cnt.setdefault(int(l["id"]), {"tp": 0, "fp": 0}); d[t] = d.get(t, 0) + 1
+            if t == "tp":
+                tp_of[(int(l["id"]), g)] = tp_of.get((int(l["id"]), g), 0) + 1
     chains = sorted(set(chain_of_life.tolist()))
     label = np.array([(1 if cnt[c]["tp"] == 0 and cnt[c]["fp"] > 0 else 0) if c in cnt and (cnt[c]["tp"] + cnt[c]["fp"]) > 0 else -1 for c in chains], np.int8)
     # признаки цепочки
@@ -121,7 +123,10 @@ def chain_task(task):
         flyv = np.concatenate([lf["fly_end"][L], lf["fly_start"][L]])
         F_nofly.append(np.concatenate([np.asarray(base, np.float32), hexm]))
         F_fly.append(np.concatenate([F_nofly[-1], flyv.mean(0), flyv.std(0)]))
-    return {"video_id": vid, "split_dir": split_dir, "chains": np.array(chains), "label": label, "nofly": np.asarray(F_nofly, np.float32), "fly": np.asarray(F_fly, np.float32), "out_dir": out_dir, "split": split}
+    pos = {c: i for i, c in enumerate(chains)}
+    n_tp = np.array([cnt.get(c, {}).get("tp", 0) for c in chains], np.int32); n_fp = np.array([cnt.get(c, {}).get("fp", 0) for c in chains], np.int32)
+    tp_map = [(pos[c], g, k) for (c, g), k in tp_of.items() if c in pos]   # (цепочка, объект разметки, верных рамок) — для подсчёта потерь без оценщика
+    return {"video_id": vid, "split_dir": split_dir, "chains": np.array(chains), "label": label, "n_tp": n_tp, "n_fp": n_fp, "tp_map": tp_map, "nofly": np.asarray(F_nofly, np.float32), "fly": np.asarray(F_fly, np.float32), "out_dir": out_dir, "split": split}
 
 
 def apply_filter(task):
