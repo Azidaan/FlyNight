@@ -126,7 +126,7 @@ def chain_task(task):
     pos = {c: i for i, c in enumerate(chains)}
     n_tp = np.array([cnt.get(c, {}).get("tp", 0) for c in chains], np.int32); n_fp = np.array([cnt.get(c, {}).get("fp", 0) for c in chains], np.int32)
     tp_map = [(pos[c], g, k) for (c, g), k in tp_of.items() if c in pos]   # (цепочка, объект разметки, верных рамок) — для подсчёта потерь без оценщика
-    return {"video_id": vid, "split_dir": split_dir, "chains": np.array(chains), "label": label, "n_tp": n_tp, "n_fp": n_fp, "tp_map": tp_map, "nofly": np.asarray(F_nofly, np.float32), "fly": np.asarray(F_fly, np.float32), "out_dir": out_dir, "split": split}
+    return {"video_id": vid, "split_dir": split_dir, "chains": np.array(chains), "label": label, "n_tp": n_tp, "n_fp": n_fp, "tp_map": tp_map, "life_chain": np.searchsorted(np.array(chains), chain_of_life).astype(np.int32), "life_end": z["end"].astype(np.int32), "life_start": z["start"].astype(np.int32), "nofly": np.asarray(F_nofly, np.float32), "fly": np.asarray(F_fly, np.float32), "out_dir": out_dir, "split": split}
 
 
 def apply_filter(task):
