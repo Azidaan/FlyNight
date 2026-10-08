@@ -44,7 +44,7 @@ def _set(g, d):
 
 def video_pairs(task):
     vid, sig_dir, root, split = task
-    from scripts.eval_fly_reid import cos, fly_feats
+    from scripts.eval_fly_reid import GROUPS_OF_TYPES
     from scripts.evaluate_flyvis_qmatch_gate import truth_arrays
     from tracking.flyvis_tracker import box_iou
     z = np.load(Path(sig_dir) / vid / "signatures.npz"); S = {k: z[k] for k in z.files}
@@ -75,28 +75,34 @@ def video_pairs(task):
         tid, s, e = int(S["track_id"][i]), int(S["start"][i]), int(S["end"][i])
         within = [f for f in ref_frames if s <= f <= e]
         end_gt.append(gt_of(tid, within[::-1])); start_gt.append(gt_of(tid, within))
-    dl, df = dz["last"].astype(np.float32), dz["first"].astype(np.float32)
-    ml, mf = mz["last"].astype(np.float32), mz["first"].astype(np.float32)
-    feats, labels, meta = [], [], []
-    for a in range(n):
-        for b in range(n):
-            if S["track_id"][a] == S["track_id"][b]:
-                continue
-            gap = int(S["start"][b]) - int(S["end"][a])
-            if not (0 < gap <= WIN["gap"]):
-                continue
-            A, B = S["last_box"][a].astype(np.float64), S["first_box"][b].astype(np.float64)
-            sa = np.sqrt(max((A[2] - A[0]) * (A[3] - A[1]), 1.0)); sb = np.sqrt(max((B[2] - B[0]) * (B[3] - B[1]), 1.0))
-            dist = np.linalg.norm((A[:2] + A[2:]) / 2 - (B[:2] + B[2:]) / 2) / sa
-            if dist > WIN["dist"]:
-                continue
-            geo = [gap / 30.0, dist, float(np.log(sb / sa)), float(S["cls"][a] == S["cls"][b]), float(S["n_last"][a]) / 5, float(S["n_first"][b]) / 5]
-            app = [cos(S["last_thumb"][a].astype(np.float64), S["first_thumb"][b].astype(np.float64)), float(np.abs(S["last_hist"][a].astype(np.float64) - S["first_hist"][b].astype(np.float64)).sum())]
-            hx = [cos(S["last_hexin"][a].astype(np.float64), S["first_hexin"][b].astype(np.float64))]
-            fl = fly_feats(S["last_fly"][a], S["first_fly"][b])
-            feats.append(geo + app + hx + fl + [float(dl[a] @ df[b])] + [float(ml[a] @ mf[b])])
-            labels.append(int(end_gt[a] == start_gt[b]) if end_gt[a] is not None and start_gt[b] is not None else -1)
-            meta.append((a, b))
+    def cn(x):   # центрирование и нормировка по последней оси — косинус как в eval_fly_reid.cos
+        x = x.astype(np.float64); x = x - x.mean(-1, keepdims=True)
+        return x / (np.linalg.norm(x, axis=-1, keepdims=True) + 1e-9)
+    st, en = S["start"].astype(np.int64), S["end"].astype(np.int64)
+    A_, B_ = S["last_box"].astype(np.float64), S["first_box"].astype(np.float64)
+    sa = np.sqrt(np.maximum((A_[:, 2] - A_[:, 0]) * (A_[:, 3] - A_[:, 1]), 1.0)); sb = np.sqrt(np.maximum((B_[:, 2] - B_[:, 0]) * (B_[:, 3] - B_[:, 1]), 1.0))
+    ca, cb = (A_[:, :2] + A_[:, 2:]) / 2, (B_[:, :2] + B_[:, 2:]) / 2
+    gapm = st[None, :] - en[:, None]
+    distm = np.linalg.norm(ca[:, None, :] - cb[None, :, :], axis=-1) / sa[:, None]
+    ok = (gapm > 0) & (gapm <= WIN["gap"]) & (distm <= WIN["dist"]) & (S["track_id"][:, None] != S["track_id"][None, :])
+    ia, ib = np.nonzero(ok)
+    gap, dist = gapm[ia, ib].astype(np.float64), distm[ia, ib]
+    geo = np.stack([gap / 30.0, dist, np.log(sb[ib] / sa[ia]), (S["cls"][ia] == S["cls"][ib]).astype(np.float64),
+                    S["n_last"][ia].astype(np.float64) / 5, S["n_first"][ib].astype(np.float64) / 5], 1)
+    lt, ft = cn(S["last_thumb"]), cn(S["first_thumb"]); lx, fx = cn(S["last_hexin"]), cn(S["first_hexin"])
+    lf, ff = cn(S["last_fly"]), cn(S["first_fly"])                       # по типу: (n, 34, 19)
+    lfa, ffa = cn(S["last_fly"].reshape(n, -1)), cn(S["first_fly"].reshape(n, -1))
+    app = np.stack([(lt[ia] * ft[ib]).sum(1), np.abs(S["last_hist"][ia].astype(np.float64) - S["first_hist"][ib].astype(np.float64)).sum(1)], 1)
+    hx = (lx[ia] * fx[ib]).sum(1)[:, None]
+    per_t = (lf[ia] * ff[ib]).sum(-1)                                    # (m, 34)
+    fl = np.concatenate([(lfa[ia] * ffa[ib]).sum(1)[:, None]] + [per_t[:, list(r)].mean(1, keepdims=True) for r in GROUPS_OF_TYPES.values()], 1)
+    dn = (dz["last"].astype(np.float32)[ia] * dz["first"].astype(np.float32)[ib]).sum(1)[:, None]
+    ms = (mz["last"].astype(np.float32)[ia] * mz["first"].astype(np.float32)[ib]).sum(1)[:, None]
+    X = np.concatenate([geo, app, hx, fl, dn, ms], 1)
+    known = np.array([end_gt[a] is not None and start_gt[b] is not None for a, b in zip(ia, ib)], bool)
+    same = np.array([end_gt[a] == start_gt[b] for a, b in zip(ia, ib)], bool)
+    y = np.where(known, same.astype(np.int8), -1).astype(np.int8)
+    feats, labels, meta = X, y, np.stack([ia, ib], 1)
     return {"video_id": vid, "X": np.asarray(feats, np.float64).reshape(-1, len(NAMES)), "y": np.asarray(labels, np.int8), "pairs": np.asarray(meta, np.int32).reshape(-1, 2)}
 
 
