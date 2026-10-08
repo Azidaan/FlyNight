@@ -56,8 +56,13 @@ def interp_labels(task) -> np.ndarray:
     объекты с тем же id в ближайших опорных кадрах слева и справа (разрыв ≤ MAX_SPAN), рамки линейно. Совпадение — IoU ≥ 0,5.
     Возвращает (n, 2) int8: 1 — совпало, 0 — эталон есть, но не совпало, −1 — эталона нет (вне опорных кадров)."""
     from scripts.evaluate_flyvis_qmatch_gate import truth_arrays
-    from tracking.flyvis_tracker import box_iou
     vid, sig_dir, root, split = task
+
+    def iou_max(b, G):   # своя IoU: tracking.flyvis_tracker.box_iou отвергает вырожденные рамки (бывают у концов жизней)
+        x1 = np.maximum(b[0], G[:, 0]); y1 = np.maximum(b[1], G[:, 1]); x2 = np.minimum(b[2], G[:, 2]); y2 = np.minimum(b[3], G[:, 3])
+        inter = np.clip(x2 - x1, 0, None) * np.clip(y2 - y1, 0, None)
+        ua = max((b[2] - b[0]) * (b[3] - b[1]), 0) + np.clip(G[:, 2] - G[:, 0], 0, None) * np.clip(G[:, 3] - G[:, 1], 0, None) - inter
+        return float((inter / np.maximum(ua, 1e-9)).max())
     z = np.load(Path(sig_dir) / vid / "signatures.npz")
     matches = json.loads((Path(root) / vid / "alignment.json").read_text(encoding="utf-8"))["matches"]
     truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / split / f"{vid}.json").read_text(encoding="utf-8"))
@@ -86,7 +91,7 @@ def interp_labels(task) -> np.ndarray:
             g = gt_at(f)
             if g is None:
                 continue
-            lab[i, col] = int(len(g[1]) > 0 and box_iou(box[None, :].astype(np.float32), g[0])[0].max() >= 0.5)
+            lab[i, col] = int(len(g[1]) > 0 and np.isfinite(box).all() and iou_max(box.astype(np.float64), g[0].astype(np.float64)) >= 0.5)
     return lab
 
 
