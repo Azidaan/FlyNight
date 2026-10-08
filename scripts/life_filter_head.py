@@ -13,7 +13,11 @@ life_filter_oracle_v1: удаление полностью ложных жизн
   порог при бюджете потерь 1 % объектов (наибольшее число удалённых ложных рамок). Критерий перехода (до прогона):
   AP с мухой − без мухи на dev > 0, ДИ > 0. --open: HOTA при бюджете 1 % на dev (порог из dev), test и val7.
 
-Запуск: python scripts/life_filter_head.py [--open]
+Режим --v2 (life_filter_head_v2, исправление 09.10): жизнь — запись в signatures.npz (номер трекера + интервал), рамка
+относится к записи по номеру и кадру (scripts/life_segments.py); признаки — строки трекера только внутри интервала записи
+(life_features(by_interval=True)); удаляется запись, а не номер. Выход — runs/life_filter_head_v2.
+
+Запуск: python scripts/life_filter_head.py [--v2] [--open]
 """
 from __future__ import annotations
 
@@ -55,11 +59,18 @@ def box_lives(vid, sig_dir, root, res):
 def video_task(task):
     from scripts.chain_filter_head import classify_ids
     from scripts.stitch_realness import life_features
-    vid, sig_dir, root, split, s = task
+    vid, sig_dir, root, split, s, v2 = task
     res = json.loads((SRC[s] / f"{vid}.json").read_text(encoding="utf-8"))
     gt = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / split / f"{vid}.json").read_text(encoding="utf-8"))
-    life = box_lives(vid, sig_dir, root, res); tags = classify_ids(res, gt)
-    z = np.load(Path(sig_dir) / vid / "signatures.npz"); tids = z["track_id"].astype(int); pos = {t: i for i, t in enumerate(tids)}
+    segstats = None
+    if v2:
+        from scripts.life_segments import box_segments
+        life, segstats = box_segments(vid, sig_dir, root, res)
+    else:
+        life = box_lives(vid, sig_dir, root, res)
+    tags = classify_ids(res, gt)
+    z = np.load(Path(sig_dir) / vid / "signatures.npz"); tids = z["track_id"].astype(int)
+    pos = {i: i for i in range(len(tids))} if v2 else {t: i for i, t in enumerate(tids)}   # v2: ключ рамки — номер записи жизни
     n = len(tids); n_tp = np.zeros(n, np.int32); n_fp = np.zeros(n, np.int32); tp_map = {}
     for tg, lv in zip(tags, life):
         for (t, g), tid in zip(tg, lv):
@@ -71,11 +82,11 @@ def video_task(task):
             elif t == "fp":
                 n_fp[i] += 1
     label = np.where(n_tp > 0, 0, np.where(n_fp > 0, 1, -1)).astype(np.int8)
-    f = life_features(str(Path(sig_dir) / vid / "signatures.npz"))
+    f = life_features(str(Path(sig_dir) / vid / "signatures.npz"), by_interval=v2)
     nofly = np.concatenate([f["common"], f["cls"], f["end"], f["start"], (f["hex_end"] + f["hex_start"]) / 2], 1).astype(np.float32)
     fly = np.concatenate([nofly, f["fly_end"], f["fly_start"]], 1).astype(np.float32)
     return {"video_id": vid, "split": split, "set": s, "sig_dir": sig_dir, "root": root, "tids": tids, "label": label, "n_tp": n_tp, "n_fp": n_fp,
-            "tp_map": [(i, g, k) for (i, g), k in tp_map.items()], "nofly": nofly, "fly": fly, "unmatched": int(sum(x is None for lv in life for x in lv))}
+            "tp_map": [(i, g, k) for (i, g), k in tp_map.items()], "nofly": nofly, "fly": fly, "unmatched": int(sum(x is None for lv in life for x in lv)), "segstats": segstats}
 
 
 def losses(vs, probs, thr):
@@ -98,10 +109,15 @@ def apply_task(task):
     from evaluation.hota_eval import evaluate_hota
     from scripts.chain_filter_head import classify_ids
     from scripts.run_bdd_video_rate_experiment import save_json
-    vid, sig_dir, root, split, s, drop_tids, out_dir = task
+    vid, sig_dir, root, split, s, drop_tids, out_dir, v2 = task
     res = json.loads((SRC[s] / f"{vid}.json").read_text(encoding="utf-8"))
     gt = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / split / f"{vid}.json").read_text(encoding="utf-8"))
-    life = box_lives(vid, sig_dir, root, res); drop = set(int(t) for t in drop_tids)
+    if v2:
+        from scripts.life_segments import box_segments
+        life = box_segments(vid, sig_dir, root, res)[0]
+    else:
+        life = box_lives(vid, sig_dir, root, res)
+    drop = set(int(t) for t in drop_tids)   # v2 — номера записей жизней, v1 — номера трекера
     before = {g for tg in classify_ids(res, gt) for t, g in tg if t == "tp"}
     rows = [{**fr, "labels": [l for l, tid in zip(fr.get("labels") or [], lv) if tid is None or tid not in drop]} for fr, lv in zip(res, life)]
     after = {g for tg in classify_ids(rows, gt) for t, g in tg if t == "tp"}
@@ -118,7 +134,10 @@ def main() -> int:
     from evaluation.hota_eval import evaluate_hota
     from datasets.subset_filter import filter_videos_by_subset, load_video_attributes
     from scripts.fly_lifecycle_alive import sets
-    ap_ = argparse.ArgumentParser(); ap_.add_argument("--open", action="store_true"); a = ap_.parse_args()
+    ap_ = argparse.ArgumentParser(); ap_.add_argument("--open", action="store_true"); ap_.add_argument("--v2", action="store_true"); a = ap_.parse_args()
+    global OUT
+    if a.v2:
+        OUT = OUT.parent / (OUT.name + "_v2")
     OUT.mkdir(parents=True, exist_ok=True)
     S = sets(PROJECT_ROOT / "runs/fly_signatures", PROJECT_ROOT / "runs/fly_signatures_val")
     cache = OUT / "lives.pkl"
@@ -128,9 +147,10 @@ def main() -> int:
         L = {}
         with ProcessPoolExecutor(max_workers=6) as pool:
             for s in ("train", "dev", "test", "val7"):
-                L[s] = list(pool.map(video_task, [(v, str(sr), str(rt), sp, s) for v, sr, rt, sp in S[s]]))
+                L[s] = list(pool.map(video_task, [(v, str(sr), str(rt), sp, s, a.v2) for v, sr, rt, sp in S[s]]))
                 lab = np.concatenate([c["label"] for c in L[s]])
-                print(f"[LIVES] {s}: жизней {len(lab)}, полностью ложных {(lab == 1).sum()}, с верной рамкой {(lab == 0).sum()}, без учитываемых {(lab < 0).sum()}; рамок без жизни {sum(c['unmatched'] for c in L[s])}", flush=True)
+                print(f"[LIVES] {s}: жизней {len(lab)}, полностью ложных {(lab == 1).sum()}, с верной рамкой {(lab == 0).sum()}, без учитываемых {(lab < 0).sum()}; рамок без жизни {sum(c['unmatched'] for c in L[s])}"
+                      + (f"; сопоставление {dict((k, sum(c['segstats'][k] for c in L[s])) for k in L[s][0]['segstats'])}" if a.v2 else ""), flush=True)
         pickle.dump(L, open(cache, "wb"))
     sets_ = ("dev", "test", "val7") if a.open else ("dev",)
     probs = {}
@@ -183,7 +203,7 @@ def main() -> int:
                 thr = rep["budget"].get(var, {}).get("threshold")
                 if var != "none" and thr is None:
                     continue
-                tasks = [(c["video_id"], c["sig_dir"], c["root"], c["split"], s, c["tids"][probs[(var, s)][c["video_id"]] > thr] if var != "none" else [], str(OUT / "filtered" / var / s)) for c in L[s]]
+                tasks = [(c["video_id"], c["sig_dir"], c["root"], c["split"], s, (np.nonzero(probs[(var, s)][c["video_id"]] > thr)[0] if a.v2 else c["tids"][probs[(var, s)][c["video_id"]] > thr]) if var != "none" else [], str(OUT / "filtered" / var / s), a.v2) for c in L[s]]
                 with ProcessPoolExecutor(max_workers=6) as pool:
                     res[var] = {r["video_id"]: r for r in pool.map(apply_task, tasks)}
                 agg_ = evaluate_hota(OUT / "filtered" / var / s, list(res[var]), split=split)
