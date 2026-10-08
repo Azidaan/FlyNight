@@ -32,14 +32,17 @@ FLY = ["fly_cos", "fly_T123", "fly_T4", "fly_T5", "fly_Tm", "fly_TmY"]
 DINO = ["dino_cos"]
 MASA = ["masa_cos"]
 NAMES = GEO + APP + HEX + FLY + DINO + MASA
-HEADS = {"geometry": GEO, "base_app_hexin": GEO + APP + HEX, "dino": GEO + DINO, "masa": GEO + MASA, "dino_masa": GEO + DINO + MASA,
-         "masa_fly": GEO + MASA + FLY, "base_fly": GEO + APP + HEX + FLY, "all": GEO + APP + HEX + DINO + MASA, "all_fly": GEO + APP + HEX + DINO + MASA + FLY}
-STITCH_HEADS = ["geometry", "base_app_hexin", "dino", "masa", "masa_fly", "all", "all_fly"]
-WIN = {"gap": 150, "dist": 5.0}
+BASE = GEO + APP + HEX   # нынешняя голова (геометрия + миниатюра/гистограмма + вход глаза)
+HEADS = {"geometry": GEO, "base": BASE, "base_dino": BASE + DINO, "base_masa": BASE + MASA, "base_dino_masa": BASE + DINO + MASA,
+         "base_fly": BASE + FLY, "base_dino_fly": BASE + DINO + FLY, "base_masa_fly": BASE + MASA + FLY, "geo_dino": GEO + DINO, "geo_masa": GEO + MASA}
+STITCH_HEADS = ["geometry", "base", "base_dino", "base_masa", "base_dino_masa", "base_fly", "base_dino_fly", "base_masa_fly"]
+DIFFS = [("base_dino", "base"), ("base_masa", "base"), ("base_masa", "base_dino"), ("base_dino_masa", "base_masa"), ("base_fly", "base"),
+         ("base_dino_fly", "base_dino"), ("base_masa_fly", "base_masa"), ("base", "geometry")]
+WIN = {"gap": 150, "dist": 5.0, "masa": True}
 
 
-def _set(g, d):
-    WIN["gap"], WIN["dist"] = g, d
+def _set(g, d, masa=True):
+    WIN["gap"], WIN["dist"], WIN["masa"] = g, d, masa
 
 
 def video_pairs(task):
@@ -48,7 +51,7 @@ def video_pairs(task):
     from scripts.evaluate_flyvis_qmatch_gate import truth_arrays
     from tracking.flyvis_tracker import box_iou
     z = np.load(Path(sig_dir) / vid / "signatures.npz"); S = {k: z[k] for k in z.files}
-    dz = np.load(PROJECT_ROOT / "runs/dino_embeddings" / f"{vid}.npz"); mz = np.load(PROJECT_ROOT / "runs/masa_embeddings" / f"{vid}.npz")
+    dz = np.load(PROJECT_ROOT / "runs/dino_embeddings" / f"{vid}.npz"); mz = np.load(PROJECT_ROOT / "runs/masa_embeddings" / f"{vid}.npz") if WIN["masa"] else {"first": np.zeros((len(S["track_id"]), 1), np.float32), "last": np.zeros((len(S["track_id"]), 1), np.float32)}
     outputs = S["outputs"]
     matches = json.loads((Path(root) / vid / "alignment.json").read_text(encoding="utf-8"))["matches"]
     ref_of_raw = {int(m["video_frame_index"]): i for i, m in enumerate(matches)}
@@ -115,11 +118,16 @@ def main() -> int:
     from scripts.eval_fly_reid import stitch_video
     from scripts.fly_lifecycle_alive import sets
     ap_ = argparse.ArgumentParser(); ap_.add_argument("--max-gap", type=int, default=150); ap_.add_argument("--max-dist", type=float, default=5.0)
-    ap_.add_argument("--thresholds", type=float, nargs="+", default=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6]); a = ap_.parse_args()
-    out = OUT / f"gap{a.max_gap}_dist{a.max_dist:g}"; out.mkdir(parents=True, exist_ok=True)
+    ap_.add_argument("--thresholds", type=float, nargs="+", default=[0.1, 0.2, 0.3, 0.4, 0.5, 0.6])
+    ap_.add_argument("--workers", type=int, default=6)
+    ap_.add_argument("--no-masa", action="store_true", help="пилот до готовности эмбеддингов MASA: головы без MASA"); a = ap_.parse_args()
+    global HEADS, STITCH_HEADS
+    if a.no_masa:
+        HEADS = {h: c for h, c in HEADS.items() if "masa_cos" not in c}; STITCH_HEADS = [h for h in STITCH_HEADS if h in HEADS]
+    out = OUT / (f"gap{a.max_gap}_dist{a.max_dist:g}" + ("_nomasa" if a.no_masa else "")); out.mkdir(parents=True, exist_ok=True)
     S = sets(PROJECT_ROOT / "runs/fly_signatures", PROJECT_ROOT / "runs/fly_signatures_val")
     data = {}
-    with ProcessPoolExecutor(max_workers=8, initializer=_set, initargs=(a.max_gap, a.max_dist)) as pool:
+    with ProcessPoolExecutor(max_workers=a.workers, initializer=_set, initargs=(a.max_gap, a.max_dist, not a.no_masa)) as pool:
         for s in ("train", "dev", "test", "val7"):
             data[s] = list(pool.map(video_pairs, [(v, str(sr), str(rt), sp) for v, sr, rt, sp in S[s]]))
             n = sum(len(d["y"]) for d in data[s]); kn = sum(int((d["y"] >= 0).sum()) for d in data[s])
@@ -139,27 +147,32 @@ def main() -> int:
     def run(h, s, thr):
         m, idx = models[h]; d_out = out / "stitch" / f"{h}_{thr:g}" / s
         tasks = [(d["video_id"], *meta[s], d["pairs"], m.predict_proba(d["X"][:, idx])[:, 1] if len(d["y"]) else np.zeros(0), thr, str(d_out)) for d in data[s]]
-        with ProcessPoolExecutor(max_workers=8) as pool:
+        with ProcessPoolExecutor(max_workers=a.workers) as pool:
             per = {r["video_id"]: r["metrics"] for r in pool.map(stitch_video, tasks)}
+        agg = evaluate_hota(d_out, [d["video_id"] for d in data[s]], split=meta[s][2])   # общий HOTA по всем видео — как в eval_fly_reid
+        per["__pooled__"] = {k: agg.get(k) for k in ("HOTA", "IDF1", "AssA", "IDSw")}
         return per
     base = {s: run("geometry", s, 2.0) for s in ("dev", "test", "val7")}   # порог 2 — без сшивки
-    rep["stitch"]["none"] = {s: float(np.mean([x["HOTA"] for x in base[s].values()])) for s in base}
+    H = lambda per: float(per["__pooled__"]["HOTA"])
+    rep["stitch"]["none"] = {s: H(base[s]) for s in base}
+    print(f"[STITCH] none: HOTA dev {rep['stitch']['none']['dev']:.3f} test {rep['stitch']['none']['test']:.3f} val7 {rep['stitch']['none']['val7']:.3f}", flush=True)
     per_head = {}
     for h in STITCH_HEADS:
         dev = {t: run(h, "dev", t) for t in a.thresholds}
-        thr = max(dev, key=lambda t: np.mean([x["HOTA"] for x in dev[t].values()]))
+        thr = max(dev, key=lambda t: H(dev[t]))
         per_head[h] = {"dev": dev[thr], "test": run(h, "test", thr), "val7": run(h, "val7", thr)}
-        rep["stitch"][h] = {"threshold": thr, **{s: float(np.mean([x["HOTA"] for x in per_head[h][s].values()])) for s in ("dev", "test", "val7")},
-                            "dev_grid": {str(t): float(np.mean([x["HOTA"] for x in r.values()])) for t, r in dev.items()}}
-        print(f"[STITCH] {h:16s} порог {thr}: HOTA dev {rep['stitch'][h]['dev']:.3f} test {rep['stitch'][h]['test']:.3f} val7 {rep['stitch'][h]['val7']:.3f} (без сшивки test {rep['stitch']['none']['test']:.3f})", flush=True)
+        rep["stitch"][h] = {"threshold": thr, **{s: H(per_head[h][s]) for s in ("dev", "test", "val7")}, "pooled": {s: per_head[h][s]["__pooled__"] for s in ("dev", "test", "val7")},
+                            "dev_grid": {str(t): H(r) for t, r in dev.items()}}
+        print(f"[STITCH] {h:16s} порог {thr}: HOTA dev {rep['stitch'][h]['dev']:.3f} test {rep['stitch'][h]['test']:.3f} val7 {rep['stitch'][h]['val7']:.3f} | Δ test {rep['stitch'][h]['test'] - rep['stitch']['none']['test']:+.3f} val7 {rep['stitch'][h]['val7'] - rep['stitch']['none']['val7']:+.3f}", flush=True)
         (out / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
     rng = np.random.default_rng(1)
-    pairs = [(h, "none") for h in STITCH_HEADS] + [("masa", "dino"), ("masa", "geometry"), ("dino", "geometry"), ("masa", "base_app_hexin"), ("dino", "base_app_hexin"), ("masa_fly", "masa"), ("all_fly", "all"), ("all", "masa")]
+    pairs = [(h, "none") for h in STITCH_HEADS] + DIFFS
+    pairs = [(x, y) for x, y in pairs if x in per_head and (y == "none" or y in per_head)]
     for x, y in pairs:
         for s in ("test", "val7"):
             A = per_head[x][s]; B = base[s] if y == "none" else per_head[y][s]
             for met in ("HOTA", "IDF1"):
-                d = np.array([A[v][met] - B[v][met] for v in A]); b = d[rng.integers(0, len(d), (5000, len(d)))].mean(1)
+                d = np.array([A[v][met] - B[v][met] for v in A if v != "__pooled__"]); b = d[rng.integers(0, len(d), (5000, len(d)))].mean(1)
                 rep["diff"][f"{x}-{y}|{s}|{met}"] = {"mean": float(d.mean()), "ci95": [float(np.quantile(b, .025)), float(np.quantile(b, .975))], "better": int((d > 0).sum()), "n": len(d)}
             r = rep["diff"][f"{x}-{y}|{s}|HOTA"]
             print(f"[DIFF] {x} − {y} {s}: HOTA {r['mean']:+.3f} [{r['ci95'][0]:+.3f}; {r['ci95'][1]:+.3f}] лучше {r['better']}/{r['n']}", flush=True)
