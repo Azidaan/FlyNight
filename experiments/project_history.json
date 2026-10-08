@@ -7453,6 +7453,54 @@
      "locator": "stitch.base_masa@global.test"
     }
    ]
+  },
+  {
+   "id": "stitch_unlabeled_diag_v1",
+   "title": "Диагностика сшивки: доля и цена принятых связей с концами без эталона",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-08",
+   "tags": [
+    "fly-problem-P1",
+    "tracker",
+    "association"
+   ],
+   "summary": "После stitch_global_assign_v1 (выбор связей — не узел потери) гипотеза: головы обучены на 2 % кандидатов с эталоном у обоих концов, а сшивают все. Для голов base и base_masa на их порогах (runs/stitch_v2/gap150_dist5/report.json) — состав принятых связей (верные / неверные / без эталона у A, у B, у обоих) и HOTA при допуске пар по разметке: all, known, no_unk, no_wrong, correct. scripts/stitch_diag_unlabeled.py.",
+   "question": "Какая доля принятых связей задевает концы без эталона и сколько HOTA они отнимают по сравнению с неверными связями между настоящими объектами?",
+   "hypothesis": "Связи с концами без эталона — заметная доля принятых и отнимают HOTA; убрать их ≥ убрать неверные (y = 0).",
+   "expected": "test, голова base_masa: (1) доля связей без эталона ≥ 20 %; (2) no_unk − all > 0, ДИ > 0; (3) no_unk − all ≥ no_wrong − all (по среднему). Если (2) не выполнено — узел не в ложных треках, а в неверных связях между настоящими объектами.",
+   "dataset": "BDD100K MOT train_cache (train 130 / test 35) + val7",
+   "baseline": "сшивка all (stitch_appearance_models_v1)",
+   "variant": "допуск пар по разметке (оракул)",
+   "commits": [],
+   "files": [
+    "scripts/stitch_diag_unlabeled.py"
+   ],
+   "runs": [
+    "runs/stitch_unlabeled_diag"
+   ],
+   "acceptance": [
+    {
+     "criterion": "test base_masa: доля принятых связей без эталона ≥ 20 %",
+     "met": null
+    },
+    {
+     "criterion": "test base_masa: no_unk − all > 0, ДИ > 0",
+     "met": null
+    },
+    {
+     "criterion": "test base_masa: no_unk − all ≥ no_wrong − all",
+     "met": null
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/stitch_v2/gap150_dist5/report_both.json",
+     "locator": "diff",
+     "claim": "глобальное назначение не лучше жадного"
+    }
+   ]
   }
  ],
  "manual_events": [
