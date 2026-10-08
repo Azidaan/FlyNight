@@ -31,7 +31,10 @@ PAIR_HEADS = ["base", "base_masa"]
 GRID = [0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
 
 
-def life_features(sig_path: str) -> dict:
+def life_features(sig_path: str, by_interval: bool = False) -> dict:
+    """Признаки каждой записи жизни. by_interval=True — строки трекера только внутри интервала [start, end] этой записи
+    (исправление 09.10: один номер трекера бывает у нескольких жизней; прежнее поведение by_interval=False смешивало строки
+    всех жизней номера — оставлено для воспроизводимости stitch_realness_fly_v1, chain_filter_*, life_filter_*_v1)."""
     z = np.load(Path(sig_path)); o = z["outputs"]; n = len(z["track_id"])
     rows = {}
     for r in o:
@@ -39,7 +42,10 @@ def life_features(sig_path: str) -> dict:
     common = np.zeros((n, 8), np.float32); ends = {"end": np.zeros((n, 7), np.float32), "start": np.zeros((n, 7), np.float32)}
     cls = np.zeros((n, 8), np.float32)
     for i, t in enumerate(z["track_id"]):
-        R = np.asarray(rows.get(int(t), []), np.float32).reshape(-1, 8); sc = R[:, 6] if len(R) else np.zeros(1, np.float32)
+        R = np.asarray(rows.get(int(t), []), np.float32).reshape(-1, 8)
+        if by_interval:
+            R = R[(R[:, 0] >= int(z["start"][i])) & (R[:, 0] <= int(z["end"][i]))]
+        sc = R[:, 6] if len(R) else np.zeros(1, np.float32)
         common[i] = [np.log1p(int(z["end"][i]) - int(z["start"][i])), np.log1p(len(R)), sc.mean(), sc.max(), sc.min(), sc.std(), 0, 0]
         cls[i, min(int(z["cls"][i]), 7)] = 1
         for name, box, nn, part in (("end", z["last_box"][i], z["n_last"][i], sc[-5:]), ("start", z["first_box"][i], z["n_first"][i], sc[:5])):

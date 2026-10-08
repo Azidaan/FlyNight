@@ -16,7 +16,11 @@
 рамки с IoU ≥ 0,3 / ≥ 0,1. Парные разности по видео (бутстрэп 5000).
 Критерий перехода (до прогона): ступень 3 − ступень 2 по HOTA — средняя по видео > 0 с ДИ > 0 и общий прирост ≥ +0,3.
 
-Запуск: python scripts/life_filter_oracle.py
+Режим --v2 (life_filter_oracle_v2, исправление 09.10): жизнь — запись в signatures.npz (номер трекера + интервал кадров),
+рамка относится к записи по номеру и кадру (scripts/life_segments.py); v1 группировал рамки по номеру трекера — разные
+жизни одного номера смешивались. Выход — runs/life_filter_oracle_v2; ночь/день dev — datasets.subset_filter.
+
+Запуск: python scripts/life_filter_oracle.py [--v2]
 """
 from __future__ import annotations
 
@@ -52,7 +56,7 @@ def matched_gt(res, gt):
 def video(task):
     from evaluation.hota_eval import evaluate_hota
     from scripts.run_bdd_video_rate_experiment import save_json
-    vid, sig_dir, root, split = task
+    vid, sig_dir, root, split, out_root, v2 = task
     res = json.loads((SRC / f"{vid}.json").read_text(encoding="utf-8"))
     gt = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / split / f"{vid}.json").read_text(encoding="utf-8"))
     matches = json.loads((Path(root) / vid / "alignment.json").read_text(encoding="utf-8"))["matches"]
@@ -73,6 +77,10 @@ def video(task):
             else:
                 cur.append(hit[0])
         life.append(cur)
+    segstats = None
+    if v2:
+        from scripts.life_segments import box_segments
+        life, segstats = box_segments(vid, sig_dir, root, res); bad = segstats["boxes"] - segstats["ok"]
     tags = classify(res, gt)
     ch, lf = {}, {}
     for fr, tg, lv in zip(res, tags, life):
@@ -82,7 +90,7 @@ def video(task):
     false_chain = {k for k, x in ch.items() if x["tp"] == 0 and x["fp"] > 0}
     false_life = {k for k, x in lf.items() if k is not None and x["tp"] == 0 and x["fp"] > 0}
     found1 = matched_gt(res, gt)
-    out = {"video_id": vid, "unmatched_boxes": bad, "metrics": {}, "lost": {}, "removed": {}}
+    out = {"video_id": vid, "unmatched_boxes": bad, "segstats": segstats, "metrics": {}, "lost": {}, "removed": {}}
     for step in (1, 2, 3, 4):
         rows_, rm = [], {"n": 0, "lives": set(), "iou_ge_0.3": 0, "iou_ge_0.1": 0}
         for fr, tg, lv in zip(res, tags, life):
@@ -94,7 +102,7 @@ def video(task):
                 if not drop:
                     keep.append(l)
             rows_.append({**fr, "labels": keep})
-        d = OUT / f"step{step}"; d.mkdir(parents=True, exist_ok=True); save_json(d / f"{vid}.json", rows_)
+        d = Path(out_root) / f"step{step}"; d.mkdir(parents=True, exist_ok=True); save_json(d / f"{vid}.json", rows_)
         m = evaluate_hota(d, [vid], split=split)
         out["metrics"][step] = {k: m.get(k) for k in KEYS}
         out["lost"][step] = len(found1 - matched_gt(rows_, gt))
@@ -110,22 +118,33 @@ def video(task):
 def main() -> int:
     from evaluation.hota_eval import evaluate_hota
     from scripts.fly_lifecycle_alive import sets
-    OUT.mkdir(parents=True, exist_ok=True)
+    import argparse
+    from datasets.subset_filter import filter_videos_by_subset, load_video_attributes
+    ap_ = argparse.ArgumentParser(); ap_.add_argument("--v2", action="store_true"); a = ap_.parse_args()
+    out_root = OUT.parent / (OUT.name + ("_v2" if a.v2 else "")); out_root.mkdir(parents=True, exist_ok=True)
     S = sets(PROJECT_ROOT / "runs/fly_signatures", PROJECT_ROOT / "runs/fly_signatures_val")
     cond = json.loads((PROJECT_ROOT / "runs/oracle_ladder/report.json").read_text(encoding="utf-8"))["cond"]
-    tasks = [(v, str(sr), str(rt), sp) for v, sr, rt, sp in S["dev"]]
+    tasks = [(v, str(sr), str(rt), sp, str(out_root), a.v2) for v, sr, rt, sp in S["dev"]]
     with ProcessPoolExecutor(max_workers=6) as pool:
         per = {r["video_id"]: r for r in pool.map(video, tasks)}
     vids = list(per); split = S["dev"][0][3]
     rep = {"rule": "IoU 0,5, венгерское по классу, crowd — игнор", "min_gain": MIN_GAIN, "unmatched_boxes": int(sum(r["unmatched_boxes"] for r in per.values())),
            "source_HOTA": evaluate_hota(SRC, vids, split=split)["HOTA"], "pooled": {}, "diff": {}, "lost": {}, "removed": {}, "counts": {}}
-    print(f"[CHECK] рамок без однозначной жизни: {rep['unmatched_boxes']}; исходный HOTA dev {rep['source_HOTA']:.3f}", flush=True)
+    if a.v2:
+        rep["segstats"] = {k: int(sum(r["segstats"][k] for r in per.values())) for k in next(iter(per.values()))["segstats"]}
+        attrs = load_video_attributes(str(PROJECT_ROOT / f"data/bdd100k/labels/bdd100k_labels_images_{split}.json"))
+        cond = {}
+        for c in ("normal", "night"):
+            for v in filter_videos_by_subset(attrs, vids, c):
+                cond.setdefault(v, c)
+        rep["cond_dev"] = cond
+    print(f"[CHECK] рамок без однозначной жизни: {rep['unmatched_boxes']}; {rep.get('segstats')}; исходный HOTA dev {rep['source_HOTA']:.3f}", flush=True)
     groups = {"all": vids, "night": [v for v in vids if cond.get(v) == "night"], "day": [v for v in vids if cond.get(v) == "normal"]}
     for g, gv in groups.items():
         if not gv:
             continue
         for step in (1, 2, 3, 4):
-            m = evaluate_hota(OUT / f"step{step}", gv, split=split)
+            m = evaluate_hota(out_root / f"step{step}", gv, split=split)
             rep["pooled"][f"{g}|step{step}"] = {k: m.get(k) for k in KEYS}
             rep["lost"][f"{g}|step{step}"] = {"lost": int(sum(per[v]["lost"][step] for v in gv)), "found_step1": int(sum(per[v]["found1"] for v in gv))}
         rng = np.random.default_rng(1)
@@ -146,7 +165,7 @@ def main() -> int:
             r = rep["diff"][k]; print(f"[DIFF] {k}: по видео {r['mean_per_video']:+.3f} [{r['ci95'][0]:+.3f}; {r['ci95'][1]:+.3f}] лучше {r['better']}/{r['n']}", flush=True)
     print(f"[STEP 3] удалено жизней {rep['removed']['lives']}, рамок {rep['removed']['boxes']} (IoU ≥ 0,3 — {rep['removed']['iou_ge_0.3']}, ≥ 0,1 — {rep['removed']['iou_ge_0.1']}); счётчики {rep['counts']}", flush=True)
     print(f"[GATE] ступень 3 − 2: общий {gain:+.3f}, по видео {d32['mean_per_video']:+.3f} [{d32['ci95'][0]:+.3f}; {d32['ci95'][1]:+.3f}]; доля остатка до ступени 4 {rep['share_of_rest']} → критерий {'выполнен' if rep['gate'] else 'НЕ выполнен'}", flush=True)
-    (OUT / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
+    (out_root / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
     print("[OK]")
     return 0
 
