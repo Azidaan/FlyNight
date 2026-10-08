@@ -166,7 +166,7 @@ def main() -> int:
         return out
 
     def run(key, h, var, s, thr):
-        d_out = OUT / "stitch" / f"{key}_{thr:g}" / s; w = weights(h, var, s)
+        d_out = OUT / "stitch" / f"{key.replace('*', '__')}_{thr:g}" / s; w = weights(h, var, s)
         tasks = [(d["video_id"], *meta[s], d["pairs"], w[i], thr, str(d_out)) for i, d in enumerate(data[s])]
         with ProcessPoolExecutor(max_workers=6) as pool:
             per = {r["video_id"]: r["metrics"] for r in pool.map(stitch_video, tasks)}
