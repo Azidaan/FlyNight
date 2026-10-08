@@ -2,7 +2,8 @@
 
 Голова пары (база + MASA, как в stitch_eval_v2) обучена только на парах с эталоном у обоих концов и не знает, что конец A или
 начало B может быть ложным треком. Здесь — отдельная голова «конец жизни сопоставлен с эталоном» (для A) и «начало жизни
-сопоставлено с эталоном» (для B), обучение на всех жизнях train 130 (метки — runs/stitch_v2/.../cache, life_known), и вес пары
+сопоставлено с эталоном» (для B), обучение на жизнях train 130 с метками по эталону, интерполированному между опорными кадрами (interp_labels;
+stitch_unlabeled_diag_v1 показал, что метки «есть опорный кадр» штрафуют полезные обрывки), и вес пары
 p' = p · r_end(A) · r_start(B). Две версии головы, отличие ровно одно — признаки мухи:
   nofly — длина жизни, число строк, уверенность детектора (средняя, максимальная, у конца/начала — 5 строк), площадь,
           пропорции и высота центра рамки, n_first/n_last, класс, вход глаза (hexin 721);
@@ -49,6 +50,49 @@ def life_features(sig_path: str) -> dict:
             "fly_end": z["last_fly"].reshape(n, -1).astype(np.float32), "fly_start": z["first_fly"].reshape(n, -1).astype(np.float32)}
 
 
+def interp_labels(task) -> np.ndarray:
+    """Метки «настоящий» для конца и начала каждой жизни по эталону, интерполированному между опорными кадрами
+    (stitch_unlabeled_diag_v1: 53 % жизней — обрывки без опорного кадра). Кадр f: если опорный — эталон как есть; иначе
+    объекты с тем же id в ближайших опорных кадрах слева и справа (разрыв ≤ MAX_SPAN), рамки линейно. Совпадение — IoU ≥ 0,5.
+    Возвращает (n, 2) int8: 1 — совпало, 0 — эталон есть, но не совпало, −1 — эталона нет (вне опорных кадров)."""
+    from scripts.evaluate_flyvis_qmatch_gate import truth_arrays
+    from tracking.flyvis_tracker import box_iou
+    vid, sig_dir, root, split = task
+    z = np.load(Path(sig_dir) / vid / "signatures.npz")
+    matches = json.loads((Path(root) / vid / "alignment.json").read_text(encoding="utf-8"))["matches"]
+    truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / split / f"{vid}.json").read_text(encoding="utf-8"))
+    rf = np.array([int(m["video_frame_index"]) for m in matches]); order = np.argsort(rf); rf = rf[order]
+    T = [truth_arrays(truth[int(i)]) for i in order]
+    cache = {}
+
+    def gt_at(f):
+        if f in cache:
+            return cache[f]
+        k = int(np.searchsorted(rf, f))
+        if k < len(rf) and rf[k] == f:
+            out = (T[k][0], T[k][2])
+        elif 0 < k < len(rf) and rf[k] - rf[k - 1] <= MAX_SPAN:
+            (b0, _, i0, _), (b1, _, i1, _) = T[k - 1], T[k]; w = (f - rf[k - 1]) / (rf[k] - rf[k - 1])
+            pos1 = {t: j for j, t in enumerate(i1)}
+            common = [(j, pos1[t], t) for j, t in enumerate(i0) if t in pos1]
+            out = (np.asarray([b0[a] * (1 - w) + b1[b] * w for a, b, _ in common], np.float32).reshape(-1, 4), [t for *_, t in common])
+        else:
+            out = None
+        cache[f] = out
+        return out
+    n = len(z["track_id"]); lab = np.full((n, 2), -1, np.int8)
+    for i in range(n):
+        for col, f, box in ((0, int(z["end"][i]), z["last_box"][i]), (1, int(z["start"][i]), z["first_box"][i])):
+            g = gt_at(f)
+            if g is None:
+                continue
+            lab[i, col] = int(len(g[1]) > 0 and box_iou(box[None, :].astype(np.float32), g[0])[0].max() >= 0.5)
+    return lab
+
+
+MAX_SPAN = 12   # опорные кадры — каждый 6-й; допускается один пропущенный
+
+
 def X_of(f: dict, side: str, fly: bool) -> np.ndarray:
     parts = [f["common"], f["cls"], f[side], f[f"hex_{side}"]] + ([f[f"fly_{side}"]] if fly else [])
     return np.concatenate(parts, 1)
@@ -69,6 +113,10 @@ def main() -> int:
         for s in ("train", "dev", "test", "val7"):
             data[s] = list(pool.map(V.cached_pairs, [(v, str(sr), str(rt), sp) for v, sr, rt, sp in S[s]]))
             feats[s] = list(pool.map(life_features, [str(Path(sr) / v / "signatures.npz") for v, sr, rt, sp in S[s]]))
+            for f, lab in zip(feats[s], pool.map(interp_labels, [(v, str(sr), str(rt), sp) for v, sr, rt, sp in S[s]])):
+                f["real"] = lab
+            L = np.concatenate([f["real"] for f in feats[s]])
+            print(f"[LABEL] {s}: концов с меткой {(L[:, 0] >= 0).mean():.3f} (настоящих {(L[:, 0] == 1).mean():.3f}), начал с меткой {(L[:, 1] >= 0).mean():.3f}; прежняя разметка (опорный кадр) — {np.concatenate([d['life_known'] for d in data[s]])[:, 0].mean():.3f}", flush=True)
             print(f"[DATA] {s}: видео {len(data[s])}, кандидатов {sum(len(d['y']) for d in data[s])}, жизней {sum(len(d['life_known']) for d in data[s])}", flush=True)
     meta = {s: (S[s][0][1], S[s][0][2], S[s][0][3]) for s in data}
     rep = {"realness_AP": {}, "stitch": {}, "diff": {}}
@@ -76,21 +124,23 @@ def main() -> int:
     # головы «настоящий»: конец (life_known[:, 0]) и начало (life_known[:, 1])
     real = {}
     for side, col in (("end", 0), ("start", 1)):
-        ytr = np.concatenate([d["life_known"][:, col] for d in data["train"]]).astype(int)
+        ytr_all = np.concatenate([f["real"][:, col] for f in feats["train"]]); ok = ytr_all >= 0; ytr = ytr_all[ok].astype(int)
         for fly in (False, True):
             name = f"{side}_{'fly' if fly else 'nofly'}"
-            Xtr = np.concatenate([X_of(f, side, fly) for f in feats["train"]])
+            Xtr = np.concatenate([X_of(f, side, fly) for f in feats["train"]])[ok]
             m = make_pipeline(StandardScaler(), LogisticRegression(C=0.1, max_iter=3000)).fit(Xtr, ytr)
             real[name] = {s: [m.predict_proba(X_of(f, side, fly))[:, 1] for f in feats[s]] for s in ("dev", "test", "val7")}
-            rep["realness_AP"][name] = {s: float(average_precision_score(np.concatenate([d["life_known"][:, col] for d in data[s]]).astype(int), np.concatenate(real[name][s]))) for s in ("dev", "test", "val7")}
-            print(f"[REAL] {name:12s} доля настоящих train {ytr.mean():.3f} | AP dev {rep['realness_AP'][name]['dev']:.4f} test {rep['realness_AP'][name]['test']:.4f} val7 {rep['realness_AP'][name]['val7']:.4f}", flush=True)
-        # бутстрэп AP по видео: fly − nofly на test
-        y_v = [d["life_known"][:, col].astype(int) for d in data["test"]]
+            rep["realness_AP"][name] = {}
+            for s in ("dev", "test", "val7"):
+                yy = np.concatenate([f["real"][:, col] for f in feats[s]]); pp = np.concatenate(real[name][s])
+                rep["realness_AP"][name][s] = float(average_precision_score(yy[yy >= 0], pp[yy >= 0]))
+            print(f"[REAL] {name:12s} доля настоящих train {ytr.mean():.3f} (жизней с меткой {ok.sum()}) | AP dev {rep['realness_AP'][name]['dev']:.4f} test {rep['realness_AP'][name]['test']:.4f} val7 {rep['realness_AP'][name]['val7']:.4f}", flush=True)
+        y_v = [f["real"][:, col] for f in feats["test"]]
         a_v, b_v = real[f"{side}_fly"]["test"], real[f"{side}_nofly"]["test"]
         bs = []
         for _ in range(1000):
-            k = rng.integers(0, len(y_v), len(y_v)); yy = np.concatenate([y_v[i] for i in k])
-            bs.append(average_precision_score(yy, np.concatenate([a_v[i] for i in k])) - average_precision_score(yy, np.concatenate([b_v[i] for i in k])))
+            k = rng.integers(0, len(y_v), len(y_v)); yy = np.concatenate([y_v[i] for i in k]); mk = yy >= 0
+            bs.append(average_precision_score(yy[mk], np.concatenate([a_v[i] for i in k])[mk]) - average_precision_score(yy[mk], np.concatenate([b_v[i] for i in k])[mk]))
         rep["realness_AP"][f"{side}_fly-nofly|test"] = {"mean": rep["realness_AP"][f"{side}_fly"]["test"] - rep["realness_AP"][f"{side}_nofly"]["test"], "ci95": [float(np.quantile(bs, .025)), float(np.quantile(bs, .975))]}
         r = rep["realness_AP"][f"{side}_fly-nofly|test"]
         print(f"[REAL] {side}: муха − без мухи test AP {r['mean']:+.4f} [{r['ci95'][0]:+.4f}; {r['ci95'][1]:+.4f}]", flush=True)
