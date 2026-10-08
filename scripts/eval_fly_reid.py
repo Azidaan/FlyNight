@@ -48,6 +48,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--val-only", action="store_true", help="разведка: только val7 (LOVO), без сшивки")
     parser.add_argument("--ladder-only", action="store_true", help="только лестница косинусных голов и бутстреп (без обучаемой метрики и сшивки)")
+    parser.add_argument("--max-gap", type=int, default=MAX_GAP, help="окно кандидатов: разрыв, кадров (fly_stitch_window_v1)")
+    parser.add_argument("--max-dist", type=float, default=MAX_DIST, help="окно кандидатов: расстояние, размеров рамки")
+    parser.add_argument("--thresholds", type=float, nargs="+", default=[0.2, 0.3, 0.4, 0.5, 0.7])
     return parser.parse_args()
 
 
@@ -187,6 +190,11 @@ def fit(X: np.ndarray, y: np.ndarray, cols: list[int]):
     return make_pipeline(StandardScaler(), LogisticRegression(C=1.0, max_iter=3000, random_state=42)).fit(X[:, cols], y)
 
 
+def _set_window(gap, dist):
+    global MAX_GAP, MAX_DIST
+    MAX_GAP, MAX_DIST = gap, dist
+
+
 def main() -> int:
     from sklearn.metrics import average_precision_score
 
@@ -199,7 +207,7 @@ def main() -> int:
         for s in ("train", "dev", "test"):
             splits[s] = [(v, str(args.sig_root), str(args.train_cache), "train") for v in ready(args.sig_root, selection[s])]
     data = {}
-    with ProcessPoolExecutor(max_workers=args.workers) as pool:
+    with ProcessPoolExecutor(max_workers=args.workers, initializer=_set_window, initargs=(args.max_gap, args.max_dist)) as pool:
         for s, tasks in splits.items():
             data[s] = list(pool.map(video_pairs, tasks))
             print(f"[DATA] {s}: {len(tasks)} роликов, пар {sum(len(d['y']) for d in data[s])}, положительных {sum(int(d['y'].sum()) for d in data[s])}", flush=True)
@@ -293,7 +301,7 @@ def main() -> int:
         return {"per_video": per, "summary": {k: agg.get(k) for k in ("HOTA", "IDF1", "AssA", "IDSw")}, "links": int(sum(r["links"] for r in per.values()))}
     stitch = {"none": {s_: run_stitch("none", heads["stitch_base"], s_, 2.0) for s_ in ("dev", "test", "val7")}}
     for name, head in heads.items():
-        dev_runs = {thr: run_stitch(name, head, "dev", thr) for thr in (0.2, 0.3, 0.4, 0.5, 0.7)}
+        dev_runs = {thr: run_stitch(name, head, "dev", thr) for thr in args.thresholds}
         thr = max(dev_runs, key=lambda t: dev_runs[t]["summary"]["IDF1"])
         stitch[name] = {"threshold": thr, "dev": dev_runs[thr], "dev_grid": {str(t): r["summary"] for t, r in dev_runs.items()}, "test": run_stitch(name, head, "test", thr), "val7": run_stitch(name, head, "val7", thr)}
     for name, r in stitch.items():
