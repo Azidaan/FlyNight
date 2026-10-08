@@ -64,6 +64,9 @@ def losses(ch: list, probs: dict, thr: float) -> dict:
     return out
 
 
+FIXED = False   # --fixed (проверка влияния ошибки 09.10): признаки цепочки без повторов строк номера; выход — runs/chain_filter_rank_fixed
+
+
 def stage_rank() -> int:
     from sklearn.linear_model import LogisticRegression
     from sklearn.metrics import average_precision_score
@@ -83,7 +86,7 @@ def stage_rank() -> int:
     chains = {}
     for s in ("dev", "test", "val7"):
         meta = {v: (str(sr), str(rt), sp) for v, sr, rt, sp in S[s]}
-        tasks = [(d["video_id"], *meta[d["video_id"]], s, d["pairs"], pm.predict_proba(d["X"][:, idx])[:, 1], str(OUT / "repro" / s)) for d in data[s]]
+        tasks = [(d["video_id"], *meta[d["video_id"]], s, d["pairs"], pm.predict_proba(d["X"][:, idx])[:, 1], str(OUT / "repro" / s), FIXED) for d in data[s]]
         with ProcessPoolExecutor(max_workers=6) as pool:
             chains[s] = list(pool.map(chain_task, tasks))
         print(f"[CHAINS] {s}: видео {len(chains[s])}, цепочек {sum(len(c['label']) for c in chains[s])}", flush=True)
@@ -199,5 +202,7 @@ def stage_hota() -> int:
 
 
 if __name__ == "__main__":
-    ap_ = argparse.ArgumentParser(); ap_.add_argument("--hota", action="store_true")
-    raise SystemExit(stage_hota() if ap_.parse_args().hota else stage_rank())
+    ap_ = argparse.ArgumentParser(); ap_.add_argument("--hota", action="store_true"); ap_.add_argument("--fixed", action="store_true"); a_ = ap_.parse_args()
+    if a_.fixed:
+        FIXED = True; OUT = OUT.parent / (OUT.name + "_fixed")
+    raise SystemExit(stage_hota() if a_.hota else stage_rank())

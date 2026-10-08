@@ -8176,6 +8176,47 @@
      "locator": "pooled.all|lives.HOTA"
     }
    ]
+  },
+  {
+   "id": "chain_feature_dedup_check_v1",
+   "title": "Проверка влияния ошибки дублирования строк в признаках цепочки на выводы chain_filter_rank_v1",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-09",
+   "tags": [
+    "fly-problem-P1",
+    "tracker",
+    "detection"
+   ],
+   "summary": "Ошибка 09.10: в признаках цепочки (chain_task) строки трекера собирались по номеру для каждой жизни цепочки — номер с несколькими жизнями учтён несколько раз. Разбор автора: прежние результаты ограничены до проверки влияния. Здесь этап ранжирования chain_filter_rank повторяется с исправлением (строки внутри интервала каждой записи, --fixed, выход runs/chain_filter_rank_fixed) при том же всём остальном; сравнение AP и удаления при бюджете с прежними числами. Работа без выбора автора. scripts/chain_filter_rank.py --fixed.",
+   "question": "Меняет ли исправление дублирования строк выводы chain_filter_rank_v1 (муха ухудшает ранжирование цепочек на test/val7)?",
+   "hypothesis": "Средние и квантили почти не меняются — выводы сохраняются.",
+   "expected": "Диагностика: AP без мухи / с мухой и разность с ДИ на dev (вне обучения), test, val7 — исправленные против прежних (runs/chain_filter_rank/report_rank.json); вывод сохраняется, если знак и выход ДИ за 0 у разности «с мухой − без мухи» на test и val7 те же.",
+   "dataset": "BDD100K MOT train_cache dev 35 / test 35 + val7",
+   "baseline": "chain_filter_rank_v1 (с ошибкой)",
+   "variant": "исправленные признаки цепочки",
+   "commits": [],
+   "files": [
+    "scripts/chain_filter_head.py",
+    "scripts/chain_filter_rank.py"
+   ],
+   "runs": [
+    "runs/chain_filter_rank_fixed"
+   ],
+   "acceptance": [
+    {
+     "criterion": "вывод chain_filter_rank_v1 сохраняется: AP с мухой − без мухи на test и val7 — тот же знак, ДИ ниже 0",
+     "met": null
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/chain_filter_rank/report_rank.json",
+     "locator": "AP_diff",
+     "claim": "прежние числа"
+    }
+   ]
   }
  ],
  "manual_events": [

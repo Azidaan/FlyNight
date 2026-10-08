@@ -77,7 +77,8 @@ def chain_task(task):
     """Пересборка сшивки одного видео, состав цепочек, метки и признаки цепочек."""
     from scripts.eval_fly_reid import stitch_video
     from scripts.stitch_realness import life_features
-    vid, sig_dir, root, split, split_dir, pairs, probs, out_dir = task
+    vid, sig_dir, root, split, split_dir, pairs, probs, out_dir = task[:8]
+    by_interval = bool(task[8]) if len(task) > 8 else False   # исправление 09.10: строки трекера внутри интервала записи (без повторов номера)
     r = stitch_video((vid, sig_dir, root, split, pairs, probs, THR, out_dir))
     z = np.load(Path(sig_dir) / vid / "signatures.npz"); tids = z["track_id"].astype(int)
     parent = {}
@@ -102,14 +103,20 @@ def chain_task(task):
     chains = sorted(set(chain_of_life.tolist()))
     label = np.array([(1 if cnt[c]["tp"] == 0 and cnt[c]["fp"] > 0 else 0) if c in cnt and (cnt[c]["tp"] + cnt[c]["fp"]) > 0 else -1 for c in chains], np.int8)
     # признаки цепочки
-    lf = life_features(str(Path(sig_dir) / vid / "signatures.npz"))
+    lf = life_features(str(Path(sig_dir) / vid / "signatures.npz"), by_interval=by_interval)
     o = z["outputs"]; rows_of = {}
     for row in o:
         rows_of.setdefault(int(row[5]), []).append(row)
     F_nofly, F_fly = [], []
     for c in chains:
         L = np.nonzero(chain_of_life == c)[0]
-        R = np.concatenate([np.asarray(rows_of.get(int(tids[i]), []), np.float64).reshape(-1, 8) for i in L])
+        parts = []
+        for i in L:
+            Ri = np.asarray(rows_of.get(int(tids[i]), []), np.float64).reshape(-1, 8)
+            if by_interval:
+                Ri = Ri[(Ri[:, 0] >= int(z["start"][i])) & (Ri[:, 0] <= int(z["end"][i]))]
+            parts.append(Ri)
+        R = np.concatenate(parts)
         R = R[np.argsort(R[:, 0])]
         sc = R[:, 6] if len(R) else np.zeros(1)
         w = np.clip(R[:, 3] - R[:, 1], 1, None) if len(R) else np.ones(1); h = np.clip(R[:, 4] - R[:, 2], 1, None) if len(R) else np.ones(1)
