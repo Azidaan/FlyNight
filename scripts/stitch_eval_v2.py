@@ -92,21 +92,25 @@ def video_pairs(task):
     gap, dist = gapm[ia, ib].astype(np.float64), distm[ia, ib]
     geo = np.stack([gap / 30.0, dist, np.log(sb[ib] / sa[ia]), (S["cls"][ia] == S["cls"][ib]).astype(np.float64),
                     S["n_last"][ia].astype(np.float64) / 5, S["n_first"][ib].astype(np.float64) / 5], 1)
-    lt, ft = cn(S["last_thumb"]), cn(S["first_thumb"]); lx, fx = cn(S["last_hexin"]), cn(S["first_hexin"])
-    lf, ff = cn(S["last_fly"]), cn(S["first_fly"])                       # по типу: (n, 34, 19)
-    lfa, ffa = cn(S["last_fly"].reshape(n, -1)), cn(S["first_fly"].reshape(n, -1))
-    app = np.stack([(lt[ia] * ft[ib]).sum(1), np.abs(S["last_hist"][ia].astype(np.float64) - S["first_hist"][ib].astype(np.float64)).sum(1)], 1)
-    hx = (lx[ia] * fx[ib]).sum(1)[:, None]
-    per_t = (lf[ia] * ff[ib]).sum(-1)                                    # (m, 34)
-    fl = np.concatenate([(lfa[ia] * ffa[ib]).sum(1)[:, None]] + [per_t[:, list(r)].mean(1, keepdims=True) for r in GROUPS_OF_TYPES.values()], 1)
-    dn = (dz["last"].astype(np.float32)[ia] * dz["first"].astype(np.float32)[ib]).sum(1)[:, None]
-    ms = (mz["last"].astype(np.float32)[ia] * mz["first"].astype(np.float32)[ib]).sum(1)[:, None]
-    X = np.concatenate([geo, app, hx, fl, dn, ms], 1)
+    f32 = lambda x: cn(x).astype(np.float32)
+    lt, ft = f32(S["last_thumb"]), f32(S["first_thumb"]); lx, fx = f32(S["last_hexin"]), f32(S["first_hexin"])
+    lf, ff = f32(S["last_fly"]), f32(S["first_fly"])                       # по типу: (n, 34, 19)
+    lfa, ffa = f32(S["last_fly"].reshape(n, -1)), f32(S["first_fly"].reshape(n, -1))
+    dl, df_, ml, mf = (dz["last"].astype(np.float32), dz["first"].astype(np.float32), mz["last"].astype(np.float32), mz["first"].astype(np.float32))
+    lh, fh = S["last_hist"].astype(np.float32), S["first_hist"].astype(np.float32)
+    rest = np.zeros((len(ia), len(NAMES) - len(GEO)), np.float32)
+    for c in range(0, len(ia), 20000):   # порциями: на длинных видео ~10⁶ пар (OOM 08.10 при сборке целиком)
+        x, z_ = ia[c:c + 20000], ib[c:c + 20000]
+        per_t = (lf[x] * ff[z_]).sum(-1)
+        rest[c:c + 20000] = np.concatenate([(lt[x] * ft[z_]).sum(1)[:, None], np.abs(lh[x] - fh[z_]).sum(1)[:, None], (lx[x] * fx[z_]).sum(1)[:, None],
+                                            (lfa[x] * ffa[z_]).sum(1)[:, None]] + [per_t[:, list(r)].mean(1, keepdims=True) for r in GROUPS_OF_TYPES.values()]
+                                           + [(dl[x] * df_[z_]).sum(1)[:, None], (ml[x] * mf[z_]).sum(1)[:, None]], 1)
+    X = np.concatenate([geo.astype(np.float32), rest], 1)
     known = np.array([end_gt[a] is not None and start_gt[b] is not None for a, b in zip(ia, ib)], bool)
     same = np.array([end_gt[a] == start_gt[b] for a, b in zip(ia, ib)], bool)
     y = np.where(known, same.astype(np.int8), -1).astype(np.int8)
     feats, labels, meta = X, y, np.stack([ia, ib], 1)
-    return {"video_id": vid, "X": np.asarray(feats, np.float64).reshape(-1, len(NAMES)), "y": np.asarray(labels, np.int8), "pairs": np.asarray(meta, np.int32).reshape(-1, 2)}
+    return {"video_id": vid, "X": np.asarray(feats, np.float32).reshape(-1, len(NAMES)), "y": np.asarray(labels, np.int8), "pairs": np.asarray(meta, np.int32).reshape(-1, 2)}
 
 
 def main() -> int:
