@@ -146,7 +146,7 @@ def stitch_video(task: tuple) -> dict:
     for r in outputs:
         frames_of.setdefault(int(r[5]), set()).add(int(r[0]))
     order = np.argsort(-probs) if len(probs) else []
-    used_a, used_b, parent = set(), set(), {}
+    used_a, used_b, parent, accepted = set(), set(), {}, []
     def root_of(t):
         seen = set()
         while t in parent and t not in seen:
@@ -162,7 +162,7 @@ def stitch_video(task: tuple) -> dict:
             continue
         if merged.get(ra, set()) & merged.get(rb, set()):
             continue  # у цепочек есть общие кадры (трекер позже сам восстановил трек) — одна рамка на ID в кадре
-        used_a.add(a); used_b.add(b); parent[rb] = ra
+        used_a.add(a); used_b.add(b); parent[rb] = ra; accepted.append(int(k))
         merged[ra] = merged.get(ra, set()) | merged.pop(rb, set())
     matches = json.loads((Path(root) / video_id / "alignment.json").read_text(encoding="utf-8"))["matches"]
     truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / label_split / f"{video_id}.json").read_text(encoding="utf-8"))
@@ -179,7 +179,7 @@ def stitch_video(task: tuple) -> dict:
     result_dir.mkdir(parents=True, exist_ok=True)
     save_json(result_dir / f"{video_id}.json", rows)
     metrics = evaluate_hota(result_dir, [video_id], split=label_split)
-    return {"video_id": video_id, "links": len(parent), "metrics": {k: metrics.get(k) for k in ("HOTA", "IDF1", "AssA", "IDSw")}}
+    return {"video_id": video_id, "links": len(parent), "accepted": accepted, "metrics": {k: metrics.get(k) for k in ("HOTA", "IDF1", "AssA", "IDSw")}}
 
 
 def fit(X: np.ndarray, y: np.ndarray, cols: list[int]):

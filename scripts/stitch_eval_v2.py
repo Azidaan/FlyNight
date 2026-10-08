@@ -109,8 +109,20 @@ def video_pairs(task):
     known = np.array([end_gt[a] is not None and start_gt[b] is not None for a, b in zip(ia, ib)], bool)
     same = np.array([end_gt[a] == start_gt[b] for a, b in zip(ia, ib)], bool)
     y = np.where(known, same.astype(np.int8), -1).astype(np.int8)
+    ka = np.array([g is not None for g in end_gt], bool); kb = np.array([g is not None for g in start_gt], bool)
+    kind = (~ka[ia]).astype(np.int8) + 2 * (~kb[ib]).astype(np.int8)   # 0 — оба конца с эталоном, 1 — нет у конца A, 2 — нет у начала B, 3 — ни у одного
     feats, labels, meta = X, y, np.stack([ia, ib], 1)
-    return {"video_id": vid, "X": np.asarray(feats, np.float32).reshape(-1, len(NAMES)), "y": np.asarray(labels, np.int8), "pairs": np.asarray(meta, np.int32).reshape(-1, 2)}
+    return {"video_id": vid, "X": np.asarray(feats, np.float32).reshape(-1, len(NAMES)), "y": np.asarray(labels, np.int8), "pairs": np.asarray(meta, np.int32).reshape(-1, 2), "kind": kind,
+            "life_known": np.stack([ka, kb], 1)}
+
+
+def cached_pairs(task):
+    """video_pairs с кэшем на диске (runs/stitch_v2/gap<G>_dist<D>/cache/<id>.npz) — для диагностик и замен узла без пересборки."""
+    c = OUT / f"gap{WIN['gap']}_dist{WIN['dist']:g}" / "cache" / f"{task[0]}.npz"
+    if c.exists():
+        z = np.load(c); return {"video_id": task[0], **{k: z[k] for k in z.files}}
+    d = video_pairs(task); c.parent.mkdir(parents=True, exist_ok=True)
+    np.savez(c, **{k: v for k, v in d.items() if k != "video_id"}); return d
 
 
 def global_pairs(pairs: np.ndarray, probs: np.ndarray, thr: float) -> np.ndarray:
