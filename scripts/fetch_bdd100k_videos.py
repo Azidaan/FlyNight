@@ -37,6 +37,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--retries", type=int, default=6)
     parser.add_argument("--workers", type=int, default=6)
+    parser.add_argument("--ids-file", type=Path, default=None, help="JSON со списками ID (все строковые списки объединяются) — скачать только их (life_filter_newval_v1)")
     return parser.parse_args()
 
 
@@ -94,6 +95,10 @@ def file_ok(path: Path, entry: Entry) -> bool:
 def main() -> int:
     args = parse_args()
     ids = sorted(p.stem for p in (args.labels / args.split).glob("*.json"))
+    if args.ids_file:
+        spec = json.loads(args.ids_file.read_text(encoding="utf-8"))
+        wanted = {v for val in spec.values() if isinstance(val, list) for v in val if isinstance(v, str)}
+        ids = [i for i in ids if i in wanted]
     if args.limit:
         ids = ids[: args.limit]
     size = http_size(args.url)

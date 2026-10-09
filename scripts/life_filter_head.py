@@ -35,7 +35,8 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 OUT = PROJECT_ROOT / "runs/life_filter_head"
 SRC = {"train": PROJECT_ROOT / "runs/chain_filter_train130/repro/train", "dev": PROJECT_ROOT / "runs/chain_filter_rank/repro/dev",
-       "test": PROJECT_ROOT / "runs/chain_filter_rank/repro/test", "val7": PROJECT_ROOT / "runs/chain_filter_rank/repro/val7"}
+       "test": PROJECT_ROOT / "runs/chain_filter_rank/repro/test", "val7": PROJECT_ROOT / "runs/chain_filter_rank/repro/val7",
+       "newval": PROJECT_ROOT / "runs/newval_eval/stitched"}   # life_filter_newval_v1
 GRID = [round(x, 2) for x in np.arange(0.05, 0.96, 0.05)]
 KEYS = ("HOTA", "DetA", "AssA", "CLR_TP", "CLR_FP", "CLR_FN")
 

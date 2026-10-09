@@ -51,9 +51,16 @@ def main() -> int:
     sel = json.loads((PROJECT_ROOT / "runs/train_cache/selection.json").read_text(encoding="utf-8"))["videos"]
     jobs = [(v, PROJECT_ROOT / "runs/fly_signatures", PROJECT_ROOT / "data/bdd100k/videos/train") for s in ("train", "dev", "test") for v in sel[s]]
     jobs += [(v, PROJECT_ROOT / "runs/fly_signatures_val", PROJECT_ROOT / "data/bdd100k/videos/val") for v in VAL7]
+    import argparse
+    ap_ = argparse.ArgumentParser(); ap_.add_argument("--ids-json", type=Path, default=None, help="JSON с ключом videos — только эти видео (life_filter_newval_v1)")
+    ap_.add_argument("--sig-root", type=Path, default=None); ap_.add_argument("--videos-dir", type=Path, default=None); ap_.add_argument("--out", type=Path, default=None); a_ = ap_.parse_args()
+    if a_.ids_json:
+        jobs = [(v, a_.sig_root, a_.videos_dir) for v in json.loads(a_.ids_json.read_text(encoding="utf-8"))["videos"]]
+    out_dir = a_.out or OUT
+    out_dir.mkdir(parents=True, exist_ok=True)
     t0 = time.time()
     for i, (v, sig, vdir) in enumerate(jobs):
-        out = OUT / f"{v}.npz"
+        out = out_dir / f"{v}.npz"
         if out.exists() or not (sig / v / "signatures.npz").exists():
             continue
         z = np.load(sig / v / "signatures.npz")

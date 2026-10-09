@@ -51,7 +51,7 @@ def video_pairs(task):
     from scripts.evaluate_flyvis_qmatch_gate import truth_arrays
     from tracking.flyvis_tracker import box_iou
     z = np.load(Path(sig_dir) / vid / "signatures.npz"); S = {k: z[k] for k in z.files}
-    dz = np.load(PROJECT_ROOT / "runs/dino_embeddings" / f"{vid}.npz"); mz = np.load(PROJECT_ROOT / "runs/masa_embeddings" / f"{vid}.npz") if WIN["masa"] else {"first": np.zeros((len(S["track_id"]), 1), np.float32), "last": np.zeros((len(S["track_id"]), 1), np.float32)}
+    dz = np.load(Path(WIN.get("dino_dir", PROJECT_ROOT / "runs/dino_embeddings")) / f"{vid}.npz"); mz = np.load(Path(WIN.get("masa_dir", PROJECT_ROOT / "runs/masa_embeddings")) / f"{vid}.npz") if WIN["masa"] else {"first": np.zeros((len(S["track_id"]), 1), np.float32), "last": np.zeros((len(S["track_id"]), 1), np.float32)}
     outputs = S["outputs"]
     matches = json.loads((Path(root) / vid / "alignment.json").read_text(encoding="utf-8"))["matches"]
     ref_of_raw = {int(m["video_frame_index"]): i for i, m in enumerate(matches)}
@@ -232,3 +232,9 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+def _set_dirs(g, d, dino_dir, masa_dir):
+    """Инициализатор для новых наборов (life_filter_newval_v1): окно и папки эмбеддингов."""
+    WIN["gap"], WIN["dist"], WIN["masa"] = g, d, True
+    WIN["dino_dir"], WIN["masa_dir"] = dino_dir, masa_dir
