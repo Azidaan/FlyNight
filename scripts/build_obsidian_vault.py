@@ -271,6 +271,11 @@ def main() -> int:
         for f, lbl in FIELDS:
             if e.get(f):
                 body += f"## {lbl}\n{L(e[f], src)}\n\n"
+        if e.get("revisions"):   # правило автора 10.10: прежний текст исправленных полей не удаляется
+            lbl_of = dict(FIELDS + [("summary", "Суть")])
+            body += "## Прежние версии (до исправлений)\n" + "".join(
+                f"- **{lbl_of.get(r.get('field'), r.get('field'))}**, {r.get('date', '')} ({r.get('commit', '')}) — {L(r.get('reason', ''), src)}\n  > {L(r.get('old', ''), src)}\n"
+                for r in e["revisions"]) + "\n"
         cond = [(k, e.get(k)) for k in ("baseline", "variant", "dataset", "split", "detector", "tracker", "seeds", "checkpoint") if e.get(k)]
         if cond:
             body += "## Условия\n" + "".join(f"- **{k}:** {L(str(v), src)}\n" for k, v in cond) + "\n"
