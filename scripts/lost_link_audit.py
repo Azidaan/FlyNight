@@ -69,6 +69,7 @@ def video(task):
 
     def relabel(sel, tag):
         parent = {}
+        max_id = max((int(l["id"]) for fr in res for l in (fr.get("labels") or [])), default=0)
 
         def root_of(x):
             while x in parent:
@@ -83,8 +84,10 @@ def video(task):
             seen, labs = set(), []
             for l in fr.get("labels") or []:
                 nid = root_of(str(l["id"]))
-                if nid in seen:
-                    nid = str(l["id"]); conf += 1
+                if nid in seen:   # конфликт после слияния цепочкой связей — рамке новый уникальный номер (свой может быть уже занят)
+                    # целые номера — требование TrackEval; сразу за наибольшим номером видео (огромный номер заставляет TrackEval
+                    # строить таблицу длиной в номер — 6,7 ГБ памяти на процесс, сбой 11.10)
+                    nid = str(l["id"]) if str(l["id"]) not in seen else str(max_id + 1 + conf); conf += 1
                 seen.add(nid); labs.append({**l, "id": nid})
             rows.append({**fr, "labels": labs})
         d = OUT / tag; d.mkdir(parents=True, exist_ok=True); save_json(d / f"{vid}.json", rows)
@@ -103,7 +106,7 @@ def main() -> int:
     from scripts.fly_lifecycle_alive import sets
     OUT.mkdir(parents=True, exist_ok=True)
     S = sets(PROJECT_ROOT / "runs/fly_signatures", PROJECT_ROOT / "runs/fly_signatures_val")
-    with ProcessPoolExecutor(max_workers=6) as pool:
+    with ProcessPoolExecutor(max_workers=4) as pool:
         per = {r["video_id"]: r for r in pool.map(video, [(v, str(rt), sp) for v, sr, rt, sp in S["dev"]])}
     vids = list(per); split = S["dev"][0][3]
     attrs = load_video_attributes(str(PROJECT_ROOT / f"data/bdd100k/labels/bdd100k_labels_images_{split}.json"))
