@@ -61,7 +61,9 @@ def show():
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(); ap.add_argument("--watch", type=int, default=0); a = ap.parse_args()
     while True:
+        if a.watch:
+            print("[2J[H", end="")   # очистить окно — одна полоса, перерисовка на месте
         show()
         if not a.watch:
             break
-        time.sleep(a.watch); print()
+        time.sleep(a.watch)
