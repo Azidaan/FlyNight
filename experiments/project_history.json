@@ -9122,6 +9122,48 @@
      "locator": "pooled.links_long|all.HOTA"
     }
    ]
+  },
+  {
+   "id": "buffer_extend_v1",
+   "title": "Буфер потерянного трека 30 против 150 кадров без мухи, та же сшивка MASA (А1, шаг после аудита запаса связей)",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-11",
+   "tags": [
+    "fly-problem-P1",
+    "tracker",
+    "association"
+   ],
+   "summary": "Порядок автора 11.10: после lost_link_audit_v1 (запас связей +1,33 HOTA, 401 разрыв > 30 кадров) — отдельно сравнить буфер 30 против фиксированного большего буфера без мухи с повторным прогоном и той же MASA. Буфер 150 кадров (= окно сшивки; 219 из 323 допустимых длинных разрывов — в окне) задан до прогона. Сигнатуры dev с буфером 150 (scripts/build_fly_signatures.py --track-buffer 150 → runs/fly_signatures_buf150), эмбеддинги DINO и MASA заново; сшивка «база + MASA» (окно 150; 5, порог 0,6), голова пары — обученная на train 130 с буфером 30 (оговорка: жизни dev при буфере 150 могут распределяться иначе). Сверка со стендом: с --track-buffer 30 на 019efe88-bbc2a4ac выход трекера, рамки, миниатюры, гистограммы и вход глаза совпадают точно; сигнатуры мухи — до 0,002 (округление fp16 на GPU). scripts/buffer_extend_eval.py.",
+   "question": "Даёт ли больший буфер потерянного трека (150 кадров) прирост HOTA выхода после MASA без мухи?",
+   "hypothesis": "Больший буфер восстанавливает часть длинных разрывов и поднимает AssA и HOTA.",
+   "expected": "Критерий (до прогона): dev, HOTA выхода после MASA при буфере 150 − при буфере 30 по видео > 0, ДИ > 0. При выполнении — новая метка для срока > 30 кадров и парное сравнение голов с мухой и без; при невыполнении — А1 остановить. Справочно: без сшивки, число оставшихся длинных разрывов, ночь.",
+   "dataset": "BDD100K MOT train_cache dev 35",
+   "baseline": "буфер 30 (стенд), выход после MASA",
+   "variant": "буфер 150, выход после MASA",
+   "commits": [],
+   "files": [
+    "scripts/buffer_extend_eval.py",
+    "scripts/build_fly_signatures.py"
+   ],
+   "runs": [
+    "runs/buffer_extend",
+    "runs/fly_signatures_buf150"
+   ],
+   "acceptance": [
+    {
+     "criterion": "dev: HOTA после MASA буфер 150 − буфер 30 по видео > 0, ДИ > 0",
+     "met": null
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/lost_link_audit/report.json",
+     "locator": "counts, pooled",
+     "claim": "запас связей длинных разрывов"
+    }
+   ]
   }
  ],
  "manual_events": [

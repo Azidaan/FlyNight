@@ -53,6 +53,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--rewire-seed", type=int, default=0)
     parser.add_argument("--model", default="flow/0000/000", help="модель ансамбля FlyVis (Д5: проверка выводов на нескольких моделях)")
     parser.add_argument("--connectome-json", type=Path, default=None, help="К16-1: файл связей варианта (tracking/flyvis_connectome_swap.py); обученные параметры — из --model")
+    parser.add_argument("--track-buffer", type=int, default=None, help="buffer_extend_v1: буфер трекера (кадров) вместо стенда (XYWH_CONFIG, 30)")
     # совместимость с run_fovea_jobs.py (эти флаги ему передаются всегда)
     parser.add_argument("--decode-flow", action="store_true")
     parser.add_argument("--gpu-mem-fraction", type=float, default=0.0)
@@ -125,7 +126,8 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
     cells = macro_cells(bank.points_local)
     onehot = np.zeros((721, MACRO), np.float32); onehot[np.arange(721), cells] = 1.0; onehot /= onehot.sum(axis=0, keepdims=True)
     BaseTrack.reset_id()
-    tracker = XYWHByteTrack(make_tracker_args(**XYWH_CONFIG))
+    cfg = dict(XYWH_CONFIG, **({"track_buffer": args.track_buffer} if args.track_buffer else {}))
+    tracker = XYWHByteTrack(make_tracker_args(**cfg))
     capture = cv2.VideoCapture(str(args.videos / f"{video_id}.mov"))
     segments: dict[int, Segment] = {}
     done: list[Segment] = []
