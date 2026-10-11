@@ -76,10 +76,16 @@ def boot(d, rng):
     return {"mean_per_video": float(d.mean()), "ci95": [float(np.quantile(bs, .025)), float(np.quantile(bs, .975))], "better": int((d > 0).sum()), "n": len(d)}
 
 
+FULL: dict = {}   # полный ответ apply_task по видео (HOTA, DetA, AssA, CLR_TP/FP/FN, IDSw, потеряно / найдено) — дописано 11.10 до этапа голов, только запись
+
+
 def hota(vids, probs, thr, tag):
     tasks = [(c["video_id"], c["sig_dir"], c["root"], c["split"], c["set"], (np.nonzero(probs[c["video_id"]] > thr)[0] if thr is not None else []), str(OUT / "filtered" / tag / c["set"]), True) for c in vids]
     with ProcessPoolExecutor(max_workers=6) as pool:
-        return {r["video_id"]: r["metrics"]["HOTA"] for r in pool.map(apply_task, tasks)}
+        res = list(pool.map(apply_task, tasks))
+    FULL[tag] = {r["video_id"]: r for r in res}
+    (OUT / "full_metrics.json").write_text(json.dumps(FULL, ensure_ascii=False, indent=1), encoding="utf-8")
+    return {r["video_id"]: r["metrics"]["HOTA"] for r in res}   # критерии — по тому же полю HOTA
 
 
 def main() -> int:
@@ -134,6 +140,13 @@ def main() -> int:
         pickle.dump(m, open(OUT / f"final_{var}.pkl", "wb"))
         pdev[var] = {c["video_id"]: m.predict_proba(feats(c, T)[var])[:, 1] for c in dv}
     np.savez_compressed(OUT / "probs.npz", **{f"oof_{var}|{v}": p for var, d in probs.items() for v, p in d.items()}, **{f"dev_{var}|{v}": p for var, d in pdev.items() for v, p in d.items()})
+    removed = []   # таблица выбранных удалений dev: какая голова убрала жизнь, её метка и рамки
+    for c in dv:
+        sel = {var: (pdev[var][c["video_id"]] > rep["chosen"][var]) if rep["chosen"][var] is not None else np.zeros(len(c["label"]), bool) for var in ("nofly", "fly")}
+        for i in np.nonzero(sel["nofly"] | sel["fly"])[0]:
+            removed.append({"video_id": c["video_id"], "life": int(i), "label": int(c["label"][i]), "n_tp": int(c["n_tp"][i]), "n_fp": int(c["n_fp"][i]),
+                            "nofly": bool(sel["nofly"][i]), "fly": bool(sel["fly"][i]), "p_nofly": float(pdev["nofly"][c["video_id"]][i]), "p_fly": float(pdev["fly"][c["video_id"]][i])})
+    (OUT / "dev_removed.json").write_text(json.dumps(removed, ensure_ascii=False), encoding="utf-8")
     H = {"none": hota(dv, {}, None, "dev_none")}
     for var in ("nofly", "fly"):
         H[var] = hota(dv, pdev[var], rep["chosen"][var], f"dev_{var}") if rep["chosen"][var] is not None else dict(H["none"])
