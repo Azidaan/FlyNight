@@ -30,6 +30,23 @@ sys.path.insert(0, str(PROJECT_ROOT))
 FRAME = (1280, 720)
 
 
+def fit_gain(rows: np.ndarray) -> dict:
+    """МНК g по приращениям за кадр: поток глаза меряет движение за один кадр, а поправка накапливается в прогнозе,
+    поэтому цель — изменение смещения «своя детекция − прогноз» между соседними кадрами одного потерянного трека
+    (строки: кадр, трек, сырой поток x, y, смещение x, y, w, h)."""
+    X, Y = [], []
+    rows = rows[np.lexsort((rows[:, 0], rows[:, 1]))]
+    for a_, b_ in zip(rows[:-1], rows[1:]):
+        if a_[1] == b_[1] and b_[0] == a_[0] + 1:
+            X.append(b_[2:4]); Y.append(b_[4:6] - a_[4:6])
+    X, Y = np.asarray(X), np.asarray(Y)
+    if not len(X):
+        return {"g": 0.0, "n": 0}
+    g = float((X * Y).sum() / max((X * X).sum(), 1e-12))
+    return {"g": g, "n": len(X), "corr_x": float(np.corrcoef(X[:, 0], Y[:, 0])[0, 1]), "corr_y": float(np.corrcoef(X[:, 1], Y[:, 1])[0, 1]),
+            "median_inc": float(np.median(np.linalg.norm(Y, axis=1))), "median_inc_after_g": float(np.median(np.linalg.norm(Y - g * X, axis=1))), "median_raw": float(np.median(np.linalg.norm(X, axis=1)))}
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--variant", choices=("carry", "reinit"), required=True)
@@ -121,7 +138,7 @@ def main() -> int:
                     if g_ == own[tid] and conf[j] >= 0.25:
                         c = (np.asarray(xyxy[j][:2]) + np.asarray(xyxy[j][2:])) / 2
                         if x1 <= c[0] <= x2 and y1 <= c[1] <= y2:
-                            fit_rows.append([raw[0], raw[1], c[0] - cx, c[1] - cy, w, h])
+                            fit_rows.append([f, tid, raw[0], raw[1], c[0] - cx, c[1] - cy, w, h])   # смещение «своя детекция − прогноз»; цель подбора — его приращение за кадр (fit_gain)
                         break
             d = a.g * raw; lim = 0.5 * max(w, h); nrm = float(np.linalg.norm(d))
             if nrm > lim:
@@ -156,7 +173,7 @@ def main() -> int:
     a.out.mkdir(parents=True, exist_ok=True)
     stats["seconds"] = time.perf_counter() - t0
     if a.fit:
-        np.save(a.out / f"{vid}_fit.npy", np.asarray(fit_rows, np.float32).reshape(-1, 6))
+        np.save(a.out / f"{vid}_fit.npy", np.asarray(fit_rows, np.float64).reshape(-1, 8))
     else:
         matches = json.loads((a.root / vid / "alignment.json").read_text(encoding="utf-8"))["matches"]
         truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / a.split / f"{vid}.json").read_text(encoding="utf-8"))
