@@ -63,14 +63,9 @@ def merge_ids(res, sel):
     return rows, conf
 
 
-def video(task):
-    from evaluation.hota_eval import evaluate_hota
+def find_breaks(res, gt, vf):
+    """Разрывы номера для объектов разметки (см. описание модуля). Возвращает (разрывы, число объектов с попаданиями)."""
     from scripts.chain_filter_head import classify_ids
-    from scripts.run_bdd_video_rate_experiment import save_json
-    vid, root, split = task
-    res = json.loads((SRC / f"{vid}.json").read_text(encoding="utf-8"))
-    gt = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / split / f"{vid}.json").read_text(encoding="utf-8"))
-    vf = [int(m["video_frame_index"]) for m in json.loads((Path(root) / vid / "alignment.json").read_text(encoding="utf-8"))["matches"]]
     tags = classify_ids(res, gt)
     frames_of = {}
     seq = {}
@@ -91,8 +86,20 @@ def video(task):
             size = np.sqrt(max((ba[2] - ba[0]) * (ba[3] - ba[1]), 1.0))
             dist = float(np.linalg.norm((ba[:2] + ba[2:]) / 2 - (bb[:2] + bb[2:]) / 2) / size)
             breaks.append({"gt": g, "old": a[2], "new": b[2], "gap": int(gap), "legal": bool(legal), "dist": dist,
-                           "long": gap > LONG, "window": bool(legal and gap > LONG and gap <= WIN_GAP and dist <= WIN_DIST)})
-    out = {"video_id": vid, "breaks": breaks, "objects": len(seq), "metrics": {}, "conflicts": {}}
+                           "long": gap > LONG, "window": bool(legal and gap > LONG and gap <= WIN_GAP and dist <= WIN_DIST),
+                           "size": float(size)})
+    return breaks, len(seq)
+
+
+def video(task):
+    from evaluation.hota_eval import evaluate_hota
+    from scripts.run_bdd_video_rate_experiment import save_json
+    vid, root, split = task
+    res = json.loads((SRC / f"{vid}.json").read_text(encoding="utf-8"))
+    gt = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / split / f"{vid}.json").read_text(encoding="utf-8"))
+    vf = [int(m["video_frame_index"]) for m in json.loads((Path(root) / vid / "alignment.json").read_text(encoding="utf-8"))["matches"]]
+    breaks, n_obj = find_breaks(res, gt, vf)
+    out = {"video_id": vid, "breaks": breaks, "objects": n_obj, "metrics": {}, "conflicts": {}}
 
     def relabel(sel, tag):
         rows, conf = merge_ids(res, sel)
