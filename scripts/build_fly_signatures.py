@@ -37,6 +37,7 @@ from tracking.retina import make_retina  # noqa: E402
 
 K = 5
 MACRO = 19
+HIST_MAX = 32   # life_fly_history_v1: шагов истории на жизнь (равномерное прореживание длинных жизней)
 
 
 def parse_args() -> argparse.Namespace:
@@ -54,6 +55,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model", default="flow/0000/000", help="модель ансамбля FlyVis (Д5: проверка выводов на нескольких моделях)")
     parser.add_argument("--connectome-json", type=Path, default=None, help="К16-1: файл связей варианта (tracking/flyvis_connectome_swap.py); обученные параметры — из --model")
     parser.add_argument("--track-buffer", type=int, default=None, help="buffer_extend_v1: буфер трекера (кадров) вместо стенда (XYWH_CONFIG, 30)")
+    parser.add_argument("--history", action="store_true", help="life_fly_history_v1: история измерений жизни по шагам (≤ HIST_MAX, равномерно) в history.npz")
     # совместимость с run_fovea_jobs.py (эти флаги ему передаются всегда)
     parser.add_argument("--decode-flow", action="store_true")
     parser.add_argument("--gpu-mem-fraction", type=float, default=0.0)
@@ -90,8 +92,11 @@ class Segment:
         self.last: deque = deque(maxlen=K)
         self.end = start
         self.first_box = self.last_box = None
+        self.items: list | None = None   # история по шагам (только с --history)
 
     def add(self, frame: int, box: np.ndarray, item: tuple) -> None:
+        if self.items is not None:
+            self.items.append(tuple(np.asarray(x, np.float16) for x in item))
         if len(self.first) < K:
             self.first.append(item)
             if self.first_box is None:
@@ -167,6 +172,8 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
                 if tid in segments and segments[tid].first:
                     done.append(segments[tid])
                 segments[tid] = Segment(tid, frame_index, int(t.cls))
+                if args.history:
+                    segments[tid].items = []
         lost = set(bank.track_ids) - current
         for tid in lost:
             if tid in segments and segments[tid].first:
@@ -194,6 +201,13 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         **{f"first_{n}": np.stack([f[k] for f in firsts]).astype(np.float16) for k, n in enumerate(("fly", "hexin", "thumb", "hist"))},
         **{f"last_{n}": np.stack([f[k] for f in lasts]).astype(np.float16) for k, n in enumerate(("fly", "hexin", "thumb", "hist"))},
         outputs=np.concatenate(outputs) if outputs else np.zeros((0, 8), np.float32), frame_count=np.asarray(frame_index))
+    if args.history:   # в том же порядке жизней, что signatures.npz; маркер завершения — history.npz
+        offsets, picked = [0], []
+        for s in done:
+            n = len(s.items); idx = np.unique(np.round(np.linspace(0, n - 1, min(n, HIST_MAX))).astype(int)) if n else np.zeros(0, int)
+            picked += [s.items[i] for i in idx]; offsets.append(offsets[-1] + len(idx))
+        np.savez_compressed(args.output / video_id / "history.npz", offsets=np.asarray(offsets, np.int64), n_steps=np.asarray([len(s.items) for s in done], np.int32),
+                            **{f"h_{n}": (np.stack([p[k] for p in picked]) if picked else np.zeros((0,), np.float16)) for k, n in enumerate(("fly", "hexin", "thumb", "hist"))})
     save_json(args.output / video_id / "signatures.json", {"video_id": video_id, "frames": frame_index, "lives": len(done), "retina": retina.describe(), "macro_cells": MACRO, "K": K, "rewire": rewire_info, "seconds": time.perf_counter() - t0})
     print(f"[OK] {video_id}: {frame_index} кадров, {len(done)} жизней глаз, {1000 * (time.perf_counter() - t0) / max(frame_index, 1):.0f} мс/кадр", flush=True)
     return {}
