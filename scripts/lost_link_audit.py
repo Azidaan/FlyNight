@@ -36,6 +36,33 @@ LONG, WIN_GAP, WIN_DIST = 30, 150, 5.0
 KEYS = ("HOTA", "DetA", "AssA", "IDF1", "IDSw")
 
 
+def merge_ids(res, sel):
+    """Слияние номеров выхода по выбранным разрывам (union-find). Возвращает (кадры с новыми номерами, число конфликтов)."""
+    parent = {}
+    max_id = max((int(l["id"]) for fr in res for l in (fr.get("labels") or [])), default=0)
+
+    def root_of(x):
+        while x in parent:
+            x = parent[x]
+        return x
+    for b in sel:
+        ro, rn = root_of(b["old"]), root_of(b["new"])
+        if ro != rn:
+            parent[rn] = ro
+    rows, conf = [], 0
+    for fr in res:
+        seen, labs = set(), []
+        for l in fr.get("labels") or []:
+            nid = root_of(str(l["id"]))
+            if nid in seen:   # конфликт после слияния цепочкой связей — рамке новый уникальный номер (свой может быть уже занят)
+                # целые номера — требование TrackEval; сразу за наибольшим номером видео (огромный номер заставляет TrackEval
+                # строить таблицу длиной в номер — 6,7 ГБ памяти на процесс, сбой 11.10)
+                nid = str(l["id"]) if str(l["id"]) not in seen else str(max_id + 1 + conf); conf += 1
+            seen.add(nid); labs.append({**l, "id": nid})
+        rows.append({**fr, "labels": labs})
+    return rows, conf
+
+
 def video(task):
     from evaluation.hota_eval import evaluate_hota
     from scripts.chain_filter_head import classify_ids
@@ -68,28 +95,7 @@ def video(task):
     out = {"video_id": vid, "breaks": breaks, "objects": len(seq), "metrics": {}, "conflicts": {}}
 
     def relabel(sel, tag):
-        parent = {}
-        max_id = max((int(l["id"]) for fr in res for l in (fr.get("labels") or [])), default=0)
-
-        def root_of(x):
-            while x in parent:
-                x = parent[x]
-            return x
-        for b in sel:
-            ro, rn = root_of(b["old"]), root_of(b["new"])
-            if ro != rn:
-                parent[rn] = ro
-        rows, conf = [], 0
-        for fr in res:
-            seen, labs = set(), []
-            for l in fr.get("labels") or []:
-                nid = root_of(str(l["id"]))
-                if nid in seen:   # конфликт после слияния цепочкой связей — рамке новый уникальный номер (свой может быть уже занят)
-                    # целые номера — требование TrackEval; сразу за наибольшим номером видео (огромный номер заставляет TrackEval
-                    # строить таблицу длиной в номер — 6,7 ГБ памяти на процесс, сбой 11.10)
-                    nid = str(l["id"]) if str(l["id"]) not in seen else str(max_id + 1 + conf); conf += 1
-                seen.add(nid); labs.append({**l, "id": nid})
-            rows.append({**fr, "labels": labs})
+        rows, conf = merge_ids(res, sel)
         d = OUT / tag; d.mkdir(parents=True, exist_ok=True); save_json(d / f"{vid}.json", rows)
         m = evaluate_hota(d, [vid], split=split)
         out["metrics"][tag] = {k: m.get(k) for k in KEYS}; out["conflicts"][tag] = conf

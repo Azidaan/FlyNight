@@ -60,6 +60,11 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def tracker_config(track_buffer: int | None) -> dict:
+    """Настройки трекера стенда; buffer_extend_v1 — свой буфер потерянного трека (None или 0 — стенд, 30)."""
+    return dict(XYWH_CONFIG, **({"track_buffer": track_buffer} if track_buffer else {}))
+
+
 def macro_cells(points: np.ndarray) -> np.ndarray:
     from sklearn.cluster import KMeans
 
@@ -126,8 +131,7 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
     cells = macro_cells(bank.points_local)
     onehot = np.zeros((721, MACRO), np.float32); onehot[np.arange(721), cells] = 1.0; onehot /= onehot.sum(axis=0, keepdims=True)
     BaseTrack.reset_id()
-    cfg = dict(XYWH_CONFIG, **({"track_buffer": args.track_buffer} if args.track_buffer else {}))
-    tracker = XYWHByteTrack(make_tracker_args(**cfg))
+    tracker = XYWHByteTrack(make_tracker_args(**tracker_config(args.track_buffer)))
     capture = cv2.VideoCapture(str(args.videos / f"{video_id}.mov"))
     segments: dict[int, Segment] = {}
     done: list[Segment] = []

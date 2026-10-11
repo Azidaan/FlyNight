@@ -25,14 +25,10 @@ def git(*a) -> str:
     return subprocess.run(["git", *a], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", check=True).stdout
 
 
-def main() -> int:
-    commits = [l.split(" ", 1) for l in git("log", "--reverse", "--format=%h %ad", "--date=short", "--", CAT).splitlines()]
-    seen: dict[tuple, list] = {}       # (id, field) -> [(commit, date, value)] — значения после итогового состояния
-    for h, date in commits:
-        try:
-            cat = json.loads(git("show", f"{h}:{CAT}"))
-        except Exception:
-            continue
+def collect(snapshots) -> dict:
+    """snapshots: [(commit, date, catalog)] по времени. Возвращает (id, field) -> [(commit, date, value)] после итога."""
+    seen: dict[tuple, list] = {}
+    for h, date, cat in snapshots:
         for e in cat.get("experiments", []):
             if e.get("state") not in FINAL:
                 continue
@@ -43,7 +39,11 @@ def main() -> int:
                 lst = seen.setdefault((e["id"], f), [])
                 if not lst or lst[-1][2] != v:
                     lst.append((h, date, v))
-    cur = json.loads((ROOT / CAT).read_text(encoding="utf-8"))
+    return seen
+
+
+def add_revisions(cur: dict, seen: dict) -> int:
+    """Добавить в revisions[] карточек тексты, заменённые после итога (без повторов). Возвращает число добавленных."""
     added = 0
     for e in cur["experiments"]:
         revs = e.setdefault("revisions", [])
@@ -60,6 +60,20 @@ def main() -> int:
                 known.add((f, v)); added += 1
         if not revs:
             e.pop("revisions")
+    return added
+
+
+def main() -> int:
+    commits = [l.split(" ", 1) for l in git("log", "--reverse", "--format=%h %ad", "--date=short", "--", CAT).splitlines()]
+    snaps = []
+    for h, date in commits:
+        try:
+            snaps.append((h, date, json.loads(git("show", f"{h}:{CAT}"))))
+        except Exception:
+            continue
+    seen = collect(snaps)
+    cur = json.loads((ROOT / CAT).read_text(encoding="utf-8"))
+    added = add_revisions(cur, seen)
     (ROOT / CAT).write_text(json.dumps(cur, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"[OK] восстановлено прежних версий: {added}; карточек с прежними версиями: {sum(1 for e in cur['experiments'] if e.get('revisions'))}")
     for e in cur["experiments"]:
