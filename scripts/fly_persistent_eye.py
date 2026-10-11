@@ -64,15 +64,18 @@ def main() -> int:
         truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / a.split / f"{vid}.json").read_text(encoding="utf-8"))
         G = gt_index(truth, [int(m["video_frame_index"]) for m in matches], VALID)
     delta: dict[int, np.ndarray] = {}
-    stats = {"frames": 0, "eye_steps_lost": 0, "applied": 0, "suppressed": 0, "reinit": 0}
+    stats = {"frames": 0, "eye_steps_lost": 0, "applied": 0, "suppressed": 0, "reinit": 0, "guard_tracked": 0, "abs_shift_px": 0.0, "capped": 0}
     fit_rows = []
 
     class BT(XYWHByteTrack):
         def _pre_first_associate(self, pool, unconfirmed, img, results_high):
             super()._pre_first_associate(pool, unconfirmed, img, results_high)
             for t in pool:
-                if t.state != TrackState.Tracked and int(t.track_id) in delta:
+                if int(t.track_id) in delta:
+                    if t.state == TrackState.Tracked:   # страж: поправка — только потерянным трекам
+                        stats["guard_tracked"] += 1; continue
                     t.mean[0] += float(delta[int(t.track_id)][0]); t.mean[1] += float(delta[int(t.track_id)][1]); stats["applied"] += 1
+                    stats["abs_shift_px"] += float(np.linalg.norm(delta[int(t.track_id)]))
 
     BaseTrack.reset_id()
     tr = BT(make_tracker_args(**XYWH_CONFIG))
@@ -90,7 +93,13 @@ def main() -> int:
             lab_f = label(list(xyxy), [CLASS_NAMES[int(c)] for c in cls], G[f])   # разметка детекций кадра — один раз (только подбор g)
         lost_ids = {int(t.track_id) for t in tr.lost_stracks}
         pool = [t for t in prev_tracked] + [t for t in tr.lost_stracks]
-        preds = {int(t.track_id): tuple((t.mean[:4] + t.mean[4:8]).tolist()) for t in pool if int(t.track_id) in bank.track_ids}
+        # прогноз глаза = прогноз трекера на этот кадр: BOTrack.multi_predict обнуляет скорости ширины и высоты у нетрекаемых треков
+        def pred(t):
+            v = t.mean[4:8].copy()
+            if int(t.track_id) in lost_ids:
+                v[2:] = 0.0
+            return tuple((t.mean[:4] + v).tolist())
+        preds = {int(t.track_id): pred(t) for t in pool if int(t.track_id) in bank.track_ids}
         bank.step(eye_frame, preds)
         delta.clear()
         for tid in preds:
@@ -115,7 +124,9 @@ def main() -> int:
                             fit_rows.append([raw[0], raw[1], c[0] - cx, c[1] - cy, w, h])
                         break
             d = a.g * raw; lim = 0.5 * max(w, h); nrm = float(np.linalg.norm(d))
-            delta[tid] = d * (lim / nrm) if nrm > lim else d
+            if nrm > lim:
+                d = d * (lim / nrm); stats["capped"] += 1
+            delta[tid] = d
         o = tr.update(_DetSlice(xyxy, conf, cls))
         if len(o):
             by_frame[f] = np.asarray(o, np.float64)[:, :7]
@@ -125,12 +136,16 @@ def main() -> int:
                 if t.frame_id == tr.frame_id:
                     j = int(np.argmax(_iou([t.xyxy], np.asarray(xyxy))[0])); own[int(t.track_id)] = lab_f[j]
         births = {int(t.track_id): tuple(t.mean[:4].tolist()) for t in tracked if int(t.track_id) not in bank.track_ids}
+        keep = {}
         if a.variant == "reinit":   # контроль: в момент потери — новый глаз (разгон на текущем кадре), состояние не переносится
             newly = [t for t in tr.lost_stracks if int(t.track_id) in bank.track_ids and int(t.track_id) in {int(x.track_id) for x in prev_tracked}]
             if newly:
-                bank.remove([int(t.track_id) for t in newly]); stats["reinit"] += len(newly)
+                keep = {int(t.track_id): (bank._baseline_flow[int(t.track_id)], bank._baseline[int(t.track_id)]) for t in newly}
+                bank.remove(list(keep)); stats["reinit"] += len(newly)
                 births.update({int(t.track_id): tuple(t.mean[:4].tolist()) for t in newly})
         bank.birth(eye_frame, births)
+        for tid, (bf, bl) in keep.items():   # точка отсчёта считывания — прежняя (от рождения трека), как у carry: отличается только состояние глаза
+            bank._baseline_flow[tid] = bf; bank._baseline[tid] = bl
         bank.remove(set(bank.track_ids) - cur - lost_now)   # трек удалён (потеря > буфера) — глаз удаляется
         prev_tracked = tracked; f += 1; stats["frames"] = f
         if f % 100 == 0:
