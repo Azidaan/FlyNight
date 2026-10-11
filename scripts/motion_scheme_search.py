@@ -220,15 +220,15 @@ def run_one(vid, root, split, scheme, source):
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--set", choices=("dev", "val7"), default="dev")
+    ap.add_argument("--set", choices=("dev", "test", "val7"), default="dev")
     ap.add_argument("--schemes", nargs="+", default=["r5_all", "r5_lost", "r30_all", "r30_lost"])
     ap.add_argument("--sources", nargs="+", default=["none", "dis"])
     ap.add_argument("--videos", nargs="*", default=None, help="подмножество видео набора (подбор / проверка)")
     ap.add_argument("--tag", default="", help="суффикс файла результатов")
     a = ap.parse_args()
     OUT.mkdir(parents=True, exist_ok=True)
-    if a.set == "dev":
-        vids = json.loads((PROJECT_ROOT / "runs/train_cache/selection.json").read_text(encoding="utf-8"))["videos"]["dev"]
+    if a.set in ("dev", "test"):   # test 35 — проверка действия на видео, не участвовавших в выборе схемы (dis_r30_test_v1)
+        vids = json.loads((PROJECT_ROOT / "runs/train_cache/selection.json").read_text(encoding="utf-8"))["videos"][a.set]
         root, split = PROJECT_ROOT / "runs/train_cache", "train"
     else:
         vids, root, split = VAL7, PROJECT_ROOT / "runs/video_rate", "val"

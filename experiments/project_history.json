@@ -9530,6 +9530,55 @@
      "reason": "критика автора 11.10: проверка на 6 видео без оценки разброса разницы 0,12 px не доказывает, что расхождение рамок не играет роли; она лишь не даёт оснований объяснять им крупный провал"
     }
    ]
+  },
+  {
+   "id": "dis_r30_test_v1",
+   "title": "DIS в штатной схеме 30 Гц на test 35 — независимая проверка действия после выбора схемы на dev (без мухи)",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-11",
+   "tags": [
+    "tracker",
+    "motion"
+   ],
+   "summary": "Решение автора 11.10: ближайшее практическое действие для трекера. motion_scheme_search_v1 выбирал схему на dev 35: r30_all_dis − r30_all_none +0,517 [+0,127; +0,985] (22/35), на val7 −0,606 [−2,036; +0,492] (3/7) — знак не переносится уверенно. Здесь та же реализация (scripts/motion_scheme_search.py: стендовый XYWHByteTrack, сдвиг центра прогноза Калмана смешивается с движением рамки по полю DIS, вес = уверенность поля; r30_all — все кадры 30 Гц, поправка всех треков) на test 35 видео train_cache, которые в выборе схемы не участвовали; те же детекции у обоих вариантов, парное сравнение по видео. Оговорки до прогона: test 35 входят в обучение детектора (кадры full_step5) — детекции оптимистичны, но одинаковы в обоих вариантах; результат — улучшение трекера-носителя, не вклад FlyVis.",
+   "question": "Подтверждается ли прирост HOTA от поправки прогноза движением DIS в штатной схеме 30 Гц на видео, не участвовавших в выборе схемы?",
+   "hypothesis": "Поправка прогноза Калмана движением DIS на 30 Гц даёт небольшой положительный прирост HOTA (как на dev).",
+   "expected": "Критерий (до прогона): test 35, HOTA r30_all_dis − r30_all_none по видео > 0, ДИ > 0 (бутстрэп 5000). Справочно: r30_lost_dis, ночь. Сверка: r30_all_none совпадает с выходом стенда без сшивки (scripts/class_gate.py, b30) на тех же видео.",
+   "dataset": "BDD100K MOT train_cache test 35",
+   "baseline": "r30_all_none (стенд XYWHByteTrack)",
+   "variant": "r30_all_dis",
+   "commits": [],
+   "files": [
+    "scripts/motion_scheme_search.py"
+   ],
+   "runs": [
+    "runs/motion_scheme_search/test.json"
+   ],
+   "acceptance": [
+    {
+     "criterion": "Сверка: r30_all_none = стенд без сшивки (class_gate b30) по HOTA на каждом видео test",
+     "met": null
+    },
+    {
+     "criterion": "test 35: HOTA r30_all_dis − r30_all_none по видео > 0, ДИ > 0",
+     "met": null
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/motion_scheme_search/dev.json",
+     "locator": "_summary.r30_all_dis",
+     "claim": "dev +0,517, выбор схемы"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/motion_scheme_search/val7.json",
+     "locator": "_summary.r30_all_dis",
+     "claim": "val7 −0,606"
+    }
+   ]
   }
  ],
  "manual_events": [
