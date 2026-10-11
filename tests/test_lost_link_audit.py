@@ -76,3 +76,31 @@ def test_revisions_append_not_counted():
     seen = collect([("a1", "2026-10-01", _cat("closed", "вывод")), ("b2", "2026-10-02", _cat("closed", "вывод. Дополнение."))])
     cur = _cat("closed", "вывод. Дополнение.")
     assert add_revisions(cur, seen) == 0 and "revisions" not in cur["experiments"][0]
+
+
+def _box(x):
+    return {"x1": x, "y1": 100.0, "x2": x + 50.0, "y2": 150.0}
+
+
+def _res(*frames):   # frames: [(id, x), ...] по кадрам
+    return [{"name": "f", "labels": [{"id": str(i), "category": "car", "box2d": _box(x)} for i, x in fr]} for fr in frames]
+
+
+def _gt(n, x=100.0):
+    return [{"name": "f", "labels": [{"id": "A", "category": "car", "attributes": {"crowd": False}, "box2d": _box(x)}]} for _ in range(n)]
+
+
+def test_find_breaks_long_legal_in_window():
+    from scripts.lost_link_audit import find_breaks
+    res = _res([(1, 100.0)], [(1, 100.0)], [(2, 100.0)], [(2, 100.0)])
+    br, n = find_breaks(res, _gt(4), [0, 10, 50, 60])
+    assert n == 1 and len(br) == 1
+    b = br[0]
+    assert (b["old"], b["new"], b["gap"]) == ("1", "2", 40) and b["long"] and b["legal"] and b["window"]
+
+
+def test_find_breaks_illegal_when_ids_cooccur():
+    from scripts.lost_link_audit import find_breaks
+    res = _res([(1, 100.0), (2, 900.0)], [(2, 100.0)])     # номер 2 уже был в кадре 0 рядом с номером 1 (на чужой рамке)
+    br, _ = find_breaks(res, _gt(2), [0, 5])
+    assert len(br) == 1 and not br[0]["legal"] and not br[0]["long"] and not br[0]["window"]
