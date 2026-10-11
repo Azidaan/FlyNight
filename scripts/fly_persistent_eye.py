@@ -49,7 +49,7 @@ def fit_gain(rows: np.ndarray) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--variant", choices=("carry", "reinit"), required=True)
+    ap.add_argument("--variant", choices=("carry", "reinit", "dis"), required=True)
     ap.add_argument("--video-id", required=True)
     ap.add_argument("--g", type=float, default=0.0)
     ap.add_argument("--fit", action="store_true")
@@ -70,11 +70,17 @@ def main() -> int:
     vid = a.video_id; t0 = time.perf_counter()
     det = load_detection_cache(a.root / vid / "detections" / "raw_video.npz")
     fps = float(json.loads((a.root / vid / "motion" / "flyvis_tiled.json").read_text(encoding="utf-8"))["fps"])
-    est = make_motion_estimator("flyvis_tiled", fps, 0.02)
-    if a.gpu_mem_fraction > 0 and est.torch.cuda.is_available():
-        est.torch.cuda.set_per_process_memory_fraction(a.gpu_mem_fraction)
-    bank = EyeBank(est, max_batch=a.max_eyes, decode_flow=True)
-    retina = make_retina("lamina", fps, blur_downscale=4)
+    is_dis = a.variant == "dis"   # ориентир без мухи: то же действие из поля DIS (runs/train_cache/<id>/motion/dis_quarter.npz)
+    est = bank = retina = None
+    if is_dis:
+        dq = np.load(a.root / vid / "motion" / "dis_quarter.npz"); dis_pts, dis_vec = dq["points"], dq["vectors"]
+        prev_pc: dict[int, np.ndarray] = {}
+    else:
+        est = make_motion_estimator("flyvis_tiled", fps, 0.02)
+        if a.gpu_mem_fraction > 0 and est.torch.cuda.is_available():
+            est.torch.cuda.set_per_process_memory_fraction(a.gpu_mem_fraction)
+        bank = EyeBank(est, max_batch=a.max_eyes, decode_flow=True)
+        retina = make_retina("lamina", fps, blur_downscale=4)
     G = None
     if a.fit:
         matches = json.loads((a.root / vid / "alignment.json").read_text(encoding="utf-8"))["matches"]
@@ -103,7 +109,7 @@ def main() -> int:
         ok, frame = cap.read()
         if not ok:
             break
-        eye_frame = retina.process(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY))
+        eye_frame = None if is_dis else retina.process(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY))
         xyxy, conf, cls = detections_for_frame(det, f)
         lab_f = None
         if a.fit and G is not None and len(xyxy) and G.get(f):
@@ -116,22 +122,32 @@ def main() -> int:
             if int(t.track_id) in lost_ids:
                 v[2:] = 0.0
             return tuple((t.mean[:4] + v).tolist())
-        preds = {int(t.track_id): pred(t) for t in pool if int(t.track_id) in bank.track_ids}
-        bank.step(eye_frame, preds)
+        preds = {int(t.track_id): pred(t) for t in pool if is_dis or int(t.track_id) in bank.track_ids}
+        if not is_dis:
+            bank.step(eye_frame, preds)
         delta.clear()
         for tid in preds:
             if tid not in lost_ids:
                 continue
             stats["eye_steps_lost"] += 1
-            crop = bank.crops[tid]; side = crop[2] - crop[0]
             cx, cy, w, h = preds[tid]; pb = (cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2)
-            loc = box_to_crop_frame(pb, crop, bank.eye_size)
-            px, py = bank.points_local[:, 0], bank.points_local[:, 1]
-            ins = (px >= loc[0]) & (px <= loc[2]) & (py >= loc[1]) & (py <= loc[3])
-            if ins.sum() < 3:
-                stats["suppressed"] += 1; continue
-            m = bank.last_flow(tid)[ins].mean(axis=0); sc = side / est.kernel_area
-            raw = np.array([m[0] * sc, -m[1] * sc])
+            if is_dis:   # движение точек поля в рамке минус перемещение самой рамки прогноза за кадр
+                ins = (dis_pts[:, 0] >= pb[0]) & (dis_pts[:, 0] <= pb[2]) & (dis_pts[:, 1] >= pb[1]) & (dis_pts[:, 1] <= pb[3])
+                if tid not in prev_pc or f >= len(dis_vec):
+                    stats["suppressed"] += 1; continue
+                if ins.sum() < 3:   # сетка DIS 32 px: меньше 3 точек в рамке — 3 ближайшие к центру (правило MotionField.estimate_box)
+                    nd = np.linalg.norm((dis_pts - np.array([cx, cy])) / np.maximum(np.array([w, h]) / 2, 1.0), axis=1)
+                    ins = np.zeros(len(dis_pts), bool); ins[np.argsort(nd)[:3]] = True
+                raw = dis_vec[f][ins].mean(axis=0).astype(np.float64) - (np.array([cx, cy]) - prev_pc[tid])
+            else:
+                crop = bank.crops[tid]; side = crop[2] - crop[0]
+                loc = box_to_crop_frame(pb, crop, bank.eye_size)
+                px, py = bank.points_local[:, 0], bank.points_local[:, 1]
+                ins = (px >= loc[0]) & (px <= loc[2]) & (py >= loc[1]) & (py <= loc[3])
+                if ins.sum() < 3:
+                    stats["suppressed"] += 1; continue
+                m = bank.last_flow(tid)[ins].mean(axis=0); sc = side / est.kernel_area
+                raw = np.array([m[0] * sc, -m[1] * sc])
             if lab_f is not None and own.get(tid) is not None:
                 x1, y1, x2, y2 = crop_box(preds[tid], FRAME)
                 for j, g_ in enumerate(lab_f):
@@ -152,6 +168,10 @@ def main() -> int:
             for t in tracked:
                 if t.frame_id == tr.frame_id:
                     j = int(np.argmax(_iou([t.xyxy], np.asarray(xyxy))[0])); own[int(t.track_id)] = lab_f[j]
+        if is_dis:
+            prev_pc = {tid: np.array(p_[:2]) for tid, p_ in preds.items()}
+            prev_tracked = tracked; f += 1; stats["frames"] = f
+            continue
         births = {int(t.track_id): tuple(t.mean[:4].tolist()) for t in tracked if int(t.track_id) not in bank.track_ids}
         keep = {}
         if a.variant == "reinit":   # контроль: в момент потери — новый глаз (разгон на текущем кадре), состояние не переносится
