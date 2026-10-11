@@ -133,7 +133,8 @@ def cmd_check(a) -> int:
         r = {}
         if (cache / v / "detections/raw_video.npz").exists():
             x, y = dict(np.load(cache / v / "detections/raw_video.npz")), dict(np.load(ref_cache / v / "detections/raw_video.npz"))
-            r["detections_equal"] = all(k in y and x[k].shape == y[k].shape and np.allclose(x[k], y[k], atol=1e-3) for k in x)
+            # поля времени работы (*_seconds) различаются от прогона к прогону — не входят в сверку
+            r["detections_equal"] = all(k in y and x[k].shape == y[k].shape and np.allclose(x[k], y[k], atol=1e-3) for k in x if not k.endswith("_seconds"))
         if (sig / v / "signatures.npz").exists():
             x, y = np.load(sig / v / "signatures.npz"), np.load(ref_sig / v / "signatures.npz")
             r["lives_equal"] = all(np.array_equal(x[k], y[k]) for k in ("track_id", "start", "end")) and np.allclose(x["outputs"], y["outputs"])
