@@ -9,7 +9,7 @@ tags:
 
 Коннектомно-ограниченный источник признаков движения; самостоятельный FlyVisTracker (линия A).
 
-## Эксперименты (68)
+## Эксперименты (69)
 - 🔴 [Стресс-проверка FlyVis: полный кадр и перекрывающиеся фрагменты на семи видео↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_stress) — отрицательный, 2026-09-13
 - 🔴 [Аудит motion_confidence FlyVis: антиинформативна в рабочем диапазоне↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fmotion_confidence_audit) — отрицательный, 2026-09-13
 - 🔴 [Цель 2: считывание внутренней активности FlyVis (T4/T5, 34 типа) для q_match против декодированного потока и shuffled↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_internal_readout_v1) — отрицательный, 2026-09-16
@@ -78,3 +78,4 @@ tags:
 - ⚫ [Последняя дешёвая проверка ветки удаления жизней: связь с цепочкой и внешность MASA поверх соседства — H1 / B1 / B2 (+ муха), данные разработки↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Flife_chain_appearance_v1) — закрыт, 2026-10-10
 - 🟢 [Аудит А1: неисправленные разрывы свыше 30 кадров на готовом выходе после MASA и запас связей (dev, без мухи)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Flost_link_audit_v1) — положительный, 2026-10-11
 - 🔴 [Буфер потерянного трека 30 против 150 кадров без мухи, та же сшивка MASA (А1, шаг после аудита запаса связей)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fbuffer_extend_v1) — отрицательный, 2026-10-11
+- 🔴 [Журнал событий повторного сопоставления потерянных треков ByteTrack (буфер 30 и 150, без мухи, сохранённые детекции)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fassociation_log_v1) — отрицательный, 2026-10-11
