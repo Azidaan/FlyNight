@@ -9535,7 +9535,7 @@
    "id": "dis_r30_test_v1",
    "title": "DIS в штатной схеме 30 Гц на test 35 — независимая проверка действия после выбора схемы на dev (без мухи)",
    "area": "flyvis",
-   "state": "running",
+   "state": "completed_negative",
    "started": "2026-10-11",
    "tags": [
     "tracker",
@@ -9550,6 +9550,7 @@
    "variant": "r30_all_dis",
    "commits": [],
    "files": [
+    "scripts/dis_r30_test_repro.py",
     "scripts/motion_scheme_search.py"
    ],
    "runs": [
@@ -9558,11 +9559,13 @@
    "acceptance": [
     {
      "criterion": "Сверка: r30_all_none = стенд без сшивки (class_gate b30) по HOTA на каждом видео test",
-     "met": null
+     "met": true,
+     "evidence": "наибольшее расхождение 0.000 на 35 видео — runs/dis_r30_test/repro.json"
     },
     {
      "criterion": "test 35: HOTA r30_all_dis − r30_all_none по видео > 0, ДИ > 0",
-     "met": null
+     "met": false,
+     "evidence": "r30_all_dis − none +0.459 [-0.123; +1.196], лучше 23/35 — runs/motion_scheme_search/test.json, _summary"
     }
    ],
    "evidence": [
@@ -9578,7 +9581,12 @@
      "locator": "_summary.r30_all_dis",
      "claim": "val7 −0,606"
     }
-   ]
+   ],
+   "done": "2026-10-11",
+   "obtained": "runs/motion_scheme_search/test.json; лог runs/dis_r30_test_log.txt. test 35, средний HOTA по видео: r30_all_none 59.18, r30_all_dis 59.64; r30_all_dis − none +0.459 [-0.123; +1.196], лучше 23/35. Справочно: r30_lost_dis − none -0.388 [-0.733; -0.063], лучше 13/35; ночь (14 видео): r30_all_dis − none +1.207 [+0.248; +2.705], лучше 11/14. Сверка (runs/dis_r30_test/repro.json, scripts/dis_r30_test_repro.py): r30_all_none совпадает со стендом без сшивки (class_gate b30) на всех 35 видео, наибольшее расхождение HOTA 0.000. Для сравнения (выбор схемы): dev +0,517 [+0,127; +0,985], val7 −0,606 [−2,036; +0,492] (runs/motion_scheme_search/dev.json, val7.json).",
+   "interpretation": "Критерий не выполнен: на test 35, не участвовавших в выборе схемы, поправка прогноза движением DIS на 30 Гц даёт +0,46 HOTA по видео, но ДИ содержит 0 (лучше на 23 из 35). Знак совпадает с dev (+0,52), на val7 был отрицательным (−0,61); устойчивое улучшение трекера не подтверждено. Поправка только потерянных треков (r30_lost) на test вредит (−0,39, ДИ ниже 0). Результат касается трекера-носителя, не FlyVis.",
+   "decision": "По правилу карточки действие «DIS в схеме 30 Гц» не подтверждено независимой проверкой — в стенд не вносится; объединять dev и test после прогона ради значимости нельзя (dev использован для выбора). Дальше — решение автора.",
+   "cannot_claim": "Нельзя заявлять ни улучшения, ни вреда от r30_all_dis: ДИ содержит 0. test 35 входят в обучение детектора (детекции оптимистичны, одинаковы в обоих вариантах). Вклада FlyVis здесь нет."
   }
  ],
  "manual_events": [

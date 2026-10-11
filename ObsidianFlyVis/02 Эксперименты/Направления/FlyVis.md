@@ -9,7 +9,7 @@ tags:
 
 Коннектомно-ограниченный источник признаков движения; самостоятельный FlyVisTracker (линия A).
 
-## Эксперименты (71)
+## Эксперименты (72)
 - 🔴 [Стресс-проверка FlyVis: полный кадр и перекрывающиеся фрагменты на семи видео↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_stress) — отрицательный, 2026-09-13
 - 🔴 [Аудит motion_confidence FlyVis: антиинформативна в рабочем диапазоне↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fmotion_confidence_audit) — отрицательный, 2026-09-13
 - 🔴 [Цель 2: считывание внутренней активности FlyVis (T4/T5, 34 типа) для q_match против декодированного потока и shuffled↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_internal_readout_v1) — отрицательный, 2026-09-16
@@ -81,3 +81,4 @@ tags:
 - 🔴 [Журнал событий повторного сопоставления потерянных треков ByteTrack (буфер 30 и 150, без мухи, сохранённые детекции)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fassociation_log_v1) — отрицательный, 2026-10-11
 - 🔴 [Запрет возврата потерянного трека на детекцию другого класса после потери > 30 кадров (ByteTrack, без мухи)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fclass_gate_v1) — отрицательный, 2026-10-11
 - 🔴 [Суммирование движения T4/T5 по области рамки и по широкому полю (принцип HS/VS) вместо поколоночного декодера — одна рабочая версия↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Ffly_wide_field_v1) — отрицательный, 2026-10-11
+- 🔴 [DIS в штатной схеме 30 Гц на test 35 — независимая проверка действия после выбора схемы на dev (без мухи)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fdis_r30_test_v1) — отрицательный, 2026-10-11
