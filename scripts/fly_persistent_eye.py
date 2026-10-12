@@ -35,10 +35,14 @@ def fit_gain(rows: np.ndarray) -> dict:
     поэтому цель — изменение смещения «своя детекция − прогноз» между соседними кадрами одного потерянного трека
     (строки: кадр, трек, сырой поток x, y, смещение x, y, w, h)."""
     X, Y = [], []
-    rows = rows[np.lexsort((rows[:, 0], rows[:, 1]))]
-    for a_, b_ in zip(rows[:-1], rows[1:]):
-        if a_[1] == b_[1] and b_[0] == a_[0] + 1:
-            X.append(b_[2:4]); Y.append(b_[4:6] - a_[4:6])
+    # пары — строго внутри одного видео (номера треков начинаются заново в каждом видео; исправление 12.10:
+    # при объединении массивов разных видео до поиска пар соединялись треки с одинаковым номером из разных видео)
+    for one in (rows if isinstance(rows, (list, tuple)) else [rows]):
+        one = np.asarray(one).reshape(-1, 8)
+        one = one[np.lexsort((one[:, 0], one[:, 1]))]
+        for a_, b_ in zip(one[:-1], one[1:]):
+            if a_[1] == b_[1] and b_[0] == a_[0] + 1:
+                X.append(b_[2:4]); Y.append(b_[4:6] - a_[4:6])
     X, Y = np.asarray(X), np.asarray(Y)
     if not len(X):
         return {"g": 0.0, "n": 0}

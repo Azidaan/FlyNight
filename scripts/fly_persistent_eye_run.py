@@ -77,7 +77,7 @@ def main() -> int:
     fit = {"train20": train20}
     for v in V:
         rows = [np.load(OUT / "fit" / v / f"{vid}_fit.npy") for vid in train20 if (OUT / "fit" / v / f"{vid}_fit.npy").exists()]
-        fit[v] = fit_gain(np.concatenate(rows) if rows else np.zeros((0, 8)))
+        fit[v] = fit_gain(rows)   # список массивов по видео: пары строятся внутри видео (исправление 12.10)
         print(f"[FIT] {v}: {fit[v]}", flush=True)
     (OUT / "fit.json").write_text(json.dumps(fit, ensure_ascii=False, indent=1), encoding="utf-8")
     run_stage("dev", [(v, vid, fit[v]["g"], False, OUT / "dev" / v) for v in V for vid in dev])
