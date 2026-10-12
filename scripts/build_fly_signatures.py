@@ -56,6 +56,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--connectome-json", type=Path, default=None, help="К16-1: файл связей варианта (tracking/flyvis_connectome_swap.py); обученные параметры — из --model")
     parser.add_argument("--track-buffer", type=int, default=None, help="buffer_extend_v1: буфер трекера (кадров) вместо стенда (XYWH_CONFIG, 30)")
     parser.add_argument("--history", action="store_true", help="life_fly_history_v1: история измерений жизни по шагам (≤ HIST_MAX, равномерно) в history.npz")
+    parser.add_argument("--oracle", default=None, choices=["O1", "O2"], help="o2_masa_residual_v1: трекер с оракулом области глаза (scripts/fovea_target_30hz.py; читает разметку — только диагностика)")
+    parser.add_argument("--oracle-root", type=Path, default=PROJECT_ROOT / "runs" / "train_cache", help="каталог с <id>/alignment.json для оракула")
+    parser.add_argument("--oracle-split", default="train", help="раздел разметки box_track_20 для оракула")
     # совместимость с run_fovea_jobs.py (эти флаги ему передаются всегда)
     parser.add_argument("--decode-flow", action="store_true")
     parser.add_argument("--gpu-mem-fraction", type=float, default=0.0)
@@ -136,7 +139,17 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
     cells = macro_cells(bank.points_local)
     onehot = np.zeros((721, MACRO), np.float32); onehot[np.arange(721), cells] = 1.0; onehot /= onehot.sum(axis=0, keepdims=True)
     BaseTrack.reset_id()
-    tracker = XYWHByteTrack(make_tracker_args(**tracker_config(args.track_buffer)))
+    oracle = None
+    if args.oracle:   # o2_masa_residual_v1: тот же трекер с оракулом fovea_target_30hz (разметка — только диагностика)
+        from scripts import fovea_target_30hz as FT
+        from scripts.association_log import gt_index
+        from scripts.output_filter_oracle import VALID
+        truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / args.oracle_split / f"{video_id}.json").read_text(encoding="utf-8"))
+        vf = [int(m["video_frame_index"]) for m in json.loads((args.oracle_root / video_id / "alignment.json").read_text(encoding="utf-8"))["matches"]]
+        oracle = {"G": gt_index(truth, vf, VALID), "ctx": {}, "stats": FT.new_stats(), "FT": FT}
+        tracker = FT.oracle_tracker(FT.VARIANTS[args.oracle], oracle["ctx"], oracle["stats"])(make_tracker_args(**tracker_config(args.track_buffer)))
+    else:
+        tracker = XYWHByteTrack(make_tracker_args(**tracker_config(args.track_buffer)))
     capture = cv2.VideoCapture(str(args.videos / f"{video_id}.mov"))
     segments: dict[int, Segment] = {}
     done: list[Segment] = []
@@ -159,7 +172,11 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
             hexin = bank._last_hex[tid].detach().reshape(-1).cpu().numpy().astype(np.float32)  # (721,)
             thumb, hist = appearance(gray, hsv, box)
             segments[tid].add(frame_index, box, (fly, hexin, thumb, hist))
+        if oracle:
+            lab = oracle["FT"].oracle_pre(tracker, oracle["ctx"], oracle["G"], frame_index, xyxy, conf, classes)
         output = tracker.update(_DetSlice(xyxy, conf, classes))
+        if oracle:
+            oracle["FT"].oracle_post(tracker, xyxy, lab)
         if len(output):
             outputs.append(np.column_stack([np.full(len(output), frame_index), np.asarray(output)[:, :7]]).astype(np.float32))
         tracked = list(tracker.tracked_stracks)
@@ -208,7 +225,8 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
             picked += [s.items[i] for i in idx]; offsets.append(offsets[-1] + len(idx))
         np.savez_compressed(args.output / video_id / "history.npz", offsets=np.asarray(offsets, np.int64), n_steps=np.asarray([len(s.items) for s in done], np.int32),
                             **{f"h_{n}": (np.stack([p[k] for p in picked]) if picked else np.zeros((0,), np.float16)) for k, n in enumerate(("fly", "hexin", "thumb", "hist"))})
-    save_json(args.output / video_id / "signatures.json", {"video_id": video_id, "frames": frame_index, "lives": len(done), "retina": retina.describe(), "macro_cells": MACRO, "K": K, "rewire": rewire_info, "seconds": time.perf_counter() - t0})
+    save_json(args.output / video_id / "signatures.json", {"video_id": video_id, "frames": frame_index, "lives": len(done), "retina": retina.describe(), "macro_cells": MACRO, "K": K, "rewire": rewire_info, "seconds": time.perf_counter() - t0,
+                                                                  **({"oracle": args.oracle, "oracle_events": {k: v for k, v in oracle["stats"].items() if k != "shift_frac"}} if oracle else {})})
     print(f"[OK] {video_id}: {frame_index} кадров, {len(done)} жизней глаз, {1000 * (time.perf_counter() - t0) / max(frame_index, 1):.0f} мс/кадр", flush=True)
     return {}
 

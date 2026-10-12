@@ -32,28 +32,18 @@ FRAME = (1280, 720)
 KEYS = ("HOTA", "DetA", "AssA", "IDF1", "IDSw")
 
 
-def run(task):
-    from ultralytics.trackers.basetrack import BaseTrack, TrackState
+def new_stats() -> dict:
+    return {"applied": 0, "changed": 0, "applied_tracked": 0, "applied_lost": 0, "changed_tracked": 0, "changed_lost": 0, "shift_frac": []}
+
+
+def oracle_tracker(scope, frame_ctx: dict, stats: dict):
+    """Трекер стенда с оракулом области глаза (scope None — без оракула); frame_ctx заполняет oracle_pre перед update.
+    Используется также в scripts/build_fly_signatures.py --oracle (o2_masa_residual_v1)."""
+    from ultralytics.trackers.basetrack import TrackState
     from ultralytics.trackers.bot_sort import BOTrack, parse_bboxes
-    from datasets.bdd100k_loader import CLASS_NAMES
-    from evaluation.hota_eval import evaluate_hota
-    from scripts.association_log import gt_index, label
-    from scripts.freeze_bench import XYWH_CONFIG
-    from scripts.output_filter_oracle import VALID, _iou
-    from scripts.run_bdd_video_rate_experiment import detections_for_frame, load_detection_cache, save_json, scalabel_frame
+    from scripts.output_filter_oracle import _iou
     from tracking.foveated_eyes import crop_box
-    from tracking.offline_association import _DetSlice, make_tracker_args
     from tracking.xywh_bytetrack import XYWHByteTrack
-    vid, root, split, name = task
-    scope = VARIANTS[name]
-    det = load_detection_cache(PROJECT_ROOT / "runs/train_cache" / vid / "detections" / "raw_video.npz")
-    matches = json.loads((Path(root) / vid / "alignment.json").read_text(encoding="utf-8"))["matches"]
-    truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / split / f"{vid}.json").read_text(encoding="utf-8"))
-    vf = [int(m["video_frame_index"]) for m in matches]
-    G = gt_index(truth, vf, VALID)
-    n = int(np.load(PROJECT_ROOT / "runs/fly_signatures" / vid / "signatures.npz")["frame_count"])
-    stats = {"applied": 0, "changed": 0, "applied_tracked": 0, "applied_lost": 0, "changed_tracked": 0, "changed_lost": 0, "shift_frac": []}
-    frame_ctx = {}
 
     class T(BOTrack):
         own = None
@@ -89,25 +79,57 @@ def run(task):
                     stats["shift_frac"].append(float(np.linalg.norm(c - np.array([cx, cy])) / max(x2 - x1, 1)))
                 t.mean[0], t.mean[1] = float(c[0]), float(c[1])
 
+    return BT
+
+
+def oracle_pre(tr, frame_ctx: dict, G: dict, f: int, xyxy, conf, cls) -> list:
+    """Метки разметки детекций кадра f и уверенные детекции для оракула; вызывать до tr.update."""
+    from datasets.bdd100k_loader import CLASS_NAMES
+    from scripts.association_log import label
+    names = [CLASS_NAMES[int(c)] for c in cls]
+    objs = G.get(f, [])
+    lab = label(list(xyxy), names, objs) if (objs and len(xyxy)) else [None] * len(xyxy)
+    hi = np.asarray(conf) >= tr.args.track_high_thresh
+    frame_ctx.update(high_boxes=np.asarray(xyxy)[hi] if len(xyxy) else np.zeros((0, 4)), high_labels=[l for l, m in zip(lab, hi) if m], high_scores=np.asarray(conf)[hi] if len(xyxy) else np.zeros(0))
+    return lab
+
+
+def oracle_post(tr, xyxy, lab: list) -> None:
+    """Объект трека — объект детекции его последнего обновления; вызывать после tr.update."""
+    from scripts.output_filter_oracle import _iou
+    boxes = np.asarray(xyxy)
+    for t in tr.tracked_stracks:
+        if t.frame_id == tr.frame_id and len(boxes):
+            j = int(np.argmax(_iou([t.xyxy], boxes)[0]))
+            t.own = lab[j]
+
+
+def run(task):
+    from ultralytics.trackers.basetrack import BaseTrack
+    from evaluation.hota_eval import evaluate_hota
+    from scripts.association_log import gt_index
+    from scripts.freeze_bench import XYWH_CONFIG
+    from scripts.output_filter_oracle import VALID
+    from scripts.run_bdd_video_rate_experiment import detections_for_frame, load_detection_cache, save_json, scalabel_frame
+    from tracking.offline_association import _DetSlice, make_tracker_args
+    vid, root, split, name = task
+    det = load_detection_cache(PROJECT_ROOT / "runs/train_cache" / vid / "detections" / "raw_video.npz")
+    matches = json.loads((Path(root) / vid / "alignment.json").read_text(encoding="utf-8"))["matches"]
+    truth = json.loads((PROJECT_ROOT / "data/bdd100k/labels/box_track_20" / split / f"{vid}.json").read_text(encoding="utf-8"))
+    vf = [int(m["video_frame_index"]) for m in matches]
+    G = gt_index(truth, vf, VALID)
+    n = int(np.load(PROJECT_ROOT / "runs/fly_signatures" / vid / "signatures.npz")["frame_count"])
+    stats = new_stats(); frame_ctx = {}
     BaseTrack.reset_id()
-    tr = BT(make_tracker_args(**XYWH_CONFIG))
+    tr = oracle_tracker(VARIANTS[name], frame_ctx, stats)(make_tracker_args(**XYWH_CONFIG))
     by_frame = {}
     for f in range(n):
         xyxy, conf, cls = detections_for_frame(det, f)
-        names = [CLASS_NAMES[int(c)] for c in cls]
-        objs = G.get(f, [])
-        lab = label(list(xyxy), names, objs) if (objs and len(xyxy)) else [None] * len(xyxy)
-        hi = np.asarray(conf) >= tr.args.track_high_thresh
-        frame_ctx.update(high_boxes=np.asarray(xyxy)[hi] if len(xyxy) else np.zeros((0, 4)), high_labels=[l for l, m in zip(lab, hi) if m], high_scores=np.asarray(conf)[hi] if len(xyxy) else np.zeros(0))
+        lab = oracle_pre(tr, frame_ctx, G, f, xyxy, conf, cls)
         o = tr.update(_DetSlice(xyxy, conf, cls))
         if len(o):
             by_frame[f] = np.asarray(o, np.float64)[:, :7]
-        boxes = np.asarray(xyxy)
-        for t in tr.tracked_stracks:   # объект трека — объект детекции его последнего обновления
-            if t.frame_id == tr.frame_id and len(boxes):
-                tb = t.xyxy
-                j = int(np.argmax(_iou([tb], boxes)[0])) if len(boxes) else -1
-                t.own = lab[j] if j >= 0 else None
+        oracle_post(tr, xyxy, lab)
     rows = [scalabel_frame(vid, truth[i], by_frame.get(int(m["video_frame_index"]), np.zeros((0, 7)))) for i, m in enumerate(matches)]
     d = OUT / name; d.mkdir(parents=True, exist_ok=True); save_json(d / f"{vid}.json", rows)
     m = evaluate_hota(d, [vid], split=split)
