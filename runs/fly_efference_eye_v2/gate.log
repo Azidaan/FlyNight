@@ -1,0 +1,37 @@
+[2026-10-12 03:06:25] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-10-12 03:06:25] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-10-12 03:06:29] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-10-12 03:06:29] chkpt_utils:36 Recovered network state.
+[2026-10-12 03:06:32] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-10-12 03:06:32] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-10-12 03:06:32] chkpt_utils:65 Recovered flow decoder state.
+[CALIB] 1/12 53.0s
+[CALIB] 2/12 92.4s
+[CALIB] 3/12 131.5s
+[CALIB] 4/12 170.7s
+[CALIB] 5/12 210.0s
+[CALIB] 6/12 249.0s
+[CALIB] 7/12 288.1s
+[CALIB] 8/12 327.4s
+[CALIB] 9/12 366.5s
+[CALIB] 10/12 405.8s
+[CALIB] 11/12 444.9s
+[CALIB] 12/12 484.0s
+[CHECK] regression_images 00ccf2e8-59a6bfc9:900 {'T1_drift_share': 0.21925326622351937, 'T1s_drift_share': 0.29156588967545183, 'T2_cos': 0.9496200262879178, 'T2_ratio': 1.243275197528407, 'T3_cos': 0.928131502922362, 'T3_ratio': 1.0844385720651042, 'T4_err_px': 8.483975514998207, 'T4_no_corr_px': 24.0}
+[CHECK] regression_images 004855fc-ff3946ad:900 {'T1_drift_share': 0.1334528943236305, 'T1s_drift_share': 0.232385673999558, 'T2_cos': 0.9610856040891965, 'T2_ratio': 0.5492053854336729, 'T3_cos': 0.9187168925109168, 'T3_ratio': 0.4980282273673651, 'T4_err_px': 14.802781988736541, 'T4_no_corr_px': 24.0}
+[CHECK] holdout_images 019d6206-d5de804a:900 {'T1_drift_share': 0.10676918257882757, 'T1s_drift_share': 0.17877138562359662, 'T2_cos': 0.9359763151764893, 'T2_ratio': 0.30424210246014394, 'T3_cos': 0.7935353624517605, 'T3_ratio': 0.25276339665970116, 'T4_err_px': 18.61491664410125, 'T4_no_corr_px': 24.0}
+[CHECK] holdout_images 009215e2-ea063b28:900 {'T1_drift_share': 0.15587501018645086, 'T1s_drift_share': 0.24061988264732456, 'T2_cos': 0.9779616377437387, 'T2_ratio': 0.6240860604256577, 'T3_cos': 0.9118173967101145, 'T3_ratio': 0.5286307390792386, 'T4_err_px': 13.837875732013774, 'T4_no_corr_px': 24.0}
+[CHECK] holdout_images 0329d6b9-abddbf95:900 {'T1_drift_share': 0.21265625991101653, 'T1s_drift_share': 0.3063041146888108, 'T2_cos': 0.99177484576406, 'T2_ratio': 1.351394664064185, 'T3_cos': 0.9200373362721865, 'T3_ratio': 1.2281684726642195, 'T4_err_px': 5.323545281292825, 'T4_no_corr_px': 24.0}
+[CHECK] holdout_images 00b93c6e-6298aa25:900 {'T1_drift_share': 0.23901127862818958, 'T1s_drift_share': 0.298212919958239, 'T2_cos': 0.9080858406630709, 'T2_ratio': 1.2550527272859222, 'T3_cos': 0.7249313283169465, 'T3_ratio': 1.1560593959219845, 'T4_err_px': 14.018758489457332, 'T4_no_corr_px': 24.0}
+[GATE] {'regression_images': {'T1': False, 'T2': True, 'T3': True, 'T4': True}, 'holdout_images': {'T1': False, 'T2': True, 'T3': True, 'T4': False}} -> False

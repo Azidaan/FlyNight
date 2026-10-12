@@ -76,6 +76,9 @@ def main(mode):
         e.update(state=state,done=now.date().isoformat(),obtained=gate_text,
                  interpretation='Новая реализация меняет перенос начального отклика и цель калибровки. Сравнение с legacy при одинаковой калибровке выделяет перенос ссылки. Синтетика проверяет перенос всего изображения; результат не доказывает выделение объекта на движущемся фоне. Причина межсценового разброса не установлена.',
                  decision=decision,cannot_claim='Нельзя заявлять улучшение HOTA, бесполезность эфферентной копии вообще или доказанную причину провала v1. Проверочные train-кадры отложены только от калибровки; это не независимые новые val-видео.')
+        a=gate['agg']['holdout_images']
+        worse=sum(r['new']['T4_err_px']>r['legacy']['T4_err_px'] for group in gate['checks'].values() for r in group.values())
+        e['interpretation']+=f" Гипотеза Codex о пользе переноса начального состояния не подтвердилась: T4 хуже legacy на {worse} из 6 изображений; на четырёх отложенных кадрах {number(a['legacy']['T4_err_px'])} → {number(a['new']['T4_err_px'])} px при той же калибровке. T1s вырос {number(a['legacy']['T1s_drift_share'])} → {number(a['new']['T1s_drift_share'])}. Это недостаток испытанного переноса ссылки, не доказательство пользы неподвижной ссылки вообще."
         e['acceptance'][0].update(met=gate['all_passed'],evidence='runs/fly_efference_eye_v2/gate.json: passed, all_passed')
         e['acceptance'][1].update(met=(bool(stage['criterion']) if stage and stage['complete'] else None),evidence=('runs/fly_efference_eye_v2/stage1_report.json' if stage else 'Не запускалась: технический критерий не выполнен'))
         e['commits']=['7ec9d52']
@@ -84,7 +87,7 @@ def main(mode):
         if stage:
             e['obtained']+=' Ступень 1: '+json.dumps(stage,ensure_ascii=False)+'; runs/fly_efference_eye_v2/stage1_report.json.'
         manifest={'finished_msk':now.isoformat(),'head_before_result':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
-                  'sha256':{str(p.relative_to(ROOT)).replace('\\','/'):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'tracking/efference_eyes_v2.py',ROOT/'scripts/fly_efference_v2.py',ROOT/'scripts/fly_efference_stage1_v2.py',OUT/'protocol.json',OUT/'calibration_raw.npz',OUT/'checks_raw.npz',OUT/'gate.json']},
+                  'sha256':{str(p.relative_to(ROOT)).replace('\\','/'):hashlib.sha256(p.read_bytes()).hexdigest() for p in [ROOT/'tracking/efference_eyes_v2.py',ROOT/'tracking/efference_eyes.py',ROOT/'tracking/foveated_eyes.py',ROOT/'scripts/fly_efference_eye.py',ROOT/'scripts/fly_efference_v2.py',ROOT/'scripts/fly_efference_stage1_v2.py',OUT/'protocol.json',OUT/'calibration_raw.npz',OUT/'checks_raw.npz',OUT/'gate.json']},
                   'model':'flow/0000/000','deadline':'2026-10-12T07:40:00+03:00','night':night}
         (OUT/'provenance.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
         body=f'*Получено (`{ID}`).* {gate_text}\n\n*Вывод.* {e["interpretation"]}\n\n*Решение.* {decision} Статусы P2 и P9 не повышены: критерии решения этих проблем не измерены.\n\n*Сводка.* HOTA не измерялась; доля оракульного запаса не вычисляется, поскольку синтетическая ошибка и HOTA — разные метрики.'
