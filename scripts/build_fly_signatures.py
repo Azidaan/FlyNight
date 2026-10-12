@@ -59,6 +59,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--oracle", default=None, choices=["O1", "O2"], help="o2_masa_residual_v1: трекер с оракулом области глаза (scripts/fovea_target_30hz.py; читает разметку — только диагностика)")
     parser.add_argument("--oracle-root", type=Path, default=PROJECT_ROOT / "runs" / "train_cache", help="каталог с <id>/alignment.json для оракула")
     parser.add_argument("--oracle-split", default="train", help="раздел разметки box_track_20 для оракула")
+    parser.add_argument("--skip-fly", action="store_true", help="fly_object_readout_z13_v1: без моделирования мухи у ведомых треков (вход глаза, вырезки и жизни — как у стенда; активность — нули); для сшивки «база + MASA» признаки мухи не нужны")
+    parser.add_argument("--cpu", action="store_true", help="считать на процессоре (FlyVis без CUDA)")
+    parser.add_argument("--z13", type=Path, default=None, help="fly_object_readout_z13_v1: модель считывателя (runs/z13/<arm>/model.pt) — поправка центра потерянных треков")
     # совместимость с run_fovea_jobs.py (эти флаги ему передаются всегда)
     parser.add_argument("--decode-flow", action="store_true")
     parser.add_argument("--gpu-mem-fraction", type=float, default=0.0)
@@ -68,6 +71,35 @@ def parse_args() -> argparse.Namespace:
 def tracker_config(track_buffer: int | None) -> dict:
     """Настройки трекера стенда; buffer_extend_v1 — свой буфер потерянного трека (None или 0 — стенд, 30)."""
     return dict(XYWH_CONFIG, **({"track_buffer": track_buffer} if track_buffer else {}))
+
+
+class RenderOnlyBank(EyeBank):
+    """--skip-fly: те же вырезки, вход глаза и состав глаз, что у EyeBank, без моделирования мухи (активность — нули)."""
+
+    def _birth(self, boxes_xywh: dict, frame: np.ndarray) -> None:
+        if not boxes_xywh:
+            return
+        gray = self._gray(frame); ids = list(boxes_xywh)
+        from tracking.foveated_eyes import crop_box
+        crops = [crop_box(boxes_xywh[tid], (gray.shape[1], gray.shape[0]), context=self.context, min_side=self.min_side) for tid in ids]
+        hexes = self._render(gray, crops)
+        for row, tid in enumerate(ids):
+            self._activity[tid] = hexes[row, 0, :1]; self._last_hex[tid] = hexes[row].clone(); self.crops[tid] = crops[row]
+        self.stats["births"] += len(ids)
+
+    def _step(self, frame: np.ndarray, predictions_xywh: dict) -> dict:
+        ids = [tid for tid in predictions_xywh if tid in self._activity]
+        if not ids:
+            return {}
+        gray = self._gray(frame)
+        from tracking.foveated_eyes import crop_box
+        crops = [crop_box(predictions_xywh[tid], (gray.shape[1], gray.shape[0]), context=self.context, min_side=self.min_side) for tid in ids]
+        new_hex = self._render(gray, crops)
+        zero = np.zeros(self._index_matrix.shape, np.float32)
+        for row, tid in enumerate(ids):
+            self._last_hex[tid] = new_hex[row].clone(); self.crops[tid] = crops[row]
+        self.stats["steps"] += len(ids)
+        return {tid: zero for tid in ids}
 
 
 def macro_cells(points: np.ndarray) -> np.ndarray:
@@ -134,12 +166,12 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
     from tracking.connectome_null import rewire
 
     rewire_info = rewire(estimator.network, args.rewire, args.rewire_seed)
-    bank = EyeBank(estimator, max_batch=args.max_eyes)
+    bank = (RenderOnlyBank if args.skip_fly else EyeBank)(estimator, max_batch=args.max_eyes)
     retina = make_retina(args.retina, fps, blur_downscale=args.retina_downscale)
     cells = macro_cells(bank.points_local)
     onehot = np.zeros((721, MACRO), np.float32); onehot[np.arange(721), cells] = 1.0; onehot /= onehot.sum(axis=0, keepdims=True)
     BaseTrack.reset_id()
-    oracle = None
+    oracle = z13 = None
     if args.oracle:   # o2_masa_residual_v1: тот же трекер с оракулом fovea_target_30hz (разметка — только диагностика)
         from scripts import fovea_target_30hz as FT
         from scripts.association_log import gt_index
@@ -148,6 +180,20 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         vf = [int(m["video_frame_index"]) for m in json.loads((args.oracle_root / video_id / "alignment.json").read_text(encoding="utf-8"))["matches"]]
         oracle = {"G": gt_index(truth, vf, VALID), "ctx": {}, "stats": FT.new_stats(), "FT": FT}
         tracker = FT.oracle_tracker(FT.VARIANTS[args.oracle], oracle["ctx"], oracle["stats"])(make_tracker_args(**tracker_config(args.track_buffer)))
+    elif args.z13:   # fly_object_readout_z13_v1: тот же трекер, перед первым сопоставлением — считыватель З13 у потерянных треков
+        from ultralytics.trackers.basetrack import TrackState
+        from tracking.z13_readout import Localizer
+        z13 = Localizer(args.z13, bank)
+
+        class Z13Track(XYWHByteTrack):
+            eye_frame = None
+
+            def _pre_first_associate(self, pool, unconfirmed, img, results_high):
+                super()._pre_first_associate(pool, unconfirmed, img, results_high)
+                with bank.gpu_lock:
+                    z13.before_associate(pool, self.eye_frame, TrackState.Tracked)
+
+        tracker = Z13Track(make_tracker_args(**tracker_config(args.track_buffer)))
     else:
         tracker = XYWHByteTrack(make_tracker_args(**tracker_config(args.track_buffer)))
     capture = cv2.VideoCapture(str(args.videos / f"{video_id}.mov"))
@@ -174,7 +220,12 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
             segments[tid].add(frame_index, box, (fly, hexin, thumb, hist))
         if oracle:
             lab = oracle["FT"].oracle_pre(tracker, oracle["ctx"], oracle["G"], frame_index, xyxy, conf, classes)
+        if args.z13:
+            tracker.eye_frame = eye_frame
         output = tracker.update(_DetSlice(xyxy, conf, classes))
+        if args.z13:
+            with bank.gpu_lock:
+                z13.after_update(tracker, eye_frame)
         if oracle:
             oracle["FT"].oracle_post(tracker, xyxy, lab)
         if len(output):
@@ -226,13 +277,18 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         np.savez_compressed(args.output / video_id / "history.npz", offsets=np.asarray(offsets, np.int64), n_steps=np.asarray([len(s.items) for s in done], np.int32),
                             **{f"h_{n}": (np.stack([p[k] for p in picked]) if picked else np.zeros((0,), np.float16)) for k, n in enumerate(("fly", "hexin", "thumb", "hist"))})
     save_json(args.output / video_id / "signatures.json", {"video_id": video_id, "frames": frame_index, "lives": len(done), "retina": retina.describe(), "macro_cells": MACRO, "K": K, "rewire": rewire_info, "seconds": time.perf_counter() - t0,
-                                                                  **({"oracle": args.oracle, "oracle_events": {k: v for k, v in oracle["stats"].items() if k != "shift_frac"}} if oracle else {})})
+                                                                  **({"oracle": args.oracle, "oracle_events": {k: v for k, v in oracle["stats"].items() if k != "shift_frac"}} if oracle else {}),
+                                                                  **({"z13": str(args.z13), "z13_arm": z13.arm, "z13_tau": z13.tau, "z13_events": z13.stats} if z13 else {})})
     print(f"[OK] {video_id}: {frame_index} кадров, {len(done)} жизней глаз, {1000 * (time.perf_counter() - t0) / max(frame_index, 1):.0f} мс/кадр", flush=True)
     return {}
 
 
 def main() -> int:
     args = parse_args()
+    if args.cpu:   # на Windows при скрытом GPU torch.cuda.is_available() возвращает True — FlyVis выбрал бы CUDA
+        os.environ["CUDA_VISIBLE_DEVICES"] = ""
+        import torch
+        torch.cuda.is_available = lambda: False
     for v in args.video_id:
         build_video(v, args)
     print(f"[OK] {args.output}", flush=True)
