@@ -1,0 +1,120 @@
+{
+  "id": "fly_efference_eye_v2",
+  "registered_msk": "2026-10-12T04:03:46.525737+03:00",
+  "deadline_msk": "2026-10-12T07:40:00+03:00",
+  "calibration_images": [
+    [
+      "03b0697b-faa11b32",
+      150
+    ],
+    [
+      "03b0697b-faa11b32",
+      600
+    ],
+    [
+      "02139a84-359b2b17",
+      150
+    ],
+    [
+      "02139a84-359b2b17",
+      600
+    ],
+    [
+      "015f23ad-5049df48",
+      150
+    ],
+    [
+      "015f23ad-5049df48",
+      600
+    ],
+    [
+      "036aea46-ee63a8e7",
+      150
+    ],
+    [
+      "036aea46-ee63a8e7",
+      600
+    ],
+    [
+      "02521568-dd1da95c",
+      150
+    ],
+    [
+      "02521568-dd1da95c",
+      600
+    ],
+    [
+      "02b4d710-c34ba68e",
+      150
+    ],
+    [
+      "02b4d710-c34ba68e",
+      600
+    ]
+  ],
+  "regression_images": [
+    [
+      "00ccf2e8-59a6bfc9",
+      900
+    ],
+    [
+      "004855fc-ff3946ad",
+      900
+    ]
+  ],
+  "holdout_images": [
+    [
+      "019d6206-d5de804a",
+      900
+    ],
+    [
+      "009215e2-ea063b28",
+      900
+    ],
+    [
+      "0329d6b9-abddbf95",
+      900
+    ],
+    [
+      "00b93c6e-6298aa25",
+      900
+    ]
+  ],
+  "seed": 12026,
+  "sizes": [
+    60,
+    90,
+    120
+  ],
+  "speeds": [
+    1,
+    2,
+    4
+  ],
+  "steps": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "calibration": "2x2 least squares on accumulated 12-step displacement; no intercept; same procedure all arms",
+  "variants": [
+    "old",
+    "legacy",
+    "new",
+    "ctrl"
+  ],
+  "reference": "birth activity transported exactly like live state, then decoded and subtracted; boundary nearest neighbor as v1",
+  "gate": "T1 drift <=0.25; T2,T3 cos >=0.8 and length 0.6..1.4; T4 error <=12px. Both old two-image group and new four-video train group must pass averages.",
+  "stage1": "Only if gate passes: fixed dev35, new-old/new-none/new-ctrl mean per-video errors all negative with CI95 entirely below zero, 5000 paired video bootstrap",
+  "stop": "No tuning after gate; no HOTA/MASA tonight; stop by deadline; incomplete set is not a conclusion",
+  "counterargument": "Global signal scaling may not transfer between scenes; DIS may remain much more accurate. Technical success alone does not prove benefit on video."
+}
