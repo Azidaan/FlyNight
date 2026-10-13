@@ -15,6 +15,7 @@ import subprocess
 import sys
 import threading
 import time
+import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -27,6 +28,41 @@ def stop_owned_child(proc):
         subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"],
             creationflags=subprocess.CREATE_NO_WINDOW, check=False,
             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+
+def accept_t3(run_root):
+    """Check approved technical outputs and the pre-recorded price limit."""
+    records = []
+    for video in ("019efe88-bbc2a4ac", "023b022b-723860c9"):
+        folder = run_root / "t3/signatures" / video
+        summary = json.loads((folder / "signatures.json").read_text(encoding="utf-8"))
+        with np.load(folder / "signatures.npz") as archive:
+            outputs = archive["outputs"]
+            frames = int(archive["frame_count"])
+        with np.load(ROOT / "runs/fly_signatures" / video / "signatures.npz") as baseline:
+            expected_frames = int(baseline["frame_count"])
+        events = summary["z13_events"]
+        good = (frames == expected_frames and np.isfinite(outputs).all()
+                and events["steps"] > 0 and events["births"] > 0
+                and events["steps"] == events["interventions"] + events["refusals"])
+        records.append({"video": video, "frames": frames, "expected_frames": expected_frames,
+                        "events": events, "seconds": summary["seconds"], "passed": bool(good)})
+    seconds_per_video = sum(r["seconds"] for r in records) / len(records)
+    # The CURRENT card has a hard 16 h budget (1 technical + 3 training
+    # + 12 dev). Do not revive the earlier 1.5 multiplier.
+    projected_dev_hours = seconds_per_video * 35 * 3 / 3600
+    t2 = json.loads((run_root / "t2/report.json").read_text(encoding="utf-8"))
+    technical_hours = (sum(t2[a]["seconds"] for a in ("B", "C", "D"))
+                       + sum(r["seconds"] for r in records)) / 3600
+    price_ok = projected_dev_hours <= 12 and technical_hours <= 1
+    report = {"videos": records, "projected_dev_gpu_hours": projected_dev_hours,
+              "measured_technical_gpu_hours": technical_hours,
+              "remaining_training_budget_hours": 3, "total_gpu_budget_hours": 16,
+              "within_price_limit": price_ok,
+              "passed": all(r["passed"] for r in records) and price_ok,
+              "caveat": "Technical acceptance only; dev extrapolation covers eye collection, DINO/MASA overhead remains to be measured. No HOTA or localization quality claim"}
+    atomic_json(run_root / "t3_acceptance.json", report)
+    return report
 
 
 def main():
@@ -51,6 +87,13 @@ def main():
         lock.write(b"0"); lock.flush()
     lock.seek(0)
     msvcrt.locking(lock.fileno(), msvcrt.LK_NBLCK, 1)
+    t2_manifest = run_root / "t2_manifest.json"
+    if args.resume and t2_manifest.exists():
+        from tracking.z13_checkpoint import provenance
+        from scripts.z13_train import DATA
+        saved = json.loads(t2_manifest.read_text(encoding="utf-8"))
+        if saved != provenance(ROOT, DATA, saved["videos"], saved["config"]):
+            raise ValueError("Resume rejected: technical code or data changed")
     job = run_root / ("job_" + datetime.now().strftime("%H%M%S"))
     job.mkdir()
     stop_file = job / "stop.request"
@@ -113,18 +156,27 @@ def main():
             return 2
         for video in ("019efe88-bbc2a4ac", "023b022b-723860c9"):
             output = run_root / "t3/signatures"
-            if args.resume and (output / video / "summary.json").exists():
+            if args.resume and (output / video / "signatures.json").exists():
                 continue
             code = run("T3_" + video, ["scripts/build_fly_signatures.py", "--skip-fly",
                 "--z13", str(run_root / "t2/model_D.pt"), "--output", str(output),
                 "--video-id", video, "--max-eyes", "16"])
             if code != 0:
                 return code
-        # Successful technical execution is not a scientific HOTA verdict.
-        # Preserve T3 results for its separate acceptance checks before the full
-        # B/C/D experiment; do not silently bypass those checks here.
-        status(state="technical_runs_completed", stage="T3",
-               reason="T3 artifacts require acceptance review before main training")
+        technical = accept_t3(run_root)
+        if not technical["passed"]:
+            status(state="failed", stage="T3", reason="technical execution or original price gate failed")
+            return 2
+        for arm in ("B", "C", "D"):
+            if args.resume and (run_root / arm / "model.pt").exists():
+                continue
+            code = run("MAIN_" + arm, ["scripts/z13_train.py", "--arm", arm, *training_flags])
+            if code != 0:
+                return code
+        # Full dev/MASA evaluation needs the trained models; never substitute
+        # T2 models or report technical localization as a HOTA improvement.
+        status(state="training_completed", stage="B_C_D",
+               reason="All models ready; full dev/MASA evaluation remains")
         return 0
     finally:
         with ownership_lock:

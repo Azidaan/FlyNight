@@ -10318,7 +10318,8 @@
    "acceptance": [
     {
      "criterion": "Т1–Т3 пройдены по условиям карточки (условие основного обучения; Т2 и Т3 — после явного разрешения GPU)",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_data/t1.json; runs/z13_codex_window_20261013/t2/report.json; runs/z13_codex_window_20261013/t3_acceptance.json"
     },
     {
      "criterion": "Польза реализации: dev 35, HOTA после MASA, D − A: общий прирост ≥ +0,10 (практический минимум) и ДИ средней разности по видео > 0 (бутстрэп 5000)",
@@ -10357,6 +10358,18 @@
      "ref": "runs/z13_codex_repair_20261013/data_check.json",
      "locator": "passed, ownership_mismatches",
      "claim": "После исправления загрузчика все метки 130 train относятся к своим эпизодам; Т1 пройдена"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_codex_window_20261013/t2/report.json",
+     "locator": "conditions",
+     "claim": "Все пять заранее записанных технических условий Т2 выполнены; это не оценка HOTA"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_codex_window_20261013/t3_acceptance.json",
+     "locator": "passed",
+     "claim": "Приёмка двух технических прогонов Т3: полнота кадров, конечность выхода, счётчики и предварительная оценка цены; не оценка HOTA"
     }
    ],
    "revisions": [

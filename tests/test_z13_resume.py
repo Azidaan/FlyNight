@@ -160,3 +160,30 @@ def test_stop_guard_terminates_only_owned_child():
         # This test owns both fixtures; production passes only its actual child.
         stop_owned_child(own)
         stop_owned_child(other)
+
+
+def test_t3_acceptance_checks_frames_events_and_current_budget(tmp_path, monkeypatch):
+    import json
+    from scripts import z13_window_runner as runner
+    monkeypatch.setattr(runner, "ROOT", tmp_path)
+    run = tmp_path / "run"
+    (run / "t2").mkdir(parents=True)
+    (run / "t2/report.json").write_text(json.dumps({a: {"seconds": 100} for a in ("B", "C", "D")}))
+    for video in ("019efe88-bbc2a4ac", "023b022b-723860c9"):
+        output = run / "t3/signatures" / video
+        baseline = tmp_path / "runs/fly_signatures" / video
+        output.mkdir(parents=True); baseline.mkdir(parents=True)
+        np.savez_compressed(output / "signatures.npz", outputs=np.ones((2, 8)), frame_count=1200)
+        np.savez_compressed(baseline / "signatures.npz", frame_count=1200)
+        (output / "signatures.json").write_text(json.dumps({"z13_events": {
+            "steps": 10, "births": 2, "interventions": 3, "refusals": 7}, "seconds": 100}))
+    assert runner.accept_t3(run)["passed"]
+    target = run / "t3/signatures/019efe88-bbc2a4ac/signatures.json"
+    values = json.loads(target.read_text())
+    values["z13_events"]["refusals"] = 8
+    target.write_text(json.dumps(values))
+    assert not runner.accept_t3(run)["passed"]
+    values["z13_events"]["refusals"] = 7
+    values["seconds"] = 1100
+    target.write_text(json.dumps(values))
+    assert not runner.accept_t3(run)["within_price_limit"]

@@ -1,0 +1,37 @@
+{
+  "videos": [
+    {
+      "video": "019efe88-bbc2a4ac",
+      "frames": 1211,
+      "expected_frames": 1211,
+      "events": {
+        "steps": 12818,
+        "interventions": 12818,
+        "refusals": 0,
+        "births": 491
+      },
+      "seconds": 156.20762729999842,
+      "passed": true
+    },
+    {
+      "video": "023b022b-723860c9",
+      "frames": 1199,
+      "expected_frames": 1199,
+      "events": {
+        "steps": 12451,
+        "interventions": 12451,
+        "refusals": 0,
+        "births": 525
+      },
+      "seconds": 136.08069120000437,
+      "passed": true
+    }
+  ],
+  "projected_dev_gpu_hours": 4.2625379781250405,
+  "measured_technical_gpu_hours": 0.15716062045347928,
+  "remaining_training_budget_hours": 3,
+  "total_gpu_budget_hours": 16,
+  "within_price_limit": true,
+  "passed": true,
+  "caveat": "Technical acceptance only; dev extrapolation covers eye collection, DINO/MASA overhead remains to be measured. No HOTA or localization quality claim"
+}

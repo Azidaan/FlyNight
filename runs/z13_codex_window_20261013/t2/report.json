@@ -1,0 +1,104 @@
+{
+ "C": {
+  "seconds": 78.10946130752563,
+  "object_first50": 7.470405511856079,
+  "object_last50": 5.760103349685669,
+  "heldout_object": 5.645964277683718,
+  "heldout_labels": 307,
+  "tau_heldout": {
+   "tau": null
+  }
+ },
+ "D": {
+  "seconds": 132.7042818069458,
+  "object_first50": 7.430581665039062,
+  "object_last50": 5.77686842918396,
+  "heldout_object": 5.643571250990082,
+  "heldout_labels": 307,
+  "grad": [
+   {
+    "it": 1,
+    "grad_object": 286.3385925292969,
+    "grad_penalty": 0.0
+   },
+   {
+    "it": 26,
+    "grad_object": 483.74041748046875,
+    "grad_penalty": 0.0008868379518389702
+   },
+   {
+    "it": 51,
+    "grad_object": 480.8342590332031,
+    "grad_penalty": 0.0008350600837729871
+   },
+   {
+    "it": 76,
+    "grad_object": 788.7990112304688,
+    "grad_penalty": 0.0010463097132742405
+   },
+   {
+    "it": 101,
+    "grad_object": 658.1192016601562,
+    "grad_penalty": 0.0011816894402727485
+   },
+   {
+    "it": 126,
+    "grad_object": 408.14190673828125,
+    "grad_penalty": 0.0014587977202609181
+   },
+   {
+    "it": 151,
+    "grad_object": 538.73193359375,
+    "grad_penalty": 0.0014988528564572334
+   },
+   {
+    "it": 176,
+    "grad_object": 648.0869140625,
+    "grad_penalty": 0.0017661098390817642
+   },
+   {
+    "it": 201,
+    "grad_object": 1151.754638671875,
+    "grad_penalty": 0.00196152669377625
+   },
+   {
+    "it": 226,
+    "grad_object": 801.5358276367188,
+    "grad_penalty": 0.002309973118826747
+   },
+   {
+    "it": 251,
+    "grad_object": 366.25286865234375,
+    "grad_penalty": 0.002540747169405222
+   },
+   {
+    "it": 276,
+    "grad_object": 815.3994140625,
+    "grad_penalty": 0.002851304365321994
+   }
+  ],
+  "drift_median_rel": 0.0039542363956570625,
+  "col_hit_true": 0.01,
+  "col_hit_shuffled": 0.0,
+  "tau_heldout": {
+   "tau": null
+  }
+ },
+ "B": {
+  "seconds": 62.67617201805115,
+  "object_first50": 5.79239734172821,
+  "object_last50": 3.2238080859184266,
+  "heldout_object": 3.750910867697253,
+  "heldout_labels": 307,
+  "tau_heldout": {
+   "tau": null
+  }
+ },
+ "conditions": {
+  "loss_falls_D": true,
+  "core_moves_D": true,
+  "grad_object_ge_penalty_D": true,
+  "heldout_D_below_C": true,
+  "shuffle_drops_D": true
+ }
+}

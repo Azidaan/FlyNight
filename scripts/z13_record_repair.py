@@ -14,6 +14,17 @@ def main():
         card["evidence"].append({"kind": "json", "ref": source,
             "locator": "passed, ownership_mismatches",
             "claim": "После исправления загрузчика все метки 130 train относятся к своим эпизодам; Т1 пройдена"})
+    technical = "runs/z13_codex_window_20261013/t2/report.json"
+    if (ROOT / technical).exists() and not any(e.get("ref") == technical for e in card["evidence"]):
+        card["evidence"].append({"kind": "json", "ref": technical, "locator": "conditions",
+            "claim": "Все пять заранее записанных технических условий Т2 выполнены; это не оценка HOTA"})
+    technical = "runs/z13_codex_window_20261013/t3_acceptance.json"
+    if (ROOT / technical).exists() and not any(e.get("ref") == technical for e in card["evidence"]):
+        card["evidence"].append({"kind": "json", "ref": technical, "locator": "passed",
+            "claim": "Приёмка двух технических прогонов Т3: полнота кадров, конечность выхода, счётчики и предварительная оценка цены; не оценка HOTA"})
+    if (ROOT / technical).exists() and json.loads((ROOT / technical).read_text(encoding="utf-8"))["passed"]:
+        card["acceptance"][0]["met"] = True
+        card["acceptance"][0]["evidence"] = "runs/z13_data/t1.json; runs/z13_codex_window_20261013/t2/report.json; runs/z13_codex_window_20261013/t3_acceptance.json"
     card["state"] = "running"
     path.write_text(json.dumps(catalog, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
