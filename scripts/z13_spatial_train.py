@@ -167,7 +167,9 @@ def check_geometry(data, geom, eye_size):
 
 def probe(torch, protocol, run):
     from tracking.z13_readout import run_sequence
-    folder = run / 'technical'; folder.mkdir(exist_ok=True)
+    # Preserve the first failed probe. Forward floating-point reproducibility
+    # is separate from exact serialization (see restore_audit.json).
+    folder = run / 'technical/verified_restore'; folder.mkdir(parents=True, exist_ok=True)
     report = {'arms': {}, 'scope': 'Technical execution only; no efficacy threshold selected'}
     vids = protocol['fit'][:2]
     data = Episodes(vids)
@@ -181,28 +183,46 @@ def probe(torch, protocol, run):
         started = time.monotonic()
         ident = identity(protocol, {**job, 'arm': arm})
         hist, opt, rng = train(torch, arm, data, bb, ro, dev, path, ident, control, protocol['technical_steps_per_arm'])
-        # A checkpoint round trip must preserve the next random batch and predictions exactly.
+        # State and RNG must restore exactly. CUDA scatter_add can change the
+        # last bits of an unchanged forward pass, as the retained audit shows.
         hx, ms = data.batch(torch, dev, [0, min(1, len(data.off) - 2)], [0, 0])
+        saved = torch.load(path / 'checkpoint.pt', map_location='cpu', weights_only=False)
+        step, _ = restore_checkpoint(torch, path / 'checkpoint.pt', arm, bb, ro, opt, rng, ident)
         with torch.no_grad():
             original = run_sequence(torch, bb, ro, hx, ms).detach().clone()
-            changed = hx.clone(); changed[:, :4] = 1 - changed[:, :4]
-            other = run_sequence(torch, bb, ro, changed, ms)
-            sensitivity = float((original - other).abs().max())
         next_np = rng.integers(0, 1000000, 16)
         next_torch = torch.rand(16, device=dev)
         with torch.no_grad():
             next(ro.parameters()).add_(1)
         step, _ = restore_checkpoint(torch, path / 'checkpoint.pt', arm, bb, ro, opt, rng, ident)
+        def equal_state(a, b):
+            if torch.is_tensor(a):
+                return torch.equal(a.detach().cpu(), b.detach().cpu())
+            if isinstance(a, dict):
+                return a.keys() == b.keys() and all(equal_state(a[k], b[k]) for k in a)
+            if isinstance(a, (list, tuple)):
+                return len(a) == len(b) and all(equal_state(x, y) for x, y in zip(a, b))
+            return a == b
+        exact_state = (equal_state(ro.state_dict(), saved['readout'])
+                       and equal_state((bb if arm == 'B' else bb.net).state_dict(), saved['backbone'])
+                       and equal_state(opt.state_dict(), saved['optimizer']))
         with torch.no_grad():
             restored = run_sequence(torch, bb, ro, hx, ms)
-        exact = (torch.equal(original, restored) and np.array_equal(next_np, rng.integers(0, 1000000, 16))
+        exact = (exact_state and np.array_equal(next_np, rng.integers(0, 1000000, 16))
                  and torch.equal(next_torch, torch.rand(16, device=dev)))
+        forward_ok = torch.allclose(original, restored, atol=1e-5, rtol=1e-5)
+        with torch.no_grad():
+            changed = hx.clone(); changed[:, :4] = 1 - changed[:, :4]
+            other = run_sequence(torch, bb, ro, changed, ms)
+            sensitivity = float((restored - other).abs().max())
         r = {'geometry_labels': checked, 'steps': step, 'seconds': time.monotonic() - started,
              'template_effect_max': sensitivity, 'checkpoint_restore_exact': exact,
+             'forward_max_abs_difference': float((original - restored).abs().max()),
+             'forward_close': forward_ok,
              'readout_parameters': sum(p.numel() for p in ro.parameters()),
              'core_object_gradient_max': max(h['core_object_gradient'] for h in hist),
              'loss_first': hist[0]['object'], 'loss_last': hist[-1]['object']}
-        r['passed'] = bool(exact and sensitivity > 1e-7 and step == protocol['technical_steps_per_arm']
+        r['passed'] = bool(exact and forward_ok and sensitivity > 1e-7 and step == protocol['technical_steps_per_arm']
                            and (arm != 'D' or r['core_object_gradient_max'] > 0))
         report['arms'][arm] = r
         atomic_json(folder / 'report.json', report)
@@ -218,6 +238,11 @@ def probe(torch, protocol, run):
     atomic_json(folder / 'report.json', report)
     if not report['passed']:
         raise RuntimeError('Unequal readouts')
+    report['serialization_note'] = 'Exact weights, optimizer and RNG; forward tolerance 1e-5 accounts for measured CUDA scatter_add variation, not changed scientific criteria'
+    previous = run / 'technical/report.json'
+    if previous.exists() and not (run / 'technical/first_probe_report.json').exists():
+        atomic_json(run / 'technical/first_probe_report.json', json.loads(previous.read_text(encoding='utf-8')))
+    atomic_json(previous, report)
 
 
 def quality(torch, protocol, arm, run):
