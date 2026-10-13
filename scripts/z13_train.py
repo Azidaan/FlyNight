@@ -37,13 +37,20 @@ class Episodes:
     def __init__(self, vids: list[str]) -> None:
         hx, ms, off, lab, meta = [], [], [0], [], []
         for v in vids:
-            d = np.load(DATA / f"{v}.npz")
-            base_f, base_e = off[-1], len(ms)
+            # Each compressed array is decoded once, rather than once per label.
+            with np.load(DATA / f"{v}.npz") as archive:
+                d = {key: archive[key] for key in archive.files}
+            base_f, base_e = off[-1], len(off) - 1
             o = d["ep_offset"]
+            n_ep = len(o) - 1
+            if len(d["ex_mask"]) != n_ep or int(o[-1]) != len(d["fr_hex"]):
+                raise ValueError(f"Malformed episode offsets/masks in {v}")
             hx.append(d["fr_hex"]); ms.append(d["ex_mask"])
             off.extend((o[1:] + base_f).tolist())
             for i in range(len(d["lab_kind"])):
                 e = int(d["lab_ep"][i])
+                if not 0 <= e < n_ep or not 0 <= int(d["lab_pos"][i]) < int(o[e + 1] - o[e]) - 4:
+                    raise ValueError(f"Label points outside its search episode: {v}, label {i}")
                 lab.append((base_e + e, int(d["lab_pos"][i]), int(d["lab_kind"][i]), int(d["lab_col"][i]), d["lab_center"][i], d["lab_gtbox"][i], d["lab_pred"][i], d["lab_crop"][i], bool(d["ep_pert"][e])))
             meta.append((v, len(o) - 1))
         self.hex = np.concatenate(hx) if hx else np.zeros((0, 721), np.float16)
@@ -68,6 +75,8 @@ def split_videos():
     from scripts.fly_lifecycle_alive import sets
     S = sets(PROJECT_ROOT / "runs/fly_signatures", PROJECT_ROOT / "runs/fly_signatures_val")
     vids = sorted(v for v, *_ in S["train"] if (DATA / f"{v}.npz").exists())
+    if len(vids) != 130:
+        raise ValueError(f"Protocol requires all 130 train videos, found {len(vids)}")
     rng = np.random.default_rng(0); perm = rng.permutation(len(vids))
     tau_v = sorted(vids[i] for i in perm[:26]); fit_v = sorted(vids[i] for i in perm[26:])
     return fit_v, tau_v
@@ -98,7 +107,8 @@ def backbone_groups(arm, bb):
 def fit_stats(torch, data, bb, ro, dev, rng, n=64):
     """Стандартизация признаков считывателя по train (до обучения)."""
     from tracking.z13_readout import N_EXEMPLAR
-    eps = rng.choice(len(data.off) - 1, size=min(n, len(data.off) - 1), replace=False).tolist()
+    available = getattr(data, "stats_episodes", np.arange(len(data.off) - 1))
+    eps = rng.choice(available, size=min(n, len(available)), replace=False).tolist()
     feats = []
     with torch.no_grad():
         for k in range(0, len(eps), 16):
@@ -110,13 +120,25 @@ def fit_stats(torch, data, bb, ro, dev, rng, n=64):
     ro.mu.copy_(F.mean(0)); ro.sd.copy_(F.std(0).clamp(min=1e-3))
 
 
-def train(arm, torch, data, bb, ro, dev, iters, seed=0, log=None, probe=None):
+def train(arm, torch, data, bb, ro, dev, iters, seed=0, log=None, probe=None, control=None, identity=None, checkpoint=None):
     from tracking.z13_readout import run_sequence
+    from tracking.z13_checkpoint import TrainingPaused, restore_checkpoint, save_checkpoint
     rng = np.random.default_rng(seed)
     usable = [i for i, l in enumerate(data.labels) if l[2] >= 0]
     opt = torch.optim.Adam([{"params": list(ro.parameters()), "lr": LR_READOUT}] + backbone_groups(arm, bb))
-    hist = []; t0 = time.time()
-    for it in range(iters):
+    hist = []; start = 0; t0 = time.time(); last_saved = t0
+    if checkpoint is not None:
+        checkpoint = Path(checkpoint)
+        if checkpoint.exists():
+            if control is None or not control.resume:
+                raise ValueError(f"Checkpoint already exists; use --resume: {checkpoint}")
+            start, hist = restore_checkpoint(torch, checkpoint, arm, bb, ro, opt, rng, identity)
+        else:
+            save_checkpoint(torch, checkpoint, arm, bb, ro, opt, rng, 0, hist, identity)
+    if control:
+        control.status(stage="training", arm=arm, step=start, total=iters, checkpoint=str(checkpoint))
+        control.check()
+    for it in range(start, iters):
         pick = rng.choice(usable, size=BATCH, replace=False)
         L = [data.labels[i] for i in pick]
         eps = [l[0] for l in L]; pos = [l[1] for l in L]
@@ -126,13 +148,19 @@ def train(arm, torch, data, bb, ro, dev, iters, seed=0, log=None, probe=None):
         sel = logits[torch.arange(len(L), device=dev), torch.as_tensor(pos, device=dev)]
         obj = torch.nn.functional.cross_entropy(sel, tgt)
         pen = bb.penalty() if hasattr(bb, "penalty") else torch.zeros((), device=dev)
-        rec = {"it": it + 1, "object": float(obj), "penalty": float(pen)}
+        rec = {"it": it + 1, "object": float(obj.detach()), "penalty": float(pen.detach())}
         if probe is not None and (it % 25 == 0):
             rec.update(probe(obj, pen))
         opt.zero_grad(); (obj + (ANCHOR * pen if arm == "D" else 0.0)).backward(); opt.step()
         if hasattr(bb, "clamp"):
             bb.clamp()
         hist.append(rec)
+        if checkpoint is not None and ((it + 1) % control.every == 0 or time.time() - last_saved >= 60 or it + 1 == iters or control.stopped()):
+            save_checkpoint(torch, checkpoint, arm, bb, ro, opt, rng, it + 1, hist, identity)
+            last_saved = time.time()
+            control.status(step=it + 1, checkpoint_verified=True)
+        if control:
+            control.check()
         if (it + 1) % 50 == 0 or it == 0:
             el = time.time() - t0; msg = f"[TRAIN {arm}] {it + 1}/{iters} объектная {np.mean([h['object'] for h in hist[-50:]]):.3f} штраф {rec['penalty']:.5f} | {el / 60:.1f} мин, осталось ~{el / (it + 1) * (iters - it - 1) / 60:.1f} мин"
             print(msg, flush=True)
@@ -141,7 +169,7 @@ def train(arm, torch, data, bb, ro, dev, iters, seed=0, log=None, probe=None):
     return hist
 
 
-def evaluate(torch, data, bb, ro, dev, geom, eye_size, label_ids, shuffle=False, seed=1):
+def evaluate(torch, data, bb, ro, dev, geom, eye_size, label_ids, shuffle=False, seed=1, control=None):
     """Прогон эпизодов без градиента: для каждой метки — вероятность «найден», оценка центра (кадр), ошибки."""
     from tracking.z13_readout import center_estimate, run_sequence, to_frame
     by_ep = {}
@@ -151,6 +179,8 @@ def evaluate(torch, data, bb, ro, dev, geom, eye_size, label_ids, shuffle=False,
     perm = np.random.default_rng(seed).permutation(len(eps)) if shuffle else np.arange(len(eps))
     with torch.no_grad():
         for k in range(0, len(eps), 16):
+            if control:
+                control.check()
             ch = eps[k:k + 16]; mx = [max(data.labels[i][1] for i in by_ep[e]) for e in ch]
             hx, ms = data.batch(torch, dev, ch, mx)
             if shuffle:   # образцы из других эпизодов (первые 4 кадра и рамка образца)
@@ -209,49 +239,85 @@ def save_model(path, arm, bb, ro, tau_rep):
 
 
 def main() -> int:
+    global OUT
     import torch
+    from tracking.z13_checkpoint import RunControl, TrainingPaused, provenance, atomic_json
     ap = argparse.ArgumentParser(); ap.add_argument("--arm", choices=["B", "C", "D"]); ap.add_argument("--t2", action="store_true"); ap.add_argument("--iters", type=int, default=ITERS)
+    ap.add_argument("--resume", action="store_true")
+    ap.add_argument("--stop-file", type=Path)
+    ap.add_argument("--deadline", help="ISO timestamp with UTC offset")
+    ap.add_argument("--output-root", type=Path, default=OUT)
     a = ap.parse_args()
+    if not a.t2 and a.arm is None:
+        ap.error("--arm or --t2 is required")
+    OUT = a.output_root.resolve()
+    OUT.relative_to(PROJECT_ROOT)
+    control = RunControl(OUT, a.stop_file, a.deadline, a.resume)
+    control.check()
     torch.manual_seed(0)
     fit_v, tau_v = split_videos()
     OUT.mkdir(parents=True, exist_ok=True)
+    identity = provenance(PROJECT_ROOT, DATA, fit_v + tau_v, {
+        "fit": fit_v, "tau": tau_v, "iters": a.iters, "batch": BATCH,
+        "lr_readout": LR_READOUT, "anchor": ANCHOR, "seed": 0,
+        "t2": a.t2, "success_scale": SUCCESS_SCALE, "precision": PRECISION,
+        "minimum_interventions": MIN_INTERVENTIONS,
+    })
+    manifest = OUT / ("t2_manifest.json" if a.t2 else f"{a.arm}_manifest.json")
+    if manifest.exists():
+        if not a.resume or json.loads(manifest.read_text(encoding="utf-8")) != identity:
+            raise ValueError("Existing run requires --resume with identical code/data/settings")
+    else:
+        atomic_json(manifest, identity)
     if a.t2:
-        return t2(torch, fit_v)
+        return t2(torch, fit_v, control, identity)
     d = OUT / a.arm; d.mkdir(parents=True, exist_ok=True)
     (d / "split.json").write_text(json.dumps({"fit": fit_v, "tau": tau_v}, ensure_ascii=False, indent=1), encoding="utf-8")
     est, bank, geom, bb, ro, dev = build(a.arm, torch)
     data = Episodes(fit_v); print(f"[DATA] обучение: видео {len(fit_v)}, эпизодов {len(data.off) - 1}, меток {len(data.labels)}", flush=True)
-    fit_stats(torch, data, bb, ro, dev, np.random.default_rng(0))
-    with (d / "train_log.txt").open("w", encoding="utf-8") as log:
-        hist = train(a.arm, torch, data, bb, ro, dev, a.iters, log=log)
+    checkpoint = d / "checkpoint.pt"
+    if not checkpoint.exists():
+        fit_stats(torch, data, bb, ro, dev, np.random.default_rng(0))
+    with (d / "train_log.txt").open("a" if a.resume else "w", encoding="utf-8") as log:
+        hist = train(a.arm, torch, data, bb, ro, dev, a.iters, log=log, control=control, identity=identity, checkpoint=checkpoint)
     del data
     tdata = Episodes(tau_v)
     ids = [i for i, l in enumerate(tdata.labels) if not l[8]]   # эпизоды без возмущения
-    rows = evaluate(torch, tdata, bb, ro, dev, geom, bank.eye_size, ids)
+    control.status(stage="calibration")
+    rows = evaluate(torch, tdata, bb, ro, dev, geom, bank.eye_size, ids, control=control)
     rep = choose_tau(rows)
     (d / "tau.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
     (d / "loss.json").write_text(json.dumps(hist), encoding="utf-8")
     save_model(d / "model.pt", a.arm, bb, ro, rep)
+    control.status(state="completed", stage="model_ready", arm=a.arm)
     print(f"[TAU] {a.arm}: {rep}\n[OK]", flush=True)
     return 0
 
 
-def t2(torch, fit_v) -> int:
+def t2(torch, fit_v, control=None, identity=None) -> int:
     """Т2: 300 итераций на 500 эпизодах train; C и D — одни и те же пакеты; объектная потеря, штраф и градиенты раздельно;
     отложенные 100 эпизодов — объектная потеря C и D; перемешивание образцов — доля попаданий в колонку у D."""
     from tracking.z13_readout import run_sequence
     d = OUT / "t2"; d.mkdir(parents=True, exist_ok=True)
-    rep = {}
+    progress_file = d / "arms.json"
+    rep = json.loads(progress_file.read_text(encoding="utf-8")) if control and control.resume and progress_file.exists() else {}
     rng = np.random.default_rng(0)
     vids = list(rng.permutation(fit_v)[:20])
     full = Episodes(vids)
     eps = rng.permutation(len(full.off) - 1)
     tr_e, ho_e = set(eps[:500].tolist()), set(eps[500:600].tolist())
     for arm in ("C", "D", "B"):
+        if control:
+            control.check()
+        if arm in rep:
+            continue
         torch.manual_seed(0)
         est, bank, geom, bb, ro, dev = build(arm, torch)
         sub = Episodes.__new__(Episodes); sub.__dict__ = dict(full.__dict__); sub.labels = [l for l in full.labels if l[0] in tr_e]
-        fit_stats(torch, sub, bb, ro, dev, np.random.default_rng(0))
+        sub.stats_episodes = np.asarray(sorted(tr_e))
+        checkpoint = d / f"checkpoint_{arm}.pt" if control else None
+        if checkpoint is None or not checkpoint.exists():
+            fit_stats(torch, sub, bb, ro, dev, np.random.default_rng(0))
 
         def probe(obj, pen, bb=bb, arm=arm):
             if arm != "D":
@@ -261,11 +327,14 @@ def t2(torch, fit_v) -> int:
             nrm = lambda gs: float(torch.sqrt(sum((g ** 2).sum() for g in gs if g is not None))) if any(g is not None for g in gs) else 0.0
             return {"grad_object": nrm(g_obj), "grad_penalty": nrm(g_pen)}
         t0 = time.time()
-        hist = train(arm, torch, sub, bb, ro, dev, 300, probe=probe)
+        hist = train(arm, torch, sub, bb, ro, dev, 300, probe=probe, control=control, identity=identity, checkpoint=checkpoint)
         ho = [i for i, l in enumerate(full.labels) if l[0] in ho_e and l[2] >= 0]
         losses = []
         with torch.no_grad():
             for k in range(0, len(ho), 16):
+                if control:
+                    control.status(stage="t2_heldout", arm=arm)
+                    control.check()
                 L = [full.labels[i] for i in ho[k:k + 16]]
                 hx, ms = full.batch(torch, dev, [l[0] for l in L], [l[1] for l in L])
                 lg = run_sequence(torch, bb, ro, hx, ms)[torch.arange(len(L), device=dev), torch.as_tensor([l[1] for l in L], device=dev)]
@@ -277,14 +346,17 @@ def t2(torch, fit_v) -> int:
             r["drift_median_rel"] = float(np.median(np.concatenate([((p.detach() - q).abs() / (q.abs() + 1e-6)).flatten().cpu().numpy() for p, q in zip(bb.params, bb.p0)])))
             hol = [i for i in ho if full.labels[i][2] == 1]
             for nm, sh in (("true", False), ("shuffled", True)):
-                rows = evaluate(torch, full, bb, ro, dev, geom, bank.eye_size, hol, shuffle=sh)
+                rows = evaluate(torch, full, bb, ro, dev, geom, bank.eye_size, hol, shuffle=sh, control=control)
                 r[f"col_hit_{nm}"] = float(np.mean([x["col_hit"] for x in rows])) if rows else None
-        rows_ho = evaluate(torch, full, bb, ro, dev, geom, bank.eye_size, [i for i in ho if not full.labels[i][8]])
+        rows_ho = evaluate(torch, full, bb, ro, dev, geom, bank.eye_size, [i for i in ho if not full.labels[i][8]], control=control)
         tr_ = choose_tau(rows_ho); r["tau_heldout"] = tr_
         if tr_["tau"] is None:   # только для технической Т3 (запуск, время, счёт вмешательств), не для оценки
             tr_ = dict(tr_, tau=0.5, technical=True)
         save_model(d / f"model_{arm}.pt", arm, bb, ro, tr_)
         rep[arm] = r
+        if control:
+            from tracking.z13_checkpoint import atomic_json
+            atomic_json(progress_file, rep)
         print(f"[T2] {arm}: {r if arm != 'D' else {k: v for k, v in r.items() if k != 'grad'}}", flush=True)
         del bb, ro
         if torch.cuda.is_available():
@@ -297,8 +369,15 @@ def t2(torch, fit_v) -> int:
                          "shuffle_drops_D": (D["col_hit_shuffled"] or 0) < (D["col_hit_true"] or 0)}
     (d / "report.json").write_text(json.dumps(rep, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"[T2] условия: {rep['conditions']}\n[OK]", flush=True)
-    return 0
+    if control:
+        control.status(state="completed", stage="t2_finished", conditions=rep["conditions"])
+    return 0 if all(rep["conditions"].values()) else 2
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    from tracking.z13_checkpoint import TrainingPaused
+    try:
+        raise SystemExit(main())
+    except TrainingPaused as exc:
+        print(f"[PAUSED] {exc}", flush=True)
+        raise SystemExit(75)

@@ -10286,7 +10286,7 @@
    "id": "fly_object_readout_z13_v1",
    "title": "З13: объектное считывание FlyVis — поправка центра потерянного трека по образцу цели",
    "area": "flyvis",
-   "state": "planned",
+   "state": "running",
    "started": "2026-10-13",
    "tags": [
     "fly-problem-P3",
@@ -10351,6 +10351,12 @@
      "ref": "runs/z13/skipfly_check.json",
      "locator": "passed, hota_masa",
      "claim": "режим без мухи воспроизводит стенд с MASA"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_codex_repair_20261013/data_check.json",
+     "locator": "passed, ownership_mismatches",
+     "claim": "После исправления загрузчика все метки 130 train относятся к своим эпизодам; Т1 пройдена"
     }
    ],
    "revisions": [
