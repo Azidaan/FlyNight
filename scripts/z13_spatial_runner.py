@@ -51,6 +51,7 @@ def main():
             env = {**os.environ, 'OMP_NUM_THREADS': '2', 'MKL_NUM_THREADS': '2',
                    'OPENBLAS_NUM_THREADS': '2', 'PYTHONUNBUFFERED': '1'}
             with (jobfolder / 'log.txt').open('a', encoding='utf-8') as log:
+                log_start = log.tell()
                 log.write(f'\n[{stage}] attempt={attempt} {datetime.now().astimezone().isoformat()}\n'); log.flush()
                 current = subprocess.Popen([str(ROOT / '.venv/Scripts/python.exe'), '-u',
                     'scripts/z13_spatial_train.py', *switches], cwd=ROOT, env=env, creationflags=flags,
@@ -69,15 +70,19 @@ def main():
                         kill_owned(); break
                 code = current.returncode
                 current = None
+            with (jobfolder / 'log.txt').open('r', encoding='utf-8') as log:
+                log.seek(log_start)
+                attempt_text = log.read()
+            sharing_error = 'PermissionError: [WinError 5]' in attempt_text
             if code == 0:
                 return 0
             if code == 75 or stop.exists():
                 status(state='paused', stage=stage, exit_code=code); return 75
-            if not stalled:
+            if not stalled and not sharing_error:
                 status(state='failed', stage=stage, exit_code=code, reason='Worker error; no automatic retuning')
                 return code or 1
             status(state='retrying' if attempt < 3 else 'failed', stage=stage, attempt=attempt,
-                   reason='Owned child stalled; resume only from verified checkpoint')
+                   reason='Owned child stalled or Windows denied file access; resume only from verified checkpoint')
         return 2
 
     try:

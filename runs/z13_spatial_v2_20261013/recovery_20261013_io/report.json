@@ -1,0 +1,51 @@
+{
+  "created": "2026-10-13T22:50:00.338322+03:00",
+  "step": 3610,
+  "reason": "WinError 5 while replacing status.json; infrastructure-only retry fix",
+  "changed_files": {
+    "tracking\\z13_checkpoint.py": {
+      "old": "44a3ba0b722b8fe8a903d5cd29accd08211d80ef55e8ce6f773216ad00f5201a",
+      "new": "bf9eb93207069f02cf532c26ed0fe9491c730b765b65798f0c175559bede7b6a"
+    },
+    "scripts/z13_spatial_train.py": {
+      "old": "c59bb7f7c49e4c961b414ec6bf95b7da1f9428b11fcb1ae53011d85426d14968",
+      "new": "649509916bafab12a21c5abfa896ba2d8e3b2a82a85b9927e37517a056ee7337"
+    },
+    "scripts/z13_spatial_runner.py": {
+      "old": "b895ad744b2a9dab0025a670ce13227b7c47a11613a5f8724b8e329c98eae94a",
+      "new": "e4fcdc5783a42827f954717a9ec74189448a2c2af402b18556e092f137eeae03"
+    }
+  },
+  "data_and_protocol_unchanged": true,
+  "all_training_state_exactly_preserved": true,
+  "backup_checkpoint_sha256": "e1d2c4788a261985c4670b53a494f900c46da33ccca6a3f8a8dce3794189bc83",
+  "updated_checkpoint_sha256": "c4be109d994cfdea7675ba907a928648683ac24280d8ce06c1eaebf4cecfd1f9",
+  "cpu_tests": "test_z13_atomic_retry.py + test_z13_spatial.py: 6 passed",
+  "technical_gates_retained": "Training equations unchanged; Windows replacement tested with real reader lock",
+  "failure_log": "runs/z13_spatial_v2_20261013/controller_20261013_204411/log.txt",
+  "state": "recovered",
+  "verified_resume": {
+    "job_status": {
+      "state": "running",
+      "stage": "localization",
+      "arm": "B",
+      "step": 3650,
+      "total": 4000,
+      "checkpoint_verified": true,
+      "seconds_per_step": 0.9769500000000335,
+      "remaining_seconds": 341.9325000000117,
+      "last_loss": 1.4785792976617813,
+      "updated": "2026-10-13T22:51:07.190762+03:00"
+    },
+    "controller_status": {
+      "controller_pid": 19588,
+      "controller_directory": "E:\\Dissertation\\runs\\z13_spatial_v2_20261013\\controller_20261013_225010",
+      "authorized_scope": "Technical probe, B/C/D localization training, two-fold train-only predictions, quality training and threshold selection. No dev/MASA/heldout evaluation or downloads.",
+      "state": "running",
+      "stage": "B_fold0",
+      "attempt": 1,
+      "child_pid": 25956,
+      "updated": "2026-10-13T22:50:11.453593+03:00"
+    }
+  }
+}

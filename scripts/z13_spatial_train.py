@@ -15,7 +15,7 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from tracking.z13_checkpoint import (RunControl, TrainingPaused, atomic_json,
-                                     provenance, restore_checkpoint, save_checkpoint)
+                                     provenance, restore_checkpoint, save_checkpoint, replace_with_retry)
 from scripts.z13_train import Episodes, DATA, backbone_groups, fit_stats, success
 
 RUN = ROOT / 'runs/z13_spatial_v2_20261013'
@@ -46,7 +46,7 @@ def persist_torch(torch, path, state):
     verified = torch.load(temporary, map_location='cpu', weights_only=False)
     if verified.get('format') != state.get('format'):
         raise RuntimeError('Export validation failed')
-    os.replace(temporary, path)
+    replace_with_retry(temporary, path)
 
 
 def train(torch, arm, data, bb, ro, dev, folder, ident, control, steps, batch=16, micro=4):

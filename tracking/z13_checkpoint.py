@@ -5,12 +5,25 @@ import hashlib
 import json
 import os
 import random
+import time
 from datetime import datetime
 from pathlib import Path
 
 
 class TrainingPaused(RuntimeError):
     pass
+
+
+def replace_with_retry(source, destination, attempts=40, delay=0.25):
+    """Windows readers may temporarily deny replacement; preserve old file until success."""
+    for attempt in range(attempts):
+        try:
+            os.replace(source, destination)
+            return
+        except PermissionError:
+            if attempt + 1 == attempts:
+                raise
+            time.sleep(delay)
 
 
 def atomic_json(path, value):
@@ -21,7 +34,7 @@ def atomic_json(path, value):
         json.dump(value, stream, ensure_ascii=False, indent=2)
         stream.flush()
         os.fsync(stream.fileno())
-    os.replace(temporary, path)
+    replace_with_retry(temporary, path)
 
 
 def provenance(root, data_root, videos, config):
@@ -92,7 +105,7 @@ def save_checkpoint(torch, path, arm, bb, ro, opt, rng, step, hist, identity):
     verified = torch.load(temporary, map_location="cpu", weights_only=False)
     if verified["step"] != step or verified["identity"] != identity:
         raise RuntimeError("Checkpoint verification failed")
-    os.replace(temporary, path)
+    replace_with_retry(temporary, path)
 
 
 def restore_checkpoint(torch, path, arm, bb, ro, opt, rng, identity):
