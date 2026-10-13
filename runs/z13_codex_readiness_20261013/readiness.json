@@ -1,0 +1,59 @@
+{
+  "time_local": "2026-10-13T04:17:34.877685+03:00",
+  "training_source_sha256": "423f37254ef91e82ba9397617d68729ea18ec1bf84ff1d7697f2e6b8c6e12235",
+  "synthetic_episode_indices_expected": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "synthetic_episode_indices_actual": [
+    0,
+    1,
+    2,
+    1,
+    2
+  ],
+  "synthetic_loader_passed": false,
+  "data_modified": false,
+  "gpu_started": false,
+  "t1": {
+    "source": "runs/z13_data/t1.json",
+    "result": {
+      "videos": 130,
+      "spacing_eye_px": 13.0,
+      "roundtrip_max_eye_px": 77.48504380387583,
+      "positives": 17376,
+      "labels": 74241,
+      "label_mismatch": 0,
+      "empty_masks": 0,
+      "nonconsecutive_search": 0,
+      "passed": false
+    }
+  },
+  "skipfly": {
+    "source": "runs/z13/skipfly_check.json",
+    "result": {
+      "videos": 35,
+      "mismatched_videos": {},
+      "hota_masa": 61.65477893761337,
+      "reference": 61.65477893761337,
+      "passed": true
+    }
+  },
+  "extraction": {
+    "source": "runs/z13_data/summary.json",
+    "result": {
+      "train": {
+        "episodes_total": 59084,
+        "episodes_kept": 19798,
+        "pos": 17376,
+        "neg": 35789,
+        "unknown": 21076,
+        "frames": 466675,
+        "videos": 130
+      }
+    }
+  }
+}
