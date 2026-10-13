@@ -1,0 +1,69 @@
+{
+  "scope": "Fixed models; original 26 train threshold videos; no training, no dev, no heldout val",
+  "arms": {
+    "B": {
+      "tau": null,
+      "accepted": null,
+      "max_precision_at_minimum_count": 0.04929577464788732,
+      "successful_if_oracle_selected": 98,
+      "labelled": 5822,
+      "positive": 1786,
+      "negative": 4036,
+      "original_rounded_rule": {
+        "tau": null
+      },
+      "replay_seconds": 11.963033437728882,
+      "unknown": 2504,
+      "positive_within_quarter_scale": 158,
+      "positive_improves_prediction": 271,
+      "median_positive_error_relative": 0.7816078243620636,
+      "median_baseline_error_relative": 0.2613132404555362,
+      "rounding_changes_admission": false
+    },
+    "C": {
+      "tau": null,
+      "accepted": null,
+      "max_precision_at_minimum_count": 0.07128027681660899,
+      "successful_if_oracle_selected": 227,
+      "labelled": 5822,
+      "positive": 1786,
+      "negative": 4036,
+      "original_rounded_rule": {
+        "tau": null
+      },
+      "replay_seconds": 40.801607847213745,
+      "unknown": 2504,
+      "positive_within_quarter_scale": 388,
+      "positive_improves_prediction": 485,
+      "median_positive_error_relative": 0.43931726321665815,
+      "median_baseline_error_relative": 0.2613132404555362,
+      "rounding_changes_admission": false
+    },
+    "D": {
+      "tau": null,
+      "accepted": null,
+      "max_precision_at_minimum_count": 0.1388888888888889,
+      "successful_if_oracle_selected": 214,
+      "labelled": 5822,
+      "positive": 1786,
+      "negative": 4036,
+      "original_rounded_rule": {
+        "tau": null
+      },
+      "replay_seconds": 41.343878507614136,
+      "unknown": 2504,
+      "positive_within_quarter_scale": 392,
+      "positive_improves_prediction": 479,
+      "median_positive_error_relative": 0.4330652559846828,
+      "median_baseline_error_relative": 0.2613132404555362,
+      "rounding_changes_admission": false
+    }
+  },
+  "elapsed_seconds": 140.899689,
+  "interpretation": {
+    "rounding_defect_explains_no_threshold": false,
+    "localization": "Median normalized center error exceeds baseline on the same positive examples for all three models",
+    "selection": "Useful corrections exist (>50 in each model), but original presence confidence does not select a >=90% useful set with at least 50 interventions",
+    "limits": "Diagnostics on threshold train videos only, no bootstrap or HOTA. They isolate functional failures, not the architectural or data causes. Presence confidence and useful-correction confidence are different quantities."
+  }
+}
