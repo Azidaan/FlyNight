@@ -1,0 +1,47 @@
+{
+  "verified_at": "2026-10-13T19:32:44.729797+03:00",
+  "completed_at": "2026-10-13T18:27:46.243271+03:00",
+  "arms": {
+    "B": {
+      "steps": 4000,
+      "checkpoint_verified": true,
+      "tau": null,
+      "fit_videos": 104,
+      "threshold_videos": 26,
+      "object_loss_first50": 5.648867583274841,
+      "object_loss_last50": 2.4930112570524217,
+      "model_sha256": "a8654b7ae566d0b3b95d55451d0336036842b207c87de6e6ec3ed8b6292e5f6f",
+      "source": "runs\\z13_codex_window_20261013\\B"
+    },
+    "C": {
+      "steps": 4000,
+      "checkpoint_verified": true,
+      "tau": null,
+      "fit_videos": 104,
+      "threshold_videos": 26,
+      "object_loss_first50": 7.487542161941528,
+      "object_loss_last50": 2.2443810057640077,
+      "model_sha256": "715ec858853c7ff90ff602d87a856a90b984c092270e4272b18c219f00119031",
+      "source": "runs\\z13_codex_window_20261013\\C"
+    },
+    "D": {
+      "steps": 4000,
+      "checkpoint_verified": true,
+      "tau": null,
+      "fit_videos": 104,
+      "threshold_videos": 26,
+      "object_loss_first50": 7.443278198242187,
+      "object_loss_last50": 2.242771711349487,
+      "model_sha256": "1addaf9adde0eb3ffa52baa8e21ba04e93d05202311db68bc4548e7069f7c64d",
+      "source": "runs\\z13_codex_window_20261013\\D"
+    }
+  },
+  "passed_execution": true,
+  "working_threshold_found": false,
+  "threshold_rule": "At least 50 labelled interventions; at least 90% improve center error and remain within 0.25 object scale",
+  "dev_hota_measured": false,
+  "heldout_val_opened": false,
+  "action": "No intervention when tau is None (tracking/z13_readout.py)",
+  "decision": "Stop this implementation after train-only threshold selection; do not run identical dev/MASA outputs",
+  "limitations": "No retained threshold predictions: cannot determine whether failure arose mainly from localization, abstention scores, minimum count, or a combination. No claim that object training or FlyVis is generally ineffective."
+}
