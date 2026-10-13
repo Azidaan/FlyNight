@@ -9,7 +9,8 @@
 Метки — только на размеченных кадрах и только по исходной разметке (без интерполяции):
   объект образца — объект детекции трека на последнем размеченном кадре, где трек был ведомым (венгерское внутри класса,
   IoU ≥ 0,5); id_dist — кадров от этого кадра до последнего ведомого;
-  kind 1 — объект образца установлен (id_dist ≤ 12) и его центр в разметке кадра внутри области глаза (цель — ближайшая колонка);
+  kind 1 — объект образца установлен (id_dist ≤ 12) и его центр в разметке кадра внутри поля колонок глаза (шестиугольник
+  внутри квадратной вырезки: ближайшая колонка не дальше 0,6 шага; цель — эта колонка); центр в углу вырезки вне поля — kind 0;
   kind 0 — установлен, но в разметке кадра его нет или центр вне области; kind −1 — не установлен, либо его нет в разметке
   кадра, но он размечен на обоих соседних размеченных кадрах (похоже на дыру в разметке) — в обучение отказу не входит.
 Эпизоды только с kind −1 сохраняются с вероятностью 0,25 (для справки о вмешательствах на неизвестных).
@@ -38,6 +39,7 @@ FRAME = (1280, 720)
 ID_MAX_DIST = 12
 PERTURB_MAX, JITTER = 0.25, 0.05
 KEEP_UNKNOWN = 0.25
+FIELD_TOL = 0.6   # центр внутри поля колонок: ближайшая колонка не дальше 0,6 шага (внутри шестиугольника ≤ шаг/√3 ≈ 0,577)
 
 
 def raw_index(truth: list, vf: list[int], valid) -> dict[int, list]:
@@ -68,7 +70,10 @@ def label_frame(identity, id_dist, objs, crop, geom, eye_size, around=False):
     x1, y1, x2, y2 = crop
     if not (x1 <= c[0] <= x2 and y1 <= c[1] <= y2):
         return 0, -1, c, b
-    return 1, geom.nearest(to_eye(c, crop, eye_size)), c, b
+    ce = np.asarray(to_eye(c, crop, eye_size)); col = geom.nearest(ce)
+    if np.linalg.norm(geom.points[col] - ce) > FIELD_TOL * geom.spacing:   # угол квадрата вне шестиугольника колонок — глаз объект не видит
+        return 0, -1, c, b
+    return 1, col, c, b
 
 
 def extract(task):
@@ -217,11 +222,40 @@ def extract(task):
     return vid, counts
 
 
+def relabel_field(out_dir: Path) -> dict:
+    """Перемаркировка сохранённых эпизодов правилом поля колонок (Т1 13.10: центр в углу вырезки вне шестиугольника); kind 1 → 0."""
+    os.environ["CUDA_VISIBLE_DEVICES"] = ""
+    import torch
+    torch.cuda.is_available = lambda: False
+    from scripts.run_bdd_video_rate_experiment import make_motion_estimator
+    from tracking.foveated_eyes import EyeBank
+    from tracking.z13_readout import HexGeometry, to_eye
+    bank = EyeBank(make_motion_estimator("flyvis_tiled", 30.0, 0.02)); geom = HexGeometry(bank.points_local, bank.eye_size)
+    tot = {"files": 0, "relabelled": 0}
+    for fp in sorted(Path(out_dir).glob("*.npz")):
+        d = dict(np.load(fp)); k = d["lab_kind"].copy(); col = d["lab_col"].copy(); n = 0
+        for i in np.flatnonzero(k == 1):
+            ce = np.asarray(to_eye(d["lab_center"][i], tuple(int(v) for v in d["lab_crop"][i]), bank.eye_size))
+            if np.linalg.norm(geom.points[col[i]] - ce) > FIELD_TOL * geom.spacing:
+                k[i] = 0; col[i] = -1; n += 1
+        if n:
+            d["lab_kind"], d["lab_col"] = k, col
+            np.savez_compressed(fp, **d)
+            c = json.loads(fp.with_suffix(".json").read_text(encoding="utf-8")); c["pos"] -= n; c["neg"] += n; c["relabelled_field"] = n
+            fp.with_suffix(".json").write_text(json.dumps(c), encoding="utf-8")
+        tot["files"] += 1; tot["relabelled"] += n
+    return tot
+
+
 def main() -> int:
     from scripts.fly_lifecycle_alive import sets
     ap = argparse.ArgumentParser(); ap.add_argument("--set", default="train"); ap.add_argument("--workers", type=int, default=4); ap.add_argument("--video-id", action="append", default=[])
-    ap.add_argument("--out", type=Path, default=OUT)
+    ap.add_argument("--out", type=Path, default=OUT); ap.add_argument("--relabel-field", action="store_true")
     a = ap.parse_args()
+    if a.relabel_field:
+        print(f"[RELABEL] {relabel_field(a.out)}", flush=True)
+        print("[OK]", flush=True)
+        return 0
     S = sets(PROJECT_ROOT / "runs/fly_signatures", PROJECT_ROOT / "runs/fly_signatures_val")
     items = [(v, str(rt), sp) for v, sr, rt, sp in S[a.set] if not a.video_id or v in a.video_id]
     tasks = [(v, rt, sp, str(a.out), str(PROJECT_ROOT / "data/bdd100k/videos/train")) for v, rt, sp in items]

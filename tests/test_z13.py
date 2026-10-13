@@ -61,6 +61,8 @@ def test_label_kinds(geom):
     assert label_frame("a", 13, objs, crop, geom, 100)[0] == -1                   # установлен слишком давно
     far = [("a", "car", np.array([200.0, 200.0, 220.0, 220.0]))]
     assert label_frame("a", 3, far, crop, geom, 100)[0] == 0                      # вне области
+    corner = [("a", "car", np.array([94.0, 94.0, 98.0, 98.0]))]
+    assert label_frame("a", 3, corner, crop, geom, 100)[0] == 0                   # угол вырезки вне шестиугольника колонок
 
 
 def test_center_estimate_does_not_average_two_peaks(geom):
