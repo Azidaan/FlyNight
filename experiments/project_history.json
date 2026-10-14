@@ -10585,6 +10585,68 @@
      "reason": "Завершён полный прогон и проверен train-only итог; границы вывода уточнены."
     }
    ]
+  },
+  {
+   "id": "fly_spatial_hota_policy_z13_v1",
+   "title": "З13 v2: HOTA при одной политике верхнего 1% уверенности",
+   "area": "flyvis",
+   "state": "ready",
+   "started": "2026-10-14",
+   "question": "Даёт ли готовый пространственный сигнал FlyVis пользу HOTA при одной новой политике вмешательства?",
+   "hypothesis": "Провал инженерного 90%/50 допуска не определяет HOTA; одна фиксированная политика позволит проверить фактический эффект.",
+   "expected": "Одна рабочая точка B/C/D: верхний 1% всех естественных предсказаний на train26, без меток и HOTA в выборе; все равные оценки вместе. Полный трекер на dev35 с прежней MASA, стенд и B/C/D, без нового обучения. Это новый опыт, старый итог fly_spatial_quality_z13_v2 сохраняется. Подготовка и короткая проба разрешены; полный бюджет после замера.",
+   "acceptance": [
+    {
+     "criterion": "No-intervention output exactly matches baseline; stored-episode spatial probabilities agree; only lost tracks and centers changed; bounded batches of four; all arms load.",
+     "met": true,
+     "evidence": "runs/z13_spatial_hota_v1_20261014/technical/report.json: all models loaded, streaming parity <=1e-5, no-intervention outputs exactly equal. CPU contract tests cover center-only/lost-only/chunking/memory."
+    },
+    {
+     "criterion": "D−стенд: общая HOTA минимум +0,10 и нижняя граница парного ДИ выше нуля",
+     "met": null
+    },
+    {
+     "criterion": "Вклад FlyVis: нижняя граница парного ДИ D−B выше нуля",
+     "met": null
+    },
+    {
+     "criterion": "Польза обучения ядра отдельно: нижняя граница парного ДИ D−C выше нуля",
+     "met": null
+    }
+   ],
+   "cannot_claim": "Проба не подтверждает HOTA. Верхний 1% не гарантирует безопасность или такую же частоту вмешательств на dev. Dev — разработка; независимые видео не открываются. Исходный отрицательный критерий не переписывается.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_spatial_hota_v1_20261014/protocol.json",
+     "claim": "Политика и критерии до HOTA"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_spatial_v2_20261013/final_verification.json",
+     "claim": "Исходное завершённое обучение и провал прежнего допуска"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_spatial_hota_v1_20261014/technical/report.json",
+     "claim": "Technical probe, no HOTA or annotation reading"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_spatial_hota_v1_20261014/technical/masa_price/report.json",
+     "claim": "One-video MASA inference price"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_spatial_hota_v1_20261014/price.json",
+     "claim": "Arithmetic workload estimate, not guaranteed bound"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_spatial_hota_v1_20261014/timing_contract.json",
+     "claim": "Neuron timing matches training; environment kept unchanged"
+    }
+   ]
   }
  ],
  "manual_events": [

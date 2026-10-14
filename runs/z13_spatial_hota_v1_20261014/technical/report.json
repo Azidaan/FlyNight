@@ -1,0 +1,49 @@
+{
+  "created": "2026-10-14T21:32:07.853181+03:00",
+  "video": "00067cfb-e535423e",
+  "models": {
+    "B": {
+      "loaded": true,
+      "streaming_vs_training_max_difference": 0.0,
+      "passed": true
+    },
+    "C": {
+      "loaded": true,
+      "streaming_vs_training_max_difference": 1.7881393432617188e-07,
+      "passed": true
+    },
+    "D": {
+      "loaded": true,
+      "streaming_vs_training_max_difference": 1.7881393432617188e-07,
+      "passed": true
+    }
+  },
+  "no_intervention_exact": {
+    "track_id": true,
+    "start": true,
+    "end": true,
+    "cls": true,
+    "first_box": true,
+    "last_box": true,
+    "n_first": true,
+    "n_last": true,
+    "first_thumb": true,
+    "last_thumb": true,
+    "first_hist": true,
+    "last_hist": true,
+    "outputs": true
+  },
+  "no_intervention_seconds": 220.92357330000004,
+  "active_D_seconds": 217.51956589999963,
+  "active_D_events": {
+    "steps": 15592,
+    "interventions": 55,
+    "refusals": 15537,
+    "births": 983,
+    "nonfinite_refusals": 0
+  },
+  "total_probe_seconds": 483.328,
+  "coarse_signature_gpu_hours_upper": 6.344320672083322,
+  "scope": "One-video implementation and price probe; no HOTA, no annotation reading, no tuning",
+  "passed": true
+}

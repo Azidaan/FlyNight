@@ -1,0 +1,218 @@
+[2026-10-14 20:22:31] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-10-14 20:22:31] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-10-14 20:22:37] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-10-14 20:22:37] chkpt_utils:36 Recovered network state.
+[2026-10-14 20:22:40] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-10-14 20:22:40] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-10-14 20:22:40] chkpt_utils:65 Recovered flow decoder state.
+Traceback (most recent call last):
+  File "E:\Dissertation\scripts\z13_spatial_hota_probe.py", line 112, in <module>
+    main()
+  File "E:\Dissertation\scripts\z13_spatial_hota_probe.py", line 82, in main
+    models = model_probe()
+  File "E:\Dissertation\scripts\z13_spatial_hota_probe.py", line 31, in model_probe
+    loc = SpatialLocalizer(RUN / arm / 'model.pt', bank)
+  File "E:\Dissertation\tracking\z13_spatial_localizer.py", line 45, in __init__
+    if not torch.equal(self.ro.neighbors.cpu(), torch.as_tensor(self.geom.neighbors)):
+  File "E:\Dissertation\.venv\lib\site-packages\torch\utils\_device.py", line 109, in __torch_function__
+    return func(*args, **kwargs)
+RuntimeError: Expected all tensors to be on the same device, but got other is on cuda:0, different from other tensors on cpu (when checking argument in method wrapper_CUDA__equal)
+[2026-10-14 20:24:09] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-10-14 20:24:09] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-10-14 20:24:13] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-10-14 20:24:13] chkpt_utils:36 Recovered network state.
+[2026-10-14 20:24:16] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-10-14 20:24:16] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-10-14 20:24:16] chkpt_utils:65 Recovered flow decoder state.
+[MODEL] B 0.0
+[2026-10-14 20:24:18] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-10-14 20:24:22] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-10-14 20:24:22] chkpt_utils:36 Recovered network state.
+[2026-10-14 20:24:25] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-10-14 20:24:25] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-10-14 20:24:25] chkpt_utils:65 Recovered flow decoder state.
+[MODEL] C 1.7881393432617188e-07
+[2026-10-14 20:24:25] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-10-14 20:24:30] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-10-14 20:24:30] chkpt_utils:36 Recovered network state.
+[2026-10-14 20:24:32] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-10-14 20:24:32] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-10-14 20:24:32] chkpt_utils:65 Recovered flow decoder state.
+[MODEL] D 1.7881393432617188e-07
+[2026-10-14 20:24:34] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-10-14 20:24:38] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-10-14 20:24:38] chkpt_utils:36 Recovered network state.
+[2026-10-14 20:24:40] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-10-14 20:24:40] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-10-14 20:24:40] chkpt_utils:65 Recovered flow decoder state.
+[00067cfb-e535423e] 25 кадров, глаз 8, жизней 26
+[00067cfb-e535423e] 50 кадров, глаз 12, жизней 71
+[00067cfb-e535423e] 75 кадров, глаз 12, жизней 109
+[00067cfb-e535423e] 100 кадров, глаз 19, жизней 191
+[00067cfb-e535423e] 125 кадров, глаз 21, жизней 237
+[00067cfb-e535423e] 150 кадров, глаз 16, жизней 293
+[00067cfb-e535423e] 175 кадров, глаз 21, жизней 377
+[00067cfb-e535423e] 200 кадров, глаз 20, жизней 445
+[00067cfb-e535423e] 225 кадров, глаз 18, жизней 512
+[00067cfb-e535423e] 250 кадров, глаз 23, жизней 586
+[00067cfb-e535423e] 275 кадров, глаз 22, жизней 664
+[00067cfb-e535423e] 300 кадров, глаз 21, жизней 744
+[00067cfb-e535423e] 325 кадров, глаз 25, жизней 806
+[00067cfb-e535423e] 350 кадров, глаз 21, жизней 891
+[00067cfb-e535423e] 375 кадров, глаз 12, жизней 965
+[00067cfb-e535423e] 400 кадров, глаз 4, жизней 996
+[00067cfb-e535423e] 425 кадров, глаз 6, жизней 1015
+[00067cfb-e535423e] 450 кадров, глаз 9, жизней 1081
+[00067cfb-e535423e] 475 кадров, глаз 12, жизней 1163
+[00067cfb-e535423e] 500 кадров, глаз 11, жизней 1301
+[00067cfb-e535423e] 525 кадров, глаз 14, жизней 1414
+[00067cfb-e535423e] 550 кадров, глаз 22, жизней 1535
+[00067cfb-e535423e] 575 кадров, глаз 16, жизней 1631
+[00067cfb-e535423e] 600 кадров, глаз 18, жизней 1704
+[00067cfb-e535423e] 625 кадров, глаз 20, жизней 1789
+[00067cfb-e535423e] 650 кадров, глаз 25, жизней 1892
+[00067cfb-e535423e] 675 кадров, глаз 24, жизней 1971
+[00067cfb-e535423e] 700 кадров, глаз 17, жизней 2028
+[00067cfb-e535423e] 725 кадров, глаз 22, жизней 2081
+[00067cfb-e535423e] 750 кадров, глаз 20, жизней 2163
+[00067cfb-e535423e] 775 кадров, глаз 21, жизней 2237
+[00067cfb-e535423e] 800 кадров, глаз 22, жизней 2301
+[00067cfb-e535423e] 825 кадров, глаз 21, жизней 2371
+[00067cfb-e535423e] 850 кадров, глаз 24, жизней 2455
+[00067cfb-e535423e] 875 кадров, глаз 15, жизней 2533
+[00067cfb-e535423e] 900 кадров, глаз 16, жизней 2587
+[00067cfb-e535423e] 925 кадров, глаз 18, жизней 2647
+[00067cfb-e535423e] 950 кадров, глаз 31, жизней 2714
+[00067cfb-e535423e] 975 кадров, глаз 30, жизней 2793
+[00067cfb-e535423e] 1000 кадров, глаз 27, жизней 2864
+[00067cfb-e535423e] 1025 кадров, глаз 28, жизней 2940
+[00067cfb-e535423e] 1050 кадров, глаз 27, жизней 3022
+[00067cfb-e535423e] 1075 кадров, глаз 24, жизней 3113
+[00067cfb-e535423e] 1100 кадров, глаз 22, жизней 3194
+[00067cfb-e535423e] 1125 кадров, глаз 24, жизней 3247
+[00067cfb-e535423e] 1150 кадров, глаз 17, жизней 3301
+[00067cfb-e535423e] 1175 кадров, глаз 19, жизней 3363
+[00067cfb-e535423e] 1200 кадров, глаз 21, жизней 3411
+[OK] 00067cfb-e535423e: 1206 кадров, 3439 жизней глаз, 183 мс/кадр
+[2026-10-14 20:28:23] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-10-14 20:28:27] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-10-14 20:28:27] chkpt_utils:36 Recovered network state.
+[2026-10-14 20:28:30] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-10-14 20:28:30] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-10-14 20:28:30] chkpt_utils:65 Recovered flow decoder state.
+[00067cfb-e535423e] 25 кадров, глаз 8, жизней 24
+[00067cfb-e535423e] 50 кадров, глаз 12, жизней 69
+[00067cfb-e535423e] 75 кадров, глаз 12, жизней 107
+[00067cfb-e535423e] 100 кадров, глаз 19, жизней 189
+[00067cfb-e535423e] 125 кадров, глаз 21, жизней 235
+[00067cfb-e535423e] 150 кадров, глаз 16, жизней 291
+[00067cfb-e535423e] 175 кадров, глаз 21, жизней 375
+[00067cfb-e535423e] 200 кадров, глаз 20, жизней 443
+[00067cfb-e535423e] 225 кадров, глаз 18, жизней 510
+[00067cfb-e535423e] 250 кадров, глаз 23, жизней 584
+[00067cfb-e535423e] 275 кадров, глаз 22, жизней 662
+[00067cfb-e535423e] 300 кадров, глаз 21, жизней 742
+[00067cfb-e535423e] 325 кадров, глаз 25, жизней 804
+[00067cfb-e535423e] 350 кадров, глаз 21, жизней 889
+[00067cfb-e535423e] 375 кадров, глаз 12, жизней 963
+[00067cfb-e535423e] 400 кадров, глаз 4, жизней 994
+[00067cfb-e535423e] 425 кадров, глаз 6, жизней 1013
+[00067cfb-e535423e] 450 кадров, глаз 9, жизней 1079
+[00067cfb-e535423e] 475 кадров, глаз 12, жизней 1161
+[00067cfb-e535423e] 500 кадров, глаз 11, жизней 1299
+[00067cfb-e535423e] 525 кадров, глаз 14, жизней 1412
+[00067cfb-e535423e] 550 кадров, глаз 22, жизней 1533
+[00067cfb-e535423e] 575 кадров, глаз 16, жизней 1629
+[00067cfb-e535423e] 600 кадров, глаз 18, жизней 1702
+[00067cfb-e535423e] 625 кадров, глаз 20, жизней 1781
+[00067cfb-e535423e] 650 кадров, глаз 25, жизней 1884
+[00067cfb-e535423e] 675 кадров, глаз 24, жизней 1963
+[00067cfb-e535423e] 700 кадров, глаз 17, жизней 2020
+[00067cfb-e535423e] 725 кадров, глаз 22, жизней 2073
+[00067cfb-e535423e] 750 кадров, глаз 20, жизней 2155
+[00067cfb-e535423e] 775 кадров, глаз 21, жизней 2229
+[00067cfb-e535423e] 800 кадров, глаз 22, жизней 2293
+[00067cfb-e535423e] 825 кадров, глаз 21, жизней 2363
+[00067cfb-e535423e] 850 кадров, глаз 24, жизней 2447
+[00067cfb-e535423e] 875 кадров, глаз 15, жизней 2525
+[00067cfb-e535423e] 900 кадров, глаз 16, жизней 2579
+[00067cfb-e535423e] 925 кадров, глаз 18, жизней 2639
+[00067cfb-e535423e] 950 кадров, глаз 31, жизней 2706
+[00067cfb-e535423e] 975 кадров, глаз 30, жизней 2785
+[00067cfb-e535423e] 1000 кадров, глаз 27, жизней 2856
+[00067cfb-e535423e] 1025 кадров, глаз 28, жизней 2932
+[00067cfb-e535423e] 1050 кадров, глаз 27, жизней 3014
+[00067cfb-e535423e] 1075 кадров, глаз 24, жизней 3105
+[00067cfb-e535423e] 1100 кадров, глаз 22, жизней 3186
+[00067cfb-e535423e] 1125 кадров, глаз 24, жизней 3239
+[00067cfb-e535423e] 1150 кадров, глаз 17, жизней 3293
+[00067cfb-e535423e] 1175 кадров, глаз 19, жизней 3355
+[00067cfb-e535423e] 1200 кадров, глаз 21, жизней 3402
+[OK] 00067cfb-e535423e: 1206 кадров, 3430 жизней глаз, 180 мс/кадр
+{"created": "2026-10-14T21:32:07.853181+03:00", "video": "00067cfb-e535423e", "models": {"B": {"loaded": true, "streaming_vs_training_max_difference": 0.0, "passed": true}, "C": {"loaded": true, "streaming_vs_training_max_difference": 1.7881393432617188e-07, "passed": true}, "D": {"loaded": true, "streaming_vs_training_max_difference": 1.7881393432617188e-07, "passed": true}}, "no_intervention_exact": {"track_id": true, "start": true, "end": true, "cls": true, "first_box": true, "last_box": true, "n_first": true, "n_last": true, "first_thumb": true, "last_thumb": true, "first_hist": true, "last_hist": true, "outputs": true}, "no_intervention_seconds": 220.92357330000004, "active_D_seconds": 217.51956589999963, "active_D_events": {"steps": 15592, "interventions": 55, "refusals": 15537, "births": 983, "nonfinite_refusals": 0}, "total_probe_seconds": 483.328, "coarse_signature_gpu_hours_upper": 6.344320672083322, "scope": "One-video implementation and price probe; no HOTA, no annotation reading, no tuning", "passed": true}
