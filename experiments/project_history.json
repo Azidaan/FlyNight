@@ -10590,7 +10590,7 @@
    "id": "fly_spatial_hota_policy_z13_v1",
    "title": "З13 v2: HOTA при одной политике верхнего 1% уверенности",
    "area": "flyvis",
-   "state": "ready",
+   "state": "running",
    "started": "2026-10-14",
    "question": "Даёт ли готовый пространственный сигнал FlyVis пользу HOTA при одной новой политике вмешательства?",
    "hypothesis": "Провал инженерного 90%/50 допуска не определяет HOTA; одна фиксированная политика позволит проверить фактический эффект.",
@@ -10645,6 +10645,16 @@
      "kind": "json",
      "ref": "runs/z13_spatial_hota_v1_20261014/timing_contract.json",
      "claim": "Neuron timing matches training; environment kept unchanged"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_spatial_hota_v1_20261014/full_authorization.json",
+     "claim": "Прямое разрешение автора на окно до 10 часов; готовность файлов и свободные блокировки проверены"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_spatial_hota_v1_20261014/launch_verification.json",
+     "claim": "Запуск подтверждён обработкой кадров; независимый контроль срока проверен на собственном процессе"
     }
    ]
   }

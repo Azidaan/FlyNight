@@ -3,16 +3,16 @@ aliases:
 - 'З13 v2: HOTA при одной политике верхнего 1% уверенности'
 tags:
 - эксперимент
-- исход/ready
+- исход/running
 - направление/flyvis
-исход: готов к запуску
+исход: идёт
 направление: FlyVis
 начат: '2026-10-14'
 ---
 
-# ⚪ З13 v2: HOTA при одной политике верхнего 1% уверенности
+# 🔵 З13 v2: HOTA при одной политике верхнего 1% уверенности
 
-↑ [[09 Запланировано/FlyVis — планы|FlyVis]] · **Исход:** готов к запуску · `fly_spatial_hota_policy_z13_v1`
+↑ [[09 Запланировано/FlyVis — планы|FlyVis]] · **Исход:** идёт · `fly_spatial_hota_policy_z13_v1`
 
 ## Вопрос
 Даёт ли готовый пространственный сигнал FlyVis пользу HOTA при одной новой политике вмешательства?
@@ -40,4 +40,6 @@ tags:
 - One-video MASA inference price: `runs/z13_spatial_hota_v1_20261014/technical/masa_price/report.json` · 
 - Arithmetic workload estimate, not guaranteed bound: `runs/z13_spatial_hota_v1_20261014/price.json` · 
 - Neuron timing matches training; environment kept unchanged: `runs/z13_spatial_hota_v1_20261014/timing_contract.json` · 
+- Прямое разрешение автора на окно до 10 часов; готовность файлов и свободные блокировки проверены: `runs/z13_spatial_hota_v1_20261014/full_authorization.json` · 
+- Запуск подтверждён обработкой кадров; независимый контроль срока проверен на собственном процессе: `runs/z13_spatial_hota_v1_20261014/launch_verification.json` · 
 
