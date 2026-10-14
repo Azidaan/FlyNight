@@ -1,0 +1,127 @@
+{
+  "created": "2026-10-14T21:02:48.706524+03:00",
+  "cpu_only": true,
+  "completed": "2026-10-14T19:56:30.982478+03:00",
+  "threshold_rule": ">=50 interventions, >=90% successes",
+  "hota_measured": false,
+  "heldout_opened": false,
+  "jobs": [
+    {
+      "arm": "B",
+      "name": "fold0",
+      "steps": 4000,
+      "prediction_rows": 13818,
+      "checkpoint_and_export_match": true
+    },
+    {
+      "arm": "B",
+      "name": "fold1",
+      "steps": 4000,
+      "prediction_rows": 15152,
+      "checkpoint_and_export_match": true
+    },
+    {
+      "arm": "B",
+      "name": "full",
+      "steps": 4000,
+      "prediction_rows": 8326,
+      "checkpoint_and_export_match": true
+    },
+    {
+      "arm": "C",
+      "name": "fold0",
+      "steps": 4000,
+      "prediction_rows": 13818,
+      "checkpoint_and_export_match": true
+    },
+    {
+      "arm": "C",
+      "name": "fold1",
+      "steps": 4000,
+      "prediction_rows": 15152,
+      "checkpoint_and_export_match": true
+    },
+    {
+      "arm": "C",
+      "name": "full",
+      "steps": 4000,
+      "prediction_rows": 8326,
+      "checkpoint_and_export_match": true
+    },
+    {
+      "arm": "D",
+      "name": "fold0",
+      "steps": 4000,
+      "prediction_rows": 13818,
+      "checkpoint_and_export_match": true
+    },
+    {
+      "arm": "D",
+      "name": "fold1",
+      "steps": 4000,
+      "prediction_rows": 15152,
+      "checkpoint_and_export_match": true
+    },
+    {
+      "arm": "D",
+      "name": "full",
+      "steps": 4000,
+      "prediction_rows": 8326,
+      "checkpoint_and_export_match": true
+    }
+  ],
+  "arms": {
+    "B": {
+      "best_eligible_group": {
+        "tau": 0.3643674850463867,
+        "interventions": 73,
+        "successful": 9,
+        "precision": 0.1232876712328767
+      },
+      "tau": null,
+      "labelled": 5822,
+      "positive": 1786,
+      "negative": 4036,
+      "unknown_excluded": 2504,
+      "successful_available": 184,
+      "presence_only_best_precision": 0.14,
+      "quality_score_replay_max_difference": 0.0,
+      "saved_curves_reproduced_exactly": true
+    },
+    "C": {
+      "best_eligible_group": {
+        "tau": 0.2674397826194763,
+        "interventions": 70,
+        "successful": 27,
+        "precision": 0.38571428571428573
+      },
+      "tau": null,
+      "labelled": 5822,
+      "positive": 1786,
+      "negative": 4036,
+      "unknown_excluded": 2504,
+      "successful_available": 277,
+      "presence_only_best_precision": 0.22641509433962265,
+      "quality_score_replay_max_difference": 0.0,
+      "saved_curves_reproduced_exactly": true
+    },
+    "D": {
+      "best_eligible_group": {
+        "tau": 0.23740406334400177,
+        "interventions": 101,
+        "successful": 29,
+        "precision": 0.2871287128712871
+      },
+      "tau": null,
+      "labelled": 5822,
+      "positive": 1786,
+      "negative": 4036,
+      "unknown_excluded": 2504,
+      "successful_available": 314,
+      "presence_only_best_precision": 0.21818181818181817,
+      "quality_score_replay_max_difference": 0.0,
+      "saved_curves_reproduced_exactly": true
+    }
+  },
+  "passed": true
+}

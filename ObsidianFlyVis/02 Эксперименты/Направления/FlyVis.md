@@ -9,7 +9,7 @@ tags:
 
 Коннектомно-ограниченный источник признаков движения; самостоятельный FlyVisTracker (линия A).
 
-## Эксперименты (80)
+## Эксперименты (81)
 - 🔴 [Стресс-проверка FlyVis: полный кадр и перекрывающиеся фрагменты на семи видео↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_stress) — отрицательный, 2026-09-13
 - 🔴 [Аудит motion_confidence FlyVis: антиинформативна в рабочем диапазоне↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fmotion_confidence_audit) — отрицательный, 2026-09-13
 - 🔴 [Цель 2: считывание внутренней активности FlyVis (T4/T5, 34 типа) для q_match против декодированного потока и shuffled↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_internal_readout_v1) — отрицательный, 2026-09-16
@@ -90,3 +90,4 @@ tags:
 - 🟢 [Остаток запаса оракула O2 после сшивки MASA (проверка перед З13)↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fo2_masa_residual_v1) — положительный, 2026-10-12
 - 🔴 [З13: объектное считывание FlyVis — поправка центра потерянного трека по образцу цели↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Ffly_object_readout_z13_v1) — отрицательный, 2026-10-13
 - 🔴 [З13: один повтор выбора τ без округления и разложение ошибок↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fz13_threshold_diagnostic_v1) — отрицательный, 2026-10-13
+- ⚫ [З13 v2: пространственное считывание FlyVis и качество положения↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Ffly_spatial_quality_z13_v2) — закрыт, 2026-10-13
