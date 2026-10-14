@@ -1,0 +1,49 @@
+{
+  "torch": "2.10.0+cu130",
+  "triton": "3.6.0",
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "models": {
+    "B": {
+      "arm": "B",
+      "compiled": "HexGRU.step",
+      "sequence_steps": 32,
+      "state_max_abs": 1.7881393432617188e-07,
+      "probability_max_abs": 3.5762786865234375e-07,
+      "same_argmax_and_quality_decisions": true,
+      "eager_30_steps_seconds": 0.0319999999992433,
+      "compiled_30_steps_seconds": 0.031000000000858563,
+      "step_speedup": 1.0322580644631303,
+      "first_compilation_and_sequence_seconds": 18.125
+    },
+    "C": {
+      "arm": "C",
+      "compiled": "FlyVis Euler step + edge gather/scatter",
+      "nodes": 45669,
+      "edges": 1513231,
+      "sequence_steps": 32,
+      "state_max_abs": 1.5497207641601562e-06,
+      "probability_max_abs": 7.152557373046875e-07,
+      "same_argmax_and_quality_decisions": true,
+      "eager_30_steps_seconds": 0.07799999999951979,
+      "compiled_30_steps_seconds": 0.06300000000010186,
+      "step_speedup": 1.2380952380856138,
+      "first_compilation_and_sequence_seconds": 8.968999999999141
+    },
+    "D": {
+      "arm": "D",
+      "compiled": "FlyVis Euler step + edge gather/scatter",
+      "nodes": 45669,
+      "edges": 1513231,
+      "sequence_steps": 32,
+      "state_max_abs": 1.5497207641601562e-06,
+      "probability_max_abs": 4.76837158203125e-07,
+      "same_argmax_and_quality_decisions": true,
+      "eager_30_steps_seconds": 0.06300000000010186,
+      "compiled_30_steps_seconds": 0.06199999999989814,
+      "step_speedup": 1.016129032261377,
+      "first_compilation_and_sequence_seconds": 0.1720000000004802
+    }
+  },
+  "passed": false,
+  "date": "2026-10-14T23:23:59.366870+03:00"
+}

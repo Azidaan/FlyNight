@@ -1,0 +1,21 @@
+{
+  "id": "z13_triton_execution_v1",
+  "date": "2026-10-14T23:12:30.860584+03:00",
+  "request": "А можешь сейчас написать по быстрому, стопнем нынешний прогон, и запустим на Тритоне?",
+  "deadline": "2026-10-15T08:46:23.350705+03:00",
+  "baseline_root": "E:\\Dissertation\\runs\\z13_spatial_hota_v1_20261014",
+  "completed_original_signature_videos": 6,
+  "changes": "Separate inference adapter: compiled HexGRU step B and FlyVis tensor Euler step C/D. Tracker/crops/readout/MASA/weights/thresholds fixed.",
+  "gates": {
+    "activation_atol": 0.0001,
+    "activation_rtol": 0.0001,
+    "probability_atol": 1e-05,
+    "probability_rtol": 1e-05,
+    "same_argmax_and_threshold_decisions": true,
+    "full_video_track_ids_equal": true,
+    "full_video_output_atol_px": 0.001,
+    "full_video_wall_speedup_required": 1.0
+  },
+  "probe_gpu_limit_seconds": 1200,
+  "scope": "One compiler implementation, no training/data download/heldout data. Full run only after technical parity and speed gates; deadline unchanged. Preserve old results separately."
+}

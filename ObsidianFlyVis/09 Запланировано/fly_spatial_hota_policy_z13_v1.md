@@ -42,4 +42,5 @@ tags:
 - Neuron timing matches training; environment kept unchanged: `runs/z13_spatial_hota_v1_20261014/timing_contract.json` · 
 - Прямое разрешение автора на окно до 10 часов; готовность файлов и свободные блокировки проверены: `runs/z13_spatial_hota_v1_20261014/full_authorization.json` · 
 - Запуск подтверждён обработкой кадров; независимый контроль срока проверен на собственном процессе: `runs/z13_spatial_hota_v1_20261014/launch_verification.json` · 
+- По просьбе автора тот же протокол продолжен отдельным скомпилированным исполнением после проверки совпадения; старые выходы сохранены: `runs/z13_triton_hota_v1_20261014/full/launch_verification.json` · 
 
