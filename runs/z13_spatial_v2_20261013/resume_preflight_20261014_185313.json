@@ -1,0 +1,181 @@
+{
+  "created": "2026-10-14T18:53:13.826044+03:00",
+  "authorization": "Автор 14.10.2026: Продолжи",
+  "resume_step": 1105,
+  "all_job_code_data_identities_match": true,
+  "optimizer_and_all_rng_saved": true,
+  "controller_and_gpu_locks_available": true,
+  "jobs": [
+    {
+      "arm": "B",
+      "name": "fold0",
+      "status": {
+        "state": "completed",
+        "stage": "predictions_saved",
+        "arm": "B",
+        "step": 4000,
+        "total": 4000,
+        "checkpoint_verified": true,
+        "seconds_per_step": 1.014102564102564,
+        "remaining_seconds": 0.0,
+        "last_loss": 2.2798084020614624,
+        "episodes_done": 3604,
+        "episodes_total": 3689,
+        "rows": 13818,
+        "updated": "2026-10-13T22:58:39.531530+03:00"
+      }
+    },
+    {
+      "arm": "B",
+      "name": "fold1",
+      "status": {
+        "state": "completed",
+        "stage": "predictions_saved",
+        "arm": "B",
+        "step": 4000,
+        "total": 4000,
+        "checkpoint_verified": true,
+        "seconds_per_step": 1.2073474999999998,
+        "remaining_seconds": 0.0,
+        "last_loss": 2.78887015581131,
+        "episodes_done": 4004,
+        "episodes_total": 4033,
+        "rows": 15152,
+        "updated": "2026-10-14T00:21:13.982696+03:00"
+      }
+    },
+    {
+      "arm": "B",
+      "name": "full",
+      "status": {
+        "state": "completed",
+        "stage": "predictions_saved",
+        "arm": "B",
+        "step": 4000,
+        "total": 4000,
+        "checkpoint_verified": true,
+        "seconds_per_step": 0.9627422500000002,
+        "remaining_seconds": 0.0,
+        "last_loss": 3.0711749643087387,
+        "episodes_done": 2104,
+        "episodes_total": 2188,
+        "rows": 8326,
+        "updated": "2026-10-14T01:27:24.490696+03:00"
+      }
+    },
+    {
+      "arm": "C",
+      "name": "fold0",
+      "status": {
+        "state": "completed",
+        "stage": "predictions_saved",
+        "arm": "C",
+        "step": 4000,
+        "total": 4000,
+        "checkpoint_verified": true,
+        "seconds_per_step": 0.9298944999999994,
+        "remaining_seconds": 0.0,
+        "last_loss": 2.115127295255661,
+        "episodes_done": 3604,
+        "episodes_total": 3689,
+        "rows": 13818,
+        "updated": "2026-10-14T02:32:33.167789+03:00"
+      }
+    },
+    {
+      "arm": "C",
+      "name": "fold1",
+      "status": {
+        "state": "completed",
+        "stage": "predictions_saved",
+        "arm": "C",
+        "step": 4000,
+        "total": 4000,
+        "checkpoint_verified": true,
+        "seconds_per_step": 0.9452889999999988,
+        "remaining_seconds": 0.0,
+        "last_loss": 2.5286199375987053,
+        "episodes_done": 4004,
+        "episodes_total": 4033,
+        "rows": 15152,
+        "updated": "2026-10-14T03:38:44.701258+03:00"
+      }
+    },
+    {
+      "arm": "C",
+      "name": "full",
+      "status": {
+        "state": "completed",
+        "stage": "predictions_saved",
+        "arm": "C",
+        "step": 4000,
+        "total": 4000,
+        "checkpoint_verified": true,
+        "seconds_per_step": 0.9480507500000004,
+        "remaining_seconds": 0.0,
+        "last_loss": 2.8001408334821463,
+        "episodes_done": 2104,
+        "episodes_total": 2188,
+        "rows": 8326,
+        "updated": "2026-10-14T04:43:52.154415+03:00"
+      }
+    },
+    {
+      "arm": "D",
+      "name": "fold0",
+      "status": {
+        "state": "completed",
+        "stage": "predictions_saved",
+        "arm": "D",
+        "step": 4000,
+        "total": 4000,
+        "checkpoint_verified": true,
+        "seconds_per_step": 1.1926757500000003,
+        "remaining_seconds": 0.0,
+        "last_loss": 2.012307435274124,
+        "episodes_done": 3604,
+        "episodes_total": 3689,
+        "rows": 13818,
+        "updated": "2026-10-14T06:06:35.655527+03:00"
+      }
+    },
+    {
+      "arm": "D",
+      "name": "fold1",
+      "status": {
+        "state": "completed",
+        "stage": "predictions_saved",
+        "arm": "D",
+        "step": 4000,
+        "total": 4000,
+        "checkpoint_verified": true,
+        "seconds_per_step": 1.1957967499999995,
+        "remaining_seconds": 0.0,
+        "last_loss": 2.420633912086487,
+        "episodes_done": 4004,
+        "episodes_total": 4033,
+        "rows": 15152,
+        "updated": "2026-10-14T07:29:43.764570+03:00"
+      }
+    },
+    {
+      "arm": "D",
+      "name": "full",
+      "status": {
+        "state": "paused",
+        "stage": "localization",
+        "arm": "D",
+        "step": 1105,
+        "total": 4000,
+        "checkpoint_verified": true,
+        "seconds_per_step": 1.2103502262443488,
+        "remaining_seconds": 3503.96390497739,
+        "last_loss": 1.4330342635512352,
+        "reason": "stop requested or deadline reached",
+        "updated": "2026-10-14T07:52:25.189269+03:00"
+      }
+    }
+  ],
+  "scope": "Technical probe, B/C/D localization training, two-fold train-only predictions, quality training and threshold selection. No dev/MASA/heldout evaluation or downloads.",
+  "archived_stop_request": "runs\\z13_spatial_v2_20261013\\stop.request.author_pause_20261014_185313"
+}
