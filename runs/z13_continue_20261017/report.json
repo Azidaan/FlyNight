@@ -1,0 +1,148 @@
+{
+  "summary": {
+    "baseline": {
+      "rows": 8326,
+      "positives": 1786,
+      "labelled": 5822,
+      "useful_fraction_pooled": 0.17581187010078386,
+      "useful_fraction_mean_video": 0.19728023424336094,
+      "median_error_rel": 0.35803898347908825,
+      "nll_labelled": 2.1531832828518582,
+      "coverage": {
+        "0.01": {
+          "selected": 84,
+          "known": 30,
+          "unknown": 54,
+          "useful": 7,
+          "harmful": 23,
+          "useful_share_known": 0.23333333333333334
+        },
+        "0.02": {
+          "selected": 167,
+          "known": 70,
+          "unknown": 97,
+          "useful": 13,
+          "harmful": 57,
+          "useful_share_known": 0.18571428571428572
+        },
+        "0.05": {
+          "selected": 417,
+          "known": 202,
+          "unknown": 215,
+          "useful": 37,
+          "harmful": 165,
+          "useful_share_known": 0.18316831683168316
+        }
+      }
+    },
+    "D-frozen": {
+      "rows": 8326,
+      "positives": 1786,
+      "labelled": 5822,
+      "useful_fraction_pooled": 0.17469204927211646,
+      "useful_fraction_mean_video": 0.18461593190237388,
+      "median_error_rel": 0.34762738450752445,
+      "nll_labelled": 2.1657449022770168,
+      "coverage": {
+        "0.01": {
+          "selected": 84,
+          "known": 32,
+          "unknown": 52,
+          "useful": 2,
+          "harmful": 30,
+          "useful_share_known": 0.0625
+        },
+        "0.02": {
+          "selected": 167,
+          "known": 67,
+          "unknown": 100,
+          "useful": 4,
+          "harmful": 63,
+          "useful_share_known": 0.05970149253731343
+        },
+        "0.05": {
+          "selected": 417,
+          "known": 184,
+          "unknown": 233,
+          "useful": 16,
+          "harmful": 168,
+          "useful_share_known": 0.08695652173913043
+        }
+      }
+    },
+    "D-train": {
+      "rows": 8326,
+      "positives": 1786,
+      "labelled": 5822,
+      "useful_fraction_pooled": 0.14837625979843225,
+      "useful_fraction_mean_video": 0.16787868637865874,
+      "median_error_rel": 0.41809961021888564,
+      "nll_labelled": 2.2091992269832,
+      "coverage": {
+        "0.01": {
+          "selected": 84,
+          "known": 32,
+          "unknown": 52,
+          "useful": 3,
+          "harmful": 29,
+          "useful_share_known": 0.09375
+        },
+        "0.02": {
+          "selected": 167,
+          "known": 66,
+          "unknown": 101,
+          "useful": 8,
+          "harmful": 58,
+          "useful_share_known": 0.12121212121212122
+        },
+        "0.05": {
+          "selected": 417,
+          "known": 205,
+          "unknown": 212,
+          "useful": 23,
+          "harmful": 182,
+          "useful_share_known": 0.11219512195121951
+        }
+      }
+    }
+  },
+  "identical_batches": true,
+  "frozen_core_unchanged": true,
+  "trained_core_changed": true,
+  "trained_core_drift_median_rel": 0.00419020839035511,
+  "train_loss_last100": {
+    "D-frozen": 2.1712529152515345,
+    "D-train": 2.174495691705961
+  },
+  "paired_useful": {
+    "D-train-D-frozen": {
+      "mean_per_video": -0.016737245523715152,
+      "ci95": [
+        -0.04114606572828087,
+        0.008343402888231804
+      ],
+      "better": 9,
+      "n": 26
+    },
+    "D-train-baseline": {
+      "mean_per_video": -0.029401547864702178,
+      "ci95": [
+        -0.06066423397386637,
+        -0.001185354747076228
+      ],
+      "better": 10,
+      "n": 26
+    },
+    "D-frozen-baseline": {
+      "mean_per_video": -0.012664302340987026,
+      "ci95": [
+        -0.03526657751636207,
+        0.011505434430733605
+      ],
+      "better": 10,
+      "n": 26
+    }
+  },
+  "scope": "Поисковый результат на многократно использованном train26; не HOTA; интервал с нулём не доказывает равенства",
+  "execution_valid": true
+}
