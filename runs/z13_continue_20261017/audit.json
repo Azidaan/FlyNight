@@ -1,0 +1,53 @@
+{
+  "source": "runs\\z13_spatial_v2_20261013\\D\\full",
+  "files_sha256": {
+    "checkpoint.pt": "db06a69881604c68b29ab521df4c06617fca156b3871778d15f5ca2723176c13",
+    "identity.json": "654afeff729336d5a1f19670b7b8b7dd22df61f50433392e62c97046fadc9ad6",
+    "loss.json": "d1f8344cf0815edd0a0eb1f1deafe7c6e64e1521e5fdf043053e9f9aa86eacc3",
+    "model.pt": "c6688eeb2dc19bb7d5dffd6075d2a8e330c0afca0a8ae995b6d92b67305ba2b8",
+    "predictions.json": "f56bd04a833440b678d0de10bf78bbc635fec7a5b46a8503315d96c908f67f62",
+    "status.json": "00f07819353a9a1772f38fba611b8a33d58747135166cfce678899ec25d222ad"
+  },
+  "checkpoint_step": 4000,
+  "status_step": 4000,
+  "status_state": "completed",
+  "protocol_steps": 4000,
+  "history_len": 4000,
+  "loss_json_len": 4000,
+  "history_equals_loss_json": true,
+  "identity_equals_identity_json": true,
+  "model_readout_equals_checkpoint": true,
+  "model_backbone_equals_checkpoint": true,
+  "optimizer_groups": 4,
+  "optimizer_group_sizes": [
+    21,
+    1,
+    1,
+    1
+  ],
+  "optimizer_lrs": [
+    0.003,
+    0.0001,
+    5e-06,
+    5e-06
+  ],
+  "anchors": 3,
+  "torch_version_checkpoint": "2.10.0+cu130",
+  "torch_version_now": "2.10.0+cu130",
+  "fit_videos": 104,
+  "predict_videos": 26,
+  "code_changed_since_source": {
+    "scripts\\z13_train.py": false,
+    "tracking\\z13_readout.py": false,
+    "tracking\\z13_checkpoint.py": false,
+    "scripts\\z13_data.py": false,
+    "tracking\\foveated_eyes.py": false,
+    "tracking\\flyvis_motion.py": false,
+    "tracking\\retina.py": false,
+    "tracking/z13_spatial.py": false,
+    "scripts/z13_spatial_train.py": false,
+    "scripts/z13_spatial_runner.py": false,
+    "scripts/z13_threshold_diagnostic.py": false
+  },
+  "passed": true
+}

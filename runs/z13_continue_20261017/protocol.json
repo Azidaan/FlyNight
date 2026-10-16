@@ -1,0 +1,43 @@
+{
+  "id": "z13_core_continue_v1",
+  "written": "2026-10-17T00:34:35+03:00",
+  "source": "runs\\z13_spatial_v2_20261013\\D\\full",
+  "source_checkpoint_sha256": "db06a69881604c68b29ab521df4c06617fca156b3871778d15f5ca2723176c13",
+  "variants": [
+    "D-frozen",
+    "D-train"
+  ],
+  "order": [
+    "D-frozen",
+    "D-train"
+  ],
+  "extra_steps": 1000,
+  "batch": 16,
+  "micro_batch": 4,
+  "readout_lr": 0.003,
+  "core_lr": {
+    "nodes_bias": 0.0001,
+    "nodes_time_const": 5e-06,
+    "edges_syn_strength": 5e-06
+  },
+  "anchor": 1.0,
+  "save_every_steps": 10,
+  "evaluation": "train26 (identity.json job.predict), эпизоды без возмущения, все помеченные кадры; до обучения и после каждого варианта",
+  "main_measure": "доля полезных центров среди положительных (scripts/z13_train.success), парный бутстрэп по видео 5000",
+  "secondary": [
+    "median err/scale",
+    "NLL цели на помеченных",
+    "вмешательства при доле отбора 1/2/5 % всех строк: known/unknown/useful/harmful",
+    "train loss last 100"
+  ],
+  "stop": "нечисла в потере или градиентах, градиент в замороженном ядре, расхождение исходных предсказаний (|Δp| ≥ 1e-3 или |Δцентр| ≥ 0,5 px), stop.request, срок",
+  "no_repeat": "done.json этапа — этап не повторяется; обучение продолжается с checkpoint.pt варианта",
+  "code_sha256": {
+    "scripts/z13_continue.py": "f96bb135de88d3beda083aa085557a3cc7cd16391a5f877e40fc933b5fbe34fa",
+    "scripts/z13_spatial_train.py": "649509916bafab12a21c5abfa896ba2d8e3b2a82a85b9927e37517a056ee7337",
+    "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
+    "tracking/z13_spatial.py": "df9b1b275892fc802509baf1e74797c63afb457e22852a6e2e01c4368669f533",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "tracking/z13_checkpoint.py": "bf9eb93207069f02cf532c26ed0fe9491c730b765b65798f0c175559bede7b6a"
+  }
+}
