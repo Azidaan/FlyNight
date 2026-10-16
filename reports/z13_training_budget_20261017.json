@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-17",
+  "scope": "Read-only training-budget audit; no training launched",
+  "fit_source": "runs/z13_distribution_pilot_20261015/protocol.json:fit",
+  "example_count_source": "sum(lab_kind >= 0) over runs/z13_data/<fit video>.npz",
+  "fit_videos": 104,
+  "known_training_examples": 41724,
+  "batch": 16,
+  "previous_steps": 4000,
+  "sampling": "Random samples each step; equivalent passes are exposures, not complete epochs",
+  "equivalent_passes_previous": 1.5338893682293164,
+  "steps_for_100_equivalent_passes": 260775,
+  "historical_step_seconds": 1.2297927461139897,
+  "timing_source": "runs\\z13_spatial_v2_20261013\\D\\full\\status.json",
+  "estimated_hours_total": 89.08311204663212,
+  "estimated_hours_remaining_from_4000": 87.71667566206102,
+  "timing_limitations": "Historical rate only; excludes evaluation, controls, input checks and changed execution conditions",
+  "conclusion": "Core undertraining remains unproven; bounded controlled continuation is more informative than blind 100-pass training"
+}
