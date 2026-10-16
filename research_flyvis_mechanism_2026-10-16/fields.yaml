@@ -1,0 +1,77 @@
+field_categories:
+- category: Source
+  fields:
+  - name: bibliography
+    description: Full bibliographic records of each primary source examined (authors, year, title, venue, version), with direct links (DOI/arXiv/PDF) and code repository links; note which records are duplicates of the same study (preprint vs journal)
+    detail_level: detailed
+    required: true
+  - name: full_text_checked
+    description: Which parts were actually read (full text, appendix, supplementary, code files); what could not be accessed
+    detail_level: brief
+    required: true
+- category: Setup
+  fields:
+  - name: task_and_output
+    description: Exact task and model output (e.g. centroid, velocity, heat map, presence score, bounding box)
+    detail_level: moderate
+    required: true
+  - name: data_and_independent_videos
+    description: Datasets, number of independent videos or scenes, how train/test were split (same videos or unseen)
+    detail_level: moderate
+    required: true
+  - name: target_size_and_input_resolution
+    description: Target size (pixels, degrees, ommatidia) and actual input resolution of the model
+    detail_level: moderate
+    required: true
+  - name: frame_rate_and_camera_motion
+    description: Frame rate or temporal sampling, camera or self-motion, background motion
+    detail_level: brief
+    required: true
+  - name: detector_and_exemplar
+    description: Whether a detector is used, how the target or exemplar is specified
+    detail_level: brief
+    required: true
+  - name: trainable_nodes_and_loss
+    description: Which parts are trained, parameter counts if given, loss functions; or none (hand-designed)
+    detail_level: moderate
+    required: true
+- category: Evidence
+  fields:
+  - name: controls_seeds_splits
+    description: Controls (random or shuffled networks, ablations, matched baselines), number of seeds, data splits
+    detail_level: moderate
+    required: true
+  - name: metrics_and_numbers
+    description: Metrics and key numbers with exact location (table, figure, section) in the source
+    detail_level: detailed
+    required: true
+  - name: tested_conditions
+    description: Whether authors tested unseen videos, target absence, similar distractors, occlusion, night or low light, sequential operation on own predictions; answer each explicitly yes/no/not reported
+    detail_level: moderate
+    required: true
+- category: Transfer to our task
+  fields:
+  - name: mechanism_summary
+    description: The verifiable mechanism in plain words, separating published mechanism from any proposed modification
+    detail_level: moderate
+    required: true
+  - name: transfer_limits
+    description: Concrete limits for our setting (30 Hz, moving and rescaling crop, 721 grey hexals, targets around 9x12 lattice steps, YOLO/ByteTrack/MASA environment, find previous target among similar neighbours or refuse)
+    detail_level: detailed
+    required: true
+  - name: research_questions_addressed
+    description: Which of Q1-Q5 this source informs and how (direct evidence, design analogy, or caution)
+    detail_level: moderate
+    required: true
+  - name: candidate_node_change
+    description: If applicable, a concrete FlyVis node change (input, exemplar, readout, core, dynamics, state transfer) suggested by this source, its control without FlyVis and with stock FlyVis, a minimal check and a stop condition
+    detail_level: detailed
+    required: true
+  - name: strongest_objection
+    description: Strongest objection to using this source or mechanism for our decision
+    detail_level: moderate
+    required: true
+  - name: evidence_strength
+    description: Peer-reviewed or preprint, independent replications, code availability verified, overall strength (strong / moderate / weak) with reason
+    detail_level: brief
+    required: true
