@@ -2,11 +2,12 @@
 param([Parameter(Mandatory = $true)][string]$Deadline)   # ISO с поясом, например 2026-10-17T23:30:00+03:00
 $root = 'E:\Dissertation'; $run = "$root\runs\z13_continue_20261017"
 if (Get-Process python -ErrorAction SilentlyContinue | Where-Object { $_.Path -like "$root\*" -and (Get-CimInstance Win32_Process -Filter "ProcessId=$($_.Id)").CommandLine -match 'z13_continue.py --all' }) { throw 'Прогон уже идёт — второй не запускается' }
-$cmd = "cd /d $root && set PYTHONIOENCODING=utf-8 && .venv\Scripts\python.exe -u scripts\z13_continue.py --all --deadline $Deadline > `"$run\controller.out.log`" 2> `"$run\controller.err.log`" & echo %ERRORLEVEL% > `"$run\controller.exit`""
+$cmd = "cd /d $root && set PYTHONIOENCODING=utf-8 && .venv\Scripts\python.exe -u scripts\z13_continue.py --all --deadline $Deadline > `"$run\controller.out.log`" 2>> `"$run\controller.err.log`" & echo !ERRORLEVEL! > `"$run\controller.exit`""
 Remove-Item "$run\controller.exit" -ErrorAction SilentlyContinue
-$p = Start-Process cmd.exe -ArgumentList '/c', $cmd -WindowStyle Hidden -PassThru
-Start-Sleep 2
-Get-CimInstance Win32_Process -Filter "ParentProcessId=$($p.Id)" | ForEach-Object { (Get-Process -Id $_.ProcessId).PriorityClass = 'Idle' }
+if (Test-Path "$run\stop.request") { throw 'Есть stop.request — сначала убрать его осознанно' }
+$p = Start-Process cmd.exe -ArgumentList '/v:on', '/c', $cmd -WindowStyle Hidden -PassThru   # /v:on — код завершения после окончания, а не при разборе строки
+Start-Sleep 8   # venv-лаунчер запускает настоящий интерпретатор дочерним процессом — Idle ставится всем процессам прогона
+Get-CimInstance Win32_Process -Filter "Name='python.exe'" | Where-Object { $_.CommandLine -match 'z13_continue.py --all' } | ForEach-Object { (Get-Process -Id $_.ProcessId).PriorityClass = 'Idle' }
 $p.PriorityClass = 'Idle'
 $c = Start-Process powershell.exe -ArgumentList '-NoExit', '-ExecutionPolicy', 'Bypass', '-File', "$root\scripts\z13_continue_console.ps1" -PassThru
 Start-Sleep 2
