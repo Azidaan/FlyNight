@@ -327,7 +327,17 @@ def main() -> int:
         body = f"# {areas[aid]['title']} — планы\n\n↑ [[{HUB['09']}|{BLOCK_TITLE['09']}]]\n\n"
         body += "".join(f"- {STATE_ICON.get(x['state'], '')} {ref('09', card_path[x['id']], x['title'], structural=True)} — {STATE_RU.get(x['state'], x['state'])}\n" for x in es)
         V.write(plan_group[aid] + ".md", fm({"tags": ["запланировано"]}) + body)
+    future = [e for e in planned.values() if "engineering-future" in e.get("tags", [])]
+    if future:
+        note = "09 Запланировано/Инженерные механизмы — будущие узлы FlyVis"
+        body = f"# Инженерные механизмы — будущие узлы FlyVis\n\n↑ [[{HUB['09']}|{BLOCK_TITLE['09']}]]\n\n"
+        body += "Работы на будущее по исследованию 16.10.2026. Статус — запланировано; реализация и численный эффект не проверены. Это варианты выбора одного узла, не разрешение на параллельную серию расчётов.\n\n"
+        body += "".join(f"[[{card_path[e['id']]}|{lab(e['title'])}]]\n\n" for e in future)
+        body += "Источники: `research_flyvis_mechanism_2026-10-16/ИНЖЕНЕРНЫЕ_АНАЛОГИ.md`, `ПРОВЕРКА_РЕКОМЕНДАЦИИ_CODEX.md` в том же каталоге.\n"
+        V.write(note + ".md", fm({"tags": ["запланировано", "идея", "идея/муха"]}) + body)
     hub = f"# {BLOCK_TITLE['09']}\n\n↑ [[00 Главная|Главная]]\n\nИдеи и эксперименты, которые ещё не завершены: запланированные, готовые к запуску и идущие. После завершения карточка переезжает в блок экспериментов (или мухи).\n\n"
+    if future:
+        hub += f"[[{note}|Инженерные механизмы — будущие узлы FlyVis]]\n\n"
     hub += "".join(f"- [[{plan_group[aid]}|{areas[aid]['title']}]] ({len(es)})\n" for aid, es in sorted(p_area.items(), key=lambda x: areas[x[0]].get("order", 0)))
     # идеи из текста плана (7.6 — кандидаты К, 7.7 — проверки Д, 7.8 — этапы трекера на мухе), ещё не ставшие карточками
     S = {num: c for lv, num, t, c in secs}
