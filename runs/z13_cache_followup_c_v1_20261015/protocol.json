@@ -1,0 +1,31 @@
+{
+  "id": "z13_cache_followup_c_v1",
+  "created": "2026-10-15T00:55:32.498768+03:00",
+  "train_videos": [
+    "004855fc-ff3946ad"
+  ],
+  "repeats": 24,
+  "batches": [
+    1,
+    4
+  ],
+  "modes": [
+    "triton",
+    "triton_repeat",
+    "cache",
+    "cache_without_checks"
+  ],
+  "gates": {
+    "probability_atol": 1e-05,
+    "same_argmax": true,
+    "benefit": "Paired block interval for sequence time saving above zero for both batch sizes."
+  },
+  "measurement": "One D model, warmed for each mode and batch; same inputs; rotate/reverse order; synchronize CUDA before and after each timing.",
+  "mechanism": "Separately time preparation/dereference of actual parameters and CPU cost of cached return with versus without version/gradient checks.",
+  "limits": "No end-to-end/video/HOTA claim. Timing blocks are repeats of fixed inputs on one GPU, not independent videos. No production code changes.",
+  "cost_cap_seconds": 300,
+  "probe_sha256": "e629a14574619bff30b984532d3e0e6f843ef915d25a0a319d76af2f270d7e5d",
+  "decision": "Keep cache disabled in current frozen HOTA. If supported here, retain as candidate for matched end-to-end timing; otherwise disable this implementation without deleting artifacts.",
+  "model": "C",
+  "question": "Сохраняется ли экономия при замороженной FlyVis C и другом train-видео?"
+}

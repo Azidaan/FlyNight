@@ -1,0 +1,85 @@
+{
+  "id": "z13_tree_quality_probe_v1",
+  "created": "2026-10-15T18:13:48.152654+03:00",
+  "scope": "CPU train-only diagnostic; frozen localization; no GPU/dev/test/heldout/HOTA",
+  "authorization": "Author 15.10: test useful idea and continue autonomously until 20:00 MSK",
+  "deadline": "2026-10-15T20:00:00+03:00",
+  "features": [
+    "presence",
+    "peak",
+    "peak_margin",
+    "entropy",
+    "local_mass",
+    "variance_x",
+    "variance_y",
+    "peak_mean_distance",
+    "shift_x",
+    "shift_y",
+    "shift_norm",
+    "border_distance"
+  ],
+  "fit": "Existing out-of-localizer-training predictions on 104 train videos, known labels only",
+  "evaluation": "Existing 26 train calibration videos, already used in development, not independent confirmation",
+  "target": "kind=1 AND err<=0.25*scale AND err<err_pred; unknown excluded, never relabelled negative",
+  "models": {
+    "tree": {
+      "max_depth": 4,
+      "min_samples_leaf": 100,
+      "random_state": 0
+    },
+    "histgb": {
+      "max_iter": 200,
+      "max_leaf_nodes": 15,
+      "learning_rate": 0.1,
+      "min_samples_leaf": 100,
+      "l2_regularization": 1.0,
+      "early_stopping": false,
+      "random_state": 0
+    }
+  },
+  "primary": "histgb; shallow tree descriptive, no winner selection after results",
+  "controls": "Saved neural quality scorer on exactly the same B/C/D rows; no retraining",
+  "acceptance": [
+    "D histgb minus D neural AP paired video bootstrap CI lower >0",
+    "D histgb minus B histgb AP paired video bootstrap CI lower >0",
+    "D histgb meets retained 90% useful corrections with >=50 labelled selections"
+  ],
+  "stop": "If any criterion fails, no HOTA rerun for this tree replacement and no parameter sweep",
+  "bootstrap": {
+    "repetitions": 2000,
+    "seed": 20261015,
+    "unit": "video"
+  },
+  "caveats": [
+    "Calibration set previously examined; all intervals exploratory",
+    "Quality fit predictions use 52-video localizers, evaluation uses 104-video localizer",
+    "Quality scorer changes refusal only, cannot create a better position",
+    "Passing diagnostic is not proof of HOTA or FlyVis novelty"
+  ],
+  "source_sha256": {
+    "runs\\z13_spatial_v2_20261013\\protocol.json": "0d371a1e9b45c19aeb0831988d1ba436b03f184e0314bb2325644d60feeb6f06",
+    "tracking\\z13_spatial.py": "df9b1b275892fc802509baf1e74797c63afb457e22852a6e2e01c4368669f533",
+    "scripts\\z13_tree_quality_probe.py": "56252bdd26d0f9d8d464cdf0e81e6c652adf3bb9d3447221879ed40f95c51433",
+    "runs\\z13_spatial_v2_20261013\\B\\fold0\\predictions.json": "209defb3f771db8ac0f3aefa9ed9deee5f00f7be5805cd2cfd7d243caad63401",
+    "runs\\z13_spatial_v2_20261013\\B\\fold0\\identity.json": "00fc0a4ab87f0068e2bfcec867eb9a96bcd23cac4c8327a0f8018d1eca455a7e",
+    "runs\\z13_spatial_v2_20261013\\B\\fold1\\predictions.json": "97d74d5157e9a78c975d730192d0b15d16aa3112a8cb51a7247113897bb74257",
+    "runs\\z13_spatial_v2_20261013\\B\\fold1\\identity.json": "198d5ca37233436325f3f30e07add8567e352b37be1a25b0b345a7c0e1fe0cbe",
+    "runs\\z13_spatial_v2_20261013\\B\\full\\predictions.json": "731da6beea3769e0d3a5c98c291d4a35c9e1495140d9ea6c653fef2f72f99cb4",
+    "runs\\z13_spatial_v2_20261013\\B\\full\\identity.json": "ee5be30a2655a9b03e6f4f56d55121b48a910fbda3f3945a3f08d6c89ed1b61f",
+    "runs\\z13_spatial_v2_20261013\\B\\threshold_predictions.json": "7ebfbff5a58b0c8d4cde946f44498a5fd89c680579949a94206d4093c6e71f7c",
+    "runs\\z13_spatial_v2_20261013\\C\\fold0\\predictions.json": "de6b3792719a42492460c1530028020875b573ffa98aa970b94c0a0986c79a55",
+    "runs\\z13_spatial_v2_20261013\\C\\fold0\\identity.json": "b70d24ecd409f3d5b08b58f651b50667c36011b8fc14ccec579f56cf2ca6c916",
+    "runs\\z13_spatial_v2_20261013\\C\\fold1\\predictions.json": "e299781fcca2bf128d46d76fed6ee315fc55d5049946c0839ca4945d32865b7c",
+    "runs\\z13_spatial_v2_20261013\\C\\fold1\\identity.json": "35aa196fa4de6fbd6fe5d848a87842629ea8c077d9246345421cab9896adda16",
+    "runs\\z13_spatial_v2_20261013\\C\\full\\predictions.json": "0585f572aa7d1b6bc9ce76269d0bb0a81c15981ac607b0690b4f1ef5ecf068db",
+    "runs\\z13_spatial_v2_20261013\\C\\full\\identity.json": "3487f748eee1a575937c9b8fc3adcc060db0c741d0dcc9b4fac59802a961683b",
+    "runs\\z13_spatial_v2_20261013\\C\\threshold_predictions.json": "cea65a7969f2a776cbefb1db4ac2106ea35ab09137c7183b07742ec670e3b036",
+    "runs\\z13_spatial_v2_20261013\\D\\fold0\\predictions.json": "84c62eae7e33274a9f1a725f64b333876628781dd9fb5bb12070568aebbe2191",
+    "runs\\z13_spatial_v2_20261013\\D\\fold0\\identity.json": "8791622e854f771c346fe7578417006f2fd8926e9c67877608a79ea419ffda0f",
+    "runs\\z13_spatial_v2_20261013\\D\\fold1\\predictions.json": "d1649558b24280669cc61c864101c4a1188b495776aac2bfeab36a8cf91ffa38",
+    "runs\\z13_spatial_v2_20261013\\D\\fold1\\identity.json": "7dffa5db1f6e2b04f6b4093cbf2ad8fe0ca2b138e6a85faba156a475a97e414f",
+    "runs\\z13_spatial_v2_20261013\\D\\full\\predictions.json": "f56bd04a833440b678d0de10bf78bbc635fec7a5b46a8503315d96c908f67f62",
+    "runs\\z13_spatial_v2_20261013\\D\\full\\identity.json": "654afeff729336d5a1f19670b7b8b7dd22df61f50433392e62c97046fadc9ad6",
+    "runs\\z13_spatial_v2_20261013\\D\\threshold_predictions.json": "a985fadb5933724eaa178712ff8c4e4d4505b09494e6112d004d36ac457e9f71"
+  }
+}

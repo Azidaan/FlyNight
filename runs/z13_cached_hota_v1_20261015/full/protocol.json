@@ -1,0 +1,131 @@
+{
+  "id": "fly_spatial_hota_policy_z13_v1",
+  "created": "2026-10-14T21:17:03.940014+03:00",
+  "authorization": "Автор: давай, к предложению подготовить один опыт HOTA",
+  "scope": "Preparation and bounded technical probe; full GPU run budget to be agreed after measured price. No training, no heldout videos, no downloads.",
+  "source": "runs\\z13_spatial_v2_20261013",
+  "videos": [
+    "00067cfb-e535423e",
+    "00091078-c1d32eea",
+    "00202076-7a95b4e3",
+    "00268999-9f6d5823",
+    "0070bc56-4c0bb2d5",
+    "00ce95b0-84be34a3",
+    "00cea101-06f21d5e",
+    "00d8944b-e157478b",
+    "00e100a8-9c852617",
+    "00f42f6b-b1ca1f6c",
+    "01041028-362385a9",
+    "0128cdde-289cd9e9",
+    "0135c724-b8bd0434",
+    "019c4fa9-d4219327",
+    "019efe88-bbc2a4ac",
+    "021329f5-28a4b3ef",
+    "02250ece-2d6bfd5b",
+    "02346f91-27a6b98b",
+    "023b022b-723860c9",
+    "026b9a11-f819c1b9",
+    "027e72be-02d4782f",
+    "0282c435-23183908",
+    "028c7891-a4644551",
+    "02a7e164-14ba1015",
+    "02a88cd9-89d23c1c",
+    "02c14339-b5be3a6c",
+    "0309d11c-4f7cba1a",
+    "0325b131-11b7d3a0",
+    "0355243b-d696291a",
+    "036db23c-53000542",
+    "0375374a-c7cb24f2",
+    "039f729b-8878b974",
+    "039f79c0-66d9d6ca",
+    "03a041fd-2061eec6",
+    "03d93dd6-990f83bb"
+  ],
+  "arms": [
+    "B",
+    "C",
+    "D"
+  ],
+  "policy": "Each arm: threshold at top 1% of all 8326 natural train26 predictions, all ties retained. No kind/error/HOTA used in selection. Same fixed percentile; no hard intervention cap in closed loop.",
+  "fraction": 0.01,
+  "threshold_videos": [
+    "0001542f-ec815219",
+    "004855fc-ff3946ad",
+    "007eddfc-528c4da4",
+    "009215e2-ea063b28",
+    "00b56f41-e0e5d918",
+    "015ccf71-56e8d5b8",
+    "0166faa5-5fbc53c5",
+    "017bec14-1c6f8718",
+    "0199e7fc-0b6d1a35",
+    "0204aad7-eeb13c43",
+    "023a70d5-cde2a67a",
+    "0279c430-962e3702",
+    "027b216c-bfae3d6d",
+    "029556a0-0ec9fa6f",
+    "02bd959c-f20a2437",
+    "02c2a4d8-94d32b2f",
+    "02d5e1be-bd9bd999",
+    "02f101f6-56ba9106",
+    "0329d6b9-abddbf95",
+    "0332bb54-c4bee5eb",
+    "0336de82-802d2437",
+    "035d6940-18869b73",
+    "03b0697b-faa11b32",
+    "03bf498b-044cb72c",
+    "03c239e4-9e0fbb75",
+    "03d75f61-ce25863a"
+  ],
+  "thresholds": {
+    "B": {
+      "tau": 0.40676870942115784,
+      "target_rank": 84,
+      "selected": 84,
+      "total": 8326
+    },
+    "C": {
+      "tau": 0.28278905153274536,
+      "target_rank": 84,
+      "selected": 84,
+      "total": 8326
+    },
+    "D": {
+      "tau": 0.2788526117801666,
+      "target_rank": 84,
+      "selected": 84,
+      "total": 8326
+    }
+  },
+  "model_sha256": {
+    "B": "f4a51ac37b956f4a57489beb99f5f02642c49fa8f958a0b9206349f80bf03c12",
+    "C": "549f500c148f325c47e9285c496e118d2b1f0c43bfbfaea6be134ff72ab2624d",
+    "D": "513cb8e774342727b5e480710625ee8a38c380ad7cfa82d2640eaa212a516a05"
+  },
+  "action": "Lost tracks only, existing 30-frame buffer: score>=tau shifts predicted center to spatial readout position. Velocity, size, covariance and association rules unchanged.",
+  "pipeline": "YOLO cached detections, XYWHByteTrack 30Hz, same lamina eye input, same base+MASA stitching gap150 dist5 tau0.6.",
+  "comparisons": [
+    "D minus stand",
+    "D minus B",
+    "D minus C (separate core-training claim)"
+  ],
+  "primary_metric": "Paired mean HOTA difference per video with 95% bootstrap CI; pooled HOTA reported separately.",
+  "acceptance": {
+    "D_vs_stand": "pooled gain>=0.10 and paired CI lower>0",
+    "D_vs_B": "paired CI lower>0",
+    "D_vs_C": "paired CI lower>0"
+  },
+  "technical": "No-intervention output exactly matches baseline; stored-episode spatial probabilities agree; only lost tracks and centers changed; bounded batches of four; all arms load.",
+  "safety": {
+    "one_gpu_process": true,
+    "idle_priority": true,
+    "max_batch": 4,
+    "no_auto_retuning": true,
+    "probe_timeout_seconds": 900
+  },
+  "limitations": [
+    "Dev repeatedly used; train26 threshold data already used in development",
+    "This is a new diagnostic policy; failed 90%/50 gate stays unchanged",
+    "Score quantile selected on annotated-time natural examples; runtime acts on all 30Hz lost steps and may have a different distribution",
+    "No safety claim from this percentile or from a positive HOTA sign"
+  ]
+}

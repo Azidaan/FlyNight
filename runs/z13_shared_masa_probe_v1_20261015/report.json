@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "reference": {
+    "B": {
+      "seconds": 84.8344763999994,
+      "output": "runs\\z13_shared_masa_probe_v1_20261015\\reference\\B\\00067cfb-e535423e.npz"
+    },
+    "C": {
+      "seconds": 84.3213820000019,
+      "output": "runs\\z13_shared_masa_probe_v1_20261015\\reference\\C\\00067cfb-e535423e.npz"
+    },
+    "D": {
+      "seconds": 83.62834239999938,
+      "output": "runs\\z13_shared_masa_probe_v1_20261015\\reference\\D\\00067cfb-e535423e.npz"
+    }
+  },
+  "embedding_equality": {
+    "B": {
+      "bitwise_arrays_equal": true,
+      "max_abs": 0.0
+    },
+    "C": {
+      "bitwise_arrays_equal": true,
+      "max_abs": 0.0
+    },
+    "D": {
+      "bitwise_arrays_equal": true,
+      "max_abs": 0.0
+    }
+  },
+  "scope": "One full video with actual B/C/D signatures; same original model, precision and per-arm box order. No full-set HOTA claim.",
+  "shared": {
+    "feature_calls": 1182,
+    "feature_calls_without_sharing": 3545,
+    "guard_feature_calls": 1,
+    "frames_decoded": 1206,
+    "arms": [
+      "B",
+      "C",
+      "D"
+    ],
+    "seconds": 89.34352809999837,
+    "parity_guard_checked": true,
+    "including_model_load_seconds": 89.8166444999988
+  },
+  "reference_total_seconds": 252.7842008000007,
+  "reduction_percent": 64.46904347037872,
+  "embedding_gate_passed": true,
+  "pair_feature_equality": {
+    "B": {
+      "pairs_equal": true,
+      "all_features_equal": true,
+      "candidate_pairs": 447406
+    },
+    "C": {
+      "pairs_equal": true,
+      "all_features_equal": true,
+      "candidate_pairs": 446969
+    },
+    "D": {
+      "pairs_equal": true,
+      "all_features_equal": true,
+      "candidate_pairs": 444999
+    }
+  },
+  "fixed_stitcher_input_gate_passed": true,
+  "stitch_consequence": "Exact same candidate pairs and all features imply same scores and stitching for the unchanged fixed head; full HOTA not recomputed in this probe."
+}

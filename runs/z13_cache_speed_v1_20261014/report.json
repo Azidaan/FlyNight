@@ -1,0 +1,88 @@
+{
+  "created": "2026-10-15T00:05:48.557958+03:00",
+  "video": "00067cfb-e535423e",
+  "passed": true,
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "sequence": {
+    "D": {
+      "applied": true,
+      "parameter_preparation": "once after checkpoint load",
+      "weight_version_guard": true,
+      "probability_max_abs": 3.5762786865234375e-07,
+      "same_argmax": true,
+      "frames": 32
+    }
+  },
+  "timings": {
+    "B": {
+      "triton": {
+        "processing_seconds": 192.34134450000056,
+        "outer_wall_seconds": 199.96519290000106,
+        "events": {
+          "steps": 15637,
+          "interventions": 264,
+          "refusals": 15373,
+          "births": 984,
+          "nonfinite_refusals": 0
+        },
+        "source": "runs\\z13_cache_speed_v1_20261014\\B\\triton\\00067cfb-e535423e\\signatures.json"
+      },
+      "triton_cached": {
+        "processing_seconds": 220.52025129999856,
+        "outer_wall_seconds": 228.19682599999942,
+        "events": {
+          "steps": 15637,
+          "interventions": 264,
+          "refusals": 15373,
+          "births": 984,
+          "nonfinite_refusals": 0
+        },
+        "source": "runs\\z13_cache_speed_v1_20261014\\B\\triton_cached\\00067cfb-e535423e\\signatures.json"
+      },
+      "output_max_abs_px": 0.0,
+      "same_ids_and_events": true,
+      "reduction_percent": -14.650467830122672
+    },
+    "D": {
+      "triton": {
+        "processing_seconds": 252.66757879999932,
+        "outer_wall_seconds": 260.28703490000044,
+        "events": {
+          "steps": 15592,
+          "interventions": 55,
+          "refusals": 15537,
+          "births": 983,
+          "nonfinite_refusals": 0
+        },
+        "source": "runs\\z13_cache_speed_v1_20261014\\D\\triton\\00067cfb-e535423e\\signatures.json"
+      },
+      "triton_cached": {
+        "processing_seconds": 239.9297088000003,
+        "outer_wall_seconds": 247.76203189999978,
+        "events": {
+          "steps": 15592,
+          "interventions": 55,
+          "refusals": 15537,
+          "births": 983,
+          "nonfinite_refusals": 0
+        },
+        "source": "runs\\z13_cache_speed_v1_20261014\\D\\triton_cached\\00067cfb-e535423e\\signatures.json"
+      },
+      "output_max_abs_px": 6.103515625e-05,
+      "same_ids_and_events": true,
+      "reduction_percent": 5.041355151497995
+    }
+  },
+  "comparison": "Current Triton versus same Triton plus immutable FlyVis parameter cache",
+  "npz_cpu": {
+    "source": "runs\\z13_triton_hota_v1_20261014\\technical\\compiled_D\\00067cfb-e535423e\\signatures.npz",
+    "items": 6860,
+    "exactly_equal": true,
+    "repeated_unpack_seconds": 4.649177700001019,
+    "load_once_seconds": 0.015804799999386887,
+    "reduction_percent": 99.66005171195363,
+    "scope": "Only CPU construction of MASA frame/box task list; not total MASA or GPU speed"
+  },
+  "D_faster": true,
+  "scope_note": "One matched video; B unchanged; no HOTA or multi-video speed confirmation."
+}

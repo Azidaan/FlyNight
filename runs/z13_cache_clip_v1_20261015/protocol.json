@@ -1,0 +1,24 @@
+{
+  "id": "z13_cache_clip_v1",
+  "created": "2026-10-15T00:55:32.498768+03:00",
+  "video": "00067cfb-e535423e",
+  "warmup_train_videos": [
+    "0001542f-ec815219"
+  ],
+  "frames": 240,
+  "order": [
+    "triton",
+    "cache",
+    "cache",
+    "triton"
+  ],
+  "cost_cap_seconds": 300,
+  "gates": {
+    "output_atol_px": 0.001,
+    "same_ids_and_events": true,
+    "benefit": "Saving positive in both reversed pairs."
+  },
+  "question": "Сохраняется ли ускорение на одинаковом фрагменте настоящего конвейера D?",
+  "limits": "240 кадров одного заранее выбранного видео, две пары. Не полный набор, не HOTA, не гарантия общего времени.",
+  "probe_sha256": "6d64adfd0ae3b72e412f82625b919e481cb86ddc862f79b5607838852622b2ab"
+}

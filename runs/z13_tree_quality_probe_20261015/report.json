@@ -1,0 +1,298 @@
+{
+  "started": "2026-10-15T18:14:40.807484+03:00",
+  "arms": {
+    "B": {
+      "fit_rows": 20778,
+      "fit_successes": 220,
+      "evaluation_rows": 8326,
+      "known": 5822,
+      "unknown": 2504,
+      "models": {
+        "neural": {
+          "AP": 0.08950053223140489,
+          "brier": 0.0332299480644128,
+          "original_gate": {
+            "tau": null,
+            "accepted": null,
+            "max_precision_at_minimum_count": 0.1232876712328767,
+            "successful_if_oracle_selected": 184,
+            "labelled": 5822,
+            "positive": 1786,
+            "negative": 4036
+          },
+          "top1": {
+            "tau": 0.40676870942115784,
+            "all": 84,
+            "known": 42,
+            "unknown": 42,
+            "useful": 5,
+            "precision": 0.11904761904761904
+          }
+        },
+        "tree": {
+          "AP": 0.09468988172559925,
+          "brier": 0.029949482570052994,
+          "original_gate": {
+            "tau": null,
+            "accepted": null,
+            "max_precision_at_minimum_count": 0.11830635118306351,
+            "successful_if_oracle_selected": 184,
+            "labelled": 5822,
+            "positive": 1786,
+            "negative": 4036
+          },
+          "top1": {
+            "tau": 0.2636363636363636,
+            "all": 111,
+            "known": 80,
+            "unknown": 31,
+            "useful": 0,
+            "precision": 0.0
+          }
+        },
+        "histgb": {
+          "AP": 0.07527692024868383,
+          "brier": 0.03284306671874262,
+          "original_gate": {
+            "tau": null,
+            "accepted": null,
+            "max_precision_at_minimum_count": 0.09328358208955224,
+            "successful_if_oracle_selected": 184,
+            "labelled": 5822,
+            "positive": 1786,
+            "negative": 4036
+          },
+          "top1": {
+            "tau": 0.33758708934927883,
+            "all": 84,
+            "known": 61,
+            "unknown": 23,
+            "useful": 3,
+            "precision": 0.04918032786885246
+          }
+        }
+      },
+      "tree_fit_predict_seconds": 0.1455621999999721,
+      "histgb_fit_predict_seconds": 0.5940153999999893
+    },
+    "C": {
+      "fit_rows": 20778,
+      "fit_successes": 1314,
+      "evaluation_rows": 8326,
+      "known": 5822,
+      "unknown": 2504,
+      "models": {
+        "neural": {
+          "AP": 0.2066010068502645,
+          "brier": 0.04211763590997362,
+          "original_gate": {
+            "tau": null,
+            "accepted": null,
+            "max_precision_at_minimum_count": 0.38571428571428573,
+            "successful_if_oracle_selected": 277,
+            "labelled": 5822,
+            "positive": 1786,
+            "negative": 4036
+          },
+          "top1": {
+            "tau": 0.28278905153274536,
+            "all": 84,
+            "known": 37,
+            "unknown": 47,
+            "useful": 13,
+            "precision": 0.35135135135135137
+          }
+        },
+        "tree": {
+          "AP": 0.13084972097858508,
+          "brier": 0.04285427430059092,
+          "original_gate": {
+            "tau": null,
+            "accepted": null,
+            "max_precision_at_minimum_count": 0.19665271966527198,
+            "successful_if_oracle_selected": 277,
+            "labelled": 5822,
+            "positive": 1786,
+            "negative": 4036
+          },
+          "top1": {
+            "tau": 0.23347701149425287,
+            "all": 320,
+            "known": 177,
+            "unknown": 143,
+            "useful": 33,
+            "precision": 0.1864406779661017
+          }
+        },
+        "histgb": {
+          "AP": 0.16180228225660953,
+          "brier": 0.042844675786492675,
+          "original_gate": {
+            "tau": null,
+            "accepted": null,
+            "max_precision_at_minimum_count": 0.2857142857142857,
+            "successful_if_oracle_selected": 277,
+            "labelled": 5822,
+            "positive": 1786,
+            "negative": 4036
+          },
+          "top1": {
+            "tau": 0.36735052894034,
+            "all": 84,
+            "known": 42,
+            "unknown": 42,
+            "useful": 12,
+            "precision": 0.2857142857142857
+          }
+        }
+      },
+      "tree_fit_predict_seconds": 0.13820570000007137,
+      "histgb_fit_predict_seconds": 0.5000463999999738
+    },
+    "D": {
+      "fit_rows": 20778,
+      "fit_successes": 1082,
+      "evaluation_rows": 8326,
+      "known": 5822,
+      "unknown": 2504,
+      "models": {
+        "neural": {
+          "AP": 0.17673634186763623,
+          "brier": 0.0472334596765504,
+          "original_gate": {
+            "tau": null,
+            "accepted": null,
+            "max_precision_at_minimum_count": 0.2871287128712871,
+            "successful_if_oracle_selected": 314,
+            "labelled": 5822,
+            "positive": 1786,
+            "negative": 4036
+          },
+          "top1": {
+            "tau": 0.2788526117801666,
+            "all": 84,
+            "known": 46,
+            "unknown": 38,
+            "useful": 11,
+            "precision": 0.2391304347826087
+          }
+        },
+        "tree": {
+          "AP": 0.16053207466431638,
+          "brier": 0.04727147003758245,
+          "original_gate": {
+            "tau": null,
+            "accepted": null,
+            "max_precision_at_minimum_count": 0.2692307692307692,
+            "successful_if_oracle_selected": 314,
+            "labelled": 5822,
+            "positive": 1786,
+            "negative": 4036
+          },
+          "top1": {
+            "tau": 0.32722513089005234,
+            "all": 146,
+            "known": 76,
+            "unknown": 70,
+            "useful": 19,
+            "precision": 0.25
+          }
+        },
+        "histgb": {
+          "AP": 0.15813838581452322,
+          "brier": 0.04860057659747167,
+          "original_gate": {
+            "tau": null,
+            "accepted": null,
+            "max_precision_at_minimum_count": 0.22508038585209003,
+            "successful_if_oracle_selected": 314,
+            "labelled": 5822,
+            "positive": 1786,
+            "negative": 4036
+          },
+          "top1": {
+            "tau": 0.3629329333239596,
+            "all": 84,
+            "known": 37,
+            "unknown": 47,
+            "useful": 6,
+            "precision": 0.16216216216216217
+          }
+        }
+      },
+      "tree_fit_predict_seconds": 0.13885160000006636,
+      "histgb_fit_predict_seconds": 0.4601602999999841
+    }
+  },
+  "diffs": {
+    "D_histgb-D_neural": {
+      "AP": -0.018597956053113013,
+      "ci95": [
+        -0.03246050589905284,
+        -0.004676121349126978
+      ],
+      "replicates": 2000,
+      "videos": 26
+    },
+    "D_histgb-B_histgb": {
+      "AP": 0.08286146556583938,
+      "ci95": [
+        0.04803168782556066,
+        0.12503800384242766
+      ],
+      "replicates": 2000,
+      "videos": 26
+    },
+    "D_histgb-C_histgb": {
+      "AP": -0.003663896442086312,
+      "ci95": [
+        -0.04143864106353761,
+        0.034614302723567254
+      ],
+      "replicates": 2000,
+      "videos": 26
+    }
+  },
+  "data_sha256": {
+    "runs\\z13_data\\0001542f-ec815219.npz": "075ecda0ebdce547308a872edb9192d73aedc7d7a23fb028d090b505f5272ec4",
+    "runs\\z13_data\\004855fc-ff3946ad.npz": "96f6cfddbe5ed474f265f7b84e403f892517863f1b1469c57ba603e9377c3988",
+    "runs\\z13_data\\007eddfc-528c4da4.npz": "68bdea2f015591ea42be98e7200af0249c46abc0ec2e470a56770a1071416241",
+    "runs\\z13_data\\009215e2-ea063b28.npz": "3ad2acb7e0c55e2bf2ed1a7b7f5f4a984ddaaa3b592428df3eeefe10bec9f613",
+    "runs\\z13_data\\00b56f41-e0e5d918.npz": "5df670837e3d8be7222ace3a814f6d4f3ae7d3c8bd1a19ee486fa54c858818d7",
+    "runs\\z13_data\\015ccf71-56e8d5b8.npz": "749d9652659fb3c267d69af712a4c6eee522b379aac2057b71417933884f9e80",
+    "runs\\z13_data\\0166faa5-5fbc53c5.npz": "d113c869428c48a2842d41954386ef79a7a4e7bb79c6588ab2f17de10bdd53f1",
+    "runs\\z13_data\\017bec14-1c6f8718.npz": "a98f08df802bcbdc240beb48c879a8f2f4ed5d69778f52a8be5c0355d410d37e",
+    "runs\\z13_data\\0199e7fc-0b6d1a35.npz": "1d5a20fd07763e93bc510196409d1ee5d691228b050e3c13102685f553bc8d63",
+    "runs\\z13_data\\0204aad7-eeb13c43.npz": "f885f19b108ab916dd1fd358a28e467f06bf43f9c59adcb58037c4ab1b36f6ed",
+    "runs\\z13_data\\023a70d5-cde2a67a.npz": "3213a6282acffad098c11fba09f1da2e00296b21143ce9614334e3edcdac5096",
+    "runs\\z13_data\\0279c430-962e3702.npz": "57cde94c2a482f7f1768de70f6cd5e7d004d8eec09e43929ad7d111ed5965667",
+    "runs\\z13_data\\027b216c-bfae3d6d.npz": "968242869e132779faa58c3eb3e7616505933c0e8482920bb6021f38f19551b2",
+    "runs\\z13_data\\029556a0-0ec9fa6f.npz": "a8d0a4ad6a3200adad78f0a35d139b99717fd7ecd8408d6d11a0a7780e346095",
+    "runs\\z13_data\\02bd959c-f20a2437.npz": "786116b632444067b2206d6e58d5635b6ad7ff299a25160e999909639f9c9996",
+    "runs\\z13_data\\02c2a4d8-94d32b2f.npz": "786e16536354d04f13a3bb46d4ddda07ea193cd25143783bc590b95ddd6a8e5c",
+    "runs\\z13_data\\02d5e1be-bd9bd999.npz": "beafbad5d217104335e9c5b60bdfc14df88ff51cb08a85666067bf8420234f4b",
+    "runs\\z13_data\\02f101f6-56ba9106.npz": "80ccfecd89a3720cf656eeec4d1c27af1b8a5ff524ac0d6bebf0beaa5a29b8e9",
+    "runs\\z13_data\\0329d6b9-abddbf95.npz": "ce8d61722c384183c75a570fc46cdd03e3de07eedfb2d560b7ecf14d762a3d67",
+    "runs\\z13_data\\0332bb54-c4bee5eb.npz": "89bc4a073b1cbcb0e5c767379266b41900510c6ad426bda8eebbbc51ea626bc0",
+    "runs\\z13_data\\0336de82-802d2437.npz": "e7ca4a54575b6b112e5d37f035e0371b936ef371a089dacc49aee46adea03417",
+    "runs\\z13_data\\035d6940-18869b73.npz": "68285eebe460a586c6da638f422f15be73cba530508b3346122bbd185922a6cf",
+    "runs\\z13_data\\03b0697b-faa11b32.npz": "4227204c35fae2aab82ed9a898545a52eca54aee95bc718d0d1eff313292fa49",
+    "runs\\z13_data\\03bf498b-044cb72c.npz": "0020e2090479d5f282beb6d9babe53fef69f5edc1129ddf95b23935cd6f4af05",
+    "runs\\z13_data\\03c239e4-9e0fbb75.npz": "24d0302eb7edf6ba96419ef89cbb8dcf79d9b95126545d43161cf3293652adac",
+    "runs\\z13_data\\03d75f61-ce25863a.npz": "c415a58f496a555557c313f4ec8f2d2ad182d5b68ff83f77ba43c593ec44c19a"
+  },
+  "scope": "CPU train-only diagnostic; frozen localization; no GPU/dev/test/heldout/HOTA",
+  "criteria": [
+    false,
+    true,
+    false
+  ],
+  "passed": false,
+  "finished": "2026-10-15T18:15:03.428070+03:00",
+  "limitations": [
+    "Calibration set previously examined; all intervals exploratory",
+    "Quality fit predictions use 52-video localizers, evaluation uses 104-video localizer",
+    "Quality scorer changes refusal only, cannot create a better position",
+    "Passing diagnostic is not proof of HOTA or FlyVis novelty"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "z13_shared_masa_probe_v1",
+  "created": "2026-10-15T01:47:09.534196+03:00",
+  "video": "00067cfb-e535423e",
+  "signature_roots": {
+    "B": "runs/z13_triton_hota_v1_20261014/full/B/signatures",
+    "C": "runs/z13_triton_hota_v1_20261014/full/C/signatures",
+    "D": "runs/z13_cache_speed_v1_20261014/D/triton"
+  },
+  "signature_sha256": {
+    "B": "28c9a9f2038e6978c084f5931308e5d3069f604583b07cdfa3f53f9530c50445",
+    "C": "b8ae66f13623745fc346dab5e80a761934afdacb445a14f3c6933c9b2a180da0",
+    "D": "8a310edf47f007beaf75d5ae9f95cb78dd821a6cf812a07e05f9e5ec7e83aad3"
+  },
+  "arms": [
+    "B",
+    "C",
+    "D"
+  ],
+  "gates": {
+    "embedding_arrays": "Bitwise equal first/last fp16 arrays for every B/C/D life.",
+    "stitch_inputs": "Exact same candidate pair indices and complete pair feature matrices for fixed unchanged stitcher.",
+    "speed": "Shared total wall time below separate total wall time."
+  },
+  "precision": "Same original fp32 model, fp16 saved embeddings; no AMP, no batching boxes across arms.",
+  "budget_seconds": 900,
+  "includes": "Original three full-video MASA passes, one joint pass, CPU pair-feature comparison.",
+  "decision": "If all gates pass, continue same fixed HOTA in isolated shared-MASA execution; otherwise resume original Triton.",
+  "limits": "One complete video; no claim about full-set speed or changed HOTA; no training, downloads or heldout."
+}

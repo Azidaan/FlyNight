@@ -1,0 +1,26 @@
+{
+  "at": "2026-10-16T02:57:44.422050+03:00",
+  "reason": "Separate numerical core executions failed a readout-only invariant; same-activity outputs are exactly equal.",
+  "diagnostic": "size_recovery_diagnostic.json",
+  "scientific_protocol_sha256": "1ca78ac77e33a6e4e378edbf0233332f005a7915f422c39bc9428d77e7238bee",
+  "service_sha256": {
+    "scripts\\z13_resume_size_20261016.py": "5b68109892e4f28d89d159389327be6e76e2a1d2d9f6b2ee8c2ae161d5ce736e",
+    "scripts\\z13_size_check_recovery.py": "22f8021306784868f5ed76c13cef64329703e382dd25c73971310841ce91e1b9"
+  },
+  "prediction_service_source": "def predict(torch, data, bb, ro, geom, bank, dev, control, folder):\n    from tracking.z13_candidate_modules import run_candidate, box_iou\n    from tracking.z13_readout import center_estimate, to_frame, run_sequence\n    from tracking.z13_spatial import make_spatial_readout\n    parent = None\n    if ro.mode=='size':\n        parent = make_spatial_readout(torch)(34,geom.points,bank.eye_size,geom.neighbors).to(dev)\n        parent.load_state_dict({k:v for k,v in ro.state_dict().items() if k in parent.state_dict()}); parent.eval()\n    by_episode = {}\n    for idx,l in enumerate(data.labels):\n        if not l[8]: by_episode.setdefault(l[0],[]).append(idx)\n    eps = sorted(by_episode); rows=[]; progress=folder/'prediction_progress.json'\n    start=0; max_parent_difference=0.\n    if progress.exists():\n        previous=read(progress); rows=previous['rows']; start=previous['next']\n        max_parent_difference=previous.get('max_parent_difference',0.)\n    ro.eval()\n    with torch.no_grad():\n        for left in range(start,len(eps),4):\n            control.check()\n            es=eps[left:left+4]\n            hx,mask,crops=batch(data,torch,dev,es,[max(data.labels[i][1] for i in by_episode[e]) for e in es])\n            capture=Capture(bb)\n            logits,delta=run_candidate(torch,capture,ro,hx,mask,crops,geom,bank.eye_size)\n            if parent is not None:\n                expected=run_sequence(torch,Replay(capture.features),parent,hx,mask)\n                assert torch.equal(logits,expected), \"Same-activity parent logits differ\"\n                assert torch.allclose(logits,expected,atol=1e-5,rtol=1e-5), 'Size changed center logits'\n                max_parent_difference=max(max_parent_difference,float((logits-expected).abs().max()))\n            probs=logits.softmax(-1).cpu().numpy()\n            factors=delta.exp().cpu().numpy() if delta is not None else None\n            for k,e in enumerate(es):\n                for idx in by_episode[e]:\n                    l=data.labels[idx]; p=probs[k,l[1]]\n                    center=np.asarray(to_frame(center_estimate(p[:721],geom),l[7],bank.eye_size))\n                    row=dict(label=idx,episode=int(e),video=data.videos[e],search_position=int(l[1]),kind=int(l[2]),p_present=1-float(p[721]),center=center.tolist())\n                    if l[2]==1:\n                        size=data.widths[e]; proposed=size if factors is None else size*factors[k,l[1]]\n                        row.update(err=float(np.linalg.norm(center-l[4])),err_pred=float(np.linalg.norm(l[6]-l[4])),scale=float(max(l[5][2:]-l[5][:2])),\n                            iou_last_size=box_iou(center,size,l[5]),iou_new_size=box_iou(center,proposed,l[5]))\n                    rows.append(row)\n            if left%100==0 or left+4>=len(eps) or control.stopped():\n                write(progress,dict(next=min(left+4,len(eps)),rows=rows,max_parent_difference=max_parent_difference))\n                control.status(stage='prediction',episodes_done=min(left+4,len(eps)),episodes_total=len(eps))\n    if parent is not None: write(folder/'size_center_check.json',dict(passed=True,max_logits_difference=max_parent_difference))\n    return rows\n",
+  "hard_deadline": "2026-10-16T07:40:00+03:00",
+  "save_deadline": "2026-10-16T07:35:00+03:00",
+  "preserved": {
+    "B\\base\\completed.json": "0739f033b697c8425e9ad032ed700b919ee51917a8c3db96ce9f7fda38523303",
+    "B\\foreground\\completed.json": "2a3c3031fa0abe16ff1d078e2b280448db028e54a6b17e7d5502593787c2bd3c",
+    "B\\size\\completed.json": "63fb000b1070bd0054174e643ec6f753d0e713c1778052ab953592c7c3f3b51c",
+    "C\\base\\completed.json": "26da2126f6dd7c2086606539d439507118b3927e65fcc6ffe9c2530cf49c4414",
+    "C\\foreground\\completed.json": "64320ba3e38b81a27bcd4c5c710b18540de4ee7f39b9d958177374927f80de9b",
+    "D\\base\\completed.json": "74047068c725157b49af12a9b7b12334136fbc34310bc750fecfce92a6e1ab59",
+    "D\\foreground\\completed.json": "b0456e2658b8b879fd82086fdcc63f6bfae6abee6ceab38ad16f0e3d86dd3d51"
+  },
+  "checkpoint_sha256": "a9049eae7426ed86731372c623f852d534545cb35f78b1593f4b3e84313d6a0e",
+  "training_repeated": false,
+  "change": "Only diagnostic parent inference reuses the candidate backbone features. Original tolerance retained; additional exact-equality assertion.",
+  "previous_failure": "resume_controller_result.json"
+}

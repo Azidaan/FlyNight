@@ -1,0 +1,25 @@
+{
+  "id": "z13_cached_params_speed_v1",
+  "created": "2026-10-14T23:56:24.242262+03:00",
+  "video": "00067cfb-e535423e",
+  "arms": [
+    "B",
+    "D"
+  ],
+  "comparison": "Current Triton versus same Triton plus immutable FlyVis parameter cache",
+  "B_control": "No changed mathematical or execution operation in B; report timing fluctuation honestly",
+  "scope": "One identical 1206-frame video, fresh outputs for both modes and arms; one GPU process; no training, HOTA, heldout or new data",
+  "gates": {
+    "state_atol": 0.0001,
+    "probability_atol": 1e-05,
+    "output_atol_px": 0.001,
+    "track_ids_and_event_counts_equal": true
+  },
+  "timing": "Use signatures.json seconds to match the previous table; also report outer wall time including model construction",
+  "cpu_npz_check": "Same full ordered MASA frame/box task list; repeated unpacking versus arrays loaded once; no GPU MASA run",
+  "decision": "Resume the existing frozen Triton full run after the probe regardless of sign; new cache not inserted into its fixed identity",
+  "maximum_seconds": 1200,
+  "deadline": "2026-10-15T00:21:50.684417+03:00",
+  "maximum_total_active_seconds": 1200,
+  "budget_accounting_source": "runs/z13_cache_speed_v1_20261014/active_budget.json"
+}

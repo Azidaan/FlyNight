@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "runs": [
+    {
+      "mode": "triton",
+      "seconds": 32.80226829999992,
+      "outer_seconds": 48.6397649999999,
+      "events": {
+        "steps": 1676,
+        "interventions": 3,
+        "refusals": 1673,
+        "births": 124,
+        "nonfinite_refusals": 0
+      },
+      "source": "runs\\z13_cache_clip_v1_20261015\\clip_0_triton\\00067cfb-e535423e\\signatures.json"
+    },
+    {
+      "mode": "cache",
+      "seconds": 32.36036409999906,
+      "outer_seconds": 41.35649910000029,
+      "events": {
+        "steps": 1676,
+        "interventions": 3,
+        "refusals": 1673,
+        "births": 124,
+        "nonfinite_refusals": 0
+      },
+      "source": "runs\\z13_cache_clip_v1_20261015\\clip_1_cache\\00067cfb-e535423e\\signatures.json"
+    },
+    {
+      "mode": "cache",
+      "seconds": 32.44178119999924,
+      "outer_seconds": 41.35671680000087,
+      "events": {
+        "steps": 1676,
+        "interventions": 3,
+        "refusals": 1673,
+        "births": 124,
+        "nonfinite_refusals": 0
+      },
+      "source": "runs\\z13_cache_clip_v1_20261015\\clip_2_cache\\00067cfb-e535423e\\signatures.json"
+    },
+    {
+      "mode": "triton",
+      "seconds": 33.06355790000089,
+      "outer_seconds": 41.9894189000006,
+      "events": {
+        "steps": 1676,
+        "interventions": 3,
+        "refusals": 1673,
+        "births": 124,
+        "nonfinite_refusals": 0
+      },
+      "source": "runs\\z13_cache_clip_v1_20261015\\clip_3_triton\\00067cfb-e535423e\\signatures.json"
+    }
+  ],
+  "scope": "One fixed 240-frame excerpt, two reversed pairs. No HOTA or whole-set speed guarantee.",
+  "pairs": [
+    {
+      "saving_percent": 1.3471757378463511,
+      "output_max_abs_px": 0.0,
+      "same_ids_and_events": true
+    },
+    {
+      "saving_percent": 1.8805498848072588,
+      "output_max_abs_px": 0.0,
+      "same_ids_and_events": true
+    }
+  ],
+  "benefit_in_both_pairs": true
+}

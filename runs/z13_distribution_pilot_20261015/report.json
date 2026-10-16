@@ -1,0 +1,200 @@
+{
+  "scope": "Functional train26 diagnostic, no tracker action or HOTA",
+  "arms": {
+    "B_original": {
+      "rows": 8326,
+      "known": 5822,
+      "positive": 1786,
+      "unknown": 2504,
+      "useful_count": 184,
+      "useful_fraction": 0.10302351623740201,
+      "median_relative_center_error": 0.5093465253655725,
+      "mean_video_median_relative_error": 0.5166958170526813,
+      "presence_AP": 0.7442665693946034,
+      "mean_presence_on_known_absent": 0.26400369364764575,
+      "videos_with_positives": 26
+    },
+    "B_hard": {
+      "rows": 8326,
+      "known": 5822,
+      "positive": 1786,
+      "unknown": 2504,
+      "useful_count": 192,
+      "useful_fraction": 0.10750279955207166,
+      "median_relative_center_error": 0.5048260617935242,
+      "mean_video_median_relative_error": 0.5039043748037326,
+      "presence_AP": 0.773649064301011,
+      "mean_presence_on_known_absent": 0.18596919975266585,
+      "videos_with_positives": 26
+    },
+    "B_spatial": {
+      "rows": 8326,
+      "known": 5822,
+      "positive": 1786,
+      "unknown": 2504,
+      "useful_count": 208,
+      "useful_fraction": 0.11646136618141098,
+      "median_relative_center_error": 0.5093883332316517,
+      "mean_video_median_relative_error": 0.5257049991803591,
+      "presence_AP": 0.7687360220812377,
+      "mean_presence_on_known_absent": 0.19605128770755056,
+      "videos_with_positives": 26
+    },
+    "C_original": {
+      "rows": 8326,
+      "known": 5822,
+      "positive": 1786,
+      "unknown": 2504,
+      "useful_count": 277,
+      "useful_fraction": 0.15509518477043674,
+      "median_relative_center_error": 0.38812661691645395,
+      "mean_video_median_relative_error": 0.38668620225499534,
+      "presence_AP": 0.8069694520643155,
+      "mean_presence_on_known_absent": 0.19614811721594766,
+      "videos_with_positives": 26
+    },
+    "C_hard": {
+      "rows": 8326,
+      "known": 5822,
+      "positive": 1786,
+      "unknown": 2504,
+      "useful_count": 294,
+      "useful_fraction": 0.16461366181410975,
+      "median_relative_center_error": 0.36103679855724113,
+      "mean_video_median_relative_error": 0.3480939629114923,
+      "presence_AP": 0.8088390573953287,
+      "mean_presence_on_known_absent": 0.14885159061042033,
+      "videos_with_positives": 26
+    },
+    "C_spatial": {
+      "rows": 8326,
+      "known": 5822,
+      "positive": 1786,
+      "unknown": 2504,
+      "useful_count": 291,
+      "useful_fraction": 0.1629339305711086,
+      "median_relative_center_error": 0.3741580051198252,
+      "mean_video_median_relative_error": 0.3661833350387228,
+      "presence_AP": 0.812055550301355,
+      "mean_presence_on_known_absent": 0.14630164528344974,
+      "videos_with_positives": 26
+    },
+    "D_original": {
+      "rows": 8326,
+      "known": 5822,
+      "positive": 1786,
+      "unknown": 2504,
+      "useful_count": 314,
+      "useful_fraction": 0.17581187010078386,
+      "median_relative_center_error": 0.35803885630871246,
+      "mean_video_median_relative_error": 0.348751823690007,
+      "presence_AP": 0.7841371843625682,
+      "mean_presence_on_known_absent": 0.24930886264126176,
+      "videos_with_positives": 26
+    },
+    "D_hard": {
+      "rows": 8326,
+      "known": 5822,
+      "positive": 1786,
+      "unknown": 2504,
+      "useful_count": 230,
+      "useful_fraction": 0.12877939529675253,
+      "median_relative_center_error": 0.41511016674842693,
+      "mean_video_median_relative_error": 0.3938715503279508,
+      "presence_AP": 0.7386189876388518,
+      "mean_presence_on_known_absent": 0.18221928938075058,
+      "videos_with_positives": 26
+    },
+    "D_spatial": {
+      "rows": 8326,
+      "known": 5822,
+      "positive": 1786,
+      "unknown": 2504,
+      "useful_count": 336,
+      "useful_fraction": 0.1881298992161254,
+      "median_relative_center_error": 0.33438373832585455,
+      "mean_video_median_relative_error": 0.3279562226430065,
+      "presence_AP": 0.7913102225129142,
+      "mean_presence_on_known_absent": 0.211174917178426,
+      "videos_with_positives": 26
+    }
+  },
+  "comparisons": {
+    "B_spatial-B_hard": {
+      "useful_fraction_delta": 0.008958566629339318,
+      "ci95": [
+        -0.0022152097986273883,
+        0.022661205073995768
+      ],
+      "mean_video_median_error_delta": 0.021800624376626443
+    },
+    "C_spatial-C_hard": {
+      "useful_fraction_delta": -0.0016797312430011369,
+      "ci95": [
+        -0.02120709899200391,
+        0.01643526080329686
+      ],
+      "mean_video_median_error_delta": 0.018089372127230496
+    },
+    "D_spatial-D_hard": {
+      "useful_fraction_delta": 0.05935050391937288,
+      "ci95": [
+        0.03982956259944037,
+        0.0797020676618769
+      ],
+      "mean_video_median_error_delta": -0.06591532768494429
+    },
+    "D_spatial-B_spatial": {
+      "useful_fraction_delta": 0.07166853303471443,
+      "ci95": [
+        0.03421157149010794,
+        0.11049118249184332
+      ],
+      "mean_video_median_error_delta": -0.19774877653735257
+    },
+    "D_spatial-C_spatial": {
+      "useful_fraction_delta": 0.025195968645016803,
+      "ci95": [
+        -0.005271622479973738,
+        0.05596462425191786
+      ],
+      "mean_video_median_error_delta": -0.0382271123957163
+    },
+    "D_spatial-D_original": {
+      "useful_fraction_delta": 0.01231802911534155,
+      "ci95": [
+        -0.01051996482542992,
+        0.034337501093794055
+      ],
+      "mean_video_median_error_delta": -0.02079560104700051
+    }
+  },
+  "source_sha256": {
+    "runs\\z13_spatial_v2_20261013\\B\\full\\predictions.json": "731da6beea3769e0d3a5c98c291d4a35c9e1495140d9ea6c653fef2f72f99cb4",
+    "runs\\z13_distribution_pilot_20261015\\B\\hard\\predictions.json": "ccee53b6b115655b85ab96f35cfdf6abe6026df812c1d60c6dab372689227d74",
+    "runs\\z13_distribution_pilot_20261015\\B\\spatial\\predictions.json": "1c915490d69c757e6898fca2156444202cda18ddc51def15cbb240aa1daa50ea",
+    "runs\\z13_spatial_v2_20261013\\C\\full\\predictions.json": "0585f572aa7d1b6bc9ce76269d0bb0a81c15981ac607b0690b4f1ef5ecf068db",
+    "runs\\z13_distribution_pilot_20261015\\C\\hard\\predictions.json": "322183ce515ba6861fdd829225d831d2f92d85b3bfc11d78638ff4889a62a331",
+    "runs\\z13_distribution_pilot_20261015\\C\\spatial\\predictions.json": "1872a9a59ec794d778d4ddc9928bbbdea6c67ae4d66d77f7244c487dd359d870",
+    "runs\\z13_spatial_v2_20261013\\D\\full\\predictions.json": "f56bd04a833440b678d0de10bf78bbc635fec7a5b46a8503315d96c908f67f62",
+    "runs\\z13_distribution_pilot_20261015\\D\\hard\\predictions.json": "8f5d2f02e1e2c0575cdae35daf6397ab13306eb247226ae5deef719cfe569e33",
+    "runs\\z13_distribution_pilot_20261015\\D\\spatial\\predictions.json": "d7561c70dfa1c260f27cf00b3decff5e13ec315e2ba2423da17ecf1e19118af0"
+  },
+  "criteria": [
+    true,
+    true,
+    true
+  ],
+  "functional_gate_passed": true,
+  "all_gates_passed": true,
+  "finished": "2026-10-15T19:23:40.840943+03:00",
+  "limitations": [
+    "500-step continuation is a pilot, not convergence or HOTA evidence",
+    "Calibration videos previously used; exploratory intervals only",
+    "Fixed width is a grid-scale design, not measured annotation noise",
+    "Frozen trained D does not test further end-to-end core adaptation",
+    "Success is a geometric proposal criterion, not an applied correction or association outcome",
+    "No threshold selected or quality scorer retrained after changing localization",
+    "One seed and one fixed smoothing width; pilot does not prove a causal explanation for all failures"
+  ]
+}

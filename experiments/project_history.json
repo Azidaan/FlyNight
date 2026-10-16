@@ -10590,7 +10590,7 @@
    "id": "fly_spatial_hota_policy_z13_v1",
    "title": "З13 v2: HOTA при одной политике верхнего 1% уверенности",
    "area": "flyvis",
-   "state": "running",
+   "state": "completed_negative",
    "started": "2026-10-14",
    "question": "Даёт ли готовый пространственный сигнал FlyVis пользу HOTA при одной новой политике вмешательства?",
    "hypothesis": "Провал инженерного 90%/50 допуска не определяет HOTA; одна фиксированная политика позволит проверить фактический эффект.",
@@ -10603,18 +10603,21 @@
     },
     {
      "criterion": "D−стенд: общая HOTA минимум +0,10 и нижняя граница парного ДИ выше нуля",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_shared_masa_hota_v1_20261015/full/eval/report.json: criteria.implementation_D_vs_A"
     },
     {
      "criterion": "Вклад FlyVis: нижняя граница парного ДИ D−B выше нуля",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_shared_masa_hota_v1_20261015/full/eval/report.json: criteria.fly_added_D_vs_B"
     },
     {
      "criterion": "Польза обучения ядра отдельно: нижняя граница парного ДИ D−C выше нуля",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_shared_masa_hota_v1_20261015/full/eval/report.json: criteria.core_training_D_vs_C"
     }
    ],
-   "cannot_claim": "Проба не подтверждает HOTA. Верхний 1% не гарантирует безопасность или такую же частоту вмешательств на dev. Dev — разработка; независимые видео не открываются. Исходный отрицательный критерий не переписывается.",
+   "cannot_claim": "Нет подтверждения улучшения HOTA, ночной пользы, преимущества перед контролем без FlyVis или перед замороженным ядром. Также не доказаны отсутствие любого эффекта или вред. Dev многократно использован; независимые видео не открывались. Одна политика и одна реализация не опровергают пространственное считывание или модернизацию FlyVis вообще. Инфраструктурное ускорение MASA не является научным выигрышем мухи.",
    "evidence": [
     {
      "kind": "json",
@@ -10660,6 +10663,65 @@
      "kind": "json",
      "ref": "runs/z13_triton_hota_v1_20261014/full/launch_verification.json",
      "claim": "По просьбе автора тот же протокол продолжен отдельным скомпилированным исполнением после проверки совпадения; старые выходы сохранены"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_triton_hota_v1_20261014/full/deadline_revision_0740.json",
+     "claim": "Автор сократил срок на 15.10 07:40; прежнее разрешение сохранено отдельно"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_shared_masa_hota_v1_20261015/full/reuse_proof.json",
+     "claim": "Автор разрешил переход после строгой проверки MASA; научный протокол не менялся"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_shared_masa_hota_v1_20261015/full/eval/report.json",
+     "claim": "Полный первичный HOTA, парные интервалы, события и критерии"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_shared_masa_hota_v1_20261015/full/final_verification.json",
+     "claim": "Полнота 107 заданий, неизменность исходных контрактов и завершение собственного дерева"
+    }
+   ],
+   "done": "2026-10-15",
+   "obtained": "Полный dev35, прежняя MASA, runs/z13_shared_masa_hota_v1_20261015/full/eval/report.json: общая HOTA A=61.654778937613, B=61.657628435769, C=61.655094469543, D=61.672690392257 (pooled.*_masa|all.HOTA). D−A: общий +0,017911, среднее по видео +0,008680 [-0,029900; +0,056076]. D−B: общий +0,015062, по видео -0,028130 [-0,151824; +0,070630]. D−C: общий +0,017596, по видео +0,007784 [-0,133805; +0,118780]. Все три criteria=false. D вмешался 2131 раз из 209659 шагов; events.D. Ночь 15 видео: D−A общий −0,009502, по видео −0,023067 [−0,077479; +0,021147], diff.D_masa-A_masa|night. Источник всех чисел — указанный report.json; полнота/завершение — runs/z13_shared_masa_hota_v1_20261015/full/final_verification.json.",
+   "interpretation": "Зафиксированная политика верхнего 1% не дала подтверждённой пользы стенду, добавочного вклада FlyVis или пользы обучения ядра. Малый положительный общий прирост D−A ниже принятого минимума +0,10; все основные парные интервалы содержат ноль. Общий D−B положителен, средняя парная разность отрицательна: это разные способы усреднения. Причинный узел провала этим сравнением не установлен; нельзя приписывать его исключительно считыванию, представлению цели, входу или обучению.",
+   "revisions": [
+    {
+     "date": "2026-10-15",
+     "commit": "",
+     "field": "cannot_claim",
+     "old": "Проба не подтверждает HOTA. Верхний 1% не гарантирует безопасность или такую же частоту вмешательств на dev. Dev — разработка; независимые видео не открываются. Исходный отрицательный критерий не переписывается.",
+     "reason": "Полный фиксированный опыт завершён; первичный результат заменяет предварительную формулировку без удаления истории."
+    }
+   ],
+   "decision": "Эта реализация с данной политикой не выполнила заранее записанные критерии. Завершить опыт без подбора новых порогов, без обучения и без открытия 75 отложенных видео. Не менять стенд. Более широкую линию FlyVis не закрывать; выбор следующего узла или новой реализации требует отдельного решения автора. Статусы проблем мухи не повышаются, причинная локализация провала не доказана. Наблюдение отключить после фиксации результата.",
+   "metrics": [
+    {
+     "key": "HOTA",
+     "value": 61.657628435769084,
+     "baseline": 61.65477893761337,
+     "subset": "dev35, после MASA, B",
+     "source": "runs/z13_shared_masa_hota_v1_20261015/full/eval/report.json",
+     "locator": "pooled.B_masa|all.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 61.65509446954304,
+     "baseline": 61.65477893761337,
+     "subset": "dev35, после MASA, C",
+     "source": "runs/z13_shared_masa_hota_v1_20261015/full/eval/report.json",
+     "locator": "pooled.C_masa|all.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 61.67269039225678,
+     "baseline": 61.65477893761337,
+     "subset": "dev35, после MASA, D",
+     "source": "runs/z13_shared_masa_hota_v1_20261015/full/eval/report.json",
+     "locator": "pooled.D_masa|all.HOTA"
     }
    ]
   },
@@ -10701,6 +10763,903 @@
    "obtained": "runs/z13_triton_hota_v1_20261014/report.json: {\"torch\": \"2.10.0+cu130\", \"triton\": \"3.6.0\", \"gpu\": \"NVIDIA GeForce RTX 5070\", \"models\": {\"B\": {\"arm\": \"B\", \"compiled\": \"HexGRU.step\", \"sequence_steps\": 32, \"state_max_abs\": 1.7881393432617188e-07, \"probability_max_abs\": 3.5762786865234375e-07, \"same_argmax_and_quality_decisions\": true, \"eager_30_steps_seconds\": 0.0319999999992433, \"compiled_30_steps_seconds\": 0.031000000000858563, \"step_speedup\": 1.0322580644631303, \"first_compilation_and_sequence_seconds\": 18.125}, \"C\": {\"arm\": \"C\", \"compiled\": \"FlyVis Euler step + edge gather/scatter\", \"nodes\": 45669, \"edges\": 1513231, \"sequence_steps\": 32, \"state_max_abs\": 1.5497207641601562e-06, \"probability_max_abs\": 7.152557373046875e-07, \"same_argmax_and_quality_decisions\": true, \"eager_30_steps_seconds\": 0.07799999999951979, \"compiled_30_steps_seconds\": 0.06300000000010186, \"step_speedup\": 1.2380952380856138, \"first_compilation_and_sequence_seconds\": 8.968999999999141}, \"D\": {\"arm\": \"D\", \"compiled\": \"FlyVis Euler step + edge gather/scatter\", \"nodes\": 45669, \"edges\": 1513231, \"sequence_steps\": 32, \"state_max_abs\": 1.5497207641601562e-06, \"probability_max_abs\": 4.76837158203125e-07, \"same_argmax_and_quality_decisions\": true, \"eager_30_steps_seconds\": 0.06300000000010186, \"compiled_30_steps_seconds\": 0.06199999999989814, \"step_speedup\": 1.016129032261377, \"first_compilation_and_sequence_seconds\": 0.1720000000004802}}, \"passed\": true, \"date\": \"2026-10-14T23:23:59.366870+03:00\", \"paired_video\": \"00067cfb-e535423e\", \"video_comparisons\": {\"D\": {\"eager_seconds\": 261.26056529999914, \"compiled_seconds\": 222.0630205999987, \"wall_speedup\": 1.1765154080769118, \"max_output_abs_px\": 0.0001220703125, \"same_events_and_track_ids\": true}, \"B\": {\"eager_seconds\": 240.2418950000001, \"compiled_seconds\": 225.84791339999902, \"wall_speedup\": 1.0637330732142207, \"max_output_abs_px\": 3.0517578125e-05, \"same_events_and_track_ids\": true}}, \"total_seconds\": 521.25}; runs/z13_triton_hota_v1_20261014/video_timing_evidence.json: {\"D\": {\"eager_seconds\": 261.26056529999914, \"compiled_seconds\": 222.0630205999987, \"wall_speedup\": 1.1765154080769118, \"same_event_counts\": true, \"sources\": [\"runs\\\\z13_triton_hota_v1_20261014\\\\technical\\\\eager_D\\\\00067cfb-e535423e\\\\signatures.json\", \"runs\\\\z13_triton_hota_v1_20261014\\\\technical\\\\compiled_D\\\\00067cfb-e535423e\\\\signatures.json\"]}, \"B\": {\"eager_seconds\": 240.2418950000001, \"compiled_seconds\": 225.84791339999902, \"wall_speedup\": 1.0637330732142207, \"same_event_counts\": true, \"sources\": [\"runs\\\\z13_spatial_hota_v1_20261014\\\\B\\\\signatures\\\\00067cfb-e535423e\\\\signatures.json\", \"runs\\\\z13_triton_hota_v1_20261014\\\\technical\\\\compiled_B\\\\00067cfb-e535423e\\\\signatures.json\"]}}",
    "interpretation": "Отдельное выполнение сохраняет проверенные решения и ускоряет одно парное видео. Это техническая проверка, не результат HOTA.",
    "decision": "Допущен отдельный полный HOTA-прогон с теми же весами/порогами и прежним сроком до 15.10 08:46:23 MSK."
+  },
+  {
+   "id": "z13_cached_params_speed_v1",
+   "title": "З13 — время с однократной подготовкой параметров",
+   "area": "flyvis",
+   "state": "infrastructure",
+   "started": "2026-10-14",
+   "question": "Даёт ли однократная подготовка неизменных параметров дополнительное ускорение поверх Triton?",
+   "hypothesis": "Исключение повторной сборки параметров может сократить время D; у B правки нет.",
+   "expected": "Парная таблица B/D на одном полном видео, совпадение выходов и отдельная CPU-проверка чтения npz.",
+   "acceptance": [
+    {
+     "criterion": "Последовательное состояние/вероятности и полный выход сохраняются в записанном допуске, номера и счётчики событий совпадают.",
+     "met": true,
+     "evidence": "runs/z13_cache_speed_v1_20261014/report.json:sequence/timings, совпадение номеров, счётчиков событий и координат в допуске"
+    },
+    {
+     "criterion": "Время обработки D с кэшем меньше времени того же Triton без кэша.",
+     "met": true,
+     "evidence": "runs/z13_cache_speed_v1_20261014/report.json:timings.D.reduction_percent, один полный парный прогон"
+    }
+   ],
+   "cannot_claim": "Одно видео не даёт надёжной оценки скорости на всём наборе. HOTA и независимая проверка не считаются. B — контроль разброса, в нём эта правка отсутствует.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_cache_speed_v1_20261014/protocol.json",
+     "claim": "До замера: один GPU-процесс, неизменные модели/входы, допуски и отдельные этапы времени"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_cache_speed_v1_20261014/report.json",
+     "claim": "Фактическое время одного видео и отдельной CPU-подготовки; ограничения замера сохранены"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_cache_speed_v1_20261014/code_review_and_window.json",
+     "claim": "Чтение кода без GPU, оговорки измерения времени и новый срок"
+    }
+   ],
+   "done": "2026-10-15",
+   "obtained": "runs/z13_cache_speed_v1_20261014/report.json: B: 192,341 → 220,520 с, сокращение -14,650%; первичные runs\\z13_cache_speed_v1_20261014\\B\\triton\\00067cfb-e535423e\\signatures.json и runs\\z13_cache_speed_v1_20261014\\B\\triton_cached\\00067cfb-e535423e\\signatures.json; D: 252,668 → 239,930 с, сокращение 5,041%; первичные runs\\z13_cache_speed_v1_20261014\\D\\triton\\00067cfb-e535423e\\signatures.json и runs\\z13_cache_speed_v1_20261014\\D\\triton_cached\\00067cfb-e535423e\\signatures.json; CPU-подготовка заданий MASA: {\"source\": \"runs\\\\z13_triton_hota_v1_20261014\\\\technical\\\\compiled_D\\\\00067cfb-e535423e\\\\signatures.npz\", \"items\": 6860, \"exactly_equal\": true, \"repeated_unpack_seconds\": 4.649177700001019, \"load_once_seconds\": 0.015804799999386887, \"reduction_percent\": 99.66005171195363, \"scope\": \"Only CPU construction of MASA frame/box task list; not total MASA or GPU speed\"}; источник runs/z13_cache_speed_v1_20261014/report.json:npz_cpu",
+   "interpretation": "Парный технический замер одного видео завершён. B не содержит этой правки; его изменение времени показывает колебания замера. Ускорение D, если есть, не подтверждено на всём наборе.",
+   "decision": "Исходный Triton HOTA возобновлён без нового кэша. Автор изменил крайний срок на 15.10 07:40 MSK; новый независимый ограничитель вооружён. По одному замеру устойчивое ускорение кэша не заявляется.",
+   "revisions": [
+    {
+     "date": "2026-10-15",
+     "commit": "",
+     "field": "decision",
+     "old": "Возобновить прежний проверенный Triton HOTA, без вставки новой оптимизации в его зафиксированный код. Новая оптимизация остаётся отдельной; предел до 15.10 08:46:23 MSK не продлевается.",
+     "reason": "Автор сократил окно работы до 07:40; прежний срок сохранён."
+    }
+   ]
+  },
+  {
+   "id": "z13_cache_balanced_v1",
+   "title": "З13 — повторный замер вклада кэша на прогретой модели",
+   "area": "flyvis",
+   "state": "infrastructure",
+   "started": "2026-10-15",
+   "question": "Помогает ли кэш в вычислительном пути FlyVis и объясняет ли проверка весов часть затрат?",
+   "hypothesis": "Повторная подготовка параметров может быть заметной, но её экономия ограничена; прежний замер видео не отделил эффект от временных колебаний.",
+   "expected": "Чередующиеся повторные замеры одного ядра, время API параметров и проверки версий отдельно; без нового видео или обучения.",
+   "acceptance": [
+    {
+     "criterion": "Вероятности в пределах 1e-5, аргмаксимум совпадает.",
+     "met": true,
+     "evidence": "runs/z13_cache_balanced_v1_20261015/report.json:correctness"
+    },
+    {
+     "criterion": "Парный интервал экономии времени последовательности выше нуля при пакетах 1 и 4.",
+     "met": true,
+     "evidence": "runs/z13_cache_balanced_v1_20261015/report.json:summary"
+    }
+   ],
+   "cannot_claim": "Это не время полного видео, не независимые видео и не результат HOTA. Причины нагрузки компьютера по прежним логам не установлены.",
+   "decision": "При успехе всех трёх проверок подготовить отдельное исполнение полного прогона с кэшем; веса, пороги, набор и срок 07:40 сохраняются. Иначе продолжить исходный Triton.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_cache_balanced_v1_20261015/protocol.json",
+     "claim": "До повторного замера: прогрев, порядок, повторы, допуски, ограничение выводов и бюджет"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_cache_balanced_v1_20261015/stop_verified.json",
+     "claim": "19 готовых заданий сохранены, собственное дерево HOTA вышло, GPU освобождён"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_cache_balanced_v1_20261015/report.json",
+     "claim": "Первичные времена, повторные блоки и совпадение вычислений"
+    }
+   ],
+   "done": "2026-10-15",
+   "obtained": "D, пакет 1: медиана Triton 135.670 мс, кэш 123.351 мс; экономия 8.319% [6.489; 9.655], runs/z13_cache_balanced_v1_20261015/report.json:summary.1; D, пакет 4: медиана Triton 142.763 мс, кэш 130.167 мс; экономия 8.079% [6.501; 9.221], runs/z13_cache_balanced_v1_20261015/report.json:summary.4; API параметров (медиана, мкс): {'triton': 322.93249996655504, 'cache': 19.49749998857442, 'cache_without_checks': 5.2150000101391925}; возврат с проверками 13.553 мкс, без 0.059 мкс; runs/z13_cache_balanced_v1_20261015/report.json:parameter_api,guarded_return_microseconds,plain_return_microseconds",
+   "interpretation": "Экономия в нейронной последовательности подтверждена повторными блоками на фиксированных входах; это не независимые видео и не полный конвейер. Кэш исключает повторную подготовку параметров; проверки версий существенно дешевле обычной подготовки."
+  },
+  {
+   "id": "z13_cache_followup_c_v1",
+   "title": "Сохраняется ли экономия при замороженной FlyVis C и другом train-видео?",
+   "area": "flyvis",
+   "state": "infrastructure",
+   "started": "2026-10-15",
+   "question": "Сохраняется ли экономия при замороженной FlyVis C и другом train-видео?",
+   "hypothesis": "Польза кэша может воспроизводиться в дополнительном заранее выбранном режиме.",
+   "expected": "Совпадение вычислений и повторный замер с изменением порядка, до 5 минут GPU на проверку.",
+   "acceptance": [
+    {
+     "criterion": "Выход совпадает в указанном допуске, решения одинаковы.",
+     "met": true,
+     "evidence": "runs/z13_cache_followup_c_v1_20261015/report.json:correctness"
+    },
+    {
+     "criterion": "Paired block interval for sequence time saving above zero for both batch sizes.",
+     "met": true,
+     "evidence": "runs/z13_cache_followup_c_v1_20261015/report.json:summary"
+    }
+   ],
+   "cannot_claim": "No end-to-end/video/HOTA claim. Timing blocks are repeats of fixed inputs on one GPU, not independent videos. No production code changes.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_cache_followup_c_v1_20261015/protocol.json",
+     "claim": "Критерии, источник и порядок до дополнительных расчётов"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_cache_followup_c_v1_20261015/report.json",
+     "claim": "Первичные времена, повторные блоки и совпадение вычислений"
+    }
+   ],
+   "done": "2026-10-15",
+   "obtained": "C, пакет 1: медиана Triton 136.699 мс, кэш 124.578 мс; экономия 8.920% [8.377; 9.556], runs/z13_cache_followup_c_v1_20261015/report.json:summary.1; C, пакет 4: медиана Triton 144.177 мс, кэш 131.294 мс; экономия 9.550% [8.742; 10.446], runs/z13_cache_followup_c_v1_20261015/report.json:summary.4; API параметров (медиана, мкс): {'triton': 326.48500000505004, 'cache': 19.47999999174499, 'cache_without_checks': 5.229999987932388}; возврат с проверками 13.434 мкс, без 0.058 мкс; runs/z13_cache_followup_c_v1_20261015/report.json:parameter_api,guarded_return_microseconds,plain_return_microseconds",
+   "interpretation": "Экономия в нейронной последовательности подтверждена повторными блоками на фиксированных входах; это не независимые видео и не полный конвейер. Кэш исключает повторную подготовку параметров; проверки версий существенно дешевле обычной подготовки.",
+   "decision": "При успехе всех трёх проверок подготовить отдельное исполнение полного прогона с кэшем; веса, пороги, набор и срок 07:40 сохраняются. Иначе продолжить исходный Triton."
+  },
+  {
+   "id": "z13_cache_clip_v1",
+   "title": "Сохраняется ли ускорение на одинаковом фрагменте настоящего конвейера D?",
+   "area": "flyvis",
+   "state": "infrastructure",
+   "started": "2026-10-15",
+   "question": "Сохраняется ли ускорение на одинаковом фрагменте настоящего конвейера D?",
+   "hypothesis": "Польза кэша может воспроизводиться в дополнительном заранее выбранном режиме.",
+   "expected": "Совпадение вычислений и повторный замер с изменением порядка, до 5 минут GPU на проверку.",
+   "acceptance": [
+    {
+     "criterion": "Выход совпадает в указанном допуске, решения одинаковы.",
+     "met": true,
+     "evidence": "runs/z13_cache_clip_v1_20261015/report.json:pairs"
+    },
+    {
+     "criterion": "Saving positive in both reversed pairs.",
+     "met": true,
+     "evidence": "runs/z13_cache_clip_v1_20261015/report.json:benefit_in_both_pairs"
+    }
+   ],
+   "cannot_claim": "240 кадров одного заранее выбранного видео, две пары. Не полный набор, не HOTA, не гарантия общего времени.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_cache_clip_v1_20261015/protocol.json",
+     "claim": "Критерии, источник и порядок до дополнительных расчётов"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_cache_clip_v1_20261015/report.json",
+     "claim": "Первичные времена, повторные блоки и совпадение вычислений"
+    }
+   ],
+   "done": "2026-10-15",
+   "obtained": "[{\"mode\": \"triton\", \"seconds\": 32.80226829999992, \"outer_seconds\": 48.6397649999999, \"events\": {\"steps\": 1676, \"interventions\": 3, \"refusals\": 1673, \"births\": 124, \"nonfinite_refusals\": 0}, \"source\": \"runs\\\\z13_cache_clip_v1_20261015\\\\clip_0_triton\\\\00067cfb-e535423e\\\\signatures.json\"}, {\"mode\": \"cache\", \"seconds\": 32.36036409999906, \"outer_seconds\": 41.35649910000029, \"events\": {\"steps\": 1676, \"interventions\": 3, \"refusals\": 1673, \"births\": 124, \"nonfinite_refusals\": 0}, \"source\": \"runs\\\\z13_cache_clip_v1_20261015\\\\clip_1_cache\\\\00067cfb-e535423e\\\\signatures.json\"}, {\"mode\": \"cache\", \"seconds\": 32.44178119999924, \"outer_seconds\": 41.35671680000087, \"events\": {\"steps\": 1676, \"interventions\": 3, \"refusals\": 1673, \"births\": 124, \"nonfinite_refusals\": 0}, \"source\": \"runs\\\\z13_cache_clip_v1_20261015\\\\clip_2_cache\\\\00067cfb-e535423e\\\\signatures.json\"}, {\"mode\": \"triton\", \"seconds\": 33.06355790000089, \"outer_seconds\": 41.9894189000006, \"events\": {\"steps\": 1676, \"interventions\": 3, \"refusals\": 1673, \"births\": 124, \"nonfinite_refusals\": 0}, \"source\": \"runs\\\\z13_cache_clip_v1_20261015\\\\clip_3_triton\\\\00067cfb-e535423e\\\\signatures.json\"}]; [{\"saving_percent\": 1.3471757378463511, \"output_max_abs_px\": 0.0, \"same_ids_and_events\": true}, {\"saving_percent\": 1.8805498848072588, \"output_max_abs_px\": 0.0, \"same_ids_and_events\": true}]; runs/z13_cache_clip_v1_20261015/report.json:runs,pairs",
+   "interpretation": "Две пары короткого фрагмента измеряют реальный конвейер до MASA. Проверено совпадение номеров, счётчиков решений и координат в допуске. Полный набор и HOTA этим не проверены.",
+   "decision": "При успехе всех трёх проверок подготовить отдельное исполнение полного прогона с кэшем; веса, пороги, набор и срок 07:40 сохраняются. Иначе продолжить исходный Triton."
+  },
+  {
+   "id": "z13_cached_execution_v1",
+   "title": "З13 — подготовленное полное исполнение Triton с кэшем",
+   "area": "flyvis",
+   "state": "ready",
+   "started": "2026-10-15",
+   "question": "Можно ли выполнить фиксированный HOTA с проверенным кэшем без изменения моделей и потери готового B?",
+   "hypothesis": "Кэш сократит часть затрат C/D; B математически не меняется и его готовые выходы можно переиспользовать с явной проверкой происхождения.",
+   "expected": "Отдельный возобновляемый каталог полного исполнения, неизменные модели/пороги/dev35/MASA, 109 заданий, собственный дедлайн.",
+   "acceptance": [
+    {
+     "criterion": "Общий код/входы/протокол совпадают; скопированные выходы B байтово идентичны, происхождение сохранено.",
+     "met": true,
+     "evidence": "runs/z13_cached_hota_v1_20261015/full/reuse_proof.json"
+    },
+    {
+     "criterion": "Полный HOTA завершён в новом исполнении.",
+     "met": null
+    }
+   ],
+   "cannot_claim": "GPU-прогон с новым исполнением не запущен; полное ускорение и HOTA ещё не измерены. Короткие проверки не гарантируют прежние решения на всём наборе.",
+   "decision": "Подготовлено по условному разрешению автора. Действующий исходный Triton HOTA продолжает работать; новый каталог не запускается параллельно.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_cached_hota_v1_20261015/full/reuse_proof.json",
+     "claim": "Происхождение переиспользованного B, равенство общих входов и новый контракт кода"
+    }
+   ]
+  },
+  {
+   "id": "z13_shared_masa_probe_v1",
+   "title": "З13 — совместные признаки MASA: скорость и сохранение входа сшивки",
+   "area": "flyvis",
+   "state": "completed_positive",
+   "started": "2026-10-15",
+   "question": "Можно ли убрать повторный расчёт общих кадров MASA и безопасно продолжить фиксированный HOTA?",
+   "hypothesis": "Признаки всего кадра не зависят от рамок; совместный проход должен сохранить эмбеддинги и входы сшивки, сократив время.",
+   "expected": "Оригинальные отдельные проходы B/C/D и совместный проход на одном полном видео, строгая проверка массивов и кандидатов.",
+   "acceptance": [
+    {
+     "criterion": "Bitwise equal first/last fp16 arrays for every B/C/D life.",
+     "met": true,
+     "evidence": "runs/z13_shared_masa_probe_v1_20261015/report.json"
+    },
+    {
+     "criterion": "Exact same candidate pair indices and complete pair feature matrices for fixed unchanged stitcher.",
+     "met": true,
+     "evidence": "runs/z13_shared_masa_probe_v1_20261015/report.json"
+    },
+    {
+     "criterion": "Shared total wall time below separate total wall time.",
+     "met": true,
+     "evidence": "runs/z13_shared_masa_probe_v1_20261015/report.json"
+    }
+   ],
+   "cannot_claim": "Полный HOTA здесь не пересчитывался. Результат скорости относится к одному полному видео и только этапу MASA. Не доказано ускорение всего опыта на 64,5%, улучшение HOTA или вклад FlyVis.",
+   "decision": "Все заранее записанные условия выполнены. По прямому условному разрешению автора продолжить фиксированный HOTA с общими признаками MASA в отдельном каталоге; 36 готовых сигнатур сохранить, дедлайн 15.10 07:40 не менять.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_shared_masa_probe_v1_20261015/protocol.json",
+     "claim": "Источники, допуски, бюджет и условия перехода до прогона"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_shared_masa_probe_v1_20261015/report.json",
+     "claim": "Время, побитовое равенство эмбеддингов и точные входы сшивки"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-15",
+     "commit": "",
+     "field": "cannot_claim",
+     "old": "One complete video; no claim about full-set speed or changed HOTA; no training, downloads or heldout.",
+     "reason": "Получен результат заранее зафиксированной технической пробы; прежняя постановка сохранена."
+    },
+    {
+     "date": "2026-10-15",
+     "commit": "",
+     "field": "decision",
+     "old": "If all gates pass, continue same fixed HOTA in isolated shared-MASA execution; otherwise resume original Triton.",
+     "reason": "Получен результат заранее зафиксированной технической пробы; прежняя постановка сохранена."
+    }
+   ],
+   "done": "2026-10-15",
+   "obtained": "Техническая проба на одном полном видео 00067cfb-e535423e: отдельные B/C/D 252,784 с, совместный 89,817 с, экономия 64,469%; runs/z13_shared_masa_probe_v1_20261015/report.json. Все first/last fp16 массивы совпали побитово; max_abs=0 для B/C/D. Кандидатов B 447406, C 446969, D 444999; индексы пар и полные матрицы признаков совпали точно, pair_feature_equality. Вызовов признаков кадра 1182 вместо 3545, плюс один контрольный; shared.feature_calls.",
+   "interpretation": "Повторная обработка одинаковых кадров убрана; точность модели, порядок и размер обработки рамок каждой ветки сохранены. На этой пробе вход фиксированной сшивки не изменился. Экономия включает также однократную загрузку модели, декодирование видео и чтение массивов."
+  },
+  {
+   "id": "z13_shared_masa_execution_v1",
+   "title": "З13 — полное исполнение с общими признаками кадра MASA",
+   "area": "flyvis",
+   "state": "infrastructure",
+   "started": "2026-10-15",
+   "question": "Можно ли продолжить фиксированный HOTA после строгой проверки shared MASA без потери готовых выходов?",
+   "hypothesis": "Общие признаки кадра убирают повторные вычисления; неизменные сигнатуры и входы сшивки сохраняют научную постановку.",
+   "expected": "105 заданий сигнатур, один совместный MASA и одна итоговая оценка; готовые видео переиспользуются с проверкой хэшей.",
+   "acceptance": [
+    {
+     "criterion": "Строгая проба скорости и совпадения массивов/входов сшивки пройдена до перехода.",
+     "met": true,
+     "evidence": "runs/z13_shared_masa_probe_v1_20261015/report.json"
+    },
+    {
+     "criterion": "Модели, пороги, научные входы и переиспользованные сигнатуры не изменились.",
+     "met": true,
+     "evidence": "runs/z13_shared_masa_hota_v1_20261015/full/reuse_proof.json"
+    },
+    {
+     "criterion": "Полный фиксированный HOTA завершён.",
+     "met": true,
+     "evidence": "runs/z13_shared_masa_hota_v1_20261015/full/final_verification.json"
+    }
+   ],
+   "cannot_claim": "Успех исполнения и скорость технической пробы не означают улучшение научных метрик. Нет отдельного полного прогона старого исполнения для оценки ускорения всего HOTA или полного побитового сравнения; такие проверки не запускались.",
+   "decision": "Завершить инфраструктурное исполнение; GPU и независимый сторож уже штатно закончились до 07:40. Сохранить все результаты, отключить наблюдение; дальнейшие расчёты не запускать.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_shared_masa_hota_v1_20261015/full/reuse_proof.json",
+     "claim": "Хэши, происхождение выходов и границы перехода"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_shared_masa_probe_v1_20261015/report.json",
+     "claim": "Строгие входы сшивки и фактическая скорость"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_shared_masa_hota_v1_20261015/full/launch_verification.json",
+     "claim": "Фактическая обработка кадров, живые собственные процессы и независимый дедлайн 07:40"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_shared_masa_hota_v1_20261015/full/eval/report.json",
+     "claim": "Полный первичный HOTA, парные интервалы, события и критерии"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_shared_masa_hota_v1_20261015/full/final_verification.json",
+     "claim": "Полнота 107 заданий, неизменность исходных контрактов и завершение собственного дерева"
+    }
+   ],
+   "done": "2026-10-15",
+   "obtained": "107/107 заданий завершены 15.10 в 05:23:50 MSK, status.json и runs/z13_shared_masa_hota_v1_20261015/full/final_verification.json. Все три варианта по 35 видео и полная оценка сохранены; 135 хэшей исходного контракта не менялись, собственное дерево завершилось. На всех 35 видео прошла проверка равенства первого общего кадра. Признаки кадра: 29089 вместо 87060, плюс 35 контрольных вызовов; сумма времени совместных видео 2168.796091 с. Источник этих чисел — runs/z13_shared_masa_hota_v1_20261015/full/final_verification.json и shared_masa_details/*.json. Предварительная скорость и полное побитовое равенство — runs/z13_shared_masa_probe_v1_20261015/report.json, на одном видео.",
+   "interpretation": "Разрешённый фиксированный опыт успешно доведён до полного HOTA с сохранением ранее готовых сигнатур. Техническое объединение MASA сократило число одинаковых вычислений кадра. На всём dev35 обычный отдельный MASA повторно не запускался; полная сравнительная скорость и побитовое равенство всему набору не измерены.",
+   "revisions": [
+    {
+     "date": "2026-10-15",
+     "commit": "",
+     "field": "cannot_claim",
+     "old": "Ускорение и побитовое равенство измерены на одном полном видео; весь набор ещё не оценён. Это инфраструктура, не улучшение HOTA или FlyVis.",
+     "reason": "Полный фиксированный опыт завершён; первичный результат заменяет предварительную формулировку без удаления истории."
+    },
+    {
+     "date": "2026-10-15",
+     "commit": "",
+     "field": "decision",
+     "old": "Условное разрешение автора выполнено: продолжить тот же опыт в отдельном каталоге с общим MASA, один GPU-процесс, до 15.10 07:40.",
+     "reason": "Полный фиксированный опыт завершён; первичный результат заменяет предварительную формулировку без удаления истории."
+    }
+   ]
+  },
+  {
+   "id": "z13_tree_quality_probe_v1",
+   "title": "З13: деревья вместо нейросетевой оценки качества положения",
+   "area": "flyvis",
+   "state": "completed_negative",
+   "started": "2026-10-15",
+   "question": "Поможет ли деревообразное считывание качества отобрать полезные положения без изменения локализатора?",
+   "hypothesis": "Нелинейные пороги по тем же 12 признакам могут улучшить отбор; это не добавляет отсутствующий сигнал цели.",
+   "expected": "Одна CPU-проба HistGB и поясняющего малого дерева; B/C/D; прежние train104/26, без GPU и dev.",
+   "acceptance": [
+    {
+     "criterion": "D histgb minus D neural AP paired video bootstrap CI lower >0",
+     "met": false,
+     "evidence": "runs/z13_tree_quality_probe_20261015/report.json: criteria[0]"
+    },
+    {
+     "criterion": "D histgb minus B histgb AP paired video bootstrap CI lower >0",
+     "met": true,
+     "evidence": "runs/z13_tree_quality_probe_20261015/report.json: criteria[1]"
+    },
+    {
+     "criterion": "D histgb meets retained 90% useful corrections with >=50 labelled selections",
+     "met": false,
+     "evidence": "runs/z13_tree_quality_probe_20261015/report.json: criteria[2]"
+    }
+   ],
+   "cannot_claim": "Не проверяется HOTA, причинный узел всего провала, независимое обобщение или новизна FlyVis.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs\\z13_tree_quality_probe_20261015\\protocol.json",
+     "claim": "Критерии, настройки и источники до расчёта"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_tree_quality_probe_20261015/report.json",
+     "claim": "Полная CPU-проба B/C/D, парный разброс, хеши"
+    },
+    {
+     "kind": "file",
+     "ref": "research_flyvis_decision_trees_2026-10-15/СВОДКА.md",
+     "claim": "Первичные работы, границы переноса, исследование и продолжение"
+    }
+   ],
+   "done": "2026-10-15",
+   "obtained": "runs/z13_tree_quality_probe_20261015/report.json: arms.D.models: AP neural=0,1767363419, tree=0,1605320747, histgb=0,1581383858. diffs.D_histgb-D_neural: −0,0185979561 [−0,0324605059; −0,0046761213], парный бутстрэп по 26 видео. Максимум полезности при >=50: neural 0,2871287129, tree 0,2692307692, histgb 0,2250803859; tau=null у всех. Из 8326 естественных строк известны 5822, неизвестны 2504. Критерии false/true/false; sources и data_sha256 сохранены.",
+   "interpretation": "Проверенная замена оценщика на деревья не помогает D на этих признаках и сохранённых центрах. AP D−B положительна, но цели успеха у вариантов различны из-за разных центров; это не чистое доказательство добавочной информации FlyVis. Train26 уже использованы в разработке, интервалы описательные; причина общего провала локализации не установлена.",
+   "decision": "Не запускать HOTA или перебор деревьев. По разрешению автора продолжить следующий кандидат плана: пространственную цель обучения считывателя, отдельный парный пилот до 20:00 MSK."
+  },
+  {
+   "id": "z13_distribution_pilot_v1",
+   "title": "З13: распределённая пространственная цель считывания, ограниченный пилот",
+   "area": "flyvis",
+   "state": "completed_positive",
+   "started": "2026-10-15",
+   "question": "Does a spatial target improve localization compared with identical extra training on a one-hot target?",
+   "hypothesis": "Учёт расстояния до цели в обучении считывания может уменьшить ошибку положения; причинность прежнего провала не установлена.",
+   "expected": "Парные продолжения hard/spatial из одинаковых весов B/C/D, 500 шагов каждое, только считыватель; train104/26. Одно окно до 20:00 MSK.",
+   "acceptance": [
+    {
+     "criterion": "D spatial minus D hard useful-position fraction on known-positive rows: paired video CI lower >0",
+     "met": true,
+     "evidence": "runs/z13_distribution_pilot_20261015/report.json: criteria[0]"
+    },
+    {
+     "criterion": "D spatial mean of per-video median relative center errors <= D hard",
+     "met": true,
+     "evidence": "runs/z13_distribution_pilot_20261015/report.json: criteria[1]"
+    },
+    {
+     "criterion": "Separate FlyVis signal gate: D spatial minus B spatial useful-position fraction CI lower >0",
+     "met": true,
+     "evidence": "runs/z13_distribution_pilot_20261015/report.json: criteria[2]"
+    }
+   ],
+   "cannot_claim": "Не проверяются HOTA, независимое подтверждение, новое обучение ядра или реализация всего PrDiMP.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_distribution_pilot_20261015/protocol.json",
+     "claim": "Постановка до обучения"
+    },
+    {
+     "kind": "file",
+     "ref": "research_flyvis_decision_trees_2026-10-15/СВОДКА.md",
+     "claim": "Обзор и ссылка на первоисточник PrDiMP; не готовая FlyVis"
+    },
+    {
+     "kind": "json",
+     "ref": "runs\\z13_distribution_pilot_20261015\\controller.json",
+     "claim": "Один собственный процесс и независимый предел 20:00"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_distribution_pilot_20261015/report.json",
+     "claim": "Парные функциональные результаты на train26"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_distribution_pilot_20261015/final_verification.json",
+     "claim": "Шаги, сохранения и полнота всех шести вариантов"
+    }
+   ],
+   "done": "2026-10-15",
+   "obtained": "runs/z13_distribution_pilot_20261015/report.json: {\"D_hard\": {\"rows\": 8326, \"known\": 5822, \"positive\": 1786, \"unknown\": 2504, \"useful_count\": 230, \"useful_fraction\": 0.12877939529675253, \"median_relative_center_error\": 0.41511016674842693, \"mean_video_median_relative_error\": 0.3938715503279508, \"presence_AP\": 0.7386189876388518, \"mean_presence_on_known_absent\": 0.18221928938075058, \"videos_with_positives\": 26}, \"D_spatial\": {\"rows\": 8326, \"known\": 5822, \"positive\": 1786, \"unknown\": 2504, \"useful_count\": 336, \"useful_fraction\": 0.1881298992161254, \"median_relative_center_error\": 0.33438373832585455, \"mean_video_median_relative_error\": 0.3279562226430065, \"presence_AP\": 0.7913102225129142, \"mean_presence_on_known_absent\": 0.211174917178426, \"videos_with_positives\": 26}, \"D_spatial-D_hard\": {\"useful_fraction_delta\": 0.05935050391937288, \"ci95\": [0.03982956259944037, 0.0797020676618769], \"mean_video_median_error_delta\": -0.06591532768494429}, \"D_spatial-B_spatial\": {\"useful_fraction_delta\": 0.07166853303471443, \"ci95\": [0.03421157149010794, 0.11049118249184332], \"mean_video_median_error_delta\": -0.19774877653735257}, \"criteria\": [true, true, true]}. Все шесть продолжений по 500 шагов и прогнозы на прежних 26 train завершены; final_verification.json.",
+   "interpretation": "Функциональный пилот на данных разработки; критерии выполнены, нужна отдельная проверка применения и HOTA. Все три критерия функционального пилота выполнены, но сравнение с исходной D не подтверждает улучшение: D original 17,58%, D hard 12,88%, D spatial 18,81% полезных положений. D spatial−original +1,23 п.п., ДИ [−1,05; +3,43]; D spatial−C spatial +2,52 п.п., ДИ [−0,53; +5,60]. Преимущество над hard частично связано с ухудшением hard относительно исходной модели; причина ухудшения этим опытом не установлена. Все интервалы описательные на прежних train26. Ядра при продолжении фиксированы; это сравнение целей обучения считывателя, а не новое обучение ядра. Полезное положение — геометрическое предложение на примере с присутствующей известной целью, не точность вмешательств после отказа и не HOTA. Источник: runs/z13_distribution_pilot_20261015/report.json.",
+   "decision": "Сохранить результат без изменения стенда, порогов и отложенных данных. Не перебирать ширину по этому результату. HOTA и подтверждение вклада FlyVis этим пилотом не установлены; окончание разрешённого окна не продлевается.",
+   "revisions": [
+    {
+     "date": "2026-10-15",
+     "commit": "",
+     "field": "interpretation",
+     "old": "Функциональный пилот на данных разработки; критерии выполнены, нужна отдельная проверка применения и HOTA.",
+     "reason": "Добавлены сравнения с исходной D и C; предотвращение завышенного вывода по ухудшившемуся hard-контролю."
+    }
+   ]
+  },
+  {
+   "id": "z13_distribution_quality_v1",
+   "title": "З13: подготовка оценки качества для пространственной цели",
+   "area": "flyvis",
+   "state": "infrastructure",
+   "started": "2026-10-15",
+   "question": "Можно ли подготовить согласованную оценку качества новых центров без обучения на проверяемых видео?",
+   "hypothesis": "Обновлённые предсказания вне обучения нужны для согласования оценки качества с изменившимся считывателем; улучшение ранжирования не гарантируется.",
+   "expected": "Шесть продолжений fold0/fold1 B/C/D по 500 шагов, только пространственная цель, ядра фиксированы. Затем прежний оценщик 12→16→1, 1500 шагов CPU. Полные B/C/D и их 8326 прогнозов переиспользуются из завершённого пилота. Верхний 1% на всех естественных train26, все совпадения вместе; старое правило 90%/50 отдельно. HOTA автоматически не запускается.",
+   "acceptance": [
+    {
+     "criterion": "До GPU: шесть непересекающихся пар 52/52, отдельные 26; происхождение исходных весов/кода/данных проверено, полные прогнозы скопированы точно",
+     "met": true,
+     "evidence": "runs/z13_distribution_quality_20261015/preflight.json"
+    },
+    {
+     "criterion": "Все шесть продолжений и новые прогнозы вне обучения завершены без изменения ядер",
+     "met": true,
+     "evidence": "runs/z13_distribution_quality_20261015/recovery_verified.json"
+    },
+    {
+     "criterion": "Для B/C/D оценщики конечны, модели и единая политика верхнего 1% сохранены; качество отбора показано отдельно от HOTA",
+     "met": true,
+     "evidence": "runs/z13_distribution_quality_20261015/recovery_verified.json"
+    }
+   ],
+   "cannot_claim": "Подготовка не подтверждает качество отказа, HOTA или вклад ядра. Train26 уже участвовали в разработке; различие моделей на 52 и 104 видео остаётся. Число параметров B и FlyVis не одинаково. 90%/50 не заменяется успехом политики 1%.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_distribution_quality_20261015/protocol.json",
+     "claim": "Зафиксированные данные, настройки и происхождение"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_distribution_quality_20261015/preflight.json",
+     "claim": "Техническая готовность без GPU"
+    },
+    {
+     "kind": "file",
+     "ref": "tests/test_z13_distribution_quality.py",
+     "claim": "Четыре CPU-проверки, включая отклонение утечки между видео"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_distribution_quality_20261015/recovery_verified.json",
+     "claim": "Проверенное восстановление CPU-этапа без повторного обучения ядер/считывателей"
+    }
+   ],
+   "obtained": "runs/z13_distribution_quality_20261015/result.json: {\"finished\": \"2026-10-16T00:45:34.357332+03:00\", \"arms\": {\"B\": {\"policy\": {\"tau\": 0.05361436307430267, \"target_rank\": 84, \"selected\": 84, \"total\": 8326}, \"selected_known\": 67, \"selected_unknown\": 17, \"useful_known\": 0, \"legacy_90_50\": null}, \"C\": {\"policy\": {\"tau\": 0.2612873315811157, \"target_rank\": 84, \"selected\": 84, \"total\": 8326}, \"selected_known\": 40, \"selected_unknown\": 44, \"useful_known\": 14, \"legacy_90_50\": null}, \"D\": {\"policy\": {\"tau\": 0.37405964732170105, \"target_rank\": 84, \"selected\": 84, \"total\": 8326}, \"selected_known\": 38, \"selected_unknown\": 46, \"useful_known\": 16, \"legacy_90_50\": null}}, \"hota_measured\": false, \"scope\": \"Preparation authorized by user continuation. GPU requires a separately authorized bounded window. Train only; no dev/HOTA/heldout/downloads.\"}",
+   "interpretation": "Техническая подготовка завершена после явного переноса оценки качества на CPU. Среди известных исходов верхнего 1% полезны B: 0/67, C: 14/40, D: 16/38 (result.json → arms); неизвестных 17/44/46 соответственно. Это повторно использованные train26, не HOTA и не доказательство вклада ядра. Правило 90%/50 не пройдено ни одним вариантом.",
+   "decision": "Сохранить модели и исходный журнал ошибки. HOTA не запускать автоматически. Разрешённые отдельные функциональные пробы продолжены до 07:40 16.10.2026.",
+   "done": "2026-10-16",
+   "revisions": [
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "obtained",
+     "old": "runs/z13_distribution_quality_20261015/controller_result.json: {\"exit_code\": 1, \"ended\": \"2026-10-15T23:54:53.568746+03:00\", \"own_worker_ended\": true}; status.json: {\"state\": \"running\", \"stage\": \"prediction\", \"arm\": \"D\", \"fold\": \"fold1\", \"step\": 500, \"total\": 500, \"checkpoint_verified\": true, \"episodes_done\": 4004, \"episodes_total\": 4033, \"updated\": \"2026-10-15T23:54:48.541673+03:00\"}",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "interpretation",
+     "old": "Подготовка не завершена полностью; частичные результаты не доказывают полезность.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "decision",
+     "old": "Сохранить остаток. Не продолжать вне разрешённого окна и не менять настройки по частичным результатам.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    }
+   ]
+  },
+  {
+   "id": "z13_candidate_foreground_v1",
+   "title": "З13: Цель относительно окружения — отдельный функциональный пилот",
+   "area": "flyvis",
+   "state": "completed_negative",
+   "started": "2026-10-15",
+   "question": "Добавляет ли пространственный контраст цели и окружения пользу относительно согласованного контроля?",
+   "hypothesis": "Изменение считывания может улучшить функциональную локализацию; причина прежнего провала не установлена.",
+   "expected": "Одна фиксированная реализация; B/C/D, ядра фиксированы, прежние train104/26; 500 шагов, без HOTA. Протокол runs/z13_candidates_20261016/protocol.json.",
+   "acceptance": [
+    {
+     "criterion": "D foreground - D base useful-center fraction CI lower >0",
+     "met": false,
+     "evidence": "runs/z13_candidates_20261016/report.json → criteria.foreground"
+    },
+    {
+     "criterion": "D foreground - B foreground useful-center fraction CI lower >0",
+     "met": true,
+     "evidence": "runs/z13_candidates_20261016/report.json → criteria.foreground"
+    },
+    {
+     "criterion": "known-bad fraction in selected rows <= D base",
+     "met": true,
+     "evidence": "runs/z13_candidates_20261016/report.json → criteria.foreground"
+    }
+   ],
+   "cannot_claim": "Нельзя объявлять улучшение HOTA, независимое подтверждение, бесполезность узла вообще или причинную роль анатомии мухи. Проверены один сид и 500 шагов на многократно использованных train26; ядра фиксированы, контроль B не равен FlyVis по числу параметров.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_candidates_20261016/protocol.json",
+     "claim": "Фиксация до новых расчётов"
+    },
+    {
+     "kind": "file",
+     "ref": "research_flyvis_china_2026-10-15/СВОДКА.md",
+     "claim": "Источники и критика"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_candidates_20261016/recovery2_protocol.json",
+     "claim": "Техническое восстановление проверки одинакового считывания; исходные веса, протокол и прежние результаты сохранены"
+    }
+   ],
+   "obtained": "runs/z13_candidates_20261016/report.json: {\"criteria\": [false, true, true], \"stats\": {\"B_foreground\": {\"rows\": 8326, \"positive\": 1786, \"useful_fraction_pooled\": 0.11758118701007839, \"useful_fraction_mean_video\": 0.12678650656296106, \"mean_video_iou\": 0.22359264003118506, \"mean_video_size_iou_delta\": 0.0, \"top1_tau\": 0.9340116381645203, \"selected\": 84, \"selected_known\": 52, \"selected_unknown\": 32, \"selected_known_bad_fraction\": 0.7884615384615384}, \"C_foreground\": {\"rows\": 8326, \"positive\": 1786, \"useful_fraction_pooled\": 0.1534154535274356, \"useful_fraction_mean_video\": 0.15976628073074364, \"mean_video_iou\": 0.29483786004097634, \"mean_video_size_iou_delta\": 0.0, \"top1_tau\": 0.9476082101464272, \"selected\": 84, \"selected_known\": 38, \"selected_unknown\": 46, \"selected_known_bad_fraction\": 0.7894736842105263}, \"D_foreground\": {\"rows\": 8326, \"positive\": 1786, \"useful_fraction_pooled\": 0.18141097424412095, \"useful_fraction_mean_video\": 0.19162954779194147, \"mean_video_iou\": 0.32905999047700046, \"mean_video_size_iou_delta\": 0.0, \"top1_tau\": 0.948393702507019, \"selected\": 84, \"selected_known\": 34, \"selected_unknown\": 50, \"selected_known_bad_fraction\": 0.7941176470588235}}, \"comparisons\": {\"D_foreground-D_base\": {\"mean\": -0.002268585635334776, \"ci95\": [-0.015503066547758279, 0.011110681723684531]}, \"D_foreground-B_foreground\": {\"mean\": 0.06484304122898042, \"ci95\": [0.024093076060570713, 0.1140567157096227]}, \"D_foreground-C_foreground\": {\"mean\": 0.031863267061197874, \"ci95\": [-0.009572902058755706, 0.08249057241777304]}, \"D_adaptive-D_fixed\": {\"mean\": -0.020445896887155496, \"ci95\": [-0.069402058825556, 0.011570225198440351]}, \"D_adaptive-B_adaptive\": {\"mean\": 0.0447754875517529, \"ci95\": [0.00788506342296434, 0.08149475740193436]}, \"D_adaptive-C_adaptive\": {\"mean\": 0.008994664202292337, \"ci95\": [-0.016386078408337307, 0.03424808159071828]}, \"D_size-B_size\": {\"mean\": 0.14266359965081163, \"ci95\": [0.11112551442164348, 0.1848571555918638]}, \"D_size-C_size\": {\"mean\": 0.034920898223348866, \"ci95\": [0.019853771886680714, 0.05455480533808514]}, \"D_size_delta\": {\"mean\": -0.02250414433907753, \"ci95\": [-0.030129740936076083, -0.017159741319989152]}}}",
+   "interpretation": "Считывание с контрастом окружения не улучшило нахождение цели относительно такого же продолжения без этого узла: средняя по видео доля полезных центров 19,390% → 19,163%, разность −0,227 п.п., 95% ДИ [−1,550; +1,111] п.п. (runs/z13_candidates_20261016/report.json → stats.D_base, stats.D_foreground, comparisons.D_foreground-D_base). Сравнение D с B положительно, но оно не доказывает пользу добавленного узла; преимущество над C здесь не подтверждено. Причина ошибок исходного представления цели этим опытом не локализована.",
+   "decision": "Эта реализация не прошла принятый функциональный критерий. Сохранить модели и полный результат; автоматический HOTA-прогон и подбор новых настроек не запускать. Причину провала более широкого направления считать не установленной.",
+   "revisions": [
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "obtained",
+     "old": "runs/z13_candidates_20261016/controller_result.json: {\"exit_code\": 76, \"own_worker_ended\": true, \"worker_started\": false, \"reason\": \"Previous stage not complete; needs review\", \"ended\": \"2026-10-15T23:55:03.538583+03:00\"}",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "interpretation",
+     "old": "Весь набор сравнений не завершён; численная эффективность не объявляется.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "decision",
+     "old": "Сохранить готовые задания и контрольные точки, продолжение только в новом разрешённом окне.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "obtained",
+     "old": "Возобновлён после технического исправления: runs/z13_candidates_20261016/resume_controller.json. Научных результатов пока нет.",
+     "reason": "Записана новая попытка после технической ошибки проверки; научного итога ещё нет"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "obtained",
+     "old": "Продолжение после проверенного служебного исправления: runs/z13_candidates_20261016/recovery2_protocol.json. Семь готовых заданий сохранены с проверкой хешей; обучение C/size завершено ранее и не повторяется. Полного набора научных сравнений пока нет.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "interpretation",
+     "old": "Предыдущая остановка была до GPU; она не является отрицательным итогом узла.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "decision",
+     "old": "Продолжить прежний протокол в разрешённом окне; сохранение 07:35, окончание до 07:40 16.10.2026.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "interpretation",
+     "old": "Функциональный пилот на прежних train26; результат не является приростом HOTA или независимым подтверждением.",
+     "reason": "Уточнение полного отрицательного итога по первичному report.json без изменения чисел или критериев"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "decision",
+     "old": "Сохранить результат конкретной реализации; научные настройки не менять по исходу. Следующий дорогой этап отдельно.",
+     "reason": "Уточнение полного отрицательного итога по первичному report.json без изменения чисел или критериев"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "cannot_claim",
+     "old": "Не проверены HOTA, независимая выборка, сходимость или польза совместного применения модулей.",
+     "reason": "Уточнение полного отрицательного итога по первичному report.json без изменения чисел или критериев"
+    }
+   ],
+   "done": "2026-10-16"
+  },
+  {
+   "id": "z13_candidate_size_v1",
+   "title": "З13: Размеры объекта — отдельный функциональный пилот",
+   "area": "flyvis",
+   "state": "completed_negative",
+   "started": "2026-10-15",
+   "question": "Добавляет ли остаточная поправка размеров при фиксированных центрах пользу относительно согласованного контроля?",
+   "hypothesis": "Изменение считывания может улучшить функциональную локализацию; причина прежнего провала не установлена.",
+   "expected": "Одна фиксированная реализация; B/C/D, ядра фиксированы, прежние train104/26; 500 шагов, без HOTA. Протокол runs/z13_candidates_20261016/protocol.json.",
+   "acceptance": [
+    {
+     "criterion": "D size mean per-video IoU(new size - last-observed size), SAME predicted centers: CI lower >0",
+     "met": false,
+     "evidence": "runs/z13_candidates_20261016/report.json → criteria.size"
+    },
+    {
+     "criterion": "D size - B size new-size IoU CI lower >0",
+     "met": true,
+     "evidence": "runs/z13_candidates_20261016/report.json → criteria.size"
+    },
+    {
+     "criterion": "Parent centers unchanged within 1e-5 numerical tolerance",
+     "met": true,
+     "evidence": "runs/z13_candidates_20261016/report.json → criteria.size"
+    }
+   ],
+   "cannot_claim": "Нельзя объявлять улучшение HOTA, независимое подтверждение, бесполезность узла вообще или причинную роль анатомии мухи. Проверены один сид и 500 шагов на многократно использованных train26; ядра фиксированы, контроль B не равен FlyVis по числу параметров.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_candidates_20261016/protocol.json",
+     "claim": "Фиксация до новых расчётов"
+    },
+    {
+     "kind": "file",
+     "ref": "research_flyvis_china_2026-10-15/СВОДКА.md",
+     "claim": "Источники и критика"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_candidates_20261016/recovery2_protocol.json",
+     "claim": "Техническое восстановление проверки одинакового считывания; исходные веса, протокол и прежние результаты сохранены"
+    }
+   ],
+   "obtained": "runs/z13_candidates_20261016/report.json: {\"criteria\": [false, true, true], \"stats\": {\"B_size\": {\"rows\": 8326, \"positive\": 1786, \"useful_fraction_pooled\": 0.11646136618141098, \"useful_fraction_mean_video\": 0.12124642024121446, \"mean_video_iou\": 0.17725042272644517, \"mean_video_size_iou_delta\": -0.04542399761226845, \"top1_tau\": 0.9648998230695724, \"selected\": 84, \"selected_known\": 46, \"selected_unknown\": 38, \"selected_known_bad_fraction\": 0.8043478260869565}, \"C_size\": {\"rows\": 8326, \"positive\": 1786, \"useful_fraction_pooled\": 0.1629339305711086, \"useful_fraction_mean_video\": 0.16546133397230336, \"mean_video_iou\": 0.284993124153908, \"mean_video_size_iou_delta\": -0.024415206002806836, \"top1_tau\": 0.947591993957758, \"selected\": 84, \"selected_known\": 39, \"selected_unknown\": 45, \"selected_known_bad_fraction\": 0.7948717948717948}, \"D_size\": {\"rows\": 8326, \"positive\": 1786, \"useful_fraction_pooled\": 0.1881298992161254, \"useful_fraction_mean_video\": 0.20160408372234517, \"mean_video_iou\": 0.3199140223772568, \"mean_video_size_iou_delta\": -0.02250414433907753, \"top1_tau\": 0.9369308575987816, \"selected\": 84, \"selected_known\": 31, \"selected_unknown\": 53, \"selected_known_bad_fraction\": 0.8064516129032258}}, \"comparisons\": {\"D_foreground-D_base\": {\"mean\": -0.002268585635334776, \"ci95\": [-0.015503066547758279, 0.011110681723684531]}, \"D_foreground-B_foreground\": {\"mean\": 0.06484304122898042, \"ci95\": [0.024093076060570713, 0.1140567157096227]}, \"D_foreground-C_foreground\": {\"mean\": 0.031863267061197874, \"ci95\": [-0.009572902058755706, 0.08249057241777304]}, \"D_adaptive-D_fixed\": {\"mean\": -0.020445896887155496, \"ci95\": [-0.069402058825556, 0.011570225198440351]}, \"D_adaptive-B_adaptive\": {\"mean\": 0.0447754875517529, \"ci95\": [0.00788506342296434, 0.08149475740193436]}, \"D_adaptive-C_adaptive\": {\"mean\": 0.008994664202292337, \"ci95\": [-0.016386078408337307, 0.03424808159071828]}, \"D_size-B_size\": {\"mean\": 0.14266359965081163, \"ci95\": [0.11112551442164348, 0.1848571555918638]}, \"D_size-C_size\": {\"mean\": 0.034920898223348866, \"ci95\": [0.019853771886680714, 0.05455480533808514]}, \"D_size_delta\": {\"mean\": -0.02250414433907753, \"ci95\": [-0.030129740936076083, -0.017159741319989152]}}}",
+   "interpretation": "Новый размер ухудшил средний по видео IoU при тех же предсказанных центрах: 0,342418 → 0,319914, разность −0,022504, 95% ДИ [−0,030130; −0,017160] (runs/z13_candidates_20261016/report.json → stats.D_size и comparisons.D_size_delta). Исходный размер — последняя наблюдавшаяся рамка, а не текущий прогноз Калмана. Положительное сравнение D с B/C не отменяет ухудшение размеров внутри D; B/C/D имеют разные центры. Это не результат точности рамок штатного трекера.",
+   "decision": "Эта реализация не прошла принятый функциональный критерий. Сохранить модели и полный результат; автоматический HOTA-прогон и подбор новых настроек не запускать. Причину провала более широкого направления считать не установленной.",
+   "revisions": [
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "obtained",
+     "old": "runs/z13_candidates_20261016/controller_result.json: {\"exit_code\": 76, \"own_worker_ended\": true, \"worker_started\": false, \"reason\": \"Previous stage not complete; needs review\", \"ended\": \"2026-10-15T23:55:03.538583+03:00\"}",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "interpretation",
+     "old": "Весь набор сравнений не завершён; численная эффективность не объявляется.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "decision",
+     "old": "Сохранить готовые задания и контрольные точки, продолжение только в новом разрешённом окне.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "obtained",
+     "old": "Возобновлён после технического исправления: runs/z13_candidates_20261016/resume_controller.json. Научных результатов пока нет.",
+     "reason": "Записана новая попытка после технической ошибки проверки; научного итога ещё нет"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "obtained",
+     "old": "Продолжение после проверенного служебного исправления: runs/z13_candidates_20261016/recovery2_protocol.json. Семь готовых заданий сохранены с проверкой хешей; обучение C/size завершено ранее и не повторяется. Полного набора научных сравнений пока нет.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "interpretation",
+     "old": "Предыдущая остановка была до GPU; она не является отрицательным итогом узла.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "decision",
+     "old": "Продолжить прежний протокол в разрешённом окне; сохранение 07:35, окончание до 07:40 16.10.2026.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "interpretation",
+     "old": "Функциональный пилот на прежних train26; результат не является приростом HOTA или независимым подтверждением.",
+     "reason": "Уточнение полного отрицательного итога по первичному report.json без изменения чисел или критериев"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "decision",
+     "old": "Сохранить результат конкретной реализации; научные настройки не менять по исходу. Следующий дорогой этап отдельно.",
+     "reason": "Уточнение полного отрицательного итога по первичному report.json без изменения чисел или критериев"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "cannot_claim",
+     "old": "Не проверены HOTA, независимая выборка, сходимость или польза совместного применения модулей.",
+     "reason": "Уточнение полного отрицательного итога по первичному report.json без изменения чисел или критериев"
+    }
+   ],
+   "done": "2026-10-16"
+  },
+  {
+   "id": "z13_candidate_adaptive_v1",
+   "title": "З13: Время накопления — отдельный функциональный пилот",
+   "area": "flyvis",
+   "state": "completed_negative",
+   "started": "2026-10-15",
+   "question": "Добавляет ли адаптивное накопление против фиксированного с переносом координат пользу относительно согласованного контроля?",
+   "hypothesis": "Изменение считывания может улучшить функциональную локализацию; причина прежнего провала не установлена.",
+   "expected": "Одна фиксированная реализация; B/C/D, ядра фиксированы, прежние train104/26; 500 шагов, без HOTA. Протокол runs/z13_candidates_20261016/protocol.json.",
+   "acceptance": [
+    {
+     "criterion": "D adaptive - D fixed useful-center fraction CI lower >0",
+     "met": false,
+     "evidence": "runs/z13_candidates_20261016/report.json → criteria.adaptive"
+    },
+    {
+     "criterion": "D adaptive - B adaptive useful-center fraction CI lower >0",
+     "met": true,
+     "evidence": "runs/z13_candidates_20261016/report.json → criteria.adaptive"
+    },
+    {
+     "criterion": "known-bad fraction in selected rows <= D fixed",
+     "met": true,
+     "evidence": "runs/z13_candidates_20261016/report.json → criteria.adaptive"
+    }
+   ],
+   "cannot_claim": "Нельзя объявлять улучшение HOTA, независимое подтверждение, бесполезность узла вообще или причинную роль анатомии мухи. Проверены один сид и 500 шагов на многократно использованных train26; ядра фиксированы, контроль B не равен FlyVis по числу параметров.",
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_candidates_20261016/protocol.json",
+     "claim": "Фиксация до новых расчётов"
+    },
+    {
+     "kind": "file",
+     "ref": "research_flyvis_china_2026-10-15/СВОДКА.md",
+     "claim": "Источники и критика"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_candidates_20261016/recovery2_protocol.json",
+     "claim": "Техническое восстановление проверки одинакового считывания; исходные веса, протокол и прежние результаты сохранены"
+    }
+   ],
+   "obtained": "runs/z13_candidates_20261016/report.json: {\"criteria\": [false, true, true], \"stats\": {\"B_adaptive\": {\"rows\": 8326, \"positive\": 1786, \"useful_fraction_pooled\": 0.11198208286674133, \"useful_fraction_mean_video\": 0.12261906712510587, \"mean_video_iou\": 0.2261931726198441, \"mean_video_size_iou_delta\": 0.0, \"top1_tau\": 0.9585573673248291, \"selected\": 84, \"selected_known\": 52, \"selected_unknown\": 32, \"selected_known_bad_fraction\": 0.8461538461538461}, \"C_adaptive\": {\"rows\": 8326, \"positive\": 1786, \"useful_fraction_pooled\": 0.1595744680851064, \"useful_fraction_mean_video\": 0.15839989047456643, \"mean_video_iou\": 0.30537800010157246, \"mean_video_size_iou_delta\": 0.0, \"top1_tau\": 0.9497308135032654, \"selected\": 84, \"selected_known\": 48, \"selected_unknown\": 36, \"selected_known_bad_fraction\": 0.8541666666666666}, \"D_adaptive\": {\"rows\": 8326, \"positive\": 1786, \"useful_fraction_pooled\": 0.1674132138857783, \"useful_fraction_mean_video\": 0.16739455467685876, \"mean_video_iou\": 0.32173516497903043, \"mean_video_size_iou_delta\": 0.0, \"top1_tau\": 0.944959782063961, \"selected\": 84, \"selected_known\": 37, \"selected_unknown\": 47, \"selected_known_bad_fraction\": 0.6756756756756757}}, \"comparisons\": {\"D_foreground-D_base\": {\"mean\": -0.002268585635334776, \"ci95\": [-0.015503066547758279, 0.011110681723684531]}, \"D_foreground-B_foreground\": {\"mean\": 0.06484304122898042, \"ci95\": [0.024093076060570713, 0.1140567157096227]}, \"D_foreground-C_foreground\": {\"mean\": 0.031863267061197874, \"ci95\": [-0.009572902058755706, 0.08249057241777304]}, \"D_adaptive-D_fixed\": {\"mean\": -0.020445896887155496, \"ci95\": [-0.069402058825556, 0.011570225198440351]}, \"D_adaptive-B_adaptive\": {\"mean\": 0.0447754875517529, \"ci95\": [0.00788506342296434, 0.08149475740193436]}, \"D_adaptive-C_adaptive\": {\"mean\": 0.008994664202292337, \"ci95\": [-0.016386078408337307, 0.03424808159071828]}, \"D_size-B_size\": {\"mean\": 0.14266359965081163, \"ci95\": [0.11112551442164348, 0.1848571555918638]}, \"D_size-C_size\": {\"mean\": 0.034920898223348866, \"ci95\": [0.019853771886680714, 0.05455480533808514]}, \"D_size_delta\": {\"mean\": -0.02250414433907753, \"ci95\": [-0.030129740936076083, -0.017159741319989152]}}}",
+   "interpretation": "Адаптивное накопление не улучшило фиксированное: средняя по видео доля полезных центров 18,784% → 16,739%, разность −2,045 п.п., 95% ДИ [−6,940; +1,157] п.п. (runs/z13_candidates_20261016/report.json → stats.D_fixed, stats.D_adaptive, comparisons.D_adaptive-D_fixed). Доля ошибок среди известных исходов верхнего 1% снизилась с 27/37 до 25/37, но основной критерий локализации не выполнен. Преимущество над B есть в этом пилоте; над C не подтверждено.",
+   "decision": "Эта реализация не прошла принятый функциональный критерий. Сохранить модели и полный результат; автоматический HOTA-прогон и подбор новых настроек не запускать. Причину провала более широкого направления считать не установленной.",
+   "revisions": [
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "obtained",
+     "old": "runs/z13_candidates_20261016/controller_result.json: {\"exit_code\": 76, \"own_worker_ended\": true, \"worker_started\": false, \"reason\": \"Previous stage not complete; needs review\", \"ended\": \"2026-10-15T23:55:03.538583+03:00\"}",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "interpretation",
+     "old": "Весь набор сравнений не завершён; численная эффективность не объявляется.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "decision",
+     "old": "Сохранить готовые задания и контрольные точки, продолжение только в новом разрешённом окне.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "obtained",
+     "old": "Возобновлён после технического исправления: runs/z13_candidates_20261016/resume_controller.json. Научных результатов пока нет.",
+     "reason": "Записана новая попытка после технической ошибки проверки; научного итога ещё нет"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "obtained",
+     "old": "Продолжение после проверенного служебного исправления: runs/z13_candidates_20261016/recovery2_protocol.json. Семь готовых заданий сохранены с проверкой хешей; обучение C/size завершено ранее и не повторяется. Полного набора научных сравнений пока нет.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "interpretation",
+     "old": "Предыдущая остановка была до GPU; она не является отрицательным итогом узла.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "decision",
+     "old": "Продолжить прежний протокол в разрешённом окне; сохранение 07:35, окончание до 07:40 16.10.2026.",
+     "reason": "Возобновление после технического сбоя, разрешённое автором; старый итог сохранён"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "interpretation",
+     "old": "Функциональный пилот на прежних train26; результат не является приростом HOTA или независимым подтверждением.",
+     "reason": "Уточнение полного отрицательного итога по первичному report.json без изменения чисел или критериев"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "decision",
+     "old": "Сохранить результат конкретной реализации; научные настройки не менять по исходу. Следующий дорогой этап отдельно.",
+     "reason": "Уточнение полного отрицательного итога по первичному report.json без изменения чисел или критериев"
+    },
+    {
+     "date": "2026-10-16",
+     "commit": "ab51ac48b474d201188767beffe6481d621dd229",
+     "field": "cannot_claim",
+     "old": "Не проверены HOTA, независимая выборка, сходимость или польза совместного применения модулей.",
+     "reason": "Уточнение полного отрицательного итога по первичному report.json без изменения чисел или критериев"
+    }
+   ],
+   "done": "2026-10-16"
   }
  ],
  "manual_events": [
