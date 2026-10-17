@@ -221,7 +221,7 @@ def main():
         if x in pv and y in pv:
             rep["paired"][f"{x}-{y}"] = paired(pv[x], pv[y])
     for nm, part in (("search_pos_le3", short), ("search_pos_gt3", late)):
-        rep["by_history"][nm] = {f"{x}-R0_new": paired(part[x], part["R0_new"]) for x in ("C_new", "D_new") if part.get(x) and part.get("R0_new")}
+        rep["by_history"][nm] = {f"{x}_new-R0_new": paired(part[x], part["R0"]) for x in ("C", "D") if part.get(x) and part.get("R0")}   # ключи rows — имена вариантов (исправлено 17.10)
     def verdict(k):
         if k not in rep["paired"]:
             return None
