@@ -1,0 +1,12 @@
+{
+ "id": "z13_readout_overlap_v1",
+ "date": "2026-10-18",
+ "action": "Choose one internal target-readout correction",
+ "sources_sha256": {
+  "runs/z13_continue_20261017/baseline/rows.json": "203c7132788856d0a88e0976765e48fa1724dbec8ec91296049394ec27cd2bf6",
+  "runs/z13_target_model_20261017/D/rows.json": "da8377ede1ce7fb5ee26f347725beee9e60f4e892f7df5e9dce6726fd375daa9"
+ },
+ "scope": "Saved rows only, CPU; no fitting on train26, no model/GPU/video execution",
+ "decision": "If new-only useful rows exist, report complementarity; never call oracle a deployable gain. Select one code-grounded correction, not an oracle selector.",
+ "diagnostics_for_action": 1
+}

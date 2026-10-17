@@ -1,0 +1,39 @@
+[2026-10-17 23:55:21] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-10-17 23:55:21] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-10-17 23:55:30] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+Traceback (most recent call last):
+  File "E:\Dissertation\scripts\z13_target_center_probe.py", line 166, in <module>
+    try:main()
+  File "E:\Dissertation\scripts\z13_target_center_probe.py", line 102, in main
+    bank,geom,bb=old.build_arm('D',torch,ck)
+  File "E:\Dissertation\scripts\z13_target_model.py", line 85, in build_arm
+    est = make_motion_estimator("flyvis_tiled", 30.0, 0.02)
+  File "E:\Dissertation\scripts\run_bdd_video_rate_experiment.py", line 334, in make_motion_estimator
+    return FlyVisMotionEstimator(
+  File "E:\Dissertation\tracking\flyvis_motion.py", line 118, in __init__
+    self.network = view.init_network()
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\network\network_view.py", line 305, in init_network
+    return checkpointed_network.recover()
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\network\network_view.py", line 457, in recover
+    return self.recover_fn(self.network, checkpoint or self.checkpoint)
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\utils\chkpt_utils.py", line 33, in recover_network
+    state = get_from_state_dict(state_dict, "network")
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\utils\chkpt_utils.py", line 141, in get_from_state_dict
+    state = torch.load(
+  File "E:\Dissertation\.venv\lib\site-packages\torch\serialization.py", line 1549, in load
+    return _load(
+  File "E:\Dissertation\.venv\lib\site-packages\torch\serialization.py", line 2143, in _load
+    result = unpickler.load()
+  File "E:\Dissertation\.venv\lib\site-packages\torch\serialization.py", line 2107, in persistent_load
+    typed_storage = load_tensor(
+  File "E:\Dissertation\.venv\lib\site-packages\torch\serialization.py", line 2073, in load_tensor
+    wrap_storage = restore_location(storage, location)
+  File "E:\Dissertation\.venv\lib\site-packages\torch\serialization.py", line 1884, in restore_location
+    return default_restore_location(storage, str(map_location))
+  File "E:\Dissertation\.venv\lib\site-packages\torch\serialization.py", line 707, in default_restore_location
+    result = fn(storage, location)
+  File "E:\Dissertation\.venv\lib\site-packages\torch\serialization.py", line 640, in _deserialize
+    device = _validate_device(location, backend_name)
+  File "E:\Dissertation\.venv\lib\site-packages\torch\serialization.py", line 619, in _validate_device
+    raise RuntimeError(
+RuntimeError: Attempting to deserialize object on CUDA device 0 but torch.cuda.device_count() is 0. Please use torch.load with map_location to map your storages to an existing device.
