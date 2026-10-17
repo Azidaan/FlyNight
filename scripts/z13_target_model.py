@@ -49,6 +49,19 @@ def receptor_features(hexes):
     return out
 
 
+R1_TAUS = np.geomspace(1.5, 32.0, 17)   # z13_target_model_r1_v1: 17 постоянных времени, кадров (τ = 1 давал нулевой переходный канал)
+
+
+def receptor_features_rich(hexes):
+    """R1 — вход глаза той же размерности, что муха (34 канала): по всей истории эпизода 17 скользящих средних
+    EMA_τ (τ = 1,5…32 кадра, геометрически) и 17 переходных составляющих h − EMA_τ. (B, T, 721) → список (B, 34, 721)."""
+    ema = np.repeat(hexes[:, :1], len(R1_TAUS), 1).astype(np.float64); a = (1.0 / R1_TAUS)[None, :, None]; out = []
+    for t in range(hexes.shape[1]):
+        h = hexes[:, t][:, None]; ema += (h - ema) * a
+        out.append(np.concatenate([ema.copy(), h - ema], 1))
+    return out
+
+
 def fit_predict(x_ex, mask, x_search, lambdas):
     """Гребневая модель цели по одному кадру образца. x_ex (721, d), mask (721,), x_search (S, 721, d) → баллы (L, S, 721)."""
     mu = x_ex.mean(0); xc = x_ex - mu; y = mask.astype(np.float64); yc = y - y.mean()
@@ -71,7 +84,7 @@ def build_arm(arm, torch, ckD):
     from tracking.z13_readout import FlyBackbone, HexGeometry
     est = make_motion_estimator("flyvis_tiled", 30.0, 0.02)
     bank = EyeBank(est); geom = HexGeometry(bank.points_local, bank.eye_size)
-    if arm == "R0":
+    if arm in ("R0", "R1"):
         return bank, geom, None
     if arm == "C0":
         est.network = est.flyvis.NetworkView("flow/0000/000").network(checkpoint="best").init(eval=True)
@@ -85,8 +98,8 @@ def episode_features(torch, arm, bb, hexes_t, nb, frames_needed):
     """Признаки по кадрам эпизодов пакета: dict кадр → (B, d, 721) numpy (только нужные кадры)."""
     from tracking.z13_readout import N_EXEMPLAR
     T = hexes_t.shape[1]; out = {}
-    if arm == "R0":
-        rf = receptor_features(hexes_t.cpu().numpy().astype(np.float64))
+    if arm in ("R0", "R1"):
+        rf = (receptor_features if arm == "R0" else receptor_features_rich)(hexes_t.cpu().numpy().astype(np.float64))
         return {t: neighbor_aug(rf[t], nb) for t in frames_needed}
     with torch.no_grad():
         st = bb.init(hexes_t[:, 0:1]); last = hexes_t[:, 0]
@@ -155,7 +168,10 @@ def useful_rows(rows, l_i):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--cpu", action="store_true"); ap.add_argument("--smoke", action="store_true"); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("--cpu", action="store_true"); ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--run", type=Path, default=RUN); ap.add_argument("--reuse", type=Path, default=None, help="каталог с готовыми rows.json других вариантов (те же строки)")
+    ap.add_argument("--arms", nargs="+", default=list(ARMS)); a = ap.parse_args()
+    arms = tuple(a.arms)
     if a.cpu:
         os.environ["CUDA_VISIBLE_DEVICES"] = ""
         import torch
@@ -165,7 +181,12 @@ def main():
     from scripts.z13_continue import Console, paired, per_video_useful, summarize
     from scripts.z13_train import Episodes
     from tracking.z13_checkpoint import atomic_json
-    run = RUN / ("smoke" if a.smoke else ""); run.mkdir(parents=True, exist_ok=True)
+    run = a.run.resolve() / ("smoke" if a.smoke else ""); run.relative_to(ROOT); run.mkdir(parents=True, exist_ok=True)
+
+    def arm_dir(arm):   # готовые строки варианта: сначала свой каталог, затем --reuse
+        if (run / arm / "rows.json").exists() or a.reuse is None or not (a.reuse / arm / "rows.json").exists():
+            return run / arm
+        return a.reuse.resolve() / arm
     src = json.loads((ROOT / "runs/z13_spatial_v2_20261013/D/full/identity.json").read_text(encoding="utf-8"))["config"]["job"]
     fit_v, eval_v = src["fit"][:LAMBDA_VIDEOS], src["predict"]
     if a.smoke:
@@ -174,11 +195,11 @@ def main():
     ckD = torch.load(ROOT / "runs/z13_spatial_v2_20261013/D/full/model.pt", map_location="cpu", weights_only=False)
     fit, ev = Episodes(fit_v), Episodes(eval_v)
     res = {}
-    for k, arm in enumerate(ARMS):
-        done = run / arm / "rows.json"
+    for k, arm in enumerate(arms):
+        done = arm_dir(arm) / "rows.json"
         if done.exists():
-            res[arm] = json.loads((run / arm / "choice.json").read_text(encoding="utf-8")); continue
-        console(state="running", variant=arm, variant_index=f"{k + 1}/{len(ARMS)}", stage="build")
+            res[arm] = json.loads((arm_dir(arm) / "choice.json").read_text(encoding="utf-8")); continue
+        console(state="running", variant=arm, variant_index=f"{k + 1}/{len(arms)}", stage="build")
         t0 = time.monotonic(); bank, geom, bb = build_arm(arm, torch, ckD)
         stats = feature_stats(torch, arm, bb, geom, fit)
         frows = run_set(torch, arm, bb, geom, bank.eye_size, fit, LAMBDAS, stats, console, "выбор λ (train104, 20 видео)")
@@ -190,8 +211,8 @@ def main():
         del bb, bank
         if torch.cuda.is_available():
             torch.cuda.empty_cache()
-    rows = {arm: json.loads((run / arm / "rows.json").read_text(encoding="utf-8")) for arm in ARMS}
-    labels = {tuple(sorted(r["label"] for r in rows[arm])) for arm in ARMS}
+    rows = {arm: json.loads((arm_dir(arm) / "rows.json").read_text(encoding="utf-8")) for arm in arms}
+    labels = {tuple(sorted(r["label"] for r in rows[arm])) for arm in arms}
     if len(labels) != 1:
         raise ValueError("Different evaluation rows between arms")
     prior = {}
@@ -205,7 +226,7 @@ def main():
                             for l in vid]
         if {r["label"] for r in b} != set(next(iter(labels))):
             raise ValueError("Prior readout rows differ from evaluation rows")
-    allrows = {**{f"{arm}_new": rows[arm] for arm in ARMS}, **prior}
+    allrows = {**{f"{arm}_new": rows[arm] for arm in arms}, **prior}
     pv = {k: per_video_useful(v) for k, v in allrows.items()}
     short = {k: per_video_useful([r for r in v if r.get("pos", 0) <= 3]) for k, v in rows.items()}
     late = {k: per_video_useful([r for r in v if r.get("pos", 0) > 3]) for k, v in rows.items()}
@@ -216,18 +237,20 @@ def main():
                 "median_err_rel": float(np.median([r["err"] / r["scale"] for r in pos])), "near_crop_center": float(np.mean([r.get("near_crop_center", False) for r in pos])) if "near_crop_center" in pos[0] else None}
     rep = {"lambda_choice": res, "summary": {k: summ(v) for k, v in allrows.items()}, "kalman_control": "центр = прогноз: полезных 0 по определению (err < err_pred не выполняется)",
            "paired": {}, "by_history": {}, "min_shift": MIN_SHIFT}
-    comps = [("D_new", "D_prior"), ("D_new", "R0_new"), ("C_new", "R0_new"), ("C_new", "C0_new"), ("D_new", "C_new"), ("C_new", "C_prior")]
+    comps = [("D_new", "D_prior"), ("D_new", "R0_new"), ("C_new", "R0_new"), ("C_new", "C0_new"), ("D_new", "C_new"), ("C_new", "C_prior"),
+             ("D_new", "R1_new"), ("C_new", "R1_new"), ("C0_new", "R1_new"), ("R1_new", "R0_new")]
     for x, y in comps:
         if x in pv and y in pv:
             rep["paired"][f"{x}-{y}"] = paired(pv[x], pv[y])
     for nm, part in (("search_pos_le3", short), ("search_pos_gt3", late)):
-        rep["by_history"][nm] = {f"{x}_new-R0_new": paired(part[x], part["R0"]) for x in ("C", "D") if part.get(x) and part.get("R0")}   # ключи rows — имена вариантов (исправлено 17.10)
+        rep["by_history"][nm] = {f"{x}_new-{r}_new": paired(part[x], part[r]) for r in ("R0", "R1") for x in ("C", "D") if part.get(x) and part.get(r)}   # ключи rows — имена вариантов (исправлено 17.10)
     def verdict(k):
         if k not in rep["paired"]:
             return None
         d = rep["paired"][k]
         return "полезно" if d["ci95"][0] > 0 and d["mean_per_video"] >= MIN_SHIFT else ("не полезно" if d["ci95"][1] < MIN_SHIFT else "неубедительно")
-    rep["verdict"] = {"node_vs_prior_readout_D": verdict("D_new-D_prior"), "fly_vs_eye_input_D": verdict("D_new-R0_new"), "fly_vs_eye_input_C": verdict("C_new-R0_new")}
+    rep["verdict"] = {"node_vs_prior_readout_D": verdict("D_new-D_prior"), "fly_vs_eye_input_D": verdict("D_new-R0_new"), "fly_vs_eye_input_C": verdict("C_new-R0_new"),
+                      "fly_vs_rich_eye_input_D": verdict("D_new-R1_new"), "fly_vs_rich_eye_input_C": verdict("C_new-R1_new")}
     atomic_json(run / "report.json", rep); console(state="completed", stage="report written")
     print(json.dumps({"summary": rep["summary"], "paired": rep["paired"], "verdict": rep["verdict"]}, ensure_ascii=False)[:3000])
 
