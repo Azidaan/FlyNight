@@ -1,0 +1,74 @@
+[2026-10-18 01:05:36] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-10-18 01:05:36] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-10-18 01:05:41] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-10-18 01:05:41] chkpt_utils:36 Recovered network state.
+[2026-10-18 01:05:44] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-10-18 01:05:44] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-10-18 01:05:44] chkpt_utils:65 Recovered flow decoder state.
+[2026-10-18 01:48:22] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-10-18 01:48:29] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-10-18 01:48:29] chkpt_utils:36 Recovered network state.
+[2026-10-18 01:48:32] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-10-18 01:48:32] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-10-18 01:48:32] chkpt_utils:65 Recovered flow decoder state.
+[2026-10-18 02:31:36] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-10-18 02:31:42] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-10-18 02:31:42] chkpt_utils:36 Recovered network state.
+[2026-10-18 02:31:45] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-10-18 02:31:45] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-10-18 02:31:45] chkpt_utils:65 Recovered flow decoder state.
+Traceback (most recent call last):
+  File "E:\Dissertation\scripts\z13_target_center_cpu_recovery.py", line 16, in <module>
+    runpy.run_path(str(Path(__file__).with_name('z13_target_center_probe.py')),run_name='__main__')
+  File "E:\Dissertation\python310\tools\lib\runpy.py", line 289, in run_path
+    return _run_module_code(code, init_globals, run_name,
+  File "E:\Dissertation\python310\tools\lib\runpy.py", line 96, in _run_module_code
+    _run_code(code, mod_globals, init_globals,
+  File "E:\Dissertation\python310\tools\lib\runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "E:\Dissertation\scripts\z13_target_center_probe.py", line 166, in <module>
+    try:main()
+  File "E:\Dissertation\scripts\z13_target_center_probe.py", line 130, in main
+    fr,_=paired_rows(torch,arm,bb,geom,bank.eye_size,fit,{m:old.LAMBDAS for m in MODES},stats,'train20 lambda selection')
+  File "E:\Dissertation\scripts\z13_target_center_probe.py", line 45, in paired_rows
+    status(stage=f'{arm}: {stage}',done=left,total=len(eps),eta='unknown')
+  File "E:\Dissertation\scripts\z13_target_center_probe.py", line 30, in status
+    write(RUN/'status.json',dict(state='running',elapsed_seconds=round(time.monotonic()-T0),budget_seconds=LIMIT,**kw))
+  File "E:\Dissertation\scripts\z13_target_center_probe.py", line 24, in write
+    tmp.replace(path)
+  File "E:\Dissertation\python310\tools\lib\pathlib.py", line 1247, in replace
+    self._accessor.replace(self, target)
+PermissionError: [WinError 5] Отказано в доступе: 'E:\\Dissertation\\runs\\z13_target_center_20261018\\status.json.tmp' -> 'E:\\Dissertation\\runs\\z13_target_center_20261018\\status.json'

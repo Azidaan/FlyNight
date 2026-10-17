@@ -1,14 +1,19 @@
 param([Parameter(Mandatory=$true)][string]$Run)
 $Host.UI.RawUI.WindowTitle = 'FlyVis: full CPU target-center comparison'
 $started = Get-Date
+function Read-SharedJson([string]$Path) {
+    $stream = [System.IO.File]::Open($Path, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, ([System.IO.FileShare]::ReadWrite -bor [System.IO.FileShare]::Delete))
+    $reader = New-Object System.IO.StreamReader($stream, [System.Text.Encoding]::UTF8)
+    try { return ($reader.ReadToEnd() | ConvertFrom-Json) } finally { $reader.Dispose() }
+}
 while ($true) {
     try {
-        $s = Get-Content -LiteralPath (Join-Path $Run 'status.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+        $s = Read-SharedJson (Join-Path $Run 'status.json')
         $receiptPath = Join-Path $Run 'full_launch.json'
         Clear-Host
         Write-Host 'FlyVis D / C / R1: full CPU comparison'
         if (Test-Path -LiteralPath $receiptPath) {
-            $receipt = Get-Content -LiteralPath $receiptPath -Raw -Encoding UTF8 | ConvertFrom-Json
+            $receipt = Read-SharedJson $receiptPath
             $started = [datetimeoffset]::Parse($receipt.started_at).LocalDateTime
             Write-Host ('Stop deadline: ' + $receipt.soft_deadline + '; hard stop: ' + $receipt.hard_deadline)
         }
