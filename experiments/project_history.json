@@ -12567,6 +12567,46 @@
    "interpretation": "Фиксированный критерий полного оценщика не выполнен. Эта реализация не подтверждена; причина ограничений всего представления не установлена.",
    "decision": "full_map_utility_gate_not_passed",
    "cannot_claim": "Нет HOTA, независимой проверкиdev или гарантии риска на неизвестных исходах. Train26 повторно использован; один сид."
+  },
+  {
+   "id": "z13_map_transfer_v1",
+   "title": "З13: перенос оценки полезности C/D/R1 с train26 на dev35",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-18",
+   "question": "Переносится ли преимущество оценки карты C сверх геометрии на другие видео?",
+   "hypothesis": "Вспомогательный положительный результат C на train26 может переноситься; это гипотеза, выбор C сделан после просмотра train26.",
+   "expected": "At1%: C map minus original, geometry and limited each lower95%paired-video CI>0. Separate FlyVis gate: C map minus R1 map lower95%CI>0. Both required to continue. D and2/5% secondary, cannot rescue primary.",
+   "acceptance": [
+    {
+     "criterion": "Every dev row keeps video/label/kind/useful; unchanged center difference<0.5px and score difference<0.001; fit20 normalization identical to saved dev. Use saved centers/outcomes for comparisons.",
+     "met": null
+    },
+    {
+     "criterion": "At1%: C map minus original, geometry and limited each lower95%paired-video CI>0. Separate FlyVis gate: C map minus R1 map lower95%CI>0. Both required to continue. D and2/5% secondary, cannot rescue primary.",
+     "met": null
+    }
+   ],
+   "tags": [
+    "Z13",
+    "fly-problem-P8"
+   ],
+   "runs": [
+    "runs/z13_map_transfer_20261018"
+   ],
+   "files": [
+    "scripts/z13_map_transfer.py",
+    "scripts/z13_map_transfer_progress.ps1",
+    "tracking/z13_utility_transfer.py",
+    "tests/test_z13_utility_transfer.py"
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_map_transfer_20261018/protocol.json",
+     "claim": "Критерии, ограничения и исходные хеши до переноса"
+    }
+   ]
   }
  ],
  "manual_events": [
