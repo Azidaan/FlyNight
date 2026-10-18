@@ -12619,6 +12619,50 @@
    "interpretation": "Перенос ранжирования C не подтверждён по заданным критериям; интервал с нулём означает неопределённость, а не равенство. Новый подбор поdev не выполняется.",
    "decision": "ranking_transfer_not_confirmed; no_dev_retuning_or_tracker_application",
    "cannot_claim": "Нет HOTA, проверки75, слепогоdev или гарантии безопасности неизвестных исходов. Глобальный отбор1% не является рабочим онлайн-порогом."
+  },
+  {
+   "id": "z13_directional_context_v1",
+   "title": "З13: направленный пространственный контекст считывателя",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-18",
+   "question": "Помогает ли сохранение расположения соседних сигналов найти цель и выбрать полезные поправки сверх геометрии?",
+   "hypothesis": "Среднее соседей удаляет направления (свойство реализации); направленные контрасты могут улучшить различение цели и фона (гипотеза).",
+   "expected": "D directional minus D mean: lower95%video CI>0 and mean>=0.02. Also D directional minus D shuffled, C mean and R1 directional each lower95%CI>0. At1%: D directional map utility minus D mean map utility, D directional geometry, D shuffled map utility and R1 directional map utility all lower95%video CIs>0. Both localization and selection gates required.2/5% and C analyses secondary, not rescue.",
+   "acceptance": [
+    {
+     "criterion": "For every mean row: same key/kind/useful, center<0.5px,score<0.001; mean-map feature max difference<1e-10; mean utility OOF scores match saved scores<1e-10.",
+     "met": null
+    },
+    {
+     "criterion": "D directional minus D mean: lower95%video CI>0 and mean>=0.02. Also D directional minus D shuffled, C mean and R1 directional each lower95%CI>0.",
+     "met": null
+    },
+    {
+     "criterion": "At1%: D directional map utility minus D mean map utility, D directional geometry, D shuffled map utility and R1 directional map utility all lower95%video CIs>0. Both localization and selection gates required.2/5% and C analyses secondary, not rescue.",
+     "met": null
+    }
+   ],
+   "tags": [
+    "Z13",
+    "fly-problem-P8"
+   ],
+   "runs": [
+    "runs/z13_directional_context_20261018"
+   ],
+   "files": [
+    "scripts/z13_directional_context.py",
+    "tracking/z13_directional_context.py",
+    "tests/test_z13_directional_context.py",
+    "scripts/z13_context_progress.ps1"
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_directional_context_20261018/protocol.json",
+     "claim": "Условия и критерии до расчёта"
+    }
+   ]
   }
  ],
  "manual_events": [
