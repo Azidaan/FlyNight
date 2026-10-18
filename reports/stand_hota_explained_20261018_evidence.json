@@ -1,0 +1,97 @@
+{
+  "created_at": "2026-10-18T19:02:18.744311+00:00",
+  "report": "reports/stand_hota_explained_20261018.md",
+  "report_sha256": "09d7a044d62a79531927bb68d387080259e7066ffd7c7ff993bd3bcc5b09ef6d",
+  "pooled": {
+    "A_none": {
+      "HOTA": 61.33613965030691,
+      "DetA": 60.46690041599202,
+      "AssA": 62.9123966816692,
+      "IDF1": 69.26399194661384,
+      "IDSw": 1990.0
+    },
+    "A_masa": {
+      "HOTA": 61.65477893761337,
+      "DetA": 60.44069012295065,
+      "AssA": 63.56693866131623,
+      "IDF1": 70.37782720940427,
+      "IDSw": 1726.0
+    },
+    "B_masa": {
+      "HOTA": 61.657628435769084,
+      "DetA": 60.43643903748696,
+      "AssA": 63.57598449394848,
+      "IDF1": 70.37494113635256,
+      "IDSw": 1733.0
+    },
+    "C_masa": {
+      "HOTA": 61.65509446954304,
+      "DetA": 60.430402909055324,
+      "AssA": 63.576391728509165,
+      "IDF1": 70.36772349272348,
+      "IDSw": 1745.0
+    },
+    "D_masa": {
+      "HOTA": 61.67269039225678,
+      "DetA": 60.439917142849744,
+      "AssA": 63.603278477252736,
+      "IDF1": 70.41791505289909,
+      "IDSw": 1721.0
+    }
+  },
+  "paired": {
+    "D_masa-A_masa|all": {
+      "mean_per_video": 0.008679834759662088,
+      "ci95": [
+        -0.029899927044916286,
+        0.05607636916933374
+      ],
+      "better": 10,
+      "n": 35,
+      "pooled_gain": 0.017911454643410707
+    },
+    "D_masa-B_masa|all": {
+      "mean_per_video": -0.0281299572991959,
+      "ci95": [
+        -0.15182375519413824,
+        0.07063016200385079
+      ],
+      "better": 17,
+      "n": 35,
+      "pooled_gain": 0.015061956487699035
+    },
+    "D_masa-C_masa|all": {
+      "mean_per_video": 0.007783679447755024,
+      "ci95": [
+        -0.13380498985722583,
+        0.1187804899870729
+      ],
+      "better": 15,
+      "n": 35,
+      "pooled_gain": 0.017595922713745438
+    }
+  },
+  "relative_D_A_percent": 0.029051202440499857,
+  "historical_hota": {
+    "bytetrack": 45.7326,
+    "botsort": 54.9252,
+    "tracktrack": 53.339
+  },
+  "historical_common_videos": 200,
+  "current_videos": 35,
+  "numerical_checks_passed": true,
+  "scientific_review": {
+    "subject_vs_tools": "FlyVis is the research subject; YOLO26, XYWHByteTrack and MASA are the environment.",
+    "duplication": "Components, variant definitions, measured effects and historical comparisons have separate purposes.",
+    "actual_vs_planned": "Only the completed spatial-v2 D result is reported; newer readouts and replacement of ByteTrack are not claimed as measured HOTA."
+  },
+  "sources_sha256": {
+    "runs/z13_shared_masa_hota_v1_20261015/full/eval/report.json": "fac4456426a714cd0b3869ab4d409df0a26b4f5050cc82767ef2148342fc0ad2",
+    "experiments/results/tracker_zoo_960_tau025.csv": "4675a22e112650536e0c339a170ba172d49b7bd41849bd52414d4da69b1079d3",
+    "runs/z13_shared_masa_hota_v1_20261015/full/protocol.json": "5d6392e368880635d226e5be771405e6b92709d3b783a8325200db18ca9d66d6",
+    "tracking/z13_spatial_localizer.py": "ccdcccfb37762a8c790c2fdc747da5677da8da393a8dd19659ebf37c569d0472",
+    "tracking/masa_r50.py": "181f52a2f3b1964554818dd7ddcdeb4bc8c203ff4794eedc1b3e7ee8166569d7",
+    "scripts/stitch_eval_v2.py": "6bf055eceebf7253cfad66f6b5a974135378482ec95a9634f2cdeebd5b3a0437",
+    "scripts/z13_eval.py": "3756ac663e5fb130b7d389797461aef6ac21d99b7dd0f9df6f0a9917491207a4"
+  }
+}
