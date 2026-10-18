@@ -12347,6 +12347,149 @@
    "interpretation": "Дешёвый критерий повторного использования прежнего балла не выполнен. Это не диагноз представления и не закрытие линии.",
    "decision": "score_reuse_not_confirmed_at_primary_coverage",
    "cannot_claim": "Нет HOTA, доказательства пользы стенду, полной оценки риска на неизвестных исходах или равного по ёмкости контроля без FlyVis. Доли2%/5% не заменяют основной критерий1%."
+  },
+  {
+   "id": "z13_next_utility_v1",
+   "title": "З13: оценка полезности по наблюдаемым признакам",
+   "area": "flyvis",
+   "state": "inconclusive",
+   "started": "2026-10-18",
+   "question": "Поможет ли обучение точному событию полезности при фиксированных центрах D?",
+   "hypothesis": "Learn a utility output on fixed saved centers; no response maps in this limited implementation.",
+   "expected": "At global top1%, both paired95%video-bootstrap lower bounds of D utility minus original and D utility minus geometry exceed0. Secondary2/5% cannot rescue failure.",
+   "acceptance": [
+    {
+     "criterion": "Разделение по видео и исключение истинных ошибок/рамок из входов проверены",
+     "met": true,
+     "evidence": "runs/z13_parallel_next_20261018/utility/report.json"
+    },
+    {
+     "criterion": "At global top1%, both paired95%video-bootstrap lower bounds of D utility minus original and D utility minus geometry exceed0. Secondary2/5% cannot rescue failure.",
+     "met": false,
+     "evidence": "runs/z13_parallel_next_20261018/utility/report.json"
+    }
+   ],
+   "tags": [
+    "Z13",
+    "fly-problem-P8"
+   ],
+   "runs": [
+    "runs/z13_parallel_next_20261018/utility"
+   ],
+   "files": [
+    "scripts/z13_parallel_next.py"
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_parallel_next_20261018/protocol.json",
+     "claim": "Условия до запуска"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_parallel_next_20261018/utility/report.json",
+     "claim": "Полный первичный результат"
+    }
+   ],
+   "done": "2026-10-18",
+   "obtained": "runs/z13_parallel_next_20261018/utility/report.json (arms.D.coverage): {\"original\": {\"0.01\": {\"selected\": 84, \"known\": 64, \"unknown\": 20, \"useful\": 2, \"harmful\": 62, \"useful_share_known\": 0.03125}, \"0.02\": {\"selected\": 167, \"known\": 132, \"unknown\": 35, \"useful\": 4, \"harmful\": 128, \"useful_share_known\": 0.030303030303030304}, \"0.05\": {\"selected\": 417, \"known\": 338, \"unknown\": 79, \"useful\": 9, \"harmful\": 329, \"useful_share_known\": 0.026627218934911243}}, \"geometry\": {\"0.01\": {\"selected\": 84, \"known\": 38, \"unknown\": 46, \"useful\": 5, \"harmful\": 33, \"useful_share_known\": 0.13157894736842105}, \"0.02\": {\"selected\": 167, \"known\": 83, \"unknown\": 84, \"useful\": 18, \"harmful\": 65, \"useful_share_known\": 0.21686746987951808}, \"0.05\": {\"selected\": 417, \"known\": 232, \"unknown\": 185, \"useful\": 47, \"harmful\": 185, \"useful_share_known\": 0.2025862068965517}}, \"utility\": {\"0.01\": {\"selected\": 84, \"known\": 36, \"unknown\": 48, \"useful\": 5, \"harmful\": 31, \"useful_share_known\": 0.1388888888888889}, \"0.02\": {\"selected\": 167, \"known\": 82, \"unknown\": 85, \"useful\": 17, \"harmful\": 65, \"useful_share_known\": 0.2073170731707317}, \"0.05\": {\"selected\": 417, \"known\": 233, \"unknown\": 184, \"useful\": 49, \"harmful\": 184, \"useful_share_known\": 0.21030042918454936}}}",
+   "interpretation": "Ограниченный оценщик по геометрии и одному баллу не прошёл основной критерий; преимущество над геометрией не доказано. Полные карты ответа не проверялись.",
+   "decision": "limited_observables_utility_gate_not_passed",
+   "cannot_claim": "Нет HOTA, доказательства пользы стенду, гарантии риска на неизвестных исходах или вывода о неработоспособности FlyVis."
+  },
+  {
+   "id": "z13_next_differentiable_v1",
+   "title": "З13: дифференцируемое считывание модели цели",
+   "area": "flyvis",
+   "state": "infrastructure",
+   "started": "2026-10-18",
+   "question": "Можно ли передать градиент через нынешнее считывание до ядра D без изменения выхода?",
+   "hypothesis": "Torch ridge implementation, no optimizer steps.",
+   "expected": "NumPy parity<1e-10, numerical gradcheck passes, finite nonzero gradient to actual D parameters; weights and source files unchanged.",
+   "acceptance": [
+    {
+     "criterion": "NumPy parity<1e-10, numerical gradcheck passes, finite nonzero gradient to actual D parameters; weights and source files unchanged.",
+     "met": true,
+     "evidence": "runs/z13_parallel_next_20261018/differentiable/report.json"
+    }
+   ],
+   "tags": [
+    "Z13",
+    "fly-problem-P8"
+   ],
+   "runs": [
+    "runs/z13_parallel_next_20261018/differentiable"
+   ],
+   "files": [
+    "scripts/z13_parallel_next.py"
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_parallel_next_20261018/protocol.json",
+     "claim": "Условия до запуска"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_parallel_next_20261018/differentiable/report.json",
+     "claim": "Полный первичный результат"
+    }
+   ],
+   "done": "2026-10-18",
+   "obtained": "runs/z13_parallel_next_20261018/differentiable/report.json: {\"numpy_max_error\": 5.551115123125783e-16, \"gradcheck\": true, \"real_D_max_error\": 7.632783294297951e-17, \"core_gradient_norms\": [0.02710512839257717, 0.008192316628992558, 0.535889744758606], \"weights_unchanged\": true, \"test_video\": \"0001542f-5ce3cf52\", \"episode\": 1, \"search_position\": 0, \"optimizer_steps\": 0, \"cuda_initialized\": false, \"primary_pass\": true, \"decision\": \"technical_readout_gradient_ready\", \"scientific_improvement_measured\": false}",
+   "interpretation": "Техническое совпадение и градиент проверены на реальном фрагменте D; ни одного обновления весов. Это готовность реализации, не улучшение научных метрик.",
+   "decision": "technical_readout_gradient_ready",
+   "cannot_claim": "Нет HOTA, доказательства пользы стенду, гарантии риска на неизвестных исходах или вывода о неработоспособности FlyVis."
+  },
+  {
+   "id": "z13_aligned_core_v1",
+   "title": "З13: обучение D через модель цели с центрированной регрессией",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-18",
+   "question": "Улучшает ли новый режим обучения D её центры относительно начальной D и штатной C?",
+   "hypothesis": "Градиент через применяемую модель цели может сделать признаки D полезнее; причинность прежнего отставания не установлена.",
+   "expected": "250 шагов с фиксированным условием продолжения до1000; только ядро734. НачальнаяD воспроизводится, считывание и нормировка фиксированы. Dev35 только после полного train-критерия; HOTA/75 не запускаются.",
+   "acceptance": [
+    {
+     "criterion": "Before updates: all initialD train26 rows paired, max center diff<0.5px, score diff<0.001; lambda unchanged. Do not weaken tolerances.",
+     "met": null
+    },
+    {
+     "criterion": "At1000steps: lower95%video CI Dadapted-Dinitial>0, mean>=2pp, and lower95%CI Dadapted-Ccenter>0. Other comparisons descriptive. No checkpoint selection by dev.",
+     "met": null
+    }
+   ],
+   "tags": [
+    "Z13",
+    "fly-problem-P2",
+    "fly-problem-P8"
+   ],
+   "runs": [
+    "runs/z13_aligned_core_20261018"
+   ],
+   "files": [
+    "scripts/z13_aligned_core.py",
+    "tracking/z13_target_center_torch.py",
+    "tracking/z13_aligned_loss.py"
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_aligned_core_20261018/protocol.json",
+     "claim": "Постановка, бюджет и критерии до GPU"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_parallel_next_20261018/differentiable/report.json",
+     "claim": "Пройденная техническая проверка градиента без обновления весов"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_aligned_core_20261018/controller.json",
+     "claim": "Фактический запуск, устройство и независимый срок"
+    }
+   ]
   }
  ],
  "manual_events": [
