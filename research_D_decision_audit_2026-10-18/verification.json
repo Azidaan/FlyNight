@@ -1,0 +1,61 @@
+{
+  "verified_at": "2026-10-18T11:07:35.883339+00:00",
+  "checks": {
+    "research_D_decision_audit_2026-10-18/01_ПОЗИЦИЯ_ДО_ПОИСКА.md": {
+      "expected": "8541bb57a4f5bbc3346c8888eb97b5d3089d06a862a5950dbdfe75063460f997",
+      "actual": "8541bb57a4f5bbc3346c8888eb97b5d3089d06a862a5950dbdfe75063460f997",
+      "unchanged": true
+    },
+    "tracking/z13_target_center.py": {
+      "expected": "018153b2b3c004d3f216ff2488b3df18af8a21d5c27087ad31d68e3d4a67811b",
+      "actual": "018153b2b3c004d3f216ff2488b3df18af8a21d5c27087ad31d68e3d4a67811b",
+      "unchanged": true
+    },
+    "scripts/z13_spatial_train.py": {
+      "expected": "649509916bafab12a21c5abfa896ba2d8e3b2a82a85b9927e37517a056ee7337",
+      "actual": "649509916bafab12a21c5abfa896ba2d8e3b2a82a85b9927e37517a056ee7337",
+      "unchanged": true
+    },
+    "runs/z13_spatial_v2_20261013/D/full/model.pt": {
+      "expected": "c6688eeb2dc19bb7d5dffd6075d2a8e330c0afca0a8ae995b6d92b67305ba2b8",
+      "actual": "c6688eeb2dc19bb7d5dffd6075d2a8e330c0afca0a8ae995b6d92b67305ba2b8",
+      "unchanged": true
+    },
+    "runs/z13_continue_20261017/baseline/rows.json": {
+      "expected": "203c7132788856d0a88e0976765e48fa1724dbec8ec91296049394ec27cd2bf6",
+      "actual": "203c7132788856d0a88e0976765e48fa1724dbec8ec91296049394ec27cd2bf6",
+      "unchanged": true
+    },
+    "runs/z13_target_center_20261018/report.json": {
+      "expected": "c93994d7d3b14b07b6a167fa692c62d4f81cded2053e8505a5e38a36b57dabee",
+      "actual": "c93994d7d3b14b07b6a167fa692c62d4f81cded2053e8505a5e38a36b57dabee",
+      "unchanged": true
+    },
+    "runs/z13_target_center_dev_20261018/report.json": {
+      "expected": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
+      "actual": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
+      "unchanged": true
+    },
+    "runs/z13_score_swap_20261018/report.json": {
+      "expected": "eca447af4c6c6be9463dd0913b3097dffcf5ef898ef12a5a187a8666aa51e17d",
+      "actual": "eca447af4c6c6be9463dd0913b3097dffcf5ef898ef12a5a187a8666aa51e17d",
+      "unchanged": true
+    }
+  },
+  "all_unchanged": true,
+  "documentary_scope": "No training, feature extraction, video processing, or experimental evaluation",
+  "artifacts": {
+    "01_ПОЗИЦИЯ_ДО_ПОИСКА.md": "8541bb57a4f5bbc3346c8888eb97b5d3089d06a862a5950dbdfe75063460f997",
+    "02_ИСТОЧНИКИ_И_СРАВНЕНИЕ.md": "106351602a7ae23791a0f64b206b0136ab1d000facce1a99e5d5b79fed426e83",
+    "СВОДКА.md": "5c278939cc2dc2edab06105ef2ceb4e59ebdd35726b5684d1bc6ece5cc286f54"
+  },
+  "existing_result_only": {
+    "source": "runs/z13_target_center_dev_20261018/report.json",
+    "baseline_locator": "summary.D_prior.useful_mean_video",
+    "candidate_locator": "summary.D_center.useful_mean_video",
+    "baseline": 0.14298976501615715,
+    "candidate": 0.18290858670822752,
+    "relative_percent": 27.91725805518999,
+    "not_hota": true
+  }
+}
