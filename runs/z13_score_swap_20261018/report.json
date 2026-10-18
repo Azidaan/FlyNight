@@ -1,0 +1,202 @@
+{
+  "results": {
+    "train": {
+      "0.01": {
+        "summary": {
+          "old_center_old_score": {
+            "selected": 84,
+            "known": 30,
+            "unknown": 54,
+            "useful": 7,
+            "known_nonuseful": 23,
+            "precision_known": 0.23333333333333334
+          },
+          "new_center_new_score": {
+            "selected": 84,
+            "known": 64,
+            "unknown": 20,
+            "useful": 2,
+            "known_nonuseful": 62,
+            "precision_known": 0.03125
+          },
+          "new_center_old_score": {
+            "selected": 84,
+            "known": 30,
+            "unknown": 54,
+            "useful": 6,
+            "known_nonuseful": 24,
+            "precision_known": 0.2
+          },
+          "old_center_new_score": {
+            "selected": 84,
+            "known": 64,
+            "unknown": 20,
+            "useful": 2,
+            "known_nonuseful": 62,
+            "precision_known": 0.03125
+          },
+          "R1_reference": {
+            "selected": 84,
+            "known": 48,
+            "unknown": 36,
+            "useful": 1,
+            "known_nonuseful": 47,
+            "precision_known": 0.020833333333333332
+          }
+        },
+        "paired_selected_success": {
+          "new_center_old_score-old_center_old_score": {
+            "mean_per_video": -0.0005321431535023767,
+            "ci95": [
+              -0.0026587005227781926,
+              0.0014580888367296135
+            ],
+            "better": 1,
+            "n": 26
+          },
+          "new_center_old_score-new_center_new_score": {
+            "mean_per_video": 0.021653838368016914,
+            "ci95": [
+              -1.969356808066489e-05,
+              0.0619471248306582
+            ],
+            "better": 4,
+            "n": 26
+          }
+        }
+      },
+      "0.02": {
+        "summary": {
+          "old_center_old_score": {
+            "selected": 167,
+            "known": 70,
+            "unknown": 97,
+            "useful": 13,
+            "known_nonuseful": 57,
+            "precision_known": 0.18571428571428572
+          },
+          "new_center_new_score": {
+            "selected": 167,
+            "known": 132,
+            "unknown": 35,
+            "useful": 4,
+            "known_nonuseful": 128,
+            "precision_known": 0.030303030303030304
+          },
+          "new_center_old_score": {
+            "selected": 167,
+            "known": 70,
+            "unknown": 97,
+            "useful": 11,
+            "known_nonuseful": 59,
+            "precision_known": 0.15714285714285714
+          },
+          "old_center_new_score": {
+            "selected": 167,
+            "known": 132,
+            "unknown": 35,
+            "useful": 3,
+            "known_nonuseful": 129,
+            "precision_known": 0.022727272727272728
+          },
+          "R1_reference": {
+            "selected": 167,
+            "known": 109,
+            "unknown": 58,
+            "useful": 4,
+            "known_nonuseful": 105,
+            "precision_known": 0.03669724770642202
+          }
+        },
+        "paired_selected_success": {
+          "new_center_old_score-old_center_old_score": {
+            "mean_per_video": -0.001118921082316286,
+            "ci95": [
+              -0.00378692394751005,
+              0.0014846264846264845
+            ],
+            "better": 2,
+            "n": 26
+          },
+          "new_center_old_score-new_center_new_score": {
+            "mean_per_video": 0.023229025513794712,
+            "ci95": [
+              -0.0006467077925611808,
+              0.06492435864681537
+            ],
+            "better": 7,
+            "n": 26
+          }
+        }
+      },
+      "0.05": {
+        "summary": {
+          "old_center_old_score": {
+            "selected": 417,
+            "known": 202,
+            "unknown": 215,
+            "useful": 37,
+            "known_nonuseful": 165,
+            "precision_known": 0.18316831683168316
+          },
+          "new_center_new_score": {
+            "selected": 417,
+            "known": 338,
+            "unknown": 79,
+            "useful": 9,
+            "known_nonuseful": 329,
+            "precision_known": 0.026627218934911243
+          },
+          "new_center_old_score": {
+            "selected": 417,
+            "known": 202,
+            "unknown": 215,
+            "useful": 49,
+            "known_nonuseful": 153,
+            "precision_known": 0.24257425742574257
+          },
+          "old_center_new_score": {
+            "selected": 417,
+            "known": 338,
+            "unknown": 79,
+            "useful": 8,
+            "known_nonuseful": 330,
+            "precision_known": 0.023668639053254437
+          },
+          "R1_reference": {
+            "selected": 417,
+            "known": 302,
+            "unknown": 115,
+            "useful": 4,
+            "known_nonuseful": 298,
+            "precision_known": 0.013245033112582781
+          }
+        },
+        "paired_selected_success": {
+          "new_center_old_score-old_center_old_score": {
+            "mean_per_video": 0.009044357262196852,
+            "ci95": [
+              -0.001030202850478302,
+              0.021741944289384904
+            ],
+            "better": 12,
+            "n": 26
+          },
+          "new_center_old_score-new_center_new_score": {
+            "mean_per_video": 0.04547048059130823,
+            "ci95": [
+              0.017971376545142814,
+              0.08985722128032518
+            ],
+            "better": 20,
+            "n": 26
+          }
+        }
+      },
+      "primary_pass": false
+    }
+  },
+  "dev_evaluated": false,
+  "decision": "score_reuse_not_confirmed_at_primary_coverage",
+  "limitations": "Old center/new score completes factorial. R1 center/own score is contextual no-FlyVis reference only: lacks an old spatial head, hence not a matched control of this two-readout intervention. selected_success_fraction_positive: unselected positive cases count as no useful intervention; known negative and unknown selections reported separately. Not HOTA or calibrated risk."
+}

@@ -1,0 +1,38 @@
+{
+  "id": "z13_score_swap_v1",
+  "created_at": "2026-10-18T13:51:49.375976+03:00",
+  "sources": {
+    "train": {
+      "old": "runs/z13_continue_20261017/baseline/rows.json",
+      "new": "runs/z13_target_center_20261018/D/center_rows.json",
+      "r1": "runs/z13_target_center_20261018/R1/center_rows.json"
+    },
+    "dev": {
+      "old": "runs/z13_target_center_dev_20261018/aggregate/D_prior_rows.json",
+      "new": "runs/z13_target_center_dev_20261018/aggregate/D_center_rows.json",
+      "r1": "runs/z13_target_center_dev_20261018/aggregate/R1_center_rows.json"
+    }
+  },
+  "sha256": {
+    "runs/z13_continue_20261017/baseline/rows.json": "203c7132788856d0a88e0976765e48fa1724dbec8ec91296049394ec27cd2bf6",
+    "runs/z13_target_center_20261018/D/center_rows.json": "26ff5d902626d4e755a136c34d0dd766604a260872009cc593fb22a970f3d4a3",
+    "runs/z13_target_center_20261018/R1/center_rows.json": "b7276d99027f20b7e14cf2f2dfa12480b3aacf5631fc6e12d032ba7847765230",
+    "runs/z13_target_center_dev_20261018/aggregate/D_prior_rows.json": "11563dd6e89dbc122d2ed2440a4b3869ebb5ac4c010b711ffc2061a546de4d03",
+    "runs/z13_target_center_dev_20261018/aggregate/D_center_rows.json": "1204221fb162c1826eab6a7aa8a2dca2b2cad209f8b4e2450fbdcb489b489626",
+    "runs/z13_target_center_dev_20261018/aggregate/R1_center_rows.json": "e4d79f2e70d402dcfc05d925b5d133eeb1ebe59ad3adea9680d36ba56f7b4101",
+    "scripts/z13_score_swap.py": "623e8268517f91eb49c325389c9a2f2e072fefac986371d5b432596201bac20b"
+  },
+  "action": "Retain new D centers, replace only p_present with the old D readout score. Full 2x2 factorial; no fitting.",
+  "primary": "At fixed global 1% rank coverage: lower95%video-bootstrap CI of selected useful centers per all positive cases must exceed0 against both old-center/old-score and new-center/new-score. Secondary2%/5% cannot rescue failure of primary.",
+  "metric": "selected_success_fraction_positive: unselected positive cases count as no useful intervention; known negative and unknown selections reported separately. Not HOTA or calibrated risk.",
+  "selection": "Train26 only for advancement. Open dev outcome only if the fixed train criterion passes; dev already used elsewhere, so exploratory. No parameter/threshold search.",
+  "controls": "Old center/new score completes factorial. R1 center/own score is contextual no-FlyVis reference only: lacks an old spatial head, hence not a matched control of this two-readout intervention.",
+  "counterargument": "Old presence score may recognize the object while failing to assess the accuracy of a different center; sparse1% selections may yield uncertain intervals.",
+  "decision_value": "Decide whether a simple internal score reuse is worth a full matched intervention check; failure does not diagnose the whole representation or close FlyVis.",
+  "literature": [
+    "https://arxiv.org/abs/1811.07628",
+    "https://arxiv.org/abs/2003.12565"
+  ],
+  "scope": "Saved predictions only, CPU, no core training, GPU, videos, HOTA, heldout75 or model scheduling.",
+  "budget_seconds": 120
+}
