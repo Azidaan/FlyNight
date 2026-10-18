@@ -16,3 +16,37 @@
   (head): Sequential()
 )
 [2026-10-18 17:13:59] chkpt_utils:65 Recovered flow decoder state.
+[2026-10-18 17:35:42] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-10-18 17:35:47] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-10-18 17:35:47] chkpt_utils:36 Recovered network state.
+[2026-10-18 17:35:49] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-10-18 17:35:49] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-10-18 17:35:49] chkpt_utils:65 Recovered flow decoder state.
+[2026-10-18 17:55:03] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-10-18 17:55:08] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-10-18 17:55:08] chkpt_utils:36 Recovered network state.
+[2026-10-18 17:55:10] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-10-18 17:55:10] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-10-18 17:55:10] chkpt_utils:65 Recovered flow decoder state.

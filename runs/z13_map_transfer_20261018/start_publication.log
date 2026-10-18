@@ -1,2 +1,19 @@
 [OK] файлов: 763, удалено устаревших: 2 → E:\Dissertation\ObsidianFlyVis
 Preserved existing edited files: 22
+warning: in the working copy of 'scripts/z13_map_transfer.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/z13_map_transfer_progress.ps1', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/test_z13_utility_transfer.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tracking/z13_utility_transfer.py', LF will be replaced by CRLF the next time Git touches it
+runs/z13_map_transfer_20261018/open_progress.cmd:1: trailing whitespace.
++@echo off
+
+runs/z13_map_transfer_20261018/open_progress.cmd:2: trailing whitespace.
++start "FlyVis transfer" powershell.exe -NoExit -NoProfile -ExecutionPolicy Bypass -File "E:\Dissertation\scripts\z13_map_transfer_progress.ps1" -Run "E:\Dissertation\runs\z13_map_transfer_20261018"
+
+Traceback (most recent call last):
+  File "<string>", line 5, in <module>
+  File "E:\Dissertation\scripts\z13_record_next.py", line 136, in validate_and_publish
+    subprocess.run(['git','diff','--cached','--check'],cwd=ROOT,check=True)
+  File "E:\Dissertation\python310\tools\lib\subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'diff', '--cached', '--check']' returned non-zero exit status 2.

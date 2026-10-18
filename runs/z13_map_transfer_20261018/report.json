@@ -1,0 +1,642 @@
+{
+  "arms": {
+    "C": {
+      "coverage": {
+        "geometry": {
+          "0.01": {
+            "selected": 94,
+            "known": 62,
+            "unknown": 32,
+            "useful": 15,
+            "harmful": 47,
+            "useful_share_known": 0.24193548387096775
+          },
+          "0.02": {
+            "selected": 187,
+            "known": 120,
+            "unknown": 67,
+            "useful": 30,
+            "harmful": 90,
+            "useful_share_known": 0.25
+          },
+          "0.05": {
+            "selected": 466,
+            "known": 279,
+            "unknown": 187,
+            "useful": 62,
+            "harmful": 217,
+            "useful_share_known": 0.2222222222222222
+          }
+        },
+        "limited": {
+          "0.01": {
+            "selected": 94,
+            "known": 57,
+            "unknown": 37,
+            "useful": 16,
+            "harmful": 41,
+            "useful_share_known": 0.2807017543859649
+          },
+          "0.02": {
+            "selected": 187,
+            "known": 117,
+            "unknown": 70,
+            "useful": 30,
+            "harmful": 87,
+            "useful_share_known": 0.2564102564102564
+          },
+          "0.05": {
+            "selected": 466,
+            "known": 282,
+            "unknown": 184,
+            "useful": 67,
+            "harmful": 215,
+            "useful_share_known": 0.2375886524822695
+          }
+        },
+        "map_utility": {
+          "0.01": {
+            "selected": 94,
+            "known": 52,
+            "unknown": 42,
+            "useful": 15,
+            "harmful": 37,
+            "useful_share_known": 0.28846153846153844
+          },
+          "0.02": {
+            "selected": 187,
+            "known": 112,
+            "unknown": 75,
+            "useful": 31,
+            "harmful": 81,
+            "useful_share_known": 0.2767857142857143
+          },
+          "0.05": {
+            "selected": 466,
+            "known": 289,
+            "unknown": 177,
+            "useful": 76,
+            "harmful": 213,
+            "useful_share_known": 0.2629757785467128
+          }
+        },
+        "original": {
+          "0.01": {
+            "selected": 94,
+            "known": 82,
+            "unknown": 12,
+            "useful": 0,
+            "harmful": 82,
+            "useful_share_known": 0.0
+          },
+          "0.02": {
+            "selected": 187,
+            "known": 170,
+            "unknown": 17,
+            "useful": 1,
+            "harmful": 169,
+            "useful_share_known": 0.0058823529411764705
+          },
+          "0.05": {
+            "selected": 466,
+            "known": 427,
+            "unknown": 39,
+            "useful": 2,
+            "harmful": 425,
+            "useful_share_known": 0.00468384074941452
+          }
+        }
+      },
+      "paired_selected_success": {
+        "0.01": {
+          "map_utility-original": {
+            "mean_per_video": 0.007515924762081761,
+            "ci95": [
+              0.002248085112719259,
+              0.01535670708786101
+            ],
+            "better": 10,
+            "n": 35
+          },
+          "map_utility-geometry": {
+            "mean_per_video": -6.235081784428627e-05,
+            "ci95": [
+              -0.00861369993102984,
+              0.009575725210015023
+            ],
+            "better": 4,
+            "n": 35
+          },
+          "map_utility-limited": {
+            "mean_per_video": -0.000901141656635125,
+            "ci95": [
+              -0.0099134835888687,
+              0.008931056473626122
+            ],
+            "better": 3,
+            "n": 35
+          }
+        },
+        "0.02": {
+          "map_utility-original": {
+            "mean_per_video": 0.01761995226651446,
+            "ci95": [
+              0.009051262398407985,
+              0.027288575244656617
+            ],
+            "better": 17,
+            "n": 35
+          },
+          "map_utility-geometry": {
+            "mean_per_video": 0.003200472010980658,
+            "ci95": [
+              -0.008460732263228582,
+              0.015133618832394209
+            ],
+            "better": 9,
+            "n": 35
+          },
+          "map_utility-limited": {
+            "mean_per_video": 0.0011917479342206383,
+            "ci95": [
+              -0.01177078927935648,
+              0.014015788183093607
+            ],
+            "better": 8,
+            "n": 35
+          }
+        },
+        "0.05": {
+          "map_utility-original": {
+            "mean_per_video": 0.053534715856725014,
+            "ci95": [
+              0.02987543704901155,
+              0.08809294029357481
+            ],
+            "better": 23,
+            "n": 35
+          },
+          "map_utility-geometry": {
+            "mean_per_video": 0.02070304941591507,
+            "ci95": [
+              -0.003242968647044933,
+              0.05689321977580158
+            ],
+            "better": 12,
+            "n": 35
+          },
+          "map_utility-limited": {
+            "mean_per_video": 0.017864846473439902,
+            "ci95": [
+              -0.0035157589198019554,
+              0.052165348207413455
+            ],
+            "better": 12,
+            "n": 35
+          }
+        }
+      },
+      "mean_selected_success": {
+        "geometry": 0.007578275579926048,
+        "limited": 0.008417066418716888,
+        "map_utility": 0.007515924762081762,
+        "original": 0.0
+      }
+    },
+    "D": {
+      "coverage": {
+        "geometry": {
+          "0.01": {
+            "selected": 94,
+            "known": 58,
+            "unknown": 36,
+            "useful": 14,
+            "harmful": 44,
+            "useful_share_known": 0.2413793103448276
+          },
+          "0.02": {
+            "selected": 187,
+            "known": 111,
+            "unknown": 76,
+            "useful": 25,
+            "harmful": 86,
+            "useful_share_known": 0.22522522522522523
+          },
+          "0.05": {
+            "selected": 466,
+            "known": 291,
+            "unknown": 175,
+            "useful": 58,
+            "harmful": 233,
+            "useful_share_known": 0.19931271477663232
+          }
+        },
+        "limited": {
+          "0.01": {
+            "selected": 94,
+            "known": 58,
+            "unknown": 36,
+            "useful": 11,
+            "harmful": 47,
+            "useful_share_known": 0.1896551724137931
+          },
+          "0.02": {
+            "selected": 187,
+            "known": 114,
+            "unknown": 73,
+            "useful": 24,
+            "harmful": 90,
+            "useful_share_known": 0.21052631578947367
+          },
+          "0.05": {
+            "selected": 466,
+            "known": 290,
+            "unknown": 176,
+            "useful": 60,
+            "harmful": 230,
+            "useful_share_known": 0.20689655172413793
+          }
+        },
+        "map_utility": {
+          "0.01": {
+            "selected": 94,
+            "known": 48,
+            "unknown": 46,
+            "useful": 14,
+            "harmful": 34,
+            "useful_share_known": 0.2916666666666667
+          },
+          "0.02": {
+            "selected": 187,
+            "known": 114,
+            "unknown": 73,
+            "useful": 29,
+            "harmful": 85,
+            "useful_share_known": 0.2543859649122807
+          },
+          "0.05": {
+            "selected": 466,
+            "known": 283,
+            "unknown": 183,
+            "useful": 62,
+            "harmful": 221,
+            "useful_share_known": 0.21908127208480566
+          }
+        },
+        "original": {
+          "0.01": {
+            "selected": 94,
+            "known": 85,
+            "unknown": 9,
+            "useful": 2,
+            "harmful": 83,
+            "useful_share_known": 0.023529411764705882
+          },
+          "0.02": {
+            "selected": 187,
+            "known": 168,
+            "unknown": 19,
+            "useful": 3,
+            "harmful": 165,
+            "useful_share_known": 0.017857142857142856
+          },
+          "0.05": {
+            "selected": 466,
+            "known": 423,
+            "unknown": 43,
+            "useful": 5,
+            "harmful": 418,
+            "useful_share_known": 0.01182033096926714
+          }
+        }
+      },
+      "paired_selected_success": {
+        "0.01": {
+          "map_utility-original": {
+            "mean_per_video": 0.008294473500973117,
+            "ci95": [
+              0.00303871436231551,
+              0.014282209974754432
+            ],
+            "better": 10,
+            "n": 35
+          },
+          "map_utility-geometry": {
+            "mean_per_video": 0.00441540559359915,
+            "ci95": [
+              -0.0027162140524315684,
+              0.01209218102887
+            ],
+            "better": 8,
+            "n": 35
+          },
+          "map_utility-limited": {
+            "mean_per_video": 0.0050160739311095924,
+            "ci95": [
+              -0.0019454462877201031,
+              0.012558492442140851
+            ],
+            "better": 9,
+            "n": 35
+          }
+        },
+        "0.02": {
+          "map_utility-original": {
+            "mean_per_video": 0.016039939348519848,
+            "ci95": [
+              0.008807240287867099,
+              0.024289758677233514
+            ],
+            "better": 17,
+            "n": 35
+          },
+          "map_utility-geometry": {
+            "mean_per_video": 0.0044199515702705635,
+            "ci95": [
+              -0.006831201875198163,
+              0.0157379069774718
+            ],
+            "better": 11,
+            "n": 35
+          },
+          "map_utility-limited": {
+            "mean_per_video": 0.007069822025019067,
+            "ci95": [
+              -0.0024184172261839066,
+              0.017448566963712966
+            ],
+            "better": 11,
+            "n": 35
+          }
+        },
+        "0.05": {
+          "map_utility-original": {
+            "mean_per_video": 0.03305804076881564,
+            "ci95": [
+              0.020010777616975322,
+              0.0481459847560479
+            ],
+            "better": 20,
+            "n": 35
+          },
+          "map_utility-geometry": {
+            "mean_per_video": 0.0008105956069378155,
+            "ci95": [
+              -0.015614631568611844,
+              0.01679969935588494
+            ],
+            "better": 10,
+            "n": 35
+          },
+          "map_utility-limited": {
+            "mean_per_video": -0.0009970607889538742,
+            "ci95": [
+              -0.016574813235746073,
+              0.012191038056801221
+            ],
+            "better": 10,
+            "n": 35
+          }
+        }
+      },
+      "mean_selected_success": {
+        "geometry": 0.005908172232030658,
+        "limited": 0.005307503894520216,
+        "map_utility": 0.01032357782562981,
+        "original": 0.002029104324656692
+      }
+    },
+    "R1": {
+      "coverage": {
+        "geometry": {
+          "0.01": {
+            "selected": 94,
+            "known": 49,
+            "unknown": 45,
+            "useful": 2,
+            "harmful": 47,
+            "useful_share_known": 0.04081632653061224
+          },
+          "0.02": {
+            "selected": 187,
+            "known": 107,
+            "unknown": 80,
+            "useful": 6,
+            "harmful": 101,
+            "useful_share_known": 0.056074766355140186
+          },
+          "0.05": {
+            "selected": 466,
+            "known": 276,
+            "unknown": 190,
+            "useful": 26,
+            "harmful": 250,
+            "useful_share_known": 0.09420289855072464
+          }
+        },
+        "limited": {
+          "0.01": {
+            "selected": 94,
+            "known": 45,
+            "unknown": 49,
+            "useful": 1,
+            "harmful": 44,
+            "useful_share_known": 0.022222222222222223
+          },
+          "0.02": {
+            "selected": 187,
+            "known": 104,
+            "unknown": 83,
+            "useful": 6,
+            "harmful": 98,
+            "useful_share_known": 0.057692307692307696
+          },
+          "0.05": {
+            "selected": 466,
+            "known": 271,
+            "unknown": 195,
+            "useful": 25,
+            "harmful": 246,
+            "useful_share_known": 0.09225092250922509
+          }
+        },
+        "map_utility": {
+          "0.01": {
+            "selected": 94,
+            "known": 47,
+            "unknown": 47,
+            "useful": 6,
+            "harmful": 41,
+            "useful_share_known": 0.1276595744680851
+          },
+          "0.02": {
+            "selected": 187,
+            "known": 111,
+            "unknown": 76,
+            "useful": 14,
+            "harmful": 97,
+            "useful_share_known": 0.12612612612612611
+          },
+          "0.05": {
+            "selected": 466,
+            "known": 283,
+            "unknown": 183,
+            "useful": 32,
+            "harmful": 251,
+            "useful_share_known": 0.11307420494699646
+          }
+        },
+        "original": {
+          "0.01": {
+            "selected": 94,
+            "known": 67,
+            "unknown": 27,
+            "useful": 2,
+            "harmful": 65,
+            "useful_share_known": 0.029850746268656716
+          },
+          "0.02": {
+            "selected": 187,
+            "known": 136,
+            "unknown": 51,
+            "useful": 3,
+            "harmful": 133,
+            "useful_share_known": 0.022058823529411766
+          },
+          "0.05": {
+            "selected": 466,
+            "known": 362,
+            "unknown": 104,
+            "useful": 5,
+            "harmful": 357,
+            "useful_share_known": 0.013812154696132596
+          }
+        }
+      },
+      "paired_selected_success": {
+        "0.01": {
+          "map_utility-original": {
+            "mean_per_video": 0.00012095300640192287,
+            "ci95": [
+              -0.004539092830114503,
+              0.004023088023088024
+            ],
+            "better": 3,
+            "n": 35
+          },
+          "map_utility-geometry": {
+            "mean_per_video": 0.0010678062488075327,
+            "ci95": [
+              -0.0018759018759018761,
+              0.004522231669343342
+            ],
+            "better": 4,
+            "n": 35
+          },
+          "map_utility-limited": {
+            "mean_per_video": 0.0018614570424583263,
+            "ci95": [
+              -0.0002755373281689072,
+              0.004968907857226214
+            ],
+            "better": 4,
+            "n": 35
+          }
+        },
+        "0.02": {
+          "map_utility-original": {
+            "mean_per_video": 0.00416342653674355,
+            "ci95": [
+              0.0012754689754689756,
+              0.007780497535240496
+            ],
+            "better": 7,
+            "n": 35
+          },
+          "map_utility-geometry": {
+            "mean_per_video": 0.002985510491589175,
+            "ci95": [
+              -0.000825113180215876,
+              0.007606078734835434
+            ],
+            "better": 6,
+            "n": 35
+          },
+          "map_utility-limited": {
+            "mean_per_video": 0.0029883964944751778,
+            "ci95": [
+              -0.0006047231900890436,
+              0.007450472249817182
+            ],
+            "better": 6,
+            "n": 35
+          }
+        },
+        "0.05": {
+          "map_utility-original": {
+            "mean_per_video": 0.011770475576290212,
+            "ci95": [
+              0.005083147513284478,
+              0.019699550994115644
+            ],
+            "better": 13,
+            "n": 35
+          },
+          "map_utility-geometry": {
+            "mean_per_video": 0.00142573080472348,
+            "ci95": [
+              -0.0029792673094983747,
+              0.006357094853345696
+            ],
+            "better": 6,
+            "n": 35
+          },
+          "map_utility-limited": {
+            "mean_per_video": 0.001497430749337417,
+            "ci95": [
+              -0.0031108187027635036,
+              0.006534174718239885
+            ],
+            "better": 6,
+            "n": 35
+          }
+        }
+      },
+      "mean_selected_success": {
+        "geometry": 0.0010822510822510823,
+        "limited": 0.0002886002886002886,
+        "map_utility": 0.002150057331058615,
+        "original": 0.002029104324656692
+      }
+    }
+  },
+  "paired": {
+    "C_map_utility-R1_map_utility": {
+      "mean_per_video": 0.005365867431023146,
+      "ci95": [
+        -0.00018939068450346628,
+        0.013498889740670842
+      ],
+      "better": 7,
+      "n": 35
+    },
+    "C_map_utility-D_map_utility": {
+      "mean_per_video": -0.0028076530635480473,
+      "ci95": [
+        -0.009873493577950981,
+        0.004197872251848711
+      ],
+      "better": 7,
+      "n": 35
+    }
+  },
+  "primary_pass": false,
+  "fly_control_pass": false,
+  "proceed": false,
+  "decision": "ranking_transfer_not_confirmed; no_dev_retuning_or_tracker_application",
+  "dev_evaluated": true,
+  "hota_measured": false,
+  "cuda_initialized": false,
+  "limitations": "C selected from auxiliary results. Reused dev35 is not blind. Core D fit104; head train26; evaluation dev35 disjoint. One seed, no safety guarantee for unknowns, no HOTA, no heldout75.",
+  "deployment_caveat": "Global1% rank is diagnostic and uses all scores; not an online threshold or risk guarantee. No tracker application in this protocol."
+}
