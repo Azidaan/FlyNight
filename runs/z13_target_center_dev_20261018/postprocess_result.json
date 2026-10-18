@@ -1,0 +1,29 @@
+{
+  "checks": [
+    {
+      "command": [
+        "scripts/validate_project_history.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "-m",
+        "pytest",
+        "tests/test_project_history.py",
+        "-q"
+      ],
+      "exit_code": 0
+    },
+    {
+      "command": [
+        "scripts/z13_build_vault_preserving_edits.py",
+        "--report",
+        "E:\\Dissertation\\runs\\z13_target_center_dev_20261018\\result_vault_preservation.json"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "git_commit_pending": true,
+  "chat_calls": 0
+}
