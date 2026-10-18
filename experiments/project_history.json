@@ -12490,6 +12490,54 @@
      "claim": "Фактический запуск, устройство и независимый срок"
     }
    ]
+  },
+  {
+   "id": "z13_map_utility_v1",
+   "title": "З13: оценка полезности по полной карте ответа",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-18",
+   "question": "Добавляют ли неоднозначность и форма карты ответа пользу отбора сверх геометрии и высоты пика?",
+   "hypothesis": "Восемь заранее заданных статистик карты могут отделять полезные центры от уверенных неверных; это гипотеза.",
+   "expected": "At1%: D map-utility minus original, geometry and limited utility all lower95%video CIs>0.2/5% secondary, not rescue. D/C/R1 map-head comparisons separate.",
+   "acceptance": [
+    {
+     "criterion": "For every fixed source row: identical video/label/kind/useful; center difference<0.5px, peak difference<0.001. Use saved original centers/outcomes for final comparison.",
+     "met": null
+    },
+    {
+     "criterion": "At1%: D map-utility minus original, geometry and limited utility all lower95%video CIs>0.2/5% secondary, not rescue. D/C/R1 map-head comparisons separate.",
+     "met": null
+    }
+   ],
+   "tags": [
+    "Z13",
+    "fly-problem-P8"
+   ],
+   "runs": [
+    "runs/z13_map_utility_20261018"
+   ],
+   "files": [
+    "scripts/z13_map_utility.py",
+    "tracking/z13_response_utility.py"
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_map_utility_20261018/protocol.json",
+     "claim": "Фиксированные признаки/контроли до извлечения"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_parallel_next_20261018/utility/report.json",
+     "claim": "Неуспех ограниченного оценщика, основание следующей реализации"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_map_utility_20261018/controller.json",
+     "claim": "Фактический CPU-запуск и предел времени"
+    }
+   ]
   }
  ],
  "manual_events": [
