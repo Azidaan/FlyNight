@@ -1,0 +1,5674 @@
+{
+  "date": "21.10.2026",
+  "scope": "One sheet; architectural replacements, not all tracker experiments",
+  "source_sha256": {
+    "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
+    "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
+    "AGENTS.md": "d5ad4c126d1b9a4f77d18dcaab2143fe4b9d918e81ca98c127b95a0683ac4da7",
+    "tracking/foveated_eyes.py": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
+    "runs/flyvis/results/flow/0000/000/_meta.yaml": "2aa8a9505324c82bbb4011ee2f7c375b5f8b1bddde1a5281e038baecf91fc5dd",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "scripts/z13_target_model.py": "e7bc7967c8d5fdf04983ed3e01c5fae9d54dbc6ed7b4b17c4c10235beccd862a",
+    "tracking/flyvis_activity.py": "cbed742a83d365275f59818fc7eee0912ba46e726e4c4c40f242f907dac29d3d",
+    "tracking/z13_spatial.py": "df9b1b275892fc802509baf1e74797c63afb457e22852a6e2e01c4368669f533",
+    "tracking/z13_target_center.py": "018153b2b3c004d3f216ff2488b3df18af8a21d5c27087ad31d68e3d4a67811b",
+    "tracking/z13_response_utility.py": "211c86dc916dc56451662dba572d362d884def647551b6dcefb461dc5c231445",
+    "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
+    "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
+    "scripts/z13_score_swap.py": "623e8268517f91eb49c325389c9a2f2e072fefac986371d5b432596201bac20b",
+    "experiments/project_history.json": "0d5778bea140710de2adaab99783a9d8d3a243819b266e26c403d8c370194ae6"
+  },
+  "cards": {
+    "fly_connectome_null_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_connectome_null_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/fly_reid_null/compare.json",
+          "locator": "aggregate, bootstrap",
+          "claim": "настоящая против перемешанной мухи"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_reid_null/report.json",
+          "locator": "ladder",
+          "claim": "лестница голов на перемешанной мухе"
+        }
+      ]
+    },
+    "fly_decoder_refit_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_decoder_refit_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/ЕДИНЫЙ_ПЛАН.md",
+          "locator": "§7.7, Д4",
+          "claim": "постановка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/d4_decoder_refit/summary.json",
+          "locator": "summary, per_video",
+          "claim": "ошибка переноса рамки по полям движения"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/d4_decoder_refit/gain_recheck.json",
+          "locator": "summary",
+          "claim": "перепроверка усиления"
+        }
+      ]
+    },
+    "fly_dynamic_norm_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_dynamic_norm_v1]",
+      "state": "closed",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/fly_stage_probe/stages.json",
+          "locator": "lcn24.photo/early.train_c1_test_c0.25",
+          "claim": "зависимость от контраста на входе"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_dynamic_norm/synthetic.json",
+          "locator": "raw, lcn24, dyn",
+          "claim": "ступень А"
+        }
+      ]
+    },
+    "fly_efference_eye_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_efference_eye_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/fly_eye_coord_check/report.json",
+          "locator": "object, crop",
+          "claim": "перемещение вырезки измеряется полностью; масштаб по осям различается"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_persistent_eye/report.json",
+          "locator": "diff",
+          "claim": "действующая реализация без пользы стенду"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_efference_eye/calib.json",
+          "locator": "checks, passed",
+          "claim": "техническая проверка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_efference_eye/gain_diag.json",
+          "locator": "rows",
+          "claim": "перенос калибровки между изображениями"
+        }
+      ]
+    },
+    "fly_efference_eye_v2": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_efference_eye_v2]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/fly_efference_eye_v2/protocol.json",
+          "locator": "gate",
+          "claim": "Критерии до запуска"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_efference_eye_v2/gate.json",
+          "locator": "agg",
+          "claim": "Техническая проверка на обоих наборах"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_efference_eye_v2/night_result.json",
+          "locator": "finished",
+          "claim": "Завершение ограниченного запуска"
+        }
+      ]
+    },
+    "fly_eye_frontend_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_eye_frontend_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/ЕДИНЫЙ_ПЛАН.md",
+          "locator": "§7.5, правило 6.14",
+          "claim": "основание: пересчёт после детектора не создаёт свидетельства"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/gate_g3/summary.json",
+          "locator": "sets.devtest, sets.val7",
+          "claim": "полнота при равном FP и слепота по вариантам входа"
+        }
+      ]
+    },
+    "fly_finetune_k1_core_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_finetune_k1_core_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/fly_scale_probe/real.json",
+          "locator": "2x3s1_lcn24.summary_night",
+          "claim": "опорное число штатной мухи + lcn24"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_stage_probe/stages.json",
+          "locator": "lcn24",
+          "claim": "декодер не узкое место — ограничение в ступенях сети"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_k1_v2/summary.json",
+          "locator": "summary.night, speed, arms",
+          "claim": "итог К1 v2"
+        }
+      ]
+    },
+    "fly_finetune_k1_pilot_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_finetune_k1_pilot_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/d4_decoder_refit/summary.json",
+          "locator": "summary",
+          "claim": "исходные ошибки: DIS 2,6 / ноль 7,4 / муха 8,0 px"
+        },
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/ЕДИНЫЙ_ПЛАН.md",
+          "locator": "§7.6, §7.7",
+          "claim": "К1 в отборе RPM; рецепт F18"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/d4_decoder_refit/gain_recheck.json",
+          "locator": "summary.all",
+          "claim": "муха с усилением стенда хуже нулевого движения"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_finetune_k1/summary.json",
+          "locator": "summary, vs_zero",
+          "claim": "итог пилота"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_finetune_k1/synthetic.json",
+          "locator": "",
+          "claim": "контроль процедуры на искусственном сдвиге"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_finetune_k1/axes_probe.json",
+          "locator": "stand_px",
+          "claim": "оси верны, усиление стенда завышено"
+        }
+      ]
+    },
+    "fly_flywire_swap_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_flywire_swap_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "data/flywire/flyvis_variants/variants_info.json",
+          "locator": "",
+          "claim": "варианты связей"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flywire_flyvis/compare.json",
+          "locator": "",
+          "claim": "сверка FlyWire и FlyVis"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_flywire_swap/heads_compare.json",
+          "locator": "AP, diff",
+          "claim": "итог К16-1"
+        }
+      ]
+    },
+    "fly_future_keeptrack_candidates_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_future_keeptrack_candidates_v1]",
+      "state": "planned",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_flyvis_mechanism_2026-10-16/ИНЖЕНЕРНЫЕ_АНАЛОГИ.md",
+          "locator": "раздел 3",
+          "claim": "Инженерный механизм и ограничения переноса"
+        },
+        {
+          "kind": "file",
+          "ref": "research_flyvis_mechanism_2026-10-16/ПРОВЕРКА_РЕКОМЕНДАЦИИ_CODEX.md",
+          "locator": "раздел 4",
+          "claim": "Контроли и правило решения до расчёта"
+        }
+      ]
+    },
+    "fly_future_kys_state_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_future_kys_state_v1]",
+      "state": "planned",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_flyvis_mechanism_2026-10-16/ИНЖЕНЕРНЫЕ_АНАЛОГИ.md",
+          "locator": "раздел 2",
+          "claim": "Инженерный механизм и ограничения переноса"
+        },
+        {
+          "kind": "file",
+          "ref": "research_flyvis_mechanism_2026-10-16/ПРОВЕРКА_РЕКОМЕНДАЦИИ_CODEX.md",
+          "locator": "раздел 4",
+          "claim": "Контроли и правило решения до расчёта"
+        }
+      ]
+    },
+    "fly_future_stmtrack_memory_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_future_stmtrack_memory_v1]",
+      "state": "planned",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_flyvis_mechanism_2026-10-16/ИНЖЕНЕРНЫЕ_АНАЛОГИ.md",
+          "locator": "раздел 5",
+          "claim": "Инженерный механизм и ограничения переноса"
+        },
+        {
+          "kind": "file",
+          "ref": "research_flyvis_mechanism_2026-10-16/ПРОВЕРКА_РЕКОМЕНДАЦИИ_CODEX.md",
+          "locator": "раздел 4",
+          "claim": "Контроли и правило решения до расчёта"
+        }
+      ]
+    },
+    "fly_gain_tracker_recheck_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_gain_tracker_recheck_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/fly_gain_recheck/tracker_injection.json",
+          "locator": "mean_HOTA",
+          "claim": "HOTA по вариантам"
+        }
+      ]
+    },
+    "fly_input_norm_hota_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_input_norm_hota_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/fly_scale_probe/real.json",
+          "locator": "2x3s1_lcn24",
+          "claim": "выигрыш в переносе рамки и масштаб 3,0 по train"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_gain_recheck/hota_lcn24.json",
+          "locator": "mean_HOTA, diff",
+          "claim": "итог HOTA"
+        }
+      ]
+    },
+    "fly_input_norm_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_input_norm_v1]",
+      "state": "completed_positive",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/fly_scale_probe/noise_probe.json",
+          "locator": "",
+          "claim": "ложный поток на неподвижном кадре и его исчезновение после нормализации"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_scale_probe/real.json",
+          "locator": "2x3s1_lcn24.summary_night; 2x3s1.summary_night; comparison_lcn24_vs_raw",
+          "claim": "итог на реальных видео"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_scale_probe/real.json",
+          "locator": "2x3s1_retina; comparison_retina_vs_lcn24",
+          "claim": "вариант retina"
+        }
+      ]
+    },
+    "fly_motion_photometric_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_motion_photometric_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/motion_scheme_search/trust_heldout_auc.json",
+          "locator": "conf_only",
+          "claim": "уверенность поля AUC 0,51"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/motion_scheme_search/photo_summary.json",
+          "locator": "diff",
+          "claim": "итог"
+        }
+      ]
+    },
+    "fly_motion_trust_cheap_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_motion_trust_cheap_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/fly_motion_trust/summary.json",
+          "locator": "bins",
+          "claim": "уверенность не различает, мелкие рамки — самая высокая уверенность"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/motion_scheme_search/trust_cheap.json",
+          "locator": "grid_tune, held_out_24",
+          "claim": "итог"
+        }
+      ]
+    },
+    "fly_motion_trust_learned_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_motion_trust_learned_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/motion_scheme_search/dev.json",
+          "locator": "_summary.r5_all_fly_oracle",
+          "claim": "потолок идеального выбора +0,99 HOTA"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/motion_scheme_search/trust_learned.json",
+          "locator": "with_fly-none, no_fly-none, with_fly-no_fly",
+          "claim": "итог"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/motion_scheme_search/trust_heldout_auc.json",
+          "locator": "",
+          "claim": "различение на отложенных"
+        }
+      ]
+    },
+    "fly_motion_trust_learned_v2": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_motion_trust_learned_v2]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/motion_scheme_search/trust_heldout_auc.json",
+          "locator": "with_fly.all24, no_fly.all24",
+          "claim": "различение на отложенных"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/motion_scheme_search/trust_learned_v2.json",
+          "locator": "",
+          "claim": "итог"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_motion_trust/val7/summary.json",
+          "locator": "",
+          "claim": "поле мухи на val7 без сбоя"
+        }
+      ]
+    },
+    "fly_object_readout_z13_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_object_readout_z13_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_prep/stats.json",
+          "locator": "Olost-stand, counts",
+          "claim": "ориентир действия и объём примеров"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_data/t1.json",
+          "locator": "passed",
+          "claim": "Т1 пройдена на 130 видео train"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13/skipfly_check.json",
+          "locator": "passed, hota_masa",
+          "claim": "режим без мухи воспроизводит стенд с MASA"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_codex_repair_20261013/data_check.json",
+          "locator": "passed, ownership_mismatches",
+          "claim": "После исправления загрузчика все метки 130 train относятся к своим эпизодам; Т1 пройдена"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_codex_window_20261013/t2/report.json",
+          "locator": "conditions",
+          "claim": "Все пять заранее записанных технических условий Т2 выполнены; это не оценка HOTA"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_codex_window_20261013/t3_acceptance.json",
+          "locator": "passed",
+          "claim": "Приёмка двух технических прогонов Т3: полнота кадров, конечность выхода, счётчики и предварительная оценка цены; не оценка HOTA"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_codex_window_20261013/training_result.json",
+          "locator": "arms, working_threshold_found",
+          "claim": "Все три варианта завершили 4000 шагов; рабочий τ отсутствует"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_threshold_diagnostic_20261013/report.json",
+          "locator": "arms, interpretation",
+          "claim": "Точный перебор не спас модели; ограничения локализации и отбора полезных поправок"
+        }
+      ]
+    },
+    "fly_persistent_eye_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_persistent_eye_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/fovea_target_30hz/report.json",
+          "locator": "diff.O2-stand|all",
+          "claim": "оракульный запас поправки потерянных треков"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_persistent_eye/report.json",
+          "locator": "diff",
+          "claim": "К1, К2, DIS"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_persistent_eye/fit_corrected.json",
+          "locator": "carry.g, reinit.g, dis.g",
+          "claim": "исправленный подбор g (пары внутри видео)"
+        }
+      ]
+    },
+    "fly_scale_probe_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_scale_probe_v1]",
+      "state": "closed",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/fly_finetune_k1/axes_probe.json",
+          "locator": "stand_px",
+          "claim": "при сетке стенда R² плитки 0,36–0,39"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_scale_probe/synthetic.json",
+          "locator": "",
+          "claim": "шаг А"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_scale_probe/speed_response.json",
+          "locator": "",
+          "claim": "отклик на скорость"
+        }
+      ]
+    },
+    "fly_signature_reid_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_signature_reid_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/План целей по Трекеру.md",
+          "locator": "1.7. Реестр, Н11",
+          "claim": "функции мухи без аналога у DIS"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_reid/report.json",
+          "locator": "ladder, bootstrap, stitch, stitch_bootstrap",
+          "claim": "лестница голов и сшивка"
+        }
+      ]
+    },
+    "fly_spatial_hota_policy_z13_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_spatial_hota_policy_z13_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_hota_v1_20261014/protocol.json",
+          "claim": "Политика и критерии до HOTA"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_v2_20261013/final_verification.json",
+          "claim": "Исходное завершённое обучение и провал прежнего допуска"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_hota_v1_20261014/technical/report.json",
+          "claim": "Technical probe, no HOTA or annotation reading"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_hota_v1_20261014/technical/masa_price/report.json",
+          "claim": "One-video MASA inference price"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_hota_v1_20261014/price.json",
+          "claim": "Arithmetic workload estimate, not guaranteed bound"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_hota_v1_20261014/timing_contract.json",
+          "claim": "Neuron timing matches training; environment kept unchanged"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_hota_v1_20261014/full_authorization.json",
+          "claim": "Прямое разрешение автора на окно до 10 часов; готовность файлов и свободные блокировки проверены"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_hota_v1_20261014/launch_verification.json",
+          "claim": "Запуск подтверждён обработкой кадров; независимый контроль срока проверен на собственном процессе"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_triton_hota_v1_20261014/full/launch_verification.json",
+          "claim": "По просьбе автора тот же протокол продолжен отдельным скомпилированным исполнением после проверки совпадения; старые выходы сохранены"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_triton_hota_v1_20261014/full/deadline_revision_0740.json",
+          "claim": "Автор сократил срок на 15.10 07:40; прежнее разрешение сохранено отдельно"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_shared_masa_hota_v1_20261015/full/reuse_proof.json",
+          "claim": "Автор разрешил переход после строгой проверки MASA; научный протокол не менялся"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_shared_masa_hota_v1_20261015/full/eval/report.json",
+          "claim": "Полный первичный HOTA, парные интервалы, события и критерии"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_shared_masa_hota_v1_20261015/full/final_verification.json",
+          "claim": "Полнота 107 заданий, неизменность исходных контрактов и завершение собственного дерева"
+        }
+      ]
+    },
+    "fly_spatial_quality_z13_v2": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_spatial_quality_z13_v2]",
+      "state": "closed",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_v2_20261013/protocol.json",
+          "claim": "Зафиксирован до первого GPU-шага"
+        },
+        {
+          "kind": "file",
+          "ref": "research_z13_spatial_readout_2026-10-13/СВОДКА.md",
+          "claim": "Литературная опора и критика"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_v2_20261013/technical/report.json",
+          "claim": "Технические проверки и цена короткой пробы"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_v2_20261013/status.json",
+          "claim": "Состояние последовательного контроллера"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_v2_20261013/recovery_20261013_io/report.json",
+          "claim": "Восстановление после WinError 5: сохранён шаг 3610, веса/оптимизатор/генераторы точно сохранены; продолжение подтверждено новым сохранением."
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_v2_20261013/training_result.json",
+          "claim": "Все B/C/D завершены, train-only пороги отсутствуют"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_spatial_v2_20261013/final_verification.json",
+          "claim": "Все сохранения и экспорт совпадают; CPU-сверка уверенности и кривых порога точная"
+        }
+      ]
+    },
+    "fly_wide_field_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=fly_wide_field_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/fly_stage_probe/stages.json",
+          "locator": "lcn24",
+          "claim": "слабый поколоночный сигнал T4/T5"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/motion_scheme_search/dev.json",
+          "locator": "r5_all",
+          "claim": "штатная муха вредит в схеме 5 Гц, DIS помогает"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_wide_field/stage1.json",
+          "locator": "summary.night",
+          "claim": "перенос рамки: t45_pool, dec_pool, stock, ноль, DIS"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/fly_wide_field/openloop.json",
+          "locator": "t45_pool.closed / open",
+          "claim": "несовпадение обучения и применения провал не объясняет"
+        }
+      ]
+    },
+    "flyvis_fovea_motion_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=flyvis_fovea_motion_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/План целей по Трекеру.md",
+          "locator": "1.7. Реестр",
+          "claim": "Н1 — ошибка движения при фовеации"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_fovea_motion/report.json",
+          "locator": "aggregate, per_video, gain",
+          "claim": "ошибки, коэффициент, корреляция"
+        }
+      ]
+    },
+    "flyvis_foveation_readout_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=flyvis_foveation_readout_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/План целей по Трекеру.md",
+          "locator": "3.3. Цель 2",
+          "claim": "фовеация — обязательная абляция охвата; размер вырезки фиксируется до опыта"
+        },
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/План целей по Трекеру.md",
+          "locator": "1.6. Точки остановки линии A",
+          "claim": "A1 после лучшего варианта считывания и охвата"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/qmatch_readout_gate/fovea_30hz/report.json",
+          "locator": "comparisons",
+          "claim": "пять парных бутстрапов"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/qmatch_readout_gate/nonlinear_diag/report.json",
+          "locator": "feature_groups",
+          "claim": "нелинейная диагностика"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_fovea/summary.json",
+          "locator": "*",
+          "claim": "кэш фовеальных считываний"
+        },
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/ЕДИНЫЙ_ПЛАН.md",
+          "locator": "Журнал изменений",
+          "claim": "16.09 — точка A1"
+        }
+      ]
+    },
+    "flyvis_internal_readout_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=flyvis_internal_readout_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/План целей по Трекеру.md",
+          "locator": "3.3. Цель 2",
+          "claim": "считывание определяется до опыта; внутренняя активность обязательна; контроль shuffled"
+        },
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/План целей по Трекеру.md",
+          "locator": "1.6. Точки остановки линии A",
+          "claim": "точка A1 после цели 2 требует лучший вариант считывания и охвата"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/qmatch_readout_gate/readout_30hz/report.json",
+          "locator": "comparisons",
+          "claim": "пять парных бутстрапов по видео"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_activity/summary.json",
+          "locator": "*.flow_reproduction",
+          "claim": "кэш активности воспроизводит поток"
+        },
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/ЕДИНЫЙ_ПЛАН.md",
+          "locator": "Журнал изменений",
+          "claim": "16.09 — отрицательный гейт считывания"
+        }
+      ]
+    },
+    "flyvis_readout_nonlinear_diag": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=flyvis_readout_nonlinear_diag]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/План целей по Трекеру.md",
+          "locator": "1.6. Точки остановки линии A",
+          "claim": "решение по A1 должно быть устойчиво к очевидным возражениям"
+        }
+      ]
+    },
+    "flyvis_retina_frontend_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=flyvis_retina_frontend_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/План целей по Трекеру.md",
+          "locator": "1.7. Реестр, Н9",
+          "claim": "вход вне распределения при слабом освещении; решение — фронт-энд"
+        },
+        {
+          "kind": "markdown",
+          "ref": "dissertation/Исследование_модернизация_мухи.md",
+          "locator": "1.1, 3 (М1)",
+          "claim": "диагноз по стратификации motion_reliability_v1 и постановка М1"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/retina_frontend/report_val7.json",
+          "locator": "modes, acceptance",
+          "claim": "ступень A на val7"
+        }
+      ]
+    },
+    "flyvis_retina_stageB_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=flyvis_retina_stageB_v1]",
+      "state": "completed_positive",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/motion_reliability_lamina/report.json",
+          "locator": "strata, groups",
+          "claim": "лестница Н2 с ламиной"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/motion_reliability_none_strata/report.json",
+          "locator": "strata, groups",
+          "claim": "эталон без сетчатки"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/motion_reliability_lamina/strata_bootstrap.json",
+          "locator": "lamina-none|dark|geometry_dis_fly",
+          "claim": "парный бутстреп по тёмным роликам"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/retina_frontend/stageB_partial.json",
+          "locator": "none, lamina",
+          "claim": "предварительный расчёт 09:1x"
+        }
+      ]
+    },
+    "flyvis_stress": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=flyvis_stress]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_stress_gate/combined/summary.json",
+          "locator": "metrics",
+          "claim": "метрики трёх вариантов"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_stress_gate/combined/occlusion_transitions.json",
+          "claim": "окклюзионные переходы"
+        },
+        {
+          "kind": "markdown",
+          "ref": "FLYVIS_STRESS_AND_SECOND_ASSOCIATION_REPORT.md",
+          "locator": "§3–5",
+          "claim": "итог на семи видео и стресс-видео"
+        },
+        {
+          "kind": "plan_section",
+          "ref": "dissertation/ЕДИНЫЙ_ПЛАН.md",
+          "locator": "§0",
+          "claim": "текущее состояние 13.09"
+        }
+      ]
+    },
+    "z13_aligned_core_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_aligned_core_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_aligned_core_20261018/protocol.json",
+          "claim": "Постановка, бюджет и критерии до GPU"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_parallel_next_20261018/differentiable/report.json",
+          "claim": "Пройденная техническая проверка градиента без обновления весов"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_aligned_core_20261018/controller.json",
+          "claim": "Фактический запуск, устройство и независимый срок"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_aligned_core_20261018/controller_result.json",
+          "claim": "Реальное окончание своего дерева"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_aligned_core_20261018/report.json",
+          "claim": "Результаты фиксированных ступеней"
+        }
+      ]
+    },
+    "z13_candidate_adaptive_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_candidate_adaptive_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_candidates_20261016/protocol.json",
+          "claim": "Фиксация до новых расчётов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_flyvis_china_2026-10-15/СВОДКА.md",
+          "claim": "Источники и критика"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_candidates_20261016/recovery2_protocol.json",
+          "claim": "Техническое восстановление проверки одинакового считывания; исходные веса, протокол и прежние результаты сохранены"
+        }
+      ]
+    },
+    "z13_candidate_foreground_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_candidate_foreground_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_candidates_20261016/protocol.json",
+          "claim": "Фиксация до новых расчётов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_flyvis_china_2026-10-15/СВОДКА.md",
+          "claim": "Источники и критика"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_candidates_20261016/recovery2_protocol.json",
+          "claim": "Техническое восстановление проверки одинакового считывания; исходные веса, протокол и прежние результаты сохранены"
+        }
+      ]
+    },
+    "z13_candidate_size_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_candidate_size_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_candidates_20261016/protocol.json",
+          "claim": "Фиксация до новых расчётов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_flyvis_china_2026-10-15/СВОДКА.md",
+          "claim": "Источники и критика"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_candidates_20261016/recovery2_protocol.json",
+          "claim": "Техническое восстановление проверки одинакового считывания; исходные веса, протокол и прежние результаты сохранены"
+        }
+      ]
+    },
+    "z13_context_transfer_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_context_transfer_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_context_transfer_20261020/protocol.json",
+          "claim": "Условия зафиксированы до переноса; основание запуска и конечный CPU-бюджет сохранены в full_authorization.json"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_context_transfer_20261020/technical.json",
+          "claim": "Точное воспроизведение направления и прежнего контроля; это техническая готовность"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_context_transfer_20261020/controller_result.json",
+          "claim": "Полный либо частичный первичный итог"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_context_transfer_20261020/technical.json",
+          "claim": "Точное воспроизведение направления и прежнего контроля; это техническая готовность"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_context_transfer_20261020/report.json",
+          "claim": "Полные сравнения по заранее заданным критериям"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_context_transfer_20261020/recovery_summary_audit.json",
+          "claim": "Предсказания и исходники неизменны; неизвестные исходы не подменены"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_context_transfer_20261020/recovery_summary_controller_result.json",
+          "claim": "Отдельное успешное завершение сборки, прежняя ошибка сохранена"
+        }
+      ]
+    },
+    "z13_core_continue_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_core_continue_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_continue_20261017/audit.json",
+          "locator": "passed",
+          "claim": "аудит исходного состояния D"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_continue_20261017/technical_cpu.json",
+          "locator": "passed",
+          "claim": "CPU-проверка исполнения на настоящей D"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_continue_20261017/report.json",
+          "locator": "summary, paired_useful",
+          "claim": "итог пары"
+        }
+      ]
+    },
+    "z13_directional_context_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_directional_context_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_directional_context_20261018/protocol.json",
+          "claim": "Условия и критерии до расчёта"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_directional_context_20261018/report.json",
+          "claim": "Первичный полный либо частичный итог"
+        }
+      ]
+    },
+    "z13_map_transfer_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_map_transfer_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_map_transfer_20261018/protocol.json",
+          "claim": "Критерии, ограничения и исходные хеши до переноса"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_map_transfer_20261018/report.json",
+          "claim": "Полный либо частичный первичный итог переноса"
+        }
+      ]
+    },
+    "z13_map_utility_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_map_utility_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_map_utility_20261018/protocol.json",
+          "claim": "Фиксированные признаки/контроли до извлечения"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_parallel_next_20261018/utility/report.json",
+          "claim": "Неуспех ограниченного оценщика, основание следующей реализации"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_map_utility_20261018/controller.json",
+          "claim": "Фактический CPU-запуск и предел времени"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_map_utility_20261018/report.json",
+          "claim": "Проверенный полный/частичный первичный итог"
+        }
+      ]
+    },
+    "z13_next_utility_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_next_utility_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_parallel_next_20261018/protocol.json",
+          "claim": "Условия до запуска"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_parallel_next_20261018/utility/report.json",
+          "claim": "Полный первичный результат"
+        }
+      ]
+    },
+    "z13_pairwise_utility_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_pairwise_utility_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_pairwise_utility_20261021/protocol.json",
+          "claim": "Критерии и источники до расчёта"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_pairwise_utility_20261021/report.json",
+          "claim": "Полный результат и все основные сравнения"
+        }
+      ]
+    },
+    "z13_score_swap_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_score_swap_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_score_swap_20261018/protocol.json",
+          "claim": "Условия дешёвой проверки до расчёта"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_score_swap_20261018/report.json",
+          "claim": "Полная факторная проверка по сохранённым строкам"
+        }
+      ]
+    },
+    "z13_target_center_dev_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_target_center_dev_v1]",
+      "state": "completed_positive",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/z13_target_center_dev_20261018/protocol.json",
+          "claim": "Условия до просмотра dev-результатов"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_target_center_dev_20261018/controller.json",
+          "claim": "Фактический CPU-запуск и абсолютный срок остановки"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_target_center_dev_20261018/report.json",
+          "claim": "Сохранённые итоги фиксированной dev-проверки"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_target_center_dev_20261018/final_verification.json",
+          "claim": "Повторная проверка парных статистик, исходных хешей и полноты"
+        }
+      ]
+    },
+    "z13_target_model_probe_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_target_model_probe_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "scripts/z13_target_model.py",
+          "locator": "sha256 d427b5806d35e73368cfb974e600758c8fcb83a51e5fd7cf4d9a6b228d72fdf0",
+          "claim": "реализация до запуска"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_target_model_20261017/report.json",
+          "locator": "summary, paired, by_history, verdict",
+          "claim": "итог проверки"
+        }
+      ]
+    },
+    "z13_threshold_diagnostic_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_threshold_diagnostic_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "scripts/z13_threshold_diagnostic.py",
+          "claim": "Перебор полных границ и ограниченный повтор предсказаний"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_threshold_diagnostic_20261013/report.json",
+          "locator": "arms, interpretation",
+          "claim": "Точный перебор не спас модели; ограничения локализации и отбора полезных поправок"
+        }
+      ]
+    },
+    "z13_tree_quality_probe_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_tree_quality_probe_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs\\z13_tree_quality_probe_20261015\\protocol.json",
+          "claim": "Критерии, настройки и источники до расчёта"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_tree_quality_probe_20261015/report.json",
+          "claim": "Полная CPU-проба B/C/D, парный разброс, хеши"
+        },
+        {
+          "kind": "file",
+          "ref": "research_flyvis_decision_trees_2026-10-15/СВОДКА.md",
+          "claim": "Первичные работы, границы переноса, исследование и продолжение"
+        }
+      ]
+    }
+  },
+  "nodes": [
+    {
+      "id": "title",
+      "x": 100,
+      "y": 60,
+      "w": 6800,
+      "h": 140,
+      "title": [
+        "FlyVis — архитектура и проверенные замены узлов"
+      ],
+      "body": [
+        "Один лист · состояние на 21.10.2026 · читать по центральной цепочке слева направо, затем по ответвлениям каждого узла."
+      ],
+      "footer": [],
+      "kind": "note",
+      "ref": "",
+      "card": "",
+      "size": 26
+    },
+    {
+      "id": "legend0",
+      "x": 100,
+      "y": 230,
+      "w": 1640,
+      "h": 180,
+      "title": [
+        "ИСХОДНОЕ / СОХРАНЁННОЕ"
+      ],
+      "body": [
+        "Серая цепочка: реализация и общие узлы. Стрелки показывают данные."
+      ],
+      "footer": [],
+      "kind": "base",
+      "ref": "",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "legend1",
+      "x": 1820,
+      "y": 230,
+      "w": 1640,
+      "h": 180,
+      "title": [
+        "ОПРОБОВАНО БЕЗ ПРИНЯТОЙ ЗАМЕНЫ"
+      ],
+      "body": [
+        "Жёлтый: отрицательный либо неопределённый итог; точный статус написан внутри."
+      ],
+      "footer": [],
+      "kind": "tried",
+      "ref": "",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "legend2",
+      "x": 3540,
+      "y": 230,
+      "w": 1640,
+      "h": 180,
+      "title": [
+        "ПОДТВЕРЖДЁННЫЙ ЧАСТНЫЙ ЭФФЕКТ"
+      ],
+      "body": [
+        "Зелёный: указанный узел / сравнение улучшены. Это не обещание HOTA."
+      ],
+      "footer": [],
+      "kind": "good",
+      "ref": "",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "legend3",
+      "x": 5260,
+      "y": 230,
+      "w": 1640,
+      "h": 180,
+      "title": [
+        "ПЛАН, ЕЩЁ НЕ РЕЗУЛЬТАТ"
+      ],
+      "body": [
+        "Пунктир: возможное изменение. Не включено в доказанную архитектуру."
+      ],
+      "footer": [],
+      "kind": "future",
+      "ref": "",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "head0",
+      "x": 100,
+      "y": 450,
+      "w": 730,
+      "h": 125,
+      "title": [
+        "01 ВХОД И АДАПТАЦИЯ ЯРКОСТИ"
+      ],
+      "body": [
+        ""
+      ],
+      "footer": [],
+      "kind": "note",
+      "ref": "",
+      "card": "",
+      "size": 18
+    },
+    {
+      "id": "v_flyvis_retina_frontend_v1",
+      "x": 100,
+      "y": 600,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Адаптивный фоторецептор"
+      ],
+      "body": [
+        "Вместо gray/255: сжатие яркости I/(I + адаптация), локальное среднее и",
+        "временная адаптация.",
+        "НЕОПРЕДЕЛЁННО: Один входной модуль; результат неоднозначен, это не",
+        "доказанная польза HOTA."
+      ],
+      "footer": [
+        "flyvis_retina_frontend_v1"
+      ],
+      "kind": "tried",
+      "ref": "flyvis_retina_frontend_v1",
+      "card": "flyvis_retina_frontend_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_eye_frontend_v1",
+      "x": 100,
+      "y": 990,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Глаз перед детектором"
+      ],
+      "body": [
+        "Вместо исходного изображения YOLO: кадр после фоторецептора и",
+        "накопления.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Внешнее применение входного узла.",
+        "Проверенная версия не помогла детектору."
+      ],
+      "footer": [
+        "fly_eye_frontend_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_eye_frontend_v1",
+      "card": "fly_eye_frontend_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_dynamic_norm_v1",
+      "x": 100,
+      "y": 1380,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Динамическая нормализация"
+      ],
+      "body": [
+        "Вместо фиксированной локальной нормализации lcn24: изменяющаяся",
+        "во времени нормализация сигнала.",
+        "ЭТА ВЕРСИЯ ОСТАНОВЛЕНА: Эта реализация не стала подтверждённой",
+        "заменой lcn24."
+      ],
+      "footer": [
+        "fly_dynamic_norm_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_dynamic_norm_v1",
+      "card": "fly_dynamic_norm_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_input_norm_hota_v1",
+      "x": 100,
+      "y": 1770,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Нормализованный поток в стенде"
+      ],
+      "body": [
+        "Вместо прежнего источника движения: поток FlyVis после нормализации",
+        "контраста.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Улучшение измерения движения не",
+        "превратилось в подтверждённое улучшение HOTA."
+      ],
+      "footer": [
+        "fly_input_norm_hota_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_input_norm_hota_v1",
+      "card": "fly_input_norm_hota_v1",
+      "size": 20
+    },
+    {
+      "id": "base0_0",
+      "x": 100,
+      "y": 3530,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "КАДР ВИДЕО"
+      ],
+      "body": [
+        "BDD100K MOT → изображение текущего кадра. YOLO26 относится",
+        "к окружению; разметка будущего кадра не подаётся в FlyVis."
+      ],
+      "footer": [
+        "tracking/flyvis_motion.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/flyvis_motion.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base0_1",
+      "x": 100,
+      "y": 3905,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ИСХОДНЫЙ ВХОД"
+      ],
+      "body": [
+        "Оттенки серого → gray/255. Штатная модель обучалась на Sintel",
+        "для движения. Ретина и lcn24 — отдельные проверенные входные",
+        "варианты, не обязательные части З13."
+      ],
+      "footer": [
+        "tracking/retina.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/retina.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base0_2",
+      "x": 100,
+      "y": 4280,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ГРАНИЦА МОДЕРНИЗАЦИИ"
+      ],
+      "body": [
+        "Можно менять подготовку входа глаза. Успех входного узла",
+        "проверяется отдельно от применения его перед YOLO."
+      ],
+      "footer": [
+        "AGENTS.md"
+      ],
+      "kind": "base",
+      "ref": "AGENTS.md",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "head1",
+      "x": 960,
+      "y": 450,
+      "w": 730,
+      "h": 125,
+      "title": [
+        "02 ГЕОМЕТРИЯ ГЛАЗА"
+      ],
+      "body": [
+        ""
+      ],
+      "footer": [],
+      "kind": "note",
+      "ref": "",
+      "card": "",
+      "size": 18
+    },
+    {
+      "id": "v_flyvis_stress",
+      "x": 960,
+      "y": 600,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Полный кадр / плитки"
+      ],
+      "body": [
+        "Вместо одной области: фиксированная сетка перекрывающихся",
+        "фрагментов полного кадра.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Стресс-проверка не подтвердила пригодность",
+        "этой версии для трекинга."
+      ],
+      "footer": [
+        "flyvis_stress"
+      ],
+      "kind": "tried",
+      "ref": "flyvis_stress",
+      "card": "flyvis_stress",
+      "size": 20
+    },
+    {
+      "id": "v_flyvis_foveation_readout_v1",
+      "x": 960,
+      "y": 990,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Отдельный глаз на трек"
+      ],
+      "body": [
+        "Вместо общих плиток: отдельная вырезка и состояние каждого трека;",
+        "прежнее считывание активности.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: В проверке сопоставления прирост не получен.",
+        "Сам механизм вырезки используется в последующих версиях."
+      ],
+      "footer": [
+        "flyvis_foveation_readout_v1"
+      ],
+      "kind": "tried",
+      "ref": "flyvis_foveation_readout_v1",
+      "card": "flyvis_foveation_readout_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_scale_probe_v1",
+      "x": 960,
+      "y": 1380,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Масштаб и шаг кадров"
+      ],
+      "body": [
+        "Вместо прежнего размера фрагментов и шага: меньшие плитки и",
+        "прореживание кадров.",
+        "ЭТА ВЕРСИЯ ОСТАНОВЛЕНА: Проверенная конфигурация не принята как",
+        "улучшение; не означает бесполезности любого масштаба."
+      ],
+      "footer": [
+        "fly_scale_probe_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_scale_probe_v1",
+      "card": "fly_scale_probe_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_efference_eye_v1",
+      "x": 960,
+      "y": 1770,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Учёт перемещения глаза"
+      ],
+      "body": [
+        "Вместо прежней вырезки: стабилизация входа и калиброванное",
+        "считывание движения.",
+        "НЕОПРЕДЕЛЁННО: Геометрические признаки улучшились, но все",
+        "технические критерии не пройдены."
+      ],
+      "footer": [
+        "fly_efference_eye_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_efference_eye_v1",
+      "card": "fly_efference_eye_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_efference_eye_v2",
+      "x": 960,
+      "y": 2160,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Перенос начального отклика"
+      ],
+      "body": [
+        "Вместо прежней ссылки: перенос начального отклика и калибровка",
+        "накопленного движения.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Технический критерий не выполнен; улучшение",
+        "переноса ссылки не подтверждено."
+      ],
+      "footer": [
+        "fly_efference_eye_v2"
+      ],
+      "kind": "tried",
+      "ref": "fly_efference_eye_v2",
+      "card": "fly_efference_eye_v2",
+      "size": 20
+    },
+    {
+      "id": "base1_0",
+      "x": 960,
+      "y": 3530,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ОБЛАСТЬ НАБЛЮДЕНИЯ"
+      ],
+      "body": [
+        "Полный кадр / фиксированные плитки. В объектной ветви:",
+        "квадрат вокруг прогноза, сторона max(2·max(w,h), 64 px), сдвиг",
+        "внутрь кадра."
+      ],
+      "footer": [
+        "tracking/foveated_eyes.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/foveated_eyes.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base1_1",
+      "x": 960,
+      "y": 3905,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "BOXEYE — ГЕКСАГОНАЛЬНЫЙ ГЛАЗ"
+      ],
+      "body": [
+        "Усреднение и выборка на шестиугольной решётке. extent = 15; 721",
+        "колонка; kernel_size = 13 в конфигурации модели 000. Вход",
+        "эпизода: B × T × 721."
+      ],
+      "footer": [
+        "runs/flyvis/results/flow/0000/000/_meta.yaml"
+      ],
+      "kind": "base",
+      "ref": "runs/flyvis/results/flow/0000/000/_meta.yaml",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base1_2",
+      "x": 960,
+      "y": 4280,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "КООРДИНАТЫ"
+      ],
+      "body": [
+        "Кадр ↔ квадрат глаза ↔ ближайшая колонка. Каждая колонка",
+        "имеет до 6 соседей; отсутствующие краевые соседи заменяются",
+        "самой колонкой."
+      ],
+      "footer": [
+        "tracking/z13_readout.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/z13_readout.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "head2",
+      "x": 1820,
+      "y": 450,
+      "w": 730,
+      "h": 125,
+      "title": [
+        "03 СВЯЗИ И ПАРАМЕТРЫ ЯДРА"
+      ],
+      "body": [
+        ""
+      ],
+      "footer": [],
+      "kind": "note",
+      "ref": "",
+      "card": "",
+      "size": 18
+    },
+    {
+      "id": "v_fly_finetune_k1_pilot_v1",
+      "x": 1820,
+      "y": 600,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Обучение входа и декодера"
+      ],
+      "body": [
+        "Вместо штатного решения Sintel: подстройка входа и декодера под видео",
+        "BDD100K.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Проверенный пилот не дал требуемого",
+        "улучшения движения."
+      ],
+      "footer": [
+        "fly_finetune_k1_pilot_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_finetune_k1_pilot_v1",
+      "card": "fly_finetune_k1_pilot_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_finetune_k1_core_v1",
+      "x": 1820,
+      "y": 990,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Дообучение ядра для движения"
+      ],
+      "body": [
+        "Вместо фиксированного ядра: обучение 734 свободных параметров",
+        "вместе с декодером на нормализованном входе.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Эта постановка не прошла критерий; не",
+        "закрывает обучение FlyVis вообще."
+      ],
+      "footer": [
+        "fly_finetune_k1_core_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_finetune_k1_core_v1",
+      "card": "fly_finetune_k1_core_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_connectome_null_v1",
+      "x": 1820,
+      "y": 1380,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Перемешанные связи"
+      ],
+      "body": [
+        "Контроль вместо исходной схемы: перемешанные связи при сохранении",
+        "степеней и знаков.",
+        "НЕОПРЕДЕЛЁННО: Неопределённый результат. Это проверка вклада",
+        "связей, не принятая модернизация."
+      ],
+      "footer": [
+        "fly_connectome_null_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_connectome_null_v1",
+      "card": "fly_connectome_null_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_flywire_swap_v1",
+      "x": 1820,
+      "y": 1770,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Профили связей FlyWire"
+      ],
+      "body": [
+        "Вместо исходных профилей: профили FlyWire и перемешанный контроль",
+        "при согласованной дозе.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Проверенный перенос не подтвердил нужное",
+        "преимущество."
+      ],
+      "footer": [
+        "fly_flywire_swap_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_flywire_swap_v1",
+      "card": "fly_flywire_swap_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_core_continue_v1",
+      "x": 1820,
+      "y": 2160,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Продолжение обучения D"
+      ],
+      "body": [
+        "Вместо сохранённой D: продолжить обучение ядра; контроль —",
+        "продолжать только считыватель.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Продолжение в этой постановке не улучшило",
+        "результат."
+      ],
+      "footer": [
+        "z13_core_continue_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_core_continue_v1",
+      "card": "z13_core_continue_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_aligned_core_v1",
+      "x": 1820,
+      "y": 2550,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Градиент через модель цели"
+      ],
+      "body": [
+        "Вместо замороженной D: обучать ядро через центрированную модель",
+        "конкретной цели.",
+        "НЕОПРЕДЕЛЁННО: На проверенной ступени улучшение не подтверждено;",
+        "сработала остановка."
+      ],
+      "footer": [
+        "z13_aligned_core_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_aligned_core_v1",
+      "card": "z13_aligned_core_v1",
+      "size": 20
+    },
+    {
+      "id": "base2_0",
+      "x": 1820,
+      "y": 3530,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "КОННЕКТОМ — СХЕМА СВЯЗЕЙ"
+      ],
+      "body": [
+        "fib25-fib19_v2.2: пространственно повторённые типы клеток и",
+        "связи. Модель рекуррентная; это не последовательность",
+        "полносвязных слоёв перцептрона."
+      ],
+      "footer": [
+        "runs/flyvis/results/flow/0000/000/_meta.yaml"
+      ],
+      "kind": "base",
+      "ref": "runs/flyvis/results/flow/0000/000/_meta.yaml",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base2_1",
+      "x": 1820,
+      "y": 3905,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ОБНОВЛЕНИЕ НЕЙРОНА"
+      ],
+      "body": [
+        "Вход + смещение + сумма взвешенных ответов соседей − текущая",
+        "активность. ReLU (обнуление отрицательного ответа); изменение",
+        "делится на постоянную времени."
+      ],
+      "footer": [
+        "tracking/foveated_eyes.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/foveated_eyes.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base2_2",
+      "x": 1820,
+      "y": 4280,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ЧТО ОБУЧАЕТСЯ В D"
+      ],
+      "body": [
+        "734 свободных параметра: смещения нейронов, постоянные",
+        "времени, силы синапсов. C — штатное обученное ядро; D —",
+        "дообученное. Знаки и число синапсов не входят в эти три группы."
+      ],
+      "footer": [
+        "tracking/z13_readout.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/z13_readout.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "head3",
+      "x": 2680,
+      "y": 450,
+      "w": 730,
+      "h": 125,
+      "title": [
+        "04 ВРЕМЯ И СОСТОЯНИЕ"
+      ],
+      "body": [
+        ""
+      ],
+      "footer": [],
+      "kind": "note",
+      "ref": "",
+      "card": "",
+      "size": 18
+    },
+    {
+      "id": "v_fly_persistent_eye_v1",
+      "x": 2680,
+      "y": 600,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Непрерывный глаз при потере"
+      ],
+      "body": [
+        "Вместо закрытия/перезапуска глаза: сохранять состояние и поправлять",
+        "прогноз остаточным потоком.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Польза HOTA и преимущество непрерывности в",
+        "этой реализации не подтверждены."
+      ],
+      "footer": [
+        "fly_persistent_eye_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_persistent_eye_v1",
+      "card": "fly_persistent_eye_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_candidate_adaptive_v1",
+      "x": 2680,
+      "y": 990,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Адаптивное накопление"
+      ],
+      "body": [
+        "Вместо фиксированного смешивания 0,5: обучаемая доля текущей",
+        "активности и перенесённой предыдущей.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Основной критерий локализации не выполнен.",
+        "Это смешивание признаков, не банк отдельных образцов."
+      ],
+      "footer": [
+        "z13_candidate_adaptive_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_candidate_adaptive_v1",
+      "card": "z13_candidate_adaptive_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_signature_reid_v1",
+      "x": 2680,
+      "y": 1380,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Сигнатура состояния"
+      ],
+      "body": [
+        "Вместо одного измерения движения: использовать отпечаток активности",
+        "для повторного узнавания.",
+        "НЕОПРЕДЕЛЁННО: Результат неоднозначен; не доказана надёжная сшивка",
+        "траекторий."
+      ],
+      "footer": [
+        "fly_signature_reid_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_signature_reid_v1",
+      "card": "fly_signature_reid_v1",
+      "size": 20
+    },
+    {
+      "id": "base3_0",
+      "x": 2680,
+      "y": 3530,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ИНИЦИАЛИЗАЦИЯ"
+      ],
+      "body": [
+        "Плавное предъявление первого изображения, fade-in (выход на",
+        "начальное состояние). Затем обновление по последовательности;",
+        "состояние сохраняется между шагами."
+      ],
+      "footer": [
+        "tracking/z13_readout.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/z13_readout.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base3_1",
+      "x": 2680,
+      "y": 3905,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ВРЕМЯ В ОБЪЕКТНОЙ ВЕТВИ"
+      ],
+      "body": [
+        "4 последних наблюдения создают образец; затем идут кадры",
+        "поиска. Между кадрами — интерполяция входа и шаги",
+        "интегрирования. При 30 Гц и max dt=0,02: два шага на кадр."
+      ],
+      "footer": [
+        "tracking/flyvis_motion.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/flyvis_motion.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base3_2",
+      "x": 2680,
+      "y": 4280,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ДВА РАЗНЫХ ВИДА ПАМЯТИ"
+      ],
+      "body": [
+        "Состояние ядра продолжает обновляться. Образец /",
+        "коэффициенты модели цели в текущем эпизоде фиксированы.",
+        "Четыре кадра образца не равны всей временной истории."
+      ],
+      "footer": [
+        "scripts/z13_target_model.py"
+      ],
+      "kind": "base",
+      "ref": "scripts/z13_target_model.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "head4",
+      "x": 3540,
+      "y": 450,
+      "w": 730,
+      "h": 125,
+      "title": [
+        "05 СЧИТЫВАНИЕ ДВИЖЕНИЯ"
+      ],
+      "body": [
+        ""
+      ],
+      "footer": [],
+      "kind": "note",
+      "ref": "",
+      "card": "",
+      "size": 18
+    },
+    {
+      "id": "v_flyvis_internal_readout_v1",
+      "x": 3540,
+      "y": 600,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Активность вместо потока"
+      ],
+      "body": [
+        "Вместо декодированного движения: T4/T5 либо все 34 выходных типа",
+        "внутри рамки и кольца.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: В проверке сопоставления замена не дала",
+        "требуемого преимущества."
+      ],
+      "footer": [
+        "flyvis_internal_readout_v1"
+      ],
+      "kind": "tried",
+      "ref": "flyvis_internal_readout_v1",
+      "card": "flyvis_internal_readout_v1",
+      "size": 20
+    },
+    {
+      "id": "v_flyvis_readout_nonlinear_diag",
+      "x": 3540,
+      "y": 990,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Нелинейное считывание"
+      ],
+      "body": [
+        "Вместо прежней модели на сохранённых признаках: нелинейная модель",
+        "для плиток и фовеального глаза.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Проверенная нелинейность не исправила",
+        "результат."
+      ],
+      "footer": [
+        "flyvis_readout_nonlinear_diag"
+      ],
+      "kind": "tried",
+      "ref": "flyvis_readout_nonlinear_diag",
+      "card": "flyvis_readout_nonlinear_diag",
+      "size": 20
+    },
+    {
+      "id": "v_fly_decoder_refit_v1",
+      "x": 3540,
+      "y": 1380,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Новый декодер движения"
+      ],
+      "body": [
+        "Вместо штатного декодера Sintel: новый декодер на сохранённой",
+        "активности.",
+        "НЕОПРЕДЕЛЁННО: Результат неоднозначен; вклад представления и",
+        "декодера полностью не отделён."
+      ],
+      "footer": [
+        "fly_decoder_refit_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_decoder_refit_v1",
+      "card": "fly_decoder_refit_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_wide_field_v1",
+      "x": 3540,
+      "y": 1770,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Широкое поле T4/T5"
+      ],
+      "body": [
+        "Вместо поколоночного декодера: суммирование направлений в рамке и",
+        "широком поле, по принципу HS/VS.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Одна испытанная версия не улучшила результат."
+      ],
+      "footer": [
+        "fly_wide_field_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_wide_field_v1",
+      "card": "fly_wide_field_v1",
+      "size": 20
+    },
+    {
+      "id": "v_flyvis_fovea_motion_v1",
+      "x": 3540,
+      "y": 2160,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Остаточный поток"
+      ],
+      "body": [
+        "Вместо чистого прогноза трека: поправка по остаточному потоку",
+        "фовеального глаза.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Проверенное применение не дало нужного",
+        "выигрыша."
+      ],
+      "footer": [
+        "flyvis_fovea_motion_v1"
+      ],
+      "kind": "tried",
+      "ref": "flyvis_fovea_motion_v1",
+      "card": "flyvis_fovea_motion_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_gain_tracker_recheck_v1",
+      "x": 3540,
+      "y": 2550,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Исправленный масштаб потока"
+      ],
+      "body": [
+        "Вместо прежнего усиления: исправленное усиление потока при",
+        "применении в трекере.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Исправление масштаба не дало",
+        "подтверждённой пользы стенду."
+      ],
+      "footer": [
+        "fly_gain_tracker_recheck_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_gain_tracker_recheck_v1",
+      "card": "fly_gain_tracker_recheck_v1",
+      "size": 20
+    },
+    {
+      "id": "base4_0",
+      "x": 3540,
+      "y": 3530,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "АКТИВНОСТЬ ПО КОЛОНКАМ"
+      ],
+      "body": [
+        "В З13: последний шаг интегрирования → 34 выходных типа × 721",
+        "колонка. T1/T2/T2a/T3; T4a–d, T5a–d; семейства Tm и TmY."
+      ],
+      "footer": [
+        "tracking/flyvis_activity.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/flyvis_activity.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base4_1",
+      "x": 3540,
+      "y": 3905,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ИСХОДНЫЙ ДЕКОДЕР ДВИЖЕНИЯ"
+      ],
+      "body": [
+        "DecoderGAVP, конфигурация [8,2], ядро 5 → две компоненты",
+        "потока по колонкам. Декодер движения и объектный считыватель",
+        "— альтернативные выходные ветви."
+      ],
+      "footer": [
+        "runs/flyvis/results/flow/0000/000/_meta.yaml"
+      ],
+      "kind": "base",
+      "ref": "runs/flyvis/results/flow/0000/000/_meta.yaml",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base4_2",
+      "x": 3540,
+      "y": 4280,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ПЕРЕВОД В ПИКСЕЛИ"
+      ],
+      "body": [
+        "Агрегация внутренних шагов; исходный отклик; масштаб вырезки",
+        "и усиление; изменение знака вертикальной компоненты. Выход:",
+        "поле движения, а не личность цели."
+      ],
+      "footer": [
+        "tracking/flyvis_motion.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/flyvis_motion.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "head5",
+      "x": 4400,
+      "y": 450,
+      "w": 730,
+      "h": 125,
+      "title": [
+        "06 ОБЪЕКТНОЕ СЧИТЫВАНИЕ"
+      ],
+      "body": [
+        ""
+      ],
+      "footer": [],
+      "kind": "note",
+      "ref": "",
+      "card": "",
+      "size": 18
+    },
+    {
+      "id": "v_fly_object_readout_z13_v1",
+      "x": 4400,
+      "y": 600,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "З13: один средний образец"
+      ],
+      "body": [
+        "Вместо движения: сравнение каждой колонки с усреднённым образцом",
+        "цели, 721 позиция + отказ.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Исходная объектная реализация не прошла",
+        "критерии применения."
+      ],
+      "footer": [
+        "fly_object_readout_z13_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_object_readout_z13_v1",
+      "card": "fly_object_readout_z13_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_spatial_quality_z13_v2",
+      "x": 4400,
+      "y": 990,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Пространственный образец"
+      ],
+      "body": [
+        "Вместо одного вектора: до 64 колонок образца, координаты и",
+        "сопоставление с каждой колонкой поиска.",
+        "ЭТА ВЕРСИЯ ОСТАНОВЛЕНА: Проверенная версия не стала",
+        "подтверждённым решением для стенда."
+      ],
+      "footer": [
+        "fly_spatial_quality_z13_v2"
+      ],
+      "kind": "tried",
+      "ref": "fly_spatial_quality_z13_v2",
+      "card": "fly_spatial_quality_z13_v2",
+      "size": 20
+    },
+    {
+      "id": "v_z13_candidate_foreground_v1",
+      "x": 4400,
+      "y": 1380,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Цель относительно окружения"
+      ],
+      "body": [
+        "Вместо одного отклика на цель: вычитать обучаемую долю отклика на",
+        "окружение вне расширенной рамки.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Прибавка к согласованной D без этого узла не",
+        "подтверждена."
+      ],
+      "footer": [
+        "z13_candidate_foreground_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_candidate_foreground_v1",
+      "card": "z13_candidate_foreground_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_candidate_size_v1",
+      "x": 4400,
+      "y": 1770,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Предсказание размеров"
+      ],
+      "body": [
+        "Вместо последнего наблюдаемого размера: две обучаемые поправки",
+        "log(w), log(h) при тех же центрах.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: IoU рамок ухудшился. Исходный размер здесь —",
+        "наблюдённая рамка, не прогноз Калмана."
+      ],
+      "footer": [
+        "z13_candidate_size_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_candidate_size_v1",
+      "card": "z13_candidate_size_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_target_model_probe_v1",
+      "x": 4400,
+      "y": 2160,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Линейная модель цели"
+      ],
+      "body": [
+        "Вместо общего обученного сравнения: отдельная гребневая регрессия;",
+        "цель 1 внутри наблюдаемой рамки, 0 вне.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Бинарная цель не превзошла прежнее",
+        "считывание. Признаки мухи против входа — отдельный положительный",
+        "эффект."
+      ],
+      "footer": [
+        "z13_target_model_probe_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_target_model_probe_v1",
+      "card": "z13_target_model_probe_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_directional_context_v1",
+      "x": 4400,
+      "y": 2550,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Направленные соседи"
+      ],
+      "body": [
+        "Вместо среднего соседей: дополнительно 170 направленных контрастов;",
+        "всего 238 признаков.",
+        "НЕОПРЕДЕЛЁННО: Общий результат неоднозначен; частный выигрыш не",
+        "означает устойчивый перенос."
+      ],
+      "footer": [
+        "z13_directional_context_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_directional_context_v1",
+      "card": "z13_directional_context_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_context_transfer_v1",
+      "x": 4400,
+      "y": 2940,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Перенос направленного контекста"
+      ],
+      "body": [
+        "Проверка выбранной версии C и контроля R1 на ранее использованном",
+        "dev35.",
+        "НЕОПРЕДЕЛЁННО: Критерии локализации и выбора поправок не",
+        "выполнены."
+      ],
+      "footer": [
+        "z13_context_transfer_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_context_transfer_v1",
+      "card": "z13_context_transfer_v1",
+      "size": 20
+    },
+    {
+      "id": "base5_0",
+      "x": 4400,
+      "y": 3530,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "З13: ПЕРВЫЙ ОБЪЕКТНЫЙ ВЫХОД"
+      ],
+      "body": [
+        "Стандартизация 34 каналов → линейное вложение в 16 чисел →",
+        "среднее по наблюдаемой рамке. Косинусное сходство образца и",
+        "каждой колонки поиска."
+      ],
+      "footer": [
+        "tracking/z13_readout.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/z13_readout.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base5_1",
+      "x": 4400,
+      "y": 3905,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ПРОСТРАНСТВЕННАЯ ВЕРСИЯ"
+      ],
+      "body": [
+        "Вложение 32; колонка + среднее соседей; до 64 позиций образца;",
+        "позиционные признаки и внимание (взвешенное сопоставление).",
+        "721 балл + балл отказа."
+      ],
+      "footer": [
+        "tracking/z13_spatial.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/z13_spatial.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base5_2",
+      "x": 4400,
+      "y": 4280,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ИНДИВИДУАЛЬНАЯ МОДЕЛЬ ЦЕЛИ"
+      ],
+      "body": [
+        "34 канала + среднее соседей = 68 признаков. Гребневая регрессия",
+        "с регуляризацией, отдельно по последнему наблюдаемому",
+        "образцу. Выход — карта поиска."
+      ],
+      "footer": [
+        "tracking/z13_target_center.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/z13_target_center.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "head6",
+      "x": 5260,
+      "y": 450,
+      "w": 730,
+      "h": 125,
+      "title": [
+        "07 НАДЁЖНОСТЬ И ОТКАЗ"
+      ],
+      "body": [
+        ""
+      ],
+      "footer": [],
+      "kind": "note",
+      "ref": "",
+      "card": "",
+      "size": 18
+    },
+    {
+      "id": "v_z13_threshold_diagnostic_v1",
+      "x": 5260,
+      "y": 600,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Точный порог без округления"
+      ],
+      "body": [
+        "Вместо округлённого порога: повтор выбора точного значения и разбор",
+        "исходов.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Надёжность исходной реализации этим не",
+        "исправлена."
+      ],
+      "footer": [
+        "z13_threshold_diagnostic_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_threshold_diagnostic_v1",
+      "card": "z13_threshold_diagnostic_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_tree_quality_probe_v1",
+      "x": 5260,
+      "y": 990,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Деревья вместо нейросети"
+      ],
+      "body": [
+        "Вместо нейросетевой оценки качества: деревья на наблюдаемых",
+        "признаках положения.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Проверенная замена не прошла критерий."
+      ],
+      "footer": [
+        "z13_tree_quality_probe_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_tree_quality_probe_v1",
+      "card": "z13_tree_quality_probe_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_score_swap_v1",
+      "x": 5260,
+      "y": 1380,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Старый балл + новый центр"
+      ],
+      "body": [
+        "Вместо нового балла при новом центре: балл прежнего считывателя D.",
+        "НЕОПРЕДЕЛЁННО: Улучшение отбора не подтверждено."
+      ],
+      "footer": [
+        "z13_score_swap_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_score_swap_v1",
+      "card": "z13_score_swap_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_next_utility_v1",
+      "x": 5260,
+      "y": 1770,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Оценка полезности ответа"
+      ],
+      "body": [
+        "Вместо одной высоты отклика: обучаемая оценка по геометрии и",
+        "наблюдаемым признакам.",
+        "НЕОПРЕДЕЛЁННО: Основной результат неоднозначен."
+      ],
+      "footer": [
+        "z13_next_utility_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_next_utility_v1",
+      "card": "z13_next_utility_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_map_utility_v1",
+      "x": 5260,
+      "y": 2160,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "14 признаков карты и геометрии"
+      ],
+      "body": [
+        "Вместо ограниченной оценки: 6 геометрических + 8 сводных признаков",
+        "карты ответа.",
+        "НЕОПРЕДЕЛЁННО: Критерии основного сравнения не выполнены;",
+        "исходные центры фиксированы."
+      ],
+      "footer": [
+        "z13_map_utility_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_map_utility_v1",
+      "card": "z13_map_utility_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_map_transfer_v1",
+      "x": 5260,
+      "y": 2550,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Перенос оценки полезности"
+      ],
+      "body": [
+        "Вместо оценки только на train26: проверка сохранённой модели C/D/R1",
+        "на dev35.",
+        "НЕОПРЕДЕЛЁННО: Требуемая переносимость выбора не подтверждена."
+      ],
+      "footer": [
+        "z13_map_transfer_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_map_transfer_v1",
+      "card": "z13_map_transfer_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_pairwise_utility_v1",
+      "x": 5260,
+      "y": 2940,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Парное обучение ранжированию"
+      ],
+      "body": [
+        "Вместо поточечной потери: добавить парную потерю на тех же 14",
+        "признаках и фиксированных центрах.",
+        "НЕОПРЕДЕЛЁННО: Все четыре основных интервала включают ноль. Новая",
+        "память цели не добавлена."
+      ],
+      "footer": [
+        "z13_pairwise_utility_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_pairwise_utility_v1",
+      "card": "z13_pairwise_utility_v1",
+      "size": 20
+    },
+    {
+      "id": "base6_0",
+      "x": 5260,
+      "y": 3530,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ЦЕНТР ИЗ КАРТЫ"
+      ],
+      "body": [
+        "Максимальная колонка + её 6 соседей → локальное взвешенное",
+        "среднее → координаты кадра. Далёкие максимумы не усредняются",
+        "в один центр."
+      ],
+      "footer": [
+        "scripts/z13_target_model.py"
+      ],
+      "kind": "base",
+      "ref": "scripts/z13_target_model.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base6_1",
+      "x": 5260,
+      "y": 3905,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ОЦЕНКА УВЕРЕННОСТИ"
+      ],
+      "body": [
+        "В исходном З13: 1 − вероятность отказа. В модели цели:",
+        "нормированная высота пика. Ни один из этих баллов сам по себе",
+        "не равен вероятности полезной поправки."
+      ],
+      "footer": [
+        "tracking/z13_readout.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/z13_readout.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base6_2",
+      "x": 5260,
+      "y": 4280,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ОЦЕНКА ПО ГОТОВОМУ ОТВЕТУ"
+      ],
+      "body": [
+        "6 признаков геометрии + 8 сводок карты: пики, разность,",
+        "энтропия, массы и разброс. Это внешний выбор применения",
+        "ответа; он не изменяет ядро и полученный центр."
+      ],
+      "footer": [
+        "tracking/z13_response_utility.py"
+      ],
+      "kind": "base",
+      "ref": "tracking/z13_response_utility.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "head7",
+      "x": 6120,
+      "y": 450,
+      "w": 730,
+      "h": 125,
+      "title": [
+        "08 ПРИМЕНЕНИЕ В СТЕНДЕ"
+      ],
+      "body": [
+        ""
+      ],
+      "footer": [],
+      "kind": "note",
+      "ref": "",
+      "card": "",
+      "size": 18
+    },
+    {
+      "id": "v_fly_motion_trust_cheap_v1",
+      "x": 6120,
+      "y": 600,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Простые правила доверия"
+      ],
+      "body": [
+        "Вместо безусловной поправки потока: меньший вес и отказ при",
+        "недостатке колонок в рамке.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Проверенные правила не дали нужной пользы."
+      ],
+      "footer": [
+        "fly_motion_trust_cheap_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_motion_trust_cheap_v1",
+      "card": "fly_motion_trust_cheap_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_motion_trust_learned_v1",
+      "x": 6120,
+      "y": 990,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Обучаемое доверие"
+      ],
+      "body": [
+        "Вместо простого правила: оценка доверия с признаками мухи и контроль",
+        "без них.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Первый вариант не принят; затем проверен",
+        "исправленный протокол."
+      ],
+      "footer": [
+        "fly_motion_trust_learned_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_motion_trust_learned_v1",
+      "card": "fly_motion_trust_learned_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_motion_trust_learned_v2",
+      "x": 6120,
+      "y": 1380,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Исправленный протокол доверия"
+      ],
+      "body": [
+        "Вместо прежней процедуры: порог на видео подбора, данные в условиях",
+        "применения.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Исправленная версия также не дала нужного",
+        "выигрыша."
+      ],
+      "footer": [
+        "fly_motion_trust_learned_v2"
+      ],
+      "kind": "tried",
+      "ref": "fly_motion_trust_learned_v2",
+      "card": "fly_motion_trust_learned_v2",
+      "size": 20
+    },
+    {
+      "id": "v_fly_motion_photometric_v1",
+      "x": 6120,
+      "y": 1770,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Фотометрическая проверка"
+      ],
+      "body": [
+        "Вместо прежней оценки доверия: проверять согласованность яркости",
+        "после переноса изображения.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Испытанная проверка не дала нужного",
+        "выигрыша."
+      ],
+      "footer": [
+        "fly_motion_photometric_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_motion_photometric_v1",
+      "card": "fly_motion_photometric_v1",
+      "size": 20
+    },
+    {
+      "id": "v_fly_spatial_hota_policy_z13_v1",
+      "x": 6120,
+      "y": 2160,
+      "w": 730,
+      "h": 360,
+      "title": [
+        "Применение З13 с отказом"
+      ],
+      "body": [
+        "Вместо стенда без поправки: центры прежней D при одной политике",
+        "применения, затем та же MASA.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Полезный прирост HOTA не подтверждён. Это",
+        "не испытание нового центрированного считывателя."
+      ],
+      "footer": [
+        "fly_spatial_hota_policy_z13_v1"
+      ],
+      "kind": "tried",
+      "ref": "fly_spatial_hota_policy_z13_v1",
+      "card": "fly_spatial_hota_policy_z13_v1",
+      "size": 20
+    },
+    {
+      "id": "base7_0",
+      "x": 6120,
+      "y": 3530,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ОКРУЖЕНИЕ: YOLO26s"
+      ],
+      "body": [
+        "Детекции объектов. Сохранённый детектор обучен при 640; в",
+        "стенде запуск 960, conf 0,01. Вход FlyVis не заменяет детектор."
+      ],
+      "footer": [
+        "AGENTS.md"
+      ],
+      "kind": "external",
+      "ref": "AGENTS.md",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base7_1",
+      "x": 6120,
+      "y": 3905,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "XYWHByteTrack → MASA"
+      ],
+      "body": [
+        "Прогноз положения и сопоставление детекций; после получения",
+        "траекторий — процедура сшивки с признаками MASA. Поправка",
+        "FlyVis применяется отдельной политикой."
+      ],
+      "footer": [
+        "AGENTS.md"
+      ],
+      "kind": "external",
+      "ref": "AGENTS.md",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "base7_2",
+      "x": 6120,
+      "y": 4280,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ПРОВЕРКА ПОЛЬЗЫ"
+      ],
+      "body": [
+        "TrackEval → HOTA, парный разброс по видео. Контроли: без",
+        "правки; та же правка без мухи; правка с мухой. Частный выигрыш",
+        "центра не заменяет это сравнение."
+      ],
+      "footer": [
+        "AGENTS.md"
+      ],
+      "kind": "external",
+      "ref": "AGENTS.md",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "g_center",
+      "x": 4400,
+      "y": 4805,
+      "w": 730,
+      "h": 440,
+      "title": [
+        "ПРИНЯТАЯ ФУНКЦИОНАЛЬНАЯ ОСНОВА"
+      ],
+      "body": [
+        "Вместо плоской маски рамки: гауссов пик её наблюдаемого центра.",
+        "Та же гребневая модель цели и те же признаки.",
+        "C: +8,94 п.п.; 95% ДИ [+4,34; +15,80]",
+        "D: +6,43 п.п.; 95% ДИ [+4,16; +8,81]",
+        "dev35 использовался раньше; не HOTA."
+      ],
+      "footer": [
+        "runs/z13_target_center_dev_20261018/report.json"
+      ],
+      "kind": "good",
+      "ref": "runs/z13_target_center_dev_20261018/report.json",
+      "card": "z13_target_center_dev_v1",
+      "size": 21
+    },
+    {
+      "id": "g_signal",
+      "x": 3540,
+      "y": 4805,
+      "w": 730,
+      "h": 440,
+      "title": [
+        "ПОДТВЕРЖДЁН ПОЛЕЗНЫЙ СИГНАЛ МУХИ"
+      ],
+      "body": [
+        "Тот же центрированный считыватель против R1 (вход глаза с",
+        "временными каналами).",
+        "C − R1: +12,93 п.п.; 95% ДИ [+8,51; +19,38]",
+        "D − R1: +9,89 п.п.; 95% ДИ [+7,26; +12,56]",
+        "dev35 использовался раньше; не HOTA."
+      ],
+      "footer": [
+        "runs/z13_target_center_dev_20261018/report.json"
+      ],
+      "kind": "good",
+      "ref": "runs/z13_target_center_dev_20261018/report.json",
+      "card": "z13_target_center_dev_v1",
+      "size": 21
+    },
+    {
+      "id": "g_prior",
+      "x": 5260,
+      "y": 4805,
+      "w": 730,
+      "h": 440,
+      "title": [
+        "НОВЫЙ ЦЕНТР НА ТОЙ ЖЕ D"
+      ],
+      "body": [
+        "Центрированная модель цели против прежнего считывателя D:",
+        "+3,99 п.п.; 95% ДИ [+1,17; +6,92]",
+        "Улучшена доля полезных центров. Надёжный выбор поправок этим",
+        "не доказан.",
+        "dev35 использовался раньше; не HOTA."
+      ],
+      "footer": [
+        "runs/z13_target_center_dev_20261018/report.json"
+      ],
+      "kind": "good",
+      "ref": "runs/z13_target_center_dev_20261018/report.json",
+      "card": "z13_target_center_dev_v1",
+      "size": 21
+    },
+    {
+      "id": "g_scope",
+      "x": 6120,
+      "y": 4805,
+      "w": 730,
+      "h": 440,
+      "title": [
+        "ЧЕГО В ЗЕЛЁНОЙ ВЕТВИ НЕТ"
+      ],
+      "body": [
+        "Нет подтверждённого превосходства D над C при этом",
+        "считывании. Нет измеренной пользы нового узла по HOTA. Нет",
+        "доказательства, что эффект вызван именно анатомией связей."
+      ],
+      "footer": [
+        "runs/z13_target_center_dev_20261018/report.json"
+      ],
+      "kind": "note",
+      "ref": "runs/z13_target_center_dev_20261018/report.json",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "input_partial",
+      "x": 100,
+      "y": 4805,
+      "w": 730,
+      "h": 440,
+      "title": [
+        "РАННИЕ ЧАСТНЫЕ РЕЗУЛЬТАТЫ"
+      ],
+      "body": [
+        "Ламина и локальная нормализация дали функциональные",
+        "эффекты в отдельных проверках. Они не объединены",
+        "автоматически с З13 в одну доказанную модель. Результат",
+        "нормализованного потока по HOTA отрицательный."
+      ],
+      "footer": [
+        "flyvis_retina_stageB_v1 / fly_input_norm_v1"
+      ],
+      "kind": "note",
+      "ref": "flyvis_retina_stageB_v1 / fly_input_norm_v1",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "control",
+      "x": 1820,
+      "y": 4805,
+      "w": 730,
+      "h": 440,
+      "title": [
+        "КОНТРОЛИ ЯДРА И ВХОДА"
+      ],
+      "body": [
+        "C0: исходная инициализация до Sintel.",
+        "C: штатные параметры после Sintel.",
+        "D: дообученная муха.",
+        "B: HexGRU (рекуррентная сеть на решётке), состояние 16, выход 34.",
+        "R0/R1: временные признаки входа глаза без FlyVis. B и D не равны по",
+        "ёмкости."
+      ],
+      "footer": [
+        "scripts/z13_target_model.py"
+      ],
+      "kind": "note",
+      "ref": "scripts/z13_target_model.py",
+      "card": "",
+      "size": 21
+    },
+    {
+      "id": "metric",
+      "x": 2680,
+      "y": 4805,
+      "w": 730,
+      "h": 440,
+      "title": [
+        "КАК ЧИТАТЬ РЕЗУЛЬТАТЫ"
+      ],
+      "body": [
+        "Полезный центр: известная присутствующая цель; ошибка меньше",
+        "ошибки прогноза и не больше четверти размера объекта. Средняя",
+        "доля по видео — не точность среди выбранных. Неизвестный",
+        "исход не равен ошибке или успеху."
+      ],
+      "footer": [
+        "scripts/z13_train.py"
+      ],
+      "kind": "note",
+      "ref": "scripts/z13_train.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "f_fly_future_kys_state_v1",
+      "x": 2680,
+      "y": 5345,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "KYS: адресуемая память"
+      ],
+      "body": [
+        "Вместо памяти без сопоставления областей: перенос состояния",
+        "считывателя по соответствиям. Прямой перенос потенциалов",
+        "FlyVis не обоснован.",
+        "ПЛАН: результата нет."
+      ],
+      "footer": [
+        "fly_future_kys_state_v1"
+      ],
+      "kind": "future",
+      "ref": "fly_future_kys_state_v1",
+      "card": "fly_future_kys_state_v1",
+      "size": 22
+    },
+    {
+      "id": "f_fly_future_keeptrack_candidates_v1",
+      "x": 3540,
+      "y": 5345,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "KeepTrack: личности кандидатов"
+      ],
+      "body": [
+        "Вместо единственного максимума: отдельные пики, локальная",
+        "активность, соответствия между кадрами и отсутствие",
+        "соответствия.",
+        "ПЛАН: результата нет."
+      ],
+      "footer": [
+        "fly_future_keeptrack_candidates_v1"
+      ],
+      "kind": "future",
+      "ref": "fly_future_keeptrack_candidates_v1",
+      "card": "fly_future_keeptrack_candidates_v1",
+      "size": 22
+    },
+    {
+      "id": "f_fly_future_stmtrack_memory_v1",
+      "x": 4400,
+      "y": 5345,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "STMTrack: несколько наблюдений"
+      ],
+      "body": [
+        "Вместо одного фиксированного образца: отдельные прошлые",
+        "наблюдения цели. Правило добавления не должно использовать",
+        "будущую разметку.",
+        "ПЛАН: результата нет."
+      ],
+      "footer": [
+        "fly_future_stmtrack_memory_v1"
+      ],
+      "kind": "future",
+      "ref": "fly_future_stmtrack_memory_v1",
+      "card": "fly_future_stmtrack_memory_v1",
+      "size": 22
+    },
+    {
+      "id": "ranklimit",
+      "x": 5260,
+      "y": 5345,
+      "w": 730,
+      "h": 340,
+      "title": [
+        "ОТБОР 1% — ДИАГНОСТИКА"
+      ],
+      "body": [
+        "Сортировка всех записей и выбор верхнего процента не являются",
+        "готовым покадровым правилом. В стенде решение должно",
+        "использовать только доступное настоящее и прошлое."
+      ],
+      "footer": [
+        "scripts/z13_score_swap.py"
+      ],
+      "kind": "note",
+      "ref": "scripts/z13_score_swap.py",
+      "card": "",
+      "size": 22
+    },
+    {
+      "id": "footer",
+      "x": 100,
+      "y": 5735,
+      "w": 6800,
+      "h": 140,
+      "title": [
+        "СЕРЫЕ СТРЕЛКИ — ДАННЫЕ · ПУНКТИР — ЗАМЕНА / ПЛАН · ЗЕЛЁНЫЕ — ПОДТВЕРЖДЁННЫЕ СРАВНЕНИЯ · ОБРАТНАЯ — СОСТОЯНИЕ"
+      ],
+      "body": [
+        "Параллельные испытанные ветви не складываются в единую работающую модель. Полные формулировки, критерии и источники карточек доступны в данных каждого блока и в файле источников рядом со схемой."
+      ],
+      "footer": [],
+      "kind": "note",
+      "ref": "",
+      "card": "",
+      "size": 19
+    }
+  ],
+  "edges": [
+    {
+      "a": "base0_1",
+      "b": "v_flyvis_retina_frontend_v1",
+      "kind": "variant",
+      "points": [
+        [
+          76,
+          4075.0
+        ],
+        [
+          76,
+          780
+        ]
+      ],
+      "render_points": [
+        [
+          100,
+          4075.0
+        ],
+        [
+          76,
+          4075.0
+        ],
+        [
+          76,
+          780
+        ],
+        [
+          100,
+          780.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base0_1",
+      "b": "v_fly_eye_frontend_v1",
+      "kind": "variant",
+      "points": [
+        [
+          76,
+          4075.0
+        ],
+        [
+          76,
+          1170
+        ]
+      ],
+      "render_points": [
+        [
+          100,
+          4075.0
+        ],
+        [
+          76,
+          4075.0
+        ],
+        [
+          76,
+          1170
+        ],
+        [
+          100,
+          1170.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base0_1",
+      "b": "v_fly_dynamic_norm_v1",
+      "kind": "variant",
+      "points": [
+        [
+          76,
+          4075.0
+        ],
+        [
+          76,
+          1560
+        ]
+      ],
+      "render_points": [
+        [
+          100,
+          4075.0
+        ],
+        [
+          76,
+          4075.0
+        ],
+        [
+          76,
+          1560
+        ],
+        [
+          100,
+          1560.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base0_1",
+      "b": "v_fly_input_norm_hota_v1",
+      "kind": "variant",
+      "points": [
+        [
+          76,
+          4075.0
+        ],
+        [
+          76,
+          1950
+        ]
+      ],
+      "render_points": [
+        [
+          100,
+          4075.0
+        ],
+        [
+          76,
+          4075.0
+        ],
+        [
+          76,
+          1950
+        ],
+        [
+          100,
+          1950.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base1_1",
+      "b": "v_flyvis_stress",
+      "kind": "variant",
+      "points": [
+        [
+          936,
+          4075.0
+        ],
+        [
+          936,
+          780
+        ]
+      ],
+      "render_points": [
+        [
+          960,
+          4075.0
+        ],
+        [
+          936,
+          4075.0
+        ],
+        [
+          936,
+          780
+        ],
+        [
+          960,
+          780.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base1_1",
+      "b": "v_flyvis_foveation_readout_v1",
+      "kind": "variant",
+      "points": [
+        [
+          936,
+          4075.0
+        ],
+        [
+          936,
+          1170
+        ]
+      ],
+      "render_points": [
+        [
+          960,
+          4075.0
+        ],
+        [
+          936,
+          4075.0
+        ],
+        [
+          936,
+          1170
+        ],
+        [
+          960,
+          1170.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base1_1",
+      "b": "v_fly_scale_probe_v1",
+      "kind": "variant",
+      "points": [
+        [
+          936,
+          4075.0
+        ],
+        [
+          936,
+          1560
+        ]
+      ],
+      "render_points": [
+        [
+          960,
+          4075.0
+        ],
+        [
+          936,
+          4075.0
+        ],
+        [
+          936,
+          1560
+        ],
+        [
+          960,
+          1560.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base1_1",
+      "b": "v_fly_efference_eye_v1",
+      "kind": "variant",
+      "points": [
+        [
+          936,
+          4075.0
+        ],
+        [
+          936,
+          1950
+        ]
+      ],
+      "render_points": [
+        [
+          960,
+          4075.0
+        ],
+        [
+          936,
+          4075.0
+        ],
+        [
+          936,
+          1950
+        ],
+        [
+          960,
+          1950.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base1_1",
+      "b": "v_fly_efference_eye_v2",
+      "kind": "variant",
+      "points": [
+        [
+          936,
+          4075.0
+        ],
+        [
+          936,
+          2340
+        ]
+      ],
+      "render_points": [
+        [
+          960,
+          4075.0
+        ],
+        [
+          936,
+          4075.0
+        ],
+        [
+          936,
+          2340
+        ],
+        [
+          960,
+          2340.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base1_0",
+      "b": "base1_1",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          1325.0,
+          3870
+        ],
+        [
+          1325.0,
+          3905
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base1_1",
+      "b": "base1_2",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          1325.0,
+          4245
+        ],
+        [
+          1325.0,
+          4280
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base2_1",
+      "b": "v_fly_finetune_k1_pilot_v1",
+      "kind": "variant",
+      "points": [
+        [
+          1796,
+          4075.0
+        ],
+        [
+          1796,
+          780
+        ]
+      ],
+      "render_points": [
+        [
+          1820,
+          4075.0
+        ],
+        [
+          1796,
+          4075.0
+        ],
+        [
+          1796,
+          780
+        ],
+        [
+          1820,
+          780.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base2_1",
+      "b": "v_fly_finetune_k1_core_v1",
+      "kind": "variant",
+      "points": [
+        [
+          1796,
+          4075.0
+        ],
+        [
+          1796,
+          1170
+        ]
+      ],
+      "render_points": [
+        [
+          1820,
+          4075.0
+        ],
+        [
+          1796,
+          4075.0
+        ],
+        [
+          1796,
+          1170
+        ],
+        [
+          1820,
+          1170.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base2_1",
+      "b": "v_fly_connectome_null_v1",
+      "kind": "variant",
+      "points": [
+        [
+          1796,
+          4075.0
+        ],
+        [
+          1796,
+          1560
+        ]
+      ],
+      "render_points": [
+        [
+          1820,
+          4075.0
+        ],
+        [
+          1796,
+          4075.0
+        ],
+        [
+          1796,
+          1560
+        ],
+        [
+          1820,
+          1560.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base2_1",
+      "b": "v_fly_flywire_swap_v1",
+      "kind": "variant",
+      "points": [
+        [
+          1796,
+          4075.0
+        ],
+        [
+          1796,
+          1950
+        ]
+      ],
+      "render_points": [
+        [
+          1820,
+          4075.0
+        ],
+        [
+          1796,
+          4075.0
+        ],
+        [
+          1796,
+          1950
+        ],
+        [
+          1820,
+          1950.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base2_1",
+      "b": "v_z13_core_continue_v1",
+      "kind": "variant",
+      "points": [
+        [
+          1796,
+          4075.0
+        ],
+        [
+          1796,
+          2340
+        ]
+      ],
+      "render_points": [
+        [
+          1820,
+          4075.0
+        ],
+        [
+          1796,
+          4075.0
+        ],
+        [
+          1796,
+          2340
+        ],
+        [
+          1820,
+          2340.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base2_1",
+      "b": "v_z13_aligned_core_v1",
+      "kind": "variant",
+      "points": [
+        [
+          1796,
+          4075.0
+        ],
+        [
+          1796,
+          2730
+        ]
+      ],
+      "render_points": [
+        [
+          1820,
+          4075.0
+        ],
+        [
+          1796,
+          4075.0
+        ],
+        [
+          1796,
+          2730
+        ],
+        [
+          1820,
+          2730.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base3_1",
+      "b": "v_fly_persistent_eye_v1",
+      "kind": "variant",
+      "points": [
+        [
+          2656,
+          4075.0
+        ],
+        [
+          2656,
+          780
+        ]
+      ],
+      "render_points": [
+        [
+          2680,
+          4075.0
+        ],
+        [
+          2656,
+          4075.0
+        ],
+        [
+          2656,
+          780
+        ],
+        [
+          2680,
+          780.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base3_1",
+      "b": "v_z13_candidate_adaptive_v1",
+      "kind": "variant",
+      "points": [
+        [
+          2656,
+          4075.0
+        ],
+        [
+          2656,
+          1170
+        ]
+      ],
+      "render_points": [
+        [
+          2680,
+          4075.0
+        ],
+        [
+          2656,
+          4075.0
+        ],
+        [
+          2656,
+          1170
+        ],
+        [
+          2680,
+          1170.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base3_1",
+      "b": "v_fly_signature_reid_v1",
+      "kind": "variant",
+      "points": [
+        [
+          2656,
+          4075.0
+        ],
+        [
+          2656,
+          1560
+        ]
+      ],
+      "render_points": [
+        [
+          2680,
+          4075.0
+        ],
+        [
+          2656,
+          4075.0
+        ],
+        [
+          2656,
+          1560
+        ],
+        [
+          2680,
+          1560.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base3_0",
+      "b": "base3_1",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          3045.0,
+          3870
+        ],
+        [
+          3045.0,
+          3905
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base3_1",
+      "b": "base3_2",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          3045.0,
+          4245
+        ],
+        [
+          3045.0,
+          4280
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base4_1",
+      "b": "v_flyvis_internal_readout_v1",
+      "kind": "variant",
+      "points": [
+        [
+          3516,
+          4075.0
+        ],
+        [
+          3516,
+          780
+        ]
+      ],
+      "render_points": [
+        [
+          3540,
+          4075.0
+        ],
+        [
+          3516,
+          4075.0
+        ],
+        [
+          3516,
+          780
+        ],
+        [
+          3540,
+          780.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base4_1",
+      "b": "v_flyvis_readout_nonlinear_diag",
+      "kind": "variant",
+      "points": [
+        [
+          3516,
+          4075.0
+        ],
+        [
+          3516,
+          1170
+        ]
+      ],
+      "render_points": [
+        [
+          3540,
+          4075.0
+        ],
+        [
+          3516,
+          4075.0
+        ],
+        [
+          3516,
+          1170
+        ],
+        [
+          3540,
+          1170.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base4_1",
+      "b": "v_fly_decoder_refit_v1",
+      "kind": "variant",
+      "points": [
+        [
+          3516,
+          4075.0
+        ],
+        [
+          3516,
+          1560
+        ]
+      ],
+      "render_points": [
+        [
+          3540,
+          4075.0
+        ],
+        [
+          3516,
+          4075.0
+        ],
+        [
+          3516,
+          1560
+        ],
+        [
+          3540,
+          1560.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base4_1",
+      "b": "v_fly_wide_field_v1",
+      "kind": "variant",
+      "points": [
+        [
+          3516,
+          4075.0
+        ],
+        [
+          3516,
+          1950
+        ]
+      ],
+      "render_points": [
+        [
+          3540,
+          4075.0
+        ],
+        [
+          3516,
+          4075.0
+        ],
+        [
+          3516,
+          1950
+        ],
+        [
+          3540,
+          1950.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base4_1",
+      "b": "v_flyvis_fovea_motion_v1",
+      "kind": "variant",
+      "points": [
+        [
+          3516,
+          4075.0
+        ],
+        [
+          3516,
+          2340
+        ]
+      ],
+      "render_points": [
+        [
+          3540,
+          4075.0
+        ],
+        [
+          3516,
+          4075.0
+        ],
+        [
+          3516,
+          2340
+        ],
+        [
+          3540,
+          2340.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base4_1",
+      "b": "v_fly_gain_tracker_recheck_v1",
+      "kind": "variant",
+      "points": [
+        [
+          3516,
+          4075.0
+        ],
+        [
+          3516,
+          2730
+        ]
+      ],
+      "render_points": [
+        [
+          3540,
+          4075.0
+        ],
+        [
+          3516,
+          4075.0
+        ],
+        [
+          3516,
+          2730
+        ],
+        [
+          3540,
+          2730.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base4_0",
+      "b": "base4_1",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          3905.0,
+          3870
+        ],
+        [
+          3905.0,
+          3905
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base4_1",
+      "b": "base4_2",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          3905.0,
+          4245
+        ],
+        [
+          3905.0,
+          4280
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base5_1",
+      "b": "v_fly_object_readout_z13_v1",
+      "kind": "variant",
+      "points": [
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          780
+        ]
+      ],
+      "render_points": [
+        [
+          4400,
+          4075.0
+        ],
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          780
+        ],
+        [
+          4400,
+          780.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base5_1",
+      "b": "v_fly_spatial_quality_z13_v2",
+      "kind": "variant",
+      "points": [
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          1170
+        ]
+      ],
+      "render_points": [
+        [
+          4400,
+          4075.0
+        ],
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          1170
+        ],
+        [
+          4400,
+          1170.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base5_1",
+      "b": "v_z13_candidate_foreground_v1",
+      "kind": "variant",
+      "points": [
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          1560
+        ]
+      ],
+      "render_points": [
+        [
+          4400,
+          4075.0
+        ],
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          1560
+        ],
+        [
+          4400,
+          1560.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base5_1",
+      "b": "v_z13_candidate_size_v1",
+      "kind": "variant",
+      "points": [
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          1950
+        ]
+      ],
+      "render_points": [
+        [
+          4400,
+          4075.0
+        ],
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          1950
+        ],
+        [
+          4400,
+          1950.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base5_1",
+      "b": "v_z13_target_model_probe_v1",
+      "kind": "variant",
+      "points": [
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          2340
+        ]
+      ],
+      "render_points": [
+        [
+          4400,
+          4075.0
+        ],
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          2340
+        ],
+        [
+          4400,
+          2340.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base5_1",
+      "b": "v_z13_directional_context_v1",
+      "kind": "variant",
+      "points": [
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          2730
+        ]
+      ],
+      "render_points": [
+        [
+          4400,
+          4075.0
+        ],
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          2730
+        ],
+        [
+          4400,
+          2730.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base5_1",
+      "b": "v_z13_context_transfer_v1",
+      "kind": "variant",
+      "points": [
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          3120
+        ]
+      ],
+      "render_points": [
+        [
+          4400,
+          4075.0
+        ],
+        [
+          4376,
+          4075.0
+        ],
+        [
+          4376,
+          3120
+        ],
+        [
+          4400,
+          3120.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base6_1",
+      "b": "v_z13_threshold_diagnostic_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          780
+        ]
+      ],
+      "render_points": [
+        [
+          5260,
+          4075.0
+        ],
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          780
+        ],
+        [
+          5260,
+          780.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base6_1",
+      "b": "v_z13_tree_quality_probe_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          1170
+        ]
+      ],
+      "render_points": [
+        [
+          5260,
+          4075.0
+        ],
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          1170
+        ],
+        [
+          5260,
+          1170.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base6_1",
+      "b": "v_z13_score_swap_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          1560
+        ]
+      ],
+      "render_points": [
+        [
+          5260,
+          4075.0
+        ],
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          1560
+        ],
+        [
+          5260,
+          1560.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base6_1",
+      "b": "v_z13_next_utility_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          1950
+        ]
+      ],
+      "render_points": [
+        [
+          5260,
+          4075.0
+        ],
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          1950
+        ],
+        [
+          5260,
+          1950.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base6_1",
+      "b": "v_z13_map_utility_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          2340
+        ]
+      ],
+      "render_points": [
+        [
+          5260,
+          4075.0
+        ],
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          2340
+        ],
+        [
+          5260,
+          2340.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base6_1",
+      "b": "v_z13_map_transfer_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          2730
+        ]
+      ],
+      "render_points": [
+        [
+          5260,
+          4075.0
+        ],
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          2730
+        ],
+        [
+          5260,
+          2730.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base6_1",
+      "b": "v_z13_pairwise_utility_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          3120
+        ]
+      ],
+      "render_points": [
+        [
+          5260,
+          4075.0
+        ],
+        [
+          5236,
+          4075.0
+        ],
+        [
+          5236,
+          3120
+        ],
+        [
+          5260,
+          3120.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base7_1",
+      "b": "v_fly_motion_trust_cheap_v1",
+      "kind": "variant",
+      "points": [
+        [
+          6096,
+          4075.0
+        ],
+        [
+          6096,
+          780
+        ]
+      ],
+      "render_points": [
+        [
+          6120,
+          4075.0
+        ],
+        [
+          6096,
+          4075.0
+        ],
+        [
+          6096,
+          780
+        ],
+        [
+          6120,
+          780.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base7_1",
+      "b": "v_fly_motion_trust_learned_v1",
+      "kind": "variant",
+      "points": [
+        [
+          6096,
+          4075.0
+        ],
+        [
+          6096,
+          1170
+        ]
+      ],
+      "render_points": [
+        [
+          6120,
+          4075.0
+        ],
+        [
+          6096,
+          4075.0
+        ],
+        [
+          6096,
+          1170
+        ],
+        [
+          6120,
+          1170.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base7_1",
+      "b": "v_fly_motion_trust_learned_v2",
+      "kind": "variant",
+      "points": [
+        [
+          6096,
+          4075.0
+        ],
+        [
+          6096,
+          1560
+        ]
+      ],
+      "render_points": [
+        [
+          6120,
+          4075.0
+        ],
+        [
+          6096,
+          4075.0
+        ],
+        [
+          6096,
+          1560
+        ],
+        [
+          6120,
+          1560.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base7_1",
+      "b": "v_fly_motion_photometric_v1",
+      "kind": "variant",
+      "points": [
+        [
+          6096,
+          4075.0
+        ],
+        [
+          6096,
+          1950
+        ]
+      ],
+      "render_points": [
+        [
+          6120,
+          4075.0
+        ],
+        [
+          6096,
+          4075.0
+        ],
+        [
+          6096,
+          1950
+        ],
+        [
+          6120,
+          1950.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base7_1",
+      "b": "v_fly_spatial_hota_policy_z13_v1",
+      "kind": "variant",
+      "points": [
+        [
+          6096,
+          4075.0
+        ],
+        [
+          6096,
+          2340
+        ]
+      ],
+      "render_points": [
+        [
+          6120,
+          4075.0
+        ],
+        [
+          6096,
+          4075.0
+        ],
+        [
+          6096,
+          2340
+        ],
+        [
+          6120,
+          2340.0
+        ]
+      ],
+      "colour": "#C19A40",
+      "dashed": true
+    },
+    {
+      "a": "base7_0",
+      "b": "base7_1",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          6485.0,
+          3870
+        ],
+        [
+          6485.0,
+          3905
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base7_1",
+      "b": "base7_2",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          6485.0,
+          4245
+        ],
+        [
+          6485.0,
+          4280
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base0_0",
+      "b": "base0_1",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          465.0,
+          3870
+        ],
+        [
+          465.0,
+          3905
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base0_1",
+      "b": "base1_0",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          830,
+          4075.0
+        ],
+        [
+          895.0,
+          4075.0
+        ],
+        [
+          895.0,
+          3700.0
+        ],
+        [
+          960,
+          3700.0
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base1_1",
+      "b": "base2_1",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          1690,
+          4075.0
+        ],
+        [
+          1755.0,
+          4075.0
+        ],
+        [
+          1755.0,
+          4075.0
+        ],
+        [
+          1820,
+          4075.0
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base2_0",
+      "b": "base2_1",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          2185.0,
+          3870
+        ],
+        [
+          2185.0,
+          3905
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base2_2",
+      "b": "base2_1",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          2185.0,
+          4280
+        ],
+        [
+          2185.0,
+          4245
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base2_1",
+      "b": "base3_0",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          2550,
+          4075.0
+        ],
+        [
+          2615.0,
+          4075.0
+        ],
+        [
+          2615.0,
+          3700.0
+        ],
+        [
+          2680,
+          3700.0
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base3_1",
+      "b": "base4_0",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          3410,
+          4075.0
+        ],
+        [
+          3475.0,
+          4075.0
+        ],
+        [
+          3475.0,
+          3700.0
+        ],
+        [
+          3540,
+          3700.0
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base4_0",
+      "b": "base5_0",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          4270,
+          3700.0
+        ],
+        [
+          4335.0,
+          3700.0
+        ],
+        [
+          4335.0,
+          3700.0
+        ],
+        [
+          4400,
+          3700.0
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base4_0",
+      "b": "base5_1",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          4270,
+          3700.0
+        ],
+        [
+          4335.0,
+          3700.0
+        ],
+        [
+          4335.0,
+          4075.0
+        ],
+        [
+          4400,
+          4075.0
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base4_0",
+      "b": "base5_2",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          4270,
+          3700.0
+        ],
+        [
+          4335.0,
+          3700.0
+        ],
+        [
+          4335.0,
+          4450.0
+        ],
+        [
+          4400,
+          4450.0
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base5_0",
+      "b": "base6_0",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          5130,
+          3700.0
+        ],
+        [
+          5195.0,
+          3700.0
+        ],
+        [
+          5195.0,
+          3700.0
+        ],
+        [
+          5260,
+          3700.0
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base5_1",
+      "b": "base6_0",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          5130,
+          4075.0
+        ],
+        [
+          5195.0,
+          4075.0
+        ],
+        [
+          5195.0,
+          3700.0
+        ],
+        [
+          5260,
+          3700.0
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base5_2",
+      "b": "base6_0",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          5130,
+          4450.0
+        ],
+        [
+          5195.0,
+          4450.0
+        ],
+        [
+          5195.0,
+          3700.0
+        ],
+        [
+          5260,
+          3700.0
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base6_0",
+      "b": "base6_1",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          5625.0,
+          3870
+        ],
+        [
+          5625.0,
+          3905
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base6_0",
+      "b": "base6_2",
+      "kind": "flow",
+      "points": [
+        [
+          6010,
+          3700.0
+        ],
+        [
+          6010,
+          4450.0
+        ]
+      ],
+      "render_points": [
+        [
+          5990,
+          3700.0
+        ],
+        [
+          6010,
+          3700.0
+        ],
+        [
+          6010,
+          4450.0
+        ],
+        [
+          5990,
+          4450.0
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base6_1",
+      "b": "base7_1",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          5990,
+          4075.0
+        ],
+        [
+          6055.0,
+          4075.0
+        ],
+        [
+          6055.0,
+          4075.0
+        ],
+        [
+          6120,
+          4075.0
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base6_2",
+      "b": "base7_1",
+      "kind": "flow",
+      "points": null,
+      "render_points": [
+        [
+          5990,
+          4450.0
+        ],
+        [
+          6055.0,
+          4450.0
+        ],
+        [
+          6055.0,
+          4075.0
+        ],
+        [
+          6120,
+          4075.0
+        ]
+      ],
+      "colour": "#52647A",
+      "dashed": false
+    },
+    {
+      "a": "base3_2",
+      "b": "base2_1",
+      "kind": "recurrence",
+      "points": [
+        [
+          3450,
+          4715
+        ],
+        [
+          1775,
+          4715
+        ],
+        [
+          1775,
+          4075.0
+        ]
+      ],
+      "render_points": [
+        [
+          3410,
+          4450.0
+        ],
+        [
+          3450,
+          4715
+        ],
+        [
+          1775,
+          4715
+        ],
+        [
+          1775,
+          4075.0
+        ],
+        [
+          1820,
+          4075.0
+        ]
+      ],
+      "colour": "#5C7DA9",
+      "dashed": false
+    },
+    {
+      "a": "base5_2",
+      "b": "g_center",
+      "kind": "confirmed",
+      "points": [
+        [
+          5148,
+          4450.0
+        ],
+        [
+          5148,
+          4750
+        ],
+        [
+          4382,
+          4750
+        ],
+        [
+          4382,
+          5025
+        ]
+      ],
+      "render_points": [
+        [
+          5130,
+          4450.0
+        ],
+        [
+          5148,
+          4450.0
+        ],
+        [
+          5148,
+          4750
+        ],
+        [
+          4382,
+          4750
+        ],
+        [
+          4382,
+          5025
+        ],
+        [
+          4400,
+          5025.0
+        ]
+      ],
+      "colour": "#27834B",
+      "dashed": false
+    },
+    {
+      "a": "base4_0",
+      "b": "g_signal",
+      "kind": "confirmed",
+      "points": [
+        [
+          4288,
+          3700.0
+        ],
+        [
+          4288,
+          4750
+        ],
+        [
+          3522,
+          4750
+        ],
+        [
+          3522,
+          5025
+        ]
+      ],
+      "render_points": [
+        [
+          4270,
+          3700.0
+        ],
+        [
+          4288,
+          3700.0
+        ],
+        [
+          4288,
+          4750
+        ],
+        [
+          3522,
+          4750
+        ],
+        [
+          3522,
+          5025
+        ],
+        [
+          3540,
+          5025.0
+        ]
+      ],
+      "colour": "#27834B",
+      "dashed": false
+    },
+    {
+      "a": "base5_2",
+      "b": "g_prior",
+      "kind": "confirmed",
+      "points": [
+        [
+          5148,
+          4450.0
+        ],
+        [
+          5148,
+          4750
+        ],
+        [
+          5242,
+          4750
+        ],
+        [
+          5242,
+          5025
+        ]
+      ],
+      "render_points": [
+        [
+          5130,
+          4450.0
+        ],
+        [
+          5148,
+          4450.0
+        ],
+        [
+          5148,
+          4750
+        ],
+        [
+          5242,
+          4750
+        ],
+        [
+          5242,
+          5025
+        ],
+        [
+          5260,
+          5025.0
+        ]
+      ],
+      "colour": "#27834B",
+      "dashed": false
+    },
+    {
+      "a": "base3_2",
+      "b": "f_fly_future_kys_state_v1",
+      "kind": "future",
+      "points": [
+        [
+          3434,
+          4740
+        ],
+        [
+          3434,
+          5515
+        ]
+      ],
+      "render_points": [
+        [
+          3410,
+          4450.0
+        ],
+        [
+          3434,
+          4740
+        ],
+        [
+          3434,
+          5515
+        ],
+        [
+          3410,
+          5515.0
+        ]
+      ],
+      "colour": "#8C9BAB",
+      "dashed": true
+    },
+    {
+      "a": "base4_2",
+      "b": "f_fly_future_keeptrack_candidates_v1",
+      "kind": "future",
+      "points": [
+        [
+          4294,
+          4740
+        ],
+        [
+          4294,
+          5515
+        ]
+      ],
+      "render_points": [
+        [
+          4270,
+          4450.0
+        ],
+        [
+          4294,
+          4740
+        ],
+        [
+          4294,
+          5515
+        ],
+        [
+          4270,
+          5515.0
+        ]
+      ],
+      "colour": "#8C9BAB",
+      "dashed": true
+    },
+    {
+      "a": "base5_2",
+      "b": "f_fly_future_stmtrack_memory_v1",
+      "kind": "future",
+      "points": [
+        [
+          5154,
+          4740
+        ],
+        [
+          5154,
+          5515
+        ]
+      ],
+      "render_points": [
+        [
+          5130,
+          4450.0
+        ],
+        [
+          5154,
+          4740
+        ],
+        [
+          5154,
+          5515
+        ],
+        [
+          5130,
+          5515.0
+        ]
+      ],
+      "colour": "#8C9BAB",
+      "dashed": true
+    }
+  ]
+}
