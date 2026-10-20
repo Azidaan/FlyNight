@@ -44,6 +44,8 @@
 <polygon points="7910,2160.0 7889.8156010765215,2171.0267873878965 7889.8156010765215,2148.9732126121035" fill="#B97D00"/>
 <polyline points="7780.0,1810 7780,2500.0 7650,2500.0" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
 <polygon points="7650,2500.0 7670.1843989234785,2488.9732126121035 7670.1843989234785,2511.0267873878965" fill="#B97D00"/>
+<polyline points="7780.0,1810 7780,2580.0 7910,2580.0" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
+<polygon points="7910,2580.0 7889.8156010765215,2591.0267873878965 7889.8156010765215,2568.9732126121035" fill="#B97D00"/>
 <polyline points="1180.0,4550 1180.0,4650" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
 <polygon points="1180.0,4650 1168.9732126121032,4629.8156010765215 1191.0267873878968,4629.8156010765215" fill="#B97D00"/>
 <polyline points="1180.0,4780 1180,5050.0 1050,5050.0" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
@@ -124,8 +126,8 @@
 <polygon points="2815.0,7580 2803.4937870734993,7558.938018514631 2826.5062129265007,7558.938018514631" fill="#416FBA"/>
 <polyline points="3380.0,7420 3380,7500 3945,7500 3945.0,7580" fill="none" stroke="#416FBA" stroke-width="5" stroke-linejoin="round" stroke-dasharray="12 8"/>
 <polygon points="3945.0,7580 3933.4937870734993,7558.938018514631 3956.5062129265007,7558.938018514631" fill="#416FBA"/>
-<polyline points="8780,1255.0 8840,1255 8840,3045 8780,3045.0" fill="none" stroke="#416FBA" stroke-width="5" stroke-linejoin="round" stroke-dasharray="12 8"/>
-<polygon points="8780,3045.0 8801.061981485369,3033.4937870734993 8801.061981485369,3056.5062129265007" fill="#416FBA"/>
+<polyline points="8780,1255.0 8840,1255 8840,3125 8780,3125.0" fill="none" stroke="#416FBA" stroke-width="5" stroke-linejoin="round" stroke-dasharray="12 8"/>
+<polygon points="8780,3125.0 8801.061981485369,3113.4937870734993 8801.061981485369,3136.5062129265007" fill="#416FBA"/>
 <g id="title"><title></title><rect x="100" y="40" width="8780" height="150" rx="14" fill="#FFFFFF" stroke="#CCD5DF" stroke-width="2"/>
 <text x="120" y="87" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">FlyVis — от исходной архитектуры к проверенным изменениям</text>
 <text x="120" y="134" font-family="Segoe UI,Arial,sans-serif" font-size="28" font-weight="400" fill="#182B40">Один лист. Сначала красный путь I по номерам 01–08; затем локальные жёлтые ветви II. Зелёный III — достигнутое улучшение; синий пунктир IV — план.</text>
@@ -353,6 +355,14 @@
 <text x="6800" y="2466" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">НЕОПРЕДЕЛЁННО: Результат неоднозначен; не доказана надёжная сшивка</text>
 <text x="6800" y="2495" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">траекторий.</text>
 <text x="6800" y="2529" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">fly_signature_reid_v1</text>
+</g>
+<g id="v_z13_observed_memory_v1"><title>z13_observed_memory_v1</title><rect x="7910" y="2400" width="870" height="360" rx="14" fill="#FFF1BA" stroke="#BF8A18" stroke-width="2"/>
+<text x="7930" y="2447" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">II.4 Банк наблюдений до потери</text>
+<text x="7930" y="2488" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">Вместо последнего образца: одна гребневая модель по отдельным</text>
+<text x="7930" y="2517" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">наблюдениям 1–3, каждое со своей наблюдаемой рамкой.</text>
+<text x="7930" y="2546" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">НЕОПРЕДЕЛЁННО: train26: C −0,13 п.п. [−5,08; +3,45]; D −0,97 [−2,93; +0,94].</text>
+<text x="7930" y="2575" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">Прирост не подтверждён. Это ограниченный банк, не полный STMTrack.</text>
+<text x="7930" y="2609" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">z13_observed_memory_v1</text>
 </g>
 <g id="original_4"><title>tracking/flyvis_activity.py</title><rect x="180" y="3900" width="2000" height="650" rx="14" fill="#FAD8DA" stroke="#BC252D" stroke-width="2"/>
 <text x="200" y="3947" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">05 СЧИТЫВАНИЕ ДВИЖЕНИЯ — ИСХОДНАЯ ОСНОВА</text>
@@ -635,11 +645,11 @@
 <text x="3530" y="7729" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">ПЛАН: результата нет.</text>
 <text x="3530" y="7763" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">fly_future_keeptrack_candidates_v1</text>
 </g>
-<g id="f_fly_future_kys_state_v1"><title>fly_future_kys_state_v1</title><rect x="6780" y="2870" width="2000" height="350" rx="14" fill="#E8F0FF" stroke="#416FBA" stroke-width="2"/>
-<text x="6800" y="2917" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">IV KYS: согласованная пространственная память</text>
-<text x="6800" y="2960" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">Возможная замена: переносить память считывателя между соответствующими областями кадров. Нужна проверка рассогласования координат. Статья не обосновывает</text>
-<text x="6800" y="2991" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">прямой перенос потенциалов нейронов FlyVis. ПЛАН: результата нет.</text>
-<text x="6800" y="3025" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">fly_future_kys_state_v1</text>
+<g id="f_fly_future_kys_state_v1"><title>fly_future_kys_state_v1</title><rect x="6780" y="2950" width="2000" height="350" rx="14" fill="#E8F0FF" stroke="#416FBA" stroke-width="2"/>
+<text x="6800" y="2997" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">IV KYS: согласованная пространственная память</text>
+<text x="6800" y="3040" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">Возможная замена: переносить память считывателя между соответствующими областями кадров. Нужна проверка рассогласования координат. Статья не обосновывает</text>
+<text x="6800" y="3071" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">прямой перенос потенциалов нейронов FlyVis. ПЛАН: результата нет.</text>
+<text x="6800" y="3105" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">fly_future_kys_state_v1</text>
 </g>
 <g id="input_partial"><title>tracking/retina.py</title><rect x="180" y="2610" width="2000" height="340" rx="14" fill="#FFFFFF" stroke="#CCD5DF" stroke-width="2"/>
 <text x="200" y="2657" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">ПОДТВЕРЖДЁННЫЕ РАННИЕ ЭФФЕКТЫ — ОТДЕЛЬНО ОТ З13</text>
@@ -691,6 +701,7 @@
 <rect x="7694.0" y="2059.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="7708.0" y="2086.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="7824.0" y="2139.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="7838.0" y="2166.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="7694.0" y="2479.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="7708.0" y="2506.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
+<rect x="7824.0" y="2559.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="7838.0" y="2586.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="1159.0" y="4579" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="1173.0" y="4606" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="1094.0" y="5029.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="1108.0" y="5056.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="1224.0" y="5109.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="1238.0" y="5136.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
@@ -731,5 +742,5 @@
 <rect x="3223.0078125" y="6679" width="313.984375" height="42" rx="10" fill="white" stroke="#117A46" stroke-width="2"/><text x="3237.0078125" y="6706" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#117A46">III  МАСКА → ПИК ЦЕНТРА</text>
 <rect x="2790.0" y="7509" width="50.0" height="42" rx="10" fill="white" stroke="#416FBA" stroke-width="2"/><text x="2804.0" y="7536" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#416FBA">IV</text>
 <rect x="3920.0" y="7509" width="50.0" height="42" rx="10" fill="white" stroke="#416FBA" stroke-width="2"/><text x="3934.0" y="7536" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#416FBA">IV</text>
-<rect x="8815.0" y="3024" width="50.0" height="42" rx="10" fill="white" stroke="#416FBA" stroke-width="2"/><text x="8829.0" y="3051" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#416FBA">IV</text>
+<rect x="8815.0" y="3104" width="50.0" height="42" rx="10" fill="white" stroke="#416FBA" stroke-width="2"/><text x="8829.0" y="3131" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#416FBA">IV</text>
 </svg>

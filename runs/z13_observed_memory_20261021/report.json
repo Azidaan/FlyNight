@@ -1,0 +1,310 @@
+{
+ "summary": {
+  "C_single": {
+   "rows": 8326,
+   "useful_mean_video": 0.25785788830894824,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 67,
+     "unknown": 17,
+     "useful": 2,
+     "harmful": 65,
+     "useful_share_known": 0.029850746268656716
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 137,
+     "unknown": 30,
+     "useful": 3,
+     "harmful": 134,
+     "useful_share_known": 0.021897810218978103
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 341,
+     "unknown": 76,
+     "useful": 7,
+     "harmful": 334,
+     "useful_share_known": 0.020527859237536656
+    }
+   }
+  },
+  "C_memory": {
+   "rows": 8326,
+   "useful_mean_video": 0.25658832503109513,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 66,
+     "unknown": 18,
+     "useful": 2,
+     "harmful": 64,
+     "useful_share_known": 0.030303030303030304
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 124,
+     "unknown": 43,
+     "useful": 5,
+     "harmful": 119,
+     "useful_share_known": 0.04032258064516129
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 325,
+     "unknown": 92,
+     "useful": 16,
+     "harmful": 309,
+     "useful_share_known": 0.04923076923076923
+    }
+   }
+  },
+  "D_single": {
+   "rows": 8326,
+   "useful_mean_video": 0.25488581030332724,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 64,
+     "unknown": 20,
+     "useful": 2,
+     "harmful": 62,
+     "useful_share_known": 0.03125
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 132,
+     "unknown": 35,
+     "useful": 4,
+     "harmful": 128,
+     "useful_share_known": 0.030303030303030304
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 338,
+     "unknown": 79,
+     "useful": 9,
+     "harmful": 329,
+     "useful_share_known": 0.026627218934911243
+    }
+   }
+  },
+  "D_memory": {
+   "rows": 8326,
+   "useful_mean_video": 0.24521661932796618,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 59,
+     "unknown": 25,
+     "useful": 5,
+     "harmful": 54,
+     "useful_share_known": 0.0847457627118644
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 120,
+     "unknown": 47,
+     "useful": 7,
+     "harmful": 113,
+     "useful_share_known": 0.058333333333333334
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 312,
+     "unknown": 105,
+     "useful": 13,
+     "harmful": 299,
+     "useful_share_known": 0.041666666666666664
+    }
+   }
+  },
+  "R1_single": {
+   "rows": 8326,
+   "useful_mean_video": 0.08870381373212619,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 48,
+     "unknown": 36,
+     "useful": 1,
+     "harmful": 47,
+     "useful_share_known": 0.020833333333333332
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 109,
+     "unknown": 58,
+     "useful": 4,
+     "harmful": 105,
+     "useful_share_known": 0.03669724770642202
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 302,
+     "unknown": 115,
+     "useful": 4,
+     "harmful": 298,
+     "useful_share_known": 0.013245033112582781
+    }
+   }
+  },
+  "R1_memory": {
+   "rows": 8326,
+   "useful_mean_video": 0.08603241855012321,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 46,
+     "unknown": 38,
+     "useful": 1,
+     "harmful": 45,
+     "useful_share_known": 0.021739130434782608
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 99,
+     "unknown": 68,
+     "useful": 2,
+     "harmful": 97,
+     "useful_share_known": 0.020202020202020204
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 273,
+     "unknown": 144,
+     "useful": 6,
+     "harmful": 267,
+     "useful_share_known": 0.02197802197802198
+    }
+   }
+  }
+ },
+ "paired": {
+  "C_memory-C_single": {
+   "mean_per_video": -0.0012695632778530837,
+   "ci95": [
+    -0.050823056685149866,
+    0.03447818112305916
+   ],
+   "better": 16,
+   "n": 26
+  },
+  "C_memory-R1_memory": {
+   "mean_per_video": 0.170555906480972,
+   "ci95": [
+    0.12511100841976108,
+    0.22022703785043649
+   ],
+   "better": 25,
+   "n": 26
+  },
+  "D_memory-D_single": {
+   "mean_per_video": -0.009669190975361064,
+   "ci95": [
+    -0.02932892189772364,
+    0.009377005336704726
+   ],
+   "better": 9,
+   "n": 26
+  },
+  "D_memory-C_memory": {
+   "mean_per_video": -0.011371705703128994,
+   "ci95": [
+    -0.03734384112529413,
+    0.017097782014377387
+   ],
+   "better": 9,
+   "n": 26
+  },
+  "D_memory-R1_memory": {
+   "mean_per_video": 0.15918420077784298,
+   "ci95": [
+    0.1119204928826268,
+    0.21602342910068112
+   ],
+   "better": 24,
+   "n": 26
+  },
+  "C_memory_effect-R1_memory_effect": {
+   "mean_per_video": 0.0014018319041499056,
+   "ci95": [
+    -0.050074047827788036,
+    0.04083605566452145
+   ],
+   "better": 18,
+   "n": 26
+  }
+ },
+ "choices": {
+  "C": {
+   "single": {
+    "lambda_value": 0.001,
+    "fit_scores": [
+     0.19350811485642946,
+     0.18352059925093633,
+     0.18851435705368288,
+     0.1560549313358302,
+     0.1523096129837703
+    ]
+   },
+   "memory": {
+    "lambda_value": 0.1,
+    "fit_scores": [
+     0.18102372034956304,
+     0.20224719101123595,
+     0.20599250936329588,
+     0.17478152309612985,
+     0.15355805243445692
+    ]
+   }
+  },
+  "D": {
+   "single": {
+    "lambda_value": 0.1,
+    "fit_scores": [
+     0.18601747815230962,
+     0.19600499375780275,
+     0.20848938826466917,
+     0.1772784019975031,
+     0.13857677902621723
+    ]
+   },
+   "memory": {
+    "lambda_value": 0.01,
+    "fit_scores": [
+     0.1972534332084894,
+     0.21348314606741572,
+     0.21098626716604243,
+     0.1760299625468165,
+     0.132334581772784
+    ]
+   }
+  },
+  "R1": {
+   "single": {
+    "lambda_value": 0.1,
+    "fit_scores": [
+     0.0749063670411985,
+     0.0749063670411985,
+     0.08489388264669163,
+     0.08114856429463171,
+     0.07865168539325842
+    ]
+   },
+   "memory": {
+    "lambda_value": 0.1,
+    "fit_scores": [
+     0.08239700374531835,
+     0.07990012484394507,
+     0.08364544319600499,
+     0.08114856429463171,
+     0.07365792759051186
+    ]
+   }
+  }
+ },
+ "primary_pass": false,
+ "limitations": "Exploratory reused train26; one fixed bank, no query updates. Full video-paired intervals are exploratory. No HOTA, calibrated rejection or anatomy attribution."
+}
