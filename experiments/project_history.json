@@ -13063,6 +13063,84 @@
      "limitations": "dev35 ранее использовался в проекте; это не слепая оценка, не HOTA и не доказательство надёжного отбора поправок. Составные критерии улучшения относительно прежней C и отбора поправок НЕ пройдены."
     }
    ]
+  },
+  {
+   "id": "z13_pairwise_utility_v1",
+   "title": "З13: парное обучение оценки полезности фиксированных центров",
+   "area": "flyvis",
+   "state": "inconclusive",
+   "started": "2026-10-21",
+   "question": "Улучшит ли добавление парной ошибки отбор полезных поправок при неизменных признаках и основном отборе1%?",
+   "hypothesis": "Парная ошибка может улучшить порядок полезных поправок на неизменных признаках. Причина прежнего провала не установлена.",
+   "expected": "Одна фиксированная добавка к функции обучения; совпадающие данные, признаки, оптимизатор и регуляризация в парном контроле. Сначала точное воспроизведение старой оценки, затем полный train26; CPU до600с. Главная доля отбора1%; дополнительные2%/5% не заменяют её.",
+   "acceptance": [
+    {
+     "criterion": "Воспроизведены прежние6/14-признаковые оценки всех3 arms до1e-10 и все выбранные ключи; исходники неизменны",
+     "met": true,
+     "evidence": "runs/z13_pairwise_utility_20261021/report.json"
+    },
+    {
+     "criterion": "При1% D_pair_map лучше совпадающего D_point_map и прежнего D_old_map: обе нижние95% повидеоДИ>0",
+     "met": false,
+     "evidence": "runs/z13_pairwise_utility_20261021/report.json"
+    },
+    {
+     "criterion": "При1% D_pair_map лучше D_pair_geometry и R1_pair_map: обе нижние95% повидеоДИ>0",
+     "met": false,
+     "evidence": "runs/z13_pairwise_utility_20261021/report.json"
+    }
+   ],
+   "tags": [
+    "Z13",
+    "fly-problem-P8"
+   ],
+   "runs": [
+    "runs/z13_pairwise_utility_20261021"
+   ],
+   "files": [
+    "tracking/z13_pairwise_utility.py",
+    "scripts/z13_pairwise_utility_20261021.py"
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_pairwise_utility_20261021/protocol.json",
+     "claim": "Критерии и источники до расчёта"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_pairwise_utility_20261021/report.json",
+     "claim": "Полный результат и все основные сравнения"
+    }
+   ],
+   "done": "2026-10-21",
+   "obtained": "runs/z13_pairwise_utility_20261021/report.json (primary): pair_map-point_map: +0,2175 п.п. [-0,2298; +0,8022]; pair_map-old_map: +0,2175 п.п. [-0,2298; +0,8022]; pair_map-pair_geometry: +0,4712 п.п. [-0,0473; +1,1387]; D_pair_map-R1_pair_map: +0,4464 п.п. [-0,2542; +1,2050]. runs/z13_pairwise_utility_20261021/report.json (arms.D.coverage.pair_map.0.01): {\"selected\": 84, \"known\": 48, \"unknown\": 36, \"useful\": 12, \"harmful\": 36, \"useful_share_known\": 0.25}. Все26видео train; воспроизведение прежних оценок и выбранных ключей подтверждено в runs/z13_pairwise_utility_20261021/reproduction.json; source_hashes_unchanged=true.",
+   "interpretation": "Заранее заданный критерий парной цели не выполнен. Это итог одной фиксированной реализации, не диагноз представления или отказ от FlyVis.",
+   "decision": "Критерий фиксированной парной цели не пройден; эту реализацию не переносить в трекер и не подбирать по dev.",
+   "cannot_claim": "Повторно использованный train26, одно фиксированное начальное состояние генератора случайных чисел. Неизвестные исходы исключены из обучения, но занимают места при отборе. Проверялся способ применения модернизированной FlyVis, а не новая модернизация ядра. Не измерялись HOTA, перенос на dev или отложенные75 и полный риск неизвестных исходов. Дополнительные доли2%/5% не заменяют основной критерий; известная неполезная поправка не равна измеренному вреду трекеру.",
+   "revisions": [
+    {
+     "date": "2026-10-21",
+     "commit": "4f03276f27ecb61d97422bacfb7d0311b06c75c2",
+     "field": "question",
+     "old": "Does training known useful examples to outrank known nonuseful ones improve the primary1% selection?",
+     "reason": "Перевод отображаемого текста до первого коммита этой карточки; hash указывает базовый коммит рабочего дерева, прежний текст сохранён здесь. Протокол, критерии и числа не менялись."
+    },
+    {
+     "date": "2026-10-21",
+     "commit": "4f03276f27ecb61d97422bacfb7d0311b06c75c2",
+     "field": "decision",
+     "old": "fixed_pairwise_loss_gate_not_passed",
+     "reason": "Перевод отображаемого текста до первого коммита этой карточки; hash указывает базовый коммит рабочего дерева, прежний текст сохранён здесь. Протокол, критерии и числа не менялись."
+    },
+    {
+     "date": "2026-10-21",
+     "commit": "4f03276f27ecb61d97422bacfb7d0311b06c75c2",
+     "field": "cannot_claim",
+     "old": "Exploratory reused train26, one fixed seed; unknown outcomes excluded from fitting but retained in selection denominator. This is an application of modernized FlyVis, not new core modernization or evidence of HOTA. No dev, heldout75, GPU, core training, video decoding or downloads. Дополнительные доли2%/5% и отдельный положительный контраст не заменяют общий критерий. Известный неполезный ответ не тождествен измеренному вреду HOTA.",
+     "reason": "Перевод отображаемого текста до первого коммита этой карточки; hash указывает базовый коммит рабочего дерева, прежний текст сохранён здесь. Протокол, критерии и числа не менялись."
+    }
+   ]
   }
  ],
  "manual_events": [

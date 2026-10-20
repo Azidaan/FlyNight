@@ -1,0 +1,835 @@
+{
+  "arms": {
+    "D": {
+      "coverage": {
+        "old_map": {
+          "0.01": {
+            "selected": 84,
+            "known": 46,
+            "unknown": 38,
+            "useful": 11,
+            "harmful": 35,
+            "useful_share_known": 0.2391304347826087
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 100,
+            "unknown": 67,
+            "useful": 22,
+            "harmful": 78,
+            "useful_share_known": 0.22
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 238,
+            "unknown": 179,
+            "useful": 56,
+            "harmful": 182,
+            "useful_share_known": 0.23529411764705882
+          }
+        },
+        "point_map": {
+          "0.01": {
+            "selected": 84,
+            "known": 47,
+            "unknown": 37,
+            "useful": 11,
+            "harmful": 36,
+            "useful_share_known": 0.23404255319148937
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 99,
+            "unknown": 68,
+            "useful": 21,
+            "harmful": 78,
+            "useful_share_known": 0.21212121212121213
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 240,
+            "unknown": 177,
+            "useful": 56,
+            "harmful": 184,
+            "useful_share_known": 0.23333333333333334
+          }
+        },
+        "pair_map": {
+          "0.01": {
+            "selected": 84,
+            "known": 48,
+            "unknown": 36,
+            "useful": 12,
+            "harmful": 36,
+            "useful_share_known": 0.25
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 97,
+            "unknown": 70,
+            "useful": 22,
+            "harmful": 75,
+            "useful_share_known": 0.2268041237113402
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 227,
+            "unknown": 190,
+            "useful": 50,
+            "harmful": 177,
+            "useful_share_known": 0.22026431718061673
+          }
+        },
+        "point_geometry": {
+          "0.01": {
+            "selected": 84,
+            "known": 38,
+            "unknown": 46,
+            "useful": 5,
+            "harmful": 33,
+            "useful_share_known": 0.13157894736842105
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 84,
+            "unknown": 83,
+            "useful": 18,
+            "harmful": 66,
+            "useful_share_known": 0.21428571428571427
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 232,
+            "unknown": 185,
+            "useful": 47,
+            "harmful": 185,
+            "useful_share_known": 0.2025862068965517
+          }
+        },
+        "pair_geometry": {
+          "0.01": {
+            "selected": 84,
+            "known": 37,
+            "unknown": 47,
+            "useful": 4,
+            "harmful": 33,
+            "useful_share_known": 0.10810810810810811
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 82,
+            "unknown": 85,
+            "useful": 16,
+            "harmful": 66,
+            "useful_share_known": 0.1951219512195122
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 235,
+            "unknown": 182,
+            "useful": 46,
+            "harmful": 189,
+            "useful_share_known": 0.19574468085106383
+          }
+        }
+      },
+      "levels": {
+        "old_map/0.01": 0.0049468382521955425,
+        "old_map/0.02": 0.0108168863409581,
+        "old_map/0.05": 0.058817240760483745,
+        "point_map/0.01": 0.0049468382521955425,
+        "point_map/0.02": 0.009922431958131627,
+        "point_map/0.05": 0.058817240760483745,
+        "pair_map/0.01": 0.007121515983808625,
+        "pair_map/0.02": 0.01498126756835508,
+        "pair_map/0.05": 0.0573620856675138,
+        "point_geometry/0.01": 0.002914535382793121,
+        "point_geometry/0.02": 0.011049835623050137,
+        "point_geometry/0.05": 0.054015009720616534,
+        "pair_geometry/0.01": 0.0024095170258855107,
+        "pair_geometry/0.02": 0.014476573611804341,
+        "pair_geometry/0.05": 0.059765365610870494
+      },
+      "paired": {
+        "0.01": {
+          "pair_map-point_map": {
+            "mean_per_video": 0.002174677731613082,
+            "ci95": [
+              -0.0022983178511138173,
+              0.008022224184168172
+            ],
+            "better": 3,
+            "n": 26
+          },
+          "pair_map-old_map": {
+            "mean_per_video": 0.002174677731613082,
+            "ci95": [
+              -0.0022983178511138173,
+              0.008022224184168172
+            ],
+            "better": 3,
+            "n": 26
+          },
+          "pair_map-pair_geometry": {
+            "mean_per_video": 0.004711998957923114,
+            "ci95": [
+              -0.0004726614842258507,
+              0.01138656646595562
+            ],
+            "better": 5,
+            "n": 26
+          }
+        },
+        "0.02": {
+          "pair_map-point_map": {
+            "mean_per_video": 0.005058835610223458,
+            "ci95": [
+              -0.0016297346602579161,
+              0.016124584030622998
+            ],
+            "better": 3,
+            "n": 26
+          },
+          "pair_map-old_map": {
+            "mean_per_video": 0.0041643812273969814,
+            "ci95": [
+              -0.0021591936445649875,
+              0.01497464073186127
+            ],
+            "better": 2,
+            "n": 26
+          },
+          "pair_map-pair_geometry": {
+            "mean_per_video": 0.00050469395655074,
+            "ci95": [
+              -0.006116753101870617,
+              0.006248558793183392
+            ],
+            "better": 7,
+            "n": 26
+          }
+        },
+        "0.05": {
+          "pair_map-point_map": {
+            "mean_per_video": -0.0014551550929699539,
+            "ci95": [
+              -0.004852633333496881,
+              0.002138895917550356
+            ],
+            "better": 2,
+            "n": 26
+          },
+          "pair_map-old_map": {
+            "mean_per_video": -0.0014551550929699539,
+            "ci95": [
+              -0.004852633333496881,
+              0.002138895917550356
+            ],
+            "better": 2,
+            "n": 26
+          },
+          "pair_map-pair_geometry": {
+            "mean_per_video": -0.002403279943356708,
+            "ci95": [
+              -0.017698684214037926,
+              0.01196374289219329
+            ],
+            "better": 8,
+            "n": 26
+          }
+        }
+      }
+    },
+    "C": {
+      "coverage": {
+        "old_map": {
+          "0.01": {
+            "selected": 84,
+            "known": 47,
+            "unknown": 37,
+            "useful": 14,
+            "harmful": 33,
+            "useful_share_known": 0.2978723404255319
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 99,
+            "unknown": 68,
+            "useful": 28,
+            "harmful": 71,
+            "useful_share_known": 0.2828282828282828
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 231,
+            "unknown": 186,
+            "useful": 62,
+            "harmful": 169,
+            "useful_share_known": 0.2683982683982684
+          }
+        },
+        "point_map": {
+          "0.01": {
+            "selected": 84,
+            "known": 47,
+            "unknown": 37,
+            "useful": 14,
+            "harmful": 33,
+            "useful_share_known": 0.2978723404255319
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 99,
+            "unknown": 68,
+            "useful": 29,
+            "harmful": 70,
+            "useful_share_known": 0.29292929292929293
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 233,
+            "unknown": 184,
+            "useful": 63,
+            "harmful": 170,
+            "useful_share_known": 0.2703862660944206
+          }
+        },
+        "pair_map": {
+          "0.01": {
+            "selected": 84,
+            "known": 47,
+            "unknown": 37,
+            "useful": 13,
+            "harmful": 34,
+            "useful_share_known": 0.2765957446808511
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 98,
+            "unknown": 69,
+            "useful": 28,
+            "harmful": 70,
+            "useful_share_known": 0.2857142857142857
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 234,
+            "unknown": 183,
+            "useful": 59,
+            "harmful": 175,
+            "useful_share_known": 0.25213675213675213
+          }
+        },
+        "point_geometry": {
+          "0.01": {
+            "selected": 84,
+            "known": 40,
+            "unknown": 44,
+            "useful": 7,
+            "harmful": 33,
+            "useful_share_known": 0.175
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 92,
+            "unknown": 75,
+            "useful": 17,
+            "harmful": 75,
+            "useful_share_known": 0.18478260869565216
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 234,
+            "unknown": 183,
+            "useful": 49,
+            "harmful": 185,
+            "useful_share_known": 0.2094017094017094
+          }
+        },
+        "pair_geometry": {
+          "0.01": {
+            "selected": 84,
+            "known": 47,
+            "unknown": 37,
+            "useful": 8,
+            "harmful": 39,
+            "useful_share_known": 0.1702127659574468
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 96,
+            "unknown": 71,
+            "useful": 21,
+            "harmful": 75,
+            "useful_share_known": 0.21875
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 235,
+            "unknown": 182,
+            "useful": 48,
+            "harmful": 187,
+            "useful_share_known": 0.20425531914893616
+          }
+        }
+      },
+      "levels": {
+        "old_map/0.01": 0.012710763443537072,
+        "old_map/0.02": 0.024530320147038372,
+        "old_map/0.05": 0.061753404585317306,
+        "point_map/0.01": 0.012710763443537072,
+        "point_map/0.02": 0.024876820493538714,
+        "point_map/0.05": 0.06196827351527004,
+        "pair_map/0.01": 0.014017507247106938,
+        "pair_map/0.02": 0.024105950031337656,
+        "pair_map/0.05": 0.06240913992656453,
+        "point_geometry/0.01": 0.0061754716502276,
+        "point_geometry/0.02": 0.03398514475661627,
+        "point_geometry/0.05": 0.0755992108642532,
+        "pair_geometry/0.01": 0.007595417982964632,
+        "pair_geometry/0.02": 0.03634507254765113,
+        "pair_geometry/0.05": 0.076513197574784
+      },
+      "paired": {
+        "0.01": {
+          "pair_map-point_map": {
+            "mean_per_video": 0.001306743803569864,
+            "ci95": [
+              -0.0032527616142640444,
+              0.007382303488860866
+            ],
+            "better": 2,
+            "n": 26
+          },
+          "pair_map-old_map": {
+            "mean_per_video": 0.001306743803569864,
+            "ci95": [
+              -0.0032527616142640444,
+              0.007382303488860866
+            ],
+            "better": 2,
+            "n": 26
+          },
+          "pair_map-pair_geometry": {
+            "mean_per_video": 0.006422089264142306,
+            "ci95": [
+              0.00017087555467218486,
+              0.014205970330562756
+            ],
+            "better": 6,
+            "n": 26
+          }
+        },
+        "0.02": {
+          "pair_map-point_map": {
+            "mean_per_video": -0.0007708704622010618,
+            "ci95": [
+              -0.0030353929034909956,
+              0.0011926058437686344
+            ],
+            "better": 1,
+            "n": 26
+          },
+          "pair_map-old_map": {
+            "mean_per_video": -0.00042437011570071526,
+            "ci95": [
+              -0.002860825363174251,
+              0.0018319246490063447
+            ],
+            "better": 2,
+            "n": 26
+          },
+          "pair_map-pair_geometry": {
+            "mean_per_video": -0.012239122516313471,
+            "ci95": [
+              -0.056477010426771224,
+              0.014792416059749493
+            ],
+            "better": 10,
+            "n": 26
+          }
+        },
+        "0.05": {
+          "pair_map-point_map": {
+            "mean_per_video": 0.0004408664112944884,
+            "ci95": [
+              -0.006197036416362099,
+              0.00774693973284581
+            ],
+            "better": 3,
+            "n": 26
+          },
+          "pair_map-old_map": {
+            "mean_per_video": 0.0006557353412472173,
+            "ci95": [
+              -0.006003400172050166,
+              0.00805791288920696
+            ],
+            "better": 4,
+            "n": 26
+          },
+          "pair_map-pair_geometry": {
+            "mean_per_video": -0.014104057648219485,
+            "ci95": [
+              -0.05740634748094403,
+              0.011662310111693339
+            ],
+            "better": 9,
+            "n": 26
+          }
+        }
+      }
+    },
+    "R1": {
+      "coverage": {
+        "old_map": {
+          "0.01": {
+            "selected": 84,
+            "known": 60,
+            "unknown": 24,
+            "useful": 6,
+            "harmful": 54,
+            "useful_share_known": 0.1
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 114,
+            "unknown": 53,
+            "useful": 10,
+            "harmful": 104,
+            "useful_share_known": 0.08771929824561403
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 273,
+            "unknown": 144,
+            "useful": 31,
+            "harmful": 242,
+            "useful_share_known": 0.11355311355311355
+          }
+        },
+        "point_map": {
+          "0.01": {
+            "selected": 84,
+            "known": 60,
+            "unknown": 24,
+            "useful": 6,
+            "harmful": 54,
+            "useful_share_known": 0.1
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 113,
+            "unknown": 54,
+            "useful": 10,
+            "harmful": 103,
+            "useful_share_known": 0.08849557522123894
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 273,
+            "unknown": 144,
+            "useful": 31,
+            "harmful": 242,
+            "useful_share_known": 0.11355311355311355
+          }
+        },
+        "pair_map": {
+          "0.01": {
+            "selected": 84,
+            "known": 54,
+            "unknown": 30,
+            "useful": 5,
+            "harmful": 49,
+            "useful_share_known": 0.09259259259259259
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 110,
+            "unknown": 57,
+            "useful": 8,
+            "harmful": 102,
+            "useful_share_known": 0.07272727272727272
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 277,
+            "unknown": 140,
+            "useful": 28,
+            "harmful": 249,
+            "useful_share_known": 0.10108303249097472
+          }
+        },
+        "point_geometry": {
+          "0.01": {
+            "selected": 84,
+            "known": 59,
+            "unknown": 25,
+            "useful": 8,
+            "harmful": 51,
+            "useful_share_known": 0.13559322033898305
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 112,
+            "unknown": 55,
+            "useful": 11,
+            "harmful": 101,
+            "useful_share_known": 0.09821428571428571
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 269,
+            "unknown": 148,
+            "useful": 31,
+            "harmful": 238,
+            "useful_share_known": 0.11524163568773234
+          }
+        },
+        "pair_geometry": {
+          "0.01": {
+            "selected": 84,
+            "known": 57,
+            "unknown": 27,
+            "useful": 4,
+            "harmful": 53,
+            "useful_share_known": 0.07017543859649122
+          },
+          "0.02": {
+            "selected": 167,
+            "known": 109,
+            "unknown": 58,
+            "useful": 11,
+            "harmful": 98,
+            "useful_share_known": 0.10091743119266056
+          },
+          "0.05": {
+            "selected": 417,
+            "known": 261,
+            "unknown": 156,
+            "useful": 25,
+            "harmful": 236,
+            "useful_share_known": 0.09578544061302682
+          }
+        }
+      },
+      "levels": {
+        "old_map/0.01": 0.005084364477775331,
+        "old_map/0.02": 0.008761830620325272,
+        "old_map/0.05": 0.024638231594211104,
+        "point_map/0.01": 0.005084364477775331,
+        "point_map/0.02": 0.008761830620325272,
+        "point_map/0.05": 0.02454120033775956,
+        "pair_map/0.01": 0.0026579703497983348,
+        "pair_map/0.02": 0.007703079561574213,
+        "pair_map/0.05": 0.02124116659897852,
+        "point_geometry/0.01": 0.0113570524365098,
+        "point_geometry/0.02": 0.012905699473528931,
+        "point_geometry/0.05": 0.022654786522854627,
+        "pair_geometry/0.01": 0.007519230769230769,
+        "pair_geometry/0.02": 0.011862243860240916,
+        "pair_geometry/0.05": 0.019830434723479715
+      },
+      "paired": {
+        "0.01": {
+          "pair_map-point_map": {
+            "mean_per_video": -0.002426394127976996,
+            "ci95": [
+              -0.007471503339752874,
+              0.0004297378599054577
+            ],
+            "better": 1,
+            "n": 26
+          },
+          "pair_map-old_map": {
+            "mean_per_video": -0.002426394127976996,
+            "ci95": [
+              -0.007471503339752874,
+              0.0004297378599054577
+            ],
+            "better": 1,
+            "n": 26
+          },
+          "pair_map-pair_geometry": {
+            "mean_per_video": -0.004861260419432435,
+            "ci95": [
+              -0.021291405823528727,
+              0.005581595226911583
+            ],
+            "better": 3,
+            "n": 26
+          }
+        },
+        "0.02": {
+          "pair_map-point_map": {
+            "mean_per_video": -0.0010587510587510586,
+            "ci95": [
+              -0.0028297528297528294,
+              0.0
+            ],
+            "better": 0,
+            "n": 26
+          },
+          "pair_map-old_map": {
+            "mean_per_video": -0.0010587510587510586,
+            "ci95": [
+              -0.0028297528297528294,
+              0.0
+            ],
+            "better": 0,
+            "n": 26
+          },
+          "pair_map-pair_geometry": {
+            "mean_per_video": -0.0041591642986667015,
+            "ci95": [
+              -0.011454232536208468,
+              0.001359170905747494
+            ],
+            "better": 1,
+            "n": 26
+          }
+        },
+        "0.05": {
+          "pair_map-point_map": {
+            "mean_per_video": -0.0033000337387810367,
+            "ci95": [
+              -0.008912991612229549,
+              0.0011676858671290156
+            ],
+            "better": 2,
+            "n": 26
+          },
+          "pair_map-old_map": {
+            "mean_per_video": -0.0033970649952325825,
+            "ci95": [
+              -0.00892776926694645,
+              0.0007691489992374946
+            ],
+            "better": 2,
+            "n": 26
+          },
+          "pair_map-pair_geometry": {
+            "mean_per_video": 0.0014107318754988034,
+            "ci95": [
+              -0.007867955282713323,
+              0.012158083393686766
+            ],
+            "better": 7,
+            "n": 26
+          }
+        }
+      }
+    }
+  },
+  "cross": {
+    "0.01": {
+      "D_pair_map-R1_pair_map": {
+        "mean_per_video": 0.004463545634010289,
+        "ci95": [
+          -0.0025416295297067135,
+          0.012049573241680996
+        ],
+        "better": 6,
+        "n": 26
+      },
+      "D_pair_map-C_pair_map": {
+        "mean_per_video": -0.006895991263298313,
+        "ci95": [
+          -0.01893083093568408,
+          0.0023792249297695392
+        ],
+        "better": 4,
+        "n": 26
+      }
+    },
+    "0.02": {
+      "D_pair_map-R1_pair_map": {
+        "mean_per_video": 0.007278188006780868,
+        "ci95": [
+          0.0022326029839905264,
+          0.013431089035986056
+        ],
+        "better": 9,
+        "n": 26
+      },
+      "D_pair_map-C_pair_map": {
+        "mean_per_video": -0.009124682462982576,
+        "ci95": [
+          -0.02138452888794234,
+          0.0005068871841026999
+        ],
+        "better": 4,
+        "n": 26
+      }
+    },
+    "0.05": {
+      "D_pair_map-R1_pair_map": {
+        "mean_per_video": 0.03612091906853527,
+        "ci95": [
+          0.007552219353153998,
+          0.08138933496265155
+        ],
+        "better": 15,
+        "n": 26
+      },
+      "D_pair_map-C_pair_map": {
+        "mean_per_video": -0.005047054259050734,
+        "ci95": [
+          -0.0161049019082746,
+          0.005831991428721106
+        ],
+        "better": 9,
+        "n": 26
+      }
+    }
+  },
+  "primary": {
+    "pair_map-point_map": {
+      "mean_per_video": 0.002174677731613082,
+      "ci95": [
+        -0.0022983178511138173,
+        0.008022224184168172
+      ],
+      "better": 3,
+      "n": 26
+    },
+    "pair_map-old_map": {
+      "mean_per_video": 0.002174677731613082,
+      "ci95": [
+        -0.0022983178511138173,
+        0.008022224184168172
+      ],
+      "better": 3,
+      "n": 26
+    },
+    "pair_map-pair_geometry": {
+      "mean_per_video": 0.004711998957923114,
+      "ci95": [
+        -0.0004726614842258507,
+        0.01138656646595562
+      ],
+      "better": 5,
+      "n": 26
+    },
+    "D_pair_map-R1_pair_map": {
+      "mean_per_video": 0.004463545634010289,
+      "ci95": [
+        -0.0025416295297067135,
+        0.012049573241680996
+      ],
+      "better": 6,
+      "n": 26
+    }
+  },
+  "primary_pass": false,
+  "decision": "fixed_pairwise_loss_gate_not_passed",
+  "reproduction_pass": true,
+  "source_hashes_unchanged": true,
+  "torch_loaded": false,
+  "gpu": false,
+  "core_training": false,
+  "dev_evaluated": false,
+  "hota_measured": false,
+  "heldout75": false,
+  "limitations": "Exploratory reused train26, one fixed seed; unknown outcomes excluded from fitting but retained in selection denominator. This is an application of modernized FlyVis, not new core modernization or evidence of HOTA. No dev, heldout75, GPU, core training, video decoding or downloads."
+}

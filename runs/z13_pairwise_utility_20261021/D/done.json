@@ -1,0 +1,240 @@
+{
+  "coverage": {
+    "old_map": {
+      "0.01": {
+        "selected": 84,
+        "known": 46,
+        "unknown": 38,
+        "useful": 11,
+        "harmful": 35,
+        "useful_share_known": 0.2391304347826087
+      },
+      "0.02": {
+        "selected": 167,
+        "known": 100,
+        "unknown": 67,
+        "useful": 22,
+        "harmful": 78,
+        "useful_share_known": 0.22
+      },
+      "0.05": {
+        "selected": 417,
+        "known": 238,
+        "unknown": 179,
+        "useful": 56,
+        "harmful": 182,
+        "useful_share_known": 0.23529411764705882
+      }
+    },
+    "point_map": {
+      "0.01": {
+        "selected": 84,
+        "known": 47,
+        "unknown": 37,
+        "useful": 11,
+        "harmful": 36,
+        "useful_share_known": 0.23404255319148937
+      },
+      "0.02": {
+        "selected": 167,
+        "known": 99,
+        "unknown": 68,
+        "useful": 21,
+        "harmful": 78,
+        "useful_share_known": 0.21212121212121213
+      },
+      "0.05": {
+        "selected": 417,
+        "known": 240,
+        "unknown": 177,
+        "useful": 56,
+        "harmful": 184,
+        "useful_share_known": 0.23333333333333334
+      }
+    },
+    "pair_map": {
+      "0.01": {
+        "selected": 84,
+        "known": 48,
+        "unknown": 36,
+        "useful": 12,
+        "harmful": 36,
+        "useful_share_known": 0.25
+      },
+      "0.02": {
+        "selected": 167,
+        "known": 97,
+        "unknown": 70,
+        "useful": 22,
+        "harmful": 75,
+        "useful_share_known": 0.2268041237113402
+      },
+      "0.05": {
+        "selected": 417,
+        "known": 227,
+        "unknown": 190,
+        "useful": 50,
+        "harmful": 177,
+        "useful_share_known": 0.22026431718061673
+      }
+    },
+    "point_geometry": {
+      "0.01": {
+        "selected": 84,
+        "known": 38,
+        "unknown": 46,
+        "useful": 5,
+        "harmful": 33,
+        "useful_share_known": 0.13157894736842105
+      },
+      "0.02": {
+        "selected": 167,
+        "known": 84,
+        "unknown": 83,
+        "useful": 18,
+        "harmful": 66,
+        "useful_share_known": 0.21428571428571427
+      },
+      "0.05": {
+        "selected": 417,
+        "known": 232,
+        "unknown": 185,
+        "useful": 47,
+        "harmful": 185,
+        "useful_share_known": 0.2025862068965517
+      }
+    },
+    "pair_geometry": {
+      "0.01": {
+        "selected": 84,
+        "known": 37,
+        "unknown": 47,
+        "useful": 4,
+        "harmful": 33,
+        "useful_share_known": 0.10810810810810811
+      },
+      "0.02": {
+        "selected": 167,
+        "known": 82,
+        "unknown": 85,
+        "useful": 16,
+        "harmful": 66,
+        "useful_share_known": 0.1951219512195122
+      },
+      "0.05": {
+        "selected": 417,
+        "known": 235,
+        "unknown": 182,
+        "useful": 46,
+        "harmful": 189,
+        "useful_share_known": 0.19574468085106383
+      }
+    }
+  },
+  "levels": {
+    "old_map/0.01": 0.0049468382521955425,
+    "old_map/0.02": 0.0108168863409581,
+    "old_map/0.05": 0.058817240760483745,
+    "point_map/0.01": 0.0049468382521955425,
+    "point_map/0.02": 0.009922431958131627,
+    "point_map/0.05": 0.058817240760483745,
+    "pair_map/0.01": 0.007121515983808625,
+    "pair_map/0.02": 0.01498126756835508,
+    "pair_map/0.05": 0.0573620856675138,
+    "point_geometry/0.01": 0.002914535382793121,
+    "point_geometry/0.02": 0.011049835623050137,
+    "point_geometry/0.05": 0.054015009720616534,
+    "pair_geometry/0.01": 0.0024095170258855107,
+    "pair_geometry/0.02": 0.014476573611804341,
+    "pair_geometry/0.05": 0.059765365610870494
+  },
+  "paired": {
+    "0.01": {
+      "pair_map-point_map": {
+        "mean_per_video": 0.002174677731613082,
+        "ci95": [
+          -0.0022983178511138173,
+          0.008022224184168172
+        ],
+        "better": 3,
+        "n": 26
+      },
+      "pair_map-old_map": {
+        "mean_per_video": 0.002174677731613082,
+        "ci95": [
+          -0.0022983178511138173,
+          0.008022224184168172
+        ],
+        "better": 3,
+        "n": 26
+      },
+      "pair_map-pair_geometry": {
+        "mean_per_video": 0.004711998957923114,
+        "ci95": [
+          -0.0004726614842258507,
+          0.01138656646595562
+        ],
+        "better": 5,
+        "n": 26
+      }
+    },
+    "0.02": {
+      "pair_map-point_map": {
+        "mean_per_video": 0.005058835610223458,
+        "ci95": [
+          -0.0016297346602579161,
+          0.016124584030622998
+        ],
+        "better": 3,
+        "n": 26
+      },
+      "pair_map-old_map": {
+        "mean_per_video": 0.0041643812273969814,
+        "ci95": [
+          -0.0021591936445649875,
+          0.01497464073186127
+        ],
+        "better": 2,
+        "n": 26
+      },
+      "pair_map-pair_geometry": {
+        "mean_per_video": 0.00050469395655074,
+        "ci95": [
+          -0.006116753101870617,
+          0.006248558793183392
+        ],
+        "better": 7,
+        "n": 26
+      }
+    },
+    "0.05": {
+      "pair_map-point_map": {
+        "mean_per_video": -0.0014551550929699539,
+        "ci95": [
+          -0.004852633333496881,
+          0.002138895917550356
+        ],
+        "better": 2,
+        "n": 26
+      },
+      "pair_map-old_map": {
+        "mean_per_video": -0.0014551550929699539,
+        "ci95": [
+          -0.004852633333496881,
+          0.002138895917550356
+        ],
+        "better": 2,
+        "n": 26
+      },
+      "pair_map-pair_geometry": {
+        "mean_per_video": -0.002403279943356708,
+        "ci95": [
+          -0.017698684214037926,
+          0.01196374289219329
+        ],
+        "better": 8,
+        "n": 26
+      }
+    }
+  }
+}
