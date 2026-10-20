@@ -10,18 +10,20 @@ import html
 import json
 import math
 from pathlib import Path
+import sys
 import xml.etree.ElementTree as ET
 
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 OUT = ROOT / 'dissertation/architecture'
 STEM = 'FlyVis_architecture'
 DATE = '21.10.2026'
 FONT = 'C:/Windows/Fonts/segoeui.ttf'
 BOLD = 'C:/Windows/Fonts/segoeuib.ttf'
-PALETTE = {'base': ('#EDF1F5','#52647A'), 'tried': ('#FFF1BA','#BF8A18'),
-           'good': ('#DDF3E3','#2D8452'), 'future': ('#F5F7FA','#8695A7'),
+PALETTE = {'base': ('#FAD8DA','#BC252D'), 'tried': ('#FFF1BA','#BF8A18'),
+           'good': ('#DDF3E3','#117A46'), 'future': ('#E8F0FF','#416FBA'),
            'external': ('#E8EDF3','#68788C'), 'note': ('#FFFFFF','#CCD5DF')}
 
 # Each entry explicitly states what replaces what, not merely a paper name.
@@ -164,38 +166,9 @@ def main():
         d=dict(id=id,x=x,y=y,w=w,h=h,title=title_lines,body=body_lines,footer=ref_lines,
                kind=kind,ref=ref,card=card,size=size)
         nodes.append(d);return id
-    def edge(a,b,kind='flow',points=None):edges.append(dict(a=a,b=b,kind=kind,points=points))
-    W=7000; X=[100+i*860 for i in range(8)]; CW=730
-    TOP=600; STEP=390; BASEY=3530; BASEH=340; GREYBOTTOM=BASEY+3*(BASEH+35)
-    node('title',100,60,6800,140,'FlyVis — архитектура и проверенные замены узлов',
-         f'Один лист · состояние на {DATE} · читать по центральной цепочке слева направо, затем по ответвлениям каждого узла.', 'note',size=26)
-    legends=[('base','ИСХОДНОЕ / СОХРАНЁННОЕ','Серая цепочка: реализация и общие узлы. Стрелки показывают данные.'),
-             ('tried','ОПРОБОВАНО БЕЗ ПРИНЯТОЙ ЗАМЕНЫ','Жёлтый: отрицательный либо неопределённый итог; точный статус написан внутри.'),
-             ('good','ПОДТВЕРЖДЁННЫЙ ЧАСТНЫЙ ЭФФЕКТ','Зелёный: указанный узел / сравнение улучшены. Это не обещание HOTA.'),
-             ('future','ПЛАН, ЕЩЁ НЕ РЕЗУЛЬТАТ','Пунктир: возможное изменение. Не включено в доказанную архитектуру.')]
-    for i,(k,t,b) in enumerate(legends):node('legend'+str(i),100+i*1720,230,1640,180,t,b,k)
-    for col,(num,title,variants) in enumerate(LANES):
-        x=X[col]
-        node('head'+str(col),x,450,CW,125,num+'  '+title,'','note',size=18)
-        for j,(cid,t,b,result) in enumerate(variants):
-            if cid not in cards:raise KeyError(cid)
-            c=cards[cid]
-            status={'inconclusive':'НЕОПРЕДЕЛЁННО','completed_negative':'КРИТЕРИЙ НЕ ПРОЙДЕН','closed':'ЭТА ВЕРСИЯ ОСТАНОВЛЕНА'}.get(c['state'],c['state'])
-            n=node('v_'+cid,x,TOP+j*STEP,CW,360,t,b+'\n'+status+': '+result,'tried',cid,cid,size=20)
-            # Dotted fan-out means replacement at this module, not serial execution.
-            bus=x-24
-            edge('base'+str(col)+'_1',n,'variant',[(bus,BASEY+BASEH+35+BASEH/2),(bus,TOP+j*STEP+180)])
-        for j,(t,b,ref) in enumerate(BASE[col]):
-            n=node('base'+str(col)+'_'+str(j),x,BASEY+j*(BASEH+35),CW,BASEH,t,b,'external' if col==7 else 'base',ref,size=22)
-            if j and col in (1,3,4,7):edge('base'+str(col)+'_'+str(j-1),n)
-    # Main path: the original flow decoder is a parallel branch, never an input to object readout.
-    for a,b in [('base0_0','base0_1'),('base0_1','base1_0'),('base1_1','base2_1'),('base2_0','base2_1'),('base2_2','base2_1'),('base2_1','base3_0'),('base3_1','base4_0'),('base4_0','base5_0'),('base4_0','base5_1'),('base4_0','base5_2'),('base5_0','base6_0'),('base5_1','base6_0'),('base5_2','base6_0'),('base6_0','base6_1'),('base6_0','base6_2'),('base6_1','base7_1'),('base6_2','base7_1')]:edge(a,b)
-    for e in edges:
-        if e['a']=='base6_0' and e['b']=='base6_2':
-            e['points']=[(X[6]+CW+20,BASEY+BASEH/2),(X[6]+CW+20,BASEY+2*(BASEH+35)+BASEH/2)]
-    edge('base3_2','base2_1','recurrence',[(X[3]+CW+40,GREYBOTTOM+60),(X[2]-45,GREYBOTTOM+60),(X[2]-45,BASEY+BASEH+35+BASEH/2)])
-    # Green blocks: all quantities below come from the frozen verified-results evidence.
-    cy=GREYBOTTOM+150
+    def edge(a,b,kind='flow',points=None,start='right',end='left',label='',label_at=None):
+        edges.append(dict(a=a,b=b,kind=kind,points=points,start=start,end=end,label=label,label_at=label_at))
+    from scripts.flyvis_architecture_layout import build_layout, EDGE_STYLES
     def confirmed(cid, rid):
         c=cards[cid]; r=next(x for x in c['confirmed_results'] if x['id']==rid)
         ev=r['evidence'];path=ROOT/ev['source']
@@ -207,38 +180,11 @@ def main():
         fmt=lambda x:f'{100*x:+.2f}'.replace('.',',')
         source(ev['source']);linked.add(cid)
         return f"{fmt(obj['mean_per_video'])} п.п.; 95% ДИ [{fmt(lo)}; {fmt(hi)}]",ev['source']
-    cdelta,report=confirmed('z13_target_center_dev_v1','C_center_vs_binary_dev35')
-    ddelta,_=confirmed('z13_target_center_dev_v1','D_center_vs_binary_dev35')
-    rep,_=confirmed('z13_target_center_dev_v1','D_center_vs_R1_dev35')
-    repc,_=confirmed('z13_target_center_dev_v1','C_center_vs_R1_dev35')
-    old,_=confirmed('z13_target_center_dev_v1','D_center_vs_prior_dev35')
-    greens=[
-      (5,'g_center','ПРИНЯТАЯ ФУНКЦИОНАЛЬНАЯ ОСНОВА','Вместо плоской маски рамки: гауссов пик её наблюдаемого центра. Та же гребневая модель цели и те же признаки.\nC: '+cdelta+'\nD: '+ddelta,'z13_target_center_dev_v1'),
-      (4,'g_signal','ПОДТВЕРЖДЁН ПОЛЕЗНЫЙ СИГНАЛ МУХИ','Тот же центрированный считыватель против R1 (вход глаза с временными каналами).\nC − R1: '+repc+'\nD − R1: '+rep,'z13_target_center_dev_v1'),
-      (6,'g_prior','НОВЫЙ ЦЕНТР НА ТОЙ ЖЕ D','Центрированная модель цели против прежнего считывателя D:\n'+old+'\nУлучшена доля полезных центров. Надёжный выбор поправок этим не доказан.','z13_target_center_dev_v1')]
-    for col,n,t,b,cid in greens:
-        node(n,X[col],cy,CW,440,t,b+'\ndev35 использовался раньше; не HOTA.','good',report,cid,size=21)
-        origin='base4_0' if col==4 else 'base5_2'
-        origin_node=next(v for v in nodes if v['id']==origin)
-        bus=origin_node['x']+CW+18
-        entry=X[col]-18
-        edge(origin,n,'confirmed',[(bus,origin_node['y']+origin_node['h']/2),(bus,GREYBOTTOM+95),(entry,GREYBOTTOM+95),(entry,cy+220)])
-    node('g_scope',X[7],cy,CW,440,'ЧЕГО В ЗЕЛЁНОЙ ВЕТВИ НЕТ','Нет подтверждённого превосходства D над C при этом считывании. Нет измеренной пользы нового узла по HOTA. Нет доказательства, что эффект вызван именно анатомией связей.','note',report,size=22)
-    node('input_partial',X[0],cy,CW,440,'РАННИЕ ЧАСТНЫЕ РЕЗУЛЬТАТЫ','Ламина и локальная нормализация дали функциональные эффекты в отдельных проверках. Они не объединены автоматически с З13 в одну доказанную модель. Результат нормализованного потока по HOTA отрицательный.','note','flyvis_retina_stageB_v1 / fly_input_norm_v1',size=22)
-    linked.update(['flyvis_retina_stageB_v1','fly_input_norm_v1'])
-    node('control',X[2],cy,CW,440,'КОНТРОЛИ ЯДРА И ВХОДА','C0: исходная инициализация до Sintel.\nC: штатные параметры после Sintel.\nD: дообученная муха.\nB: HexGRU (рекуррентная сеть на решётке), состояние 16, выход 34.\nR0/R1: временные признаки входа глаза без FlyVis. B и D не равны по ёмкости.','note','scripts/z13_target_model.py',size=21)
-    node('metric',X[3],cy,CW,440,'КАК ЧИТАТЬ РЕЗУЛЬТАТЫ','Полезный центр: известная присутствующая цель; ошибка меньше ошибки прогноза и не больше четверти размера объекта. Средняя доля по видео — не точность среди выбранных. Неизвестный исход не равен ошибке или успеху.','note','scripts/z13_train.py',size=22)
-    fy=cy+540
-    futures=[(3,'fly_future_kys_state_v1','KYS: адресуемая память','Вместо памяти без сопоставления областей: перенос состояния считывателя по соответствиям. Прямой перенос потенциалов FlyVis не обоснован.'),
-      (4,'fly_future_keeptrack_candidates_v1','KeepTrack: личности кандидатов','Вместо единственного максимума: отдельные пики, локальная активность, соответствия между кадрами и отсутствие соответствия.'),
-      (5,'fly_future_stmtrack_memory_v1','STMTrack: несколько наблюдений','Вместо одного фиксированного образца: отдельные прошлые наблюдения цели. Правило добавления не должно использовать будущую разметку.')]
-    for col,cid,t,b in futures:
-        node('f_'+cid,X[col],fy,CW,340,t,b+'\nПЛАН: результата нет.','future',cid,cid,size=22)
-        edge('base'+str(col)+'_2','f_'+cid,'future',[(X[col]+CW+24,GREYBOTTOM+85),(X[col]+CW+24,fy+170)])
-    node('ranklimit',X[6],fy,CW,340,'ОТБОР 1% — ДИАГНОСТИКА','Сортировка всех записей и выбор верхнего процента не являются готовым покадровым правилом. В стенде решение должно использовать только доступное настоящее и прошлое.','note','scripts/z13_score_swap.py',size=22)
-    H=fy+550
-    node('footer',100,H-160,6800,140,'СЕРЫЕ СТРЕЛКИ — ДАННЫЕ · ПУНКТИР — ЗАМЕНА / ПЛАН · ЗЕЛЁНЫЕ — ПОДТВЕРЖДЁННЫЕ СРАВНЕНИЯ · ОБРАТНАЯ — СОСТОЯНИЕ',
-         'Параллельные испытанные ветви не складываются в единую работающую модель. Полные формулировки, критерии и источники карточек доступны в данных каждого блока и в файле источников рядом со схемой.','note',size=19)
+    linked.update(('flyvis_retina_stageB_v1','fly_input_norm_v1'))
+    source('scripts/z13_score_swap.py')
+    source('scripts/build_flyvis_architecture.py')
+    source('scripts/flyvis_architecture_layout.py')
+    W,H,DETAIL=build_layout(node,edge,source,cards,LANES,BASE,confirmed)
     byid={n['id']:n for n in nodes}
     # XML is intentionally uncompressed: every block and edge stays editable.
     mx=ET.Element('mxfile',host='app.diagrams.net',agent='FlyVis architecture generator',version='24.7.17')
@@ -246,25 +192,22 @@ def main():
     model=ET.SubElement(diagram,'mxGraphModel',dx='1800',dy='1000',grid='1',gridSize='10',guides='1',tooltips='1',connect='1',arrows='1',fold='1',page='1',pageScale='1',pageWidth=str(W),pageHeight=str(H),math='0',shadow='0')
     root=ET.SubElement(model,'root');ET.SubElement(root,'mxCell',id='0');ET.SubElement(root,'mxCell',id='1',parent='0')
     # Nodes appear above edges in the visual rendering, with a common explicit coordinate model.
+    def port(n,side):
+        return {'left':(n['x'],n['y']+n['h']/2),'right':(n['x']+n['w'],n['y']+n['h']/2),
+                'top':(n['x']+n['w']/2,n['y']),'bottom':(n['x']+n['w']/2,n['y']+n['h'])}[side]
     def edgepoints(e):
         a,b=byid[e['a']],byid[e['b']]
-        if e['points']:
-            pts=e['points']
-            startx=a['x'] if pts[0][0]<a['x'] else a['x']+a['w']
-            endx=b['x'] if pts[-1][0]<b['x'] else b['x']+b['w']
-            return [(startx,a['y']+a['h']/2),*pts,(endx,b['y']+b['h']/2)]
-        if a['x']==b['x']:
-            if a['y']<b['y']:
-                return [(a['x']+a['w']/2,a['y']+a['h']),(b['x']+b['w']/2,b['y'])]
-            return [(a['x']+a['w']/2,a['y']),(b['x']+b['w']/2,b['y']+b['h'])]
-        sx=a['x']+a['w'];sy=a['y']+a['h']/2;tx=b['x'];ty=b['y']+b['h']/2;mid=(sx+tx)/2
-        return [(sx,sy),(mid,sy),(mid,ty),(tx,ty)]
+        pts=[port(a,e['start']),*(e['points'] or []),port(b,e['end'])]
+        return [p for i,p in enumerate(pts) if i==0 or p!=pts[i-1]]
+    badges=[]
     for i,e in enumerate(edges):
-        colour={'variant':'#C19A40','confirmed':'#27834B','future':'#8C9BAB','recurrence':'#5C7DA9'}.get(e['kind'],'#52647A')
-        dashed=e['kind'] in ('variant','future')
+        style=EDGE_STYLES[e['kind']]
+        colour=style['colour'];dashed=style['dashed'];sw=style['width']
+        anchors={'left':(0,.5),'right':(1,.5),'top':(.5,0),'bottom':(.5,1)}
+        ex,ey=anchors[e['start']];ix,iy=anchors[e['end']]
         # Explicit endpoints preserve the reviewed routing in draw.io as in the preview.
         cell=ET.SubElement(root,'mxCell',id='edge'+str(i),parent='1',edge='1',
-            style=f'edgeStyle=none;rounded=0;html=0;endArrow=block;strokeWidth=2;strokeColor={colour};dashed={int(dashed)};')
+            style=f'edgeStyle=none;rounded=1;arcSize=20;html=0;endArrow=block;endFill=1;endSize=18;strokeWidth={sw};strokeColor={colour};dashed={int(dashed)};dashPattern=12 8;exitX={ex};exitY={ey};exitDx=0;exitDy=0;entryX={ix};entryY={iy};entryDx=0;entryDy=0;')
         geo=ET.SubElement(cell,'mxGeometry',relative='1',**{'as':'geometry'})
         pts=edgepoints(e)
         ET.SubElement(geo,'mxPoint',x=str(pts[0][0]),y=str(pts[0][1]),**{'as':'sourcePoint'})
@@ -272,7 +215,10 @@ def main():
         arr=ET.SubElement(geo,'Array',**{'as':'points'})
         for x,y in pts[1:-1]:ET.SubElement(arr,'mxPoint',x=str(x),y=str(y))
         cell.set('source',e['a']);cell.set('target',e['b'])
-        e['render_points']=pts;e['colour']=colour;e['dashed']=dashed
+        e['render_points']=pts;e['colour']=colour;e['dashed']=dashed;e['width']=sw;e['level']=style['level'];e['arrow']=style['arrow']
+        if e['label']:
+            cx,cy=e['label_at'];bw=font(22,True).getlength(e['label'])+28
+            badges.append(dict(id='badge'+str(i),x=cx-bw/2,y=cy-21,w=bw,h=42,text=e['label'],colour=colour))
     for n in nodes:
         fill,stroke=PALETTE[n['kind']]
         obj=ET.SubElement(root,'object',id=n['id'],label='',module_status=n['kind'],source=n['ref'])
@@ -288,6 +234,10 @@ def main():
         obj.set('label',value)
         cell=ET.SubElement(obj,'mxCell',parent='1',vertex='1',style=f'rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor={fill};strokeColor={stroke};strokeWidth=2;align=left;verticalAlign=top;spacing=20;fontFamily=Segoe UI;fontSize={n["size"]};fontColor=#182B40;dashed={int(n["kind"]=="future")};')
         ET.SubElement(cell,'mxGeometry',x=str(n['x']),y=str(n['y']),width=str(n['w']),height=str(n['h']),**{'as':'geometry'})
+    for b in badges:
+        cell=ET.SubElement(root,'mxCell',id=b['id'],parent='1',vertex='1',value=b['text'],
+            style=f'rounded=1;arcSize=30;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor={b["colour"]};strokeWidth=2;fontColor={b["colour"]};fontSize=22;fontStyle=1;fontFamily=Segoe UI;align=center;verticalAlign=middle;')
+        ET.SubElement(cell,'mxGeometry',x=str(b['x']),y=str(b['y']),width=str(b['w']),height=str(b['h']),**{'as':'geometry'})
     xmlpath=OUT/(STEM+'.drawio');ET.indent(mx);ET.ElementTree(mx).write(xmlpath,encoding='utf-8',xml_declaration=True)
     # Same-layout SVG and PNG are navigation previews, not extra diagram sheets.
     svg=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
@@ -295,15 +245,15 @@ def main():
     im=Image.new('RGB',(W,H),'white');draw=ImageDraw.Draw(im)
     for e in edges:
         pts=e['render_points'];col=e['colour']
-        svg.append('<polyline points="'+' '.join(f'{x},{y}' for x,y in pts)+f'" fill="none" stroke="{col}" stroke-width="2"'+(' stroke-dasharray="8 6"' if e['dashed'] else '')+'/>')
+        svg.append('<polyline points="'+' '.join(f'{x},{y}' for x,y in pts)+f'" fill="none" stroke="{col}" stroke-width="{e["width"]}" stroke-linejoin="round"'+(' stroke-dasharray="12 8"' if e['dashed'] else '')+'/>')
         for p,q in zip(pts,pts[1:]):
             if e['dashed']:
                 dist=math.dist(p,q)
-                for off in range(0,int(dist),14):
-                    v=[(p[0]+(q[0]-p[0])*t/max(dist,1),p[1]+(q[1]-p[1])*t/max(dist,1)) for t in (off,min(off+8,dist))]
-                    draw.line(v,fill=col,width=2)
-            else:draw.line([p,q],fill=col,width=3)
-        p,q=pts[-2:];angle=math.atan2(q[1]-p[1],q[0]-p[0]);arr=[q,(q[0]-15*math.cos(angle-.4),q[1]-15*math.sin(angle-.4)),(q[0]-15*math.cos(angle+.4),q[1]-15*math.sin(angle+.4))]
+                for off in range(0,int(dist),20):
+                    v=[(p[0]+(q[0]-p[0])*t/max(dist,1),p[1]+(q[1]-p[1])*t/max(dist,1)) for t in (off,min(off+12,dist))]
+                    draw.line(v,fill=col,width=e['width'])
+            else:draw.line([p,q],fill=col,width=e['width'])
+        p,q=pts[-2:];angle=math.atan2(q[1]-p[1],q[0]-p[0]);length=e['arrow'];arr=[q,(q[0]-length*math.cos(angle-.5),q[1]-length*math.sin(angle-.5)),(q[0]-length*math.cos(angle+.5),q[1]-length*math.sin(angle+.5))]
         draw.polygon(arr,fill=col);svg.append('<polygon points="'+' '.join(f'{x},{y}' for x,y in arr)+f'" fill="{col}"/>')
     for n in nodes:
         x,y,w,h=n['x'],n['y'],n['w'],n['h'];fill,stroke=PALETTE[n['kind']]
@@ -317,11 +267,17 @@ def main():
                 ty+=size+7
             ty+=12
         svg.append('</g>')
+    for b in badges:
+        x,y,w,h=b['x'],b['y'],b['w'],b['h'];col=b['colour']
+        draw.rounded_rectangle((x,y,x+w,y+h),radius=10,fill='white',outline=col,width=2)
+        draw.text((x+14,y+4),b['text'],font=font(22,True),fill=col)
+        svg.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="white" stroke="{col}" stroke-width="2"/><text x="{x+14}" y="{y+27}" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="{col}">{html.escape(b["text"])}</text>')
     svg.append('</svg>');(OUT/(STEM+'.svg')).write_text('\n'.join(svg),encoding='utf-8')
     im.save(OUT/(STEM+'.png'),optimize=True)
-    preview=im.copy();preview.thumbnail((2200,2200));preview.save(OUT/(STEM+'_preview.png'))
+    ratio=min(2400/W,2400/H)
+    im.resize((round(W*ratio),round(H*ratio)),Image.Resampling.LANCZOS).save(OUT/(STEM+'_preview.png'))
     # One detail view of the SAME sheet, useful for visual QA and user preview.
-    im.crop((X[4]-50,BASEY-50,W,GREYBOTTOM+650)).resize((1740,950)).save(OUT/(STEM+'_detail.png'))
+    detail=im.crop(DETAIL);detail.thumbnail((1600,2200));detail.save(OUT/(STEM+'_detail.png'))
     source('experiments/project_history.json')
     dossier=dict(date=DATE,scope='One sheet; architectural replacements, not all tracker experiments',source_sha256=sources,
         cards={cid:dict(source='experiments/project_history.json',locator=f'experiments[id={cid}]',state=cards[cid]['state'],evidence=cards[cid].get('evidence',[])) for cid in sorted(linked)},nodes=nodes,edges=edges)
@@ -332,11 +288,33 @@ def main():
         for b in nodes[i+1:]:
             if min(a['x']+a['w'],b['x']+b['w'])>max(a['x'],b['x']) and min(a['y']+a['h'],b['y']+b['h'])>max(a['y'],b['y']):overlaps.append([a['id'],b['id']])
     assert not overlaps,overlaps
+    # Check routed lines, not just box placement. A line may touch its own
+    # source/target but must not run through another node's interior.
+    def segment_hits_rect(p,q,n):
+        lo,hi=0.0,1.0
+        bounds=((n['x']+3,n['x']+n['w']-3),(n['y']+3,n['y']+n['h']-3))
+        for axis,(lower,upper) in enumerate(bounds):
+            delta=q[axis]-p[axis]
+            if abs(delta)<1e-12:
+                if p[axis]<=lower or p[axis]>=upper:return False
+            else:
+                a,b=sorted(((lower-p[axis])/delta,(upper-p[axis])/delta))
+                lo=max(lo,a);hi=min(hi,b)
+                if lo>=hi:return False
+        return lo<hi
+    blocked=[]
+    for e in edges:
+        for n in nodes:
+            if n['id'] in (e['a'],e['b']):continue
+            if any(segment_hits_rect(p,q,n) for p,q in zip(e['render_points'],e['render_points'][1:])):
+                blocked.append([e['a'],e['b'],n['id']])
+    assert not blocked,blocked
     ids=[x.get('id') for x in mx.iter() if x.get('id')]
     assert len(ids)==len(set(ids))
     assert len(mx.findall('diagram'))==1
     audit=dict(diagram_sheets=1,nodes=len(nodes),edges=len(edges),linked_experiments=len(linked),source_files=len(sources),box_overlaps=overlaps,
-        all_text_fits=True,confirmed_source_hashes_verified=True,canvas=[W,H],outputs={p.name:sha(p) for p in OUT.glob(STEM+'*') if p.suffix in ('.drawio','.svg','.png')})
+        all_text_fits=True,confirmed_source_hashes_verified=True,canvas=[W,H],arrow_levels=EDGE_STYLES,edges_through_unrelated_nodes=blocked,
+        original_node_colour=PALETTE['base'][0],outputs={p.name:sha(p) for p in OUT.glob(STEM+'*') if p.suffix in ('.drawio','.svg','.png')})
     (OUT/'validation.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(audit,ensure_ascii=False))
 
