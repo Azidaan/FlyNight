@@ -12676,6 +12676,73 @@
    "interpretation": "Оба критерия конкретной пространственной замены не выполнены. Неуспех не определяет единственную причину и не закрывает FlyVis.",
    "decision": "directional_readout_not_confirmed; do_not_tune_dev_or_apply_tracker",
    "cannot_claim": "Нетdev,HOTA,75отложенных, доказательства бесполезности представления или гарантии риска неизвестных исходов. Train26 повторно использован."
+  },
+  {
+   "id": "z13_context_transfer_v1",
+   "title": "З13: отдельный перенос пространственного считывания C и контроля R1",
+   "area": "flyvis",
+   "state": "inconclusive",
+   "started": "2026-10-20",
+   "question": "Переносится ли вспомогательный результат пространственного считывания C на другие видео?",
+   "hypothesis": "Фиксированное пространственное считывание C может улучшить центры и выбор поправок; перенос не установлен.",
+   "expected": "C directional minus C mean: paired video95%CI lower>0 and mean>=0.02; C directional minus R1 directional lower>0. At1% of all rows: C directional map utility minus C mean map utility, C directional geometry, and R1 directional map utility each paired video95%CI lower>0. Both localization and selection required.",
+   "acceptance": [
+    {
+     "criterion": "Unchanged mean centers<0.5px, scores<0.001, same labels/kind/useful on every video. Technical C directional center<0.5px, score<0.001, map features<1e-10 against the saved same training video. Normalization exactly equals saved dev normalization.",
+     "met": true,
+     "evidence": "runs/z13_context_transfer_20261020/controller_result.json"
+    },
+    {
+     "criterion": "C directional minus C mean: paired video95%CI lower>0 and mean>=0.02; C directional minus R1 directional lower>0.",
+     "met": null,
+     "evidence": "runs/z13_context_transfer_20261020/controller_result.json"
+    },
+    {
+     "criterion": "At1% of all rows: C directional map utility minus C mean map utility, C directional geometry, and R1 directional map utility each paired video95%CI lower>0. Both localization and selection required.",
+     "met": null,
+     "evidence": "runs/z13_context_transfer_20261020/controller_result.json"
+    }
+   ],
+   "tags": [
+    "Z13",
+    "fly-problem-P8"
+   ],
+   "runs": [
+    "runs/z13_context_transfer_20261020"
+   ],
+   "files": [
+    "scripts/z13_context_transfer_20261020.py",
+    "scripts/z13_context_transfer_progress.ps1",
+    "scripts/z13_record_context_transfer_20261020.py",
+    "scripts/z13_context_transfer_service_20261020.py"
+   ],
+   "evidence": [
+    {
+     "kind": "json",
+     "ref": "runs/z13_context_transfer_20261020/protocol.json",
+     "claim": "Условия зафиксированы до переноса; основание запуска и конечный CPU-бюджет сохранены в full_authorization.json"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_context_transfer_20261020/technical.json",
+     "claim": "Точное воспроизведение направления и прежнего контроля; это техническая готовность"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_context_transfer_20261020/controller_result.json",
+     "claim": "Полный либо частичный первичный итог"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_context_transfer_20261020/technical.json",
+     "claim": "Точное воспроизведение направления и прежнего контроля; это техническая готовность"
+    }
+   ],
+   "done": "2026-10-20",
+   "obtained": "runs/z13_context_transfer_20261020/controller_result.json: {\"exit_code\": 1, \"worker_ended\": true, \"hard_timeout\": false, \"ended\": \"2026-10-20T19:41:56.015605+00:00\", \"chat_calls\": 0}",
+   "interpretation": "Сохранён частичный расчёт без вывода об эффективности.",
+   "decision": "save_partial_without_efficiency_verdict",
+   "cannot_claim": "Нет HOTA,75отложенных, слепогоdev или гарантии безопасности неизвестных исходов. Это новая версия считывания C, не доказательство пользы дообучения D."
   }
  ],
  "manual_events": [
