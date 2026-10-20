@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -16,7 +17,7 @@ def snapshot_local_edits(root):
     for args in (['diff', '--name-only', '-z', 'HEAD', '--', 'ObsidianFlyVis'],
                  ['ls-files', '--others', '--exclude-standard', '-z', '--', 'ObsidianFlyVis']):
         paths.update(p for p in subprocess.check_output(
-            ['git', *args], cwd=root).decode('utf-8').split('\0') if p)
+            ['git', '--no-optional-locks', *args], cwd=root).decode('utf-8').split('\0') if p)
     vault = (root / 'ObsidianFlyVis').resolve()
     protected = {}
     for rel in paths:
@@ -69,10 +70,16 @@ def main():
     Path.unlink = preserving_unlink
     generator.shutil.copy2 = preserving_copy
     previous_argv = sys.argv
+    previous_optional_locks = os.environ.get('GIT_OPTIONAL_LOCKS')
     try:
+        os.environ['GIT_OPTIONAL_LOCKS'] = '0'
         sys.argv = ['build_obsidian_vault.py']
         code = generator.main()
     finally:
+        if previous_optional_locks is None:
+            os.environ.pop('GIT_OPTIONAL_LOCKS', None)
+        else:
+            os.environ['GIT_OPTIONAL_LOCKS'] = previous_optional_locks
         Path.write_text = original
         Path.unlink = original_unlink
         generator.shutil.copy2 = original_copy
