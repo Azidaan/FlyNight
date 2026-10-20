@@ -1,0 +1,48 @@
+{
+ "arms": {
+  "C": {
+   "top1_mean": 0.25785788830894824,
+   "oracle3_mean": 0.4357160847062459,
+   "reserve": {
+    "mean_per_video": 0.17785819639729772,
+    "ci95": [
+     0.1490972496805704,
+     0.20553718146334493
+    ],
+    "better": 24,
+    "n": 26
+   },
+   "sufficient": true
+  },
+  "D": {
+   "top1_mean": 0.25488581030332724,
+   "oracle3_mean": 0.45497892184525557,
+   "reserve": {
+    "mean_per_video": 0.20009311154192846,
+    "ci95": [
+     0.16915013687428934,
+     0.2357594753724782
+    ],
+    "better": 26,
+    "n": 26
+   },
+   "sufficient": true
+  },
+  "R1": {
+   "top1_mean": 0.08870381373212619,
+   "oracle3_mean": 0.22894914273146919,
+   "reserve": {
+    "mean_per_video": 0.140245328999343,
+    "ci95": [
+     0.11003121379420701,
+     0.17967851036718308
+    ],
+    "better": 26,
+    "n": 26
+   },
+   "sufficient": true
+  }
+ },
+ "C_reserve_sufficient": true,
+ "limitations": "Oracle only; repeated train26; no effective causal selector, no HOTA."
+}

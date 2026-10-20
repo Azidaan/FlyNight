@@ -13257,7 +13257,7 @@
    "id": "z13_candidate_reserve_v1",
    "title": "З13: запас среди трёх кандидатов перед временным сопоставлением",
    "area": "flyvis",
-   "state": "running",
+   "state": "completed_positive",
    "started": "2026-10-21",
    "tags": [
     "fly-problem-P8",
@@ -13270,18 +13270,20 @@
    "acceptance": [
     {
      "criterion": "Все8326 строк каждого варианта и прежний top1 воспроизведены: центр<0,5px,балл<0,001; исходные хеши неизменны.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_candidate_reserve_20261021/report.json"
     },
     {
      "criterion": "C: оракул среди3−top1, средний сдвиг>=2п.п. и нижняя95%повидеоДИ>0; достаточный запас для одной функциональной попытки, не доказательство работы селектора.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_candidate_reserve_20261021/report.json"
     }
    ],
-   "summary": "Подготовлена ограниченная проверка запаса кандидатов; результата пока нет.",
-   "done": "",
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
+   "summary": "Измерен диагностический запас среди трёх пиков. Разметка использована только для оценки оракула; это не улучшенный алгоритм и не результат HOTA.",
+   "done": "2026-10-21",
+   "obtained": "runs/z13_candidate_reserve_20261021/report.json → arms: C, оракул среди3−top1 +17,786 п.п. [+14,910; +20,554]; D, оракул среди3−top1 +20,009 п.п. [+16,915; +23,576]; R1, оракул среди3−top1 +14,025 п.п. [+11,003; +17,968]. reproduction.json: все3 варианта воспроизведены на8326 строках; исходные хеши неизменны.",
+   "interpretation": "Измерен диагностический запас среди трёх пиков. Разметка использована только для оценки оракула; это не улучшенный алгоритм и не результат HOTA.",
+   "decision": "Запас достаточен для одной причинной версии сопоставления кандидатов на fit20 с проверкой train26.",
    "cannot_claim": "Оракул использует разметку только при оценке и не является алгоритмом применения. Нет HOTA, доказательства безопасного отказа, причинного диагноза или эффективности KeepTrack на FlyVis.",
    "metrics": [],
    "commits": [],
@@ -13294,6 +13296,83 @@
      "kind": "file",
      "ref": "runs/z13_candidate_reserve_20261021/protocol.json",
      "claim": "Критерии и неизменные источники до прогона"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_candidate_reserve_20261021/report.json",
+     "claim": "Полный результат и проверка воспроизведения/завершения"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_candidate_reserve_20261021/reproduction.json",
+     "claim": "Полный результат и проверка воспроизведения/завершения"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_candidate_reserve_20261021/evaluate_controller_result.json",
+     "claim": "Полный результат и проверка воспроизведения/завершения"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-21",
+     "commit": "13aa9c2b7bc55717a632efae4fc86a14e39dac10",
+     "field": "summary",
+     "old": "Подготовлена ограниченная проверка запаса кандидатов; результата пока нет.",
+     "reason": "Полный проверенный результат; прежняя постановка сохранена."
+    }
+   ]
+  },
+  {
+   "id": "z13_candidate_identity_v1",
+   "title": "З13: покадровое сопоставление кандидатов без будущих данных",
+   "area": "flyvis",
+   "state": "planned",
+   "started": "2026-10-21",
+   "tags": [
+    "fly-problem-P8",
+    "KeepTrack",
+    "engineering-future"
+   ],
+   "question": "Does causal propagation of candidate identities improve the centered FlyVis readout, beyond geometric matching and the same node on R1?",
+   "hypothesis": "Сохранение идентичности отдельных пиков может использовать часть измеренного запаса; перенос принципа KeepTrack требует проверки.",
+   "expected": "Одна фиксированная версия по текущим и прошлым кадрам, C/D/R1 и геометрические контроли; параметры только по fit20, проверка на всех train26, CPU до1800с.",
+   "acceptance": [
+    {
+     "criterion": "Воспроизведение прежнего top1, хеши и одинаковые строки всех вариантов подтверждены.",
+     "met": null
+    },
+    {
+     "criterion": "C сопоставление−C top1: прирост>=2п.п. и нижняя95%повидеоДИ>0.",
+     "met": null
+    },
+    {
+     "criterion": "C сопоставление лучше C геометрии и R1 сопоставления: обе нижние95%повидеоДИ>0.",
+     "met": null
+    }
+   ],
+   "summary": "Зафиксирована одна версия сопоставления кандидатов, исход не получен.",
+   "done": "",
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "Нет HOTA и безопасного причинного правила вмешательства; верхняя доля по всей выборке — диагностика. Это не полная реализация KeepTrack и не доказательство анатомии FlyVis.",
+   "metrics": [],
+   "commits": [],
+   "files": [
+    "tracking/z13_candidate_identity.py",
+    "scripts/z13_candidate_identity_20261021.py"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_candidate_identity_20261021/protocol.json",
+     "claim": "Постановка до результатов"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_candidate_reserve_20261021/report.json",
+     "claim": "Измеренный диагностический запас кандидатов"
     }
    ]
   }

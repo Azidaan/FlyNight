@@ -36,7 +36,9 @@ class GitReader:
         """Запуск команды чтения; при обрезке возвращает первые max_bytes."""
         try:
             r = subprocess.run(
-                [self.git_exe, '-C', str(self.root), *args],
+                # Even status may refresh index stat data by default. This
+                # reader must not write it or contend with a real writer.
+                [self.git_exe, '--no-optional-locks', '-C', str(self.root), *args],
                 capture_output=True, timeout=self.timeout,
                 creationflags=_NO_WINDOW, shell=False)
         except (OSError, subprocess.SubprocessError) as e:
