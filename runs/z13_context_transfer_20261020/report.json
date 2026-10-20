@@ -1,0 +1,220 @@
+{
+  "localization": {
+    "C_directional-C_mean": {
+      "mean_per_video": 0.03267535168228374,
+      "ci95": [
+        -0.010413418156841233,
+        0.06969899803558438
+      ],
+      "better": 19,
+      "n": 35
+    },
+    "C_directional-R1_directional": {
+      "mean_per_video": 0.129322027258749,
+      "ci95": [
+        0.09235018641430977,
+        0.17013771438341696
+      ],
+      "better": 30,
+      "n": 35
+    }
+  },
+  "selection_at1percent": {
+    "C_context_map-C_mean_map": {
+      "mean_per_video": 0.0015218141077948408,
+      "ci95": [
+        -0.004014787783516008,
+        0.006904105522475064
+      ],
+      "better": 6,
+      "n": 35
+    },
+    "C_context_map-C_context_geometry": {
+      "mean_per_video": 0.004228555795885166,
+      "ci95": [
+        -0.0004511555904413045,
+        0.009657332282506495
+      ],
+      "better": 6,
+      "n": 35
+    },
+    "C_context_map-R1_context_map": {
+      "mean_per_video": -0.0014848069778098628,
+      "ci95": [
+        -0.010724112582772444,
+        0.006503061243169224
+      ],
+      "better": 6,
+      "n": 35
+    }
+  },
+  "coverage": {
+    "C": {
+      "original": {
+        "0.01": {
+          "selected": 94,
+          "known": 82,
+          "unknown": 12,
+          "useful": 1,
+          "harmful": 81,
+          "useful_share_known": 0.012195121951219513
+        },
+        "0.02": {
+          "selected": 187,
+          "known": 161,
+          "unknown": 26,
+          "useful": 2,
+          "harmful": 159,
+          "useful_share_known": 0.012422360248447204
+        },
+        "0.05": {
+          "selected": 466,
+          "known": 414,
+          "unknown": 52,
+          "useful": 3,
+          "harmful": 411,
+          "useful_share_known": 0.007246376811594203
+        }
+      },
+      "geometry": {
+        "0.01": {
+          "selected": 94,
+          "known": 52,
+          "unknown": 42,
+          "useful": 12,
+          "harmful": 40,
+          "useful_share_known": 0.23076923076923078
+        },
+        "0.02": {
+          "selected": 187,
+          "known": 110,
+          "unknown": 77,
+          "useful": 26,
+          "harmful": 84,
+          "useful_share_known": 0.23636363636363636
+        },
+        "0.05": {
+          "selected": 466,
+          "known": 289,
+          "unknown": 177,
+          "useful": 60,
+          "harmful": 229,
+          "useful_share_known": 0.20761245674740483
+        }
+      },
+      "map_utility": {
+        "0.01": {
+          "selected": 94,
+          "known": 58,
+          "unknown": 36,
+          "useful": 18,
+          "harmful": 40,
+          "useful_share_known": 0.3103448275862069
+        },
+        "0.02": {
+          "selected": 187,
+          "known": 124,
+          "unknown": 63,
+          "useful": 41,
+          "harmful": 83,
+          "useful_share_known": 0.33064516129032256
+        },
+        "0.05": {
+          "selected": 466,
+          "known": 301,
+          "unknown": 165,
+          "useful": 86,
+          "harmful": 215,
+          "useful_share_known": 0.2857142857142857
+        }
+      }
+    },
+    "R1": {
+      "original": {
+        "0.01": {
+          "selected": 94,
+          "known": 74,
+          "unknown": 20,
+          "useful": 4,
+          "harmful": 70,
+          "useful_share_known": 0.05405405405405406
+        },
+        "0.02": {
+          "selected": 187,
+          "known": 157,
+          "unknown": 30,
+          "useful": 5,
+          "harmful": 152,
+          "useful_share_known": 0.03184713375796178
+        },
+        "0.05": {
+          "selected": 466,
+          "known": 406,
+          "unknown": 60,
+          "useful": 6,
+          "harmful": 400,
+          "useful_share_known": 0.014778325123152709
+        }
+      },
+      "geometry": {
+        "0.01": {
+          "selected": 94,
+          "known": 47,
+          "unknown": 47,
+          "useful": 9,
+          "harmful": 38,
+          "useful_share_known": 0.19148936170212766
+        },
+        "0.02": {
+          "selected": 187,
+          "known": 102,
+          "unknown": 85,
+          "useful": 19,
+          "harmful": 83,
+          "useful_share_known": 0.18627450980392157
+        },
+        "0.05": {
+          "selected": 466,
+          "known": 275,
+          "unknown": 191,
+          "useful": 40,
+          "harmful": 235,
+          "useful_share_known": 0.14545454545454545
+        }
+      },
+      "map_utility": {
+        "0.01": {
+          "selected": 94,
+          "known": 53,
+          "unknown": 41,
+          "useful": 14,
+          "harmful": 39,
+          "useful_share_known": 0.2641509433962264
+        },
+        "0.02": {
+          "selected": 187,
+          "known": 110,
+          "unknown": 77,
+          "useful": 25,
+          "harmful": 85,
+          "useful_share_known": 0.22727272727272727
+        },
+        "0.05": {
+          "selected": 466,
+          "known": 276,
+          "unknown": 190,
+          "useful": 43,
+          "harmful": 233,
+          "useful_share_known": 0.15579710144927536
+        }
+      }
+    }
+  },
+  "localization_pass": false,
+  "selection_pass": false,
+  "proceed": false,
+  "hota_measured": false,
+  "decision": "context_transfer_not_confirmed; no_dev_retuning_or_tracker_application",
+  "limitations": "Exploratory follow-up selected after train26; dev repeatedly used. C is stock core with modernized readout, not proof of D core-training benefit. No new detector or tracker.",
+  "unknowns_not_safety_guarantee": true
+}
