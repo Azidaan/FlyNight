@@ -12216,7 +12216,93 @@
    ],
    "interpretation": "Заранее заданный поисковый критерий выполнен: новая цель считывателя D лучше и прежнего считывателя D, и binary D по парным повидео ДИ. Улучшение есть также на штатной C; превосходство D над C не подтверждено. Качество локализации улучшилось, надёжный выбор вмешательств пока не получен. Повторно использованный train26, один набор весов.",
    "cannot_claim": "HOTA не измерена; нет доказательства пользы стенду, независимого подтверждения, превосходства обученной D над штатной C, роли коннектома или полной решённости P8. Поле harmful в старой функции означает известные неполезные случаи, а не доказанный вред трекеру.",
-   "done": "2026-10-18"
+   "done": "2026-10-18",
+   "confirmed_results": [
+    {
+     "id": "C_center_vs_R1_train26",
+     "title": "C с центрированной целью против входа глаза — train26",
+     "category": "representation",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "evidence": {
+      "source": "runs/z13_target_center_20261018/report.json",
+      "locator": [
+       "paired",
+       "C_center-R1_center"
+      ],
+      "sha256": "c93994d7d3b14b07b6a167fa692c62d4f81cded2053e8505a5e38a36b57dabee"
+     },
+     "baseline": {
+      "source": "runs/z13_target_center_20261018/report.json",
+      "locator": [
+       "summary",
+       "R1_center",
+       "useful_mean_video"
+      ],
+      "sha256": "c93994d7d3b14b07b6a167fa692c62d4f81cded2053e8505a5e38a36b57dabee"
+     },
+     "subset": "train26, 26 видео; поисковая проверка",
+     "comparison": "C с центрированной регрессионной целью против R1 с той же целью; контроль использует вход глаза без мухи.",
+     "conditions": "Одни и те же эпизоды внутри сравнения; фиксированные сохранённые ядра и условия считывания; парный бутстрэп по видео; веса ядра здесь не переобучались.",
+     "limitations": "Поисковая train26 многократно использована; это не независимая итоговая проверка, не HOTA и не доказательство надёжного отбора поправок. Преимущество именно обучения ядра D над штатной C этим сравнением не устанавливается."
+    },
+    {
+     "id": "D_center_vs_R1_train26",
+     "title": "D с центрированной целью против входа глаза — train26",
+     "category": "representation",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "evidence": {
+      "source": "runs/z13_target_center_20261018/report.json",
+      "locator": [
+       "paired",
+       "D_center-R1_center"
+      ],
+      "sha256": "c93994d7d3b14b07b6a167fa692c62d4f81cded2053e8505a5e38a36b57dabee"
+     },
+     "baseline": {
+      "source": "runs/z13_target_center_20261018/report.json",
+      "locator": [
+       "summary",
+       "R1_center",
+       "useful_mean_video"
+      ],
+      "sha256": "c93994d7d3b14b07b6a167fa692c62d4f81cded2053e8505a5e38a36b57dabee"
+     },
+     "subset": "train26, 26 видео; поисковая проверка",
+     "comparison": "D с центрированной регрессионной целью против R1 с той же целью; контроль использует вход глаза без мухи.",
+     "conditions": "Одни и те же эпизоды внутри сравнения; фиксированные сохранённые ядра и условия считывания; парный бутстрэп по видео; веса ядра здесь не переобучались.",
+     "limitations": "Поисковая train26 многократно использована; это не независимая итоговая проверка, не HOTA и не доказательство надёжного отбора поправок. Преимущество именно обучения ядра D над штатной C этим сравнением не устанавливается."
+    },
+    {
+     "id": "C_center_vs_binary_train26",
+     "title": "Центрированная цель вместо маски — C, train26",
+     "category": "readout",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "evidence": {
+      "source": "runs/z13_target_center_20261018/report.json",
+      "locator": [
+       "paired",
+       "C_center-C_binary"
+      ],
+      "sha256": "c93994d7d3b14b07b6a167fa692c62d4f81cded2053e8505a5e38a36b57dabee"
+     },
+     "baseline": {
+      "source": "runs/z13_target_center_20261018/report.json",
+      "locator": [
+       "summary",
+       "C_binary",
+       "useful_mean_video"
+      ],
+      "sha256": "c93994d7d3b14b07b6a167fa692c62d4f81cded2053e8505a5e38a36b57dabee"
+     },
+     "subset": "train26, 26 видео; поисковая проверка",
+     "comparison": "На том же ядре C центрированная регрессионная цель считывания против плоской маски объекта.",
+     "conditions": "Одни и те же эпизоды внутри сравнения; фиксированные сохранённые ядра и условия считывания; парный бутстрэп по видео; веса ядра здесь не переобучались.",
+     "limitations": "Поисковая train26 многократно использована; это не независимая итоговая проверка, не HOTA и не доказательство надёжного отбора поправок."
+    }
+   ]
   },
   {
    "id": "z13_target_center_dev_v1",
@@ -12296,6 +12382,148 @@
      "field": "interpretation",
      "old": "Критерии переносимости выполнены. Это фиксированная проверка на ранее использованном dev35; польза стенду не измерялась.",
      "reason": "Проверка первичных строк: явно добавлен неблагоприятный итог отбора и исправлено обозначение п.п."
+    }
+   ],
+   "confirmed_results": [
+    {
+     "id": "C_center_vs_binary_dev35",
+     "title": "Центрированная цель вместо маски — C, dev35",
+     "category": "readout",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "evidence": {
+      "source": "runs/z13_target_center_dev_20261018/report.json",
+      "locator": [
+       "paired",
+       "C_center-C_binary"
+      ],
+      "sha256": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183"
+     },
+     "baseline": {
+      "source": "runs/z13_target_center_dev_20261018/report.json",
+      "locator": [
+       "summary",
+       "C_binary",
+       "useful_mean_video"
+      ],
+      "sha256": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183"
+     },
+     "subset": "dev35, 35 видео; повторно использованная выборка",
+     "comparison": "На том же ядре C центрированная регрессионная цель считывания против плоской маски объекта.",
+     "conditions": "Одни и те же эпизоды внутри сравнения; фиксированные сохранённые ядра и условия считывания; парный бутстрэп по видео; веса ядра здесь не переобучались.",
+     "limitations": "dev35 ранее использовался в проекте; это не слепая оценка, не HOTA и не доказательство надёжного отбора поправок."
+    },
+    {
+     "id": "C_center_vs_R1_dev35",
+     "title": "C с центрированной целью против входа глаза — dev35",
+     "category": "representation",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "evidence": {
+      "source": "runs/z13_target_center_dev_20261018/report.json",
+      "locator": [
+       "paired",
+       "C_center-R1_center"
+      ],
+      "sha256": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183"
+     },
+     "baseline": {
+      "source": "runs/z13_target_center_dev_20261018/report.json",
+      "locator": [
+       "summary",
+       "R1_center",
+       "useful_mean_video"
+      ],
+      "sha256": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183"
+     },
+     "subset": "dev35, 35 видео; повторно использованная выборка",
+     "comparison": "C против входа глаза R1 с тем же способом считывания.",
+     "conditions": "Одни и те же эпизоды внутри сравнения; фиксированные сохранённые ядра и условия считывания; парный бутстрэп по видео; веса ядра здесь не переобучались.",
+     "limitations": "dev35 ранее использовался в проекте; это не слепая оценка, не HOTA и не доказательство надёжного отбора поправок. Это не доказательство преимущества обучения ядра D над штатной C."
+    },
+    {
+     "id": "D_center_vs_binary_dev35",
+     "title": "Центрированная цель вместо маски — D, dev35",
+     "category": "readout",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "evidence": {
+      "source": "runs/z13_target_center_dev_20261018/report.json",
+      "locator": [
+       "paired",
+       "D_center-D_binary"
+      ],
+      "sha256": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183"
+     },
+     "baseline": {
+      "source": "runs/z13_target_center_dev_20261018/report.json",
+      "locator": [
+       "summary",
+       "D_binary",
+       "useful_mean_video"
+      ],
+      "sha256": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183"
+     },
+     "subset": "dev35, 35 видео; повторно использованная выборка",
+     "comparison": "На том же ядре D центрированная регрессионная цель считывания против плоской маски объекта.",
+     "conditions": "Одни и те же эпизоды внутри сравнения; фиксированные сохранённые ядра и условия считывания; парный бутстрэп по видео; веса ядра здесь не переобучались.",
+     "limitations": "dev35 ранее использовался в проекте; это не слепая оценка, не HOTA и не доказательство надёжного отбора поправок."
+    },
+    {
+     "id": "D_center_vs_R1_dev35",
+     "title": "D с центрированной целью против входа глаза — dev35",
+     "category": "representation",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "evidence": {
+      "source": "runs/z13_target_center_dev_20261018/report.json",
+      "locator": [
+       "paired",
+       "D_center-R1_center"
+      ],
+      "sha256": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183"
+     },
+     "baseline": {
+      "source": "runs/z13_target_center_dev_20261018/report.json",
+      "locator": [
+       "summary",
+       "R1_center",
+       "useful_mean_video"
+      ],
+      "sha256": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183"
+     },
+     "subset": "dev35, 35 видео; повторно использованная выборка",
+     "comparison": "D против входа глаза R1 с тем же способом считывания.",
+     "conditions": "Одни и те же эпизоды внутри сравнения; фиксированные сохранённые ядра и условия считывания; парный бутстрэп по видео; веса ядра здесь не переобучались.",
+     "limitations": "dev35 ранее использовался в проекте; это не слепая оценка, не HOTA и не доказательство надёжного отбора поправок. Это не доказательство преимущества обучения ядра D над штатной C."
+    },
+    {
+     "id": "D_center_vs_prior_dev35",
+     "title": "Новое считывание против прежнего на той же D — dev35",
+     "category": "readout",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "evidence": {
+      "source": "runs/z13_target_center_dev_20261018/report.json",
+      "locator": [
+       "paired",
+       "D_center-D_prior"
+      ],
+      "sha256": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183"
+     },
+     "baseline": {
+      "source": "runs/z13_target_center_dev_20261018/report.json",
+      "locator": [
+       "summary",
+       "D_prior",
+       "useful_mean_video"
+      ],
+      "sha256": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183"
+     },
+     "subset": "dev35, 35 видео; повторно использованная выборка",
+     "comparison": "Онлайн-модель цели с центрированной целью против прежнего считывателя при неизменном ядре D.",
+     "conditions": "Одни и те же эпизоды внутри сравнения; фиксированные сохранённые ядра и условия считывания; парный бутстрэп по видео; веса ядра здесь не переобучались.",
+     "limitations": "dev35 ранее использовался в проекте; это не слепая оценка, не HOTA и не доказательство надёжного отбора поправок."
     }
    ]
   },
@@ -12804,6 +13032,35 @@
      "subset": "dev35; глобальный отбор 1% всех строк",
      "source": "runs/z13_context_transfer_20261020/recovery_summary_audit.json",
      "locator": "levels_mean_per_video.C_context_map"
+    }
+   ],
+   "confirmed_results": [
+    {
+     "id": "C_directional_vs_R1_dev35",
+     "title": "Пространственное считывание C против входа глаза — dev35",
+     "category": "representation",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "evidence": {
+      "source": "runs/z13_context_transfer_20261020/report.json",
+      "locator": [
+       "localization",
+       "C_directional-R1_directional"
+      ],
+      "sha256": "58325ed85dc557c8ac9db543616c08c4abb69485e306039c1aac4e1cf4f699fb"
+     },
+     "baseline": {
+      "source": "runs/z13_context_transfer_20261020/recovery_summary_audit.json",
+      "locator": [
+       "levels_mean_per_video",
+       "R1_directional"
+      ],
+      "sha256": "c9158ad5995f53f0c8fde400ec540a10b185f2fce65585272cc64fbd0f73c9b0"
+     },
+     "subset": "dev35, 35 видео; повторно использованная выборка",
+     "comparison": "Направленные пространственные признаки C против аналогичного считывания входа глаза R1.",
+     "conditions": "Одни и те же эпизоды внутри сравнения; фиксированные сохранённые ядра и условия считывания; парный бутстрэп по видео; веса ядра здесь не переобучались.",
+     "limitations": "dev35 ранее использовался в проекте; это не слепая оценка, не HOTA и не доказательство надёжного отбора поправок. Составные критерии улучшения относительно прежней C и отбора поправок НЕ пройдены."
     }
    ]
   }

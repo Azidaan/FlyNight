@@ -17,6 +17,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from evaluation.project_history.index import build_index  # noqa: E402
+from scripts.obsidian_confirmed_results import collect  # noqa: E402
+import json
 
 
 def main() -> int:
@@ -25,6 +27,14 @@ def main() -> int:
     args = ap.parse_args()
 
     idx = build_index(PROJECT_ROOT, cache_dir=None, write_cache=False)
+    confirmed_error=None
+    try:
+        confirmed=collect(PROJECT_ROOT,json.loads((PROJECT_ROOT/'experiments/project_history.json').read_text(encoding='utf-8')),
+                          json.loads((PROJECT_ROOT/'experiments/metrics_glossary.json').read_text(encoding='utf-8')))
+        print(f'подтверждённых сравнений в подборке: {len(confirmed)}')
+    except (ValueError,KeyError,TypeError,OSError) as exc:
+        confirmed_error=str(exc)
+        print('ОШИБКА подборки подтверждённых результатов:',confirmed_error)
     print(f'направлений {len(idx.areas)}, экспериментов {len(idx.experiments)}, '
           f'коммитов {len(idx.commits)}, событий {len(idx.timeline)}, '
           f'метрик в словаре {len(idx.glossary.get("metrics", {}))}')
@@ -52,7 +62,7 @@ def main() -> int:
         print(f'\nПРЕДУПРЕЖДЕНИЯ ({len(idx.warnings)}):')
         for x in idx.warnings:
             print('  !', x)
-    bad = bool(idx.errors) or (args.strict and bool(idx.warnings))
+    bad = bool(idx.errors) or confirmed_error is not None or (args.strict and bool(idx.warnings))
     print('\n' + ('FAIL: каталог не принят' if bad else 'OK: каталог согласован с источниками'))
     return 1 if bad else 0
 
