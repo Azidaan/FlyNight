@@ -3,19 +3,19 @@ aliases:
 - 'З13: HOTA сохранённого центрированного считывателя'
 tags:
 - эксперимент
-- исход/ready
+- исход/running
 - направление/flyvis
 - метка/fly-problem-P8
-исход: готов к запуску
+исход: идёт
 направление: FlyVis
 начат: '2026-10-21'
 ---
 
-# ⚪ З13: HOTA сохранённого центрированного считывателя
+# 🔵 З13: HOTA сохранённого центрированного считывателя
 
-↑ [[09 Запланировано/FlyVis — планы|FlyVis]] · **Исход:** готов к запуску · `z13_center_hota_v1`
+↑ [[09 Запланировано/FlyVis — планы|FlyVis]] · **Исход:** идёт · `z13_center_hota_v1`
 
-Очередь остановлена/завершила окно до полного35-видео сравнения. Это сохранение остатка, не вердикт об эффективности.
+Технические критерии выполнены; идёт неизменная очередь35видео. Полной HOTA ещё нет.
 
 ## Вопрос
 Даёт ли ранее подтверждённый центрированный считыватель пользу полному стенду сверх отсутствия поправки, R1 и прежней D?
@@ -45,6 +45,8 @@ runs/z13_center_hota_20261021/full_controller_result.json: завершено 69
   > Идёт техническое воспроизведение и замер полной версии; HOTA ещё не измерялась.
 - **Суть**, 2026-10-21 (a32cf1d392c6fee7b1d157a4dac96fddbec42d76) — Проверенное окончание полного или ограниченного утреннего окна.
   > Технические критерии выполнены; идёт неизменная очередь35видео. Полной HOTA ещё нет.
+- **Суть**, 2026-10-22 (35de6957939e9e67bccc5b6d8544b56d75ad7049) — Полная очередь после технического допуска.
+  > Очередь остановлена/завершила окно до полного35-видео сравнения. Это сохранение остатка, не вердикт об эффективности.
 
 ## Критерии приёмки (записаны до прогона)
 - ✅ Pure regression and incrementalR1 bit-exact tests; saved first8 natural train26 episode controls C/D/R1: center<0.5px,score<0.001,same threshold decisions, same lambda. Compiler/eager same tolerances and decisions. One complete train video tau=None output/frame IDs exactly equal stand. Same old MASA head recipe reproduced and frozen; all35 baseline stitched JSONs must equal prior stand before comparison.  
@@ -68,6 +70,13 @@ runs/z13_center_hota_20261021/full_controller_result.json: завершено 69
 - Полнота/остаток и конец собственного дерева: `runs/z13_center_hota_20261021/full_controller_result.json` · 
 - Полнота/остаток и конец собственного дерева: `runs/z13_center_hota_20261021/jobs.json` · 
 - Полнота/остаток и конец собственного дерева: `runs/z13_center_hota_20261021/execution_identity.json` · 
+- Отдельное завершение только неиспользованного вычислительного бюджета пробы: `runs/z13_center_hota_20261021/completion_contract.json` · 
+- Отдельное проверенное служебное восстановление; прежняя ошибка сохранена: `runs/z13_center_hota_20261021/recovery1_contract.json` · 
+- Отдельное проверенное служебное восстановление; прежняя ошибка сохранена: `runs/z13_center_hota_20261021/recovery1_reproduction.json` · 
+- Отдельное проверенное служебное восстановление; прежняя ошибка сохранена: `runs/z13_center_hota_20261021/probe_completion_controller_result.json` · 
+- Технический допуск и полный запуск: `runs/z13_center_hota_20261021/technical.json` · 
+- Технический допуск и полный запуск: `runs/z13_center_hota_20261021/resume1_launch.json` · 
+- Технический допуск и полный запуск: `runs/z13_center_hota_20261021/execution_identity.json` · 
 
 ## Код
 - `tracking/z13_ridge_localizer.py`
