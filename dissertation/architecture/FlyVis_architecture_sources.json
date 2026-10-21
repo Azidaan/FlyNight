@@ -16,8 +16,14 @@
     "runs/z13_candidate_data104_20261021/report.json": "7bda65c15d8c0d471a8ae25ab368f06774a8b93adc2002db39e13324483c25e6",
     "runs/z13_map_only104_20261021/report.json": "fdc86a92976937341aae9b2eeebc495fda87507ccd7ec7fb1d3cbc828c7c6461",
     "runs/z13_map_transfer104_20261021/report.json": "4f0db9c3174f46c3f10412ba4c071c2f9859984df522648b04e4fe16daccc670",
-    "scripts/build_flyvis_architecture.py": "3122b9240866ec4b34e8a9596a28ba369e7a5a150db53e6a14cf2c2ef168729f",
-    "scripts/flyvis_architecture_layout.py": "68c9e38b0d9203df8cd67da40f012f619d1ee87dc6842be96281804268676fd5",
+    "tracking/z13_pairwise_candidate_loss.py": "31a1c02dd903484e621272871d08a7ce87401f680f3c86f8dde046f71957dae9",
+    "runs/z13_pairwise_map_20261021/report_train26.json": "f83c85139aad927409203cc62e515258c5e8178600d58809a56b7e0913611473",
+    "tracking/z13_motion_window.py": "7ff5b48b99cf433715dcb581cad7a460f24b670253e77363ab5a0a897d588aa1",
+    "runs/z13_motion_window_20261021/report.json": "75b4c25f3b6350dd02785b671e7c46e43971f8417020908df2d68c4c5a6f1fe1",
+    "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df",
+    "runs/z13_center_hota_20261021/protocol.json": "b733454d75a2b65385ab71d48bed7926f47d1c00d63ade244cb30ae3ec0683e6",
+    "scripts/build_flyvis_architecture.py": "d47d9ad087a864d588311538912c345ad4a04144428f792ab8ebd19e71da6a87",
+    "scripts/flyvis_architecture_layout.py": "bfff4e4eaeb6c728ed76d17d08c3d01071a06afef84d53bf400dc351916285e1",
     "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
     "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
     "AGENTS.md": "6ab80b02dd22146ddbcde8864832af0f9c819dfa9d69ee2e2be918e450bc4451",
@@ -31,7 +37,7 @@
     "tracking/z13_response_utility.py": "211c86dc916dc56451662dba572d362d884def647551b6dcefb461dc5c231445",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "07f00e2374a53fc3ddf614835933595c9d2cb13de6c796c80e84c541513c089e"
+    "experiments/project_history.json": "bb696c08fddf480ba49e809e7d60510c458ef0717de84b61151d1a8261f7e45c"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -1163,6 +1169,23 @@
         }
       ]
     },
+    "z13_center_hota_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_center_hota_v1]",
+      "state": "ready",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/protocol.json",
+          "claim": "Политика/критерии/срок до HOTA"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_target_center_dev_20261018/report.json",
+          "claim": "Сохранённая ранее положительная функциональная версия"
+        }
+      ]
+    },
     "z13_context_transfer_v1": {
       "source": "experiments/project_history.json",
       "locator": "experiments[id=z13_context_transfer_v1]",
@@ -1402,6 +1425,38 @@
         }
       ]
     },
+    "z13_motion_window_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_motion_window_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_motion_window_20261021/protocol.json",
+          "claim": "Механизм/контроли/критерии до исходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_motion_window_20261021/report.json",
+          "claim": "Полный исход и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_motion_window_20261021/reproduction.json",
+          "claim": "Полный исход и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_motion_window_20261021/result_audit.json",
+          "claim": "Полный исход и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_motion_window_20261021/full_controller_result.json",
+          "claim": "Полный исход и проверка"
+        }
+      ]
+    },
     "z13_next_utility_v1": {
       "source": "experiments/project_history.json",
       "locator": "experiments[id=z13_next_utility_v1]",
@@ -1464,6 +1519,38 @@
           "kind": "file",
           "ref": "runs/z13_observed_memory_20261021/full_recovery1_controller_result.json",
           "claim": "Первичный полный результат или проверка его целостности"
+        }
+      ]
+    },
+    "z13_pairwise_map_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_pairwise_map_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_pairwise_map_20261021/protocol.json",
+          "claim": "Однофакторные критерии до новых моделей/исходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_map_transfer104_20261021/report.json",
+          "claim": "Предыдущая карта переносится относительно максимума, но не подтверждена сверх прогноза"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_pairwise_map_20261021/report_train26.json",
+          "claim": "Проверенный исход и исполнение ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_pairwise_map_20261021/result_audit.json",
+          "claim": "Проверенный исход и исполнение ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_pairwise_map_20261021/train_controller_result.json",
+          "claim": "Проверенный исход и исполнение ограничения"
         }
       ]
     },
@@ -3064,6 +3151,53 @@
       "size": 22
     },
     {
+      "id": "v_z13_pairwise_map_v1",
+      "x": 5710,
+      "y": 6850,
+      "w": 870,
+      "h": 400,
+      "title": [
+        "II.10 Обучение порядку кандидатов"
+      ],
+      "body": [
+        "Вместо независимой двоичной оценки каждого пика: парная логистическая потеря,",
+        "полезный пик выше неполезного в том же кадре. Те же104train,3сида,1150 шагов.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Против BCE104: C −1,33 п.п. [−3,34; +1,12]; D −4,23 [−8,85; −0,87].",
+        "Эта функция потерь не принята; dev не запускался."
+      ],
+      "footer": [
+        "z13_pairwise_map_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_pairwise_map_v1",
+      "card": "z13_pairwise_map_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_motion_window_v1",
+      "x": 4580,
+      "y": 7190,
+      "w": 870,
+      "h": 360,
+      "title": [
+        "II.11 Окно прогноза на полной карте"
+      ],
+      "body": [
+        "Вместо неограниченного максимума: косинусное окно вокруг прогноза по721",
+        "колонке. Вес из6 значений выбран на20fit; локальные веса и балл прежние.",
+        "НЕОПРЕДЕЛЁННО: C +5,35 п.п., D +6,63 против максимума; у R1 +20,21. Все",
+        "основные контроли не пройдены, общий эффект не приписывается мухе. Dev",
+        "не запускался."
+      ],
+      "footer": [
+        "z13_motion_window_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_motion_window_v1",
+      "card": "z13_motion_window_v1",
+      "size": 22
+    },
+    {
       "id": "original_7",
       "x": 6780,
       "y": 4230,
@@ -3360,7 +3494,7 @@
     {
       "id": "metric",
       "x": 4580,
-      "y": 7300,
+      "y": 7720,
       "w": 2000,
       "h": 360,
       "title": [
@@ -3381,7 +3515,7 @@
     {
       "id": "g_map104",
       "x": 4580,
-      "y": 7850,
+      "y": 8270,
       "w": 2000,
       "h": 640,
       "title": [
@@ -3426,6 +3560,30 @@
       "ref": "runs/z13_target_center_dev_20261018/report.json",
       "card": "",
       "size": 25
+    },
+    {
+      "id": "f_center_hota",
+      "x": 6780,
+      "y": 7200,
+      "w": 2000,
+      "h": 430,
+      "title": [
+        "IV ТЕКУЩАЯ ПРОВЕРКА СТЕНДА: ЦЕНТРИРОВАННАЯ РЕГРЕССИЯ"
+      ],
+      "body": [
+        "Применяется ранее подтверждённый зелёный узел центрированной регрессии. Кандидаты104, парная потеря и окно в него не входят.",
+        "",
+        "C/D/R1: те же4 наблюдения и состояние; одна политика верхнего1% исходных баллов. Меняется только центр потерянного трека; YOLO26, ByteTrack и MASA прежние.",
+        "",
+        "Сейчас техническое воспроизведение и замер. HOTA ещё не измерена; по утреннему сроку сохраняются законченные видео и остаток очереди."
+      ],
+      "footer": [
+        "runs/z13_center_hota_20261021/protocol.json"
+      ],
+      "kind": "future",
+      "ref": "runs/z13_center_hota_20261021/protocol.json",
+      "card": "z13_center_hota_v1",
+      "size": 23
     },
     {
       "id": "footer",
@@ -5309,6 +5467,80 @@
       "arrow": 23
     },
     {
+      "a": "hub_6",
+      "b": "v_z13_pairwise_map_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5580,
+          7050.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "left",
+      "label": "II",
+      "label_at": [
+        5645,
+        7050.0
+      ],
+      "render_points": [
+        [
+          5580.0,
+          5000
+        ],
+        [
+          5580,
+          7050.0
+        ],
+        [
+          5710,
+          7050.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
+      "a": "hub_6",
+      "b": "v_z13_motion_window_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5580,
+          7370.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "right",
+      "label": "II",
+      "label_at": [
+        5515,
+        7370.0
+      ],
+      "render_points": [
+        [
+          5580.0,
+          5000
+        ],
+        [
+          5580,
+          7370.0
+        ],
+        [
+          5450,
+          7370.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
       "a": "original_7",
       "b": "hub_7",
       "kind": "variant",
@@ -5994,7 +6226,7 @@
         ],
         [
           6640,
-          8170
+          8590
         ]
       ],
       "start": "right",
@@ -6002,7 +6234,7 @@
       "label": "III",
       "label_at": [
         6640,
-        8170
+        8590
       ],
       "render_points": [
         [
@@ -6015,11 +6247,11 @@
         ],
         [
           6640,
-          8170
+          8590
         ],
         [
           6580,
-          8170.0
+          8590.0
         ]
       ],
       "colour": "#117A46",
@@ -6027,6 +6259,51 @@
       "width": 8,
       "level": "III",
       "arrow": 30
+    },
+    {
+      "a": "original_7",
+      "b": "f_center_hota",
+      "kind": "future",
+      "points": [
+        [
+          8930,
+          4555
+        ],
+        [
+          8930,
+          7415
+        ]
+      ],
+      "start": "right",
+      "end": "right",
+      "label": "IV",
+      "label_at": [
+        8930,
+        7415
+      ],
+      "render_points": [
+        [
+          8780,
+          4555.0
+        ],
+        [
+          8930,
+          4555
+        ],
+        [
+          8930,
+          7415
+        ],
+        [
+          8780,
+          7415.0
+        ]
+      ],
+      "colour": "#416FBA",
+      "dashed": true,
+      "width": 5,
+      "level": "IV",
+      "arrow": 24
     }
   ]
 }

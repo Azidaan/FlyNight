@@ -104,6 +104,10 @@
 <polygon points="5710,6610.0 5689.8156010765215,6621.026787387897 5689.8156010765215,6598.973212612103" fill="#B97D00"/>
 <polyline points="5580.0,5000 5580,6950.0 5450,6950.0" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
 <polygon points="5450,6950.0 5470.1843989234785,6938.973212612103 5470.1843989234785,6961.026787387897" fill="#B97D00"/>
+<polyline points="5580.0,5000 5580,7050.0 5710,7050.0" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
+<polygon points="5710,7050.0 5689.8156010765215,7061.026787387897 5689.8156010765215,7038.973212612103" fill="#B97D00"/>
+<polyline points="5580.0,5000 5580,7370.0 5450,7370.0" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
+<polygon points="5450,7370.0 5470.1843989234785,7358.973212612103 5470.1843989234785,7381.026787387897" fill="#B97D00"/>
 <polyline points="7780.0,4880 7780.0,4980" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
 <polygon points="7780.0,4980 7768.973212612103,4959.8156010765215 7791.026787387897,4959.8156010765215" fill="#B97D00"/>
 <polyline points="7780.0,5110 7780,5380.0 7650,5380.0" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
@@ -140,8 +144,10 @@
 <polygon points="3945.0,8000 3933.4937870734993,7978.938018514631 3956.5062129265007,7978.938018514631" fill="#416FBA"/>
 <polyline points="8780,1255.0 8840,1255 8840,3545 8780,3545.0" fill="none" stroke="#416FBA" stroke-width="5" stroke-linejoin="round" stroke-dasharray="12 8"/>
 <polygon points="8780,3545.0 8801.061981485369,3533.4937870734993 8801.061981485369,3556.5062129265007" fill="#416FBA"/>
-<polyline points="5980,4935.0 6640,4935 6640,8170 6580,8170.0" fill="none" stroke="#117A46" stroke-width="8" stroke-linejoin="round"/>
-<polygon points="6580,8170.0 6606.327476856711,8155.617233841874 6606.327476856711,8184.382766158126" fill="#117A46"/>
+<polyline points="5980,4935.0 6640,4935 6640,8590 6580,8590.0" fill="none" stroke="#117A46" stroke-width="8" stroke-linejoin="round"/>
+<polygon points="6580,8590.0 6606.327476856711,8575.617233841875 6606.327476856711,8604.382766158125" fill="#117A46"/>
+<polyline points="8780,4555.0 8930,4555 8930,7415 8780,7415.0" fill="none" stroke="#416FBA" stroke-width="5" stroke-linejoin="round" stroke-dasharray="12 8"/>
+<polygon points="8780,7415.0 8801.061981485369,7403.493787073499 8801.061981485369,7426.506212926501" fill="#416FBA"/>
 <g id="title"><title></title><rect x="100" y="40" width="8780" height="150" rx="14" fill="#FFFFFF" stroke="#CCD5DF" stroke-width="2"/>
 <text x="120" y="87" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">FlyVis — от исходной архитектуры к проверенным изменениям</text>
 <text x="120" y="134" font-family="Segoe UI,Arial,sans-serif" font-size="28" font-weight="400" fill="#182B40">Один лист. Сначала красный путь I по номерам 01–08; затем локальные жёлтые ветви II. Зелёный III — достигнутое улучшение; синий пунктир IV — план.</text>
@@ -631,6 +637,23 @@
 <text x="4600" y="7003" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">в стенд не перенесено.</text>
 <text x="4600" y="7037" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">z13_map_transfer104_v1</text>
 </g>
+<g id="v_z13_pairwise_map_v1"><title>z13_pairwise_map_v1</title><rect x="5710" y="6850" width="870" height="400" rx="14" fill="#FFF1BA" stroke="#BF8A18" stroke-width="2"/>
+<text x="5730" y="6897" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">II.10 Обучение порядку кандидатов</text>
+<text x="5730" y="6936" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="400" fill="#182B40">Вместо независимой двоичной оценки каждого пика: парная логистическая потеря,</text>
+<text x="5730" y="6963" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="400" fill="#182B40">полезный пик выше неполезного в том же кадре. Те же104train,3сида,1150 шагов.</text>
+<text x="5730" y="6990" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="400" fill="#182B40">КРИТЕРИЙ НЕ ПРОЙДЕН: Против BCE104: C −1,33 п.п. [−3,34; +1,12]; D −4,23 [−8,85; −0,87].</text>
+<text x="5730" y="7017" font-family="Segoe UI,Arial,sans-serif" font-size="20" font-weight="400" fill="#182B40">Эта функция потерь не принята; dev не запускался.</text>
+<text x="5730" y="7051" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">z13_pairwise_map_v1</text>
+</g>
+<g id="v_z13_motion_window_v1"><title>z13_motion_window_v1</title><rect x="4580" y="7190" width="870" height="360" rx="14" fill="#FFF1BA" stroke="#BF8A18" stroke-width="2"/>
+<text x="4600" y="7237" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">II.11 Окно прогноза на полной карте</text>
+<text x="4600" y="7278" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">Вместо неограниченного максимума: косинусное окно вокруг прогноза по721</text>
+<text x="4600" y="7307" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">колонке. Вес из6 значений выбран на20fit; локальные веса и балл прежние.</text>
+<text x="4600" y="7336" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">НЕОПРЕДЕЛЁННО: C +5,35 п.п., D +6,63 против максимума; у R1 +20,21. Все</text>
+<text x="4600" y="7365" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">основные контроли не пройдены, общий эффект не приписывается мухе. Dev</text>
+<text x="4600" y="7394" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">не запускался.</text>
+<text x="4600" y="7428" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">z13_motion_window_v1</text>
+</g>
 <g id="original_7"><title>AGENTS.md</title><rect x="6780" y="4230" width="2000" height="650" rx="14" fill="#E8EDF3" stroke="#68788C" stroke-width="2"/>
 <text x="6800" y="4277" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">08 ПРИМЕНЕНИЕ В СТЕНДЕ — ИСХОДНАЯ ОСНОВА</text>
 <text x="6800" y="4319" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">ОКРУЖЕНИЕ: YOLO26s</text>
@@ -731,30 +754,39 @@
 <text x="4600" y="3361" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">временные признаки входа глаза без FlyVis. B и D не равны по ёмкости.</text>
 <text x="4600" y="3395" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">scripts/z13_target_model.py</text>
 </g>
-<g id="metric"><title>scripts/z13_train.py</title><rect x="4580" y="7300" width="2000" height="360" rx="14" fill="#FFFFFF" stroke="#CCD5DF" stroke-width="2"/>
-<text x="4600" y="7347" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">ЧТО ИЗМЕРЯЕТСЯ И ЧТО ОСТАЁТСЯ НЕИЗВЕСТНЫМ</text>
-<text x="4600" y="7390" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">Полезный центр: ошибка меньше ошибки штатного прогноза и не больше четверти размера известной цели. Средняя доля по видео не равна точности среди выбранных.</text>
-<text x="4600" y="7421" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">Неизвестный исход не означает ошибку или успех. Глобальный верхний 1% — диагностика, а не готовое покадровое правило.</text>
-<text x="4600" y="7455" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">scripts/z13_train.py</text>
+<g id="metric"><title>scripts/z13_train.py</title><rect x="4580" y="7720" width="2000" height="360" rx="14" fill="#FFFFFF" stroke="#CCD5DF" stroke-width="2"/>
+<text x="4600" y="7767" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">ЧТО ИЗМЕРЯЕТСЯ И ЧТО ОСТАЁТСЯ НЕИЗВЕСТНЫМ</text>
+<text x="4600" y="7810" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">Полезный центр: ошибка меньше ошибки штатного прогноза и не больше четверти размера известной цели. Средняя доля по видео не равна точности среди выбранных.</text>
+<text x="4600" y="7841" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">Неизвестный исход не означает ошибку или успех. Глобальный верхний 1% — диагностика, а не готовое покадровое правило.</text>
+<text x="4600" y="7875" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">scripts/z13_train.py</text>
 </g>
-<g id="g_map104"><title>runs/z13_map_transfer104_20261021/report.json</title><rect x="4580" y="7850" width="2000" height="640" rx="14" fill="#DDF3E3" stroke="#117A46" stroke-width="2"/>
-<text x="4600" y="7897" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">III ЧАСТНЫЙ ЭФФЕКТ: ЧТЕНИЕ ПИКОВ КАРТЫ</text>
-<text x="4600" y="7938" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">ЗАМЕНА: максимум карты → обучаемый выбор одного из3 раздельных пиков. Вход — положения и высоты пиков; карта FlyVis остаётся источником, дополнительные сырые векторы не</text>
-<text x="4600" y="7967" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">нужны этому варианту.</text>
-<text x="4600" y="7996" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40"></text>
-<text x="4600" y="8025" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">ПРОТИВ МАКСИМУМА НА train26: C +3,87 п.п.; 95% ДИ [+1,53; +6,09]; D +4,78 п.п.; 95% ДИ [+0,91; +9,55].</text>
-<text x="4600" y="8054" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40"></text>
-<text x="4600" y="8083" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">ФИКСИРОВАННЫЙ ПЕРЕНОС НА dev35: C +2,77 п.п.; 95% ДИ [+1,10; +4,54]; D +4,72 п.п.; 95% ДИ [+3,10; +6,57].</text>
-<text x="4600" y="8112" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40"></text>
-<text x="4600" y="8141" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">Подтверждены эти частные сравнения по полезным центрам. Общий критерий переноса не пройден: превосходство над выбором по прогнозу не доказано. Прежний центрированный</text>
-<text x="4600" y="8170" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">считыватель остаётся рабочей версией. Вклад общего модуля отделяется R1; HOTA не измерялась.</text>
-<text x="4600" y="8204" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">runs/z13_map_transfer104_20261021/report.json</text>
+<g id="g_map104"><title>runs/z13_map_transfer104_20261021/report.json</title><rect x="4580" y="8270" width="2000" height="640" rx="14" fill="#DDF3E3" stroke="#117A46" stroke-width="2"/>
+<text x="4600" y="8317" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">III ЧАСТНЫЙ ЭФФЕКТ: ЧТЕНИЕ ПИКОВ КАРТЫ</text>
+<text x="4600" y="8358" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">ЗАМЕНА: максимум карты → обучаемый выбор одного из3 раздельных пиков. Вход — положения и высоты пиков; карта FlyVis остаётся источником, дополнительные сырые векторы не</text>
+<text x="4600" y="8387" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">нужны этому варианту.</text>
+<text x="4600" y="8416" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40"></text>
+<text x="4600" y="8445" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">ПРОТИВ МАКСИМУМА НА train26: C +3,87 п.п.; 95% ДИ [+1,53; +6,09]; D +4,78 п.п.; 95% ДИ [+0,91; +9,55].</text>
+<text x="4600" y="8474" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40"></text>
+<text x="4600" y="8503" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">ФИКСИРОВАННЫЙ ПЕРЕНОС НА dev35: C +2,77 п.п.; 95% ДИ [+1,10; +4,54]; D +4,72 п.п.; 95% ДИ [+3,10; +6,57].</text>
+<text x="4600" y="8532" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40"></text>
+<text x="4600" y="8561" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">Подтверждены эти частные сравнения по полезным центрам. Общий критерий переноса не пройден: превосходство над выбором по прогнозу не доказано. Прежний центрированный</text>
+<text x="4600" y="8590" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">считыватель остаётся рабочей версией. Вклад общего модуля отделяется R1; HOTA не измерялась.</text>
+<text x="4600" y="8624" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">runs/z13_map_transfer104_20261021/report.json</text>
 </g>
 <g id="g_scope"><title>runs/z13_target_center_dev_20261018/report.json</title><rect x="6780" y="6580" width="2000" height="420" rx="14" fill="#FFFFFF" stroke="#CCD5DF" stroke-width="2"/>
 <text x="6800" y="6627" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">ГРАНИЦА ДОСТИГНУТОГО РЕЗУЛЬТАТА</text>
 <text x="6800" y="6671" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="400" fill="#182B40">Зелёные узлы III — подтверждённые сравнения считывания. У карты104 показан частный эффект при непройденном общем критерии. Превосходство D над C и польза</text>
 <text x="6800" y="6703" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="400" fill="#182B40">новых узлов по HOTA пока не установлены. Архитектурные ветви нельзя складывать в одну модель без отдельной проверки.</text>
 <text x="6800" y="6737" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">runs/z13_target_center_dev_20261018/report.json</text>
+</g>
+<g id="f_center_hota"><title>runs/z13_center_hota_20261021/protocol.json</title><rect x="6780" y="7200" width="2000" height="430" rx="14" fill="#E8F0FF" stroke="#416FBA" stroke-width="2"/>
+<text x="6800" y="7247" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">IV ТЕКУЩАЯ ПРОВЕРКА СТЕНДА: ЦЕНТРИРОВАННАЯ РЕГРЕССИЯ</text>
+<text x="6800" y="7289" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">Применяется ранее подтверждённый зелёный узел центрированной регрессии. Кандидаты104, парная потеря и окно в него не входят.</text>
+<text x="6800" y="7319" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40"></text>
+<text x="6800" y="7349" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">C/D/R1: те же4 наблюдения и состояние; одна политика верхнего1% исходных баллов. Меняется только центр потерянного трека; YOLO26, ByteTrack и MASA прежние.</text>
+<text x="6800" y="7379" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40"></text>
+<text x="6800" y="7409" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">Сейчас техническое воспроизведение и замер. HOTA ещё не измерена; по утреннему сроку сохраняются законченные видео и остаток очереди.</text>
+<text x="6800" y="7443" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">runs/z13_center_hota_20261021/protocol.json</text>
 </g>
 <g id="footer"><title></title><rect x="100" y="9200" width="8780" height="160" rx="14" fill="#FFFFFF" stroke="#CCD5DF" stroke-width="2"/>
 <text x="120" y="9247" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">ПОРЯДОК ЧТЕНИЯ: I — КРАСНЫЙ ПУТЬ 01–08 → II — ЛОКАЛЬНЫЕ ЗАМЕНЫ → III — ДОСТИГНУТЫЙ УЗЕЛ → IV — ПЛАНЫ</text>
@@ -812,6 +844,8 @@
 <rect x="5494.0" y="6509.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="5508.0" y="6536.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="5624.0" y="6589.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="5638.0" y="6616.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="5494.0" y="6929.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="5508.0" y="6956.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
+<rect x="5624.0" y="7029.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="5638.0" y="7056.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
+<rect x="5494.0" y="7349.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="5508.0" y="7376.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="7759.0" y="4909" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="7773.0" y="4936" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="7694.0" y="5359.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="7708.0" y="5386.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="7824.0" y="5439.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="7838.0" y="5466.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
@@ -830,5 +864,6 @@
 <rect x="2790.0" y="7929" width="50.0" height="42" rx="10" fill="white" stroke="#416FBA" stroke-width="2"/><text x="2804.0" y="7956" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#416FBA">IV</text>
 <rect x="3920.0" y="7929" width="50.0" height="42" rx="10" fill="white" stroke="#416FBA" stroke-width="2"/><text x="3934.0" y="7956" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#416FBA">IV</text>
 <rect x="8815.0" y="3524" width="50.0" height="42" rx="10" fill="white" stroke="#416FBA" stroke-width="2"/><text x="8829.0" y="3551" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#416FBA">IV</text>
-<rect x="6615.5" y="8149" width="49.0" height="42" rx="10" fill="white" stroke="#117A46" stroke-width="2"/><text x="6629.5" y="8176" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#117A46">III</text>
+<rect x="6615.5" y="8569" width="49.0" height="42" rx="10" fill="white" stroke="#117A46" stroke-width="2"/><text x="6629.5" y="8596" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#117A46">III</text>
+<rect x="8905.0" y="7394" width="50.0" height="42" rx="10" fill="white" stroke="#416FBA" stroke-width="2"/><text x="8919.0" y="7421" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#416FBA">IV</text>
 </svg>
