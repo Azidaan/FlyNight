@@ -50,6 +50,7 @@ def main():
     fmt=lambda v:f'{100*v:+.3f}'.replace('.',',')
     def interval(v):return f"{fmt(v['mean_per_video'])} п.п. [{fmt(v['ci95'][0])}; {fmt(v['ci95'][1])}]"
     obtained=(run/'report.json').relative_to(ROOT).as_posix()+' → paired: '+'; '.join(k+' '+interval(v) for k,v in report['paired'].items())+'. '+('choices: '+str(report['choices']['C']['query']['best'])+'. ' if x.kind=='query' else 'fallback: '+str(report['fallback'])+'. ')
+    obtained=obtained.rstrip()
     interpretation=('Все основные критерии выполнены.' if passed else 'Основной критерий этой реализации не выполнен.')+explanation+' Поисковое сравнение на многократно использованном train26; это не HOTA и не оценка безопасности вмешательства.'
     if not passed and d['ci95'][1]<.02:interpretation+=' Верхняя граница прироста C ниже заранее заданных2п.п.; это ограничение данной реализации, не всей линии.'
     decision='Сохранить как функционального кандидата; следующий этап — перенос фиксированной версии с теми же контролями, затем отдельно применение в стенде.' if passed else 'В стенд не переносить; параметры по train26/dev не менять. Сохранить прежний центрированный считыватель. Другой механизм требует самостоятельной постановки и контроля без FlyVis.'

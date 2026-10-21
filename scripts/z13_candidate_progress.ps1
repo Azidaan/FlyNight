@@ -1,11 +1,21 @@
 param([Parameter(Mandatory=$true)][string]$Run)
-$Host.UI.RawUI.WindowTitle = 'FlyVis — отдельные кандидаты цели'
+$protocol=Get-Content -LiteralPath (Join-Path $Run 'protocol.json') -Raw -Encoding UTF8 | ConvertFrom-Json -DateKind String
+$experimentName=switch ($protocol.id) {
+    'z13_candidate_reserve_v1' {'Запас среди трёх пиков'}
+    'z13_candidate_identity_v1' {'Сопоставление кандидатов'}
+    'z13_candidate_ranker_v1' {'Обучаемый выбор пиков'}
+    'z13_query_memory_v1' {'Чтение моделей памяти'}
+    'z13_local_peak_v1' {'Локальная вершина карты'}
+    'z13_candidate_data104_v1' {'Данные считывателя: 20 → 104'}
+    default {$protocol.id}
+}
+$Host.UI.RawUI.WindowTitle = 'FlyVis — '+$experimentName
 @{pid=$PID;started=[DateTimeOffset]::Now.ToString('o');run=$Run} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $Run 'progress_console.json') -Encoding utf8
 while ($true) {
     try {
         $s=Get-Content -LiteralPath (Join-Path $Run 'status.json') -Raw -Encoding UTF8 | ConvertFrom-Json -DateKind String
         Clear-Host
-        Write-Host 'FlyVis: кандидаты цели и временное сопоставление' -ForegroundColor Cyan
+        Write-Host ('FlyVis: '+$experimentName) -ForegroundColor Cyan
         Write-Host ('Состояние: '+$s.state+' | фаза: '+$s.phase)
         Write-Host ('Этап: '+$s.stage+' | вариант: '+$s.variant)
         if ($s.total -gt 0) {
