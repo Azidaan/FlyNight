@@ -1,0 +1,86 @@
+{
+ "passed": true,
+ "reproduction": {
+  "C": {
+   "rows": 38,
+   "max_center_px": 0.00010446833084643004,
+   "max_score": 1.3176358205413408e-05,
+   "compiler_and_shape_center_px": 0.00012175763936284056,
+   "compiler_and_shape_score": 1.620047132266933e-05,
+   "same_threshold_decisions": true
+  },
+  "D": {
+   "rows": 38,
+   "max_center_px": 1.800386553441058e-05,
+   "max_score": 2.637218601275748e-06,
+   "compiler_and_shape_center_px": 1.6932882545006578e-05,
+   "compiler_and_shape_score": 4.7023415961078285e-06,
+   "same_threshold_decisions": true
+  },
+  "R1": {
+   "rows": 38,
+   "max_center_px": 0.0,
+   "max_score": 0.0,
+   "compiler_and_shape_center_px": 0.0,
+   "compiler_and_shape_score": 0.0,
+   "same_threshold_decisions": true
+  }
+ },
+ "no_intervention_outputs_bitwise_equal": true,
+ "baseline_stitch35_equal": true,
+ "timing": {
+  "noop_seconds": 101.82078119999642,
+  "C": {
+   "seconds": 124.27399080000032,
+   "events": {
+    "steps": 4236,
+    "interventions": 7,
+    "refusals": 4229,
+    "births": 312,
+    "nonfinite_refusals": 0
+   },
+   "reused_saved": true
+  },
+  "D": {
+   "seconds": 128.10086579999916,
+   "events": {
+    "steps": 4219,
+    "interventions": 5,
+    "refusals": 4214,
+    "births": 312,
+    "nonfinite_refusals": 0
+   },
+   "reused_saved": true
+  },
+  "R1": {
+   "seconds": 117.35817049999969,
+   "events": {
+    "steps": 4264,
+    "interventions": 40,
+    "refusals": 4224,
+    "births": 311,
+    "nonfinite_refusals": 0
+   },
+   "reused_saved": true
+  },
+  "masa": {
+   "feature_calls": 854,
+   "feature_calls_without_sharing": 2558,
+   "guard_feature_calls": 1,
+   "frames_decoded": 1208,
+   "arms": [
+    "C",
+    "D",
+    "R1"
+   ],
+   "seconds": 70.66346300000077,
+   "parity_guard_checked": true
+  }
+ },
+ "rough_full_seconds": 15413.877153499998,
+ "caveat": "One complete train video; saved inference times reused, initialization excluded. No HOTA; partial queue expected.",
+ "execution_service_contract_sha256": "61fc71599c09f6ab0a57b59b48afe8d143488eb3b5cd2a48ec290857fb20d498",
+ "recovery_execution_contract_sha256": "9adbbf6b020bd6d3402d2fc5363ce1132d5e6b7017c252485207e64e6ff5e07c",
+ "execution_completion_contract_sha256": "381bc2143318bb55368396e0a829ce3e50a963e2d4f204d539234bbf60a24df9",
+ "initial_whole_corpus_verified": true
+}
