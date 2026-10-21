@@ -9,6 +9,7 @@ $experimentName=switch ($protocol.id) {
     'z13_candidate_data104_v1' {'Данные считывателя: 20 → 104'}
     'z13_map_only104_v1' {'Выбор по карте: фиксированные104'}
     'z13_map_transfer104_v1' {'Перенос выбора по карте на35видео'}
+    'z13_pairwise_map_v1' {'Парный порядок кандидатов'}
     default {$protocol.id}
 }
 $Host.UI.RawUI.WindowTitle = 'FlyVis — '+$experimentName

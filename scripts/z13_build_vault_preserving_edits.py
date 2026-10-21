@@ -35,21 +35,60 @@ def verify_local_edits(protected):
             assert path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == digest, path
 
 
+def owned_refresh(root, receipt, backup):
+    """Explicit agent-owned generated notes only, guarded by exact current hashes."""
+    if receipt is None:
+        return {}
+    receipt = receipt.resolve(); receipt.relative_to(root.resolve())
+    vault = (root / 'ObsidianFlyVis').resolve()
+    records = json.loads(receipt.read_text(encoding='utf-8'))
+    allowed = {}
+    for rel, digest in records.items():
+        path = (root / rel).resolve(); sub = path.relative_to(vault)
+        if path.suffix != '.md' or not path.is_file():
+            raise ValueError('Only existing explicitly owned generated notes: ' + rel)
+        if hashlib.sha256(path.read_bytes()).hexdigest() != digest:
+            raise ValueError('Owned note changed after receipt: ' + rel)
+        allowed[path] = digest
+    # Validate the whole set before preserving any original and before generation.
+    for path in allowed:
+        target = backup / path.relative_to(vault)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if target.exists():
+            raise ValueError('Never overwrite a preservation backup: ' + str(target))
+        target.write_bytes(path.read_bytes())
+    return allowed
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--report', type=Path,
                     default=ROOT / 'runs/z13_spatial_hota_v1_20261014/vault_preservation.json')
+    ap.add_argument('--refresh-owned', type=Path,
+                    help='Explicit current SHA256 receipt for our generated notes; other edits stay protected')
     args = ap.parse_args()
     out = args.report.resolve()
     out.relative_to(ROOT.resolve())
     from scripts import build_obsidian_vault as generator
     protected = snapshot_local_edits(ROOT)
+    refresh = owned_refresh(ROOT, args.refresh_owned, out.with_suffix('.owned_backup'))
+    protected = {p: h for p, h in protected.items() if p not in refresh}
     original = Path.write_text
+    original_read = Path.read_text
     original_unlink = Path.unlink
     original_copy = generator.shutil.copy2
     skipped = []
     skipped_deletes = []
     skipped_copies = []
+    manifest = (ROOT / 'ObsidianFlyVis' / '.generated.json').resolve()
+    def reading(path, *args, **kwargs):
+        text = original_read(path, *args, **kwargs)
+        if path.resolve() == manifest and refresh:
+            old = json.loads(text)
+            # Supplement generator's in-memory manifest, never the user's file.
+            old = sorted(set(old) | {p.relative_to(manifest.parent).as_posix() for p in refresh})
+            return json.dumps(old, ensure_ascii=False)
+        return text
     def preserving(path, text, *args, **kwargs):
         if path.resolve() in protected:
             skipped.append(str(path.relative_to(ROOT)))
@@ -67,6 +106,7 @@ def main():
             return str(dst)
         return original_copy(src, dst, *args, **kwargs)
     Path.write_text = preserving
+    Path.read_text = reading
     Path.unlink = preserving_unlink
     generator.shutil.copy2 = preserving_copy
     previous_argv = sys.argv
@@ -81,6 +121,7 @@ def main():
         else:
             os.environ['GIT_OPTIONAL_LOCKS'] = previous_optional_locks
         Path.write_text = original
+        Path.read_text = original_read
         Path.unlink = original_unlink
         generator.shutil.copy2 = original_copy
         sys.argv = previous_argv
@@ -89,6 +130,7 @@ def main():
     report = {'protected_existing_edits': {str(p.relative_to(ROOT)): h for p, h in protected.items()},
               'skipped_writes': skipped, 'skipped_deletes': skipped_deletes,
               'skipped_copies': skipped_copies,
+              'refreshed_owned_notes': {str(p.relative_to(ROOT)): h for p, h in refresh.items()},
               'official_generator_completed': True}
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

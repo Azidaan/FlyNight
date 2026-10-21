@@ -1,5 +1,7 @@
 """Protect user notes, including staged edits and intentional local deletions."""
 import shutil
+import json
+import hashlib
 import subprocess
 from types import SimpleNamespace
 
@@ -59,3 +61,36 @@ def test_preserving_build_keeps_all_local_states(tmp_path, monkeypatch):
     deleted.write_text('accidentally recreated', encoding='utf-8')
     with pytest.raises(AssertionError, match='recreated'):
         preservation.verify_local_edits(protected)
+
+
+def test_owned_refresh_keeps_foreign_edits_and_registers_only_explicit_note(tmp_path, monkeypatch):
+    import scripts
+    git(tmp_path, 'init', '-q')
+    vault=tmp_path/'ObsidianFlyVis';vault.mkdir()
+    owned=vault/'old_plan.md';owned.write_text('our old generated plan',encoding='utf-8')
+    foreign=vault/'user.md';foreign.write_text('original',encoding='utf-8')
+    manifest=vault/'.generated.json';manifest.write_text('[]',encoding='utf-8')
+    git(tmp_path,'add','.');git(tmp_path,'-c','user.name=Test','-c','user.email=test@example.com','commit','-qm','initial')
+    foreign.write_text('user edit',encoding='utf-8')
+    receipt=tmp_path/'owned.json';receipt.write_text(json.dumps({'ObsidianFlyVis/old_plan.md':hashlib.sha256(owned.read_bytes()).hexdigest()}),encoding='utf-8')
+    def generate():
+        old=json.loads(manifest.read_text(encoding='utf-8'))
+        assert old==['old_plan.md']
+        for name in old:(vault/name).unlink()
+        foreign.write_text('should be blocked',encoding='utf-8')
+        return 0
+    monkeypatch.setattr(scripts,'build_obsidian_vault',SimpleNamespace(main=generate,shutil=shutil),raising=False)
+    monkeypatch.setattr(preservation,'ROOT',tmp_path)
+    monkeypatch.setattr(preservation.sys,'argv',['preserve','--report',str(tmp_path/'result.json'),'--refresh-owned',str(receipt)])
+    preservation.main()
+    assert not owned.exists() and foreign.read_text(encoding='utf-8')=='user edit'
+    assert manifest.read_text(encoding='utf-8')=='[]'
+    assert (tmp_path/'result.owned_backup/old_plan.md').read_text(encoding='utf-8')=='our old generated plan'
+
+
+def test_owned_refresh_rejects_changed_or_outside_note(tmp_path):
+    vault=tmp_path/'ObsidianFlyVis';vault.mkdir();note=vault/'own.md';note.write_text('changed',encoding='utf-8')
+    receipt=tmp_path/'owned.json';receipt.write_text(json.dumps({'ObsidianFlyVis/own.md':'wrong'}),encoding='utf-8')
+    with pytest.raises(ValueError,match='changed after receipt'):preservation.owned_refresh(tmp_path,receipt,tmp_path/'backup')
+    receipt.write_text(json.dumps({'outside.md':'wrong'}),encoding='utf-8')
+    with pytest.raises(ValueError):preservation.owned_refresh(tmp_path,receipt,tmp_path/'backup')

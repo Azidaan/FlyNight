@@ -13,8 +13,11 @@
     "runs/z13_query_memory_20261021/report.json": "660655571b4fc70d3ee5763e379b1e6395f37644eee658b445351b82063ab383",
     "tracking/z13_local_peak.py": "24ee31622274f02701d1133c7a20394fa7309806b55185ef8b32db87ac0338d9",
     "runs/z13_local_peak_20261021/report.json": "ff401407da48d1b6b5222c673c7d2348125c62aa6c859e2f0086e24a63058e06",
-    "scripts/build_flyvis_architecture.py": "f76900aa3a472098faa1bce71f6b7aa0a53722239136e04e80f3b238c3e80264",
-    "scripts/flyvis_architecture_layout.py": "0df4a12f0b58eee4dd4ebf7af3ca0bdb62560041ac0c3fb99aeb35d6654a2626",
+    "runs/z13_candidate_data104_20261021/report.json": "7bda65c15d8c0d471a8ae25ab368f06774a8b93adc2002db39e13324483c25e6",
+    "runs/z13_map_only104_20261021/report.json": "fdc86a92976937341aae9b2eeebc495fda87507ccd7ec7fb1d3cbc828c7c6461",
+    "runs/z13_map_transfer104_20261021/report.json": "4f0db9c3174f46c3f10412ba4c071c2f9859984df522648b04e4fe16daccc670",
+    "scripts/build_flyvis_architecture.py": "3122b9240866ec4b34e8a9596a28ba369e7a5a150db53e6a14cf2c2ef168729f",
+    "scripts/flyvis_architecture_layout.py": "68c9e38b0d9203df8cd67da40f012f619d1ee87dc6842be96281804268676fd5",
     "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
     "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
     "AGENTS.md": "6ab80b02dd22146ddbcde8864832af0f9c819dfa9d69ee2e2be918e450bc4451",
@@ -28,7 +31,7 @@
     "tracking/z13_response_utility.py": "211c86dc916dc56451662dba572d362d884def647551b6dcefb461dc5c231445",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "3b7445c395c674280be8937aaaa4cddf3118b48aa26e59a358bd007aca44218e"
+    "experiments/project_history.json": "07f00e2374a53fc3ddf614835933595c9d2cb13de6c796c80e84c541513c089e"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -985,6 +988,58 @@
         }
       ]
     },
+    "z13_candidate_data104_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_candidate_data104_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_data104_20261021/protocol.json",
+          "claim": "Критерии и совпадающий бюджет до исходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_ranker_20261021/report.json",
+          "claim": "Ранее узел на20 train не прошёл основные критерии"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_data104_20261021/report.json",
+          "claim": "Полный итог и проверка однофакторного сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_data104_20261021/training_budget.json",
+          "claim": "Полный итог и проверка однофакторного сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_data104_20261021/seed_metrics.json",
+          "claim": "Полный итог и проверка однофакторного сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_data104_20261021/result_audit.json",
+          "claim": "Полный итог и проверка однофакторного сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_data104_20261021/ceiling_share.json",
+          "claim": "Полный итог и проверка однофакторного сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_data104_20261021/cache_controller_result.json",
+          "claim": "Полный итог и проверка однофакторного сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_data104_20261021/train_controller_result.json",
+          "claim": "Полный итог и проверка однофакторного сравнения"
+        }
+      ]
+    },
     "z13_candidate_foreground_v1": {
       "source": "experiments/project_history.json",
       "locator": "experiments[id=z13_candidate_foreground_v1]",
@@ -1221,6 +1276,85 @@
           "kind": "file",
           "ref": "runs/z13_local_peak_20261021/full_controller_result.json",
           "claim": "Первичный итог и независимая сверка"
+        }
+      ]
+    },
+    "z13_map_only104_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_map_only104_v1]",
+      "state": "completed_positive",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_map_only104_20261021/protocol.json",
+          "claim": "Регистрация до обучения104"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_ranker_20261021/map_only_posthoc.json",
+          "claim": "Вторичный исход, мотивирующий самостоятельную проверку"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_map_only104_20261021/report.json",
+          "claim": "Полный проверенный исход"
+        }
+      ]
+    },
+    "z13_map_transfer104_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_map_transfer104_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_map_transfer104_20261021/protocol.json",
+          "claim": "Условия до dev исхода"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_map_only104_20261021/report.json",
+          "claim": "Основные train26 критерии выполнены"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_map_transfer104_20261021/technical.json",
+          "claim": "Фактический старт и техническая проверка без изменения допусков"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_map_transfer104_20261021/technical_controller_result.json",
+          "claim": "Фактический старт и техническая проверка без изменения допусков"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_map_transfer104_20261021/technical_launch.json",
+          "claim": "Фактический старт и техническая проверка без изменения допусков"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_map_transfer104_20261021/cache_launch.json",
+          "claim": "Фактический старт и техническая проверка без изменения допусков"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_map_transfer104_20261021/report.json",
+          "claim": "Полный исход и независимая проверка строк/интервалов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_map_transfer104_20261021/reproduction.json",
+          "claim": "Полный исход и независимая проверка строк/интервалов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_map_transfer104_20261021/result_audit.json",
+          "claim": "Полный исход и независимая проверка строк/интервалов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_map_transfer104_20261021/seed_metrics.json",
+          "claim": "Полный исход и независимая проверка строк/интервалов"
         }
       ]
     },
@@ -2661,6 +2795,29 @@
       "size": 20
     },
     {
+      "id": "v_z13_candidate_data104_v1",
+      "x": 2380,
+      "y": 6660,
+      "w": 870,
+      "h": 360,
+      "title": [
+        "II.9 Больше ситуаций для считывателя"
+      ],
+      "body": [
+        "Вместо20 обучающих видео:104 при тех же1150 обновлениях,145950",
+        "предъявлениях и3 сидах. Архитектура, нормировка и ядро прежние.",
+        "НЕОПРЕДЕЛЁННО: C против20: +0,52 п.п. [−2,16; +2,70]; D −0,97 [−3,35; +1,22].",
+        "Прирост от объёма данных не подтверждён."
+      ],
+      "footer": [
+        "z13_candidate_data104_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_candidate_data104_v1",
+      "card": "z13_candidate_data104_v1",
+      "size": 22
+    },
+    {
       "id": "original_6",
       "x": 4580,
       "y": 4120,
@@ -2882,6 +3039,31 @@
       "size": 22
     },
     {
+      "id": "v_z13_map_transfer104_v1",
+      "x": 4580,
+      "y": 6770,
+      "w": 870,
+      "h": 360,
+      "title": [
+        "II.9 Фиксированный выбор другого пика"
+      ],
+      "body": [
+        "Вместо самого высокого пика: ансамбль3 моделей по8 признакам положения и",
+        "высоты пиков. Дополнительные векторы активности обнулены; карта мухи",
+        "сохранена.",
+        "НЕОПРЕДЕЛЁННО: На35dev C/D лучше максимума, но превосходство над",
+        "ближайшим к прогнозу пиком не подтверждено. Общий критерий не пройден;",
+        "в стенд не перенесено."
+      ],
+      "footer": [
+        "z13_map_transfer104_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_map_transfer104_v1",
+      "card": "z13_map_transfer104_v1",
+      "size": 22
+    },
+    {
       "id": "original_7",
       "x": 6780,
       "y": 4230,
@@ -3042,7 +3224,7 @@
     {
       "id": "g_center",
       "x": 2380,
-      "y": 6900,
+      "y": 7200,
       "w": 2000,
       "h": 640,
       "title": [
@@ -3071,7 +3253,7 @@
     {
       "id": "f_fly_future_stmtrack_memory_v1",
       "x": 2380,
-      "y": 7700,
+      "y": 8000,
       "w": 870,
       "h": 360,
       "title": [
@@ -3093,7 +3275,7 @@
     {
       "id": "f_fly_future_keeptrack_candidates_v1",
       "x": 3510,
-      "y": 7700,
+      "y": 8000,
       "w": 870,
       "h": 360,
       "title": [
@@ -3178,7 +3360,7 @@
     {
       "id": "metric",
       "x": 4580,
-      "y": 6960,
+      "y": 7300,
       "w": 2000,
       "h": 360,
       "title": [
@@ -3197,6 +3379,34 @@
       "size": 24
     },
     {
+      "id": "g_map104",
+      "x": 4580,
+      "y": 7850,
+      "w": 2000,
+      "h": 640,
+      "title": [
+        "III ЧАСТНЫЙ ЭФФЕКТ: ЧТЕНИЕ ПИКОВ КАРТЫ"
+      ],
+      "body": [
+        "ЗАМЕНА: максимум карты → обучаемый выбор одного из3 раздельных пиков. Вход — положения и высоты пиков; карта FlyVis остаётся источником, дополнительные сырые векторы не",
+        "нужны этому варианту.",
+        "",
+        "ПРОТИВ МАКСИМУМА НА train26: C +3,87 п.п.; 95% ДИ [+1,53; +6,09]; D +4,78 п.п.; 95% ДИ [+0,91; +9,55].",
+        "",
+        "ФИКСИРОВАННЫЙ ПЕРЕНОС НА dev35: C +2,77 п.п.; 95% ДИ [+1,10; +4,54]; D +4,72 п.п.; 95% ДИ [+3,10; +6,57].",
+        "",
+        "Подтверждены эти частные сравнения по полезным центрам. Общий критерий переноса не пройден: превосходство над выбором по прогнозу не доказано. Прежний центрированный",
+        "считыватель остаётся рабочей версией. Вклад общего модуля отделяется R1; HOTA не измерялась."
+      ],
+      "footer": [
+        "runs/z13_map_transfer104_20261021/report.json"
+      ],
+      "kind": "good",
+      "ref": "runs/z13_map_transfer104_20261021/report.json",
+      "card": "z13_map_transfer104_v1",
+      "size": 22
+    },
+    {
       "id": "g_scope",
       "x": 6780,
       "y": 6580,
@@ -3206,8 +3416,8 @@
         "ГРАНИЦА ДОСТИГНУТОГО РЕЗУЛЬТАТА"
       ],
       "body": [
-        "Зелёный узел III находится в считывателе, а не в YOLO26, ByteTrack или MASA. Его преимущество над прежним считыванием подтверждено в указанных условиях.",
-        "Превосходство D над C и польза нового узла по HOTA пока не установлены. Архитектурные ветви нельзя складывать в одну модель без отдельной проверки."
+        "Зелёные узлы III — подтверждённые сравнения считывания. У карты104 показан частный эффект при непройденном общем критерии. Превосходство D над C и польза",
+        "новых узлов по HOTA пока не установлены. Архитектурные ветви нельзя складывать в одну модель без отдельной проверки."
       ],
       "footer": [
         "runs/z13_target_center_dev_20261018/report.json"
@@ -3220,7 +3430,7 @@
     {
       "id": "footer",
       "x": 100,
-      "y": 8100,
+      "y": 9200,
       "w": 8780,
       "h": 160,
       "title": [
@@ -4701,6 +4911,43 @@
       "arrow": 23
     },
     {
+      "a": "hub_5",
+      "b": "v_z13_candidate_data104_v1",
+      "kind": "variant",
+      "points": [
+        [
+          3380,
+          6840.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "right",
+      "label": "II",
+      "label_at": [
+        3315,
+        6840.0
+      ],
+      "render_points": [
+        [
+          3380.0,
+          4890
+        ],
+        [
+          3380,
+          6840.0
+        ],
+        [
+          3250,
+          6840.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
       "a": "original_6",
       "b": "hub_6",
       "kind": "variant",
@@ -5016,6 +5263,43 @@
         [
           5710,
           6610.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
+      "a": "hub_6",
+      "b": "v_z13_map_transfer104_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5580,
+          6950.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "right",
+      "label": "II",
+      "label_at": [
+        5515,
+        6950.0
+      ],
+      "render_points": [
+        [
+          5580.0,
+          5000
+        ],
+        [
+          5580,
+          6950.0
+        ],
+        [
+          5450,
+          6950.0
         ]
       ],
       "colour": "#B97D00",
@@ -5522,11 +5806,11 @@
         ],
         [
           3320,
-          6830
+          7130
         ],
         [
           3380,
-          6830
+          7130
         ]
       ],
       "start": "right",
@@ -5534,7 +5818,7 @@
       "label": "III  МАСКА → ПИК ЦЕНТРА",
       "label_at": [
         3380,
-        6820
+        7120
       ],
       "render_points": [
         [
@@ -5547,15 +5831,15 @@
         ],
         [
           3320,
-          6830
+          7130
         ],
         [
           3380,
-          6830
+          7130
         ],
         [
           3380.0,
-          6900
+          7200
         ]
       ],
       "colour": "#117A46",
@@ -5571,11 +5855,11 @@
       "points": [
         [
           3380,
-          7620
+          7920
         ],
         [
           2815,
-          7620
+          7920
         ]
       ],
       "start": "bottom",
@@ -5583,24 +5867,24 @@
       "label": "IV",
       "label_at": [
         2815,
-        7650
+        7950
       ],
       "render_points": [
         [
           3380.0,
-          7540
+          7840
         ],
         [
           3380,
-          7620
+          7920
         ],
         [
           2815,
-          7620
+          7920
         ],
         [
           2815.0,
-          7700
+          8000
         ]
       ],
       "colour": "#416FBA",
@@ -5616,11 +5900,11 @@
       "points": [
         [
           3380,
-          7620
+          7920
         ],
         [
           3945,
-          7620
+          7920
         ]
       ],
       "start": "bottom",
@@ -5628,24 +5912,24 @@
       "label": "IV",
       "label_at": [
         3945,
-        7650
+        7950
       ],
       "render_points": [
         [
           3380.0,
-          7540
+          7840
         ],
         [
           3380,
-          7620
+          7920
         ],
         [
           3945,
-          7620
+          7920
         ],
         [
           3945.0,
-          7700
+          8000
         ]
       ],
       "colour": "#416FBA",
@@ -5698,6 +5982,51 @@
       "width": 5,
       "level": "IV",
       "arrow": 24
+    },
+    {
+      "a": "hub_6",
+      "b": "g_map104",
+      "kind": "confirmed",
+      "points": [
+        [
+          6640,
+          4935
+        ],
+        [
+          6640,
+          8170
+        ]
+      ],
+      "start": "right",
+      "end": "right",
+      "label": "III",
+      "label_at": [
+        6640,
+        8170
+      ],
+      "render_points": [
+        [
+          5980,
+          4935.0
+        ],
+        [
+          6640,
+          4935
+        ],
+        [
+          6640,
+          8170
+        ],
+        [
+          6580,
+          8170.0
+        ]
+      ],
+      "colour": "#117A46",
+      "dashed": false,
+      "width": 8,
+      "level": "III",
+      "arrow": 30
     }
   ]
 }

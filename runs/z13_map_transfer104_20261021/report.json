@@ -1,0 +1,427 @@
+{
+ "primary_pass": false,
+ "paired": {
+  "C_map-C_top1": {
+   "mean_per_video": 0.027742460986066336,
+   "ci95": [
+    0.010964643353016989,
+    0.04539300823197954
+   ],
+   "better": 20,
+   "n": 35
+  },
+  "C_map-R1_map": {
+   "mean_per_video": 0.11027695718622736,
+   "ci95": [
+    0.05690605437124079,
+    0.18321021001312707
+   ],
+   "better": 27,
+   "n": 35
+  },
+  "C_map-C_nearest": {
+   "mean_per_video": 0.0019099645938696515,
+   "ci95": [
+    -0.015243622283326881,
+    0.017665670891792426
+   ],
+   "better": 15,
+   "n": 35
+  },
+  "C_map-D_prior": {
+   "mean_per_video": 0.09805076081005605,
+   "ci95": [
+    0.04567268338085891,
+    0.17033975099488596
+   ],
+   "better": 22,
+   "n": 35
+  },
+  "D_map-D_top1": {
+   "mean_per_video": 0.047218945350415834,
+   "ci95": [
+    0.031046873258024098,
+    0.06568500667161394
+   ],
+   "better": 24,
+   "n": 35
+  },
+  "D_map-R1_map": {
+   "mean_per_video": 0.09936396341865744,
+   "ci95": [
+    0.06697381430199027,
+    0.1318901635233727
+   ],
+   "better": 26,
+   "n": 35
+  },
+  "D_map-D_nearest": {
+   "mean_per_video": 0.01533570689091185,
+   "ci95": [
+    -0.0002792046835525993,
+    0.029702544396914873
+   ],
+   "better": 17,
+   "n": 35
+  },
+  "D_map-D_prior": {
+   "mean_per_video": 0.08713776704248617,
+   "ci95": [
+    0.055950126780928,
+    0.1189541123667281
+   ],
+   "better": 24,
+   "n": 35
+  },
+  "R1_map-R1_top1": {
+   "mean_per_video": 0.04680296398289769,
+   "ci95": [
+    0.023589623907104094,
+    0.07126304283397503
+   ],
+   "better": 22,
+   "n": 35
+  },
+  "C_gain-R1_gain": {
+   "mean_per_video": -0.019060502996831357,
+   "ci95": [
+    -0.051322445379170294,
+    0.014529052911524606
+   ],
+   "better": 13,
+   "n": 35
+  }
+ },
+ "C_seeds_vs_top1": {
+  "0": {
+   "mean_per_video": 0.024648849218566454,
+   "ci95": [
+    0.007940059769807902,
+    0.041906094968840624
+   ],
+   "better": 19,
+   "n": 35
+  },
+  "1": {
+   "mean_per_video": 0.02644701932545172,
+   "ci95": [
+    0.00874053552065074,
+    0.04412412199582067
+   ],
+   "better": 18,
+   "n": 35
+  },
+  "2": {
+   "mean_per_video": 0.03174342394830574,
+   "ci95": [
+    0.015412864033394586,
+    0.0483535011496134
+   ],
+   "better": 21,
+   "n": 35
+  }
+ },
+ "summary": {
+  "C_map": {
+   "rows": 9314,
+   "useful_mean_video": 0.24104052582621316,
+   "coverage": {
+    "0.01": {
+     "selected": 94,
+     "known": 52,
+     "unknown": 42,
+     "useful": 17,
+     "harmful": 35,
+     "useful_share_known": 0.3269230769230769
+    },
+    "0.02": {
+     "selected": 187,
+     "known": 109,
+     "unknown": 78,
+     "useful": 25,
+     "harmful": 84,
+     "useful_share_known": 0.22935779816513763
+    },
+    "0.05": {
+     "selected": 466,
+     "known": 291,
+     "unknown": 175,
+     "useful": 62,
+     "harmful": 229,
+     "useful_share_known": 0.21305841924398625
+    }
+   }
+  },
+  "C_top1": {
+   "rows": 9314,
+   "useful_mean_video": 0.21329806484014688,
+   "coverage": {
+    "0.01": {
+     "selected": 94,
+     "known": 82,
+     "unknown": 12,
+     "useful": 0,
+     "harmful": 82,
+     "useful_share_known": 0.0
+    },
+    "0.02": {
+     "selected": 187,
+     "known": 170,
+     "unknown": 17,
+     "useful": 1,
+     "harmful": 169,
+     "useful_share_known": 0.0058823529411764705
+    },
+    "0.05": {
+     "selected": 466,
+     "known": 427,
+     "unknown": 39,
+     "useful": 2,
+     "harmful": 425,
+     "useful_share_known": 0.00468384074941452
+    }
+   }
+  },
+  "C_nearest": {
+   "rows": 9314,
+   "useful_mean_video": 0.2391305612323435,
+   "coverage": {
+    "0.01": {
+     "selected": 94,
+     "known": 85,
+     "unknown": 9,
+     "useful": 1,
+     "harmful": 84,
+     "useful_share_known": 0.011764705882352941
+    },
+    "0.02": {
+     "selected": 187,
+     "known": 174,
+     "unknown": 13,
+     "useful": 1,
+     "harmful": 173,
+     "useful_share_known": 0.005747126436781609
+    },
+    "0.05": {
+     "selected": 466,
+     "known": 418,
+     "unknown": 48,
+     "useful": 4,
+     "harmful": 414,
+     "useful_share_known": 0.009569377990430622
+    }
+   }
+  },
+  "D_map": {
+   "rows": 9314,
+   "useful_mean_video": 0.23012753205864334,
+   "coverage": {
+    "0.01": {
+     "selected": 94,
+     "known": 57,
+     "unknown": 37,
+     "useful": 13,
+     "harmful": 44,
+     "useful_share_known": 0.22807017543859648
+    },
+    "0.02": {
+     "selected": 187,
+     "known": 117,
+     "unknown": 70,
+     "useful": 29,
+     "harmful": 88,
+     "useful_share_known": 0.24786324786324787
+    },
+    "0.05": {
+     "selected": 466,
+     "known": 293,
+     "unknown": 173,
+     "useful": 67,
+     "harmful": 226,
+     "useful_share_known": 0.22866894197952217
+    }
+   }
+  },
+  "D_top1": {
+   "rows": 9314,
+   "useful_mean_video": 0.18290858670822752,
+   "coverage": {
+    "0.01": {
+     "selected": 94,
+     "known": 85,
+     "unknown": 9,
+     "useful": 2,
+     "harmful": 83,
+     "useful_share_known": 0.023529411764705882
+    },
+    "0.02": {
+     "selected": 187,
+     "known": 168,
+     "unknown": 19,
+     "useful": 3,
+     "harmful": 165,
+     "useful_share_known": 0.017857142857142856
+    },
+    "0.05": {
+     "selected": 466,
+     "known": 423,
+     "unknown": 43,
+     "useful": 5,
+     "harmful": 418,
+     "useful_share_known": 0.01182033096926714
+    }
+   }
+  },
+  "D_nearest": {
+   "rows": 9314,
+   "useful_mean_video": 0.2147918251677315,
+   "coverage": {
+    "0.01": {
+     "selected": 94,
+     "known": 84,
+     "unknown": 10,
+     "useful": 2,
+     "harmful": 82,
+     "useful_share_known": 0.023809523809523808
+    },
+    "0.02": {
+     "selected": 187,
+     "known": 168,
+     "unknown": 19,
+     "useful": 4,
+     "harmful": 164,
+     "useful_share_known": 0.023809523809523808
+    },
+    "0.05": {
+     "selected": 466,
+     "known": 424,
+     "unknown": 42,
+     "useful": 4,
+     "harmful": 420,
+     "useful_share_known": 0.009433962264150943
+    }
+   }
+  },
+  "R1_map": {
+   "rows": 9314,
+   "useful_mean_video": 0.13076356863998587,
+   "coverage": {
+    "0.01": {
+     "selected": 94,
+     "known": 64,
+     "unknown": 30,
+     "useful": 8,
+     "harmful": 56,
+     "useful_share_known": 0.125
+    },
+    "0.02": {
+     "selected": 187,
+     "known": 122,
+     "unknown": 65,
+     "useful": 14,
+     "harmful": 108,
+     "useful_share_known": 0.11475409836065574
+    },
+    "0.05": {
+     "selected": 466,
+     "known": 311,
+     "unknown": 155,
+     "useful": 36,
+     "harmful": 275,
+     "useful_share_known": 0.1157556270096463
+    }
+   }
+  },
+  "R1_top1": {
+   "rows": 9314,
+   "useful_mean_video": 0.08396060465708817,
+   "coverage": {
+    "0.01": {
+     "selected": 94,
+     "known": 67,
+     "unknown": 27,
+     "useful": 2,
+     "harmful": 65,
+     "useful_share_known": 0.029850746268656716
+    },
+    "0.02": {
+     "selected": 187,
+     "known": 136,
+     "unknown": 51,
+     "useful": 3,
+     "harmful": 133,
+     "useful_share_known": 0.022058823529411766
+    },
+    "0.05": {
+     "selected": 466,
+     "known": 362,
+     "unknown": 104,
+     "useful": 5,
+     "harmful": 357,
+     "useful_share_known": 0.013812154696132596
+    }
+   }
+  },
+  "R1_nearest": {
+   "rows": 9314,
+   "useful_mean_video": 0.1251306816467058,
+   "coverage": {
+    "0.01": {
+     "selected": 94,
+     "known": 71,
+     "unknown": 23,
+     "useful": 1,
+     "harmful": 70,
+     "useful_share_known": 0.014084507042253521
+    },
+    "0.02": {
+     "selected": 187,
+     "known": 148,
+     "unknown": 39,
+     "useful": 3,
+     "harmful": 145,
+     "useful_share_known": 0.02027027027027027
+    },
+    "0.05": {
+     "selected": 466,
+     "known": 381,
+     "unknown": 85,
+     "useful": 9,
+     "harmful": 372,
+     "useful_share_known": 0.023622047244094488
+    }
+   }
+  },
+  "D_prior": {
+   "rows": 9314,
+   "useful_mean_video": 0.14298976501615715,
+   "coverage": {
+    "0.01": {
+     "selected": 94,
+     "known": 54,
+     "unknown": 40,
+     "useful": 14,
+     "harmful": 40,
+     "useful_share_known": 0.25925925925925924
+    },
+    "0.02": {
+     "selected": 187,
+     "known": 108,
+     "unknown": 79,
+     "useful": 29,
+     "harmful": 79,
+     "useful_share_known": 0.26851851851851855
+    },
+    "0.05": {
+     "selected": 466,
+     "known": 267,
+     "unknown": 199,
+     "useful": 58,
+     "harmful": 209,
+     "useful_share_known": 0.21722846441947566
+    }
+   }
+  }
+ },
+ "limitations": "Fixed transfer; reused dev35, no dev fitting or HOTA. Generic effect on R1 reported separately; no calibrated refusal."
+}
