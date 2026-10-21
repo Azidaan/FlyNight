@@ -92,9 +92,10 @@ def build_layout(node, edge, source, cards, lanes, base, confirmed):
              label='I.'+str(i+1),label_at=((x+2080+xx+80)/2,(y+yy)/2+325))
     # A dedicated empty horizontal corridor makes the line wrap unambiguous.
     x,y=positions[3];xx,yy=positions[4]
+    wrap_y=3820  # leave visible air below the expanded temporal-memory lane
     edge(originals[3],originals[4],'flow',start='right',end='left',
-         points=[(8940,y+325),(8940,3730),(140,3730),(140,yy+325)],
-         label='I.4  СОСТОЯНИЕ → АКТИВНОСТЬ: ПРОДОЛЖЕНИЕ ПУТИ',label_at=(4500,3730))
+         points=[(8940,y+325),(8940,wrap_y),(140,wrap_y),(140,yy+325)],
+         label='I.4  СОСТОЯНИЕ → АКТИВНОСТЬ: ПРОДОЛЖЕНИЕ ПУТИ',label_at=(4500,wrap_y))
     # Recurrent connection has its own colour and empty corridor above the roots.
     x,y=positions[3];xx,yy=positions[2]
     edge(originals[3],originals[2],'recurrence',start='top',end='top',

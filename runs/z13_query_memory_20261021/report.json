@@ -1,0 +1,613 @@
+{
+ "primary_pass": false,
+ "paired": {
+  "C_query-C_last": {
+   "mean_per_video": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "better": 0,
+   "n": 26
+  },
+  "C_query-C_fixed": {
+   "mean_per_video": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "better": 0,
+   "n": 26
+  },
+  "C_query-R1_query": {
+   "mean_per_video": 0.16915407457682202,
+   "ci95": [
+    0.11108504701114849,
+    0.2532988386914814
+   ],
+   "better": 24,
+   "n": 26
+  },
+  "D_query-D_last": {
+   "mean_per_video": 0.0022822127944194712,
+   "ci95": [
+    -0.011578961859891565,
+    0.015179416138212132
+   ],
+   "better": 13,
+   "n": 26
+  },
+  "D_query-D_fixed": {
+   "mean_per_video": 0.0006712660033756485,
+   "ci95": [
+    -0.004171284893135324,
+    0.0053567081520852445
+   ],
+   "better": 6,
+   "n": 26
+  },
+  "D_query-R1_query": {
+   "mean_per_video": 0.1684642093656205,
+   "ci95": [
+    0.12536513000295557,
+    0.22098240614215853
+   ],
+   "better": 25,
+   "n": 26
+  },
+  "D_query-C_query": {
+   "mean_per_video": -0.0006898652112015455,
+   "ci95": [
+    -0.052609800181079885,
+    0.042679720163420934
+   ],
+   "better": 18,
+   "n": 26
+  }
+ },
+ "choices": {
+  "C": {
+   "fixed": {
+    "best": {
+     "eta": 0.0,
+     "temperature": 1.0,
+     "fit_score": 0.1925225333444637
+    },
+    "grid": [
+     {
+      "eta": 0.0,
+      "temperature": 1.0,
+      "fit_score": 0.1925225333444637
+     },
+     {
+      "eta": 0.25,
+      "temperature": 1.0,
+      "fit_score": 0.19208976233511993
+     },
+     {
+      "eta": 0.5,
+      "temperature": 1.0,
+      "fit_score": 0.1750027696187308
+     },
+     {
+      "eta": 1.0,
+      "temperature": 1.0,
+      "fit_score": 0.17500429708868573
+     }
+    ]
+   },
+   "query": {
+    "best": {
+     "eta": 0.0,
+     "temperature": 1.0,
+     "fit_score": 0.1925225333444637
+    },
+    "grid": [
+     {
+      "eta": 0.0,
+      "temperature": 1.0,
+      "fit_score": 0.1925225333444637
+     },
+     {
+      "eta": 0.25,
+      "temperature": 0.25,
+      "fit_score": 0.17272369447004832
+     },
+     {
+      "eta": 0.25,
+      "temperature": 1.0,
+      "fit_score": 0.18160024068631053
+     },
+     {
+      "eta": 0.25,
+      "temperature": 4.0,
+      "fit_score": 0.18397659789431575
+     },
+     {
+      "eta": 0.5,
+      "temperature": 0.25,
+      "fit_score": 0.15870467688328685
+     },
+     {
+      "eta": 0.5,
+      "temperature": 1.0,
+      "fit_score": 0.16767113348428625
+     },
+     {
+      "eta": 0.5,
+      "temperature": 4.0,
+      "fit_score": 0.17624831867831925
+     },
+     {
+      "eta": 1.0,
+      "temperature": 0.25,
+      "fit_score": 0.13317284716778172
+     },
+     {
+      "eta": 1.0,
+      "temperature": 1.0,
+      "fit_score": 0.13816347156558453
+     },
+     {
+      "eta": 1.0,
+      "temperature": 4.0,
+      "fit_score": 0.16763989162481718
+     }
+    ]
+   }
+  },
+  "D": {
+   "fixed": {
+    "best": {
+     "eta": 0.5,
+     "temperature": 1.0,
+     "fit_score": 0.22975798575430365
+    },
+    "grid": [
+     {
+      "eta": 0.0,
+      "temperature": 1.0,
+      "fit_score": 0.22748797562939566
+     },
+     {
+      "eta": 0.25,
+      "temperature": 1.0,
+      "fit_score": 0.22384884695808854
+     },
+     {
+      "eta": 0.5,
+      "temperature": 1.0,
+      "fit_score": 0.22975798575430365
+     },
+     {
+      "eta": 1.0,
+      "temperature": 1.0,
+      "fit_score": 0.2281863143620396
+     }
+    ]
+   },
+   "query": {
+    "best": {
+     "eta": 0.5,
+     "temperature": 4.0,
+     "fit_score": 0.23120029344661136
+    },
+    "grid": [
+     {
+      "eta": 0.0,
+      "temperature": 1.0,
+      "fit_score": 0.22748797562939566
+     },
+     {
+      "eta": 0.25,
+      "temperature": 0.25,
+      "fit_score": 0.2244889400943994
+     },
+     {
+      "eta": 0.25,
+      "temperature": 1.0,
+      "fit_score": 0.21996195604826524
+     },
+     {
+      "eta": 0.25,
+      "temperature": 4.0,
+      "fit_score": 0.22158123076618455
+     },
+     {
+      "eta": 0.5,
+      "temperature": 0.25,
+      "fit_score": 0.22176504358361698
+     },
+     {
+      "eta": 0.5,
+      "temperature": 1.0,
+      "fit_score": 0.2230553787573712
+     },
+     {
+      "eta": 0.5,
+      "temperature": 4.0,
+      "fit_score": 0.23120029344661136
+     },
+     {
+      "eta": 1.0,
+      "temperature": 0.25,
+      "fit_score": 0.20119459257040892
+     },
+     {
+      "eta": 1.0,
+      "temperature": 1.0,
+      "fit_score": 0.20854006497014477
+     },
+     {
+      "eta": 1.0,
+      "temperature": 4.0,
+      "fit_score": 0.22751192337136636
+     }
+    ]
+   }
+  },
+  "R1": {
+   "fixed": {
+    "best": {
+     "eta": 0.0,
+     "temperature": 1.0,
+     "fit_score": 0.09116084470104158
+    },
+    "grid": [
+     {
+      "eta": 0.0,
+      "temperature": 1.0,
+      "fit_score": 0.09116084470104158
+     },
+     {
+      "eta": 0.25,
+      "temperature": 1.0,
+      "fit_score": 0.0871355081411687
+     },
+     {
+      "eta": 0.5,
+      "temperature": 1.0,
+      "fit_score": 0.09018695904751747
+     },
+     {
+      "eta": 1.0,
+      "temperature": 1.0,
+      "fit_score": 0.08303999235209672
+     }
+    ]
+   },
+   "query": {
+    "best": {
+     "eta": 0.0,
+     "temperature": 1.0,
+     "fit_score": 0.09116084470104158
+    },
+    "grid": [
+     {
+      "eta": 0.0,
+      "temperature": 1.0,
+      "fit_score": 0.09116084470104158
+     },
+     {
+      "eta": 0.25,
+      "temperature": 0.25,
+      "fit_score": 0.09050807587198843
+     },
+     {
+      "eta": 0.25,
+      "temperature": 1.0,
+      "fit_score": 0.08793175172355687
+     },
+     {
+      "eta": 0.25,
+      "temperature": 4.0,
+      "fit_score": 0.08659202988029915
+     },
+     {
+      "eta": 0.5,
+      "temperature": 0.25,
+      "fit_score": 0.0824509279266972
+     },
+     {
+      "eta": 0.5,
+      "temperature": 1.0,
+      "fit_score": 0.08627650378152762
+     },
+     {
+      "eta": 0.5,
+      "temperature": 4.0,
+      "fit_score": 0.0906677282782867
+     },
+     {
+      "eta": 1.0,
+      "temperature": 0.25,
+      "fit_score": 0.08715629745043178
+     },
+     {
+      "eta": 1.0,
+      "temperature": 1.0,
+      "fit_score": 0.07982304049188421
+     },
+     {
+      "eta": 1.0,
+      "temperature": 4.0,
+      "fit_score": 0.0789589050586494
+     }
+    ]
+   }
+  }
+ },
+ "summary": {
+  "C_last": {
+   "rows": 8326,
+   "useful_mean_video": 0.25785788830894824,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 67,
+     "unknown": 17,
+     "useful": 2,
+     "harmful": 65,
+     "useful_share_known": 0.029850746268656716
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 137,
+     "unknown": 30,
+     "useful": 3,
+     "harmful": 134,
+     "useful_share_known": 0.021897810218978103
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 341,
+     "unknown": 76,
+     "useful": 7,
+     "harmful": 334,
+     "useful_share_known": 0.020527859237536656
+    }
+   }
+  },
+  "C_fixed": {
+   "rows": 8326,
+   "useful_mean_video": 0.25785788830894824,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 67,
+     "unknown": 17,
+     "useful": 2,
+     "harmful": 65,
+     "useful_share_known": 0.029850746268656716
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 137,
+     "unknown": 30,
+     "useful": 3,
+     "harmful": 134,
+     "useful_share_known": 0.021897810218978103
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 341,
+     "unknown": 76,
+     "useful": 7,
+     "harmful": 334,
+     "useful_share_known": 0.020527859237536656
+    }
+   }
+  },
+  "C_query": {
+   "rows": 8326,
+   "useful_mean_video": 0.25785788830894824,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 67,
+     "unknown": 17,
+     "useful": 2,
+     "harmful": 65,
+     "useful_share_known": 0.029850746268656716
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 137,
+     "unknown": 30,
+     "useful": 3,
+     "harmful": 134,
+     "useful_share_known": 0.021897810218978103
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 341,
+     "unknown": 76,
+     "useful": 7,
+     "harmful": 334,
+     "useful_share_known": 0.020527859237536656
+    }
+   }
+  },
+  "D_last": {
+   "rows": 8326,
+   "useful_mean_video": 0.25488581030332724,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 64,
+     "unknown": 20,
+     "useful": 2,
+     "harmful": 62,
+     "useful_share_known": 0.03125
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 132,
+     "unknown": 35,
+     "useful": 4,
+     "harmful": 128,
+     "useful_share_known": 0.030303030303030304
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 338,
+     "unknown": 79,
+     "useful": 9,
+     "harmful": 329,
+     "useful_share_known": 0.026627218934911243
+    }
+   }
+  },
+  "D_fixed": {
+   "rows": 8326,
+   "useful_mean_video": 0.25649675709437103,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 65,
+     "unknown": 19,
+     "useful": 2,
+     "harmful": 63,
+     "useful_share_known": 0.03076923076923077
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 125,
+     "unknown": 42,
+     "useful": 7,
+     "harmful": 118,
+     "useful_share_known": 0.056
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 321,
+     "unknown": 96,
+     "useful": 11,
+     "harmful": 310,
+     "useful_share_known": 0.03426791277258567
+    }
+   }
+  },
+  "D_query": {
+   "rows": 8326,
+   "useful_mean_video": 0.2571680230977467,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 64,
+     "unknown": 20,
+     "useful": 3,
+     "harmful": 61,
+     "useful_share_known": 0.046875
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 125,
+     "unknown": 42,
+     "useful": 7,
+     "harmful": 118,
+     "useful_share_known": 0.056
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 326,
+     "unknown": 91,
+     "useful": 11,
+     "harmful": 315,
+     "useful_share_known": 0.03374233128834356
+    }
+   }
+  },
+  "R1_last": {
+   "rows": 8326,
+   "useful_mean_video": 0.08870381373212619,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 48,
+     "unknown": 36,
+     "useful": 1,
+     "harmful": 47,
+     "useful_share_known": 0.020833333333333332
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 109,
+     "unknown": 58,
+     "useful": 4,
+     "harmful": 105,
+     "useful_share_known": 0.03669724770642202
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 302,
+     "unknown": 115,
+     "useful": 4,
+     "harmful": 298,
+     "useful_share_known": 0.013245033112582781
+    }
+   }
+  },
+  "R1_fixed": {
+   "rows": 8326,
+   "useful_mean_video": 0.08870381373212619,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 48,
+     "unknown": 36,
+     "useful": 1,
+     "harmful": 47,
+     "useful_share_known": 0.020833333333333332
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 109,
+     "unknown": 58,
+     "useful": 4,
+     "harmful": 105,
+     "useful_share_known": 0.03669724770642202
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 302,
+     "unknown": 115,
+     "useful": 4,
+     "harmful": 298,
+     "useful_share_known": 0.013245033112582781
+    }
+   }
+  },
+  "R1_query": {
+   "rows": 8326,
+   "useful_mean_video": 0.08870381373212619,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 48,
+     "unknown": 36,
+     "useful": 1,
+     "harmful": 47,
+     "useful_share_known": 0.020833333333333332
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 109,
+     "unknown": 58,
+     "useful": 4,
+     "harmful": 105,
+     "useful_share_known": 0.03669724770642202
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 302,
+     "unknown": 115,
+     "useful": 4,
+     "harmful": 298,
+     "useful_share_known": 0.013245033112582781
+    }
+   }
+  }
+ },
+ "limitations": "Exploratory reused train26; fixed core and saved lambda; one fit20 grid; no HOTA, no calibrated refusal; old3-peak oracle not a ceiling for new maps."
+}

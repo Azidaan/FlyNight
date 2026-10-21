@@ -9,8 +9,10 @@
     "runs/z13_candidate_identity_20261021/report.json": "b450a2adc3759ef60d1e2252f6d77db394de83be97ea219d7ba7a61589d3a126",
     "tracking/z13_candidate_ranker.py": "fd2d820efa909371630124f7177af51a3ba820fdeb34589f4adb9c2fead97b2e",
     "runs/z13_candidate_ranker_20261021/report.json": "7f9234210c7f89d66bcc0a45b284c91b8d918ad273e7d050e9397fa2e7c0b6f3",
-    "scripts/build_flyvis_architecture.py": "85997f4bff776525a9497e1087d4a1ca21ccae0da5e21a96585426cf026cb264",
-    "scripts/flyvis_architecture_layout.py": "5e706efa322c68f5cf5a7f558b3aa54dd93c134712b93fbdff0261ec0cc8b42c",
+    "tracking/z13_query_memory.py": "344fbbb8bf2f2757e6ff9f884af567bac29a2ed84fd6616d9d114abf84f0f73f",
+    "runs/z13_query_memory_20261021/report.json": "660655571b4fc70d3ee5763e379b1e6395f37644eee658b445351b82063ab383",
+    "scripts/build_flyvis_architecture.py": "6df7b9f683e24e4bb22062044bb1e2f473d68c497bf7cd3f8eb56aa9bfc2fc84",
+    "scripts/flyvis_architecture_layout.py": "0df4a12f0b58eee4dd4ebf7af3ca0bdb62560041ac0c3fb99aeb35d6654a2626",
     "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
     "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
     "AGENTS.md": "6ab80b02dd22146ddbcde8864832af0f9c819dfa9d69ee2e2be918e450bc4451",
@@ -24,7 +26,7 @@
     "tracking/z13_response_utility.py": "211c86dc916dc56451662dba572d362d884def647551b6dcefb461dc5c231445",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "b504e43e238a8746ab48dce7a39357f47b54ae335045a3ef767f3261b0da892a"
+    "experiments/project_history.json": "b66b0414d7d48eb652839eb9e4bae2d8eaf1320b7a477702203da767a3cf1c93"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -1309,6 +1311,43 @@
         }
       ]
     },
+    "z13_query_memory_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_query_memory_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_query_memory_20261021/protocol.json",
+          "claim": "Постановка до исходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_observed_memory_20261021/report.json",
+          "claim": "Прежняя совместная модель памяти не показала прироста"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_query_memory_20261021/report.json",
+          "claim": "Первичный итог и независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_query_memory_20261021/result_audit.json",
+          "claim": "Первичный итог и независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_query_memory_20261021/cache_manifest.json",
+          "claim": "Первичный итог и независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_query_memory_20261021/full_controller_result.json",
+          "claim": "Первичный итог и независимая сверка"
+        }
+      ]
+    },
     "z13_score_swap_v1": {
       "source": "experiments/project_history.json",
       "locator": "experiments[id=z13_score_swap_v1]",
@@ -2143,6 +2182,30 @@
       "kind": "tried",
       "ref": "z13_candidate_identity_v1",
       "card": "z13_candidate_identity_v1",
+      "size": 22
+    },
+    {
+      "id": "v_z13_query_memory_v1",
+      "x": 7910,
+      "y": 2820,
+      "w": 870,
+      "h": 360,
+      "title": [
+        "II.6 Чтение памяти по запросу"
+      ],
+      "body": [
+        "Вместо одной общей модели: отдельная регрессия для каждого наблюдения1–3.",
+        "Веса чтения зависят от карты текущего запроса; контроль — равномерное",
+        "смешивание тех же карт.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: Для C подбор выбрал прежнюю карту:0 п.п. У D +0,23",
+        "п.п. [−1,16; +1,52]. Эта версия не принята; не полная STMTrack."
+      ],
+      "footer": [
+        "z13_query_memory_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_query_memory_v1",
+      "card": "z13_query_memory_v1",
       "size": 22
     },
     {
@@ -2989,7 +3052,7 @@
     {
       "id": "f_fly_future_kys_state_v1",
       "x": 6780,
-      "y": 3290,
+      "y": 3370,
       "w": 2000,
       "h": 350,
       "title": [
@@ -3955,6 +4018,43 @@
         [
           7650,
           2920.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
+      "a": "hub_3",
+      "b": "v_z13_query_memory_v1",
+      "kind": "variant",
+      "points": [
+        [
+          7780,
+          3000.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "left",
+      "label": "II",
+      "label_at": [
+        7845,
+        3000.0
+      ],
+      "render_points": [
+        [
+          7780.0,
+          1810
+        ],
+        [
+          7780,
+          3000.0
+        ],
+        [
+          7910,
+          3000.0
         ]
       ],
       "colour": "#B97D00",
@@ -5216,11 +5316,11 @@
         ],
         [
           8940,
-          3730
+          3820
         ],
         [
           140,
-          3730
+          3820
         ],
         [
           140,
@@ -5232,7 +5332,7 @@
       "label": "I.4  СОСТОЯНИЕ → АКТИВНОСТЬ: ПРОДОЛЖЕНИЕ ПУТИ",
       "label_at": [
         4500,
-        3730
+        3820
       ],
       "render_points": [
         [
@@ -5245,11 +5345,11 @@
         ],
         [
           8940,
-          3730
+          3820
         ],
         [
           140,
-          3730
+          3820
         ],
         [
           140,
@@ -5465,7 +5565,7 @@
         ],
         [
           8840,
-          3465
+          3545
         ]
       ],
       "start": "right",
@@ -5473,7 +5573,7 @@
       "label": "IV",
       "label_at": [
         8840,
-        3465
+        3545
       ],
       "render_points": [
         [
@@ -5486,11 +5586,11 @@
         ],
         [
           8840,
-          3465
+          3545
         ],
         [
           8780,
-          3465.0
+          3545.0
         ]
       ],
       "colour": "#416FBA",
