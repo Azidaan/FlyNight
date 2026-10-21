@@ -1,0 +1,501 @@
+{
+ "primary_pass": true,
+ "paired": {
+  "C_map-C_top1": {
+   "mean_per_video": 0.0387425847415657,
+   "ci95": [
+    0.01531145663869303,
+    0.060912537013875404
+   ],
+   "better": 19,
+   "n": 26
+  },
+  "C_map-R1_map": {
+   "mean_per_video": 0.13570264799425774,
+   "ci95": [
+    0.09210341654987604,
+    0.18207248043224367
+   ],
+   "better": 23,
+   "n": 26
+  },
+  "C_map-C_kalman": {
+   "mean_per_video": 0.020736045203110256,
+   "ci95": [
+    0.00448488672752345,
+    0.03804914368653606
+   ],
+   "better": 16,
+   "n": 26
+  },
+  "C_map-C_map20": {
+   "mean_per_video": 0.00030717184336008827,
+   "ci95": [
+    -0.010506877273718055,
+    0.012293404036420406
+   ],
+   "better": 8,
+   "n": 26
+  },
+  "D_map-D_top1": {
+   "mean_per_video": 0.047797719936745406,
+   "ci95": [
+    0.009055211750331528,
+    0.09551456376147892
+   ],
+   "better": 18,
+   "n": 26
+  },
+  "D_map-R1_map": {
+   "mean_per_video": 0.14178570518381645,
+   "ci95": [
+    0.10407117457643267,
+    0.18538579868510008
+   ],
+   "better": 23,
+   "n": 26
+  },
+  "D_map-D_kalman": {
+   "mean_per_video": 0.006023200465302979,
+   "ci95": [
+    -0.0144705598962197,
+    0.026139094933256564
+   ],
+   "better": 13,
+   "n": 26
+  },
+  "D_map-D_map20": {
+   "mean_per_video": 0.004824521857137062,
+   "ci95": [
+    -0.027150718936442414,
+    0.05195556648782412
+   ],
+   "better": 7,
+   "n": 26
+  },
+  "R1_map-R1_top1": {
+   "mean_per_video": 0.07219401132413,
+   "ci95": [
+    0.04342532971994929,
+    0.11462215184638364
+   ],
+   "better": 22,
+   "n": 26
+  },
+  "C_gain-R1_gain": {
+   "mean_per_video": -0.03345142658256431,
+   "ci95": [
+    -0.08573952450042996,
+    0.008168246615996553
+   ],
+   "better": 10,
+   "n": 26
+  }
+ },
+ "C_seeds_vs_top1": {
+  "0": {
+   "mean_per_video": 0.0214181983357298,
+   "ci95": [
+    -0.02911480839955395,
+    0.058600774080093
+   ],
+   "better": 18,
+   "n": 26
+  },
+  "1": {
+   "mean_per_video": 0.02267240057958194,
+   "ci95": [
+    -0.028612385791958732,
+    0.0585436047860199
+   ],
+   "better": 20,
+   "n": 26
+  },
+  "2": {
+   "mean_per_video": 0.04013111661147913,
+   "ci95": [
+    0.016645826380689697,
+    0.06194493360474988
+   ],
+   "better": 18,
+   "n": 26
+  }
+ },
+ "source_sha256": {
+  "runs/z13_candidate_data104_20261021/C/geometry/ensemble_rows.json": "01296baad10b9feb487d2948ce27f78a93fea25cd87ff0bbb073c7a8cd0794bb",
+  "runs/z13_candidate_identity_20261021/C/top1_rows.json": "7ce3ec754df2af11c75cd9a259fe7050e4dad0cb958b3279e8314182ddf04c59",
+  "runs/z13_candidate_identity_20261021/C/kalman_rows.json": "d7628a66c9f5f91911357bbb579afc2c236d2d217bf0861cb936a6ea7de1f9fa",
+  "runs/z13_candidate_ranker_20261021/C/geometry/ensemble_rows.json": "72ea5e8da29f226de136c634857eec2ef5cb8e3bae10048be01df6a90653fa43",
+  "runs/z13_candidate_data104_20261021/D/geometry/ensemble_rows.json": "b02f887261e4b2c362d6b3d788bb293e6c9ec21d3d2dc98a2846e10be16966f7",
+  "runs/z13_candidate_identity_20261021/D/top1_rows.json": "07c89c1b974249d66f58c1ce83b1af0b871a48dd4e74836e882c04708ab79a84",
+  "runs/z13_candidate_identity_20261021/D/kalman_rows.json": "5883c501005cdcee4d168506c76acfec4ca165e8f0835c31517b5bf793b5cfc5",
+  "runs/z13_candidate_ranker_20261021/D/geometry/ensemble_rows.json": "86b91493fc3a3d1224dc3383d39f615cfd3be778d1bdab334ad089b4816b754b",
+  "runs/z13_candidate_data104_20261021/R1/geometry/ensemble_rows.json": "329a41ea047cf5aca4c8bae13da4e3f654c8ce7753f7d33f7ff24da3701db20c",
+  "runs/z13_candidate_identity_20261021/R1/top1_rows.json": "9e5a95ef3d8f221253a08cde5acef2e53a29408557af23ccff6d5c22344a007e",
+  "runs/z13_candidate_identity_20261021/R1/kalman_rows.json": "8cf8ce6ba9fef4116c6f19e7c4bcf0a94498f75d4632a2d59833b377bcd2a5ac",
+  "runs/z13_candidate_ranker_20261021/R1/geometry/ensemble_rows.json": "292f43008c931e55a8da7bcec111a3302cf7761e925f2994f10c48ae96fa72d3"
+ },
+ "summary": {
+  "C_map": {
+   "rows": 8326,
+   "useful_mean_video": 0.29660047305051396,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 46,
+     "unknown": 38,
+     "useful": 8,
+     "harmful": 38,
+     "useful_share_known": 0.17391304347826086
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 100,
+     "unknown": 67,
+     "useful": 23,
+     "harmful": 77,
+     "useful_share_known": 0.23
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 232,
+     "unknown": 185,
+     "useful": 55,
+     "harmful": 177,
+     "useful_share_known": 0.23706896551724138
+    }
+   }
+  },
+  "C_top1": {
+   "rows": 8326,
+   "useful_mean_video": 0.25785788830894824,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 67,
+     "unknown": 17,
+     "useful": 2,
+     "harmful": 65,
+     "useful_share_known": 0.029850746268656716
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 137,
+     "unknown": 30,
+     "useful": 3,
+     "harmful": 134,
+     "useful_share_known": 0.021897810218978103
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 341,
+     "unknown": 76,
+     "useful": 7,
+     "harmful": 334,
+     "useful_share_known": 0.020527859237536656
+    }
+   }
+  },
+  "C_kalman": {
+   "rows": 8326,
+   "useful_mean_video": 0.2758644278474037,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 72,
+     "unknown": 12,
+     "useful": 0,
+     "harmful": 72,
+     "useful_share_known": 0.0
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 143,
+     "unknown": 24,
+     "useful": 1,
+     "harmful": 142,
+     "useful_share_known": 0.006993006993006993
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 345,
+     "unknown": 72,
+     "useful": 5,
+     "harmful": 340,
+     "useful_share_known": 0.014492753623188406
+    }
+   }
+  },
+  "C_map20": {
+   "rows": 8326,
+   "useful_mean_video": 0.29629330120715386,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 49,
+     "unknown": 35,
+     "useful": 8,
+     "harmful": 41,
+     "useful_share_known": 0.16326530612244897
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 91,
+     "unknown": 76,
+     "useful": 21,
+     "harmful": 70,
+     "useful_share_known": 0.23076923076923078
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 235,
+     "unknown": 182,
+     "useful": 53,
+     "harmful": 182,
+     "useful_share_known": 0.225531914893617
+    }
+   }
+  },
+  "D_map": {
+   "rows": 8326,
+   "useful_mean_video": 0.3026835302400726,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 42,
+     "unknown": 42,
+     "useful": 13,
+     "harmful": 29,
+     "useful_share_known": 0.30952380952380953
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 90,
+     "unknown": 77,
+     "useful": 30,
+     "harmful": 60,
+     "useful_share_known": 0.3333333333333333
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 227,
+     "unknown": 190,
+     "useful": 64,
+     "harmful": 163,
+     "useful_share_known": 0.28193832599118945
+    }
+   }
+  },
+  "D_top1": {
+   "rows": 8326,
+   "useful_mean_video": 0.25488581030332724,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 64,
+     "unknown": 20,
+     "useful": 2,
+     "harmful": 62,
+     "useful_share_known": 0.03125
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 132,
+     "unknown": 35,
+     "useful": 4,
+     "harmful": 128,
+     "useful_share_known": 0.030303030303030304
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 338,
+     "unknown": 79,
+     "useful": 9,
+     "harmful": 329,
+     "useful_share_known": 0.026627218934911243
+    }
+   }
+  },
+  "D_kalman": {
+   "rows": 8326,
+   "useful_mean_video": 0.2966603297747697,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 69,
+     "unknown": 15,
+     "useful": 2,
+     "harmful": 67,
+     "useful_share_known": 0.028985507246376812
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 135,
+     "unknown": 32,
+     "useful": 4,
+     "harmful": 131,
+     "useful_share_known": 0.02962962962962963
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 341,
+     "unknown": 76,
+     "useful": 8,
+     "harmful": 333,
+     "useful_share_known": 0.02346041055718475
+    }
+   }
+  },
+  "D_map20": {
+   "rows": 8326,
+   "useful_mean_video": 0.29785900838293555,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 47,
+     "unknown": 37,
+     "useful": 14,
+     "harmful": 33,
+     "useful_share_known": 0.2978723404255319
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 95,
+     "unknown": 72,
+     "useful": 30,
+     "harmful": 65,
+     "useful_share_known": 0.3157894736842105
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 243,
+     "unknown": 174,
+     "useful": 72,
+     "harmful": 171,
+     "useful_share_known": 0.2962962962962963
+    }
+   }
+  },
+  "R1_map": {
+   "rows": 8326,
+   "useful_mean_video": 0.1608978250562562,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 63,
+     "unknown": 21,
+     "useful": 11,
+     "harmful": 52,
+     "useful_share_known": 0.1746031746031746
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 124,
+     "unknown": 43,
+     "useful": 22,
+     "harmful": 102,
+     "useful_share_known": 0.1774193548387097
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 290,
+     "unknown": 127,
+     "useful": 38,
+     "harmful": 252,
+     "useful_share_known": 0.1310344827586207
+    }
+   }
+  },
+  "R1_top1": {
+   "rows": 8326,
+   "useful_mean_video": 0.08870381373212619,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 48,
+     "unknown": 36,
+     "useful": 1,
+     "harmful": 47,
+     "useful_share_known": 0.020833333333333332
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 109,
+     "unknown": 58,
+     "useful": 4,
+     "harmful": 105,
+     "useful_share_known": 0.03669724770642202
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 302,
+     "unknown": 115,
+     "useful": 4,
+     "harmful": 298,
+     "useful_share_known": 0.013245033112582781
+    }
+   }
+  },
+  "R1_kalman": {
+   "rows": 8326,
+   "useful_mean_video": 0.16498597233236129,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 50,
+     "unknown": 34,
+     "useful": 1,
+     "harmful": 49,
+     "useful_share_known": 0.02
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 118,
+     "unknown": 49,
+     "useful": 1,
+     "harmful": 117,
+     "useful_share_known": 0.00847457627118644
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 309,
+     "unknown": 108,
+     "useful": 8,
+     "harmful": 301,
+     "useful_share_known": 0.025889967637540454
+    }
+   }
+  },
+  "R1_map20": {
+   "rows": 8326,
+   "useful_mean_video": 0.161845535007843,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 61,
+     "unknown": 23,
+     "useful": 8,
+     "harmful": 53,
+     "useful_share_known": 0.13114754098360656
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 117,
+     "unknown": 50,
+     "useful": 16,
+     "harmful": 101,
+     "useful_share_known": 0.13675213675213677
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 287,
+     "unknown": 130,
+     "useful": 42,
+     "harmful": 245,
+     "useful_share_known": 0.14634146341463414
+    }
+   }
+  }
+ },
+ "limitations": "Exploratory reused train26. Geometry retains the response map, R1 is the no-FlyVis control. Generic readout effect is reported separately; no HOTA or calibrated refusal."
+}
