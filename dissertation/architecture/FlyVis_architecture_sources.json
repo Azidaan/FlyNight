@@ -5,8 +5,12 @@
     "scripts/z13_score_swap.py": "623e8268517f91eb49c325389c9a2f2e072fefac986371d5b432596201bac20b",
     "tracking/z13_observed_memory.py": "1750a9cce67c4a257cf0690b1962905b9709533971a532ee3fcb71e37b4e4652",
     "runs/z13_observed_memory_20261021/report.json": "0ddb94439234cab71d6d3fc2810090650996647b4a3bdb2fc7b973b56f9a0c73",
-    "scripts/build_flyvis_architecture.py": "1bc96f7c24fdd1ba0315b85ea7c10e39bb0ee1b0cfebfe69326b12e34d5726e9",
-    "scripts/flyvis_architecture_layout.py": "bcb74e51abcf4f956aad418c6c5aa81d59306989066380ab26ed746e059be97c",
+    "tracking/z13_candidate_identity.py": "a762f18c036a66951c3b7d2f7eb7e114166b6f5e258ea2de26d95e6a045adc86",
+    "runs/z13_candidate_identity_20261021/report.json": "b450a2adc3759ef60d1e2252f6d77db394de83be97ea219d7ba7a61589d3a126",
+    "tracking/z13_candidate_ranker.py": "fd2d820efa909371630124f7177af51a3ba820fdeb34589f4adb9c2fead97b2e",
+    "runs/z13_candidate_ranker_20261021/report.json": "7f9234210c7f89d66bcc0a45b284c91b8d918ad273e7d050e9397fa2e7c0b6f3",
+    "scripts/build_flyvis_architecture.py": "85997f4bff776525a9497e1087d4a1ca21ccae0da5e21a96585426cf026cb264",
+    "scripts/flyvis_architecture_layout.py": "5e706efa322c68f5cf5a7f558b3aa54dd93c134712b93fbdff0261ec0cc8b42c",
     "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
     "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
     "AGENTS.md": "6ab80b02dd22146ddbcde8864832af0f9c819dfa9d69ee2e2be918e450bc4451",
@@ -20,7 +24,7 @@
     "tracking/z13_response_utility.py": "211c86dc916dc56451662dba572d362d884def647551b6dcefb461dc5c231445",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "0c057d05b0b07032132f3256aa596800c9c0852a2c77156fa4a542a952e0b74a"
+    "experiments/project_history.json": "b504e43e238a8746ab48dce7a39357f47b54ae335045a3ef767f3261b0da892a"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -996,6 +1000,80 @@
           "kind": "json",
           "ref": "runs/z13_candidates_20261016/recovery2_protocol.json",
           "claim": "Техническое восстановление проверки одинакового считывания; исходные веса, протокол и прежние результаты сохранены"
+        }
+      ]
+    },
+    "z13_candidate_identity_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_candidate_identity_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_identity_20261021/protocol.json",
+          "claim": "Постановка до результатов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_reserve_20261021/report.json",
+          "claim": "Измеренный диагностический запас кандидатов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_identity_20261021/report.json",
+          "claim": "Полный результат и проверка воспроизведения/завершения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_identity_20261021/cache_manifest.json",
+          "claim": "Полный результат и проверка воспроизведения/завершения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_identity_20261021/full_controller_result.json",
+          "claim": "Полный результат и проверка воспроизведения/завершения"
+        }
+      ]
+    },
+    "z13_candidate_ranker_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_candidate_ranker_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_ranker_20261021/protocol.json",
+          "claim": "Постановка и критерии до исходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_identity_20261021/report.json",
+          "claim": "Предыдущая фиксированная версия не прошла критерии"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_ranker_20261021/report.json",
+          "claim": "Полный первичный итог, сиды и независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_ranker_20261021/seed_metrics.json",
+          "claim": "Полный первичный итог, сиды и независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_ranker_20261021/result_audit.json",
+          "claim": "Полный первичный итог, сиды и независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_ranker_20261021/ceiling_share.json",
+          "claim": "Полный первичный итог, сиды и независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_candidate_ranker_20261021/full_controller_result.json",
+          "claim": "Полный первичный итог, сиды и независимая сверка"
         }
       ]
     },
@@ -2044,6 +2122,30 @@
       "size": 22
     },
     {
+      "id": "v_z13_candidate_identity_v1",
+      "x": 6780,
+      "y": 2740,
+      "w": 870,
+      "h": 360,
+      "title": [
+        "II.5 Идентичность отдельных пиков"
+      ],
+      "body": [
+        "Вместо одного максимума: до3 пиков, отдельные личности кандидатов и",
+        "взаимно однозначное сопоставление по активности и расстоянию. Допускается",
+        "отсутствие цели.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: C −3,29 п.п. [−5,91; −0,89]; D +0,17 [−4,54; +5,35]. Эта",
+        "версия не принята. Это упрощённое сопоставление, не весь KeepTrack."
+      ],
+      "footer": [
+        "z13_candidate_identity_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_candidate_identity_v1",
+      "card": "z13_candidate_identity_v1",
+      "size": 22
+    },
+    {
       "id": "original_4",
       "x": 180,
       "y": 3900,
@@ -2433,6 +2535,30 @@
       "size": 22
     },
     {
+      "id": "v_z13_candidate_ranker_v1",
+      "x": 3510,
+      "y": 6320,
+      "w": 870,
+      "h": 400,
+      "title": [
+        "II.8 Обучаемый выбор трёх пиков"
+      ],
+      "body": [
+        "Вместо максимума: нормировка68→вложение16; кандидат, образец, разность,",
+        "произведение, средний контекст +8 геометрических признаков →88→32→1. Контроль с",
+        "обнулённой активностью;3 сида.",
+        "НЕОПРЕДЕЛЁННО: C +1,70 п.п. [−0,84; +4,42]; D +0,90 [−1,22; +3,30]. Преимущества над",
+        "геометрией нет. Основной критерий не выполнен."
+      ],
+      "footer": [
+        "z13_candidate_ranker_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_candidate_ranker_v1",
+      "card": "z13_candidate_ranker_v1",
+      "size": 20
+    },
+    {
       "id": "original_6",
       "x": 4580,
       "y": 4120,
@@ -2790,7 +2916,7 @@
     {
       "id": "g_center",
       "x": 2380,
-      "y": 6780,
+      "y": 6900,
       "w": 2000,
       "h": 640,
       "title": [
@@ -2819,7 +2945,7 @@
     {
       "id": "f_fly_future_stmtrack_memory_v1",
       "x": 2380,
-      "y": 7580,
+      "y": 7700,
       "w": 870,
       "h": 360,
       "title": [
@@ -2828,7 +2954,7 @@
       "body": [
         "Вместо одного фиксированного образца — отдельные прошлые наблюдения",
         "цели. Добавление не должно использовать будущую разметку.",
-        "ПЛАН: результата нет."
+        "ПЛАН полной версии; упрощённые проверки показаны жёлтыми ветвями."
       ],
       "footer": [
         "fly_future_stmtrack_memory_v1"
@@ -2841,7 +2967,7 @@
     {
       "id": "f_fly_future_keeptrack_candidates_v1",
       "x": 3510,
-      "y": 7580,
+      "y": 7700,
       "w": 870,
       "h": 360,
       "title": [
@@ -2850,7 +2976,7 @@
       "body": [
         "Вместо одного максимума — отдельные пики, локальная активность и",
         "соответствия во времени. Допускается отсутствие соответствия.",
-        "ПЛАН: результата нет."
+        "ПЛАН полной версии; упрощённые проверки показаны жёлтыми ветвями."
       ],
       "footer": [
         "fly_future_keeptrack_candidates_v1"
@@ -2863,7 +2989,7 @@
     {
       "id": "f_fly_future_kys_state_v1",
       "x": 6780,
-      "y": 2950,
+      "y": 3290,
       "w": 2000,
       "h": 350,
       "title": [
@@ -3801,6 +3927,43 @@
       "arrow": 23
     },
     {
+      "a": "hub_3",
+      "b": "v_z13_candidate_identity_v1",
+      "kind": "variant",
+      "points": [
+        [
+          7780,
+          2920.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "right",
+      "label": "II",
+      "label_at": [
+        7715,
+        2920.0
+      ],
+      "render_points": [
+        [
+          7780.0,
+          1810
+        ],
+        [
+          7780,
+          2920.0
+        ],
+        [
+          7650,
+          2920.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
       "a": "original_4",
       "b": "hub_4",
       "kind": "variant",
@@ -4329,6 +4492,43 @@
         [
           3250,
           6420.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
+      "a": "hub_5",
+      "b": "v_z13_candidate_ranker_v1",
+      "kind": "variant",
+      "points": [
+        [
+          3380,
+          6520.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "left",
+      "label": "II",
+      "label_at": [
+        3445,
+        6520.0
+      ],
+      "render_points": [
+        [
+          3380.0,
+          4890
+        ],
+        [
+          3380,
+          6520.0
+        ],
+        [
+          3510,
+          6520.0
         ]
       ],
       "colour": "#B97D00",
@@ -5122,11 +5322,11 @@
         ],
         [
           3320,
-          6710
+          6830
         ],
         [
           3380,
-          6710
+          6830
         ]
       ],
       "start": "right",
@@ -5134,7 +5334,7 @@
       "label": "III  МАСКА → ПИК ЦЕНТРА",
       "label_at": [
         3380,
-        6700
+        6820
       ],
       "render_points": [
         [
@@ -5147,15 +5347,15 @@
         ],
         [
           3320,
-          6710
+          6830
         ],
         [
           3380,
-          6710
+          6830
         ],
         [
           3380.0,
-          6780
+          6900
         ]
       ],
       "colour": "#117A46",
@@ -5171,11 +5371,11 @@
       "points": [
         [
           3380,
-          7500
+          7620
         ],
         [
           2815,
-          7500
+          7620
         ]
       ],
       "start": "bottom",
@@ -5183,24 +5383,24 @@
       "label": "IV",
       "label_at": [
         2815,
-        7530
+        7650
       ],
       "render_points": [
         [
           3380.0,
-          7420
+          7540
         ],
         [
           3380,
-          7500
+          7620
         ],
         [
           2815,
-          7500
+          7620
         ],
         [
           2815.0,
-          7580
+          7700
         ]
       ],
       "colour": "#416FBA",
@@ -5216,11 +5416,11 @@
       "points": [
         [
           3380,
-          7500
+          7620
         ],
         [
           3945,
-          7500
+          7620
         ]
       ],
       "start": "bottom",
@@ -5228,24 +5428,24 @@
       "label": "IV",
       "label_at": [
         3945,
-        7530
+        7650
       ],
       "render_points": [
         [
           3380.0,
-          7420
+          7540
         ],
         [
           3380,
-          7500
+          7620
         ],
         [
           3945,
-          7500
+          7620
         ],
         [
           3945.0,
-          7580
+          7700
         ]
       ],
       "colour": "#416FBA",
@@ -5265,7 +5465,7 @@
         ],
         [
           8840,
-          3125
+          3465
         ]
       ],
       "start": "right",
@@ -5273,7 +5473,7 @@
       "label": "IV",
       "label_at": [
         8840,
-        3125
+        3465
       ],
       "render_points": [
         [
@@ -5286,11 +5486,11 @@
         ],
         [
           8840,
-          3125
+          3465
         ],
         [
           8780,
-          3125.0
+          3465.0
         ]
       ],
       "colour": "#416FBA",

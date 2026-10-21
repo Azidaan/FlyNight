@@ -46,6 +46,12 @@ def main():
     def interval(v):return f"{fmt(v['mean_per_video'])} п.п. [{fmt(v['ci95'][0])}; {fmt(v['ci95'][1])}]"
     names=['C_activity-C_top1',*other,'D_activity-D_top1','D_activity-D_geometry','D_activity-D_kalman','D_activity-R1_activity']
     obtained='runs/z13_candidate_ranker_20261021/report.json → paired: '+'; '.join(k+' '+interval(report['paired'][k]) for k in names)+'. result_audit.json:8326 совпадающих строк,18 моделей (3 сида×2 режима×3 представления), исходники и кэши проверены; выбор лучшего сида не выполнялся.'
+    reserve=read(ROOT/'runs/z13_candidate_reserve_20261021/report.json');shares={}
+    for arm in ('C','D'):
+        gain=report['paired'][arm+'_activity-'+arm+'_top1']['mean_per_video'];ceiling=reserve['arms'][arm]['reserve']['mean_per_video']
+        shares[arm]=dict(gain=gain,oracle_increment=ceiling,signed_share=gain/ceiling,relative_to_top1=gain/report['summary'][arm+'_top1']['useful_mean_video'])
+    write(RUN/'ceiling_share.json',shares)
+    obtained+=' ceiling_share.json: сдвиг C / измеренный прирост оракула '+f"{100*shares['C']['signed_share']:+.3f}%".replace('.',',')+'; это отношение точечных оценок, без отдельного интервала и не HOTA.'
     interpretation=('Все основные критерии обучаемого выбора кандидатов выполнены.' if passed else 'Основной критерий этого обучаемого выбора кандидатов не выполнен; частные положительные сравнения не заменяют непройденные контроли.')+' Сравнение поисковое: train26 использовался многократно. Полученный выбор центра не является калиброванным отказом или результатом HOTA.'
     decision='Сохранить кандидата и проверить перенос фиксированных моделей на заранее выделенной дополнительной функциональной выборке; настройки не менять. Затем отдельно проверять причинное применение в стенде.' if passed else 'В стенд эту версию не переносить, не выбирать удачный сид и не подбирать по dev. Сохранить прежний центрированный считыватель; дальнейшая замена требует другого обоснованного механизма.'
     head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
@@ -55,7 +61,7 @@ def main():
         card[field]=value
     card['state']=state;card['done']=f'{now():%Y-%m-%d}'
     for i,met in enumerate([True,first,second]):card['acceptance'][i].update(met=bool(met),evidence='runs/z13_candidate_ranker_20261021/report.json')
-    for name in ('report.json','seed_metrics.json','result_audit.json','full_controller_result.json'):
+    for name in ('report.json','seed_metrics.json','result_audit.json','ceiling_share.json','full_controller_result.json'):
         card['evidence'].append(dict(kind='file',ref=(RUN/name).relative_to(ROOT).as_posix(),claim='Полный первичный итог, сиды и независимая сверка'))
     card['confirmed_results']=[];src=(RUN/'report.json').relative_to(ROOT).as_posix();digest=sha(RUN/'report.json')
     for arm in ('C','D'):
@@ -64,7 +70,8 @@ def main():
             card['confirmed_results'].append(dict(id=arm+'_candidate_ranker_vs_top1_train26',title='Обучаемый выбор пика против максимума — '+arm,category='readout',metric='useful_center_fraction',unit='fraction',evidence=dict(source=src,locator=['paired',key],sha256=digest),baseline=dict(source=src,locator=['summary',arm+'_top1','useful_mean_video'],sha256=digest),subset='train26,26 видео; многократно использованная выборка',comparison='Те же3 пика и ядро; обучаемый выбор против прежнего максимума.',conditions='Фиксированный ансамбль3 сидов; обучение только fit20; парный бутстрэп по видео.',limitations='Частное сравнение не заменяет главные контроли геометрии и R1. Не HOTA, не безопасная политика отказа.'))
     write(catpath,cat)
     base=report['summary']['C_top1']['useful_mean_video'];rel=f"{100*d['mean_per_video']/base:+.3f}%".replace('.',',')
-    journal('полный итог обучаемого выбора кандидатов','*Получено.* '+obtained+'\n\n*Вывод.* '+interpretation+'\n\n*Решение.* '+decision+'\n\nСводка к top1 C: доля полезных центров '+rel+'; доля оракульного запаса может быть рассчитана только для согласованного сравнения, не является HOTA. Научные формулировки проверены на предмет/инструмент, отсутствие лишнего повтора и соответствие выполненному.')
+    share=f"{100*shares['C']['signed_share']:+.3f}%".replace('.',',')
+    journal('полный итог обучаемого выбора кандидатов','*Получено.* '+obtained+'\n\n*Вывод.* '+interpretation+'\n\n*Решение.* '+decision+'\n\nСводка к top1 C: доля полезных центров '+rel+'; отношение сдвига к измеренному приросту оракула '+share+'. Отрицательное отношение означает удаление от потолка; это точечное отношение без собственного интервала. Не является HOTA. Научные формулировки проверены на предмет/инструмент, отсутствие лишнего повтора и соответствие выполненному.')
     write(RUN/'finish_recorded.json',dict(state=state,primary_pass=passed,report_sha256=digest,recorded=now().isoformat()))
     print(state,interval(d))
 

@@ -74,6 +74,8 @@ def build_layout(node, edge, source, cards, lanes, base, confirmed):
             elif cid=='z13_target_model_probe_v1':
                 text+='\n34 канала + среднее соседей = 68 признаков; отдельная гребневая регрессия по последнему наблюдаемому образцу.'
                 h,fs=400,20
+            elif cid=='z13_candidate_ranker_v1':
+                h,fs=400,20
             node(leaf,nx,ny,870,h,f'II.{j+1}  '+title,text,'tried',cid,cid,size=fs)
             leaves[leaf]=(nx,ny,870,h)
             # A central bus in the empty gap serves short left/right branches.
@@ -124,7 +126,7 @@ def build_layout(node, edge, source, cards, lanes, base, confirmed):
         ('fly_future_keeptrack_candidates_v1','IV  KeepTrack: личности кандидатов','Вместо одного максимума — отдельные пики, локальная активность и соответствия во времени. Допускается отсутствие соответствия.'),
     ]):
         nx=x+(1210 if j else 80);ny=gy+800
-        node('f_'+cid,nx,ny,870,360,title,body+'\nПЛАН: результата нет.','future',cid,cid,size=23)
+        node('f_'+cid,nx,ny,870,360,title,body+'\nПЛАН полной версии; упрощённые проверки показаны жёлтыми ветвями.','future',cid,cid,size=23)
         edge('g_center','f_'+cid,'future',start='bottom',end='top',
              points=[(x+1080,gy+720),(nx+435,gy+720)],label='IV',label_at=(nx+435,gy+750))
 
