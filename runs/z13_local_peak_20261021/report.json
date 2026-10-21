@@ -1,0 +1,253 @@
+{
+ "primary_pass": false,
+ "paired": {
+  "C_quadratic-C_weighted": {
+   "mean_per_video": -0.002526316846389939,
+   "ci95": [
+    -0.01305490511171966,
+    0.006485632322522299
+   ],
+   "better": 8,
+   "n": 26
+  },
+  "C_quadratic-R1_quadratic": {
+   "mean_per_video": 0.167349325105075,
+   "ci95": [
+    0.11080985808241026,
+    0.2506012254316194
+   ],
+   "better": 25,
+   "n": 26
+  },
+  "D_quadratic-D_weighted": {
+   "mean_per_video": -0.002018125995978667,
+   "ci95": [
+    -0.011075480609116199,
+    0.006295754994206197
+   ],
+   "better": 7,
+   "n": 26
+  },
+  "D_quadratic-R1_quadratic": {
+   "mean_per_video": 0.16488543794986524,
+   "ci95": [
+    0.1242427474631855,
+    0.21458521590234597
+   ],
+   "better": 26,
+   "n": 26
+  },
+  "C_gain-R1_gain": {
+   "mean_per_video": -0.0018047494717470477,
+   "ci95": [
+    -0.017379942874343704,
+    0.010968238160189561
+   ],
+   "better": 10,
+   "n": 26
+  }
+ },
+ "fallback": {
+  "C": {
+   "quadratic": 7013,
+   "outside_cell": 779,
+   "insufficient_support": 514,
+   "not_stable_concave": 20
+  },
+  "D": {
+   "outside_cell": 887,
+   "quadratic": 7214,
+   "insufficient_support": 199,
+   "not_stable_concave": 26
+  },
+  "R1": {
+   "insufficient_support": 2711,
+   "quadratic": 5181,
+   "outside_cell": 400,
+   "not_stable_concave": 34
+  }
+ },
+ "summary": {
+  "C_weighted": {
+   "rows": 8326,
+   "useful_mean_video": 0.25785788830894824,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 67,
+     "unknown": 17,
+     "useful": 2,
+     "harmful": 65,
+     "useful_share_known": 0.029850746268656716
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 137,
+     "unknown": 30,
+     "useful": 3,
+     "harmful": 134,
+     "useful_share_known": 0.021897810218978103
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 341,
+     "unknown": 76,
+     "useful": 7,
+     "harmful": 334,
+     "useful_share_known": 0.020527859237536656
+    }
+   }
+  },
+  "C_quadratic": {
+   "rows": 8326,
+   "useful_mean_video": 0.2553315714625583,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 67,
+     "unknown": 17,
+     "useful": 2,
+     "harmful": 65,
+     "useful_share_known": 0.029850746268656716
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 137,
+     "unknown": 30,
+     "useful": 3,
+     "harmful": 134,
+     "useful_share_known": 0.021897810218978103
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 341,
+     "unknown": 76,
+     "useful": 7,
+     "harmful": 334,
+     "useful_share_known": 0.020527859237536656
+    }
+   }
+  },
+  "D_weighted": {
+   "rows": 8326,
+   "useful_mean_video": 0.25488581030332724,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 64,
+     "unknown": 20,
+     "useful": 2,
+     "harmful": 62,
+     "useful_share_known": 0.03125
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 132,
+     "unknown": 35,
+     "useful": 4,
+     "harmful": 128,
+     "useful_share_known": 0.030303030303030304
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 338,
+     "unknown": 79,
+     "useful": 9,
+     "harmful": 329,
+     "useful_share_known": 0.026627218934911243
+    }
+   }
+  },
+  "D_quadratic": {
+   "rows": 8326,
+   "useful_mean_video": 0.2528676843073485,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 64,
+     "unknown": 20,
+     "useful": 2,
+     "harmful": 62,
+     "useful_share_known": 0.03125
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 132,
+     "unknown": 35,
+     "useful": 4,
+     "harmful": 128,
+     "useful_share_known": 0.030303030303030304
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 338,
+     "unknown": 79,
+     "useful": 9,
+     "harmful": 329,
+     "useful_share_known": 0.026627218934911243
+    }
+   }
+  },
+  "R1_weighted": {
+   "rows": 8326,
+   "useful_mean_video": 0.08870381373212619,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 48,
+     "unknown": 36,
+     "useful": 1,
+     "harmful": 47,
+     "useful_share_known": 0.020833333333333332
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 109,
+     "unknown": 58,
+     "useful": 4,
+     "harmful": 105,
+     "useful_share_known": 0.03669724770642202
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 302,
+     "unknown": 115,
+     "useful": 4,
+     "harmful": 298,
+     "useful_share_known": 0.013245033112582781
+    }
+   }
+  },
+  "R1_quadratic": {
+   "rows": 8326,
+   "useful_mean_video": 0.08798224635748329,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 48,
+     "unknown": 36,
+     "useful": 1,
+     "harmful": 47,
+     "useful_share_known": 0.020833333333333332
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 109,
+     "unknown": 58,
+     "useful": 4,
+     "harmful": 105,
+     "useful_share_known": 0.03669724770642202
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 302,
+     "unknown": 115,
+     "useful": 4,
+     "harmful": 298,
+     "useful_share_known": 0.013245033112582781
+    }
+   }
+  }
+ },
+ "limitations": "Old center already continuous; same peak and confidence. Exploratory train26, no HOTA or safe refusal."
+}

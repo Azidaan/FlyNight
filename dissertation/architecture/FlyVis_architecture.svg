@@ -98,6 +98,8 @@
 <polygon points="5710,6190.0 5689.8156010765215,6201.026787387897 5689.8156010765215,6178.973212612103" fill="#B97D00"/>
 <polyline points="5580.0,5000 5580,6530.0 5450,6530.0" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
 <polygon points="5450,6530.0 5470.1843989234785,6518.973212612103 5470.1843989234785,6541.026787387897" fill="#B97D00"/>
+<polyline points="5580.0,5000 5580,6610.0 5710,6610.0" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
+<polygon points="5710,6610.0 5689.8156010765215,6621.026787387897 5689.8156010765215,6598.973212612103" fill="#B97D00"/>
 <polyline points="7780.0,4880 7780.0,4980" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
 <polygon points="7780.0,4980 7768.973212612103,4959.8156010765215 7791.026787387897,4959.8156010765215" fill="#B97D00"/>
 <polyline points="7780.0,5110 7780,5380.0 7650,5380.0" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
@@ -534,7 +536,7 @@
 <text x="3530" y="6548" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">z13_candidate_ranker_v1</text>
 </g>
 <g id="original_6"><title>scripts/z13_target_model.py</title><rect x="4580" y="4120" width="2000" height="650" rx="14" fill="#FAD8DA" stroke="#BC252D" stroke-width="2"/>
-<text x="4600" y="4167" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">07 НАДЁЖНОСТЬ И ОТКАЗ — ИСХОДНАЯ ОСНОВА</text>
+<text x="4600" y="4167" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">07 ЦЕНТР, УВЕРЕННОСТЬ И ОТКАЗ — ИСХОДНАЯ ОСНОВА</text>
 <text x="4600" y="4209" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">ИСХОДНЫЙ ВЫБОР ЦЕНТРА:</text>
 <text x="4600" y="4239" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">Максимальная колонка + её 6 соседей → локальное взвешенное среднее → координаты кадра. Далёкие максимумы не усредняются в один центр.</text>
 <text x="4600" y="4269" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40"></text>
@@ -595,6 +597,15 @@
 <text x="4600" y="6496" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">НЕОПРЕДЕЛЁННО: Все четыре основных интервала включают ноль. Новая</text>
 <text x="4600" y="6525" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">память цели не добавлена.</text>
 <text x="4600" y="6559" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">z13_pairwise_utility_v1</text>
+</g>
+<g id="v_z13_local_peak_v1"><title>z13_local_peak_v1</title><rect x="5710" y="6430" width="870" height="360" rx="14" fill="#FFF1BA" stroke="#BF8A18" stroke-width="2"/>
+<text x="5730" y="6477" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">II.8 Локальная вершина той же карты</text>
+<text x="5730" y="6518" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">Вместо непрерывного взвешенного среднего7 соседей: вершина локальной</text>
+<text x="5730" y="6547" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">квадратичной поверхности. Проверки вогнутости/устойчивости; выход за</text>
+<text x="5730" y="6576" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">ячейку возвращает прежний центр. Балл не меняется.</text>
+<text x="5730" y="6605" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">КРИТЕРИЙ НЕ ПРОЙДЕН: C −0,25 п.п. [−1,31; +0,65]; D −0,20 [−1,11; +0,63].</text>
+<text x="5730" y="6634" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="400" fill="#182B40">Верхние границы ниже2п.п.; эта версия не принята.</text>
+<text x="5730" y="6668" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">z13_local_peak_v1</text>
 </g>
 <g id="original_7"><title>AGENTS.md</title><rect x="6780" y="4230" width="2000" height="650" rx="14" fill="#E8EDF3" stroke="#68788C" stroke-width="2"/>
 <text x="6800" y="4277" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">08 ПРИМЕНЕНИЕ В СТЕНДЕ — ИСХОДНАЯ ОСНОВА</text>
@@ -696,11 +707,11 @@
 <text x="4600" y="3361" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">временные признаки входа глаза без FlyVis. B и D не равны по ёмкости.</text>
 <text x="4600" y="3395" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">scripts/z13_target_model.py</text>
 </g>
-<g id="metric"><title>scripts/z13_train.py</title><rect x="4580" y="6880" width="2000" height="360" rx="14" fill="#FFFFFF" stroke="#CCD5DF" stroke-width="2"/>
-<text x="4600" y="6927" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">ЧТО ИЗМЕРЯЕТСЯ И ЧТО ОСТАЁТСЯ НЕИЗВЕСТНЫМ</text>
-<text x="4600" y="6970" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">Полезный центр: ошибка меньше ошибки штатного прогноза и не больше четверти размера известной цели. Средняя доля по видео не равна точности среди выбранных.</text>
-<text x="4600" y="7001" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">Неизвестный исход не означает ошибку или успех. Глобальный верхний 1% — диагностика, а не готовое покадровое правило.</text>
-<text x="4600" y="7035" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">scripts/z13_train.py</text>
+<g id="metric"><title>scripts/z13_train.py</title><rect x="4580" y="6960" width="2000" height="360" rx="14" fill="#FFFFFF" stroke="#CCD5DF" stroke-width="2"/>
+<text x="4600" y="7007" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">ЧТО ИЗМЕРЯЕТСЯ И ЧТО ОСТАЁТСЯ НЕИЗВЕСТНЫМ</text>
+<text x="4600" y="7050" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">Полезный центр: ошибка меньше ошибки штатного прогноза и не больше четверти размера известной цели. Средняя доля по видео не равна точности среди выбранных.</text>
+<text x="4600" y="7081" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="400" fill="#182B40">Неизвестный исход не означает ошибку или успех. Глобальный верхний 1% — диагностика, а не готовое покадровое правило.</text>
+<text x="4600" y="7115" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">scripts/z13_train.py</text>
 </g>
 <g id="g_scope"><title>runs/z13_target_center_dev_20261018/report.json</title><rect x="6780" y="6580" width="2000" height="420" rx="14" fill="#FFFFFF" stroke="#CCD5DF" stroke-width="2"/>
 <text x="6800" y="6627" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">ГРАНИЦА ДОСТИГНУТОГО РЕЗУЛЬТАТА</text>
@@ -761,6 +772,7 @@
 <rect x="5494.0" y="6089.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="5508.0" y="6116.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="5624.0" y="6169.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="5638.0" y="6196.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="5494.0" y="6509.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="5508.0" y="6536.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
+<rect x="5624.0" y="6589.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="5638.0" y="6616.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="7759.0" y="4909" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="7773.0" y="4936" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="7694.0" y="5359.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="7708.0" y="5386.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 <rect x="7824.0" y="5439.0" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="7838.0" y="5466.0" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
