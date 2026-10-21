@@ -14224,7 +14224,7 @@
    "id": "z13_motion_window_v1",
    "title": "З13: окно прогноза внутри чтения полной карты",
    "area": "flyvis",
-   "state": "ready",
+   "state": "inconclusive",
    "started": "2026-10-21",
    "tags": [
     "fly-problem-P8",
@@ -14236,18 +14236,20 @@
    "acceptance": [
     {
      "criterion": "Исходный центр/балл всех8326 строк C/D/R1 воспроизведён при нулевом весе: центр<1e-6px,балл<1e-9; исходные карты/хеши неизменны.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_motion_window_20261021/reproduction.json"
     },
     {
      "criterion": "C_window-C_top1: mean>=0.02 and paired-video95%lower>0. C_window-C_nearest3, C_window-C_BCE104 and C_window-R1_window: all lower>0. All conditions required; D secondary cannot rescue. R1 effect and Cgain-R1gain always reported.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_motion_window_20261021/report.json"
     }
    ],
-   "summary": "Зарегистрирована одна версия считывания полной карты с пространственным окном; исход не получен.",
-   "done": "",
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
+   "summary": "Основные критерии окна не выполнены. R1 с тем же окном получает большой общий эффект, который не приписывается мухе. Подтверждённый сдвиг против максимума не равен узнаванию объекта или улучшению HOTA.",
+   "done": "2026-10-21",
+   "obtained": "runs/z13_motion_window_20261021/report.json → paired: C_window-C_top1 +5,350 п.п. [+1,974; +8,534]; C_window-C_nearest +3,549 п.п. [+0,732; +6,350]; C_window-C_BCE +1,476 п.п. [-1,843; +4,520]; C_window-R1_window +2,053 п.п. [-1,147; +5,541]; D_window-D_top1 +6,626 п.п. [+2,291; +11,543]; D_window-D_nearest +2,448 п.п. [-0,077; +4,914]; D_window-D_BCE +1,846 п.п. [-1,009; +4,687]; D_window-R1_window +3,031 п.п. [+0,227; +6,035]; R1_window-R1_top1 +20,212 п.п. [+15,042; +28,003]; C_gain-R1_gain -14,862 п.п. [-23,277; -9,195]. choices: {'C': 1.0, 'D': 1.0, 'R1': 1.0}.8326 строк всех3 вариантов, исходные центры/баллы и хеши проверены.",
+   "interpretation": "Основные критерии окна не выполнены. R1 с тем же окном получает большой общий эффект, который не приписывается мухе. Подтверждённый сдвиг против максимума не равен узнаванию объекта или улучшению HOTA.",
+   "decision": "Не запускать dev этой версии и не менять веса по26. Сохранить частные сравнения; рабочим остаётся прежнее центрированное считывание. Его проверка стенда — самостоятельная задача, не перенос проваленного окна.",
    "cannot_claim": "Не установлено, что ошибки вызваны отсутствием окна. Смещение к прогнозу не равно узнаванию цели. Старый3-пиковый оракул не потолок новых координат. Нет HOTA, безопасного отказа, новых свойств ядра или независимого подтверждения.",
    "metrics": [],
    "commits": [],
@@ -14260,6 +14262,149 @@
      "kind": "file",
      "ref": "runs/z13_motion_window_20261021/protocol.json",
      "claim": "Механизм/контроли/критерии до исходов"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_motion_window_20261021/report.json",
+     "claim": "Полный исход и проверка"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_motion_window_20261021/reproduction.json",
+     "claim": "Полный исход и проверка"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_motion_window_20261021/result_audit.json",
+     "claim": "Полный исход и проверка"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_motion_window_20261021/full_controller_result.json",
+     "claim": "Полный исход и проверка"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-21",
+     "commit": "98583b8d26d85487ce2a27b11019444943c4a064",
+     "field": "summary",
+     "old": "Зарегистрирована одна версия считывания полной карты с пространственным окном; исход не получен.",
+     "reason": "Полный проверенный исход неизменной версии окна."
+    }
+   ],
+   "confirmed_results": [
+    {
+     "id": "C_window_vs_top1",
+     "title": "Пространственное окно против максимума карты — C",
+     "category": "readout",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "evidence": {
+      "source": "runs/z13_motion_window_20261021/report.json",
+      "locator": [
+       "paired",
+       "C_window-C_top1"
+      ],
+      "sha256": "75b4c25f3b6350dd02785b671e7c46e43971f8417020908df2d68c4c5a6f1fe1"
+     },
+     "baseline": {
+      "source": "runs/z13_motion_window_20261021/report.json",
+      "locator": [
+       "summary",
+       "C_top1",
+       "useful_mean_video"
+      ],
+      "sha256": "75b4c25f3b6350dd02785b671e7c46e43971f8417020908df2d68c4c5a6f1fe1"
+     },
+     "subset": "train26,26 многократно использованных видео",
+     "comparison": "Те же карты, локальные веса и балл; окно влияет на выбор колонки. Вес выбран только на20fit.",
+     "conditions": "Общий критерий не пройден; все источники/строки и интервалы проверены.",
+     "limitations": "R1 получает+20,21п.п.; весь эффект нельзя приписать мухе. Преимущество C над R1 и обученным выбором карты не подтверждено. Нет dev/HOTA/безопасного отказа; старый3-пиковый оракул не потолок."
+    },
+    {
+     "id": "D_window_vs_top1",
+     "title": "Пространственное окно против максимума карты — D",
+     "category": "readout",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "evidence": {
+      "source": "runs/z13_motion_window_20261021/report.json",
+      "locator": [
+       "paired",
+       "D_window-D_top1"
+      ],
+      "sha256": "75b4c25f3b6350dd02785b671e7c46e43971f8417020908df2d68c4c5a6f1fe1"
+     },
+     "baseline": {
+      "source": "runs/z13_motion_window_20261021/report.json",
+      "locator": [
+       "summary",
+       "D_top1",
+       "useful_mean_video"
+      ],
+      "sha256": "75b4c25f3b6350dd02785b671e7c46e43971f8417020908df2d68c4c5a6f1fe1"
+     },
+     "subset": "train26,26 многократно использованных видео",
+     "comparison": "Те же карты, локальные веса и балл; окно влияет на выбор колонки. Вес выбран только на20fit.",
+     "conditions": "Общий критерий не пройден; все источники/строки и интервалы проверены.",
+     "limitations": "R1 получает+20,21п.п.; весь эффект нельзя приписать мухе. Преимущество C над R1 и обученным выбором карты не подтверждено. Нет dev/HOTA/безопасного отказа; старый3-пиковый оракул не потолок."
+    }
+   ]
+  },
+  {
+   "id": "z13_center_hota_v1",
+   "title": "З13: HOTA сохранённого центрированного считывателя",
+   "area": "flyvis",
+   "state": "ready",
+   "started": "2026-10-21",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "question": "Даёт ли ранее подтверждённый центрированный считыватель пользу полному стенду сверх отсутствия поправки, R1 и прежней D?",
+   "hypothesis": "Функциональный выигрыш центров может переноситься в замкнутый трекер; это ещё не измерено.",
+   "expected": "Одна фиксированная диагностическая политика1% без подбора по dev/HOTA. C/D/R1, прежние35dev,YOLO26/ByteTrack/MASA без изменений. Техническая проба до1200с; далее только оставшееся окно автора, законченные видео сохраняются. Неполная очередь не даёт вердикта об эффективности.",
+   "acceptance": [
+    {
+     "criterion": "Pure regression and incrementalR1 bit-exact tests; saved first8 natural train26 episode controls C/D/R1: center<0.5px,score<0.001,same threshold decisions, same lambda. Compiler/eager same tolerances and decisions. One complete train video tau=None output/frame IDs exactly equal stand. Same old MASA head recipe reproduced and frozen; all35 baseline stitched JSONs must equal prior stand before comparison.",
+     "met": null
+    },
+    {
+     "criterion": "Dcenter-stand: pooledHOTA>=+0.10 and pairedvideo95%lower>0",
+     "met": null
+    },
+    {
+     "criterion": "Dcenter-R1center: pairedvideo95%lower>0",
+     "met": null
+    },
+    {
+     "criterion": "Dcenter-legacyD: pairedvideo95%lower>0",
+     "met": null
+    }
+   ],
+   "summary": "Зарегистрировано подключение принятого центрированного считывателя к стенду; HOTA не измерена.",
+   "done": "",
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "Эта политика диагностическая, прежний провал90%/50 не переписывается. Dev35 многократно использован, не независимое подтверждение. Сравнение полной реализации не изолирует только форму регрессионной цели; D−C отдельно, вклад анатомии не доказан. Неполные видео/очередь не измерение HOTA.",
+   "metrics": [],
+   "commits": [],
+   "files": [
+    "tracking/z13_ridge_localizer.py",
+    "scripts/z13_center_hota_20261021.py",
+    "scripts/z13_center_hota_controller_20261021.py"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_center_hota_20261021/protocol.json",
+     "claim": "Политика/критерии/срок до HOTA"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_target_center_dev_20261018/report.json",
+     "claim": "Сохранённая ранее положительная функциональная версия"
     }
    ]
   }
