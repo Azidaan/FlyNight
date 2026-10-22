@@ -1,0 +1,177 @@
+{
+ "verified": "2026-10-22T07:31:04.455424+03:00",
+ "video": "0355243b-d696291a",
+ "raw_frame": 183,
+ "prefix_frames": 192,
+ "prefix_stand_bit_exact": true,
+ "prefix_R1_bit_exact": true,
+ "all_owned_processes_ended": true,
+ "source_sha256": {
+  "runs/z13_first_divergence_20261022/trace.json": "e370e91bbf08f05c88b7e4f5081c4d2974dd4335fd6d827b1ba478d9469d80e6",
+  "runs/z13_first_divergence_20261022/protocol.json": "7fa43d44251593ff4796009f92f99d1a8ef8f289ba5257acbdc24e3feba8a761",
+  "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df"
+ },
+ "track_id": 6,
+ "center_before": [
+  569.7998191429482,
+  310.6097610897805
+ ],
+ "center_after": [
+  491.10083772707287,
+  298.1020581698173
+ ],
+ "shift": [
+  -78.69898141587532,
+  -12.507702919963151
+ ],
+ "shift_pixels": 79.68671349874046,
+ "confidence": 5.263124531779269,
+ "tau": 5.11341755630491,
+ "eye_center": [
+  0.2495414638322962,
+  163.5816755974593
+ ],
+ "eye_size": 391,
+ "correct_candidate": {
+  "raw_detection_index": 2,
+  "box": [
+   540.12841796875,
+   272.3505859375,
+   600.0687866210938,
+   351.0791931152344
+  ],
+  "score": 0.9103357195854187,
+  "cost_before": 0.12349057197570801,
+  "cost_after": 1.0,
+  "threshold": 0.8
+ },
+ "counterfactual": {
+  "only_track6_cost_row_restored": true,
+  "all_other_rows_unchanged": true,
+  "track6_matches_detection2": true
+ },
+ "consequences": [
+  {
+   "frame": 183,
+   "stand_id": 6,
+   "R1_nearest_id": 146,
+   "iou_to_stand": 0.02031414861804616
+  },
+  {
+   "frame": 184,
+   "stand_id": 6,
+   "R1_nearest_id": 155,
+   "iou_to_stand": 0.9929518887033381
+  },
+  {
+   "frame": 185,
+   "stand_id": 6,
+   "R1_nearest_id": 155,
+   "iou_to_stand": 0.9950301690114426
+  },
+  {
+   "frame": 186,
+   "stand_id": 6,
+   "R1_nearest_id": 155,
+   "iou_to_stand": 0.9935129307529911
+  },
+  {
+   "frame": 187,
+   "stand_id": 6,
+   "R1_nearest_id": 155,
+   "iou_to_stand": 0.9948853597673397
+  },
+  {
+   "frame": 188,
+   "stand_id": 6,
+   "R1_nearest_id": 155,
+   "iou_to_stand": 0.995919766046639
+  },
+  {
+   "frame": 189,
+   "stand_id": 6,
+   "R1_nearest_id": 155,
+   "iou_to_stand": 0.99609730996597
+  },
+  {
+   "frame": 190,
+   "stand_id": 6,
+   "R1_nearest_id": 155,
+   "iou_to_stand": 0.9968848682043089
+  },
+  {
+   "frame": 191,
+   "stand_id": 6,
+   "R1_nearest_id": 155,
+   "iou_to_stand": 0.9975690014142459
+  }
+ ],
+ "nearby_real_annotations": [
+  {
+   "raw_frame": 179,
+   "reference_name": "0355243b-d696291a-0000031.jpg",
+   "object": {
+    "id": "00023512",
+    "category": "truck",
+    "attributes": {
+     "crowd": false,
+     "occluded": false,
+     "truncated": false
+    },
+    "box2d": {
+     "x1": 539.894821223176,
+     "x2": 598.6739324038289,
+     "y1": 272.57841905750365,
+     "y2": 351.76189955104627
+    }
+   }
+  },
+  {
+   "raw_frame": 185,
+   "reference_name": "0355243b-d696291a-0000032.jpg",
+   "object": {
+    "id": "00023512",
+    "category": "truck",
+    "attributes": {
+     "crowd": false,
+     "occluded": false,
+     "truncated": false
+    },
+    "box2d": {
+     "x1": 539.894821223176,
+     "x2": 599.4540580742439,
+     "y1": 272.57841905750365,
+     "y2": 353.0101072898843
+    }
+   }
+  },
+  {
+   "raw_frame": 191,
+   "reference_name": "0355243b-d696291a-0000033.jpg",
+   "object": {
+    "id": "00023512",
+    "category": "truck",
+    "attributes": {
+     "crowd": false,
+     "occluded": false,
+     "truncated": false
+    },
+    "box2d": {
+     "x1": 539.894821223176,
+     "x2": 601.0143260805088,
+     "y1": 273.6705966626282,
+     "y2": 353.0101072898843
+    }
+   }
+  }
+ ],
+ "gt_at183": false,
+ "gt_interpolated": false,
+ "R1_id155_iou_to_GT185": 0.9778266987488262,
+ "other_saved_prefix_equal_to_stand": {
+  "C": true,
+  "D": true
+ },
+ "conclusion": "One reproduced R1 center shift blocks recovery of track6 at183; restoring only its association-cost row recovers the same candidate. At184 the object is output with newID155, confirmed against real GT185. Not a switch to a neighboring identity at183, but a missed recovery and fragmentation.",
+ "limits": "Post-hoc worst R1 video; first divergence only, not the entire HOTA loss or C/D. No GT183. Counterfactual isolates this association, not full later trajectories. No claim that every boundary peak is wrong, no proposed gate accepted, no new HOTA."
+}

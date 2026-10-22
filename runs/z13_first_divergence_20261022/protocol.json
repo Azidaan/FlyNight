@@ -1,0 +1,40 @@
+{
+ "id": "z13_first_divergence_v1",
+ "created": "2026-10-22T07:26:14.036577+03:00",
+ "authorization": "Author: trace first differing association; autonomous permitted window until07:40MSK22.10.",
+ "video": "0355243b-d696291a",
+ "arm": "R1",
+ "first_saved_difference": 183,
+ "last_replayed_frame": 191,
+ "budget_seconds": 360,
+ "save_at": "2026-10-22T07:35:00+03:00",
+ "hard_stop": "2026-10-22T07:39:30+03:00",
+ "selection": "Largest negative R1 HOTA on completed dev35,then first unequal raw output frame; post-hoc diagnostic only.",
+ "action": "Observe existing center policy and associations; no model/threshold/data change, no training, no new HOTA.",
+ "acceptance": [
+  "Stand and R1 raw outputs bit-exact to saved originals through191 inclusive.",
+  "Save predicted and corrected lost-track boxes,confidence,full association costs and assignments at183.",
+  "Compare with nearby real annotated frames179,185,191,explicitly no GT at183; no interpolated truth.",
+  "Claim only this reproduced event; no attribution of whole35-video loss."
+ ],
+ "counterargument": "First changed association can be harmless; failure to recover one detection is not necessarily wrong identity or the source of total HOTA loss.",
+ "sha256": {
+  "scripts/z13_first_divergence_20261022.py": "81457c43847138d4c49d1cd135a4223d51b29f2b465f2905d415998acc1d3303",
+  "scripts/z13_night_control_20261021.py": "c9d24178b57e4233509694ec1c61a5699355020e6f0306153228c4911d5ae5e0",
+  "scripts/build_fly_signatures.py": "6f9752a933c7c2a56e638bf074ec9844ae1ef1b1232c71dead6282a09f4d26b9",
+  "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df",
+  "tracking/z13_ridge_localizer_v2.py": "57128ce6093f40af68f1bf20c8ea96ef25cb71ef67c87df14a17c351912195e9",
+  "tracking/xywh_bytetrack.py": "85f5d5eaceabdd19cd7cb668fcd2153771466b3f539a8ffa374ddd6f9a946675",
+  "tracking/foveated_eyes.py": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
+  "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
+  ".venv/Lib/site-packages/ultralytics/trackers/byte_tracker.py": "00c7c1ff8b1076fc89347071519ae0b06a30bfce00dded94826620e068b1928f",
+  "runs/train_cache/0355243b-d696291a/detections/raw_video.npz": "16a3cb5d003ad146fb1b85c73f573012756406a949eff16d65ea7e256c939554",
+  "runs/train_cache/0355243b-d696291a/alignment.json": "138959b640c068aa513fd99b55e55e0198495e99883c56ce36dfd485356a1385",
+  "runs/fly_signatures/0355243b-d696291a/signatures.npz": "ee0467c5378e3283c36c412b4a83a8491a7708f90cb6b5d9aab784f684d17707",
+  "runs/z13_center_hota_20261021/R1/signatures/0355243b-d696291a/signatures.npz": "63705debf7046213adbf360a296747e9930130628ca65a5f5acb66ffbe239633",
+  "runs/z13_center_hota_20261021/R1/config.json": "388bad5e3fa823d698eb66627e2143725ce94986eda20114b7865fde510fc50b",
+  "runs/z13_center_hota_20261021/eval/report.json": "ad13cd78cf03b0dca94a2da08ecd76ab2fb745c53110d6810195e94d7bc8e8c3",
+  "data/bdd100k/videos/train/0355243b-d696291a.mov": "6a1066b8f7bee9a31423f59b547fec1eec12c64735a6430adf89fa234a328d25",
+  "data/bdd100k/labels/box_track_20/train/0355243b-d696291a.json": "0a13c07d0b6c11ca5d48902798a88bfd44dc7c3980dd14518d1e909359063ff3"
+ }
+}

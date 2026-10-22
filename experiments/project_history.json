@@ -14726,6 +14726,81 @@
      }
     }
    ]
+  },
+  {
+   "id": "z13_first_divergence_v1",
+   "title": "З13: первое расходящееся сопоставление в ухудшившемся R1",
+   "area": "flyvis",
+   "state": "completed_positive",
+   "started": "2026-10-22",
+   "done": "2026-10-22",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "question": "Как поправка центра связана с первым расхождением в ухудшившемся видео?",
+   "hypothesis": "Возможна неверная поправка перед сопоставлением; это пока не установленная причина.",
+   "expected": "Точное повторение начала видео и наблюдение существующей политики; без обучения/подбора/новойHOTA.",
+   "acceptance": [
+    {
+     "criterion": "Stand and R1 raw outputs bit-exact to saved originals through191 inclusive.",
+     "met": true,
+     "evidence": "runs/z13_first_divergence_20261022/report.json"
+    },
+    {
+     "criterion": "Save predicted and corrected lost-track boxes,confidence,full association costs and assignments at183.",
+     "met": true,
+     "evidence": "runs/z13_first_divergence_20261022/report.json"
+    },
+    {
+     "criterion": "Compare with nearby real annotated frames179,185,191,explicitly no GT at183; no interpolated truth.",
+     "met": true,
+     "evidence": "runs/z13_first_divergence_20261022/report.json"
+    },
+    {
+     "criterion": "Claim only this reproduced event; no attribution of whole35-video loss.",
+     "met": true,
+     "evidence": "runs/z13_first_divergence_20261022/report.json"
+    }
+   ],
+   "summary": "Диагностика воспроизведена: поправка R1 срывает восстановление трека6; это не положительный результат HOTA.",
+   "obtained": "runs/z13_first_divergence_20261022/report.json: оба префикса0–191 побитово совпали. На183 центр6: [569,7998;310,6098]→[491,1008;298,1021], сдвиг79,6867px; балл5,2631≥порог5,1134. correct_candidate: стоимость0,12349→1,0 при допустимых0,8. counterfactual: восстановление только строки6 возвращает сопоставление с детекцией2. consequences: с184 объект получает ID155; на185 IoU с реальной рамкой00023512 больше0,9. Точные значения и реальные соседние аннотации — в первичном JSON.",
+   "interpretation": "Причина первого расхождения подтверждена для этого случая: уверенный пик почти на левой границе вырезки отодвинул хороший прогноз, сорвал восстановление и фрагментировал траекторию. Перехвата соседнего объекта на183 нет; возник пропуск восстановления. Причина суммарных потерь35видео этим не установлена.",
+   "decision": "Следующее действие должно исправлять допуск ошибочной поправки, сохраняя центрированный считыватель. Сначала проверить на train, насколько повторяется граничный/несогласованный пик, и только после заранее заданного контроля выбирать замену оценки отказа. По этому dev-примеру порог не настраивать.",
+   "cannot_claim": "Разбор выбран после полного результата; один случай не объясняет все потери и не измеряет новое улучшение. На183 нет реальной разметки; соседние кадры не подменяют её.",
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_first_divergence_20261022/protocol.json",
+     "claim": "Зафиксированный префикс,проверка воспроизведения и срок"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_first_divergence_20261022/trace.json",
+     "claim": "Побитовое воспроизведение и наблюдение первого события"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_first_divergence_20261022/report.json",
+     "claim": "Побитовое воспроизведение и наблюдение первого события"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_first_divergence_20261022/trace_controller_result.json",
+     "claim": "Побитовое воспроизведение и наблюдение первого события"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_first_divergence_20261022/case183.png",
+     "claim": "Побитовое воспроизведение и наблюдение первого события"
+    }
+   ],
+   "metrics": [],
+   "commits": [
+    "d99afb838e5dd9ce967cc3455b051bbe83d646bf"
+   ],
+   "files": [
+    "scripts/z13_first_divergence_20261022.py"
+   ]
   }
  ],
  "manual_events": [
