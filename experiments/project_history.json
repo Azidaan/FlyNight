@@ -15305,6 +15305,121 @@
      }
     }
    ]
+  },
+  {
+   "id": "z13_localization_labels_v1",
+   "title": "З13: точность центра вместо превосходства над Калманом в обучении выборщика",
+   "area": "flyvis",
+   "state": "completed_negative",
+   "started": "2026-10-23",
+   "tags": [
+    "fly-problem-P8",
+    "engineering-future"
+   ],
+   "question": "Поможет ли одна замена метки внутри обучаемого выбора кандидатов при прежней оценке полезности?",
+   "hypothesis": "Отделение точности центра от относительной полезности может улучшить выбор, но может увеличить ненужные поправки.",
+   "expected": "Те же104 train и26 оценки,18 CPU моделей: D/C/R1 × активность/карта ×3 сида. Максимум900с плюс20с завершения, без ядра/dev/HOTA. До обучения проверяются мишень, контроль и стоимость. Уточнение ресурса до нового обучения: отдельный полный этап3600с по full/protocol.json после оценки стоимости; первоначальная подготовка900с завершена, не продлена. Автор отдельно разрешил автономные необходимые прогоны до07:40.",
+   "acceptance": [
+    {
+     "criterion": "Метки различаются;18 контролей воспроизведены; исходники,кэши,веса классов,сид,порядок,1150 шагов и145950 предъявлений сохранены; обучение и оценка раздельны.",
+     "met": true,
+     "evidence": "runs/z13_localization_labels_20261023/report.json; reproduction.json; timing.json; label_audit.json"
+    },
+    {
+     "criterion": "Dnew activity−Dold activity >=2п.п. и нижняя95%повидеоДИ>0.",
+     "met": false,
+     "evidence": "runs/z13_localization_labels_20261023/report.json; reproduction.json; timing.json; label_audit.json"
+    },
+    {
+     "criterion": "Dnew activity лучше Dold geometry и R1new activity: обе нижние95%повидеоДИ>0.",
+     "met": false,
+     "evidence": "runs/z13_localization_labels_20261023/report.json; reproduction.json; timing.json; label_audit.json"
+    }
+   ],
+   "summary": "Эта замена обучающей метки не прошла все заранее заданные критерии. Не доказана гипотеза, что удаление сравнения с Калманом решает выбор. Это исход одной реализации, не ограничение всей FlyVis.",
+   "done": "2026-10-23",
+   "obtained": "runs/z13_localization_labels_20261023/report.json, paired → {\"D_new_activity-D_old_activity\": {\"mean_per_video\": -0.011138737464247565, \"ci95\": [-0.024027057263767467, -0.0005037219271225236], \"better\": 6, \"n\": 26}, \"D_new_activity-D_old_geometry\": {\"mean_per_video\": -0.059711729699989696, \"ci95\": [-0.10612153174184574, -0.021943099555702297], \"better\": 5, \"n\": 26}, \"D_new_activity-R1_new_activity\": {\"mean_per_video\": 0.08003578071937537, \"ci95\": [0.047024506702249814, 0.11554790639823988], \"better\": 20, \"n\": 26}, \"D_new_activity-C_new_activity\": {\"mean_per_video\": -0.04321171655027985, \"ci95\": [-0.08959783444803322, -0.006726628956403159], \"better\": 9, \"n\": 26}}. label_audit.json → {\"D\": {\"changed_candidates\": 2298, \"changed_rows\": 1740, \"near_candidates\": 5139, \"old_positive_candidates\": 2841}, \"C\": {\"changed_candidates\": 2268, \"changed_rows\": 1709, \"near_candidates\": 5158, \"old_positive_candidates\": 2890}, \"R1\": {\"changed_candidates\": 828, \"changed_rows\": 734, \"near_candidates\": 2277, \"old_positive_candidates\": 1449}}. Все18 моделей завершены;1150шагов и145950предъявлений, прежние веса классов; воспроизведение18 контролей и32 старых шагов пройдено.",
+   "interpretation": "Эта замена обучающей метки не прошла все заранее заданные критерии. Не доказана гипотеза, что удаление сравнения с Калманом решает выбор. Это исход одной реализации, не ограничение всей FlyVis.",
+   "decision": "Не применять эту версию к стенду. Следующее разрешённое действие — обучаемое межкадровое соответствие кандидатов; сначала проверить доступные пары и сопоставимый контроль, не повторять подбор этой метки.",
+   "cannot_claim": "Train26 многократно использован; нет HOTA, безопасного отказа или доказанной причины прежней неудачи. Карта без сырых векторов всё ещё содержит FlyVis. Новая метка не является сама по себе научной новизной.",
+   "metrics": [
+    {
+     "key": "useful_center_fraction",
+     "value": 0.24297180054008294,
+     "baseline": 0.2541105380043305,
+     "subset": "train26; D new activity",
+     "source": "runs/z13_localization_labels_20261023/report.json",
+     "locator": "summary.D_new_activity.useful_mean_video"
+    }
+   ],
+   "commits": [],
+   "files": [
+    "tracking/z13_localization_labels.py",
+    "scripts/z13_localization_labels_20261023.py",
+    "tests/test_z13_localization_labels.py"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_localization_labels_20261023/protocol.json",
+     "claim": "Критерии и хеши до вычислений"
+    },
+    {
+     "kind": "file",
+     "ref": "research_flyvis_readout_decision_2026-10-23/ИССЛЕДОВАНИЕ.md",
+     "claim": "Ранжирование и источники"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_localization_labels_20261023/full/protocol.json",
+     "claim": "Отдельный полный CPU этап после пробы, разрешён новой автономной инструкцией автора; научные условия прежние"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_localization_labels_20261023/report.json",
+     "claim": "Полный исход и все контроли"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_localization_labels_20261023/reproduction.json",
+     "claim": "Воспроизведение старых18моделей"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_localization_labels_20261023/full/controller_result.json",
+     "claim": "Полное завершение своего дерева"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-23",
+     "commit": "79fa0d7ff72172566997489ec310e21abc95451b",
+     "field": "summary",
+     "old": "Автор разрешил первую проверку по исследованию; критерии зафиксированы до результата.",
+     "reason": "Полный проверенный исход новой метки; исходная постановка сохранена."
+    }
+   ],
+   "confirmed_results": [
+    {
+     "id": "z13_localization_labels_v1_D_new_activity_vs_R1_new_activity",
+     "title": "Новая метка выбора: D_new_activity-R1_new_activity",
+     "category": "representation",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "comparison": "D_new_activity-R1_new_activity",
+     "subset": "Повторно использованные26train, известные присутствующие цели",
+     "conditions": "104train; те же кэши,нормировка,архитектура,три сида,веса классов,1150шагов; новая метка точности, прежняя оценка полезности; бутстрэп5000,сид1.",
+     "limitations": "Частное сравнение не отменяет непройденных критериев; нет HOTA и безопасного отказа. Вклад анатомии отдельно не установлен.",
+     "evidence": {
+      "source": "runs/z13_localization_labels_20261023/report.json",
+      "sha256": "eb3c37be778bb45c656359116ae912eb5ed4567e2179bd3e518bfb31fa16da91",
+      "locator": [
+       "paired",
+       "D_new_activity-R1_new_activity"
+      ]
+     }
+    }
+   ]
   }
  ],
  "manual_events": [
