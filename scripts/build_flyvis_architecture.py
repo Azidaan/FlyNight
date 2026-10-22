@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 OUT = ROOT / 'dissertation/architecture'
 STEM = 'FlyVis_architecture'
-DATE = '22.10.2026'
+DATE = '23.10.2026'
 FONT = 'C:/Windows/Fonts/segoeui.ttf'
 BOLD = 'C:/Windows/Fonts/segoeuib.ttf'
 PALETTE = {'base': ('#FAD8DA','#BC252D'), 'tried': ('#FFF1BA','#BF8A18'),
@@ -153,6 +153,25 @@ def main():
         measured=json.loads((ROOT/'runs/z13_hinge_target_20261023/report.json').read_text(encoding='utf-8'));comparison=measured['paired']['D_hinge-D_balanced'];number=lambda value:f'{100*value:+.2f}'.replace('.',',')
         result='D против той же балансировки: '+number(comparison['mean_per_video'])+' п.п. ['+number(comparison['ci95'][0])+'; '+number(comparison['ci95'][1])+']. Полные критерии: '+('пройдены; нужен перенос.' if measured['primary_pass'] else 'не пройдены; версия не принята.')+' HOTA не измерялась.'
         LANES[5][2].append(('z13_hinge_target_v1','Односторонняя ошибка фона','Вместо штрафа (s−y)² для любого фона: max(0,s−y)². Уже подавленный фон не штрафуется. Гауссов пик, баланс0,5/0,5, признаки, история, lambda и ядро прежние. Не точная формула DiMP.',result))
+    # Record related completed readout changes together, never live percentages.
+    readout_milestones = [
+        ('z13_localization_labels_v1', 'z13_localization_labels_20261023',
+         'D_new_activity-D_old_activity', 'Метка точного центра',
+         'Вместо «точен и лучше Калмана»: только точность центра при обучении. Кандидаты, архитектура, 104 train, 3 сида и 1150 шагов прежние; оценка полезности прежняя.'),
+        ('z13_temporal_candidates_v1', 'z13_temporal_candidates_20261023',
+         'D_previous_activity-D_current_activity', 'Обучаемый контекст прошлого кадра',
+         'К прежнему выборщику: мягкое сопоставление с 3 предыдущими кандидатами и пустым контекстом. Контроль той же ёмкости читает текущий кадр; оба получают 1150 дополнительных шагов. Это не перенос идентичностей KeepTrack.'),
+    ]
+    milestone_sources = []
+    for cid, folder, contrast, title, method in readout_milestones:
+        path = ROOT/'runs'/folder/'report.json'
+        if cards.get(cid,{}).get('state') not in ('completed_positive','completed_negative','inconclusive') or not path.exists():
+            continue
+        measured=json.loads(path.read_text(encoding='utf-8'));comparison=measured['paired'][contrast]
+        number=lambda value:f'{100*value:+.2f}'.replace('.',',')
+        result='Основное сравнение D: '+number(comparison['mean_per_video'])+' п.п. ['+number(comparison['ci95'][0])+'; '+number(comparison['ci95'][1])+']. Полные критерии: '+('пройдены; нужен перенос.' if measured['primary_pass'] else 'не пройдены; версия не принята.')+' Train26; HOTA не измерялась.'
+        LANES[6][2].append((cid,title,method,result))
+        milestone_sources.append(path.relative_to(ROOT).as_posix())
     nodes, edges, sources, linked = [], [], {}, set()
     fonts = {}
     def font(size, bold=False):
@@ -177,6 +196,8 @@ def main():
         p=ROOT/path
         if not p.is_file(): raise ValueError(f'Missing source: {path}')
         sources[path]=sha(p)
+    for path in milestone_sources:
+        source(path)
     def node(id,x,y,w,h,title,body='',kind='base',ref='',card='',size=22):
         title_lines=wrap(title,w-40,25,True)
         body_lines=wrap(body,w-40,size)

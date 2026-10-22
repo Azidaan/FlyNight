@@ -190,7 +190,9 @@ def build_layout(node, edge, source, cards, lanes, base, confirmed):
          'tried','runs/z13_center_hota_20261021/eval/report.json','z13_center_hota_v1',size=23)
     edge(originals[7],'f_center_hota','variant',start='right',end='right',
          points=[(8930,y+325),(8930,hy+215)],label='II',label_at=(8930,hy+215))
-    node('footer',100,9200,8780,160,'ПОРЯДОК ЧТЕНИЯ: I — КРАСНЫЙ ПУТЬ 01–08 → II — ЛОКАЛЬНЫЕ ЗАМЕНЫ → III — ДОСТИГНУТЫЙ УЗЕЛ → IV — ПЛАНЫ',
+    footer_y=max(9200,my+640+180,hy+430+180,gy+1160+180)
+    height=max(height,footer_y+200)
+    node('footer',100,footer_y,8780,160,'ПОРЯДОК ЧТЕНИЯ: I — КРАСНЫЙ ПУТЬ 01–08 → II — ЛОКАЛЬНЫЕ ЗАМЕНЫ → III — ДОСТИГНУТЫЙ УЗЕЛ → IV — ПЛАНЫ',
          'Цвет блока — статус; римская метка стрелки — её уровень и смысл. Восемь частей пути пронумерованы арабскими числами. Альтернативы — отдельные ветви; петля состояния показана отдельно.',
          'note',size=25)
     detail=(positions[5][0]+20,positions[5][1]-50,positions[5][0]+2150,gy+1180)

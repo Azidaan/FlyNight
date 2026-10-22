@@ -15420,6 +15420,136 @@
      }
     }
    ]
+  },
+  {
+   "id": "z13_temporal_candidates_v1",
+   "title": "З13: обучаемый контекст кандидатов предыдущего кадра",
+   "area": "flyvis",
+   "state": "completed_negative",
+   "started": "2026-10-23",
+   "tags": [
+    "fly-problem-P8",
+    "KeepTrack",
+    "engineering-future"
+   ],
+   "question": "Помогает ли предыдущий набор кандидатов сверх той же модели с текущим контекстом?",
+   "hypothesis": "Обучаемое сопоставление активности и координат может уменьшить путаницу пиков; связь с прошлым обучается по исходу текущего кадра, не по выдуманным идентичностям.",
+   "expected": "36CPUмоделей: D/C/R1, текущий/предыдущий контекст, активность/карта,3сида;104train,26оценки,1150дополнительных шагов каждому. До5400с+20с завершения, всё дерево до07:40.",
+   "acceptance": [
+    {
+     "criterion": "Воспроизведение18старыхмоделей, причинность входов, одинаковый бюджет и окончание36моделей, хеши проверены.",
+     "met": true,
+     "evidence": "runs/z13_temporal_candidates_20261023/report.json; reproduction.json; controller_result.json; */*/seed*/training.json"
+    },
+    {
+     "criterion": "D предыдущий−D текущий контекст >=2п.п. и нижняя95%повидеоДИ>0.",
+     "met": false,
+     "evidence": "runs/z13_temporal_candidates_20261023/report.json; reproduction.json; controller_result.json; */*/seed*/training.json"
+    },
+    {
+     "criterion": "D предыдущий лучше прежней D, своего варианта без активности, R1 предыдущего и прежней карты D: все нижние95%повидеоДИ>0.",
+     "met": false,
+     "evidence": "runs/z13_temporal_candidates_20261023/report.json; reproduction.json; controller_result.json; */*/seed*/training.json"
+    }
+   ],
+   "summary": "Этот временной узел не прошёл все заранее заданные критерии. Исход не доказывает бесполезность памяти или невозможность идентификации по FlyVis; проверено одно мягкое сопоставление с предыдущим набором.",
+   "done": "2026-10-23",
+   "obtained": "runs/z13_temporal_candidates_20261023/report.json, paired: {\"D_previous_activity-D_current_activity\": {\"mean_per_video\": 0.0013584806582518265, \"ci95\": [-0.004489562526633464, 0.007520167941220574], \"better\": 4, \"n\": 26}, \"D_previous_activity-D_previous_geometry\": {\"mean_per_video\": -0.024927509984270287, \"ci95\": [-0.049996410930486464, 0.0007976641518283465], \"better\": 6, \"n\": 26}, \"D_previous_activity-D_old_activity\": {\"mean_per_video\": 0.020060375425648463, \"ci95\": [-0.007560134946934785, 0.06520046502613634], \"better\": 11, \"n\": 26}, \"D_previous_activity-D_old_geometry\": {\"mean_per_video\": -0.028512616810093674, \"ci95\": [-0.0506073399023653, -0.005291005406748041], \"better\": 5, \"n\": 26}, \"D_previous_activity-D_top1\": {\"mean_per_video\": 0.01928510312665173, \"ci95\": [-0.01109313144515806, 0.06660940556190925], \"better\": 11, \"n\": 26}, \"D_previous_activity-D_kalman\": {\"mean_per_video\": -0.022489416344790694, \"ci95\": [-0.04939585081606989, 0.002100556716758935], \"better\": 7, \"n\": 26}, \"D_previous_geometry-D_current_geometry\": {\"mean_per_video\": -0.0002148689299527286, \"ci95\": [-0.0006446067898581858, 0.0], \"better\": 0, \"n\": 26}, \"C_previous_activity-C_current_activity\": {\"mean_per_video\": -0.0013518347602217268, \"ci95\": [-0.005640205865704559, 0.0028550668312897383], \"better\": 4, \"n\": 26}, \"C_previous_activity-C_previous_geometry\": {\"mean_per_video\": 0.0013343387185502493, \"ci95\": [-0.03577888024841703, 0.05116623018697082], \"better\": 11, \"n\": 26}, \"C_previous_activity-C_old_activity\": {\"mean_per_video\": 0.005852755667958681, \"ci95\": [-0.0006886796628208876, 0.012657922729458494], \"better\": 10, \"n\": 26}, \"C_previous_activity-C_old_geometry\": {\"mean_per_video\": -0.010686982331701768, \"ci95\": [-0.03280848716315622, 0.01073186294161488], \"better\": 10, \"n\": 26}, \"C_previous_activity-C_top1\": {\"mean_per_video\": 0.028055602409863926, \"ci95\": [0.013978046037246243, 0.0421417489903056], \"better\": 17, \"n\": 26}, \"C_previous_activity-C_kalman\": {\"mean_per_video\": 0.01004906287140849, \"ci95\": [-0.016410243666581198, 0.035193106227848596], \"better\": 14, \"n\": 26}, \"C_previous_geometry-C_current_geometry\": {\"mean_per_video\": 0.0012820512820512818, \"ci95\": [0.0, 0.0038461538461538455], \"better\": 1, \"n\": 26}, \"R1_previous_activity-R1_current_activity\": {\"mean_per_video\": 0.0005443622732323514, \"ci95\": [-0.0023426535225945255, 0.0038854164102657], \"better\": 2, \"n\": 26}, \"R1_previous_activity-R1_previous_geometry\": {\"mean_per_video\": -0.003880966787554117, \"ci95\": [-0.015548532738197616, 0.007228458979527315], \"better\": 8, \"n\": 26}, \"R1_previous_activity-R1_old_activity\": {\"mean_per_video\": 0.01583347431803149, \"ci95\": [0.007633455837558685, 0.024058183598685737], \"better\": 16, \"n\": 26}, \"R1_previous_activity-R1_old_geometry\": {\"mean_per_video\": 0.00524314215055008, \"ci95\": [-0.0013209050563897085, 0.012988861370231619], \"better\": 7, \"n\": 26}, \"R1_previous_activity-R1_top1\": {\"mean_per_video\": 0.07743715347468008, \"ci95\": [0.04760183923429003, 0.11905758973200474], \"better\": 23, \"n\": 26}, \"R1_previous_activity-R1_kalman\": {\"mean_per_video\": 0.0011549948744449619, \"ci95\": [-0.007921318739974493, 0.009596809642644099], \"better\": 9, \"n\": 26}, \"R1_previous_geometry-R1_current_geometry\": {\"mean_per_video\": 0.0015813968197818892, \"ci95\": [-0.003884195172590383, 0.007665375685156569], \"better\": 4, \"n\": 26}, \"D_previous_activity-R1_previous_activity\": {\"mean_per_video\": 0.10802994622317269, \"ci95\": [0.06239903538111733, 0.16250191117322052], \"better\": 23, \"n\": 26}, \"C_previous_activity-R1_previous_activity\": {\"mean_per_video\": 0.11977252351200589, \"ci95\": [0.07762080948033702, 0.16677540978802496], \"better\": 22, \"n\": 26}, \"D_previous_activity-C_previous_activity\": {\"mean_per_video\": -0.011742577288833213, \"ci95\": [-0.042301844243579585, 0.018498253578336503], \"better\": 10, \"n\": 26}}. Все36 моделей и18 исходных контролей проверены; одинаковое число параметров,1150дополнительных обновлений и145950предъявлений; training.json каждой модели и reproduction.json.",
+   "interpretation": "Этот временной узел не прошёл все заранее заданные критерии. Исход не доказывает бесполезность памяти или невозможность идентификации по FlyVis; проверено одно мягкое сопоставление с предыдущим набором.",
+   "decision": "Эту версию не переносить в стенд. Следующий узел выбирается по полным контрастам, без перебора порога или сида на train26; прежний вариант сохраняется.",
+   "cannot_claim": "Не полная KeepTrack, не перенос идентичностей и не калиброванный отказ. Train26 многократно использован; HOTA не измерена. Модель получает один предыдущий набор, а не всю историю.",
+   "metrics": [
+    {
+     "key": "useful_center_fraction",
+     "value": 0.2741709134299789,
+     "baseline": 0.27281243277172706,
+     "subset": "train26 D previous activity",
+     "source": "runs/z13_temporal_candidates_20261023/report.json",
+     "locator": "summary.D_previous_activity.useful_mean_video"
+    }
+   ],
+   "commits": [],
+   "files": [
+    "tracking/z13_temporal_candidates.py",
+    "tests/test_z13_temporal_candidates.py",
+    "scripts/z13_temporal_candidates_20261023.py"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_candidates_20261023/protocol.json",
+     "claim": "Критерии и контроль до исходов"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_candidates_20261023/pair_annotation_audit.json",
+     "claim": "Проверка доступности размеченных пар"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_candidates_20261023/report.json",
+     "claim": "Все парные исходы"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_candidates_20261023/reproduction.json",
+     "claim": "Исходные модели и нулевая добавка совпадают"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_candidates_20261023/controller_result.json",
+     "claim": "Полное завершение своего дерева"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-23",
+     "commit": "4020d7ec322ffe1143ecc4b85e69d453725f3f05",
+     "field": "summary",
+     "old": "Постановка до обучения: один новый временной узел, сопоставимый контроль дополнительной ёмкости и обучения.",
+     "reason": "Полный проверенный исход; постановка сохранена."
+    }
+   ],
+   "confirmed_results": [
+    {
+     "id": "z13_temporal_candidates_v1_D_previous_activity_vs_R1_previous_activity",
+     "title": "Временной контекст: D_previous_activity-R1_previous_activity",
+     "category": "representation",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "comparison": "D_previous_activity-R1_previous_activity",
+     "subset": "26train, известные присутствующие цели",
+     "conditions": "Те же104train,3сида,1150дополнительных шагов, прежние метки; контексты одной ёмкости. Бутстрэп5000 по видео,сид1.",
+     "limitations": "Частный эффект не отменяет остальные критерии; повторно использованные26train, нет HOTA, идентичностей и калиброванного отказа.",
+     "evidence": {
+      "source": "runs/z13_temporal_candidates_20261023/report.json",
+      "sha256": "f365a098df32ab37a86928a2af448245c343c577d913f90f51fad3f1ddf26f4e",
+      "locator": [
+       "paired",
+       "D_previous_activity-R1_previous_activity"
+      ]
+     }
+    },
+    {
+     "id": "z13_temporal_candidates_v1_C_previous_activity_vs_R1_previous_activity",
+     "title": "Временной контекст: C_previous_activity-R1_previous_activity",
+     "category": "representation",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "comparison": "C_previous_activity-R1_previous_activity",
+     "subset": "26train, известные присутствующие цели",
+     "conditions": "Те же104train,3сида,1150дополнительных шагов, прежние метки; контексты одной ёмкости. Бутстрэп5000 по видео,сид1.",
+     "limitations": "Частный эффект не отменяет остальные критерии; повторно использованные26train, нет HOTA, идентичностей и калиброванного отказа.",
+     "evidence": {
+      "source": "runs/z13_temporal_candidates_20261023/report.json",
+      "sha256": "f365a098df32ab37a86928a2af448245c343c577d913f90f51fad3f1ddf26f4e",
+      "locator": [
+       "paired",
+       "C_previous_activity-R1_previous_activity"
+      ]
+     }
+    }
+   ]
   }
  ],
  "manual_events": [
