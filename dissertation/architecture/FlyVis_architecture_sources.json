@@ -1,5 +1,5 @@
 {
-  "date": "21.10.2026",
+  "date": "22.10.2026",
   "scope": "One sheet; architectural replacements, not all tracker experiments",
   "source_sha256": {
     "scripts/z13_score_swap.py": "623e8268517f91eb49c325389c9a2f2e072fefac986371d5b432596201bac20b",
@@ -22,8 +22,9 @@
     "runs/z13_motion_window_20261021/report.json": "75b4c25f3b6350dd02785b671e7c46e43971f8417020908df2d68c4c5a6f1fe1",
     "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df",
     "runs/z13_center_hota_20261021/protocol.json": "b733454d75a2b65385ab71d48bed7926f47d1c00d63ade244cb30ae3ec0683e6",
-    "scripts/build_flyvis_architecture.py": "d47d9ad087a864d588311538912c345ad4a04144428f792ab8ebd19e71da6a87",
-    "scripts/flyvis_architecture_layout.py": "bfff4e4eaeb6c728ed76d17d08c3d01071a06afef84d53bf400dc351916285e1",
+    "runs/z13_center_hota_20261021/eval/report.json": "ad13cd78cf03b0dca94a2da08ecd76ab2fb745c53110d6810195e94d7bc8e8c3",
+    "scripts/build_flyvis_architecture.py": "8ae3f1d9099e5e4fc538c81635b249ceee360248e1f5a213910b368b79499356",
+    "scripts/flyvis_architecture_layout.py": "8c057c87b7d2871cc87b87e3dacf20ca05fcd34068b67aa682c35715d45faa00",
     "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
     "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
     "AGENTS.md": "6ab80b02dd22146ddbcde8864832af0f9c819dfa9d69ee2e2be918e450bc4451",
@@ -37,7 +38,7 @@
     "tracking/z13_response_utility.py": "211c86dc916dc56451662dba572d362d884def647551b6dcefb461dc5c231445",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "bb696c08fddf480ba49e809e7d60510c458ef0717de84b61151d1a8261f7e45c"
+    "experiments/project_history.json": "5a82ab200f1b3b4a0559b9b1e0c7e6abe04b4cb76bdc97194c9c431384e9a6be"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -1172,7 +1173,7 @@
     "z13_center_hota_v1": {
       "source": "experiments/project_history.json",
       "locator": "experiments[id=z13_center_hota_v1]",
-      "state": "ready",
+      "state": "inconclusive",
       "evidence": [
         {
           "kind": "file",
@@ -1183,6 +1184,126 @@
           "kind": "file",
           "ref": "runs/z13_target_center_dev_20261018/report.json",
           "claim": "Сохранённая ранее положительная функциональная версия"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/probe_launch.json",
+          "claim": "Фактический запуск и неизменные источники"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/service_contract.json",
+          "claim": "Фактический запуск и неизменные источники"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/completion_contract.json",
+          "claim": "Отдельное завершение только неиспользованного вычислительного бюджета пробы"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/recovery1_contract.json",
+          "claim": "Отдельное проверенное служебное восстановление; прежняя ошибка сохранена"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/recovery1_reproduction.json",
+          "claim": "Отдельное проверенное служебное восстановление; прежняя ошибка сохранена"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/probe_completion_controller_result.json",
+          "claim": "Отдельное проверенное служебное восстановление; прежняя ошибка сохранена"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/technical.json",
+          "claim": "Технический допуск и полный запуск"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/full_launch.json",
+          "claim": "Технический допуск и полный запуск"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/execution_identity.json",
+          "claim": "Технический допуск и полный запуск"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/full_controller_result.json",
+          "claim": "Полнота/остаток и конец собственного дерева"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/jobs.json",
+          "claim": "Полнота/остаток и конец собственного дерева"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/execution_identity.json",
+          "claim": "Полнота/остаток и конец собственного дерева"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/completion_contract.json",
+          "claim": "Отдельное завершение только неиспользованного вычислительного бюджета пробы"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/recovery1_contract.json",
+          "claim": "Отдельное проверенное служебное восстановление; прежняя ошибка сохранена"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/recovery1_reproduction.json",
+          "claim": "Отдельное проверенное служебное восстановление; прежняя ошибка сохранена"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/probe_completion_controller_result.json",
+          "claim": "Отдельное проверенное служебное восстановление; прежняя ошибка сохранена"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/technical.json",
+          "claim": "Технический допуск и полный запуск"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/resume1_launch.json",
+          "claim": "Технический допуск и полный запуск"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/execution_identity.json",
+          "claim": "Технический допуск и полный запуск"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/resume1_controller_result.json",
+          "claim": "Полнота/остаток и конец собственного дерева"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/jobs.json",
+          "claim": "Полнота/остаток и конец собственного дерева"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/execution_identity.json",
+          "claim": "Полнота/остаток и конец собственного дерева"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/result_review_20261022.json",
+          "claim": "Проверка всех сохранённых вариантов,14парных ДИ,неизменных источников и конца дерева"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_center_hota_20261021/mechanism_review_20261022.json",
+          "claim": "Измеренная частота вмешательств и отделение механизма кода от причинной гипотезы"
         }
       ]
     },
@@ -3550,8 +3671,9 @@
         "ГРАНИЦА ДОСТИГНУТОГО РЕЗУЛЬТАТА"
       ],
       "body": [
-        "Зелёные узлы III — подтверждённые сравнения считывания. У карты104 показан частный эффект при непройденном общем критерии. Превосходство D над C и польза",
-        "новых узлов по HOTA пока не установлены. Архитектурные ветви нельзя складывать в одну модель без отдельной проверки."
+        "Зелёные узлы III — подтверждённые сравнения считывания. У карты104 показан частный эффект при непройденном общем критерии. Полная проверка",
+        "центрированной D: +0,0036 HOTA к стенду при пороге +0,10; преимущество над прежней D и C не подтверждено. Политика не принята; ветви нельзя складывать без",
+        "отдельной проверки."
       ],
       "footer": [
         "runs/z13_target_center_dev_20261018/report.json"
@@ -3568,20 +3690,22 @@
       "w": 2000,
       "h": 430,
       "title": [
-        "IV ТЕКУЩАЯ ПРОВЕРКА СТЕНДА: ЦЕНТРИРОВАННАЯ РЕГРЕССИЯ"
+        "II ПОЛНАЯ ПРОВЕРКА HOTA: ПОЛИТИКА НЕ ПРИНЯТА"
       ],
       "body": [
-        "Применяется ранее подтверждённый зелёный узел центрированной регрессии. Кандидаты104, парная потеря и окно в него не входят.",
+        "Ранее подтверждённый центрированный считыватель; без кандидатов104, парной потери и окна. C/D/R1, те же4 наблюдения и состояние; фиксированный train-порог верхнего1%.",
+        "Меняется только центр потерянного трека.",
         "",
-        "C/D/R1: те же4 наблюдения и состояние; одна политика верхнего1% исходных баллов. Меняется только центр потерянного трека; YOLO26, ByteTrack и MASA прежние.",
+        "35dev: стенд61,6548; новаяD61,6584; прежняяD61,6727; C61,6542; R1 61,4608. D−стенд +0,0036 пункта вместо требуемых+0,10.",
         "",
-        "Сейчас техническое воспроизведение и замер. HOTA ещё не измерена; по утреннему сроку сохраняются законченные видео и остаток очереди."
+        "D−R1 по видео +0,1642 [0,0505;0,3345], но R1 ухудшает стенд. Преимущество D над прежнейD и C не подтверждено. Общий исход неопределённый; dev использован раньше. Это не",
+        "отказ от центрированного узла вообще."
       ],
       "footer": [
-        "runs/z13_center_hota_20261021/protocol.json"
+        "runs/z13_center_hota_20261021/eval/report.json"
       ],
-      "kind": "future",
-      "ref": "runs/z13_center_hota_20261021/protocol.json",
+      "kind": "tried",
+      "ref": "runs/z13_center_hota_20261021/eval/report.json",
       "card": "z13_center_hota_v1",
       "size": 23
     },
@@ -6263,7 +6387,7 @@
     {
       "a": "original_7",
       "b": "f_center_hota",
-      "kind": "future",
+      "kind": "variant",
       "points": [
         [
           8930,
@@ -6276,7 +6400,7 @@
       ],
       "start": "right",
       "end": "right",
-      "label": "IV",
+      "label": "II",
       "label_at": [
         8930,
         7415
@@ -6299,11 +6423,11 @@
           7415.0
         ]
       ],
-      "colour": "#416FBA",
-      "dashed": true,
+      "colour": "#B97D00",
+      "dashed": false,
       "width": 5,
-      "level": "IV",
-      "arrow": 24
+      "level": "II",
+      "arrow": 23
     }
   ]
 }

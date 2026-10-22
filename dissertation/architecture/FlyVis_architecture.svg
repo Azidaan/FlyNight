@@ -146,8 +146,8 @@
 <polygon points="8780,3545.0 8801.061981485369,3533.4937870734993 8801.061981485369,3556.5062129265007" fill="#416FBA"/>
 <polyline points="5980,4935.0 6640,4935 6640,8590 6580,8590.0" fill="none" stroke="#117A46" stroke-width="8" stroke-linejoin="round"/>
 <polygon points="6580,8590.0 6606.327476856711,8575.617233841875 6606.327476856711,8604.382766158125" fill="#117A46"/>
-<polyline points="8780,4555.0 8930,4555 8930,7415 8780,7415.0" fill="none" stroke="#416FBA" stroke-width="5" stroke-linejoin="round" stroke-dasharray="12 8"/>
-<polygon points="8780,7415.0 8801.061981485369,7403.493787073499 8801.061981485369,7426.506212926501" fill="#416FBA"/>
+<polyline points="8780,4555.0 8930,4555 8930,7415 8780,7415.0" fill="none" stroke="#B97D00" stroke-width="5" stroke-linejoin="round"/>
+<polygon points="8780,7415.0 8800.184398923479,7403.973212612103 8800.184398923479,7426.026787387897" fill="#B97D00"/>
 <g id="title"><title></title><rect x="100" y="40" width="8780" height="150" rx="14" fill="#FFFFFF" stroke="#CCD5DF" stroke-width="2"/>
 <text x="120" y="87" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">FlyVis — от исходной архитектуры к проверенным изменениям</text>
 <text x="120" y="134" font-family="Segoe UI,Arial,sans-serif" font-size="28" font-weight="400" fill="#182B40">Один лист. Сначала красный путь I по номерам 01–08; затем локальные жёлтые ветви II. Зелёный III — достигнутое улучшение; синий пунктир IV — план.</text>
@@ -775,18 +775,21 @@
 </g>
 <g id="g_scope"><title>runs/z13_target_center_dev_20261018/report.json</title><rect x="6780" y="6580" width="2000" height="420" rx="14" fill="#FFFFFF" stroke="#CCD5DF" stroke-width="2"/>
 <text x="6800" y="6627" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">ГРАНИЦА ДОСТИГНУТОГО РЕЗУЛЬТАТА</text>
-<text x="6800" y="6671" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="400" fill="#182B40">Зелёные узлы III — подтверждённые сравнения считывания. У карты104 показан частный эффект при непройденном общем критерии. Превосходство D над C и польза</text>
-<text x="6800" y="6703" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="400" fill="#182B40">новых узлов по HOTA пока не установлены. Архитектурные ветви нельзя складывать в одну модель без отдельной проверки.</text>
-<text x="6800" y="6737" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">runs/z13_target_center_dev_20261018/report.json</text>
+<text x="6800" y="6671" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="400" fill="#182B40">Зелёные узлы III — подтверждённые сравнения считывания. У карты104 показан частный эффект при непройденном общем критерии. Полная проверка</text>
+<text x="6800" y="6703" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="400" fill="#182B40">центрированной D: +0,0036 HOTA к стенду при пороге +0,10; преимущество над прежней D и C не подтверждено. Политика не принята; ветви нельзя складывать без</text>
+<text x="6800" y="6735" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="400" fill="#182B40">отдельной проверки.</text>
+<text x="6800" y="6769" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">runs/z13_target_center_dev_20261018/report.json</text>
 </g>
-<g id="f_center_hota"><title>runs/z13_center_hota_20261021/protocol.json</title><rect x="6780" y="7200" width="2000" height="430" rx="14" fill="#E8F0FF" stroke="#416FBA" stroke-width="2"/>
-<text x="6800" y="7247" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">IV ТЕКУЩАЯ ПРОВЕРКА СТЕНДА: ЦЕНТРИРОВАННАЯ РЕГРЕССИЯ</text>
-<text x="6800" y="7289" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">Применяется ранее подтверждённый зелёный узел центрированной регрессии. Кандидаты104, парная потеря и окно в него не входят.</text>
-<text x="6800" y="7319" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40"></text>
-<text x="6800" y="7349" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">C/D/R1: те же4 наблюдения и состояние; одна политика верхнего1% исходных баллов. Меняется только центр потерянного трека; YOLO26, ByteTrack и MASA прежние.</text>
-<text x="6800" y="7379" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40"></text>
-<text x="6800" y="7409" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">Сейчас техническое воспроизведение и замер. HOTA ещё не измерена; по утреннему сроку сохраняются законченные видео и остаток очереди.</text>
-<text x="6800" y="7443" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">runs/z13_center_hota_20261021/protocol.json</text>
+<g id="f_center_hota"><title>runs/z13_center_hota_20261021/eval/report.json</title><rect x="6780" y="7200" width="2000" height="430" rx="14" fill="#FFF1BA" stroke="#BF8A18" stroke-width="2"/>
+<text x="6800" y="7247" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">II ПОЛНАЯ ПРОВЕРКА HOTA: ПОЛИТИКА НЕ ПРИНЯТА</text>
+<text x="6800" y="7289" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">Ранее подтверждённый центрированный считыватель; без кандидатов104, парной потери и окна. C/D/R1, те же4 наблюдения и состояние; фиксированный train-порог верхнего1%.</text>
+<text x="6800" y="7319" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">Меняется только центр потерянного трека.</text>
+<text x="6800" y="7349" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40"></text>
+<text x="6800" y="7379" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">35dev: стенд61,6548; новаяD61,6584; прежняяD61,6727; C61,6542; R1 61,4608. D−стенд +0,0036 пункта вместо требуемых+0,10.</text>
+<text x="6800" y="7409" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40"></text>
+<text x="6800" y="7439" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">D−R1 по видео +0,1642 [0,0505;0,3345], но R1 ухудшает стенд. Преимущество D над прежнейD и C не подтверждено. Общий исход неопределённый; dev использован раньше. Это не</text>
+<text x="6800" y="7469" font-family="Segoe UI,Arial,sans-serif" font-size="23" font-weight="400" fill="#182B40">отказ от центрированного узла вообще.</text>
+<text x="6800" y="7503" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="400" fill="#52647A">runs/z13_center_hota_20261021/eval/report.json</text>
 </g>
 <g id="footer"><title></title><rect x="100" y="9200" width="8780" height="160" rx="14" fill="#FFFFFF" stroke="#CCD5DF" stroke-width="2"/>
 <text x="120" y="9247" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#182B40">ПОРЯДОК ЧТЕНИЯ: I — КРАСНЫЙ ПУТЬ 01–08 → II — ЛОКАЛЬНЫЕ ЗАМЕНЫ → III — ДОСТИГНУТЫЙ УЗЕЛ → IV — ПЛАНЫ</text>
@@ -865,5 +868,5 @@
 <rect x="3920.0" y="7929" width="50.0" height="42" rx="10" fill="white" stroke="#416FBA" stroke-width="2"/><text x="3934.0" y="7956" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#416FBA">IV</text>
 <rect x="8815.0" y="3524" width="50.0" height="42" rx="10" fill="white" stroke="#416FBA" stroke-width="2"/><text x="8829.0" y="3551" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#416FBA">IV</text>
 <rect x="6615.5" y="8569" width="49.0" height="42" rx="10" fill="white" stroke="#117A46" stroke-width="2"/><text x="6629.5" y="8596" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#117A46">III</text>
-<rect x="8905.0" y="7394" width="50.0" height="42" rx="10" fill="white" stroke="#416FBA" stroke-width="2"/><text x="8919.0" y="7421" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#416FBA">IV</text>
+<rect x="8909.0" y="7394" width="42.0" height="42" rx="10" fill="white" stroke="#B97D00" stroke-width="2"/><text x="8923.0" y="7421" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#B97D00">II</text>
 </svg>

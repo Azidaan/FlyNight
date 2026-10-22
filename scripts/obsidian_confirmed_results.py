@@ -61,7 +61,8 @@ def collect(root, catalog, glossary):
 
 
 def number(value, signed=False):
-    return format(value,'+.2f' if signed else '.2f').replace('.',',')
+    precision = 5 if 0 < abs(value) < .01 else 2
+    return format(value, ('+' if signed else '')+'.'+str(precision)+'f').replace('.',',')
 
 
 def build(V, root, catalog, glossary, card_path, ref, fm, safe):

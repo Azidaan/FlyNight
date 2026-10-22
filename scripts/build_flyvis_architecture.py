@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 OUT = ROOT / 'dissertation/architecture'
 STEM = 'FlyVis_architecture'
-DATE = '21.10.2026'
+DATE = '22.10.2026'
 FONT = 'C:/Windows/Fonts/segoeui.ttf'
 BOLD = 'C:/Windows/Fonts/segoeuib.ttf'
 PALETTE = {'base': ('#FAD8DA','#BC252D'), 'tried': ('#FFF1BA','#BF8A18'),
@@ -210,6 +210,7 @@ def main():
     source('runs/z13_motion_window_20261021/report.json')
     source('tracking/z13_ridge_localizer.py')
     source('runs/z13_center_hota_20261021/protocol.json')
+    source('runs/z13_center_hota_20261021/eval/report.json')
     source('scripts/build_flyvis_architecture.py')
     source('scripts/flyvis_architecture_layout.py')
     W,H,DETAIL=build_layout(node,edge,source,cards,LANES,BASE,confirmed)

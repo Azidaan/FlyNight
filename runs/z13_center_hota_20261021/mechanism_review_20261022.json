@@ -1,0 +1,45 @@
+{
+ "at": "2026-10-22T07:14:25.888963+03:00",
+ "report_sha256": "ad13cd78cf03b0dca94a2da08ecd76ab2fb745c53110d6810195e94d7bc8e8c3",
+ "audit_sha256": "26122587874e999639953fb4e33882ecab6bafb65d5677698158d6492607eec4",
+ "events": {
+  "C": {
+   "steps": 209453,
+   "interventions": 1171,
+   "refusals": 208282,
+   "births": 14181,
+   "nonfinite_refusals": 0
+  },
+  "D": {
+   "steps": 209062,
+   "interventions": 1162,
+   "refusals": 207900,
+   "births": 14179,
+   "nonfinite_refusals": 0
+  },
+  "R1": {
+   "steps": 212540,
+   "interventions": 1447,
+   "refusals": 211093,
+   "births": 14038,
+   "nonfinite_refusals": 0
+  }
+ },
+ "pooled_R1_minus_stand": {
+  "HOTA": -0.19401545371740525,
+  "AssA": -0.39068515395717185,
+  "DetA": -0.006117929230654795,
+  "IDSw": 30.0
+ },
+ "code_sha256": {
+  "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df",
+  "scripts/build_fly_signatures.py": "6f9752a933c7c2a56e638bf074ec9844ae1ef1b1232c71dead6282a09f4d26b9"
+ },
+ "confirmed": "Finite values; confidence is normalized map peak, not calibrated utility; correction changes lost-track center before association; R1 association metrics worsen.",
+ "unproven": [
+  "Wrong confident peak causes a specific mistaken association",
+  "Greater runtime intervention frequency accounts for part of the R1 loss",
+  "Changed crops create accumulated feedback error"
+ ],
+ "next_evidence": "First diverging association in a worsened video, with center before/after, correct and assigned detections, and subsequent identity. No new training or dev threshold selection."
+}
