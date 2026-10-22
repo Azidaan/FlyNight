@@ -75,7 +75,9 @@ field_categories:
     detail_level: detailed
     required: true
   - name: research_questions_addressed
-    description: Which of Q1-Q5 this source informs and how (direct evidence, design
+    description: Which of the four research questions 5.1–5.4 (right object and refusal;
+      target model and memory; core training through the applied readout; benefit
+      for track association) this source informs and how (direct evidence, design
       analogy, or caution)
     detail_level: moderate
     required: true
@@ -163,4 +165,18 @@ field_categories:
       MOSE-PTS) and how was it selected
     detail_level: brief
     required: true
+  - name: temporal_information_availability
+    description: Does the decision use only current and past frames, or does it need
+      future frames (e.g., sequence/tree selection over later frames)? With what latency
+      is the answer available? Benefit after seeing the continuation is not the benefit
+      of a correction our tracker must apply now
+    detail_level: moderate
+    required: true
+  - name: depth_level
+    description: Full analysis or short screening (as set in the item); for screening,
+      why it lost or should move to full analysis
+    detail_level: brief
+    required: true
 uncertain: []
+uncertain_note: 'Заполняется в глубоком разборе: каждый JSON содержит свой массив
+  uncertain; общие непроверенные утверждения плана — outline.yaml, unverified_claims.'
