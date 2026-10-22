@@ -35,12 +35,13 @@
     "tracking/flyvis_activity.py": "cbed742a83d365275f59818fc7eee0912ba46e726e4c4c40f242f907dac29d3d",
     "tracking/z13_spatial.py": "df9b1b275892fc802509baf1e74797c63afb457e22852a6e2e01c4368669f533",
     "tracking/z13_target_center.py": "018153b2b3c004d3f216ff2488b3df18af8a21d5c27087ad31d68e3d4a67811b",
+    "runs/z13_balanced_ridge_20261022/report.json": "c4b2cb1adfd4a83fd5703cf17d6b14e35b2e0f8a5066635605880d4b57ee4088",
     "tracking/z13_response_utility.py": "211c86dc916dc56451662dba572d362d884def647551b6dcefb461dc5c231445",
     "runs/z13_boundary_readout_20261022/report.json": "7504b7a500420baef5fcaef6daf6cab59a51fd26054f59aaf4af409f29e5fabd",
     "runs/z13_absolute_confidence_20261022/report.json": "93d454208618ce85f9d7e618bd98d0c884dc4729bcfe7a55f2804e3765aa34db",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "b8689031ca6e72060d2c67cda08b2746516ef6c2500e04866f97ecf2637df337"
+    "experiments/project_history.json": "c077c35599262c74249acb52b74232f51f664b077300d993bf7bc959b89585e0"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -1009,6 +1010,33 @@
           "kind": "json",
           "ref": "runs/z13_aligned_core_20261018/report.json",
           "claim": "Результаты фиксированных ступеней"
+        }
+      ]
+    },
+    "z13_balanced_ridge_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_balanced_ridge_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_balanced_ridge_20261022/protocol.json",
+          "claim": "Одна замена функции ошибки с критериями до исхода"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_balanced_ridge_20261022/recovery_cpu/protocol.json",
+          "claim": "Служебное CPU-восстановление в исходном бюджете"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_balanced_ridge_20261022/recovery_cpu/controller_result.json",
+          "claim": "Фактическое окончание своего дерева"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_balanced_ridge_20261022/report.json",
+          "claim": "Полный первичный исход всех3вариантов"
         }
       ]
     },
@@ -3065,6 +3093,30 @@
       "size": 22
     },
     {
+      "id": "v_z13_balanced_ridge_v1",
+      "x": 3510,
+      "y": 6740,
+      "w": 870,
+      "h": 400,
+      "title": [
+        "II.10 Равный вес цели и фона"
+      ],
+      "body": [
+        "Вместо одинакового веса721колонки: суммарно0,5для наблюдаемой рамки и0,5для",
+        "фона. Та же гауссова цель,68признаков,lambda,история и ядро. Это один компонент, не",
+        "вся DiMP.",
+        "НЕОПРЕДЕЛЁННО: D против прежней модели: +3,50 п.п. [+0,76; +7,85]. Полные критерии:",
+        "не пройдены; эта версия не принята. HOTA не измерялась."
+      ],
+      "footer": [
+        "z13_balanced_ridge_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_balanced_ridge_v1",
+      "card": "z13_balanced_ridge_v1",
+      "size": 20
+    },
+    {
       "id": "original_6",
       "x": 4580,
       "y": 4120,
@@ -3542,7 +3594,7 @@
     {
       "id": "g_center",
       "x": 2380,
-      "y": 7200,
+      "y": 7320,
       "w": 2000,
       "h": 640,
       "title": [
@@ -3571,7 +3623,7 @@
     {
       "id": "f_fly_future_stmtrack_memory_v1",
       "x": 2380,
-      "y": 8000,
+      "y": 8120,
       "w": 870,
       "h": 360,
       "title": [
@@ -3593,7 +3645,7 @@
     {
       "id": "f_fly_future_keeptrack_candidates_v1",
       "x": 3510,
-      "y": 8000,
+      "y": 8120,
       "w": 870,
       "h": 360,
       "title": [
@@ -5293,6 +5345,43 @@
       "arrow": 23
     },
     {
+      "a": "hub_5",
+      "b": "v_z13_balanced_ridge_v1",
+      "kind": "variant",
+      "points": [
+        [
+          3380,
+          6940.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "left",
+      "label": "II",
+      "label_at": [
+        3445,
+        6940.0
+      ],
+      "render_points": [
+        [
+          3380.0,
+          4890
+        ],
+        [
+          3380,
+          6940.0
+        ],
+        [
+          3510,
+          6940.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
       "a": "original_6",
       "b": "hub_6",
       "kind": "variant",
@@ -6262,11 +6351,11 @@
         ],
         [
           3320,
-          7130
+          7250
         ],
         [
           3380,
-          7130
+          7250
         ]
       ],
       "start": "right",
@@ -6274,7 +6363,7 @@
       "label": "III  МАСКА → ПИК ЦЕНТРА",
       "label_at": [
         3380,
-        7120
+        7240
       ],
       "render_points": [
         [
@@ -6287,15 +6376,15 @@
         ],
         [
           3320,
-          7130
+          7250
         ],
         [
           3380,
-          7130
+          7250
         ],
         [
           3380.0,
-          7200
+          7320
         ]
       ],
       "colour": "#117A46",
@@ -6311,11 +6400,11 @@
       "points": [
         [
           3380,
-          7920
+          8040
         ],
         [
           2815,
-          7920
+          8040
         ]
       ],
       "start": "bottom",
@@ -6323,24 +6412,24 @@
       "label": "IV",
       "label_at": [
         2815,
-        7950
+        8070
       ],
       "render_points": [
         [
           3380.0,
-          7840
+          7960
         ],
         [
           3380,
-          7920
+          8040
         ],
         [
           2815,
-          7920
+          8040
         ],
         [
           2815.0,
-          8000
+          8120
         ]
       ],
       "colour": "#416FBA",
@@ -6356,11 +6445,11 @@
       "points": [
         [
           3380,
-          7920
+          8040
         ],
         [
           3945,
-          7920
+          8040
         ]
       ],
       "start": "bottom",
@@ -6368,24 +6457,24 @@
       "label": "IV",
       "label_at": [
         3945,
-        7950
+        8070
       ],
       "render_points": [
         [
           3380.0,
-          7840
+          7960
         ],
         [
           3380,
-          7920
+          8040
         ],
         [
           3945,
-          7920
+          8040
         ],
         [
           3945.0,
-          8000
+          8120
         ]
       ],
       "colour": "#416FBA",

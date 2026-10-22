@@ -1,0 +1,77 @@
+---
+aliases:
+- 'З13: равный суммарный вес цели и фона при подгонке модели'
+tags:
+- эксперимент
+- исход/inconclusive
+- направление/flyvis
+- метка/fly-problem-P8
+- муха
+исход: неопределённый
+направление: FlyVis
+начат: '2026-10-22'
+---
+
+# 🟡 З13: равный суммарный вес цели и фона при подгонке модели
+
+↑ [[01 Муха/Темы/Прочее о мухе|Прочее о мухе]] · **Исход:** неопределённый · `z13_balanced_ridge_v1`
+
+Основные критерии не выполнены; фиксированная балансировка не принята. Не означает бесполезность иных функций ошибки или обучения FlyVis.
+
+## Вопрос
+Улучшит ли фиксированная балансировка функции ошибки локализацию D и выбор её полезных ответов?
+
+## Гипотеза
+Равный суммарный вес наблюдаемой рамки и фона может изменить различающую модель; причинная роль дисбаланса пока не установлена.
+
+## Ожидалось (до прогона)
+Одна функция ошибки, прежняя гауссова цель,68признаков и lambda; D/C/R1,полные26train,проверенное воспроизведение и парные интервалы. Сначала стоимость/воспроизведение8эпизодов, без вывода об эффективности по пробе.
+
+## Что сделано
+2026-10-22
+
+## Получено
+runs/z13_balanced_ridge_20261022/report.json → paired={'D_balanced-D_uniform': {'mean_per_video': 0.0349687405407121, 'ci95': [0.007558256350072029, 0.07849709498722245], 'better': 14, 'n': 26}, 'C_balanced-C_uniform': {'mean_per_video': -0.0151837899369043, 'ci95': [-0.06195407428150044, 0.015278252361184057], 'better': 13, 'n': 26}, 'R1_balanced-R1_uniform': {'mean_per_video': -0.002459622159181163, 'ci95': [-0.011468613295639713, 0.005840785435279629], 'better': 6, 'n': 26}, 'D_balanced-R1_balanced': {'mean_per_video': 0.20361035927109425, 'ci95': [0.1438108962052071, 0.2889441894051232], 'better': 25, 'n': 26}, 'C_balanced-R1_balanced': {'mean_per_video': 0.1564299067990989, 'ci95': [0.12043468170831406, 0.19740642234344638], 'better': 25, 'n': 26}, 'D_balanced-C_balanced': {'mean_per_video': 0.04718045247199538, 'ci95': [0.008856200814926909, 0.09775305722986125], 'better': 18, 'n': 26}}; selected_paired={'D_balanced-D_uniform': {'mean_per_video': 0.00041915364496009663, 'ci95': [-0.0018610421836228288, 0.0031185031185031187], 'better': 1, 'n': 26}, 'C_balanced-C_uniform': {'mean_per_video': 0.0002741069882855329, 'ci95': [-0.0018610421836228288, 0.0026833631484794273], 'better': 1, 'n': 26}, 'R1_balanced-R1_uniform': {'mean_per_video': 0.00021486892995272884, 'ci95': [0.0, 0.0006446067898581865], 'better': 1, 'n': 26}}; summary={'D_uniform': {'rows': 8326, 'useful_mean_video': 0.25488581030332724, 'coverage': {'0.01': {'selected': 84, 'known': 64, 'unknown': 20, 'useful': 2, 'harmful': 62, 'useful_share_known': 0.03125}, '0.02': {'selected': 167, 'known': 132, 'unknown': 35, 'useful': 4, 'harmful': 128, 'useful_share_known': 0.030303030303030304}, '0.05': {'selected': 417, 'known': 338, 'unknown': 79, 'useful': 9, 'harmful': 329, 'useful_share_known': 0.026627218934911243}}, 'selected': 84, 'known': 64, 'unknown': 20, 'selected_useful': 2, 'selected_absent': 62}, 'D_balanced': {'rows': 8326, 'useful_mean_video': 0.28985455084403927, 'coverage': {'0.01': {'selected': 84, 'known': 61, 'unknown': 23, 'useful': 2, 'harmful': 59, 'useful_share_known': 0.03278688524590164}, '0.02': {'selected': 167, 'known': 131, 'unknown': 36, 'useful': 3, 'harmful': 128, 'useful_share_known': 0.022900763358778626}, '0.05': {'selected': 417, 'known': 332, 'unknown': 85, 'useful': 7, 'harmful': 325, 'useful_share_known': 0.02108433734939759}}, 'selected': 84, 'known': 61, 'unknown': 23, 'selected_useful': 2, 'selected_absent': 58}, 'C_uniform': {'rows': 8326, 'useful_mean_video': 0.25785788830894824, 'coverage': {'0.01': {'selected': 84, 'known': 67, 'unknown': 17, 'useful': 2, 'harmful': 65, 'useful_share_known': 0.029850746268656716}, '0.02': {'selected': 167, 'known': 137, 'unknown': 30, 'useful': 3, 'harmful': 134, 'useful_share_known': 0.021897810218978103}, '0.05': {'selected': 417, 'known': 341, 'unknown': 76, 'useful': 7, 'harmful': 334, 'useful_share_known': 0.020527859237536656}}, 'selected': 84, 'known': 67, 'unknown': 17, 'selected_useful': 2, 'selected_absent': 64}, 'C_balanced': {'rows': 8326, 'useful_mean_video': 0.24267409837204393, 'coverage': {'0.01': {'selected': 84, 'known': 65, 'unknown': 19, 'useful': 2, 'harmful': 63, 'useful_share_known': 0.03076923076923077}, '0.02': {'selected': 167, 'known': 128, 'unknown': 39, 'useful': 6, 'harmful': 122, 'useful_share_known': 0.046875}, '0.05': {'selected': 417, 'known': 330, 'unknown': 87, 'useful': 14, 'harmful': 316, 'useful_share_known': 0.04242424242424243}}, 'selected': 84, 'known': 65, 'unknown': 19, 'selected_useful': 2, 'selected_absent': 58}, 'R1_uniform': {'rows': 8326, 'useful_mean_video': 0.08870381373212619, 'coverage': {'0.01': {'selected': 84, 'known': 48, 'unknown': 36, 'useful': 1, 'harmful': 47, 'useful_share_known': 0.020833333333333332}, '0.02': {'selected': 167, 'known': 109, 'unknown': 58, 'useful': 4, 'harmful': 105, 'useful_share_known': 0.03669724770642202}, '0.05': {'selected': 417, 'known': 302, 'unknown': 115, 'useful': 4, 'harmful': 298, 'useful_share_known': 0.013245033112582781}}, 'selected': 84, 'known': 48, 'unknown': 36, 'selected_useful': 1, 'selected_absent': 30}, 'R1_balanced': {'rows': 8326, 'useful_mean_video': 0.08624419157294504, 'coverage': {'0.01': {'selected': 84, 'known': 60, 'unknown': 24, 'useful': 2, 'harmful': 58, 'useful_share_known': 0.03333333333333333}, '0.02': {'selected': 167, 'known': 124, 'unknown': 43, 'useful': 3, 'harmful': 121, 'useful_share_known': 0.024193548387096774}, '0.05': {'selected': 417, 'known': 300, 'unknown': 117, 'useful': 4, 'harmful': 296, 'useful_share_known': 0.013333333333333334}}, 'selected': 84, 'known': 60, 'unknown': 24, 'selected_useful': 2, 'selected_absent': 43}}. Все3варианта,8326строк каждый; CPU, неизменные исходники, полный исходный контроль.
+
+## Интерпретация
+Основные критерии не выполнены; фиксированная балансировка не принята. Не означает бесполезность иных функций ошибки или обучения FlyVis.
+
+## Решение
+Only if all primary gates pass, propose a separate fixed dev transfer/stand trial. Otherwise retain uniform centered readout; stop this weighting implementation and record exact failed gates. No HOTA/core training or dev tuning here. Old90%/50refusal criterion unchanged.
+
+## Нельзя заявлять
+Не воспроизведение DiMP, не причинное доказательство дисбаланса, не калиброванный отказ и не HOTA. Поисковый повторно используемый train26; прежние90%/50не заменяются. Ни ядро, ни detector/ByteTrack/MASA не обучаются и не меняются.
+
+## Прежние версии (до исправлений)
+- **Суть**, 2026-10-22 (39ec5ea17e7a6319c4c3546caf46865e8e991736) — Проверенный полный либо частичный исход отдельного CPU-прогона.
+  > Критерии и фиксированные веса до расчёта.
+
+## Критерии приёмки (записаны до прогона)
+- ✅ Uniform control reproduces every saved8326row per arm: center<0.5px,score<0.001,identical saved lambda. All input hashes fixed.  
+  *runs/z13_balanced_ridge_20261022/report.json*
+- ✅ D balanced-D uniform: mean paired-video useful-center fraction>=0.02 and95%lower>0 on all present train26 rows.  
+  *runs/z13_balanced_ridge_20261022/report.json*
+- ❌ D balanced-D uniform:95%lower>0 for selected_success_fraction_positive at equal1%quota84.  
+  *runs/z13_balanced_ridge_20261022/report.json*
+- ✅ D balanced-R1 balanced:95%lower>0 on all present train26 rows; R1 receives identical history and weighting.  
+  *runs/z13_balanced_ridge_20261022/report.json*
+
+## Метрики
+| метрика | значение | baseline | подмножество | источник |
+|---|---|---|---|---|
+| [useful_center_fraction↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2F%D0%94%D0%BE%D0%BB%D1%8F%20%D0%BF%D0%BE%D0%BB%D0%B5%D0%B7%D0%BD%D1%8B%D1%85%20%D1%86%D0%B5%D0%BD%D1%82%D1%80%D0%BE%D0%B2%2C%20%D1%81%D1%80%D0%B5%D0%B4%D0%BD%D0%B5%D0%B5%20%D0%BF%D0%BE%20%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE) | 0.28985455084403927 | 0.25488581030332724 | train26;D balanced | `runs/z13_balanced_ridge_20261022/report.json` · summary.D_balanced.useful_mean_video |
+
+## Доказательства
+- Одна замена функции ошибки с критериями до исхода: `runs/z13_balanced_ridge_20261022/protocol.json` · 
+- Служебное CPU-восстановление в исходном бюджете: `runs/z13_balanced_ridge_20261022/recovery_cpu/protocol.json` · 
+- Фактическое окончание своего дерева: `runs/z13_balanced_ridge_20261022/recovery_cpu/controller_result.json` · 
+- Полный первичный исход всех3вариантов: `runs/z13_balanced_ridge_20261022/report.json` · 
+
+## Код
+- `tracking/z13_balanced_ridge.py`
+- `tests/test_z13_balanced_ridge.py`
+- `scripts/z13_balanced_ridge_20261022.py`
+
+## Коммиты
+- `39ec5ea17e7a6319c4c3546caf46865e8e991736`
+
