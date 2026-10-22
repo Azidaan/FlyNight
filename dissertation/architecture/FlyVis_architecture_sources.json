@@ -23,8 +23,8 @@
     "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df",
     "runs/z13_center_hota_20261021/protocol.json": "b733454d75a2b65385ab71d48bed7926f47d1c00d63ade244cb30ae3ec0683e6",
     "runs/z13_center_hota_20261021/eval/report.json": "ad13cd78cf03b0dca94a2da08ecd76ab2fb745c53110d6810195e94d7bc8e8c3",
-    "scripts/build_flyvis_architecture.py": "8ae3f1d9099e5e4fc538c81635b249ceee360248e1f5a213910b368b79499356",
-    "scripts/flyvis_architecture_layout.py": "8c057c87b7d2871cc87b87e3dacf20ca05fcd34068b67aa682c35715d45faa00",
+    "scripts/build_flyvis_architecture.py": "967744dc0a4ecb64110feb96ce25f303c78b069eefb6e5a5be91493c43279384",
+    "scripts/flyvis_architecture_layout.py": "100fce0eeea1bb7d1edc4e5b0345f64a3620ce0e49368328cf47110ee0029fb2",
     "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
     "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
     "AGENTS.md": "6ab80b02dd22146ddbcde8864832af0f9c819dfa9d69ee2e2be918e450bc4451",
@@ -36,9 +36,11 @@
     "tracking/z13_spatial.py": "df9b1b275892fc802509baf1e74797c63afb457e22852a6e2e01c4368669f533",
     "tracking/z13_target_center.py": "018153b2b3c004d3f216ff2488b3df18af8a21d5c27087ad31d68e3d4a67811b",
     "tracking/z13_response_utility.py": "211c86dc916dc56451662dba572d362d884def647551b6dcefb461dc5c231445",
+    "runs/z13_boundary_readout_20261022/report.json": "7504b7a500420baef5fcaef6daf6cab59a51fd26054f59aaf4af409f29e5fabd",
+    "runs/z13_absolute_confidence_20261022/report.json": "93d454208618ce85f9d7e618bd98d0c884dc4729bcfe7a55f2804e3765aa34db",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "5a82ab200f1b3b4a0559b9b1e0c7e6abe04b4cb76bdc97194c9c431384e9a6be"
+    "experiments/project_history.json": "b8689031ca6e72060d2c67cda08b2746516ef6c2500e04866f97ecf2637df337"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -938,6 +940,43 @@
           "ref": "dissertation/ЕДИНЫЙ_ПЛАН.md",
           "locator": "§0",
           "claim": "текущее состояние 13.09"
+        }
+      ]
+    },
+    "z13_absolute_confidence_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_absolute_confidence_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_absolute_confidence_20261022/protocol.json",
+          "claim": "Одно изменение и прежние контроли до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_boundary_readout_20261022/report.json",
+          "claim": "Предыдущий запрет внешнего кольца не улучшил D"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_absolute_confidence_20261022/report.json",
+          "claim": "Полный исход, контроль неизменности и фактическое исполнение"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_absolute_confidence_20261022/reproduction.json",
+          "claim": "Полный исход, контроль неизменности и фактическое исполнение"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_absolute_confidence_20261022/controller_result.json",
+          "claim": "Полный исход, контроль неизменности и фактическое исполнение"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_absolute_confidence_20261022/launch.json",
+          "claim": "Полный исход, контроль неизменности и фактическое исполнение"
         }
       ]
     },
@@ -3319,6 +3358,30 @@
       "size": 22
     },
     {
+      "id": "v_z13_absolute_confidence_v1",
+      "x": 5710,
+      "y": 7270,
+      "w": 870,
+      "h": 400,
+      "title": [
+        "II.12 Отказ от края / высота пика"
+      ],
+      "body": [
+        "Две отдельные замены при тех же центрах: отказ на внешнем кольце; исходная высота",
+        "пика вместо деления на разброс карты. Отбор одинаковый:84ответа на train26.",
+        "НЕОПРЕДЕЛЁННО: Край: D2полезных/84, как прежде — отрицательный исход",
+        "z13_boundary_readout_v1. Высота:7/84 против2/84, но интервал включает0;",
+        "прежние14признаков дают11/84. Обе версии не приняты; HOTA не измерялась."
+      ],
+      "footer": [
+        "z13_absolute_confidence_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_absolute_confidence_v1",
+      "card": "z13_absolute_confidence_v1",
+      "size": 20
+    },
+    {
       "id": "original_7",
       "x": 6780,
       "y": 4230,
@@ -3615,7 +3678,7 @@
     {
       "id": "metric",
       "x": 4580,
-      "y": 7720,
+      "y": 7840,
       "w": 2000,
       "h": 360,
       "title": [
@@ -3636,7 +3699,7 @@
     {
       "id": "g_map104",
       "x": 4580,
-      "y": 8270,
+      "y": 8390,
       "w": 2000,
       "h": 640,
       "title": [
@@ -5665,6 +5728,43 @@
       "arrow": 23
     },
     {
+      "a": "hub_6",
+      "b": "v_z13_absolute_confidence_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5580,
+          7470.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "left",
+      "label": "II",
+      "label_at": [
+        5645,
+        7470.0
+      ],
+      "render_points": [
+        [
+          5580.0,
+          5000
+        ],
+        [
+          5580,
+          7470.0
+        ],
+        [
+          5710,
+          7470.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
       "a": "original_7",
       "b": "hub_7",
       "kind": "variant",
@@ -6350,7 +6450,7 @@
         ],
         [
           6640,
-          8590
+          8710
         ]
       ],
       "start": "right",
@@ -6358,7 +6458,7 @@
       "label": "III",
       "label_at": [
         6640,
-        8590
+        8710
       ],
       "render_points": [
         [
@@ -6371,11 +6471,11 @@
         ],
         [
           6640,
-          8590
+          8710
         ],
         [
           6580,
-          8590.0
+          8710.0
         ]
       ],
       "colour": "#117A46",

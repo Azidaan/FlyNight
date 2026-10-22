@@ -78,6 +78,13 @@ def build_layout(node, edge, source, cards, lanes, base, confirmed):
                 h,fs=400,20
             elif cid=='z13_pairwise_map_v1':
                 h,fs=400,20
+            elif cid=='z13_absolute_confidence_v1':
+                h,fs=400,20
+                source('runs/z13_boundary_readout_20261022/report.json')
+                source('runs/z13_absolute_confidence_20261022/report.json')
+            elif cid=='z13_balanced_ridge_v1':
+                h,fs=400,20
+                source('runs/z13_balanced_ridge_20261022/report.json')
             node(leaf,nx,ny,870,h,f'II.{j+1}  '+title,text,'tried',cid,cid,size=fs)
             leaves[leaf]=(nx,ny,870,h)
             # A central bus in the empty gap serves short left/right branches.

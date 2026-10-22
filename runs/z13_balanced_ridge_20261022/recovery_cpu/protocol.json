@@ -1,0 +1,31 @@
+{
+ "id": "z13_balanced_ridge_v1",
+ "device": "cpu",
+ "budget_seconds": 10577,
+ "save_at": "2026-10-22T23:44:43.800576+03:00",
+ "hard_stop": "2026-10-22T23:45:03.800576+03:00",
+ "stop_request_path": "runs/z13_balanced_ridge_20261022/stop.request",
+ "original_protocol_sha256": "dd4ccefc2258b5128f17b2fd210166bbe4cd6a3c3ab6b6b258331a73b078e149",
+ "original_script_sha256": "58bbfc7240e9ddae596b9695c6df2088c52e059d51206570d6138a306daa039c",
+ "executed_source_sha256": "057cc243e2371498e3da4942f4f0be0403e1458e668f63a85006679b16ec9689",
+ "only_change": "Force CPU capability selection before any CUDA query, as in the prior validated CPU recovery. Explicit actual CPU tensor and backbone-device checks remain. CUDA device enumeration with -1 crashed in a separate isolated probe; never call it in this CPU run. Scientific algorithm/inputs/lambda/weights/criteria unchanged. New service controller writes original stop path. No completed stages exist to repeat.",
+ "old_attempt": {
+  "exit_code": 1,
+  "hard_timeout": false,
+  "worker_ended": true,
+  "all_owned_ended": true,
+  "remaining": {},
+  "owned": {
+   "14700": 134371646838022402,
+   "23820": 134371646838134910,
+   "24524": 134371646838325133
+  },
+  "ended": "2026-10-22T20:45:11.161300+03:00"
+ },
+ "sha256": {
+  "scripts/z13_cpu_isolated_recovery_20261022.py": "ce654ec89f85d4e61af6786337f2226c5b0d30e68e005c85af3b2708784c0064",
+  "scripts/z13_bounded_recovery_controller_20261022.py": "9971ebef1188a08f529deccf6fb45ac533bd913e9369f94b750116fb62906e7f",
+  "scripts/z13_prepare_balanced_recovery_20261022.py": "7c96880124be2b551915b8a9ca6ef7bccc9a811f39017b6eec09f2e71751fbad"
+ },
+ "created": "2026-10-22T20:48:26.049636+03:00"
+}
