@@ -148,6 +148,11 @@ def main():
         number=lambda value:f'{100*value:+.2f}'.replace('.',',')
         result='D против прежней модели: '+number(comparison['mean_per_video'])+' п.п. ['+number(comparison['ci95'][0])+'; '+number(comparison['ci95'][1])+']. Полные критерии: '+('пройдены; нужна отдельная проверка переноса.' if measured['primary_pass'] else 'не пройдены; эта версия не принята.')+' HOTA не измерялась.'
         LANES[5][2].append(('z13_balanced_ridge_v1','Равный вес цели и фона','Вместо одинакового веса721колонки: суммарно0,5для наблюдаемой рамки и0,5для фона. Та же гауссова цель,68признаков,lambda,история и ядро. Это один компонент, не вся DiMP.',result))
+    hinge=cards.get('z13_hinge_target_v1',{})
+    if hinge.get('state') in ('completed_positive','completed_negative','inconclusive') and (ROOT/'runs/z13_hinge_target_20261023/report.json').exists():
+        measured=json.loads((ROOT/'runs/z13_hinge_target_20261023/report.json').read_text(encoding='utf-8'));comparison=measured['paired']['D_hinge-D_balanced'];number=lambda value:f'{100*value:+.2f}'.replace('.',',')
+        result='D против той же балансировки: '+number(comparison['mean_per_video'])+' п.п. ['+number(comparison['ci95'][0])+'; '+number(comparison['ci95'][1])+']. Полные критерии: '+('пройдены; нужен перенос.' if measured['primary_pass'] else 'не пройдены; версия не принята.')+' HOTA не измерялась.'
+        LANES[5][2].append(('z13_hinge_target_v1','Односторонняя ошибка фона','Вместо штрафа (s−y)² для любого фона: max(0,s−y)². Уже подавленный фон не штрафуется. Гауссов пик, баланс0,5/0,5, признаки, история, lambda и ядро прежние. Не точная формула DiMP.',result))
     nodes, edges, sources, linked = [], [], {}, set()
     fonts = {}
     def font(size, bold=False):

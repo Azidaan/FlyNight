@@ -15156,6 +15156,62 @@
      "reason": "Проверенный полный либо частичный исход отдельного CPU-прогона."
     }
    ]
+  },
+  {
+   "id": "z13_hinge_target_v1",
+   "title": "З13: односторонняя ошибка фона в модели цели",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-22",
+   "done": "",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "question": "Поможет ли прекращение штрафа уже подавленного фона улучшить D сверх согласованной балансировки, включая отбор полезных ответов?",
+   "hypothesis": "Освобождение от регрессии точных низких значений фона может улучшить различающую модель; исправление отказа не установлено.",
+   "expected": "D/C/R1,полные26train,одна функция ошибки; прежние гауссова цель,веса0,5/0,5,68признаков,история,коэффициент регуляризации. CPUдо7200с,сначала стоимость/воспроизведение.",
+   "acceptance": [
+    {
+     "criterion": "Reproduce previous balanced control for all8326rows/arm: center<0.5px,score<0.001,same lambda. Every observed solver converges at frozen tolerance; hashes unchanged.",
+     "met": null
+    },
+    {
+     "criterion": "D hinge-D balanced mean paired-video useful-center fraction>=0.02 and95%lower>0 on all present train26 rows.",
+     "met": null
+    },
+    {
+     "criterion": "D hinge-D balanced95%lower>0 for selected_success_fraction_positive at equal1%quota84.",
+     "met": null
+    },
+    {
+     "criterion": "D hinge-R1 hinge95%lower>0 on all present train26 rows, identical history and objective.",
+     "met": null
+    }
+   ],
+   "summary": "До расчёта зарегистрирована отдельная замена остаточной ошибки фона.",
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "Не полная DiMP и не её точная формула; не HOTA,не калиброванный отказ,не обучение734параметров. train26 используется повторно,старые90%/50не заменены.",
+   "metrics": [],
+   "commits": [],
+   "files": [
+    "tracking/z13_hinge_target.py",
+    "tests/test_z13_hinge_target.py",
+    "scripts/z13_hinge_target_20261023.py"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_hinge_target_20261023/protocol.json",
+     "claim": "Одна замена с критериями до исхода"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_balanced_ridge_20261022/report.json",
+     "claim": "Обязательный согласованный контроль и непройденный отказ"
+    }
+   ]
   }
  ],
  "manual_events": [
