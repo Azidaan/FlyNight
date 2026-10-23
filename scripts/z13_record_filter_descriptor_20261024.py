@@ -16,8 +16,12 @@ def ended(run):
 
 
 def main():
-    assert not (RUN/'finish_recorded.json').exists();ended(CRUN);ended(RUN)
-    prior.verify_sources(read(RUN/'protocol.json'));cache=read(CRUN/'report.json');assert cache['parity_pass'] and cache['observed_frames_only']
+    assert not (RUN/'finish_recorded.json').exists()
+    execution=ROOT/read(RUN/'protocol.json').get('cache_execution_controller',CRUN.relative_to(ROOT).as_posix())
+    ended(execution);ended(RUN)
+    protocol=read(RUN/'protocol.json');prior.verify_sources(protocol)
+    assert all(sha(ROOT/n)==h for n,h in protocol.get('service_sha256',{}).items())
+    cache=read(CRUN/'report.json');assert cache['parity_pass'] and cache['observed_frames_only']
     assert len(cache['summary'])==9
     for item in cache['summary'].values():assert item['max_seed']<=.001 and item['max_center']<.5 and item['max_score']<.001
     assert all(sha(ROOT/n)==h for n,h in read(RUN/'cache_manifest.json').items())

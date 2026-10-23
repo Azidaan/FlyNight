@@ -1,0 +1,30 @@
+{
+ "id": "z13_filter_descriptor_v1",
+ "device": "cpu",
+ "budget_seconds": 5294,
+ "save_at": "2026-10-24T01:51:46.405051+03:00",
+ "hard_stop": "2026-10-24T01:52:06.405051+03:00",
+ "stop_request_path": "runs/z13_filter_descriptor_cache_20261023/stop.request",
+ "created": "2026-10-24T00:23:31.847061+03:00",
+ "original_protocol_sha256": "4ea3640d39077631507c54dc1bb11982867c32b9387bada0ae2d6d0047ebfda6",
+ "executed_source_sha256": "76d615332a76c3fd88374c52f8b4a42fc09c90620f624d6f347c172fe2aff4dc",
+ "original_started": "2026-10-24T00:21:46.414579+03:00",
+ "old_attempt": {
+  "exit_code": 1,
+  "hard_timeout": false,
+  "worker_ended": true,
+  "all_owned_ended": true,
+  "remaining": {},
+  "owned": {
+   "1892": 134372641064082806,
+   "6544": 134372641064169776,
+   "8136": 134372641064327224
+  },
+  "ended": "2026-10-24T00:21:50.023570+03:00"
+ },
+ "only_change": "Force CPU capability selection before FlyVis import; check real CPU tensor and backbone. Original frozen scientific source unchanged; no completed extraction or training exists. CPU failure/logs retained. Budget still counted from original controller start; no tolerance change.",
+ "sha256": {
+  "scripts/z13_filter_descriptor_service_20261024.py": "1eb241c6954c1abbbb495753311bf0c892f79a55667ab9191491e4d4665d2ca9",
+  "scripts/z13_bounded_recovery_controller_20261022.py": "9971ebef1188a08f529deccf6fb45ac533bd913e9369f94b750116fb62906e7f"
+ }
+}
