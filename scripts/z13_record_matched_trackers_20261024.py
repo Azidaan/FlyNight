@@ -8,6 +8,8 @@ from scripts.z13_hota_deadline_guard import WindowsProcesses
 ORIGINAL_STAGE=STAGE
 RECOVERY=RUN/'gpu_recovery1'
 if (RECOVERY/'protocol.json').exists():STAGE=RECOVERY
+RECOVERY2=RUN/'gpu_recovery2'
+if (RECOVERY2/'protocol.json').exists():STAGE=RECOVERY2
 
 
 def ended(folder):
@@ -16,6 +18,12 @@ def ended(folder):
         assert old['exit_code']==1 and old['all_owned_ended'] and not old['remaining']
         assert sha(folder/'controller_result.json')==p['service_recovery']['old_result_sha256']
         folder=RECOVERY
+    if folder==RECOVERY and (RECOVERY2/'protocol.json').exists():
+        old=read(folder/'controller_result.json');p=read(RECOVERY2/'protocol.json')
+        assert old['exit_code']==1 and old['all_owned_ended'] and not old['remaining']
+        assert sha(folder/'controller_result.json')==p['service_recovery2']['previous_result_sha256']
+        assert sha(folder/'protocol.json')==p['service_recovery2']['previous_protocol_sha256']
+        folder=RECOVERY2
     e=read(folder/'controller_result.json');c=read(folder/'controller.json');ps=WindowsProcesses()
     assert e['exit_code']==0 and e['worker_ended'] and e['all_owned_ended'] and not e['hard_timeout'] and not e['remaining']
     assert ps.creation(c['pid'])!=c['birth'];assert all(ps.creation(int(pid))!=birth for pid,birth in e['owned'].items())
