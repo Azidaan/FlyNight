@@ -1,0 +1,261 @@
+{
+ "at": "2026-10-24T01:13:36.089432+03:00",
+ "question": "Узкое горлышко; уровень относительно других трекеров; сколько даёт штатная FlyVis",
+ "sources": {
+  "representation": {
+   "path": "runs/z13_target_model_r1_20261017/report.json",
+   "sha256": "6a120037b553b702ff3512d2f327df67c36fdd987b09355fd5d05fae8d1b335c"
+  },
+  "ranking": {
+   "path": "runs/z13_hinge_target_20261023/report.json",
+   "sha256": "e8be727fcb82959de421e408b98c63ddc879f88cf32c742da96342c3864a6ab3"
+  },
+  "effect": {
+   "path": "runs/z13_effect_path_audit_20261023/report.json",
+   "sha256": "a842493d8b603e6afda6d65b29cc72214962f4c721c564fad80db409156637d6"
+  },
+  "historical": {
+   "path": "runs/z13_shared_masa_hota_v1_20261015/full/eval/report.json",
+   "sha256": "fac4456426a714cd0b3869ab4d409df0a26b4f5050cc82767ef2148342fc0ad2"
+  },
+  "raw": {
+   "path": "runs/z13_matched_trackers_20261024/raw_report.json",
+   "sha256": "ef750257fa31b7646adba0f7ed2bc635fb1f2088b2887c53f90a5e63a1d868c9"
+  }
+ },
+ "values": {
+  "representation_D_vs_R1": {
+   "mean_per_video": 0.08833969156202358,
+   "ci95": [
+    0.054301590770284965,
+    0.1321023529953125
+   ],
+   "better": 22,
+   "n": 26
+  },
+  "representation_D_vs_C": {
+   "mean_per_video": 0.02365882198589,
+   "ci95": [
+    -0.010025523320800452,
+    0.060863247195776404
+   ],
+   "better": 15,
+   "n": 26
+  },
+  "example_ranking_D_balanced": {
+   "rows": 8326,
+   "useful_mean_video": 0.28985455084403927,
+   "coverage": {
+    "0.01": {
+     "selected": 84,
+     "known": 61,
+     "unknown": 23,
+     "useful": 2,
+     "harmful": 59,
+     "useful_share_known": 0.03278688524590164
+    },
+    "0.02": {
+     "selected": 167,
+     "known": 131,
+     "unknown": 36,
+     "useful": 3,
+     "harmful": 128,
+     "useful_share_known": 0.022900763358778626
+    },
+    "0.05": {
+     "selected": 417,
+     "known": 332,
+     "unknown": 85,
+     "useful": 7,
+     "harmful": 325,
+     "useful_share_known": 0.02108433734939759
+    }
+   },
+   "selected": 84,
+   "known": 61,
+   "unknown": 23,
+   "selected_useful": 2,
+   "selected_absent": 58
+  },
+  "closed_loop_effect": {
+   "videos": 35,
+   "events": {
+    "steps": 209062,
+    "interventions": 1162,
+    "refusals": 207900,
+    "births": 14179,
+    "nonfinite_refusals": 0
+   },
+   "raw_changed_videos": 12,
+   "raw_geometry_changed_videos": 12,
+   "raw_trajectory_changed_videos": 12,
+   "stitched_changed_videos": 11,
+   "stitched_trajectory_changed_videos": 9,
+   "hota_better": 4,
+   "hota_equal": 31,
+   "hota_worse": 0
+  },
+  "historical_stock_hota": 61.65509446954304,
+  "historical_no_fly_hota": 61.65477893761337,
+  "historical_D_hota": 61.67269039225678,
+  "historical_stock_pooled_delta": 0.0003155319296652692,
+  "historical_stock_relative_percent": 0.0005117720557956206,
+  "historical_stock_paired": {
+   "mean_per_video": 0.0008961553119070637,
+   "ci95": [
+    -0.10430349899957427,
+    0.13886931909860084
+   ],
+   "better": 12,
+   "n": 35,
+   "pooled_gain": 0.0003155319296652692
+  },
+  "historical_D_paired": {
+   "mean_per_video": 0.008679834759662088,
+   "ci95": [
+    -0.029899927044916286,
+    0.05607636916933374
+   ],
+   "better": 10,
+   "n": 35,
+   "pooled_gain": 0.017911454643410707
+  },
+  "matched_raw_pooled": {
+   "xywh": {
+    "HOTA_cls_av": 33.35791563638659,
+    "DetA_cls_av": 33.14444896528938,
+    "AssA_cls_av": 35.238410774066395,
+    "LocA_cls_av": 86.22710603911396,
+    "MOTA_cls_av": 31.942128000529102,
+    "MOTP_cls_av": 72.18770621920305,
+    "IDSw_cls_av": 526.0,
+    "IDF1_cls_av": 38.69354122680262,
+    "HOTA": 54.57308976106422,
+    "DetA": 55.236190939343324,
+    "AssA": 54.571813137230265,
+    "LocA": 87.13991528790723,
+    "CLR_TP": 11777,
+    "CLR_FP": 1282,
+    "CLR_FN": 5376,
+    "Frag": 602,
+    "MOTA": 58.11811344954235,
+    "MOTP": 85.66246071107649,
+    "IDSw": 526.0,
+    "IDF1": 60.37998146431881
+   },
+   "bytetrack": {
+    "HOTA_cls_av": 33.49969289303532,
+    "DetA_cls_av": 32.3033742173138,
+    "AssA_cls_av": 36.38872621446098,
+    "LocA_cls_av": 85.12482022213153,
+    "MOTA_cls_av": 31.25629817774692,
+    "MOTP_cls_av": 70.839979522674,
+    "IDSw_cls_av": 573.0,
+    "IDF1_cls_av": 40.601379742257066,
+    "HOTA": 52.43696923664447,
+    "DetA": 52.81188137743227,
+    "AssA": 52.97481252366944,
+    "LocA": 85.20404969762744,
+    "CLR_TP": 11558,
+    "CLR_FP": 1454,
+    "CLR_FN": 5595,
+    "Frag": 603,
+    "MOTA": 55.564624263977144,
+    "MOTP": 83.50106932388856,
+    "IDSw": 573.0,
+    "IDF1": 59.824299685065476
+   },
+   "botsort": {
+    "HOTA_cls_av": 34.4746117507472,
+    "DetA_cls_av": 33.354360826109165,
+    "AssA_cls_av": 37.6925490048977,
+    "LocA_cls_av": 86.35833354619061,
+    "MOTA_cls_av": 32.430662362459096,
+    "MOTP_cls_av": 72.37903358989777,
+    "IDSw_cls_av": 467.0,
+    "IDF1_cls_av": 40.05452101677874,
+    "HOTA": 54.638691526284546,
+    "DetA": 55.678192324760026,
+    "AssA": 54.26662205076545,
+    "LocA": 87.23806011801507,
+    "CLR_TP": 11904,
+    "CLR_FP": 1341,
+    "CLR_FN": 5249,
+    "Frag": 592,
+    "MOTA": 58.858508715676564,
+    "MOTP": 85.73385647953953,
+    "IDSw": 467.0,
+    "IDF1": 60.31975787880781
+   },
+   "tracktrack": {
+    "HOTA_cls_av": 34.051311054410384,
+    "DetA_cls_av": 34.61722071118192,
+    "AssA_cls_av": 34.81849926537584,
+    "LocA_cls_av": 86.06729605464653,
+    "MOTA_cls_av": 34.03892241237202,
+    "MOTP_cls_av": 72.1927976577566,
+    "IDSw_cls_av": 391.0,
+    "IDF1_cls_av": 39.50674920842431,
+    "HOTA": 54.71316055250933,
+    "DetA": 56.060062912596855,
+    "AssA": 54.10745250678129,
+    "LocA": 86.90645044557343,
+    "CLR_TP": 12197,
+    "CLR_FP": 1637,
+    "CLR_FN": 4956,
+    "Frag": 534,
+    "MOTA": 59.284090246604094,
+    "MOTP": 85.39078020951308,
+    "IDSw": 391.0,
+    "IDF1": 60.67060380159421
+   }
+  },
+  "matched_raw_paired": {
+   "bytetrack-xywh": {
+    "mean_per_video": -2.119161982375798,
+    "ci95": [
+     -2.923013203878903,
+     -1.3184763884196877
+    ],
+    "better": 0,
+    "n": 7
+   },
+   "botsort-xywh": {
+    "mean_per_video": -0.1095260262917839,
+    "ci95": [
+     -0.9607806255845172,
+     0.7510497271632732
+    ],
+    "better": 2,
+    "n": 7
+   },
+   "tracktrack-xywh": {
+    "mean_per_video": -0.1912981376387403,
+    "ci95": [
+     -1.7290899570659009,
+     1.3464575447877951
+    ],
+    "better": 3,
+    "n": 7
+   }
+  }
+ },
+ "reasoning": [
+  {
+   "rank": 1,
+   "status": "Priority supported by diagnostics, not an isolated causal proof",
+   "claim": "Readout must identify the particular object, recognize absence and rank action utility. A high response peak is not itself action utility. The weak ranking example is one tested implementation on repeatedly used train26, not all D policies."
+  },
+  {
+   "rank": 2,
+   "status": "Measured limitation of output effect",
+   "claim": "Closed-loop centerD changed raw outputs on12of35videos and final trajectory outputs on9of35; HOTA improved4,equal31,worse0. Video aggregates do not attribute each correction causally; output changes alone do not guarantee metric changes."
+  },
+  {
+   "rank": 3,
+   "status": "Working hypothesis",
+   "claim": "Training readout for the consequences of the actual association could improve transfer of localization benefit. The reports do not isolate this as the sole cause and do not establish which untested architecture will improve HOTA."
+  }
+ ],
+ "cannot_claim": "No equivalence or state-of-the-art claim from overlapping difference intervals on7previously used val videos. Historical35 are detector-training members; cannot mix their61.65HOTA with the new7raw54.57HOTA. C is frozen pretrained core with adapted readout, not a standalone MOT tracker; its potential ceiling is unknown. C/D saved policies have individually trained heads/thresholds, so their contrast is not a pure core-only causal effect. D-R1 positive center diagnosis is not HOTA."
+}

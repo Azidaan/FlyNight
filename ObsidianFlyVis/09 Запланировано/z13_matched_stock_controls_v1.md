@@ -1,0 +1,45 @@
+---
+aliases:
+- 'З13: штатная FlyVis C и контроли без мухи в общем сравнении7val'
+tags:
+- эксперимент
+- исход/ready
+- направление/flyvis
+- метка/fly-problem-P8
+- метка/benchmark
+исход: готов к запуску
+направление: FlyVis
+начат: '2026-10-24'
+---
+
+# ⚪ З13: штатная FlyVis C и контроли без мухи в общем сравнении7val
+
+↑ [[09 Запланировано/FlyVis — планы|FlyVis]] · **Исход:** готов к запуску · `z13_matched_stock_controls_v1`
+
+Отдельное расширение до измерения C/B/R1; основной протокол и report не меняются.
+
+## Вопрос
+Каковы результаты штатного ядра C и обученной D при одинаковом окружении и способе считывания; отличается ли добавка мухи от контроля без неё?
+
+## Гипотеза
+Знак отличий заранее неизвестен; прежние35dev не заменяют новое общее сравнение.
+
+## Ожидалось (до прогона)
+Same original video builder, four observed frames followed by recurrent search history, max4eyes, retina/lamina, existing frozen per-arm weights/normalization/lambda/tau. Legacy C/B use identical spatial architecture and their saved trained readouts; center C/R1 use identical ridge algorithm with separately preselected training-only configurations. C is pretrained frozen core, not an unadapted complete tracker. B is learned smallGRU, R1 temporal receptor control: neither equals parameter-matched FlyVis. C/D differences include individually trained readout/policy weights; this is not an isolated backbone-only causal effect.
+
+## Нельзя заявлять
+Only7previously used val videos; not independent final test and no75heldout. Detector validation set used in its training monitoring, but these videos are absent from gradient-training list. Settings not optimized per tracker; cannot infer universal ranking or compare directly with published benchmarks. The old MASA head was trained on XYWH life pairs and can transfer differently to other trackers; report raw/MASA separately. Same original video builder, four observed frames followed by recurrent search history, max4eyes, retina/lamina, existing frozen per-arm weights/normalization/lambda/tau. Legacy C/B use identical spatial architecture and their saved trained readouts; center C/R1 use identical ridge algorithm with separately preselected training-only configurations. C is pretrained frozen core, not an unadapted complete tracker. B is learned smallGRU, R1 temporal receptor control: neither equals parameter-matched FlyVis. C/D differences include individually trained readout/policy weights; this is not an isolated backbone-only causal effect.
+
+## Критерии приёмки (записаны до прогона)
+- ⏳ Parent six-system run complete exit0; sources,weights,inputs frozen; all35controljobs and7videos complete.
+- ⏳ Baseline MASA features exactly reproduced for every video; same scorer and annotation projection.
+- ⏳ For each particular positive claim paired-video95%CI lower>0; pooled and mean-video differences reported separately. No tuning based on these seven videos; all outcomes shown.
+
+## Доказательства
+- Условия и сравнения до новых результатов: `runs/z13_matched_trackers_20261024/stock_controls/protocol.json` · 
+
+## Код
+- `scripts/z13_matched_stock_controls_20261024.py`
+- `scripts/z13_matched_stock_queue_20261024.py`
+- `scripts/z13_matched_stock_console.ps1`
+
