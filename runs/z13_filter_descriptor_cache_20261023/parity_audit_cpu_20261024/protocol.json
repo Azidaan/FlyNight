@@ -1,0 +1,20 @@
+{
+ "id": "z13_filter_descriptor_v1",
+ "device": "cpu",
+ "created": "2026-10-24T01:35:14.968301+03:00",
+ "budget_seconds": 300,
+ "save_at": "2026-10-26T07:35:00+03:00",
+ "hard_stop": "2026-10-26T07:39:30+03:00",
+ "stop_request_path": "runs/z13_filter_descriptor_cache_20261023/parity_audit_cpu_20261024/stop.request",
+ "scope": "Single preidentified D/fit84/7128 failed observed-frame3 group. Compare CPU repeat, original tensor prefix layout,2Dvs3D ridge evaluation and independently recomputed old CPU normalizer. Observed inputs0..3 only enter feature evaluation; labels never used for efficacy. No GPU,training,threshold/tolerance/data changes. Does not rescue failed acceptance by discarding candidates.",
+ "sha256": {
+  "scripts/z13_descriptor_parity_cpu_audit_20261024.py": "7187767f74eba0a99c5e1b1fc01b2f41a322ff135321c21ff4794087e864c950",
+  "scripts/z13_weekend_progress.ps1": "c557e6f483ab699ecdf3155dacb6a6c657392bfbaf14ab503a955f05ca4227a8",
+  "scripts/z13_target_model.py": "e7bc7967c8d5fdf04983ed3e01c5fae9d54dbc6ed7b4b17c4c10235beccd862a",
+  "tracking/z13_filter_descriptor.py": "371ed92a398d952736ec2914de1fffc1ea6ae2fcf4b6bf352f433ce1748eabd4",
+  "tracking/z13_target_center.py": "018153b2b3c004d3f216ff2488b3df18af8a21d5c27087ad31d68e3d4a67811b",
+  "tracking/z13_candidates.py": "81631fc66011e4aa8dd31ce2ab916d68be24b09afb645d48ce3faa36a0b4cd21",
+  "runs/z13_filter_descriptor_cache_20261023/parity_failure.json": "91b5cf92d44ad48d40ee27a6bd5123f1020725c5527954c6317cfe353d1ce0b0"
+ },
+ "original_protocol_sha256": "4ea3640d39077631507c54dc1bb11982867c32b9387bada0ae2d6d0047ebfda6"
+}

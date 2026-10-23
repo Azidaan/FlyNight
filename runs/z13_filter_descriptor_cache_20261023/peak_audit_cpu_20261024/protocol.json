@@ -1,0 +1,16 @@
+{
+ "id": "z13_filter_descriptor_v1",
+ "created": "2026-10-24T01:40:16.685756+03:00",
+ "device": "cpu",
+ "budget_seconds": 90,
+ "save_at": "2026-10-26T07:35:00+03:00",
+ "hard_stop": "2026-10-26T07:39:30+03:00",
+ "stop_request_path": "runs/z13_filter_descriptor_cache_20261023/peak_audit_cpu_20261024/stop.request",
+ "scope": "Same failing observed-frame3case, no new forward pass or fitting. Find original cached peak indices from their local weighted centers on the saved observed response map; inspect local-max and separation margins. No efficacy or changed criteria.",
+ "sha256": {
+  "scripts/z13_descriptor_peak_audit_20261024.py": "c90ead730ca76398199ec337ed131b1c096016890982de37adf6e063659b1380",
+  "tracking/z13_candidates.py": "81631fc66011e4aa8dd31ce2ab916d68be24b09afb645d48ce3faa36a0b4cd21",
+  "runs/z13_filter_descriptor_cache_20261023/parity_audit_cpu_20261024/report.json": "e142fb5cf50a2fefb461b6cd9fadaa4a7b4c5526d4d212a8ecd00432587f7c0a",
+  "runs/z13_filter_descriptor_cache_20261023/parity_audit_cpu_20261024/observed_response_maps.npz": "9dcb8011e63dd3ac624ee4cfc39ac02202d8e93080070e55f0bde42a84ea554e"
+ }
+}
