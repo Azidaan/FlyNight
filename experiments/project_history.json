@@ -15690,7 +15690,7 @@
    "id": "z13_semantic_sampling_v1",
    "title": "З13: обучение выборщика на похожих размеченных соседях",
    "area": "flyvis",
-   "state": "running",
+   "state": "completed_negative",
    "started": "2026-10-23",
    "tags": [
     "fly-problem-P8",
@@ -15703,24 +15703,36 @@
    "acceptance": [
     {
      "criterion": "Мишень непустая, исходная разметка связана с кадрами/идентичностями; старые метки,18контролей,32шага и бюджет воспроизведены,хеши проверены.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_semantic_sampling_20261023/report.json; reproduction.json; timing.json; semantic_audit.json"
     },
     {
      "criterion": "Dnew-Dold activity >=2п.п.,нижняя95%повидеоДИ>0.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_semantic_sampling_20261023/report.json; reproduction.json; timing.json; semantic_audit.json"
     },
     {
      "criterion": "Dnew лучше Dold geometry и R1new: обе нижние95%ДИ>0.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_semantic_sampling_20261023/report.json; reproduction.json; timing.json; semantic_audit.json"
     }
    ],
-   "summary": "Протокол до исходов: половина пакета из общего набора строк с похожими соседями.",
-   "done": "",
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
+   "summary": "Эта замена частоты примеров не прошла все заранее заданные критерии. Не доказана гипотеза, что увеличение частоты похожих соседей решает выбор. Это исход одной реализации, не ограничение всей FlyVis.",
+   "done": "2026-10-23",
+   "obtained": "runs/z13_semantic_sampling_20261023/report.json, paired → {\"D_new_activity-D_old_activity\": {\"mean_per_video\": 0.002755877142532538, \"ci95\": [-0.009069843419244585, 0.016379673413784723], \"better\": 11, \"n\": 26}, \"D_new_activity-D_old_geometry\": {\"mean_per_video\": -0.0458171150932096, \"ci95\": [-0.09376348842037042, -0.006410825398452794], \"better\": 6, \"n\": 26}, \"D_new_activity-R1_new_activity\": {\"mean_per_video\": 0.11053054766337868, \"ci95\": [0.0771121032397739, 0.15096383848390885], \"better\": 24, \"n\": 26}, \"D_new_activity-C_new_activity\": {\"mean_per_video\": -0.022615982980835038, \"ci95\": [-0.07401100118935992, 0.02470263438589533], \"better\": 11, \"n\": 26}}. semantic_audit.json → {\"D\": {\"hard_rows\": 8377, \"hard_candidates\": 16589}, \"C\": {\"hard_rows\": 8444, \"hard_candidates\": 16905}, \"R1\": {\"hard_rows\": 9191, \"hard_candidates\": 16812}}. Все18 моделей завершены;1150шагов и145950предъявлений, прежние веса классов; воспроизведение18 контролей и32 старых шагов пройдено.",
+   "interpretation": "Эта замена частоты примеров не прошла все заранее заданные критерии. Не доказана гипотеза, что увеличение частоты похожих соседей решает выбор. Это исход одной реализации, не ограничение всей FlyVis.",
+   "decision": "Не применять эту версию к стенду. Не подбирать долю трудных строк по train26. Дальнейшее действие требует иной проверяемой мишени; эта реализация не доказывает непригодность семантических отрицательных примеров вообще.",
    "cannot_claim": "Поисковый train26, не HOTA и не безопасный отказ. Нахождение пика внутри рамки не доказывает, что его активность принадлежит соседу. Не полная DaSiamRPN; эффект частоты не доказывает новизну.",
-   "metrics": [],
+   "metrics": [
+    {
+     "key": "useful_center_fraction",
+     "value": 0.25686641514686304,
+     "baseline": 0.2541105380043305,
+     "subset": "train26; D new activity",
+     "source": "runs/z13_semantic_sampling_20261023/report.json",
+     "locator": "summary.D_new_activity.useful_mean_video"
+    }
+   ],
    "commits": [],
    "files": [
     "tracking/z13_semantic_sampling.py",
@@ -15733,6 +15745,51 @@
      "kind": "file",
      "ref": "runs/z13_semantic_sampling_20261023/protocol.json",
      "claim": "Критерии, единый бюджет, мишень и хеши до обучения"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_semantic_sampling_20261023/report.json",
+     "claim": "Полный исход и все контроли"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_semantic_sampling_20261023/reproduction.json",
+     "claim": "Воспроизведение старых18моделей"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_semantic_sampling_20261023/controller_result.json",
+     "claim": "Полное завершение своего дерева"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-23",
+     "commit": "24cf7f500301a1b738c32b0d75a3a090add605a8",
+     "field": "summary",
+     "old": "Протокол до исходов: половина пакета из общего набора строк с похожими соседями.",
+     "reason": "Полный проверенный исход новой частоты примеров; исходная постановка сохранена."
+    }
+   ],
+   "confirmed_results": [
+    {
+     "id": "z13_semantic_sampling_v1_D_new_activity_vs_R1_new_activity",
+     "title": "Новая частота примеров выбора: D_new_activity-R1_new_activity",
+     "category": "representation",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "comparison": "D_new_activity-R1_new_activity",
+     "subset": "Повторно использованные26train, известные присутствующие цели",
+     "conditions": "104train; те же кэши,нормировка,архитектура,три сида,веса классов,1150шагов; общая для D/C/R1 половина строк с похожими соседями; прежние метки полезности; бутстрэп5000,сид1.",
+     "limitations": "Частное сравнение не отменяет непройденных критериев; нет HOTA и безопасного отказа. Вклад анатомии отдельно не установлен.",
+     "evidence": {
+      "source": "runs/z13_semantic_sampling_20261023/report.json",
+      "sha256": "8c012ae66bf55291c1befa30483ef3430ca143bb4c69ee28df47d23968a808a3",
+      "locator": [
+       "paired",
+       "D_new_activity-R1_new_activity"
+      ]
+     }
     }
    ]
   }
