@@ -168,6 +168,9 @@ def main():
        'D_new_activity-D_old_activity', 'Похожие соседи при обучении',
        'Половина пакета из общего набора строк с пиком внутри рамки другого объекта того же класса. Прежние метки, сеть, веса классов и бюджет; D/C/R1 получают одинаковые строки. Адаптация принципа DaSiamRPN.'),
     ]
+    readout_milestones.append(('z13_search_conditioned_v1', 'z13_search_conditioned_20261023',
+        'D_search_activity-D_template_activity', 'Модель цели с текущими кандидатами',
+        'Веса фильтра предсказываются из образца и 3 текущих кандидатов. Равный контроль закрывает доступ поиска к образцу и декодеру. Общий кодировщик также меняет признаки; 104 train, 3 сида. Упрощённый принцип ToMP.'))
     milestone_sources = []
     for cid, folder, contrast, title, method in readout_milestones:
         path = ROOT/'runs'/folder/'report.json'

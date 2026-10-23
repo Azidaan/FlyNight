@@ -15797,7 +15797,7 @@
    "id": "z13_search_conditioned_v1",
    "title": "З13: модель цели с учётом текущего поиска",
    "area": "flyvis",
-   "state": "planned",
+   "state": "completed_negative",
    "started": "2026-10-23",
    "tags": [
     "fly-problem-P8",
@@ -15810,24 +15810,36 @@
    "acceptance": [
     {
      "criterion": "Тесты доступа к весам/перестановки/масок,18контролей,32старыхшага,36моделей и все хеши проверены.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_search_conditioned_20261023/report.json; reproduction.json; timing.json; controller_result.json"
     },
     {
      "criterion": "Dsearch-Dtemplate >=2п.п. и нижняя95%повидеоДИ>0.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_search_conditioned_20261023/report.json; reproduction.json; timing.json; controller_result.json"
     },
     {
      "criterion": "Dsearch лучше старой Dс активностью,старой картыD,R1search и Dsearchбезактивности: все нижние95%ДИ>0.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_search_conditioned_20261023/report.json; reproduction.json; timing.json; controller_result.json"
     }
    ],
-   "summary": "Критерии до результатов; два одинаковых предсказателя весов различаются только доступом поиска.",
-   "done": "",
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
+   "summary": "Эта адаптация предсказания модели цели не прошла все заданные критерии. Это не отрицание механизма ToMP или всей линии FlyVis; наш средний образец и3пика существенно беднее исходной модели.",
+   "done": "2026-10-23",
+   "obtained": "runs/z13_search_conditioned_20261023/report.json, paired: {\"D_search_activity-D_template_activity\": {\"mean_per_video\": -0.018743147529366712, \"ci95\": [-0.03778956437627713, -0.0028644461985393487], \"better\": 3, \"n\": 26}, \"D_search_geometry-D_template_geometry\": {\"mean_per_video\": -0.004981317598724001, \"ci95\": [-0.012400514154813334, 0.002519828441919836], \"better\": 7, \"n\": 26}, \"D_search_activity-D_old_activity\": {\"mean_per_video\": -0.001871592399210761, \"ci95\": [-0.024034530157217085, 0.016081631143938523], \"better\": 11, \"n\": 26}, \"D_search_activity-D_old_geometry\": {\"mean_per_video\": -0.050444584634952896, \"ci95\": [-0.0964525836067944, -0.01563636576872383], \"better\": 4, \"n\": 26}, \"D_search_activity-D_search_geometry\": {\"mean_per_video\": -0.03388488102832433, \"ci95\": [-0.05727396262505543, -0.011470120331469746], \"better\": 4, \"n\": 26}, \"D_search_activity-D_top1\": {\"mean_per_video\": -0.0026468646982074928, \"ci95\": [-0.0279846274372211, 0.018638469735263726], \"better\": 12, \"n\": 26}, \"D_search_activity-D_kalman\": {\"mean_per_video\": -0.04442138416964991, \"ci95\": [-0.09337905455168898, -0.005572705475002118], \"better\": 9, \"n\": 26}, \"C_search_activity-C_template_activity\": {\"mean_per_video\": 0.013708671927309986, \"ci95\": [-0.013619106875825838, 0.05847881258289832], \"better\": 7, \"n\": 26}, \"C_search_geometry-C_template_geometry\": {\"mean_per_video\": -0.006281016211890169, \"ci95\": [-0.014032004850427344, 0.002487975956975934], \"better\": 5, \"n\": 26}, \"C_search_activity-C_old_activity\": {\"mean_per_video\": 0.0037344121640624514, \"ci95\": [-0.015128194006023608, 0.020626754554299583], \"better\": 11, \"n\": 26}, \"C_search_activity-C_old_geometry\": {\"mean_per_video\": -0.012805325835597998, \"ci95\": [-0.03499629272286068, 0.01010711776782421], \"better\": 8, \"n\": 26}, \"C_search_activity-C_search_geometry\": {\"mean_per_video\": -0.0022380191646588785, \"ci95\": [-0.03470618912319035, 0.04594173079216651], \"better\": 5, \"n\": 26}, \"C_search_activity-C_top1\": {\"mean_per_video\": 0.0259372589059677, \"ci95\": [0.0075027877753365, 0.0423418526494519], \"better\": 18, \"n\": 26}, \"C_search_activity-C_kalman\": {\"mean_per_video\": 0.007930719367512258, \"ci95\": [-0.016704308573899387, 0.03201845701747899], \"better\": 15, \"n\": 26}, \"R1_search_activity-R1_template_activity\": {\"mean_per_video\": -0.03265742309399419, \"ci95\": [-0.07427427786858165, -0.008530843663488366], \"better\": 3, \"n\": 26}, \"R1_search_geometry-R1_template_geometry\": {\"mean_per_video\": 0.00011560051082816332, \"ci95\": [-0.004434975364722935, 0.004624823242180112], \"better\": 4, \"n\": 26}, \"R1_search_activity-R1_old_activity\": {\"mean_per_video\": -0.01950844948576008, \"ci95\": [-0.0640473135911562, 0.0077360693424451425], \"better\": 8, \"n\": 26}, \"R1_search_activity-R1_old_geometry\": {\"mean_per_video\": -0.030098781653241483, \"ci95\": [-0.07340138948620151, -0.003908002862375084], \"better\": 5, \"n\": 26}, \"R1_search_activity-R1_search_geometry\": {\"mean_per_video\": -0.02694337603320117, \"ci95\": [-0.0706397090281761, 0.0004583116720656666], \"better\": 4, \"n\": 26}, \"R1_search_activity-R1_top1\": {\"mean_per_video\": 0.04209522967088852, \"ci95\": [0.026345740675709432, 0.05865340898547876], \"better\": 19, \"n\": 26}, \"R1_search_activity-R1_kalman\": {\"mean_per_video\": -0.03418692892934661, \"ci95\": [-0.0798504409527372, -0.004990330158709697], \"better\": 4, \"n\": 26}, \"D_search_activity-R1_search_activity\": {\"mean_per_video\": 0.12143990220210502, \"ci95\": [0.08435491306041362, 0.16538096512906617], \"better\": 23, \"n\": 26}, \"D_search_activity-C_search_activity\": {\"mean_per_video\": -0.031556201609796206, \"ci95\": [-0.07932758571911042, 0.003892326296668395], \"better\": 7, \"n\": 26}, \"C_search_activity-R1_search_activity\": {\"mean_per_video\": 0.15299610381190124, \"ci95\": [0.09428472873861557, 0.2378617968493633], \"better\": 23, \"n\": 26}}. Все36моделей завершены,параметров на модель 7273;1150шагов и145950предъявлений;18старыхмоделей и32старыхшага воспроизведены.",
+   "interpretation": "Эта адаптация предсказания модели цели не прошла все заданные критерии. Это не отрицание механизма ToMP или всей линии FlyVis; наш средний образец и3пика существенно беднее исходной модели.",
+   "decision": "Не заменять рабочий считыватель этой версией; не выбирать лучший сид или подбирать по train26. Следующая правка должна иметь иной механизм и измеримую мишень.",
    "cannot_claim": "Не полная ToMP: только средний образец и3пика, без плотного поля/размеров/регрессии рамки. Train26 повторно использован, нет HOTA и калиброванного отказа; большая ёмкость сама по себе не вклад мухи.",
-   "metrics": [],
+   "metrics": [
+    {
+     "key": "useful_center_fraction",
+     "value": 0.2522389456051197,
+     "baseline": 0.27098209313448646,
+     "subset": "train26 search-conditioned D",
+     "source": "runs/z13_search_conditioned_20261023/report.json",
+     "locator": "summary.D_search_activity.useful_mean_video"
+    }
+   ],
    "commits": [],
    "files": [
     "tracking/z13_search_conditioned.py",
@@ -15839,6 +15851,119 @@
      "kind": "file",
      "ref": "runs/z13_search_conditioned_20261023/protocol.json",
      "claim": "Один фактор внутри основного сравнения, критерии и хеши"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_search_conditioned_20261023/report.json",
+     "claim": "Все парные исходы"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_search_conditioned_20261023/reproduction.json",
+     "claim": "Воспроизведение старого чтения"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_search_conditioned_20261023/controller_result.json",
+     "claim": "Своё дерево завершено"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-23",
+     "commit": "b32afc8e3f6e230311983d6ed807fbfcb8f5fad7",
+     "field": "summary",
+     "old": "Критерии до результатов; два одинаковых предсказателя весов различаются только доступом поиска.",
+     "reason": "Полный проверенный исход предсказателя весов."
+    }
+   ],
+   "confirmed_results": [
+    {
+     "id": "z13_search_conditioned_v1_D_search_activity_vs_R1_search_activity",
+     "title": "Предсказание модели цели: D_search_activity-R1_search_activity",
+     "category": "representation",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "comparison": "D_search_activity-R1_search_activity",
+     "subset": "Повторно использованные26train,известные присутствующие цели",
+     "conditions": "104train,3сида,1150шагов145950предъявлений; одинаковая архитектура, маска доступа поиска в предсказатель весов;парный бутстрэп5000сид1.",
+     "limitations": "Частный результат не отменяет остальные критерии. Не полная ToMP; shared encoder also changes enriched features through the changed exemplar path. Нет HOTA/безопасного отказа.",
+     "evidence": {
+      "source": "runs/z13_search_conditioned_20261023/report.json",
+      "sha256": "cc5b0d782debd9b0388e44643e11ad100bb55437886616ddde02c1d2866f3356",
+      "locator": [
+       "paired",
+       "D_search_activity-R1_search_activity"
+      ]
+     }
+    },
+    {
+     "id": "z13_search_conditioned_v1_C_search_activity_vs_R1_search_activity",
+     "title": "Предсказание модели цели: C_search_activity-R1_search_activity",
+     "category": "representation",
+     "metric": "useful_center_fraction",
+     "unit": "fraction",
+     "comparison": "C_search_activity-R1_search_activity",
+     "subset": "Повторно использованные26train,известные присутствующие цели",
+     "conditions": "104train,3сида,1150шагов145950предъявлений; одинаковая архитектура, маска доступа поиска в предсказатель весов;парный бутстрэп5000сид1.",
+     "limitations": "Частный результат не отменяет остальные критерии. Не полная ToMP; shared encoder also changes enriched features through the changed exemplar path. Нет HOTA/безопасного отказа.",
+     "evidence": {
+      "source": "runs/z13_search_conditioned_20261023/report.json",
+      "sha256": "cc5b0d782debd9b0388e44643e11ad100bb55437886616ddde02c1d2866f3356",
+      "locator": [
+       "paired",
+       "C_search_activity-R1_search_activity"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "z13_effect_path_audit_v1",
+   "title": "З13: путь эффекта D в сохранённых выходах стенда",
+   "area": "flyvis",
+   "state": "completed_positive",
+   "started": "2026-10-23",
+   "question": "На каком уровне сохранённых выходов виден эффект1162поправок D?",
+   "hypothesis": "Часть поправок может не менять видимый выход; другая часть может исчезать после отбора размеченных кадров или сшивки. Это версии, не установленная причина.",
+   "expected": "Только чтение35готовых пар, хеши, точное сравнение и равенство при переименовании ID; без новой HOTA/моделей/видео/GPU.",
+   "acceptance": [
+    {
+     "criterion": "Все35пар прочитаны, источники неизменны; старые HOTA/события сверены, различены геометрия и идентичности.",
+     "met": true,
+     "evidence": "runs/z13_effect_path_audit_20261023/report.json; analysis.json"
+    }
+   ],
+   "summary": "Большая часть видео не меняет даже видимый сырой выход, несмотря на события поправки. Там, где выход меняется, часть различий относится только к переименованию ID или не отражается в HOTA. Это локализует ограничение эффекта на уровне сохранённых выходов, но не устанавливает причину каждого вмешательства.",
+   "done": "2026-10-23",
+   "obtained": "runs/z13_effect_path_audit_20261023/report.json → summary: {\"videos\": 35, \"events\": {\"steps\": 209062, \"interventions\": 1162, \"refusals\": 207900, \"births\": 14179, \"nonfinite_refusals\": 0}, \"raw_changed_videos\": 12, \"raw_geometry_changed_videos\": 12, \"raw_trajectory_changed_videos\": 12, \"stitched_changed_videos\": 11, \"stitched_trajectory_changed_videos\": 9, \"hota_better\": 4, \"hota_equal\": 31, \"hota_worse\": 0}. analysis.json: {\"interventions_in_videos_with_identical_raw_outputs\": 731, \"raw_changed_frames\": 4924, \"raw_geometry_changed_frames\": 368, \"note\": \"Количество различающихся кадров не равно количеству причинных вмешательств; изменение одного ID может размножиться на дальнейших кадрах.\"}",
+   "interpretation": "Большая часть видео не меняет даже видимый сырой выход, несмотря на события поправки. Там, где выход меняется, часть различий относится только к переименованию ID или не отражается в HOTA. Это локализует ограничение эффекта на уровне сохранённых выходов, но не устанавливает причину каждого вмешательства.",
+   "decision": "Не запускать поиск ухудшившегося D-видео против стенда: таких видео здесь нет. Продолжать проверку считывания на train; новую политику или порог по dev не подбирать. Для отдельного причинного разбора нужен журнал одного вмешательства и сопоставлений, а не повторный общий HOTA.",
+   "cannot_claim": "Агрегаты не позволяют приписать каждый эффект конкретной поправке; сравнение до/после сшивки не изолирует её причинный вклад от выборки кадров. Dev35 уже использован.",
+   "metrics": [],
+   "commits": [],
+   "files": [
+    "scripts/z13_effect_path_audit_20261023.py"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_effect_path_audit_20261023/protocol.json",
+     "claim": "Заранее заданный аудит сохранённых выходов"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_effect_path_audit_20261023/report.json",
+     "claim": "Аудит35пар, не новая эффективность модели"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-23",
+     "commit": "b32afc8e3f6e230311983d6ed807fbfcb8f5fad7",
+     "field": "summary",
+     "old": "Постановка аудита сохранённых артефактов; параметры модели не подбираются.",
+     "reason": "Итог аудита существующих источников."
     }
    ]
   }
