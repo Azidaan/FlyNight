@@ -1,0 +1,53 @@
+{
+  "at": "2026-10-25T01:49:45.114011+03:00",
+  "scope": "Targeted primary-source literature comparison; no new experiment",
+  "local_claims_verified": true,
+  "sources_sha256": {
+    "runs/z13_refusal_causes_20261025/diagnosis.json": "ba6eb2c54ba0bc3eafaf43c51c7fe84efed3f81862aa9eb97e7eac72368e3494",
+    "runs/z13_refusal_causes_20261025/explanation.json": "f12df8610f749b13af170cf78478ca768d509e7a64dfb0d036ffc421ea87f3a7",
+    "runs/z13_region_readout_20261025/recovery1/report.json": "979243e95ded160b9256374776d092a88dc5c004e815f7584597a66a58ed8380",
+    "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
+    "tracking/z13_candidate_ranker.py": "fd2d820efa909371630124f7177af51a3ba820fdeb34589f4adb9c2fead97b2e",
+    "tracking/z13_spatial_localizer.py": "ccdcccfb37762a8c790c2fdc747da5677da8da393a8dd19659ebf37c569d0472",
+    "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df",
+    "research_flyvis_same_failure_2026-10-25/СВОДКА.md": "08f2b22c2f8c53008617bd1d9f42fdd273b0826b7d078af61bf7ad82d4a25eb8",
+    "research_flyvis_same_failure_2026-10-25/verify_sources.py": "3fe89db95064e958d1e0756576b6d35d3ed411075316c783d50e2e396b6e9001"
+  },
+  "protected_foreign_files": 57,
+  "external_sources": [
+    {
+      "url": "https://arxiv.org/pdf/2001.02593",
+      "version": "v1",
+      "locations": [
+        "section 4",
+        "figures 4-5",
+        "section 5"
+      ],
+      "status": "preprint; read primary text"
+    },
+    {
+      "url": "https://arxiv.org/html/2105.11595v1",
+      "version": "v1",
+      "locations": [
+        "section 3.4",
+        "section 5.2, table 2",
+        "appendix C, table 7"
+      ],
+      "status": "primary text and ablation checked"
+    },
+    {
+      "url": "https://arxiv.org/html/2103.16556v2",
+      "version": "v2",
+      "locations": [
+        "section 3",
+        "section 4.1, table 1",
+        "appendix F"
+      ],
+      "status": "primary method, ablation and remaining failures checked"
+    }
+  ],
+  "external_content_sha256": null,
+  "external_hash_note": "Remote pages inspected with the browser; no local full-text snapshot or hash is claimed.",
+  "cause_in_our_current_readout_proven": false,
+  "scientific_calculations_started": false
+}
