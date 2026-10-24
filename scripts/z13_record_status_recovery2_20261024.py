@@ -1,0 +1,21 @@
+"""Record bounded status I/O repair and run the required catalog checks."""
+from pathlib import Path
+import sys,subprocess,os
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
+from scripts.z13_candidate_reserve_20261021 import read,write,now
+from scripts import z13_val20_native_masa_recovery2_20261024 as R
+W=ROOT/'runs/z13_weekend_20261024'
+
+
+def main():
+    from scripts.z13_hota_deadline_guard import WindowsProcesses
+    ps=WindowsProcesses();c=read(R.REC/'controller.json');q=read(R.REC/'completion.json');assert ps.creation(c['pid'])==c['birth'] and ps.creation(q['pid'])==q['birth'];p=read(R.REC/'protocol.json')
+    cp=ROOT/'experiments/project_history.json';cat=read(cp);card=next(x for x in cat['experiments'] if x['id']=='z13_val20_native_masa_v1')
+    card['evidence'].append(dict(kind='file',ref=(R.REC/'protocol.json').relative_to(ROOT).as_posix(),claim='Служебное восстановление после временного отказа чтения status;59готовых результатов и исходный срок сохранены.'));write(cp,cat)
+    f=W/'HANDOFF.md';old=f.read_text(encoding='utf-8');head='# Актуально — '+now().strftime('%d.%m.%Y %H:%M MSK')+'\n\nТекущий расчёт: native_masa_recovery2, scripts/z13_val20_native_masa_recovery2_20261024.py. Контроллер '+str(c['pid'])+'/birth'+str(c['birth'])+', монитор '+str(q['pid'])+'/birth'+str(q['birth'])+'. Видимая консоль и launcher: native_masa_recovery2/launch.json. Один GPU, исходный срок сохранения '+c['save_at']+', полная остановка '+c['hard_stop']+'. Начальные36000с от08:04:53 не продлены.\n\nПредыдущая recovery1 остановилась09:51:58: временный PermissionError чтения status.json в наблюдателе. Последний TrackTrackchild после ошибки родителя закончил своё задание;все PID/birth из старого контроллера теперь закончены. Проверено59маркеров и хеши выходов,включая этот поздний результат. Никаких научных критериев не нарушено. Новая версия повторяет только PermissionError/FileNotFound при чтении служебного status,до40попыток с паузой0,05с. Дата updated не подменяется;прежний сторож600с сохранён. При ошибке родителя только его явно зарегистрированный childPID/birth завершается с ожиданием конца.\n\nОсталось46заданий;на момент восстановления10видео включают один частичный. Цена по первоначальному полному ролику530,25с, множитель2,резерв900с: '+str(p['recovery_price']['conservative_remaining_seconds'])+'с против '+str(p['recovery_price']['available_seconds'])+'с остатка. Готовое не повторяется;нулевое время пропуска не используется для новой цены. Смотрим реальную свежесть кадров/CPU/PID,а не одну запись started. Ошибки и исходники recovery1 сохранены. Источники native_masa_recovery2/protocol.json иprevious_end_audit.json.\n\nМонитор этого же файла --monitor после exit0/конца дерева выполнит --record:105jobs/8HOTA/парные интервалы,карточка сrevisions,журнал,каталог/тесты/граф. Итоги в native_masa_recovery2/report.json,verified_summary.json,results.md,finish_recorded.json. Ошибки:W/val20_native_masa_recovery2_failure.json или val20_native_masa_recovery2_monitor_failure.json. Не читать прежний recovery1failure как новый. После готового итога публикация точных собственных JSON/источников/записей;не кэшей,логов и весов. Чужие57графправок и.gitignore сохранить. Архитектура не менялась.\n\nFlyVis по-прежнему НЕ запускается: ответ на ранее заданный вопрос о допуске0,0001px не поступил. val20_replay_pending_author_decision.json остаётся pending. Новый heartbeat не является согласием,допуски не менять,вопрос повторно не задавать. Нынешний независимый базис4трекеров+MASA не является результатом D.\n\nНиже прежние записи сохранены.\n\n';f.write_text(head+old,encoding='utf-8')
+    for name,args in [('catalog',['scripts/validate_project_history.py']),('tests',['-m','pytest','tests/test_project_history.py','tests/test_z13_status_read_retry.py','-q'])]:
+        result=subprocess.run([str(ROOT/'.venv/Scripts/python.exe'),*args],cwd=ROOT,env={**os.environ,'CUDA_VISIBLE_DEVICES':'','PYTHONIOENCODING':'utf-8'},capture_output=True);(W/('status_recovery2_'+name+'.log')).write_bytes(result.stdout);(W/('status_recovery2_'+name+'.stderr.log')).write_bytes(result.stderr);assert result.returncode==0,(name,result.returncode,result.stderr[-2000:]);print(name,0,flush=True)
+    write(W/'status_recovery2_checks.json',dict(at=now().isoformat(),catalog_exit=0,tests_exit=0))
+
+
+if __name__=='__main__':main()
