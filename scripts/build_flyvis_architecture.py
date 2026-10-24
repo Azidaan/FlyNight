@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 OUT = ROOT / 'dissertation/architecture'
 STEM = 'FlyVis_architecture'
-DATE = '24.10.2026'
+DATE = '25.10.2026'
 FONT = 'C:/Windows/Fonts/segoeui.ttf'
 BOLD = 'C:/Windows/Fonts/segoeuib.ttf'
 PALETTE = {'base': ('#FAD8DA','#BC252D'), 'tried': ('#FFF1BA','#BF8A18'),
@@ -189,6 +189,13 @@ def main():
         measured=json.loads(joint_path.read_text(encoding='utf-8'));comparison=measured['paired_precision']['D_joint_activity-D_bce_common_activity'];center=measured['paired_centers']['D_joint_activity-D_bce_common_activity'];number=lambda value:f'{100*value:+.2f}'.replace('.',',')
         result='Полезные среди выбранных5% с известным исходом: '+number(comparison['mean_per_video'])+' п.п. ['+number(comparison['ci95'][0])+'; '+number(comparison['ci95'][1])+'], только24/26видео. Центры: '+number(center['mean_per_video'])+' п.п. Полные критерии не пройдены; версия не принята. HOTA не измерялась.'
         LANES[6][2].append(('z13_competing_candidates_v1','Совместная ошибка кандидатов и отказа','Вместо независимой двоичной ошибки: совместная вероятность трёх кандидатов и отсутствия полезного ответа. Та же сеть и1150шагов,104train,3сида. Общая нормировка дана также прежнему контролю; не полная KeepTrack.',result));milestone_sources.append(joint_path.relative_to(ROOT).as_posix())
+    contrast_path=ROOT/'runs/z13_observed_contrast_20261025/report.json'
+    if cards.get('z13_observed_contrast_v1',{}).get('state') in ('completed_positive','completed_negative','inconclusive') and contrast_path.exists():
+        measured=json.loads(contrast_path.read_text(encoding='utf-8'))
+        counts=measured['results']['D']['contrast']['counts']
+        result=f'D: {counts.get("beneficial",0)} полезное из {counts["selected"]}; {counts.get("unknown",0)} неизвестных. Нижние границы основных ДИ равны0; критерии не пройдены. Это последствия первого назначения на train26, не HOTA.'
+        LANES[6][2].append(('z13_observed_contrast_v1','Цель против наблюдавшихся фоновых пиков','Вместо формы карты: косинусное сходство с образцом цели минус среднее сходство с отдельными фоновыми пиками наблюдаемого кадра. Прототипы фиксированы; NULL0, максимум1%, тот же центр. Принцип цель−фон ранее был в foreground; здесь другая реализация.',result))
+        milestone_sources.extend([contrast_path.relative_to(ROOT).as_posix(),'tracking/z13_observed_contrast.py'])
     nodes, edges, sources, linked = [], [], {}, set()
     fonts = {}
     def font(size, bold=False):
@@ -394,7 +401,7 @@ def main():
     assert len(mx.findall('diagram'))==1
     audit=dict(diagram_sheets=1,nodes=len(nodes),edges=len(edges),linked_experiments=len(linked),source_files=len(sources),box_overlaps=overlaps,
         all_text_fits=True,confirmed_source_hashes_verified=True,canvas=[W,H],arrow_levels=EDGE_STYLES,edges_through_unrelated_nodes=blocked,
-        original_node_colour=PALETTE['base'][0],outputs={p.name:sha(p) for p in OUT.glob(STEM+'*') if p.suffix in ('.drawio','.svg','.png')})
+        original_node_colour=PALETTE['base'][0],outputs={p.name:sha(p) for p in [OUT/(STEM+suffix) for suffix in ('.drawio','.svg','.png','_preview.png','_detail.png')]})
     (OUT/'validation.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     print(json.dumps(audit,ensure_ascii=False))
 

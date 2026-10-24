@@ -1,5 +1,5 @@
 {
-  "date": "24.10.2026",
+  "date": "25.10.2026",
   "scope": "One sheet; architectural replacements, not all tracker experiments",
   "source_sha256": {
     "runs/z13_localization_labels_20261023/report.json": "eb3c37be778bb45c656359116ae912eb5ed4567e2179bd3e518bfb31fa16da91",
@@ -9,6 +9,8 @@
     "runs/z13_search_conditioned_20261023/report.json": "cc5b0d782debd9b0388e44643e11ad100bb55437886616ddde02c1d2866f3356",
     "runs/z13_filter_descriptor_fixed_20261024/train/report.json": "7c47e6493f727b72f8a8bab9e1cb4a9d46a6d11e7273b596f0cac8dcee9a9e4c",
     "runs/z13_competing_candidates_20261024/recovery2/report.json": "966b697920e2dfecf3008a09569b4025880bb82316ba7781e03a79eace1961db",
+    "runs/z13_observed_contrast_20261025/report.json": "9922c73bf47c920da0f7e12c77221afa5fefed31728e0357117fdfff4c79cbbe",
+    "tracking/z13_observed_contrast.py": "843a5e4d08c4d1e0c5533199be212c29e5c42780cb08726425bd2a9a9cafb6e5",
     "scripts/z13_score_swap.py": "623e8268517f91eb49c325389c9a2f2e072fefac986371d5b432596201bac20b",
     "tracking/z13_observed_memory.py": "1750a9cce67c4a257cf0690b1962905b9709533971a532ee3fcb71e37b4e4652",
     "runs/z13_observed_memory_20261021/report.json": "0ddb94439234cab71d6d3fc2810090650996647b4a3bdb2fc7b973b56f9a0c73",
@@ -30,11 +32,11 @@
     "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df",
     "runs/z13_center_hota_20261021/protocol.json": "b733454d75a2b65385ab71d48bed7926f47d1c00d63ade244cb30ae3ec0683e6",
     "runs/z13_center_hota_20261021/eval/report.json": "ad13cd78cf03b0dca94a2da08ecd76ab2fb745c53110d6810195e94d7bc8e8c3",
-    "scripts/build_flyvis_architecture.py": "f854c61bb262b296979f84ca949d6cd5ee322e32a5db0b715ca4be20149c1a01",
+    "scripts/build_flyvis_architecture.py": "e1d70a71af3b8a135b91d61218d8942b16a7a549e01e297cd918eb5630a6cfb9",
     "scripts/flyvis_architecture_layout.py": "25cc8f7851c8ef2ec405f0734a0f3b7a690006f480646da27a13d2d85de5162c",
     "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
     "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
-    "AGENTS.md": "5910955bff0ebd9d01b298293fd81c4e6bad26f1a85f2bf7eeb6adec051f79f9",
+    "AGENTS.md": "d933476c7c9ab2bf6c37a89fe96f10096d12a6034ffc3d554505d4ce2c0632c8",
     "tracking/foveated_eyes.py": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
     "runs/flyvis/results/flow/0000/000/_meta.yaml": "2aa8a9505324c82bbb4011ee2f7c375b5f8b1bddde1a5281e038baecf91fc5dd",
     "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
@@ -49,7 +51,7 @@
     "runs/z13_absolute_confidence_20261022/report.json": "93d454208618ce85f9d7e618bd98d0c884dc4729bcfe7a55f2804e3765aa34db",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "5af424e7fd0ff1a6561f6c36c6f78202d2bc9a264c45209ee3343109e63f81f8"
+    "experiments/project_history.json": "e85c2b532cf4bacef66a24d2054d7977dd23af16be2c63b2266f511b6eaafa72"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -1822,6 +1824,23 @@
           "kind": "json",
           "ref": "runs/z13_parallel_next_20261018/utility/report.json",
           "claim": "Полный первичный результат"
+        }
+      ]
+    },
+    "z13_observed_contrast_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_observed_contrast_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_observed_contrast_20261025/protocol.json",
+          "claim": "Новый механизм,отличие от прежних вариантов и критерии до исходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_observed_contrast_20261025/report.json",
+          "claim": "Всеисходы,контрольбезмухи,парныеинтервалы"
         }
       ]
     },
@@ -3882,6 +3901,32 @@
       "size": 22
     },
     {
+      "id": "v_z13_observed_contrast_v1",
+      "x": 5710,
+      "y": 8950,
+      "w": 870,
+      "h": 360,
+      "title": [
+        "II.20 Цель против наблюдавшихся фоновых пиков"
+      ],
+      "body": [
+        "Вместо формы карты: косинусное сходство с образцом цели минус среднее",
+        "сходство с отдельными фоновыми пиками наблюдаемого кадра. Прототипы",
+        "фиксированы; NULL0, максимум1%, тот же центр. Принцип цель−фон ранее был",
+        "в foreground; здесь другая реализация.",
+        "НЕОПРЕДЕЛЁННО: D: 1 полезное из 84; 21 неизвестных. Нижние границы",
+        "основных ДИ равны0; критерии не пройдены. Это последствия первого",
+        "назначения на train26, не HOTA."
+      ],
+      "footer": [
+        "z13_observed_contrast_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_observed_contrast_v1",
+      "card": "z13_observed_contrast_v1",
+      "size": 22
+    },
+    {
       "id": "original_7",
       "x": 6780,
       "y": 4230,
@@ -4178,7 +4223,7 @@
     {
       "id": "metric",
       "x": 4580,
-      "y": 9400,
+      "y": 9480,
       "w": 2000,
       "h": 360,
       "title": [
@@ -4199,7 +4244,7 @@
     {
       "id": "g_map104",
       "x": 4580,
-      "y": 9950,
+      "y": 10030,
       "w": 2000,
       "h": 640,
       "title": [
@@ -4275,7 +4320,7 @@
     {
       "id": "footer",
       "x": 100,
-      "y": 10770,
+      "y": 10850,
       "w": 8780,
       "h": 160,
       "title": [
@@ -6598,6 +6643,43 @@
       "arrow": 23
     },
     {
+      "a": "hub_6",
+      "b": "v_z13_observed_contrast_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5580,
+          9130.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "left",
+      "label": "II",
+      "label_at": [
+        5645,
+        9130.0
+      ],
+      "render_points": [
+        [
+          5580.0,
+          5000
+        ],
+        [
+          5580,
+          9130.0
+        ],
+        [
+          5710,
+          9130.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
       "a": "original_7",
       "b": "hub_7",
       "kind": "variant",
@@ -7283,7 +7365,7 @@
         ],
         [
           6640,
-          10270
+          10350
         ]
       ],
       "start": "right",
@@ -7291,7 +7373,7 @@
       "label": "III",
       "label_at": [
         6640,
-        10270
+        10350
       ],
       "render_points": [
         [
@@ -7304,11 +7386,11 @@
         ],
         [
           6640,
-          10270
+          10350
         ],
         [
           6580,
-          10270.0
+          10350.0
         ]
       ],
       "colour": "#117A46",
