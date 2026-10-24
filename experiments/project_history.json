@@ -16620,7 +16620,7 @@
    "id": "z13_val20_common_v1",
    "title": "Общие20val: десять систем с одинаковой MASA и контролями C/B/R1",
    "area": "flyvis",
-   "state": "running",
+   "state": "inconclusive",
    "started": "2026-10-24",
    "tags": [
     "benchmark",
@@ -16632,7 +16632,8 @@
    "acceptance": [
     {
      "criterion": "First old fixed control video: all10 raw output arrays exactly reproduce stored previous signatures;XYWH feature arrays and MASA baseline embeddings exactly repeat. Fresh process per signature/MASA,one namedGPUmutex. Then first fixed new video all10+MASA retained;2x its full walltime*remaining19+900seconds must fit remaining stage86400s and author deadline. Scientific thresholds unchanged. Stop after600s without frame/stage progress,retain completed jobs,no automatic repeated failed child.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_val20_matched_20261024/common_replay_diagnostic/report.json"
     },
     {
      "criterion": "Все20×10систем raw/MASA,231задание,первичные строки/хеши и независимая сверка;своё дерево закончено в бюджете.",
@@ -16643,10 +16644,10 @@
      "met": null
     }
    ],
-   "summary": "Зарегистрировано до общего сравнения;числа CPUraw20 не подменяют общий итог с FlyVis/MASA.",
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
+   "summary": "Общее10-системное сравнение остановлено на точном контроле D;готовы4контроля,эффективность не измерена.",
+   "obtained": "runs/z13_val20_matched_20261024/common/controller_result.json:exit1,all_owned_ended=true;common_replay_diagnostic/report.json:старыйпроизводительтакженеповторилпобитово,максимум0,000030517578125px,числастрок/кадры/идентификаторы/классы/уверенностиравны. Сохранены4точныхконтроляобычныхтрекеров;ниодногоиз20основныхроликов10системнеобработано.",
+   "interpretation": "Строгий технический критерий не выполнен;это не научный отрицательный итог D. Конкретный источник малого межпроходного разброса не установлен.",
+   "decision": "Не продолжать ветвь FlyVis с изменённым допуском без решения автора;вопрос задан. Независимо выполняется отдельная общая MASA четырёхтрекеров с прежними точнымиконтролями. Старые ошибка/источники/код/журналы сохранены;бесконечногоповтораDнет.",
    "cannot_claim": "All200val videos were used in older low-frame-rate tracker research; detector val monitored during weight selection. New20 are additional original-frame caches, not untouched independent confirmation or final test. No outcome-dependent exclusion; ambiguous alignment stops preparation, no replacement video. Additional20 were selected before outcomes, but are not untouched final test. Native algorithms not optimally tuned. MASA scorer trained on XYWH pairs may transfer unequally;show raw and MASA. One saved D is not a seed-independence result. Prior7 subset and these20 remain separate tables;do not compare their raw numbers as changes. C is the pretrained fixed FlyVis core with task-trained frozen readout; D is one saved adapted core. Their readout/policy weights and training differ. B is small learnedGRU, R1 temporal receptors, parameter counts differ. D-C is functional system comparison, not an isolated backbone/anatomy effect. Same four observed frames followed by continuing recurrent search history, max4eyes, fixed per-arm tau/lambda. Geometry-only tracker without any correction is included.",
    "metrics": [],
    "commits": [],
@@ -16665,6 +16666,62 @@
      "kind": "file",
      "ref": "runs/z13_val20_matched_20261024/raw/report.json",
      "claim": "Готовая исходная ступень20val без FlyVis/MASA"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-24",
+     "commit": "16f908cea316bfd29863c62e5dda42ec4007680f",
+     "field": "summary",
+     "old": "Зарегистрировано до общего сравнения;числа CPUraw20 не подменяют общий итог с FlyVis/MASA.",
+     "reason": "Строгий контроль старой D повторно не выполнен;допуск без автора не ослаблен."
+    }
+   ],
+   "done": "2026-10-24"
+  },
+  {
+   "id": "z13_val20_native_masa_v1",
+   "title": "20val: четыре исходных трекера с одинаковой MASA",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-24",
+   "tags": [
+    "benchmark",
+    "infrastructure"
+   ],
+   "question": "Каков вклад одной замороженной MASA и рейтинг четырёх исходных трекеров в одинаковых условиях20val?",
+   "hypothesis": "Знак добавки MASA и порядок не предполагаются;это окружение проверки FlyVis,не её улучшение.",
+   "expected": "Only the4native trackers with identical MASA on the fixed20. Independent useful benchmark baseline requested by author; no FlyVis inference,weights,gate relaxation or claim of FlyVis efficacy. The pending10system protocol remains stopped,not silently reduced to success. Preserve4exact existing control signatures;fresh baseline MASA on old control must exactly repeat previous embeddings. Then fixed first new video4signatures+MASA retained;2x walltime*19+900 fits remaining36000s. Native raw arrays must exactly match independent CPU20 and projected raw JSON must match. All105jobs/20videos and raw/MASA required. Exact guards unchanged.",
+   "acceptance": [
+    {
+     "criterion": "Preserve4exact existing control signatures;fresh baseline MASA on old control must exactly repeat previous embeddings. Then fixed first new video4signatures+MASA retained;2x walltime*19+900 fits remaining36000s. Native raw arrays must exactly match independent CPU20 and projected raw JSON must match. All105jobs/20videos and raw/MASA required. Exact guards unchanged.",
+     "met": null
+    },
+    {
+     "criterion": "Полные105заданий/20видео,все исходные строки/хеши/парные интервалы проверены;exit0 и конец дерева.",
+     "met": null
+    },
+    {
+     "criterion": "All4raw/MASA metrics,paired-video95%CI for every native-vs-XYWH and within-system MASA contrast. Strict positive lower required for that exact benefit claim. No FlyVis benefit can be claimed.",
+     "met": null
+    }
+   ],
+   "summary": "Отдельный базис без FlyVis;проваленный контроль D не обходится.",
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "All200val videos were used in older low-frame-rate tracker research; detector val monitored during weight selection. New20 are additional original-frame caches, not untouched independent confirmation or final test. No outcome-dependent exclusion; ambiguous alignment stops preparation, no replacement video. Additional20 were selected before outcomes, but are not untouched final test. Native algorithms not optimally tuned. MASA scorer trained on XYWH pairs may transfer unequally;show raw and MASA. One saved D is not a seed-independence result. Prior7 subset and these20 remain separate tables;do not compare their raw numbers as changes. УлучшенияFlyVisнет;её запуск ожидает отдельного решения по точному воспроизведению.",
+   "metrics": [],
+   "commits": [],
+   "files": [
+    "scripts/z13_val20_native_masa_20261024.py",
+    "scripts/z13_val20_native_masa_console.ps1"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_val20_matched_20261024/native_masa/protocol.json",
+     "claim": "Протокол до исходов,с точными контролями и прежними данными"
     }
    ]
   }
