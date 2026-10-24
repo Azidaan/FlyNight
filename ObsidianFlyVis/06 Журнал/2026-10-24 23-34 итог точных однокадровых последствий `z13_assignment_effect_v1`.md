@@ -1,0 +1,18 @@
+---
+tags:
+- журнал
+дата: '2026-10-24'
+время: '23:34'
+---
+
+# 2026-10-24 23:34 — итог точных однокадровых последствий `z13_assignment_effect_v1`
+
+↑ [[06 Журнал/Дни/2026-10-24|2026-10-24]]
+
+*Получено.* runs/z13_assignment_effect_20261024/recovery1/report.json → oracle_beneficial_fraction/candidate_counts: {"oracle": {"D": {"mean_per_video": 0.016333290216897698, "ci95": [0.011763925813050998, 0.021382755368597604], "better": 22, "n": 26}, "C": {"mean_per_video": 0.016481833838614117, "ci95": [0.012459568550211287, 0.020952017849391054], "better": 23, "n": 26}, "R1": {"mean_per_video": 0.013639793430509573, "ci95": [0.009716834465446862, 0.018430945325481524], "better": 23, "n": 26}}, "counts": {"D": {"known": 5822, "candidates": 17466, "beneficial": 165, "harmful": 297, "center_useful_candidates": 846, "center_useful_beneficial": 37, "center_useful_harmful": 17, "center_useful_neutral": 792}, "C": {"known": 5822, "candidates": 17466, "beneficial": 175, "harmful": 298, "center_useful_candidates": 840, "center_useful_beneficial": 50, "center_useful_harmful": 24, "center_useful_neutral": 766}, "R1": {"known": 5822, "candidates": 17466, "beneficial": 176, "harmful": 372, "center_useful_candidates": 411, "center_useful_beneficial": 21, "center_useful_harmful": 16, "center_useful_neutral": 374}}}
+
+*Вывод.* Метки относятся к полному первому сопоставлению на неизменённой исходной траектории;не учитывают последующие этапы и обратную связь. Это не HOTA и не реализованный прирост.
+
+*Решение.* Не обучать эту версию по непройденному запасу;сохранить все данные и выбрать следующий узел.
+
+Проценты HOTA и доля потолка не определены.
