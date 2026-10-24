@@ -16649,10 +16649,10 @@
      "met": null
     }
    ],
-   "summary": "Автор разрешил координатный служебный допуск;общее сравнение продолжается с86проверенных заданий.",
+   "summary": "118заданий сохранены;после остановки MASA ожидается свободная GPU для единственного служебного возобновления.",
    "obtained": "runs/z13_val20_matched_20261024/common/controller_result.json:exit1,all_owned_ended=true;common_replay_diagnostic/report.json:старыйпроизводительтакженеповторилпобитово,максимум0,000030517578125px,числастрок/кадры/идентификаторы/классы/уверенностиравны. Сохранены4точныхконтроляобычныхтрекеров;ниодногоиз20основныхроликов10системнеобработано.",
    "interpretation": "Строгий технический критерий не выполнен;это не научный отрицательный итог D. Конкретный источник малого межпроходного разброса не установлен.",
-   "decision": "Продолжить только недостающие6вариантов на техже20val;готовые4трекера/MASA не повторять. Исходный конец25.10 06:00:27МСК не продлён. Первый новый полный ролик проверяет цену остатка. Старый точный контроль остаётся непройденным и сохранённым.",
+   "decision": "Продолжить только незавершённые задания в прежнем окне до25.10 06:00:27МСК после освобождения ресурсов. Не останавливать чужую игру. Повтор того же зависания заново диагностировать,не перезапускать бесконечно. До полного20valитога вывода об эффективности нет.",
    "cannot_claim": "All200val videos were used in older low-frame-rate tracker research; detector val monitored during weight selection. New20 are additional original-frame caches, not untouched independent confirmation or final test. No outcome-dependent exclusion; ambiguous alignment stops preparation, no replacement video. Additional20 were selected before outcomes, but are not untouched final test. Native algorithms not optimally tuned. MASA scorer trained on XYWH pairs may transfer unequally;show raw and MASA. One saved D is not a seed-independence result. Prior7 subset and these20 remain separate tables;do not compare their raw numbers as changes. C is the pretrained fixed FlyVis core with task-trained frozen readout; D is one saved adapted core. Their readout/policy weights and training differ. B is small learnedGRU, R1 temporal receptors, parameter counts differ. D-C is functional system comparison, not an isolated backbone/anatomy effect. Same four observed frames followed by continuing recurrent search history, max4eyes, fixed per-arm tau/lambda. Geometry-only tracker without any correction is included.",
    "metrics": [],
    "commits": [],
@@ -16676,6 +16676,11 @@
      "kind": "file",
      "ref": "runs/z13_val20_matched_20261024/common_authorized/protocol.json",
      "claim": "Явное разрешение,новый служебный контроль,86готовых результатов и исходный абсолютный срок."
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_val20_matched_20261024/common_authorized_recovery1/protocol.json",
+     "claim": "118готовых заданий,прежняя цена/срок и ожидание ресурсов;старые логи/ошибка сохранены."
     }
    ],
    "revisions": [
@@ -16699,6 +16704,20 @@
      "field": "decision",
      "old": "Не продолжать ветвь FlyVis с изменённым допуском без решения автора;вопрос задан. Независимо выполняется отдельная общая MASA четырёхтрекеров с прежними точнымиконтролями. Старые ошибка/источники/код/журналы сохранены;бесконечногоповтораDнет.",
      "reason": "Явное разрешение автора на отдельный координатный служебный допуск."
+    },
+    {
+     "date": "2026-10-24",
+     "commit": "c36ddbe123589b0f34284bb42acd5306faf3a0cd",
+     "field": "summary",
+     "old": "Автор разрешил координатный служебный допуск;общее сравнение продолжается с86проверенных заданий.",
+     "reason": "Сохранены результаты после600с без прогресса MASA;ресурсная очередь без изменения научных настроек."
+    },
+    {
+     "date": "2026-10-24",
+     "commit": "c36ddbe123589b0f34284bb42acd5306faf3a0cd",
+     "field": "decision",
+     "old": "Продолжить только недостающие6вариантов на техже20val;готовые4трекера/MASA не повторять. Исходный конец25.10 06:00:27МСК не продлён. Первый новый полный ролик проверяет цену остатка. Старый точный контроль остаётся непройденным и сохранённым.",
+     "reason": "Сохранены результаты после600с без прогресса MASA;ресурсная очередь без изменения научных настроек."
     }
    ],
    "done": "2026-10-24"
