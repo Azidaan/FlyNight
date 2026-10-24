@@ -16649,10 +16649,10 @@
      "met": null
     }
    ],
-   "summary": "118заданий сохранены;после остановки MASA ожидается свободная GPU для единственного служебного возобновления.",
+   "summary": "181задание проверено;незавершённый R1 прошёл инструментальный повтор,продолжается остаток в исходном окне.",
    "obtained": "runs/z13_val20_matched_20261024/common/controller_result.json:exit1,all_owned_ended=true;common_replay_diagnostic/report.json:старыйпроизводительтакженеповторилпобитово,максимум0,000030517578125px,числастрок/кадры/идентификаторы/классы/уверенностиравны. Сохранены4точныхконтроляобычныхтрекеров;ниодногоиз20основныхроликов10системнеобработано.",
    "interpretation": "Строгий технический критерий не выполнен;это не научный отрицательный итог D. Конкретный источник малого межпроходного разброса не установлен.",
-   "decision": "Продолжить только незавершённые задания в прежнем окне до25.10 06:00:27МСК после освобождения ресурсов. Не останавливать чужую игру. Повтор того же зависания заново диагностировать,не перезапускать бесконечно. До полного20valитога вывода об эффективности нет.",
+   "decision": "Использовать проверенный полный R1выход диагностического повтора;не вычислять готовое снова. Продолжить только остаток,с предварительными снимками собственного стека при новом простое. Причина прежних зависаний не установлена. Исходный конец25.10 06:00:27МСК не продлевать;до полного20valитога эффективности не оценивать.",
    "cannot_claim": "All200val videos were used in older low-frame-rate tracker research; detector val monitored during weight selection. New20 are additional original-frame caches, not untouched independent confirmation or final test. No outcome-dependent exclusion; ambiguous alignment stops preparation, no replacement video. Additional20 were selected before outcomes, but are not untouched final test. Native algorithms not optimally tuned. MASA scorer trained on XYWH pairs may transfer unequally;show raw and MASA. One saved D is not a seed-independence result. Prior7 subset and these20 remain separate tables;do not compare their raw numbers as changes. C is the pretrained fixed FlyVis core with task-trained frozen readout; D is one saved adapted core. Their readout/policy weights and training differ. B is small learnedGRU, R1 temporal receptors, parameter counts differ. D-C is functional system comparison, not an isolated backbone/anatomy effect. Same four observed frames followed by continuing recurrent search history, max4eyes, fixed per-arm tau/lambda. Geometry-only tracker without any correction is included.",
    "metrics": [],
    "commits": [],
@@ -16681,6 +16681,11 @@
      "kind": "file",
      "ref": "runs/z13_val20_matched_20261024/common_authorized_recovery1/protocol.json",
      "claim": "118готовых заданий,прежняя цена/срок и ожидание ресурсов;старые логи/ошибка сохранены."
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_val20_matched_20261024/common_authorized_recovery2/protocol.json",
+     "claim": "Диагностический повтор,181готовый результат и наблюдение стека без изменения научных настроек."
     }
    ],
    "revisions": [
@@ -16718,6 +16723,20 @@
      "field": "decision",
      "old": "Продолжить только недостающие6вариантов на техже20val;готовые4трекера/MASA не повторять. Исходный конец25.10 06:00:27МСК не продлён. Первый новый полный ролик проверяет цену остатка. Старый точный контроль остаётся непройденным и сохранённым.",
      "reason": "Сохранены результаты после600с без прогресса MASA;ресурсная очередь без изменения научных настроек."
+    },
+    {
+     "date": "2026-10-24",
+     "commit": "e51214b01b68d732b6f4df7817bb8de0a3aa37d4",
+     "field": "summary",
+     "old": "118заданий сохранены;после остановки MASA ожидается свободная GPU для единственного служебного возобновления.",
+     "reason": "Полный инструментальный повтор незавершённого R1 и проверка181результата;старые сбои сохранены."
+    },
+    {
+     "date": "2026-10-24",
+     "commit": "e51214b01b68d732b6f4df7817bb8de0a3aa37d4",
+     "field": "decision",
+     "old": "Продолжить только незавершённые задания в прежнем окне до25.10 06:00:27МСК после освобождения ресурсов. Не останавливать чужую игру. Повтор того же зависания заново диагностировать,не перезапускать бесконечно. До полного20valитога вывода об эффективности нет.",
+     "reason": "Полный инструментальный повтор незавершённого R1 и проверка181результата;старые сбои сохранены."
     }
    ],
    "done": "2026-10-24"
