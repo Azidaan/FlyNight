@@ -196,6 +196,16 @@ def main():
         result=f'D: {counts.get("beneficial",0)} полезное из {counts["selected"]}; {counts.get("unknown",0)} неизвестных. Нижние границы основных ДИ равны0; критерии не пройдены. Это последствия первого назначения на train26, не HOTA.'
         LANES[6][2].append(('z13_observed_contrast_v1','Цель против наблюдавшихся фоновых пиков','Вместо формы карты: косинусное сходство с образцом цели минус среднее сходство с отдельными фоновыми пиками наблюдаемого кадра. Прототипы фиксированы; NULL0, максимум1%, тот же центр. Принцип цель−фон ранее был в foreground; здесь другая реализация.',result))
         milestone_sources.extend([contrast_path.relative_to(ROOT).as_posix(),'tracking/z13_observed_contrast.py'])
+    region_path=ROOT/'runs/z13_region_readout_20261025/recovery1/report.json'
+    if cards.get('z13_region_readout_v1',{}).get('state') in ('completed_positive','completed_negative','inconclusive') and region_path.exists():
+        measured=json.loads(region_path.read_text(encoding='utf-8'))
+        counts=measured['counts']['D'];contrast=measured['paired']['D-baseline']
+        fmt=lambda value:f'{100*value:+.2f}'.replace('.',',')
+        result=(f'D: {counts["beneficial"]} полезных, {counts["harmful"]} вредных; '
+                f'{fmt(contrast["mean_per_video"])} п.п. [{fmt(contrast["ci95"][0])}; {fmt(contrast["ci95"][1])}]. '
+                'Критерии не пройдены; преимущество над C, R1 и геометрией не подтверждено. Первые назначения на train26, не HOTA.')
+        LANES[6][2].append(('z13_region_readout_v1','Карта отклика → оценки реальных рамок','Вместо переноса центра на пик: средний отклик внутри каждой области детектора; совместные оценки областей и отсутствия ответа. Выход считывателя поступает в стоимость сопоставления. Центр и размеры не меняются. Одинаковые C/D/R1 и геометрический контроль.',result))
+        milestone_sources.extend([region_path.relative_to(ROOT).as_posix(),'tracking/z13_region_readout.py'])
     nodes, edges, sources, linked = [], [], {}, set()
     fonts = {}
     def font(size, bold=False):

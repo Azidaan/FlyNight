@@ -11,6 +11,8 @@
     "runs/z13_competing_candidates_20261024/recovery2/report.json": "966b697920e2dfecf3008a09569b4025880bb82316ba7781e03a79eace1961db",
     "runs/z13_observed_contrast_20261025/report.json": "9922c73bf47c920da0f7e12c77221afa5fefed31728e0357117fdfff4c79cbbe",
     "tracking/z13_observed_contrast.py": "843a5e4d08c4d1e0c5533199be212c29e5c42780cb08726425bd2a9a9cafb6e5",
+    "runs/z13_region_readout_20261025/recovery1/report.json": "979243e95ded160b9256374776d092a88dc5c004e815f7584597a66a58ed8380",
+    "tracking/z13_region_readout.py": "49d73b12b9f0fc9e7b6ba4596704818fb6c8b04c78c7b9f96fdafffdd57e2136",
     "scripts/z13_score_swap.py": "623e8268517f91eb49c325389c9a2f2e072fefac986371d5b432596201bac20b",
     "tracking/z13_observed_memory.py": "1750a9cce67c4a257cf0690b1962905b9709533971a532ee3fcb71e37b4e4652",
     "runs/z13_observed_memory_20261021/report.json": "0ddb94439234cab71d6d3fc2810090650996647b4a3bdb2fc7b973b56f9a0c73",
@@ -32,7 +34,7 @@
     "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df",
     "runs/z13_center_hota_20261021/protocol.json": "b733454d75a2b65385ab71d48bed7926f47d1c00d63ade244cb30ae3ec0683e6",
     "runs/z13_center_hota_20261021/eval/report.json": "ad13cd78cf03b0dca94a2da08ecd76ab2fb745c53110d6810195e94d7bc8e8c3",
-    "scripts/build_flyvis_architecture.py": "e1d70a71af3b8a135b91d61218d8942b16a7a549e01e297cd918eb5630a6cfb9",
+    "scripts/build_flyvis_architecture.py": "9606d50c224dd7b593442380831c46b6e89ce15edc3c69c1bd8da86ba595f3ce",
     "scripts/flyvis_architecture_layout.py": "25cc8f7851c8ef2ec405f0734a0f3b7a690006f480646da27a13d2d85de5162c",
     "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
     "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
@@ -51,7 +53,7 @@
     "runs/z13_absolute_confidence_20261022/report.json": "93d454208618ce85f9d7e618bd98d0c884dc4729bcfe7a55f2804e3765aa34db",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "e85c2b532cf4bacef66a24d2054d7977dd23af16be2c63b2266f511b6eaafa72"
+    "experiments/project_history.json": "cc49f52b39dae329309d5a0ba197a29ad19c78498a8400e9c149901b9afad812"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -1975,6 +1977,23 @@
           "kind": "file",
           "ref": "runs/z13_query_memory_20261021/full_controller_result.json",
           "claim": "Первичный итог и независимая сверка"
+        }
+      ]
+    },
+    "z13_region_readout_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_region_readout_v1]",
+      "state": "inconclusive",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_region_readout_20261025/protocol.json",
+          "claim": "Механизм, контроли и критерии до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_region_readout_20261025/recovery1/report.json",
+          "claim": "Все назначения, одинаковые контроли и парные интервалы"
         }
       ]
     },
@@ -3927,6 +3946,32 @@
       "size": 22
     },
     {
+      "id": "v_z13_region_readout_v1",
+      "x": 4580,
+      "y": 9290,
+      "w": 870,
+      "h": 360,
+      "title": [
+        "II.21 Карта отклика → оценки реальных рамок"
+      ],
+      "body": [
+        "Вместо переноса центра на пик: средний отклик внутри каждой области",
+        "детектора; совместные оценки областей и отсутствия ответа. Выход считывателя",
+        "поступает в стоимость сопоставления. Центр и размеры не меняются.",
+        "Одинаковые C/D/R1 и геометрический контроль.",
+        "НЕОПРЕДЕЛЁННО: D: 12 полезных, 14 вредных; -0,10 п.п. [-0,30; +0,08]. Критерии",
+        "не пройдены; преимущество над C, R1 и геометрией не подтверждено. Первые",
+        "назначения на train26, не HOTA."
+      ],
+      "footer": [
+        "z13_region_readout_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_region_readout_v1",
+      "card": "z13_region_readout_v1",
+      "size": 22
+    },
+    {
       "id": "original_7",
       "x": 6780,
       "y": 4230,
@@ -4223,7 +4268,7 @@
     {
       "id": "metric",
       "x": 4580,
-      "y": 9480,
+      "y": 9820,
       "w": 2000,
       "h": 360,
       "title": [
@@ -4244,7 +4289,7 @@
     {
       "id": "g_map104",
       "x": 4580,
-      "y": 10030,
+      "y": 10370,
       "w": 2000,
       "h": 640,
       "title": [
@@ -4320,7 +4365,7 @@
     {
       "id": "footer",
       "x": 100,
-      "y": 10850,
+      "y": 11190,
       "w": 8780,
       "h": 160,
       "title": [
@@ -6680,6 +6725,43 @@
       "arrow": 23
     },
     {
+      "a": "hub_6",
+      "b": "v_z13_region_readout_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5580,
+          9470.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "right",
+      "label": "II",
+      "label_at": [
+        5515,
+        9470.0
+      ],
+      "render_points": [
+        [
+          5580.0,
+          5000
+        ],
+        [
+          5580,
+          9470.0
+        ],
+        [
+          5450,
+          9470.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
       "a": "original_7",
       "b": "hub_7",
       "kind": "variant",
@@ -7365,7 +7447,7 @@
         ],
         [
           6640,
-          10350
+          10690
         ]
       ],
       "start": "right",
@@ -7373,7 +7455,7 @@
       "label": "III",
       "label_at": [
         6640,
-        10350
+        10690
       ],
       "render_points": [
         [
@@ -7386,11 +7468,11 @@
         ],
         [
           6640,
-          10350
+          10690
         ],
         [
           6580,
-          10350.0
+          10690.0
         ]
       ],
       "colour": "#117A46",
