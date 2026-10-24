@@ -17433,6 +17433,75 @@
     }
    ],
    "done": "2026-10-25"
+  },
+  {
+   "id": "z13_template_swap_v1",
+   "title": "З13: изолированная подмена образца при прежнем состоянии поиска",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-25",
+   "tags": [
+    "fly-problem-P8",
+    "engineering-future"
+   ],
+   "question": "Использует ли действующий различающий фильтр правильный образец сверх той информации, которая уже содержится в неизменном состоянии мухи?",
+   "hypothesis": "Уверенный отклик может недостаточно зависеть от личности образца; это гипотеза, а не установленная причина. Подмена полного фильтра отделяет его вклад от изменения состояния.",
+   "expected": "Frozen query activity and recurrent history computed once per arm in original sorted groups of8. Replace all68 filter coefficients with3 distinct fit104 donor filters; exact same observed721-column mask and known different observed identity/video. Full721-column maps and peaks recomputed. No fixed peaks/scores from correct template supplied to wrong condition. Normalization and per-arm lambda unchanged; no fitting or selection on26 outcomes. До3600с, одинGPU; C/D/R1, полная проверка8326строк, одинаковые доноры.",
+   "acceptance": [
+    {
+     "criterion": "All8326 own-template rows/arm; centers<0.5pixel and scores<0.001 vs frozen single_rows, all source hashes fixed; same original groups of8. Query arrays unchanged by projection. Foreign model IDs and exact observed mask checked for every eligible episode. All26 videos contain eligible positive rows.",
+     "met": null,
+     "evidence": "runs/z13_template_swap_20261025/controller_result.json"
+    },
+    {
+     "criterion": "On the exact-mask eligible kind1 rows, each video contributes its own-template useful-center fraction minus the mean of the3 foreign-template fractions. Paired-video95%CI: lower>0 detects useful template dependence. Upper<0.02 establishes only an effect below2pp in this diagnostic. Otherwise inconclusive. This is not a criterion for model usefulness or training approval.",
+     "met": null,
+     "evidence": "Неполный проход"
+    }
+   ],
+   "summary": "Идёт recovery1: тот же изолированный опыт после создания выходных каталогов; прежняя ошибка сохранена.",
+   "obtained": "runs/z13_template_swap_20261025/controller_result.json: {'exit_code': 1, 'hard_timeout': False, 'worker_ended': True, 'all_owned_ended': True, 'remaining': {}, 'owned': {'20212': 134373567588969631, '28436': 134373567589088023, '27248': 134373567589288230}, 'ended': '2026-10-25T02:06:54.707370+03:00'}. Сохранённых групп:0",
+   "interpretation": "Неполный проход не даёт вывода о зависимости от образца или эффективности.",
+   "decision": "Сохранить готовое; проверить служебную причину и остаток исходного бюджета. Не повторять готовые группы и не продлевать бюджет.",
+   "cannot_claim": "Correct observations still enter the frozen recurrent state. Lack of additional filter benefit cannot establish total template neglect or an intrinsic FlyVis defect. Other-video donors are easier than in-scene distractors; geometry matching does not equal class/appearance matching. Gaussian labels and discriminative ridge fitting already condition the model on the observed region. Reused train26, no claim of independent generalization.",
+   "metrics": [],
+   "commits": [],
+   "files": [
+    "tracking/z13_template_swap.py",
+    "tests/test_z13_template_swap.py",
+    "scripts/z13_template_swap_20261025.py",
+    "scripts/z13_finish_template_swap_20261025.py",
+    "scripts/z13_template_swap_console.ps1"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_template_swap_20261025/protocol.json",
+     "claim": "Постановка, три донорских фильтра и правила вывода до результата"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_template_swap_20261025/recovery1/protocol.json",
+     "claim": "Только создание выходных каталогов; исходный срок и код неизменны"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-25",
+     "commit": "58e88472581222d0dc29bc4f8676cfaf2b2e91b7",
+     "field": "summary",
+     "old": "Протокол изолированной проверки и строгие пары зарегистрированы до вычисления исходов.",
+     "reason": "Проверен полный либо частичный результат изолированной подмены."
+    },
+    {
+     "date": "2026-10-25",
+     "commit": "58e88472581222d0dc29bc4f8676cfaf2b2e91b7",
+     "field": "summary",
+     "old": "Сохранена незавершённая изолированная проверка образца.",
+     "reason": "Служебный сбой сохранён; начато восстановление в прежнем окне."
+    }
+   ],
+   "done": ""
   }
  ],
  "manual_events": [
