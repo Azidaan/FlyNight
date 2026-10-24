@@ -1,0 +1,57 @@
+{
+  "at": "2026-10-25T00:02:30.327443+03:00",
+  "source_report_sha256": "f39a4505fc2b905e426ed07e7d93355faa22381bf367fea5ce11466608819c53",
+  "descriptive_only": true,
+  "arms": {
+    "D": {
+      "query_counts": {
+        "known": 5822,
+        "baseline_own_correct": 4821,
+        "baseline_own_incorrect": 1001,
+        "has_beneficial": 106
+      },
+      "old_useful_outcomes": {
+        "correct->correct; net_correct_delta=0": 481,
+        "correct->incorrect; net_correct_delta=-1": 17,
+        "incorrect->correct; net_correct_delta=0": 7,
+        "incorrect->correct; net_correct_delta=1": 37,
+        "incorrect->incorrect; net_correct_delta=0": 303,
+        "incorrect->incorrect; net_correct_delta=1": 1
+      }
+    },
+    "C": {
+      "query_counts": {
+        "known": 5822,
+        "baseline_own_correct": 4821,
+        "baseline_own_incorrect": 1001,
+        "has_beneficial": 111
+      },
+      "old_useful_outcomes": {
+        "correct->correct; net_correct_delta=0": 473,
+        "correct->incorrect; net_correct_delta=-1": 23,
+        "incorrect->correct; net_correct_delta=0": 5,
+        "incorrect->correct; net_correct_delta=1": 49,
+        "incorrect->correct; net_correct_delta=2": 1,
+        "incorrect->incorrect; net_correct_delta=-1": 1,
+        "incorrect->incorrect; net_correct_delta=0": 288
+      }
+    },
+    "R1": {
+      "query_counts": {
+        "known": 5822,
+        "baseline_own_correct": 4821,
+        "baseline_own_incorrect": 1001,
+        "has_beneficial": 80
+      },
+      "old_useful_outcomes": {
+        "correct->correct; net_correct_delta=0": 213,
+        "correct->incorrect; net_correct_delta=-1": 15,
+        "correct->incorrect; net_correct_delta=-2": 1,
+        "incorrect->correct; net_correct_delta=0": 6,
+        "incorrect->correct; net_correct_delta=1": 21,
+        "incorrect->incorrect; net_correct_delta=0": 155
+      }
+    }
+  },
+  "caveat": "Correctness is the saved first-association identity criterion; neutral does not mean identical assignment. No trajectory feedback, no new HOTA and no acceptance-rule change."
+}
