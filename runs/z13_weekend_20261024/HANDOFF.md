@@ -1,3 +1,9 @@
+# Актуально — 25.10.2026 02:44 MSK
+
+z13_presence_scope_v1 окончен. runs/z13_presence_scope_20261025/report.json содержит исходы. Pass: separately register target-visibility learner with fit-only calibration and same centers/controls. Fail: do not train this presence-only version; next action must change localization or target-conditioned within-present ranking, not another scalar threshold. At most this one prerequisite for the proposed action. Итог основного критерия: False. Старые деревья окончены, новые веса не обучались. Видимость цели не равна полезности для сопоставления; неизвестные не стали отрицательными. Публикация runs/z13_presence_scope_20261025/publication.json. Следующий узел выбирать по действующему плану, не повторять этот oracle и не ослаблять критерий. Авторизация26.10 07:40МСК остаётся.
+
+Ниже прежние передачи сохранены.
+
 # Актуально — 25.10.2026 02:33 MSK
 
 Оба новых опыта закончены, exit0/все свои деревья окончены: template_swap/recovery1 (D+16,58п.п. своего образца против чужих,26/26;5e39f3a) и specificity_gap (D1полезный/2вредных из49,критерии не пройдены;2ca45fe). Источники: research_flyvis_same_failure_2026-10-25/ПРОВЕРКА_ГИПОТЕЗЫ.md и первичные report.json. Однолистовая архитектура обновлена жёлтой ветвью z13_specificity_gap_v1,97узлов/87связей,просмотрена. При подмене проверялся вклад фильтра при общей правильной истории; это не новое улучшение модели/HOTA. Витрина лучших улучшений не расширялась.
