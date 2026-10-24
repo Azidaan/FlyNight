@@ -1,0 +1,50 @@
+{
+ "at": "2026-10-25T00:16:44.388829+03:00",
+ "all_sources_verified": true,
+ "all_26_replays_exact": true,
+ "all_semantic_rows_exact": true,
+ "D_selected_known": 64,
+ "D_selected_beneficial": 0,
+ "D_selected_harmful": 0,
+ "D_selected_unknown": 20,
+ "D_missed_beneficial_top1": 48,
+ "D_no_current_candidate_can_help": 895,
+ "D_only_other_candidate_can_help": 58,
+ "reason_counts": {
+  "selected": {
+   "no_correct_labelled_detection": 62,
+   "correct_detection_assigned": 1,
+   "correct_detection_only_below_high_threshold": 1
+  },
+  "missed_beneficial_top1": {
+   "correct_detection_only_below_high_threshold": 20,
+   "no_correct_labelled_detection": 7,
+   "correct_detection_assigned": 21
+  },
+  "old_center_useful_harmful": {
+   "correct_detection_only_below_high_threshold": 15,
+   "correct_detection_cost_above_match_threshold": 2
+  }
+ },
+ "old_center_harm_cost_changes": [
+  {
+   "uid": 34278,
+   "rank": 0,
+   "correct_cost_before": 0.766836404800415,
+   "correct_cost_after": 0.8138771653175354,
+   "increased": true,
+   "reason": "correct_detection_cost_above_match_threshold"
+  },
+  {
+   "uid": 34669,
+   "rank": 2,
+   "correct_cost_before": 0.6647757291793823,
+   "correct_cost_after": 0.8541368246078491,
+   "increased": true,
+   "reason": "correct_detection_cost_above_match_threshold"
+  }
+ ],
+ "first_report_sha256": "6175591b8ab4099e55535c014443841677635f7e3c1c390c0ac0d5071bd8804b",
+ "trace_report_sha256": "1f6f774ceec163bcdd98d2acdfbca77ec0060bdb5163e5e7f10d3cc6e6eee4b0",
+ "scientific_status": "Descriptive one-step failure decomposition, not a new FlyVis efficacy result or a whole-tracker causal attribution."
+}

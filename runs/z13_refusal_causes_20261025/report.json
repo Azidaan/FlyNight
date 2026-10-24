@@ -1,0 +1,1094 @@
+{
+ "complete": true,
+ "diagnostic_only": true,
+ "not_hota": true,
+ "arms": {
+  "D": {
+   "tau": 5.829948324545537,
+   "reproduction": {
+    "rows": 8326,
+    "max_center_px": 4.549692732780386e-05,
+    "max_score": 3.750477243213979e-05
+   },
+   "decisions": {
+    "refused": 8242,
+    "selected": 84
+   },
+   "known_unknown_and_outcomes": {
+    "refused_known": 5758,
+    "refused_neutral": 5625,
+    "refused_unknown": 2484,
+    "refused_harmful": 85,
+    "selected_known": 64,
+    "selected_neutral": 64,
+    "refused_beneficial": 48,
+    "selected_unknown": 20
+   },
+   "failure_partition": {
+    "baseline_already_correct;refused": 4758,
+    "no_current_candidate_can_help;refused": 894,
+    "only_other_candidate_can_help;refused": 58,
+    "baseline_already_correct;selected": 63,
+    "top1_can_help;refused": 48,
+    "no_current_candidate_can_help;selected": 1
+   },
+   "score_ranking_for_association_benefit": {
+    "n": 5822,
+    "positives": 48,
+    "prevalence": 0.008244589488148402,
+    "roc_auc": 0.4128853481122272,
+    "average_precision": 0.0064924252495120165
+   },
+   "score_ranking_for_old_center_utility": {
+    "n": 5822,
+    "positives": 393,
+    "prevalence": 0.06750257643421505,
+    "roc_auc": 0.43345017826702986,
+    "average_precision": 0.05444750798842026
+   },
+   "per_video": {
+    "0001542f-ec815219": {
+     "known": 163,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "004855fc-ff3946ad": {
+     "known": 305,
+     "selected": 3,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "007eddfc-528c4da4": {
+     "known": 75,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "009215e2-ea063b28": {
+     "known": 67,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "00b56f41-e0e5d918": {
+     "known": 72,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "015ccf71-56e8d5b8": {
+     "known": 222,
+     "selected": 16,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0166faa5-5fbc53c5": {
+     "known": 342,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "017bec14-1c6f8718": {
+     "known": 214,
+     "selected": 3,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0199e7fc-0b6d1a35": {
+     "known": 188,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0204aad7-eeb13c43": {
+     "known": 269,
+     "selected": 3,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "023a70d5-cde2a67a": {
+     "known": 71,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0279c430-962e3702": {
+     "known": 153,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "027b216c-bfae3d6d": {
+     "known": 454,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "029556a0-0ec9fa6f": {
+     "known": 425,
+     "selected": 9,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "02bd959c-f20a2437": {
+     "known": 257,
+     "selected": 4,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "02c2a4d8-94d32b2f": {
+     "known": 392,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "02d5e1be-bd9bd999": {
+     "known": 245,
+     "selected": 6,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "02f101f6-56ba9106": {
+     "known": 237,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0329d6b9-abddbf95": {
+     "known": 227,
+     "selected": 6,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0332bb54-c4bee5eb": {
+     "known": 352,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0336de82-802d2437": {
+     "known": 16,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "035d6940-18869b73": {
+     "known": 133,
+     "selected": 2,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "03b0697b-faa11b32": {
+     "known": 106,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "03bf498b-044cb72c": {
+     "known": 145,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "03c239e4-9e0fbb75": {
+     "known": 423,
+     "selected": 6,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "03d75f61-ce25863a": {
+     "known": 269,
+     "selected": 2,
+     "helpful": 0,
+     "harmful": 0
+    }
+   },
+   "paired_net_action_frequency": {
+    "mean_per_video": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "better": 0,
+    "n": 26
+   },
+   "runtime20_totals": {
+    "steps": 119314,
+    "interventions": 378,
+    "refusals": 118936,
+    "births": 9714,
+    "nonfinite_refusals": 0
+   },
+   "runtime20": {
+    "b1d10d08-743fd86c": {
+     "steps": 4585,
+     "interventions": 18,
+     "refusals": 4567,
+     "births": 334,
+     "nonfinite_refusals": 0
+    },
+    "b23b2649-8349d2a1": {
+     "steps": 3629,
+     "interventions": 3,
+     "refusals": 3626,
+     "births": 447,
+     "nonfinite_refusals": 0
+    },
+    "b242f6b2-0033bdfb": {
+     "steps": 6331,
+     "interventions": 10,
+     "refusals": 6321,
+     "births": 719,
+     "nonfinite_refusals": 0
+    },
+    "b230132b-ff8f2719": {
+     "steps": 3639,
+     "interventions": 13,
+     "refusals": 3626,
+     "births": 302,
+     "nonfinite_refusals": 0
+    },
+    "b1f4491b-cf446195": {
+     "steps": 17264,
+     "interventions": 10,
+     "refusals": 17254,
+     "births": 1784,
+     "nonfinite_refusals": 0
+    },
+    "b23f7012-32d284ce": {
+     "steps": 6051,
+     "interventions": 14,
+     "refusals": 6037,
+     "births": 408,
+     "nonfinite_refusals": 0
+    },
+    "b2036451-aa924fd1": {
+     "steps": 4710,
+     "interventions": 32,
+     "refusals": 4678,
+     "births": 380,
+     "nonfinite_refusals": 0
+    },
+    "b1d0a191-de8948f6": {
+     "steps": 6384,
+     "interventions": 36,
+     "refusals": 6348,
+     "births": 489,
+     "nonfinite_refusals": 0
+    },
+    "b20b69d2-ca16c907": {
+     "steps": 4146,
+     "interventions": 1,
+     "refusals": 4145,
+     "births": 263,
+     "nonfinite_refusals": 0
+    },
+    "b200b84e-4a792877": {
+     "steps": 5170,
+     "interventions": 20,
+     "refusals": 5150,
+     "births": 400,
+     "nonfinite_refusals": 0
+    },
+    "b251064f-5f6b663e": {
+     "steps": 3107,
+     "interventions": 29,
+     "refusals": 3078,
+     "births": 190,
+     "nonfinite_refusals": 0
+    },
+    "b23a79d1-43dfeecd": {
+     "steps": 5652,
+     "interventions": 6,
+     "refusals": 5646,
+     "births": 362,
+     "nonfinite_refusals": 0
+    },
+    "b23adb0d-72704b27": {
+     "steps": 3349,
+     "interventions": 7,
+     "refusals": 3342,
+     "births": 187,
+     "nonfinite_refusals": 0
+    },
+    "b216243d-ad4306b9": {
+     "steps": 2686,
+     "interventions": 5,
+     "refusals": 2681,
+     "births": 210,
+     "nonfinite_refusals": 0
+    },
+    "b1cd1e94-549d0bfe": {
+     "steps": 6513,
+     "interventions": 1,
+     "refusals": 6512,
+     "births": 476,
+     "nonfinite_refusals": 0
+    },
+    "b1ca2e5d-84cf9134": {
+     "steps": 18467,
+     "interventions": 26,
+     "refusals": 18441,
+     "births": 1365,
+     "nonfinite_refusals": 0
+    },
+    "b1e3e9f5-92377424": {
+     "steps": 5463,
+     "interventions": 62,
+     "refusals": 5401,
+     "births": 420,
+     "nonfinite_refusals": 0
+    },
+    "b20d494a-cdebe83e": {
+     "steps": 6186,
+     "interventions": 15,
+     "refusals": 6171,
+     "births": 371,
+     "nonfinite_refusals": 0
+    },
+    "b230a7b2-c881c382": {
+     "steps": 2226,
+     "interventions": 67,
+     "refusals": 2159,
+     "births": 179,
+     "nonfinite_refusals": 0
+    },
+    "b23f7012-fab06dac": {
+     "steps": 3756,
+     "interventions": 3,
+     "refusals": 3753,
+     "births": 428,
+     "nonfinite_refusals": 0
+    }
+   },
+   "runtime20_intervention_fraction": 0.0031681110347486466
+  },
+  "C": {
+   "tau": 6.430505725515215,
+   "reproduction": {
+    "rows": 8326,
+    "max_center_px": 0.00021462497687707582,
+    "max_score": 0.00013623753138469752
+   },
+   "decisions": {
+    "refused": 8242,
+    "selected": 84
+   },
+   "known_unknown_and_outcomes": {
+    "refused_known": 5755,
+    "refused_neutral": 5606,
+    "refused_unknown": 2487,
+    "refused_harmful": 96,
+    "refused_beneficial": 53,
+    "selected_known": 67,
+    "selected_neutral": 67,
+    "selected_unknown": 17
+   },
+   "failure_partition": {
+    "baseline_already_correct;refused": 4754,
+    "no_current_candidate_can_help;refused": 890,
+    "top1_can_help;refused": 53,
+    "only_other_candidate_can_help;refused": 58,
+    "baseline_already_correct;selected": 67
+   },
+   "score_ranking_for_association_benefit": {
+    "n": 5822,
+    "positives": 53,
+    "prevalence": 0.009103400893163862,
+    "roc_auc": 0.4480355314841524,
+    "average_precision": 0.007719355024444996
+   },
+   "score_ranking_for_old_center_utility": {
+    "n": 5822,
+    "positives": 362,
+    "prevalence": 0.0621779457231192,
+    "roc_auc": 0.4725881852953676,
+    "average_precision": 0.054875166618930854
+   },
+   "per_video": {
+    "0001542f-ec815219": {
+     "known": 163,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "004855fc-ff3946ad": {
+     "known": 305,
+     "selected": 3,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "007eddfc-528c4da4": {
+     "known": 75,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "009215e2-ea063b28": {
+     "known": 67,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "00b56f41-e0e5d918": {
+     "known": 72,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "015ccf71-56e8d5b8": {
+     "known": 222,
+     "selected": 17,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0166faa5-5fbc53c5": {
+     "known": 342,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "017bec14-1c6f8718": {
+     "known": 214,
+     "selected": 3,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0199e7fc-0b6d1a35": {
+     "known": 188,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0204aad7-eeb13c43": {
+     "known": 269,
+     "selected": 5,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "023a70d5-cde2a67a": {
+     "known": 71,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0279c430-962e3702": {
+     "known": 153,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "027b216c-bfae3d6d": {
+     "known": 454,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "029556a0-0ec9fa6f": {
+     "known": 425,
+     "selected": 11,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "02bd959c-f20a2437": {
+     "known": 257,
+     "selected": 3,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "02c2a4d8-94d32b2f": {
+     "known": 392,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "02d5e1be-bd9bd999": {
+     "known": 245,
+     "selected": 5,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "02f101f6-56ba9106": {
+     "known": 237,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0329d6b9-abddbf95": {
+     "known": 227,
+     "selected": 6,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0332bb54-c4bee5eb": {
+     "known": 352,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0336de82-802d2437": {
+     "known": 16,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "035d6940-18869b73": {
+     "known": 133,
+     "selected": 2,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "03b0697b-faa11b32": {
+     "known": 106,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "03bf498b-044cb72c": {
+     "known": 145,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "03c239e4-9e0fbb75": {
+     "known": 423,
+     "selected": 7,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "03d75f61-ce25863a": {
+     "known": 269,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    }
+   },
+   "paired_net_action_frequency": {
+    "mean_per_video": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "better": 0,
+    "n": 26
+   },
+   "runtime20_totals": {
+    "steps": 119283,
+    "interventions": 440,
+    "refusals": 118843,
+    "births": 9717,
+    "nonfinite_refusals": 0
+   },
+   "runtime20": {
+    "b1d10d08-743fd86c": {
+     "steps": 4585,
+     "interventions": 11,
+     "refusals": 4574,
+     "births": 334,
+     "nonfinite_refusals": 0
+    },
+    "b23b2649-8349d2a1": {
+     "steps": 3629,
+     "interventions": 4,
+     "refusals": 3625,
+     "births": 447,
+     "nonfinite_refusals": 0
+    },
+    "b242f6b2-0033bdfb": {
+     "steps": 6332,
+     "interventions": 22,
+     "refusals": 6310,
+     "births": 719,
+     "nonfinite_refusals": 0
+    },
+    "b230132b-ff8f2719": {
+     "steps": 3639,
+     "interventions": 4,
+     "refusals": 3635,
+     "births": 302,
+     "nonfinite_refusals": 0
+    },
+    "b1f4491b-cf446195": {
+     "steps": 17266,
+     "interventions": 14,
+     "refusals": 17252,
+     "births": 1792,
+     "nonfinite_refusals": 0
+    },
+    "b23f7012-32d284ce": {
+     "steps": 6051,
+     "interventions": 10,
+     "refusals": 6041,
+     "births": 408,
+     "nonfinite_refusals": 0
+    },
+    "b2036451-aa924fd1": {
+     "steps": 4710,
+     "interventions": 48,
+     "refusals": 4662,
+     "births": 380,
+     "nonfinite_refusals": 0
+    },
+    "b1d0a191-de8948f6": {
+     "steps": 6384,
+     "interventions": 63,
+     "refusals": 6321,
+     "births": 489,
+     "nonfinite_refusals": 0
+    },
+    "b20b69d2-ca16c907": {
+     "steps": 4146,
+     "interventions": 2,
+     "refusals": 4144,
+     "births": 263,
+     "nonfinite_refusals": 0
+    },
+    "b200b84e-4a792877": {
+     "steps": 5170,
+     "interventions": 5,
+     "refusals": 5165,
+     "births": 400,
+     "nonfinite_refusals": 0
+    },
+    "b251064f-5f6b663e": {
+     "steps": 3132,
+     "interventions": 25,
+     "refusals": 3107,
+     "births": 189,
+     "nonfinite_refusals": 0
+    },
+    "b23a79d1-43dfeecd": {
+     "steps": 5622,
+     "interventions": 8,
+     "refusals": 5614,
+     "births": 362,
+     "nonfinite_refusals": 0
+    },
+    "b23adb0d-72704b27": {
+     "steps": 3349,
+     "interventions": 7,
+     "refusals": 3342,
+     "births": 187,
+     "nonfinite_refusals": 0
+    },
+    "b216243d-ad4306b9": {
+     "steps": 2686,
+     "interventions": 6,
+     "refusals": 2680,
+     "births": 210,
+     "nonfinite_refusals": 0
+    },
+    "b1cd1e94-549d0bfe": {
+     "steps": 6513,
+     "interventions": 15,
+     "refusals": 6498,
+     "births": 476,
+     "nonfinite_refusals": 0
+    },
+    "b1ca2e5d-84cf9134": {
+     "steps": 18503,
+     "interventions": 37,
+     "refusals": 18466,
+     "births": 1363,
+     "nonfinite_refusals": 0
+    },
+    "b1e3e9f5-92377424": {
+     "steps": 5463,
+     "interventions": 72,
+     "refusals": 5391,
+     "births": 420,
+     "nonfinite_refusals": 0
+    },
+    "b20d494a-cdebe83e": {
+     "steps": 6186,
+     "interventions": 29,
+     "refusals": 6157,
+     "births": 371,
+     "nonfinite_refusals": 0
+    },
+    "b230a7b2-c881c382": {
+     "steps": 2161,
+     "interventions": 50,
+     "refusals": 2111,
+     "births": 177,
+     "nonfinite_refusals": 0
+    },
+    "b23f7012-fab06dac": {
+     "steps": 3756,
+     "interventions": 8,
+     "refusals": 3748,
+     "births": 428,
+     "nonfinite_refusals": 0
+    }
+   },
+   "runtime20_intervention_fraction": 0.003688706689134244
+  },
+  "R1": {
+   "tau": 5.11341755630491,
+   "reproduction": {
+    "rows": 8326,
+    "max_center_px": 4.547473508864641e-13,
+    "max_score": 0.0
+   },
+   "decisions": {
+    "refused": 8242,
+    "selected": 84
+   },
+   "known_unknown_and_outcomes": {
+    "refused_known": 5774,
+    "refused_neutral": 5600,
+    "refused_unknown": 2468,
+    "refused_harmful": 119,
+    "selected_known": 48,
+    "selected_neutral": 48,
+    "refused_beneficial": 55,
+    "selected_unknown": 36
+   },
+   "failure_partition": {
+    "baseline_already_correct;refused": 4776,
+    "no_current_candidate_can_help;refused": 918,
+    "baseline_already_correct;selected": 45,
+    "top1_can_help;refused": 55,
+    "only_other_candidate_can_help;refused": 25,
+    "no_current_candidate_can_help;selected": 3
+   },
+   "score_ranking_for_association_benefit": {
+    "n": 5822,
+    "positives": 55,
+    "prevalence": 0.009446925455170044,
+    "roc_auc": 0.47279663287986506,
+    "average_precision": 0.008669906852373807
+   },
+   "score_ranking_for_old_center_utility": {
+    "n": 5822,
+    "positives": 149,
+    "prevalence": 0.025592579869460667,
+    "roc_auc": 0.47197782502067365,
+    "average_precision": 0.030120922579364204
+   },
+   "per_video": {
+    "0001542f-ec815219": {
+     "known": 163,
+     "selected": 2,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "004855fc-ff3946ad": {
+     "known": 305,
+     "selected": 4,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "007eddfc-528c4da4": {
+     "known": 75,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "009215e2-ea063b28": {
+     "known": 67,
+     "selected": 5,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "00b56f41-e0e5d918": {
+     "known": 72,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "015ccf71-56e8d5b8": {
+     "known": 222,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0166faa5-5fbc53c5": {
+     "known": 342,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "017bec14-1c6f8718": {
+     "known": 214,
+     "selected": 2,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0199e7fc-0b6d1a35": {
+     "known": 188,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0204aad7-eeb13c43": {
+     "known": 269,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "023a70d5-cde2a67a": {
+     "known": 71,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0279c430-962e3702": {
+     "known": 153,
+     "selected": 7,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "027b216c-bfae3d6d": {
+     "known": 454,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "029556a0-0ec9fa6f": {
+     "known": 425,
+     "selected": 4,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "02bd959c-f20a2437": {
+     "known": 257,
+     "selected": 2,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "02c2a4d8-94d32b2f": {
+     "known": 392,
+     "selected": 3,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "02d5e1be-bd9bd999": {
+     "known": 245,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "02f101f6-56ba9106": {
+     "known": 237,
+     "selected": 3,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0329d6b9-abddbf95": {
+     "known": 227,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0332bb54-c4bee5eb": {
+     "known": 352,
+     "selected": 4,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "0336de82-802d2437": {
+     "known": 16,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "035d6940-18869b73": {
+     "known": 133,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "03b0697b-faa11b32": {
+     "known": 106,
+     "selected": 4,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "03bf498b-044cb72c": {
+     "known": 145,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "03c239e4-9e0fbb75": {
+     "known": 423,
+     "selected": 0,
+     "helpful": 0,
+     "harmful": 0
+    },
+    "03d75f61-ce25863a": {
+     "known": 269,
+     "selected": 1,
+     "helpful": 0,
+     "harmful": 0
+    }
+   },
+   "paired_net_action_frequency": {
+    "mean_per_video": 0.0,
+    "ci95": [
+     0.0,
+     0.0
+    ],
+    "better": 0,
+    "n": 26
+   },
+   "runtime20_totals": {
+    "steps": 121530,
+    "interventions": 937,
+    "refusals": 120593,
+    "births": 9622,
+    "nonfinite_refusals": 0
+   },
+   "runtime20": {
+    "b1d10d08-743fd86c": {
+     "steps": 4665,
+     "interventions": 42,
+     "refusals": 4623,
+     "births": 332,
+     "nonfinite_refusals": 0
+    },
+    "b23b2649-8349d2a1": {
+     "steps": 3756,
+     "interventions": 18,
+     "refusals": 3738,
+     "births": 428,
+     "nonfinite_refusals": 0
+    },
+    "b242f6b2-0033bdfb": {
+     "steps": 6619,
+     "interventions": 89,
+     "refusals": 6530,
+     "births": 709,
+     "nonfinite_refusals": 0
+    },
+    "b230132b-ff8f2719": {
+     "steps": 3766,
+     "interventions": 28,
+     "refusals": 3738,
+     "births": 297,
+     "nonfinite_refusals": 0
+    },
+    "b1f4491b-cf446195": {
+     "steps": 17570,
+     "interventions": 88,
+     "refusals": 17482,
+     "births": 1786,
+     "nonfinite_refusals": 0
+    },
+    "b23f7012-32d284ce": {
+     "steps": 6014,
+     "interventions": 51,
+     "refusals": 5963,
+     "births": 407,
+     "nonfinite_refusals": 0
+    },
+    "b2036451-aa924fd1": {
+     "steps": 4766,
+     "interventions": 22,
+     "refusals": 4744,
+     "births": 377,
+     "nonfinite_refusals": 0
+    },
+    "b1d0a191-de8948f6": {
+     "steps": 6520,
+     "interventions": 32,
+     "refusals": 6488,
+     "births": 480,
+     "nonfinite_refusals": 0
+    },
+    "b20b69d2-ca16c907": {
+     "steps": 4171,
+     "interventions": 20,
+     "refusals": 4151,
+     "births": 261,
+     "nonfinite_refusals": 0
+    },
+    "b200b84e-4a792877": {
+     "steps": 5162,
+     "interventions": 34,
+     "refusals": 5128,
+     "births": 396,
+     "nonfinite_refusals": 0
+    },
+    "b251064f-5f6b663e": {
+     "steps": 3164,
+     "interventions": 27,
+     "refusals": 3137,
+     "births": 190,
+     "nonfinite_refusals": 0
+    },
+    "b23a79d1-43dfeecd": {
+     "steps": 5799,
+     "interventions": 89,
+     "refusals": 5710,
+     "births": 368,
+     "nonfinite_refusals": 0
+    },
+    "b23adb0d-72704b27": {
+     "steps": 3435,
+     "interventions": 53,
+     "refusals": 3382,
+     "births": 188,
+     "nonfinite_refusals": 0
+    },
+    "b216243d-ad4306b9": {
+     "steps": 2702,
+     "interventions": 11,
+     "refusals": 2691,
+     "births": 205,
+     "nonfinite_refusals": 0
+    },
+    "b1cd1e94-549d0bfe": {
+     "steps": 6758,
+     "interventions": 37,
+     "refusals": 6721,
+     "births": 473,
+     "nonfinite_refusals": 0
+    },
+    "b1ca2e5d-84cf9134": {
+     "steps": 18693,
+     "interventions": 132,
+     "refusals": 18561,
+     "births": 1332,
+     "nonfinite_refusals": 0
+    },
+    "b1e3e9f5-92377424": {
+     "steps": 5527,
+     "interventions": 30,
+     "refusals": 5497,
+     "births": 417,
+     "nonfinite_refusals": 0
+    },
+    "b20d494a-cdebe83e": {
+     "steps": 6272,
+     "interventions": 68,
+     "refusals": 6204,
+     "births": 370,
+     "nonfinite_refusals": 0
+    },
+    "b230a7b2-c881c382": {
+     "steps": 2163,
+     "interventions": 17,
+     "refusals": 2146,
+     "births": 182,
+     "nonfinite_refusals": 0
+    },
+    "b23f7012-fab06dac": {
+     "steps": 4008,
+     "interventions": 49,
+     "refusals": 3959,
+     "births": 424,
+     "nonfinite_refusals": 0
+    }
+   },
+   "runtime20_intervention_fraction": 0.0077100304451575745
+  }
+ },
+ "rows_sha256": "df86545ef7d70f952b19c53d02939f9d51bdfdf4aaa057acf8e579e38a478188",
+ "protocol_sha256": "58f8163463bc24622b526cf1b83930527efe123ab3bba0c1a3796888e7f93812",
+ "limits": "Episodes on unchanged baseline states and sparse original labels, reused train26; no closed-loop counterfactual or HOTA. Top1selection here is only centered readout; legacy quality head remains separate. Statistics over known labels are not unconditional safety; unknown outcomes stay unknown.",
+ "gate_unchanged": true,
+ "no_training": true
+}
