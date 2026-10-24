@@ -17001,6 +17001,93 @@
     }
    ],
    "done": "2026-10-24"
+  },
+  {
+   "id": "z13_detection_candidate_gate_v1",
+   "title": "З13: запас локализации при чтении трёх детекций вместо пиков",
+   "area": "flyvis",
+   "state": "inconclusive",
+   "started": "2026-10-24",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "question": "Есть ли дополнительный запас полезных центров для смены пространства кандидатов считывателя?",
+   "hypothesis": "Реальные рамки могут содержать полезный центр,отсутствующий среди3пиков;самой мухе этот запас может быть недоступен.",
+   "expected": "Replace the output candidates of a future FlyVis readout:three actual detection centers,not three arbitrary response peaks. First measure saved-data conditional localization reserve;no model is trained in this gate. Raw unchanged YOLO26 boxes confidence>=0.25 (existing first-association threshold),positive area,center inside same saved square crop;nearest3 to current saved Kalman prediction,stable original order for ties. No class filtering or GT in generation. At most3 candidates,as in old peak readout. No cap variants or threshold search.",
+   "acceptance": [
+    {
+     "criterion": "All26 repeated-train videos and all8326 saved labels align exactly. Detection3 oracle useful fraction minus oldD peak3 oracle:mean>=0.02 and paired95%lower>0. If upper<0.02 stop this candidate set;otherwise inconclusive. This is only an oracle availability gate,not an attainable gain or HOTA.",
+     "met": false,
+     "evidence": "runs/z13_detection_candidate_gate_20261024/report.json"
+    }
+   ],
+   "summary": "Проверка доступности кандидатов завершена;inconclusive;реализация нового считывания ещё не принята.",
+   "obtained": "runs/z13_detection_candidate_gate_20261024/report.json → mean/paired_vs_D_peak3_oracle: {\"mean\": {\"detection3_oracle\": 0.4744743791566531, \"all_detection_oracle\": 0.4872443261974299, \"nearest_detection\": 0.4112729139962888, \"D_peak3_oracle\": 0.45497892184525557, \"C_peak3_oracle\": 0.4357160847062459, \"R1_peak3_oracle\": 0.22894914273146919, \"D_peak1\": 0.25488581030332724}, \"paired\": {\"detection3_oracle\": {\"mean_per_video\": 0.019495457311397398, \"ci95\": [-0.07148105864317593, 0.09944142920737432], \"better\": 15, \"n\": 26}, \"all_detection_oracle\": {\"mean_per_video\": 0.03226540435217425, \"ci95\": [-0.06083055692598325, 0.11699576374033069], \"better\": 15, \"n\": 26}, \"nearest_detection\": {\"mean_per_video\": -0.0437060078489668, \"ci95\": [-0.12056731071227109, 0.023377944867076214], \"better\": 11, \"n\": 26}}}",
+   "interpretation": "Измерен только условный оракульный запас предложения детекций при известных центрах. Это не работа обученного узла,не вклад FlyVis и не польза стенду.",
+   "decision": "Не извлекать признаки этой версии;сохранить полный отрицательный/неубедительный исход и выбрать другой механизм.",
+   "cannot_claim": "Correct detection may already be selected by geometry;all gain may come from YOLO proposals,notFlyVis. Oracle ignores multi-track competition;class-unfiltered square-crop support is not identical to the hexagonal feature field. Projection/descriptor extraction and missing-candidate refusal remain untested. Sparse labels,perturbed training crops,and repeatedly used26train do not establish closed-loop transfer.",
+   "metrics": [],
+   "commits": [],
+   "files": [
+    "scripts/z13_detection_candidate_gate_20261024.py"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_detection_candidate_gate_20261024/protocol.json",
+     "claim": "Кандидаты,критерий и ограничения до исхода"
+    }
+   ],
+   "done": "2026-10-24",
+   "revisions": [
+    {
+     "date": "2026-10-24",
+     "commit": "e8d47b72ffb4b05af27773aa181be95e22661d3b",
+     "field": "summary",
+     "old": "Диагностическая CPU-проверка до600с зарегистрирована до расчёта.",
+     "reason": "Сохранена исходная постановка перед итоговым summary;начальное значение изprepare."
+    }
+   ]
+  },
+  {
+   "id": "z13_unperturbed_readout_v1",
+   "title": "З13: обучение считывателя на эпизодах без искусственного сдвига окна",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-24",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "question": "Поможет ли согласование режима обучающих вырезок с применением при равном размере и бюджете?",
+   "hypothesis": "Удаление искусственных сдвигов может улучшить выбор полезных ответов;польза и причинность не установлены.",
+   "expected": "Change only fitting-sample distribution inside the learned FlyVis candidate readout:unperturbed episodes versus equally sized mixed episodes. No new features,loss,core weights,candidates or architecture. Same BCE candidate useful labels,original saved positive weight for each arm/mode/seed,AdamW lr0.001 weight_decay0.01,clip10,50referenceepochs,nref2919,batch128,1150updates/145950row presentations,initial seeds0/1/2. Three-seed mean logits,never pick best seed. Old18full-data models independently replayed as secondary reference. Same current/past information;unperturbed flag used only for sampling/evaluation grouping,not as network input.",
+   "acceptance": [
+    {
+     "criterion": "Evaluate only originally unperturbed episodes of all26reused train videos. Select ceil(0.05*N) from ALL eligible rows per video before reading outcomes. Confirmed yield=known-useful/ALL selected;unknown cases separately give an upper bound (useful+unknown)/selected,not observed errors. Dclean-Dmixed confirmed-yield mean>=0.05 and paired95%lower>0. Dclean must beat cleanDgeometry and cleanR1activity with both lower95>0. Useful-center mean on kind1 must not fall below mixedD. All26 must have eligible and positive rows. All required;otherwise no expensive transfer.",
+     "met": null
+    },
+    {
+     "criterion": "36моделей,3сида,полное воспроизведение18старых моделей,старой32шаговойтраектории и неизменность источников.",
+     "met": null
+    }
+   ],
+   "summary": "Отдельная замена обучающей выборки,критерии до исходов.",
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "Artificial crop shifts may improve robustness;removing them can reduce diversity and overfit. Current fit samples are naturally different episodes,not counterfactual copies;even matched video/kind/count leaves object/age/size differences. Unperturbed baseline episodes are only closer to runtime,not actual corrected closed-loop state. A confirmed-yield gain can reflect unknown-label composition,not real precision;bounds reported. This exploratory repeatedly used26train pilot cannot establish cause,HOTA or seed independence of the core.",
+   "metrics": [],
+   "commits": [],
+   "files": [
+    "scripts/z13_unperturbed_readout_20261024.py"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_unperturbed_readout_20261024/protocol.json",
+     "claim": "Новый режим выборки и все контроли до обучения"
+    }
+   ]
   }
  ],
  "manual_events": [
