@@ -16055,7 +16055,7 @@
    "id": "z13_matched_trackers_v1",
    "title": "З13: трекеры и FlyVis в единых условиях на7val",
    "area": "flyvis",
-   "state": "running",
+   "state": "completed_positive",
    "started": "2026-10-24",
    "tags": [
     "fly-problem-P8",
@@ -16067,24 +16067,76 @@
    "acceptance": [
     {
      "criterion": "All7videos and original cached inputs/metadata unchanged; no detector-training video overlap.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_matched_trackers_20261024/report.json; verified_summary.json; controller_result.json; gpu_stage/controller_result.json"
     },
     {
      "criterion": "No-op XYWH output reproduced, every frame consumed and every annotation evaluated; all6systems both raw/MASA complete.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_matched_trackers_20261024/report.json; verified_summary.json; controller_result.json; gpu_stage/controller_result.json"
     },
     {
      "criterion": "For any efficacy claim: paired-video95%CI lower>0 for that exact matched contrast; report all outcomes including unfavorable ones.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_matched_trackers_20261024/report.json; verified_summary.json; controller_result.json; gpu_stage/controller_result.json"
     }
    ],
-   "summary": "Общие условия и все сравнения зафиксированы до нового результата.",
-   "done": "",
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
+   "summary": "Общее сравнение выполнено; прежний смешанный рейтинг заменён измерениями на одинаковых входах. Положительное состояние этой карточки означает полноту и воспроизведение сравнения,а не автоматический успех FlyVis. Добавка каждой D определяется только её парным интервалом против того же XYWH.",
+   "done": "2026-10-24",
+   "obtained": "runs/z13_matched_trackers_20261024/report.json → pooled/per_video/paired. Полная таблица и проценты: runs/z13_matched_trackers_20261024/verified_summary.json → summary: {\"bytetrack\": {\"raw_hota\": 52.43696923664447, \"same_masa_hota\": 53.16783939689458, \"pooled_delta_from_xywh_masa\": -2.1221674409508537, \"relative_percent_from_xywh_masa\": -3.8382477455189106, \"paired\": {\"mean_per_video\": -2.121065164074618, \"ci95\": [-3.0408134429111917, -1.2418824582256531], \"better\": 0, \"n\": 7}}, \"botsort\": {\"raw_hota\": 54.638691526284546, \"same_masa_hota\": 55.15176073569407, \"pooled_delta_from_xywh_masa\": -0.13824610215136346, \"relative_percent_from_xywh_masa\": -0.2500381353845944, \"paired\": {\"mean_per_video\": 0.016447217095176825, \"ci95\": [-0.8370826637069635, 0.8109597448916526], \"better\": 4, \"n\": 7}}, \"tracktrack\": {\"raw_hota\": 54.71316055250933, \"same_masa_hota\": 55.38261685106664, \"pooled_delta_from_xywh_masa\": 0.09261001322121132, \"relative_percent_from_xywh_masa\": 0.16749864671353365, \"paired\": {\"mean_per_video\": 0.11647289914977474, \"ci95\": [-1.6436352762107842, 1.676056640129819], \"better\": 4, \"n\": 7}}, \"xywh\": {\"raw_hota\": 54.57308976106422, \"same_masa_hota\": 55.29000683784543, \"pooled_delta_from_xywh_masa\": 0.0, \"relative_percent_from_xywh_masa\": 0.0, \"paired\": null}, \"legacyD\": {\"raw_hota\": 54.55835588474417, \"same_masa_hota\": 55.36852718697456, \"pooled_delta_from_xywh_masa\": 0.07852034912912842, \"relative_percent_from_xywh_masa\": 0.14201544477904107, \"paired\": {\"mean_per_video\": 0.07045446599556929, \"ci95\": [-0.06488939933770452, 0.21856379785260827], \"better\": 3, \"n\": 7}}, \"centerD\": {\"raw_hota\": 54.53778289643504, \"same_masa_hota\": 55.32379954926378, \"pooled_delta_from_xywh_masa\": 0.03379271141835005, \"relative_percent_from_xywh_masa\": 0.06111902195537312, \"paired\": {\"mean_per_video\": 0.018274988900313156, \"ci95\": [0.0, 0.050673115053792274], \"better\": 2, \"n\": 7}}}.49GPU-заданий,28исходныхнативныхпрогонов,обеобщиепроцедуры на7видео завершены;сырые выходы и общий MASA-базис воспроизведены.",
+   "interpretation": "Общее сравнение выполнено; прежний смешанный рейтинг заменён измерениями на одинаковых входах. Положительное состояние этой карточки означает полноту и воспроизведение сравнения,а не автоматический успех FlyVis. Добавка каждой D определяется только её парным интервалом против того же XYWH.",
+   "decision": "Использовать только эту общую таблицу с явным n=7 и ограничениями. Не выбирать параметры по этим результатам и не открывать75отложенных; расширение набора оформлять отдельно. Эта оценка не меняет веса и не принимает новую архитектуру FlyVis.",
    "cannot_claim": "Only7previously used val videos; not independent final test and no75heldout. Detector validation set used in its training monitoring, but these videos are absent from gradient-training list. Settings not optimized per tracker; cannot infer universal ranking or compare directly with published benchmarks. The old MASA head was trained on XYWH life pairs and can transfer differently to other trackers; report raw/MASA separately.",
-   "metrics": [],
+   "metrics": [
+    {
+     "key": "HOTA",
+     "value": 53.16783939689458,
+     "baseline": 55.29000683784543,
+     "subset": "7 common val bytetrack sameMASA",
+     "source": "runs/z13_matched_trackers_20261024/report.json",
+     "locator": "pooled.bytetrack_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 55.15176073569407,
+     "baseline": 55.29000683784543,
+     "subset": "7 common val botsort sameMASA",
+     "source": "runs/z13_matched_trackers_20261024/report.json",
+     "locator": "pooled.botsort_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 55.38261685106664,
+     "baseline": 55.29000683784543,
+     "subset": "7 common val tracktrack sameMASA",
+     "source": "runs/z13_matched_trackers_20261024/report.json",
+     "locator": "pooled.tracktrack_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 55.29000683784543,
+     "baseline": 55.29000683784543,
+     "subset": "7 common val xywh sameMASA",
+     "source": "runs/z13_matched_trackers_20261024/report.json",
+     "locator": "pooled.xywh_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 55.36852718697456,
+     "baseline": 55.29000683784543,
+     "subset": "7 common val legacyD sameMASA",
+     "source": "runs/z13_matched_trackers_20261024/report.json",
+     "locator": "pooled.legacyD_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 55.32379954926378,
+     "baseline": 55.29000683784543,
+     "subset": "7 common val centerD sameMASA",
+     "source": "runs/z13_matched_trackers_20261024/report.json",
+     "locator": "pooled.centerD_masa.HOTA"
+    }
+   ],
    "commits": [],
    "files": [
     "scripts/z13_matched_trackers_20261024.py"
@@ -16099,14 +16151,39 @@
      "kind": "file",
      "ref": "reports/stand_hota_comparability_20261024.json",
      "claim": "Предыдущая таблица не была единым рейтингом"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_matched_trackers_20261024/verified_summary.json",
+     "claim": "Полная проверка одинаковых условий и49заданий"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_matched_trackers_20261024/results.md",
+     "claim": "Одна общая таблица и ограничения"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_matched_trackers_20261024/raw_report.json",
+     "claim": "Нативные трекеры без сшивки"
     }
-   ]
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-24",
+     "commit": "3f903b040856042f18d65e571c205cd3434191ba",
+     "field": "summary",
+     "old": "Общие условия и все сравнения зафиксированы до нового результата.",
+     "reason": "Полное проверенное общее сравнение."
+    }
+   ],
+   "confirmed_results": []
   },
   {
    "id": "z13_matched_stock_controls_v1",
    "title": "З13: штатная FlyVis C и контроли без мухи в общем сравнении7val",
    "area": "flyvis",
-   "state": "ready",
+   "state": "inconclusive",
    "started": "2026-10-24",
    "tags": [
     "fly-problem-P8",
@@ -16118,7 +16195,8 @@
    "acceptance": [
     {
      "criterion": "Parent six-system run complete exit0; sources,weights,inputs frozen; all35controljobs and7videos complete.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_matched_trackers_20261024/stock_recovery1/price.json;controller_result.json"
     },
     {
      "criterion": "Baseline MASA features exactly reproduced for every video; same scorer and annotation projection.",
@@ -16129,10 +16207,10 @@
      "met": null
     }
    ],
-   "summary": "Отдельное расширение до измерения C/B/R1; основной протокол и report не меняются.",
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
+   "summary": "Частичный результат:5из35заданий,цена полного остатка не помещается в исходный бюджет;вывода об эффективности нет.",
+   "obtained": "runs/z13_matched_trackers_20261024/stock_recovery1/price.json: conservative_remaining_seconds=10509,18;available_seconds=8938,789432;proceed=false. controller_result.json:exit1,all_owned_ended=true;готовы5маркеров/jobs,исходыC/B/R1по7видео не измерены.",
+   "interpretation": "АдаптерR1восстановлен и полный первый ролик сохранён;технический критерий цены не пройден. Это не отрицательный научный итог контролей.",
+   "decision": "Сохранить5готовыхзаданий и остаток30,не продлевать исходный бюджет10800с. Не строить неполную таблицу10систем. Новая дешёваяCPUгипотеза регистрируется отдельной карточкой,не как продолжение бюджетаstock.",
    "cannot_claim": "Only7previously used val videos; not independent final test and no75heldout. Detector validation set used in its training monitoring, but these videos are absent from gradient-training list. Settings not optimized per tracker; cannot infer universal ranking or compare directly with published benchmarks. The old MASA head was trained on XYWH life pairs and can transfer differently to other trackers; report raw/MASA separately. Same original video builder, four observed frames followed by recurrent search history, max4eyes, retina/lamina, existing frozen per-arm weights/normalization/lambda/tau. Legacy C/B use identical spatial architecture and their saved trained readouts; center C/R1 use identical ridge algorithm with separately preselected training-only configurations. C is pretrained frozen core, not an unadapted complete tracker. B is learned smallGRU, R1 temporal receptor control: neither equals parameter-matched FlyVis. C/D differences include individually trained readout/policy weights; this is not an isolated backbone-only causal effect.",
    "metrics": [],
    "commits": [],
@@ -16146,8 +16224,23 @@
      "kind": "file",
      "ref": "runs/z13_matched_trackers_20261024/stock_controls/protocol.json",
      "claim": "Условия и сравнения до новых результатов"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_matched_trackers_20261024/stock_recovery1/protocol.json",
+     "claim": "Служебное восстановление известной формыR1,прежние3готовыхзадания и исходный срок сохранены"
     }
-   ]
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-24",
+     "commit": "3f903b040856042f18d65e571c205cd3434191ba",
+     "field": "summary",
+     "old": "Отдельное расширение до измерения C/B/R1; основной протокол и report не меняются.",
+     "reason": "Прежний бюджет сохранён;неполный запуск остановлен технической ценой."
+    }
+   ],
+   "done": "2026-10-24"
   },
   {
    "id": "z13_filter_descriptor_fixed_v2",
@@ -16272,6 +16365,203 @@
        "C_ridge_activity-R1_ridge_activity"
       ]
      }
+    }
+   ]
+  },
+  {
+   "id": "z13_competing_candidates_v1",
+   "title": "З13: совместный выбор кандидата или отсутствия полезного ответа",
+   "area": "flyvis",
+   "state": "completed_negative",
+   "started": "2026-10-24",
+   "tags": [
+    "fly-problem-P8",
+    "engineering-future"
+   ],
+   "question": "Улучшит ли одна замена функции ошибки выбор полезных вмешательств при той же архитектуре и информации?",
+   "hypothesis": "Конкуренция кандидатов с вариантом отсутствия полезного ответа может улучшить ранжирование уверенности; преимущества над BCE заранее нет.",
+   "expected": "Replace independent weighted candidate BCE by a joint categorical action likelihood over three candidate logits and a fixed zero null logit. Null means no useful candidate, not necessarily physical target absence. Acceptable set includes every candidate already labelled useful. Loss=-log(sum probability of acceptable actions); null is the sole acceptable action if the original useful labels are all zero. Same original positive weight multiplies useful-row loss; fixed optimizer/batches/seeds/1150steps/145950presentations. Objective and its normalization are the intervention; no new parameters. Same original mean-exemplar ranker and initialization,68-16 embedding/88-32-1 head, same cached104train and26evaluation, core and candidates fixed. Reuse18 original BCE models only after full ensemble replay and32-step original loss reproduction. Both BCE and new likelihood use the identical four-way normalized maximum candidate probability for confidence; additionally report original BCE native-logit selection. Geometry and R1 use exactly the same intervention. Unknown training labels excluded.",
+   "acceptance": [
+    {
+     "criterion": "Unit loss/padding/permutation/null gradients; full18controls replay; original32loss<=1e-6; conservative2x first32-step projected18models plus120s fits1800s; sources/caches/weights final hashes; independent controller and visible console.",
+     "met": true,
+     "evidence": "runs/z13_competing_candidates_20261024/recovery2/report.json; reproduction.json; timing.json; controller_result.json; finish_recorded.json"
+    },
+    {
+     "criterion": "Основной Dприрост точности среди известных при одинаковом покадровом охвате5%по видео>=5п.п. и нижняя95%ДИ>0;26видео имеют определённую метрику.",
+     "met": false,
+     "evidence": "runs/z13_competing_candidates_20261024/recovery2/report.json; reproduction.json; timing.json; controller_result.json; finish_recorded.json"
+    },
+    {
+     "criterion": "Dсовместный превосходит соответствующие геометрию и R1 по той же метрике с нижней95%ДИ>0; средняя доля полезных центровDне ниже BCE.",
+     "met": false,
+     "evidence": "runs/z13_competing_candidates_20261024/recovery2/report.json; reproduction.json; timing.json; controller_result.json; finish_recorded.json"
+    }
+   ],
+   "summary": "Эта совместная функция ошибки не прошла заданные поисковые критерии;действующий считыватель сохраняется.",
+   "obtained": "runs/z13_competing_candidates_20261024/recovery2/report.json → paired_precision/paired_centers/summary/quota_details: {\"precision\": {\"D_joint_activity-D_bce_common_activity\": {\"mean_per_video\": 0.048117205721694895, \"ci95\": [0.007281395505079722, 0.09292618016604565], \"better\": 12, \"n\": 24}, \"D_joint_activity-D_bce_native_activity\": {\"mean_per_video\": 0.06713266577333915, \"ci95\": [-0.0014995414578183478, 0.13715164793156756], \"better\": 13, \"n\": 24}, \"D_joint_activity-D_joint_geometry\": {\"mean_per_video\": 0.09081360407308549, \"ci95\": [0.02397008407130796, 0.17174655399210348], \"better\": 17, \"n\": 24}, \"C_joint_activity-C_bce_common_activity\": {\"mean_per_video\": 0.022801629742806213, \"ci95\": [-0.007986805025040317, 0.056523287496816864], \"better\": 11, \"n\": 25}, \"C_joint_activity-C_bce_native_activity\": {\"mean_per_video\": 0.03308074313027873, \"ci95\": [-0.04032048682311841, 0.11018151249335457], \"better\": 11, \"n\": 25}, \"C_joint_activity-C_joint_geometry\": {\"mean_per_video\": 0.07402401210760344, \"ci95\": [-0.01651348528492492, 0.16284717594926568], \"better\": 13, \"n\": 25}, \"R1_joint_activity-R1_bce_common_activity\": {\"mean_per_video\": 0.021767264136829348, \"ci95\": [-0.01183224203332899, 0.061862525397307994], \"better\": 8, \"n\": 25}, \"R1_joint_activity-R1_bce_native_activity\": {\"mean_per_video\": 0.013776119888248036, \"ci95\": [-0.027989711019974172, 0.05828968096485255], \"better\": 9, \"n\": 25}, \"R1_joint_activity-R1_joint_geometry\": {\"mean_per_video\": -0.013295928014194274, \"ci95\": [-0.07437015488811155, 0.048546206485293154], \"better\": 9, \"n\": 25}, \"D_joint_activity-R1_joint_activity\": {\"mean_per_video\": 0.18256258406345904, \"ci95\": [0.09917125398923926, 0.27467907812898723], \"better\": 16, \"n\": 23}, \"C_joint_activity-R1_joint_activity\": {\"mean_per_video\": 0.14801917352226948, \"ci95\": [0.05116007941254652, 0.25560416962530924], \"better\": 16, \"n\": 24}}, \"centers\": {\"D_joint_activity-D_bce_common_activity\": {\"mean_per_video\": -0.005671492921596097, \"ci95\": [-0.01951929464297425, 0.006247749933839948], \"better\": 8, \"n\": 26}, \"D_joint_activity-D_bce_native_activity\": {\"mean_per_video\": -0.005671492921596097, \"ci95\": [-0.01951929464297425, 0.006247749933839948], \"better\": 8, \"n\": 26}, \"D_joint_activity-D_joint_geometry\": {\"mean_per_video\": -0.04690733201059071, \"ci95\": [-0.07095367339108775, -0.02367521698065952], \"better\": 3, \"n\": 26}, \"C_joint_activity-C_bce_common_activity\": {\"mean_per_video\": 0.0009898075214017621, \"ci95\": [-0.008314999523777889, 0.009987198670370817], \"better\": 9, \"n\": 26}, \"C_joint_activity-C_bce_native_activity\": {\"mean_per_video\": 0.0009898075214017621, \"ci95\": [-0.008314999523777889, 0.009987198670370817], \"better\": 9, \"n\": 26}, \"C_joint_activity-C_joint_geometry\": {\"mean_per_video\": -0.024064956108592304, \"ci95\": [-0.049560959899155786, -0.00020940889011048736], \"better\": 9, \"n\": 26}, \"R1_joint_activity-R1_bce_common_activity\": {\"mean_per_video\": 0.004670329105026095, \"ci95\": [0.0006035618638713041, 0.008856571949011146], \"better\": 9, \"n\": 26}, \"R1_joint_activity-R1_bce_native_activity\": {\"mean_per_video\": 0.004670329105026095, \"ci95\": [0.0006035618638713041, 0.008856571949011146], \"better\": 9, \"n\": 26}, \"R1_joint_activity-R1_joint_geometry\": {\"mean_per_video\": -0.009842720136834357, \"ci95\": [-0.017195881756849954, -0.0012568253660515565], \"better\": 3, \"n\": 26}, \"D_joint_activity-R1_joint_activity\": {\"mean_per_video\": 0.09346122308893351, \"ci95\": [0.06202688821078995, 0.1263754021353437], \"better\": 23, \"n\": 26}, \"C_joint_activity-R1_joint_activity\": {\"mean_per_video\": 0.12607272057845437, \"ci95\": [0.08563161501579818, 0.17095535820790517], \"better\": 24, \"n\": 26}}}.18новыхмоделей и18старыхконтролей независимо воспроизведены из весов;все первичные строки и квоты проверены.",
+   "interpretation": "Эта совместная функция ошибки не прошла заданные поисковые критерии;действующий считыватель сохраняется. Причина прежних неудач этим опытом не устанавливается; совместная нормировка доступна обоим сравниваемым вариантам.",
+   "decision": "Сохранить все исходы и3сида;не выбирать порог/сид поtrain26. Не переносить эту версию в HOTA;выбрать следующий узел по измерениям и первоисточникам.",
+   "cannot_claim": "Independent BCE can already learn negatives. Joint competition may add no target identity information, suppress several useful candidates or change gradient scaling. A gain in confidence could be score normalization alone; common-normalization BCE separates that. Unequal knownness of selected cases limits interpretation. It does not establish the cause of FlyVis failures or replace a closed-loop test. Повторно использованные26train;неполнаяKeepTrack,неHOTA.",
+   "metrics": [
+    {
+     "key": "known_useful_selected_fraction",
+     "value": 0.30224884442183203,
+     "baseline": 0.25413163870013716,
+     "subset": "Повторные26train,верхние5%по каждому видео;известные выбранные исходы",
+     "source": "runs/z13_competing_candidates_20261024/recovery2/report.json",
+     "locator": "summary.D_joint_activity.known_precision_mean_video"
+    }
+   ],
+   "commits": [],
+   "files": [
+    "scripts/z13_competing_candidates_20261024.py",
+    "tracking/z13_competing_candidates.py",
+    "tests/test_z13_competing_candidates.py"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_competing_candidates_20261024/protocol.json",
+     "claim": "Метод,критерии,сравнения и хеши до прогона"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_competing_candidates_20261024/recovery2/report.json",
+     "claim": "Полный исход с независимо воспроизведёнными весами/строками/квотами"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-24",
+     "commit": "3f903b040856042f18d65e571c205cd3434191ba",
+     "field": "summary",
+     "old": "Критерии и сравнения зафиксированы до результатов;дешёвая CPUступень до1800с.",
+     "reason": "Полный независимо воспроизведённый исход функции ошибки."
+    }
+   ],
+   "done": "2026-10-24",
+   "confirmed_results": []
+  },
+  {
+   "id": "z13_val20_inputs_v1",
+   "title": "Подготовка20дополнительныхval для общего сравнения исходных кадров",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-24",
+   "tags": [
+    "benchmark",
+    "infrastructure"
+   ],
+   "question": "Можно ли подготовить фиксированные20дополнительныхval в тех же условиях YOLO26s960/conf0,01,без нового обучения и выбора по исходу?",
+   "hypothesis": "Проверяемый входной этап для более широкой сравнительной оценки;преимуществоFlyVisнепредполагается.",
+   "expected": "Prepare fixed original-frame detections/alignment for a broader matched benchmark requested by author. This does not improve the detector and is not promotion of failed FlyVis readouts. Core learning absent. Next registered CPU baseline4 trackers uses exactly these inputs; subsequent FlyVis inference needs a separate fixed protocol and measured cost. Separate interpreter per video, one GPU mutex, bounded3600seconds. First replay previous7val probe detection arrays xyxy/conf/cls/frame_idx/frame_count exactly; timing arrays excluded. Then fixed first new video alignment/detections, conservative2x full-video wall*19remaining+120s must fit remaining original stage budget. Completed inputs retained. No HOTA from preparation.",
+   "acceptance": [
+    {
+     "criterion": "Прежний детектор точно воспроизведён на контрольном полном видео;веса/код неизменны.",
+     "met": true,
+     "evidence": "runs/z13_val20_matched_20261024/inputs/jobs/probe.json"
+    },
+    {
+     "criterion": "Все20роликов и кадры сопоставлены по содержимому,числа детекционных/декодированных/размеченных кадров согласованы,хеши сохранены.",
+     "met": null,
+     "evidence": "runs/z13_val20_matched_20261024/inputs_recovery1/protocol.json"
+    },
+    {
+     "criterion": "Проверенный консервативный бюджет и полный конец своего дерева;никаких новых научных исходов/HOTAпо подготовке.",
+     "met": null,
+     "evidence": "runs/z13_val20_matched_20261024/inputs/controller_result.json; jobs=2/21; report.json; price.json"
+    }
+   ],
+   "summary": "Восстановление привязки конфликтующих кадров на исходных пикселях в том же окне24;готовые входы проверены,исходный бюджет не продлён.",
+   "obtained": "runs/z13_val20_matched_20261024/inputs/controller_result.json; jobs=2/21; report.json; price.json",
+   "interpretation": "Подготовка20val неполна;сохранён только остаток,научного исхода нет.",
+   "decision": "Следующий этап не запускать;сохранить готовые входы и ошибку без повторения готового.",
+   "cannot_claim": "All200val videos were used in older low-frame-rate tracker research; detector val monitored during weight selection. New20 are additional original-frame caches, not untouched independent confirmation or final test. No outcome-dependent exclusion; ambiguous alignment stops preparation, no replacement video. НетHOTAиулучшениядетектора/мухи.",
+   "metrics": [],
+   "commits": [],
+   "files": [
+    "scripts/z13_val20_inputs_20261024.py",
+    "scripts/run_bdd_video_rate_experiment.py",
+    "tracking/video_alignment.py",
+    "tracking/gpu_lock.py"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_val20_matched_20261024/inputs/protocol.json",
+     "claim": "Список,условия и хеши до расчёта"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_val20_matched_20261024/inputs/controller_result.json",
+     "claim": "Код завершения и конец своего дерева"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_val20_matched_20261024/inputs_recovery1/protocol.json",
+     "claim": "Проверяемая поправка потери деталей thumbnails,прежний срок"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-24",
+     "commit": "3f903b040856042f18d65e571c205cd3434191ba",
+     "field": "summary",
+     "old": "Фиксированный список и условия до новых детекций;не независимый финальныйтест.",
+     "reason": "Проверенное окончание локального этапа20val."
+    },
+    {
+     "date": "2026-10-24",
+     "commit": "3f903b040856042f18d65e571c205cd3434191ba",
+     "field": "summary",
+     "old": "Подготовка20val неполна;сохранён только остаток,научного исхода нет.",
+     "reason": "Проверена причина компактного сопоставления;начат служебный recovery1 в прежнем часовом окне."
+    }
+   ],
+   "done": "2026-10-24"
+  },
+  {
+   "id": "z13_val20_raw_v1",
+   "title": "Общие20val: четыре исходных трекера до сшивки MASA",
+   "area": "flyvis",
+   "state": "ready",
+   "started": "2026-10-24",
+   "tags": [
+    "benchmark"
+   ],
+   "question": "Каковы результаты четырёх трекеров на фиксированных дополнительных20val при одинаковых исходных кадрах и детекциях?",
+   "hypothesis": "Проверка сравнительного окружения FlyVis;знак и победитель заранее не предполагаются.",
+   "expected": "После полного проверенного входного этапа:XYWHByteTrack,ByteTrack,BoT-SORT,TrackTrack,старые общие настройки без подбора. Сначала точный повтор всех4на прежнем контрольном видео;затем20фиксированных новых.3600с CPU,цена2xпервого полного видео всех4сHOTAнаоставшиеся19+120с. Никакого сравнения с MASA или D до отдельного общего этапа.",
+   "acceptance": [
+    {
+     "criterion": "Все входы и контрольные4исходных трекера точно воспроизведены;все20×4задания и одинаковые размеченные кадры готовы.",
+     "met": null
+    },
+    {
+     "criterion": "Официальная HOTA,парные95%ДИ по всем20видео и независимая сверка;для заявления преимущества нижняяграница>0.",
+     "met": null
+    },
+    {
+     "criterion": "Свой бюджет3600с и независимый конец дерева соблюдены;частичные исходы не объявляются итогом сравнения.",
+     "met": null
+    }
+   ],
+   "summary": "Зависимая исходная ступень;без сшивки,FlyVis и улучшения мухи.",
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "All200val videos were used in older low-frame-rate tracker research; detector val monitored during weight selection. New20 are additional original-frame caches, not untouched independent confirmation or final test. No outcome-dependent exclusion; ambiguous alignment stops preparation, no replacement video. Без MASA и FlyVis:нельзя сравнивать эту таблицу с прежними системами после MASA или заявлять результат D.",
+   "metrics": [],
+   "commits": [],
+   "files": [
+    "scripts/z13_val20_raw_20261024.py"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_val20_matched_20261024/selection.json",
+     "claim": "Список выбран до новых исходов"
     }
    ]
   }

@@ -1,0 +1,25 @@
+{
+ "at": "2026-10-24T04:20:46.711281+03:00",
+ "probe": "Gradient of x*x at CPU x=2, no model or dataset",
+ "rows": {
+  "negative": {
+   "value": "-1",
+   "exit_code": 3221225477,
+   "stdout": "",
+   "stderr": "Windows fatal exception: access violation\n\nCurrent thread 0x000009e8 (most recent call first):\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\autograd\\graph.py\", line 865 in _engine_run_backward\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\autograd\\__init__.py\", line 364 in backward\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\_tensor.py\", line 630 in backward\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\utils\\_device.py\", line 109 in __torch_function__\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\overrides.py\", line 1740 in handle_torch_function\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\_tensor.py\", line 621 in backward\n  File \"<string>\", line 1 in <module>\n"
+  },
+  "empty": {
+   "value": "",
+   "exit_code": 0,
+   "stdout": "{\"gradient\": 4.0, \"device\": \"cpu\", \"cuda_initialized\": false}\n",
+   "stderr": ""
+  },
+  "visible": {
+   "value": "0",
+   "exit_code": 0,
+   "stdout": "{\"gradient\": 4.0, \"device\": \"cpu\", \"cuda_initialized\": false}\n",
+   "stderr": ""
+  }
+ },
+ "confirmed": "This installed Windows build crashes CPU autograd with visibility-1; empty visibility preserves CPU gradient and no CUDA initialization. Thread count/copy/MKLDNN changes did not explain the prior failure."
+}

@@ -184,6 +184,11 @@ def main():
         result='Основное сравнение D: '+number(comparison['mean_per_video'])+' п.п. ['+number(comparison['ci95'][0])+'; '+number(comparison['ci95'][1])+']. Полные критерии: '+('пройдены; нужен перенос.' if measured['primary_pass'] else 'не пройдены; версия не принята.')+' Train26; HOTA не измерялась.'
         LANES[6][2].append((cid,title,method,result))
         milestone_sources.append(path.relative_to(ROOT).as_posix())
+    joint_path=ROOT/'runs/z13_competing_candidates_20261024/recovery2/report.json'
+    if cards.get('z13_competing_candidates_v1',{}).get('state') in ('completed_positive','completed_negative','inconclusive') and joint_path.exists():
+        measured=json.loads(joint_path.read_text(encoding='utf-8'));comparison=measured['paired_precision']['D_joint_activity-D_bce_common_activity'];center=measured['paired_centers']['D_joint_activity-D_bce_common_activity'];number=lambda value:f'{100*value:+.2f}'.replace('.',',')
+        result='Полезные среди выбранных5% с известным исходом: '+number(comparison['mean_per_video'])+' п.п. ['+number(comparison['ci95'][0])+'; '+number(comparison['ci95'][1])+'], только24/26видео. Центры: '+number(center['mean_per_video'])+' п.п. Полные критерии не пройдены; версия не принята. HOTA не измерялась.'
+        LANES[6][2].append(('z13_competing_candidates_v1','Совместная ошибка кандидатов и отказа','Вместо независимой двоичной ошибки: совместная вероятность трёх кандидатов и отсутствия полезного ответа. Та же сеть и1150шагов,104train,3сида. Общая нормировка дана также прежнему контролю; не полная KeepTrack.',result));milestone_sources.append(joint_path.relative_to(ROOT).as_posix())
     nodes, edges, sources, linked = [], [], {}, set()
     fonts = {}
     def font(size, bold=False):

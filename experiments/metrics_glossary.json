@@ -373,6 +373,19 @@
    "tool": "scripts/z13_continue.py:per_video_useful; scripts/z13_train.py:success",
    "caveat": "Это локализация заданной потерянной цели, не HOTA и не точность среди выбранных вмешательств; неизвестные исходы отдельно.",
    "source": "scripts/z13_train.py:success"
+  },
+  "known_useful_selected_fraction": {
+   "title": "Доля полезных среди выбранных с известным исходом",
+   "ru": "В каждом видео выбираются ceil(0,05*N) строк из всех N по баллу считывателя без использования исхода. Доля полезных считается среди выбранных строк с известной разметкой; затем среднее по видео.",
+   "better": "higher",
+   "unit": "доля",
+   "range": [
+    0,
+    1
+   ],
+   "tool": "tracking/z13_competing_candidates.py:quota_precision",
+   "caveat": "Не HOTA и не гарантия отказа. Неизвестные исходы отдельно; изменение их доли может влиять на сравнение. Квота по каждому видео отличается от прежнего общего5%отбора.",
+   "source": "tracking/z13_competing_candidates.py:quota_precision"
   }
  },
  "aliases": {
