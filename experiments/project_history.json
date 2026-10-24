@@ -17053,7 +17053,7 @@
    "id": "z13_unperturbed_readout_v1",
    "title": "З13: обучение считывателя на эпизодах без искусственного сдвига окна",
    "area": "flyvis",
-   "state": "running",
+   "state": "inconclusive",
    "started": "2026-10-24",
    "tags": [
     "fly-problem-P8"
@@ -17064,17 +17064,19 @@
    "acceptance": [
     {
      "criterion": "Evaluate only originally unperturbed episodes of all26reused train videos. Select ceil(0.05*N) from ALL eligible rows per video before reading outcomes. Confirmed yield=known-useful/ALL selected;unknown cases separately give an upper bound (useful+unknown)/selected,not observed errors. Dclean-Dmixed confirmed-yield mean>=0.05 and paired95%lower>0. Dclean must beat cleanDgeometry and cleanR1activity with both lower95>0. Useful-center mean on kind1 must not fall below mixedD. All26 must have eligible and positive rows. All required;otherwise no expensive transfer.",
-     "met": null
+     "met": null,
+     "evidence": "runs/z13_unperturbed_readout_20261024/eligibility_audit.json;comparison not identifiable"
     },
     {
      "criterion": "36моделей,3сида,полное воспроизведение18старых моделей,старой32шаговойтраектории и неизменность источников.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_unperturbed_readout_20261024/eligibility_audit.json;stopped before36models"
     }
    ],
-   "summary": "Отдельная замена обучающей выборки,критерии до исходов.",
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
+   "summary": "Постановка ошибочна:кэш уже исключил сдвинутые эпизоды;остановлено без научного сравнения.",
+   "obtained": "runs/z13_unperturbed_readout_20261024/eligibility_audit.json:исходных эпизодов19798,со сдвигом9888;в выбранных обучающих/оценочных строках со сдвигом0/0. Обе обучающие выборки содержат одни и те же20778известных строк. Сохранено12готовыхмоделей;controller_result exit1/all_owned_ended после stop.request.",
+   "interpretation": "Агент ошибочно перенёс описание исходного архива на уже отфильтрованный кэш. Два режима не различаются составом строк,поэтому обучение не проверяет гипотезу. Из различия порядка пакетов выводов не делаем. Это ошибка постановки,не отрицательный результат FlyVis.",
+   "decision": "Не продолжать эту постановку и не принимать её модели;веса/логи/источники/exit1 сохранить. До любого нового обучения проверять на конкретных входных строках наличие заявленного различия факторов.",
    "cannot_claim": "Artificial crop shifts may improve robustness;removing them can reduce diversity and overfit. Current fit samples are naturally different episodes,not counterfactual copies;even matched video/kind/count leaves object/age/size differences. Unperturbed baseline episodes are only closer to runtime,not actual corrected closed-loop state. A confirmed-yield gain can reflect unknown-label composition,not real precision;bounds reported. This exploratory repeatedly used26train pilot cannot establish cause,HOTA or seed independence of the core.",
    "metrics": [],
    "commits": [],
@@ -17086,6 +17088,56 @@
      "kind": "file",
      "ref": "runs/z13_unperturbed_readout_20261024/protocol.json",
      "claim": "Новый режим выборки и все контроли до обучения"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-24",
+     "commit": "c5df9b85b63b36990cb81adfa53713b9cc47b62c",
+     "field": "summary",
+     "old": "Отдельная замена обучающей выборки,критерии до исходов.",
+     "reason": "Обнаружено отсутствие заявленного различия обучающих строк;явная поправка ошибки агента."
+    }
+   ],
+   "done": "2026-10-24"
+  },
+  {
+   "id": "z13_assignment_effect_v1",
+   "title": "З13: последствия кандидатов считывателя для полного сопоставления",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-24",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "question": "Есть ли доступные кандидатам D полезные исправления фактического сопоставления,и совпадают ли они с прежними метками центра?",
+   "hypothesis": "Метка улучшения центра может не совпадать с пользой сопоставлению;иной целевой сигнал может лучше обучать отказ.",
+   "expected": "Prepare supervision for a replacement FlyVis readout trained on the association consequence of its center action,rather than distance-to-GT-center utility. CPU exact baseline replay only;no new model trained here. For every original cached candidate on real annotated query frames,temporarily replace only the lost-track mean center,compute its first-association cost row,and solve the complete unchanged Hungarian assignment with that single row replaced. Restore exact mean before real tracker update. Baseline trajectory remains unchanged. Other tracks participate. Store full assignment alternatives,not independent nearest-detection guesses.",
+   "acceptance": [
+    {
+     "criterion": "All130videos replay float32 raw outputs exactly against saved baseline;every cached label prediction matches replay mean castfloat32 exactly;all rows bound byvideo,track,frame,identity. First2fixed fit20videos measure walltime;2*mean_seconds*remaining128+180must fit actual remaining original budget,else retain2jobs and stop. Completed videos not repeated.",
+     "met": null
+    },
+    {
+     "criterion": "On all26reused training evaluation videos,mean fraction of known eligible queries with at least one D candidate producing net beneficial first-stage assignment >=0.02 and paired-video95%lower>0 against0. If upper<0.02 this candidate set has insufficient measured reserve;otherwise inconclusive. C/R1 reserve and geometry-preserving no-action baseline reported. Old center-useful flags versus benefit/harm table reported. Oracle is diagnostic only;it never becomes a runtime policy.",
+     "met": null
+    }
+   ],
+   "summary": "Сначала точный контроль исходного трекера и цена,потом полный диагностический набор;без обучения.",
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "One-step baseline-state counterfactuals omit feedback,later low-score/unconfirmed association and long-term identity. Sparse annotations and last observed identity limit semantic labels. Higher oracle reserve need not be learnable. This is an association-aligned readout target hypothesis,not DeepMOT reproduction or a change to YOLO/ByteTrack/MASA.",
+   "metrics": [],
+   "commits": [],
+   "files": [
+    "scripts/z13_assignment_effect_20261024.py"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_assignment_effect_20261024/protocol.json",
+     "claim": "Условия реального сопоставления,критерии и цена до расчёта"
     }
    ]
   }
