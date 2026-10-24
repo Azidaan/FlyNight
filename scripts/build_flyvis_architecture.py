@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 OUT = ROOT / 'dissertation/architecture'
 STEM = 'FlyVis_architecture'
-DATE = '23.10.2026'
+DATE = '24.10.2026'
 FONT = 'C:/Windows/Fonts/segoeui.ttf'
 BOLD = 'C:/Windows/Fonts/segoeuib.ttf'
 PALETTE = {'base': ('#FAD8DA','#BC252D'), 'tried': ('#FFF1BA','#BF8A18'),
@@ -171,6 +171,9 @@ def main():
     readout_milestones.append(('z13_search_conditioned_v1', 'z13_search_conditioned_20261023',
         'D_search_activity-D_template_activity', 'Модель цели с текущими кандидатами',
         'Веса фильтра предсказываются из образца и 3 текущих кандидатов. Равный контроль закрывает доступ поиска к образцу и декодеру. Общий кодировщик также меняет признаки; 104 train, 3 сида. Упрощённый принцип ToMP.'))
+    readout_milestones.append(('z13_filter_descriptor_fixed_v2', 'z13_filter_descriptor_fixed_20261024/train',
+        'D_ridge_activity-D_mean_activity', 'Коэффициенты фильтра как образец',
+        'Вместо среднего признака цели: 68 коэффициентов её наблюдаемого различающего фильтра. Те же кандидаты, отдельные кодировщики равной ёмкости, 104 train, 3 сида и 1150 шагов. Ядро заморожено.'))
     milestone_sources = []
     for cid, folder, contrast, title, method in readout_milestones:
         path = ROOT/'runs'/folder/'report.json'
