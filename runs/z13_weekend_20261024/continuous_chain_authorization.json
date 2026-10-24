@@ -1,0 +1,45 @@
+{
+ "at": "2026-10-24T03:21:38.444932+03:00",
+ "author_request": "Давай дальше! Можешь после каждого своего сообщения, где не требуется выбор запускать дальнейшую цепочку прогонов дальше? Для беспрерывной работы",
+ "permission_window_source": "runs/z13_weekend_20261024/authorization.json",
+ "complete_by": "2026-10-26T07:40:00+03:00",
+ "agents_rule": "AGENTS.md#9.3",
+ "agents_sha256": "d74ceef1f8d47b7fe8834c5a34916333e7fe150ee9be35d02fa314df09644f46",
+ "controller": {
+  "pid": 22968,
+  "birth": 134372742787883211,
+  "worker_pid": 20848,
+  "worker_birth": 134372742790182412,
+  "started": "2026-10-24T03:11:19.026086+03:00",
+  "save_at": "2026-10-24T05:53:28.839987+03:00",
+  "hard_stop": "2026-10-24T05:53:48.839987+03:00"
+ },
+ "stock_queue": {
+  "pid": 11300,
+  "birth": 134372743282957988,
+  "started": "2026-10-24T03:12:08.602139+03:00",
+  "service_sha256": "b7c4ca2ce7265d11b995bb6abf496f97f7e0911bb2191d8fd1240cf075df033d",
+  "execution_v4_sha256": "da0c26cf085230bad9cf463756fc94ba9843f50fd722b378a60fe71a14073b17",
+  "parent_recovery_protocol_sha256": "cd75ceea6f66a69245e279b7a4830187839d8f01f37a8168c313bc18320891ac"
+ },
+ "progress": {
+  "state": "running",
+  "stage": "Общие сигнатуры, исходные кадры",
+  "updated": "2026-10-24T03:21:36.265133+03:00",
+  "elapsed_seconds": 59.17,
+  "variant": "botsort b251064f-e7a165fd",
+  "done": 375,
+  "total": 1205
+ },
+ "continuation_source_sha256": {
+  "scripts/z13_matched_pipeline_recovery3_20261024.py": "5438461c6d9d7295ff9380135ed1504437567e8eac5c837b13cb85eaa7dfff2c",
+  "scripts/z13_matched_stock_queue4_20261024.py": "b7c4ca2ce7265d11b995bb6abf496f97f7e0911bb2191d8fd1240cf075df033d",
+  "scripts/z13_matched_stock_execution4_20261024.py": "252251bc855c54045805cbd55b7213a6150dc8746d0fd4653051b93c61735d44",
+  "scripts/z13_weekend_driver_20261024.py": "428651c03009186d5947b44563ed422f2a6e0b33e4d7616c3d1da7bff12f7bb4"
+ },
+ "automation_id": "claude-flyvis",
+ "automation_status": "ACTIVE",
+ "automation_interval_minutes": 120,
+ "new_automation_created": false,
+ "next": "Complete main six-system benchmark and primary verification; existing queue4 then starts registered stock C/B/R1 controls automatically. Failed descriptor implementation is not promoted. New scientific alternative chosen from evidence before a new protocol and cheap pilot."
+}
