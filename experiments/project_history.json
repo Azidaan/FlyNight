@@ -17438,7 +17438,7 @@
    "id": "z13_template_swap_v1",
    "title": "З13: изолированная подмена образца при прежнем состоянии поиска",
    "area": "flyvis",
-   "state": "running",
+   "state": "completed_positive",
    "started": "2026-10-25",
    "tags": [
     "fly-problem-P8",
@@ -17450,19 +17450,19 @@
    "acceptance": [
     {
      "criterion": "All8326 own-template rows/arm; centers<0.5pixel and scores<0.001 vs frozen single_rows, all source hashes fixed; same original groups of8. Query arrays unchanged by projection. Foreign model IDs and exact observed mask checked for every eligible episode. All26 videos contain eligible positive rows.",
-     "met": null,
-     "evidence": "runs/z13_template_swap_20261025/controller_result.json"
+     "met": true,
+     "evidence": "runs/z13_template_swap_20261025/recovery1/independent_audit.json"
     },
     {
      "criterion": "On the exact-mask eligible kind1 rows, each video contributes its own-template useful-center fraction minus the mean of the3 foreign-template fractions. Paired-video95%CI: lower>0 detects useful template dependence. Upper<0.02 establishes only an effect below2pp in this diagnostic. Otherwise inconclusive. This is not a criterion for model usefulness or training approval.",
-     "met": null,
-     "evidence": "Неполный проход"
+     "met": true,
+     "evidence": "runs/z13_template_swap_20261025/recovery1/report.json"
     }
    ],
-   "summary": "Идёт recovery1: тот же изолированный опыт после создания выходных каталогов; прежняя ошибка сохранена.",
-   "obtained": "runs/z13_template_swap_20261025/controller_result.json: {'exit_code': 1, 'hard_timeout': False, 'worker_ended': True, 'all_owned_ended': True, 'remaining': {}, 'owned': {'20212': 134373567588969631, '28436': 134373567589088023, '27248': 134373567589288230}, 'ended': '2026-10-25T02:06:54.707370+03:00'}. Сохранённых групп:0",
-   "interpretation": "Неполный проход не даёт вывода о зависимости от образца или эффективности.",
-   "decision": "Сохранить готовое; проверить служебную причину и остаток исходного бюджета. Не повторять готовые группы и не продлевать бюджет.",
+   "summary": "Изолированная подмена полного фильтра проверена для D/C/R1; это диагностика зависимости, не новое улучшение.",
+   "obtained": "runs/z13_template_swap_20261025/recovery1/report.json → arms: {'D': {'paired': {'mean_per_video': 0.16577610613956928, 'ci95': [0.11596939668820588, 0.2363515249359722], 'better': 26, 'n': 26}, 'eligible': 4844, 'interpretation': 'own_template_advantage_detected'}, 'C': {'paired': {'mean_per_video': 0.17868367855068618, 'ci95': [0.11680008697668476, 0.26428624168329073], 'better': 26, 'n': 26}, 'eligible': 4844, 'interpretation': 'own_template_advantage_detected'}, 'R1': {'paired': {'mean_per_video': 0.01001659629159891, 'ci95': [-0.02038076160825022, 0.03495597707890163], 'better': 16, 'n': 26}, 'eligible': 4844, 'interpretation': 'inconclusive'}}. Все8326 исходных строк каждого варианта воспроизведены; первичные карты и интервалы проверены независимо.",
+   "interpretation": "В этом считывателе правильный образец даёт положительный вклад в полезные центры сверх трёх чужих моделей при общей истории поиска. Общее утверждение, что текущий фильтр игнорирует образец, не подтверждается.",
+   "decision": "Не переносить вспомогательное обучение из статьи только по сходству симптомов. Сопоставить диагностические ответы с ошибками отказа и доступностью правильного кандидата перед выбором одной функциональной правки. Дорогой этап автоматически не запускается.",
    "cannot_claim": "Correct observations still enter the frozen recurrent state. Lack of additional filter benefit cannot establish total template neglect or an intrinsic FlyVis defect. Other-video donors are easier than in-scene distractors; geometry matching does not equal class/appearance matching. Gaussian labels and discriminative ridge fitting already condition the model on the observed region. Reused train26, no claim of independent generalization.",
    "metrics": [],
    "commits": [],
@@ -17483,6 +17483,11 @@
      "kind": "file",
      "ref": "runs/z13_template_swap_20261025/recovery1/protocol.json",
      "claim": "Только создание выходных каталогов; исходный срок и код неизменны"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_template_swap_20261025/recovery1/report.json",
+     "claim": "Свой и три чужих фильтра, одинаковое состояние и геометрия"
     }
    ],
    "revisions": [
@@ -17499,9 +17504,37 @@
      "field": "summary",
      "old": "Сохранена незавершённая изолированная проверка образца.",
      "reason": "Служебный сбой сохранён; начато восстановление в прежнем окне."
+    },
+    {
+     "date": "2026-10-25",
+     "commit": "60ca8b5b42f6ebcdc7463e31b01925b71375026e",
+     "field": "summary",
+     "old": "Идёт recovery1: тот же изолированный опыт после создания выходных каталогов; прежняя ошибка сохранена.",
+     "reason": "Проверен полный либо частичный результат изолированной подмены."
+    },
+    {
+     "date": "2026-10-25",
+     "commit": "60ca8b5b42f6ebcdc7463e31b01925b71375026e",
+     "field": "obtained",
+     "old": "runs/z13_template_swap_20261025/controller_result.json: {'exit_code': 1, 'hard_timeout': False, 'worker_ended': True, 'all_owned_ended': True, 'remaining': {}, 'owned': {'20212': 134373567588969631, '28436': 134373567589088023, '27248': 134373567589288230}, 'ended': '2026-10-25T02:06:54.707370+03:00'}. Сохранённых групп:0",
+     "reason": "Проверен полный либо частичный результат изолированной подмены."
+    },
+    {
+     "date": "2026-10-25",
+     "commit": "60ca8b5b42f6ebcdc7463e31b01925b71375026e",
+     "field": "interpretation",
+     "old": "Неполный проход не даёт вывода о зависимости от образца или эффективности.",
+     "reason": "Проверен полный либо частичный результат изолированной подмены."
+    },
+    {
+     "date": "2026-10-25",
+     "commit": "60ca8b5b42f6ebcdc7463e31b01925b71375026e",
+     "field": "decision",
+     "old": "Сохранить готовое; проверить служебную причину и остаток исходного бюджета. Не повторять готовые группы и не продлевать бюджет.",
+     "reason": "Проверен полный либо частичный результат изолированной подмены."
     }
    ],
-   "done": ""
+   "done": "2026-10-25"
   }
  ],
  "manual_events": [
