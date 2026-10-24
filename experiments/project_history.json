@@ -16620,7 +16620,7 @@
    "id": "z13_val20_common_v1",
    "title": "Общие20val: десять систем с одинаковой MASA и контролями C/B/R1",
    "area": "flyvis",
-   "state": "running",
+   "state": "completed_positive",
    "started": "2026-10-24",
    "tags": [
     "benchmark",
@@ -16638,23 +16638,107 @@
     },
     {
      "criterion": "Все20×10систем raw/MASA,231задание,первичные строки/хеши и независимая сверка;своё дерево закончено в бюджете.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json;verified_summary.json;controller_result.json;231jobs"
     },
     {
      "criterion": "Report all10 raw/MASA pooled HOTA and all per-video values. For each concrete benefit claim require paired-video95%CI strict lower>0 for the exact matched contrast. FlyVis-to-stand requires each D versus xywh; modernization versus stock additionally D versus corresponding C, and matched receptor/smallGRU contrast. No secondary comparison rescues a failed primary. Complete20 and all231jobs required; otherwise only technical remainder, no efficacy verdict.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json;verified_summary.json;controller_result.json;231jobs"
     },
     {
      "criterion": "Дописан после разрешения автора,до основного20val-прогона: Only FlyVis/control-model old outputs: absolute coordinate error<=0.0001px;count/frame/ID/class/confidence exact. Native raw and previous baseline MASA remain exact. Existing86verified markers retained. No output rounded,altered or substituted. Old failed bit-exact criterion retained. Missing6arms only;native4raw/MASA/evaluations reused unchanged. Missing6 MASA uses identical per-frame backbone and per-arm ROI operations. Same-frame fp16 guard remains exact.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json;verified_summary.json;controller_result.json;231jobs"
     }
    ],
-   "summary": "181задание проверено;незавершённый R1 прошёл инструментальный повтор,продолжается остаток в исходном окне.",
-   "obtained": "runs/z13_val20_matched_20261024/common/controller_result.json:exit1,all_owned_ended=true;common_replay_diagnostic/report.json:старыйпроизводительтакженеповторилпобитово,максимум0,000030517578125px,числастрок/кадры/идентификаторы/классы/уверенностиравны. Сохранены4точныхконтроляобычныхтрекеров;ниодногоиз20основныхроликов10системнеобработано.",
-   "interpretation": "Строгий технический критерий не выполнен;это не научный отрицательный итог D. Конкретный источник малого межпроходного разброса не установлен.",
-   "decision": "Использовать проверенный полный R1выход диагностического повтора;не вычислять готовое снова. Продолжить только остаток,с предварительными снимками собственного стека при новом простое. Причина прежних зависаний не установлена. Исходный конец25.10 06:00:27МСК не продлевать;до полного20valитога эффективности не оценивать.",
+   "summary": "Общее сравнение10систем на20val завершено и проверено;положительный статус означает полноту оценки,а не автоматический выигрыш FlyVis.",
+   "obtained": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json → pooled/per_video/paired; verified_summary.json: {\"xywh\": {\"raw_hota\": 57.900829184147604, \"same_masa_hota\": 58.48578687561312, \"relative_percent_from_xywh_masa\": 0.0}, \"bytetrack\": {\"raw_hota\": 55.72093730404129, \"same_masa_hota\": 56.30107747900368, \"relative_percent_from_xywh_masa\": -3.735453540628351}, \"botsort\": {\"raw_hota\": 58.49031414305054, \"same_masa_hota\": 58.87367976141423, \"relative_percent_from_xywh_masa\": 0.6632258990138474}, \"tracktrack\": {\"raw_hota\": 59.264750081726845, \"same_masa_hota\": 59.62236652191588, \"relative_percent_from_xywh_masa\": 1.9433433437768743}, \"legacyD\": {\"raw_hota\": 57.85354406342428, \"same_masa_hota\": 58.48933835257775, \"relative_percent_from_xywh_masa\": 0.006072376135038312}, \"centerD\": {\"raw_hota\": 57.89437488017016, \"same_masa_hota\": 58.48071262037314, \"relative_percent_from_xywh_masa\": -0.008676048508630603}, \"legacyC\": {\"raw_hota\": 57.839656810761944, \"same_masa_hota\": 58.37382311091559, \"relative_percent_from_xywh_masa\": -0.19143756231861614}, \"centerC\": {\"raw_hota\": 57.89546052256709, \"same_masa_hota\": 58.4814674753895, \"relative_percent_from_xywh_masa\": -0.0073853844743654255}, \"legacyB\": {\"raw_hota\": 57.88527381009491, \"same_masa_hota\": 58.43656103421079, \"relative_percent_from_xywh_masa\": -0.0841671866483142}, \"centerR1\": {\"raw_hota\": 57.50531352980429, \"same_masa_hota\": 58.376266431341946, \"relative_percent_from_xywh_masa\": -0.18725993121047155}}",
+   "interpretation": "Полная оценка не подтвердила пользу добавления D к XYWH+MASA: прежняя D−XYWH средняя по видео −0,00806456,95%ДИ[−0,05454689;0,02558647];центрированная D−XYWH −0,00990808[−0,02941177;0,00023406]. Отдельные положительные сравнения: прежняя D−C +0,12010830[0,06161887;0,18657257],17/20;центрированная D−R1 +0,10853790[0,00447228;0,22112094],13/20. Источник runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json → paired. Эти вторичные сравнения не спасают отсутствие пользы стенду;D−C не выделяет ядро,поскольку различаются обученные считыватели/политики. Положительный статус карточки означает полноту сравнения.",
+   "decision": "Использовать общую таблицу с n=20 и ограничениями. Не подбирать порог/сид и не открывать75. Только положительные конкретные контрасты могут попасть в лучшие результаты;нового обучения этот опыт не выполняет.",
    "cannot_claim": "All200val videos were used in older low-frame-rate tracker research; detector val monitored during weight selection. New20 are additional original-frame caches, not untouched independent confirmation or final test. No outcome-dependent exclusion; ambiguous alignment stops preparation, no replacement video. Additional20 were selected before outcomes, but are not untouched final test. Native algorithms not optimally tuned. MASA scorer trained on XYWH pairs may transfer unequally;show raw and MASA. One saved D is not a seed-independence result. Prior7 subset and these20 remain separate tables;do not compare their raw numbers as changes. C is the pretrained fixed FlyVis core with task-trained frozen readout; D is one saved adapted core. Their readout/policy weights and training differ. B is small learnedGRU, R1 temporal receptors, parameter counts differ. D-C is functional system comparison, not an isolated backbone/anatomy effect. Same four observed frames followed by continuing recurrent search history, max4eyes, fixed per-arm tau/lambda. Geometry-only tracker without any correction is included.",
-   "metrics": [],
+   "metrics": [
+    {
+     "key": "HOTA",
+     "value": 58.48578687561312,
+     "baseline": 58.48578687561312,
+     "subset": "20 common val xywh sameMASA",
+     "source": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json",
+     "locator": "pooled.xywh_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 56.30107747900368,
+     "baseline": 58.48578687561312,
+     "subset": "20 common val bytetrack sameMASA",
+     "source": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json",
+     "locator": "pooled.bytetrack_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 58.87367976141423,
+     "baseline": 58.48578687561312,
+     "subset": "20 common val botsort sameMASA",
+     "source": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json",
+     "locator": "pooled.botsort_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 59.62236652191588,
+     "baseline": 58.48578687561312,
+     "subset": "20 common val tracktrack sameMASA",
+     "source": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json",
+     "locator": "pooled.tracktrack_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 58.48933835257775,
+     "baseline": 58.48578687561312,
+     "subset": "20 common val legacyD sameMASA",
+     "source": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json",
+     "locator": "pooled.legacyD_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 58.48071262037314,
+     "baseline": 58.48578687561312,
+     "subset": "20 common val centerD sameMASA",
+     "source": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json",
+     "locator": "pooled.centerD_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 58.37382311091559,
+     "baseline": 58.48578687561312,
+     "subset": "20 common val legacyC sameMASA",
+     "source": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json",
+     "locator": "pooled.legacyC_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 58.4814674753895,
+     "baseline": 58.48578687561312,
+     "subset": "20 common val centerC sameMASA",
+     "source": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json",
+     "locator": "pooled.centerC_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 58.43656103421079,
+     "baseline": 58.48578687561312,
+     "subset": "20 common val legacyB sameMASA",
+     "source": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json",
+     "locator": "pooled.legacyB_masa.HOTA"
+    },
+    {
+     "key": "HOTA",
+     "value": 58.376266431341946,
+     "baseline": 58.48578687561312,
+     "subset": "20 common val centerR1 sameMASA",
+     "source": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json",
+     "locator": "pooled.centerR1_masa.HOTA"
+    }
+   ],
    "commits": [],
    "files": [
     "scripts/z13_val20_common_20261024.py",
@@ -16686,6 +16770,11 @@
      "kind": "file",
      "ref": "runs/z13_val20_matched_20261024/common_authorized_recovery2/protocol.json",
      "claim": "Диагностический повтор,181готовый результат и наблюдение стека без изменения научных настроек."
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json",
+     "claim": "Все общие исходы и парные интервалы"
     }
    ],
    "revisions": [
@@ -16737,9 +16826,84 @@
      "field": "decision",
      "old": "Продолжить только незавершённые задания в прежнем окне до25.10 06:00:27МСК после освобождения ресурсов. Не останавливать чужую игру. Повтор того же зависания заново диагностировать,не перезапускать бесконечно. До полного20valитога вывода об эффективности нет.",
      "reason": "Полный инструментальный повтор незавершённого R1 и проверка181результата;старые сбои сохранены."
+    },
+    {
+     "date": "2026-10-24",
+     "commit": "000cec7a6a2611654e22d196198ff2968d6d1284",
+     "field": "summary",
+     "old": "181задание проверено;незавершённый R1 прошёл инструментальный повтор,продолжается остаток в исходном окне.",
+     "reason": "Полное независимо проверенное сравнение20val."
+    },
+    {
+     "date": "2026-10-24",
+     "commit": "000cec7a6a2611654e22d196198ff2968d6d1284",
+     "field": "obtained",
+     "old": "runs/z13_val20_matched_20261024/common/controller_result.json:exit1,all_owned_ended=true;common_replay_diagnostic/report.json:старыйпроизводительтакженеповторилпобитово,максимум0,000030517578125px,числастрок/кадры/идентификаторы/классы/уверенностиравны. Сохранены4точныхконтроляобычныхтрекеров;ниодногоиз20основныхроликов10системнеобработано.",
+     "reason": "Полное независимо проверенное сравнение20val."
+    },
+    {
+     "date": "2026-10-24",
+     "commit": "000cec7a6a2611654e22d196198ff2968d6d1284",
+     "field": "interpretation",
+     "old": "Строгий технический критерий не выполнен;это не научный отрицательный итог D. Конкретный источник малого межпроходного разброса не установлен.",
+     "reason": "Полное независимо проверенное сравнение20val."
+    },
+    {
+     "date": "2026-10-24",
+     "commit": "000cec7a6a2611654e22d196198ff2968d6d1284",
+     "field": "decision",
+     "old": "Использовать проверенный полный R1выход диагностического повтора;не вычислять готовое снова. Продолжить только остаток,с предварительными снимками собственного стека при новом простое. Причина прежних зависаний не установлена. Исходный конец25.10 06:00:27МСК не продлевать;до полного20valитога эффективности не оценивать.",
+     "reason": "Полное независимо проверенное сравнение20val."
+    },
+    {
+     "date": "2026-10-24",
+     "commit": "000cec7a6a2611654e22d196198ff2968d6d1284",
+     "field": "interpretation",
+     "old": "Для каждой добавки D,сравнения со штатной C и контроля без мухи действует свой парный интервал;положительный нижний предел необходим. Общую HOTA и среднюю разность по видео не смешивать. Все исходы показаны;настройки по20val не выбирались.",
+     "reason": "Явная интерпретация проверенных первичных интервалов после полного итога."
     }
    ],
-   "done": "2026-10-24"
+   "done": "2026-10-24",
+   "confirmed_results": [
+    {
+     "id": "z13_val20_common_v1_legacyD_masa-legacyC_masa",
+     "title": "Прежняя D лучше системы со штатным ядром C;пользы сверх стенда не подтверждено",
+     "category": "tracker",
+     "metric": "HOTA",
+     "unit": "points",
+     "comparison": "legacyD_masa-legacyC_masa",
+     "subset": "Фиксированные20ранее использованныхval",
+     "conditions": "Original-frame960/conf.01/iou.7 detections,high.25/low.1/new.25/buffer30, native matching/GMC defaults,ReIDoff. Same MASA R50weights and base_masa scorer trained earlier on130train,gap150,dist5,threshold.6. Native raw outputs equal independent CPU20 exactly. Strict original annotation mapping from verified cache,including conflict repair retained. No fitting/tuning on20val.",
+     "limitations": "All200val videos were used in older low-frame-rate tracker research; detector val monitored during weight selection. New20 are additional original-frame caches, not untouched independent confirmation or final test. No outcome-dependent exclusion; ambiguous alignment stops preparation, no replacement video. Additional20 were selected before outcomes, but are not untouched final test. Native algorithms not optimally tuned. MASA scorer trained on XYWH pairs may transfer unequally;show raw and MASA. One saved D is not a seed-independence result. Prior7 subset and these20 remain separate tables;do not compare their raw numbers as changes. C is the pretrained fixed FlyVis core with task-trained frozen readout; D is one saved adapted core. Their readout/policy weights and training differ. B is small learnedGRU, R1 temporal receptors, parameter counts differ. D-C is functional system comparison, not an isolated backbone/anatomy effect. Same four observed frames followed by continuing recurrent search history, max4eyes, fixed per-arm tau/lambda. Geometry-only tracker without any correction is included. Вторичное системное сравнение;преимущество D над стендом без мухи не подтверждено.",
+     "evidence": {
+      "source": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json",
+      "sha256": "6caf0f6143144a2f947349cf1bd6f69239034fb6029b25a645fe667c74b2a6e1",
+      "locator": [
+       "paired",
+       "legacyD_masa-legacyC_masa"
+      ]
+     }
+    },
+    {
+     "id": "z13_val20_common_v1_centerD_masa-centerR1_masa",
+     "title": "Центрированная D лучше временного входа R1;пользы сверх стенда не подтверждено",
+     "category": "tracker",
+     "metric": "HOTA",
+     "unit": "points",
+     "comparison": "centerD_masa-centerR1_masa",
+     "subset": "Фиксированные20ранее использованныхval",
+     "conditions": "Original-frame960/conf.01/iou.7 detections,high.25/low.1/new.25/buffer30, native matching/GMC defaults,ReIDoff. Same MASA R50weights and base_masa scorer trained earlier on130train,gap150,dist5,threshold.6. Native raw outputs equal independent CPU20 exactly. Strict original annotation mapping from verified cache,including conflict repair retained. No fitting/tuning on20val.",
+     "limitations": "All200val videos were used in older low-frame-rate tracker research; detector val monitored during weight selection. New20 are additional original-frame caches, not untouched independent confirmation or final test. No outcome-dependent exclusion; ambiguous alignment stops preparation, no replacement video. Additional20 were selected before outcomes, but are not untouched final test. Native algorithms not optimally tuned. MASA scorer trained on XYWH pairs may transfer unequally;show raw and MASA. One saved D is not a seed-independence result. Prior7 subset and these20 remain separate tables;do not compare their raw numbers as changes. C is the pretrained fixed FlyVis core with task-trained frozen readout; D is one saved adapted core. Their readout/policy weights and training differ. B is small learnedGRU, R1 temporal receptors, parameter counts differ. D-C is functional system comparison, not an isolated backbone/anatomy effect. Same four observed frames followed by continuing recurrent search history, max4eyes, fixed per-arm tau/lambda. Geometry-only tracker without any correction is included. Вторичное системное сравнение;преимущество D над стендом без мухи не подтверждено.",
+     "evidence": {
+      "source": "runs/z13_val20_matched_20261024/common_authorized_recovery2/report.json",
+      "sha256": "6caf0f6143144a2f947349cf1bd6f69239034fb6029b25a645fe667c74b2a6e1",
+      "locator": [
+       "paired",
+       "centerD_masa-centerR1_masa"
+      ]
+     }
+    }
+   ]
   },
   {
    "id": "z13_val20_native_masa_v1",
