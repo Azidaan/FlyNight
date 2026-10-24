@@ -1,3 +1,17 @@
+# Актуально — 25.10.2026 02:53 MSK
+
+z13_region_choice_gate_v1 окончен. runs/z13_region_choice_gate_20261025/recovery1/report.json → {'regions_baseline': {'mean_per_video': 0.0635804966892227, 'ci95': [0.05265237331078239, 0.07518989745701771], 'better': 26, 'n': 26}, 'regions_Dpeak3': {'mean_per_video': 0.04724720647232502, 'ci95': [0.03863916126055624, 0.055851861632864076], 'better': 26, 'n': 26}}; {'rows': 8326, 'known': 5822, 'unknown': 2504, 'supported_regions': 9178} Pass -> register raw-activity region learner with equal geometry-only/R1/C controls, exact baseline reproduction and fit-only hyperparameters before GPU extraction. Fail -> stop this interface; choose a different internal FlyVis node, no retrospective weakening of the2pp gate. Измеренный итог критерия: True Публикация runs/z13_region_choice_gate_20261025/recovery1/publication.json. Старые результаты и57чужихправок сохранить; критерии не ослаблять. Авторизация26.10 07:40МСК остаётся.
+
+Ниже прежние передачи сохранены.
+
+# Актуально — 25.10.2026 02:51 MSK
+
+Работает z13_region_choice_gate_v1, актуален runs/z13_region_choice_gate_20261025/recovery1, старт02:51:17МСК. Исходный root exit1 из-за отсутствующего ключа crop не является итогом recovery1. Исправлен только адрес исходной вырезки:8326записей fr_crop сверены. Готовых видео было0; научные настройки и критерий2п.п. не изменены. Общий исходный save02:58:04/hard02:58:24МСК не продлевать. Один независимый CPU-контроллер, console26620, отдельный --finish. Текущие PID+birth смотреть controller.json, затем реальный CPU/кадры и price.json после2видео. Завершатель при exit0 проверяет все исходные выходы и строки, каталог/тесты, граф с57чужимиправками, делает scoped push. Смотреть recovery1/monitor_failure.json.
+
+Предыдущий z13_presence_scope_v1 завершён и опубликован bf7e986: точное бинарное присутствие при прежнем порядке D —4полезных/3вредных/52нейтральных из59; среднепо-видео -0,04095п.п., ДИ включает0. Не обучать только этот допуск с тем же ранжированием. Новый gate измеряет запас выбора реальных видимых областей с NULL вместо поправки центра, не готовый прирост FlyVis/HOTA. После прохода отдельно зарегистрировать равный обучаемый региональный узел с C/R1/геометрией; после провала эту конкретную реализацию не продвигать. Авторизация26.10 07:40МСК остаётся.
+
+Ниже прежние передачи сохранены.
+
 # Актуально — 25.10.2026 02:44 MSK
 
 z13_presence_scope_v1 окончен. runs/z13_presence_scope_20261025/report.json содержит исходы. Pass: separately register target-visibility learner with fit-only calibration and same centers/controls. Fail: do not train this presence-only version; next action must change localization or target-conditioned within-present ranking, not another scalar threshold. At most this one prerequisite for the proposed action. Итог основного критерия: False. Старые деревья окончены, новые веса не обучались. Видимость цели не равна полезности для сопоставления; неизвестные не стали отрицательными. Публикация runs/z13_presence_scope_20261025/publication.json. Следующий узел выбирать по действующему плану, не повторять этот oracle и не ослаблять критерий. Авторизация26.10 07:40МСК остаётся.
