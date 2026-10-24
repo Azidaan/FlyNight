@@ -206,6 +206,18 @@ def main():
                 'Критерии не пройдены; преимущество над C, R1 и геометрией не подтверждено. Первые назначения на train26, не HOTA.')
         LANES[6][2].append(('z13_region_readout_v1','Карта отклика → оценки реальных рамок','Вместо переноса центра на пик: средний отклик внутри каждой области детектора; совместные оценки областей и отсутствия ответа. Выход считывателя поступает в стоимость сопоставления. Центр и размеры не меняются. Одинаковые C/D/R1 и геометрический контроль.',result))
         milestone_sources.extend([region_path.relative_to(ROOT).as_posix(),'tracking/z13_region_readout.py'])
+    specificity_path=ROOT/'runs/z13_specificity_gap_20261025/report.json'
+    if cards.get('z13_specificity_gap_v1',{}).get('state') in ('completed_positive','completed_negative','inconclusive') and specificity_path.exists():
+        measured=json.loads(specificity_path.read_text(encoding='utf-8'))
+        counts=measured['counts']['D_gap'];comparison=measured['paired']['Dgap-D_height']
+        fmt=lambda value:f'{100*value:+.2f}'.replace('.',',')
+        result=(f'D: полезных {counts["beneficial"]}, вредных {counts["harmful"]} из 49; '
+                f'против высоты пика {fmt(comparison["mean_per_video"])} п.п. '
+                f'[{fmt(comparison["ci95"][0])}; {fmt(comparison["ci95"][1])}]. '
+                +('Критерий диагностической проверки пройден; нужен допуск без разметки.' if measured['primary_pass'] else 'Полные критерии не пройдены; версия не принята.')
+                +' Строгое подмножество train26, не HOTA.')
+        LANES[6][2].append(('z13_specificity_gap_v1','Специфичность в прежней точке','Вместо высоты максимума: стандартизованный отклик своего фильтра минус средний отклик 3 чужих фильтров в той же выбранной колонке. Центр прежний. Отбор: 49 ответов из 4844 одинаковых диагностических запросов; C/D/R1. Не готовое правило допуска без разметки.',result))
+        milestone_sources.extend([specificity_path.relative_to(ROOT).as_posix(),'tracking/z13_specificity_gap.py'])
     nodes, edges, sources, linked = [], [], {}, set()
     fonts = {}
     def font(size, bold=False):
