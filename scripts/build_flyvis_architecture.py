@@ -272,6 +272,12 @@ def main():
         ('z13_box_proposal_v1',6,'runs/z13_box_proposal_20261025/report.json','Ответ модели цели → полная рамка области',
          'Прежняя обученная модель цели выбирает реальную область по карте отклика. Парные выходы: только центр либо центр и размеры. NULL (нет ответа) сохраняет прогноз. Равные C/D/R1/геометрия; сила поправки выбрана на20 обучающих видео.',
          'Dbox-baseline','Dbox-Dold','tracking/z13_box_proposal.py')]
+    proposal_milestones.append(('z13_activity_amplitude_v1',6,'runs/z13_activity_amplitude_20261025/training/report.json','Сохранение уровня активности внутри считывателя',
+         'Вход: 68 каналов области. Нормировка каждого вектора заменена поканальным усилением и сдвигом с теми же параметрами. Нормировка образца и по обучающей выборке сохранены. Равные D, C, R1 и геометрия; три начальных состояния обучения. 12 исходных моделей повторены точно.',
+         'Daffine-baseline','Daffine-D_norm','tracking/z13_activity_amplitude.py'))
+    proposal_milestones.append(('z13_selected_box_value_v1',6,'runs/z13_selected_box_value_20261025/report.json','Ценность одного готового ответа полной рамки',
+         'Вместо допуска по карте: гребневая оценка пользы минус вред выбранной рамки. 150 входов из активности, наблюдаемой модели цели и контекста. Обучение на 20 видео; фиксированные регуляризация 1 и граница 0. Нет нового прохода ядра. D, C, R1 и геометрия.',
+         'Dvalue-baseline','Dvalue-Dprior','tracking/z13_selected_box_value.py'))
     for cid,lane,ref,title,method,bkey,dkey,module in proposal_milestones:
         path=ROOT/ref
         if cards.get(cid,{}).get('state') not in ('completed_positive','completed_negative','inconclusive') or not path.exists():continue

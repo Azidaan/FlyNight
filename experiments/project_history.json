@@ -18451,6 +18451,122 @@
    ],
    "done": "2026-10-25",
    "summary": "Защиты применения полной рамки: основной критерий не пройден."
+  },
+  {
+   "id": "z13_full_box_supervision_v1",
+   "title": "Внутреннее считывание FlyVis: обучение последствиям полной рамки",
+   "area": "flyvis",
+   "state": "inconclusive",
+   "started": "2026-10-25",
+   "tags": [
+    "fly-problem-P8",
+    "fly-problem-P9"
+   ],
+   "question": "Сможет ли внутренний выбор/отказ использовать запас полной рамки при обучении именно этому действию?",
+   "hypothesis": "Рабочая гипотеза: метки прежнего категориального изменения стоимости не переносятся автоматически на другую геометрию действия. Обучение полной рамке при равных признаках может изменить полезность.",
+   "expected": "Replace the internal regional readout action semantics and corresponding supervision: selected real region now transfers complete XYWH and uses unchanged native get_dists, instead of a categorical cost row. Explicit unmatched still sets this row costs to1; fixed unchanged logit still means no action. No row or target identity is supplied at runtime. Reuse all D/C/R1 raw68 regional activity, observed target coefficients, original assignment context6, eight geometry inputs and query UID order. Same24heads (4representations x context/blank x3seeds),1150steps,batch128,Adam0.001,signed good-harm loss, fixed fit20 threshold grid. Train84; calibrate20; evaluate26. Only outcome labels and applied candidate-box action change together. No new feature/core computation or GPU.",
+   "acceptance": [
+    {
+     "criterion": "All130 baseline raw outputs exactly reproduce original. All37296query bindings/region orders match original labels and saved context; same observed features reused. Label arrays contain actual full assignment outcomes for each full-box/null action, not IoU or identity surrogate. Complete means restored; unchanged action exact. All input hashes; every model/hash/row/interval independently audited. First2label replays2*mean*128+60 must fit1200s. Firsttraining model2*time*23+60 must fit1800s. No completed video/model repeated.",
+     "met": false,
+     "evidence": "runs/z13_full_box_supervision_20261025/cache/recovery1/price.json"
+    },
+    {
+     "criterion": "Preregister D_context as primary, no choosing blank after evaluation: net baseline effect mean>=2pp and all6paired95%video lower>0 versus baseline,D_blank,C_context,R1_context,geometry_context,previous Dcontext categorical action. Report all24models and frozen fit20 thresholds, including zero-action and unfavorable outcomes.",
+     "met": null
+    }
+   ],
+   "obtained": "runs/z13_full_box_supervision_20261025/cache/price.json:1544,032с против1170,337с; cache/recovery1/price.json:1112,160с против909,670с;4из130видео,0из24моделей.",
+   "interpretation": "Численная пакетная версия уменьшила цену, но с исходным консервативным запасом всё ещё не проходит остаток1200с. Это остановка исполнения по стоимости, не отрицательная научная проверка согласованных меток.",
+   "decision": "Сохранены4видео,осталось126и24модели. Текущее окно cache не продлевать, третий ценовой повтор не запускать. Семья двух ручных защит отрицательна; обучение полной рамке остаётся не проверенным. Продолжить отдельную проверку другого внутреннего узла на уже готовых признаках без нового прогона видео.",
+   "cannot_claim": "The old representations may not identify absent targets even with correct action labels. Severe imbalance may yield no action; the same geometry controls may suffice. Action reserve does not imply learnability. Both20fit and26evaluation repeatedly used, so this is exploratory, not independent confirmation. No manual guards or threshold edits after evaluation.",
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_full_box_supervision_20261025/protocol.json",
+     "claim": "Связанный выход/метки, равные признаки и критерии до обучения"
+    }
+   ],
+   "done": "2026-10-25",
+   "summary": "Расчёт меток остановлен проверкой стоимости; эффективность не измерена."
+  },
+  {
+   "id": "z13_activity_amplitude_v1",
+   "title": "Амплитуда активности внутри регионального считывателя FlyVis",
+   "area": "flyvis",
+   "state": "completed_negative",
+   "started": "2026-10-25",
+   "tags": [
+    "fly-problem-P8",
+    "fly-problem-P9"
+   ],
+   "question": "Мешает ли отдельная нормировка каждого вектора68признаков обучаемому выбору и отказу?",
+   "hypothesis": "Source tracking/z13_filter_descriptor.py applies per-candidate LayerNorm before query embedding; this discards common shifts and approximately positive rescaling (finite epsilon) of its68channels. Current heads may lose response magnitude needed for refusal. This is a hypothesis about utility, not an established cause. Previous map-standard-deviation repair acted on a scalar response map, not raw68-vector normalization inside learned embedding.",
+   "expected": "Change only candidate activity embedding LayerNorm68 to a per-channel learnable affine transform (68gain+68bias, same initialization/capacity). Leave target-coefficient LayerNorm and fixed dataset-channel normalization intact. Same actual regional categorical action and signed good-harm labels as prior context readout. 4representations x2norm/affine x3seeds=24models, same initial parameter tensors, optimizer,1150steps,batch128,UID batches, old6observed assignment-context features, same84train/20fit/26evaluation, original frozen fit20 threshold grid. Geometry zeros activity. No GPU, new video replay, features, full-box labels or core training.",
+   "acceptance": [
+    {
+     "criterion": "All4normalization controls reproduce their prior context models tensor-by-tensor, selected tau and every8326saved row exactly. Equal parameter counts and initial tensors. All feature/context hashes and24model outputs audited against unchanged action labels; real CPU gradient test finite, CUDA uninitialized. First completed model2*time*23+60 fits remaining1800s; otherwise preserve and stop.",
+     "met": true,
+     "evidence": "runs/z13_activity_amplitude_20261025/independent_audit.json"
+    },
+    {
+     "criterion": "Daffine-baseline and Daffine-Dnorm eachmean>=2pp; all5paired95%video lower>0: baseline,Dnorm,Caffine,R1affine,geometryaffine. Every seed/count/threshold retained. Daffine fixed primary, no choosing seed/mode on26.",
+     "met": false,
+     "evidence": "runs/z13_activity_amplitude_20261025/training/report.json"
+    }
+   ],
+   "obtained": "runs/z13_activity_amplitude_20261025/training/report.json → paired: {'Daffine-baseline': {'mean_per_video': -0.003491223018656633, 'ci95': [-0.012578521010528889, 0.001819947023518558], 'better': 13, 'n': 26}, 'Daffine-D_norm': {'mean_per_video': -0.0015619521565209335, 'ci95': [-0.007228524458251436, 0.001839425119657753], 'better': 13, 'n': 26}, 'Daffine-C_affine': {'mean_per_video': -0.003785495816930639, 'ci95': [-0.012787944038714437, 0.0014824769210418944], 'better': 11, 'n': 26}, 'Daffine-R1_affine': {'mean_per_video': -0.0035257817259811966, 'ci95': [-0.012488720828683379, 0.0018193839243145441], 'better': 12, 'n': 26}, 'Daffine-geometry_affine': {'mean_per_video': -0.003491223018656633, 'ci95': [-0.012578521010528889, 0.001819947023518558], 'better': 13, 'n': 26}}",
+   "interpretation": "Проверено одно преобразование68входов при равной ёмкости, одинаковых начальных весах и точном повторе12старых моделей. Это действие регионального считывателя на повторных26видео, не HOTA и не полное объяснение отказа.",
+   "decision": "Pass -> separate frozen closed-loop gate, including native/C/R1/no-FlyVis. Fail -> preserve this exact normalization ablation and do not claim input amplitude is universally useless; no epsilon/gain/normalizer sweep on26. Основной критерий: False",
+   "cannot_claim": "Normalization may be essential for stable cross-channel matching. Dataset-level scales and relative channel patterns may already contain enough evidence; retaining magnitude can saturate Tanh and make generalization worse. A useful effect may occur equally in eye/geometry controls. Reused26 is exploratory, not independent confirmation.",
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_activity_amplitude_20261025/protocol.json",
+     "claim": "Один внутренний преобразователь и равные контроли до расчёта"
+    }
+   ],
+   "done": "2026-10-25",
+   "summary": "Сохранение амплитуды: критерий не пройден."
+  },
+  {
+   "id": "z13_selected_box_value_v1",
+   "title": "Внутренний отказ по ценности готовой полной рамки FlyVis",
+   "area": "flyvis",
+   "state": "completed_negative",
+   "started": "2026-10-25",
+   "tags": [
+    "fly-problem-P8",
+    "fly-problem-P9"
+   ],
+   "question": "Можно ли использовать готовый ответ полной рамки, обучив отказ его фактическим последствиям?",
+   "hypothesis": "Рабочая гипотеза: готовые метки полного ответа позволяют изучить пользу против исходного решения без дорогостоящей разметки всех альтернатив.",
+   "expected": "Internal final response decoder predicts signed value of its one frozen target-model-selected actual box. If predicted value>0 transfer the complete box with alpha1; else unchanged. The selected box is fixed before this decoder. NULL or unavailable exact pooled region stays unchanged. No manual unmatched/free guards. 150numbers:68raw pooled normalized-by-dataset activity,68componentwise products of that activity and observed target ridge coefficients,8original geometry and6observed original assignment context. Original per-vector LayerNorm is not part of this new analytic decoder. Geometry control zeros both68feature blocks, keeps same150coefficients. D/C/R1 same pipeline, own frozen selected region; all query UIDs retained.",
+   "acceptance": [
+    {
+     "criterion": "Exact UID/kind/real-index bindings to original pooled features/context and saved full-box rows. All46baseline replays and C/D/R1 maps were verified in parent BOX; reused here without recomputation. Persist every supported/unsupported/NULL decision including unknowns. Independently recompute all model predictions/outcomes/video intervals and verify hashes; no GPU. CPU600s+20, never extend other attempt budgets.",
+     "met": true,
+     "evidence": "runs/z13_selected_box_value_20261025/independent_audit.json"
+    },
+    {
+     "criterion": "Dvalue-baseline mean>=2pp and all5paired95%video lower>0: baseline,prior Dbox alpha0.25 selected on20fit,D/C/R1 matched no-new-core controls (C,R1,geometry). Full criteria required; no HOTA from a partial contrast. Values are net one-step assignment effects, not center accuracy.",
+     "met": false,
+     "evidence": "runs/z13_selected_box_value_20261025/report.json"
+    }
+   ],
+   "obtained": "runs/z13_selected_box_value_20261025/report.json → paired/counts: {'paired': {'Dvalue-baseline': {'mean_per_video': 0.0006220862470862471, 'ci95': [0.0, 0.0017569930069930072], 'better': 2, 'n': 26}, 'Dvalue-Dprior': {'mean_per_video': 0.0021500252590945096, 'ci95': [-0.0016259243890012205, 0.0064890309434590026], 'better': 9, 'n': 26}, 'Dvalue-C': {'mean_per_video': 0.0006220862470862471, 'ci95': [0.0, 0.0017569930069930072], 'better': 2, 'n': 26}, 'Dvalue-R1': {'mean_per_video': 0.0005940990118390587, 'ci95': [-0.00020024782740678485, 0.0018104264734094926], 'better': 3, 'n': 26}, 'Dvalue-geometry': {'mean_per_video': 0.0006220862470862471, 'ci95': [0.0, 0.0017569930069930072], 'better': 2, 'n': 26}}, 'counts': {'D': {'rows': 8326, 'known': 5822, 'supported': 3820, 'applied': 49, 'beneficial': 2, 'harmful': 0, 'unknown': 2504}, 'C': {'rows': 8326, 'known': 5822, 'supported': 3890, 'applied': 49, 'beneficial': 0, 'harmful': 0, 'unknown': 2504}, 'R1': {'rows': 8326, 'known': 5822, 'supported': 3448, 'applied': 29, 'beneficial': 1, 'harmful': 1, 'unknown': 2504}, 'geometry': {'rows': 8326, 'known': 5822, 'supported': 3865, 'applied': 25, 'beneficial': 0, 'harmful': 0, 'unknown': 2504}}}",
+   "interpretation": "Проверен более узкий внутренний отказ для одного готового ответа. Все четыре модели и строки независимо пересчитаны из старых меток фактического действия. Это не завершение выбора среди всех рамок и не HOTA;26видео повторно используются.",
+   "decision": "Pass -> separate frozen matched closed-loop parity/price/HOTA with all controls. Fail -> preserve this exact single-proposal value decoder; no lambda/threshold/feature/normalizer grid on26. Full all-region supervision remains untested, with4videos preserved. Основной критерий: False",
+   "cannot_claim": "20videos may be too few for rare beneficial actions; zero-dominated labels may suppress all actions. The fixed target-conditioned proposal may already be wrong; value decoder cannot replace it. Geometry may explain any gain. No proper held-out confirmation:26is repeatedly reused and fit20 has informed development. This changes both representation/readout family and fitting target relative to the earlier neural categorical head, so it cannot isolate one cause.",
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_selected_box_value_20261025/protocol.json",
+     "claim": "Точный более узкий ответ и условия до расчёта"
+    }
+   ],
+   "done": "2026-10-25",
+   "summary": "Ценность готовой полной рамки: критерий не пройден."
   }
  ],
  "manual_events": [
