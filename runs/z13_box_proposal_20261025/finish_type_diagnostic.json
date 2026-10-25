@@ -1,0 +1,9 @@
+{
+ "at": "2026-10-25T14:43:01.473913+03:00",
+ "original_finish_error": "AssertionError at all_alpha_evaluate dictionary equality; in-memory integer keys0..3 become JSON string keys",
+ "original_source_sha256": "fc81c5d0cc1ef36619e098eb38eff5ec1bf16f0cbb556f80f4c0fad594897fe5",
+ "service_source_sha256": "7e4e7fcbe4550c989bade080c69ad7be7a75f66ceae7d9b28901d4c8cb7a5429",
+ "report_sha256": "6f34f185ca45f6d7c9d5663091b60e6a38e664175abd469ace966c2dbac2336a",
+ "changed": "Normalize only dictionary key types through exact JSON round-trip, then require exact equality of every saved value. Numeric tolerance, outcomes, intervals and scientific criteria unchanged. No replay or training repeated.",
+ "all_counts_selected_values_and_paired_exact": true
+}

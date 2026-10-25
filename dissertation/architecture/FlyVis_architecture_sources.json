@@ -29,6 +29,12 @@
     "runs/z13_history_clock_20261025/replay/report.json": "c4b0e824fba8f9a6a7afe5a319b33086e68de51f4c2f718fd1ea0626c827ec8a",
     "tracking/z13_history_clock.py": "f9974602585f9814244ab5c03ee67ff39d890f163742ff5b1ad6d1f217fdca50",
     "runs/z13_history_clock_20261025/features/report.json": "7a4b3709d2af9faafb3417bd1eac7ca0d57347aa7c9ec29560ed1b8bdf94e1dc",
+    "runs/z13_anchor_state_20261025/replay/report.json": "3a6cbbf29548d5ed4f3675468aa46af7a71b53560b2452b354409d2a3c873f84",
+    "tracking/z13_anchor_state.py": "3fbdaa5ac87e371f89c7ec7b381c3e628f096d1677ff1bdc59d339a74aa49c32",
+    "runs/z13_spatial_derivatives_20261025/replay/report.json": "673abf5e1849b5d0f6a0de2fa378878e4167b7813ea747599f491a9157bc6bb6",
+    "tracking/z13_spatial_derivatives.py": "c21515bd3b7b896fc0a82a68484f69f92064ea2e5a68dc3145669606aa336f3c",
+    "runs/z13_box_proposal_20261025/report.json": "6f34f185ca45f6d7c9d5663091b60e6a38e664175abd469ace966c2dbac2336a",
+    "tracking/z13_box_proposal.py": "342f110dd178b6066330122ca65a767f1b02df7202a153a7d7d5486ce822660f",
     "runs/z13_ridge_uncertainty_20261025/replay/report.json": "c82c978d75acea22c400aba3b60a4a237e55e075e8f4a5b24b4f82c7e6342362",
     "tracking/z13_ridge_uncertainty.py": "226adc25b2593755cd2ade82d61ee965b7ef70c7afd6649fe64d717deb06276e",
     "runs/z13_null_mixture_20261025/report.json": "c023eeff6caf0459293e0c823307d92dfa53a56f8c3878bc7d2c2c2389cda49a",
@@ -56,8 +62,8 @@
     "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df",
     "runs/z13_center_hota_20261021/protocol.json": "b733454d75a2b65385ab71d48bed7926f47d1c00d63ade244cb30ae3ec0683e6",
     "runs/z13_center_hota_20261021/eval/report.json": "ad13cd78cf03b0dca94a2da08ecd76ab2fb745c53110d6810195e94d7bc8e8c3",
-    "scripts/build_flyvis_architecture.py": "99dab22cf683e0774fc3d83cd77cfdd6313fe37569d00d4d8a35c6e64405ceef",
-    "scripts/flyvis_architecture_layout.py": "ecf39622f56c617b6bed10f7aa88ea0195266fe1b3d471b980d7ae305d26b5c8",
+    "scripts/build_flyvis_architecture.py": "63e489c19c37c0fa0cd5b3ea848d1dbf32f05194d5b11abc9376213340f124c2",
+    "scripts/flyvis_architecture_layout.py": "6e4636e6b76736ea9f28515dd4c69e67632b3aae6ebfea35e6161f8ef8016e61",
     "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
     "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
     "AGENTS.md": "2f05074f061a4d4fa04c53eb14e1ffcf0c772c1dc2ed647ed2753c6d39da7908",
@@ -75,7 +81,7 @@
     "runs/z13_absolute_confidence_20261022/report.json": "93d454208618ce85f9d7e618bd98d0c884dc4729bcfe7a55f2804e3765aa34db",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "45dc7b977cd46d11ba247b805926892ba13ea9ec08b0206ad290809a4497150e"
+    "experiments/project_history.json": "04aa901450c1f3cf60bd59b628348ea652b1a8e57abec1ae528fb617be1edb24"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -1052,6 +1058,18 @@
         }
       ]
     },
+    "z13_anchor_state_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_anchor_state_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_anchor_state_20261025/protocol.json",
+          "claim": "Одно изменение состояния, равные контроли и критерии до GPU"
+        }
+      ]
+    },
     "z13_balanced_ridge_v1": {
       "source": "experiments/project_history.json",
       "locator": "experiments[id=z13_balanced_ridge_v1]",
@@ -1076,6 +1094,18 @@
           "kind": "file",
           "ref": "runs/z13_balanced_ridge_20261022/report.json",
           "claim": "Полный первичный исход всех3вариантов"
+        }
+      ]
+    },
+    "z13_box_proposal_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_box_proposal_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_box_proposal_20261025/protocol.json",
+          "claim": "Одна рабочая замена выхода, равный центр/рамка и критерии до исполнения"
         }
       ]
     },
@@ -2225,6 +2255,18 @@
         }
       ]
     },
+    "z13_spatial_derivatives_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_spatial_derivatives_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_spatial_derivatives_20261025/protocol.json",
+          "claim": "Новый локальный узел, ранжирование12, равные контроли и критерии до GPU"
+        }
+      ]
+    },
     "z13_specificity_gap_v1": {
       "source": "experiments/project_history.json",
       "locator": "experiments[id=z13_specificity_gap_v1]",
@@ -3145,6 +3187,31 @@
       "size": 20
     },
     {
+      "id": "v_z13_anchor_state_v1",
+      "x": 7910,
+      "y": 3240,
+      "w": 870,
+      "h": 400,
+      "title": [
+        "II.8 Поиск заново от наблюдённого образца"
+      ],
+      "body": [
+        "Каждый запрос: четыре прежних наблюдения образца и текущий кадр. Промежуточные",
+        "поисковые обновления исключены. Те же C/D/R1, вход, веса и модель цели; это",
+        "проверка удаления истории, не реализация KYS.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: D против прежней: -0,009 п.п. [-0,054; +0,034]; против",
+        "исходного назначения -0,111 п.п. Основной критерий не пройден. Повторные train26,",
+        "первые назначения, не HOTA."
+      ],
+      "footer": [
+        "z13_anchor_state_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_anchor_state_v1",
+      "card": "z13_anchor_state_v1",
+      "size": 20
+    },
+    {
       "id": "original_4",
       "x": 180,
       "y": 4450,
@@ -3626,6 +3693,31 @@
       "kind": "tried",
       "ref": "z13_hinge_target_v1",
       "card": "z13_hinge_target_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_spatial_derivatives_v1",
+      "x": 3510,
+      "y": 7710,
+      "w": 870,
+      "h": 400,
+      "title": [
+        "II.12 Расположение соседей в локальном признаке"
+      ],
+      "body": [
+        "68 прежних признаков плюс 34 горизонтальных и 34 вертикальных изменения",
+        "активности по шести соседям. Всего136; нулевое дополнение воспроизводит",
+        "прежние68. Время, образец, регуляризация и ядро прежние.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: D против прежней: +0,013 п.п. [+0,000; +0,038]; против",
+        "исходного назначения -0,089 п.п. Основной критерий не пройден. Повторные train26,",
+        "первые назначения, не HOTA."
+      ],
+      "footer": [
+        "z13_spatial_derivatives_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_spatial_derivatives_v1",
+      "card": "z13_spatial_derivatives_v1",
       "size": 20
     },
     {
@@ -4356,13 +4448,38 @@
       "size": 22
     },
     {
-      "id": "v_z13_ridge_uncertainty_v1",
+      "id": "v_z13_box_proposal_v1",
       "x": 4580,
       "y": 11520,
       "w": 870,
       "h": 400,
       "title": [
-        "II.29 Опора уверенности в признаках образца"
+        "II.29 Ответ модели цели → полная рамка области"
+      ],
+      "body": [
+        "Прежняя обученная модель цели выбирает реальную область по карте отклика. Парные",
+        "выходы: только центр либо центр и размеры. NULL (нет ответа) сохраняет прогноз.",
+        "Равные C/D/R1/геометрия; сила поправки выбрана на20 обучающих видео.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: D против прежней: -0,153 п.п. [-0,502; +0,178]; против",
+        "исходного назначения -0,153 п.п. Основной критерий не пройден. Повторные train26,",
+        "первые назначения, не HOTA."
+      ],
+      "footer": [
+        "z13_box_proposal_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_box_proposal_v1",
+      "card": "z13_box_proposal_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_ridge_uncertainty_v1",
+      "x": 5710,
+      "y": 11600,
+      "w": 870,
+      "h": 400,
+      "title": [
+        "II.30 Опора уверенности в признаках образца"
       ],
       "body": [
         "Вместо одной высоты отклика: вычитать 1,96 условного стандартного отклонения —",
@@ -4384,12 +4501,12 @@
     },
     {
       "id": "v_z13_null_mixture_v1",
-      "x": 5710,
-      "y": 11600,
+      "x": 4580,
+      "y": 11940,
       "w": 870,
       "h": 400,
       "title": [
-        "II.30 Нет надёжного ответа → сохранить назначение"
+        "II.31 Нет надёжного ответа → сохранить назначение"
       ],
       "body": [
         "Вероятность отсутствия надёжного ответа становится весом сохранения исходной строки",
@@ -4412,12 +4529,12 @@
     },
     {
       "id": "v_z13_specificity_gap_v1",
-      "x": 4580,
-      "y": 11940,
+      "x": 5710,
+      "y": 12020,
       "w": 870,
       "h": 360,
       "title": [
-        "II.31 Специфичность в прежней точке"
+        "II.32 Специфичность в прежней точке"
       ],
       "body": [
         "Вместо высоты максимума: стандартизованный отклик своего фильтра минус",
@@ -4597,7 +4714,7 @@
     {
       "id": "g_center",
       "x": 2380,
-      "y": 8210,
+      "y": 8290,
       "w": 2000,
       "h": 640,
       "title": [
@@ -4626,7 +4743,7 @@
     {
       "id": "f_fly_future_stmtrack_memory_v1",
       "x": 2380,
-      "y": 9010,
+      "y": 9090,
       "w": 870,
       "h": 360,
       "title": [
@@ -4648,7 +4765,7 @@
     {
       "id": "f_fly_future_keeptrack_candidates_v1",
       "x": 3510,
-      "y": 9010,
+      "y": 9090,
       "w": 870,
       "h": 360,
       "title": [
@@ -4670,7 +4787,7 @@
     {
       "id": "f_fly_future_kys_state_v1",
       "x": 6780,
-      "y": 3750,
+      "y": 3830,
       "w": 2000,
       "h": 350,
       "title": [
@@ -4733,7 +4850,7 @@
     {
       "id": "metric",
       "x": 4580,
-      "y": 12470,
+      "y": 12550,
       "w": 2000,
       "h": 360,
       "title": [
@@ -4754,7 +4871,7 @@
     {
       "id": "g_map104",
       "x": 4580,
-      "y": 13020,
+      "y": 13100,
       "w": 2000,
       "h": 640,
       "title": [
@@ -4830,7 +4947,7 @@
     {
       "id": "footer",
       "x": 100,
-      "y": 13840,
+      "y": 13920,
       "w": 8780,
       "h": 160,
       "title": [
@@ -5774,6 +5891,43 @@
       "arrow": 23
     },
     {
+      "a": "hub_3",
+      "b": "v_z13_anchor_state_v1",
+      "kind": "variant",
+      "points": [
+        [
+          7780,
+          3440.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "left",
+      "label": "II",
+      "label_at": [
+        7845,
+        3440.0
+      ],
+      "render_points": [
+        [
+          7780.0,
+          1810
+        ],
+        [
+          7780,
+          3440.0
+        ],
+        [
+          7910,
+          3440.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
       "a": "original_4",
       "b": "hub_4",
       "kind": "variant",
@@ -6450,6 +6604,43 @@
         [
           3250,
           7830.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
+      "a": "hub_5",
+      "b": "v_z13_spatial_derivatives_v1",
+      "kind": "variant",
+      "points": [
+        [
+          3380,
+          7910.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "left",
+      "label": "II",
+      "label_at": [
+        3445,
+        7910.0
+      ],
+      "render_points": [
+        [
+          3380.0,
+          5440
+        ],
+        [
+          3380,
+          7910.0
+        ],
+        [
+          3510,
+          7910.0
         ]
       ],
       "colour": "#B97D00",
@@ -7524,7 +7715,7 @@
     },
     {
       "a": "hub_6",
-      "b": "v_z13_ridge_uncertainty_v1",
+      "b": "v_z13_box_proposal_v1",
       "kind": "variant",
       "points": [
         [
@@ -7561,7 +7752,7 @@
     },
     {
       "a": "hub_6",
-      "b": "v_z13_null_mixture_v1",
+      "b": "v_z13_ridge_uncertainty_v1",
       "kind": "variant",
       "points": [
         [
@@ -7598,12 +7789,12 @@
     },
     {
       "a": "hub_6",
-      "b": "v_z13_specificity_gap_v1",
+      "b": "v_z13_null_mixture_v1",
       "kind": "variant",
       "points": [
         [
           5580,
-          12120.0
+          12140.0
         ]
       ],
       "start": "bottom",
@@ -7611,7 +7802,7 @@
       "label": "II",
       "label_at": [
         5515,
-        12120.0
+        12140.0
       ],
       "render_points": [
         [
@@ -7620,11 +7811,48 @@
         ],
         [
           5580,
-          12120.0
+          12140.0
         ],
         [
           5450,
-          12120.0
+          12140.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
+      "a": "hub_6",
+      "b": "v_z13_specificity_gap_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5580,
+          12200.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "left",
+      "label": "II",
+      "label_at": [
+        5645,
+        12200.0
+      ],
+      "render_points": [
+        [
+          5580.0,
+          5550
+        ],
+        [
+          5580,
+          12200.0
+        ],
+        [
+          5710,
+          12200.0
         ]
       ],
       "colour": "#B97D00",
@@ -8131,11 +8359,11 @@
         ],
         [
           3320,
-          8140
+          8220
         ],
         [
           3380,
-          8140
+          8220
         ]
       ],
       "start": "right",
@@ -8143,7 +8371,7 @@
       "label": "III  МАСКА → ПИК ЦЕНТРА",
       "label_at": [
         3380,
-        8130
+        8210
       ],
       "render_points": [
         [
@@ -8156,15 +8384,15 @@
         ],
         [
           3320,
-          8140
+          8220
         ],
         [
           3380,
-          8140
+          8220
         ],
         [
           3380.0,
-          8210
+          8290
         ]
       ],
       "colour": "#117A46",
@@ -8180,11 +8408,11 @@
       "points": [
         [
           3380,
-          8930
+          9010
         ],
         [
           2815,
-          8930
+          9010
         ]
       ],
       "start": "bottom",
@@ -8192,24 +8420,24 @@
       "label": "IV",
       "label_at": [
         2815,
-        8960
+        9040
       ],
       "render_points": [
         [
           3380.0,
-          8850
+          8930
         ],
         [
           3380,
-          8930
+          9010
         ],
         [
           2815,
-          8930
+          9010
         ],
         [
           2815.0,
-          9010
+          9090
         ]
       ],
       "colour": "#416FBA",
@@ -8225,11 +8453,11 @@
       "points": [
         [
           3380,
-          8930
+          9010
         ],
         [
           3945,
-          8930
+          9010
         ]
       ],
       "start": "bottom",
@@ -8237,24 +8465,24 @@
       "label": "IV",
       "label_at": [
         3945,
-        8960
+        9040
       ],
       "render_points": [
         [
           3380.0,
-          8850
+          8930
         ],
         [
           3380,
-          8930
+          9010
         ],
         [
           3945,
-          8930
+          9010
         ],
         [
           3945.0,
-          9010
+          9090
         ]
       ],
       "colour": "#416FBA",
@@ -8274,7 +8502,7 @@
         ],
         [
           8840,
-          3925
+          4005
         ]
       ],
       "start": "right",
@@ -8282,7 +8510,7 @@
       "label": "IV",
       "label_at": [
         8840,
-        3925
+        4005
       ],
       "render_points": [
         [
@@ -8295,11 +8523,11 @@
         ],
         [
           8840,
-          3925
+          4005
         ],
         [
           8780,
-          3925.0
+          4005.0
         ]
       ],
       "colour": "#416FBA",
@@ -8319,7 +8547,7 @@
         ],
         [
           6640,
-          13340
+          13420
         ]
       ],
       "start": "right",
@@ -8327,7 +8555,7 @@
       "label": "III",
       "label_at": [
         6640,
-        13340
+        13420
       ],
       "render_points": [
         [
@@ -8340,11 +8568,11 @@
         ],
         [
           6640,
-          13340
+          13420
         ],
         [
           6580,
-          13340.0
+          13420.0
         ]
       ],
       "colour": "#117A46",

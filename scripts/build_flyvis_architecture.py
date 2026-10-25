@@ -262,6 +262,27 @@ def main():
         LANES[3][2].append(('z13_history_clock_v1','Время по кадрам вместо времени по записям',
             'Вместо одного шага на сохранённую запись: столько прежних шагов 30 Гц, сколько прошло кадров видео; повтор того же кадра не меняет состояние. Между доступными изображениями — линейная интерполяция. Те же веса, нормы, гребневая модель цели и считывание областей; равный ход времени C/D/R1, семь условий.',result))
         milestone_sources.extend([clock_path.relative_to(ROOT).as_posix(),'tracking/z13_history_clock.py','runs/z13_history_clock_20261025/features/report.json'])
+    proposal_milestones=[
+        ('z13_anchor_state_v1',3,'runs/z13_anchor_state_20261025/replay/report.json','Поиск заново от наблюдённого образца',
+         'Каждый запрос: четыре прежних наблюдения образца и текущий кадр. Промежуточные поисковые обновления исключены. Те же C/D/R1, вход, веса и модель цели; это проверка удаления истории, не реализация KYS.',
+         'Danchor-baseline','Danchor-Dold','tracking/z13_anchor_state.py'),
+        ('z13_spatial_derivatives_v1',5,'runs/z13_spatial_derivatives_20261025/replay/report.json','Расположение соседей в локальном признаке',
+         '68 прежних признаков плюс 34 горизонтальных и 34 вертикальных изменения активности по шести соседям. Всего136; нулевое дополнение воспроизводит прежние68. Время, образец, регуляризация и ядро прежние.',
+         'Dgradient-baseline','Dgradient-Dold','tracking/z13_spatial_derivatives.py'),
+        ('z13_box_proposal_v1',6,'runs/z13_box_proposal_20261025/report.json','Ответ модели цели → полная рамка области',
+         'Прежняя обученная модель цели выбирает реальную область по карте отклика. Парные выходы: только центр либо центр и размеры. NULL (нет ответа) сохраняет прогноз. Равные C/D/R1/геометрия; сила поправки выбрана на20 обучающих видео.',
+         'Dbox-baseline','Dbox-Dold','tracking/z13_box_proposal.py')]
+    for cid,lane,ref,title,method,bkey,dkey,module in proposal_milestones:
+        path=ROOT/ref
+        if cards.get(cid,{}).get('state') not in ('completed_positive','completed_negative','inconclusive') or not path.exists():continue
+        measured=json.loads(path.read_text(encoding='utf-8'));assert measured['complete']
+        baseline=measured['paired'][bkey];change=measured['paired'][dkey]
+        fmt=lambda value:f'{100*value:+.3f}'.replace('.',',')
+        result=(f'D против прежней: {fmt(change["mean_per_video"])} п.п. [{fmt(change["ci95"][0])}; {fmt(change["ci95"][1])}]; '
+                f'против исходного назначения {fmt(baseline["mean_per_video"])} п.п. '
+                +('Критерии пройдены; нужна отдельная проверка стенда.' if measured['primary_pass'] else 'Основной критерий не пройден.')
+                +' Повторные train26, первые назначения, не HOTA.')
+        LANES[lane][2].append((cid,title,method,result));milestone_sources.extend([ref,module])
     confidence_contracts=[
         ('z13_ridge_uncertainty_v1','runs/z13_ridge_uncertainty_20261025/replay/report.json','Опора уверенности в признаках образца',
          'Вместо одной высоты отклика: вычитать 1,96 условного стандартного отклонения — оценки неопределённости гребневой модели по наблюдённому образцу. Прежние веса, время, регуляризация и средние ответы. C/D/R1: прежнее / пространственная неопределённость / одинаковый штраф; плюс геометрия. Это не калиброванная вероятность пользы.',

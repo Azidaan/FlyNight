@@ -1,0 +1,106 @@
+{
+ "at": "2026-10-25T14:46:43.982636+03:00",
+ "posthoc_explanation_only": true,
+ "no_new_fit_threshold_or_tracker_run": true,
+ "report_sha256": "6f34f185ca45f6d7c9d5663091b60e6a38e664175abd469ace966c2dbac2336a",
+ "gate_report_sha256": "b75584c90435852575977d8f54eb11b59f8485dc4b2d3af518048e32ea40c261",
+ "prototype_vs_baseline": {
+  "D_center": {
+   "mean_per_video": 5.710694356938323e-05,
+   "ci95": [
+    -0.0021540940395405146,
+    0.0022177322002887466
+   ],
+   "better": 8,
+   "n": 26
+  },
+  "D_box": {
+   "mean_per_video": -0.0015279390120082625,
+   "ci95": [
+    -0.005023995696353085,
+    0.0017842763096149424
+   ],
+   "better": 7,
+   "n": 26
+  },
+  "C_center": {
+   "mean_per_video": 0.00021041740238603556,
+   "ci95": [
+    -0.0020161556020433825,
+    0.0023507434904890888
+   ],
+   "better": 8,
+   "n": 26
+  },
+  "C_box": {
+   "mean_per_video": -0.0017088155650102003,
+   "ci95": [
+    -0.004990693079654415,
+    0.0014065308201229524
+   ],
+   "better": 6,
+   "n": 26
+  },
+  "R1_center": {
+   "mean_per_video": -0.001486881323573969,
+   "ci95": [
+    -0.0036422008972710326,
+    0.0003200614704777558
+   ],
+   "better": 5,
+   "n": 26
+  },
+  "R1_box": {
+   "mean_per_video": -0.002500502783108512,
+   "ci95": [
+    -0.005259140519482292,
+    -0.00011238872399102232
+   ],
+   "better": 6,
+   "n": 26
+  },
+  "geometry_center": {
+   "mean_per_video": 0.00024147300017488728,
+   "ci95": [
+    -0.001986966953119984,
+    0.0024023938790942
+   ],
+   "better": 8,
+   "n": 26
+  },
+  "geometry_box": {
+   "mean_per_video": -0.001577478275126317,
+   "ci95": [
+    -0.004937693753337764,
+    0.0016444398763617708
+   ],
+   "better": 5,
+   "n": 26
+  },
+  "Dold": {
+   "mean_per_video": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "better": 0,
+   "n": 26
+  }
+ },
+ "center_to_box_outcome_cross": {
+  "neutral -> neutral": 5776,
+  "beneficial -> beneficial": 17,
+  "neutral -> harmful": 14,
+  "harmful -> harmful": 10,
+  "neutral -> beneficial": 5
+ },
+ "rows_with_any_helpful_observable_full_box": 334,
+ "D_selection_among_these": {
+  "helpful_full_box_chosen_but_alpha025_not_helpful": 246,
+  "NULL_selected_despite_helpful_box": 28,
+  "helpful_box_chosen_and_alpha025_helpful": 18,
+  "selected_other_box_despite_helpful_box": 42
+ },
+ "scientific_status": "The originally registered result stays negative. Selection and interpolation counts explain this implementation on reused baseline states; they do not identify a core/representation cause or constitute HOTA.",
+ "gate_metadata_note": "geometry_meta.original_xywh is the helper-entry snapshot after legacy R1 center alternatives; its XY must not be interpreted as the original tracker prediction. Legacy alternatives change only XY; WH is original. Gate counts use proposal indices/support and oracle_box, never this XY field. Original baseline prediction is in immutable reserve labels; exact raw replay was checked independently."
+}

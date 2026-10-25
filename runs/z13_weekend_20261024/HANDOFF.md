@@ -1,3 +1,19 @@
+# Актуально — 25.10.2026 14:43 MSK
+
+z13_box_proposal_v1 окончен, primary_pass=False. Источник runs/z13_box_proposal_20261025/report.json; выбор alpha только20fit. Pass -> separately preregister runtime parity/price and matched closed-loop HOTA with no-FlyVis/C/R1 controls. Fail -> keep this exact readout negative; no alpha/NULL/pooling sweeps on26. Record what succeeded diagnostically versus what worked in the actual prototype, and select the next genuinely different node with evidence. Автор просит итог всех тестов: отдельно геометрический запас и рабочая версия, ничего не выдавать за HOTA. Контроллер завершён, исходники/логи/отрицательные результаты сохранять. Скрытые процессы, одинGPU, до26.10 07:40МСК,57чужихправок/.gitignore сохранять.
+
+Ниже прежние передачи сохранены.
+
+# Актуально — 25.10.2026 14:40 MSK
+
+ТЕКУЩИЙ z13_box_proposal_v1, runs/z13_box_proposal_20261025; scripts/z13_box_proposal_20261025.py --worker. Скрытый CPU,1200с+20с, контроллер16688/birth134374019109012765, launcher23564; worker launcher25064/birth134374019111314488. Проверять реальные PID+birth/CPU/свежесть, не дублировать. Save14:58:08.339804МСК/hard14:58:28.339804МСК25.10, меньше общего авторского окна26.10 07:40. Все8 alpha выбраны на20fit и заморожены вchoice.json до26оценочных видео. 14:40:16 первичный status обновлялся на0166faa5-5fbc53c5; никаких выводов по частичному прогону. Рабочая новая геометрия: один и тот же ответ карты выбирает реальную область; центр противполнойXYWH, равныеC/D/R1/geometry, исходныйDконтроль с прежнимtau. БезGPU/новыхпризнаков/обученияядра/dev/HOTA/75/загрузок.
+
+Родительский gate окончен и опубликован e1fe8792: основной источник runs/z13_proposal_geometry_20261025/recovery1/report.json (не корень), independent_audit.json. Среди895: правильнаяhigh-детекция внутриcrop553,снаружи334,прочее8. Идеальныйвыбор полнойрамки относительноцентров+2,5419п.п.[1,8492;3,2842], ноэто геометрическийоракул,невыигрышFlyVis. Исходныйexit1KeyErrorcropсохранён; восстановлена8326привязок неизменногоfr_crop. Дваизолированных геометрических допуска прошли, теперь одна рабочая реализация. Никакойбесконечнойсериидиагностик.
+
+После реального завершения: проверить controller_resultexit0/all_owned_ended и birthвсегодерева; scripts/z13_box_proposal_20261025.py --finish. Затем проверить новыеconfirmed_results (частное не менять общий исход), каталог/тесты и граф череззащитнуюобёртку, точныйкоммит/push. Генераторы архитектуры уже содержат условные ветви anchor/derivatives/box; схема ещё не пересобрана. После результата объединить эти3вехи в одинлист, проверитьручныеправки/валидацию/обзор/фрагменты. НовыеPythonгенераторы сохранять.57чужихграфправок/.gitignore не затрагивать. Авторпроситпосле всехтестов сообщитьчто сработало/нет, различатьдопускдействия/рабочийпрототип/HOTA.
+
+Ниже прежние передачи сохранены.
+
 # Актуально — 25.10.2026 14:32 MSK
 
 z13_proposal_geometry_v1 окончен. If a geometry gate passes, register one learned FlyVis internal proposal/box readout with equal C/R1/geometry controls, fit-only settings and original D reproduction; do not repeat failed size-regression or peak rankers. If both fail, preserve counts and stop these proposed center/full-box implementations; choose a different action with evidence rather than tune gates. Допуск центра: True; полной рамки: True. Первичные причины/числа: runs/z13_proposal_geometry_20261025/report.json. Только проверка допустимости действия, не рабочая политика. Проверить/записать итог и выбрать одну реализацию по этому правилу, без повторения проваленных региональных потерь. Автор просит после окончания всех тестов сообщить что сработало/нет. До26.10 07:40МСК, скрытые процессы,57чужихправок/.gitignore сохранять.
