@@ -17912,7 +17912,7 @@
    "id": "z13_region_product_v1",
    "title": "Прямое поканальное сравнение модели цели и активности FlyVis",
    "area": "flyvis",
-   "state": "ready",
+   "state": "completed_negative",
    "started": "2026-10-25",
    "tags": [
     "fly-problem-P8"
@@ -17923,11 +17923,13 @@
    "acceptance": [
     {
      "criterion": "Reuse every frozen original activity/context/label cache; fit84-only RMS. No extraction or completed-model repetition. First full model2*elapsed*23+60 must fit original1800seconds. Independently reproduce every8326-row evaluation of all24models and paired intervals before catalog acceptance.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_region_product_20261025/independent_audit.json"
     },
     {
      "criterion": "Dproduct-baseline and Dproduct-Dblank means both>=2pp; all6paired-video95%CI lower>0 against baseline,blank,Cproduct,R1product,geometryproduct,previousDcontext.24models,3seeds.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_region_product_20261025/training/report.json"
     }
    ],
    "evidence": [
@@ -17937,10 +17939,12 @@
      "claim": "Неизменные входы, парные контроли, критерии и бюджет до расчёта"
     }
    ],
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
-   "cannot_claim": "Mean pooling may already discard the needed spatial information; adding products cannot restore it. A wider network can overfit rare assignment events, so equal-capacity blank and C/R1/geometry contrasts remain mandatory. Repeatedtrain26 and one-row labels are exploratory, not HOTA or causal proof."
+   "obtained": "runs/z13_region_product_20261025/training/report.json → paired: {'Dproduct-baseline': {'mean_per_video': -0.0028809103966147835, 'ci95': [-0.009881007676796519, 0.001092909643319165], 'better': 9, 'n': 26}, 'Dproduct-D_blank': {'mean_per_video': 0.0014263217846815128, 'ci95': [-0.0005705092618417178, 0.003783513675510822], 'better': 12, 'n': 26}, 'Dproduct-C_product': {'mean_per_video': -0.002856428281865546, 'ci95': [-0.009808990545697026, 0.0010665401298839534], 'better': 9, 'n': 26}, 'Dproduct-R1_product': {'mean_per_video': -0.0028809103966147835, 'ci95': [-0.009881007676796519, 0.001092909643319165], 'better': 9, 'n': 26}, 'Dproduct-geometry_product': {'mean_per_video': -0.0028809103966147835, 'ci95': [-0.009881007676796519, 0.001092909643319165], 'better': 9, 'n': 26}, 'Dproduct-Dprevious': {'mean_per_video': -0.0009516395344790843, 'ci95': [-0.004758587075912108, 0.00147123359171454], 'better': 10, 'n': 26}};24модели,3сида,равный162входный нулевой контроль.",
+   "interpretation": "Изменён внутренний узел сопоставления активности с моделью цели. Все первичные выходы24моделей воспроизведены независимо; это последствия первых назначений, не HOTA и не доказанная причина всех отказов.",
+   "decision": "Pass -> separately budgeted frozen closed-loop parity/price/HOTA with standardC and no-fly controls. Fail -> preserve this interaction implementation; do not enumerate further scalar losses or thresholds. Next action must examine the spatial pooling node using one preregistered cheap check before any new extraction. Основной критерий: False",
+   "cannot_claim": "Mean pooling may already discard the needed spatial information; adding products cannot restore it. A wider network can overfit rare assignment events, so equal-capacity blank and C/R1/geometry contrasts remain mandatory. Repeatedtrain26 and one-row labels are exploratory, not HOTA or causal proof.",
+   "summary": "Прямое поканальное сравнение: критерий не пройден.",
+   "done": "2026-10-25"
   }
  ],
  "manual_events": [
