@@ -68,6 +68,34 @@ def build(mx,out):
             +'Следом: равные признаки D/C/R1 и проверка прежнего ответа. Это подготовка данных, не улучшение модели или её памяти.')
         cards[2]['ref']=readiness_path.relative_to(ROOT).as_posix()
         cards[2]['status']='input references prepared; matched activity extraction and replay still required'
+    identity_dir=ROOT/'runs/z13_temporal_identity_20261025'
+    identity_report=identity_dir/'training/internal_report.json'
+    identity_audit=identity_dir/'training/independent_audit.json'
+    feature_audit=identity_dir/'features/independent_audit.json'
+    if identity_report.exists() and identity_audit.exists() and feature_audit.exists():
+        measured=load(identity_report);audited=load(identity_audit)
+        assert measured['complete'] and not measured['admit_final'] and audited['all_primary_means_and_intervals_recomputed']
+        for path in (identity_report,identity_audit,feature_audit,identity_dir/'features/report.json'):
+            evidence[path.relative_to(ROOT).as_posix()]=sha(path)
+        effect=measured['paired']['D-baseline'];fmt3=lambda value:f'{100*value:+.3f}'.replace('.',',')
+        cards[0]['text']=('ПОДТВЕРЖДЁННАЯ НЕРЕШЁННАЯ ЗАДАЧА\n\nВыбрать реальную область либо сохранить исходное назначение.\n\n'
+            +f'Идеальный запас строгих рамочных действий: {fmt(b["mean_per_video"])} п.п. на 26 видео; это не качество модели.\n\n'
+            +f'Межкадровый считыватель: {fmt3(effect["mean_per_video"])} п.п. [{fmt3(effect["ci95"][0])}; {fmt3(effect["ci95"][1])}] на 104 видео.\n\n'
+            +'Критерий +2 п.п. и все шесть сравнений не пройдены. Польза стенду не подтверждена.')
+        cards[1].update(fill='#FFF0BE',stroke='#AB790F',status='one implementation tested negative; exact cause unknown',
+            ref=identity_report.relative_to(ROOT).as_posix(),text=(
+            'РЕАЛИЗАЦИЯ ПРОВЕРЕНА; ПРИЧИНА НЕ УСТАНОВЛЕНА\n\n'
+            +'Явные метки личности реальных областей, обучаемое отсутствие пары; одинаковые D / C / вход / геометрия.\n\n'
+            +'90 моделей: 3 начальных состояния, 5 разбиений, 6 вариантов. Выбор действий не улучшен.\n\n'
+            +'AUROC пар около 0,910 — условная диагностика без интервала по видео, не польза трекеру.\n\n'
+            +'Не проверена передача принадлежности цели через цепочку соответствий. Это следующая гипотеза, не установленная причина.'))
+        cards[2].update(status='matched D C R1 features prepared and independently audited',
+            ref=(identity_dir/'features/report.json').relative_to(ROOT).as_posix(),text=(
+            'РАВНЫЕ ПРИЗНАКИ ПОДГОТОВЛЕНЫ И ПРОВЕРЕНЫ\n\n'
+            +'18 824 из 37 296 запросов (50,47%) получили прежние реальные области на одной опорной сетке.\n\n'
+            +'D / C / вход глаза: одни наблюдения, области и маски; прежний ответ воспроизведён в заданном допуске.\n\n'
+            +'22 090 пар другой подготовки используют ближайший кадр без требования разметки. Эти правила выбора не совпадают.\n\n'
+            +'Ограничение охвата осталось. Нехваткой равных признаков отрицательный результат уже не объясняется.'))
     fonts={}
     def font(size,bold=False):
         k=size,bold
@@ -85,7 +113,7 @@ def build(mx,out):
         return lines
     title='УЗКИЕ МЕСТА FLYVIS — ПРИОРИТЕТЫ НА 25.10.2026'
     subtitle='Одна полоса слева направо: от большего приоритета к меньшему. Стрелки показывают ранг, а не причинность или порядок слоёв.'
-    footer='Порядок выполнения отдельный: подготовку временных данных начинают с №3. Пространственный считыватель v1 временно отложен; к нему можно вернуться позже. Результаты относятся к своим выборкам, не к HOTA.'
+    footer='Ранг не задаёт порядок расчётов. Межкадровая реализация проверена; точная причина неудачи не установлена. Пространственный считыватель v1 временно отложен. Результаты относятся к своим выборкам, не к HOTA.'
     diagram=ET.SubElement(mx,'diagram',id='flyvis-bottlenecks',name='Узкие места — приоритеты')
     model=ET.SubElement(diagram,'mxGraphModel',dx='1800',dy='1000',grid='1',gridSize='10',page='1',pageScale='1',pageWidth=str(W),pageHeight=str(H),arrows='1',connect='1',tooltips='1')
     root=ET.SubElement(model,'root');ET.SubElement(root,'mxCell',id='bn-root');ET.SubElement(root,'mxCell',id='bn-layer',parent='bn-root')

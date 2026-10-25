@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "E:\Dissertation\scripts\z13_temporal_identity_trial_recovery1_20261025.py", line 64, in <module>
+    try:worker()
+  File "E:\Dissertation\scripts\z13_temporal_identity_trial_recovery1_20261025.py", line 57, in worker
+    ns={**vars(S),'old_contrast':old_contrast};exec(compile(source,__file__,'exec'),ns);ns['worker']()
+  File "E:\Dissertation\scripts\z13_temporal_identity_trial_recovery1_20261025.py", line 22, in worker
+    assert not (S.RUN/'registration_recovery1.json').exists()
+AssertionError: Internal90models exceed original1800second budget

@@ -19306,7 +19306,7 @@
    "id": "z13_temporal_identity_features_v1",
    "title": "Равные временные признаки FlyVis на наблюдаемой опорной сетке",
    "area": "flyvis",
-   "state": "ready",
+   "state": "infrastructure",
    "started": "2026-10-25",
    "tags": [
     "fly-problem-P8"
@@ -19317,16 +19317,18 @@
    "acceptance": [
     {
      "criterion": "Same original init, integration steps, entire episode prefix, normalization and target descriptor. For every restored query and all D/C/R1: old peak center max error<.5px,score<.001. Only cache invariant input_index on GPU once; compare cached and original step on first actual D/C batch. Current learned features remain immutable old arrays; no core training.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_temporal_identity_20261025/features/independent_audit.json"
     },
     {
      "criterion": "OneGPUmutex. First2Dgroups:2*measuredseconds/weightedframes*remainingD+Cweightedframes+600 must fit remaining3600s. No budget extension on failure. Status and chunks saved after each group; independent controller preserves partials. No learning in this stage.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_temporal_identity_20261025/features/price.json"
     }
    ],
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
+   "obtained": "runs/z13_temporal_identity_20261025/features/report.json: rows_each_arm={'D': 18824, 'C': 18824, 'R1': 18824},groups=1218,seconds=1218.3910000000033; independent_audit.json:maximum_old_center_px_and_score={'D': [4.614998749730148e-05, 3.786130894178896e-05], 'C': [0.0006203624081422277, 0.00014939624580279087], 'R1': [4.547473508864641e-13, 1.2434497875801753e-14]}.",
+   "interpretation": "Подтверждена техническая готовность одинаковых прошлых областей на наблюдаемой сетке; это ещё не результат обучения личности или HOTA.",
+   "decision": "Передать в зарегистрированный ограниченный опыт считывателя после точного воспроизведения12исходныхголов и обязательных проверок каталога.",
    "cannot_claim": "Data readiness does not show identity information/learnability or HOTA improvement. Schedule is a fixed sampling policy, not selection by known true identity. Reused104/26 exploratory video partitions remain non-independent.",
    "evidence": [
     {
@@ -19334,13 +19336,16 @@
      "ref": "runs/z13_temporal_identity_20261025/features/protocol.json",
      "claim": "Единое наблюдаемое правило, бюджет и проверки до извлечения"
     }
-   ]
+   ],
+   "done": "2026-10-25",
+   "summary": "Равные признаки прошлых опорных областейD/C/R1 подготовлены; текущие ответы сохранены в прежних допусках.",
+   "confirmed_results": []
   },
   {
    "id": "z13_temporal_identity_readout_v1",
    "title": "З13: внутреннее межкадровое считывание с метками личности реальных областей",
    "area": "flyvis",
-   "state": "planned",
+   "state": "completed_negative",
    "started": "2026-10-25",
    "tags": [
     "fly-problem-P8"
@@ -19351,30 +19356,82 @@
    "acceptance": [
     {
      "criterion": "All12previous contextual heads4representations*3seeds on8326queries: restored saved rows/probabilities/outcomes exact AND new zero residual exact same logits with prior weights. Pure CPU regression while GPU feature extraction runs. New trained predictions exactly reproduced from saved weights on their validation inputs.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_temporal_identity_20261025/training/original_regression.json; independent_audit.json"
     },
     {
      "criterion": "Same6architectures/parameter allocation/init per seed,UID minibatch draws,1150updates,batch128,Adam.001 and all original outcome labels. D/C/R1 share actual frames/regions/masks. No architecture/loss/threshold/seed choice after outcomes.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_temporal_identity_20261025/features/independent_audit.json;training/independent_audit.json"
     },
     {
      "criterion": "On full104out-of-fold videos: D mean-video net>=.02 AND every paired-video95%lower>0 versus0,D_blank,C,R1,geometry,D_no_identity. All required; otherwise stop before any new26evaluation. Intervals conditional on reused104/fixed folds.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_temporal_identity_20261025/training/internal_report.json"
     },
     {
      "criterion": "Only after internal pass:18newmodels fit84/cal20,one evaluation on26reusedvideos with same6contrasts and frozen previousD_context contrast; alllower>0,net>=.02. No automatic HOTA. Diagnostic pairAUROC is secondary and cannot rescue action gate.",
-     "met": null
+     "met": null,
+     "evidence": "runs/z13_temporal_identity_20261025/training/internal_report.json; final stage not run"
     }
    ],
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
+   "obtained": "runs/z13_temporal_identity_20261025/training/internal_report.json → paired: {'D-baseline': {'mean_per_video': -0.0003002062571798735, 'ci95': [-0.0009200805189374642, 0.00034795038638010703], 'better': 23, 'n': 104}, 'D-D_blank': {'mean_per_video': -0.00010676456150873848, 'ci95': [-0.000951386550063532, 0.0009306469313944547], 'better': 23, 'n': 104}, 'D-C': {'mean_per_video': 6.910289860455686e-05, 'ci95': [-0.0009300072566417491, 0.001099053804324879], 'better': 34, 'n': 104}, 'D-R1': {'mean_per_video': -0.00011198368793115165, 'ci95': [-0.0007344736806070753, 0.0005242285653164296], 'better': 25, 'n': 104}, 'D-geometry': {'mean_per_video': -0.0003104136718458869, 'ci95': [-0.000924568481044985, 0.00033811819954452955], 'better': 22, 'n': 104}, 'D-D_no_identity': {'mean_per_video': 0.00010451017886935562, 'ci95': [-0.0007553043375120709, 0.0010525560920911612], 'better': 32, 'n': 104}}; runs/z13_temporal_identity_20261025/training/report.json:models=90. independent_audit.json:всеисходы,веса,сохранённыеповторыпредсказанийиинтервалыпроверены.",
+   "interpretation": "Проверено внутреннее считывание реальных областей,одинаковаяопорнаясетка иявноеразмеченноесопоставление прификсированномядре. Одна эта реализация не реализовала заранее заданную чистую пользу и полный набор преимуществ над контролями. Это 104видео вложеннойпроверки; условные интервалы и одноступенчатые назначения,неHOTA. Диагностика соответствий сама по себе не доказывает пользу вмешательства или причину неудачи.",
+   "decision": "Эту реализацию не переносить в стенд,не подбирать порог/сид/длину по её исходу. Сохранить узел и полный отрицательный результат. Следующее изменение выбирать по различию обучения соответствий и полезного выбора,не объявляя линиюFlyVis закрытой. Новая26оценка не запускалась после внутренней остановки.",
    "cannot_claim": "Not fullKeepTrack,not a retained identity bank or full spatial exemplar matching. No HOTA/core-training/independentconfirmation/calibrated absence. Finite regional mean68/old target68 and fixed clock limit mechanism. Reused104and26 exploratory. GT-known associations may be insufficient or unrelated to beneficial intervention; neighboring objects and sparse clock can still confuse FlyVis. Improved pairAUROC alone is not benefit to the stand. The same architecture may perform equally well using geometry or retinal input.",
    "evidence": [
     {
      "kind": "file",
      "ref": "runs/z13_temporal_identity_20261025/training/protocol.json",
      "claim": "Архитектура,одинаковое прошлое,отличия,контроли,цена икритерии дообучения"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_identity_20261025/training/independent_audit.json",
+     "claim": "Независимый полный пересчёт исходов и интервалов"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_identity_20261025/training/report.json",
+     "claim": "Число моделей,ступени,отсутствиеHOTA"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_identity_20261025/training/original_regression.json",
+     "claim": "Точное воспроизведение12исходныхголов"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_identity_20261025/training/recovery2/controller_result.json",
+     "claim": "Успешный контроллер и полное завершение дерева; прежний неудачный замер цены сохранён отдельно"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_identity_20261025/training/action_diagnostic.json",
+     "claim": "Описательные числа полезных, вредных и неизвестных выбранных действий; повторные наблюдения по трём начальным состояниям, не уникальные запросы."
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_identity_20261025/training/recovery2/numerical_parity.json",
+     "claim": "Проверка пакетного исполнения независимых моделей: градиенты, потери, шаг Adam и неизменные правила выбора."
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_identity_20261025/training/recovery2/structural_stack_recovery3.json",
+     "claim": "Исправление технического ограничения классов без изменения научного протокола."
+    }
+   ],
+   "done": "2026-10-25",
+   "summary": "Межкадровый считыватель с метками личности не прошёл критерии этой реализации.",
+   "confirmed_results": [],
+   "metrics": [
+    {
+     "key": "temporal_readout_net_assignment_effect",
+     "value": -0.0003002062571798735,
+     "baseline": 0,
+     "subset": "104видео вложеннойпроверки",
+     "source": "runs/z13_temporal_identity_20261025/training/internal_report.json",
+     "locator": "paired.D-baseline.mean_per_video"
     }
    ]
   }

@@ -1,0 +1,11 @@
+{
+ "device": "cuda",
+ "budget_seconds": 1208.581111,
+ "save_at": "2026-10-26T00:09:32.039452+03:00",
+ "hard_stop": "2026-10-26T00:09:52.039452+03:00",
+ "stop_request_path": "runs/z13_temporal_identity_20261025/training/recovery2/stop.request",
+ "original_internal_deadline_retained": true,
+ "original_training_protocol_sha256": "162e05579d5a27e4a924b34c3749e3e79fec6efd5d88591bd34a95d9ae015224",
+ "source_sha256": "2790155a1de89ef062b7bb8065862fcbe237aa8622d2f625a5b0a06ab49674d8",
+ "reason": "Same losses,each model1150updates,batch128,Adam.001,all original seeds/UID batches. torch.func.vmap batches independent heads; pure NumPy policy groups equal candidate counts. Existing first model retained,not retrained. Original failed price gate preserved. New price gate after verified numerical parity inside original deadline."
+}

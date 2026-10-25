@@ -47,6 +47,10 @@
     "runs/z13_spatial_set_readout_20261025/recovery2/training/internal_report.json": "a30242ff6935a5acb0ffa29b970aab314a7d39182a1ca030a819a7da52deefe9",
     "tracking/z13_spatial_set_readout.py": "bee25b957979deb2db60c1e04ce5de72c7a8a7cb248e75f17a2599a7f2096b65",
     "runs/z13_spatial_set_readout_20261025/recovery2/training/result_audit/audit.json": "c21859673c899115b3acfc20155288a33d33a03c9cd07e94e04f3e418e8ea2a7",
+    "runs/z13_temporal_identity_20261025/training/internal_report.json": "d7e2465a0d36c1aca7690111fb004b69d5bc09bb1fde818e6aa69e4ab2d6a7ba",
+    "tracking/z13_temporal_identity_readout.py": "52700ce8b876323b88a40af87a099875094fbe361419992d1e27573bdb9fee59",
+    "runs/z13_temporal_identity_20261025/training/independent_audit.json": "2f56499027af62bb651defb0e28702386edda2f109ff11d7b9ef345dfb8ed615",
+    "runs/z13_temporal_identity_20261025/features/independent_audit.json": "636a2449f75494736afc856575668706509ac4f2fb72c1f0b80c48c32159f0c2",
     "runs/z13_ridge_uncertainty_20261025/replay/report.json": "c82c978d75acea22c400aba3b60a4a237e55e075e8f4a5b24b4f82c7e6342362",
     "tracking/z13_ridge_uncertainty.py": "226adc25b2593755cd2ade82d61ee965b7ef70c7afd6649fe64d717deb06276e",
     "runs/z13_null_mixture_20261025/report.json": "c023eeff6caf0459293e0c823307d92dfa53a56f8c3878bc7d2c2c2389cda49a",
@@ -74,7 +78,7 @@
     "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df",
     "runs/z13_center_hota_20261021/protocol.json": "b733454d75a2b65385ab71d48bed7926f47d1c00d63ade244cb30ae3ec0683e6",
     "runs/z13_center_hota_20261021/eval/report.json": "ad13cd78cf03b0dca94a2da08ecd76ab2fb745c53110d6810195e94d7bc8e8c3",
-    "scripts/build_flyvis_architecture.py": "a0c7e828ed6c050b1b74e83e36c7547e1536099ccbd4d0641ece809bda32e66c",
+    "scripts/build_flyvis_architecture.py": "d1f57c3f9054a56953e71bed47bc853db8fa58beb60cb0c744021bd34b0b0f7b",
     "scripts/flyvis_architecture_layout.py": "6ee7f816562b8361bdfff0893859bce0a944beaa7af9f81f426cdf854a89261b",
     "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
     "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
@@ -93,7 +97,7 @@
     "runs/z13_absolute_confidence_20261022/report.json": "93d454208618ce85f9d7e618bd98d0c884dc4729bcfe7a55f2804e3765aa34db",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "8711e6f06e99471d859e5eb5c12f1455d00758c2dc5025b6c766b62bc9c42a1e"
+    "experiments/project_history.json": "7f746a5414518b91f6d6890e5dc3c70cbf444d3d21f18117e209dce00053d69a"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -2503,6 +2507,38 @@
         }
       ]
     },
+    "z13_temporal_identity_readout_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_temporal_identity_readout_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_temporal_identity_20261025/training/protocol.json",
+          "claim": "Архитектура,одинаковое прошлое,отличия,контроли,цена икритерии дообучения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_temporal_identity_20261025/training/independent_audit.json",
+          "claim": "Независимый полный пересчёт исходов и интервалов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_temporal_identity_20261025/training/report.json",
+          "claim": "Число моделей,ступени,отсутствиеHOTA"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_temporal_identity_20261025/training/original_regression.json",
+          "claim": "Точное воспроизведение12исходныхголов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_temporal_identity_20261025/training/recovery2/controller_result.json",
+          "claim": "Успешный контроллер и полное завершение дерева; прежний неудачный замер цены сохранён отдельно"
+        }
+      ]
+    },
     "z13_threshold_diagnostic_v1": {
       "source": "experiments/project_history.json",
       "locator": "experiments[id=z13_threshold_diagnostic_v1]",
@@ -4743,13 +4779,39 @@
       "size": 20
     },
     {
-      "id": "v_z13_ridge_uncertainty_v1",
+      "id": "v_z13_temporal_identity_readout_v1",
       "x": 4580,
       "y": 12780,
       "w": 870,
+      "h": 360,
+      "title": [
+        "II.35 Межкадровые соответствия реальных областей"
+      ],
+      "body": [
+        "Текущие и прежние реальные области; 68 каналов активности и модель цели.",
+        "Явные метки личности, обучаемое отсутствие пары. Одинаковые входы D/C/R1;",
+        "без истории, без меток и без активности. Ядро фиксировано.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: 90 моделей: 6 вариантов × 3 начальных состояния × 5",
+        "разбиений на 104 видео. D к исходному назначению -0,030 п.п. [-0,092; +0,035].",
+        "Все 6 интервалов включают 0; критерий +2 п.п. не пройден. Новая оценка 26",
+        "видео и HOTA не запускались. Причина не установлена."
+      ],
+      "footer": [
+        "z13_temporal_identity_readout_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_temporal_identity_readout_v1",
+      "card": "z13_temporal_identity_readout_v1",
+      "size": 22
+    },
+    {
+      "id": "v_z13_ridge_uncertainty_v1",
+      "x": 5710,
+      "y": 12860,
+      "w": 870,
       "h": 400,
       "title": [
-        "II.35 Опора уверенности в признаках образца"
+        "II.36 Опора уверенности в признаках образца"
       ],
       "body": [
         "Вместо одной высоты отклика: вычитать 1,96 условного стандартного отклонения —",
@@ -4771,12 +4833,12 @@
     },
     {
       "id": "v_z13_null_mixture_v1",
-      "x": 5710,
-      "y": 12860,
+      "x": 4580,
+      "y": 13200,
       "w": 870,
       "h": 400,
       "title": [
-        "II.36 Нет надёжного ответа → сохранить назначение"
+        "II.37 Нет надёжного ответа → сохранить назначение"
       ],
       "body": [
         "Вероятность отсутствия надёжного ответа становится весом сохранения исходной строки",
@@ -4799,12 +4861,12 @@
     },
     {
       "id": "v_z13_specificity_gap_v1",
-      "x": 4580,
-      "y": 13200,
+      "x": 5710,
+      "y": 13280,
       "w": 870,
       "h": 360,
       "title": [
-        "II.37 Специфичность в прежней точке"
+        "II.38 Специфичность в прежней точке"
       ],
       "body": [
         "Вместо высоты максимума: стандартизованный отклик своего фильтра минус",
@@ -5120,7 +5182,7 @@
     {
       "id": "metric",
       "x": 4580,
-      "y": 13730,
+      "y": 13810,
       "w": 2000,
       "h": 360,
       "title": [
@@ -5141,7 +5203,7 @@
     {
       "id": "g_map104",
       "x": 4580,
-      "y": 14280,
+      "y": 14360,
       "w": 2000,
       "h": 640,
       "title": [
@@ -5217,7 +5279,7 @@
     {
       "id": "footer",
       "x": 100,
-      "y": 15100,
+      "y": 15180,
       "w": 8780,
       "h": 160,
       "title": [
@@ -8207,12 +8269,12 @@
     },
     {
       "a": "hub_6",
-      "b": "v_z13_ridge_uncertainty_v1",
+      "b": "v_z13_temporal_identity_readout_v1",
       "kind": "variant",
       "points": [
         [
           5580,
-          12980.0
+          12960.0
         ]
       ],
       "start": "bottom",
@@ -8220,7 +8282,7 @@
       "label": "II",
       "label_at": [
         5515,
-        12980.0
+        12960.0
       ],
       "render_points": [
         [
@@ -8229,11 +8291,11 @@
         ],
         [
           5580,
-          12980.0
+          12960.0
         ],
         [
           5450,
-          12980.0
+          12960.0
         ]
       ],
       "colour": "#B97D00",
@@ -8244,7 +8306,7 @@
     },
     {
       "a": "hub_6",
-      "b": "v_z13_null_mixture_v1",
+      "b": "v_z13_ridge_uncertainty_v1",
       "kind": "variant",
       "points": [
         [
@@ -8281,12 +8343,12 @@
     },
     {
       "a": "hub_6",
-      "b": "v_z13_specificity_gap_v1",
+      "b": "v_z13_null_mixture_v1",
       "kind": "variant",
       "points": [
         [
           5580,
-          13380.0
+          13400.0
         ]
       ],
       "start": "bottom",
@@ -8294,7 +8356,7 @@
       "label": "II",
       "label_at": [
         5515,
-        13380.0
+        13400.0
       ],
       "render_points": [
         [
@@ -8303,11 +8365,48 @@
         ],
         [
           5580,
-          13380.0
+          13400.0
         ],
         [
           5450,
-          13380.0
+          13400.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
+      "a": "hub_6",
+      "b": "v_z13_specificity_gap_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5580,
+          13460.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "left",
+      "label": "II",
+      "label_at": [
+        5645,
+        13460.0
+      ],
+      "render_points": [
+        [
+          5580.0,
+          5550
+        ],
+        [
+          5580,
+          13460.0
+        ],
+        [
+          5710,
+          13460.0
         ]
       ],
       "colour": "#B97D00",
@@ -9002,7 +9101,7 @@
         ],
         [
           6640,
-          14600
+          14680
         ]
       ],
       "start": "right",
@@ -9010,7 +9109,7 @@
       "label": "III",
       "label_at": [
         6640,
-        14600
+        14680
       ],
       "render_points": [
         [
@@ -9023,11 +9122,11 @@
         ],
         [
           6640,
-          14600
+          14680
         ],
         [
           6580,
-          14600.0
+          14680.0
         ]
       ],
       "colour": "#117A46",

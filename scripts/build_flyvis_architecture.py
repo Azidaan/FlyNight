@@ -308,6 +308,14 @@ def main():
             'Каждая колонка: 68 каналов и 2 координаты; сеть 70→16 и среднее выходов. Цель: прежние 68 коэффициентов модели. D / усреднение / C / R1 / геометрия; 3 сида, 5 разбиений, 75 моделей.',
             f'D−назначение: {fmt(b["mean_per_video"])} п.п. [{fmt(b["ci95"][0])}; {fmt(b["ci95"][1])}]; D−среднее {fmt(m["mean_per_video"])} п.п., интервал с 0. НЕ УДАЛОСЬ РЕАЛИЗОВАТЬ; ОТЛОЖЕНО 25.10.2026 по решению автора. 104 видео; не HOTA.'))
         milestone_sources.extend([set_path.relative_to(ROOT).as_posix(),'tracking/z13_spatial_set_readout.py','runs/z13_spatial_set_readout_20261025/recovery2/training/result_audit/audit.json'])
+    identity_path=ROOT/'runs/z13_temporal_identity_20261025/training/internal_report.json'
+    if cards.get('z13_temporal_identity_readout_v1',{}).get('state')=='completed_negative' and identity_path.exists():
+        measured=json.loads(identity_path.read_text(encoding='utf-8'));assert measured['complete'] and not measured['admit_final']
+        effect=measured['paired']['D-baseline'];fmt=lambda value:f'{100*value:+.3f}'.replace('.',',')
+        method='Текущие и прежние реальные области; 68 каналов активности и модель цели. Явные метки личности, обучаемое отсутствие пары. Одинаковые входы D/C/R1; без истории, без меток и без активности. Ядро фиксировано.'
+        result=(f'90 моделей: 6 вариантов × 3 начальных состояния × 5 разбиений на 104 видео. D к исходному назначению {fmt(effect["mean_per_video"])} п.п. [{fmt(effect["ci95"][0])}; {fmt(effect["ci95"][1])}]. Все 6 интервалов включают 0; критерий +2 п.п. не пройден. Новая оценка 26 видео и HOTA не запускались. Причина не установлена.')
+        LANES[6][2].append(('z13_temporal_identity_readout_v1','Межкадровые соответствия реальных областей',method,result))
+        milestone_sources.extend([identity_path.relative_to(ROOT).as_posix(),'tracking/z13_temporal_identity_readout.py','runs/z13_temporal_identity_20261025/training/independent_audit.json','runs/z13_temporal_identity_20261025/features/independent_audit.json'])
     confidence_contracts=[
         ('z13_ridge_uncertainty_v1','runs/z13_ridge_uncertainty_20261025/replay/report.json','Опора уверенности в признаках образца',
          'Вместо одной высоты отклика: вычитать 1,96 условного стандартного отклонения — оценки неопределённости гребневой модели по наблюдённому образцу. Прежние веса, время, регуляризация и средние ответы. C/D/R1: прежнее / пространственная неопределённость / одинаковый штраф; плюс геометрия. Это не калиброванная вероятность пользы.',

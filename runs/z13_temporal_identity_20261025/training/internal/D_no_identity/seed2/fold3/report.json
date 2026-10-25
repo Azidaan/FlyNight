@@ -1,0 +1,165 @@
+{
+ "tau": 0.2,
+ "per_video": {
+  "010526ea-7a0c620d": 0.0,
+  "01306b58-a09ba743": 0.0,
+  "018bf09d-cd788942": 0.010582010582010581,
+  "01ccbe43-9852f803": -0.005813953488372093,
+  "02006c28-c2c5e796": 0.008333333333333333,
+  "02207cae-1e3da672": 0.004424778761061947,
+  "02364369-bd3d1838": 0.002976190476190476,
+  "026c7465-309f6d33": 0.0029069767441860465,
+  "02a70c1f-6f18e57f": 0.0,
+  "02c928dc-b7de7ec8": 0.00303951367781155,
+  "02d5e1be-98109303": 0.019867549668874173,
+  "02ef72c1-6e9a4af4": 0.010471204188481676,
+  "03164aef-f18deb04": -0.0026246719160104987,
+  "034d18b7-c6a28282": -0.007444168734491315,
+  "036c5e73-c37fa9ed": -0.005747126436781609,
+  "03b0697b-357a37bd": 0.0,
+  "03d8474d-948d50c6": -0.005312084993359893,
+  "00423717-0ef3c8dc": -0.013888888888888888,
+  "007c01ea-a02f29ef": 0.0,
+  "00beeb02-50440dcd": 0.007633587786259542,
+  "00d79c0a-a2b85ca4": -0.008403361344537815
+ },
+ "counts": {
+  "rows": 7464,
+  "selected": 2208,
+  "beneficial": 34,
+  "harmful": 33,
+  "unknown_selected": 662
+ },
+ "calibration": [
+  {
+   "threshold": 0.0,
+   "mean": 0.0028591992238806503,
+   "counts": {
+    "rows": 5096,
+    "selected": 1485,
+    "beneficial": 25,
+    "harmful": 17,
+    "unknown_selected": 473
+   }
+  },
+  {
+   "threshold": 0.1,
+   "mean": 0.0028591992238806503,
+   "counts": {
+    "rows": 5096,
+    "selected": 1485,
+    "beneficial": 25,
+    "harmful": 17,
+    "unknown_selected": 473
+   }
+  },
+  {
+   "threshold": 0.2,
+   "mean": 0.0028591992238806503,
+   "counts": {
+    "rows": 5096,
+    "selected": 1480,
+    "beneficial": 25,
+    "harmful": 17,
+    "unknown_selected": 471
+   }
+  },
+  {
+   "threshold": 0.3,
+   "mean": 0.0024743205905606025,
+   "counts": {
+    "rows": 5096,
+    "selected": 1280,
+    "beneficial": 15,
+    "harmful": 7,
+    "unknown_selected": 415
+   }
+  },
+  {
+   "threshold": 0.4,
+   "mean": 0.00038154895845098367,
+   "counts": {
+    "rows": 5096,
+    "selected": 769,
+    "beneficial": 2,
+    "harmful": 0,
+    "unknown_selected": 230
+   }
+  },
+  {
+   "threshold": 0.5,
+   "mean": 0.0,
+   "counts": {
+    "rows": 5096,
+    "selected": 513,
+    "beneficial": 0,
+    "harmful": 0,
+    "unknown_selected": 149
+   }
+  },
+  {
+   "threshold": 0.6,
+   "mean": 0.0,
+   "counts": {
+    "rows": 5096,
+    "selected": 0,
+    "beneficial": 0,
+    "harmful": 0,
+    "unknown_selected": 0
+   }
+  },
+  {
+   "threshold": 0.7,
+   "mean": 0.0,
+   "counts": {
+    "rows": 5096,
+    "selected": 0,
+    "beneficial": 0,
+    "harmful": 0,
+    "unknown_selected": 0
+   }
+  },
+  {
+   "threshold": 0.8,
+   "mean": 0.0,
+   "counts": {
+    "rows": 5096,
+    "selected": 0,
+    "beneficial": 0,
+    "harmful": 0,
+    "unknown_selected": 0
+   }
+  },
+  {
+   "threshold": 0.9,
+   "mean": 0.0,
+   "counts": {
+    "rows": 5096,
+    "selected": 0,
+    "beneficial": 0,
+    "harmful": 0,
+    "unknown_selected": 0
+   }
+  },
+  {
+   "threshold": 1.01,
+   "mean": 0.0,
+   "counts": {
+    "rows": 5096,
+    "selected": 0,
+    "beneficial": 0,
+    "harmful": 0,
+    "unknown_selected": 0
+   }
+  }
+ ],
+ "identity_diagnostic": {
+  "known_pairs": 15276,
+  "positives": 4625,
+  "candidate_identity_auroc": 0.603197994351501,
+  "conditional_only": true
+ },
+ "seconds": 2.9041333333336903,
+ "rows_sha256": "171600fd820952fa3caff83336239a2a10da52a4feaa6b33ccd16e06a93d8be2",
+ "vectorized_group": "runs\\z13_temporal_identity_20261025\\training\\recovery2\\checkpoints\\internal\\D_no_identity\\group0.pt"
+}
