@@ -1,0 +1,14 @@
+{
+ "at": "2026-10-25T05:29:14.291283+03:00",
+ "budget_seconds": 60,
+ "device": "cpu",
+ "no_training": true,
+ "question": "Does the current utility-only positive label omit a substantially larger set of own-correct nonharmful actions?",
+ "data": "All saved130 region-label files, original known/unknown definition and outcome booleans unchanged; split summaries, no new GT interpretation or model evaluation.",
+ "decision": "A semantic-target trial may be worth one bounded comparison only if fit84 safe-own-correct actions are>=2x beneficial actions and there are>=1000 positive and>=1000 negative known actions. This is a data-availability gate, not efficacy evidence or proven failure cause.",
+ "counterargument": "Correct neutral actions are not useful interventions; adding them can dilute useful positives and increase pointless actions. A proposed marginal semantic likelihood must include unchanged as acceptable when it is already correct. A same-loss utility-only control is mandatory.",
+ "sources": {
+  "runs\\z13_region_assignment_20261025\\labels\\report.json": "b5097bc6692f6a18c106e58cf3248c1f784840244efc72a0dd9a73334e90cae7",
+  "scripts/z13_assignment_effect_20261024.py": "1c6dbcdea56b8ac94b11cb968cf42f92436db5d799b0c27ba15599fda7d09287"
+ }
+}
