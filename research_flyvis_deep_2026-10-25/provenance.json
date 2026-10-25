@@ -1,0 +1,154 @@
+{
+  "created": "2026-10-25T16:09:34.249452+03:00",
+  "research_only": true,
+  "new_model_runs": 0,
+  "not_hota": true,
+  "sha256": {
+    "AGENTS.md": "2f05074f061a4d4fa04c53eb14e1ffcf0c772c1dc2ed647ed2753c6d39da7908",
+    "tracking/z13_candidate_identity.py": "a762f18c036a66951c3b7d2f7eb7e114166b6f5e258ea2de26d95e6a045adc86",
+    "tracking/z13_filter_descriptor.py": "371ed92a398d952736ec2914de1fffc1ea6ae2fcf4b6bf352f433ce1748eabd4",
+    "tracking/z13_region_assignment.py": "4a79f30d337ef6c442b74a25f379c4a587b325210697490a23d2406a0c806a42",
+    "tracking/z13_region_assignment_context.py": "00ba59f6a3daa9af4678dfbbd8eede0b8f98ee242626cd4880911b298a1c1831",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "runs/z13_refusal_causes_20261025/diagnosis.json": "ba6eb2c54ba0bc3eafaf43c51c7fe84efed3f81862aa9eb97e7eac72368e3494",
+    "runs/z13_proposal_geometry_20261025/recovery1/report.json": "b75584c90435852575977d8f54eb11b59f8485dc4b2d3af518048e32ea40c261",
+    "runs/z13_box_proposal_20261025/report.json": "6f34f185ca45f6d7c9d5663091b60e6a38e664175abd469ace966c2dbac2336a",
+    "runs/z13_unmatched_box_20261025/report.json": "e50b1e3add0618962ce4dff476fd8792541e67f86ff83b42636eee6e17a7dd35",
+    "runs/z13_selected_box_value_20261025/report.json": "049a30ad44e5b81ac96eeeddac123fc1b1bfe1fbd93a48c4485869e7abfcccff",
+    "runs/z13_full_box_supervision_20261025/partial_recorded.json": "9183af56cec66c56eb4c5f2a08a0f938787fb40a5095147541e5ae6a51cf5a0f",
+    "runs/z13_activity_amplitude_20261025/training/report.json": "6f91f6b4c1b1c3576db845db32ba1ababc36afc9673723320762b019235734b5",
+    "research_flyvis_next_change_2026-10-23/СВОДКА.md": "f512cd5f47d08649f4bda801d1f3372171fc824c79a8953401770bae9944adfe",
+    "research_flyvis_missing_proposals_2026-10-25/СВОДКА.md": "1885a25f2c1beb6e177f359e35660215b3d28f711784d2a1fa2033fb8b9f3ee1",
+    "research_flyvis_missing_proposals_2026-10-25/ПРЕДВАРИТЕЛЬНАЯ_ПРОВЕРКА.md": "777467b40eeb0baf114c9d1cc17b2a695f1b1aac9786275ae2c1465c378c58ae"
+  },
+  "public_sources": [
+    {
+      "id": "keeptrack",
+      "url": "https://arxiv.org/html/2103.16556v2",
+      "examined": "Sections3-4; appendicesA-C; tables1,2,3,9,10,11",
+      "kind": "full_text"
+    },
+    {
+      "id": "keeptrack_matcher",
+      "url": "https://raw.githubusercontent.com/visionml/pytracking/master/ltr/models/target_candidate_matching/target_candidate_matching.py",
+      "examined": "DescriptorExtractor and matching network",
+      "kind": "official_code_mutable_master"
+    },
+    {
+      "id": "keeptrack_candidates",
+      "url": "https://raw.githubusercontent.com/visionml/pytracking/master/pytracking/tracker/keep_track/candidates.py",
+      "examined": "Candidate identities, histories, reassignment and reselection",
+      "kind": "official_code_mutable_master"
+    },
+    {
+      "id": "dmtrack",
+      "url": "https://arxiv.org/html/2104.12041",
+      "examined": "Sections3.1-3.5,4.2; table1",
+      "kind": "full_text"
+    },
+    {
+      "id": "dmtrack_code",
+      "url": "https://github.com/hqucv/dmtrack",
+      "examined": "README reported results and unfinished ReID release TODO",
+      "kind": "official_repository"
+    },
+    {
+      "id": "siammot",
+      "url": "https://arxiv.org/html/2105.11595",
+      "examined": "Sections3-5; tables1,2,7; negative/hard definition",
+      "kind": "full_text"
+    },
+    {
+      "id": "kys",
+      "url": "https://arxiv.org/html/2003.11014",
+      "examined": "Sections3,4.1; table1; state propagation and reliability",
+      "kind": "full_text"
+    },
+    {
+      "id": "kys_code",
+      "url": "https://raw.githubusercontent.com/visionml/pytracking/master/ltr/models/kys/response_predictor.py",
+      "examined": "Propagation, reliability and recurrent state update",
+      "kind": "official_code_mutable_master"
+    },
+    {
+      "id": "kys_training",
+      "url": "https://raw.githubusercontent.com/visionml/pytracking/master/ltr/train_settings/kys/kys.py",
+      "examined": "Lines94-130; entropy configuration and frozen backbone",
+      "kind": "official_code_mutable_master"
+    },
+    {
+      "id": "dam4sam",
+      "url": "https://arxiv.org/html/2509.13864",
+      "examined": "Sections3-4,5.7; memory construction, dataset provenance, failures",
+      "kind": "full_text_extended_same_family_as_CVPR2025"
+    },
+    {
+      "id": "tschopp2018",
+      "url": "https://arxiv.org/html/1806.04793v2",
+      "examined": "Sections3.1-4.1; selected8DAVIS static-camera sequences, within-video split",
+      "kind": "full_text"
+    },
+    {
+      "id": "flygym",
+      "url": "https://raw.githubusercontent.com/NeLy-EPFL/flygym-gymnasium/main/flygym_gymnasium/examples/vision/README.md",
+      "examined": "FlyVis extension and preset-path fly-following example",
+      "kind": "official_code_documentation"
+    },
+    {
+      "id": "wang2024",
+      "url": "https://computing.hit.edu.cn/_upload/article/files/8c/97/619c2a594f77b400abac90272ca3/be57ea38-389e-4b57-a0f0-749d5561dbd4.pdf",
+      "examined": "Publisher indexed first page and abstract only; full PDF retrieval timed out",
+      "kind": "limited_primary_abstract",
+      "included_in_recommendation": false
+    }
+  ],
+  "verified_extracts": {
+    "geometry_partition": {
+      "correct_high_in_eye": 553,
+      "correct_high_outside_eye": 334,
+      "identity_not_annotated_here_not_proven_absent": 4,
+      "annotated_object_without_labelled_raw_detection": 1,
+      "correct_detection_only_below_high_threshold": 3
+    },
+    "oracle_box_minus_center": {
+      "mean_per_video": 0.025419029310228818,
+      "ci95": [
+        0.01849229629111801,
+        0.032841937480310404
+      ],
+      "better": 24,
+      "n": 26
+    },
+    "selected_value": {
+      "mean_per_video": 0.0006220862470862471,
+      "ci95": [
+        0.0,
+        0.0017569930069930072
+      ],
+      "better": 2,
+      "n": 26
+    },
+    "partial_supervision": {
+      "at": "2026-10-25T15:16:00.484860+03:00",
+      "state": "inconclusive",
+      "completed_videos": 4,
+      "remaining_videos": 126,
+      "trained_models": 0,
+      "scientific_verdict": null,
+      "all_owned_ended": true,
+      "source_hashes": {
+        "runs/z13_full_box_supervision_20261025/cache/videos/0001542f-5ce3cf52.json": "dfaaab4e3d3fba44e314821b4c22f744f123af9e523bd3fbbf4ab839158cc2fc",
+        "runs/z13_full_box_supervision_20261025/cache/videos/001c5339-13a07470.json": "54af23722ca79bea2532c99d3c67c50b6e8bf6d31e45fce05ec024cb3da4473d",
+        "runs/z13_full_box_supervision_20261025/cache/videos/00268999-cb063914.json": "90217f79154ebd2d4cf244c5aee4bc51cd3ce7afb6207361d102fd600f0157e5",
+        "runs/z13_full_box_supervision_20261025/cache/videos/00423717-0ef3c8dc.json": "ea91e027542b36e50b1c67640e86bdf1552efcdf22c8732659a8e6915872264c"
+      }
+    }
+  },
+  "claim_review": {
+    "method_vs_object": "FlyVis remains object; borrowed methods are internal readout candidates",
+    "duplicate_text": "New report compares mechanisms with latest failures; previous reports preserved",
+    "measured_vs_planned": "Only historical sources supply measured outcomes; all new mechanisms marked proposed",
+    "unresolved": "No exact FlyVis counterpart found; Chinese full text inaccessible; temporal-cache feasibility not established"
+  },
+  "report_sha256": "731ec0f68a862731b41777a27bff78ee448eddb3eb8936d9680e3c1524ef065b"
+}
