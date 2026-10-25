@@ -1,0 +1,782 @@
+{
+ "complete": true,
+ "diagnostic_only": true,
+ "not_model_prediction": true,
+ "not_hota": true,
+ "action_bounds": {
+  "KeepTrack_three_peaks": {
+   "source_key": "per_video.Dpeak3",
+   "mean_per_video": 0.016333290216897698,
+   "ci95": [
+    0.011763925813050998,
+    0.021382755368597604
+   ],
+   "better": 22,
+   "n": 26,
+   "required_recovery_for_2pp_at_1pct_false_harm": 1.8267395424691182,
+   "cannot_reach_2pp_even_with_perfect_selection": true
+  },
+  "region_center": {
+   "source_key": "per_video.centers_eye",
+   "mean_per_video": 0.026993698388551486,
+   "ci95": [
+    0.019500768530289193,
+    0.03457753994915234
+   ],
+   "better": 21,
+   "n": 26,
+   "required_recovery_for_2pp_at_1pct_false_harm": 1.1013704972240315,
+   "cannot_reach_2pp_even_with_perfect_selection": false
+  },
+  "full_box_readout": {
+   "source_key": "per_video.boxes_eye",
+   "mean_per_video": 0.0524127276987803,
+   "ci95": [
+    0.04232102625676238,
+    0.0625369349210125
+   ],
+   "better": 25,
+   "n": 26,
+   "required_recovery_for_2pp_at_1pct_false_harm": 0.5623800557073112,
+   "cannot_reach_2pp_even_with_perfect_selection": false
+  },
+  "wide_search_full_box": {
+   "source_key": "per_video.boxes_frame",
+   "mean_per_video": 0.07252156438672289,
+   "ci95": [
+    0.06000494888042196,
+    0.08582558827957609
+   ],
+   "better": 25,
+   "n": 26,
+   "required_recovery_for_2pp_at_1pct_false_harm": 0.40367006150093954,
+   "cannot_reach_2pp_even_with_perfect_selection": false
+  }
+ },
+ "box_minus_center": {
+  "mean_per_video": 0.025419029310228818,
+  "ci95": [
+   0.01849229629111801,
+   0.032841937480310404
+  ],
+  "better": 24,
+  "n": 26
+ },
+ "conditional_scenarios": {
+  "KeepTrack_three_peaks": [
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.0040833225542244245,
+    "ci95": [
+     0.0029409814532627494,
+     0.005345688842149401
+    ],
+    "better": 22,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": -0.0008350109946910876,
+    "ci95": [
+     -0.002000198917671995,
+     0.00045260261899238824
+    ],
+    "better": 7,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": -0.0057533445436065995,
+    "ci95": [
+     -0.006941379288606741,
+     -0.004440483604164623
+    ],
+    "better": 3,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": -0.015590011641437623,
+    "ci95": [
+     -0.01682374003047623,
+     -0.014226656050478645
+    ],
+    "better": 0,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.008166645108448849,
+    "ci95": [
+     0.005881962906525499,
+     0.010691377684298802
+    ],
+    "better": 22,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.0032483115595333357,
+    "ci95": [
+     0.0009407825355907536,
+     0.005798291461141788
+    ],
+    "better": 17,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": -0.0016700219893821752,
+    "ci95": [
+     -0.00400039783534399,
+     0.0009052052379847765
+    ],
+    "better": 7,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": -0.011506689087213199,
+    "ci95": [
+     -0.013882758577213482,
+     -0.008880967208329246
+    ],
+    "better": 3,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.012249967662673271,
+    "ci95": [
+     0.008822944359788249,
+     0.016037066526448197
+    ],
+    "better": 22,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.00733163411375776,
+    "ci95": [
+     0.0038817639888535024,
+     0.011143980303291189
+    ],
+    "better": 21,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": 0.0024133005648422487,
+    "ci95": [
+     -0.0010594163820812422,
+     0.006250894080134176
+    ],
+    "better": 16,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": -0.007423366532988774,
+    "ci95": [
+     -0.01094177712395073,
+     -0.0035352783661798475
+    ],
+    "better": 5,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.016333290216897698,
+    "ci95": [
+     0.011763925813050998,
+     0.021382755368597604
+    ],
+    "better": 22,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.011414956667982184,
+    "ci95": [
+     0.006822745442116252,
+     0.01648966914544059
+    ],
+    "better": 22,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": 0.0064966231190666714,
+    "ci95": [
+     0.0018815650711815073,
+     0.011596582922283575
+    ],
+    "better": 17,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": -0.0033400439787643504,
+    "ci95": [
+     -0.00800079567068798,
+     0.001810410475969553
+    ],
+    "better": 7,
+    "n": 26
+   }
+  ],
+  "region_center": [
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.0067484245971378715,
+    "ci95": [
+     0.004875192132572298,
+     0.008644384987288084
+    ],
+    "better": 21,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.0018833930890806289,
+    "ci95": [
+     -2.7304024776255695e-05,
+     0.0038172726870338474
+    ],
+    "better": 16,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": -0.0029816384189766142,
+    "ci95": [
+     -0.004929800182124811,
+     -0.0010098396132203916
+    ],
+    "better": 8,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": -0.012711701435091097,
+    "ci95": [
+     -0.014734792496821917,
+     -0.010664064213728869
+    ],
+    "better": 0,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.013496849194275743,
+    "ci95": [
+     0.009750384265144596,
+     0.01728876997457617
+    ],
+    "better": 21,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.008631817686218502,
+    "ci95": [
+     0.004847888107796044,
+     0.012461657674321933
+    ],
+    "better": 21,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": 0.0037667861781612577,
+    "ci95": [
+     -5.460804955251139e-05,
+     0.007634545374067695
+    ],
+    "better": 16,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": -0.0059632768379532285,
+    "ci95": [
+     -0.009859600364249621,
+     -0.002019679226440783
+    ],
+    "better": 8,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.020245273791413616,
+    "ci95": [
+     0.014625576397716895,
+     0.025933154961864255
+    ],
+    "better": 21,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.015380242283356374,
+    "ci95": [
+     0.00972308024036834,
+     0.021106042661610015
+    ],
+    "better": 21,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": 0.01051521077529913,
+    "ci95": [
+     0.004820584083019787,
+     0.01627893036135578
+    ],
+    "better": 21,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": 0.000785147759184644,
+    "ci95": [
+     -0.0049844082316773215,
+     0.006624705760847304
+    ],
+    "better": 12,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.026993698388551486,
+    "ci95": [
+     0.019500768530289193,
+     0.03457753994915234
+    ],
+    "better": 21,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.022128666880494245,
+    "ci95": [
+     0.014598272372940639,
+     0.0297504276488981
+    ],
+    "better": 21,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": 0.017263635372437004,
+    "ci95": [
+     0.009695776215592087,
+     0.024923315348643865
+    ],
+    "better": 21,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": 0.007533572356322515,
+    "ci95": [
+     -0.00010921609910502278,
+     0.01526909074813539
+    ],
+    "better": 16,
+    "n": 26
+   }
+  ],
+  "full_box_readout": [
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.013103181924695074,
+    "ci95": [
+     0.010580256564190595,
+     0.015634233730253126
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.008365245563188978,
+    "ci95": [
+     0.005791861695474407,
+     0.01094691840485819
+    ],
+    "better": 24,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": 0.0036273092016828783,
+    "ci95": [
+     0.0010034668267582193,
+     0.006259603079463252
+    ],
+    "better": 17,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": -0.005848563521329319,
+    "ci95": [
+     -0.008573322910674155,
+     -0.0031150275713266234
+    ],
+    "better": 6,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.02620636384939015,
+    "ci95": [
+     0.02116051312838119,
+     0.03126846746050625
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.021468427487884058,
+    "ci95": [
+     0.016372118259665,
+     0.026581152135111315
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": 0.016730491126377957,
+    "ci95": [
+     0.011583723390948814,
+     0.02189383680971638
+    ],
+    "better": 24,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": 0.007254618403365757,
+    "ci95": [
+     0.0020069336535164387,
+     0.012519206158926504
+    ],
+    "better": 17,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.03930954577408523,
+    "ci95": [
+     0.031740769692571794,
+     0.04690270119075939
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.03457160941257913,
+    "ci95": [
+     0.0269523748238556,
+     0.04221538586536444
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": 0.029833673051073033,
+    "ci95": [
+     0.022163979955139412,
+     0.0375280705399695
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": 0.02035780032806083,
+    "ci95": [
+     0.012587190217707035,
+     0.02815343988917963
+    ],
+    "better": 21,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.0524127276987803,
+    "ci95": [
+     0.04232102625676238,
+     0.0625369349210125
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.04767479133727421,
+    "ci95": [
+     0.037532631388046196,
+     0.05784961959561756
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": 0.042936854975768116,
+    "ci95": [
+     0.03274423651933,
+     0.05316230427022263
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": 0.033460982252755914,
+    "ci95": [
+     0.023167446781897628,
+     0.04378767361943276
+    ],
+    "better": 24,
+    "n": 26
+   }
+  ],
+  "wide_search_full_box": [
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.01813039109668072,
+    "ci95": [
+     0.01500123722010549,
+     0.021456397069894023
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.013492998918614333,
+    "ci95": [
+     0.0103012619645076,
+     0.016885525011291907
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": 0.008855606740547948,
+    "ci95": [
+     0.0056012867089097074,
+     0.012314652952689787
+    ],
+    "better": 23,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.25,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": -0.00041917761558482234,
+    "ci95": [
+     -0.003798663802286071,
+     0.003172908835485548
+    ],
+    "better": 11,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.03626078219336144,
+    "ci95": [
+     0.03000247444021098,
+     0.042912794139788046
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.03162339001529506,
+    "ci95": [
+     0.025302499184613088,
+     0.038341922081185933
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": 0.026985997837228666,
+    "ci95": [
+     0.0206025239290152,
+     0.033771050022583814
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.5,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": 0.017711213481095896,
+    "ci95": [
+     0.011202573417819415,
+     0.024629305905379574
+    ],
+    "better": 23,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.054391173290042165,
+    "ci95": [
+     0.04500371166031647,
+     0.06436919120968208
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.04975378111197578,
+    "ci95": [
+     0.040303736404718585,
+     0.059798319151079964
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": 0.04511638893390939,
+    "ci95": [
+     0.035603761149120686,
+     0.05522744709247784
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 0.75,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": 0.035841604577776624,
+    "ci95": [
+     0.02620381063792491,
+     0.0460857029752736
+    ],
+    "better": 24,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.0,
+    "mean_per_video": 0.07252156438672289,
+    "ci95": [
+     0.06000494888042196,
+     0.08582558827957609
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.005,
+    "mean_per_video": 0.0678841722086565,
+    "ci95": [
+     0.05530497362482407,
+     0.08125471622097398
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.01,
+    "mean_per_video": 0.06324678003059012,
+    "ci95": [
+     0.050604998369226176,
+     0.07668384416237187
+    ],
+    "better": 25,
+    "n": 26
+   },
+   {
+    "assumed_recovery": 1.0,
+    "assumed_false_harm": 0.02,
+    "mean_per_video": 0.05397199567445733,
+    "ci95": [
+     0.0412050478580304,
+     0.06754210004516763
+    ],
+    "better": 25,
+    "n": 26
+   }
+  ]
+ },
+ "admit_strict_box_label_pilot": true,
+ "selected_next": "actual full-box supervision",
+ "limits": "Repeated train26, one-step baseline-state outcomes, perfect choice can abstain, no closed-loop feedback. Conditional math has no measured learned r/f and is not a confidence interval for a future model."
+}

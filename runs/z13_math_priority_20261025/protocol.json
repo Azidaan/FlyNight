@@ -1,0 +1,27 @@
+{
+ "id": "z13_math_priority_v1",
+ "created": "2026-10-25T16:26:51.890816+03:00",
+ "research_only": true,
+ "device": "cpu",
+ "authorization": "Автор25.10: ранжировать варианты, провести математические проверки, затем настоящий прогон.",
+ "action": "Choose one different internal FlyVis readout action before another learner.",
+ "sources": {
+  "runs/z13_proposal_geometry_20261025/recovery1/report.json": "b75584c90435852575977d8f54eb11b59f8485dc4b2d3af518048e32ea40c261",
+  "runs/z13_candidate_identity_20261021/report.json": "b450a2adc3759ef60d1e2252f6d77db394de83be97ea219d7ba7a61589d3a126",
+  "runs/z13_candidate_ranker_20261021/report.json": "7f9234210c7f89d66bcc0a45b284c91b8d918ad273e7d050e9397fa2e7c0b6f3",
+  "runs/z13_selected_box_value_20261025/report.json": "049a30ad44e5b81ac96eeeddac123fc1b1bfe1fbd93a48c4485869e7abfcccff",
+  "scripts/z13_math_priority_20261025.py": "efab6694f10114f76a9e77a5809b319834efb091ceb9252b640a1417c9b22951",
+  "tracking/z13_action_feasibility.py": "8b880960789ae0bf5cdd80d7233696f319628b916970aa57c12773fb1f362067"
+ },
+ "proxies": {
+  "KeepTrack_three_peaks": "Dpeak3",
+  "region_center": "centers_eye",
+  "full_box_readout": "boxes_eye",
+  "wide_search_full_box": "boxes_frame"
+ },
+ "interpretation": "These are saved one-step action-space ceilings using truth, not implementations or predictions of named papers. Full learned association over all real regions shares the box ceiling, not the three-peak ceiling. Broad box support is optimistic relative to strict trainable masks.",
+ "conditional": "For video reserve O, assumed recovery r and assumed harm frequency f among other known cases: G=r*O-f*(1-O). r/f are scenarios, not estimated future skills. Report means and paired-video95CI under assumptions.",
+ "criteria": "Admit a non-temporal full-box label/model pilot only when saved eye-box ceiling mean>=.02 and lower95CI>0 and increment over eye-center lower>0; real strict-support gate before training must separately satisfy>=.02 and lower>0 excluding NULL-only reserve. No HOTA forecast. No acceptance threshold changes.",
+ "rank": "1 actual full-box supervision with existing internal head;2 learned temporal association over real regions;3 spatially transferred state;4 wider input. First candidate has cached features and untrained earlier attempt; temporal/spatial variants lack verified matched sequential feature data. Existing three-peak implementations stay failed.",
+ "assumptions": "Repeated train26, one-step baseline-state outcomes, perfect choice can abstain, no closed-loop feedback. Conditional math has no measured learned r/f and is not a confidence interval for a future model."
+}
