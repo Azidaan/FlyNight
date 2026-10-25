@@ -1,0 +1,104 @@
+{
+ "videos": 104,
+ "subset": "fit84+fit20 (internal 104, reused in development)",
+ "selected_actions_3seeds": {
+  "D": {
+   "null": 30650,
+   "null_beneficial": 0,
+   "null_harmful": 1,
+   "null_unknown_query": 8868,
+   "box": 1296,
+   "box_beneficial": 99,
+   "box_harmful": 127,
+   "box_unknown_query": 347
+  },
+  "D_blank": {
+   "null": 16279,
+   "null_beneficial": 0,
+   "null_harmful": 0,
+   "null_unknown_query": 4637,
+   "box": 635,
+   "box_beneficial": 43,
+   "box_harmful": 48,
+   "box_unknown_query": 139
+  },
+  "C": {
+   "null": 31700,
+   "null_beneficial": 1,
+   "null_harmful": 1,
+   "null_unknown_query": 9013,
+   "box": 1511,
+   "box_beneficial": 91,
+   "box_harmful": 117,
+   "box_unknown_query": 421
+  },
+  "R1": {
+   "null": 24154,
+   "null_beneficial": 0,
+   "null_harmful": 0,
+   "null_unknown_query": 7075,
+   "box": 895,
+   "box_beneficial": 14,
+   "box_harmful": 22,
+   "box_unknown_query": 236
+  },
+  "geometry": {
+   "box": 71,
+   "box_beneficial": 1,
+   "box_harmful": 0,
+   "box_unknown_query": 15,
+   "null": 145,
+   "null_beneficial": 0,
+   "null_harmful": 0,
+   "null_unknown_query": 60
+  },
+  "D_no_identity": {
+   "null": 23613,
+   "null_beneficial": 1,
+   "null_harmful": 8,
+   "null_unknown_query": 6778,
+   "box": 1227,
+   "box_beneficial": 105,
+   "box_harmful": 137,
+   "box_unknown_query": 355
+  }
+ },
+ "sources": [
+  "runs/z13_box_supervision_followup_20261025/cache/videos/*.json",
+  "runs/z13_temporal_pair_readiness_20261025/inputs/*.json",
+  "runs/z13_temporal_pair_readiness_20261025/supervision/*.json"
+ ],
+ "action_labels": {
+  "rows": 28970,
+  "known_queries": 20778,
+  "kind0": 14128,
+  "box_actions": 24844,
+  "box_beneficial_actions": 1234,
+  "box_harmful_actions": 20223,
+  "null_beneficial": 277,
+  "null_harmful": 502,
+  "queries_with_beneficial_box": 1218,
+  "queries_without_box": 8380,
+  "kind1": 6650,
+  "unknown_queries": 8192
+ },
+ "known_with_history": {
+  "no_helpful_box": 9731,
+  "no_helpful_box_two_or_more_current_regions": 4886,
+  "no_helpful_box_two_or_more_past_regions": 5654,
+  "no_helpful_box_target_identity_in_past_regions": 3625,
+  "no_helpful_box_target_linked": 0,
+  "no_helpful_box_known_pairs": 8963,
+  "no_helpful_box_positive_pairs": 12896,
+  "no_helpful_box_negative_pairs": 31615,
+  "helpful": 1025,
+  "helpful_two_or_more_current_regions": 596,
+  "helpful_two_or_more_past_regions": 546,
+  "helpful_target_identity_in_past_regions": 776,
+  "helpful_target_linked": 773,
+  "helpful_known_pairs": 969,
+  "helpful_positive_pairs": 1346,
+  "helpful_negative_pairs": 2325
+ },
+ "caveat": "Pooled descriptive counts over queries, not per-video intervals. Pair counts here are label pairs per query, not the 182421 model-evaluated pairs of independent_audit.json (validation folds x 3 seeds)."
+}
