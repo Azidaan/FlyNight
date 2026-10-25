@@ -1,4 +1,4 @@
-"""Build the single-sheet, editable FlyVis architecture atlas. No scientific execution.
+"""Build architecture and a separate bottleneck-priority sheet. No scientific execution.
 
 Curated module replacements are kept here; outcomes and evidence remain in the
 experiment catalogue. Colour applies to the explicitly stated comparison only.
@@ -470,6 +470,8 @@ def main():
         cell=ET.SubElement(root,'mxCell',id=b['id'],parent='1',vertex='1',value=b['text'],
             style=f'rounded=1;arcSize=30;whiteSpace=wrap;html=0;fillColor=#FFFFFF;strokeColor={b["colour"]};strokeWidth=2;fontColor={b["colour"]};fontSize=22;fontStyle=1;fontFamily=Segoe UI;align=center;verticalAlign=middle;')
         ET.SubElement(cell,'mxGeometry',x=str(b['x']),y=str(b['y']),width=str(b['w']),height=str(b['h']),**{'as':'geometry'})
+    from scripts.flyvis_bottlenecks_layout import build as build_bottlenecks
+    second_sheet=build_bottlenecks(mx,OUT)
     xmlpath=OUT/(STEM+'.drawio');ET.indent(mx);ET.ElementTree(mx).write(xmlpath,encoding='utf-8',xml_declaration=True)
     # Same-layout SVG and PNG are navigation previews, not extra diagram sheets.
     svg=[f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
@@ -543,8 +545,8 @@ def main():
     assert not blocked,blocked
     ids=[x.get('id') for x in mx.iter() if x.get('id')]
     assert len(ids)==len(set(ids))
-    assert len(mx.findall('diagram'))==1
-    audit=dict(diagram_sheets=1,nodes=len(nodes),edges=len(edges),linked_experiments=len(linked),source_files=len(sources),box_overlaps=overlaps,
+    assert len(mx.findall('diagram'))==2
+    audit=dict(diagram_sheets=2,second_sheet=second_sheet,nodes=len(nodes),edges=len(edges),linked_experiments=len(linked),source_files=len(sources),box_overlaps=overlaps,
         all_text_fits=True,confirmed_source_hashes_verified=True,canvas=[W,H],arrow_levels=EDGE_STYLES,edges_through_unrelated_nodes=blocked,
         original_node_colour=PALETTE['base'][0],outputs={p.name:sha(p) for p in [OUT/(STEM+suffix) for suffix in ('.drawio','.svg','.png','_preview.png','_detail.png')]})
     (OUT/'validation.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

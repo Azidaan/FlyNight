@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-25",
+  "sheet": 2,
+  "orientation": "horizontal single lane",
+  "priority_is_not_causality_or_execution_order": true,
+  "sources": {
+    "runs/z13_box_supervision_followup_20261025/strict_action_gate.json": "186678eaa7007853f359f55817b528259e521b02b51a08a71528d38b9ab49fe0",
+    "runs/z13_box_supervision_followup_20261025/temporal_readiness.json": "6c152ef77240b9b267fe92c5f6d210ee98ae682eba122c3c0942a57c6ba5ca4a",
+    "runs/z13_spatial_set_readout_20261025/recovery2/training/internal_report.json": "a30242ff6935a5acb0ffa29b970aab314a7d39182a1ca030a819a7da52deefe9",
+    "tracking/z13_spatial.py": "df9b1b275892fc802509baf1e74797c63afb457e22852a6e2e01c4368669f533",
+    "dissertation/architecture/Пространственное_считывание_отложено_2026-10-25.md": "538aee04b92a5ca23ecda73bc228bdfc7b16d35d5c107be9ca866bfc0dbb7be6"
+  },
+  "modules": [
+    {
+      "id": "bn-choice",
+      "x": 80,
+      "y": 240,
+      "w": 1100,
+      "h": 740,
+      "fill": "#FFE1DE",
+      "stroke": "#B33838",
+      "rank": 1,
+      "title": "1  ВЫБОР ПОЛЕЗНОЙ ПОПРАВКИ",
+      "text": "ПОДТВЕРЖДЁННАЯ НЕРЕШЁННАЯ ЗАДАЧА\n\nВыбрать реальную область либо сохранить исходное назначение.\n\nИдеальный запас рамочных действий: +5,14 п.п. [+4,16; +6,11] на 26 видео. Это не качество модели.\n\nПоследний считыватель: -0,01 п.п.; интервал включает 0 на 104 видео. Критерий не пройден.\n\nНужно доказать: сигнал мухи даёт пользу сверх того же решения без мухи.",
+      "ref": "runs/z13_box_supervision_followup_20261025/strict_action_gate.json",
+      "status": "measured unresolved task",
+      "text_fits": true
+    },
+    {
+      "id": "bn-identity",
+      "x": 1400,
+      "y": 300,
+      "w": 1100,
+      "h": 740,
+      "fill": "#DFEBFF",
+      "stroke": "#416FBA",
+      "rank": 2,
+      "title": "2  ЛИЧНОСТЬ ОБЪЕКТА ВО ВРЕМЕНИ",
+      "text": "РАБОЧАЯ ГИПОТЕЗА, ПРИЧИНА НЕ ДОКАЗАНА\n\nСвязать текущую область с прежним объектом и отличить его от похожего соседа.\n\nУ FlyVis уже есть рекуррентное состояние и обновление на кадрах поиска.\n\nОбучаемые соответствия всех реальных областей между наблюдениями в текущей серии не проверены. Прежние варианты трёх пиков не дали нужного эффекта.\n\nПроверка: равные D / C / вход глаза / без мухи и прежний способ выбора.",
+      "ref": "runs/z13_box_supervision_followup_20261025/temporal_readiness.json",
+      "status": "hypothesis, not established cause",
+      "text_fits": true
+    },
+    {
+      "id": "bn-pairs",
+      "x": 2720,
+      "y": 240,
+      "w": 1100,
+      "h": 740,
+      "fill": "#FFF0BE",
+      "stroke": "#AB790F",
+      "rank": 3,
+      "title": "3  ПОДГОТОВКА ВРЕМЕННЫХ ПАР",
+      "text": "ПОДТВЕРЖДЁННОЕ ОГРАНИЧЕНИЕ НАБОРА ДАННЫХ\n\nПары с областями в обоих запросах: 14252 из 37296 (38,2%),\n\nИдеальный запас на доступных парах: +2,07 п.п. [+1,56; +2,56] на 26 видео.\n\nСначала восстановить предыдущие наблюдения и области для остальных случаев; проверить охват и одинаковые входы всех контролей.\n\nЭто охват подготовленных пар, не измерение памяти FlyVis.",
+      "ref": "runs/z13_box_supervision_followup_20261025/temporal_readiness.json",
+      "status": "measured data readiness limitation",
+      "text_fits": true
+    }
+  ],
+  "canvas": [
+    3900,
+    1320
+  ],
+  "all_text_fits": true
+}

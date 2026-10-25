@@ -1826,4 +1826,42 @@
       </root>
     </mxGraphModel>
   </diagram>
+  <diagram id="flyvis-bottlenecks" name="Узкие места — приоритеты">
+    <mxGraphModel dx="1800" dy="1000" grid="1" gridSize="10" page="1" pageScale="1" pageWidth="3900" pageHeight="1320" arrows="1" connect="1" tooltips="1">
+      <root>
+        <mxCell id="bn-root" />
+        <mxCell id="bn-layer" parent="bn-root" />
+        <mxCell id="bn-title" parent="bn-layer" vertex="1" value="УЗКИЕ МЕСТА FLYVIS — ПРИОРИТЕТЫ НА 25.10.2026" style="text;html=1;align=left;fontSize=42;fontStyle=1;fontFamily=Segoe UI;">
+          <mxGeometry x="80" y="40" width="3740" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="bn-subtitle" parent="bn-layer" vertex="1" value="Одна полоса слева направо: от большего приоритета к меньшему. Стрелки показывают ранг, а не причинность или порядок слоёв." style="text;html=1;align=left;whiteSpace=wrap;fontSize=28;fontFamily=Segoe UI;">
+          <mxGeometry x="80" y="125" width="3740" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="rank-1" parent="bn-layer" edge="1" source="bn-choice" target="bn-identity" style="edgeStyle=orthogonalEdgeStyle;curved=1;rounded=1;endArrow=block;endFill=1;endSize=24;strokeColor=#5D537D;strokeWidth=7;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rank-2" parent="bn-layer" edge="1" source="bn-identity" target="bn-pairs" style="edgeStyle=orthogonalEdgeStyle;curved=1;rounded=1;endArrow=block;endFill=1;endSize=24;strokeColor=#5D537D;strokeWidth=7;exitX=1;exitY=0.5;entryX=0;entryY=0.5;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <object id="bn-choice" label="&lt;b&gt;1 ВЫБОР ПОЛЕЗНОЙ ПОПРАВКИ&lt;/b&gt;&lt;br&gt;&lt;br&gt;ПОДТВЕРЖДЁННАЯ НЕРЕШЁННАЯ ЗАДАЧА&lt;br&gt;&lt;br&gt;Выбрать реальную область либо сохранить исходное назначение.&lt;br&gt;&lt;br&gt;Идеальный запас рамочных действий: +5,14 п.п. [+4,16; +6,11] на 26 видео. Это&lt;br&gt;не качество модели.&lt;br&gt;&lt;br&gt;Последний считыватель: -0,01 п.п.; интервал включает 0 на 104 видео.&lt;br&gt;Критерий не пройден.&lt;br&gt;&lt;br&gt;Нужно доказать: сигнал мухи даёт пользу сверх того же решения без мухи." priority="1" evidence_status="measured unresolved task" source="runs/z13_box_supervision_followup_20261025/strict_action_gate.json" link="file:///E:/Dissertation/runs/z13_box_supervision_followup_20261025/strict_action_gate.json">
+          <mxCell parent="bn-layer" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=30;fontSize=28;fontFamily=Segoe UI;fillColor=#FFE1DE;strokeColor=#B33838;strokeWidth=3;">
+            <mxGeometry x="80" y="240" width="1100" height="740" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="bn-identity" label="&lt;b&gt;2 ЛИЧНОСТЬ ОБЪЕКТА ВО ВРЕМЕНИ&lt;/b&gt;&lt;br&gt;&lt;br&gt;РАБОЧАЯ ГИПОТЕЗА, ПРИЧИНА НЕ ДОКАЗАНА&lt;br&gt;&lt;br&gt;Связать текущую область с прежним объектом и отличить его от похожего&lt;br&gt;соседа.&lt;br&gt;&lt;br&gt;У FlyVis уже есть рекуррентное состояние и обновление на кадрах поиска.&lt;br&gt;&lt;br&gt;Обучаемые соответствия всех реальных областей между наблюдениями в&lt;br&gt;текущей серии не проверены. Прежние варианты трёх пиков не дали нужного&lt;br&gt;эффекта.&lt;br&gt;&lt;br&gt;Проверка: равные D / C / вход глаза / без мухи и прежний способ выбора." priority="2" evidence_status="hypothesis, not established cause" source="runs/z13_box_supervision_followup_20261025/temporal_readiness.json" link="file:///E:/Dissertation/runs/z13_box_supervision_followup_20261025/temporal_readiness.json">
+          <mxCell parent="bn-layer" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=30;fontSize=28;fontFamily=Segoe UI;fillColor=#DFEBFF;strokeColor=#416FBA;strokeWidth=3;">
+            <mxGeometry x="1400" y="300" width="1100" height="740" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="bn-pairs" label="&lt;b&gt;3 ПОДГОТОВКА ВРЕМЕННЫХ ПАР&lt;/b&gt;&lt;br&gt;&lt;br&gt;ПОДТВЕРЖДЁННОЕ ОГРАНИЧЕНИЕ НАБОРА ДАННЫХ&lt;br&gt;&lt;br&gt;Пары с областями в обоих запросах: 14252 из 37296 (38,2%),&lt;br&gt;&lt;br&gt;Идеальный запас на доступных парах: +2,07 п.п. [+1,56; +2,56] на 26 видео.&lt;br&gt;&lt;br&gt;Сначала восстановить предыдущие наблюдения и области для остальных&lt;br&gt;случаев; проверить охват и одинаковые входы всех контролей.&lt;br&gt;&lt;br&gt;Это охват подготовленных пар, не измерение памяти FlyVis." priority="3" evidence_status="measured data readiness limitation" source="runs/z13_box_supervision_followup_20261025/temporal_readiness.json" link="file:///E:/Dissertation/runs/z13_box_supervision_followup_20261025/temporal_readiness.json">
+          <mxCell parent="bn-layer" vertex="1" style="rounded=1;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacing=30;fontSize=28;fontFamily=Segoe UI;fillColor=#FFF0BE;strokeColor=#AB790F;strokeWidth=3;">
+            <mxGeometry x="2720" y="240" width="1100" height="740" as="geometry" />
+          </mxCell>
+        </object>
+        <mxCell id="bn-footer" parent="bn-layer" vertex="1" value="Порядок выполнения отдельный: подготовку временных данных начинают с №3. Пространственный считыватель v1 временно отложен; к нему можно вернуться позже. Результаты относятся к своим выборкам, не к HOTA." style="rounded=1;html=1;whiteSpace=wrap;align=left;verticalAlign=middle;spacing=24;fontSize=28;fontFamily=Segoe UI;fillColor=#EEF1F7;strokeColor=#A5AFC0;">
+          <mxGeometry x="80" y="1110" width="3740" height="150" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
 </mxfile>
