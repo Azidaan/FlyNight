@@ -17715,7 +17715,7 @@
    "id": "z13_region_assignment_v1",
    "title": "З13: обучаемое считывание реальных областей по последствиям сопоставления",
    "area": "flyvis",
-   "state": "ready",
+   "state": "completed_negative",
    "started": "2026-10-25",
    "tags": [
     "fly-problem-P8"
@@ -17726,17 +17726,19 @@
    "acceptance": [
     {
      "criterion": "All130 natural-video labels: reuse completed26 gate rows exactly, replay remaining104 with float32-exact unchanged outputs. Preserve all query UID/video/frame/track/label bindings. Same supported real choices from the pure observable API. Each D/C/R1 cache reproduces the saved original centers/scores and identical ROI masks. Every phase has its own independent controller and price gate; no completed arm/chunk/model repeated. No core training/dev/HOTA/heldout75/download.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_region_assignment_20261025/recovery2/independent_audit.json"
     },
     {
      "criterion": "Average per-video net assignment effect across all3seeds, then paired-video95%CI. D-baseline mean>=0.02 and lower>0; D-C,D-R1,D-geometry all lower>0. Report each seed and all counts, unknowns and chosen thresholds. Passing is a gate for separately budgeted closed-loop HOTA, never automatic HOTA or final novelty.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_region_assignment_20261025/recovery2/training/report.json"
     }
    ],
-   "summary": "Три контролируемых этапа зарегистрированы до обучения.",
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
+   "summary": "Полный обучаемый региональный узел: основной критерий не пройден.",
+   "obtained": "runs/z13_region_assignment_20261025/recovery2/training/report.json → paired: {'D-baseline': {'mean_per_video': 2.0918047949866945e-05, 'ci95': [-8.422162375327225e-05, 0.00013772790303388633], 'better': 2, 'n': 26}, 'D-C': {'mean_per_video': -3.141057580732824e-05, 'ci95': [-0.0001888788712676626, 0.00011488295758832168], 'better': 2, 'n': 26}, 'D-R1': {'mean_per_video': 2.0918047949866945e-05, 'ci95': [-8.422162375327225e-05, 0.00013772790303388633], 'better': 2, 'n': 26}, 'D-geometry': {'mean_per_video': 2.0918047949866945e-05, 'ci95': [-8.422162375327225e-05, 0.00013772790303388633], 'better': 2, 'n': 26}};12моделей,трисидa,порог fit20; первичные строки и все контроли сохранены.",
+   "interpretation": "Полный внутренний узел оценён по точным однокадровым назначениям. Это не HOTA и не изоляция одного свойства ядра. Контроль геометрии отделяет пользу внешнего применения; C/R1 отделяют вклад D.",
+   "decision": "Complete criteria pass -> separate matched closed-loop test with frozen thresholds and equal MASA/raw inputs. Fail -> preserve all controls and negative seed results, do not run expensive HOTA for this version. Technical failure -> preserve sources/logs, repair only verified service issue within original phase/global budgets. Основной итог: False",
    "cannot_claim": "The oracle used truth and is equally available to non-fly representations. Low-resolution activity may not discriminate real instances; geometry may explain all utility. Some targets have no high-score detection, so this action cannot help them. One-step training omits feedback and later stages. The protocol changes the complete readout output/learning target, not an isolated causal test of a single scalar. StandardC vsD core histories differ by design. Sparse labels and repeatedly reused train26 limit generalization.",
    "metrics": [],
    "commits": [],
@@ -17757,7 +17759,17 @@
      "ref": "runs/z13_region_choice_gate_20261025/recovery1/report.json",
      "claim": "Пройденная мишень действия до обучения"
     }
-   ]
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-25",
+     "commit": "714f73a37bc57d1229df8ac8d1ce9b6ea1b9dcaa",
+     "field": "summary",
+     "old": "Три контролируемых этапа зарегистрированы до обучения.",
+     "reason": "Проверен полный равный пилот регионального считывателя."
+    }
+   ],
+   "done": "2026-10-25"
   }
  ],
  "manual_events": [
