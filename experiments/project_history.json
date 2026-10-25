@@ -17869,6 +17869,40 @@
     }
    ],
    "done": "2026-10-25"
+  },
+  {
+   "id": "z13_region_context_v1",
+   "title": "Контекст исходного назначения внутри считывателя FlyVis",
+   "area": "flyvis",
+   "state": "ready",
+   "started": "2026-10-25",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "question": "Улучшат ли исходные назначения и конкуренция других треков решение считывателя о вмешательстве?",
+   "hypothesis": "Рабочая гипотеза: часть различий полезного/нейтрального/вредного действия определяется отсутствующим в прежних входах контекстом назначения. Проверяется добавлением наблюдаемых6признаков против их нулевого контроля той же ёмкости.",
+   "expected": "Улучшить D минимум на2п.п. относительно равного пустого контроля и без правки; подтвердить преимущество над C/R1/геометрией.",
+   "acceptance": [
+    {
+     "criterion": "Cache130 baseline replays float32-exact, all37296query UIDs/causal IDs/predictions/labels and region order equal saved labels; first2videos2*mean_seconds*128+60 fits1200remaining. No completed cache video repeated. Training first complete model2*seconds*23+60 fits remaining1800s.",
+     "met": null
+    },
+    {
+     "criterion": "Dcontext-baseline and Dcontext-Dblank both means>=2pp, and all6paired-video lower95% bounds>0: baseline,Dblank,Ccontext,R1context,geometrycontext,previous signedD.",
+     "met": null
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_region_context_20261025/protocol.json",
+     "claim": "Критерии, равная ёмкость, наблюдаемые входы и бюджеты до расчёта"
+    }
+   ],
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "Assignment context may help geometric processing alone, without FlyVis. This is a small readout adaptation, not a graph neural tracker. One-row outcomes omit joint corrections and closed-loop feedback; repeatedtrain26 is exploratory."
   }
  ],
  "manual_events": [
