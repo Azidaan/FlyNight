@@ -278,6 +278,9 @@ def main():
     proposal_milestones.append(('z13_selected_box_value_v1',6,'runs/z13_selected_box_value_20261025/report.json','Ценность одного готового ответа полной рамки',
          'Вместо допуска по карте: гребневая оценка пользы минус вред выбранной рамки. 150 входов из активности, наблюдаемой модели цели и контекста. Обучение на 20 видео; фиксированные регуляризация 1 и граница 0. Нет нового прохода ядра. D, C, R1 и геометрия.',
          'Dvalue-baseline','Dvalue-Dprior','tracking/z13_selected_box_value.py'))
+    proposal_milestones.append(('z13_box_supervision_followup_v1',6,'runs/z13_box_supervision_followup_20261025/training/report.json','Обучение последствиям полной рамки',
+         'Прежний внутренний выбор областей обучается пользе и вреду переноса полной XYWH рамки. Те же признаки и архитектура; D/C/R1/геометрия, контекст и его обнуление, три сида. 24 модели. Обучение84, настройка20, проверка26. Старый опыт остановлен по цене; здесь новая постановка и переиспользование готового.',
+         'Dbox-baseline','Dbox-Dcategorical','scripts/z13_box_supervision_followup_20261025.py'))
     for cid,lane,ref,title,method,bkey,dkey,module in proposal_milestones:
         path=ROOT/ref
         if cards.get(cid,{}).get('state') not in ('completed_positive','completed_negative','inconclusive') or not path.exists():continue
