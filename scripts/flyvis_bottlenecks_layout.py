@@ -54,6 +54,20 @@ def build(mx,out):
              +'Сначала восстановить предыдущие наблюдения и области для остальных случаев; проверить охват и одинаковые входы всех контролей.\n\n'
              +'Это охват подготовленных пар, не измерение памяти FlyVis.',
         ref=paths[1],status='measured data readiness limitation')]
+    readiness_path=ROOT/'runs/z13_temporal_observation_gate_20261025/report.json'
+    readiness_audit=readiness_path.with_name('independent_audit.json')
+    if readiness_path.exists() and readiness_audit.exists():
+        fresh=json.loads(readiness_path.read_text(encoding='utf8'));audit=json.loads(readiness_audit.read_text(encoding='utf8'))
+        assert fresh['complete'] and sha(readiness_path)==audit['report_sha256']
+        for path in (readiness_path,readiness_audit):evidence[path.relative_to(ROOT).as_posix()]=sha(path)
+        bound=fresh['expanded_oracle'];count=fresh['supported_pairs']
+        cards[2]['text']=('ССЫЛКИ ПОДГОТОВЛЕНЫ; ПРИЗНАКИ НУЖНО ПРОВЕРИТЬ\n\n'
+            +f'Расширено с {c["has_supported_prior_and_current"]} до {count} пар из {fresh["rows"]} ({100*count/fresh["rows"]:.1f}%).\n\n'.replace('.',',')
+            +f'Идеальный запас на 26 видео: {fmt(bound["mean_per_video"])} п.п. [{fmt(bound["ci95"][0])}; {fmt(bound["ci95"][1])}], раньше {fmt(t["mean_per_video"])} п.п.\n\n'
+            +'Найдены более ранние наблюдения в том же эпизоде; текущие области воспроизведены точно.\n\n'
+            +'Следом: равные признаки D/C/R1 и проверка прежнего ответа. Это подготовка данных, не улучшение модели или её памяти.')
+        cards[2]['ref']=readiness_path.relative_to(ROOT).as_posix()
+        cards[2]['status']='input references prepared; matched activity extraction and replay still required'
     fonts={}
     def font(size,bold=False):
         k=size,bold

@@ -8,7 +8,9 @@
     "runs/z13_box_supervision_followup_20261025/temporal_readiness.json": "6c152ef77240b9b267fe92c5f6d210ee98ae682eba122c3c0942a57c6ba5ca4a",
     "runs/z13_spatial_set_readout_20261025/recovery2/training/internal_report.json": "a30242ff6935a5acb0ffa29b970aab314a7d39182a1ca030a819a7da52deefe9",
     "tracking/z13_spatial.py": "df9b1b275892fc802509baf1e74797c63afb457e22852a6e2e01c4368669f533",
-    "dissertation/architecture/Пространственное_считывание_отложено_2026-10-25.md": "538aee04b92a5ca23ecda73bc228bdfc7b16d35d5c107be9ca866bfc0dbb7be6"
+    "dissertation/architecture/Пространственное_считывание_отложено_2026-10-25.md": "538aee04b92a5ca23ecda73bc228bdfc7b16d35d5c107be9ca866bfc0dbb7be6",
+    "runs/z13_temporal_observation_gate_20261025/report.json": "00258900e8b29ac976ad4855ba634f9e8452ca653de9405d3dbd893d075d8684",
+    "runs/z13_temporal_observation_gate_20261025/independent_audit.json": "f2b77fc90f6de1277606cde710c97ba3f794cd7577d9aad76bcb34b6112dbe49"
   },
   "modules": [
     {
@@ -51,9 +53,9 @@
       "stroke": "#AB790F",
       "rank": 3,
       "title": "3  ПОДГОТОВКА ВРЕМЕННЫХ ПАР",
-      "text": "ПОДТВЕРЖДЁННОЕ ОГРАНИЧЕНИЕ НАБОРА ДАННЫХ\n\nПары с областями в обоих запросах: 14252 из 37296 (38,2%),\n\nИдеальный запас на доступных парах: +2,07 п.п. [+1,56; +2,56] на 26 видео.\n\nСначала восстановить предыдущие наблюдения и области для остальных случаев; проверить охват и одинаковые входы всех контролей.\n\nЭто охват подготовленных пар, не измерение памяти FlyVis.",
-      "ref": "runs/z13_box_supervision_followup_20261025/temporal_readiness.json",
-      "status": "measured data readiness limitation",
+      "text": "ССЫЛКИ ПОДГОТОВЛЕНЫ; ПРИЗНАКИ НУЖНО ПРОВЕРИТЬ\n\nРасширено с 14252 до 22090 пар из 37296 (59,2%),\n\nИдеальный запас на 26 видео: +5,14 п.п. [+4,16; +6,11], раньше +2,07 п.п.\n\nНайдены более ранние наблюдения в том же эпизоде; текущие области воспроизведены точно.\n\nСледом: равные признаки D/C/R1 и проверка прежнего ответа. Это подготовка данных, не улучшение модели или её памяти.",
+      "ref": "runs/z13_temporal_observation_gate_20261025/report.json",
+      "status": "input references prepared; matched activity extraction and replay still required",
       "text_fits": true
     }
   ],

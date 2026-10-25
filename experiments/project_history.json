@@ -19097,6 +19097,114 @@
     "meaning": "temporarily postponed; may return later; not closed or prohibited",
     "source": "dissertation/architecture/Пространственное_считывание_отложено_2026-10-25.md"
    }
+  },
+  {
+   "id": "z13_temporal_observation_gate_v1",
+   "title": "Готовность прежних наблюдений для межкадрового считывания FlyVis",
+   "area": "flyvis",
+   "state": "completed_positive",
+   "started": "2026-10-25",
+   "question": "Можно ли расширить временные пары за пределы прежних14252без будущих кадров/истинной личности?",
+   "hypothesis": "В сохранённых эпизодах есть более ранние наблюдения с реальными областями, даже если прежнего запроса к мухе не было; это не гипотеза о качестве будущей модели.",
+   "expected": "Prepare a distinct temporal FlyVis readout input: real candidate regions in an earlier stored observation of the SAME episode plus unchanged current regions. This gate only chooses and binds inputs; no learner or feature extraction.",
+   "acceptance": [
+    {
+     "criterion": "For each unchanged query, scan stored episode frames strictly earlier than current in reverse chronological order; choose latest frame with supported same-class real high-score regions under unchanged regions() API. Initial four observed exemplar frames are eligible. Never read ep_identity/ground-truth when selecting. Never use future frames or another episode. Preserve current state/history/choices exactly.",
+     "met": true,
+     "evidence": "runs/z13_temporal_observation_gate_20261025/independent_audit.json;report.json"
+    },
+    {
+     "criterion": "All37296 current UID/episode/frame/track/choice bindings reproduce exactly; every selected reference strictly earlier/same episode; no true identity selection. Candidate resource admission: supported pair count>14252 and paired-video95%lower of oracle-reserve increment over old eligible pairs>0; expanded oracle mean>=.02 and lower>0. Existing model efficacy criteria do not change. If failed do not train this construction.",
+     "met": true,
+     "evidence": "runs/z13_temporal_observation_gate_20261025/independent_audit.json;report.json"
+    }
+   ],
+   "summary": "Проверка подготовки данных пройдена; качество модели не измерялось.",
+   "obtained": "runs/z13_temporal_observation_gate_20261025/report.json: supported_pairs=22090из37296вместо14252; expanded_oracle={'mean_per_video': 0.05142068680371603, 'ci95': [0.04160032885690229, 0.06108713813385377], 'better': 25, 'n': 26}; reserve_increment={'mean_per_video': 0.03073277577588523, 'ci95': [0.02393740612342265, 0.0375957906076213], 'better': 25, 'n': 26}. independent_audit.json проверил строки/прошедшие кадры/метки/интервалы.88,281сметаданных,0моделей.",
+   "interpretation": "Подготовка более ранних наблюдений расширила доступные пары до59,23%. Идеальный запас на26повторныхвидео вырос с2,069до5,142п.п.; это доступность действий при знании исхода, не качество FlyVis и не HOTA. Старый запас точно воспроизведён. Истинная личность не использовалась для выбора предыдущего наблюдения; оно не обязано содержать ту же истинную цель.",
+   "decision": "Допущена только отдельная подготовка равных временных признаков D/C/R1 с проверкой текущих центров/баллов и стоимости. Обучение временного узла ещё не выполнено и автоматически не разрешается этим числом; использовать действующее авторское разрешение и отдельный протокол. Пространственный модуль временно отложен, не возобновляется этим опытом.",
+   "cannot_claim": "Нельзя заявлять прирост модели на3,07п.п., доказанную причину прошлых ошибок, готовую память личности, равные уже извлечённые признаки D/C/R1, улучшениеHOTA или независимый тест. Есть только проверенные ссылки на прошлые наблюдения/области; следующее извлечение должно сохранить текущую историю и пройти прежние допуски.",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_observation_gate_20261025/protocol.json",
+     "claim": "Правила и критерии до проверки130видео"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_observation_gate_20261025/independent_audit.json",
+     "claim": "Проверенная готовность ссылок на прошлые наблюдения; не эффективность модели"
+    }
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-25",
+     "commit": "f5c5fd1a88bcd2de35479d49bd5f06a8ed2beee8",
+     "field": "obtained",
+     "old": "",
+     "reason": "Независимо проверен полный результат подготовки130видео без обучения/GPU."
+    },
+    {
+     "date": "2026-10-25",
+     "commit": "f5c5fd1a88bcd2de35479d49bd5f06a8ed2beee8",
+     "field": "interpretation",
+     "old": "",
+     "reason": "Независимо проверен полный результат подготовки130видео без обучения/GPU."
+    },
+    {
+     "date": "2026-10-25",
+     "commit": "f5c5fd1a88bcd2de35479d49bd5f06a8ed2beee8",
+     "field": "decision",
+     "old": "",
+     "reason": "Независимо проверен полный результат подготовки130видео без обучения/GPU."
+    },
+    {
+     "date": "2026-10-25",
+     "commit": "f5c5fd1a88bcd2de35479d49bd5f06a8ed2beee8",
+     "field": "cannot_claim",
+     "old": "A previous visible same-class region is not identity evidence; stale/wrong track IDs and distractors may defeat learning. This is an availability/oracle gate on repeated train26, not predicted model performance/HOTA or proof of temporal causality.",
+     "reason": "Независимо проверен полный результат подготовки130видео без обучения/GPU."
+    }
+   ],
+   "done": "2026-10-25"
+  },
+  {
+   "id": "z13_temporal_region_features_v1",
+   "title": "Равные признаки прежних областей D/C/R1 для временного считывания",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-25",
+   "question": "Можно ли получить равные причинные признаки прежних областей без изменения нынешнего ответа FlyVis?",
+   "hypothesis": "Проверенная доступность прошлых наблюдений допускает отдельное извлечение признаков; способность различать личность пока не проверена.",
+   "expected": "Prepare previous-region68activity and observable geometry for one future learned cross-frame FlyVis readout. Existing current features/target/action labels stay immutable and are referenced byUID, not replaced. D/C/R1 have identical selected observations/regions.",
+   "acceptance": [
+    {
+     "criterion": "For every eligible current query, old primary peak center<.5px and score<.001. Same weights, input sequence, normalization and target coefficients. No tolerance weakening. Stored previous arrays finite and save/reload exact; all22090UIDs and previous region indices same D/C/R1. Replay from saved data before any future learner.",
+     "met": null
+    },
+    {
+     "criterion": "OneGPUmutex;16episode inference packing,not learning batch. First2Dgroups:2*measured seconds per weighted-frame*remainingD+Cweightedframes+600 must fit remaining7200seconds. If not, preserve and stop. R1 remains deterministic retinal feature computation onCPU, not CPU learning. Independent controller hiddenIdle; no coretraining/dev/HOTA/heldout75/download.",
+     "met": null
+    }
+   ],
+   "summary": "Подготовка временных признаков; обучение ещё не запускалось.",
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "Earlier same-class regions may be distractors or too stale, and FlyVis may not encode enough identity. Availability/oracle passed, but learned benefit remains unknown. Spatial-set module stays deferred; this is a distinct temporal input, not resuming its75models.",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_region_features_20261025/protocol.json",
+     "claim": "Правила причинных входов, воспроизведение и7200сбюджет доGPUизвлечения"
+    }
+   ]
   }
  ],
  "manual_events": [
