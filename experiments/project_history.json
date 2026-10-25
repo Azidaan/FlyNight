@@ -17827,18 +17827,20 @@
    "id": "z13_region_value_v1",
    "title": "Считыватель знаковой полезности сопоставления",
    "area": "flyvis",
-   "state": "ready",
+   "state": "completed_negative",
    "question": "Поможет ли различение полезного, нейтрального и вредного действия в цели обучения регионального считывателя?",
    "hypothesis": "Рабочая гипотеза: прежняя цель одинаково штрафует нейтральные и вредные ответы, хотя критерий считает пользу минус вред. Изменение цели может улучшить допуск; причинность ещё не доказана.",
    "expected": "D улучшает назначения при равных C/R1/геометрии и превосходит прежние региональные потери.",
    "acceptance": [
     {
      "criterion": "Все12 моделей и первичные строки, неизменные признаки/пакеты/пороговый протокол подтверждены",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_region_value_20261025/independent_audit.json"
     },
     {
      "criterion": "D-baseline mean>=2pp; all six lower95% paired-video bounds>0: baseline,C,R1,geometry,uniform-D,balanced-D.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_region_value_20261025/training/report.json"
     }
    ],
    "started": "2026-10-25",
@@ -17852,10 +17854,21 @@
    "tags": [
     "fly-problem-P8"
    ],
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
-   "cannot_claim": "Однокадровые назначения на повторно использованных train26, не HOTA; аналогия cost-sensitive learning не доказывает эффективность здесь."
+   "obtained": "runs/z13_region_value_20261025/training/report.json → paired: {'D-baseline': {'mean_per_video': 0.0006613597759978855, 'ci95': [-0.00022885974988778724, 0.00194786310988519], 'better': 5, 'n': 26}, 'D-C': {'mean_per_video': 0.00012945821145664776, 'ci95': [-0.0002882402202604755, 0.0006132699940457723], 'better': 3, 'n': 26}, 'D-R1': {'mean_per_video': 0.0005772114813464816, 'ci95': [-0.0002396357536544452, 0.0018152906904428184], 'better': 3, 'n': 26}, 'D-geometry': {'mean_per_video': 2.3981770477097578e-05, 'ci95': [-0.00029312202209398467, 0.00047429146436155756], 'better': 1, 'n': 26}, 'D-value-D-uniform': {'mean_per_video': 0.0006404417280480184, 'ci95': [-0.00026529288475536276, 0.0019283410265992025], 'better': 6, 'n': 26}, 'D-value-D-balanced': {'mean_per_video': 0.002574338787631381, 'ci95': [1.9347071858501826e-06, 0.006389638976826878], 'better': 11, 'n': 26}};12моделей,3сида, признаки прежние, fit84/fit20/train26.",
+   "interpretation": "Изменена только цель ошибки: польза +1, нейтральный исход0, вред −1. Результат не доказывает причину всех отказов; качество принудительного выбора не равно качеству допуска. Однокадровые последствия, не замкнутый трекер.",
+   "decision": "Pass -> separate gated closed-loop runtime parity/price/HOTA. Fail -> no HOTA; stop scalar-loss variants and test missing observable assignment context as a separate node. Измеренный основной критерий: False",
+   "cannot_claim": "The same observed region can have different global assignment outcomes; missing assignment context remains. Signed regression may merely collapse near zero. It must beat the identical no-FlyVis control, not just produce more interventions. HOTA не измерялась; доля потолка стенда неизвестна.",
+   "summary": "Обучение знаковой полезности: основной критерий не пройден.",
+   "revisions": [
+    {
+     "date": "2026-10-25",
+     "commit": "d76a4f0bca65d0df8089e136a23a6190838a9fff",
+     "field": "cannot_claim",
+     "old": "Однокадровые назначения на повторно использованных train26, не HOTA; аналогия cost-sensitive learning не доказывает эффективность здесь.",
+     "reason": "Проверен полный пилот знаковой полезности."
+    }
+   ],
+   "done": "2026-10-25"
   }
  ],
  "manual_events": [
