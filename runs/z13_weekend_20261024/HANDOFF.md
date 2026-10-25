@@ -1,3 +1,33 @@
+# Актуально — 25.10.2026 18:54 MSK
+
+ТЕКУЩИЙ spatial-set: runs\z13_spatial_set_readout_20261025\recovery2. Запуск 2026-10-25T18:51:32.647582+03:00, rootPID 31732 birth 134374170924258927, GPU-controller 5036 birth 134374170984123803. Packing16 pricegate пройден4182,85с при остатке4233,76с; реальные новые chunks и status свежие. GPUsave 2026-10-25T20:02:48.094566+03:00 hard 2026-10-25T20:03:08.094566+03:00, общий save 2026-10-25T23:04:21.413499+03:00 hard 2026-10-25T23:04:41.413499+03:00. Только recovery2 отражает актуальный запуск; base/recovery1 exit1 сохранены. Послеfeatures автоматически CPU75моделей, условно15итоговых, исходные критерии/источники/сроки неизменны. GPU-unlock дляRTX5070 не подходит и не устанавливался; это не изменение научного протокола. Всё скрыто,57чужихправок/.gitignore сохранить; точные проверки/публикация постановки через z13_publish_spatial_set_start_20261025.py, новый результат отдельно независимо проверить.
+
+Прежние передачи сохранены.
+
+# Актуально — 25.10.2026 18:52 MSK
+
+ТЕКУЩИЙ z13_spatial_set_readout_v1 запущен18:42МСК25Oct, root 31732/birth134374170924258927, features 5036/birth134374170984123803. Проверять реальные дочерние PID/CPU и свежие chunk_*.json, не одно наличие процесса. Features save 2026-10-25T20:02:48.094566+03:00 hard 2026-10-25T20:03:08.094566+03:00; общий save 2026-10-25T23:04:21.413499+03:00 hard 2026-10-25T23:04:41.413499+03:00. features→CPUtraining10800с автоматически только при проверках/price gate. Root status не заменяет features/status или training/status. Результат требует независимого разбора всех строк, хешей и парных интервалов; карточка/revisions/журнал/тесты/preserving graph/коммит/push. Последний969d93c7опубликован. Всё скрыто,57чужихправок/.gitignore сохранить; старые бюджеты не продлены. Новая пространственная схема пока не имеет итога.
+
+Прежние передачи сохранены.
+
+# Актуально — 25.10.2026 18:51 MSK
+
+ТЕКУЩИЙ spatial-set recovery2: runs\z13_spatial_set_readout_20261025\recovery2. recovery1 исправилCUDA, но price4795,67>4521,99с остановил. Готовые46строк/2блока точно объединены безGPUповтора. Новаяслужебнаяупаковка16замороженныхэпизодов; обучающийbatch128и все критерии прежние. Повторить исходныйpricegateна2новыхблоках, безослабления. GPUsave 2026-10-25T20:02:48.094566+03:00 hard 2026-10-25T20:03:08.094566+03:00; общие 2026-10-25T23:04:21.413499+03:00 / 2026-10-25T23:04:41.413499+03:00. Проверять recovery2 controller/status/features/logs,нестарыеошибки;после признаков автоматическиCPU10800свобщемокне. Чужие57правок/.gitignoreсохранить,всёскрыто. Не запускатьдубль. Старыеисточникинеизменны.
+
+Прежние передачи сохранены.
+
+# Актуально — 25.10.2026 18:46 MSK
+
+ТЕКУЩИЙ spatial-set recovery1: runs\z13_spatial_set_readout_20261025\recovery1. Первые root/features exit1 из-за маскированияCUDA;всеPIDпоbirthзакончились,0новыхchunks. Devicecheckpassed, отдельнаяслужебнаяверсиявосстанавливаетCUDAПОСЛЕqueries_and_crops. GPUдедлайнпрежний 2026-10-25T20:02:48.094566+03:00 / 2026-10-25T20:03:08.094566+03:00, общий 2026-10-25T23:04:21.413499+03:00 / 2026-10-25T23:04:41.413499+03:00. Не запускатьдубль;читайrecovery1/controller/status/features/logs,послепризнаковавтоматическиCPU10800свобщемокне. Научныеисточникинеизменны;57чужихправок/.gitignoreсохранить,всёскрыто. Результатещёнеизмерен.
+
+Прежние передачи сохранены.
+
+# Актуально — 25.10.2026 18:42 MSK
+
+Новый z13_spatial_set_readout_v1: Replace the internal regional embedding of FlyVis activity with a Deep-Sets-style mean of learned functions of every supported (68-channel activity,2relative coordinates) pair. Keep actual full-box/NULL actions and unchanged target descriptor. No quadrants, subsampling or occupancy gate. New outputs can change the chosen actual assignment action. Features4800sGPU,training10800sCPU,each independent20s shutdown;global15720s+20s, all within26Oct07:35save/07:39:30hard. OneGPUmutex,hiddenIdle,no downloads/coretraining/dev/HOTA/heldout75. Current authorization: user Давай пробовать25Oct, ongoingweekend scope. protocol до запуска. features4800с → training10800с только при старой peak-проверке и равных новых входах.75внутренних моделей, условно15итоговых. Все5основныхпарныхсравнений обязательны,>=2п.п. CPU/GPU price gates. Старые4bins не продолжаются. Последний итог969d93c7 опубликован;57чужихправок/.gitignore сохранить. После результата первичные строки/хеши/карточка/revisions/журнал/тесты/preserving graph/точныйpush. Никакого обещания прироста/HOTA.
+
+Прежние передачи сохранены.
+
 # Актуально — 25.10.2026 18:18 MSK
 
 Завершён z13_default_class_readout_v1:120моделей,exit0,своёдеревозавершено,1694,718с. D-baseline+0,01647п.п.[-0,05855;+0,10791];все5ДИвключают0,допускнепройден.26иHOTAнезапускались. independent_audit/final_summary/finish_recorded в runs/z13_default_class_trial_20261025. Следующаякандидатура—неусреднённоепространственноесчитывание;сначалааудитдоступностикартиотличияотmaxpool/производных/4bins. Старые4bins:inconclusive,порогнельзяослаблять. Готовогоисполнителянет,невыдаватьпланзапрогон. Нужно завершитьархитектуру/тесты/граф/точныйpushэтогоитога. Общийсрок26.10до07:40МСК;всёскрыто,57чужихправок/.gitignoreсохранить.
