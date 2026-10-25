@@ -1,0 +1,60 @@
+topic: 'Next FlyVis modernization for MOT: a useful action exists geometrically (full-box reserve +5.24 pp oracle), but the trained readout neither selects it nor estimates its advantage over the tracker''s own assignment'
+created: '2026-10-25'
+time_range: classic sources 2015-2022 plus newer work from 2023; Chinese research explicitly included
+context: 'Project: modernized FlyVis (734-parameter connectome-constrained recurrent model, 721 grey hexagonal columns, 34 output cell types) used inside a MOT test bench: YOLO26s detector -> XYWHByteTrack -> MASA stitching on BDD100K MOT; metric HOTA with paired bootstrap over videos. FlyVis sees a bounded crop around the tracker prediction ("eye"); a ridge-regression target model is fit on 4 exemplar frames, but the FlyVis state keeps updating on search frames. Readout: 68 regional activity features per real detection region, observed-target descriptor, 8 geometry inputs, 6 assignment-context features (own cost, best competing track cost, best alternative detection cost, margin, assigned flag, is-baseline-choice flag). Action: transfer the full XYWH box of the selected real region into the track state before native ByteTrack matching; explicit "unmatched" option; fixed logit 0 = no action. Measured: of 1001 wrong baseline assignments on reused train26, 48 fixable by first D peak, 58 by another of 3 peaks, 895 by none; of the 895, 553 had the correct high-confidence detection inside the eye and 334 outside. Oracle reserve (true outcomes, may abstain): 3 D peaks +1.63 pp; region centres in eye +2.70; full boxes in eye +5.24 [4.23; 6.25]; full boxes whole frame +7.25. Latest real run (z13_box_supervision_followup_v1, 24 heads, CPU): MSE regression of each action score to target good-minus-harm in {-1,0,+1}; policy = softmax over action scores plus fixed baseline logit 0, threshold on that probability chosen on 20 videos; result D vs baseline -0.06 pp [-0.24; +0.04], all six comparisons fail the pre-registered +2 pp criterion. Diagnostic facts from saved calibrations: at any threshold the heads select 1000-3500 of 4183 fit20 rows but only 13-33 of the selected actions change the outcome (others neutral); many seeds abstain completely (threshold 1.01); the softmax probability never exceeds about 0.6. Earlier KeepTrack-inspired variants (fixed and learned association of 3 peaks) failed. Temporal audit: only 14252 of 37296 queries have a prior query with supported regions; oracle reserve restricted to them is +2.07 pp. Earlier reviews (2026-10-23, 2026-10-25) already covered KeepTrack, DMTrack, SiamMOT, KYS, DAM4SAM, DiMP/ToMP, STMTrack, LTMU, STARK: do not repeat them except where the item asks for a code-level re-check.'
+mandatory_question: 'For each source: which of the competing explanations (lost discriminative/spatial information in the readout; insufficient target-vs-neighbour identification; training objective mismatched to the final assignment; rare useful events with high harm cost; insufficient history; limits of the action itself) does it address, with what evidence (ablation table), and how does its mechanism differ from what we already tried? Never transfer foreign AUC/MOTA/IDF1 gains into expected HOTA of our bench.'
+questions:
+- 'Q1 Advantage over the default decision: how do published systems learn whether a correction beats the existing decision (counterfactual/advantage labels, off-policy learning from logged outcomes, selective prediction, learning to defer), and how they handle neutral-dominated and rare-positive labels.'
+- 'Q2 Training through assignment consequences: differentiable or decision-based training (DeepMOT, learnable graph matching, MDP/RL trackers) - what is trained, what labels, which ablations show the assignment-aware loss is necessary.'
+- 'Q3 Spatial/identity information and history: spatial outputs (box/visibility), object permanence memory, recovery after loss, weak cues for similar objects - which components are mandatory for the claimed effect.'
+- 'Q4 Transfer into FlyVis nodes: concrete node change (input, core, state, readout, loss), equal controls (stock C, eye input R1, no-fly geometry), cheap CPU check on saved data, stop condition.'
+items:
+- id: A01
+  name: DeepMOT (Xu et al., CVPR 2020) and GMTracker learnable graph matching (He et al., CVPR 2021) - training association features through a differentiable assignment
+  group: first
+  description: '[Depth: full analysis (paper, appendix, official code of training and inference)] How Deep Hungarian Net / soft assignment and differentiable MOTA/MOTP proxy losses are built; GMTracker: graph matching as differentiable QP layer, Chinese authors. What exactly is trained, which ablations isolate the assignment-aware loss from features, negative results. Transfer: could our FlyVis readout be trained through a differentiable surrogate of the ByteTrack first-association cost matrix (we have the cost matrices and baseline assignment saved) instead of per-action MSE regression; what would the control without FlyVis be.'
+  depth: full analysis
+- id: A02
+  name: Counterfactual / off-policy learning of when to override a default decision - CRM and BanditNet (Swaminathan & Joachims 2015; Joachims et al. ICLR 2018), doubly-robust policy learning, SelectiveNet (Geifman & El-Yaniv ICML 2019), learning to defer (Mozannar & Sontag ICML 2020)
+  group: first
+  description: '[Depth: full analysis of mechanism, objectives and known failure modes; code where official] We have logged outcomes (helpful/neutral/harmful) for every candidate action versus the baseline assignment, about 5% helpful, most neutral, and a policy that must abstain by default. Find the best-supported objective for learning an action policy whose value is measured relative to the default (advantage), with coverage/risk control, and how to calibrate the abstain threshold without using the evaluation set. Explain why per-action MSE to good-minus-harm plus a softmax-with-fixed-zero-logit threshold is or is not a consistent estimator of the right policy. Include evidence from tracking or detection if any applies these ideas (e.g. learned tracker update / correction decisions).'
+  depth: full analysis
+- id: A03
+  name: SiamMOT (Shuai et al., CVPR 2021) - code-level re-check of the explicit motion model, visibility head, training labels and how the predicted box enters association
+  group: first
+  description: '[Depth: full analysis with official code (amazon-science/siam-mot): training config, losses, label assignment, inference solver] Previous review read the paper; now verify in code: how training samples and negatives are formed, how visibility threshold and box are used in the solver, what happens when the Siamese box conflicts with detections, ablations (implicit vs explicit, hard negatives, table 7). Map component-by-component to our full-box action and identify what our readout lacks (dense spatial correlation map vs region-pooled 68 features).'
+  depth: full analysis
+- id: A04
+  name: Learning to Track with Object Permanence (Tokmakov et al., ICCV 2021) and related spatial recurrent memory for invisible/occluded objects
+  group: first
+  description: '[Depth: full analysis (paper, appendix, code)] Spatial ConvGRU memory over the whole frame keeps invisible objects; trained on synthetic then real data; ablations of memory and supervision of invisible objects. Close analogy: FlyVis is itself a recurrent spatial model whose state persists over search frames. Which component is mandatory (memory, synthetic supervision of occluded positions, full-frame input). Transfer: supervising the FlyVis readout (or state) on positions of occluded/lost targets; constraint that our eye is a bounded crop; recovery for the 334 cases with the correct detection outside the eye.'
+  depth: full analysis
+- id: A05
+  name: Learning to Track - Online MOT by Decision Making (Xiang, Alahi, Savarese, ICCV 2015) and deep RL association/decision trackers (Ren et al. ECCV 2018 Collaborative Deep RL; Rosello & Kochenderfer 2018)
+  group: second
+  description: '[Depth: short check: mechanism, labels, ablations, why it ranks above or below; inapplicable fields marked not applicable] MDP with Active/Tracked/Lost states; policy for lost-target reassignment learned from decision consequences (reinforcement with ground truth); Chinese authors in Ren et al. Does learning from the consequences of the decision (not from similarity) improve recovery; how rare corrective events were handled; transfer to our readout as a decision head over real regions.'
+  depth: short check
+- id: A06
+  name: Recovery after loss in modern trackers - MotionTrack (Qin et al., CVPR 2023, Chinese) refind module, OC-SORT observation-centric re-update (Cao et al., CVPR 2023), Hybrid-SORT weak cues (Yang et al., AAAI 2024, Chinese)
+  group: second
+  description: '[Depth: short check with ablation tables] Which mechanisms re-associate lost tracks only when it helps (refind with history, virtual trajectory re-update, confidence/height weak cues), ablation numbers, conditions (occlusion, similar objects). Separate tracker-side improvements (not FlyVis modernization per project rules) from mechanisms that can be moved into the FlyVis readout/state; state explicitly which would be an equal no-fly control.'
+  depth: short check
+- id: A07
+  name: Box correction of an existing tracker output and rank-consistent selection - AlphaRefine (Yan et al., CVPR 2021, Chinese) and Ranking-based Siamese tracking (Tang et al., CVPR 2022, Chinese) and related learned refinement/selection heads
+  group: second
+  description: '[Depth: short check with code where available] AlphaRefine is a plug-in that refines the box of a base tracker; check whether and how it decides to keep the base answer, how it preserves spatial detail (pixel-wise correlation, corner/mask heads) and ablations. Ranking-based tracking: losses that make the classification score consistent with localization quality (rank consistency), relevant to our score not ranking helpful boxes above neutral ones. Transfer to the FlyVis readout.'
+  depth: short check
+- id: A08
+  name: Long-term memory and identity in end-to-end MOT - MeMOTR (Gao & Wang, ICCV 2023, Chinese), MeMOT (Cai et al., CVPR 2022), MOTIP (Gao et al., CVPR 2025, Chinese) identity as in-context prediction
+  group: second
+  description: '[Depth: short check] How track history/memory is stored and read for identity among similar objects; ablations of memory length and update; MOTIP formulates association as ID prediction with a learnable "new/none" ID. Evaluate fit to our coverage problem (only 14252 of 37296 queries have supported prior regions) and whether these mechanisms need rich RGB features of a big backbone.'
+  depth: short check
+- id: A09
+  name: Bio-inspired small target motion detectors with feedback/prediction for tracking in clutter (Wang, Peng, Yue and coauthors - STMD with feedback, prediction-based STMD, IEEE TNNLS/TCYB; other Chinese fly-vision tracking work 2019-2025)
+  group: second
+  description: '[Depth: short check] Node-level modifications of insect visual neuron models (feedback loop, motion prediction gating, attention) that improve discrimination of the target from background and distractors; datasets, controls, whether any use real video MOT or only synthetic/small-target sets. Identify any change that maps onto FlyVis core/state nodes and is testable against stock FlyVis; do not assume closeness to FlyVis.'
+  depth: short check
+execution:
+  batch_size: 9
+  items_per_agent: 1
+  output_dir: ./results

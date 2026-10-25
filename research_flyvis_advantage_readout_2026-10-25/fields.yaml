@@ -1,0 +1,65 @@
+field_categories:
+- category: Source
+  fields:
+  - name: bibliography
+    description: Full bibliographic records of each primary source examined (authors, year, title, venue, version), direct links (DOI/arXiv/PDF) and official code repository links; mark duplicates (preprint vs journal, several papers of one system on the same data are NOT independent confirmations)
+    detail_level: detailed
+    required: true
+  - name: full_text_checked
+    description: Which parts were actually read (full text, appendix, supplementary, specific code files with paths); what could not be accessed. Never claim reading something not opened.
+    detail_level: brief
+    required: true
+- category: Setup comparison (ours vs authors)
+  fields:
+  - name: inputs_state_output
+    description: Authors' inputs, internal state/memory, model output; compare with ours (bounded grey crop into FlyVis, recurrent state over exemplar+search frames, 68 regional features per real detection region, observed target descriptor, geometry, assignment context)
+    detail_level: detailed
+    required: true
+  - name: action_and_refusal
+    description: What action the output triggers (box, association, re-identification, update), how abstention / keeping the default decision is represented, compared with our full-box transfer plus fixed no-action logit
+    detail_level: moderate
+    required: true
+  - name: labels_and_loss
+    description: How training labels are produced (consequence of assignment, IoU, identity, synthetic), loss functions, handling of class imbalance, neutral and rare positive events
+    detail_level: detailed
+    required: true
+  - name: data_camera_resolution_rate
+    description: Datasets, number of independent videos, train/test split, camera motion, input resolution, frame rate, initial conditions
+    detail_level: moderate
+    required: true
+  - name: metrics_and_numbers
+    description: Metrics and key numbers with exact location (table/figure/section); these are the authors' metrics and must not be translated into expected HOTA for our bench
+    detail_level: detailed
+    required: true
+- category: Evidence
+  fields:
+  - name: distinguishing_ablations
+    description: Ablations that isolate the mechanism, negative results, limitations reported by authors; which components are mandatory for the claimed effect; number of runs/seeds
+    detail_level: detailed
+    required: true
+  - name: explanations_addressed
+    description: For each competing explanation (lost discriminative/spatial info in readout; target-vs-neighbour identification; training objective mismatched to final assignment; rare useful events with high harm cost; insufficient history; limits of the action) say whether and how this source informs it (direct evidence / design analogy / caution / not addressed)
+    detail_level: detailed
+    required: true
+  - name: evidence_strength
+    description: Peer-reviewed or preprint, independent replications, code availability verified, overall strength (strong/moderate/weak) with reason
+    detail_level: brief
+    required: true
+- category: Transfer to FlyVis
+  fields:
+  - name: difference_from_tried
+    description: How the mechanism differs from what we already tried (fixed/learned 3-peak association, ridge target model, per-action MSE good-minus-harm head with softmax-threshold policy, category replacement, context features); if no difference, say so
+    detail_level: moderate
+    required: true
+  - name: candidate_node_change
+    description: Concrete FlyVis node change (input preparation, core/connections/parameters, state, readout, loss) implied by the source, why it fixes a FlyVis problem, equal controls (old D, stock C, eye input R1, no-fly geometry), cheap distinguishing check on saved data (CPU) and the condition to proceed to GPU/expensive stage
+    detail_level: detailed
+    required: true
+  - name: strongest_objection
+    description: Strongest objection to using this source/mechanism for our decision
+    detail_level: moderate
+    required: true
+  - name: cost_and_hardware
+    description: Estimated cost of a bounded adaptation; what fits on CPU with saved features vs needs new FlyVis maps on one 12 GB GPU
+    detail_level: brief
+    required: true
