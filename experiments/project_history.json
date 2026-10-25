@@ -17874,7 +17874,7 @@
    "id": "z13_region_context_v1",
    "title": "Контекст исходного назначения внутри считывателя FlyVis",
    "area": "flyvis",
-   "state": "ready",
+   "state": "completed_negative",
    "started": "2026-10-25",
    "tags": [
     "fly-problem-P8"
@@ -17885,11 +17885,13 @@
    "acceptance": [
     {
      "criterion": "Cache130 baseline replays float32-exact, all37296query UIDs/causal IDs/predictions/labels and region order equal saved labels; first2videos2*mean_seconds*128+60 fits1200remaining. No completed cache video repeated. Training first complete model2*seconds*23+60 fits remaining1800s.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_region_context_20261025/independent_audit.json"
     },
     {
      "criterion": "Dcontext-baseline and Dcontext-Dblank both means>=2pp, and all6paired-video lower95% bounds>0: baseline,Dblank,Ccontext,R1context,geometrycontext,previous signedD.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_region_context_20261025/training/report.json"
     }
    ],
    "evidence": [
@@ -17899,10 +17901,12 @@
      "claim": "Критерии, равная ёмкость, наблюдаемые входы и бюджеты до расчёта"
     }
    ],
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
-   "cannot_claim": "Assignment context may help geometric processing alone, without FlyVis. This is a small readout adaptation, not a graph neural tracker. One-row outcomes omit joint corrections and closed-loop feedback; repeatedtrain26 is exploratory."
+   "obtained": "runs/z13_region_context_20261025/training/report.json → paired: {'Dcontext-baseline': {'mean_per_video': -0.0019292708621356988, 'ci95': [-0.005787639250481386, 0.0005324063981026563], 'better': 8, 'n': 26}, 'Dcontext-D_blank': {'mean_per_video': -0.0009474470603382699, 'ci95': [-0.003387031254748792, 0.0009350952585686619], 'better': 11, 'n': 26}, 'Dcontext-C_context': {'mean_per_video': -0.0003457244453321865, 'ci95': [-0.0025627777737961444, 0.00207630345317482], 'better': 7, 'n': 26}, 'Dcontext-R1_context': {'mean_per_video': -0.0019833658529395505, 'ci95': [-0.005808512379441493, 0.0004815036752694252], 'better': 8, 'n': 26}, 'Dcontext-geometry_context': {'mean_per_video': -0.0019292708621356988, 'ci95': [-0.005787639250481386, 0.0005324063981026563], 'better': 8, 'n': 26}, 'Dcontext-Dprevious': {'mean_per_video': -0.0025906306381335846, 'ci95': [-0.0064886488956715765, 0.000306103643212775], 'better': 7, 'n': 26}};24модели,3сида,8равных вариантов.",
+   "interpretation": "Контекст сопоставления проверен против его нулевого контроля той же ёмкости; это внутренний считыватель с внешними наблюдаемыми входами. Не HOTA и не полноценный графовый трекер.",
+   "decision": "Pass -> separately budgeted frozen closed-loop parity/price/HOTA, native/C/R1/no-fly controls. Fail -> preserve this context implementation; no HOTA or core training by default, select a different measured internal node. Измеренный основной критерий: False",
+   "cannot_claim": "Assignment context may help geometric processing alone, without FlyVis. This is a small readout adaptation, not a graph neural tracker. One-row outcomes omit joint corrections and closed-loop feedback; repeatedtrain26 is exploratory.",
+   "summary": "Наблюдаемый контекст назначения: критерий не пройден.",
+   "done": "2026-10-25"
   }
  ],
  "manual_events": [
