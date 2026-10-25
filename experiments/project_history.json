@@ -17907,6 +17907,40 @@
    "cannot_claim": "Assignment context may help geometric processing alone, without FlyVis. This is a small readout adaptation, not a graph neural tracker. One-row outcomes omit joint corrections and closed-loop feedback; repeatedtrain26 is exploratory.",
    "summary": "Наблюдаемый контекст назначения: критерий не пройден.",
    "done": "2026-10-25"
+  },
+  {
+   "id": "z13_region_product_v1",
+   "title": "Прямое поканальное сравнение модели цели и активности FlyVis",
+   "area": "flyvis",
+   "state": "ready",
+   "started": "2026-10-25",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "question": "Поможет ли сохранение исходного поканального взаимодействия перед независимым сжатием в считывателе?",
+   "hypothesis": "Рабочая гипотеза: прямое взаимодействие68 исходных каналов полезнее, чем только произведение независимо обученных16мерных вложений. Это не установленная причина отказов.",
+   "expected": "Add direct68 channelwise products between original normalized pooled query activity and its unchanged observed-only ridge coefficients, before the two independent68->16 embeddings. Same prior6 assignment inputs remain for all arms. Equal blank controls add exactly68 zeros to the same162->32->1 network.",
+   "acceptance": [
+    {
+     "criterion": "Reuse every frozen original activity/context/label cache; fit84-only RMS. No extraction or completed-model repetition. First full model2*elapsed*23+60 must fit original1800seconds. Independently reproduce every8326-row evaluation of all24models and paired intervals before catalog acceptance.",
+     "met": null
+    },
+    {
+     "criterion": "Dproduct-baseline and Dproduct-Dblank means both>=2pp; all6paired-video95%CI lower>0 against baseline,blank,Cproduct,R1product,geometryproduct,previousDcontext.24models,3seeds.",
+     "met": null
+    }
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_region_product_20261025/protocol.json",
+     "claim": "Неизменные входы, парные контроли, критерии и бюджет до расчёта"
+    }
+   ],
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "Mean pooling may already discard the needed spatial information; adding products cannot restore it. A wider network can overfit rare assignment events, so equal-capacity blank and C/R1/geometry contrasts remain mandatory. Repeatedtrain26 and one-row labels are exploratory, not HOTA or causal proof."
   }
  ],
  "manual_events": [
