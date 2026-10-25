@@ -1,0 +1,24 @@
+{
+ "at": "2026-10-25T03:36:21.787716+03:00",
+ "budget_seconds": 180,
+ "device": "cpu",
+ "timezone": "Europe/Moscow",
+ "save_at": "2026-10-25T03:39:21.787716+03:00",
+ "hard_stop": "2026-10-25T03:39:41.787716+03:00",
+ "stop_request_path": "runs/z13_region_fit_audit_20261025/stop.request",
+ "question": "Do the trained regional models identify beneficial actions even on their fit84 rows, or mostly prefer unchanged?",
+ "method": "All12 frozen models; only fit84 and fit20. Existing calibrated policy, raw positive-logit decisions, and forced regional argmax on known queries with at least one beneficial action. Count good/harmful choices and average positive/negative cross-entropy separately. No new training or threshold selection.",
+ "interpretation": "High forced-choice recovery with low positive-logit recovery supports investigating action/no-action supervision; low forced recovery leaves representation, model capacity and missing assignment context unresolved. Counts alone do not establish imbalance as a cause.",
+ "stop": "180seconds wall budget checked between each model; preserve partial rows. No GPU, train26, dev or HOTA.",
+ "sha256": {
+  "scripts/z13_region_fit_audit_20261025.py": "64b650f879556939ff442799b1ff0bc3beca62209f6dbfc928feb0e2ee1ad457",
+  "tracking/z13_filter_descriptor.py": "371ed92a398d952736ec2914de1fffc1ea6ae2fcf4b6bf352f433ce1748eabd4",
+  "tracking/z13_region_assignment.py": "4a79f30d337ef6c442b74a25f379c4a587b325210697490a23d2406a0c806a42",
+  "scripts/z13_region_assignment_recovery2_20261025.py": "b436c5112fa4f65755061551cb8bd6cd25277410dd8b1f3d504d44b2475f3068"
+ },
+ "seeds": [
+  0,
+  1,
+  2
+ ]
+}
