@@ -1,3 +1,15 @@
+# Актуально — 25.10.2026 20:13 MSK
+
+ТЕКУЩИЙ spatial-set training/recovery4_gpu: runs/z13_spatial_set_readout_20261025/recovery2/training/recovery4_gpu. Все1863GPUблока готовы,неповторять. RAMrecovery3 устранилflush,полностьюготова1CPUмодель D_spatial/seed0/fold0,точныйreplay;CPUprice14019,60>9949,20остановил. Теперьseed0/fold0CPU ДЛЯВСЕХ5вариантов,остальные14блоковGPUДЛЯВСЕХ; перваяDнеповторяется. Backend FP32/TF32off/deterministic проверен. ОдноGPUдерево,GpuLock,скрытыйIdle; прежнийsave 2026-10-25T22:54:44.085129+03:00 hard 2026-10-25T22:55:04.085129+03:00. Статус/модели/report в recovery2/training, controller/result/backendprice в recovery4_gpu. Старыеbase/root/recovery1/recovery3ошибки не являются текущим статусом. Сначала новыйpricegate, затем75моделей, условно15итоговых по всем5ДИи2п.п. НикакогоHOTA. Послеитога аудитвсехстрок/хешей/карточка/revisions/журнал/тесты/preserving graph/коммит/push.57чужихправок/.gitignoreсохранить.
+
+Прежние передачи сохранены.
+
+# Актуально — 25.10.2026 20:04 MSK
+
+ТЕКУЩИЙ spatial-set CPUrecovery3: runs/z13_spatial_set_readout_20261025/recovery2/training/recovery3. GPU1863блока полностью готовы в recovery2/features,exit0;ихНЕповторять. training/recovery3 имеет отдельныйcontroller иprotocol,но первичные training/status,internal,report,price по-прежнему в recovery2/training. Предыдущее root/training дерево остановлено поbirth: дообученияflush5,68GB; старыеexit/logs/массивысохранены. ТеперьсборкаRAM,данные/модели/критериипрежние;CPU save 2026-10-25T22:54:44.085129+03:00 hard 2026-10-25T22:55:04.085129+03:00. Не путатьстарыйrooterrorсновымCPUcontroller. После75моделей только при внутреннемдопуске15итоговых;никакогоавтоHOTA. ВсеGPUисточникихешированы;57чужихправок/.gitignoreсохранить,всёскрыто. Итог→независимыйаудит/карточка/revisions/журнал/тесты/preserving graph/коммит/push.
+
+Прежние передачи сохранены.
+
 # Актуально — 25.10.2026 18:54 MSK
 
 ТЕКУЩИЙ spatial-set: runs\z13_spatial_set_readout_20261025\recovery2. Запуск 2026-10-25T18:51:32.647582+03:00, rootPID 31732 birth 134374170924258927, GPU-controller 5036 birth 134374170984123803. Packing16 pricegate пройден4182,85с при остатке4233,76с; реальные новые chunks и status свежие. GPUsave 2026-10-25T20:02:48.094566+03:00 hard 2026-10-25T20:03:08.094566+03:00, общий save 2026-10-25T23:04:21.413499+03:00 hard 2026-10-25T23:04:41.413499+03:00. Только recovery2 отражает актуальный запуск; base/recovery1 exit1 сохранены. Послеfeatures автоматически CPU75моделей, условно15итоговых, исходные критерии/источники/сроки неизменны. GPU-unlock дляRTX5070 не подходит и не устанавливался; это не изменение научного протокола. Всё скрыто,57чужихправок/.gitignore сохранить; точные проверки/публикация постановки через z13_publish_spatial_set_start_20261025.py, новый результат отдельно независимо проверить.

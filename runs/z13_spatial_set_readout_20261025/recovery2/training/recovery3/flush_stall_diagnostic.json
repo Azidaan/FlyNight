@@ -1,0 +1,32 @@
+{
+ "at": "2026-10-25T20:04:37.281768+03:00",
+ "controller": {
+  "pid": 26288,
+  "birth": 134374208841544106,
+  "worker_pid": 24456,
+  "worker_birth": 134374208846731877,
+  "started": "2026-10-25T19:54:44.680373+03:00",
+  "save_at": "2026-10-25T22:54:44.085129+03:00",
+  "hard_stop": "2026-10-25T22:55:04.085129+03:00"
+ },
+ "real_worker_pid": 24088,
+ "real_worker_birth": 134374208847003223,
+ "stack": "Process 24088: \"E:\\Dissertation\\python310\\tools\\python.exe\" -u E:\\Dissertation\\scripts\\z13_spatial_set_recovery2_20261025.py --worker\nPython v3.10.11 (E:\\Dissertation\\python310\\tools\\python.exe)\n\nThread 29212 (idle): \"MainThread\"\n    flush (numpy\\_core\\memmap.py:338)\n    load_data (z13_spatial_set_recovery2_20261025.py:237)\n    train_worker (z13_spatial_set_recovery2_20261025.py:310)\n    <module> (z13_spatial_set_recovery2_20261025.py:78)\n",
+ "status": {
+  "state": "running",
+  "updated": "2026-10-25T19:56:25.961261+03:00",
+  "stage": "Подготовка сохранённых пространственных входов",
+  "variant": "D/fit20"
+ },
+ "available_memory": 10634514432,
+ "models_completed": 0,
+ "checkpoints": 0,
+ "temporary_npy_paths": [
+  "runs\\z13_spatial_set_readout_20261025\\recovery2\\training\\consolidated\\D\\fit104\\centers.npy",
+  "runs\\z13_spatial_set_readout_20261025\\recovery2\\training\\consolidated\\D\\fit104\\full.npy",
+  "runs\\z13_spatial_set_readout_20261025\\recovery2\\training\\consolidated\\D\\fit104\\pooled.npy",
+  "runs\\z13_spatial_set_readout_20261025\\recovery2\\training\\consolidated\\D\\fit104\\retinal_mask.npy",
+  "runs\\z13_spatial_set_readout_20261025\\recovery2\\training\\consolidated\\D\\fit104\\scales.npy"
+ ],
+ "cause": "Main thread blocked in NumPy memmap.flush on transient5.68GB cache; no model has started. Original feature chunks are complete and retained. Stat of a flushing temporary file also blocks, so do not stat it during recovery."
+}

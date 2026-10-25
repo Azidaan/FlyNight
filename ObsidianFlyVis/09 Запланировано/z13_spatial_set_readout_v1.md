@@ -36,4 +36,6 @@ Relative spatial evidence may be redundant/noisy; only16aggregate dimensions and
 - Отличия, равные контроли, критерии, источники и бюджет до новых признаков: `runs/z13_spatial_set_readout_20261025/protocol.json` · 
 - Служебное восстановление CUDA после CPU-импорта; научный протокол и прежние сроки сохранены: `runs/z13_spatial_set_readout_20261025/recovery1/protocol.json` · 
 - Упаковка16 только замороженного вывода, готовые46строк переиспользованы; прежние критерии и сроки: `runs/z13_spatial_set_readout_20261025/recovery2/protocol.json` · 
+- CPU-служебное восстановление памяти; все1863GPUблока переиспользуются,0моделей повторено, прежний срок: `runs/z13_spatial_set_readout_20261025/recovery2/training/recovery3/protocol.json` · 
+- Равное аппаратное расписание:CPUseed0fold0 для всех,остальныеGPU; перваяCPUмодель сохранена, критерии и срок прежние: `runs/z13_spatial_set_readout_20261025/recovery2/training/recovery4_gpu/protocol.json` · 
 
