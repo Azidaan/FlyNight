@@ -1,0 +1,22 @@
+{
+ "at": "2026-10-25T23:08:33.307297+03:00",
+ "processes": {
+  "23656": 134374302912085172,
+  "23016": 134374302911825429,
+  "29852": 134374302909729243,
+  "27768": 134374306435020538,
+  "28000": 134374302909308173,
+  "34300": 134374306434482793
+ },
+ "progress": {
+  "state": "running",
+  "updated": "2026-10-25T22:40:03.993028+03:00",
+  "done": 434,
+  "total": 1506,
+  "stage": "Замороженные признаки прежних областей",
+  "variant": "D/train26"
+ },
+ "saved_chunks": 434,
+ "reason": "No saved progress since22:40; repeated stack snapshots at CUDA host-to-device input_index copy. Root driver cause unknown. Preserve all434completed chunks. Stop only verified original worker tree before fresh-device check.",
+ "stack": "Process 23656: \"E:\\Dissertation\\python310\\tools\\python.exe\" -u E:\\Dissertation\\scripts\\z13_temporal_region_features_20261025.py --worker\nPython v3.10.11 (E:\\Dissertation\\python310\\tools\\python.exe)\n\nThread 9288 (active): \"MainThread\"\n    cuProfilerStop (nvcuda64.dll)\n    0x7ffe4c51465c (nvcuda64.dll)\n    0x7ffe4c5151b4 (nvcuda64.dll)\n    0x7ffe4c3cfe4d (nvcuda64.dll)\n    cuStreamQuery (nvcuda64.dll)\n    cuStreamSynchronize (nvcuda64.dll)\n    0x7ffe88a242e1 (nvcudart_hybrid64.dll)\n    _cudaGetProcAddress (nvcudart_hybrid64.dll)\n    c10::cuda::memcpy_and_sync (c10_cuda.dll)\n    at::native::slow_conv2d_forward_out_cuda (torch_cuda.dll)\n    at::native::copy_ignoring_overlaps (torch_cpu.dll)\n    at::native::copy_ (torch_cpu.dll)\n    at::_ops::copy_::call (torch_cpu.dll)\n    at::native::_to_copy (torch_cpu.dll)\n    at::compositeexplicitautograd::view_copy_symint_outf (torch_cpu.dll)\n    at::compositeexplicitautograd::bucketize_outf (torch_cpu.dll)\n    at::TensorMaker::make_tensor (torch_cpu.dll)\n    at::_ops::_to_copy::redispatch (torch_cpu.dll)\n    at::_ops::view_as_real::redispatch (torch_cpu.dll)\n    at::_ops::view_as_real::redispatch (torch_cpu.dll)\n    at::TensorMaker::make_tensor (torch_cpu.dll)\n    at::_ops::_to_copy::redispatch (torch_cpu.dll)\n    torch::autograd::NotImplemented::~NotImplemented (torch_cpu.dll)\n    torch::autograd::UndefinedGradBackward::apply_with_saved (torch_cpu.dll)\n    at::_ops::_to_copy::call (torch_cpu.dll)\n    at::native::to_dense_backward (torch_cpu.dll)\n    at::native::to (torch_cpu.dll)\n    at::compositeimplicitautograd::where (torch_cpu.dll)\n    at::compositeimplicitautograd::broadcast_to_symint (torch_cpu.dll)\n    at::_ops::to_device::call (torch_cpu.dll)\n    at::Tensor::to (torch_cpu.dll)\n    torch::utils::getTHPMemoryFormat (torch_python.dll)\n    torch::utils::getTHPMemoryFormat (torch_python.dll)\n    torch::autograd::registerFunctionPreHook (torch_python.dll)\n    PyObject_IsTrue (python310.dll)\n    PyObject_Call (python310.dll)\n    PyObject_Call (python310.dll)\n    PyEval_EvalFrameDefault (python310.dll)\n    PyFunction_Vectorcall (python310.dll)\n    PyObject_GC_Malloc (python310.dll)\n    PyObject_SetAttr (python310.dll)\n    PyObject_CallFunction_SizeT (python310.dll)\n    PySequence_List (python310.dll)\n    PyObject_CallMethod (python310.dll)\n    torch::PythonArgParser::check_deprecated (torch_python.dll)\n    torch::PythonArgParser::get_signatures (torch_python.dll)\n    torch::PythonArgParser::get_signatures (torch_python.dll)\n    torch::autograd::registerFunctionPreHook (torch_python.dll)\n    PyObject_IsTrue (python310.dll)\n    PyObject_MakeTpCall (python310.dll)\n    PyEval_EvalFrameDefault (python310.dll)\n    PyEval_EvalFrameDefault (python310.dll)\n    PyFunction_Vectorcall (python310.dll)\n    PyEval_EvalFrameDefault (python310.dll)\n    PyFunction_Vectorcall (python310.dll)\n    PyEval_EvalFrameDefault (python310.dll)\n    PyType_CalculateMetaclass (python310.dll)\n    PyEval_EvalCode (python310.dll)\n    PyArena_New (python310.dll)\n    PyArena_New (python310.dll)\n    PyRun_SimpleFileObject (python310.dll)\n    PyRun_SimpleFileObject (python310.dll)\n    PyRun_AnyFileObject (python310.dll)\n    Py_MakePendingCalls (python310.dll)\n    Py_MakePendingCalls (python310.dll)\n    Py_RunMain (python310.dll)\n    Py_RunMain (python310.dll)\n    Py_Main (python310.dll)\n    0x7ff75d101230 (python.exe)\n    __torch_function__ (torch\\utils\\_device.py:109)\n    step (tracking\\z13_readout.py:179)\n    features (z13_temporal_region_features_20261025.py:77)\n    worker (z13_temporal_region_features_20261025.py:102)\n    <module> (z13_temporal_region_features_20261025.py:143)\n"
+}

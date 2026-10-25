@@ -19175,7 +19175,7 @@
    "id": "z13_temporal_region_features_v1",
    "title": "Равные признаки прежних областей D/C/R1 для временного считывания",
    "area": "flyvis",
-   "state": "running",
+   "state": "inconclusive",
    "started": "2026-10-25",
    "question": "Можно ли получить равные причинные признаки прежних областей без изменения нынешнего ответа FlyVis?",
    "hypothesis": "Проверенная доступность прошлых наблюдений допускает отдельное извлечение признаков; способность различать личность пока не проверена.",
@@ -19190,10 +19190,10 @@
      "met": null
     }
    ],
-   "summary": "Подготовка временных признаков; обучение ещё не запускалось.",
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
+   "summary": "Сохранены434блока; исходная подготовка остановлена после зависания передачиCUDA. Научного результата нет.",
+   "obtained": "runs/z13_temporal_identity_20261025/legacy_preservation.json:434готовыхблока с провереннымихешами; runs/z13_temporal_region_features_20261025/stalled_transfer_audit_20261025.json:двастекаCUDAH2D,прогресс434с22:40;controller_result.json exit4294967295/all_owned_ended после остановки проверенного дерева.",
+   "interpretation": "Подтверждена техническая остановка, причина драйвера не установлена. ОставшиесяC/R1 не рассчитаны; метрики эффективности не получены.",
+   "decision": "Готовые434блока сохранить. Новая выборка прошлых опорных наблюдений имеет отдельный протокол и бюджет; прежний срок не продлевается и старые источники не переписываются.",
    "cannot_claim": "Earlier same-class regions may be distractors or too stale, and FlyVis may not encode enough identity. Availability/oracle passed, but learned benefit remains unknown. Spatial-set module stays deferred; this is a distinct temporal input, not resuming its75models.",
    "tags": [
     "fly-problem-P8"
@@ -19204,7 +19204,17 @@
      "ref": "runs/z13_temporal_region_features_20261025/protocol.json",
      "claim": "Правила причинных входов, воспроизведение и7200сбюджет доGPUизвлечения"
     }
-   ]
+   ],
+   "revisions": [
+    {
+     "date": "2026-10-25",
+     "commit": "e511d16db083ef576538765cc23acefd0a11b7dc",
+     "field": "summary",
+     "old": "Подготовка временных признаков; обучение ещё не запускалось.",
+     "reason": "Verified technical CUDA transfer stall; preserve partial work and original error."
+    }
+   ],
+   "done": "2026-10-25"
   },
   {
    "id": "z13_temporal_pair_readiness_v1",
@@ -19291,6 +19301,82 @@
     }
    ],
    "confirmed_results": []
+  },
+  {
+   "id": "z13_temporal_identity_features_v1",
+   "title": "Равные временные признаки FlyVis на наблюдаемой опорной сетке",
+   "area": "flyvis",
+   "state": "ready",
+   "started": "2026-10-25",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "question": "Воспроизводятся ли исходные ответы при извлечении прошлых областей на одинаковой для обучения и применения сетке?",
+   "hypothesis": "Подготовленные прошлые опорные наблюдения допускают равные признакиD/C/R1; личность и польза ещё не установлены.",
+   "expected": "Use ONLY alignment.matches[].video_frame_index as a predetermined reference-observation schedule, independent of object identity/annotations/presence. Choose latest supported stored frame on that clock strictly before current within original episode. This same clock/memory rule is used in training and application. No GT file is opened by this feature worker. Query-time absent history remains absent; all original queries will remain in learner denominators.",
+   "acceptance": [
+    {
+     "criterion": "Same original init, integration steps, entire episode prefix, normalization and target descriptor. For every restored query and all D/C/R1: old peak center max error<.5px,score<.001. Only cache invariant input_index on GPU once; compare cached and original step on first actual D/C batch. Current learned features remain immutable old arrays; no core training.",
+     "met": null
+    },
+    {
+     "criterion": "OneGPUmutex. First2Dgroups:2*measuredseconds/weightedframes*remainingD+Cweightedframes+600 must fit remaining3600s. No budget extension on failure. Status and chunks saved after each group; independent controller preserves partials. No learning in this stage.",
+     "met": null
+    }
+   ],
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "Data readiness does not show identity information/learnability or HOTA improvement. Schedule is a fixed sampling policy, not selection by known true identity. Reused104/26 exploratory video partitions remain non-independent.",
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_identity_20261025/features/protocol.json",
+     "claim": "Единое наблюдаемое правило, бюджет и проверки до извлечения"
+    }
+   ]
+  },
+  {
+   "id": "z13_temporal_identity_readout_v1",
+   "title": "З13: внутреннее межкадровое считывание с метками личности реальных областей",
+   "area": "flyvis",
+   "state": "planned",
+   "started": "2026-10-25",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "question": "Даёт ли обучаемое соответствие реальных областей пользу выбора действий сверх истории без меток, текущего чтения, штатнойC,входаR1 игеометрии?",
+   "hypothesis": "Явное обучение известных соответствий может помочь сохранять личность и выбирать полезную старую рамку; это рабочая гипотеза,а не установленная причина неудач.",
+   "expected": "Replace internal full-box action readout by target-conditioned cross-frame real-region association; residual action scores can change the selected old full-box/NULL action. Keep old current features, labels and action semantics. Latest supported strictly earlier stored observation on the fixed alignment reference clock, same episode; exact same reference selection at training/application. Labels never choose reference. Missing prior history gives zero temporal residual; all original queries remain evaluated.",
+   "acceptance": [
+    {
+     "criterion": "All12previous contextual heads4representations*3seeds on8326queries: restored saved rows/probabilities/outcomes exact AND new zero residual exact same logits with prior weights. Pure CPU regression while GPU feature extraction runs. New trained predictions exactly reproduced from saved weights on their validation inputs.",
+     "met": null
+    },
+    {
+     "criterion": "Same6architectures/parameter allocation/init per seed,UID minibatch draws,1150updates,batch128,Adam.001 and all original outcome labels. D/C/R1 share actual frames/regions/masks. No architecture/loss/threshold/seed choice after outcomes.",
+     "met": null
+    },
+    {
+     "criterion": "On full104out-of-fold videos: D mean-video net>=.02 AND every paired-video95%lower>0 versus0,D_blank,C,R1,geometry,D_no_identity. All required; otherwise stop before any new26evaluation. Intervals conditional on reused104/fixed folds.",
+     "met": null
+    },
+    {
+     "criterion": "Only after internal pass:18newmodels fit84/cal20,one evaluation on26reusedvideos with same6contrasts and frozen previousD_context contrast; alllower>0,net>=.02. No automatic HOTA. Diagnostic pairAUROC is secondary and cannot rescue action gate.",
+     "met": null
+    }
+   ],
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "Not fullKeepTrack,not a retained identity bank or full spatial exemplar matching. No HOTA/core-training/independentconfirmation/calibrated absence. Finite regional mean68/old target68 and fixed clock limit mechanism. Reused104and26 exploratory. GT-known associations may be insufficient or unrelated to beneficial intervention; neighboring objects and sparse clock can still confuse FlyVis. Improved pairAUROC alone is not benefit to the stand. The same architecture may perform equally well using geometry or retinal input.",
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_identity_20261025/training/protocol.json",
+     "claim": "Архитектура,одинаковое прошлое,отличия,контроли,цена икритерии дообучения"
+    }
+   ]
   }
  ],
  "manual_events": [
