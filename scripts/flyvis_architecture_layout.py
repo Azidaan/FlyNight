@@ -68,7 +68,7 @@ def build_layout(node, edge, source, cards, lanes, base, confirmed):
             leaf='v_'+cid
             text=body+'\n'+status+': '+result
             h,fs=360,22
-            if cid in ('z13_history_clock_v1','z13_region_semantic_v1'):
+            if cid in ('z13_history_clock_v1','z13_region_semantic_v1','z13_ridge_uncertainty_v1','z13_null_mixture_v1'):
                 h,fs=400,20
             if cid=='fly_spatial_quality_z13_v2':
                 text+='\nУстройство: вложение 32; колонка и среднее соседей; до 64 позиций образца, координаты и внимание; 721 балл + отказ.'

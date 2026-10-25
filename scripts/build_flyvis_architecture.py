@@ -262,6 +262,27 @@ def main():
         LANES[3][2].append(('z13_history_clock_v1','Время по кадрам вместо времени по записям',
             'Вместо одного шага на сохранённую запись: столько прежних шагов 30 Гц, сколько прошло кадров видео; повтор того же кадра не меняет состояние. Между доступными изображениями — линейная интерполяция. Те же веса, нормы, гребневая модель цели и считывание областей; равный ход времени C/D/R1, семь условий.',result))
         milestone_sources.extend([clock_path.relative_to(ROOT).as_posix(),'tracking/z13_history_clock.py','runs/z13_history_clock_20261025/features/report.json'])
+    confidence_contracts=[
+        ('z13_ridge_uncertainty_v1','runs/z13_ridge_uncertainty_20261025/replay/report.json','Опора уверенности в признаках образца',
+         'Вместо одной высоты отклика: вычитать 1,96 условного стандартного отклонения — оценки неопределённости гребневой модели по наблюдённому образцу. Прежние веса, время, регуляризация и средние ответы. C/D/R1: прежнее / пространственная неопределённость / одинаковый штраф; плюс геометрия. Это не калиброванная вероятность пользы.',
+         'Dposterior-baseline','Dposterior-D_old','tracking/z13_ridge_uncertainty.py'),
+        ('z13_null_mixture_v1','runs/z13_null_mixture_20261025/report.json','Нет надёжного ответа → сохранить назначение',
+         'Вероятность отсутствия надёжного ответа становится весом сохранения исходной строки сопоставления. Вероятности областей задают остальные варианты стоимости. Прежние карты и время; вес применения 0,25. Штраф неопределённости не добавляется. C/D/R1/геометрия × прежний/новый контракт. Проверка применения считывателя, не ядра.',
+         'Dnull-baseline','Dnull-Dold','tracking/z13_null_mixture.py')]
+    for cid,ref,title,method,bkey,dkey,module in confidence_contracts:
+        path=ROOT/ref
+        if cards.get(cid,{}).get('state') not in ('completed_positive','completed_negative','inconclusive') or not path.exists():continue
+        measured=json.loads(path.read_text(encoding='utf-8'));assert measured['complete']
+        baseline=measured['paired'][bkey];change=measured['paired'][dkey]
+        fmt=lambda value:f'{100*value:+.3f}'.replace('.',',')
+        result=(f'D против прежнего: {fmt(change["mean_per_video"])} п.п. [{fmt(change["ci95"][0])}; {fmt(change["ci95"][1])}]; '
+                f'против исходного назначения {fmt(baseline["mean_per_video"])} п.п. '
+                +('Основной критерий пройден; нужен отдельный замкнутый прогон.' if measured['primary_pass'] else 'Основной критерий не пройден.')
+                +' Повторные train26, первые назначения, не HOTA.')
+        if cid=='z13_null_mixture_v1':
+            interaction=measured['paired']['null_effect_D-geometry']
+            result+=f' Разность эффектов D−геометрия {fmt(interaction["mean_per_video"])} [{fmt(interaction["ci95"][0])}; {fmt(interaction["ci95"][1])}] п.п. — частный эффект, не доказательство выигрыша стенду.'
+        LANES[6][2].append((cid,title,method,result));milestone_sources.extend([ref,module])
     specificity_path=ROOT/'runs/z13_specificity_gap_20261025/report.json'
     if cards.get('z13_specificity_gap_v1',{}).get('state') in ('completed_positive','completed_negative','inconclusive') and specificity_path.exists():
         measured=json.loads(specificity_path.read_text(encoding='utf-8'))
