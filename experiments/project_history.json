@@ -19205,6 +19205,92 @@
      "claim": "Правила причинных входов, воспроизведение и7200сбюджет доGPUизвлечения"
     }
    ]
+  },
+  {
+   "id": "z13_temporal_pair_readiness_v1",
+   "title": "З13: готовность реальных межкадровых областей и меток соответствий",
+   "area": "flyvis",
+   "state": "infrastructure",
+   "started": "2026-10-25",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "question": "Какую часть потерянного запаса можно обеспечить причинно доступной историей и проверяемыми метками соответствий?",
+   "hypothesis": "Часть отсутствующих пар восстанавливается из сохранённых наблюдений до отдельного запроса; это гипотеза готовности данных, не причина ошибок FlyVis.",
+   "expected": "Latest strictly earlier stored real annotated frame with >=1 supported high-confidence region in the SAME original episode prefix. Repeated padded frame slots use the last occurrence. Class is the current observable track class. No GT identity, good/harm label, model score or future frame selects the past. Annotations specify supervision availability only; this fixed annotated schedule is a training-data policy, not a runtime requirement. CPU <=1200с, без обучения и новой активности.",
+   "acceptance": [
+    {
+     "criterion": "All130 videos and37296 unchanged query/current-action bindings audited; all sources unchanged.",
+     "met": true,
+     "evidence": "runs/z13_temporal_pair_readiness_20261025/independent_audit.json; report.json; controller_result.json"
+    },
+    {
+     "criterion": "Past selection strictly causal and same-episode; labels physically separate from inputs; unknown identities retained.",
+     "met": true,
+     "evidence": "runs/z13_temporal_pair_readiness_20261025/independent_audit.json; report.json; controller_result.json"
+    },
+    {
+     "criterion": "Report original and restored structural reserve, labeled-pair and target-linked subsets with full26 denominators and video bootstrap. No threshold tuning or scientific success inference.",
+     "met": true,
+     "evidence": "runs/z13_temporal_pair_readiness_20261025/independent_audit.json; report.json; controller_result.json"
+    },
+    {
+     "criterion": "Preserve partial work on budget/price failure; first2video projected remaining cost must fit original1200 seconds. No GPU or Torch import.",
+     "met": true,
+     "evidence": "runs/z13_temporal_pair_readiness_20261025/independent_audit.json; report.json; controller_result.json"
+    }
+   ],
+   "obtained": "runs/z13_temporal_pair_readiness_20261025/report.json → counts/per_split/oracle26: {\"counts\": {\"rows\": 37296, \"known\": 26600, \"current_supported\": 22090, \"old_supported\": 14252, \"restored_supported\": 18824, \"gained_support\": 4926, \"lost_support\": 354, \"labeled_pairs\": 16605, \"positive_pair\": 14786, \"oracle_all\": 1543, \"oracle_old\": 698, \"oracle_restored\": 1303, \"oracle_labeled\": 1231, \"oracle_target_linked\": 993, \"oracle_gained\": 628, \"oracle_lost\": 23, \"oracle_restored_gap12\": 1227, \"positive_correspondences\": 23612, \"negative_correspondences\": 52955}, \"evaluate26\": {\"rows\": 8326, \"known\": 5822, \"current_supported\": 4781, \"old_supported\": 3061, \"restored_supported\": 4064, \"gained_support\": 1077, \"lost_support\": 74, \"labeled_pairs\": 3507, \"positive_pair\": 3173, \"oracle_all\": 325, \"oracle_old\": 142, \"oracle_restored\": 278, \"oracle_labeled\": 262, \"oracle_target_linked\": 220, \"oracle_gained\": 142, \"oracle_lost\": 6, \"oracle_restored_gap12\": 258, \"positive_correspondences\": 4993, \"negative_correspondences\": 10767}, \"oracle26\": {\"oracle_all\": {\"mean_per_video\": 0.05142068680371603, \"ci95\": [0.04160032885690229, 0.06108713813385377], \"better\": 25, \"n\": 26}, \"oracle_old\": {\"mean_per_video\": 0.020687911027830796, \"ci95\": [0.015621519569993823, 0.025558923539599303], \"better\": 23, \"n\": 26}, \"oracle_restored\": {\"mean_per_video\": 0.04435231019388354, \"ci95\": [0.03571805983489297, 0.05293940350436568], \"better\": 25, \"n\": 26}, \"oracle_labeled\": {\"mean_per_video\": 0.04195101572979871, \"ci95\": [0.03405192290323297, 0.04974194459029022], \"better\": 25, \"n\": 26}, \"oracle_target_linked\": {\"mean_per_video\": 0.03547083105427311, \"ci95\": [0.027773732064335862, 0.043108326811484465], \"better\": 25, \"n\": 26}, \"oracle_gained\": {\"mean_per_video\": 0.024830543369812306, \"ci95\": [0.018781363453595143, 0.03123463143023305], \"better\": 25, \"n\": 26}, \"oracle_lost\": {\"mean_per_video\": 0.0011661442037595566, \"ci95\": [0.00019976347182229534, 0.0024705689091136895], \"better\": 5, \"n\": 26}, \"oracle_restored_gap12\": {\"mean_per_video\": 0.040894287048802505, \"ci95\": [0.032616670641142494, 0.04898171630395831], \"better\": 25, \"n\": 26}}}",
+   "interpretation": "Измерена готовность данных при фиксированном правиле прошлого внутри исходного эпизода. Номера трекера не являются метками личности. Неизвестные пары исключены из меток соответствия, но не из исходных знаменателей. Наличие областей/меток не доказывает обучаемость и пользу FlyVis.",
+   "decision": "Сохранить подготовленные входы и отдельную разметку. Новый расчёт D/C/R1 и обучение в этот согласованный шаг не входят. Следующий опыт требует проверки воспроизведения состояния, равных признаков и цены до обучения.",
+   "cannot_claim": "Нет проверки обучаемости, улучшения FlyVis или HOTA. Идеальный выбор по разметке не является прогнозом. Неизвестные соответствия не заменяются номерами трекера.",
+   "files": [
+    "scripts/z13_temporal_pair_readiness_20261025.py",
+    "tests/test_z13_temporal_pair_readiness.py"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_pair_readiness_20261025/protocol.json",
+     "claim": "Разрешение, неизменные источники и условия до проверки"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_pair_readiness_20261025/report.json",
+     "claim": "Полные исходные знаменатели, охват и условные запасы"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_pair_readiness_20261025/independent_audit.json",
+     "claim": "Проверены все входы/метки и повторены интервалы"
+    },
+    {
+     "kind": "file",
+     "ref": "runs/z13_temporal_pair_readiness_20261025/controller_result.json",
+     "claim": "Свои процессы завершены в пределах исходного бюджета"
+    }
+   ],
+   "done": "2026-10-25",
+   "summary": "Подготовка причинных областей и частично размеченных соответствий завершена; обучаемый механизм ещё не проверялся.",
+   "metrics": [
+    {
+     "key": "temporal_pair_coverage",
+     "value": 0.5047190047190048,
+     "baseline": 0.38213213213213215,
+     "subset": "130 исходных видео; все37296запросов",
+     "source": "runs/z13_temporal_pair_readiness_20261025/derived_metrics.json",
+     "locator": "coverage_fraction"
+    },
+    {
+     "key": "temporal_pair_action_reserve",
+     "value": 0.04435231019388354,
+     "baseline": 0.020687911027830796,
+     "subset": "26 повторно использованных видео; все известные запросы",
+     "source": "runs/z13_temporal_pair_readiness_20261025/report.json",
+     "locator": "oracle26.oracle_restored.mean_per_video"
+    }
+   ],
+   "confirmed_results": []
   }
  ],
  "manual_events": [

@@ -1,0 +1,39 @@
+{
+ "at": "2026-10-25T22:57:01.472287+03:00",
+ "all_candidate_identity_labels_rebound_to_primary_annotations": true,
+ "counts": {
+  "queries": 37296,
+  "candidate_identities": 83985,
+  "unknown_candidate_identities": 17157
+ },
+ "same_previous_reference_as_unrestricted_gate": 105,
+ "labeled_reference_policy_differs_from_unrestricted_gate": true,
+ "unrestricted_gate_source": "runs/z13_temporal_observation_gate_20261025/report.json",
+ "unrestricted_gate_sha256": "00258900e8b29ac976ad4855ba634f9e8452ca653de9405d3dbd893d075d8684",
+ "reserve_increment_over_old": {
+  "mean_per_video": 0.023664399166052747,
+  "ci95": [
+   0.017944743360257056,
+   0.02967956348133704
+  ],
+  "better": 25,
+  "n": 26
+ },
+ "structural_reserve_relative_change_percent": 114.38757221170262,
+ "structural_reserve_fraction_of_all": 0.862538269144206,
+ "oracle_required_recovery_without_harm": 0.4509347971406938,
+ "oracle_required_recovery_with_one_percent_harm": 0.6664021957110408,
+ "neural_cost_evidence": {
+  "source": "runs/z13_temporal_region_features_20261025/price.json",
+  "sha256": "0a816170c91c67eb9f53a53846f272197046ea84db9be4519e0074094afc49ef",
+  "saved_measurement": {
+   "estimate": 2580.436470615609,
+   "remaining": 7106.551724,
+   "proceed": true
+  },
+  "interpretation": "Existing distinct D/C/R1 preparation price estimate, not a newly measured cost for this annotated-reference subset. Do not launch a duplicate GPU job; compare exact UID/frame/region bindings before any reuse. Model training cost remains unmeasured."
+ },
+ "cpu_preparation_seconds": 108.56299999999464,
+ "new_gpu_measurements": 0,
+ "model_training_cost_measured": false
+}
