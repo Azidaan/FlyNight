@@ -1,0 +1,19 @@
+{
+ "at": "2026-10-25T03:28:10.877376+03:00",
+ "kind": "inactive_runtime_preparation",
+ "scientific_trial": "z13_region_assignment_v1",
+ "test_exit_code": 0,
+ "test_log_sha256": "a18f5843a325d2bec0db962e0358df5cee8dfbe3f1a873b4ba3ed46477b14773",
+ "sources": {
+  "tracking/z13_region_runtime.py": "43d6e806aa673e46be4aeb472ca2777cc9754d928058663082c8eddfdb3b1e8c",
+  "tests/test_z13_region_runtime.py": "d525838d61890d1112d24c2c4de80065a29fac7b5e30bf8f4f69a5796127ccea",
+  "scripts/z13_record_region_runtime_preparation_20261025.py": "d3cae5d3243da6eec396c9d989f208b45a4897f26ebcd66e85bb42e0ed7bb152"
+ },
+ "checks": [
+  "First association only; restore flag on exception",
+  "Identical hard detection/unmatched/no-op costs",
+  "Two receptor updates preserve original state, centers and scores exactly"
+ ],
+ "activation": "Disabled: separate primary gate, model, calibration, seed, arm and engine hashes required",
+ "limitations": "No actual neural model activated, no closed-loop inference or HOTA measured; unit checks do not establish scientific benefit."
+}
