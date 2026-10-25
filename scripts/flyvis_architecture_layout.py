@@ -17,7 +17,7 @@ EDGE_STYLES = {
 
 def build_layout(node, edge, source, cards, lanes, base, confirmed):
     width, height = 9000, 9400
-    positions = [(100 + (i % 4)*2200, (600 if i < 4 else 3900) + (i % 4)*110)
+    positions = [(100 + (i % 4)*2200, (600 if i < 4 else 4450) + (i % 4)*110)
                  for i in range(8)]
     originals, hubs, leaves, module_bottom = [], [], {}, {}
 
@@ -68,6 +68,8 @@ def build_layout(node, edge, source, cards, lanes, base, confirmed):
             leaf='v_'+cid
             text=body+'\n'+status+': '+result
             h,fs=360,22
+            if cid in ('z13_history_clock_v1','z13_region_semantic_v1'):
+                h,fs=400,20
             if cid=='fly_spatial_quality_z13_v2':
                 text+='\nУстройство: вложение 32; колонка и среднее соседей; до 64 позиций образца, координаты и внимание; 721 балл + отказ.'
                 h,fs=400,20
@@ -104,7 +106,7 @@ def build_layout(node, edge, source, cards, lanes, base, confirmed):
              label='I.'+str(i+1),label_at=((x+2080+xx+80)/2,(y+yy)/2+325))
     # A dedicated empty horizontal corridor makes the line wrap unambiguous.
     x,y=positions[3];xx,yy=positions[4]
-    wrap_y=3820  # leave visible air below the expanded temporal-memory lane
+    wrap_y=4370  # clear the expanded actual-clock branch and future-memory node
     edge(originals[3],originals[4],'flow',start='right',end='left',
          points=[(8940,y+325),(8940,wrap_y),(140,wrap_y),(140,yy+325)],
          label='I.4  СОСТОЯНИЕ → АКТИВНОСТЬ: ПРОДОЛЖЕНИЕ ПУТИ',label_at=(4500,wrap_y))

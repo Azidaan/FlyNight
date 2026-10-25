@@ -216,7 +216,9 @@ def main():
         ('z13_region_context_v1','runs/z13_region_context_20261025/training/report.json','Наблюдаемый контекст назначения',
          'К прежним 8 геометрическим входам: 6 признаков исходной матрицы и назначения — своя стоимость, конкурент, альтернатива, разность и два флага. 94→32→1; равный нулевой контроль обнуляет только 6 новых входов. C/D/R1/геометрия, три сида, 24 модели.'),
         ('z13_region_product_v1','runs/z13_region_product_20261025/training/report.json','Прямое сравнение исходных каналов',
-         'Перед независимым сжатием 68→16: добавить 68 произведений активности области на исходные коэффициенты цели. Масштаб только fit84; 162→32→1. Равная сеть с 68 нулями, прежний контекст и обучение; C/D/R1/геометрия, три сида, 24 модели.')]
+         'Перед независимым сжатием 68→16: добавить 68 произведений активности области на исходные коэффициенты цели. Масштаб только fit84; 162→32→1. Равная сеть с 68 нулями, прежний контекст и обучение; C/D/R1/геометрия, три сида, 24 модели.'),
+        ('z13_region_semantic_v1','runs/z13_region_semantic_20261025/training/report.json','Правильный объект вместо редкого улучшения',
+         'В прежней сети: вместо цели «изменение полезно» обучать выбор области своего объекта без вреда соседям; правильное исходное назначение тоже допустимый ответ. Только цель обучения; прежние признаки, 1150 шагов, пороговый протокол, C/D/R1/геометрия и три сида; 12 моделей.')]
     for region_id,region_source,region_title,region_method in learned_regions:
         learned_region_path=ROOT/region_source
         if cards.get(region_id,{}).get('state') not in ('completed_positive','completed_negative','inconclusive') or not learned_region_path.exists():
@@ -235,6 +237,7 @@ def main():
         milestone_sources.extend([learned_region_path.relative_to(ROOT).as_posix(),'tracking/z13_region_assignment.py','tracking/z13_filter_descriptor.py'])
         if region_id=='z13_region_context_v1':milestone_sources.append('tracking/z13_region_assignment_context.py')
         if region_id=='z13_region_product_v1':milestone_sources.append('tracking/z13_region_product.py')
+        if region_id=='z13_region_semantic_v1':milestone_sources.append('tracking/z13_region_semantic_loss.py')
     pooling_path=ROOT/'runs/z13_region_pooling_20261025/report.json'
     if cards.get('z13_region_pooling_v1',{}).get('state') in ('completed_positive','completed_negative','inconclusive') and pooling_path.exists():
         measured=json.loads(pooling_path.read_text(encoding='utf-8'));assert measured['complete']
@@ -247,6 +250,18 @@ def main():
         LANES[6][2].append(('z13_region_pooling_v1','Среднее → максимум внутри той же рамки',
             'В той же полной карте и тех же областях: максимальный стандартизованный отклик вместо среднего. Прежний коэффициент применения 0,25; NULL и всё сопоставление прежние. Восемь парных условий C/D/R1/геометрия × среднее/максимум; без обучения и GPU.',result))
         milestone_sources.extend([pooling_path.relative_to(ROOT).as_posix(),'tracking/z13_region_pooling.py'])
+    clock_path=ROOT/'runs/z13_history_clock_20261025/replay/report.json'
+    if cards.get('z13_history_clock_v1',{}).get('state') in ('completed_positive','completed_negative','inconclusive') and clock_path.exists():
+        measured=json.loads(clock_path.read_text(encoding='utf-8'));assert measured['complete']
+        baseline=measured['paired']['Dclock-baseline'];change=measured['paired']['Dclock-Dold']
+        fmt=lambda value:f'{100*value:+.3f}'.replace('.',',')
+        result=(f'D против прежнего времени: {fmt(change["mean_per_video"])} п.п. [{fmt(change["ci95"][0])}; {fmt(change["ci95"][1])}]; '
+                f'против исходного назначения {fmt(baseline["mean_per_video"])} п.п. '
+                +('Основные критерии пройдены; нужен отдельный замкнутый прогон.' if measured['primary_pass'] else 'Основные критерии не пройдены; эта версия не принята.')
+                +' Повторно использованные train26, первые назначения, не HOTA. Частные центры не заменяют критерий назначения.')
+        LANES[3][2].append(('z13_history_clock_v1','Время по кадрам вместо времени по записям',
+            'Вместо одного шага на сохранённую запись: столько прежних шагов 30 Гц, сколько прошло кадров видео; повтор того же кадра не меняет состояние. Между доступными изображениями — линейная интерполяция. Те же веса, нормы, гребневая модель цели и считывание областей; равный ход времени C/D/R1, семь условий.',result))
+        milestone_sources.extend([clock_path.relative_to(ROOT).as_posix(),'tracking/z13_history_clock.py','runs/z13_history_clock_20261025/features/report.json'])
     specificity_path=ROOT/'runs/z13_specificity_gap_20261025/report.json'
     if cards.get('z13_specificity_gap_v1',{}).get('state') in ('completed_positive','completed_negative','inconclusive') and specificity_path.exists():
         measured=json.loads(specificity_path.read_text(encoding='utf-8'))
