@@ -41,6 +41,9 @@
     "tracking/z13_selected_box_value.py": "3c86b927edd2477c3208931316dd891e230307324e96d3bc9ec251b49028c818",
     "runs/z13_box_supervision_followup_20261025/training/report.json": "08b72384daeaab80e1f059066b98581689e190f5d18a7ed1e7e82085deab5667",
     "scripts/z13_box_supervision_followup_20261025.py": "d3fb0cac31b77566d9dba98d3ad69110ddda0e5838e8fff08e7acd5686d183b9",
+    "runs/z13_default_class_trial_20261025/internal_report.json": "0168198bd257bbf5f3af11e7823463175689edea76830e96e4ab1bef356faf8f",
+    "tracking/z13_default_class.py": "25eb2e76f90d3d37fb7c11acad999fce74b94bf41add9193fcd1cf7a8bd42828",
+    "runs/z13_default_class_trial_20261025/independent_audit.json": "66e7b7055203e36700eae25a1152f961f6bc6b4e66ba02637a019987fccddd5d",
     "runs/z13_ridge_uncertainty_20261025/replay/report.json": "c82c978d75acea22c400aba3b60a4a237e55e075e8f4a5b24b4f82c7e6342362",
     "tracking/z13_ridge_uncertainty.py": "226adc25b2593755cd2ade82d61ee965b7ef70c7afd6649fe64d717deb06276e",
     "runs/z13_null_mixture_20261025/report.json": "c023eeff6caf0459293e0c823307d92dfa53a56f8c3878bc7d2c2c2389cda49a",
@@ -68,8 +71,8 @@
     "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df",
     "runs/z13_center_hota_20261021/protocol.json": "b733454d75a2b65385ab71d48bed7926f47d1c00d63ade244cb30ae3ec0683e6",
     "runs/z13_center_hota_20261021/eval/report.json": "ad13cd78cf03b0dca94a2da08ecd76ab2fb745c53110d6810195e94d7bc8e8c3",
-    "scripts/build_flyvis_architecture.py": "b956a38005534eef32f0be0ae069eb4ef76894e9a9d2deea8bb6cb87c3502967",
-    "scripts/flyvis_architecture_layout.py": "928d1cc7f38cdc43da3faaac360eedab5b3be1e3b2a2b18120777bd2c0e6f482",
+    "scripts/build_flyvis_architecture.py": "36a620940fe5a2d5c60f74a6b6502be7b352d3eecf510ebf589333b13705cf1e",
+    "scripts/flyvis_architecture_layout.py": "01fbdf0b227a2f8d63a6a81d7d25166548f2d97c0a7ab2d3c4d33f612bc954a7",
     "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
     "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
     "AGENTS.md": "2f05074f061a4d4fa04c53eb14e1ffcf0c772c1dc2ed647ed2753c6d39da7908",
@@ -87,7 +90,7 @@
     "runs/z13_absolute_confidence_20261022/report.json": "93d454208618ce85f9d7e618bd98d0c884dc4729bcfe7a55f2804e3765aa34db",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "3e76efed97696c4503399dead64e5eacc8a02f6d5546fb1ccf98d9d2c1805669"
+    "experiments/project_history.json": "df0774e852078f86572bc88815b3d9dc63b2267c78d26e7d926ceadcbcf133f0"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -1564,6 +1567,47 @@
           "ref": "runs/z13_continue_20261017/report.json",
           "locator": "summary, paired_useful",
           "claim": "итог пары"
+        }
+      ]
+    },
+    "z13_default_class_readout_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_default_class_readout_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_flyvis_advantage_readout_2026-10-25/СВОДКА.md",
+          "locator": "разделы 1, 4, 6",
+          "claim": "Обоснование, ранжирование и проект опыта"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_box_supervision_followup_20261025/training/report.json",
+          "locator": "individual.*.tau, paired",
+          "claim": "Прежний итог и пороги 1,01 у 10 из 24 голов"
+        },
+        {
+          "kind": "file",
+          "ref": "tracking/z13_region_assignment.py",
+          "locator": "apply_policy",
+          "claim": "Прежнее правило: порог по вероятности softmax с постоянным логитом 0"
+        },
+        {
+          "kind": "file",
+          "ref": "tracking/z13_region_value_loss.py",
+          "locator": "signed_action_loss",
+          "claim": "Прежняя функция ошибки: квадратичная к good−harm"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_default_class_trial_20261025/protocol.json",
+          "claim": "С1б: бюджет,стоимость вмешательства,вложенное разбиение и автоматический переход только после допуска"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/z13_default_class_trial_20261025/internal_report.json",
+          "claim": "Полный отрицательный внутренний итог; все основные сравнения"
         }
       ]
     },
@@ -4598,13 +4642,39 @@
       "size": 20
     },
     {
-      "id": "v_z13_ridge_uncertainty_v1",
+      "id": "v_z13_default_class_readout_v1",
       "x": 4580,
       "y": 12360,
       "w": 870,
       "h": 400,
       "title": [
-        "II.33 Опора уверенности в признаках образца"
+        "II.33 Обучаемый отказ и стоимость действия"
+      ],
+      "body": [
+        "Прежние 68 признаков и полная рамка. Обучаемый балл «оставить решение». MSE",
+        "(квадратичная ошибка) против costCE (ошибка с учётом цены действия); цена",
+        "вмешательства 0,01. D / C / R1 / без мухи; 3 сида, 5 разбиений 104 видео, 120 моделей.",
+        "Обучение, порог и проверка на разных видео.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: D против исходного назначения: +0,016 п.п. [-0,059; +0,108];",
+        "против MSE +0,030 п.п. Допуск не пройден. Повторные 104 видео, условные интервалы;",
+        "26 видео и HOTA не оценивались."
+      ],
+      "footer": [
+        "z13_default_class_readout_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_default_class_readout_v1",
+      "card": "z13_default_class_readout_v1",
+      "size": 20
+    },
+    {
+      "id": "v_z13_ridge_uncertainty_v1",
+      "x": 5710,
+      "y": 12440,
+      "w": 870,
+      "h": 400,
+      "title": [
+        "II.34 Опора уверенности в признаках образца"
       ],
       "body": [
         "Вместо одной высоты отклика: вычитать 1,96 условного стандартного отклонения —",
@@ -4626,12 +4696,12 @@
     },
     {
       "id": "v_z13_null_mixture_v1",
-      "x": 5710,
-      "y": 12440,
+      "x": 4580,
+      "y": 12780,
       "w": 870,
       "h": 400,
       "title": [
-        "II.34 Нет надёжного ответа → сохранить назначение"
+        "II.35 Нет надёжного ответа → сохранить назначение"
       ],
       "body": [
         "Вероятность отсутствия надёжного ответа становится весом сохранения исходной строки",
@@ -4654,12 +4724,12 @@
     },
     {
       "id": "v_z13_specificity_gap_v1",
-      "x": 4580,
-      "y": 12780,
+      "x": 5710,
+      "y": 12860,
       "w": 870,
       "h": 360,
       "title": [
-        "II.35 Специфичность в прежней точке"
+        "II.36 Специфичность в прежней точке"
       ],
       "body": [
         "Вместо высоты максимума: стандартизованный отклик своего фильтра минус",
@@ -4975,7 +5045,7 @@
     {
       "id": "metric",
       "x": 4580,
-      "y": 13310,
+      "y": 13390,
       "w": 2000,
       "h": 360,
       "title": [
@@ -4996,7 +5066,7 @@
     {
       "id": "g_map104",
       "x": 4580,
-      "y": 13860,
+      "y": 13940,
       "w": 2000,
       "h": 640,
       "title": [
@@ -5072,7 +5142,7 @@
     {
       "id": "footer",
       "x": 100,
-      "y": 14680,
+      "y": 14760,
       "w": 8780,
       "h": 160,
       "title": [
@@ -7988,7 +8058,7 @@
     },
     {
       "a": "hub_6",
-      "b": "v_z13_ridge_uncertainty_v1",
+      "b": "v_z13_default_class_readout_v1",
       "kind": "variant",
       "points": [
         [
@@ -8025,7 +8095,7 @@
     },
     {
       "a": "hub_6",
-      "b": "v_z13_null_mixture_v1",
+      "b": "v_z13_ridge_uncertainty_v1",
       "kind": "variant",
       "points": [
         [
@@ -8062,12 +8132,12 @@
     },
     {
       "a": "hub_6",
-      "b": "v_z13_specificity_gap_v1",
+      "b": "v_z13_null_mixture_v1",
       "kind": "variant",
       "points": [
         [
           5580,
-          12960.0
+          12980.0
         ]
       ],
       "start": "bottom",
@@ -8075,7 +8145,7 @@
       "label": "II",
       "label_at": [
         5515,
-        12960.0
+        12980.0
       ],
       "render_points": [
         [
@@ -8084,11 +8154,48 @@
         ],
         [
           5580,
-          12960.0
+          12980.0
         ],
         [
           5450,
-          12960.0
+          12980.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
+      "a": "hub_6",
+      "b": "v_z13_specificity_gap_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5580,
+          13040.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "left",
+      "label": "II",
+      "label_at": [
+        5645,
+        13040.0
+      ],
+      "render_points": [
+        [
+          5580.0,
+          5550
+        ],
+        [
+          5580,
+          13040.0
+        ],
+        [
+          5710,
+          13040.0
         ]
       ],
       "colour": "#B97D00",
@@ -8783,7 +8890,7 @@
         ],
         [
           6640,
-          14180
+          14260
         ]
       ],
       "start": "right",
@@ -8791,7 +8898,7 @@
       "label": "III",
       "label_at": [
         6640,
-        14180
+        14260
       ],
       "render_points": [
         [
@@ -8804,11 +8911,11 @@
         ],
         [
           6640,
-          14180
+          14260
         ],
         [
           6580,
-          14180.0
+          14260.0
         ]
       ],
       "colour": "#117A46",

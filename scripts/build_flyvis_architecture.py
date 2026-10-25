@@ -292,6 +292,14 @@ def main():
                 +('Критерии пройдены; нужна отдельная проверка стенда.' if measured['primary_pass'] else 'Основной критерий не пройден.')
                 +' Повторные train26, первые назначения, не HOTA.')
         LANES[lane][2].append((cid,title,method,result));milestone_sources.extend([ref,module])
+    default_path=ROOT/'runs/z13_default_class_trial_20261025/internal_report.json'
+    if cards.get('z13_default_class_readout_v1',{}).get('state') in ('completed_negative','completed_positive') and default_path.exists():
+        measured=json.loads(default_path.read_text(encoding='utf-8'));assert measured['complete']
+        b=measured['paired']['D-baseline'];m=measured['paired']['D-MSE'];fmt=lambda x:f'{100*x:+.3f}'.replace('.',',')
+        LANES[6][2].append(('z13_default_class_readout_v1','Обучаемый отказ и стоимость действия',
+            'Прежние 68 признаков и полная рамка. Обучаемый балл «оставить решение». MSE (квадратичная ошибка) против costCE (ошибка с учётом цены действия); цена вмешательства 0,01. D / C / R1 / без мухи; 3 сида, 5 разбиений 104 видео, 120 моделей. Обучение, порог и проверка на разных видео.',
+            f'D против исходного назначения: {fmt(b["mean_per_video"])} п.п. [{fmt(b["ci95"][0])}; {fmt(b["ci95"][1])}]; против MSE {fmt(m["mean_per_video"])} п.п. Допуск не пройден. Повторные 104 видео, условные интервалы; 26 видео и HOTA не оценивались.'))
+        milestone_sources.extend([default_path.relative_to(ROOT).as_posix(),'tracking/z13_default_class.py','runs/z13_default_class_trial_20261025/independent_audit.json'])
     confidence_contracts=[
         ('z13_ridge_uncertainty_v1','runs/z13_ridge_uncertainty_20261025/replay/report.json','Опора уверенности в признаках образца',
          'Вместо одной высоты отклика: вычитать 1,96 условного стандартного отклонения — оценки неопределённости гребневой модели по наблюдённому образцу. Прежние веса, время, регуляризация и средние ответы. C/D/R1: прежнее / пространственная неопределённость / одинаковый штраф; плюс геометрия. Это не калиброванная вероятность пользы.',
