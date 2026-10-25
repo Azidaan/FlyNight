@@ -1,3 +1,15 @@
+# Актуально — 25.10.2026 15:02 MSK
+
+z13_unmatched_box_v1 окончен, primary_pass=False. Источник runs/z13_unmatched_box_20261025/report.json; alpha1 зафиксирована до расчёта, без подбора. If a guard passes all corrected criteria, preregister a separate frozen matched closed-loop gate; it still counts as application of FlyVis, not an intrinsic new model. If both fail, keep both negative and stop this rule family; do not tune confidence/displacement/admission thresholds on26. Report causes and full working results distinctly. Автор просит итог всех тестов: отдельно геометрический запас и рабочая версия, ничего не выдавать за HOTA. Контроллер завершён, исходники/логи/отрицательные результаты сохранять. Скрытые процессы, одинGPU, до26.10 07:40МСК,57чужихправок/.gitignore сохранять.
+
+Ниже прежние передачи сохранены.
+
+# Актуально — 25.10.2026 15:01 MSK
+
+ТЕКУЩИЙ z13_unmatched_box_v1; runs/z13_unmatched_box_20261025. Скрытый CPU1200с+20с, контроллер 28588/birth134374030843759170, worker 14964/birth134374030846602545. Save 2026-10-25T15:17:58.362933+03:00, hard 2026-10-25T15:18:18.362933+03:00. Три контракта полной рамки: без защиты, только неназначенный трек, дополнительно только свободная детекция; D/C/R1/geometry, alpha1 заранее фиксирована, alpha0 точный контроль. Две альтернативы: интервалы97,5% с поправкой множественности, полный критерий в protocol.json. Новая научная проверка применения сигнала, не служебное исправление и не модернизация мухи. Готовые видео не повторять. После controller_exit0/all_owned_ended: scripts/z13_unmatched_box_20261025.py --finish, затем summary, проверки и scripts/z13_publish_unmatched_box_20261025.py. Старый беззащитный alpha1 обязан воспроизвестись точно. Оба провала -> прекратить семью этих правил без подбора порогов. Архитектурной вехи внутри мухи нет.
+
+Предыдущие итоги опубликованы67752c30. Проверки подготовки: каталогOK,60тестов.57чужихправок/.gitignore сохранить; скрытые процессы, общий конец26.10до07:40МСК.
+
 # Актуально — 25.10.2026 14:43 MSK
 
 z13_box_proposal_v1 окончен, primary_pass=False. Источник runs/z13_box_proposal_20261025/report.json; выбор alpha только20fit. Pass -> separately preregister runtime parity/price and matched closed-loop HOTA with no-FlyVis/C/R1 controls. Fail -> keep this exact readout negative; no alpha/NULL/pooling sweeps on26. Record what succeeded diagnostically versus what worked in the actual prototype, and select the next genuinely different node with evidence. Автор просит итог всех тестов: отдельно геометрический запас и рабочая версия, ничего не выдавать за HOTA. Контроллер завершён, исходники/логи/отрицательные результаты сохранять. Скрытые процессы, одинGPU, до26.10 07:40МСК,57чужихправок/.gitignore сохранять.

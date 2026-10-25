@@ -1,0 +1,210 @@
+{
+ "at": "2026-10-25T15:02:02.061980+03:00",
+ "report_sha256": "e50b1e3add0618962ce4dff476fd8792541e67f86ff83b42636eee6e17a7dd35",
+ "preregistered_result": {
+  "unmatched": false,
+  "free": false
+ },
+ "counts": {
+  "D_full": {
+   "known": 5822,
+   "unknown": 2504,
+   "admitted_known": 2692,
+   "beneficial": 264,
+   "harmful": 1972
+  },
+  "D_unmatched": {
+   "known": 5822,
+   "unknown": 2504,
+   "admitted_known": 2494,
+   "beneficial": 263,
+   "harmful": 1961
+  },
+  "D_free": {
+   "known": 5822,
+   "unknown": 2504,
+   "admitted_known": 337,
+   "beneficial": 90,
+   "harmful": 215
+  },
+  "C_full": {
+   "known": 5822,
+   "unknown": 2504,
+   "admitted_known": 2770,
+   "beneficial": 265,
+   "harmful": 2035
+  },
+  "C_unmatched": {
+   "known": 5822,
+   "unknown": 2504,
+   "admitted_known": 2574,
+   "beneficial": 264,
+   "harmful": 2021
+  },
+  "C_free": {
+   "known": 5822,
+   "unknown": 2504,
+   "admitted_known": 373,
+   "beneficial": 91,
+   "harmful": 237
+  },
+  "R1_full": {
+   "known": 5822,
+   "unknown": 2504,
+   "admitted_known": 2505,
+   "beneficial": 182,
+   "harmful": 1931
+  },
+  "R1_unmatched": {
+   "known": 5822,
+   "unknown": 2504,
+   "admitted_known": 2327,
+   "beneficial": 182,
+   "harmful": 1888
+  },
+  "R1_free": {
+   "known": 5822,
+   "unknown": 2504,
+   "admitted_known": 317,
+   "beneficial": 64,
+   "harmful": 206
+  },
+  "geometry_full": {
+   "known": 5822,
+   "unknown": 2504,
+   "admitted_known": 2744,
+   "beneficial": 250,
+   "harmful": 2047
+  },
+  "geometry_unmatched": {
+   "known": 5822,
+   "unknown": 2504,
+   "admitted_known": 2544,
+   "beneficial": 249,
+   "harmful": 2032
+  },
+  "geometry_free": {
+   "known": 5822,
+   "unknown": 2504,
+   "admitted_known": 332,
+   "beneficial": 86,
+   "harmful": 215
+  }
+ },
+ "paired_pp": {
+  "D_unmatched-baseline": {
+   "mean": -27.379394999387983,
+   "ci975": [
+    -32.049656697236976,
+    -22.829421249362486
+   ]
+  },
+  "D_unmatched-D_full": {
+   "mean": 0.17334419676960494,
+   "ci975": [
+    0.060692697881065474,
+    0.30617320087957084
+   ]
+  },
+  "D_unmatched-Dold": {
+   "mean": -27.379394999387983,
+   "ci975": [
+    -32.049656697236976,
+    -22.829421249362486
+   ]
+  },
+  "D_unmatched-C_unmatched": {
+   "mean": 1.0748634157959613,
+   "ci975": [
+    0.22515573896269536,
+    1.9535873113856947
+   ]
+  },
+  "D_unmatched-R1_unmatched": {
+   "mean": 0.009880690249142444,
+   "ci975": [
+    -2.0421025846625382,
+    2.0229428563579694
+   ]
+  },
+  "D_unmatched-geometry_unmatched": {
+   "mean": 0.7097143086132018,
+   "ci975": [
+    -0.8522800181656803,
+    2.204967107837681
+   ]
+  },
+  "unmatched_effect_D-C": {
+   "mean": -0.040715549297372686,
+   "ci975": [
+    -0.09875611591976317,
+    6.405132834375903e-16
+   ]
+  },
+  "unmatched_effect_D-R1": {
+   "mean": -0.7108339062048098,
+   "ci975": [
+    -1.3535977579492249,
+    -0.29556527970782365
+   ]
+  },
+  "D_free-baseline": {
+   "mean": -2.560072443462116,
+   "ci975": [
+    -3.944167432205979,
+    -1.3909667776213288
+   ]
+  },
+  "D_free-D_full": {
+   "mean": 24.992666752695477,
+   "ci975": [
+    20.13777658162098,
+    29.740605076112125
+   ]
+  },
+  "D_free-Dold": {
+   "mean": -2.560072443462116,
+   "ci975": [
+    -3.944167432205979,
+    -1.3909667776213288
+   ]
+  },
+  "D_free-C_free": {
+   "mean": 0.29762107210495387,
+   "ci975": [
+    -0.1536032895427902,
+    0.7885858631443939
+   ]
+  },
+  "D_free-R1_free": {
+   "mean": 0.08562087205631398,
+   "ci975": [
+    -0.8683446645972068,
+    0.9390427849834913
+   ]
+  },
+  "D_free-geometry_free": {
+   "mean": -0.19193574372834238,
+   "ci975": [
+    -0.952994901590414,
+    0.39231753345390824
+   ]
+  },
+  "free_effect_D-C": {
+   "mean": -0.81795789298838,
+   "ci975": [
+    -1.7136134916202215,
+    0.06628020445067191
+   ]
+  },
+  "free_effect_D-R1": {
+   "mean": -0.6350937243976381,
+   "ci975": [
+    -2.7843735134490575,
+    1.8245367372495067
+   ]
+  }
+ },
+ "scope": "Mean-video difference of (beneficial-harmful)/known query situations. Same reused26, no closed-loop HOTA, no independent confirmation. Admission counts descriptive; no new thresholds or post-hoc policy.",
+ "architecture": "These are application guards only. No internal-node milestone; existing one-sheet architecture remains current. No new confirmed_results unless the preregistered positive-control interval is satisfied."
+}
