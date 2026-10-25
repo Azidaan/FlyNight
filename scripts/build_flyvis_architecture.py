@@ -206,6 +206,27 @@ def main():
                 'Критерии не пройдены; преимущество над C, R1 и геометрией не подтверждено. Первые назначения на train26, не HOTA.')
         LANES[6][2].append(('z13_region_readout_v1','Карта отклика → оценки реальных рамок','Вместо переноса центра на пик: средний отклик внутри каждой области детектора; совместные оценки областей и отсутствия ответа. Выход считывателя поступает в стоимость сопоставления. Центр и размеры не меняются. Одинаковые C/D/R1 и геометрический контроль.',result))
         milestone_sources.extend([region_path.relative_to(ROOT).as_posix(),'tracking/z13_region_readout.py'])
+    learned_regions=[
+        ('z13_region_assignment_v1','runs/z13_region_assignment_20261025/recovery2/training/report.json','Обучаемый выбор настоящей области',
+         'Вместо готовой карты: 68 каналов областей + 68 коэффициентов цели → вложения 16 → контекст и 8 геометрических признаков → 88→32→1. Выход: прежний ответ, отказ или область. Обучение — 84 видео, порог — 20; C/D/R1/геометрия, три сида.'),
+        ('z13_region_balanced_v1','runs/z13_region_balanced_20261025/training/report.json','Равный вес решения о вмешательстве',
+         'В том же региональном узле: вместо одинакового веса запросов — равный суммарный вес случаев с полезным действием и без него. Частоты только fit84, нормировка суммой весов пакета. Признаки, пакеты, шаги, пороги выбора и три сида прежние; C/D/R1/геометрия.'),
+        ('z13_region_value_v1','runs/z13_region_value_20261025/training/report.json','Знаковая полезность назначения',
+         'В той же сети вместо ошибки выбора полезного действия: квадрат ошибки по цели +1 за пользу, 0 за нейтральный исход, −1 за вред. Усреднение по действиям и запросам. Признаки, пакеты, 1150 шагов и пороговый протокол прежние; C/D/R1/геометрия, три сида.')]
+    for region_id,region_source,region_title,region_method in learned_regions:
+        learned_region_path=ROOT/region_source
+        if cards.get(region_id,{}).get('state') not in ('completed_positive','completed_negative','inconclusive') or not learned_region_path.exists():
+            continue
+        measured=json.loads(learned_region_path.read_text(encoding='utf-8'))
+        assert measured['complete'] and measured['models']==12
+        comparison=measured['paired']['D-baseline']
+        fmt=lambda value:f'{100*value:+.3f}'.replace('.',',')
+        result=(f'D против исходных назначений: {fmt(comparison["mean_per_video"])} п.п. '
+                f'[{fmt(comparison["ci95"][0])}; {fmt(comparison["ci95"][1])}]. '
+                +('Основные критерии пройдены; нужен отдельный замкнутый прогон.' if measured['primary_pass'] else 'Основные критерии не пройдены; эта версия не принята.')
+                +' Среднее трёх сидов, повторно использованные train26; однокадровые назначения, не HOTA.')
+        LANES[6][2].append((region_id,region_title,region_method,result))
+        milestone_sources.extend([learned_region_path.relative_to(ROOT).as_posix(),'tracking/z13_region_assignment.py','tracking/z13_filter_descriptor.py'])
     specificity_path=ROOT/'runs/z13_specificity_gap_20261025/report.json'
     if cards.get('z13_specificity_gap_v1',{}).get('state') in ('completed_positive','completed_negative','inconclusive') and specificity_path.exists():
         measured=json.loads(specificity_path.read_text(encoding='utf-8'))

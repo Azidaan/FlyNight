@@ -13,6 +13,11 @@
     "tracking/z13_observed_contrast.py": "843a5e4d08c4d1e0c5533199be212c29e5c42780cb08726425bd2a9a9cafb6e5",
     "runs/z13_region_readout_20261025/recovery1/report.json": "979243e95ded160b9256374776d092a88dc5c004e815f7584597a66a58ed8380",
     "tracking/z13_region_readout.py": "49d73b12b9f0fc9e7b6ba4596704818fb6c8b04c78c7b9f96fdafffdd57e2136",
+    "runs/z13_region_assignment_20261025/recovery2/training/report.json": "20675e48470f68099773fce1ef825fc5768b092809a31e5446f8803312f65da6",
+    "tracking/z13_region_assignment.py": "4a79f30d337ef6c442b74a25f379c4a587b325210697490a23d2406a0c806a42",
+    "tracking/z13_filter_descriptor.py": "371ed92a398d952736ec2914de1fffc1ea6ae2fcf4b6bf352f433ce1748eabd4",
+    "runs/z13_region_balanced_20261025/training/report.json": "c3c8b92642fa9cd9eed9c13955bebe3621382f901b84cdf4fff4ac3d22294a91",
+    "runs/z13_region_value_20261025/training/report.json": "9253411d475eadfc6e53c382638a19356f21a750a5dc497810b8e1dde2fd7d97",
     "runs/z13_specificity_gap_20261025/report.json": "f59d827e658b47f28c81f2a817fe4eda5ddb44b2b8ace12a74249407087572f2",
     "tracking/z13_specificity_gap.py": "64a9854dfacfa3ed6cc46fd107f599e2a1150530efd773dba7fa8ab460291b4c",
     "scripts/z13_score_swap.py": "623e8268517f91eb49c325389c9a2f2e072fefac986371d5b432596201bac20b",
@@ -36,7 +41,7 @@
     "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df",
     "runs/z13_center_hota_20261021/protocol.json": "b733454d75a2b65385ab71d48bed7926f47d1c00d63ade244cb30ae3ec0683e6",
     "runs/z13_center_hota_20261021/eval/report.json": "ad13cd78cf03b0dca94a2da08ecd76ab2fb745c53110d6810195e94d7bc8e8c3",
-    "scripts/build_flyvis_architecture.py": "30ae9883eef82ac3ee391ef0fcb0bf9ef38c26726022acef60ec32193cbe96c3",
+    "scripts/build_flyvis_architecture.py": "c30d2effa56135f0029ab35cd29ad1d3ad94103a4a2a23d9db7fbbb222526897",
     "scripts/flyvis_architecture_layout.py": "25cc8f7851c8ef2ec405f0734a0f3b7a690006f480646da27a13d2d85de5162c",
     "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
     "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
@@ -55,7 +60,7 @@
     "runs/z13_absolute_confidence_20261022/report.json": "93d454208618ce85f9d7e618bd98d0c884dc4729bcfe7a55f2804e3765aa34db",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "4acdeaa8926a4ad97a1d4434b2b5ff26d362b792d1157e3932a072b5970d46c2"
+    "experiments/project_history.json": "a6443ca9d1c7d7383bb056c4decd0f00d54c1f3c47c97612f8c33d0b575e102c"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -1982,6 +1987,40 @@
         }
       ]
     },
+    "z13_region_assignment_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_region_assignment_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_region_assignment_20261025/protocol.json",
+          "claim": "Предварительные критерии, равные контроли и бюджеты"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_region_choice_gate_20261025/recovery1/report.json",
+          "claim": "Пройденная мишень действия до обучения"
+        }
+      ]
+    },
+    "z13_region_balanced_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_region_balanced_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_region_balanced_20261025/protocol.json",
+          "claim": "Предварительные критерии, равные контроли и бюджеты"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/z13_region_fit_audit_20261025/report.json",
+          "claim": "Разбор отказа на обучающих и калибровочных данных"
+        }
+      ]
+    },
     "z13_region_readout_v1": {
       "source": "experiments/project_history.json",
       "locator": "experiments[id=z13_region_readout_v1]",
@@ -1996,6 +2035,18 @@
           "kind": "file",
           "ref": "runs/z13_region_readout_20261025/recovery1/report.json",
           "claim": "Все назначения, одинаковые контроли и парные интервалы"
+        }
+      ]
+    },
+    "z13_region_value_v1": {
+      "source": "experiments/project_history.json",
+      "locator": "experiments[id=z13_region_value_v1]",
+      "state": "completed_negative",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/z13_region_value_20261025/protocol.json",
+          "claim": "Критерии и отличие от прежних потерь до обучения"
         }
       ]
     },
@@ -3991,13 +4042,91 @@
       "size": 22
     },
     {
-      "id": "v_z13_specificity_gap_v1",
+      "id": "v_z13_region_assignment_v1",
       "x": 5710,
       "y": 9370,
       "w": 870,
       "h": 360,
       "title": [
-        "II.22 Специфичность в прежней точке"
+        "II.22 Обучаемый выбор настоящей области"
+      ],
+      "body": [
+        "Вместо готовой карты: 68 каналов областей + 68 коэффициентов цели →",
+        "вложения 16 → контекст и 8 геометрических признаков → 88→32→1. Выход:",
+        "прежний ответ, отказ или область. Обучение — 84 видео, порог — 20;",
+        "C/D/R1/геометрия, три сида.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: D против исходных назначений: +0,002 п.п. [-0,008;",
+        "+0,014]. Основные критерии не пройдены; эта версия не принята. Среднее трёх",
+        "сидов, повторно использованные train26; однокадровые назначения, не HOTA."
+      ],
+      "footer": [
+        "z13_region_assignment_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_region_assignment_v1",
+      "card": "z13_region_assignment_v1",
+      "size": 22
+    },
+    {
+      "id": "v_z13_region_balanced_v1",
+      "x": 4580,
+      "y": 9710,
+      "w": 870,
+      "h": 360,
+      "title": [
+        "II.23 Равный вес решения о вмешательстве"
+      ],
+      "body": [
+        "В том же региональном узле: вместо одинакового веса запросов — равный",
+        "суммарный вес случаев с полезным действием и без него. Частоты только fit84,",
+        "нормировка суммой весов пакета. Признаки, пакеты, шаги, пороги выбора и",
+        "три сида прежние; C/D/R1/геометрия.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: D против исходных назначений: -0,191 п.п. [-0,562;",
+        "+0,033]. Основные критерии не пройдены; эта версия не принята. Среднее трёх",
+        "сидов, повторно использованные train26; однокадровые назначения, не HOTA."
+      ],
+      "footer": [
+        "z13_region_balanced_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_region_balanced_v1",
+      "card": "z13_region_balanced_v1",
+      "size": 22
+    },
+    {
+      "id": "v_z13_region_value_v1",
+      "x": 5710,
+      "y": 9790,
+      "w": 870,
+      "h": 360,
+      "title": [
+        "II.24 Знаковая полезность назначения"
+      ],
+      "body": [
+        "В той же сети вместо ошибки выбора полезного действия: квадрат ошибки по",
+        "цели +1 за пользу, 0 за нейтральный исход, −1 за вред. Усреднение по",
+        "действиям и запросам. Признаки, пакеты, 1150 шагов и пороговый протокол",
+        "прежние; C/D/R1/геометрия, три сида.",
+        "КРИТЕРИЙ НЕ ПРОЙДЕН: D против исходных назначений: +0,066 п.п. [-0,023;",
+        "+0,195]. Основные критерии не пройдены; эта версия не принята. Среднее трёх",
+        "сидов, повторно использованные train26; однокадровые назначения, не HOTA."
+      ],
+      "footer": [
+        "z13_region_value_v1"
+      ],
+      "kind": "tried",
+      "ref": "z13_region_value_v1",
+      "card": "z13_region_value_v1",
+      "size": 22
+    },
+    {
+      "id": "v_z13_specificity_gap_v1",
+      "x": 4580,
+      "y": 10130,
+      "w": 870,
+      "h": 360,
+      "title": [
+        "II.25 Специфичность в прежней точке"
       ],
       "body": [
         "Вместо высоты максимума: стандартизованный отклик своего фильтра минус",
@@ -4313,7 +4442,7 @@
     {
       "id": "metric",
       "x": 4580,
-      "y": 9900,
+      "y": 10660,
       "w": 2000,
       "h": 360,
       "title": [
@@ -4334,7 +4463,7 @@
     {
       "id": "g_map104",
       "x": 4580,
-      "y": 10450,
+      "y": 11210,
       "w": 2000,
       "h": 640,
       "title": [
@@ -4410,7 +4539,7 @@
     {
       "id": "footer",
       "x": 100,
-      "y": 11270,
+      "y": 12030,
       "w": 8780,
       "h": 160,
       "title": [
@@ -6808,7 +6937,7 @@
     },
     {
       "a": "hub_6",
-      "b": "v_z13_specificity_gap_v1",
+      "b": "v_z13_region_assignment_v1",
       "kind": "variant",
       "points": [
         [
@@ -6835,6 +6964,117 @@
         [
           5710,
           9550.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
+      "a": "hub_6",
+      "b": "v_z13_region_balanced_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5580,
+          9890.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "right",
+      "label": "II",
+      "label_at": [
+        5515,
+        9890.0
+      ],
+      "render_points": [
+        [
+          5580.0,
+          5000
+        ],
+        [
+          5580,
+          9890.0
+        ],
+        [
+          5450,
+          9890.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
+      "a": "hub_6",
+      "b": "v_z13_region_value_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5580,
+          9970.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "left",
+      "label": "II",
+      "label_at": [
+        5645,
+        9970.0
+      ],
+      "render_points": [
+        [
+          5580.0,
+          5000
+        ],
+        [
+          5580,
+          9970.0
+        ],
+        [
+          5710,
+          9970.0
+        ]
+      ],
+      "colour": "#B97D00",
+      "dashed": false,
+      "width": 5,
+      "level": "II",
+      "arrow": 23
+    },
+    {
+      "a": "hub_6",
+      "b": "v_z13_specificity_gap_v1",
+      "kind": "variant",
+      "points": [
+        [
+          5580,
+          10310.0
+        ]
+      ],
+      "start": "bottom",
+      "end": "right",
+      "label": "II",
+      "label_at": [
+        5515,
+        10310.0
+      ],
+      "render_points": [
+        [
+          5580.0,
+          5000
+        ],
+        [
+          5580,
+          10310.0
+        ],
+        [
+          5450,
+          10310.0
         ]
       ],
       "colour": "#B97D00",
@@ -7529,7 +7769,7 @@
         ],
         [
           6640,
-          10770
+          11530
         ]
       ],
       "start": "right",
@@ -7537,7 +7777,7 @@
       "label": "III",
       "label_at": [
         6640,
-        10770
+        11530
       ],
       "render_points": [
         [
@@ -7550,11 +7790,11 @@
         ],
         [
           6640,
-          10770
+          11530
         ],
         [
           6580,
-          10770.0
+          11530.0
         ]
       ],
       "colour": "#117A46",
