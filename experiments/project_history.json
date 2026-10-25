@@ -17988,7 +17988,7 @@
    "id": "z13_region_semantic_v1",
    "title": "Правильный ответ как цель обучения регионального считывателя",
    "area": "flyvis",
-   "state": "ready",
+   "state": "completed_negative",
    "started": "2026-10-25",
    "tags": [
     "fly-problem-P8"
@@ -17999,11 +17999,13 @@
    "acceptance": [
     {
      "criterion": "All12utility models exactly replayed; actual fit84 two-query CPU forward/backward finite. Mask/NULL/fallback gradients and utility special-case value+gradient equivalence tested. Same full caches/sources/UID batches, no completed training repeated. First full model2*seconds*11+60 fits original1800s; independent controller only own tree. Independently re-infer12new models/rows/calibration and paired intervals before final acceptance.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_region_semantic_20261025/independent_audit.json"
     },
     {
      "criterion": "Dsemantic-baseline and Dsemantic-Dutility means both>=2pp; all5paired-video95%lower>0: baseline,utilityD,semanticC,semanticR1,semanticgeometry. All26videos and3seeds. Same net-beneficial assignment metric; semantic label accuracy cannot rescue a failed primary.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_region_semantic_20261025/training/report.json"
     }
    ],
    "evidence": [
@@ -18013,10 +18015,21 @@
      "claim": "Предварительные критерии, неизменные контроли/пакеты и семантика цели"
     }
    ],
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
-   "cannot_claim": "Correct neutral actions need not improve the stand; expanding the acceptable set may dilute rare useful corrections or leave an easy unchanged solution. Fixed response/mean-pooled representation may remain insufficient. One-row outcomes omit feedback; repeatedtrain26 is exploratory, not HOTA or proven causal diagnosis."
+   "obtained": "runs/z13_region_semantic_20261025/training/report.json → paired: {'D-baseline': {'mean_per_video': -5.4094990803851555e-05, 'ci95': [-0.0001622849724115547, 0.0], 'better': 0, 'n': 26}, 'D-C': {'mean_per_video': -5.4094990803851555e-05, 'ci95': [-0.0001622849724115547, 0.0], 'better': 0, 'n': 26}, 'D-R1': {'mean_per_video': 0.001180213321976607, 'ci95': [-0.0008993772312237543, 0.0034153941851931082], 'better': 8, 'n': 26}, 'D-geometry': {'mean_per_video': 0.00027256176720871447, 'ci95': [-0.0008833744504075092, 0.0019962625791980727], 'better': 3, 'n': 26}, 'Dsemantic-Dutility': {'mean_per_video': -7.50130387537185e-05, 'ci95': [-0.00023317497196494508, 6.761351254156344e-05], 'better': 1, 'n': 26}};12моделей,3сида, признаки прежние, fit84/fit20/train26.",
+   "interpretation": "Изменено множество допустимых ответов в той же функции обучения. Правильное бездействие остаётся допустимым. Результат не доказывает общую причину отказов; это первые назначения, не HOTA.",
+   "decision": "Pass -> separately budgeted frozen-policy closed-loop parity/price/HOTA with original/no-fly controls. Fail -> preserve this supervised-target implementation. No further scalar loss/threshold variants under this action; choose a different internal representation/state mechanism only with a measured cheap prerequisite. Измеренный основной критерий: False",
+   "cannot_claim": "Correct neutral actions need not improve the stand; expanding the acceptable set may dilute rare useful corrections or leave an easy unchanged solution. Fixed response/mean-pooled representation may remain insufficient. One-row outcomes omit feedback; repeatedtrain26 is exploratory, not HOTA or proven causal diagnosis. HOTA не измерялась; доля потолка стенда неизвестна.",
+   "summary": "Правильный ответ как цель: основной критерий не пройден.",
+   "revisions": [
+    {
+     "date": "2026-10-25",
+     "commit": "7c8276f74847ccd59a3593d0da5658d00a0858bc",
+     "field": "cannot_claim",
+     "old": "Correct neutral actions need not improve the stand; expanding the acceptable set may dilute rare useful corrections or leave an easy unchanged solution. Fixed response/mean-pooled representation may remain insufficient. One-row outcomes omit feedback; repeatedtrain26 is exploratory, not HOTA or proven causal diagnosis.",
+     "reason": "Проверен полный пилот семантики допустимых ответов."
+    }
+   ],
+   "done": "2026-10-25"
   }
  ],
  "manual_events": [
