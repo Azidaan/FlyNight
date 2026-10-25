@@ -18136,6 +18136,40 @@
    "cannot_claim": "The lattice may resolve4bins yet contain no identity evidence. Neighboring/overlapping regions may share their content. Extra dimensions can overfit and repeat geometry; any full prototype needs equal-parameter repeated-mean, stockC, R1 and geometry controls,3seeds and actual assignment effects. Known outcomes are used only for this prerequisite, never as runtime inputs. Reusedtrain26 is exploratory.",
    "done": "2026-10-25",
    "summary": "Геометрическая мишень: inconclusive"
+  },
+  {
+   "id": "z13_ridge_uncertainty_v1",
+   "title": "Уверенность считывателя по опоре признаков в наблюдённом образце",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-25",
+   "tags": [
+    "fly-problem-P8"
+   ],
+   "question": "Улучшит ли штраф за неопределённость модели цели полезные назначения сверх прежней D и одинакового штрафа всем областям?",
+   "hypothesis": "Рабочая гипотеза: часть высоких неверных ответов может быть экстраполяцией вне признаков образца. Это не установленная причина; уверенная ошибка идентичности может остаться.",
+   "expected": "Change only region readout confidence: subtract1.96times the template-only conditional posterior standard deviation from the old standardized region response. Mean target model and original unit-clock core/history unchanged. Per-query constant-penalty control uses the same full-field mean standard deviation. Old/variable/constant forC/D/R1 plusunchanged geometry,10arms; same fixedalpha0.25 and null0.",
+   "acceptance": [
+    {
+     "criterion": "All8326old feature-derived centers<0.5px/scores<0.001 for eachC/D/R1; all stored means/stds finite with exact label bindings and original8326rows. Posterior mean equals oldridge in direct-matrix unit checks. All26raw tracker outputs and everyold arm/geometry action exactly equal prior mean-region prototype. First2Dgroups conservative price fits original1800remaining; each phase independently bounded; completed chunks not repeated.",
+     "met": null
+    },
+    {
+     "criterion": "Means Dposterior-baseline,Dposterior-Dold,Dposterior-Dconstant each>=2pp. All6paired-video95%lower>0 includingCposterior,R1posterior,geometry. All conditions required; no favorable arm/subset selection. Mean-score/center parity is technical only, not a positive result.",
+     "met": null
+    }
+   ],
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "The model can be confidently wrong about identity; spatially correlated721columns violate iidnoise assumptions and underestimate uncertainty. A simple global penalty may explain any benefit, so the matched constant branch is mandatory. This changes an internal confidence readout, not measured feature quality or biological dynamics. Repeatedtrain26 exploratory; noHOTAclaim.",
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_ridge_uncertainty_20261025/protocol.json",
+     "claim": "Ранжирование12вариантов, формула, равные контроли и критерии до расчёта"
+    }
+   ]
   }
  ],
  "manual_events": [
