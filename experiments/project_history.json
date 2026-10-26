@@ -19914,7 +19914,7 @@
    "id": "z13_hybrid_identity_v2",
    "title": "Гибридное узнавание цели v2 — точнее образец внешнего вида и обучаемое сравнение компонент, ветвь FlyVis и решение о переносе",
    "area": "flyvis",
-   "state": "running",
+   "state": "completed_negative",
    "started": "2026-10-26",
    "tags": [
     "fly-problem-P8",
@@ -19927,23 +19927,35 @@
    "acceptance": [
     {
      "criterion": "Решение проблемы (fit104): лучшее из база / база + D ≥ +2 п.п. с положительной нижней границей 95%.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_hybrid_identity_v2_20261026/internal_report.json: base_D_gate−baseline +0,742 [+0,387; +1,111] < +2 п.п."
     },
     {
      "criterion": "Вклад FlyVis: база + D − база нижняя граница > 0; модернизация: база + D − база + C нижняя граница > 0.",
-     "met": null
+     "met": false,
+     "evidence": "runs/z13_hybrid_identity_v2_20261026/internal_report.json: base_D−base +0,409 [+0,134; +0,687] (выполнено), base_D−base_C +0,303 [−0,022; +0,657] (не выполнено)"
     },
     {
      "criterion": "Методика: PCA без меток; образец — только наблюдаемые детекции; train26 один раз и только при прохождении; HOTA не заявляется.",
-     "met": null
+     "met": true,
+     "evidence": "runs/z13_masa_exemplar_snap_20261026/report.json; PCA без меток; train26 не использованы"
     }
    ],
-   "done": "",
-   "obtained": "",
-   "interpretation": "",
-   "decision": "",
-   "cannot_claim": "Если польза — от внешнего вида без прибавки мухи, это улучшение трекера, не FlyVis. Не HOTA.",
-   "metrics": [],
+   "done": "2026-10-26",
+   "obtained": "runs/z13_masa_exemplar_snap_20261026/report.json: привязанный образец для 130 видео, 1130 с GPU, разметка не читалась. runs/z13_hybrid_identity_v2_20261026/internal_report.json → paired (п.п. [95%]): base_gate−baseline +0,332 [−0,056; +0,697]; base_D_gate−baseline +0,742 [+0,387; +1,111]; base_D_gate−base_gate +0,409 [+0,134; +0,687]; base_D_gate−base_C_gate +0,303 [−0,022; +0,657]; base_D_gate−base_R1_gate +0,430 [+0,086; +0,796]; base_D_gate−v1_base_D_gate +0,127 [−0,146; +0,419]; base_gate−v1_base_gate −0,023 [−0,290; +0,268]; true_identity_gate−baseline +2,932 [+2,380; +3,473]. runs/z13_hybrid_identity_v2_20261026/internal_report.json → summary: AUC узнавания база 0,966, база + D 0,972, база + C 0,971, база + R1 0,970; переносы: база 1324 (515/472), база + D 1077 (434/322), база + C 1232 (483/412), база + R1 1222 (491/423). 2275 с CPU, train26 и HOTA не использовались.",
+   "interpretation": "Изменение базовой ветви само почти ничего не дало (база −0,023 к v1). С этой базой ветвь FlyVis D добавила +0,409 п.п. с положительной нижней границей и превзошла вход глаза R1 (+0,430, нижняя граница +0,086); D против штатной C — граница −0,022. Общий порог +2 п.п. не пройден (+0,742, около 25% потолка истинной личности). Вклад мухи — на повторно использованных fit104 при множестве сравнений этой ночи; в v1 тот же вклад был +0,259 с границей −0,025. Нужна проверка на других видео.",
+   "decision": "Порог решения проблемы не пройден; train26 по исходному протоколу не оценивать. Отдельно зарегистрировать до просмотра train26 одну подтверждающую проверку вклада FlyVis с замороженными настройками v2 (z13_hybrid_fly_confirm_v1). В подтверждённые результаты до неё не вносить.",
+   "cannot_claim": "Не HOTA. Вклад FlyVis не подтверждён на независимых видео; fit104 использовались многократно, поправки на множественность нет. Прибавка над штатной C не доказана.",
+   "metrics": [
+    {
+     "key": "AUC",
+     "value": 0.9716322162517745,
+     "baseline": 0.9657544082298731,
+     "subset": "fit104 вне разбиения; узнавание цели: внешний вид v2 + D против только внешнего вида",
+     "source": "runs/z13_hybrid_identity_v2_20261026/internal_report.json",
+     "locator": "summary.base_D.identity.auc"
+    }
+   ],
    "commits": [],
    "files": [
     "scripts/z13_masa_exemplar_snap_20261026.py",
@@ -19960,6 +19972,68 @@
      "kind": "json",
      "ref": "runs/z13_hybrid_identity_20261026/internal_report.json",
      "claim": "Итог v1"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_hybrid_identity_v2_20261026/internal_report.json",
+     "claim": "Внутренний итог v2"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_masa_exemplar_snap_20261026/report.json",
+     "claim": "Привязанный образец"
+    }
+   ]
+  },
+  {
+   "id": "z13_hybrid_fly_confirm_v1",
+   "title": "Проверка вклада FlyVis в гибридное узнавание цели на train26 — замороженная версия v2, одна оценка",
+   "area": "flyvis",
+   "state": "running",
+   "started": "2026-10-26",
+   "tags": [
+    "fly-problem-P8",
+    "fly-problem-P9"
+   ],
+   "summary": "Одна оценка на train26 замороженной конфигурации z13_hybrid_identity_v2, зарегистрированная до вычисления любых чисел train26 для этой конфигурации. Обучение на fit84, порог по fit20, оценка на train26.",
+   "question": "Подтверждается ли на других видео прибавка ветви FlyVis D к базовой ветви внешнего вида и её преимущество над входом глаза R1, найденные на fit104?",
+   "hypothesis": "Рабочая гипотеза: на fit104 база + D − база = +0,409 п.п. [+0,134; +0,687], база + D − база + R1 = +0,430 [+0,086; +0,796] (runs/z13_hybrid_identity_v2_20261026/internal_report.json). Альтернатива: это следствие множества сравнений на повторно использованных fit104, и на train26 прибавки не будет.",
+   "expected": "Протокол runs/z13_hybrid_fly_confirm_20261026/protocol.json, скрипт scripts/z13_hybrid_fly_confirm_20261026.py. Признаки train26 строятся тем же кодом, что и кэш fit104; PCA только по fit104. Плечи: база, база + D, база + C, база + R1, истинная личность. Только CPU, Idle, срок 27.10 07:30 МСК. Повторной настройки после просмотра нет.",
+   "acceptance": [
+    {
+     "criterion": "Основной (вклад мухи): на train26 нижние границы 95% для база + D − база > 0 и база + D − база + R1 > 0.",
+     "met": null
+    },
+    {
+     "criterion": "Дополнительный (модернизация): база + D − база + C нижняя граница > 0.",
+     "met": null
+    },
+    {
+     "criterion": "Дополнительный (решение проблемы): база + D ≥ +2 п.п. с нижней границей > 0.",
+     "met": null
+    }
+   ],
+   "done": "",
+   "obtained": "",
+   "interpretation": "",
+   "decision": "",
+   "cannot_claim": "Не HOTA. train26 многократно использовались прежними опытами (но не для выбора этой конфигурации) — это не нетронутая проверка. 26 видео; одна оценка.",
+   "metrics": [],
+   "commits": [],
+   "files": [
+    "scripts/z13_hybrid_fly_confirm_20261026.py",
+    "runs/z13_hybrid_fly_confirm_20261026/protocol.json"
+   ],
+   "evidence": [
+    {
+     "kind": "file",
+     "ref": "runs/z13_hybrid_fly_confirm_20261026/protocol.json",
+     "claim": "Условия до оценки train26"
+    },
+    {
+     "kind": "json",
+     "ref": "runs/z13_hybrid_identity_v2_20261026/internal_report.json",
+     "claim": "Исходный эффект на fit104"
     }
    ]
   }
