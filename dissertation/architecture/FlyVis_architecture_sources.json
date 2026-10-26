@@ -51,6 +51,7 @@
     "tracking/z13_temporal_identity_readout.py": "52700ce8b876323b88a40af87a099875094fbe361419992d1e27573bdb9fee59",
     "runs/z13_temporal_identity_20261025/training/independent_audit.json": "2f56499027af62bb651defb0e28702386edda2f109ff11d7b9ef345dfb8ed615",
     "runs/z13_temporal_identity_20261025/features/independent_audit.json": "636a2449f75494736afc856575668706509ac4f2fb72c1f0b80c48c32159f0c2",
+    "runs/z13_hybrid_fly_confirm_20261026/report.json": "beaf7c7f9ea6fe3d1e81121fee7d4e7bf612a230566305ab71d936c91ae23093",
     "runs/z13_identity_gate_readout_20261026/internal_report.json": "6a06137d8a443f60287b07cbc4a474febc36f11e1305ff7ca6d5b56eb7bcc970",
     "runs/z13_identity_gate_tagged_20261026/internal_report.json": "3c81479c4b3c92d5e3ff1f489fd12fc546a35e8208fad45f9f864e03bf062faa",
     "runs/z13_identity_gate_relative_20261026/internal_report.json": "949e0ae679a9f92c66e3db52cf6c219d89d07714bd4a26d308592d5ac63e7bad",
@@ -85,7 +86,7 @@
     "tracking/z13_ridge_localizer.py": "ce79455d4bb61fc226bfc6a580030c5b295833d4a0a8c2eef1f41b1c9730e2df",
     "runs/z13_center_hota_20261021/protocol.json": "b733454d75a2b65385ab71d48bed7926f47d1c00d63ade244cb30ae3ec0683e6",
     "runs/z13_center_hota_20261021/eval/report.json": "ad13cd78cf03b0dca94a2da08ecd76ab2fb745c53110d6810195e94d7bc8e8c3",
-    "scripts/build_flyvis_architecture.py": "f0bd411d530781f9cff7a90fd40f31b5403d65822ca8ec0e0d26b8c81c57826c",
+    "scripts/build_flyvis_architecture.py": "7e66db48c610cccbb08656c719ab28c4f08c7a16cffc40af209db98b744b98f3",
     "scripts/flyvis_architecture_layout.py": "bc9ad92134f25d9992bb2d93933c94ff54c51dab5e1d3c85fad103a2a98acad0",
     "tracking/flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
     "tracking/retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
@@ -104,7 +105,7 @@
     "runs/z13_absolute_confidence_20261022/report.json": "93d454208618ce85f9d7e618bd98d0c884dc4729bcfe7a55f2804e3765aa34db",
     "runs/z13_target_center_dev_20261018/report.json": "4ca86e1718f45da40951b3b3af6735935fdbde828baf04169f6fa491d7865183",
     "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
-    "experiments/project_history.json": "be9dc09d41418b0a0a8372db9eb19914f6e50835e717d992086a14544a5d62f3"
+    "experiments/project_history.json": "a92c7f1765997135618114109f1b402a7d5747a71a4042e6da71ec16350b6fa0"
   },
   "cards": {
     "fly_connectome_null_v1": {
@@ -4866,7 +4867,8 @@
         "КРИТЕРИЙ НЕ ПРОЙДЕН: С истинной личностью +2,93 п.п. [+2,38; +3,47]. С узнаванием",
         "FlyVis (AUC 0,950–0,956) D: от +0,02 до +0,25 п.п., все интервалы с 0; D = C. Узел провала",
         "— различение цели среди соседей. Семейство остановлено 26.10.2026; 104 видео, не",
-        "HOTA."
+        "HOTA. С внешним видом MASA (окружение): прибавка D на train26 +0,11 п.п. [-0,18;",
+        "+0,40] — вклад мухи не подтверждён."
       ],
       "footer": [
         "z13_identity_gate_readout_v1"

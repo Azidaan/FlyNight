@@ -330,6 +330,12 @@ def main():
         result=(f'С истинной личностью {fmt(ceiling["mean_per_video"])} п.п. [{fmt(ceiling["ci95"][0])}; {fmt(ceiling["ci95"][1])}]. '
                 f'С узнаванием FlyVis (AUC {auc_range}) D: от {fmt(min(e["mean_per_video"] for e in effects))} до {fmt(max(e["mean_per_video"] for e in effects))} п.п., все интервалы с 0; D = C. '
                 'Узел провала — различение цели среди соседей. Семейство остановлено 26.10.2026; 104 видео, не HOTA.')
+        confirm=ROOT/'runs/z13_hybrid_fly_confirm_20261026/report.json'
+        if cards.get('z13_hybrid_fly_confirm_v1',{}).get('state')=='completed_negative' and confirm.exists():
+            pair=json.loads(confirm.read_text(encoding='utf-8'))['paired']['base_D-base']
+            result+=(f' С внешним видом MASA (окружение): прибавка D на train26 {fmt(pair["mean_per_video"])} п.п. '
+                     f'[{fmt(pair["ci95"][0])}; {fmt(pair["ci95"][1])}] — вклад мухи не подтверждён.')
+            milestone_sources.append(confirm.relative_to(ROOT).as_posix())
         LANES[6][2].append(('z13_identity_gate_readout_v1','Двухступенчатое считывание: узнавание цели → решение',method,result))
         milestone_sources.extend([p.relative_to(ROOT).as_posix() for p in gate_paths]+['scripts/z13_identity_gate_readout_20261026.py','runs/z13_information_ceiling_20261026/report.json'])
     confidence_contracts=[
