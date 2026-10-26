@@ -316,6 +316,22 @@ def main():
         result=(f'90 моделей: 6 вариантов × 3 начальных состояния × 5 разбиений на 104 видео. D к исходному назначению {fmt(effect["mean_per_video"])} п.п. [{fmt(effect["ci95"][0])}; {fmt(effect["ci95"][1])}]. Все 6 интервалов включают 0; критерий +2 п.п. не пройден. Новая оценка 26 видео и HOTA не запускались. Причина не установлена.')
         LANES[6][2].append(('z13_temporal_identity_readout_v1','Межкадровые соответствия реальных областей',method,result))
         milestone_sources.extend([identity_path.relative_to(ROOT).as_posix(),'tracking/z13_temporal_identity_readout.py','runs/z13_temporal_identity_20261025/training/independent_audit.json','runs/z13_temporal_identity_20261025/features/independent_audit.json'])
+    gate_runs=(('z13_identity_gate_readout_v1','z13_identity_gate_readout_20261026'),('z13_identity_gate_tagged_v1','z13_identity_gate_tagged_20261026'),
+               ('z13_identity_gate_relative_v1','z13_identity_gate_relative_20261026'),('z13_identity_gate_bank_v1','z13_identity_gate_bank_20261026'),
+               ('z13_identity_gate_motion_v1','z13_identity_gate_motion_20261026'))
+    gate_paths=[ROOT/'runs'/folder/'internal_report.json' for _,folder in gate_runs]
+    if all(cards.get(cid,{}).get('state')=='completed_negative' for cid,_ in gate_runs) and all(p.exists() for p in gate_paths):
+        reports=[json.loads(p.read_text(encoding='utf-8')) for p in gate_paths];assert all(r['complete'] and not r['admit_final'] for r in reports)
+        fmt=lambda value:f'{100*value:+.2f}'.replace('.',',');effects=[r['paired']['D_gate-baseline'] for r in reports]
+        ceiling=reports[0]['paired']['true_identity_gate-baseline'];aucs=[r['summary']['D']['identity']['auc'] for r in reports]
+        method=('Ступень 1 — плотная метка «область — наша цель» (бустинг на сохранённых признаках D/C/R1); ступень 2 — решение о переносе полной рамки по вероятности цели и контексту назначения. '
+                'Пять версий входа ступени 1: базовая, память о прошлой цели трека, сравнение с соседями, накопленный образ, согласованность движения T4/T5. Контроли C, R1, без мухи, истинная личность.')
+        auc_range=f'{min(aucs):.3f}–{max(aucs):.3f}'.replace('.',',')
+        result=(f'С истинной личностью {fmt(ceiling["mean_per_video"])} п.п. [{fmt(ceiling["ci95"][0])}; {fmt(ceiling["ci95"][1])}]. '
+                f'С узнаванием FlyVis (AUC {auc_range}) D: от {fmt(min(e["mean_per_video"] for e in effects))} до {fmt(max(e["mean_per_video"] for e in effects))} п.п., все интервалы с 0; D = C. '
+                'Узел провала — различение цели среди соседей. Семейство остановлено 26.10.2026; 104 видео, не HOTA.')
+        LANES[6][2].append(('z13_identity_gate_readout_v1','Двухступенчатое считывание: узнавание цели → решение',method,result))
+        milestone_sources.extend([p.relative_to(ROOT).as_posix() for p in gate_paths]+['scripts/z13_identity_gate_readout_20261026.py','runs/z13_information_ceiling_20261026/report.json'])
     confidence_contracts=[
         ('z13_ridge_uncertainty_v1','runs/z13_ridge_uncertainty_20261025/replay/report.json','Опора уверенности в признаках образца',
          'Вместо одной высоты отклика: вычитать 1,96 условного стандартного отклонения — оценки неопределённости гребневой модели по наблюдённому образцу. Прежние веса, время, регуляризация и средние ответы. C/D/R1: прежнее / пространственная неопределённость / одинаковый штраф; плюс геометрия. Это не калиброванная вероятность пользы.',
