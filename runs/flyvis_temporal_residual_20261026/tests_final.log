@@ -1,0 +1,20 @@
+................................................F..............          [100%]
+================================== FAILURES ===================================
+________________ test_r16_14_cache_invalidated_by_fingerprint _________________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-427/test_r16_14_cache_invalidated_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000239E687E290>
+
+    def test_r16_14_cache_invalidated_by_fingerprint(tmp_path, monkeypatch):
+        cache = tmp_path / 'cache'
+        first = hindex.load_index(PROJECT_ROOT, cache_dir=cache)
+        assert (cache / 'index.json').exists()
+        second = hindex.load_index(PROJECT_ROOT, cache_dir=cache)
+>       assert second.from_cache is True and second.fingerprint == first.fingerprint
+E       AssertionError: assert (False is True)
+E        +  where False = Index(built_at='2026-10-26T23:10:49', fingerprint={'version': 3, 'head': 'f259c76ab11bbe3c1639bf697a627aa411d4c3d8', '... 'plan_closed': 25, 'plan_chronology': 25, 'manual': 2}, 'events_without_commit': 2189, 'artifacts': 281, 'areas': 18}).from_cache
+
+tests\test_project_history.py:476: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_project_history.py::test_r16_14_cache_invalidated_by_fingerprint
+1 failed, 62 passed in 101.45s (0:01:41)
