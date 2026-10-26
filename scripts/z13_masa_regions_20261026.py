@@ -16,7 +16,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]; sys.path.insert(0, str(ROOT))
 from scripts.z13_candidate_reserve_20261021 import read, write, sha, now
 
-RUN = ROOT / 'runs/z13_masa_regions_20261026'
+# recovery1: the first run (root folder, failure.json kept) indexed boxes with the leading unmatched choice -1.
+RUN = ROOT / 'runs/z13_masa_regions_20261026/recovery1'
 BASE = ROOT / 'runs/z13_region_assignment_20261025'
 VIDEOS = ROOT / 'data/bdd100k/videos/train'
 DEADLINE = datetime.fromisoformat('2026-10-27T07:30:00+03:00')
@@ -39,9 +40,10 @@ def plan_video(v, queries, labelrows, geom):
     for q in queries[v]:
         l = q['label']; ix = (det['frame_idx'] == q['frame']) & (det['conf'] >= .25); row = labelrows[q['uid']]
         choices, masks, _ = regions(geom, l['crop'], l['pred'], det['xyxy'][ix], det['conf'][ix], det['cls'][ix], row['regions']['track_class'])
-        assert choices == row['regions']['choices'][1:]
-        boxes = det['xyxy'][ix][choices] if choices else np.zeros((0, 4))
-        uids.append(q['uid']); widths[q['uid']] = len(choices)
+        assert choices == row['regions']['choices'][1:] and choices[0] == -1
+        real = choices[1:]  # choices[0] is the explicit unmatched option, not a box
+        boxes = det['xyxy'][ix][real] if real else np.zeros((0, 4))
+        uids.append(q['uid']); widths[q['uid']] = len(real)
         for k, b in enumerate(boxes): need.setdefault(int(q['frame']), []).append((q['uid'], k, b.astype(np.float32)))
         e = q['episode_local']; kx = int(off[e]) + 3; pts = geom.points[exm[e]]
         lo, hi = pts.min(0) - geom.spacing / 2, pts.max(0) + geom.spacing / 2
