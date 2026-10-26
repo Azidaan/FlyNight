@@ -1,0 +1,28 @@
+{
+  "id": "flyvis_temporal_residual_association_v1",
+  "stage": "technical preparation only",
+  "created": "2026-10-26T23:04:51.408549+03:00",
+  "timezone": "Europe/Moscow",
+  "device": "cpu",
+  "cpu_threads": 2,
+  "seed": 26,
+  "fit_video": "0001542f-5ce3cf52",
+  "video_rule": "fixed fit video; first episode with >=5 frames and observed nonempty reference mask",
+  "budget_seconds": 180,
+  "external_timeout_required": true,
+  "authorization": "Автор: записать три гипотезы и начать с первой; техническая проба, без длительного обучения.",
+  "acceptance": [
+    "zero residual exactly reproduces base logits",
+    "missing history produces exact zero correction",
+    "after one head-only step all three free FlyVis parameter groups receive finite nonzero gradients",
+    "core weights unchanged; CUDA not initialized"
+  ],
+  "limitations": "Synthetic candidate masks. Not a real-region pilot, not HOTA, no GPU timing, no permission implied for hours of training.",
+  "sha256": {
+    "tracking/flyvis_temporal_residual.py": "d809da65d394ade61c052b67e5526a90cffb3a216539d2992cc3b2c99c9e37a5",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "scripts/flyvis_temporal_residual_preflight.py": "1390e789e50ba994f99c626a6f8e4542d7a891986f9a3a6df11cffbf0f1c0957",
+    "scripts/z13_train.py": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
+    "scripts/z13_target_model.py": "e7bc7967c8d5fdf04983ed3e01c5fae9d54dbc6ed7b4b17c4c10235beccd862a"
+  }
+}

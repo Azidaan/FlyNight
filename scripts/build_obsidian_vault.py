@@ -109,14 +109,16 @@ def ref(src_block: str, path: str, label: str, structural: bool = False) -> str:
 
 
 class Vault:
-    def __init__(self, path: Path):
+    def __init__(self, path: Path, preserve=()):
         self.path = path
         self.written: list[str] = []
+        self.preserve = set(preserve)
 
     def write(self, rel: str, text: str) -> None:
         p = self.path / rel
         p.parent.mkdir(parents=True, exist_ok=True)
-        p.write_text(text, encoding="utf-8")
+        if rel not in self.preserve:
+            p.write_text(text, encoding="utf-8")
         self.written.append(rel.replace("\\", "/"))
 
     def copy(self, src: Path, rel: str) -> None:
@@ -181,8 +183,9 @@ def split_journal(text: str):
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--vault", type=Path, default=ROOT / VAULT_NAME)
+    ap.add_argument('--preserve-note', action='append', default=[], help='Сохранить чужую заметку побайтно')
     args = ap.parse_args()
-    V = Vault(args.vault)
+    V = Vault(args.vault, args.preserve_note)
     manifest = args.vault / ".generated.json"
     old = json.loads(manifest.read_text(encoding="utf-8")) if manifest.exists() else []
 
@@ -208,6 +211,11 @@ def main() -> int:
             fly_theme[i] = FLY_OTHER
     card_path = {i: (f"01 Муха/Эксперименты/{i}" if i in fly_theme else f"02 Эксперименты/{i}") for i in cards}
     card_path.update({i: f"09 Запланировано/{i}" for i in planned})
+    # New hypotheses use semantic filenames as well as visible titles.
+    for i, e in cards_all.items():
+        if any(t in {'HY26-1', 'HY26-2', 'HY26-3'} for t in e.get('tags', [])) and i in card_path:
+            folder = card_path[i].rsplit('/', 1)[0]
+            card_path[i] = f"{folder}/{safe(e['title'])}"
     plan_group = {aid: f"09 Запланировано/{safe(a['title'])} — планы" for aid, a in areas.items()}
     area_path = {aid: f"02 Эксперименты/Направления/{safe(a['title'])}" for aid, a in areas.items()}
     theme_path = {t: f"01 Муха/Темы/{safe(t)}" for t in [t for t, _ in FLY_THEMES] + [FLY_OTHER]}
@@ -263,7 +271,8 @@ def main() -> int:
         else:
             up = ref(src, area_path[e["area"]], a["title"], structural=True)
         tags = ["эксперимент", f"исход/{e['state']}", f"направление/{tag(e['area'])}"] + [f"метка/{tag(t)}" for t in e.get("tags", [])] + (["муха"] if src == "01" else [])
-        props = {"aliases": [e["title"]], "tags": tags, "исход": STATE_RU.get(e["state"], e["state"]), "направление": a["title"],
+        aliases = [e['title'], e['id']] if any(t in {'HY26-1', 'HY26-2', 'HY26-3'} for t in e.get('tags', [])) else [e['title']]
+        props = {"aliases": aliases, "tags": tags, "исход": STATE_RU.get(e["state"], e["state"]), "направление": a["title"],
                  "начат": e.get("started") or None, "завершён": e.get("finished") or None}
         body = f"# {STATE_ICON.get(e['state'], '')} {e['title']}\n\n↑ {up} · **Исход:** {STATE_RU.get(e['state'], e['state'])} · `{e['id']}`\n\n"
         if e.get("summary"):
@@ -521,6 +530,10 @@ def main() -> int:
     from scripts.obsidian_confirmed_results import build as build_confirmed_results
     build_confirmed_results(V, ROOT, H, G, card_path, ref, fm, safe)
 
+    # Intentionally absent from all hubs: one isolated graph node, author 26.10.
+    from scripts.obsidian_checked_hypotheses import build as build_checked_hypotheses
+    build_checked_hypotheses(V, H, card_path, ref, fm, STATE_RU)
+
     # ---------------- 00 Главная ----------------
     home = "# Диссертация: трекинг и муха (FlyVis)\n\nХранилище собрано скриптом `scripts/build_obsidian_vault.py`; пересобирается без потери ваших заметок.\n\n"
     home += "**Как вести записи в плане и в графе:** [[ИНСТРУКЦИЯ — как вести записи]] (заметка написана вручную, генератор её не трогает).\n\n"
@@ -705,6 +718,7 @@ def graph_settings(vault: Path) -> None:
     g = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
     rgb = lambda h: int(h.lstrip("#"), 16)
     g["colorGroups"] = [
+        {"query": 'tag:#проверенные-гипотезы', "color": {"a": 1, "rgb": rgb("#58a6ff")}},
         {"query": 'path:"11 Лучшие результаты"', "color": {"a": 1, "rgb": rgb("#e6b422")}},
         # статус — первым: зелёный (решено / выполнено) и жёлтый (частично) перекрывают красные блоки 09 и 10
         {"query": "tag:#статус/решено OR tag:#статус/выполнено", "color": {"a": 1, "rgb": rgb("#2ea043")}},
