@@ -1,0 +1,85 @@
+{
+  "sources": [
+    {
+      "path": "tracking/flyvis_adapter.py",
+      "size": 8896,
+      "sha256": "5f0473a35c8b70270643d3f31b061d8a5be8bc79eb346053de07566b24e8d5ab"
+    },
+    {
+      "path": "tests/test_flyvis_hdf5_transaction.py",
+      "size": 9024,
+      "sha256": "dedcfe081577a1ddeaea2cbc6c0468ac95236690ef7d8010474aa59eeaae6bc3"
+    }
+  ],
+  "baseline_equals_current_HEAD": true,
+  "baseline": {
+    "path": "runs/flyvis_repairs_20261106/hdf5_transaction/original_flyvis_adapter.py",
+    "size": 7199,
+    "sha256": "0a1a6b0341ac1f1a619deab77c76821ce0bebda5ffcf991957062edc990951fd"
+  },
+  "artifacts": [
+    {
+      "path": "runs/flyvis_repairs_20261106/hdf5_transaction/REPORT.txt",
+      "size": 7738,
+      "sha256": "31bdba1bdcaf8f3bf20ba1c8071aedee18063599508b227ce954348c87f7bac1"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/hdf5_transaction/baseline.json",
+      "size": 326,
+      "sha256": "42c4d02ae5d081f0925c4b54cef1c039f3bccb65d184f9380537a2cbb5adfb36"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/hdf5_transaction/original_flyvis_adapter.py",
+      "size": 7199,
+      "sha256": "0a1a6b0341ac1f1a619deab77c76821ce0bebda5ffcf991957062edc990951fd"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/hdf5_transaction/original_test_flyvis_hdf5_transaction.py",
+      "size": 1187,
+      "sha256": "35a0332de4c7d802aca80976fb67bfe947a193cae89c703b9f0f9a4b3c1a6446"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/hdf5_transaction/after.log",
+      "size": 22741,
+      "sha256": "4cf8d6b75dd71015f4cfa9f99848a60710718a64d71bfba4d09cee90a1ee22cf"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/hdf5_transaction/after_v2.log",
+      "size": 112,
+      "sha256": "e0b0d4c6afb8b46ef41311adffd1a7b2db5d2cfc92e61291db99e38189f975e5"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/hdf5_transaction/hardlink_before_guard.log",
+      "size": 1113,
+      "sha256": "d2ee8c789220cdd0d713ccc11c4f7fd9f8b909e5bee114fa8347354ec94bd119"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/hdf5_transaction/final_tests.log",
+      "size": 112,
+      "sha256": "d76a7611023679b71d941a580cc2137d7487d8a4f660b629b56422c1fd2ed9ef"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/hdf5_transaction/audit_links.py",
+      "size": 2414,
+      "sha256": "b7401ea68555f866bf3c07ee74b5363cfbb341e47f49bfcf624abc4bd7048964"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/hdf5_transaction/actual_hdf5_links.json",
+      "size": 496940,
+      "sha256": "35d4d308003839b7e662ab9a79536c1f8684267d4517fb67cd75f61cd1e99b63"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/hdf5_transaction/actual_links.log",
+      "size": 948,
+      "sha256": "efc304466e3692b24a1da92d5d244fa41446404c65a00294339487529fb78e01"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/hdf5_before.log",
+      "size": 2204,
+      "sha256": "d20175ca9622830f48a46b787a7ac8b83722fb0658b499299c10ab5fa7bf9cf8"
+    }
+  ],
+  "tests": "53 passed, 2 native-symlink tests skipped (Windows privilege); see final_tests.log and REPORT.txt",
+  "native_data_inventory": "992 files, 2164046975 bytes, no hardlinked/symlinked HDF5 files, two complete hash passes unchanged",
+  "publication_boundary": "Only tracking/flyvis_adapter.py and the new HDF5 test plus listed evidence; root observation-transaction changes are separate."
+}

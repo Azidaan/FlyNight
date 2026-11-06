@@ -8,8 +8,8 @@ FlyVis 1.2.0 используется как внешний зрительный
 Datamate 1.0.0 открывает новый HDF5-файл, пытается прочитать ещё не созданный
 набор ``data`` и в обработчике ошибки удаляет всё ещё открытый файл. Linux
 разрешает удалить открытый файл, Windows возвращает WinError 32. Функция ниже
-исправляет только управление файловым дескриптором; данные и вычисления FlyVis
-не изменяются.
+закрывает дескрипторы до публикации и заменяет файл только после полной записи.
+Формат массива ``data`` и вычисления FlyVis не изменяются.
 """
 
 from __future__ import annotations
@@ -17,6 +17,7 @@ from __future__ import annotations
 import os
 import sys
 import importlib
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -27,7 +28,7 @@ DEFAULT_DATA_DIR = PROJECT_ROOT / "runs" / "flyvis"
 
 
 def _patch_datamate_hdf5_writer() -> None:
-    """Заменить небезопасную для Windows запись нового HDF5-файла."""
+    """Публиковать HDF5 целиком после успешной записи и закрытия дескрипторов."""
     if os.name != "nt":
         return
 
@@ -40,16 +41,45 @@ def _patch_datamate_hdf5_writer() -> None:
         return
 
     def safe_write_h5(path: Path, value: Any) -> None:
-        path = Path(path)
-        path.parent.mkdir(parents=True, exist_ok=True)
-        if path.is_dir():
-            path.rmdir()
         array = np.asarray(value)
-        with h5py.File(path, mode="w", libver="latest") as handle:
-            handle.create_dataset("data", data=array)
-            handle.flush()
-            handle.swmr_mode = True
-            assert handle.swmr_mode
+        requested = Path(path)
+        # mode='w' follows file symlinks. Replacing the link itself would change
+        # that contract, so publish to its resolved target instead.
+        path = requested.resolve()
+        if requested.is_symlink() and path.is_dir():
+            raise IsADirectoryError(f"HDF5 path is a symlink to a directory: {requested}")
+        if path.is_file() and path.stat().st_nlink > 1:
+            # Replacing one name would silently detach it from the other hard
+            # links; updating their shared file in place cannot be atomic.
+            raise OSError(f"Atomic HDF5 write cannot replace a target with multiple hard links: {path}")
+        requested.parent.mkdir(parents=True, exist_ok=True)
+        descriptor, temporary_name = tempfile.mkstemp(
+            prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
+        )
+        os.close(descriptor)
+        temporary = Path(temporary_name)
+        removed_empty_directory = False
+        try:
+            # Unsupported dtypes, flush errors and SWMR errors only affect this
+            # private file. All HDF5 handles close before the atomic replace.
+            with h5py.File(temporary, mode="w", libver="latest") as handle:
+                handle.create_dataset("data", data=array)
+                handle.flush()
+                handle.swmr_mode = True
+                assert handle.swmr_mode
+            if path.is_dir():
+                # Preserve datamate's empty-directory fallback. rmdir refuses
+                # nonempty directories; no existing directory is renamed.
+                path.rmdir()
+                removed_empty_directory = True
+            try:
+                os.replace(temporary, path)
+            except BaseException:
+                if removed_empty_directory and not path.exists():
+                    path.mkdir()
+                raise
+        finally:
+            temporary.unlink(missing_ok=True)
 
     safe_write_h5._flyvis_windows_safe = True  # type: ignore[attr-defined]
     io_module._write_h5 = safe_write_h5

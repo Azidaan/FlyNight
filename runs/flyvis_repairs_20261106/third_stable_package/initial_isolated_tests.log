@@ -1,0 +1,70 @@
+sssssssssssssssssssss..............s.................................... [ 51%]
+..............................................F....................      [100%]
+================================== FAILURES ===================================
+_______ test_estimator_exposes_internal_activity_of_current_frame_only ________
+
+    def test_estimator_exposes_internal_activity_of_current_frame_only() -> None:
+        """Настоящая сеть FlyVis: после кадра доступны baseline и активность внутренних шагов."""
+        from tracking.flyvis_motion import FlyVisMotionEstimator, TileLayout
+    
+>       estimator = FlyVisMotionEstimator(
+            mode="tiled", layout=TileLayout(2, 3, 0.20), source_fps=30.0, dt=0.02,
+            flow_gain=1.0, temporal_resampling="linear", flow_aggregation="mean",
+        )
+
+tests\test_flyvis_activity_readout.py:144: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\flyvis_motion.py:152: in __init__
+    self.flyvis = activate_flyvis(device=device)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+runtime_dir = WindowsPath('E:/Dissertation/runs/flyvis_repairs_20261106/third_stable_package/isolated_1793995261299854700/tools/flyvis-runtime')
+data_dir = WindowsPath('E:/Dissertation/runs/flyvis_repairs_20261106/third_stable_package/isolated_1793995261299854700/runs/flyvis')
+device = None
+
+    def activate_flyvis(
+        runtime_dir: str | Path = DEFAULT_RUNTIME_DIR,
+        data_dir: str | Path = DEFAULT_DATA_DIR,
+        *,
+        device: Any = None,
+    ):
+        """Подключить изолированный FlyVis и вернуть импортированный модуль.
+    
+        Функцию следует вызывать в отдельном процессе: FlyVis при импорте задаёт
+        глобальное устройство Torch. Диагностический стенд именно так и запускается,
+        поэтому состояние YOLO26 в основном процессе не затрагивается. ``device``
+        явно задаёт устройство нового вычислительного процесса: обновляются также
+        копии устройства в инициализаторе и декодере FlyVis. ``None`` сохраняет
+        штатный автоматический выбор при первом импорте и уже выбранное устройство
+        при повторном вызове. Уже созданные модели эта функция не переносит;
+        переключение устройства требует отдельного процесса без живых моделей.
+    
+        Повторная активация другого runtime/data_dir в том же процессе запрещена:
+        импортированные классы сохраняют прежние корневые пути и устройство.
+        """
+        runtime_dir = Path(runtime_dir).resolve()
+        data_dir = Path(data_dir).resolve()
+        if not (runtime_dir / "flyvis").is_dir():
+>           raise FileNotFoundError(
+                f"FlyVis runtime не найден: {runtime_dir}. "
+                "Сначала выполните scripts/setup_flyvis_runtime.py."
+            )
+E           FileNotFoundError: FlyVis runtime не найден: E:\Dissertation\runs\flyvis_repairs_20261106\third_stable_package\isolated_1793995261299854700\tools\flyvis-runtime. Сначала выполните scripts/setup_flyvis_runtime.py.
+
+tracking\flyvis_adapter.py:113: FileNotFoundError
+=========================== short test summary info ===========================
+SKIPPED [1] tests\test_flyvis_hdf5_transaction.py:34: could not import 'h5py': No module named 'h5py'
+SKIPPED [1] tests\test_flyvis_hdf5_transaction.py:44: could not import 'h5py': No module named 'h5py'
+SKIPPED [7] tests\test_flyvis_hdf5_transaction.py:52: could not import 'h5py': No module named 'h5py'
+SKIPPED [2] tests\test_flyvis_hdf5_transaction.py:69: could not import 'h5py': No module named 'h5py'
+SKIPPED [1] tests\test_flyvis_hdf5_transaction.py:82: could not import 'h5py': No module named 'h5py'
+SKIPPED [1] tests\test_flyvis_hdf5_transaction.py:94: could not import 'h5py': No module named 'h5py'
+SKIPPED [1] tests\test_flyvis_hdf5_transaction.py:110: could not import 'h5py': No module named 'h5py'
+SKIPPED [2] tests\test_flyvis_hdf5_transaction.py:117: could not import 'h5py': No module named 'h5py'
+SKIPPED [1] tests\test_flyvis_hdf5_transaction.py:132: could not import 'h5py': No module named 'h5py'
+SKIPPED [1] tests\test_flyvis_hdf5_transaction.py:140: could not import 'h5py': No module named 'h5py'
+SKIPPED [1] tests\test_flyvis_hdf5_transaction.py:163: could not import 'h5py': No module named 'h5py'
+SKIPPED [1] tests\test_flyvis_hdf5_transaction.py:180: could not import 'h5py': No module named 'h5py'
+SKIPPED [1] tests\test_flyvis_hdf5_transaction.py:186: vendor datamate absent
+SKIPPED [1] tests\test_flyvis_adapter.py:9: изолированный FlyVis runtime не установлен
+1 failed, 116 passed, 22 skipped in 8.12s

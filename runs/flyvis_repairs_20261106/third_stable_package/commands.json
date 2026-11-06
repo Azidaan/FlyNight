@@ -1,0 +1,48 @@
+{
+  "shared_tests": [
+    "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "tests/test_flyvis_hdf5_transaction.py",
+    "tests/test_flyvis_observation_transaction.py",
+    "tests/test_flyvis_adapter.py",
+    "tests/test_flyvis_device_contract.py",
+    "tests/test_flyvis_motion_contracts.py",
+    "tests/test_flyvis_activity_readout.py",
+    "tests/test_flyvis_checkpoint_strict.py",
+    "-q",
+    "-rs",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=E:\\Dissertation\\runs\\flyvis_repairs_20261106\\third_stable_package\\shared_temp_1793995398611258600",
+    "--deselect=tests/test_flyvis_activity_readout.py::test_estimator_exposes_internal_activity_of_current_frame_only"
+  ],
+  "isolated_tests": [
+    "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "tests/test_flyvis_hdf5_transaction.py",
+    "tests/test_flyvis_observation_transaction.py",
+    "tests/test_flyvis_adapter.py",
+    "tests/test_flyvis_device_contract.py",
+    "tests/test_flyvis_motion_contracts.py",
+    "tests/test_flyvis_activity_readout.py",
+    "tests/test_flyvis_checkpoint_strict.py",
+    "-q",
+    "-rs",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=E:\\Dissertation\\runs\\flyvis_repairs_20261106\\third_stable_package\\isolated_temp_1793995414198248800",
+    "--deselect=tests/test_flyvis_activity_readout.py::test_estimator_exposes_internal_activity_of_current_frame_only"
+  ],
+  "rebuild": [
+    "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+    "runs\\flyvis_repairs_20261106\\third_stable_package\\build_package.py",
+    "--validate"
+  ],
+  "staging_for_parent_only": [
+    "git add --pathspec-from-file=runs\\flyvis_repairs_20261106\\third_stable_package\\source_paths.txt",
+    "git add -f --pathspec-from-file=runs\\flyvis_repairs_20261106\\third_stable_package\\artifact_paths.txt"
+  ],
+  "native_probe_policy": "Probe reports record their actual source versions. Repeated native probes must use separate output names/directories to preserve earlier evidence. No training, HOTA or GPU run is authorized by this script."
+}

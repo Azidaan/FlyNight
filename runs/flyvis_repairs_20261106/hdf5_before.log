@@ -1,0 +1,39 @@
+FF                                                                       [100%]
+================================== FAILURES ===================================
+_______________ test_invalid_hdf5_value_preserves_existing_file _______________
+
+writer = <function _patch_datamate_hdf5_writer.<locals>.safe_write_h5 at 0x00000298D3B13520>
+tmp_path = WindowsPath('E:/Dissertation/runs/flyvis_repairs_20261106/hdf5_before_temp/test_invalid_hdf5_value_preser0')
+
+    def test_invalid_hdf5_value_preserves_existing_file(writer,tmp_path:Path):
+        path=tmp_path/'existing.h5'
+        writer(path,np.arange(6,dtype=np.float32))
+        before=path.read_bytes()
+        with pytest.raises(TypeError):
+            writer(path,np.array([object()],dtype=object))
+>       assert path.read_bytes()==before
+E       AssertionError: assert b'\x89HDF\r\n...5\xb9\xc8\xac' == b'\x89HDF\r\n...\x00\x00\xa0@'
+E         
+E         At index 28 diff: b'\xb3' != b'\x18'
+E         Use -v to get more diff
+
+tests\test_flyvis_hdf5_transaction.py:26: AssertionError
+__________ test_invalid_hdf5_value_does_not_publish_partial_new_file __________
+
+writer = <function _patch_datamate_hdf5_writer.<locals>.safe_write_h5 at 0x00000298D3B13520>
+tmp_path = WindowsPath('E:/Dissertation/runs/flyvis_repairs_20261106/hdf5_before_temp/test_invalid_hdf5_value_does_n0')
+
+    def test_invalid_hdf5_value_does_not_publish_partial_new_file(writer,tmp_path:Path):
+        path=tmp_path/'new.h5'
+        with pytest.raises(TypeError):
+            writer(path,np.array([object()],dtype=object))
+>       assert not path.exists()
+E       AssertionError: assert not True
+E        +  where True = exists()
+E        +    where exists = WindowsPath('E:/Dissertation/runs/flyvis_repairs_20261106/hdf5_before_temp/test_invalid_hdf5_value_does_n0/new.h5').exists
+
+tests\test_flyvis_hdf5_transaction.py:34: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_flyvis_hdf5_transaction.py::test_invalid_hdf5_value_preserves_existing_file
+FAILED tests/test_flyvis_hdf5_transaction.py::test_invalid_hdf5_value_does_not_publish_partial_new_file
+2 failed in 1.45s

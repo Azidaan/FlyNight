@@ -1,0 +1,71 @@
+{
+  "captured_source_sha256": "02f025826ca3b298acfb71e7bfce2725caa9d0d862f4e696c50e537622023c38",
+  "cases": {
+    "first_raise": {
+      "exception": "RuntimeError",
+      "same_state_reference": false,
+      "previous_stats": {
+        "observations": 0,
+        "render_seconds": 0.0,
+        "network_seconds": 0.0,
+        "decoder_seconds": 0.0
+      },
+      "current_stats": {
+        "observations": 1,
+        "render_seconds": 0.0,
+        "network_seconds": 0.0,
+        "decoder_seconds": 0.0
+      }
+    },
+    "later_raise": {
+      "exception": "RuntimeError",
+      "same_state_reference": true,
+      "previous_stats": {
+        "observations": 1,
+        "render_seconds": 0.0,
+        "network_seconds": 0.0,
+        "decoder_seconds": 0.0
+      },
+      "current_stats": {
+        "observations": 2,
+        "render_seconds": 0.0,
+        "network_seconds": 0.0,
+        "decoder_seconds": 0.0
+      }
+    },
+    "later_wrong_shape": {
+      "exception": "RuntimeError",
+      "same_state_reference": true,
+      "previous_stats": {
+        "observations": 1,
+        "render_seconds": 0.0,
+        "network_seconds": 0.0,
+        "decoder_seconds": 0.0
+      },
+      "current_stats": {
+        "observations": 2,
+        "render_seconds": 0.0,
+        "network_seconds": 0.0,
+        "decoder_seconds": 0.0
+      }
+    },
+    "first_layout_failure": {
+      "after_failed": {
+        "frame_size": [
+          4,
+          3
+        ],
+        "bounds": [
+          [
+            0,
+            0,
+            4,
+            3
+          ]
+        ]
+      },
+      "retry_new_shape": "ValueError('Размер кадра изменился внутри видео: (4, 3) -> (6, 3)')"
+    }
+  },
+  "scope": "No runtime network/model initialization; bounded injected backend failures"
+}

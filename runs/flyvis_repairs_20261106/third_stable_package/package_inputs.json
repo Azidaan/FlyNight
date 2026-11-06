@@ -1,0 +1,98 @@
+{
+  "sources": [
+    {
+      "path": "tracking/flyvis_adapter.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/hdf5_transaction/original_flyvis_adapter.py"
+      ],
+      "expected_sha256": "5f0473a35c8b70270643d3f31b061d8a5be8bc79eb346053de07566b24e8d5ab"
+    },
+    {
+      "path": "tracking/flyvis_motion.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/observation_transaction/flyvis_motion.py"
+      ],
+      "expected_sha256": "f053f52a6f1bb6233884de818a4175c1bb01ab5dff6e0d037f2262bea5b3ffdc"
+    },
+    {
+      "path": "tests/test_flyvis_hdf5_transaction.py",
+      "snapshots": [],
+      "expected_sha256": "dedcfe081577a1ddeaea2cbc6c0468ac95236690ef7d8010474aa59eeaae6bc3"
+    },
+    {
+      "path": "tests/test_flyvis_observation_transaction.py",
+      "snapshots": [],
+      "expected_sha256": "c6520bbd1391aab462cc680aab690d24fa038d5af72ea059c8f5c2e5c01c47b1"
+    }
+  ],
+  "artifact_paths": [
+    "runs/flyvis_repairs_20261106/hdf5_transaction/manifest.json",
+    "runs/flyvis_repairs_20261106/hdf5_transaction/REPORT.txt",
+    "runs/flyvis_repairs_20261106/hdf5_transaction/baseline.json",
+    "runs/flyvis_repairs_20261106/hdf5_transaction/original_flyvis_adapter.py",
+    "runs/flyvis_repairs_20261106/hdf5_transaction/original_test_flyvis_hdf5_transaction.py",
+    "runs/flyvis_repairs_20261106/hdf5_transaction/after.log",
+    "runs/flyvis_repairs_20261106/hdf5_transaction/after_v2.log",
+    "runs/flyvis_repairs_20261106/hdf5_transaction/hardlink_before_guard.log",
+    "runs/flyvis_repairs_20261106/hdf5_transaction/final_tests.log",
+    "runs/flyvis_repairs_20261106/hdf5_transaction/audit_links.py",
+    "runs/flyvis_repairs_20261106/hdf5_transaction/actual_hdf5_links.json",
+    "runs/flyvis_repairs_20261106/hdf5_transaction/actual_links.log",
+    "runs/flyvis_repairs_20261106/hdf5_before.log",
+    "runs/flyvis_system_fixes_20261106/observation_review/manifest.json",
+    "runs/flyvis_system_fixes_20261106/observation_review/additional_before.log",
+    "runs/flyvis_system_fixes_20261106/observation_review/additional_before_report.json",
+    "runs/flyvis_system_fixes_20261106/observation_review/before_flyvis_motion.py",
+    "runs/flyvis_system_fixes_20261106/observation_review/before_manifest.json",
+    "runs/flyvis_system_fixes_20261106/observation_review/before_test_flyvis_observation_transaction.py",
+    "runs/flyvis_system_fixes_20261106/observation_review/CALLER_REVIEW.txt",
+    "runs/flyvis_system_fixes_20261106/observation_review/FINAL_REVIEW.txt",
+    "runs/flyvis_system_fixes_20261106/observation_review/independent_after.log",
+    "runs/flyvis_system_fixes_20261106/observation_review/independent_before.log",
+    "runs/flyvis_system_fixes_20261106/observation_review/native.log",
+    "runs/flyvis_system_fixes_20261106/observation_review/native_compare.py",
+    "runs/flyvis_system_fixes_20261106/observation_review/native_inputs.npz",
+    "runs/flyvis_system_fixes_20261106/observation_review/native_outputs.npz",
+    "runs/flyvis_system_fixes_20261106/observation_review/native_report.json",
+    "runs/flyvis_system_fixes_20261106/observation_review/probe_additional_before.py",
+    "runs/flyvis_repairs_20261106/observation_independent/native_protocol.json",
+    "runs/flyvis_repairs_20261106/observation_independent/native_retry.log",
+    "runs/flyvis_repairs_20261106/observation_independent/native_retry.py",
+    "runs/flyvis_repairs_20261106/observation_independent/native_retry_outputs.npz",
+    "runs/flyvis_repairs_20261106/observation_independent/native_retry_report.json",
+    "runs/flyvis_repairs_20261106/observation_independent/report.json",
+    "runs/flyvis_repairs_20261106/observation_independent/review.log",
+    "runs/flyvis_repairs_20261106/observation_independent/review.py",
+    "runs/flyvis_repairs_20261106/observation_independent/REVIEW.txt",
+    "runs/flyvis_repairs_20261106/observation_independent/artifact_paths.txt",
+    "runs/flyvis_repairs_20261106/observation_transaction/before_manifest.json",
+    "runs/flyvis_repairs_20261106/observation_transaction/flyvis_motion.py",
+    "runs/flyvis_repairs_20261106/observation_transaction/test_flyvis_observation_transaction.py",
+    "runs/flyvis_repairs_20261106/observation_before.log",
+    "runs/flyvis_repairs_20261106/observation_before_v2.log",
+    "runs/flyvis_repairs_20261106/observation_after.log",
+    "runs/flyvis_repairs_20261106/observation_after_v2.log",
+    "runs/flyvis_repairs_20261106/third_stable_package/initial_shared_tests.log",
+    "runs/flyvis_repairs_20261106/third_stable_package/initial_isolated_tests.log",
+    "runs/flyvis_repairs_20261106/third_stable_package/initial_validation.json",
+    "runs/flyvis_repairs_20261106/observation_transaction/replay_frozen_before.py",
+    "runs/flyvis_repairs_20261106/observation_transaction/final_cases_before.log"
+  ],
+  "manifest_inputs": [
+    "runs/flyvis_repairs_20261106/hdf5_transaction/manifest.json",
+    "runs/flyvis_system_fixes_20261106/observation_review/manifest.json"
+  ],
+  "tests": [
+    "tests/test_flyvis_hdf5_transaction.py",
+    "tests/test_flyvis_observation_transaction.py",
+    "tests/test_flyvis_adapter.py",
+    "tests/test_flyvis_device_contract.py",
+    "tests/test_flyvis_motion_contracts.py",
+    "tests/test_flyvis_activity_readout.py",
+    "tests/test_flyvis_checkpoint_strict.py"
+  ],
+  "scope": "Failed Windows HDF5 writes preserve prior target; failed official FlyVis observations preserve last successful published state. No changes to geometry defaults, model weights, data or scientific protocols.",
+  "deselect": [
+    "tests/test_flyvis_activity_readout.py::test_estimator_exposes_internal_activity_of_current_frame_only"
+  ]
+}

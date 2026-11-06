@@ -1,0 +1,484 @@
+EEEEEEEEEEEEEEEE..                                                       [100%]
+=================================== ERRORS ====================================
+______ ERROR at setup of test_invalid_hdf5_value_preserves_existing_file ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C4AE4D960>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+_ ERROR at setup of test_invalid_hdf5_value_does_not_publish_partial_new_file _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C4A60F2E0>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+_ ERROR at setup of test_valid_data_dtype_shape_and_swmr_are_preserved[value0] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C2A843340>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+_ ERROR at setup of test_valid_data_dtype_shape_and_swmr_are_preserved[value1] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C2C2AF1C0>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+_ ERROR at setup of test_valid_data_dtype_shape_and_swmr_are_preserved[value2] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C2A8429B0>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+_ ERROR at setup of test_valid_data_dtype_shape_and_swmr_are_preserved[value3] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C4AE9BDF0>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+_ ERROR at setup of test_valid_data_dtype_shape_and_swmr_are_preserved[value4] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C4AEAC040>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+_ ERROR at setup of test_valid_data_dtype_shape_and_swmr_are_preserved[value5] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C4AE4C7F0>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+_ ERROR at setup of test_valid_data_dtype_shape_and_swmr_are_preserved[value6] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C4AE4F280>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+_ ERROR at setup of test_publish_failure_preserves_old_file_or_absence[True] __
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C2A8880D0>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+_ ERROR at setup of test_publish_failure_preserves_old_file_or_absence[False] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C4AE4D7E0>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+_ ERROR at setup of test_open_windows_hdf5_reader_prevents_replacement_without_data_loss _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C4AE4FDF0>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+_ ERROR at setup of test_empty_directory_is_removed_only_after_successful_write _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C4AE4E1D0>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+____ ERROR at setup of test_nonempty_directory_is_never_removed_or_renamed ____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C4AE4EEC0>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+_____ ERROR at setup of test_file_symlink_stays_a_link_and_updates_target _____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C2C14ACB0>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+______ ERROR at setup of test_symlink_to_directory_never_removes_target _______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000022C4AEADB10>
+
+    @pytest.fixture
+    def writer(monkeypatch):
+        # Exercise real h5py without requiring the ignored vendor package in an
+        # isolated checkout. Only datamate's two aliases are replaced with stubs.
+        package=types.ModuleType('datamate');package.__path__=[]
+        io=types.ModuleType('datamate.io');directory=types.ModuleType('datamate.directory')
+        io._write_h5=lambda *args:None
+        directory._write_h5=io._write_h5
+        package.io=io;package.directory=directory
+        for module in (package,io,directory):
+            monkeypatch.setitem(sys.modules,module.__name__,module)
+>       _patch_datamate_hdf5_writer()
+
+tests\test_flyvis_hdf5_transaction.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _patch_datamate_hdf5_writer() -> None:
+        """Заменить небезопасную для Windows запись нового HDF5-файла."""
+        if os.name != "nt":
+            return
+    
+>       import h5py
+E       ModuleNotFoundError: No module named 'h5py'
+
+tracking\flyvis_adapter.py:35: ModuleNotFoundError
+=========================== short test summary info ===========================
+ERROR tests/test_flyvis_hdf5_transaction.py::test_invalid_hdf5_value_preserves_existing_file
+ERROR tests/test_flyvis_hdf5_transaction.py::test_invalid_hdf5_value_does_not_publish_partial_new_file
+ERROR tests/test_flyvis_hdf5_transaction.py::test_valid_data_dtype_shape_and_swmr_are_preserved[value0]
+ERROR tests/test_flyvis_hdf5_transaction.py::test_valid_data_dtype_shape_and_swmr_are_preserved[value1]
+ERROR tests/test_flyvis_hdf5_transaction.py::test_valid_data_dtype_shape_and_swmr_are_preserved[value2]
+ERROR tests/test_flyvis_hdf5_transaction.py::test_valid_data_dtype_shape_and_swmr_are_preserved[value3]
+ERROR tests/test_flyvis_hdf5_transaction.py::test_valid_data_dtype_shape_and_swmr_are_preserved[value4]
+ERROR tests/test_flyvis_hdf5_transaction.py::test_valid_data_dtype_shape_and_swmr_are_preserved[value5]
+ERROR tests/test_flyvis_hdf5_transaction.py::test_valid_data_dtype_shape_and_swmr_are_preserved[value6]
+ERROR tests/test_flyvis_hdf5_transaction.py::test_publish_failure_preserves_old_file_or_absence[True]
+ERROR tests/test_flyvis_hdf5_transaction.py::test_publish_failure_preserves_old_file_or_absence[False]
+ERROR tests/test_flyvis_hdf5_transaction.py::test_open_windows_hdf5_reader_prevents_replacement_without_data_loss
+ERROR tests/test_flyvis_hdf5_transaction.py::test_empty_directory_is_removed_only_after_successful_write
+ERROR tests/test_flyvis_hdf5_transaction.py::test_nonempty_directory_is_never_removed_or_renamed
+ERROR tests/test_flyvis_hdf5_transaction.py::test_file_symlink_stays_a_link_and_updates_target
+ERROR tests/test_flyvis_hdf5_transaction.py::test_symlink_to_directory_never_removes_target
+2 passed, 16 errors in 1.81s

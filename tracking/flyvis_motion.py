@@ -299,34 +299,76 @@ class FlyVisMotionEstimator:
         return self.network.fade_in_state(self.fade_in_seconds, fade_dt, rendered[:, 0])
 
     def observe(self, frame: np.ndarray) -> MotionField:
-        """Обработать очередной кадр и вернуть поле в исходных пикселях."""
-        rendered, render_seconds = self._timed(lambda: self._render(frame))
+        """Опубликовать состояние только после успешной проверки всего кадра.
+
+        Счётчики отражают успешно обработанные кадры за срок жизни объекта.
+        Неудачная попытка не меняет последнее поле, состояние или привязку
+        размеров; после устранения причины тот же кадр можно повторить.
+        """
+        layout_before = self._frame_size, self._bounds
+        try:
+            return self._observe_candidate(frame)
+        except BaseException:
+            # Rendering establishes the layout before the first simulation.
+            # All other public observation state is staged below.
+            self._frame_size, self._bounds = layout_before
+            raise
+
+    def _activity_array(self, activity, batch_size: int, steps: int):
+        expected = (batch_size, steps, self.network.n_nodes)
+        if tuple(activity.shape) != expected:
+            raise ValueError(f"Ожидалась активность {expected}, получено {tuple(activity.shape)}")
+        # This CPU copy was already published as last/baseline_activity. Keep
+        # its original dtype, including the existing FP64 diagnostic callers.
+        values = activity.detach().cpu().numpy()
+        if not np.isfinite(values).all():
+            raise ValueError("Активность FlyVis содержит NaN или Inf")
+        return values
+
+    def _decoder_shape(self, decoded, batch_size: int, steps: int) -> None:
+        expected = (batch_size, steps, 2, len(self._local_centers_yx))
+        if not self.torch.is_tensor(decoded) or tuple(decoded.shape) != expected:
+            raise ValueError(f"Ожидался выход декодера {expected}, получено {getattr(decoded, 'shape', None)}")
+
+    def _finite_decoded(self, decoded) -> None:
+        if not np.isfinite(decoded.detach().cpu().numpy()).all():
+            raise ValueError("Выход декодера FlyVis содержит NaN или Inf")
+
+    def _record_observation(self, render_seconds, network_seconds, decoder_seconds):
         self.stats["observations"] += 1
         self.stats["render_seconds"] += render_seconds
+        self.stats["network_seconds"] += network_seconds
+        self.stats["decoder_seconds"] += decoder_seconds
+
+    def _observe_candidate(self, frame: np.ndarray) -> MotionField:
+        rendered, render_seconds = self._timed(lambda: self._render(frame))
 
         batch_size = rendered.shape[0]
         if self._last_hex is None:
             with self.torch.inference_mode():
-                self._state, network_seconds = self._timed(
+                candidate_state, network_seconds = self._timed(
                     lambda: self._initial_state(rendered)
                 )
-                initial_activity = self._state.nodes.activity.unsqueeze(1)
+                initial_activity = candidate_state.nodes.activity.unsqueeze(1)
+                initial_values = self._activity_array(initial_activity, batch_size, 1)
                 initial_decoded, decoder_seconds = self._timed(
                     lambda: self.decoder(initial_activity)
                 )
-            self.stats["network_seconds"] += network_seconds
-            self.stats["decoder_seconds"] += decoder_seconds
-            self._baseline_flow = initial_decoded[:, 0].detach()
-            # Активность после fade-in: (tiles, nodes) — baseline для считывания.
-            self.baseline_activity = initial_activity[:, 0].detach().cpu().numpy()
-            self._last_hex = rendered[:, 0:1]
-            self.last_decoded = None
+            self._decoder_shape(initial_decoded, batch_size, 1)
+            self._finite_decoded(initial_decoded)
             zero_flow = self.torch.zeros(
                 (batch_size, 2, rendered.shape[-1]),
                 device=self.flyvis.device,
                 dtype=self.torch.float32,
             )
-            return self._points_and_vectors(zero_flow)
+            field = self._points_and_vectors(zero_flow)
+            self._state = candidate_state
+            self._baseline_flow = initial_decoded[:, 0].detach()
+            self.baseline_activity = initial_values[:, 0]
+            self._last_hex = rendered[:, 0:1]
+            self.last_decoded = None
+            self._record_observation(render_seconds, network_seconds, decoder_seconds)
+            return field
 
         if self.temporal_resampling == "linear":
             alpha = self.torch.arange(
@@ -350,29 +392,35 @@ class FlyVisMotionEstimator:
             activity = self.torch.stack(
                 [state.nodes.activity for state in states], dim=1
             )
+            activity_values = self._activity_array(activity, batch_size, self.integration_steps)
             decoded, decoder_seconds = self._timed(lambda: self.decoder(activity))
-        self.stats["network_seconds"] += network_seconds
-        self.stats["decoder_seconds"] += decoder_seconds
+        self._decoder_shape(decoded, batch_size, self.integration_steps)
         if self.subtract_initial_baseline:
             assert self._baseline_flow is not None
             decoded = decoded - self._baseline_flow[:, None]
+        self._finite_decoded(decoded)
+        field = self._field_from_decoded(decoded, self.flow_aggregation)
         self._state = states[-1]
         self._last_hex = rendered[:, 0:1]
         self.last_decoded = decoded.detach()
         # Активность внутренних шагов текущего кадра: (tiles, steps, nodes).
-        self.last_activity = activity.detach().cpu().numpy()
-        return self.field_from_last(self.flow_aggregation)
+        self.last_activity = activity_values
+        self._record_observation(render_seconds, network_seconds, decoder_seconds)
+        return field
 
     def field_from_last(self, aggregation: str = "mean") -> MotionField:
         """Повторно агрегировать последний внутренний интервал без запуска сети."""
         if self.last_decoded is None:
             raise RuntimeError("Ещё не обработана пара кадров")
+        return self._field_from_decoded(self.last_decoded, aggregation)
+
+    def _field_from_decoded(self, decoded, aggregation: str) -> MotionField:
         if aggregation == "mean":
-            interval_flow = self.last_decoded.mean(dim=1)
+            interval_flow = decoded.mean(dim=1)
         elif aggregation == "sum":
-            interval_flow = self.last_decoded.sum(dim=1)
+            interval_flow = decoded.sum(dim=1)
         elif aggregation == "last":
-            interval_flow = self.last_decoded[:, -1]
+            interval_flow = decoded[:, -1]
         else:
             raise ValueError("aggregation должен быть mean, last или sum")
         return self._points_and_vectors(interval_flow)
