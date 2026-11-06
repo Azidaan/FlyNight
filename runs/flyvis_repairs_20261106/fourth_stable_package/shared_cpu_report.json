@@ -1,0 +1,187 @@
+{
+  "exit_code": 0,
+  "cwd": "E:\\Dissertation",
+  "pytest_args": [
+    "tests/test_reliability_head_contracts.py",
+    "tests/test_flyvis_activity_readout.py",
+    "-q",
+    "-rs",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=E:\\Dissertation\\runs\\flyvis_repairs_20261106\\fourth_stable_package\\shared_temp_1793995955547875200"
+  ],
+  "cuda_initialized_before": false,
+  "cuda_initialized_after": false,
+  "flyvis_device": "cpu",
+  "default_torch_device": "cpu",
+  "cases": [
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_head_rejects_malformed_parameters[scale-value0]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_head_rejects_malformed_parameters[scale-value1]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_head_rejects_malformed_parameters[scale-1.0]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_head_rejects_malformed_parameters[coef-value3]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_head_rejects_malformed_parameters[coef-value4]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_head_rejects_malformed_parameters[mean-0.0]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_head_rejects_malformed_parameters[mean-value6]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_head_rejects_malformed_parameters[intercept-nan]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_head_rejects_malformed_parameters[features-value8]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_head_rejects_malformed_parameters[features-value9]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_reliability_rejects_wrong_feature_order[base]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_reliability_rejects_wrong_feature_order[fly]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_head_rejects_malformed_feature_matrix[x0]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_head_rejects_malformed_feature_matrix[x1]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_head_rejects_malformed_feature_matrix[x2]",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_rejects_runtime_overflow_in_finite_parameters",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_reliability_head_contracts.py::test_logistic_valid_math_exact_and_extreme_finite_scores",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_flyvis_activity_readout.py::test_type_column_indices_returns_one_index_array_per_requested_type",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_flyvis_activity_readout.py::test_type_column_indices_rejects_types_with_different_column_counts",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_flyvis_activity_readout.py::test_mean_activity_by_type_averages_internal_steps_and_orders_types",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_flyvis_activity_readout.py::test_activity_cache_roundtrip_preserves_shapes_and_types",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_flyvis_activity_readout.py::test_output_cell_types_contain_eight_direction_channels",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_flyvis_activity_readout.py::test_select_columns_splits_inside_and_ring",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_flyvis_activity_readout.py::test_select_columns_falls_back_to_nearest_column_for_tiny_box",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_flyvis_activity_readout.py::test_box_readout_t4t5_reports_dominant_direction_and_low_entropy",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_flyvis_activity_readout.py::test_box_readout_t4t5_uniform_directions_give_maximal_entropy",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_flyvis_activity_readout.py::test_box_readout_t4t5_subtracts_baseline",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    },
+    {
+      "nodeid": "tests/test_flyvis_activity_readout.py::test_estimator_exposes_internal_activity_of_current_frame_only",
+      "when": "call",
+      "outcome": "passed",
+      "detail": null
+    }
+  ]
+}

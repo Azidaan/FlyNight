@@ -1,0 +1,100 @@
+{
+  "head": "a27f039ed5e90252a69bf6a3e49294a64c5c096d",
+  "passed": true,
+  "shared": {
+    "passed": true,
+    "exit_code": 0,
+    "command": [
+      "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+      "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\native_activity_test_guard\\run_pytest_cpu.py",
+      "--report",
+      "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\fourth_stable_package\\shared_cpu_report.json",
+      "tests/test_reliability_head_contracts.py",
+      "tests/test_flyvis_activity_readout.py",
+      "-q",
+      "-rs",
+      "-p",
+      "no:cacheprovider",
+      "--basetemp=E:\\Dissertation\\runs\\flyvis_repairs_20261106\\fourth_stable_package\\shared_temp_1793995955547875200"
+    ],
+    "cwd": "E:\\Dissertation",
+    "seconds": 34.26599999999962,
+    "log": "runs/flyvis_repairs_20261106/fourth_stable_package/shared_tests.log",
+    "cpu_report": "runs/flyvis_repairs_20261106/fourth_stable_package/shared_cpu_report.json"
+  },
+  "isolated": {
+    "passed": true,
+    "exit_code": 0,
+    "command": [
+      "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+      "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\native_activity_test_guard\\run_pytest_cpu.py",
+      "--report",
+      "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\fourth_stable_package\\isolated_cpu_report.json",
+      "tests/test_reliability_head_contracts.py",
+      "tests/test_flyvis_activity_readout.py",
+      "-q",
+      "-rs",
+      "-p",
+      "no:cacheprovider",
+      "--basetemp=E:\\Dissertation\\runs\\flyvis_repairs_20261106\\fourth_stable_package\\isolated_temp_1793995995049527400"
+    ],
+    "cwd": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\fourth_stable_package\\isolated_1793995989814225200",
+    "seconds": 8.65599999999904,
+    "log": "runs/flyvis_repairs_20261106/fourth_stable_package/isolated_tests.log",
+    "cpu_report": "runs/flyvis_repairs_20261106/fourth_stable_package/isolated_cpu_report.json"
+  },
+  "overlay": [
+    {
+      "path": "tracking/reliability_head.py",
+      "size": 8081,
+      "sha256": "b9728e7d9190f6fb3111071cf4a26aa24a4e73a822a5ba7f144c5cbdf8bd84c0",
+      "head_blob": "482ea31365d9c4a2fd1d4623e4985b78acabdc34",
+      "index_blob": "482ea31365d9c4a2fd1d4623e4985b78acabdc34",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/learned_head_review/original/reliability_head.py",
+        "size": 6016,
+        "sha256": "00c1fede5d94e59c81d8b7efa31937fdaa71708db24650f6f07251f59da11ab5"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/learned_head_review/original/reliability_head.py",
+          "size": 6016,
+          "sha256": "00c1fede5d94e59c81d8b7efa31937fdaa71708db24650f6f07251f59da11ab5"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_reliability_head_contracts.py",
+      "size": 2236,
+      "sha256": "e811742b59a1bdfc0e51d4dc7c4f9e9f1ecf3833a09a75298cfa4b17d74632d4",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "tests/test_flyvis_activity_readout.py",
+      "size": 7559,
+      "sha256": "85430c8e423279547b3a6e996e161f4c9e39d4957f8bdc05eb20c3f0bb2020ff",
+      "head_blob": "da849f587cbaefb4e2c39e4cd9ccf44aa0b0c616",
+      "index_blob": "da849f587cbaefb4e2c39e4cd9ccf44aa0b0c616",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/native_activity_test_guard/original_test_flyvis_activity_readout.py",
+        "size": 7009,
+        "sha256": "c0d9577ea0f2fdf38f05c3ea30483a31ca2a32b26e302844caafc384b2024973"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/native_activity_test_guard/original_test_flyvis_activity_readout.py",
+          "size": 7009,
+          "sha256": "c0d9577ea0f2fdf38f05c3ea30483a31ca2a32b26e302844caafc384b2024973"
+        }
+      ]
+    }
+  ],
+  "scope": "HEAD plus exactly the 3 specified frozen source/test files; no vendor runtime or unrelated dirty sources"
+}
