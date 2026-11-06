@@ -6,6 +6,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -16,7 +17,7 @@ import numpy as np
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from tracking.flyvis_motion import FlyVisMotionEstimator  # noqa: E402
+from tracking.flyvis_motion import GEOMETRY_VERSION, GEOMETRY_VERSIONS, FlyVisMotionEstimator  # noqa: E402
 
 
 OUTPUT = PROJECT_ROOT / "runs" / "flyvis" / "motion_calibration.json"
@@ -57,6 +58,12 @@ def fitted_gain(rows: list[dict]) -> tuple[float, float]:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, default=OUTPUT)
+    parser.add_argument("--geometry-version", choices=GEOMETRY_VERSIONS, default=GEOMETRY_VERSION)
+    args = parser.parse_args()
+    if args.output.exists():
+        raise FileExistsError(f"Калибровка уже существует: {args.output}; укажите новый --output")
     base = textured_frame()
     estimator = FlyVisMotionEstimator(
         mode="full",
@@ -65,6 +72,7 @@ def main() -> int:
         flow_gain=1.0,
         temporal_resampling="hold",
         flow_aggregation="mean",
+        geometry_version=args.geometry_version,
     )
     records = []
     for resampling in ("hold", "linear"):
@@ -112,13 +120,14 @@ def main() -> int:
         "source_fps": 5.0,
         "dt": 0.02,
         "model": "flow/0000/000",
+        "geometry_version": args.geometry_version,
         "records": records,
         "fits": fits,
     }
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(fits, ensure_ascii=False, indent=2))
-    print(f"[OK] отчёт: {OUTPUT}")
+    print(f"[OK] отчёт: {args.output}")
     return 0
 
 

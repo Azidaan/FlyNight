@@ -1,0 +1,58 @@
+F.F                                                                      [100%]
+================================== FAILURES ===================================
+___________ test_known_names_use_one_native_mutex[flyvis_fovea_gpu] ___________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002950A8FF160>
+alias = 'flyvis_fovea_gpu'
+
+    @pytest.mark.parametrize('alias', ALIASES)
+    def test_known_names_use_one_native_mutex(monkeypatch, alias):
+        created = []
+        def create(security, owner, name):
+            created.append(name)
+            return 123
+        fake = SimpleNamespace(CreateMutexW=create, WaitForSingleObject=lambda *a: 0,
+                               ReleaseMutex=lambda *a: 1, CloseHandle=lambda *a: 1)
+        monkeypatch.setattr(locks.sys, 'platform', 'win32')
+        monkeypatch.setattr(locks.ctypes, 'WinDLL', lambda *a, **kw: fake, raising=False)
+        lock = locks.GpuLock(alias)
+        try:
+            with lock:
+                pass
+>           assert created == ['Local\\DissertationSingleGpu']
+E           AssertionError: assert ['flyvis_fovea_gpu'] == ['Local\\Diss...ionSingleGpu']
+E             
+E             At index 0 diff: 'flyvis_fovea_gpu' != 'Local\\DissertationSingleGpu'
+E             Use -v to get more diff
+
+tests\test_gpu_lock_aliases.py:33: AssertionError
+_ test_known_names_use_one_native_mutex[FlyVis_z13_observed_memory_single_gpu] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002950A977A90>
+alias = 'FlyVis_z13_observed_memory_single_gpu'
+
+    @pytest.mark.parametrize('alias', ALIASES)
+    def test_known_names_use_one_native_mutex(monkeypatch, alias):
+        created = []
+        def create(security, owner, name):
+            created.append(name)
+            return 123
+        fake = SimpleNamespace(CreateMutexW=create, WaitForSingleObject=lambda *a: 0,
+                               ReleaseMutex=lambda *a: 1, CloseHandle=lambda *a: 1)
+        monkeypatch.setattr(locks.sys, 'platform', 'win32')
+        monkeypatch.setattr(locks.ctypes, 'WinDLL', lambda *a, **kw: fake, raising=False)
+        lock = locks.GpuLock(alias)
+        try:
+            with lock:
+                pass
+>           assert created == ['Local\\DissertationSingleGpu']
+E           AssertionError: assert ['FlyVis_z13_...y_single_gpu'] == ['Local\\Diss...ionSingleGpu']
+E             
+E             At index 0 diff: 'FlyVis_z13_observed_memory_single_gpu' != 'Local\\DissertationSingleGpu'
+E             Use -v to get more diff
+
+tests\test_gpu_lock_aliases.py:33: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_gpu_lock_aliases.py::test_known_names_use_one_native_mutex[flyvis_fovea_gpu]
+FAILED tests/test_gpu_lock_aliases.py::test_known_names_use_one_native_mutex[FlyVis_z13_observed_memory_single_gpu]
+2 failed, 1 passed, 11 deselected in 0.37s

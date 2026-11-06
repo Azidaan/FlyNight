@@ -1,0 +1,200 @@
+{
+  "passed": true,
+  "default_geometry": "legacy_v1",
+  "versions": [
+    "legacy_v1",
+    "pixel_centers_v2",
+    "resize_v2"
+  ],
+  "callers": [
+    {
+      "path": "scripts/fly_axes_probe.py",
+      "sha256": "7cb05fe75552339711dcec5a117e40127f5ede0a8b60176cda43819f034f40ec",
+      "original_sha256": "7f1fc0f155b1bd124dbf0badc5bf94e8e395560bdc552e89f3f4d6532491a2c8",
+      "constructors": [
+        {
+          "line": 38,
+          "call": "K.Fly",
+          "explicit_geometry": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_dynamic_norm_probe.py",
+      "sha256": "1a7aeeebc8fafd7f36d35803025dac6306fb8922e0cddecc25cdbfd3df8b9aa9",
+      "original_sha256": "a2e2b83d22730e2180707ec3693c02beb400fe018ce0328d1525571a0259753f",
+      "constructors": [
+        {
+          "line": 73,
+          "call": "make_fly",
+          "explicit_geometry": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_k1_v2.py",
+      "sha256": "611729a861f6c0433c2f0f0641a6699161cdd310f8d312c670b95157374f918d",
+      "original_sha256": "ce9ee1d1ce2d8fad86ebdd78b31deb3cfabc01a7c9865454ce0aa215076753a5",
+      "constructors": [
+        {
+          "line": 233,
+          "call": "K.Fly",
+          "explicit_geometry": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_finetune_k1_synthetic.py",
+      "sha256": "fcf7195765c0c0e6a824e84079ad556928555e4180dd868bc4f212cb8d322ea5",
+      "original_sha256": "ab65fc775c1ee7b92aa8acf274e7bcfdfdaa00ce9bdbc144ca7f811d73def7c1",
+      "constructors": [
+        {
+          "line": 87,
+          "call": "K.Fly",
+          "explicit_geometry": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_reference_probe.py",
+      "sha256": "030608e487c3265a88044ec6954a1190ee3413cf4cf32d4f4e291420a1404f81",
+      "original_sha256": "3825d194da6c4db5e93cc70741ae6732462c85d4d1b97955f820591d7c3e9cec",
+      "constructors": [
+        {
+          "line": 60,
+          "call": "make_fly",
+          "explicit_geometry": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_scale_probe.py",
+      "sha256": "491fe9e85d5afe3e55e2911725568020c457bdae448e0150541f4f0b198e41c5",
+      "original_sha256": "9b47122c67130e69e8a53ddf45b58a94312a444fb219249025d9344722e8c782",
+      "constructors": [
+        {
+          "line": 65,
+          "call": "K.Fly",
+          "explicit_geometry": true
+        },
+        {
+          "line": 190,
+          "call": "make_fly",
+          "explicit_geometry": true
+        },
+        {
+          "line": 109,
+          "call": "make_fly",
+          "explicit_geometry": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_stage_probe.py",
+      "sha256": "9f2ae7549e4efbd663dd7b4c047e6a9672f37d87faaa42fa585b0389bbfdd126",
+      "original_sha256": "518d6bb868d20fae6cb317776f7032ece6ecd20b2ba846b429f82a8f73e6e142",
+      "constructors": [
+        {
+          "line": 81,
+          "call": "make_fly",
+          "explicit_geometry": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_wide_field.py",
+      "sha256": "9f5a9821b17471ced0539aebec94633e6c4c687716154e217db314b063740b00",
+      "original_sha256": "cca3fd577f081ee6845f4a8bee1190e407fd4bb7bf001809868cca2565d78a94",
+      "constructors": [
+        {
+          "line": 161,
+          "call": "make_fly",
+          "explicit_geometry": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/build_fly_lcn_motion.py",
+      "sha256": "4680444b58f16c6d8dd71ce2b3d9fbd20e35032f32311e1c4821f49675e124ca",
+      "original_sha256": "3105161a5768e314651daf99618ebfb4b2cbd9ad08945695e43d1df103ac4d17",
+      "constructors": [
+        {
+          "line": 47,
+          "call": "make_fly",
+          "explicit_geometry": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_noise_probe.py",
+      "sha256": "bcab8565f917d1918fa0a499e571f7a2fc9b2e11d4daa5a6b0c1df259417f334",
+      "original_sha256": "234f6afe47ec9971488baed236b9d87ce53e82329062d115772d100aeffde4c0",
+      "constructors": [
+        {
+          "line": 62,
+          "call": "make_fly",
+          "explicit_geometry": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_speed_response.py",
+      "sha256": "999ecb1daf54772e5dea1aa55c86cf5a138bb1bcbae1a9e36b77ee40751984cb",
+      "original_sha256": "a2b6a2cf5243ee606083827db290dfab28b1ec22392c5229f5051487e258bdf4",
+      "constructors": [
+        {
+          "line": 46,
+          "call": "make_fly",
+          "explicit_geometry": true
+        }
+      ]
+    }
+  ],
+  "new_files": {
+    "tracking/flyvis_geometry_protocol.py": "749e5d4e793f1e7002f827ba9256d87cbaa4df2a3a7c9ff21ee6fdb17dbc1808",
+    "tests/test_flyvis_secondary_geometry.py": "4fe1cb678c6c0af5d46c5f3b6296fd0071e1da87379e391abc34fe92154d4577"
+  },
+  "actual_legacy_weights": {
+    "path": "runs/fly_k1_v2/arms.pt",
+    "sha256": "4362aa17ae78cdc3086692f4f9cc6ee25cbeac597d6cd13226101d8e3147e4a6",
+    "rejections": {
+      "pixel_centers_v2": "Checkpoint arm decoder: saved geometry legacy_v1, requested pixel_centers_v2; historical weights require explicit legacy_v1",
+      "resize_v2": "Checkpoint arm decoder: saved geometry legacy_v1, requested resize_v2; historical weights require explicit legacy_v1"
+    },
+    "explicit_legacy_allowed": true
+  },
+  "actual_cli": [
+    {
+      "case": "explicit_pixel_centers",
+      "exit_code": 1,
+      "evidence": "actual_explicit_pixel_centers_rejection.log",
+      "expected_failure": "saved geometry legacy_v1"
+    },
+    {
+      "case": "research_with_fixed_gain",
+      "exit_code": 1,
+      "evidence": "actual_research_with_fixed_gain_rejection.log",
+      "expected_failure": "historical fixed gain"
+    }
+  ],
+  "resize_unit_gain_entrypoints": [
+    "fly_axes_probe",
+    "fly_dynamic_norm_probe",
+    "fly_reference_probe",
+    "fly_scale_probe",
+    "fly_stage_probe",
+    "build_fly_lcn_motion",
+    "fly_noise_probe",
+    "fly_speed_response"
+  ],
+  "resize_rejected_historical_gain_entrypoints": [
+    "fly_finetune_k1_synthetic",
+    "fly_k1_v2",
+    "fly_wide_field"
+  ],
+  "test_evidence": "tests_legacy_default_final.log: 62 passed in 5.88s",
+  "correction": "Earlier REPORT.txt described resize_v2 as default. Current default is legacy_v1; see FINAL_LEGACY_DEFAULT.txt and prior additive corrections.",
+  "scientific_runs_performed": false,
+  "cuda_initialized": false,
+  "script_sha256": "81c203dba31fdb458189bf23451d5843f2e824153262c8afff0ac7e2c6b36286"
+}

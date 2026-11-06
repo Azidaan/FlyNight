@@ -1,0 +1,161 @@
+{
+  "definition": "open-loop endpoint error accumulated over raw 30 Hz frames between two labeled BDD100K frames; ground truth is not used inside inference",
+  "samples": 3043,
+  "mean_endpoint_error_pixels": 48.27365642772315,
+  "median_endpoint_error_pixels": 42.722137451171875,
+  "p90_endpoint_error_pixels": 86.30102386474611,
+  "mean_error_over_start_box_diagonal": 1.1921571180695163,
+  "direction_accuracy": 0.7935483870967742,
+  "mean_target_displacement_pixels": 18.078595752139506,
+  "mean_predicted_displacement_pixels": 57.46880790110368,
+  "mean_motion_confidence": 0.28565020637053096,
+  "confidence_reliability": {
+    "definition": "segment mean confidence versus open-loop endpoint error",
+    "segments": 3043,
+    "confidence_error_pearson": 0.02227035831904465,
+    "confidence_normalized_error_pearson": 0.2352743201601856,
+    "bins": [
+      {
+        "lower": 0.0,
+        "upper": 0.1,
+        "count": 169,
+        "mean_confidence": 0.0683516253463768,
+        "mean_endpoint_error_pixels": 40.29395983063963,
+        "mean_normalized_error": 0.33750575339196015,
+        "acceptable_rate_norm_0.10": 0.28402366863905326,
+        "acceptable_rate_norm_0.25": 0.6153846153846154,
+        "acceptable_rate_norm_0.50": 0.8284023668639053
+      },
+      {
+        "lower": 0.1,
+        "upper": 0.2,
+        "count": 634,
+        "mean_confidence": 0.15914386705604688,
+        "mean_endpoint_error_pixels": 38.975742321755234,
+        "mean_normalized_error": 0.7141347229666509,
+        "acceptable_rate_norm_0.10": 0.06782334384858044,
+        "acceptable_rate_norm_0.25": 0.23659305993690852,
+        "acceptable_rate_norm_0.50": 0.48580441640378547
+      },
+      {
+        "lower": 0.2,
+        "upper": 0.30000000000000004,
+        "count": 994,
+        "mean_confidence": 0.24994447025292144,
+        "mean_endpoint_error_pixels": 52.44384687503339,
+        "mean_normalized_error": 1.259937369213057,
+        "acceptable_rate_norm_0.10": 0.011066398390342052,
+        "acceptable_rate_norm_0.25": 0.08048289738430583,
+        "acceptable_rate_norm_0.50": 0.22032193158953722
+      },
+      {
+        "lower": 0.30000000000000004,
+        "upper": 0.4,
+        "count": 691,
+        "mean_confidence": 0.34440749838220186,
+        "mean_endpoint_error_pixels": 54.152623598896476,
+        "mean_normalized_error": 1.5333230213602767,
+        "acceptable_rate_norm_0.10": 0.001447178002894356,
+        "acceptable_rate_norm_0.25": 0.01881331403762663,
+        "acceptable_rate_norm_0.50": 0.11432706222865413
+      },
+      {
+        "lower": 0.4,
+        "upper": 0.5,
+        "count": 348,
+        "mean_confidence": 0.44271672731987766,
+        "mean_endpoint_error_pixels": 50.11163142631794,
+        "mean_normalized_error": 1.5073913955070808,
+        "acceptable_rate_norm_0.10": 0.0,
+        "acceptable_rate_norm_0.25": 0.014367816091954023,
+        "acceptable_rate_norm_0.50": 0.07471264367816093
+      },
+      {
+        "lower": 0.5,
+        "upper": 0.6000000000000001,
+        "count": 135,
+        "mean_confidence": 0.54145378592098,
+        "mean_endpoint_error_pixels": 48.29793796539307,
+        "mean_normalized_error": 1.606457638184149,
+        "acceptable_rate_norm_0.10": 0.0,
+        "acceptable_rate_norm_0.25": 0.0,
+        "acceptable_rate_norm_0.50": 0.07407407407407407
+      },
+      {
+        "lower": 0.6000000000000001,
+        "upper": 0.7000000000000001,
+        "count": 32,
+        "mean_confidence": 0.6440554052731926,
+        "mean_endpoint_error_pixels": 42.70049712061882,
+        "mean_normalized_error": 1.49931777556721,
+        "acceptable_rate_norm_0.10": 0.0,
+        "acceptable_rate_norm_0.25": 0.03125,
+        "acceptable_rate_norm_0.50": 0.0625
+      },
+      {
+        "lower": 0.7000000000000001,
+        "upper": 0.8,
+        "count": 12,
+        "mean_confidence": 0.7374197951525306,
+        "mean_endpoint_error_pixels": 38.8631321589152,
+        "mean_normalized_error": 1.3066509208888004,
+        "acceptable_rate_norm_0.10": 0.08333333333333333,
+        "acceptable_rate_norm_0.25": 0.08333333333333333,
+        "acceptable_rate_norm_0.50": 0.08333333333333333
+      },
+      {
+        "lower": 0.8,
+        "upper": 0.9,
+        "count": 18,
+        "mean_confidence": 0.8718515769930165,
+        "mean_endpoint_error_pixels": 1.350561209850841,
+        "mean_normalized_error": 0.030314241699556124,
+        "acceptable_rate_norm_0.10": 1.0,
+        "acceptable_rate_norm_0.25": 1.0,
+        "acceptable_rate_norm_0.50": 1.0
+      },
+      {
+        "lower": 0.9,
+        "upper": 1.0,
+        "count": 10,
+        "mean_confidence": 0.9257509217927419,
+        "mean_endpoint_error_pixels": 1.1637008339166641,
+        "mean_normalized_error": 0.03826478329775204,
+        "acceptable_rate_norm_0.10": 0.9,
+        "acceptable_rate_norm_0.25": 1.0,
+        "acceptable_rate_norm_0.50": 1.0
+      }
+    ],
+    "top_confidence_fractions": {
+      "0.25": {
+        "count": 761,
+        "minimum_confidence": 0.36024918958907337,
+        "mean_endpoint_error_pixels": 48.26324330170427,
+        "mean_normalized_error": 1.506147323979755,
+        "acceptable_rate_norm_0.25": 0.04862023653088042
+      },
+      "0.50": {
+        "count": 1522,
+        "minimum_confidence": 0.2731748146201685,
+        "mean_endpoint_error_pixels": 51.46332965867592,
+        "mean_normalized_error": 1.4892476349502681,
+        "acceptable_rate_norm_0.25": 0.04402102496714849
+      },
+      "0.75": {
+        "count": 2283,
+        "minimum_confidence": 0.1947444524395644,
+        "mean_endpoint_error_pixels": 51.4939793070784,
+        "mean_normalized_error": 1.3869530918810313,
+        "acceptable_rate_norm_0.25": 0.058694699956197985
+      },
+      "1.00": {
+        "count": 3043,
+        "minimum_confidence": 0.013388431728505984,
+        "mean_endpoint_error_pixels": 48.27365642772315,
+        "mean_normalized_error": 1.1921571180695163,
+        "acceptable_rate_norm_0.25": 0.12553401248767662
+      }
+    }
+  },
+  "seconds": 8.65599999999904
+}

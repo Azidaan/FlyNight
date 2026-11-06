@@ -21,13 +21,22 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 import scripts.fly_finetune_k1 as K  # noqa: E402
 from scripts.fly_finetune_k1_synthetic import segments  # noqa: E402
+from tracking.flyvis_geometry_protocol import add_geometry_arguments, ensure_geometry_output, resolve_output
 
 OUT = PROJECT_ROOT / "runs" / "fly_finetune_k1" / "axes_probe.json"
 
 
 def main() -> int:
+    global OUT
+    import argparse
+    parser = argparse.ArgumentParser(); add_geometry_arguments(parser); args = parser.parse_args()
+    OUT = resolve_output(args.out, OUT, PROJECT_ROOT)
+    ensure_geometry_output(OUT, args.geometry_version, file=True)
     fps = json.loads((K.TC / "0001542f-5ce3cf52/motion/dis_quarter.json").read_text(encoding="utf-8"))["fps"]
-    fly = K.Fly(fps)
+    # The probe explicitly removes base.flow_gain below. Research geometry uses
+    # a unit gain directly; other versions keep their historical arithmetic.
+    fly = K.Fly(fps, gain=1.0 if args.geometry_version == 'resize_v2' else None,
+                geometry_version=args.geometry_version)
     t = fly.torch; dec = fly.base.decoder
     sel = json.loads((K.TC / "selection.json").read_text(encoding="utf-8"))["videos"]
     segs = segments(fly, sel["dev"][:10], "train", np.random.default_rng(0), 6)
@@ -65,6 +74,7 @@ def main() -> int:
     res["stand_px_late"] = {"A": A[:2].T.tolist(), "R2_xy": r2.tolist()}
     print(f"[stand_px, кадры 6–11 отрезка] R² {r2.round(3)} | A {np.round(A[:2].T, 3).tolist()}")
     res["n"] = int(len(Y))
+    res["geometry_version"] = args.geometry_version
     OUT.write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"[OK] {OUT}")
     return 0

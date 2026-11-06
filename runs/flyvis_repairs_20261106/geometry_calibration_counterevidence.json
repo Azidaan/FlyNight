@@ -1,0 +1,84 @@
+{
+  "source": "runs\\flyvis\\motion_calibration.json",
+  "source_sha256": "b655e143a42acca3da1bdc2a0f45b8e65176b5742b6053f0eb4c5e027d520a95",
+  "input_size": [
+    1280,
+    720
+  ],
+  "retinal_size": [
+    391,
+    391
+  ],
+  "results": [
+    {
+      "resampling": "hold",
+      "aggregation": "mean",
+      "samples": 7,
+      "old_gain": 102.59663505027247,
+      "old_rmse": 2.0892894536234135,
+      "resized_axes_old_gain_rmse": 6.994735029744112,
+      "diagnostic_refitted_gain": 62.68883397130877,
+      "diagnostic_refitted_rmse": 3.419143876619913,
+      "coordinate_only_vectors_and_rmse_unchanged": true
+    },
+    {
+      "resampling": "hold",
+      "aggregation": "last",
+      "samples": 7,
+      "old_gain": 279.83191707853985,
+      "old_rmse": 6.2349676479215255,
+      "resized_axes_old_gain_rmse": 6.0996312463128035,
+      "diagnostic_refitted_gain": 234.37350005990217,
+      "diagnostic_refitted_rmse": 5.883133759352815,
+      "coordinate_only_vectors_and_rmse_unchanged": true
+    },
+    {
+      "resampling": "hold",
+      "aggregation": "sum",
+      "samples": 7,
+      "old_gain": 10.259663872102612,
+      "old_rmse": 2.089289375119825,
+      "resized_axes_old_gain_rmse": 6.994734797302562,
+      "diagnostic_refitted_gain": 6.268883708250496,
+      "diagnostic_refitted_rmse": 3.4191437291015947,
+      "coordinate_only_vectors_and_rmse_unchanged": true
+    },
+    {
+      "resampling": "linear",
+      "aggregation": "mean",
+      "samples": 7,
+      "old_gain": 160.50048651834032,
+      "old_rmse": 2.5605331110199097,
+      "resized_axes_old_gain_rmse": 7.55953284706336,
+      "diagnostic_refitted_gain": 94.9955568715152,
+      "diagnostic_refitted_rmse": 3.880780079087769,
+      "coordinate_only_vectors_and_rmse_unchanged": true
+    },
+    {
+      "resampling": "linear",
+      "aggregation": "last",
+      "samples": 7,
+      "old_gain": 99.13345784964362,
+      "old_rmse": 2.0902006743961703,
+      "resized_axes_old_gain_rmse": 7.072049841826568,
+      "diagnostic_refitted_gain": 60.23826233751723,
+      "diagnostic_refitted_rmse": 3.4233715084727794,
+      "coordinate_only_vectors_and_rmse_unchanged": true
+    },
+    {
+      "resampling": "linear",
+      "aggregation": "sum",
+      "samples": 7,
+      "old_gain": 16.05004956116837,
+      "old_rmse": 2.560532825804799,
+      "resized_axes_old_gain_rmse": 7.5595324916121465,
+      "diagnostic_refitted_gain": 9.499556417888234,
+      "diagnostic_refitted_rmse": 3.8807797857389454,
+      "coordinate_only_vectors_and_rmse_unchanged": true
+    }
+  ],
+  "scope": "Recompute existing full-frame synthetic calibration records; no new neural inference, gain adoption, training or HOTA",
+  "finding": "Blind transfer of legacy scalar gains to resize_v2 is unsafe; several modes worsen even after scalar refit",
+  "limitation": "Correct coordinate-center remapping is independent of this vector scaling. Exact calibration equality does not prove ROI or tracker-quality equality.",
+  "decision": "Do not publish automatic anisotropic vector rescaling with old calibration. Keep the counterevidence and separate proven coordinate mapping from an unvalidated learned-output scaling hypothesis."
+}

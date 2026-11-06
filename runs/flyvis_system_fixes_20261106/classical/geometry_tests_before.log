@@ -1,0 +1,286 @@
+FFFF..FF.FFFFF                                                           [100%]
+================================== FAILURES ===================================
+___ test_sample_locations_follow_actual_cv2_coordinate_ramps[1280-720-0.25] ___
+
+width = 1280, height = 720, scale = 0.25
+
+    @pytest.mark.parametrize("width,height,scale", [
+        (1280, 720, .25), (1281, 721, .25), (101, 99, .25),
+        (99, 101, .5), (64, 64, 1.), (32, 32, .99),
+    ])
+    def test_sample_locations_follow_actual_cv2_coordinate_ramps(width, height, scale):
+        estimator = OpenCVMotionEstimator("farneback", processing_scale=scale)
+        yy, xx = np.indices((height, width), dtype=np.float32)
+        xmap = cv2.resize(xx, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
+        ymap = cv2.resize(yy, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
+        ph, pw = xmap.shape
+        gx, gy = np.meshgrid(np.arange(4, pw, 8), np.arange(4, ph, 8))
+        expected = np.column_stack([xmap[gy, gx].ravel(), ymap[gy, gx].ravel()])
+        field = estimator._sample(np.zeros((ph, pw, 2), np.float32), width, height)
+>       np.testing.assert_allclose(field.points_xy, expected, rtol=0, atol=1e-5)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-05
+E       
+E       Mismatched elements: 1760 / 1760 (100%)
+E       Max absolute difference among violations: 1.5
+E       Max relative difference among violations: 0.08571429
+E        ACTUAL: array([[  16.,   16.],
+E              [  48.,   16.],
+E              [  80.,   16.],...
+E        DESIRED: array([[  17.5,   17.5],
+E              [  49.5,   17.5],
+E              [  81.5,   17.5],...
+
+tests\test_classical_motion_geometry.py:24: AssertionError
+___ test_sample_locations_follow_actual_cv2_coordinate_ramps[1281-721-0.25] ___
+
+width = 1281, height = 721, scale = 0.25
+
+    @pytest.mark.parametrize("width,height,scale", [
+        (1280, 720, .25), (1281, 721, .25), (101, 99, .25),
+        (99, 101, .5), (64, 64, 1.), (32, 32, .99),
+    ])
+    def test_sample_locations_follow_actual_cv2_coordinate_ramps(width, height, scale):
+        estimator = OpenCVMotionEstimator("farneback", processing_scale=scale)
+        yy, xx = np.indices((height, width), dtype=np.float32)
+        xmap = cv2.resize(xx, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
+        ymap = cv2.resize(yy, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
+        ph, pw = xmap.shape
+        gx, gy = np.meshgrid(np.arange(4, pw, 8), np.arange(4, ph, 8))
+        expected = np.column_stack([xmap[gy, gx].ravel(), ymap[gy, gx].ravel()])
+        field = estimator._sample(np.zeros((ph, pw, 2), np.float32), width, height)
+>       np.testing.assert_allclose(field.points_xy, expected, rtol=0, atol=1e-5)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-05
+E       
+E       Mismatched elements: 1760 / 1760 (100%)
+E       Max absolute difference among violations: 1.4874992
+E       Max relative difference among violations: 0.08499996
+E        ACTUAL: array([[  16.0125  ,   16.022223],
+E              [  48.0375  ,   16.022223],
+E              [  80.0625  ,   16.022223],...
+E        DESIRED: array([[  17.5,   17.5],
+E              [  49.5,   17.5],
+E              [  81.5,   17.5],...
+
+tests\test_classical_motion_geometry.py:24: AssertionError
+____ test_sample_locations_follow_actual_cv2_coordinate_ramps[101-99-0.25] ____
+
+width = 101, height = 99, scale = 0.25
+
+    @pytest.mark.parametrize("width,height,scale", [
+        (1280, 720, .25), (1281, 721, .25), (101, 99, .25),
+        (99, 101, .5), (64, 64, 1.), (32, 32, .99),
+    ])
+    def test_sample_locations_follow_actual_cv2_coordinate_ramps(width, height, scale):
+        estimator = OpenCVMotionEstimator("farneback", processing_scale=scale)
+        yy, xx = np.indices((height, width), dtype=np.float32)
+        xmap = cv2.resize(xx, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
+        ymap = cv2.resize(yy, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
+        ph, pw = xmap.shape
+        gx, gy = np.meshgrid(np.arange(4, pw, 8), np.arange(4, ph, 8))
+        expected = np.column_stack([xmap[gy, gx].ravel(), ymap[gy, gx].ravel()])
+        field = estimator._sample(np.zeros((ph, pw, 2), np.float32), width, height)
+>       np.testing.assert_allclose(field.points_xy, expected, rtol=0, atol=1e-5)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-05
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       Max absolute difference among violations: 2.300003
+E       Max relative difference among violations: 0.09485713
+E        ACTUAL: array([[16.16, 15.84],
+E              [48.48, 15.84],
+E              [80.8 , 15.84],...
+E        DESIRED: array([[17.5, 17.5],
+E              [49.5, 17.5],
+E              [81.5, 17.5],...
+
+tests\test_classical_motion_geometry.py:24: AssertionError
+____ test_sample_locations_follow_actual_cv2_coordinate_ramps[99-101-0.5] _____
+
+width = 99, height = 101, scale = 0.5
+
+    @pytest.mark.parametrize("width,height,scale", [
+        (1280, 720, .25), (1281, 721, .25), (101, 99, .25),
+        (99, 101, .5), (64, 64, 1.), (32, 32, .99),
+    ])
+    def test_sample_locations_follow_actual_cv2_coordinate_ramps(width, height, scale):
+        estimator = OpenCVMotionEstimator("farneback", processing_scale=scale)
+        yy, xx = np.indices((height, width), dtype=np.float32)
+        xmap = cv2.resize(xx, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
+        ymap = cv2.resize(yy, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
+        ph, pw = xmap.shape
+        gx, gy = np.meshgrid(np.arange(4, pw, 8), np.arange(4, ph, 8))
+        expected = np.column_stack([xmap[gy, gx].ravel(), ymap[gy, gx].ravel()])
+        field = estimator._sample(np.zeros((ph, pw, 2), np.float32), width, height)
+>       np.testing.assert_allclose(field.points_xy, expected, rtol=0, atol=1e-5)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=1e-05
+E       
+E       Mismatched elements: 72 / 72 (100%)
+E       Max absolute difference among violations: 1.3799973
+E       Max relative difference among violations: 0.06823529
+E        ACTUAL: array([[ 7.92,  8.08],
+E              [23.76,  8.08],
+E              [39.6 ,  8.08],...
+E        DESIRED: array([[ 8.5,  8.5],
+E              [24.5,  8.5],
+E              [40.5,  8.5],...
+
+tests\test_classical_motion_geometry.py:24: AssertionError
+_ test_displacement_uses_inverse_configured_scale_or_whole_image_identity[101-99-0.25] _
+
+width = 101, height = 99, scale = 0.25
+
+    @pytest.mark.parametrize("width,height,scale", [(101, 99, .25), (1281, 721, .25), (32, 32, .99)])
+    def test_displacement_uses_inverse_configured_scale_or_whole_image_identity(width, height, scale):
+        estimator = OpenCVMotionEstimator("farneback", processing_scale=scale)
+        shape = estimator._gray(np.zeros((height, width), np.uint8)).shape
+        raw = np.ones((*shape, 2), np.float32)
+        field = estimator._sample(raw, width, height)
+        inverse = 1. if shape == (height, width) else 1. / scale
+>       np.testing.assert_array_equal(field.vectors_xy, np.full_like(field.vectors_xy, inverse))
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       Max absolute difference among violations: 0.03999996
+E       Max relative difference among violations: 0.00999999
+E        ACTUAL: array([[4.04, 3.96],
+E              [4.04, 3.96],
+E              [4.04, 3.96],...
+E        DESIRED: array([[4., 4.],
+E              [4., 4.],
+E              [4., 4.],...
+
+tests\test_classical_motion_geometry.py:34: AssertionError
+_ test_displacement_uses_inverse_configured_scale_or_whole_image_identity[1281-721-0.25] _
+
+width = 1281, height = 721, scale = 0.25
+
+    @pytest.mark.parametrize("width,height,scale", [(101, 99, .25), (1281, 721, .25), (32, 32, .99)])
+    def test_displacement_uses_inverse_configured_scale_or_whole_image_identity(width, height, scale):
+        estimator = OpenCVMotionEstimator("farneback", processing_scale=scale)
+        shape = estimator._gray(np.zeros((height, width), np.uint8)).shape
+        raw = np.ones((*shape, 2), np.float32)
+        field = estimator._sample(raw, width, height)
+        inverse = 1. if shape == (height, width) else 1. / scale
+>       np.testing.assert_array_equal(field.vectors_xy, np.full_like(field.vectors_xy, inverse))
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 1760 / 1760 (100%)
+E       Max absolute difference among violations: 0.00555563
+E       Max relative difference among violations: 0.00138891
+E        ACTUAL: array([[4.003125, 4.005556],
+E              [4.003125, 4.005556],
+E              [4.003125, 4.005556],...
+E        DESIRED: array([[4., 4.],
+E              [4., 4.],
+E              [4., 4.],...
+
+tests\test_classical_motion_geometry.py:34: AssertionError
+_ test_explicit_legacy_sampling_preserves_previous_coordinate_and_scale_formula _
+
+    def test_explicit_legacy_sampling_preserves_previous_coordinate_and_scale_formula():
+>       estimator = OpenCVMotionEstimator("farneback", processing_scale=.25, geometry_version="legacy_v1")
+E       TypeError: OpenCVMotionEstimator.__init__() got an unexpected keyword argument 'geometry_version'
+
+tests\test_classical_motion_geometry.py:39: TypeError
+_ test_old_classical_cache_requires_explicit_legacy_and_remains_unchanged[False] _
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-609/test_old_classical_cache_requi0')
+force = False
+
+    @pytest.mark.parametrize("force", [False, True])
+    def test_old_classical_cache_requires_explicit_legacy_and_remains_unchanged(tmp_path, force):
+        from scripts.run_bdd_video_rate_experiment import build_motion_cache
+        data, meta = tmp_path / "dis_quarter.npz", tmp_path / "dis_quarter.json"
+        data.write_bytes(b"saved historical field")
+        meta.write_text(json.dumps(dict(source="dis_quarter", fps=30.)), encoding="utf-8")
+        before = (data.read_bytes(), meta.read_bytes())
+>       with pytest.raises(RuntimeError, match="legacy_v1"):
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\test_classical_motion_geometry.py:55: Failed
+---------------------------- Captured stdout call -----------------------------
+[CACHE] движение dis_quarter: C:\Users\Егор\AppData\Local\Temp\pytest-of-Егор\pytest-609\test_old_classical_cache_requi0\dis_quarter.npz
+_ test_old_classical_cache_requires_explicit_legacy_and_remains_unchanged[True] _
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-609/test_old_classical_cache_requi1')
+force = True
+
+    @pytest.mark.parametrize("force", [False, True])
+    def test_old_classical_cache_requires_explicit_legacy_and_remains_unchanged(tmp_path, force):
+        from scripts.run_bdd_video_rate_experiment import build_motion_cache
+        data, meta = tmp_path / "dis_quarter.npz", tmp_path / "dis_quarter.json"
+        data.write_bytes(b"saved historical field")
+        meta.write_text(json.dumps(dict(source="dis_quarter", fps=30.)), encoding="utf-8")
+        before = (data.read_bytes(), meta.read_bytes())
+>       with pytest.raises(RuntimeError, match="legacy_v1"):
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'legacy_v1'
+E         Actual message: 'Не удалось открыть C:\\Users\\Егор\\AppData\\Local\\Temp\\pytest-of-Егор\\pytest-609\\test_old_classical_cache_requi1\\absent.mov'
+
+tests\test_classical_motion_geometry.py:55: AssertionError
+_______________ test_classical_factory_passes_geometry_version ________________
+
+    def test_classical_factory_passes_geometry_version():
+        from scripts.run_bdd_video_rate_experiment import make_motion_estimator
+>       assert make_motion_estimator("dis_quarter", 30., .02).geometry_version == "resize_v2"
+E       AttributeError: 'OpenCVMotionEstimator' object has no attribute 'geometry_version'
+
+tests\test_classical_motion_geometry.py:66: AttributeError
+__ test_classical_tracker_directory_rejects_unversioned_geometry_by_default ___
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-609/test_classical_tracker_directo0')
+
+    def test_classical_tracker_directory_rejects_unversioned_geometry_by_default(tmp_path):
+        from scripts.run_flyvis_tracker import validate_output_protocol
+        meta = dict(mode="dis", classical_scale=.25, video_ids=["v"])
+        (tmp_path / "_metadata.json").write_text(json.dumps(meta), encoding="utf-8")
+        with pytest.raises(RuntimeError, match="legacy_v1"):
+            validate_output_protocol(tmp_path, dict(meta, geometry_version="resize_v2"))
+>       validate_output_protocol(tmp_path, dict(meta, geometry_version="legacy_v1"))
+
+tests\test_classical_motion_geometry.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+output = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-609/test_classical_tracker_directo0')
+metadata = {'mode': 'dis', 'classical_scale': 0.25, 'video_ids': ['v'], 'geometry_version': 'legacy_v1'}
+
+    def validate_output_protocol(output: Path, metadata: dict) -> None:
+        """Не смешивать видео разных протоколов, включая запуск с --force."""
+        metadata_path = output / "_metadata.json"
+        if not metadata_path.exists():
+            if any(output.glob("*.json")):
+                raise RuntimeError(f"{output} содержит результаты без протокола; укажите новый --output")
+            return
+        previous = json.loads(metadata_path.read_text(encoding="utf-8"))
+        if previous.get("mode") in {"full", "tiled", "full_fused", "tiled_fused"}:
+            # До resize_v2 версия не записывалась. Совместимость требует явного
+            # --geometry-version legacy_v1, а не присвоения старым полям новой версии.
+            previous.setdefault("geometry_version", "legacy_v1")
+        comparable_keys = (set(metadata) | set(previous)) - {"video_ids"}
+        if any(previous.get(key) != metadata.get(key) for key in comparable_keys):
+>           raise RuntimeError(
+                f"{output} уже содержит другой протокол; укажите новый --output "
+                "(для старой геометрии: --geometry-version legacy_v1). "
+                "--force повторяет только тот же протокол"
+            )
+E           RuntimeError: C:\Users\Егор\AppData\Local\Temp\pytest-of-Егор\pytest-609\test_classical_tracker_directo0 уже содержит другой протокол; укажите новый --output (для старой геометрии: --geometry-version legacy_v1). --force повторяет только тот же протокол
+
+scripts\run_flyvis_tracker.py:232: RuntimeError
+=========================== short test summary info ===========================
+FAILED tests/test_classical_motion_geometry.py::test_sample_locations_follow_actual_cv2_coordinate_ramps[1280-720-0.25]
+FAILED tests/test_classical_motion_geometry.py::test_sample_locations_follow_actual_cv2_coordinate_ramps[1281-721-0.25]
+FAILED tests/test_classical_motion_geometry.py::test_sample_locations_follow_actual_cv2_coordinate_ramps[101-99-0.25]
+FAILED tests/test_classical_motion_geometry.py::test_sample_locations_follow_actual_cv2_coordinate_ramps[99-101-0.5]
+FAILED tests/test_classical_motion_geometry.py::test_displacement_uses_inverse_configured_scale_or_whole_image_identity[101-99-0.25]
+FAILED tests/test_classical_motion_geometry.py::test_displacement_uses_inverse_configured_scale_or_whole_image_identity[1281-721-0.25]
+FAILED tests/test_classical_motion_geometry.py::test_explicit_legacy_sampling_preserves_previous_coordinate_and_scale_formula
+FAILED tests/test_classical_motion_geometry.py::test_old_classical_cache_requires_explicit_legacy_and_remains_unchanged[False]
+FAILED tests/test_classical_motion_geometry.py::test_old_classical_cache_requires_explicit_legacy_and_remains_unchanged[True]
+FAILED tests/test_classical_motion_geometry.py::test_classical_factory_passes_geometry_version
+FAILED tests/test_classical_motion_geometry.py::test_classical_tracker_directory_rejects_unversioned_geometry_by_default
+11 failed, 3 passed in 2.56s

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "E:\Dissertation\scripts\fly_k1_v2.py", line 285, in <module>
+    raise SystemExit(main())
+  File "E:\Dissertation\scripts\fly_k1_v2.py", line 225, in main
+    require_arm_geometry(arms, a.geometry_version)
+  File "E:\Dissertation\tracking\flyvis_geometry_protocol.py", line 82, in require_arm_geometry
+    raise ValueError(f"Checkpoint arm {name}: saved geometry {found}, requested {requested}; historical weights require explicit legacy_v1")
+ValueError: Checkpoint arm decoder: saved geometry legacy_v1, requested resize_v2; historical weights require explicit legacy_v1

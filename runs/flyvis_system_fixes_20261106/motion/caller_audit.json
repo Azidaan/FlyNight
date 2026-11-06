@@ -1,0 +1,404 @@
+{
+  "scope": "Direct named call sites in scripts/tracking/tests; no claim to dynamic string imports",
+  "call_sites": [
+    {
+      "path": "tracking/b1_tracker_runtime.py",
+      "line": 131,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator('flyvis_tiled', 30., .02)"
+    },
+    {
+      "path": "tracking/z13_readout.py",
+      "line": 204,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator(\"flyvis_tiled\", 30.0, 0.02)"
+    },
+    {
+      "path": "scripts/b1_timestamped_smoke_20261106.py",
+      "line": 69,
+      "call": "FlyVisMotionEstimator",
+      "category": "raw_activity_or_decoder_probe_independent_of_field_conversion",
+      "source": "FlyVisMotionEstimator(source_fps=fps,flow_gain=1.)"
+    },
+    {
+      "path": "scripts/benchmark_tracker_runtime.py",
+      "line": 117,
+      "call": "FlyVisMotionEstimator",
+      "category": "version_aware_field_consumer",
+      "source": "FlyVisMotionEstimator(\n        mode=\"tiled\",\n        layout=TileLayout(rows=2, columns=3, overlap=0.20),\n        source_fps=5.0,\n        dt=0.02,\n        geometry_version=args.geometry_version,\n    )"
+    },
+    {
+      "path": "scripts/build_fly_signatures.py",
+      "line": 157,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator(\"flyvis_tiled\", fps, 0.02, model=args.model)"
+    },
+    {
+      "path": "scripts/build_flyvis_activity_cache.py",
+      "line": 80,
+      "call": "make_motion_estimator",
+      "category": "version_aware_field_consumer",
+      "source": "make_motion_estimator(args.source, fps, args.max_dt, geometry_version=geometry_version)"
+    },
+    {
+      "path": "scripts/build_foveated_readout_cache.py",
+      "line": 110,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator(\"flyvis_tiled\", fps, 0.02)"
+    },
+    {
+      "path": "scripts/build_train_caches.py",
+      "line": 68,
+      "call": "build_motion_cache",
+      "category": "classical_DIS_cache_only",
+      "source": "build_motion_cache(\"dis_quarter\", video, out / \"motion\", fps=fps, max_dt=0.02, force=False)"
+    },
+    {
+      "path": "scripts/check_flyvis_offset_stream_20261104.py",
+      "line": 26,
+      "call": "FlyVisMotionEstimator",
+      "category": "raw_activity_or_decoder_probe_independent_of_field_conversion",
+      "source": "FlyVisMotionEstimator(mode='full',source_fps=30,flow_gain=1,temporal_resampling='hold',subtract_initial_baseline=False)"
+    },
+    {
+      "path": "scripts/check_flyvis_offset_stream_recovery2_20261104.py",
+      "line": 26,
+      "call": "FlyVisMotionEstimator",
+      "category": "raw_activity_or_decoder_probe_independent_of_field_conversion",
+      "source": "FlyVisMotionEstimator(mode='full',source_fps=30,flow_gain=1,temporal_resampling='hold',subtract_initial_baseline=False)"
+    },
+    {
+      "path": "scripts/diagnose_b1_incremental_20261028.py",
+      "line": 28,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator('flyvis_tiled', 30., .02)"
+    },
+    {
+      "path": "scripts/evaluate_motion_sources.py",
+      "line": 122,
+      "call": "FlyVisMotionEstimator",
+      "category": "version_aware_field_consumer",
+      "source": "FlyVisMotionEstimator(\n            mode=\"full\",\n            temporal_resampling=args.temporal_resampling,\n            flow_aggregation=args.flow_aggregation,\n            flow_gain=args.flow_gain,\n            geometry_version=args.geometry_version,\n        )"
+    },
+    {
+      "path": "scripts/evaluate_motion_sources.py",
+      "line": 129,
+      "call": "FlyVisMotionEstimator",
+      "category": "version_aware_field_consumer",
+      "source": "FlyVisMotionEstimator(\n            mode=\"tiled\",\n            layout=TileLayout(rows=2, columns=3, overlap=0.2),\n            temporal_resampling=args.temporal_resampling,\n            flow_aggregation=args.flow_aggregation,\n            flow_gain=args.flow_gain,\n            geometry_version=args.geometry_version,\n        )"
+    },
+    {
+      "path": "scripts/fly_efference_eye.py",
+      "line": 140,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator(\"flyvis_tiled\", 30.0, 0.02)"
+    },
+    {
+      "path": "scripts/fly_efference_gain_diag.py",
+      "line": 25,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator(\"flyvis_tiled\", 30.0, 0.02)"
+    },
+    {
+      "path": "scripts/fly_efference_stage1.py",
+      "line": 115,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator(\"flyvis_tiled\", 30.0, 0.02)"
+    },
+    {
+      "path": "scripts/fly_efference_stage1_v2.py",
+      "line": 128,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator('flyvis_tiled',30.,.02)"
+    },
+    {
+      "path": "scripts/fly_efference_v2.py",
+      "line": 143,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator('flyvis_tiled', 30., .02)"
+    },
+    {
+      "path": "scripts/fly_eye_coord_check.py",
+      "line": 35,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator(\"flyvis_tiled\", fps, 0.02)"
+    },
+    {
+      "path": "scripts/fly_finetune_k1.py",
+      "line": 78,
+      "call": "FlyVisMotionEstimator",
+      "category": "version_aware_field_consumer",
+      "source": "FlyVisMotionEstimator(model=model, mode=\"tiled\", source_fps=fps, temporal_resampling=\"linear\", flow_aggregation=\"mean\", flow_gain=STAND_GAIN if gain is None else gain,\n                                          layout=layout or TileLayout(2, 3, 0.20), geometry_version=geometry_version, device=device)"
+    },
+    {
+      "path": "scripts/fly_persistent_eye.py",
+      "line": 83,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator(\"flyvis_tiled\", fps, 0.02)"
+    },
+    {
+      "path": "scripts/flyvis_full_spatial_capture_probe_20261105.py",
+      "line": 26,
+      "call": "FlyVisMotionEstimator",
+      "category": "raw_activity_or_decoder_probe_independent_of_field_conversion",
+      "source": "FlyVisMotionEstimator(mode='full',source_fps=30,flow_gain=1,temporal_resampling='hold',subtract_initial_baseline=False)"
+    },
+    {
+      "path": "scripts/flyvis_motion_calibration.py",
+      "line": 68,
+      "call": "FlyVisMotionEstimator",
+      "category": "version_aware_field_consumer",
+      "source": "FlyVisMotionEstimator(\n        mode=\"full\",\n        source_fps=5.0,\n        dt=0.02,\n        flow_gain=1.0,\n        temporal_resampling=\"hold\",\n        flow_aggregation=\"mean\",\n        geometry_version=args.geometry_version,\n    )"
+    },
+    {
+      "path": "scripts/flyvis_t4t5_paired_eval_20261105.py",
+      "line": 26,
+      "call": "FlyVisMotionEstimator",
+      "category": "raw_activity_or_decoder_probe_independent_of_field_conversion",
+      "source": "FlyVisMotionEstimator(mode='full',source_fps=30,flow_gain=1,temporal_resampling='hold',subtract_initial_baseline=False)"
+    },
+    {
+      "path": "scripts/flyvis_t4t5_paired_eval_recovery1_20261105.py",
+      "line": 31,
+      "call": "FlyVisMotionEstimator",
+      "category": "raw_activity_or_decoder_probe_independent_of_field_conversion",
+      "source": "FlyVisMotionEstimator(mode='full',source_fps=30,flow_gain=1,temporal_resampling='hold',subtract_initial_baseline=False)"
+    },
+    {
+      "path": "scripts/flyvis_t4t5_tensor_skill_probe_20261105.py",
+      "line": 26,
+      "call": "FlyVisMotionEstimator",
+      "category": "raw_activity_or_decoder_probe_independent_of_field_conversion",
+      "source": "FlyVisMotionEstimator(mode='full',source_fps=30,flow_gain=1,temporal_resampling='hold',subtract_initial_baseline=False)"
+    },
+    {
+      "path": "scripts/flyvis_video_rate_calibration.py",
+      "line": 72,
+      "call": "FlyVisMotionEstimator",
+      "category": "version_aware_field_consumer",
+      "source": "FlyVisMotionEstimator(\n            mode=mode,\n            layout=TileLayout(2, 3, 0.20),\n            source_fps=args.source_fps,\n            dt=args.max_dt,\n            flow_gain=1.0,\n            temporal_resampling=\"linear\",\n            flow_aggregation=\"mean\",\n            geometry_version=args.geometry_version,\n        )"
+    },
+    {
+      "path": "scripts/flyvis_y1_latency_20261104.py",
+      "line": 242,
+      "call": "FlyVisMotionEstimator",
+      "category": "raw_activity_or_decoder_probe_independent_of_field_conversion",
+      "source": "FlyVisMotionEstimator(mode='full', source_fps=30, flow_gain=1,\n                                 temporal_resampling='hold', subtract_initial_baseline=False)"
+    },
+    {
+      "path": "scripts/flyvis_y1_latency_20261104.py",
+      "line": 151,
+      "call": "FlyVisMotionEstimator",
+      "category": "raw_activity_or_decoder_probe_independent_of_field_conversion",
+      "source": "FlyVisMotionEstimator(mode='full', source_fps=30, flow_gain=1, temporal_resampling='hold', subtract_initial_baseline=False)"
+    },
+    {
+      "path": "scripts/flyvis_y1_latency_fp64_20261104.py",
+      "line": 253,
+      "call": "FlyVisMotionEstimator",
+      "category": "raw_activity_or_decoder_probe_independent_of_field_conversion",
+      "source": "FlyVisMotionEstimator(mode='full', source_fps=30, flow_gain=1,\n                                 temporal_resampling='hold', subtract_initial_baseline=False)"
+    },
+    {
+      "path": "scripts/flyvis_y1_latency_fp64_20261104.py",
+      "line": 161,
+      "call": "FlyVisMotionEstimator",
+      "category": "raw_activity_or_decoder_probe_independent_of_field_conversion",
+      "source": "FlyVisMotionEstimator(mode='full', source_fps=30, flow_gain=1, temporal_resampling='hold', subtract_initial_baseline=False)"
+    },
+    {
+      "path": "scripts/reference_flyvis_tau_half_20261104.py",
+      "line": 56,
+      "call": "FlyVisMotionEstimator",
+      "category": "raw_activity_or_decoder_probe_independent_of_field_conversion",
+      "source": "FlyVisMotionEstimator(mode='full', source_fps=30, flow_gain=1,\n                              temporal_resampling='hold', subtract_initial_baseline=False)"
+    },
+    {
+      "path": "scripts/run_b1_tracker_20261028.py",
+      "line": 72,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator('flyvis_tiled', 30., .02)"
+    },
+    {
+      "path": "scripts/run_bdd_video_rate_experiment.py",
+      "line": 341,
+      "call": "FlyVisMotionEstimator",
+      "category": "version_aware_field_consumer",
+      "source": "FlyVisMotionEstimator(\n        mode=mode,\n        layout=TileLayout(2, 3, 0.20),\n        source_fps=fps,\n        dt=max_dt,\n        flow_gain=1.0,\n        temporal_resampling=\"linear\",\n        flow_aggregation=\"mean\",\n        model=model,\n        geometry_version=geometry_version,\n        device=device,\n    )"
+    },
+    {
+      "path": "scripts/run_bdd_video_rate_experiment.py",
+      "line": 401,
+      "call": "make_motion_estimator",
+      "category": "version_aware_field_consumer",
+      "source": "make_motion_estimator(source, fps, max_dt, geometry_version=geometry_version)"
+    },
+    {
+      "path": "scripts/run_bdd_video_rate_experiment.py",
+      "line": 739,
+      "call": "build_motion_cache",
+      "category": "version_aware_field_consumer",
+      "source": "build_motion_cache(\n            source,\n            video,\n            args.output / \"motion\",\n            fps=fps,\n            max_dt=args.max_dt,\n            force=args.force_motion,\n            geometry_version=args.flyvis_geometry_version,\n        )"
+    },
+    {
+      "path": "scripts/run_flyvis_tracker.py",
+      "line": 288,
+      "call": "FlyVisMotionEstimator",
+      "category": "version_aware_field_consumer",
+      "source": "FlyVisMotionEstimator(\n            model=args.model,\n            mode=\"tiled\" if args.mode.startswith(\"tiled\") else \"full\",\n            layout=layout,\n            source_fps=args.source_fps,\n            dt=args.dt,\n            flow_gain=args.flow_gain,\n            temporal_resampling=args.temporal_resampling,\n            flow_aggregation=args.flow_aggregation,\n            subtract_initial_baseline=not args.keep_decoder_bias,\n            geometry_version=args.geometry_version,\n        )"
+    },
+    {
+      "path": "scripts/z13_cache_balanced_probe.py",
+      "line": 53,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator('flyvis_tiled', 30., .02)"
+    },
+    {
+      "path": "scripts/z13_cache_followup_c_probe.py",
+      "line": 53,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator('flyvis_tiled', 30., .02)"
+    },
+    {
+      "path": "scripts/z13_cache_speed_probe.py",
+      "line": 75,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator('flyvis_tiled', 30., .02)"
+    },
+    {
+      "path": "scripts/z13_center_hota_20261021.py",
+      "line": 135,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator('flyvis_tiled',30.,.02)"
+    },
+    {
+      "path": "scripts/z13_center_hota_recovery1_20261021.py",
+      "line": 44,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator('flyvis_tiled',30.,.02)"
+    },
+    {
+      "path": "scripts/z13_check_t1.py",
+      "line": 39,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator(\"flyvis_tiled\", 30.0, 0.02)"
+    },
+    {
+      "path": "scripts/z13_data.py",
+      "line": 102,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator(\"flyvis_tiled\", fps, 0.02)"
+    },
+    {
+      "path": "scripts/z13_data.py",
+      "line": 233,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator(\"flyvis_tiled\", 30.0, 0.02)"
+    },
+    {
+      "path": "scripts/z13_observed_memory_20261021.py",
+      "line": 123,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator('flyvis_tiled',30.,.02)"
+    },
+    {
+      "path": "scripts/z13_spatial_hota_probe.py",
+      "line": 29,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator('flyvis_tiled', 30., .02)"
+    },
+    {
+      "path": "scripts/z13_target_model.py",
+      "line": 85,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator(\"flyvis_tiled\", 30.0, 0.02)"
+    },
+    {
+      "path": "scripts/z13_train.py",
+      "line": 90,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator(\"flyvis_tiled\", 30.0, 0.02)"
+    },
+    {
+      "path": "scripts/z13_triton_probe.py",
+      "line": 56,
+      "call": "make_motion_estimator",
+      "category": "eye_or_backbone_consumer_independent_of_field_conversion",
+      "source": "make_motion_estimator('flyvis_tiled', 30., .02)"
+    },
+    {
+      "path": "tests/test_flyvis_activity_readout.py",
+      "line": 144,
+      "call": "FlyVisMotionEstimator",
+      "category": "regression_test",
+      "source": "FlyVisMotionEstimator(\n        mode=\"tiled\", layout=TileLayout(2, 3, 0.20), source_fps=30.0, dt=0.02,\n        flow_gain=1.0, temporal_resampling=\"linear\", flow_aggregation=\"mean\",\n    )"
+    },
+    {
+      "path": "tests/test_flyvis_motion_contracts.py",
+      "line": 159,
+      "call": "build_motion_cache",
+      "category": "regression_test",
+      "source": "build_motion_cache(\"flyvis_full\", tmp_path / \"absent.mov\", tmp_path,\n                             fps=30., max_dt=.02, force=False, geometry_version=\"legacy_v1\")"
+    },
+    {
+      "path": "tests/test_flyvis_motion_contracts.py",
+      "line": 101,
+      "call": "FlyVisMotionEstimator",
+      "category": "regression_test",
+      "source": "FlyVisMotionEstimator(**kwargs)"
+    },
+    {
+      "path": "tests/test_flyvis_motion_contracts.py",
+      "line": 156,
+      "call": "build_motion_cache",
+      "category": "regression_test",
+      "source": "build_motion_cache(\"flyvis_full\", tmp_path / \"absent.mov\", tmp_path,\n                           fps=30., max_dt=.02, force=force)"
+    },
+    {
+      "path": "tests/test_flyvis_motion_contracts.py",
+      "line": 185,
+      "call": "build_motion_cache",
+      "category": "regression_test",
+      "source": "build_motion_cache(\"flyvis_full\", tmp_path / \"absent.mov\", tmp_path, force=False, **options)"
+    },
+    {
+      "path": "tests/test_foveated_eyes.py",
+      "line": 50,
+      "call": "FlyVisMotionEstimator",
+      "category": "regression_test",
+      "source": "FlyVisMotionEstimator(mode=\"tiled\", layout=TileLayout(2, 3, 0.20), source_fps=30.0, dt=0.02, flow_gain=1.0, temporal_resampling=\"linear\")"
+    },
+    {
+      "path": "tests/test_foveated_eyes.py",
+      "line": 77,
+      "call": "FlyVisMotionEstimator",
+      "category": "regression_test",
+      "source": "FlyVisMotionEstimator(mode=\"tiled\", layout=TileLayout(2, 3, 0.20), source_fps=30.0, dt=0.02, flow_gain=1.0, temporal_resampling=\"linear\")"
+    }
+  ]
+}

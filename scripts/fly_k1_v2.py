@@ -29,6 +29,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 import scripts.fly_finetune_k1 as K  # noqa: E402
 from scripts.fly_noise_probe import lcn  # noqa: E402
+from tracking.flyvis_geometry_protocol import add_geometry_arguments, ensure_geometry_output, resolve_output, require_arm_geometry, require_empirical_gain_geometry
 
 OUT = PROJECT_ROOT / "runs" / "fly_k1_v2"
 WARM, LEN, SEG_PER_VIDEO = 20, 12, 8
@@ -123,7 +124,7 @@ def train_arm(arm, fly, segs, steps, rng, log):
     if net_params:
         for (name, p), q in zip([(n, p) for n, p in net.named_parameters() if n in FREE], p0):
             drift[name] = float(((p.detach() - q).abs() / (q.abs() + 1e-6)).median())
-    out = {"log_gain": float(log_gain.detach()), "decoder": {k: v.detach().clone() for k, v in dec.state_dict().items()},
+    out = {"geometry_version": fly.base.geometry_version, "log_gain": float(log_gain.detach()), "decoder": {k: v.detach().clone() for k, v in dec.state_dict().items()},
            "network": {k: v.detach().clone() for k, v in net.state_dict().items()} if net_params else None,
            "loss_hist": hist, "drift_median_rel": drift}
     for p in list(dec.parameters()) + net_params:
@@ -211,23 +212,33 @@ def main() -> int:
     ap.add_argument("--steps", type=int, default=2000)
     ap.add_argument("--eval-only", action="store_true")
     ap.add_argument("--smoke", action="store_true", help="2 видео обучения, 20 шагов, 1 видео оценки")
+    add_geometry_arguments(ap)
     a = ap.parse_args()
+    require_empirical_gain_geometry(a.geometry_version, 'fly_k1_v2 stock/init GAIN0')
     import torch
-    OUT.mkdir(parents=True, exist_ok=True)
+    default_output = PROJECT_ROOT / "runs/fly_k1_v2_smoke" if a.smoke else OUT
+    OUT = resolve_output(a.out, default_output, PROJECT_ROOT)
+    arms_path = OUT / "arms.pt"
+    if a.eval_only:
+        if not arms_path.is_file():
+            raise FileNotFoundError(f"--eval-only requires existing weights: {arms_path}")
+        arms = torch.load(arms_path, map_location="cpu", weights_only=False)
+        require_arm_geometry(arms, a.geometry_version)
+        if set(arms) != set(ARMS):
+            raise ValueError(f"--eval-only requires all completed arms {ARMS}; found {tuple(arms)}")
+    elif arms_path.exists():
+        raise FileExistsError(f"Training output already contains weights: {arms_path}; select a new --out")
+    ensure_geometry_output(OUT, a.geometry_version)
     fps = json.loads((K.TC / "0001542f-5ce3cf52/motion/dis_quarter.json").read_text(encoding="utf-8"))["fps"]
-    fly = K.Fly(fps, gain=1.0)
+    fly = K.Fly(fps, gain=1.0, geometry_version=a.geometry_version)
     stock_dec = {k: v.detach().clone() for k, v in fly.base.decoder.state_dict().items()}
     stock_net = {k: v.detach().clone() for k, v in fly.net.state_dict().items()}
     meta = json.loads((PROJECT_ROOT / "runs/fly_finetune_k1/summary.json").read_text(encoding="utf-8"))["meta"]
     tr, ev, cond = meta["train"], meta["eval"], meta["cond"]
     if a.smoke:
-        OUT = PROJECT_ROOT / "runs" / "fly_k1_v2_smoke"; OUT.mkdir(parents=True, exist_ok=True)
         tr, ev, a.steps = tr[:1] + tr[-1:], ev[1:2], 20
     tf = lcn(24.0)
-    arms_path = OUT / "arms.pt"
-    if a.eval_only and arms_path.exists():
-        arms = torch.load(arms_path, weights_only=False)
-    else:
+    if not a.eval_only:
         segs = build_train(fly, tr, np.random.default_rng(0), tf)
         arms = {}
         with open(OUT / "train_log.txt", "w", encoding="utf-8") as log:
@@ -237,6 +248,7 @@ def main() -> int:
                 torch.save(arms, arms_path)
         fly.base.decoder.load_state_dict(stock_dec); fly.net.load_state_dict(stock_net)
         del segs
+    require_arm_geometry(arms, a.geometry_version)
     configs = {"stock": (None, stock_dec, math.log(GAIN0))}
     for arm in ARMS:
         configs[arm] = (arms[arm]["network"], arms[arm]["decoder"], arms[arm]["log_gain"])
@@ -266,7 +278,7 @@ def main() -> int:
         summ[g] = s
         print(f"== {g} ({len(vs)}): ноль {s['zero']:.2f} DIS {s['dis']:.2f} штатная+lcn24 {s['stock']:.2f} декодер {s['decoder']:.2f} ядро {s['core']:.2f} | ядро − штатная {s['core-stock']['mean']:+.3f} [{s['core-stock']['ci95'][0]:+.3f}; {s['core-stock']['ci95'][1]:+.3f}] | ядро − декодер {s['core-decoder']['mean']:+.3f} [{s['core-decoder']['ci95'][0]:+.3f}; {s['core-decoder']['ci95'][1]:+.3f}]", flush=True)
     arms_info = {k: {"gain": math.exp(v["log_gain"]), "final_loss": float(np.mean(v["loss_hist"][-100:])), "first_loss": float(np.mean(v["loss_hist"][:50])), "drift_median_rel": v["drift_median_rel"]} for k, v in arms.items()}
-    (OUT / "summary.json").write_text(json.dumps({"summary": summ, "arms": arms_info, "speed": spd, "meta": {"train": tr, "eval": ev, "warm": WARM, "len": LEN, "anchor": ANCHOR, "steps": a.steps}}, ensure_ascii=False, indent=1), encoding="utf-8")
+    (OUT / "summary.json").write_text(json.dumps({"summary": summ, "arms": arms_info, "speed": spd, "meta": {"train": tr, "eval": ev, "warm": WARM, "len": LEN, "anchor": ANCHOR, "steps": a.steps, "geometry_version": a.geometry_version}}, ensure_ascii=False, indent=1), encoding="utf-8")
     status(stage="done")
     print(f"[OK] {OUT}")
     return 0

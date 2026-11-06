@@ -27,6 +27,12 @@ class AuditedXYWHByteTrack(XYWHByteTrack):
         self.predictions: list[dict] = []
         self.stage = ""
 
+    def reset(self) -> None:
+        super().reset()
+        self.events.clear()
+        self.predictions.clear()
+        self.stage = ""
+
     def update_with_log(self, results: IndexedDetections) -> dict:
         output = self.update(results)
         return {"frame_id": int(self.frame_id), "predictions": list(self.predictions), "events": list(self.events), "output": np.array(output, copy=True)}

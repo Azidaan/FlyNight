@@ -1,0 +1,74 @@
+{
+  "scope": "Windows mutex only, no GPU or Torch; production names never acquired by tests",
+  "aliases": [
+    "flyvis_fovea_gpu",
+    "Local\\DissertationSingleGpu",
+    "FlyVis_z13_observed_memory_single_gpu"
+  ],
+  "canonical": "Local\\DissertationSingleGpu",
+  "known_aliases_native_mutex_count_per_instance": 1,
+  "custom_and_disabled_names_unchanged": true,
+  "tests": {
+    "before": "aliases_before.log: 2 failed, 1 passed, 11 deselected",
+    "after": "aliases_final.log: 27 passed in 1.93s"
+  },
+  "interprocess_observations": [
+    {
+      "test": "test_cross_alias_process_coord0",
+      "code": 258,
+      "name": "Local\\CodexAliasTest_e7a316bea2d84fc9b2dbff0bc3fcf5fa",
+      "entered_exists": true
+    },
+    {
+      "test": "test_cross_alias_process_coord1",
+      "code": 258,
+      "name": "Local\\CodexAliasTest_06e4126bfb8c49dc9386b12a4290f2d0",
+      "entered_exists": true
+    },
+    {
+      "test": "test_cross_alias_process_coord2",
+      "code": 258,
+      "name": "Local\\CodexAliasTest_257aa7f95ea04334b8bab99532752992",
+      "entered_exists": true
+    },
+    {
+      "test": "test_cross_alias_process_coord3",
+      "code": 0,
+      "name": "Local\\CodexAliasTest_7066782d0d7b465b8220fda82ec6a796_custom",
+      "entered_exists": true
+    }
+  ],
+  "all_owned_test_children_terminated": true,
+  "source": [
+    {
+      "path": "tracking/gpu_lock.py",
+      "sha256": "18a1a4ded94df357383d2bb88432fb73c68756e957a2dbbb1d570d32667dc0b9",
+      "size": 5661
+    },
+    {
+      "path": "tracking/GPU_LOCK_README.md",
+      "sha256": "93b0253c9584d9b33cf36c353bc9ee0fd8efac777a1efb35eac2bf20608eea5f",
+      "size": 5154
+    },
+    {
+      "path": "tests/test_gpu_lock_aliases.py",
+      "sha256": "8af882ed19fda7f5fba280a069b32ea944c694066c57bda145f0f7649d169bd9",
+      "size": 5132
+    },
+    {
+      "path": "tests/test_gpu_lock_lifecycle.py",
+      "sha256": "b656aac1b84afb3ec523567c9deff904670ce95d14ca384094f0117c56899cc4",
+      "size": 7903
+    }
+  ],
+  "baseline": {
+    "path": "runs/flyvis_repairs_20261106/gpu_lock_audit/before_aliases_gpu_lock.py",
+    "sha256": "5b488c82fc49d22957785089156d72507000782d661e1b8a0c1fbe2ef0e9f828",
+    "size": 5002
+  },
+  "native_lifecycle": "aliases_native_report.json",
+  "prerequisite": "Old-code processes must finish or restart before relying on cross-alias exclusion; this change does not stop or migrate them",
+  "limits": "Local session namespace only; custom mutexes and GPU code without GpuLock stay independent. Static call graph excludes known same-module spawn-under-lock, not arbitrary dynamic calls.",
+  "independent_review": "runs/flyvis_system_fixes_20261106/gpu_alias_review/REPORT.txt",
+  "contract": "AGENTS.md section9.2: one GPU process or tracking/gpu_lock.py mutex"
+}

@@ -29,6 +29,8 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 import scripts.fly_finetune_k1 as K  # noqa: E402
+from tracking.flyvis_geometry_protocol import add_geometry_arguments, ensure_geometry_output, resolve_output
+from tracking.flyvis_motion import GEOMETRY_VERSION
 
 OUT = PROJECT_ROOT / "runs" / "fly_scale_probe"
 LAYOUTS = {"2x3": (2, 3), "3x5": (3, 5), "5x9": (5, 9)}
@@ -57,10 +59,10 @@ def input_transform(inp, fps):
     raise ValueError(inp)
 
 
-def make_fly(fps, lay, stride):
+def make_fly(fps, lay, stride, *, geometry_version=GEOMETRY_VERSION):
     from tracking.flyvis_motion import TileLayout
     r, c = LAYOUTS[lay]
-    return K.Fly(fps / stride, layout=TileLayout(r, c, 0.20), gain=1.0)
+    return K.Fly(fps / stride, layout=TileLayout(r, c, 0.20), gain=1.0, geometry_version=geometry_version)
 
 
 def run_frames(fly, cart_iter, chunk=15):
@@ -87,7 +89,8 @@ def run_frames(fly, cart_iter, chunk=15):
     return out
 
 
-def synthetic(fps, only=None):
+def synthetic(fps, only=None, *, geometry_version=GEOMETRY_VERSION):
+    ensure_geometry_output(OUT, geometry_version)
     import cv2
     sel = json.loads((K.TC / "selection.json").read_text(encoding="utf-8"))["videos"]
     rng = np.random.default_rng(0)
@@ -103,7 +106,7 @@ def synthetic(fps, only=None):
             cfg = f"{lay}s{k}"; t0 = time.time()
             if cfg in res:
                 continue
-            fly = make_fly(fps, lay, k)
+            fly = make_fly(fps, lay, k, geometry_version=geometry_version)
             F, Y, M, seg = [], [], [], []
             for si, (g, vel) in enumerate(zip(frames, vels)):
                 seq = (fly.tiles(cv2.warpAffine(g, np.float32([[1, 0, vel[0] * j * k], [0, 1, vel[1] * j * k]]), (g.shape[1], g.shape[0]), borderMode=cv2.BORDER_REFLECT))
@@ -172,7 +175,8 @@ def errors(pts, vec, gains, dis, vid, nf):
     return {k: float(np.median(e)) for k, e in errs.items() if e}
 
 
-def real(fps, cfgs):
+def real(fps, cfgs, *, geometry_version=GEOMETRY_VERSION):
+    ensure_geometry_output(OUT, geometry_version)
     sel = json.loads((K.TC / "selection.json").read_text(encoding="utf-8"))["videos"]
     meta = json.loads((PROJECT_ROOT / "runs/fly_finetune_k1/summary.json").read_text(encoding="utf-8"))["meta"]
     ev = meta["eval"]; cond = dict(meta["cond"])
@@ -183,7 +187,7 @@ def real(fps, cfgs):
     allres = json.loads(out_path.read_text(encoding="utf-8")) if out_path.exists() else {}
     for cfg in cfgs:
         lay, k, inp = parse(cfg)
-        fly = make_fly(fps, lay, k)
+        fly = make_fly(fps, lay, k, geometry_version=geometry_version)
         R = allres.get(cfg, {"train": {}, "dev": {}})
         t0 = time.time(); todo = [("train", v) for v in tr] + [("dev", v) for v in ev]
         g_star = None
@@ -222,16 +226,20 @@ def real(fps, cfgs):
 
 
 def main() -> int:
+    global OUT
     ap = argparse.ArgumentParser()
     ap.add_argument("--synthetic", action="store_true")
     ap.add_argument("--real", nargs="*", default=[])
+    add_geometry_arguments(ap)
     a = ap.parse_args()
+    OUT = resolve_output(a.out, OUT, PROJECT_ROOT)
+    ensure_geometry_output(OUT, a.geometry_version)
     K.OUT = OUT; OUT.mkdir(parents=True, exist_ok=True)
     fps = json.loads((K.TC / "0001542f-5ce3cf52/motion/dis_quarter.json").read_text(encoding="utf-8"))["fps"]
     if a.synthetic:
-        synthetic(fps)
+        synthetic(fps, geometry_version=a.geometry_version)
     if a.real:
-        real(fps, a.real)
+        real(fps, a.real, geometry_version=a.geometry_version)
     print(f"[OK] {OUT}")
     return 0
 

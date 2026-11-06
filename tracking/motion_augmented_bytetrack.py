@@ -47,6 +47,11 @@ class MotionAugmentedByteTrack(BYTETracker):
         self.motion_field = MotionField.empty()
         self.motion_audit: list[dict] = []
 
+    def reset(self) -> None:
+        super().reset()
+        self.motion_field = MotionField.empty()
+        self.motion_audit.clear()
+
     def set_motion_field(self, field: MotionField) -> None:
         self.motion_field = field
 
@@ -73,7 +78,9 @@ class MotionAugmentedByteTrack(BYTETracker):
                 context_scale=self.context_scale,
                 min_samples=self.min_motion_samples,
             )
-            weight = self.blend
+            # Disabling confidence weighting does not manufacture a zero
+            # measurement when no optical-flow samples exist.
+            weight = self.blend if estimate.object_samples else 0.0
             if self.use_confidence:
                 weight *= float(np.clip(estimate.confidence, 0.0, 1.0))
             kalman_displacement = track.mean[:2] - center_before

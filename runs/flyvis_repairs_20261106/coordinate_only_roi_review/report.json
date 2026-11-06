@@ -1,0 +1,54 @@
+{
+  "passed_review": true,
+  "source_hashes": {
+    "metadata": "f2751c759da85f31104ba27eaf558c896a34053c0690da545beaf329afd91b77",
+    "motion": "38314b6a78c164efec3f74a65835b3446e4695fe004545a8c33f5ce7531d6b2f",
+    "alignment": "5dfcd80a529c0fd5883d0cae755c936ac8d65030c99e2dcb3cf74778372caa92",
+    "truth": "3614e687b7efa354f0469a7ff0bbbfcb5dfb7c6fd9e9a7b96a520a459ba48709"
+  },
+  "metadata_and_index_checks_passed": true,
+  "reference_count": 202,
+  "raw_indices": [
+    0,
+    1190
+  ],
+  "raw_frames": 1196,
+  "eye_size": [
+    391,
+    391
+  ],
+  "legacy_reconstructed_exact": true,
+  "root_vs_direct_coordinates_max_abs": 0.0001220703125,
+  "root_vs_direct_differing_coordinate_count": 560,
+  "samples": {
+    "legacy": 3043,
+    "root_inverse": 3043,
+    "direct_indices": 3043
+  },
+  "means": {
+    "legacy": 48.20591598764831,
+    "root_inverse": 48.27365642772315,
+    "direct_indices": 48.27365642772315
+  },
+  "root_original_means": {
+    "old_mean_endpoint_error_pixels": 48.20591598764831,
+    "new_mean_endpoint_error_pixels": 48.27365642772315
+  },
+  "direct_delta": 0.06774044007483582,
+  "independent_matches_reported_old": true,
+  "independent_matches_reported_new": true,
+  "root_vs_direct_error_max_abs": 0.0,
+  "seconds": {
+    "legacy": 3.610000000000582,
+    "root_inverse": 3.5,
+    "direct_indices": 5.203000000001339
+  },
+  "script_sha256": "4f84505bf80c1abd6e7ade46451663bb99499bff23befbe9088e63c27e9671c0",
+  "source_references": {
+    "tools/flyvis-runtime/flyvis/datasets/rendering/eye.py": "7be1a81423bdf3b9bb8a9a3a106fd949a57786ce798cc55cf7b06b4140f901cf",
+    "runs/flyvis/results/flow/0000/000/_meta.yaml": "2aa8a9505324c82bbb4011ee2f7c375b5f8b1bddde1a5281e038baecf91fc5dd",
+    "scripts/run_bdd_video_rate_experiment.py": "2511260bdd8f304284e9d365d4693d0a31db6651d6b67dadbf37e121033d5653",
+    "tracking/flyvis_tracker.py": "e5f763172ac95e890271018f6fd7553af00c69411dcb0c6a4314fa24c5546c99"
+  },
+  "limitations": "Retrospective single-video common-object interval diagnostic, not HOTA or statistical evidence of general harm. Uses saved alignment rather than recomputing image matches. Tests a 391x391 full-eye mapping only. Gain is fixed beforehand; no fitting. Root inverse has minor float32 roundtrip differences, so direct renderer-index replay is reported separately."
+}

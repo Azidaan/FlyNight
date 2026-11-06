@@ -19,8 +19,31 @@ from tracking.flyvis_tracker import MotionField
 
 
 # Оценено только на синтетических переносах 5--20 пикселей, без BDD100K.
-# Это начальный физический масштаб, а не подобранный по метрикам трекера параметр.
+# Это эмпирический масштаб прежнего декодера, а не доказанная физическая единица.
 SYNTHETIC_FLOW_GAIN = 102.59663505027247
+# Исправление центров пикселей сохраняет векторы, на которых оценён gain,
+# но меняет выбор соседей в ROI. Проверка downstream не прошла, поэтому обе
+# новые геометрии доступны явно; обычный режим сохраняет прежние выходы.
+# Обратное растяжение X — отдельная исследовательская гипотеза о декодере:
+# на прежней синтетике перенос старого gain на неё увеличивает ошибку.
+GEOMETRY_VERSION = "legacy_v1"
+GEOMETRY_VERSIONS = ("legacy_v1", "pixel_centers_v2", "resize_v2")
+
+
+def resolve_flow_gain(flow_gain, geometry_version: str, *, empirical_default=SYNTHETIC_FLOW_GAIN) -> float:
+    """Не переносить прежнюю эмпирическую калибровку на иной выход декодера."""
+    if geometry_version not in GEOMETRY_VERSIONS:
+        raise ValueError(f"geometry_version должен быть одним из {GEOMETRY_VERSIONS}")
+    if flow_gain is None:
+        if geometry_version == "resize_v2":
+            raise ValueError("resize_v2 — исследовательское преобразование декодера: прежний gain "
+                             "не откалиброван для него; задайте явный flow_gain для диагностики "
+                             "или используйте pixel_centers_v2")
+        flow_gain = empirical_default
+    value = float(flow_gain)
+    if not math.isfinite(value) or value <= 0:
+        raise ValueError("flow_gain должен быть конечным положительным числом")
+    return value
 
 
 @dataclass(frozen=True)
@@ -30,7 +53,8 @@ class TileLayout:
     overlap: float = 0.20
 
     def __post_init__(self) -> None:
-        if self.rows < 1 or self.columns < 1:
+        if any(isinstance(value, (bool, np.bool_)) or not isinstance(value, (int, np.integer))
+               or value < 1 for value in (self.rows, self.columns)):
             raise ValueError("Число строк и столбцов должно быть положительным")
         if not 0.0 <= self.overlap < 1.0:
             raise ValueError("Перекрытие должно находиться в диапазоне [0, 1)")
@@ -44,9 +68,11 @@ def integration_plan(source_fps: float, max_dt: float) -> tuple[int, float]:
     29.97/30 Гц без увеличения шага выше рекомендованных FlyVis 0.02 с.
     Возвращаемый шаг всегда точно покрывает один интервал исходного кадра.
     """
-    if source_fps <= 0 or max_dt <= 0:
-        raise ValueError("source_fps и max_dt должны быть положительными")
+    if not all(math.isfinite(value) and value > 0 for value in (source_fps, max_dt)):
+        raise ValueError("source_fps и max_dt должны быть конечными положительными числами")
     source_interval = 1.0 / float(source_fps)
+    if not math.isfinite(source_interval) or not math.isfinite(source_interval / float(max_dt)):
+        raise ValueError("Интервал кадра и число шагов должны быть конечными")
     steps = max(1, int(math.ceil(source_interval / float(max_dt) - 1e-12)))
     return steps, source_interval / steps
 
@@ -55,6 +81,9 @@ def fixed_tile_bounds(
     width: int, height: int, layout: TileLayout
 ) -> list[tuple[int, int, int, int]]:
     """Получить покрывающую кадр фиксированную сетку ``x1,y1,x2,y2``."""
+    if any(isinstance(value, (bool, np.bool_)) or not isinstance(value, (int, np.integer))
+           or value < 1 for value in (width, height)):
+        raise ValueError("Ширина и высота должны быть положительными целыми числами")
     tile_width = width / (layout.columns - (layout.columns - 1) * layout.overlap)
     tile_height = height / (layout.rows - (layout.rows - 1) * layout.overlap)
     stride_x = tile_width * (1.0 - layout.overlap)
@@ -85,16 +114,23 @@ class FlyVisMotionEstimator:
         layout: TileLayout | None = None,
         source_fps: float = 5.0,
         dt: float = 0.02,
-        flow_gain: float = SYNTHETIC_FLOW_GAIN,
+        flow_gain: float | None = None,
         fade_in_seconds: float = 1.0,
         temporal_resampling: str = "hold",
         flow_aggregation: str = "mean",
         subtract_initial_baseline: bool = True,
+        geometry_version: str = GEOMETRY_VERSION,
+        device=None,
     ) -> None:
         if mode not in {"full", "tiled"}:
             raise ValueError("mode должен быть full или tiled")
-        if source_fps <= 0 or dt <= 0 or flow_gain <= 0:
-            raise ValueError("source_fps, dt и flow_gain должны быть положительными")
+        flow_gain = resolve_flow_gain(flow_gain, geometry_version)
+        if not all(math.isfinite(value) and value > 0 for value in (source_fps, dt, flow_gain)):
+            raise ValueError("source_fps, dt и flow_gain должны быть конечными положительными числами")
+        if not math.isfinite(fade_in_seconds) or fade_in_seconds < 0:
+            raise ValueError("fade_in_seconds должен быть конечным неотрицательным числом")
+        if geometry_version not in GEOMETRY_VERSIONS:
+            raise ValueError(f"geometry_version должен быть одним из {GEOMETRY_VERSIONS}")
         if temporal_resampling not in {"hold", "linear"}:
             raise ValueError("temporal_resampling должен быть hold или linear")
         if flow_aggregation not in {"mean", "last", "sum"}:
@@ -111,12 +147,15 @@ class FlyVisMotionEstimator:
         self.temporal_resampling = temporal_resampling
         self.flow_aggregation = flow_aggregation
         self.subtract_initial_baseline = bool(subtract_initial_baseline)
+        self.geometry_version = geometry_version
 
-        self.flyvis = activate_flyvis()
+        self.flyvis = activate_flyvis(device=device)
         self.torch = __import__("torch")
+        from tracking.flyvis_checkpoint import load_network_and_decoder
+
         view = self.flyvis.NetworkView(model)
-        self.network = view.init_network()
-        self.decoder = view.init_decoder()["flow"]
+        self.network, decoders = load_network_and_decoder(view)
+        self.decoder = decoders["flow"]
         self.network.eval().requires_grad_(False)
         self.decoder.eval().requires_grad_(False)
 
@@ -152,8 +191,9 @@ class FlyVisMotionEstimator:
         self._bounds: list[tuple[int, int, int, int]] | None = None
 
     def _synchronize(self) -> None:
-        if self.torch.cuda.is_available():
-            self.torch.cuda.synchronize()
+        device = next(self.network.parameters()).device
+        if device.type == "cuda":
+            self.torch.cuda.synchronize(device)
 
     def _timed(self, function):
         self._synchronize()
@@ -190,6 +230,8 @@ class FlyVisMotionEstimator:
             raise ValueError("Кадр содержит NaN или Inf")
 
         height, width = gray.shape
+        if height == 0 or width == 0:
+            raise ValueError("Кадр не должен быть пустым")
         self._prepare_layout(width, height)
         assert self._bounds is not None
         images = []
@@ -206,30 +248,55 @@ class FlyVisMotionEstimator:
     def _points_and_vectors(self, flow) -> MotionField:
         assert self._bounds is not None
         flow_np = flow.detach().cpu().numpy().astype(np.float32)
+        expected = (len(self._bounds), 2, len(self._local_centers_yx))
+        if flow_np.shape != expected:
+            raise ValueError(f"Ожидалось поле декодера {expected}, получено {flow_np.shape}")
+        if not np.isfinite(flow_np).all():
+            raise ValueError("Поле декодера содержит NaN или Inf")
         points = []
         vectors = []
         centers_y = self._local_centers_yx[:, 0] + self.eye_height // 2
         centers_x = self._local_centers_yx[:, 1] + self.eye_width // 2
-        norm_x = centers_x / max(self.eye_width - 1, 1)
-        norm_y = centers_y / max(self.eye_height - 1, 1)
+        if self.geometry_version == "legacy_v1":
+            norm_x = centers_x / max(self.eye_width - 1, 1)
+            norm_y = centers_y / max(self.eye_height - 1, 1)
+        else:
+            # Обратное преобразование центров пикселей cv2.resize, а не
+            # растяжение крайних индексов на границы вырезки x1/x2.
+            norm_x = (centers_x + 0.5) / self.eye_width
+            norm_y = (centers_y + 0.5) / self.eye_height
         for tile_index, (x1, y1, x2, y2) in enumerate(self._bounds):
             tile_width = x2 - x1
             tile_height = y2 - y1
+            offset = 0.0 if self.geometry_version == "legacy_v1" else -0.5
             points.append(
                 np.column_stack(
-                    [x1 + norm_x * tile_width, y1 + norm_y * tile_height]
+                    [x1 + norm_x * tile_width + offset, y1 + norm_y * tile_height + offset]
                 ).astype(np.float32)
             )
             tile_flow = flow_np[tile_index].T.copy()
-            # Обучающие цели FlyVis имеют единицы pixel / image_height, после
-            # чего BoxEye суммирует их по kernel_size**2 пикселям. Поэтому обе
-            # компоненты возвращаются в пиксели через высоту текущего фрагмента.
+            # Прежняя эмпирическая калибровка использует высоту по обеим осям.
+            # pixel_centers_v2 сохраняет эти векторы в точности. В resize_v2
+            # проверяется гипотеза, что выход декодера является геометрическим
+            # потоком входного глаза; это не установленное свойство обученной сети.
             pixel_scale = self.flow_gain * tile_height / self.kernel_area
-            tile_flow[:, 0] *= pixel_scale
+            scale_x = pixel_scale if self.geometry_version != "resize_v2" else (
+                self.flow_gain * tile_width * self.eye_height / self.eye_width / self.kernel_area
+            )
+            tile_flow[:, 0] *= scale_x
             # У декодера FlyVis положительная вертикальная ось направлена вверх.
             tile_flow[:, 1] *= -pixel_scale
             vectors.append(tile_flow)
         return MotionField(np.concatenate(points), np.concatenate(vectors))
+
+    def _initial_state(self, rendered):
+        """Нулевой разгон означает штатное начальное состояние, а не None."""
+        if self.fade_in_seconds == 0:
+            return self.network._initial_state(self.network._param_api(), rendered.shape[0])
+        # Официальная функция использует int(duration/dt). При duration < dt
+        # ей нужен один укороченный шаг, иначе список состояний окажется пустым.
+        fade_dt = min(self.dt, self.fade_in_seconds)
+        return self.network.fade_in_state(self.fade_in_seconds, fade_dt, rendered[:, 0])
 
     def observe(self, frame: np.ndarray) -> MotionField:
         """Обработать очередной кадр и вернуть поле в исходных пикселях."""
@@ -241,9 +308,7 @@ class FlyVisMotionEstimator:
         if self._last_hex is None:
             with self.torch.inference_mode():
                 self._state, network_seconds = self._timed(
-                    lambda: self.network.fade_in_state(
-                        self.fade_in_seconds, self.dt, rendered[:, 0]
-                    )
+                    lambda: self._initial_state(rendered)
                 )
                 initial_activity = self._state.nodes.activity.unsqueeze(1)
                 initial_decoded, decoder_seconds = self._timed(

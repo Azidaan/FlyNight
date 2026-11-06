@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "E:\Dissertation\scripts\fly_k1_v2.py", line 288, in <module>
+    raise SystemExit(main())
+  File "E:\Dissertation\scripts\fly_k1_v2.py", line 217, in main
+    require_empirical_gain_geometry(a.geometry_version, 'fly_k1_v2 stock/init GAIN0')
+  File "E:\Dissertation\tracking\flyvis_geometry_protocol.py", line 42, in require_empirical_gain_geometry
+    raise ValueError(f'{context}: resize_v2 is uncalibrated research geometry; '
+ValueError: fly_k1_v2 stock/init GAIN0: resize_v2 is uncalibrated research geometry; this entry point uses a historical fixed gain. Use a separately specified unit-gain diagnostic protocol.

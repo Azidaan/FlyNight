@@ -79,6 +79,12 @@ class MotionSourceByteTrack(XYWHByteTrack):
         self._p_bad: dict[int, float] = {}
         self.stats = {"switched": 0, "tracks_seen": 0}
 
+    def reset(self) -> None:
+        super().reset()
+        self._previous_xywh.clear()
+        self._p_bad.clear()
+        self.stats = {"switched": 0, "tracks_seen": 0}
+
     # Предсказание: запомнить рамку до шага фильтра, чтобы перенести её по полю DIS.
     def multi_predict(self, tracks) -> None:
         self._previous_xywh = {id(t): np.asarray(t.mean[:4], dtype=np.float64).copy() for t in tracks if t.mean is not None}

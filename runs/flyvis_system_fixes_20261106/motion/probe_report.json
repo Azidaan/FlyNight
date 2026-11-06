@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "device": "cpu",
+  "cuda_initialized": false,
+  "legacy_vs_snapshot_points_exact": true,
+  "legacy_vs_snapshot_vectors_exact": true,
+  "v2_vertical_exact": true,
+  "v2_horizontal_ratio_width_over_height": 1.3333333333333333,
+  "warmups": [
+    {
+      "fade": 0.0,
+      "finite": true,
+      "first_frame_zero": true
+    },
+    {
+      "fade": 0.005,
+      "finite": true,
+      "first_frame_zero": true
+    }
+  ],
+  "scope": "one fixed synthetic input; no HOTA or optimization; old timer bypassed only",
+  "sha256": {
+    "runs\\flyvis_system_fixes_20261106\\motion\\probe_cpu.py": "aa1ef4c18d2a26602fcd782434fa4bc42b46612a714e7258976ee8ac9001cab3",
+    "runs\\flyvis_system_fixes_20261106\\motion\\probe_outputs.npz": "e88dc6feea6dbfc6a580c8aea145d8c0963425564a557cda7a67708f2a904c41",
+    "runs\\flyvis_system_fixes_20261106\\motion\\original\\flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
+    "tracking\\flyvis_motion.py": "efca88ee05c1017561e2d453ec16bdbc84775e29dc92ab2274515ccbdfc08423",
+    "tracking\\flyvis_adapter.py": "0a1a6b0341ac1f1a619deab77c76821ce0bebda5ffcf991957062edc990951fd",
+    "tracking\\flyvis_checkpoint.py": "65d68db32f7a2af7fa213881fd1b3eb059f372482124e353bc94db9c755c4f74"
+  }
+}

@@ -1,0 +1,576 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFF..                                           [100%]
+================================== FAILURES ===================================
+_ test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape0-0.0-photoreceptor] _
+
+mode = 'photoreceptor', tau_filter = 0.0, changed_shape = (1, 32)
+
+    @pytest.mark.parametrize("mode", ["photoreceptor", "lamina"])
+    @pytest.mark.parametrize("tau_filter", [0., .1])
+    @pytest.mark.parametrize("changed_shape", [(1, 32), (16, 1), (8, 32)])
+    def test_stateful_retina_rejects_shape_change_before_updating_state(mode, tau_filter, changed_shape):
+        config = RetinaConfig(mode=mode, tau_filter=tau_filter)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.arange(16 * 32, dtype=np.uint16).reshape(16, 32).astype(np.uint8)
+        retina.process(first)
+        control.process(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:21: Failed
+_ test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape0-0.0-lamina] _
+
+mode = 'lamina', tau_filter = 0.0, changed_shape = (1, 32)
+
+    @pytest.mark.parametrize("mode", ["photoreceptor", "lamina"])
+    @pytest.mark.parametrize("tau_filter", [0., .1])
+    @pytest.mark.parametrize("changed_shape", [(1, 32), (16, 1), (8, 32)])
+    def test_stateful_retina_rejects_shape_change_before_updating_state(mode, tau_filter, changed_shape):
+        config = RetinaConfig(mode=mode, tau_filter=tau_filter)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.arange(16 * 32, dtype=np.uint16).reshape(16, 32).astype(np.uint8)
+        retina.process(first)
+        control.process(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:21: Failed
+_ test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape0-0.1-photoreceptor] _
+
+mode = 'photoreceptor', tau_filter = 0.1, changed_shape = (1, 32)
+
+    @pytest.mark.parametrize("mode", ["photoreceptor", "lamina"])
+    @pytest.mark.parametrize("tau_filter", [0., .1])
+    @pytest.mark.parametrize("changed_shape", [(1, 32), (16, 1), (8, 32)])
+    def test_stateful_retina_rejects_shape_change_before_updating_state(mode, tau_filter, changed_shape):
+        config = RetinaConfig(mode=mode, tau_filter=tau_filter)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.arange(16 * 32, dtype=np.uint16).reshape(16, 32).astype(np.uint8)
+        retina.process(first)
+        control.process(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:21: Failed
+_ test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape0-0.1-lamina] _
+
+mode = 'lamina', tau_filter = 0.1, changed_shape = (1, 32)
+
+    @pytest.mark.parametrize("mode", ["photoreceptor", "lamina"])
+    @pytest.mark.parametrize("tau_filter", [0., .1])
+    @pytest.mark.parametrize("changed_shape", [(1, 32), (16, 1), (8, 32)])
+    def test_stateful_retina_rejects_shape_change_before_updating_state(mode, tau_filter, changed_shape):
+        config = RetinaConfig(mode=mode, tau_filter=tau_filter)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.arange(16 * 32, dtype=np.uint16).reshape(16, 32).astype(np.uint8)
+        retina.process(first)
+        control.process(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:21: Failed
+_ test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape1-0.0-photoreceptor] _
+
+mode = 'photoreceptor', tau_filter = 0.0, changed_shape = (16, 1)
+
+    @pytest.mark.parametrize("mode", ["photoreceptor", "lamina"])
+    @pytest.mark.parametrize("tau_filter", [0., .1])
+    @pytest.mark.parametrize("changed_shape", [(1, 32), (16, 1), (8, 32)])
+    def test_stateful_retina_rejects_shape_change_before_updating_state(mode, tau_filter, changed_shape):
+        config = RetinaConfig(mode=mode, tau_filter=tau_filter)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.arange(16 * 32, dtype=np.uint16).reshape(16, 32).astype(np.uint8)
+        retina.process(first)
+        control.process(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:21: Failed
+_ test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape1-0.0-lamina] _
+
+mode = 'lamina', tau_filter = 0.0, changed_shape = (16, 1)
+
+    @pytest.mark.parametrize("mode", ["photoreceptor", "lamina"])
+    @pytest.mark.parametrize("tau_filter", [0., .1])
+    @pytest.mark.parametrize("changed_shape", [(1, 32), (16, 1), (8, 32)])
+    def test_stateful_retina_rejects_shape_change_before_updating_state(mode, tau_filter, changed_shape):
+        config = RetinaConfig(mode=mode, tau_filter=tau_filter)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.arange(16 * 32, dtype=np.uint16).reshape(16, 32).astype(np.uint8)
+        retina.process(first)
+        control.process(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:21: Failed
+_ test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape1-0.1-photoreceptor] _
+
+mode = 'photoreceptor', tau_filter = 0.1, changed_shape = (16, 1)
+
+    @pytest.mark.parametrize("mode", ["photoreceptor", "lamina"])
+    @pytest.mark.parametrize("tau_filter", [0., .1])
+    @pytest.mark.parametrize("changed_shape", [(1, 32), (16, 1), (8, 32)])
+    def test_stateful_retina_rejects_shape_change_before_updating_state(mode, tau_filter, changed_shape):
+        config = RetinaConfig(mode=mode, tau_filter=tau_filter)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.arange(16 * 32, dtype=np.uint16).reshape(16, 32).astype(np.uint8)
+        retina.process(first)
+        control.process(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:21: Failed
+_ test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape1-0.1-lamina] _
+
+mode = 'lamina', tau_filter = 0.1, changed_shape = (16, 1)
+
+    @pytest.mark.parametrize("mode", ["photoreceptor", "lamina"])
+    @pytest.mark.parametrize("tau_filter", [0., .1])
+    @pytest.mark.parametrize("changed_shape", [(1, 32), (16, 1), (8, 32)])
+    def test_stateful_retina_rejects_shape_change_before_updating_state(mode, tau_filter, changed_shape):
+        config = RetinaConfig(mode=mode, tau_filter=tau_filter)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.arange(16 * 32, dtype=np.uint16).reshape(16, 32).astype(np.uint8)
+        retina.process(first)
+        control.process(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:21: Failed
+_ test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape2-0.0-photoreceptor] _
+
+mode = 'photoreceptor', tau_filter = 0.0, changed_shape = (8, 32)
+
+    @pytest.mark.parametrize("mode", ["photoreceptor", "lamina"])
+    @pytest.mark.parametrize("tau_filter", [0., .1])
+    @pytest.mark.parametrize("changed_shape", [(1, 32), (16, 1), (8, 32)])
+    def test_stateful_retina_rejects_shape_change_before_updating_state(mode, tau_filter, changed_shape):
+        config = RetinaConfig(mode=mode, tau_filter=tau_filter)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.arange(16 * 32, dtype=np.uint16).reshape(16, 32).astype(np.uint8)
+        retina.process(first)
+        control.process(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'reset'
+E         Actual message: 'operands could not be broadcast together with shapes (8,32) (16,32) '
+
+tests\test_retina_state_contracts.py:21: AssertionError
+_ test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape2-0.0-lamina] _
+
+mode = 'lamina', tau_filter = 0.0, changed_shape = (8, 32)
+
+    @pytest.mark.parametrize("mode", ["photoreceptor", "lamina"])
+    @pytest.mark.parametrize("tau_filter", [0., .1])
+    @pytest.mark.parametrize("changed_shape", [(1, 32), (16, 1), (8, 32)])
+    def test_stateful_retina_rejects_shape_change_before_updating_state(mode, tau_filter, changed_shape):
+        config = RetinaConfig(mode=mode, tau_filter=tau_filter)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.arange(16 * 32, dtype=np.uint16).reshape(16, 32).astype(np.uint8)
+        retina.process(first)
+        control.process(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'reset'
+E         Actual message: 'operands could not be broadcast together with shapes (8,32) (16,32) '
+
+tests\test_retina_state_contracts.py:21: AssertionError
+_ test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape2-0.1-photoreceptor] _
+
+mode = 'photoreceptor', tau_filter = 0.1, changed_shape = (8, 32)
+
+    @pytest.mark.parametrize("mode", ["photoreceptor", "lamina"])
+    @pytest.mark.parametrize("tau_filter", [0., .1])
+    @pytest.mark.parametrize("changed_shape", [(1, 32), (16, 1), (8, 32)])
+    def test_stateful_retina_rejects_shape_change_before_updating_state(mode, tau_filter, changed_shape):
+        config = RetinaConfig(mode=mode, tau_filter=tau_filter)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.arange(16 * 32, dtype=np.uint16).reshape(16, 32).astype(np.uint8)
+        retina.process(first)
+        control.process(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'reset'
+E         Actual message: 'operands could not be broadcast together with shapes (8,32) (16,32) '
+
+tests\test_retina_state_contracts.py:21: AssertionError
+_ test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape2-0.1-lamina] _
+
+mode = 'lamina', tau_filter = 0.1, changed_shape = (8, 32)
+
+    @pytest.mark.parametrize("mode", ["photoreceptor", "lamina"])
+    @pytest.mark.parametrize("tau_filter", [0., .1])
+    @pytest.mark.parametrize("changed_shape", [(1, 32), (16, 1), (8, 32)])
+    def test_stateful_retina_rejects_shape_change_before_updating_state(mode, tau_filter, changed_shape):
+        config = RetinaConfig(mode=mode, tau_filter=tau_filter)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.arange(16 * 32, dtype=np.uint16).reshape(16, 32).astype(np.uint8)
+        retina.process(first)
+        control.process(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'reset'
+E         Actual message: 'operands could not be broadcast together with shapes (8,32) (16,32) '
+
+tests\test_retina_state_contracts.py:21: AssertionError
+__ test_bad_frame_is_rejected_and_next_clean_frame_matches_control[nan-none] __
+
+mode = 'none', value = nan
+
+    @pytest.mark.parametrize("mode", ["none", "norm", "photoreceptor", "lamina"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_bad_frame_is_rejected_and_next_clean_frame_matches_control(mode, value):
+        config = RetinaConfig(mode=mode, tau_filter=.1)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.full((16, 32), 20, np.uint8)
+        retina.process(first)
+        control.process(first)
+        bad = np.full((16, 32), 40., np.float32)
+        bad[4, 5] = value
+>       with pytest.raises(ValueError, match="NaN|Inf"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:40: Failed
+__ test_bad_frame_is_rejected_and_next_clean_frame_matches_control[nan-norm] __
+
+mode = 'norm', value = nan
+
+    @pytest.mark.parametrize("mode", ["none", "norm", "photoreceptor", "lamina"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_bad_frame_is_rejected_and_next_clean_frame_matches_control(mode, value):
+        config = RetinaConfig(mode=mode, tau_filter=.1)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.full((16, 32), 20, np.uint8)
+        retina.process(first)
+        control.process(first)
+        bad = np.full((16, 32), 40., np.float32)
+        bad[4, 5] = value
+>       with pytest.raises(ValueError, match="NaN|Inf"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:40: Failed
+_ test_bad_frame_is_rejected_and_next_clean_frame_matches_control[nan-photoreceptor] _
+
+mode = 'photoreceptor', value = nan
+
+    @pytest.mark.parametrize("mode", ["none", "norm", "photoreceptor", "lamina"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_bad_frame_is_rejected_and_next_clean_frame_matches_control(mode, value):
+        config = RetinaConfig(mode=mode, tau_filter=.1)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.full((16, 32), 20, np.uint8)
+        retina.process(first)
+        control.process(first)
+        bad = np.full((16, 32), 40., np.float32)
+        bad[4, 5] = value
+>       with pytest.raises(ValueError, match="NaN|Inf"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:40: Failed
+_ test_bad_frame_is_rejected_and_next_clean_frame_matches_control[nan-lamina] _
+
+mode = 'lamina', value = nan
+
+    @pytest.mark.parametrize("mode", ["none", "norm", "photoreceptor", "lamina"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_bad_frame_is_rejected_and_next_clean_frame_matches_control(mode, value):
+        config = RetinaConfig(mode=mode, tau_filter=.1)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.full((16, 32), 20, np.uint8)
+        retina.process(first)
+        control.process(first)
+        bad = np.full((16, 32), 40., np.float32)
+        bad[4, 5] = value
+>       with pytest.raises(ValueError, match="NaN|Inf"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:40: Failed
+__ test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-none] __
+
+mode = 'none', value = inf
+
+    @pytest.mark.parametrize("mode", ["none", "norm", "photoreceptor", "lamina"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_bad_frame_is_rejected_and_next_clean_frame_matches_control(mode, value):
+        config = RetinaConfig(mode=mode, tau_filter=.1)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.full((16, 32), 20, np.uint8)
+        retina.process(first)
+        control.process(first)
+        bad = np.full((16, 32), 40., np.float32)
+        bad[4, 5] = value
+>       with pytest.raises(ValueError, match="NaN|Inf"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:40: Failed
+__ test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-norm] __
+
+mode = 'norm', value = inf
+
+    @pytest.mark.parametrize("mode", ["none", "norm", "photoreceptor", "lamina"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_bad_frame_is_rejected_and_next_clean_frame_matches_control(mode, value):
+        config = RetinaConfig(mode=mode, tau_filter=.1)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.full((16, 32), 20, np.uint8)
+        retina.process(first)
+        control.process(first)
+        bad = np.full((16, 32), 40., np.float32)
+        bad[4, 5] = value
+>       with pytest.raises(ValueError, match="NaN|Inf"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:40: Failed
+_ test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-photoreceptor] _
+
+mode = 'photoreceptor', value = inf
+
+    @pytest.mark.parametrize("mode", ["none", "norm", "photoreceptor", "lamina"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_bad_frame_is_rejected_and_next_clean_frame_matches_control(mode, value):
+        config = RetinaConfig(mode=mode, tau_filter=.1)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.full((16, 32), 20, np.uint8)
+        retina.process(first)
+        control.process(first)
+        bad = np.full((16, 32), 40., np.float32)
+        bad[4, 5] = value
+>       with pytest.raises(ValueError, match="NaN|Inf"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:40: Failed
+_ test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-lamina] _
+
+mode = 'lamina', value = inf
+
+    @pytest.mark.parametrize("mode", ["none", "norm", "photoreceptor", "lamina"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_bad_frame_is_rejected_and_next_clean_frame_matches_control(mode, value):
+        config = RetinaConfig(mode=mode, tau_filter=.1)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.full((16, 32), 20, np.uint8)
+        retina.process(first)
+        control.process(first)
+        bad = np.full((16, 32), 40., np.float32)
+        bad[4, 5] = value
+>       with pytest.raises(ValueError, match="NaN|Inf"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:40: Failed
+_ test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-none] __
+
+mode = 'none', value = -inf
+
+    @pytest.mark.parametrize("mode", ["none", "norm", "photoreceptor", "lamina"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_bad_frame_is_rejected_and_next_clean_frame_matches_control(mode, value):
+        config = RetinaConfig(mode=mode, tau_filter=.1)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.full((16, 32), 20, np.uint8)
+        retina.process(first)
+        control.process(first)
+        bad = np.full((16, 32), 40., np.float32)
+        bad[4, 5] = value
+>       with pytest.raises(ValueError, match="NaN|Inf"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:40: Failed
+_ test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-norm] __
+
+mode = 'norm', value = -inf
+
+    @pytest.mark.parametrize("mode", ["none", "norm", "photoreceptor", "lamina"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_bad_frame_is_rejected_and_next_clean_frame_matches_control(mode, value):
+        config = RetinaConfig(mode=mode, tau_filter=.1)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.full((16, 32), 20, np.uint8)
+        retina.process(first)
+        control.process(first)
+        bad = np.full((16, 32), 40., np.float32)
+        bad[4, 5] = value
+>       with pytest.raises(ValueError, match="NaN|Inf"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:40: Failed
+_ test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-photoreceptor] _
+
+mode = 'photoreceptor', value = -inf
+
+    @pytest.mark.parametrize("mode", ["none", "norm", "photoreceptor", "lamina"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_bad_frame_is_rejected_and_next_clean_frame_matches_control(mode, value):
+        config = RetinaConfig(mode=mode, tau_filter=.1)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.full((16, 32), 20, np.uint8)
+        retina.process(first)
+        control.process(first)
+        bad = np.full((16, 32), 40., np.float32)
+        bad[4, 5] = value
+>       with pytest.raises(ValueError, match="NaN|Inf"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:40: Failed
+_ test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-lamina] _
+
+mode = 'lamina', value = -inf
+
+    @pytest.mark.parametrize("mode", ["none", "norm", "photoreceptor", "lamina"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_bad_frame_is_rejected_and_next_clean_frame_matches_control(mode, value):
+        config = RetinaConfig(mode=mode, tau_filter=.1)
+        retina, control = Retina(config, 30.), Retina(config, 30.)
+        first = np.full((16, 32), 20, np.uint8)
+        retina.process(first)
+        control.process(first)
+        bad = np.full((16, 32), 40., np.float32)
+        bad[4, 5] = value
+>       with pytest.raises(ValueError, match="NaN|Inf"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:40: Failed
+____________ test_retina_requires_nonempty_grayscale_frame[shape0] ____________
+
+shape = (0, 32)
+
+    @pytest.mark.parametrize("shape", [(0, 32), (16, 0), (16, 32, 3), (32,)])
+    def test_retina_requires_nonempty_grayscale_frame(shape):
+        with pytest.raises(ValueError, match="HxW"):
+>           Retina(RetinaConfig(), 30.).process(np.zeros(shape, np.uint8))
+
+tests\test_retina_state_contracts.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\retina.py:98: in process
+    local_mean = self._blur(image, cfg.sigma_adapt)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <tracking.retina.Retina object at 0x000001DB6EF96830>
+image = array([], shape=(0, 32), dtype=float32), sigma = 24.0
+
+    def _blur(self, image: np.ndarray, sigma: float) -> np.ndarray:
+        import cv2
+    
+        if sigma <= 0:
+            return image
+        factor = self.config.blur_downscale
+        if factor > 1 and sigma >= 2.0 * factor:
+            # Гладкое поле (σ ≫ пикселя): размытие на кадре, уменьшенном в factor раз, и билинейный возврат.
+            # На полном кадре 1280×720 σ = 24 стоит ~60 мс на CPU, так — ~4 мс; поле низкочастотное.
+            h, w = image.shape[:2]
+            small = cv2.resize(image, (max(w // factor, 1), max(h // factor, 1)), interpolation=cv2.INTER_AREA)
+            small = cv2.GaussianBlur(small, (0, 0), sigmaX=float(sigma) / factor, sigmaY=float(sigma) / factor, borderType=cv2.BORDER_REFLECT)
+            return cv2.resize(small, (w, h), interpolation=cv2.INTER_LINEAR)
+>       return cv2.GaussianBlur(image, (0, 0), sigmaX=float(sigma), sigmaY=float(sigma), borderType=cv2.BORDER_REFLECT)
+E       cv2.error: OpenCV(4.13.0) D:\a\opencv-python\opencv-python\opencv\modules\imgproc\src\smooth.dispatch.cpp:618: error: (-215:Assertion failed) !_src.empty() in function 'cv::GaussianBlur'
+
+tracking\retina.py:83: error
+____________ test_retina_requires_nonempty_grayscale_frame[shape1] ____________
+
+shape = (16, 0)
+
+    @pytest.mark.parametrize("shape", [(0, 32), (16, 0), (16, 32, 3), (32,)])
+    def test_retina_requires_nonempty_grayscale_frame(shape):
+        with pytest.raises(ValueError, match="HxW"):
+>           Retina(RetinaConfig(), 30.).process(np.zeros(shape, np.uint8))
+
+tests\test_retina_state_contracts.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\retina.py:98: in process
+    local_mean = self._blur(image, cfg.sigma_adapt)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <tracking.retina.Retina object at 0x000001DB500820E0>
+image = array([], shape=(16, 0), dtype=float32), sigma = 24.0
+
+    def _blur(self, image: np.ndarray, sigma: float) -> np.ndarray:
+        import cv2
+    
+        if sigma <= 0:
+            return image
+        factor = self.config.blur_downscale
+        if factor > 1 and sigma >= 2.0 * factor:
+            # Гладкое поле (σ ≫ пикселя): размытие на кадре, уменьшенном в factor раз, и билинейный возврат.
+            # На полном кадре 1280×720 σ = 24 стоит ~60 мс на CPU, так — ~4 мс; поле низкочастотное.
+            h, w = image.shape[:2]
+            small = cv2.resize(image, (max(w // factor, 1), max(h // factor, 1)), interpolation=cv2.INTER_AREA)
+            small = cv2.GaussianBlur(small, (0, 0), sigmaX=float(sigma) / factor, sigmaY=float(sigma) / factor, borderType=cv2.BORDER_REFLECT)
+            return cv2.resize(small, (w, h), interpolation=cv2.INTER_LINEAR)
+>       return cv2.GaussianBlur(image, (0, 0), sigmaX=float(sigma), sigmaY=float(sigma), borderType=cv2.BORDER_REFLECT)
+E       cv2.error: OpenCV(4.13.0) D:\a\opencv-python\opencv-python\opencv\modules\imgproc\src\smooth.dispatch.cpp:618: error: (-215:Assertion failed) !_src.empty() in function 'cv::GaussianBlur'
+
+tracking\retina.py:83: error
+____________ test_retina_requires_nonempty_grayscale_frame[shape2] ____________
+
+shape = (16, 32, 3)
+
+    @pytest.mark.parametrize("shape", [(0, 32), (16, 0), (16, 32, 3), (32,)])
+    def test_retina_requires_nonempty_grayscale_frame(shape):
+>       with pytest.raises(ValueError, match="HxW"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:48: Failed
+____________ test_retina_requires_nonempty_grayscale_frame[shape3] ____________
+
+shape = (32,)
+
+    @pytest.mark.parametrize("shape", [(0, 32), (16, 0), (16, 32, 3), (32,)])
+    def test_retina_requires_nonempty_grayscale_frame(shape):
+>       with pytest.raises(ValueError, match="HxW"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_retina_state_contracts.py:48: Failed
+============================== warnings summary ===============================
+tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-norm]
+tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-norm]
+  E:\Dissertation\tracking\retina.py:92: RuntimeWarning: invalid value encountered in subtract
+    z = (image - float(image.mean())) / (float(image.std()) + cfg.eps)
+
+tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-norm]
+tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-norm]
+  E:\Dissertation\.venv\lib\site-packages\numpy\_core\_methods.py:191: RuntimeWarning: invalid value encountered in subtract
+    x = asanyarray(arr - arrmean)
+
+tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-photoreceptor]
+tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-lamina]
+tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-photoreceptor]
+tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-lamina]
+  E:\Dissertation\tracking\retina.py:101: RuntimeWarning: invalid value encountered in divide
+    response = image / (image + self._adapt + denominator_floor)  # закон Вебера; dark_floor («темновой ток») гасит усиление шума в черноте
+
+tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-photoreceptor]
+tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-lamina]
+tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-photoreceptor]
+tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-lamina]
+  E:\Dissertation\tracking\retina.py:102: RuntimeWarning: invalid value encountered in divide
+    reference = self._adapt / (2.0 * self._adapt + denominator_floor)  # ответ на локальный адаптированный уровень -> центр 0,5
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_retina_state_contracts.py::test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape0-0.0-photoreceptor]
+FAILED tests/test_retina_state_contracts.py::test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape0-0.0-lamina]
+FAILED tests/test_retina_state_contracts.py::test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape0-0.1-photoreceptor]
+FAILED tests/test_retina_state_contracts.py::test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape0-0.1-lamina]
+FAILED tests/test_retina_state_contracts.py::test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape1-0.0-photoreceptor]
+FAILED tests/test_retina_state_contracts.py::test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape1-0.0-lamina]
+FAILED tests/test_retina_state_contracts.py::test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape1-0.1-photoreceptor]
+FAILED tests/test_retina_state_contracts.py::test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape1-0.1-lamina]
+FAILED tests/test_retina_state_contracts.py::test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape2-0.0-photoreceptor]
+FAILED tests/test_retina_state_contracts.py::test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape2-0.0-lamina]
+FAILED tests/test_retina_state_contracts.py::test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape2-0.1-photoreceptor]
+FAILED tests/test_retina_state_contracts.py::test_stateful_retina_rejects_shape_change_before_updating_state[changed_shape2-0.1-lamina]
+FAILED tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[nan-none]
+FAILED tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[nan-norm]
+FAILED tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[nan-photoreceptor]
+FAILED tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[nan-lamina]
+FAILED tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-none]
+FAILED tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-norm]
+FAILED tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-photoreceptor]
+FAILED tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[inf-lamina]
+FAILED tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-none]
+FAILED tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-norm]
+FAILED tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-photoreceptor]
+FAILED tests/test_retina_state_contracts.py::test_bad_frame_is_rejected_and_next_clean_frame_matches_control[-inf-lamina]
+FAILED tests/test_retina_state_contracts.py::test_retina_requires_nonempty_grayscale_frame[shape0]
+FAILED tests/test_retina_state_contracts.py::test_retina_requires_nonempty_grayscale_frame[shape1]
+FAILED tests/test_retina_state_contracts.py::test_retina_requires_nonempty_grayscale_frame[shape2]
+FAILED tests/test_retina_state_contracts.py::test_retina_requires_nonempty_grayscale_frame[shape3]
+28 failed, 2 passed, 12 warnings in 0.88s

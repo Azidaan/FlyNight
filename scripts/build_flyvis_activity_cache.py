@@ -59,18 +59,25 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
     output = args.output / video_id
     data_path = output / f"{args.source}_activity.npz"
     meta_path = output / f"{args.source}_activity.json"
+    flow_meta = json.loads((args.flow_root / video_id / "motion" / f"{args.source}.json").read_text(encoding="utf-8"))
+    geometry_version = flow_meta.get("geometry_version", "legacy_v1")
+    if data_path.exists() and not meta_path.exists():
+        raise RuntimeError(f"{data_path}: нет метаданных; укажите новый --output")
+    if meta_path.exists():
+        previous = json.loads(meta_path.read_text(encoding="utf-8"))
+        if previous.get("geometry_version", "legacy_v1") != geometry_version:
+            raise RuntimeError(f"{output}: версия геометрии не совпадает с кэшем потока; укажите новый --output")
     if data_path.exists() and meta_path.exists() and not args.force:
         print(f"[CACHE] {video_id}: {data_path}", flush=True)
         return json.loads(meta_path.read_text(encoding="utf-8"))
 
-    flow_meta = json.loads((args.flow_root / video_id / "motion" / f"{args.source}.json").read_text(encoding="utf-8"))
     with np.load(args.flow_root / video_id / "motion" / f"{args.source}.npz") as flow:
         flow_points = flow["points"]
         flow_vectors = flow["vectors"]
     fps = float(flow_meta["fps"])
 
     started = time.perf_counter()
-    estimator = make_motion_estimator(args.source, fps, args.max_dt)
+    estimator = make_motion_estimator(args.source, fps, args.max_dt, geometry_version=geometry_version)
     node_types = estimator.network.connectome.nodes.type[:]
     indices = type_column_indices(node_types, OUTPUT_CELL_TYPES)
     initialization_seconds = time.perf_counter() - started
@@ -124,6 +131,7 @@ def build_video(video_id: str, args: argparse.Namespace) -> dict:
         "source": args.source,
         "frame_count": frame_count,
         "fps": fps,
+        "geometry_version": geometry_version,
         "tiles": int(baseline.shape[0]),
         "cell_types": list(OUTPUT_CELL_TYPES),
         "columns_per_tile": int(baseline.shape[2]),

@@ -30,7 +30,10 @@ from evaluation.tracker_lifecycle import LifecycleAudit, read_truth  # noqa: E40
 from tracking.classical_motion import OpenCVMotionEstimator  # noqa: E402
 from tracking.detection_cache import iter_frames, load_video_cache  # noqa: E402
 from tracking.flyvis_motion import (  # noqa: E402
+    GEOMETRY_VERSION,
+    GEOMETRY_VERSIONS,
     SYNTHETIC_FLOW_GAIN,
+    resolve_flow_gain,
     FlyVisMotionEstimator,
     TileLayout,
 )
@@ -72,7 +75,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--model", default="flow/0000/000")
     parser.add_argument("--source-fps", type=float, default=5.0)
     parser.add_argument("--dt", type=float, default=0.02)
-    parser.add_argument("--flow-gain", type=float, default=SYNTHETIC_FLOW_GAIN)
+    parser.add_argument("--flow-gain", type=float, default=None,
+                        help="Явный масштаб; resize_v2 требует его и остаётся исследовательским режимом")
+    parser.add_argument("--geometry-version", choices=GEOMETRY_VERSIONS, default=GEOMETRY_VERSION)
     parser.add_argument(
         "--temporal-resampling", choices=("hold", "linear"), default="hold"
     )
@@ -212,8 +217,33 @@ def diagnostic_lifecycle(video_id: str, split: str, rows: list[dict]) -> dict:
     return summary
 
 
+def validate_output_protocol(output: Path, metadata: dict) -> None:
+    """Не смешивать видео разных протоколов, включая запуск с --force."""
+    metadata_path = output / "_metadata.json"
+    if not metadata_path.exists():
+        if any(output.glob("*.json")):
+            raise RuntimeError(f"{output} содержит результаты без протокола; укажите новый --output")
+        return
+    previous = json.loads(metadata_path.read_text(encoding="utf-8"))
+    if previous.get("mode") in {"full", "tiled", "full_fused", "tiled_fused", "farneback", "dis"}:
+        # До resize_v2 версия не записывалась. Совместимость требует явного
+        # --geometry-version legacy_v1, а не присвоения старым полям новой версии.
+        previous.setdefault("geometry_version", "legacy_v1")
+    comparable_keys = (set(metadata) | set(previous)) - {"video_ids"}
+    if any(previous.get(key) != metadata.get(key) for key in comparable_keys):
+        raise RuntimeError(
+            f"{output} уже содержит другой протокол; укажите новый --output "
+            "(для старой геометрии: --geometry-version legacy_v1). "
+            "--force повторяет только тот же протокол"
+        )
+
+
 def main() -> int:
     args = parse_args()
+    if args.mode in {"full", "tiled", "full_fused", "tiled_fused"}:
+        args.flow_gain = resolve_flow_gain(args.flow_gain, args.geometry_version)
+    elif args.flow_gain is None:
+        args.flow_gain = SYNTHETIC_FLOW_GAIN  # не используется классическим/нулевым источником
     selected = video_ids(args)
     config = tracker_config(args)
     layout = TileLayout(args.tile_rows, args.tile_columns, args.tile_overlap)
@@ -245,14 +275,12 @@ def main() -> int:
         "subtract_initial_baseline": not args.keep_decoder_bias,
         "tracker_config": asdict(config),
     }
+    if args.mode in {"full", "tiled", "full_fused", "tiled_fused", "farneback", "dis"}:
+        metadata["geometry_version"] = args.geometry_version
+    if args.geometry_version == "resize_v2" and args.mode in {"full", "tiled", "full_fused", "tiled_fused"}:
+        metadata["flow_gain_status"] = "explicit_unvalidated_resize_diagnostic"
     metadata_path = args.output / "_metadata.json"
-    if metadata_path.exists() and not args.force:
-        previous = json.loads(metadata_path.read_text(encoding="utf-8"))
-        comparable_keys = set(metadata) - {"video_ids"}
-        if any(previous.get(key) != metadata.get(key) for key in comparable_keys):
-            raise RuntimeError(
-                f"{args.output} уже содержит другой протокол; укажите новый --output"
-            )
+    validate_output_protocol(args.output, metadata)
     metadata_path.write_text(
         json.dumps(metadata, ensure_ascii=False, indent=2), encoding="utf-8"
     )
@@ -263,6 +291,7 @@ def main() -> int:
             args.mode,
             processing_scale=args.classical_scale,
             sample_step=args.classical_sample_step,
+            geometry_version=args.geometry_version,
         )
     elif args.mode in {"full", "tiled", "full_fused", "tiled_fused"}:
         estimator = FlyVisMotionEstimator(
@@ -275,6 +304,7 @@ def main() -> int:
             temporal_resampling=args.temporal_resampling,
             flow_aggregation=args.flow_aggregation,
             subtract_initial_baseline=not args.keep_decoder_bias,
+            geometry_version=args.geometry_version,
         )
     tracker = FlyVisTracker(config, estimator)
     image_root = DATA_ROOT / "images" / "track" / args.split
