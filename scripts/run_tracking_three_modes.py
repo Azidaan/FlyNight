@@ -41,6 +41,7 @@ from scripts.run_tracker_grid_search import subset_videos  # noqa: E402
 from tracking.brightness_estimator import get_brightness_map  # noqa: E402
 from tracking.brightness_regression import apply_brightness_adaptive_threshold  # noqa: E402
 from tracking.detection_cache import load_video_cache  # noqa: E402
+from tracking.cache_readonly import require_cached_videos  # noqa: E402
 from tracking.inference_with_q import build_detection_cache_with_q  # noqa: E402
 from tracking.lqa_guided_tracker import LQAGuidedByteTrack  # noqa: E402
 from scripts.tuned_params import (  # noqa: E402
@@ -69,7 +70,10 @@ def mean_q_per_video(cache_dir: Path, split: str, video_ids: list[str],
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--model', required=True)
+    ap.add_argument('--model', help='веса для построения кэша (не нужны с --cached-only)')
+    ap.add_argument('--cache-dir', type=Path, default=Q_CACHE)
+    ap.add_argument('--cached-only', action='store_true',
+                    help='только читать полный существующий кэш, не подтверждая происхождение весов')
     ap.add_argument('--split', default='val')
     ap.add_argument('--subsets', nargs='+', default=list(SUBSETS))
     ap.add_argument('--tau-base', type=float, default=None,
@@ -81,14 +85,19 @@ def main() -> int:
                     metavar=('A', 'B'), help='перекрыть коэффициенты τ = a·brightness + b')
     ap.add_argument('--skip-modes', nargs='+', default=[], choices=list(MODES))
     args = ap.parse_args()
+    if not args.cached_only and not args.model:
+        ap.error('--model обязателен без --cached-only')
 
     by_subset = subset_videos(args.split, args.subsets)
     all_ids = sorted({v for vids in by_subset.values() for v in vids})
     print(f'[INFO] уникальных видео: {len(all_ids)}')
-    build_detection_cache_with_q(args.model, all_ids, args.split, Q_CACHE)
-
     q_key = f'q_{args.agg}'
     modes = [m for m in MODES if m not in args.skip_modes]
+    if args.cached_only:
+        required = (q_key,) if any(m in modes for m in ('lqa', 'control_global')) else ()
+        require_cached_videos(args.cache_dir, args.split, all_ids, required=required)
+    else:
+        build_detection_cache_with_q(args.model, all_ids, args.split, args.cache_dir)
 
     k_value, k_src = resolve_k(args.k)
     print(f'[INFO] коэффициент адаптации k = {k_value:g} ({k_src})')
@@ -145,14 +154,14 @@ def main() -> int:
                     kw['tracker_cls'] = LQAGuidedByteTrack
                     kw['q_key'] = q_key
                 elif mode == 'control_global':
-                    qbar = mean_q_per_video(Q_CACHE, args.split, vids, q_key)
+                    qbar = mean_q_per_video(args.cache_dir, args.split, vids, q_key)
                     kw['per_video_args'] = {
                         v: make_tracker_args(
                             track_high_thresh=tau - k_value * (1.0 - qbar[v]),
                             track_buffer=buf)
                         for v in vids}
 
-                run_association(Q_CACHE, vids, out_dir, args.split, **kw)
+                run_association(args.cache_dir, vids, out_dir, args.split, **kw)
                 metrics = evaluate_tracking_bdd(
                     out_dir, vids, out_dir / '_eval.json', args.split)
                 for mk in METRIC_KEYS:

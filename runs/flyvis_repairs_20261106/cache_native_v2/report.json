@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "frames": 3,
+  "detections": 55,
+  "arrays_exact": {
+    "xyxy": true,
+    "conf": true,
+    "cls": true,
+    "frame_idx": true,
+    "frame_names": true
+  },
+  "weights": {
+    "model": "E:\\Dissertation\\weights\\baseline_seed42\\best.pt",
+    "weights_sha256": "15cd5efb77b90401464589f62b299537ce2d2e086b4146f5c4ee7556cbd0c7c7"
+  },
+  "weights_unchanged": true,
+  "cuda_initialized": false,
+  "seconds": {
+    "original": 1.7173099999999977,
+    "repaired": 0.8282541000007768
+  },
+  "source_frames": [
+    "data\\bdd100k\\images\\track\\train\\0000f77c-6257be58\\0000f77c-6257be58-0000001.jpg",
+    "data\\bdd100k\\images\\track\\train\\0000f77c-6257be58\\0000f77c-6257be58-0000002.jpg",
+    "data\\bdd100k\\images\\track\\train\\0000f77c-6257be58\\0000f77c-6257be58-0000003.jpg"
+  ],
+  "original_source_sha256": "94a6de5a5613a358858839ed8853cd27387707b3e88095f40eb22f0ac1f1f961",
+  "repaired_source_sha256": "774aeaff48a0a86863639ad5b820a4b40f25ef1c5e0e09532ddb9a4daa7c8421",
+  "scope": "Engineering equality on three existing train images, CPU imgsz960; no detector or tracking quality estimate"
+}

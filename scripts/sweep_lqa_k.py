@@ -28,6 +28,7 @@ from evaluation.tracking_metrics import evaluate_tracking_bdd  # noqa: E402
 from scripts.run_tracker_grid_search import subset_videos  # noqa: E402
 from scripts.tuned_params import resolve_tau  # noqa: E402
 from tracking.inference_with_q import build_detection_cache_with_q  # noqa: E402
+from tracking.cache_readonly import require_cached_videos  # noqa: E402
 from tracking.lqa_guided_tracker import LQAGuidedByteTrack  # noqa: E402
 from tracking.offline_association import make_tracker_args, run_association  # noqa: E402
 
@@ -41,18 +42,26 @@ METRIC_KEYS = ('HOTA', 'IDF1', 'MOTA', 'IDSw')
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--model', required=True)
+    ap.add_argument('--model', help='веса для построения кэша (не нужны с --cached-only)')
+    ap.add_argument('--cache-dir', type=Path, default=Q_CACHE)
+    ap.add_argument('--cached-only', action='store_true',
+                    help='только читать полный существующий кэш, не подтверждая происхождение весов')
     ap.add_argument('--split', default='val')
     ap.add_argument('--subsets', nargs='+', default=list(SUBSETS))
     ap.add_argument('--k-values', nargs='+', type=float, default=list(K_VALUES))
     ap.add_argument('--agg', default='mean')
     args = ap.parse_args()
+    if not args.cached_only and not args.model:
+        ap.error('--model обязателен без --cached-only')
 
     by_subset = subset_videos(args.split, args.subsets)
     all_ids = sorted({v for vids in by_subset.values() for v in vids})
     print(f'[INFO] уникальных видео: {len(all_ids)}, '
           f'значений k: {len(args.k_values)}')
-    build_detection_cache_with_q(args.model, all_ids, args.split, Q_CACHE)
+    if args.cached_only:
+        require_cached_videos(args.cache_dir, args.split, all_ids, required=(f'q_{args.agg}',))
+    else:
+        build_detection_cache_with_q(args.model, all_ids, args.split, args.cache_dir)
 
     RESULTS_CSV.parent.mkdir(parents=True, exist_ok=True)
     done: set[tuple[float, str]] = set()
@@ -78,7 +87,7 @@ def main() -> int:
                                            track_buffer=buf)
                 t_args.lqa_k = k
                 out_dir = RUNS / f'k{k:g}_{subset}'
-                run_association(Q_CACHE, vids, out_dir, args.split,
+                run_association(args.cache_dir, vids, out_dir, args.split,
                                 args=t_args, tracker_cls=LQAGuidedByteTrack,
                                 q_key=q_key)
                 metrics = evaluate_tracking_bdd(

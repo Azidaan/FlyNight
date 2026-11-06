@@ -1,0 +1,33 @@
+{
+  "command": "owned python time.sleep(20)",
+  "taskkill": [
+    {
+      "args": [
+        "taskkill",
+        "/PID",
+        "32908",
+        "/T",
+        "/F"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "Ошибка: Отказано в доступе\r\r\n"
+    }
+  ],
+  "owned_pid": 32908,
+  "sibling_pid": 10488,
+  "owned_exit_after_stop": 1,
+  "sibling_alive_after_stop": true,
+  "cleanup": [
+    {
+      "pid": 32908,
+      "alive": false
+    },
+    {
+      "pid": 10488,
+      "alive": true,
+      "handle_terminate_exit": 1
+    }
+  ],
+  "all_owned_children_finished": true
+}

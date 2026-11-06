@@ -40,6 +40,9 @@ from datasets.bdd100k_loader import DATA_ROOT  # noqa: E402
 from models.yolo_neck import collect_q_maps, has_drb  # noqa: E402
 from tracking.detection_cache import CACHE_CONF, CACHE_IOU  # noqa: E402
 from tracking.q_aggregation import AGGREGATIONS, compute_q_per_detection  # noqa: E402
+from tracking.cache_integrity import (atomic_save_detection_arrays, ensure_cache_identity,
+    frame_inventory, load_detection_arrays, validate_detection_arrays,
+    verify_frame_inventory, verify_weights, weights_identity)
 
 IMGSZ = 640
 
@@ -123,6 +126,9 @@ class QInference:
                 out[f'q_{agg}'] = compute_q_per_detection(
                     q_maps, out['xyxy'], out['stride'], orig_shape,
                     input_shape, agg)
+        elif self.with_drb:
+            for agg in aggregations:
+                out[f'q_{agg}'] = np.empty(0, np.float32)
         return out
 
 
@@ -147,35 +153,41 @@ def build_detection_cache_with_q(
     out_dir.mkdir(parents=True, exist_ok=True)
     img_root = DATA_ROOT / 'images' / 'track' / split
 
-    meta_path = cache_dir / 'meta.json'
-    meta = {'model': str(model_path), 'conf': CACHE_CONF, 'iou': CACHE_IOU,
+    identity = weights_identity(model_path)
+    meta = {**identity, 'cache_schema': 'detection_q_jpg_v2', 'conf': CACHE_CONF, 'iou': CACHE_IOU,
             'aggregations': list(aggregations), 'imgsz': IMGSZ,
+            'data_root': str(DATA_ROOT.resolve()),
             'date': time.strftime('%Y-%m-%d %H:%M:%S')}
-    if meta_path.exists():
-        old = json.loads(meta_path.read_text(encoding='utf-8'))
-        if old.get('model') != meta['model']:
-            raise RuntimeError(
-                f'Кэш построен другой моделью ({old.get("model")}). '
-                f'Удалите {cache_dir} или укажите другую директорию.')
-    else:
-        meta_path.write_text(json.dumps(meta, indent=2), encoding='utf-8')
+    ensure_cache_identity(cache_dir, meta)
 
-    qi = QInference(model_path, device=device)
-    if not qi.with_drb:
-        print('[WARN] модель без DRB — q_i не будут посчитаны (нейтральные 1.0)')
+    qi = None
 
     for i, vid in enumerate(video_ids, 1):
         out_npz = out_dir / f'{vid}.npz'
-        if out_npz.exists():
-            continue
         frames = sorted((img_root / vid).glob('*.jpg'))
+        if not frames:
+            raise ValueError(f'No JPG frames found for {vid}')
+        inventory = frame_inventory(frames)
+        if out_npz.exists():
+            cached = load_detection_arrays(out_npz, required=('stride',))
+            verify_frame_inventory(cached, inventory)
+            available = cached.get('quality_available')
+            if available is None or available.shape != () or available.dtype != np.bool_:
+                raise ValueError('Q cache does not declare whether the model provides quality maps')
+            if bool(available):
+                validate_detection_arrays(cached, required=tuple(f'q_{a}' for a in aggregations))
+            continue
+        if qi is None:
+            qi = QInference(model_path, device=device)
+            if not qi.with_drb:
+                print('[WARN] модель без DRB — q_i не будут посчитаны (нейтральные 1.0)')
         per_frame: list[dict] = []
         t0 = time.time()
         for f in frames:
             per_frame.append(qi.predict_frame(f, aggregations))
 
         arrays: dict[str, np.ndarray] = {
-            'frame_names': np.array([f.name for f in frames])}
+            **inventory, 'quality_available': np.asarray(qi.with_drb, dtype=np.bool_)}
         keys = ['xyxy', 'conf', 'cls', 'stride'] + [
             f'q_{a}' for a in aggregations if qi.with_drb]
         fidx = [np.full(len(pf['conf']), k, dtype=np.int32)
@@ -186,7 +198,10 @@ def build_detection_cache_with_q(
             chunks = [pf[key] for pf in per_frame if key in pf]
             if chunks:
                 arrays[key] = np.concatenate(chunks)
-        np.savez_compressed(out_npz, **arrays)
+        verify_weights(model_path, identity)
+        verify_frame_inventory(frame_inventory(frames), inventory)
+        validate_detection_arrays(arrays, required=('stride', *(f'q_{a}' for a in aggregations if qi.with_drb)))
+        atomic_save_detection_arrays(out_npz, arrays)
         n_det = len(arrays.get('conf', []))
         print(f'[INFO] q-кэш {i}/{len(video_ids)}: {vid} '
               f'({len(frames)} кадров, {n_det} детекций, {time.time()-t0:.1f}s)',
