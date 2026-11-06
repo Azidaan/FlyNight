@@ -1,0 +1,81 @@
+{
+  "passed_targeted_repairs": true,
+  "resets": [
+    {
+      "class_name": "QBirthByteTrack",
+      "mro": [
+        "QBirthByteTrack",
+        "AuditedXYWHByteTrack",
+        "XYWHByteTrack",
+        "BYTETracker",
+        "object"
+      ],
+      "missing_context_preserves_existing_state": true,
+      "reset_equals_fresh": true
+    },
+    {
+      "class_name": "DeferredBirthByteTrack",
+      "mro": [
+        "DeferredBirthByteTrack",
+        "QBirthByteTrack",
+        "AuditedXYWHByteTrack",
+        "XYWHByteTrack",
+        "BYTETracker",
+        "object"
+      ],
+      "missing_context_preserves_existing_state": true,
+      "reset_equals_fresh": true
+    },
+    {
+      "class_name": "DeferredCascadeByteTrack",
+      "mro": [
+        "DeferredCascadeByteTrack",
+        "MotionSourceByteTrack",
+        "DeferredBirthByteTrack",
+        "QBirthByteTrack",
+        "AuditedXYWHByteTrack",
+        "XYWHByteTrack",
+        "BYTETracker",
+        "object"
+      ],
+      "missing_context_preserves_existing_state": true,
+      "reset_equals_fresh": true
+    }
+  ],
+  "valid_birth_old_new_exact": {
+    "QBirthByteTrack": true,
+    "DeferredBirthByteTrack": true
+  },
+  "nonempty_motion_old_new_exact_cases": 32,
+  "empty_motion": [
+    {
+      "confidence": false,
+      "new_equals_kalman": true,
+      "legacy_equals_kalman": false,
+      "new_weight": 0.0
+    },
+    {
+      "confidence": true,
+      "new_equals_kalman": true,
+      "legacy_equals_kalman": true,
+      "new_weight": 0.0
+    }
+  ],
+  "limits": {
+    "malformed_present_context": {
+      "error": "AttributeError",
+      "before_frame": 1,
+      "after_frame": 2
+    },
+    "stale_context_accepted": true,
+    "inherited_reset_global_count_after_setting987": 0,
+    "scope": "These limits predate the fixes; no claim of fresh context validation or global counter isolation."
+  },
+  "source_sha256": {
+    "tracking/decision_log.py": "ad7e857f3e9b24cf9aee847b837a00d1d3200840f1580cfdbbfb52ea0494b005",
+    "tracking/birth_policy.py": "f279720a8090854bb2aaafe796be0919677539f630401073caef93767d6f29f4",
+    "tracking/motion_source_bytetrack.py": "f0471f9257c3ef802da901295d4c4e798b1465ba128281a8fe29995fabf35369",
+    "tracking/motion_augmented_bytetrack.py": "2f733cef1fc667775a0a4850d9a36d38f866427d305bce655767e220c1f3a9da"
+  },
+  "script_sha256": "8d6b41c450bb1183cf9017da13fb06e20c02dcb5e4a8bc7ae4155883e5cfd347"
+}

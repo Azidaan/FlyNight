@@ -1,0 +1,64 @@
+{
+  "owned_files": [
+    {
+      "path": "tracking/flyvis_tracker.py",
+      "sha256": "2bac6511543f9e89c0eea2c0d657cfa36b56e50daaf3a9c007811db245d39a03",
+      "snapshot": "runs/flyvis_system_fixes_20261106/assignment/original_flyvis_tracker.py",
+      "previous_sha256": "0539a9cb0a425f7ed92f4c3f39db7b23ce6e4af8547b8221163a9e8cedda9643"
+    },
+    {
+      "path": "tracking/retina.py",
+      "sha256": "71e51747fa9959652766da0179a3b75953c49f94159da155c52b10999b27c322",
+      "snapshot": "runs/flyvis_system_fixes_20261106/assignment/original_retina.py",
+      "previous_sha256": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060"
+    },
+    {
+      "path": "tests/test_flyvis_assignment_contracts.py",
+      "sha256": "fdcd92142483e43147956d6848949ff6832daebbd71b793bb55d82f986a16bda",
+      "snapshot": null,
+      "previous_sha256": null
+    },
+    {
+      "path": "tests/test_retina_state_contracts.py",
+      "sha256": "a101af312ae4793ca2f84eb36603899242f2f2f1696f7ed3db39ede3af3cc1c9",
+      "snapshot": null,
+      "previous_sha256": null
+    }
+  ],
+  "artifacts": {
+    "before_report.json": "667f35dabbf8f1f0b41352b82359f92604ae05a100205d0285fa80421fcad2ce",
+    "original_flyvis_tracker.py": "0539a9cb0a425f7ed92f4c3f39db7b23ce6e4af8547b8221163a9e8cedda9643",
+    "original_retina.py": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060",
+    "probe.log": "91d99d0f16c11bb3b511c9749397c290c003efce1c56575208489ee2f935fa6d",
+    "probe_cpu.py": "79be9829c4e4811fec53886620f2e475cf4d31456163b958d794d3f5e13c2747",
+    "probe_v2.log": "5c5a693cce10aedd74cef67598a71966683073f9ccd907193d66ae88a9380b6a",
+    "probe_v2_cpu.py": "57be984c177e1aff79726dd21407a7351691928f90945986ac3281d108fcae7d",
+    "probe_v2_inputs.npz": "1067e0cf6bb40e0e1ac58b9a603d78719e18dfb86486e01e6863e97705ffafe1",
+    "probe_v2_report.json": "e770c99355f1e8a88622c1349354d436bf3363db8c7259000e21ddcc41d90898",
+    "REPORT.txt": "23727f1f03f8c311d66beb0615104db7cba0d287b72e9fb0dcc2cb8e536d3ee5",
+    "retina_audit_before.json": "1129faefbb46ea0a0ac98e7e69b65df8c3248403eab5ba286a8129fc7d8b7f61",
+    "retina_tests_before.log": "bb9fcba97086e713f3d00b1c74708afc97307ed810d257f444908ca80f86dd45",
+    "tests_after.log": "4422d5e3fd0d9449465d9625acf01fb1431a5f08048482c2a6bc87421cf5fd9e",
+    "tests_before.log": "d2d8937b15381af90b109ff09d84aeadd9c0091bd47fd84f2aa8e8757cb9fc58",
+    "tests_final.log": "50266cb776a4e8552fc3842dd2daa72f7a707670397c4c16685481f0830069a2",
+    "tests_original_v2.log": "6fc93e8f28f7c58be50321bcde86ec3ff256923d8b697618aebd7b077b2a752c",
+    "verify_original.py": "a1aeec64150c419e8692270f64f8afbeec8c2a56301117fcc7619ad162df6a02"
+  },
+  "tests": "136 passed",
+  "command": ".venv/Scripts/python.exe -m pytest tests/test_retina_state_contracts.py tests/test_retina.py tests/test_flyvis_assignment_contracts.py tests/test_flyvis_tracker.py tests/test_flyvis_motion_contracts.py -q -p no:cacheprovider",
+  "assignment_exhaustive_cases": 32125,
+  "assignment_ordinary_tie_cases": 300,
+  "retina_original_exact_sequences": 48,
+  "retina_original_exact_frames": 192,
+  "remaining": [
+    "Retina float64 promotion is preserved and now correctly documented; no dtype failure found in current consumers"
+  ],
+  "no_training": true,
+  "no_gpu": true,
+  "documentation_only_change_after_probe": {
+    "path": "tracking/retina.py",
+    "probe_sha256": "4bc50fa025fa2fb38b1f13c2e3d9c6e32abaebf644fda11d0bbcbfa1e5c985c5",
+    "current_sha256": "71e51747fa9959652766da0179a3b75953c49f94159da155c52b10999b27c322",
+    "change": "Retina class docstring return dtype only; arithmetic unchanged"
+  }
+}

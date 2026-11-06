@@ -20,6 +20,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.run_bdd_video_rate_experiment import build_detection_cache, build_motion_cache, save_json  # noqa: E402
+from tracking.flyvis_motion import GEOMETRY_VERSION, GEOMETRY_VERSIONS  # noqa: E402
 
 WEIGHTS = PROJECT_ROOT / "weights" / "baseline_seed42" / "best.pt"
 
@@ -33,6 +34,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--per-split", default="train=200,dev=50,test=50")
     parser.add_argument("--device", default="0")
     parser.add_argument("--skip-fovea", action="store_true")
+    parser.add_argument("--geometry-version", choices=GEOMETRY_VERSIONS, default=GEOMETRY_VERSION)
     return parser.parse_args()
 
 
@@ -51,6 +53,17 @@ def main() -> int:
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     chosen = select_videos(manifest, args.per_split)
     order = [(split, v) for split in ("train", "dev", "test") for v in chosen.get(split, [])]
+    # Проверить всю выбранную серию до selection.json и дорогого детектора:
+    # прежние поля нельзя незаметно продолжить в новой геометрии.
+    for _, video_id in order:
+        data = args.output / video_id / "motion" / "dis_quarter.npz"
+        meta = data.with_suffix(".json")
+        if data.exists() and not meta.exists():
+            raise RuntimeError(f"{data}: нет метаданных; укажите новый --output")
+        if meta.exists():
+            saved = json.loads(meta.read_text(encoding="utf-8")).get("geometry_version", "legacy_v1")
+            if saved != args.geometry_version:
+                raise RuntimeError(f"{data}: геометрия {saved}; укажите новый --output или --geometry-version {saved}")
     args.output.mkdir(parents=True, exist_ok=True)
     save_json(args.output / "selection.json", {"per_split": args.per_split, "rule": "первые N по sha1(ID) среди alignment_ok", "videos": chosen})
     print(f"[PLAN] {len(order)} роликов: " + ", ".join(f"{s} {len(v)}" for s, v in chosen.items()), flush=True)
@@ -65,7 +78,8 @@ def main() -> int:
         fps = float(manifest["videos"][video_id]["container"]["fps"])
         tick = time.perf_counter()
         build_detection_cache(video, WEIGHTS, out / "detections" / "raw_video.npz", imgsz=960, conf=0.01, iou=0.7, device=args.device, force=False)
-        build_motion_cache("dis_quarter", video, out / "motion", fps=fps, max_dt=0.02, force=False)
+        build_motion_cache("dis_quarter", video, out / "motion", fps=fps, max_dt=0.02, force=False,
+                           geometry_version=args.geometry_version)
         if not args.skip_fovea and not (out / "fovea_flow.npz").exists():
             # Сборщик фовеального потока читает fps из motion/flyvis_tiled.json — подложим метаданные с частотой.
             fps_meta = out / "motion" / "flyvis_tiled.json"

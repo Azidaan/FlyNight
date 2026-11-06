@@ -48,8 +48,10 @@ class RetinaConfig:
 class Retina:
     """Состояние адаптации живёт между кадрами одного видео; `reset()` перед новым видео.
 
-    `process(gray_uint8) -> float32 (H, W) в единицах 0..255` — так, чтобы дальнейший код
-    (`EyeBank._render`: `/255`) не менялся.
+    `process(gray_0_255)` возвращает массив с плавающей точкой (H, W) в единицах
+    0..255. Нормализация входа выполняется в float32; временная адаптация может
+    повысить тип до float64 по правилам NumPy. EyeBank._render приводит результат
+    к float32 после изменения размера и делит на 255.
     """
 
     def __init__(self, config: RetinaConfig, fps: float) -> None:
@@ -84,13 +86,21 @@ class Retina:
 
     def process(self, gray: np.ndarray) -> np.ndarray:
         cfg = self.config
-        image = gray.astype(np.float32) / 255.0 if gray.dtype == np.uint8 else gray.astype(np.float32) / 255.0
+        gray = np.asarray(gray)
+        if gray.ndim != 2 or any(size == 0 for size in gray.shape):
+            raise ValueError("Ожидается непустой полутоновый кадр HxW")
+        image = gray.astype(np.float32) / 255.0
+        if not np.isfinite(image).all():
+            raise ValueError("Кадр содержит NaN или Inf")
         if cfg.mode == "none":
             return image * 255.0
         if cfg.mode == "norm":
             # Контроль без биологии: глобальная нормализация кадра к обученному распределению.
             z = (image - float(image.mean())) / (float(image.std()) + cfg.eps)
             return np.clip(cfg.target_mean + cfg.target_std * z, 0.0, 1.0) * 255.0
+        if any(state is not None and state.shape != image.shape
+               for state in (self._adapt, self._filtered)):
+            raise ValueError("Размер кадра изменился; вызовите reset() перед новым видео")
         # Фоторецептор: временной ФНЧ (опционально) и адаптация точки полунасыщения.
         if cfg.tau_filter > 0:
             self._filtered = image if self._filtered is None else self._filtered + self.alpha_filter * (image - self._filtered)

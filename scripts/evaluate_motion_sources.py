@@ -24,7 +24,10 @@ from datasets.bdd100k_loader import DATA_ROOT  # noqa: E402
 from evaluation.tracker_lifecycle import read_truth  # noqa: E402
 from tracking.classical_motion import OpenCVMotionEstimator  # noqa: E402
 from tracking.flyvis_motion import (  # noqa: E402
+    GEOMETRY_VERSION,
+    GEOMETRY_VERSIONS,
     SYNTHETIC_FLOW_GAIN,
+    resolve_flow_gain,
     FlyVisMotionEstimator,
     TileLayout,
 )
@@ -99,7 +102,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--flow-aggregation", choices=("mean", "last", "sum"), default="mean"
     )
-    parser.add_argument("--flow-gain", type=float, default=SYNTHETIC_FLOW_GAIN)
+    parser.add_argument("--flow-gain", type=float, default=None)
+    parser.add_argument("--geometry-version", choices=GEOMETRY_VERSIONS, default=GEOMETRY_VERSION)
     parser.add_argument(
         "--output",
         type=Path,
@@ -110,15 +114,19 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    args.flow_gain = resolve_flow_gain(args.flow_gain, args.geometry_version)
     videos = args.video_id or list(DEFAULT_VIDEOS)
     args.output.mkdir(parents=True, exist_ok=True)
+    if any(args.output.glob("motion_source_metrics*")):
+        raise FileExistsError(f"Результаты уже существуют: {args.output}; укажите новый --output")
     estimators = {
-        "dis": OpenCVMotionEstimator("dis", sample_step=8),
+        "dis": OpenCVMotionEstimator("dis", sample_step=8, geometry_version=args.geometry_version),
         "flyvis_full": FlyVisMotionEstimator(
             mode="full",
             temporal_resampling=args.temporal_resampling,
             flow_aggregation=args.flow_aggregation,
             flow_gain=args.flow_gain,
+            geometry_version=args.geometry_version,
         ),
         "flyvis_tiled": FlyVisMotionEstimator(
             mode="tiled",
@@ -126,6 +134,7 @@ def main() -> int:
             temporal_resampling=args.temporal_resampling,
             flow_aggregation=args.flow_aggregation,
             flow_gain=args.flow_gain,
+            geometry_version=args.geometry_version,
         ),
     }
     records = []
@@ -229,6 +238,9 @@ def main() -> int:
             "temporal_resampling": args.temporal_resampling,
             "flow_aggregation": args.flow_aggregation,
             "flow_gain": args.flow_gain,
+            "geometry_version": args.geometry_version,
+            "flow_gain_status": ("explicit_unvalidated_resize_diagnostic" if args.geometry_version == "resize_v2"
+                                 else "legacy_empirical_vector_convention"),
         },
         "videos": videos,
         "modes": modes,

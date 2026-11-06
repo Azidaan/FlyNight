@@ -1,0 +1,90 @@
+FFFF.F                                                                   [100%]
+================================== FAILURES ===================================
+________________ test_create_failure_cannot_run_protected_body ________________
+
+    def test_create_failure_cannot_run_protected_body():
+        k, key = kernel(), name()
+        event = k.CreateEventW(None, False, False, key)
+        assert event
+        try:
+            with pytest.raises(OSError):
+                with GpuLock(key):
+>                   pytest.fail('Unprotected body was reached after CreateMutexW failed')
+E                   Failed: Unprotected body was reached after CreateMutexW failed
+
+tests\test_gpu_lock_lifecycle.py:44: Failed
+_______________ test_reusable_nested_context_and_explicit_close _______________
+
+    def test_reusable_nested_context_and_explicit_close():
+        lock = GpuLock(name())
+        try:
+            original = lock.handle
+            with lock:
+                with lock:
+                    with pytest.raises(RuntimeError, match='acquired'):
+>                       lock.close()
+E                       AttributeError: 'GpuLock' object has no attribute 'close'
+
+tests\test_gpu_lock_lifecycle.py:56: AttributeError
+___________ test_idle_discarded_locks_release_their_native_handles ____________
+
+    def test_idle_discarded_locks_release_their_native_handles():
+        k = kernel()
+        locks = [GpuLock(name()) for _ in range(30)]
+        handles = [lock.handle for lock in locks]
+        assert all(handles)
+        del locks
+        gc.collect()
+        remaining = []
+        for handle in handles:
+            flags = ctypes.c_ulong()
+            if k.GetHandleInformation(handle, ctypes.byref(flags)):
+                remaining.append(handle)
+        for handle in remaining:
+            assert k.CloseHandle(handle)
+>       assert remaining == []
+E       assert [220, 740, 40...452, 528, ...] == []
+E         
+E         Left contains 30 more items, first extra item: 220
+E         Use -v to get more diff
+
+tests\test_gpu_lock_lifecycle.py:84: AssertionError
+_______________ test_wrong_thread_cannot_silently_release_lock ________________
+
+    def test_wrong_thread_cannot_silently_release_lock():
+        lock = GpuLock(name())
+        lock.__enter__()
+        errors = []
+        def wrong_thread():
+            try:
+                lock.__exit__(None, None, None)
+            except (OSError, RuntimeError) as error:
+                errors.append(error)
+        thread = threading.Thread(target=wrong_thread)
+        try:
+            thread.start(); thread.join(timeout=5)
+            assert not thread.is_alive()
+>           assert len(errors) == 1
+E           assert 0 == 1
+E            +  where 0 = len([])
+
+tests\test_gpu_lock_lifecycle.py:100: AssertionError
+_________________ test_disabled_lock_preserves_noop_contract __________________
+
+    def test_disabled_lock_preserves_noop_contract():
+        lock = GpuLock(None)
+        with lock:
+            with lock:
+                pass
+        assert lock.handle is None and lock.waits == 0
+>       lock.close()
+E       AttributeError: 'GpuLock' object has no attribute 'close'
+
+tests\test_gpu_lock_lifecycle.py:136: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/test_gpu_lock_lifecycle.py::test_create_failure_cannot_run_protected_body
+FAILED tests/test_gpu_lock_lifecycle.py::test_reusable_nested_context_and_explicit_close
+FAILED tests/test_gpu_lock_lifecycle.py::test_idle_discarded_locks_release_their_native_handles
+FAILED tests/test_gpu_lock_lifecycle.py::test_wrong_thread_cannot_silently_release_lock
+FAILED tests/test_gpu_lock_lifecycle.py::test_disabled_lock_preserves_noop_contract
+5 failed, 1 passed in 0.40s

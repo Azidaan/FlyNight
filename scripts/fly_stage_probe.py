@@ -33,6 +33,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 import scripts.fly_finetune_k1 as K  # noqa: E402
 from scripts.fly_noise_probe import lcn  # noqa: E402
 from scripts.fly_scale_probe import make_fly  # noqa: E402
+from tracking.flyvis_geometry_protocol import add_geometry_arguments, ensure_geometry_output, resolve_output
 
 OUT = PROJECT_ROOT / "runs" / "fly_stage_probe"
 SPEEDS = [1.0, 2.0, 4.0, 8.0]
@@ -62,7 +63,13 @@ def ridge_r2(Xtr, Ytr, Xte, Yte, alpha=10.0):
 
 
 def main() -> int:
+    global OUT
+    import argparse
     import cv2
+    parser = argparse.ArgumentParser(); add_geometry_arguments(parser); args = parser.parse_args()
+    OUT = resolve_output(args.out, OUT, PROJECT_ROOT)
+    ensure_geometry_output(OUT, args.geometry_version)
+    K.OUT = OUT
     OUT.mkdir(parents=True, exist_ok=True)
     fps = json.loads((K.TC / "0001542f-5ce3cf52/motion/dis_quarter.json").read_text(encoding="utf-8"))["fps"]
     sel = json.loads((K.TC / "selection.json").read_text(encoding="utf-8"))["videos"]
@@ -71,7 +78,7 @@ def main() -> int:
     for v in sel["dev"][:6]:
         g = [x for _, x in zip(range(300), K.read_gray(PROJECT_ROOT / "data/bdd100k/videos/train" / f"{v}.mov"))]
         frames += [g[i] for i in rng.choice(len(g), 2, replace=False)]
-    fly = make_fly(fps, "2x3", 1)
+    fly = make_fly(fps, "2x3", 1, geometry_version=args.geometry_version)
     t = fly.torch; dec = fly.base.decoder
     li = fly.net.stimulus.layer_index
     c = fly.net.connectome

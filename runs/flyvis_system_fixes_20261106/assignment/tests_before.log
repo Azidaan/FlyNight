@@ -1,0 +1,211 @@
+F......FFF.FFFFFFF                                                       [100%]
+================================== FAILURES ===================================
+__ test_real_boxes_do_not_lose_valid_identity_to_over_threshold_assignments ___
+
+    def test_real_boxes_do_not_lose_valid_identity_to_over_threshold_assignments():
+        config = FlyVisTrackerConfig(iou_weight=0., motion_weight=1., size_weight=0.,
+                                     max_assignment_cost=.15)
+        tracker = FlyVisTracker(config)
+        confidence, classes = np.full(2, .9), np.full(2, 2)
+        tracker.update(np.array([[0, 0, 10, 10], [3, 0, 13, 10]]), confidence,
+                       classes, motion_field=MotionField.empty())
+        output = tracker.update(np.array([[1, 0, 11, 10], [-2, 0, 8, 10]]), confidence,
+                                classes, motion_field=MotionField.empty())
+>       assert output[:, 4].tolist() == [1, 3]
+E       assert [3.0, 4.0] == [1, 3]
+E         
+E         At index 0 diff: 3.0 != 1
+E         Use -v to get more diff
+
+tests\test_flyvis_assignment_contracts.py:38: AssertionError
+_ test_exhaustive_small_assignment_maximizes_cardinality_then_minimizes_cost[shape2] _
+
+shape = (2, 2)
+
+    @pytest.mark.parametrize("shape", [(1, 3), (3, 1), (2, 2), (2, 3), (3, 2)])
+    def test_exhaustive_small_assignment_maximizes_cardinality_then_minimizes_cost(shape):
+        candidates = possible_assignments(shape)
+        for entries in product((-2., 0., 1., 3., np.inf), repeat=int(np.prod(shape))):
+            cost = np.asarray(entries).reshape(shape)
+            permitted = np.isfinite(cost) & (cost <= 1.5)
+            possible = [pairs for pairs in candidates if all(permitted[r, c] for r, c in pairs)]
+            expected_count = max(map(len, possible))
+            expected_cost = min(sum(cost[r, c] for r, c in pairs)
+                                for pairs in possible if len(pairs) == expected_count)
+            matches, unmatched_rows, unmatched_cols = MatrixAssignment(cost).solve(1.5)
+>           assert len(matches) == expected_count
+E           assert 1 == 2
+E            +  where 1 = len([(0, 0)])
+
+tests\test_flyvis_assignment_contracts.py:68: AssertionError
+_ test_exhaustive_small_assignment_maximizes_cardinality_then_minimizes_cost[shape3] _
+
+shape = (2, 3)
+
+    @pytest.mark.parametrize("shape", [(1, 3), (3, 1), (2, 2), (2, 3), (3, 2)])
+    def test_exhaustive_small_assignment_maximizes_cardinality_then_minimizes_cost(shape):
+        candidates = possible_assignments(shape)
+        for entries in product((-2., 0., 1., 3., np.inf), repeat=int(np.prod(shape))):
+            cost = np.asarray(entries).reshape(shape)
+            permitted = np.isfinite(cost) & (cost <= 1.5)
+            possible = [pairs for pairs in candidates if all(permitted[r, c] for r, c in pairs)]
+            expected_count = max(map(len, possible))
+            expected_cost = min(sum(cost[r, c] for r, c in pairs)
+                                for pairs in possible if len(pairs) == expected_count)
+            matches, unmatched_rows, unmatched_cols = MatrixAssignment(cost).solve(1.5)
+>           assert len(matches) == expected_count
+E           assert 1 == 2
+E            +  where 1 = len([(0, 0)])
+
+tests\test_flyvis_assignment_contracts.py:68: AssertionError
+_ test_exhaustive_small_assignment_maximizes_cardinality_then_minimizes_cost[shape4] _
+
+shape = (3, 2)
+
+    @pytest.mark.parametrize("shape", [(1, 3), (3, 1), (2, 2), (2, 3), (3, 2)])
+    def test_exhaustive_small_assignment_maximizes_cardinality_then_minimizes_cost(shape):
+        candidates = possible_assignments(shape)
+        for entries in product((-2., 0., 1., 3., np.inf), repeat=int(np.prod(shape))):
+            cost = np.asarray(entries).reshape(shape)
+            permitted = np.isfinite(cost) & (cost <= 1.5)
+            possible = [pairs for pairs in candidates if all(permitted[r, c] for r, c in pairs)]
+            expected_count = max(map(len, possible))
+            expected_cost = min(sum(cost[r, c] for r, c in pairs)
+                                for pairs in possible if len(pairs) == expected_count)
+            matches, unmatched_rows, unmatched_cols = MatrixAssignment(cost).solve(1.5)
+>           assert len(matches) == expected_count
+E           assert 1 == 2
+E            +  where 1 = len([(0, 0)])
+
+tests\test_flyvis_assignment_contracts.py:68: AssertionError
+___ test_large_and_negative_costs_cannot_outweigh_valid_cardinality[cost1] ____
+
+cost = [[-1e+308, 5e+307], [5e+307, inf]]
+
+    @pytest.mark.parametrize("cost", [
+        [[-2e307, 0., np.inf], [np.inf, 2e307, -2e307]],
+        [[-1e308, 5e307], [5e307, np.inf]],
+        [[1e308, 1e308, np.inf], [np.inf, -1e308, 0.]],
+        [[-1e8, 0.], [0., np.inf]],
+    ])
+    def test_large_and_negative_costs_cannot_outweigh_valid_cardinality(cost):
+        policy = MatrixAssignment(cost)
+        matches, _, _ = policy.solve(float("inf"))
+        candidates = [pairs for pairs in possible_assignments(policy.costs.shape)
+                      if all(policy.valid[r, c] for r, c in pairs)]
+        count = max(map(len, candidates))
+        total = lambda pairs: sum((Decimal(str(policy.costs[r, c])) for r, c in pairs), Decimal(0))
+        expected = min(total(pairs) for pairs in candidates if len(pairs) == count)
+>       assert len(matches) == count and total(matches) == expected
+E       assert (1 == 2)
+E        +  where 1 = len([(0, 0)])
+
+tests\test_flyvis_assignment_contracts.py:88: AssertionError
+___ test_large_and_negative_costs_cannot_outweigh_valid_cardinality[cost2] ____
+
+cost = [[1e+308, 1e+308, inf], [inf, -1e+308, 0.0]]
+
+    @pytest.mark.parametrize("cost", [
+        [[-2e307, 0., np.inf], [np.inf, 2e307, -2e307]],
+        [[-1e308, 5e307], [5e307, np.inf]],
+        [[1e308, 1e308, np.inf], [np.inf, -1e308, 0.]],
+        [[-1e8, 0.], [0., np.inf]],
+    ])
+    def test_large_and_negative_costs_cannot_outweigh_valid_cardinality(cost):
+        policy = MatrixAssignment(cost)
+        matches, _, _ = policy.solve(float("inf"))
+        candidates = [pairs for pairs in possible_assignments(policy.costs.shape)
+                      if all(policy.valid[r, c] for r, c in pairs)]
+        count = max(map(len, candidates))
+        total = lambda pairs: sum((Decimal(str(policy.costs[r, c])) for r, c in pairs), Decimal(0))
+        expected = min(total(pairs) for pairs in candidates if len(pairs) == count)
+>       assert len(matches) == count and total(matches) == expected
+E       assert (1 == 2)
+E        +  where 1 = len([(1, 1)])
+
+tests\test_flyvis_assignment_contracts.py:88: AssertionError
+___ test_large_and_negative_costs_cannot_outweigh_valid_cardinality[cost3] ____
+
+cost = [[-100000000.0, 0.0], [0.0, inf]]
+
+    @pytest.mark.parametrize("cost", [
+        [[-2e307, 0., np.inf], [np.inf, 2e307, -2e307]],
+        [[-1e308, 5e307], [5e307, np.inf]],
+        [[1e308, 1e308, np.inf], [np.inf, -1e308, 0.]],
+        [[-1e8, 0.], [0., np.inf]],
+    ])
+    def test_large_and_negative_costs_cannot_outweigh_valid_cardinality(cost):
+        policy = MatrixAssignment(cost)
+        matches, _, _ = policy.solve(float("inf"))
+        candidates = [pairs for pairs in possible_assignments(policy.costs.shape)
+                      if all(policy.valid[r, c] for r, c in pairs)]
+        count = max(map(len, candidates))
+        total = lambda pairs: sum((Decimal(str(policy.costs[r, c])) for r, c in pairs), Decimal(0))
+        expected = min(total(pairs) for pairs in candidates if len(pairs) == count)
+>       assert len(matches) == count and total(matches) == expected
+E       assert (1 == 2)
+E        +  where 1 = len([(0, 0)])
+
+tests\test_flyvis_assignment_contracts.py:88: AssertionError
+______________ test_nonfinite_cost_marked_valid_is_rejected[nan] ______________
+
+value = nan
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_nonfinite_cost_marked_valid_is_rejected(value):
+>       with pytest.raises(ValueError, match="стоимост"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_assignment_contracts.py:93: Failed
+______________ test_nonfinite_cost_marked_valid_is_rejected[inf] ______________
+
+value = inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_nonfinite_cost_marked_valid_is_rejected(value):
+>       with pytest.raises(ValueError, match="стоимост"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_assignment_contracts.py:93: Failed
+_____________ test_nonfinite_cost_marked_valid_is_rejected[-inf] ______________
+
+value = -inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_nonfinite_cost_marked_valid_is_rejected(value):
+>       with pytest.raises(ValueError, match="стоимост"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_assignment_contracts.py:93: Failed
+_ test_ordinary_unlimited_threshold_keeps_previous_solver_choices_including_ties _
+
+    def test_ordinary_unlimited_threshold_keeps_previous_solver_choices_including_ties():
+        rng = np.random.default_rng(911)
+        for shape in ((2, 3), (3, 2), (4, 4)):
+            for _ in range(100):
+                costs = rng.integers(0, 4, shape).astype(np.float32)
+                valid = rng.random(shape) > .2
+                old_rows, old_cols = linear_sum_assignment(np.where(valid, costs, 1e6))
+                old = [(r, c) for r, c in zip(old_rows.tolist(), old_cols.tolist()) if valid[r, c]]
+                matches, _, _ = MatrixAssignment(costs, valid).solve(float("inf"))
+>               assert matches == old
+E               assert [(0, 2)] == [(0, 1), (1, 2)]
+E                 
+E                 At index 0 diff: (0, 2) != (0, 1)
+E                 Right contains one more item: (1, 2)
+E                 Use -v to get more diff
+
+tests\test_flyvis_assignment_contracts.py:106: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_flyvis_assignment_contracts.py::test_real_boxes_do_not_lose_valid_identity_to_over_threshold_assignments
+FAILED tests/test_flyvis_assignment_contracts.py::test_exhaustive_small_assignment_maximizes_cardinality_then_minimizes_cost[shape2]
+FAILED tests/test_flyvis_assignment_contracts.py::test_exhaustive_small_assignment_maximizes_cardinality_then_minimizes_cost[shape3]
+FAILED tests/test_flyvis_assignment_contracts.py::test_exhaustive_small_assignment_maximizes_cardinality_then_minimizes_cost[shape4]
+FAILED tests/test_flyvis_assignment_contracts.py::test_large_and_negative_costs_cannot_outweigh_valid_cardinality[cost1]
+FAILED tests/test_flyvis_assignment_contracts.py::test_large_and_negative_costs_cannot_outweigh_valid_cardinality[cost2]
+FAILED tests/test_flyvis_assignment_contracts.py::test_large_and_negative_costs_cannot_outweigh_valid_cardinality[cost3]
+FAILED tests/test_flyvis_assignment_contracts.py::test_nonfinite_cost_marked_valid_is_rejected[nan]
+FAILED tests/test_flyvis_assignment_contracts.py::test_nonfinite_cost_marked_valid_is_rejected[inf]
+FAILED tests/test_flyvis_assignment_contracts.py::test_nonfinite_cost_marked_valid_is_rejected[-inf]
+FAILED tests/test_flyvis_assignment_contracts.py::test_ordinary_unlimited_threshold_keeps_previous_solver_choices_including_ties
+11 failed, 7 passed in 1.81s

@@ -38,6 +38,8 @@ import numpy as np
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
+from tracking.flyvis_motion import GEOMETRY_VERSION, GEOMETRY_VERSIONS, resolve_flow_gain
+
 OUT = PROJECT_ROOT / "runs" / "fly_finetune_k1"
 TC = PROJECT_ROOT / "runs" / "train_cache"
 CATS = {"pedestrian", "rider", "car", "truck", "bus", "train", "motorcycle", "bicycle"}
@@ -67,13 +69,15 @@ def conditions(vids, split):
 class Fly:
     """Муха стенда (FlyVisMotionEstimator: tiled, linear, mean) в виде, пригодном для градиента."""
 
-    def __init__(self, fps: float, model="flow/0000/000", layout=None, gain=None):
+    def __init__(self, fps: float, model="flow/0000/000", layout=None, gain=None,
+                 *, geometry_version=GEOMETRY_VERSION, device=None):
         import torch
-        from tracking.flyvis_motion import FlyVisMotionEstimator, TileLayout
+        from tracking.flyvis_motion import FlyVisMotionEstimator, TileLayout, resolve_flow_gain
         self.torch = torch
-        # усиление стенда для плиток (DEFAULT_GAINS в run_bdd_video_rate_experiment.py): «штатная муха» = муха трекера
-        self.base = FlyVisMotionEstimator(model=model, mode="tiled", source_fps=fps, temporal_resampling="linear", flow_aggregation="mean", flow_gain=STAND_GAIN if gain is None else gain,
-                                          layout=layout or TileLayout(2, 3, 0.20))
+        # Прежний масштаб разрешён только при неизменной конвенции векторов.
+        gain = resolve_flow_gain(gain, geometry_version, empirical_default=STAND_GAIN)
+        self.base = FlyVisMotionEstimator(model=model, mode="tiled", source_fps=fps, temporal_resampling="linear", flow_aggregation="mean", flow_gain=gain,
+                                          layout=layout or TileLayout(2, 3, 0.20), geometry_version=geometry_version, device=device)
         self.net, self.eye = self.base.network, self.base.eye
         self.dev = self.base.flyvis.device
         self.H = self.base.eye_height
@@ -82,14 +86,20 @@ class Fly:
 
     def tiles(self, gray: np.ndarray) -> np.ndarray:
         import cv2
-        if self.bounds is None:
-            self.base._prepare_layout(gray.shape[1], gray.shape[0]); self.bounds = self.base._bounds
+        self.base._prepare_layout(gray.shape[1], gray.shape[0])
+        self.bounds = self.base._bounds
         return np.stack([cv2.resize(gray[y1:y2, x1:x2], (self.H, self.H), interpolation=cv2.INTER_AREA) for x1, y1, x2, y2 in self.bounds])
 
     def points_scale(self):
         """Координаты колонок (6·721, 2) в пикселях кадра и множитель «выход декодера → px» по плиткам."""
-        f = self.base._points_and_vectors(self.torch.zeros((len(self.bounds), 2, 721), device=self.dev))
-        sc = np.array([self.base.flow_gain * (y2 - y1) / self.base.kernel_area for _, y1, _, y2 in self.bounds], np.float32)
+        if self.bounds is None:
+            raise RuntimeError("Сначала вызовите tiles: размеры кадра ещё неизвестны")
+        columns = len(self.base._local_centers_yx)
+        # Единичный декодированный вектор задаёт масштабы обеих осей тем же
+        # преобразованием, которое использует потоковый модуль.
+        f = self.base._points_and_vectors(self.torch.ones((len(self.bounds), 2, columns), device=self.dev))
+        sc = f.vectors_xy.reshape(len(self.bounds), columns, 2)[:, 0].copy()
+        sc[:, 1] *= -1
         return f.points_xy, sc
 
     def render(self, cart):  # (6,1,H,W) → (6,1,721)
@@ -159,7 +169,14 @@ class FrontEnd:
 def to_px(dec_flow, sc, log_gain):
     """(плитки, 2, 721) выход декодера минус базовый → (плитки·721, 2) px, ось y вниз."""
     t = dec_flow
-    v = t.permute(0, 2, 1) * (sc.view(-1, 1, 1) * log_gain.exp())
+    if sc.ndim == 1 and sc.shape[0] == t.shape[0]:
+        # Явная совместимость для вызывающего кода со старым скалярным sc.
+        scale = sc.view(-1, 1, 1)
+    elif sc.ndim == 2 and tuple(sc.shape) == (t.shape[0], 2):
+        scale = sc[:, None, :]
+    else:
+        raise ValueError("sc должен иметь форму (плитки,) или (плитки, 2)")
+    v = t.permute(0, 2, 1) * (scale * log_gain.exp())
     v = v * v.new_tensor([1.0, -1.0])
     return v.reshape(-1, 2)
 
@@ -257,7 +274,8 @@ def train_arm(arm, fly, segs, steps, rng, log):
             msg = f"[TRAIN {arm}] {it + 1}/{steps} потеря {np.mean(hist[-25:]):.3f} масштаб {float(log_gain.exp()):.3f} | {el / 60:.1f} мин, осталось ~{eta / 60:.1f} мин"
             print(msg, flush=True); log.write(msg + "\n"); log.flush()
             status(stage="train", arm=arm, step=it + 1, total=steps, loss=float(np.mean(hist[-25:])), eta_min=eta / 60)
-    state_dict = {"log_gain": float(log_gain.detach()), "decoder": {k: v.detach().clone() for k, v in dec.state_dict().items()},
+    state_dict = {"geometry_version": fly.base.geometry_version,
+                  "log_gain": float(log_gain.detach()), "decoder": {k: v.detach().clone() for k, v in dec.state_dict().items()},
                   "frontend": fe.values() if fe else None, "loss_hist": hist}
     for p in dec.parameters():
         p.requires_grad_(False)
@@ -267,6 +285,7 @@ def train_arm(arm, fly, segs, steps, rng, log):
 def run_video(fly, path, arms_state, stock_dec_state):
     """Поля движения (F, 4326, 2) для штатной мухи и всех ветвей за один проход по видео."""
     t = fly.torch
+    validate_arm_geometry(arms_state, fly.base.geometry_version)
     dec = fly.base.decoder
     _, sc = fly.points_scale() if fly.bounds is not None else (None, None)
     pipes = {"stock": (None, stock_dec_state, 0.0)}
@@ -341,6 +360,27 @@ def box_errors(fields, pts, dis, root, split, vid, nf):
     return {k: {"median": float(np.median(e)), "mean": float(np.mean(e)), "n": len(e)} for k, e in errs.items() if e}
 
 
+def validate_arm_geometry(arms: dict, geometry_version: str) -> None:
+    for name, arm in arms.items():
+        saved = arm.get("geometry_version", "legacy_v1")
+        if saved != geometry_version:
+            raise RuntimeError(f"Ветвь {name}: геометрия весов {saved}, запрошена {geometry_version}; "
+                               "укажите соответствующую --geometry-version или новый --out")
+
+
+def validate_output_geometry(output: Path, geometry_version: str) -> None:
+    protocol = output / "protocol.json"
+    if protocol.exists():
+        saved = json.loads(protocol.read_text(encoding="utf-8")).get("geometry_version", "legacy_v1")
+    elif any(output.glob("*.pt")) or (output / "summary.json").exists() or (output / "per_video.json").exists():
+        saved = "legacy_v1"
+    else:
+        return
+    if saved != geometry_version:
+        raise RuntimeError(f"{output}: сохранена геометрия {saved}, запрошена {geometry_version}; "
+                           "укажите новый --out или явную --geometry-version для старого опыта")
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
@@ -350,21 +390,33 @@ def main() -> int:
     ap.add_argument("--eval-limit", type=int, default=0)
     ap.add_argument("--train-videos", type=int, default=N_TRAIN_PER_COND)
     ap.add_argument("--out", default="")
+    ap.add_argument("--geometry-version", choices=GEOMETRY_VERSIONS, default=GEOMETRY_VERSION)
     a = ap.parse_args()
+    resolve_flow_gain(None, a.geometry_version, empirical_default=STAND_GAIN)
     global OUT
     if a.out:
         OUT = PROJECT_ROOT / a.out
+    validate_output_geometry(OUT, a.geometry_version)
+    arms_path = OUT / "arms.pt"
+    if a.eval_only and not arms_path.exists():
+        raise FileNotFoundError(f"--eval-only требует готовых весов: {arms_path}")
+    if arms_path.exists() and not a.eval_only and not a.check:
+        raise FileExistsError(f"Веса уже существуют: {arms_path}; укажите новый --out")
     import torch
     OUT.mkdir(parents=True, exist_ok=True)
     fps = json.loads((TC / "0001542f-5ce3cf52/motion/dis_quarter.json").read_text(encoding="utf-8"))["fps"]
-    fly = Fly(fps)
+    fly = Fly(fps, geometry_version=a.geometry_version)
     stock_dec = {k: v.detach().clone() for k, v in fly.base.decoder.state_dict().items()}
 
     if a.check:
         v = "b1c81faa-3df17267"
         ref = np.load(PROJECT_ROOT / "runs/video_rate" / v / "motion/flyvis_tiled.npz")
         import itertools
-        fly_c = Fly(json.loads((PROJECT_ROOT / "runs/video_rate" / v / "motion/flyvis_tiled.json").read_text(encoding="utf-8"))["fps"])
+        ref_meta = json.loads((PROJECT_ROOT / "runs/video_rate" / v / "motion/flyvis_tiled.json").read_text(encoding="utf-8"))
+        if ref_meta.get("geometry_version", "legacy_v1") != a.geometry_version:
+            raise RuntimeError("Версия проверяемого кэша не совпадает; задайте --geometry-version "
+                               + ref_meta.get("geometry_version", "legacy_v1"))
+        fly_c = Fly(ref_meta["fps"], geometry_version=a.geometry_version)
         src = itertools.islice(read_gray(PROJECT_ROOT / "data/bdd100k/videos/val" / f"{v}.mov"), 120)
         frames = list(src)
         # прямой проход без записи файла
@@ -397,11 +449,14 @@ def main() -> int:
     if a.eval_limit:
         ev = [v for v in ev if cond_dev[v] == "night"][:a.eval_limit] + [v for v in ev if cond_dev[v] == "normal"][:a.eval_limit]
     print(f"обучение: {len(tr)} видео (ночь {sum(cond_tr[v] == 'night' for v in tr)}), оценка dev: {len(ev)} (ночь {sum(cond_dev[v] == 'night' for v in ev)})", flush=True)
-    meta = {"train": tr, "eval": ev, "cond": {**{v: cond_tr[v] for v in tr}, **{v: cond_dev[v] for v in ev}}, "steps": a.steps, "warm": WARM, "len": LEN}
+    meta = {"geometry_version": a.geometry_version, "train": tr, "eval": ev, "cond": {**{v: cond_tr[v] for v in tr}, **{v: cond_dev[v] for v in ev}}, "steps": a.steps, "warm": WARM, "len": LEN}
+    protocol_path = OUT / "protocol.json"
+    if not protocol_path.exists():
+        protocol_path.write_text(json.dumps({"geometry_version": a.geometry_version}, indent=2), encoding="utf-8")
 
-    arms_path = OUT / "arms.pt"
     if a.eval_only and arms_path.exists():
         arms = torch.load(arms_path, weights_only=False)
+        validate_arm_geometry(arms, a.geometry_version)
     else:
         segs = build_train(fly, tr, rng)
         arms = {}
@@ -414,10 +469,10 @@ def main() -> int:
         del segs
 
     res = {}
-    pts, _ = fly.points_scale()
     started = time.time()
     for i, v in enumerate(ev):
         fields = run_video(fly, PROJECT_ROOT / "data/bdd100k/videos/train" / f"{v}.mov", arms, stock_dec)
+        pts, _ = fly.points_scale()
         dq = np.load(TC / v / "motion/dis_quarter.npz")
         nf = min(len(dq["vectors"]), *(len(x) for x in fields.values()))
         res[v] = box_errors(fields, pts, (dq["points"], dq["vectors"]), TC, "train", v, nf)

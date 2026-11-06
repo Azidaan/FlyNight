@@ -1,0 +1,840 @@
+{
+  "head": "e8f674cec565632dbebfa187c8610a3eb38ef729",
+  "passed": true,
+  "shared": {
+    "passed": true,
+    "exit_code": 0,
+    "command": [
+      "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_flyvis_motion_contracts.py",
+      "tests/test_flyvis_assignment_contracts.py",
+      "tests/test_retina_state_contracts.py",
+      "tests/test_classical_motion_geometry.py",
+      "tests/test_classical_motion_state.py",
+      "tests/test_flyvis_tracker_input_state.py",
+      "tests/test_flyvis_secondary_geometry.py",
+      "tests/test_gpu_lock_lifecycle.py",
+      "tests/test_motion_birth_reset.py",
+      "tests/test_flyvis_tracker.py",
+      "tests/test_retina.py",
+      "tests/test_birth_policy.py",
+      "tests/test_decision_log.py",
+      "tests/test_motion_source_bytetrack.py",
+      "tests/test_motion_augmented_bytetrack.py",
+      "tests/test_gpu_lock_aliases.py",
+      "tests/test_motion_calibration_binding.py",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "--basetemp=E:\\Dissertation\\runs\\flyvis_repairs_20261106\\second_stable_package_final\\shared_temp_1793994204831654600"
+    ],
+    "cwd": "E:\\Dissertation",
+    "seconds": 21.125,
+    "log": "runs/flyvis_repairs_20261106/second_stable_package_final/shared_tests.log"
+  },
+  "isolated": {
+    "passed": true,
+    "exit_code": 0,
+    "command": [
+      "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_flyvis_motion_contracts.py",
+      "tests/test_flyvis_assignment_contracts.py",
+      "tests/test_retina_state_contracts.py",
+      "tests/test_classical_motion_geometry.py",
+      "tests/test_classical_motion_state.py",
+      "tests/test_flyvis_tracker_input_state.py",
+      "tests/test_flyvis_secondary_geometry.py",
+      "tests/test_gpu_lock_lifecycle.py",
+      "tests/test_motion_birth_reset.py",
+      "tests/test_flyvis_tracker.py",
+      "tests/test_retina.py",
+      "tests/test_birth_policy.py",
+      "tests/test_decision_log.py",
+      "tests/test_motion_source_bytetrack.py",
+      "tests/test_motion_augmented_bytetrack.py",
+      "tests/test_gpu_lock_aliases.py",
+      "tests/test_motion_calibration_binding.py",
+      "-q",
+      "-p",
+      "no:cacheprovider",
+      "--basetemp=E:\\Dissertation\\runs\\flyvis_repairs_20261106\\second_stable_package_final\\isolated_temp_1793994231115786100"
+    ],
+    "cwd": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\second_stable_package_final\\isolated_1793994225951526300",
+    "seconds": 19.312999999998283,
+    "log": "runs/flyvis_repairs_20261106/second_stable_package_final/isolated_tests.log"
+  },
+  "overlay": [
+    {
+      "path": "tracking/flyvis_motion.py",
+      "size": 20392,
+      "sha256": "02f025826ca3b298acfb71e7bfce2725caa9d0d862f4e696c50e537622023c38",
+      "head_blob": "9f533a86362a7cd097db162950b59f0dc4221022",
+      "index_blob": "9f533a86362a7cd097db162950b59f0dc4221022",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/motion/original/flyvis_motion.py",
+        "size": 15092,
+        "sha256": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/motion/original/flyvis_motion.py",
+          "size": 15092,
+          "sha256": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d"
+        }
+      ]
+    },
+    {
+      "path": "scripts/run_bdd_video_rate_experiment.py",
+      "size": 35470,
+      "sha256": "2511260bdd8f304284e9d365d4693d0a31db6651d6b67dadbf37e121033d5653",
+      "head_blob": "ec309ea63c335b68b85afa9355245f8a3c44f6e3",
+      "index_blob": "ec309ea63c335b68b85afa9355245f8a3c44f6e3",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/motion/original/run_bdd_video_rate_experiment.py",
+        "size": 30856,
+        "sha256": "6d62ae01b7d17e4c6e00e03ef18275a6689a679880f1c1bbf145df6ce9e28e89"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/motion/original/run_bdd_video_rate_experiment.py",
+          "size": 30856,
+          "sha256": "6d62ae01b7d17e4c6e00e03ef18275a6689a679880f1c1bbf145df6ce9e28e89"
+        },
+        {
+          "path": "runs/flyvis_system_fixes_20261106/classical/original/scripts/run_bdd_video_rate_experiment.py",
+          "size": 33724,
+          "sha256": "96eb2c5ce3159175f4793d749e049bc1373704514c0685f7081b7319287f819c"
+        }
+      ]
+    },
+    {
+      "path": "scripts/run_flyvis_tracker.py",
+      "size": 16293,
+      "sha256": "36e1abcf73c3ecd976f1159e31631fbf6ae535b93da157f35ca7cc32abd8a430",
+      "head_blob": "7d0a13527429c43b862f050e9d641b52060d4b7c",
+      "index_blob": "7d0a13527429c43b862f050e9d641b52060d4b7c",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/run_flyvis_tracker.py",
+        "size": 14183,
+        "sha256": "6874db4b090c2123fb1eaf3f907929c394ca86c93208c8920256770545bfecb0"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/run_flyvis_tracker.py",
+          "size": 14183,
+          "sha256": "6874db4b090c2123fb1eaf3f907929c394ca86c93208c8920256770545bfecb0"
+        },
+        {
+          "path": "runs/flyvis_system_fixes_20261106/classical/original/scripts/run_flyvis_tracker.py",
+          "size": 15521,
+          "sha256": "a6ebc5a65d444e6a71ed388934e3c3b02c48ac879e54a6c325b1d3f902974821"
+        }
+      ]
+    },
+    {
+      "path": "scripts/evaluate_motion_sources.py",
+      "size": 12170,
+      "sha256": "cc7553508369ee0cdb232e3a70759986bee9de85a737052f239ef78392d68305",
+      "head_blob": "33bf85120b363dc716d1f789a43e776815971c29",
+      "index_blob": "33bf85120b363dc716d1f789a43e776815971c29",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/evaluate_motion_sources.py",
+        "size": 11360,
+        "sha256": "68249153478f2eb29cd2385778b6b558425676e13dbab5ce34fa9a0095943f71"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/evaluate_motion_sources.py",
+          "size": 11360,
+          "sha256": "68249153478f2eb29cd2385778b6b558425676e13dbab5ce34fa9a0095943f71"
+        },
+        {
+          "path": "runs/flyvis_system_fixes_20261106/classical/original/scripts/evaluate_motion_sources.py",
+          "size": 11853,
+          "sha256": "0d4a72a503fc5ba0dd92fde630da8fa3c913e0e3270c6ccfed91a473a6db1b64"
+        }
+      ]
+    },
+    {
+      "path": "scripts/build_flyvis_activity_cache.py",
+      "size": 7547,
+      "sha256": "957b51e91f0a8badd270e4ff9caef6cb3c6f56a20ef091ec901bb69e40e4d828",
+      "head_blob": "f5a54cc01d40aeb1979062aaac27344c23249952",
+      "index_blob": "f5a54cc01d40aeb1979062aaac27344c23249952",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/build_flyvis_activity_cache.py",
+        "size": 6896,
+        "sha256": "a64627b1eadbba26d07cc250cc9c8f210fae97513fa4870d4a2625987344202f"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/build_flyvis_activity_cache.py",
+          "size": 6896,
+          "sha256": "a64627b1eadbba26d07cc250cc9c8f210fae97513fa4870d4a2625987344202f"
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_finetune_k1.py",
+      "size": 28248,
+      "sha256": "d746f368a3f5b4d1edb22fb57d6b950877bba2ee4ced5823622e9ddd712520b5",
+      "head_blob": "99460db05bcc4eb6c1e82c3ee2eec27933127761",
+      "index_blob": "99460db05bcc4eb6c1e82c3ee2eec27933127761",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/fly_finetune_k1.py",
+        "size": 24587,
+        "sha256": "b478cde6baf05da4605c24534e152556a06e1fff3a188d99a91fab82877c28ff"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/fly_finetune_k1.py",
+          "size": 24587,
+          "sha256": "b478cde6baf05da4605c24534e152556a06e1fff3a188d99a91fab82877c28ff"
+        }
+      ]
+    },
+    {
+      "path": "scripts/flyvis_motion_calibration.py",
+      "size": 5119,
+      "sha256": "94d62621a7ca5897a4b78904537150f8e95dfaf146f0dc91a49d405a7920477d",
+      "head_blob": "d799a41d73bf4c5f62df63b356ae50645daa04d3",
+      "index_blob": "d799a41d73bf4c5f62df63b356ae50645daa04d3",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/flyvis_motion_calibration.py",
+        "size": 4538,
+        "sha256": "67137dd275ffeca36ed93d6e305bba1ef0336b4f21d845c9806a3bc3f5929092"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/flyvis_motion_calibration.py",
+          "size": 4538,
+          "sha256": "67137dd275ffeca36ed93d6e305bba1ef0336b4f21d845c9806a3bc3f5929092"
+        }
+      ]
+    },
+    {
+      "path": "scripts/flyvis_video_rate_calibration.py",
+      "size": 6442,
+      "sha256": "21ce51e265c638401fac2e533f70b0b649e600103d0169437575450a9d9c9bcd",
+      "head_blob": "ee94ba5c88a72b3c7f053b78fc28e59a9d8bf1a6",
+      "index_blob": "ee94ba5c88a72b3c7f053b78fc28e59a9d8bf1a6",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/flyvis_video_rate_calibration.py",
+        "size": 6040,
+        "sha256": "f6152d5c80ee70e3a2b3180c39944ace5a963993161baa8cb565cc165a7ee837"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/flyvis_video_rate_calibration.py",
+          "size": 6040,
+          "sha256": "f6152d5c80ee70e3a2b3180c39944ace5a963993161baa8cb565cc165a7ee837"
+        }
+      ]
+    },
+    {
+      "path": "scripts/benchmark_tracker_runtime.py",
+      "size": 10468,
+      "sha256": "4f9f8fd2699489be04949983d4109070bf412a1456d04241139867327817e22f",
+      "head_blob": "218c5f7f24af45821a8f8ddbeb1c4089f5ff0f27",
+      "index_blob": "218c5f7f24af45821a8f8ddbeb1c4089f5ff0f27",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/benchmark_tracker_runtime.py",
+        "size": 9444,
+        "sha256": "909cf1a64d195deb3054412308681506fb4572b2e2cc9f72154bf70627dff864"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/motion/original/scripts/benchmark_tracker_runtime.py",
+          "size": 9444,
+          "sha256": "909cf1a64d195deb3054412308681506fb4572b2e2cc9f72154bf70627dff864"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_flyvis_motion_contracts.py",
+      "size": 18706,
+      "sha256": "3cc1aedd08119724f14d7c2a2780d6d9ffb73d771c08084bd6c1cb2762663a29",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "tracking/flyvis_tracker.py",
+      "size": 25030,
+      "sha256": "e5f763172ac95e890271018f6fd7553af00c69411dcb0c6a4314fa24c5546c99",
+      "head_blob": "4dccf052fda1ac3e79b186fa4abe2796f860799a",
+      "index_blob": "4dccf052fda1ac3e79b186fa4abe2796f860799a",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/assignment/original_flyvis_tracker.py",
+        "size": 22536,
+        "sha256": "0539a9cb0a425f7ed92f4c3f39db7b23ce6e4af8547b8221163a9e8cedda9643"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/assignment/original_flyvis_tracker.py",
+          "size": 22536,
+          "sha256": "0539a9cb0a425f7ed92f4c3f39db7b23ce6e4af8547b8221163a9e8cedda9643"
+        },
+        {
+          "path": "runs/flyvis_system_fixes_20261106/classical/original/tracking/flyvis_tracker.py",
+          "size": 24189,
+          "sha256": "2bac6511543f9e89c0eea2c0d657cfa36b56e50daaf3a9c007811db245d39a03"
+        }
+      ]
+    },
+    {
+      "path": "tracking/retina.py",
+      "size": 8561,
+      "sha256": "71e51747fa9959652766da0179a3b75953c49f94159da155c52b10999b27c322",
+      "head_blob": "dd229dde3fbb3d30b855d72902dc11d6328bc9e5",
+      "index_blob": "dd229dde3fbb3d30b855d72902dc11d6328bc9e5",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/assignment/original_retina.py",
+        "size": 7753,
+        "sha256": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/assignment/original_retina.py",
+          "size": 7753,
+          "sha256": "8d58035bdb655a1ee0c5f412f3d4ecc4d6f02dc45d3c2336fd9809c918822060"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_flyvis_assignment_contracts.py",
+      "size": 5052,
+      "sha256": "fdcd92142483e43147956d6848949ff6832daebbd71b793bb55d82f986a16bda",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "tests/test_retina_state_contracts.py",
+      "size": 2360,
+      "sha256": "a101af312ae4793ca2f84eb36603899242f2f2f1696f7ed3db39ede3af3cc1c9",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "tracking/classical_motion.py",
+      "size": 6309,
+      "sha256": "b29590efa83105f17e27e92b30dd24f91bae20a92b901dda3d92fe20808fb7c7",
+      "head_blob": "d4840a444fc59b1a9b4013cef409c55618a913e2",
+      "index_blob": "d4840a444fc59b1a9b4013cef409c55618a913e2",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/classical/original/tracking/classical_motion.py",
+        "size": 4426,
+        "sha256": "45696b6d6a7f5d309d65d52c7271a756175083429e0f07feafe0c4c2fd5cef31"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/classical/original/tracking/classical_motion.py",
+          "size": 4426,
+          "sha256": "45696b6d6a7f5d309d65d52c7271a756175083429e0f07feafe0c4c2fd5cef31"
+        }
+      ]
+    },
+    {
+      "path": "scripts/build_train_caches.py",
+      "size": 5860,
+      "sha256": "f32c578e32129c2e75cab411ccc7382226e636f64fa156a3eb041ff407fe823f",
+      "head_blob": "03673a969ddea972dcf542eb7b2a3a9f23d9895b",
+      "index_blob": "03673a969ddea972dcf542eb7b2a3a9f23d9895b",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/classical/original/scripts/build_train_caches.py",
+        "size": 4756,
+        "sha256": "7776ef63d56f3697abd377ed38d239419eca61a3ce21678bdb8009622356584c"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/classical/original/scripts/build_train_caches.py",
+          "size": 4756,
+          "sha256": "7776ef63d56f3697abd377ed38d239419eca61a3ce21678bdb8009622356584c"
+        }
+      ]
+    },
+    {
+      "path": "scripts/build_dis_retina.py",
+      "size": 8652,
+      "sha256": "144450205bbe1a21e2a415a6e68d391b8114b15936245597ec54c2ec41a1b33a",
+      "head_blob": "d52eff3e3cae455f71a98fbdccfcf5277d252908",
+      "index_blob": "d52eff3e3cae455f71a98fbdccfcf5277d252908",
+      "baseline": {
+        "path": "runs/flyvis_system_fixes_20261106/classical/original/scripts/build_dis_retina.py",
+        "size": 5470,
+        "sha256": "6bd4b2388892bddc7b927e9e2f6aa4bae7894424f67706e0d8ed68f69b69c9a9"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_system_fixes_20261106/classical/original/scripts/build_dis_retina.py",
+          "size": 5470,
+          "sha256": "6bd4b2388892bddc7b927e9e2f6aa4bae7894424f67706e0d8ed68f69b69c9a9"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_classical_motion_geometry.py",
+      "size": 8275,
+      "sha256": "ba334a23355e382870a44a13874d2e80384b85e74af9e54ec9844c672344727e",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "tests/test_classical_motion_state.py",
+      "size": 3085,
+      "sha256": "5b02f612d36b877eabb3456d024707684ae363ee677e660d75ecf21808584673",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "tests/test_flyvis_tracker_input_state.py",
+      "size": 1957,
+      "sha256": "e8748b3654c5601a355007d6698e6ecea2a239d77aa3220ed1c111e82e014f58",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "scripts/fly_axes_probe.py",
+      "size": 5086,
+      "sha256": "7cb05fe75552339711dcec5a117e40127f5ede0a8b60176cda43819f034f40ec",
+      "head_blob": "7cce43474bb0c6a95169d5d3feb6ffcdf2886291",
+      "index_blob": "7cce43474bb0c6a95169d5d3feb6ffcdf2886291",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_axes_probe.py",
+        "size": 4398,
+        "sha256": "7f1fc0f155b1bd124dbf0badc5bf94e8e395560bdc552e89f3f4d6532491a2c8"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_axes_probe.py",
+          "size": 4398,
+          "sha256": "7f1fc0f155b1bd124dbf0badc5bf94e8e395560bdc552e89f3f4d6532491a2c8"
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_dynamic_norm_probe.py",
+      "size": 7246,
+      "sha256": "1a7aeeebc8fafd7f36d35803025dac6306fb8922e0cddecc25cdbfd3df8b9aa9",
+      "head_blob": "036f2fd8425f024f394a09db31d108983f3ffc3b",
+      "index_blob": "036f2fd8425f024f394a09db31d108983f3ffc3b",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_dynamic_norm_probe.py",
+        "size": 6838,
+        "sha256": "a2e2b83d22730e2180707ec3693c02beb400fe018ce0328d1525571a0259753f"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_dynamic_norm_probe.py",
+          "size": 6838,
+          "sha256": "a2e2b83d22730e2180707ec3693c02beb400fe018ce0328d1525571a0259753f"
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_k1_v2.py",
+      "size": 18306,
+      "sha256": "611729a861f6c0433c2f0f0641a6699161cdd310f8d312c670b95157374f918d",
+      "head_blob": "b9c0864abd4b6ec96e95361cee3c2a781e7cf39d",
+      "index_blob": "b9c0864abd4b6ec96e95361cee3c2a781e7cf39d",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_k1_v2.py",
+        "size": 17318,
+        "sha256": "ce9ee1d1ce2d8fad86ebdd78b31deb3cfabc01a7c9865454ce0aa215076753a5"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_k1_v2.py",
+          "size": 17318,
+          "sha256": "ce9ee1d1ce2d8fad86ebdd78b31deb3cfabc01a7c9865454ce0aa215076753a5"
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_finetune_k1_synthetic.py",
+      "size": 6054,
+      "sha256": "fcf7195765c0c0e6a824e84079ad556928555e4180dd868bc4f212cb8d322ea5",
+      "head_blob": "4db1d4d9037293e4da253ac21ca575f9c2a5f171",
+      "index_blob": "4db1d4d9037293e4da253ac21ca575f9c2a5f171",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_finetune_k1_synthetic.py",
+        "size": 5320,
+        "sha256": "ab65fc775c1ee7b92aa8acf274e7bcfdfdaa00ce9bdbc144ca7f811d73def7c1"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_finetune_k1_synthetic.py",
+          "size": 5320,
+          "sha256": "ab65fc775c1ee7b92aa8acf274e7bcfdfdaa00ce9bdbc144ca7f811d73def7c1"
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_reference_probe.py",
+      "size": 8434,
+      "sha256": "030608e487c3265a88044ec6954a1190ee3413cf4cf32d4f4e291420a1404f81",
+      "head_blob": "a85e05b1e741e0855e0aa3205c8e074b2bf87fb0",
+      "index_blob": "a85e05b1e741e0855e0aa3205c8e074b2bf87fb0",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_reference_probe.py",
+        "size": 8026,
+        "sha256": "3825d194da6c4db5e93cc70741ae6732462c85d4d1b97955f820591d7c3e9cec"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_reference_probe.py",
+          "size": 8026,
+          "sha256": "3825d194da6c4db5e93cc70741ae6732462c85d4d1b97955f820591d7c3e9cec"
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_scale_probe.py",
+      "size": 15323,
+      "sha256": "491fe9e85d5afe3e55e2911725568020c457bdae448e0150541f4f0b198e41c5",
+      "head_blob": "537823f0d755d8365b074700b81aae0223fe28b3",
+      "index_blob": "537823f0d755d8365b074700b81aae0223fe28b3",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_scale_probe.py",
+        "size": 14612,
+        "sha256": "9b47122c67130e69e8a53ddf45b58a94312a444fb219249025d9344722e8c782"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_scale_probe.py",
+          "size": 14612,
+          "sha256": "9b47122c67130e69e8a53ddf45b58a94312a444fb219249025d9344722e8c782"
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_stage_probe.py",
+      "size": 11289,
+      "sha256": "9f2ae7549e4efbd663dd7b4c047e6a9672f37d87faaa42fa585b0389bbfdd126",
+      "head_blob": "d752443b46b494a38b5b37b66e4b0b824e1c782c",
+      "index_blob": "d752443b46b494a38b5b37b66e4b0b824e1c782c",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_stage_probe.py",
+        "size": 10881,
+        "sha256": "518d6bb868d20fae6cb317776f7032ece6ecd20b2ba846b429f82a8f73e6e142"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_stage_probe.py",
+          "size": 10881,
+          "sha256": "518d6bb868d20fae6cb317776f7032ece6ecd20b2ba846b429f82a8f73e6e142"
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_wide_field.py",
+      "size": 13338,
+      "sha256": "9f5a9821b17471ced0539aebec94633e6c4c687716154e217db314b063740b00",
+      "head_blob": "0972daa8e2390aa3b663c1f6ce69d11f6db04672",
+      "index_blob": "0972daa8e2390aa3b663c1f6ce69d11f6db04672",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_wide_field.py",
+        "size": 12397,
+        "sha256": "cca3fd577f081ee6845f4a8bee1190e407fd4bb7bf001809868cca2565d78a94"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_wide_field.py",
+          "size": 12397,
+          "sha256": "cca3fd577f081ee6845f4a8bee1190e407fd4bb7bf001809868cca2565d78a94"
+        }
+      ]
+    },
+    {
+      "path": "scripts/build_fly_lcn_motion.py",
+      "size": 3461,
+      "sha256": "4680444b58f16c6d8dd71ce2b3d9fbd20e35032f32311e1c4821f49675e124ca",
+      "head_blob": "6d9970f1f67c678fd8a62e55fc244ee3facda26b",
+      "index_blob": "6d9970f1f67c678fd8a62e55fc244ee3facda26b",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/k1_callers/original/build_fly_lcn_motion.py",
+        "size": 3059,
+        "sha256": "3105161a5768e314651daf99618ebfb4b2cbd9ad08945695e43d1df103ac4d17"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/k1_callers/original/build_fly_lcn_motion.py",
+          "size": 3059,
+          "sha256": "3105161a5768e314651daf99618ebfb4b2cbd9ad08945695e43d1df103ac4d17"
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_noise_probe.py",
+      "size": 5858,
+      "sha256": "bcab8565f917d1918fa0a499e571f7a2fc9b2e11d4daa5a6b0c1df259417f334",
+      "head_blob": "fa887eddc4cf86746249d9ac69cd520698136e13",
+      "index_blob": "fa887eddc4cf86746249d9ac69cd520698136e13",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_noise_probe.py",
+        "size": 5578,
+        "sha256": "234f6afe47ec9971488baed236b9d87ce53e82329062d115772d100aeffde4c0"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_noise_probe.py",
+          "size": 5578,
+          "sha256": "234f6afe47ec9971488baed236b9d87ce53e82329062d115772d100aeffde4c0"
+        }
+      ]
+    },
+    {
+      "path": "scripts/fly_speed_response.py",
+      "size": 3454,
+      "sha256": "999ecb1daf54772e5dea1aa55c86cf5a138bb1bcbae1a9e36b77ee40751984cb",
+      "head_blob": "d910a85618e16b7a2319bc49eb5b2d10d657a562",
+      "index_blob": "d910a85618e16b7a2319bc49eb5b2d10d657a562",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_speed_response.py",
+        "size": 3051,
+        "sha256": "a2b6a2cf5243ee606083827db290dfab28b1ec22392c5229f5051487e258bdf4"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/k1_callers/original/fly_speed_response.py",
+          "size": 3051,
+          "sha256": "a2b6a2cf5243ee606083827db290dfab28b1ec22392c5229f5051487e258bdf4"
+        }
+      ]
+    },
+    {
+      "path": "tracking/flyvis_geometry_protocol.py",
+      "size": 5351,
+      "sha256": "749e5d4e793f1e7002f827ba9256d87cbaa4df2a3a7c9ff21ee6fdb17dbc1808",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "tests/test_flyvis_secondary_geometry.py",
+      "size": 10188,
+      "sha256": "4fe1cb678c6c0af5d46c5f3b6296fd0071e1da87379e391abc34fe92154d4577",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "tracking/decision_log.py",
+      "size": 5764,
+      "sha256": "ad7e857f3e9b24cf9aee847b837a00d1d3200840f1580cfdbbfb52ea0494b005",
+      "head_blob": "85397f9cc718ae96b5b675fd8b2a7a4d339253e3",
+      "index_blob": "85397f9cc718ae96b5b675fd8b2a7a4d339253e3",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/motion_birth_before/decision_log.py",
+        "size": 5625,
+        "sha256": "51036f3aba10e9f86fc9a144ce51cc013939f0000844eb54c929b214c46d7072"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/motion_birth_before/decision_log.py",
+          "size": 5625,
+          "sha256": "51036f3aba10e9f86fc9a144ce51cc013939f0000844eb54c929b214c46d7072"
+        }
+      ]
+    },
+    {
+      "path": "tracking/birth_policy.py",
+      "size": 10664,
+      "sha256": "f279720a8090854bb2aaafe796be0919677539f630401073caef93767d6f29f4",
+      "head_blob": "747cc3c939ab41db3cb097104c8c1a67dc4783a6",
+      "index_blob": "747cc3c939ab41db3cb097104c8c1a67dc4783a6",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/motion_birth_before/birth_policy.py",
+        "size": 10172,
+        "sha256": "d253e60dd989b7bdcd2dfc2e2af012795c7666fcce9e61bd50bbb8beadffc1d4"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/motion_birth_before/birth_policy.py",
+          "size": 10172,
+          "sha256": "d253e60dd989b7bdcd2dfc2e2af012795c7666fcce9e61bd50bbb8beadffc1d4"
+        }
+      ]
+    },
+    {
+      "path": "tracking/motion_source_bytetrack.py",
+      "size": 13596,
+      "sha256": "f0471f9257c3ef802da901295d4c4e798b1465ba128281a8fe29995fabf35369",
+      "head_blob": "1f8ef1c60dcd9ab5f9f57eae8764c8a225fa6a83",
+      "index_blob": "1f8ef1c60dcd9ab5f9f57eae8764c8a225fa6a83",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/motion_birth_before/motion_source_bytetrack.py",
+        "size": 13417,
+        "sha256": "d723b54bf41d9e484df111c7145f821b2f6427833ca88ce3e9a518033dc1fb8f"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/motion_birth_before/motion_source_bytetrack.py",
+          "size": 13417,
+          "sha256": "d723b54bf41d9e484df111c7145f821b2f6427833ca88ce3e9a518033dc1fb8f"
+        }
+      ]
+    },
+    {
+      "path": "tracking/motion_augmented_bytetrack.py",
+      "size": 5236,
+      "sha256": "2f733cef1fc667775a0a4850d9a36d38f866427d305bce655767e220c1f3a9da",
+      "head_blob": "7893f1d78e52b5703bff2f7af90d8d8df66a1e3d",
+      "index_blob": "7893f1d78e52b5703bff2f7af90d8d8df66a1e3d",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/motion_birth_before/motion_augmented_bytetrack.py",
+        "size": 4929,
+        "sha256": "8c0d3a672fd258d17b40a55a28a79392c0632655313e0d1a8bbb606f7a393d12"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/motion_birth_before/motion_augmented_bytetrack.py",
+          "size": 4929,
+          "sha256": "8c0d3a672fd258d17b40a55a28a79392c0632655313e0d1a8bbb606f7a393d12"
+        }
+      ]
+    },
+    {
+      "path": "tracking/gpu_lock.py",
+      "size": 5661,
+      "sha256": "18a1a4ded94df357383d2bb88432fb73c68756e957a2dbbb1d570d32667dc0b9",
+      "head_blob": "01483abc74c123655a3b62518e1c1468b3a0c715",
+      "index_blob": "01483abc74c123655a3b62518e1c1468b3a0c715",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/gpu_lock_audit/original_gpu_lock.py",
+        "size": 2039,
+        "sha256": "57b699a97ded17f88ebf45ae35e9dc48138322faab3a58aab7f89c120cb4b032"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/gpu_lock_audit/original_gpu_lock.py",
+          "size": 2039,
+          "sha256": "57b699a97ded17f88ebf45ae35e9dc48138322faab3a58aab7f89c120cb4b032"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_gpu_lock_lifecycle.py",
+      "size": 7903,
+      "sha256": "b656aac1b84afb3ec523567c9deff904670ce95d14ca384094f0117c56899cc4",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "tests/test_motion_birth_reset.py",
+      "size": 3924,
+      "sha256": "ed5d47400fce996da19e863bcf5bb75983555b57cbe68538b68b36ff10b760c2",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "tracking/GPU_LOCK_README.md",
+      "size": 5154,
+      "sha256": "93b0253c9584d9b33cf36c353bc9ee0fd8efac777a1efb35eac2bf20608eea5f",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "tests/test_gpu_lock_aliases.py",
+      "size": 5132,
+      "sha256": "8af882ed19fda7f5fba280a069b32ea944c694066c57bda145f0f7649d169bd9",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "tests/test_motion_calibration_binding.py",
+      "size": 7980,
+      "sha256": "3da264a662716e8de5b77471635103fdada5d1b9c9ce2491174e0b463a2ef1e5",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    }
+  ],
+  "scope": "HEAD plus exactly the 43 specified frozen source/test files; no vendor runtime or unrelated dirty sources"
+}

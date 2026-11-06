@@ -1,0 +1,94 @@
+{
+  "default_geometry": "pixel_centers_v2",
+  "default_gain": 102.59663505027247,
+  "source_calibration": "runs\\flyvis\\motion_calibration.json",
+  "source_calibration_sha256": "b655e143a42acca3da1bdc2a0f45b8e65176b5742b6053f0eb4c5e027d520a95",
+  "original_conversion_snapshot": "runs\\flyvis_system_fixes_20261106\\motion\\original\\flyvis_motion.py",
+  "original_conversion_sha256": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
+  "new_module_sha256": "b450e6e7e4b6b26e791c1428c3ba4ccacff3b1b54b40ab2f5ecaf2501e6e5b28",
+  "native_device": "cpu",
+  "cuda_initialized": false,
+  "full_shifts": [
+    {
+      "true_xy": [
+        5,
+        0
+      ],
+      "predicted_xy": [
+        4.669351577758789,
+        0.793803334236145
+      ]
+    },
+    {
+      "true_xy": [
+        10,
+        0
+      ],
+      "predicted_xy": [
+        9.651111602783203,
+        1.732991337776184
+      ]
+    },
+    {
+      "true_xy": [
+        20,
+        0
+      ],
+      "predicted_xy": [
+        17.362581253051758,
+        1.9079670906066895
+      ]
+    },
+    {
+      "true_xy": [
+        -20,
+        0
+      ],
+      "predicted_xy": [
+        -22.64839744567871,
+        -3.0152487754821777
+      ]
+    },
+    {
+      "true_xy": [
+        0,
+        5
+      ],
+      "predicted_xy": [
+        -2.0084197521209717,
+        5.246582508087158
+      ]
+    },
+    {
+      "true_xy": [
+        0,
+        10
+      ],
+      "predicted_xy": [
+        -2.752204656600952,
+        10.36618423461914
+      ]
+    },
+    {
+      "true_xy": [
+        0,
+        -20
+      ],
+      "predicted_xy": [
+        3.1706502437591553,
+        -16.878192901611328
+      ]
+    }
+  ],
+  "full_and_tiled_vectors_exactly_equal_original_converter_all_aggregations": true,
+  "native_rmse": 2.1072741567572035,
+  "native_vs_saved_calibrated_predictions_max_abs": 0.07854877119725856,
+  "saved_calibration_counterevidence": {
+    "old_rmse": 2.0892894536234135,
+    "resize_same_gain_rmse": 6.994735029744112,
+    "resize_refitted_gain_diagnostic_only": 62.68883397130877,
+    "resize_refitted_rmse": 3.419143876619913
+  },
+  "seconds": 31.125,
+  "limits": "CPU original-texture diagnostic, not HOTA or a new calibration; ROI point-selection effect requires separate check. Refitted resize gain is recorded as counterevidence only and is not used."
+}

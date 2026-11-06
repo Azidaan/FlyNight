@@ -90,6 +90,18 @@ class QBirthByteTrack(AuditedXYWHByteTrack):
         self.birth_log: list[dict] = []
         self._context: dict | None = None
 
+    def reset(self) -> None:
+        super().reset()
+        self.birth_log.clear()
+        self._context = None
+
+    def update(self, *args, **kwargs):
+        # A missing context must not advance frame_id or partially predict
+        # tracks before _init_new_tracks notices the failure.
+        if self._context is None:
+            raise RuntimeError("set_frame_context() должен вызываться перед update()")
+        return super().update(*args, **kwargs)
+
     def set_frame_context(self, *, gray, prev_propagated, frame_size) -> None:
         """Контекст кадра t для признаков рождения; вызывается перед update()."""
         self._context = {"gray": gray, "prev_propagated": np.asarray(prev_propagated, np.float32).reshape(-1, 4), "frame_size": tuple(frame_size)}

@@ -25,6 +25,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 import scripts.fly_finetune_k1 as K  # noqa: E402
 from scripts.fly_scale_probe import make_fly, run_frames, LEN  # noqa: E402
+from tracking.flyvis_geometry_protocol import add_geometry_arguments, ensure_geometry_output, resolve_output
 
 OUT = PROJECT_ROOT / "runs" / "fly_scale_probe" / "noise_probe.json"
 SPEEDS = [0.0, 2.0, 4.0]
@@ -45,8 +46,10 @@ def main() -> int:
     import argparse
     import cv2
     ap = argparse.ArgumentParser(); ap.add_argument("--warm", type=int, default=4); ap.add_argument("--variants", nargs="+", default=["raw", "lcn8", "lcn24", "retina"])
+    add_geometry_arguments(ap)
     a = ap.parse_args(); WARM = a.warm
-    out = OUT if WARM == 4 else OUT.with_name(f"noise_probe_warm{WARM}.json")
+    out = resolve_output(a.out, OUT if WARM == 4 else OUT.with_name(f"noise_probe_warm{WARM}.json"), PROJECT_ROOT)
+    ensure_geometry_output(out, a.geometry_version, file=True)
     from tracking.retina import make_retina
     fps = json.loads((K.TC / "0001542f-5ce3cf52/motion/dis_quarter.json").read_text(encoding="utf-8"))["fps"]
     sel = json.loads((K.TC / "selection.json").read_text(encoding="utf-8"))["videos"]
@@ -56,7 +59,7 @@ def main() -> int:
         g = [x for _, x in zip(range(300), K.read_gray(PROJECT_ROOT / "data/bdd100k/videos/train" / f"{v}.mov"))]
         frames += [g[i] for i in rng.choice(len(g), 4, replace=False)]
     angs = rng.uniform(0, 2 * np.pi, len(frames))
-    fly = make_fly(fps, "2x3", 1)
+    fly = make_fly(fps, "2x3", 1, geometry_version=a.geometry_version)
     res = {}
     for name in a.variants:
         res[name] = {}

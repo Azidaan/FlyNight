@@ -1,0 +1,28 @@
+{
+  "video": "b1c66a42-6f7d68ca",
+  "scope": "paired diagnostic of point-only coordinate change; not HOTA",
+  "selection": "existing default video of run_bdd_video_rate_experiment; all labelled intervals",
+  "source_sha256": {
+    "motion": "38314b6a78c164efec3f74a65835b3446e4695fe004545a8c33f5ce7531d6b2f",
+    "metadata": "f2751c759da85f31104ba27eaf558c896a34053c0690da545beaf329afd91b77",
+    "alignment": "5dfcd80a529c0fd5883d0cae755c936ac8d65030c99e2dcb3cf74778372caa92",
+    "truth": "3614e687b7efa354f0469a7ff0bbbfcb5dfb7c6fd9e9a7b96a520a459ba48709"
+  },
+  "paths": {
+    "motion": "E:\\Dissertation\\runs\\video_rate\\b1c66a42-6f7d68ca\\motion\\flyvis_full.npz",
+    "metadata": "E:\\Dissertation\\runs\\video_rate\\b1c66a42-6f7d68ca\\motion\\flyvis_full.json",
+    "alignment": "E:\\Dissertation\\runs\\video_rate\\b1c66a42-6f7d68ca\\alignment.json",
+    "truth": "E:\\Dissertation\\data\\bdd100k\\labels\\box_track_20\\val\\b1c66a42-6f7d68ca.json"
+  },
+  "retinal_size": [
+    391,
+    391
+  ],
+  "flow_gain": 16.00775,
+  "invariants": [
+    "identical saved decoded vectors and gain",
+    "identical truth/matches and estimator code"
+  ],
+  "gate": "Any nonfinite output or increased mean endpoint error blocks a claim of non-regression. Even a passed one-video check cannot establish tracking benefit or general safety.",
+  "corrections": "No fitting, data filtering, gain tuning or scientific model training permitted."
+}

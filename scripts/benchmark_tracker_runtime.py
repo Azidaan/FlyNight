@@ -22,7 +22,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from datasets.bdd100k_loader import DATA_ROOT  # noqa: E402
 from tracking.detection_cache import load_video_cache  # noqa: E402
-from tracking.flyvis_motion import FlyVisMotionEstimator, TileLayout  # noqa: E402
+from tracking.flyvis_motion import GEOMETRY_VERSION, GEOMETRY_VERSIONS, FlyVisMotionEstimator, TileLayout, resolve_flow_gain  # noqa: E402
 from tracking.flyvis_tracker import FlyVisTracker, FlyVisTrackerConfig  # noqa: E402
 from tracking.offline_association import _DetSlice, make_tracker_args  # noqa: E402
 
@@ -35,9 +35,10 @@ DEFAULT_VIDEOS = (
 )
 
 
-def synchronize() -> None:
-    if torch.cuda.is_available():
-        torch.cuda.synchronize()
+def synchronize(device) -> None:
+    device = torch.device(device)
+    if device.type == "cuda":
+        torch.cuda.synchronize(device)
 
 
 def distribution(milliseconds: list[float]) -> dict:
@@ -72,6 +73,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--conf", type=float, default=0.01)
     parser.add_argument("--iou", type=float, default=0.7)
     parser.add_argument("--device", default="0")
+    parser.add_argument("--geometry-version", choices=GEOMETRY_VERSIONS, default=GEOMETRY_VERSION)
     parser.add_argument(
         "--half",
         action="store_true",
@@ -87,6 +89,9 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    if args.output.exists():
+        raise FileExistsError(f"Отчёт уже существует: {args.output}; укажите новый --output")
+    resolve_flow_gain(None, args.geometry_version)  # reject uncalibrated mode before detector warmup
     videos = args.video_id or list(DEFAULT_VIDEOS)
     from ultralytics import YOLO
     from ultralytics.trackers.byte_tracker import BYTETracker
@@ -107,15 +112,18 @@ def main() -> int:
         quantize=16 if args.half else None,
         verbose=False,
     )
-    synchronize()
+    prediction_device = torch.device(model.predictor.device)
+    synchronize(prediction_device)
 
     estimator = FlyVisMotionEstimator(
         mode="tiled",
         layout=TileLayout(rows=2, columns=3, overlap=0.20),
         source_fps=5.0,
         dt=0.02,
+        geometry_version=args.geometry_version,
     )
     flyvis_config = FlyVisTrackerConfig(update_velocity_from_matches=True)
+    flyvis_device = next(estimator.network.parameters()).device
 
     decode_ms: list[float] = []
     detector_ms: list[float] = []
@@ -144,7 +152,7 @@ def main() -> int:
                 raise RuntimeError(f"Не удалось прочитать кадр {video_id}/{frame_name}")
             decoded_at = time.perf_counter()
 
-            synchronize()
+            synchronize(prediction_device)
             detector_started = time.perf_counter()
             result = model.predict(
                 frame,
@@ -158,17 +166,17 @@ def main() -> int:
             xyxy = result.boxes.xyxy.detach().cpu().numpy().astype(np.float32)
             confidence = result.boxes.conf.detach().cpu().numpy().astype(np.float32)
             class_id = result.boxes.cls.detach().cpu().numpy().astype(np.int64)
-            synchronize()
+            synchronize(prediction_device)
             detected_at = time.perf_counter()
 
             byte_started = detected_at
             byte_tracker.update(_DetSlice(xyxy, confidence, class_id))
             byte_finished = time.perf_counter()
 
-            synchronize()
+            synchronize(flyvis_device)
             fly_started = time.perf_counter()
             fly_tracker.update(xyxy, confidence, class_id, frame=frame)
-            synchronize()
+            synchronize(flyvis_device)
             fly_finished = time.perf_counter()
 
             decode_value = (decoded_at - decode_started) * 1000.0
@@ -207,6 +215,7 @@ def main() -> int:
         "includes_model_initialization": False,
         "flyvis_stream_startup_fade_in_included": True,
         "input_frame_rate_hz": 5.0,
+        "geometry_version": args.geometry_version,
         "videos": videos,
         "weights": str(args.weights.resolve()),
         "detector": {
@@ -216,8 +225,11 @@ def main() -> int:
             "quantize": 16 if args.half else None,
         },
         "hardware": {
-            "cuda": bool(torch.cuda.is_available()),
-            "gpu": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
+            "cuda": prediction_device.type == "cuda" or flyvis_device.type == "cuda",
+            "gpu": torch.cuda.get_device_name(prediction_device) if prediction_device.type == "cuda" else None,
+            "detector_device": str(prediction_device),
+            "flyvis_device": str(flyvis_device),
+            "flyvis_gpu": torch.cuda.get_device_name(flyvis_device) if flyvis_device.type == "cuda" else None,
             "torch": torch.__version__,
             "opencv": cv2.__version__,
         },

@@ -1,0 +1,540 @@
+FFFFFFFFFFFFFFFFFF                                                       [100%]
+================================== FAILURES ===================================
+__________ test_first_frame_buffer_is_owned_by_estimator[farneback] ___________
+
+method = 'farneback'
+
+    @pytest.mark.parametrize("method", ["farneback", "dis"])
+    def test_first_frame_buffer_is_owned_by_estimator(method):
+        estimator = OpenCVMotionEstimator(method)
+        frame = np.full((32, 48), 17, np.uint8)
+        estimator.observe(frame)
+        frame[:] = 200
+>       np.testing.assert_array_equal(estimator._previous, np.full(frame.shape, 17, np.uint8))
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 1536 / 1536 (100%)
+E       Max absolute difference among violations: 73
+E       Max relative difference among violations: 4.29411765
+E        ACTUAL: array([[200, 200, 200, ..., 200, 200, 200],
+E              [200, 200, 200, ..., 200, 200, 200],
+E              [200, 200, 200, ..., 200, 200, 200],...
+E        DESIRED: array([[17, 17, 17, ..., 17, 17, 17],
+E              [17, 17, 17, ..., 17, 17, 17],
+E              [17, 17, 17, ..., 17, 17, 17],...
+
+tests\test_classical_motion_state.py:17: AssertionError
+_____________ test_first_frame_buffer_is_owned_by_estimator[dis] ______________
+
+method = 'dis'
+
+    @pytest.mark.parametrize("method", ["farneback", "dis"])
+    def test_first_frame_buffer_is_owned_by_estimator(method):
+        estimator = OpenCVMotionEstimator(method)
+        frame = np.full((32, 48), 17, np.uint8)
+        estimator.observe(frame)
+        frame[:] = 200
+>       np.testing.assert_array_equal(estimator._previous, np.full(frame.shape, 17, np.uint8))
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 1536 / 1536 (100%)
+E       Max absolute difference among violations: 73
+E       Max relative difference among violations: 4.29411765
+E        ACTUAL: array([[200, 200, 200, ..., 200, 200, 200],
+E              [200, 200, 200, ..., 200, 200, 200],
+E              [200, 200, 200, ..., 200, 200, 200],...
+E        DESIRED: array([[17, 17, 17, ..., 17, 17, 17],
+E              [17, 17, 17, ..., 17, 17, 17],
+E              [17, 17, 17, ..., 17, 17, 17],...
+
+tests\test_classical_motion_state.py:17: AssertionError
+_______ test_invalid_flow_preserves_previous_frame_and_retry[farneback] _______
+
+method = 'farneback'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000200A7C1E2C0>
+
+    @pytest.mark.parametrize("method", ["farneback", "dis"])
+    def test_invalid_flow_preserves_previous_frame_and_retry(method, monkeypatch):
+        estimator = OpenCVMotionEstimator(method)
+        first = np.full((32, 48), 17, np.uint8)
+        next_frame = np.full((32, 48), 80, np.uint8)
+        attempts = []
+        def calculate(previous, current, *args, **kwargs):
+            attempts.append((previous.copy(), current.copy()))
+            return np.full((*previous.shape, 2), np.nan if len(attempts) == 1 else 1., np.float32)
+        if method == "farneback":
+            monkeypatch.setattr(cv2, "calcOpticalFlowFarneback", calculate)
+        else:
+            estimator._dis = SimpleNamespace(calc=calculate)
+        estimator.observe(first)
+        before_stats = dict(estimator.stats)
+        with pytest.raises(RuntimeError, match="NaN|Inf"):
+            estimator.observe(next_frame)
+>       np.testing.assert_array_equal(estimator._previous, first)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 1536 / 1536 (100%)
+E       Max absolute difference among violations: 63
+E       Max relative difference among violations: 3.70588235
+E        ACTUAL: array([[80, 80, 80, ..., 80, 80, 80],
+E              [80, 80, 80, ..., 80, 80, 80],
+E              [80, 80, 80, ..., 80, 80, 80],...
+E        DESIRED: array([[17, 17, 17, ..., 17, 17, 17],
+E              [17, 17, 17, ..., 17, 17, 17],
+E              [17, 17, 17, ..., 17, 17, 17],...
+
+tests\test_classical_motion_state.py:37: AssertionError
+__________ test_invalid_flow_preserves_previous_frame_and_retry[dis] __________
+
+method = 'dis'
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000200A7C7A560>
+
+    @pytest.mark.parametrize("method", ["farneback", "dis"])
+    def test_invalid_flow_preserves_previous_frame_and_retry(method, monkeypatch):
+        estimator = OpenCVMotionEstimator(method)
+        first = np.full((32, 48), 17, np.uint8)
+        next_frame = np.full((32, 48), 80, np.uint8)
+        attempts = []
+        def calculate(previous, current, *args, **kwargs):
+            attempts.append((previous.copy(), current.copy()))
+            return np.full((*previous.shape, 2), np.nan if len(attempts) == 1 else 1., np.float32)
+        if method == "farneback":
+            monkeypatch.setattr(cv2, "calcOpticalFlowFarneback", calculate)
+        else:
+            estimator._dis = SimpleNamespace(calc=calculate)
+        estimator.observe(first)
+        before_stats = dict(estimator.stats)
+        with pytest.raises(RuntimeError, match="NaN|Inf"):
+            estimator.observe(next_frame)
+>       np.testing.assert_array_equal(estimator._previous, first)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 1536 / 1536 (100%)
+E       Max absolute difference among violations: 63
+E       Max relative difference among violations: 3.70588235
+E        ACTUAL: array([[80, 80, 80, ..., 80, 80, 80],
+E              [80, 80, 80, ..., 80, 80, 80],
+E              [80, 80, 80, ..., 80, 80, 80],...
+E        DESIRED: array([[17, 17, 17, ..., 17, 17, 17],
+E              [17, 17, 17, ..., 17, 17, 17],
+E              [17, 17, 17, ..., 17, 17, 17],...
+
+tests\test_classical_motion_state.py:37: AssertionError
+____ test_original_shape_change_cannot_hide_in_resize_rounding[farneback] _____
+
+method = 'farneback'
+
+    @pytest.mark.parametrize("method", ["farneback", "dis"])
+    def test_original_shape_change_cannot_hide_in_resize_rounding(method):
+        estimator = OpenCVMotionEstimator(method, processing_scale=.25)
+        first = np.zeros((100, 100), np.uint8)
+        estimator.observe(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_classical_motion_state.py:50: Failed
+_______ test_original_shape_change_cannot_hide_in_resize_rounding[dis] ________
+
+method = 'dis'
+
+    @pytest.mark.parametrize("method", ["farneback", "dis"])
+    def test_original_shape_change_cannot_hide_in_resize_rounding(method):
+        estimator = OpenCVMotionEstimator(method, processing_scale=.25)
+        first = np.zeros((100, 100), np.uint8)
+        estimator.observe(first)
+>       with pytest.raises(ValueError, match="reset"):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_classical_motion_state.py:50: Failed
+__ test_reused_grayscale_buffer_matches_independent_native_frames[farneback] __
+
+method = 'farneback'
+
+    @pytest.mark.parametrize("method", ["farneback", "dis"])
+    def test_reused_grayscale_buffer_matches_independent_native_frames(method):
+        first = np.random.default_rng(52).integers(0, 256, (64, 96), dtype=np.uint8)
+        first = cv2.GaussianBlur(first, (0, 0), 1.)
+        second = cv2.warpAffine(first, np.array([[1, 0, 3], [0, 1, 0]], np.float32),
+                                (96, 64), borderMode=cv2.BORDER_REFLECT)
+        control, reused = OpenCVMotionEstimator(method), OpenCVMotionEstimator(method)
+        control.observe(first)
+        expected = control.observe(second)
+        buffer = first.copy()
+        reused.observe(buffer)
+        buffer[:] = second
+        actual = reused.observe(buffer)
+        np.testing.assert_array_equal(actual.points_xy, expected.points_xy)
+>       np.testing.assert_allclose(actual.vectors_xy, expected.vectors_xy, rtol=1e-6, atol=1e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-06, atol=1e-06
+E       
+E       Mismatched elements: 188 / 192 (97.9%)
+E       Max absolute difference among violations: 3.1924298
+E       Max relative difference among violations: 265.17093
+E        ACTUAL: array([[ 4.435567e-04,  3.568918e-03],
+E              [-4.650996e-03, -1.746872e-03],
+E              [-7.167120e-03, -2.752268e-04],...
+E        DESIRED: array([[ 2.995195e+00,  1.537774e-03],
+E              [ 2.995645e+00, -1.528282e-03],
+E              [ 3.002967e+00,  1.817431e-04],...
+
+tests\test_classical_motion_state.py:71: AssertionError
+_____ test_reused_grayscale_buffer_matches_independent_native_frames[dis] _____
+
+method = 'dis'
+
+    @pytest.mark.parametrize("method", ["farneback", "dis"])
+    def test_reused_grayscale_buffer_matches_independent_native_frames(method):
+        first = np.random.default_rng(52).integers(0, 256, (64, 96), dtype=np.uint8)
+        first = cv2.GaussianBlur(first, (0, 0), 1.)
+        second = cv2.warpAffine(first, np.array([[1, 0, 3], [0, 1, 0]], np.float32),
+                                (96, 64), borderMode=cv2.BORDER_REFLECT)
+        control, reused = OpenCVMotionEstimator(method), OpenCVMotionEstimator(method)
+        control.observe(first)
+        expected = control.observe(second)
+        buffer = first.copy()
+        reused.observe(buffer)
+        buffer[:] = second
+        actual = reused.observe(buffer)
+        np.testing.assert_array_equal(actual.points_xy, expected.points_xy)
+>       np.testing.assert_allclose(actual.vectors_xy, expected.vectors_xy, rtol=1e-6, atol=1e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-06, atol=1e-06
+E       
+E       Mismatched elements: 192 / 192 (100%)
+E       Max absolute difference among violations: 3.2140145
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[0., 0.],
+E              [0., 0.],
+E              [0., 0.],...
+E        DESIRED: array([[ 2.990855e+00, -3.681342e-02],
+E              [ 3.009530e+00, -4.256872e-02],
+E              [ 3.016703e+00, -4.700075e-02],...
+
+tests\test_classical_motion_state.py:71: AssertionError
+_ test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes0] _
+
+changes = {'xyxy': array([[ 0.,  0., nan, 10.]])}
+
+    @pytest.mark.parametrize("changes", [
+        dict(xyxy=np.array([[0, 0, np.nan, 10]])),
+        dict(confidence=np.array([])),
+        dict(confidence=np.array([np.nan])),
+        dict(class_id=np.array([np.nan])),
+        dict(class_id=np.array([np.inf])),
+        dict(class_id=np.array([-1])),
+        dict(class_id=np.array([2.5])),
+        dict(class_id=np.array([2**63], dtype=np.uint64)),
+        dict(frame=None),
+        dict(motion_field=MotionField.empty()),
+    ])
+    def test_invalid_request_keeps_tracker_and_estimator_at_previous_frame(changes):
+        estimator, control_estimator = CountingEstimator(), CountingEstimator()
+        tracker, control = FlyVisTracker(motion_estimator=estimator), FlyVisTracker(motion_estimator=control_estimator)
+        update(tracker)
+        update(control)
+        before_events = copy.deepcopy(tracker.events)
+        before_history = copy.deepcopy(tracker.motion_history)
+        before_box = tracker.tracks[0].box.copy()
+        with pytest.raises(ValueError):
+            update(tracker, **changes)
+>       assert tracker.frame_index == 0 and estimator.calls == 1
+E       assert (1 == 0)
+E        +  where 1 = <tracking.flyvis_tracker.FlyVisTracker object at 0x00000200A7C1C100>.frame_index
+
+tests\test_flyvis_tracker_input_state.py:47: AssertionError
+_ test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes1] _
+
+changes = {'confidence': array([], dtype=float64)}
+
+    @pytest.mark.parametrize("changes", [
+        dict(xyxy=np.array([[0, 0, np.nan, 10]])),
+        dict(confidence=np.array([])),
+        dict(confidence=np.array([np.nan])),
+        dict(class_id=np.array([np.nan])),
+        dict(class_id=np.array([np.inf])),
+        dict(class_id=np.array([-1])),
+        dict(class_id=np.array([2.5])),
+        dict(class_id=np.array([2**63], dtype=np.uint64)),
+        dict(frame=None),
+        dict(motion_field=MotionField.empty()),
+    ])
+    def test_invalid_request_keeps_tracker_and_estimator_at_previous_frame(changes):
+        estimator, control_estimator = CountingEstimator(), CountingEstimator()
+        tracker, control = FlyVisTracker(motion_estimator=estimator), FlyVisTracker(motion_estimator=control_estimator)
+        update(tracker)
+        update(control)
+        before_events = copy.deepcopy(tracker.events)
+        before_history = copy.deepcopy(tracker.motion_history)
+        before_box = tracker.tracks[0].box.copy()
+        with pytest.raises(ValueError):
+            update(tracker, **changes)
+>       assert tracker.frame_index == 0 and estimator.calls == 1
+E       assert (1 == 0)
+E        +  where 1 = <tracking.flyvis_tracker.FlyVisTracker object at 0x00000200A7C1E0B0>.frame_index
+
+tests\test_flyvis_tracker_input_state.py:47: AssertionError
+_ test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes2] _
+
+changes = {'confidence': array([nan])}
+
+    @pytest.mark.parametrize("changes", [
+        dict(xyxy=np.array([[0, 0, np.nan, 10]])),
+        dict(confidence=np.array([])),
+        dict(confidence=np.array([np.nan])),
+        dict(class_id=np.array([np.nan])),
+        dict(class_id=np.array([np.inf])),
+        dict(class_id=np.array([-1])),
+        dict(class_id=np.array([2.5])),
+        dict(class_id=np.array([2**63], dtype=np.uint64)),
+        dict(frame=None),
+        dict(motion_field=MotionField.empty()),
+    ])
+    def test_invalid_request_keeps_tracker_and_estimator_at_previous_frame(changes):
+        estimator, control_estimator = CountingEstimator(), CountingEstimator()
+        tracker, control = FlyVisTracker(motion_estimator=estimator), FlyVisTracker(motion_estimator=control_estimator)
+        update(tracker)
+        update(control)
+        before_events = copy.deepcopy(tracker.events)
+        before_history = copy.deepcopy(tracker.motion_history)
+        before_box = tracker.tracks[0].box.copy()
+        with pytest.raises(ValueError):
+            update(tracker, **changes)
+>       assert tracker.frame_index == 0 and estimator.calls == 1
+E       assert (1 == 0)
+E        +  where 1 = <tracking.flyvis_tracker.FlyVisTracker object at 0x00000200A7BF6FB0>.frame_index
+
+tests\test_flyvis_tracker_input_state.py:47: AssertionError
+_ test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes3] _
+
+changes = {'class_id': array([nan])}
+
+    @pytest.mark.parametrize("changes", [
+        dict(xyxy=np.array([[0, 0, np.nan, 10]])),
+        dict(confidence=np.array([])),
+        dict(confidence=np.array([np.nan])),
+        dict(class_id=np.array([np.nan])),
+        dict(class_id=np.array([np.inf])),
+        dict(class_id=np.array([-1])),
+        dict(class_id=np.array([2.5])),
+        dict(class_id=np.array([2**63], dtype=np.uint64)),
+        dict(frame=None),
+        dict(motion_field=MotionField.empty()),
+    ])
+    def test_invalid_request_keeps_tracker_and_estimator_at_previous_frame(changes):
+        estimator, control_estimator = CountingEstimator(), CountingEstimator()
+        tracker, control = FlyVisTracker(motion_estimator=estimator), FlyVisTracker(motion_estimator=control_estimator)
+        update(tracker)
+        update(control)
+        before_events = copy.deepcopy(tracker.events)
+        before_history = copy.deepcopy(tracker.motion_history)
+        before_box = tracker.tracks[0].box.copy()
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_tracker_input_state.py:45: Failed
+_ test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes4] _
+
+changes = {'class_id': array([inf])}
+
+    @pytest.mark.parametrize("changes", [
+        dict(xyxy=np.array([[0, 0, np.nan, 10]])),
+        dict(confidence=np.array([])),
+        dict(confidence=np.array([np.nan])),
+        dict(class_id=np.array([np.nan])),
+        dict(class_id=np.array([np.inf])),
+        dict(class_id=np.array([-1])),
+        dict(class_id=np.array([2.5])),
+        dict(class_id=np.array([2**63], dtype=np.uint64)),
+        dict(frame=None),
+        dict(motion_field=MotionField.empty()),
+    ])
+    def test_invalid_request_keeps_tracker_and_estimator_at_previous_frame(changes):
+        estimator, control_estimator = CountingEstimator(), CountingEstimator()
+        tracker, control = FlyVisTracker(motion_estimator=estimator), FlyVisTracker(motion_estimator=control_estimator)
+        update(tracker)
+        update(control)
+        before_events = copy.deepcopy(tracker.events)
+        before_history = copy.deepcopy(tracker.motion_history)
+        before_box = tracker.tracks[0].box.copy()
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_tracker_input_state.py:45: Failed
+_ test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes5] _
+
+changes = {'class_id': array([-1])}
+
+    @pytest.mark.parametrize("changes", [
+        dict(xyxy=np.array([[0, 0, np.nan, 10]])),
+        dict(confidence=np.array([])),
+        dict(confidence=np.array([np.nan])),
+        dict(class_id=np.array([np.nan])),
+        dict(class_id=np.array([np.inf])),
+        dict(class_id=np.array([-1])),
+        dict(class_id=np.array([2.5])),
+        dict(class_id=np.array([2**63], dtype=np.uint64)),
+        dict(frame=None),
+        dict(motion_field=MotionField.empty()),
+    ])
+    def test_invalid_request_keeps_tracker_and_estimator_at_previous_frame(changes):
+        estimator, control_estimator = CountingEstimator(), CountingEstimator()
+        tracker, control = FlyVisTracker(motion_estimator=estimator), FlyVisTracker(motion_estimator=control_estimator)
+        update(tracker)
+        update(control)
+        before_events = copy.deepcopy(tracker.events)
+        before_history = copy.deepcopy(tracker.motion_history)
+        before_box = tracker.tracks[0].box.copy()
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_tracker_input_state.py:45: Failed
+_ test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes6] _
+
+changes = {'class_id': array([2.5])}
+
+    @pytest.mark.parametrize("changes", [
+        dict(xyxy=np.array([[0, 0, np.nan, 10]])),
+        dict(confidence=np.array([])),
+        dict(confidence=np.array([np.nan])),
+        dict(class_id=np.array([np.nan])),
+        dict(class_id=np.array([np.inf])),
+        dict(class_id=np.array([-1])),
+        dict(class_id=np.array([2.5])),
+        dict(class_id=np.array([2**63], dtype=np.uint64)),
+        dict(frame=None),
+        dict(motion_field=MotionField.empty()),
+    ])
+    def test_invalid_request_keeps_tracker_and_estimator_at_previous_frame(changes):
+        estimator, control_estimator = CountingEstimator(), CountingEstimator()
+        tracker, control = FlyVisTracker(motion_estimator=estimator), FlyVisTracker(motion_estimator=control_estimator)
+        update(tracker)
+        update(control)
+        before_events = copy.deepcopy(tracker.events)
+        before_history = copy.deepcopy(tracker.motion_history)
+        before_box = tracker.tracks[0].box.copy()
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_tracker_input_state.py:45: Failed
+_ test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes7] _
+
+changes = {'class_id': array([9223372036854775808], dtype=uint64)}
+
+    @pytest.mark.parametrize("changes", [
+        dict(xyxy=np.array([[0, 0, np.nan, 10]])),
+        dict(confidence=np.array([])),
+        dict(confidence=np.array([np.nan])),
+        dict(class_id=np.array([np.nan])),
+        dict(class_id=np.array([np.inf])),
+        dict(class_id=np.array([-1])),
+        dict(class_id=np.array([2.5])),
+        dict(class_id=np.array([2**63], dtype=np.uint64)),
+        dict(frame=None),
+        dict(motion_field=MotionField.empty()),
+    ])
+    def test_invalid_request_keeps_tracker_and_estimator_at_previous_frame(changes):
+        estimator, control_estimator = CountingEstimator(), CountingEstimator()
+        tracker, control = FlyVisTracker(motion_estimator=estimator), FlyVisTracker(motion_estimator=control_estimator)
+        update(tracker)
+        update(control)
+        before_events = copy.deepcopy(tracker.events)
+        before_history = copy.deepcopy(tracker.motion_history)
+        before_box = tracker.tracks[0].box.copy()
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_tracker_input_state.py:45: Failed
+_ test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes8] _
+
+changes = {'frame': None}
+
+    @pytest.mark.parametrize("changes", [
+        dict(xyxy=np.array([[0, 0, np.nan, 10]])),
+        dict(confidence=np.array([])),
+        dict(confidence=np.array([np.nan])),
+        dict(class_id=np.array([np.nan])),
+        dict(class_id=np.array([np.inf])),
+        dict(class_id=np.array([-1])),
+        dict(class_id=np.array([2.5])),
+        dict(class_id=np.array([2**63], dtype=np.uint64)),
+        dict(frame=None),
+        dict(motion_field=MotionField.empty()),
+    ])
+    def test_invalid_request_keeps_tracker_and_estimator_at_previous_frame(changes):
+        estimator, control_estimator = CountingEstimator(), CountingEstimator()
+        tracker, control = FlyVisTracker(motion_estimator=estimator), FlyVisTracker(motion_estimator=control_estimator)
+        update(tracker)
+        update(control)
+        before_events = copy.deepcopy(tracker.events)
+        before_history = copy.deepcopy(tracker.motion_history)
+        before_box = tracker.tracks[0].box.copy()
+        with pytest.raises(ValueError):
+            update(tracker, **changes)
+>       assert tracker.frame_index == 0 and estimator.calls == 1
+E       assert (1 == 0)
+E        +  where 1 = <tracking.flyvis_tracker.FlyVisTracker object at 0x00000200A7C3B940>.frame_index
+
+tests\test_flyvis_tracker_input_state.py:47: AssertionError
+_ test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes9] _
+
+changes = {'motion_field': MotionField(points_xy=array([], shape=(0, 2), dtype=float32), vectors_xy=array([], shape=(0, 2), dtype=float32))}
+
+    @pytest.mark.parametrize("changes", [
+        dict(xyxy=np.array([[0, 0, np.nan, 10]])),
+        dict(confidence=np.array([])),
+        dict(confidence=np.array([np.nan])),
+        dict(class_id=np.array([np.nan])),
+        dict(class_id=np.array([np.inf])),
+        dict(class_id=np.array([-1])),
+        dict(class_id=np.array([2.5])),
+        dict(class_id=np.array([2**63], dtype=np.uint64)),
+        dict(frame=None),
+        dict(motion_field=MotionField.empty()),
+    ])
+    def test_invalid_request_keeps_tracker_and_estimator_at_previous_frame(changes):
+        estimator, control_estimator = CountingEstimator(), CountingEstimator()
+        tracker, control = FlyVisTracker(motion_estimator=estimator), FlyVisTracker(motion_estimator=control_estimator)
+        update(tracker)
+        update(control)
+        before_events = copy.deepcopy(tracker.events)
+        before_history = copy.deepcopy(tracker.motion_history)
+        before_box = tracker.tracks[0].box.copy()
+        with pytest.raises(ValueError):
+            update(tracker, **changes)
+>       assert tracker.frame_index == 0 and estimator.calls == 1
+E       assert (1 == 0)
+E        +  where 1 = <tracking.flyvis_tracker.FlyVisTracker object at 0x00000200A7C1EB90>.frame_index
+
+tests\test_flyvis_tracker_input_state.py:47: AssertionError
+============================== warnings summary ===============================
+tests/test_flyvis_tracker_input_state.py::test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes3]
+tests/test_flyvis_tracker_input_state.py::test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes4]
+  E:\Dissertation\tracking\flyvis_tracker.py:468: RuntimeWarning: invalid value encountered in cast
+    classes_all = np.asarray(class_id, dtype=np.int64).reshape(-1)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_classical_motion_state.py::test_first_frame_buffer_is_owned_by_estimator[farneback]
+FAILED tests/test_classical_motion_state.py::test_first_frame_buffer_is_owned_by_estimator[dis]
+FAILED tests/test_classical_motion_state.py::test_invalid_flow_preserves_previous_frame_and_retry[farneback]
+FAILED tests/test_classical_motion_state.py::test_invalid_flow_preserves_previous_frame_and_retry[dis]
+FAILED tests/test_classical_motion_state.py::test_original_shape_change_cannot_hide_in_resize_rounding[farneback]
+FAILED tests/test_classical_motion_state.py::test_original_shape_change_cannot_hide_in_resize_rounding[dis]
+FAILED tests/test_classical_motion_state.py::test_reused_grayscale_buffer_matches_independent_native_frames[farneback]
+FAILED tests/test_classical_motion_state.py::test_reused_grayscale_buffer_matches_independent_native_frames[dis]
+FAILED tests/test_flyvis_tracker_input_state.py::test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes0]
+FAILED tests/test_flyvis_tracker_input_state.py::test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes1]
+FAILED tests/test_flyvis_tracker_input_state.py::test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes2]
+FAILED tests/test_flyvis_tracker_input_state.py::test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes3]
+FAILED tests/test_flyvis_tracker_input_state.py::test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes4]
+FAILED tests/test_flyvis_tracker_input_state.py::test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes5]
+FAILED tests/test_flyvis_tracker_input_state.py::test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes6]
+FAILED tests/test_flyvis_tracker_input_state.py::test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes7]
+FAILED tests/test_flyvis_tracker_input_state.py::test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes8]
+FAILED tests/test_flyvis_tracker_input_state.py::test_invalid_request_keeps_tracker_and_estimator_at_previous_frame[changes9]
+18 failed, 2 warnings in 1.73s

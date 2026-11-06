@@ -19,7 +19,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.flyvis_motion_calibration import shifted, textured_frame  # noqa: E402
-from tracking.flyvis_motion import FlyVisMotionEstimator, TileLayout  # noqa: E402
+from tracking.flyvis_motion import GEOMETRY_VERSION, GEOMETRY_VERSIONS, FlyVisMotionEstimator, TileLayout  # noqa: E402
 
 
 VELOCITIES = ((1, 0), (2, 0), (4, 0), (-2, 0), (0, 1), (0, 2), (0, -2))
@@ -50,6 +50,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-dt", type=float, default=0.02)
     parser.add_argument("--frames", type=int, default=24)
     parser.add_argument("--warmup-frames", type=int, default=5)
+    parser.add_argument("--geometry-version", choices=GEOMETRY_VERSIONS, default=GEOMETRY_VERSION)
     parser.add_argument(
         "--output",
         type=Path,
@@ -60,6 +61,8 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    if args.output.exists():
+        raise FileExistsError(f"Калибровка уже существует: {args.output}; укажите новый --output")
     if args.frames <= args.warmup_frames + 1:
         raise ValueError("После прогрева должны остаться минимум два кадра")
     base = textured_frame()
@@ -74,6 +77,7 @@ def main() -> int:
             flow_gain=1.0,
             temporal_resampling="linear",
             flow_aggregation="mean",
+            geometry_version=args.geometry_version,
         )
         integration = {
             "steps_per_video_frame": estimator.integration_steps,
@@ -130,6 +134,7 @@ def main() -> int:
     result = {
         "scope": "synthetic constant-translation calibration; BDD100K unused",
         "source_fps": args.source_fps,
+        "geometry_version": args.geometry_version,
         "frames_per_sequence": args.frames,
         "discarded_warmup_frames": args.warmup_frames,
         "velocities_pixels_per_video_frame": VELOCITIES,

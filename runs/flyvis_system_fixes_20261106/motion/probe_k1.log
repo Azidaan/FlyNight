@@ -1,0 +1,43 @@
+[2026-11-06 19:34:42] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-11-06 19:34:42] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-11-06 19:34:47] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-11-06 19:34:50] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-11-06 19:34:50] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+{
+  "passed": true,
+  "comparisons": {
+    "legacy_v1": {
+      "max_abs_error": 0.0,
+      "points_exact": true
+    },
+    "resize_v2": {
+      "max_abs_error": 0.0,
+      "points_exact": true
+    }
+  },
+  "decoder_input_gradient_finite": true,
+  "decoder_input_gradient_nonzero": true,
+  "parameters_unchanged": true,
+  "parameter_sha256": "75e7de50c67e1141db334a1b4712b722059294e57f135e7aac8f7282179d7428",
+  "cuda_initialized": false,
+  "scope": "2 synthetic frames, one tile, CPU; no optimizer, no dataset or HOTA",
+  "sha256": {
+    "runs\\flyvis_system_fixes_20261106\\motion\\probe_k1_cpu.py": "af1a3311fff862cfcc517c52d5f6d53c036fc8549bfe658519060a03de5328fe",
+    "scripts\\fly_finetune_k1.py": "a8b42b38845243c54b28de6ac447bc3c31ca56803142a9cf5cd4f8849e703cb8",
+    "tracking\\flyvis_motion.py": "efca88ee05c1017561e2d453ec16bdbc84775e29dc92ab2274515ccbdfc08423",
+    "tracking\\flyvis_checkpoint.py": "12a9812e8cef85c52798d17aab0cf26dd6ea5caae2fb82f433bf5a36ec6121cd",
+    "tracking\\flyvis_adapter.py": "0a1a6b0341ac1f1a619deab77c76821ce0bebda5ffcf991957062edc990951fd",
+    "runs\\flyvis_system_fixes_20261106\\motion\\probe_k1_outputs.npz": "375f1da81d4ff8486b4288234ca8e2c2e47143b70d3bd3eb1a40cfc3a87e3bee"
+  }
+}

@@ -31,6 +31,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 import scripts.fly_finetune_k1 as K  # noqa: E402
 from scripts.fly_scale_probe import errors, input_transform, make_fly  # noqa: E402
+from tracking.flyvis_geometry_protocol import add_geometry_arguments, ensure_geometry_output, resolve_output, require_cache_geometry, require_reference_geometry, require_empirical_gain_geometry
 
 OUT = PROJECT_ROOT / "runs" / "fly_wide_field"
 T45 = ["T4a", "T4b", "T4c", "T4d", "T5a", "T5b", "T5c", "T5d"]
@@ -75,9 +76,12 @@ def video_features(fly, path, tf):
 def cached(fly, vid, tf):
     p = OUT / "cache" / f"{vid}.npz"
     if p.exists():
-        z = np.load(p); return z["points"], z["dec"], z["t45"]
+        with np.load(p) as z:
+            require_cache_geometry(z, fly.base.geometry_version)
+            return z["points"], z["dec"], z["t45"]
     pts, d, a = video_features(fly, PROJECT_ROOT / "data/bdd100k/videos/train" / f"{vid}.mov", tf)
-    p.parent.mkdir(parents=True, exist_ok=True); np.savez(p, points=pts, dec=d, t45=a)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    np.savez(p, points=pts, dec=d, t45=a, geometry_version=np.asarray(fly.base.geometry_version))
     return pts, d, a
 
 
@@ -140,17 +144,25 @@ def status(**kw):
 
 
 def main() -> int:
+    global OUT
     ap = argparse.ArgumentParser(); ap.add_argument("--smoke", action="store_true"); ap.add_argument("--stage1", action="store_true")
+    add_geometry_arguments(ap)
+    ap.add_argument("--reference-results", type=Path, default=PROJECT_ROOT / "runs/fly_scale_probe/real.json")
     args = ap.parse_args()
+    require_empirical_gain_geometry(args.geometry_version, 'fly_wide_field GAIN_STOCK')
+    OUT = resolve_output(args.out, OUT, PROJECT_ROOT)
+    reference = resolve_output(args.reference_results, args.reference_results, PROJECT_ROOT)
+    require_reference_geometry(reference.parent, args.geometry_version)
+    ensure_geometry_output(OUT, args.geometry_version)
     fps = json.loads((K.TC / "0001542f-5ce3cf52/motion/dis_quarter.json").read_text(encoding="utf-8"))["fps"]
     tf = input_transform("lcn24", fps)
     tr, ev, cond = split_videos()
-    real = json.loads((PROJECT_ROOT / "runs/fly_scale_probe/real.json").read_text(encoding="utf-8"))["2x3s1_lcn24"]
-    fly = make_fly(fps, "2x3", 1)
+    real = json.loads(reference.read_text(encoding="utf-8"))["2x3s1_lcn24"]
+    fly = make_fly(fps, "2x3", 1, geometry_version=args.geometry_version)
     todo = [("train", v) for v in tr] + ([("dev", v) for v in ev] if args.stage1 else [])
     if args.smoke:
         todo = todo[:1]
-    res = {"train": {}, "dev": {}}; feats = {}
+    res = {"train": {}, "dev": {}, "geometry_version": args.geometry_version}; feats = {}
     t0 = time.time()
     for i, (part, v) in enumerate(todo):
         fly.bounds = None; fly.base.reset()
@@ -177,7 +189,7 @@ def main() -> int:
             pts, d, a = feats[v]
             res[part][v]["dec_pool"] = pooled_errors(pts, d, models["dec_pool"], v)
             res[part][v]["t45_pool"] = pooled_errors(pts, a, models["t45_pool"], v)
-    rep = {"train": res["train"], "dev": res["dev"], "gain_stock": GAIN_STOCK, "summary": {}}
+    rep = {"train": res["train"], "dev": res["dev"], "gain_stock": GAIN_STOCK, "summary": {}, "geometry_version": args.geometry_version}
     rng = np.random.default_rng(1)
     for grp in ("night", "all"):
         vs = [v for v in res["dev"] if grp == "all" or cond.get(v) == "night"]

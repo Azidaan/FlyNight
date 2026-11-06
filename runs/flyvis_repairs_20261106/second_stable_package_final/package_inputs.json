@@ -1,0 +1,501 @@
+{
+  "sources": [
+    {
+      "path": "tracking/flyvis_motion.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/motion/original/flyvis_motion.py"
+      ],
+      "expected_sha256": "02f025826ca3b298acfb71e7bfce2725caa9d0d862f4e696c50e537622023c38"
+    },
+    {
+      "path": "scripts/run_bdd_video_rate_experiment.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/motion/original/run_bdd_video_rate_experiment.py",
+        "runs/flyvis_system_fixes_20261106/classical/original/scripts/run_bdd_video_rate_experiment.py"
+      ],
+      "expected_sha256": "2511260bdd8f304284e9d365d4693d0a31db6651d6b67dadbf37e121033d5653"
+    },
+    {
+      "path": "scripts/run_flyvis_tracker.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/motion/original/scripts/run_flyvis_tracker.py",
+        "runs/flyvis_system_fixes_20261106/classical/original/scripts/run_flyvis_tracker.py"
+      ],
+      "expected_sha256": "36e1abcf73c3ecd976f1159e31631fbf6ae535b93da157f35ca7cc32abd8a430"
+    },
+    {
+      "path": "scripts/evaluate_motion_sources.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/motion/original/scripts/evaluate_motion_sources.py",
+        "runs/flyvis_system_fixes_20261106/classical/original/scripts/evaluate_motion_sources.py"
+      ],
+      "expected_sha256": "cc7553508369ee0cdb232e3a70759986bee9de85a737052f239ef78392d68305"
+    },
+    {
+      "path": "scripts/build_flyvis_activity_cache.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/motion/original/scripts/build_flyvis_activity_cache.py"
+      ],
+      "expected_sha256": "957b51e91f0a8badd270e4ff9caef6cb3c6f56a20ef091ec901bb69e40e4d828"
+    },
+    {
+      "path": "scripts/fly_finetune_k1.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/motion/original/scripts/fly_finetune_k1.py"
+      ],
+      "expected_sha256": "d746f368a3f5b4d1edb22fb57d6b950877bba2ee4ced5823622e9ddd712520b5"
+    },
+    {
+      "path": "scripts/flyvis_motion_calibration.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/motion/original/scripts/flyvis_motion_calibration.py"
+      ],
+      "expected_sha256": "94d62621a7ca5897a4b78904537150f8e95dfaf146f0dc91a49d405a7920477d"
+    },
+    {
+      "path": "scripts/flyvis_video_rate_calibration.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/motion/original/scripts/flyvis_video_rate_calibration.py"
+      ],
+      "expected_sha256": "21ce51e265c638401fac2e533f70b0b649e600103d0169437575450a9d9c9bcd"
+    },
+    {
+      "path": "scripts/benchmark_tracker_runtime.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/motion/original/scripts/benchmark_tracker_runtime.py"
+      ],
+      "expected_sha256": "4f9f8fd2699489be04949983d4109070bf412a1456d04241139867327817e22f"
+    },
+    {
+      "path": "tests/test_flyvis_motion_contracts.py",
+      "snapshots": [],
+      "expected_sha256": "3cc1aedd08119724f14d7c2a2780d6d9ffb73d771c08084bd6c1cb2762663a29"
+    },
+    {
+      "path": "tracking/flyvis_tracker.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/assignment/original_flyvis_tracker.py",
+        "runs/flyvis_system_fixes_20261106/classical/original/tracking/flyvis_tracker.py"
+      ],
+      "expected_sha256": "e5f763172ac95e890271018f6fd7553af00c69411dcb0c6a4314fa24c5546c99"
+    },
+    {
+      "path": "tracking/retina.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/assignment/original_retina.py"
+      ],
+      "expected_sha256": "71e51747fa9959652766da0179a3b75953c49f94159da155c52b10999b27c322"
+    },
+    {
+      "path": "tests/test_flyvis_assignment_contracts.py",
+      "snapshots": [],
+      "expected_sha256": "fdcd92142483e43147956d6848949ff6832daebbd71b793bb55d82f986a16bda"
+    },
+    {
+      "path": "tests/test_retina_state_contracts.py",
+      "snapshots": [],
+      "expected_sha256": "a101af312ae4793ca2f84eb36603899242f2f2f1696f7ed3db39ede3af3cc1c9"
+    },
+    {
+      "path": "tracking/classical_motion.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/classical/original/tracking/classical_motion.py"
+      ],
+      "expected_sha256": "b29590efa83105f17e27e92b30dd24f91bae20a92b901dda3d92fe20808fb7c7"
+    },
+    {
+      "path": "scripts/build_train_caches.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/classical/original/scripts/build_train_caches.py"
+      ],
+      "expected_sha256": "f32c578e32129c2e75cab411ccc7382226e636f64fa156a3eb041ff407fe823f"
+    },
+    {
+      "path": "scripts/build_dis_retina.py",
+      "snapshots": [
+        "runs/flyvis_system_fixes_20261106/classical/original/scripts/build_dis_retina.py"
+      ],
+      "expected_sha256": "144450205bbe1a21e2a415a6e68d391b8114b15936245597ec54c2ec41a1b33a"
+    },
+    {
+      "path": "tests/test_classical_motion_geometry.py",
+      "snapshots": [],
+      "expected_sha256": "ba334a23355e382870a44a13874d2e80384b85e74af9e54ec9844c672344727e"
+    },
+    {
+      "path": "tests/test_classical_motion_state.py",
+      "snapshots": [],
+      "expected_sha256": "5b02f612d36b877eabb3456d024707684ae363ee677e660d75ecf21808584673"
+    },
+    {
+      "path": "tests/test_flyvis_tracker_input_state.py",
+      "snapshots": [],
+      "expected_sha256": "e8748b3654c5601a355007d6698e6ecea2a239d77aa3220ed1c111e82e014f58"
+    },
+    {
+      "path": "scripts/fly_axes_probe.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/k1_callers/original/fly_axes_probe.py"
+      ],
+      "expected_sha256": "7cb05fe75552339711dcec5a117e40127f5ede0a8b60176cda43819f034f40ec"
+    },
+    {
+      "path": "scripts/fly_dynamic_norm_probe.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/k1_callers/original/fly_dynamic_norm_probe.py"
+      ],
+      "expected_sha256": "1a7aeeebc8fafd7f36d35803025dac6306fb8922e0cddecc25cdbfd3df8b9aa9"
+    },
+    {
+      "path": "scripts/fly_k1_v2.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/k1_callers/original/fly_k1_v2.py"
+      ],
+      "expected_sha256": "611729a861f6c0433c2f0f0641a6699161cdd310f8d312c670b95157374f918d"
+    },
+    {
+      "path": "scripts/fly_finetune_k1_synthetic.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/k1_callers/original/fly_finetune_k1_synthetic.py"
+      ],
+      "expected_sha256": "fcf7195765c0c0e6a824e84079ad556928555e4180dd868bc4f212cb8d322ea5"
+    },
+    {
+      "path": "scripts/fly_reference_probe.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/k1_callers/original/fly_reference_probe.py"
+      ],
+      "expected_sha256": "030608e487c3265a88044ec6954a1190ee3413cf4cf32d4f4e291420a1404f81"
+    },
+    {
+      "path": "scripts/fly_scale_probe.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/k1_callers/original/fly_scale_probe.py"
+      ],
+      "expected_sha256": "491fe9e85d5afe3e55e2911725568020c457bdae448e0150541f4f0b198e41c5"
+    },
+    {
+      "path": "scripts/fly_stage_probe.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/k1_callers/original/fly_stage_probe.py"
+      ],
+      "expected_sha256": "9f2ae7549e4efbd663dd7b4c047e6a9672f37d87faaa42fa585b0389bbfdd126"
+    },
+    {
+      "path": "scripts/fly_wide_field.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/k1_callers/original/fly_wide_field.py"
+      ],
+      "expected_sha256": "9f5a9821b17471ced0539aebec94633e6c4c687716154e217db314b063740b00"
+    },
+    {
+      "path": "scripts/build_fly_lcn_motion.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/k1_callers/original/build_fly_lcn_motion.py"
+      ],
+      "expected_sha256": "4680444b58f16c6d8dd71ce2b3d9fbd20e35032f32311e1c4821f49675e124ca"
+    },
+    {
+      "path": "scripts/fly_noise_probe.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/k1_callers/original/fly_noise_probe.py"
+      ],
+      "expected_sha256": "bcab8565f917d1918fa0a499e571f7a2fc9b2e11d4daa5a6b0c1df259417f334"
+    },
+    {
+      "path": "scripts/fly_speed_response.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/k1_callers/original/fly_speed_response.py"
+      ],
+      "expected_sha256": "999ecb1daf54772e5dea1aa55c86cf5a138bb1bcbae1a9e36b77ee40751984cb"
+    },
+    {
+      "path": "tracking/flyvis_geometry_protocol.py",
+      "snapshots": [],
+      "expected_sha256": "749e5d4e793f1e7002f827ba9256d87cbaa4df2a3a7c9ff21ee6fdb17dbc1808"
+    },
+    {
+      "path": "tests/test_flyvis_secondary_geometry.py",
+      "snapshots": [],
+      "expected_sha256": "4fe1cb678c6c0af5d46c5f3b6296fd0071e1da87379e391abc34fe92154d4577"
+    },
+    {
+      "path": "tracking/decision_log.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/motion_birth_before/decision_log.py"
+      ],
+      "expected_sha256": "ad7e857f3e9b24cf9aee847b837a00d1d3200840f1580cfdbbfb52ea0494b005"
+    },
+    {
+      "path": "tracking/birth_policy.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/motion_birth_before/birth_policy.py"
+      ],
+      "expected_sha256": "f279720a8090854bb2aaafe796be0919677539f630401073caef93767d6f29f4"
+    },
+    {
+      "path": "tracking/motion_source_bytetrack.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/motion_birth_before/motion_source_bytetrack.py"
+      ],
+      "expected_sha256": "f0471f9257c3ef802da901295d4c4e798b1465ba128281a8fe29995fabf35369"
+    },
+    {
+      "path": "tracking/motion_augmented_bytetrack.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/motion_birth_before/motion_augmented_bytetrack.py"
+      ],
+      "expected_sha256": "2f733cef1fc667775a0a4850d9a36d38f866427d305bce655767e220c1f3a9da"
+    },
+    {
+      "path": "tracking/gpu_lock.py",
+      "snapshots": [
+        "runs/flyvis_repairs_20261106/gpu_lock_audit/original_gpu_lock.py"
+      ],
+      "expected_sha256": "18a1a4ded94df357383d2bb88432fb73c68756e957a2dbbb1d570d32667dc0b9"
+    },
+    {
+      "path": "tests/test_gpu_lock_lifecycle.py",
+      "snapshots": [],
+      "expected_sha256": "b656aac1b84afb3ec523567c9deff904670ce95d14ca384094f0117c56899cc4"
+    },
+    {
+      "path": "tests/test_motion_birth_reset.py",
+      "snapshots": [],
+      "expected_sha256": "ed5d47400fce996da19e863bcf5bb75983555b57cbe68538b68b36ff10b760c2"
+    },
+    {
+      "path": "tracking/GPU_LOCK_README.md",
+      "snapshots": [],
+      "expected_sha256": "93b0253c9584d9b33cf36c353bc9ee0fd8efac777a1efb35eac2bf20608eea5f"
+    },
+    {
+      "path": "tests/test_gpu_lock_aliases.py",
+      "snapshots": [],
+      "expected_sha256": "8af882ed19fda7f5fba280a069b32ea944c694066c57bda145f0f7649d169bd9"
+    },
+    {
+      "path": "tests/test_motion_calibration_binding.py",
+      "snapshots": [],
+      "expected_sha256": "3da264a662716e8de5b77471635103fdada5d1b9c9ce2491174e0b463a2ef1e5"
+    }
+  ],
+  "artifact_paths": [
+    "runs/flyvis_system_fixes_20261106/motion/manifest.json",
+    "runs/flyvis_system_fixes_20261106/motion/caller_audit.json",
+    "runs/flyvis_system_fixes_20261106/motion/probe.log",
+    "runs/flyvis_system_fixes_20261106/motion/probe_cpu.py",
+    "runs/flyvis_system_fixes_20261106/motion/probe_k1.log",
+    "runs/flyvis_system_fixes_20261106/motion/probe_k1_cpu.py",
+    "runs/flyvis_system_fixes_20261106/motion/probe_k1_outputs.npz",
+    "runs/flyvis_system_fixes_20261106/motion/probe_k1_report.json",
+    "runs/flyvis_system_fixes_20261106/motion/probe_outputs.npz",
+    "runs/flyvis_system_fixes_20261106/motion/probe_report.json",
+    "runs/flyvis_system_fixes_20261106/motion/REPORT.txt",
+    "runs/flyvis_system_fixes_20261106/motion/tests.log",
+    "runs/flyvis_system_fixes_20261106/motion/tests_v2.log",
+    "runs/flyvis_system_fixes_20261106/motion/tests_v3.log",
+    "runs/flyvis_system_fixes_20261106/motion/tests_v4.log",
+    "runs/flyvis_system_fixes_20261106/motion/tests_v5.log",
+    "runs/flyvis_system_fixes_20261106/motion/original/entrypoints_sha256.json",
+    "runs/flyvis_system_fixes_20261106/motion/original/flyvis_motion.py",
+    "runs/flyvis_system_fixes_20261106/motion/original/run_bdd_video_rate_experiment.py",
+    "runs/flyvis_system_fixes_20261106/motion/original/scripts/benchmark_tracker_runtime.py",
+    "runs/flyvis_system_fixes_20261106/motion/original/scripts/build_flyvis_activity_cache.py",
+    "runs/flyvis_system_fixes_20261106/motion/original/scripts/evaluate_motion_sources.py",
+    "runs/flyvis_system_fixes_20261106/motion/original/scripts/flyvis_motion_calibration.py",
+    "runs/flyvis_system_fixes_20261106/motion/original/scripts/flyvis_video_rate_calibration.py",
+    "runs/flyvis_system_fixes_20261106/motion/original/scripts/fly_finetune_k1.py",
+    "runs/flyvis_system_fixes_20261106/motion/original/scripts/run_flyvis_tracker.py",
+    "runs/flyvis_system_fixes_20261106/assignment/manifest.json",
+    "runs/flyvis_system_fixes_20261106/assignment/before_report.json",
+    "runs/flyvis_system_fixes_20261106/assignment/original_flyvis_tracker.py",
+    "runs/flyvis_system_fixes_20261106/assignment/original_retina.py",
+    "runs/flyvis_system_fixes_20261106/assignment/probe.log",
+    "runs/flyvis_system_fixes_20261106/assignment/probe_cpu.py",
+    "runs/flyvis_system_fixes_20261106/assignment/probe_v2.log",
+    "runs/flyvis_system_fixes_20261106/assignment/probe_v2_cpu.py",
+    "runs/flyvis_system_fixes_20261106/assignment/probe_v2_inputs.npz",
+    "runs/flyvis_system_fixes_20261106/assignment/probe_v2_report.json",
+    "runs/flyvis_system_fixes_20261106/assignment/REPORT.txt",
+    "runs/flyvis_system_fixes_20261106/assignment/retina_audit_before.json",
+    "runs/flyvis_system_fixes_20261106/assignment/retina_tests_before.log",
+    "runs/flyvis_system_fixes_20261106/assignment/tests_after.log",
+    "runs/flyvis_system_fixes_20261106/assignment/tests_before.log",
+    "runs/flyvis_system_fixes_20261106/assignment/tests_final.log",
+    "runs/flyvis_system_fixes_20261106/assignment/tests_original_v2.log",
+    "runs/flyvis_system_fixes_20261106/assignment/verify_original.py",
+    "runs/flyvis_system_fixes_20261106/classical/manifest.json",
+    "runs/flyvis_system_fixes_20261106/classical/before_sha256.json",
+    "runs/flyvis_system_fixes_20261106/classical/geometry_before_report.json",
+    "runs/flyvis_system_fixes_20261106/classical/geometry_probe.log",
+    "runs/flyvis_system_fixes_20261106/classical/geometry_probe.py",
+    "runs/flyvis_system_fixes_20261106/classical/geometry_tests_after.log",
+    "runs/flyvis_system_fixes_20261106/classical/geometry_tests_before.log",
+    "runs/flyvis_system_fixes_20261106/classical/geometry_tests_v2.log",
+    "runs/flyvis_system_fixes_20261106/classical/geometry_tests_v3.log",
+    "runs/flyvis_system_fixes_20261106/classical/native.log",
+    "runs/flyvis_system_fixes_20261106/classical/native_outputs.npz",
+    "runs/flyvis_system_fixes_20261106/classical/native_report.json",
+    "runs/flyvis_system_fixes_20261106/classical/probe_cpu.py",
+    "runs/flyvis_system_fixes_20261106/classical/REPORT.txt",
+    "runs/flyvis_system_fixes_20261106/classical/state_tests_after.log",
+    "runs/flyvis_system_fixes_20261106/classical/state_tests_before.log",
+    "runs/flyvis_system_fixes_20261106/classical/original/scripts/build_dis_retina.py",
+    "runs/flyvis_system_fixes_20261106/classical/original/scripts/build_train_caches.py",
+    "runs/flyvis_system_fixes_20261106/classical/original/scripts/evaluate_motion_sources.py",
+    "runs/flyvis_system_fixes_20261106/classical/original/scripts/run_bdd_video_rate_experiment.py",
+    "runs/flyvis_system_fixes_20261106/classical/original/scripts/run_flyvis_tracker.py",
+    "runs/flyvis_system_fixes_20261106/classical/original/tracking/classical_motion.py",
+    "runs/flyvis_system_fixes_20261106/classical/original/tracking/flyvis_tracker.py",
+    "runs/flyvis_repairs_20261106/k1_callers/manifest.json",
+    "runs/flyvis_repairs_20261106/k1_callers/before_manifest.json",
+    "runs/flyvis_repairs_20261106/k1_callers/audit_callers.py",
+    "runs/flyvis_repairs_20261106/k1_callers/REPORT.txt",
+    "runs/flyvis_repairs_20261106/k1_callers/tests_final_v2.log",
+    "runs/flyvis_repairs_20261106/k1_callers/actual_old_eval_rejection.log",
+    "runs/flyvis_repairs_20261106/k1_callers/original/fly_axes_probe.py",
+    "runs/flyvis_repairs_20261106/k1_callers/original/fly_dynamic_norm_probe.py",
+    "runs/flyvis_repairs_20261106/k1_callers/original/fly_k1_v2.py",
+    "runs/flyvis_repairs_20261106/k1_callers/original/fly_finetune_k1_synthetic.py",
+    "runs/flyvis_repairs_20261106/k1_callers/original/fly_reference_probe.py",
+    "runs/flyvis_repairs_20261106/k1_callers/original/fly_scale_probe.py",
+    "runs/flyvis_repairs_20261106/k1_callers/original/fly_stage_probe.py",
+    "runs/flyvis_repairs_20261106/k1_callers/original/fly_wide_field.py",
+    "runs/flyvis_repairs_20261106/k1_callers/original/build_fly_lcn_motion.py",
+    "runs/flyvis_repairs_20261106/k1_callers/original/fly_noise_probe.py",
+    "runs/flyvis_repairs_20261106/k1_callers/original/fly_speed_response.py",
+    "runs/flyvis_repairs_20261106/motion_birth_before/decision_log.py",
+    "runs/flyvis_repairs_20261106/motion_birth_before/birth_policy.py",
+    "runs/flyvis_repairs_20261106/motion_birth_before/motion_source_bytetrack.py",
+    "runs/flyvis_repairs_20261106/motion_birth_before/motion_augmented_bytetrack.py",
+    "runs/flyvis_repairs_20261106/motion_birth_v2.log",
+    "runs/flyvis_repairs_20261106/motion_birth_review/review.py",
+    "runs/flyvis_repairs_20261106/motion_birth_review/report.json",
+    "runs/flyvis_repairs_20261106/gpu_lock_audit/original_gpu_lock.py",
+    "runs/flyvis_repairs_20261106/gpu_lock_audit/probe.py",
+    "runs/flyvis_repairs_20261106/gpu_lock_audit/before_report.json",
+    "runs/flyvis_repairs_20261106/gpu_lock_audit/after_report.json",
+    "runs/flyvis_repairs_20261106/gpu_lock_audit/tests_before.log",
+    "runs/flyvis_repairs_20261106/gpu_lock_audit/tests_final.log",
+    "runs/flyvis_repairs_20261106/gpu_lock_audit/REPORT.txt",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/before_sha256.json",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/FINAL_DECISION.txt",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/final_default.log",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/final_default_outputs.npz",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/final_default_report.json",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/make_manifest.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/native.log",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/native_outputs.npz",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/native_report.json",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/scripts/benchmark_tracker_runtime.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/scripts/build_dis_retina.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/scripts/build_flyvis_activity_cache.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/scripts/build_train_caches.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/scripts/evaluate_motion_sources.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/scripts/fly_finetune_k1.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/scripts/flyvis_motion_calibration.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/scripts/flyvis_video_rate_calibration.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/scripts/run_bdd_video_rate_experiment.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/scripts/run_flyvis_tracker.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/tests/test_classical_motion_geometry.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/tests/test_classical_motion_state.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/tests/test_flyvis_assignment_contracts.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/tests/test_flyvis_motion_contracts.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/tests/test_flyvis_tracker_input_state.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/tests/test_retina_state_contracts.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/tracking/classical_motion.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/tracking/flyvis_motion.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/tracking/flyvis_tracker.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original/tracking/retina.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original_native.log",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original_native_outputs.npz",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original_native_report.json",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original_native_v2.log",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original_native_v2_outputs.npz",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/original_native_v2_report.json",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/scripts/benchmark_tracker_runtime.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/scripts/build_dis_retina.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/scripts/build_flyvis_activity_cache.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/scripts/build_train_caches.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/scripts/evaluate_motion_sources.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/scripts/fly_finetune_k1.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/scripts/flyvis_motion_calibration.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/scripts/flyvis_video_rate_calibration.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/scripts/run_bdd_video_rate_experiment.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/scripts/run_flyvis_tracker.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/tests/test_classical_motion_geometry.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/tests/test_classical_motion_state.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/tests/test_flyvis_assignment_contracts.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/tests/test_flyvis_motion_contracts.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/tests/test_flyvis_tracker_input_state.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/tests/test_motion_calibration_binding.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/tests/test_retina_state_contracts.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/tracking/classical_motion.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/tracking/flyvis_motion.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/tracking/flyvis_tracker.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/pixel_default_snapshot/tracking/retina.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/probe_cpu.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/probe_final_default_cpu.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/probe_original_cpu.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/probe_original_v2_cpu.py",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/tests_final.log",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/tests_v1.log",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/manifest.json",
+    "runs/flyvis_repairs_20261106/k1_callers/manifest_legacy_default.json",
+    "runs/flyvis_repairs_20261106/k1_callers/FINAL_LEGACY_DEFAULT.txt",
+    "runs/flyvis_repairs_20261106/k1_callers/audit_legacy_default.py",
+    "runs/flyvis_repairs_20261106/k1_callers/tests_legacy_default_final.log",
+    "runs/flyvis_repairs_20261106/k1_callers/actual_explicit_pixel_centers_rejection.log",
+    "runs/flyvis_repairs_20261106/k1_callers/actual_research_with_fixed_gain_rejection.log",
+    "runs/flyvis_repairs_20261106/gpu_lock_audit/aliases_report.json",
+    "runs/flyvis_repairs_20261106/gpu_lock_audit/ALIASES_REPORT.txt",
+    "runs/flyvis_repairs_20261106/gpu_lock_audit/aliases_before.log",
+    "runs/flyvis_repairs_20261106/gpu_lock_audit/aliases_final.log",
+    "runs/flyvis_repairs_20261106/gpu_lock_audit/aliases_native_report.json",
+    "runs/flyvis_repairs_20261106/gpu_lock_audit/before_aliases_gpu_lock.py",
+    "runs/flyvis_system_fixes_20261106/gpu_alias_review/REPORT.txt",
+    "runs/flyvis_system_fixes_20261106/gpu_alias_review/inventory.json",
+    "runs/flyvis_system_fixes_20261106/gpu_alias_review/call_graph.json",
+    "runs/flyvis_system_fixes_20261106/gpu_alias_review/scan_paths.py",
+    "runs/flyvis_system_fixes_20261106/gpu_alias_review/assess_paths.py",
+    "runs/flyvis_repairs_20261106/analyze_geometry_calibration_counterevidence.py",
+    "runs/flyvis_repairs_20261106/geometry_calibration_counterevidence.json",
+    "runs/flyvis_repairs_20261106/check_coordinate_only_roi.py",
+    "runs/flyvis_repairs_20261106/coordinate_only_roi/protocol_before_run.json",
+    "runs/flyvis_repairs_20261106/coordinate_only_roi/report.json",
+    "runs/flyvis_repairs_20261106/coordinate_only_roi/legacy_v1.json",
+    "runs/flyvis_repairs_20261106/coordinate_only_roi/pixel_centers_v2.json",
+    "runs/flyvis_repairs_20261106/coordinate_only_roi_review/review.py",
+    "runs/flyvis_repairs_20261106/coordinate_only_roi_review/report.json",
+    "runs/flyvis_repairs_20261106/coordinate_only_roi_review/endpoint_errors.npz"
+  ],
+  "manifest_inputs": [
+    "runs/flyvis_system_fixes_20261106/motion/manifest.json",
+    "runs/flyvis_system_fixes_20261106/assignment/manifest.json",
+    "runs/flyvis_system_fixes_20261106/classical/manifest.json",
+    "runs/flyvis_repairs_20261106/k1_callers/manifest.json",
+    "runs/flyvis_system_fixes_20261106/calibration_guard/manifest.json",
+    "runs/flyvis_repairs_20261106/k1_callers/manifest_legacy_default.json"
+  ],
+  "tests": [
+    "tests/test_flyvis_motion_contracts.py",
+    "tests/test_flyvis_assignment_contracts.py",
+    "tests/test_retina_state_contracts.py",
+    "tests/test_classical_motion_geometry.py",
+    "tests/test_classical_motion_state.py",
+    "tests/test_flyvis_tracker_input_state.py",
+    "tests/test_flyvis_secondary_geometry.py",
+    "tests/test_gpu_lock_lifecycle.py",
+    "tests/test_motion_birth_reset.py",
+    "tests/test_flyvis_tracker.py",
+    "tests/test_retina.py",
+    "tests/test_birth_policy.py",
+    "tests/test_decision_log.py",
+    "tests/test_motion_source_bytetrack.py",
+    "tests/test_motion_augmented_bytetrack.py",
+    "tests/test_gpu_lock_aliases.py",
+    "tests/test_motion_calibration_binding.py"
+  ],
+  "scope": "Preserved legacy geometry defaults, explicit opt-in geometric candidates and metadata guards, assignment/retina guards, tracked motion/birth lifecycle, Windows mutex lifecycle and canonical project aliases; no prior-untracked source or observation-transaction followup"
+}

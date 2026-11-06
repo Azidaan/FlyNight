@@ -338,11 +338,32 @@ class WeightedGeometryAssignment:
         if not len(tracks) or not len(detections):
             return [], unmatched_tracks, unmatched_detections
         cost, valid = self.cost(tracks, predicted, detections, classes, config)
-        finite_cost = np.where(np.isfinite(cost), cost, 1e6)
+        if np.any(valid & ~np.isfinite(cost)):
+            raise ValueError("Допустимые стоимости назначения должны быть конечными")
+        # Порог является ограничением задачи. Если применять его только после
+        # Hungarian, недопустимые пары могут вытеснить существующую допустимую.
+        permitted = valid & (cost <= config.max_assignment_cost)
+        if not np.any(permitted):
+            return [], unmatched_tracks, unmatched_detections
+        # Сначала максимум числа допустимых пар, затем минимум их стоимости.
+        # Цена запрета больше возможной разницы сумм всех допустимых стоимостей.
+        # На обычном диапазоне оставляем прежние числа и sentinel, включая ties.
+        numeric_cost = np.asarray(cost, dtype=np.float64)
+        bound = float(np.max(np.abs(numeric_cost[permitted])))
+        assignments = min(numeric_cost.shape)
+        forbidden_cost = (2.0 * assignments + 1.0) * bound + 1.0
+        if not np.isfinite(forbidden_cost):
+            # Крайний диапазон float64: положительное масштабирование сохраняет
+            # цель; допустимые стоимости находятся в [-1, 1].
+            numeric_cost = numeric_cost / bound
+            forbidden_cost = 2.0 * assignments + 1.0
+        else:
+            forbidden_cost = max(1e6, forbidden_cost)
+        finite_cost = np.where(permitted, numeric_cost, forbidden_cost)
         rows, cols = linear_sum_assignment(finite_cost)
         matches = []
         for row, col in zip(rows.tolist(), cols.tolist()):
-            if not valid[row, col] or cost[row, col] > config.max_assignment_cost:
+            if not permitted[row, col]:
                 continue
             matches.append((row, col))
             unmatched_tracks.discard(row)
@@ -441,16 +462,24 @@ class FlyVisTracker:
         motion_field: MotionField | None = None,
     ) -> np.ndarray:
         """Обработать кадр и вернуть только подтверждённые найденные траектории."""
-        self.frame_index += 1
         detections_all = _boxes(xyxy)
         confidence_all = np.asarray(confidence, dtype=np.float32).reshape(-1)
-        classes_all = np.asarray(class_id, dtype=np.int64).reshape(-1)
+        raw_classes = np.asarray(class_id).reshape(-1)
         if not (
-            len(detections_all) == len(confidence_all) == len(classes_all)
+            len(detections_all) == len(confidence_all) == len(raw_classes)
         ):
             raise ValueError("Число рамок, оценок уверенности и классов не совпало")
         if not np.isfinite(confidence_all).all():
             raise ValueError("Оценки уверенности содержат NaN или Inf")
+        integer_classes = np.issubdtype(raw_classes.dtype, np.integer)
+        floating_classes = np.issubdtype(raw_classes.dtype, np.floating)
+        if not (integer_classes or floating_classes) or not np.isfinite(raw_classes).all():
+            raise ValueError("Идентификаторы классов должны быть конечными целыми числами")
+        maximum = np.iinfo(np.int64).max
+        outside = np.any(raw_classes > maximum) if integer_classes else np.any(raw_classes >= 2**63)
+        if np.any(raw_classes < 0) or outside or (floating_classes and np.any(raw_classes != np.floor(raw_classes))):
+            raise ValueError("Идентификаторы классов должны быть неотрицательными целыми числами int64")
+        classes_all = raw_classes.astype(np.int64)
 
         keep = confidence_all >= self.config.detection_threshold
         original_indices = np.flatnonzero(keep)
@@ -468,6 +497,7 @@ class FlyVisTracker:
                     raise ValueError("Для подключённого оценщика движения нужен frame")
                 motion_field = self.motion_estimator.observe(frame)
 
+        self.frame_index += 1
         tracks, predicted = self._predict(motion_field)
         matches, unmatched_tracks, unmatched_detections = self._assign(
             tracks, predicted, detections, classes

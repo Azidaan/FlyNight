@@ -20,13 +20,19 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 import scripts.fly_finetune_k1 as K  # noqa: E402
 from scripts.fly_scale_probe import make_fly, run_frames, WARM, LEN  # noqa: E402
+from tracking.flyvis_geometry_protocol import add_geometry_arguments, ensure_geometry_output, resolve_output
 
 OUT = PROJECT_ROOT / "runs" / "fly_scale_probe" / "speed_response.json"
 SPEEDS = [0.5, 1, 2, 4, 8, 16]
 
 
 def main() -> int:
+    global OUT
+    import argparse
     import cv2
+    parser = argparse.ArgumentParser(); add_geometry_arguments(parser); args = parser.parse_args()
+    OUT = resolve_output(args.out, OUT, PROJECT_ROOT)
+    ensure_geometry_output(OUT, args.geometry_version, file=True)
     fps = json.loads((K.TC / "0001542f-5ce3cf52/motion/dis_quarter.json").read_text(encoding="utf-8"))["fps"]
     sel = json.loads((K.TC / "selection.json").read_text(encoding="utf-8"))["videos"]
     rng = np.random.default_rng(0)
@@ -37,7 +43,7 @@ def main() -> int:
     angs = rng.uniform(0, 2 * np.pi, len(frames))
     res = {}
     for lay in ("2x3", "3x5"):
-        fly = make_fly(fps, lay, 1)
+        fly = make_fly(fps, lay, 1, geometry_version=args.geometry_version)
         res[lay] = {}
         for sp in SPEEDS:
             par, perp = [], []

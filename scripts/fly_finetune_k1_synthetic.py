@@ -20,6 +20,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 import scripts.fly_finetune_k1 as K  # noqa: E402
+from tracking.flyvis_geometry_protocol import add_geometry_arguments, ensure_geometry_output, resolve_output, require_arm_geometry, require_empirical_gain_geometry
 
 OUT = PROJECT_ROOT / "runs" / "fly_finetune_k1" / "synthetic.json"
 
@@ -42,6 +43,8 @@ def segments(fly, vids, split, rng, per_video):
 
 
 def evaluate(fly, segs, state, stock):
+    if state is not None:
+        require_arm_geometry({"synthetic": state}, fly.base.geometry_version)
     t = fly.torch; dec = fly.base.decoder
     _, sc = fly.points_scale(); sc = t.tensor(sc, device=fly.dev)
     dec.load_state_dict(state["decoder"] if state else stock)
@@ -72,20 +75,28 @@ def evaluate(fly, segs, state, stock):
 
 
 def main() -> int:
+    global OUT
+    import argparse
+    parser = argparse.ArgumentParser(); add_geometry_arguments(parser); args = parser.parse_args()
+    require_empirical_gain_geometry(args.geometry_version, 'fly_finetune_k1_synthetic')
+    OUT = resolve_output(args.out, OUT, PROJECT_ROOT)
+    ensure_geometry_output(OUT, args.geometry_version, file=True)
+    selection_meta = K.OUT / "summary.json"
+    K.OUT = OUT.parent
     fps = json.loads((K.TC / "0001542f-5ce3cf52/motion/dis_quarter.json").read_text(encoding="utf-8"))["fps"]
-    fly = K.Fly(fps)
+    fly = K.Fly(fps, geometry_version=args.geometry_version)
     stock = {k: v.detach().clone() for k, v in fly.base.decoder.state_dict().items()}
-    meta = json.loads((K.OUT / "summary.json").read_text(encoding="utf-8"))["meta"] if (K.OUT / "summary.json").exists() else None
+    meta = json.loads(selection_meta.read_text(encoding="utf-8"))["meta"] if selection_meta.exists() else None
     sel = json.loads((K.TC / "selection.json").read_text(encoding="utf-8"))["videos"]
     tr = meta["train"] if meta else sel["train"][:20]
     ev = sel["dev"][:10]
     rng = np.random.default_rng(0)
     seg_tr = segments(fly, tr, "train", rng, 10); seg_ev = segments(fly, ev, "train", rng, 4)
     print(f"[DATA] обучение {len(seg_tr)} отрезков, проверка {len(seg_ev)}", flush=True)
-    res = {}
+    res = {"geometry_version": args.geometry_version}
     e, z = evaluate(fly, seg_ev, None, stock); res["zero"] = z; res["stock"] = e
     print(f"[SYN] нулевое движение {z:.3f} | штатная муха (усиление стенда) {e:.3f}", flush=True)
-    with open(K.OUT / "synthetic_log.txt", "w", encoding="utf-8") as log:
+    with open(OUT.with_suffix(".log"), "w", encoding="utf-8") as log:
         for arm, steps in (("scale", 300), ("decoder", 600)):
             fly.base.decoder.load_state_dict(stock)
             st = K.train_arm(arm, fly, seg_tr, steps, np.random.default_rng(1), log)

@@ -1,0 +1,1124 @@
+{
+  "source_sha256": "5b488c82fc49d22957785089156d72507000782d661e1b8a0c1fbe2ef0e9f828",
+  "scope": "Named Win32 synchronization only; no Torch import, no GPU access; all names unique",
+  "create_failure": {
+    "protected_body_executed": false,
+    "error": "OSError('CreateMutexW failed: [WinError 6] Неверный дескриптор.')"
+  },
+  "handles": {
+    "before": 145,
+    "allocated": 345,
+    "after_gc": 145,
+    "reclaimed_by_probe": 0,
+    "after_cleanup": 145
+  },
+  "wrong_thread_release": {
+    "error": "RuntimeError('GpuLock must be released by its acquiring thread')"
+  },
+  "cleanup_complete": true,
+  "caller_inventory": [
+    {
+      "path": "tracking/foveated_eyes.py",
+      "locks": [],
+      "subprocess_calls": [],
+      "environment_lock": true
+    },
+    {
+      "path": "tracking/gpu_lock.py",
+      "locks": [
+        {
+          "line": 118,
+          "argument": "os.environ.get('FOVEA_GPU_LOCK')"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": true
+    },
+    {
+      "path": "scripts/audit_b2_training_gpu_predictor_20261029.py",
+      "locks": [
+        {
+          "line": 42,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/b1_gpu_cost_20261026.py",
+      "locks": [
+        {
+          "line": 79,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/b1_residual_train_20261027.py",
+      "locks": [
+        {
+          "line": 302,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/b2_gradient_profile_20261027.py",
+      "locks": [
+        {
+          "line": 57,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/b3_gradient_profile_20261027.py",
+      "locks": [
+        {
+          "line": 98,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/build_z13_spatial_hota.py",
+      "locks": [
+        {
+          "line": 32,
+          "argument": "None if args.cpu else 'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": true
+    },
+    {
+      "path": "scripts/cache_history_visual_inputs_20261028.py",
+      "locks": [
+        {
+          "line": 29,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/check_masa_detic_gpu_input_20261029.py",
+      "locks": [
+        {
+          "line": 58,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/diagnose_b1_incremental_20261028.py",
+      "locks": [
+        {
+          "line": 27,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/evaluate_pixel_box_refinement_20261027.py",
+      "locks": [
+        {
+          "line": 26,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/flyvis_y1_latency_20261104.py",
+      "locks": [
+        {
+          "line": 150,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/flyvis_y1_latency_fp64_20261104.py",
+      "locks": [
+        {
+          "line": 160,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/fly_efference_stage1.py",
+      "locks": [],
+      "subprocess_calls": [
+        {
+          "line": 208,
+          "function": "subprocess.run"
+        }
+      ],
+      "environment_lock": true
+    },
+    {
+      "path": "scripts/fly_persistent_eye_run.py",
+      "locks": [],
+      "subprocess_calls": [
+        {
+          "line": 49,
+          "function": "subprocess.run"
+        }
+      ],
+      "environment_lock": true
+    },
+    {
+      "path": "scripts/memory_write_dev_20261029.py",
+      "locks": [
+        {
+          "line": 58,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/profile_b2_causal960_20261028.py",
+      "locks": [
+        {
+          "line": 44,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/profile_b2_loss_device_20261029.py",
+      "locks": [
+        {
+          "line": 35,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/profile_frame_masa_association_20261027.py",
+      "locks": [
+        {
+          "line": 22,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/profile_frame_masa_fp16_association_20261027.py",
+      "locks": [
+        {
+          "line": 22,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/profile_history_deterministic_pool_20261028.py",
+      "locks": [
+        {
+          "line": 36,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/profile_masa_feature_numerics_20261029.py",
+      "locks": [
+        {
+          "line": 24,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/recovery_appearance_features_20261027.py",
+      "locks": [
+        {
+          "line": 23,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/recovery_appearance_gpu_profile_20261027.py",
+      "locks": [
+        {
+          "line": 32,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/run_b1_tracker_20261028.py",
+      "locks": [
+        {
+          "line": 70,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/run_b2_full_tracker_20261029.py",
+      "locks": [
+        {
+          "line": 36,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/run_fovea_jobs.py",
+      "locks": [],
+      "subprocess_calls": [
+        {
+          "line": 86,
+          "function": "subprocess.Popen"
+        }
+      ],
+      "environment_lock": true
+    },
+    {
+      "path": "scripts/run_frame_masa_association_20261027.py",
+      "locks": [
+        {
+          "line": 32,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/run_frame_masa_fp16_association_20261027.py",
+      "locks": [
+        {
+          "line": 32,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/run_history_full_tracker_pilot_20261028.py",
+      "locks": [
+        {
+          "line": 39,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/run_lazy_appearance_association_20261027.py",
+      "locks": [
+        {
+          "line": 27,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/run_masa_detic_query_pilot_20261029.py",
+      "locks": [
+        {
+          "line": 31,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/run_masa_query_fp32_recovery1_20261029.py",
+      "locks": [
+        {
+          "line": 36,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/train_b2_sparse_pilot_20261029.py",
+      "locks": [
+        {
+          "line": 49,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/train_history_factorial_20261028.py",
+      "locks": [
+        {
+          "line": 51,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/train_pixel_box_refinement_20261027.py",
+      "locks": [
+        {
+          "line": 39,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/train_recovery_admission_20261027.py",
+      "locks": [
+        {
+          "line": 35,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/validate_learned_recovery_20261027.py",
+      "locks": [
+        {
+          "line": 82,
+          "argument": "'Local\\\\DissertationSingleGpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_aligned_core.py",
+      "locks": [
+        {
+          "line": 264,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_cache_balanced_probe.py",
+      "locks": [
+        {
+          "line": 52,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_cache_clip_probe.py",
+      "locks": [
+        {
+          "line": 53,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_cache_followup_c_probe.py",
+      "locks": [
+        {
+          "line": 52,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_cache_speed_probe.py",
+      "locks": [
+        {
+          "line": 73,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_candidates_night.py",
+      "locks": [
+        {
+          "line": 223,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 306,
+          "function": "subprocess.Popen"
+        },
+        {
+          "line": 323,
+          "function": "subprocess.run"
+        }
+      ],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_candidate_reserve_20261021.py",
+      "locks": [
+        {
+          "line": 99,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 177,
+          "function": "subprocess.Popen"
+        },
+        {
+          "line": 182,
+          "function": "subprocess.run"
+        }
+      ],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_center_hota_20261021.py",
+      "locks": [
+        {
+          "line": 132,
+          "argument": "'flyvis_fovea_gpu'"
+        },
+        {
+          "line": 246,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_center_hota_completion_20261021.py",
+      "locks": [
+        {
+          "line": 40,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_center_hota_recovery1_20261021.py",
+      "locks": [
+        {
+          "line": 41,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_continue.py",
+      "locks": [
+        {
+          "line": 449,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_core_identity_20261026.py",
+      "locks": [
+        {
+          "line": 140,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_distribution_pilot.py",
+      "locks": [
+        {
+          "line": 88,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 151,
+          "function": "subprocess.Popen"
+        },
+        {
+          "line": 157,
+          "function": "subprocess.run"
+        }
+      ],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_distribution_quality.py",
+      "locks": [
+        {
+          "line": 107,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 182,
+          "function": "subprocess.Popen"
+        },
+        {
+          "line": 188,
+          "function": "subprocess.run"
+        }
+      ],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_filter_descriptor_gpu_service_20261024.py",
+      "locks": [
+        {
+          "line": 42,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_first_divergence_20261022.py",
+      "locks": [
+        {
+          "line": 118,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_history_clock_20261025.py",
+      "locks": [
+        {
+          "line": 102,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 229,
+          "function": "subprocess.run"
+        },
+        {
+          "line": 242,
+          "function": "subprocess.run"
+        },
+        {
+          "line": 242,
+          "function": "subprocess.run"
+        },
+        {
+          "line": 243,
+          "function": "subprocess.run"
+        },
+        {
+          "line": 227,
+          "function": "subprocess.run"
+        },
+        {
+          "line": 238,
+          "function": "subprocess.run"
+        },
+        {
+          "line": 252,
+          "function": "subprocess.Popen"
+        },
+        {
+          "line": 243,
+          "function": "subprocess.check_output"
+        },
+        {
+          "line": 234,
+          "function": "subprocess.check_output"
+        },
+        {
+          "line": 235,
+          "function": "subprocess.check_output"
+        }
+      ],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_map_transfer104_20261021.py",
+      "locks": [
+        {
+          "line": 114,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_masa_exemplar_snap_20261026.py",
+      "locks": [
+        {
+          "line": 98,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_masa_regions_20261026.py",
+      "locks": [
+        {
+          "line": 109,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_matched_pipeline_20261024.py",
+      "locks": [
+        {
+          "line": 71,
+          "argument": "'flyvis_fovea_gpu'"
+        },
+        {
+          "line": 91,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 107,
+          "function": "subprocess.Popen"
+        }
+      ],
+      "environment_lock": true
+    },
+    {
+      "path": "scripts/z13_matched_stock_controls_20261024.py",
+      "locks": [
+        {
+          "line": 80,
+          "argument": "'flyvis_fovea_gpu'"
+        },
+        {
+          "line": 95,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 112,
+          "function": "subprocess.Popen"
+        }
+      ],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_observed_memory_20261021.py",
+      "locks": [
+        {
+          "line": 242,
+          "argument": "'FlyVis_z13_observed_memory_single_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 303,
+          "function": "subprocess.Popen"
+        },
+        {
+          "line": 309,
+          "function": "subprocess.run"
+        }
+      ],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_query_memory_20261021.py",
+      "locks": [
+        {
+          "line": 125,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_region_assignment_20261025.py",
+      "locks": [
+        {
+          "line": 174,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 347,
+          "function": "subprocess.Popen"
+        },
+        {
+          "line": 387,
+          "function": "subprocess.check_output"
+        }
+      ],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_shared_hota_worker.py",
+      "locks": [
+        {
+          "line": 16,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_shared_masa_probe.py",
+      "locks": [
+        {
+          "line": 32,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_size_check_recovery.py",
+      "locks": [
+        {
+          "line": 38,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_spatial_hota_masa_price.py",
+      "locks": [
+        {
+          "line": 19,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 44,
+          "function": "subprocess.Popen"
+        },
+        {
+          "line": 58,
+          "function": "subprocess.run"
+        }
+      ],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_spatial_hota_probe.py",
+      "locks": [
+        {
+          "line": 81,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_spatial_hota_worker.py",
+      "locks": [
+        {
+          "line": 76,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_spatial_restore_audit.py",
+      "locks": [
+        {
+          "line": 50,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_spatial_set_readout_20261025.py",
+      "locks": [
+        {
+          "line": 148,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_spatial_set_recovery4_gpu_20261025.py",
+      "locks": [
+        {
+          "line": 98,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_spatial_train.py",
+      "locks": [
+        {
+          "line": 355,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_target_model.py",
+      "locks": [
+        {
+          "line": 260,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_template_swap_20261025.py",
+      "locks": [
+        {
+          "line": 158,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_temporal_identity_cuda_probe_20261025.py",
+      "locks": [
+        {
+          "line": 17,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_temporal_identity_features_20261025.py",
+      "locks": [
+        {
+          "line": 149,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 71,
+          "function": "subprocess.check_output"
+        }
+      ],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_temporal_identity_final_20261025.py",
+      "locks": [
+        {
+          "line": 30,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_temporal_identity_trial_20261025.py",
+      "locks": [
+        {
+          "line": 252,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_temporal_identity_vectorized_recovery2_20261025.py",
+      "locks": [
+        {
+          "line": 159,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_temporal_region_features_20261025.py",
+      "locks": [
+        {
+          "line": 80,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_triton_probe.py",
+      "locks": [
+        {
+          "line": 53,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_val20_common_20261024.py",
+      "locks": [
+        {
+          "line": 102,
+          "argument": "'flyvis_fovea_gpu'"
+        },
+        {
+          "line": 122,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 138,
+          "function": "subprocess.Popen"
+        },
+        {
+          "line": 142,
+          "function": "subprocess.run"
+        }
+      ],
+      "environment_lock": true
+    },
+    {
+      "path": "scripts/z13_val20_common_authorized_20261024.py",
+      "locks": [
+        {
+          "line": 225,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 183,
+          "function": "subprocess.Popen"
+        },
+        {
+          "line": 110,
+          "function": "subprocess.check_output"
+        },
+        {
+          "line": 197,
+          "function": "subprocess.run"
+        }
+      ],
+      "environment_lock": false
+    },
+    {
+      "path": "scripts/z13_val20_inputs_20261024.py",
+      "locks": [
+        {
+          "line": 66,
+          "argument": "'flyvis_fovea_gpu'"
+        }
+      ],
+      "subprocess_calls": [
+        {
+          "line": 89,
+          "function": "subprocess.Popen"
+        }
+      ],
+      "environment_lock": false
+    }
+  ]
+}

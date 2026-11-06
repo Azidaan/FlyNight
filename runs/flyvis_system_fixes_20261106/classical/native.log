@@ -1,0 +1,137 @@
+{
+  "passed": true,
+  "opencv": "4.13.0",
+  "checks": [
+    {
+      "method": "farneback",
+      "scale": 1.0,
+      "input": "uint8_gray",
+      "legacy_points_exact": true,
+      "legacy_vectors_exact": true,
+      "reset_exact": true,
+      "v2_vectors_exact": true,
+      "v2_point_offset": 0.0
+    },
+    {
+      "method": "farneback",
+      "scale": 1.0,
+      "input": "float32_gray",
+      "legacy_points_exact": true,
+      "legacy_vectors_exact": true,
+      "reset_exact": true,
+      "v2_vectors_exact": true,
+      "v2_point_offset": 0.0
+    },
+    {
+      "method": "farneback",
+      "scale": 1.0,
+      "input": "uint8_bgr",
+      "legacy_points_exact": true,
+      "legacy_vectors_exact": true,
+      "reset_exact": true,
+      "v2_vectors_exact": true,
+      "v2_point_offset": 0.0
+    },
+    {
+      "method": "farneback",
+      "scale": 0.25,
+      "input": "uint8_gray",
+      "legacy_points_exact": true,
+      "legacy_vectors_exact": true,
+      "reset_exact": true,
+      "v2_vectors_exact": true,
+      "v2_point_offset": 1.5
+    },
+    {
+      "method": "farneback",
+      "scale": 0.25,
+      "input": "float32_gray",
+      "legacy_points_exact": true,
+      "legacy_vectors_exact": true,
+      "reset_exact": true,
+      "v2_vectors_exact": true,
+      "v2_point_offset": 1.5
+    },
+    {
+      "method": "farneback",
+      "scale": 0.25,
+      "input": "uint8_bgr",
+      "legacy_points_exact": true,
+      "legacy_vectors_exact": true,
+      "reset_exact": true,
+      "v2_vectors_exact": true,
+      "v2_point_offset": 1.5
+    },
+    {
+      "method": "dis",
+      "scale": 1.0,
+      "input": "uint8_gray",
+      "legacy_points_exact": true,
+      "legacy_vectors_exact": true,
+      "reset_exact": true,
+      "v2_vectors_exact": true,
+      "v2_point_offset": 0.0
+    },
+    {
+      "method": "dis",
+      "scale": 1.0,
+      "input": "float32_gray",
+      "legacy_points_exact": true,
+      "legacy_vectors_exact": true,
+      "reset_exact": true,
+      "v2_vectors_exact": true,
+      "v2_point_offset": 0.0
+    },
+    {
+      "method": "dis",
+      "scale": 1.0,
+      "input": "uint8_bgr",
+      "legacy_points_exact": true,
+      "legacy_vectors_exact": true,
+      "reset_exact": true,
+      "v2_vectors_exact": true,
+      "v2_point_offset": 0.0
+    },
+    {
+      "method": "dis",
+      "scale": 0.25,
+      "input": "uint8_gray",
+      "legacy_points_exact": true,
+      "legacy_vectors_exact": true,
+      "reset_exact": true,
+      "v2_vectors_exact": true,
+      "v2_point_offset": 1.5
+    },
+    {
+      "method": "dis",
+      "scale": 0.25,
+      "input": "float32_gray",
+      "legacy_points_exact": true,
+      "legacy_vectors_exact": true,
+      "reset_exact": true,
+      "v2_vectors_exact": true,
+      "v2_point_offset": 1.5
+    },
+    {
+      "method": "dis",
+      "scale": 0.25,
+      "input": "uint8_bgr",
+      "legacy_points_exact": true,
+      "legacy_vectors_exact": true,
+      "reset_exact": true,
+      "v2_vectors_exact": true,
+      "v2_point_offset": 1.5
+    }
+  ],
+  "cuda_initialized": false,
+  "scope": "CPU, fixed synthetic translations; no tracker-quality claim",
+  "source_sha256": {
+    "tracking/classical_motion.py": "b29590efa83105f17e27e92b30dd24f91bae20a92b901dda3d92fe20808fb7c7",
+    "tracking/flyvis_tracker.py": "e5f763172ac95e890271018f6fd7553af00c69411dcb0c6a4314fa24c5546c99",
+    "scripts/run_bdd_video_rate_experiment.py": "75a6cb73f1f724e31727deee82d28d2bf56c0c52b833e80d5df504cab8bdc8e5",
+    "scripts/run_flyvis_tracker.py": "b32a013e6699663af9db56b02ef9082528d2c96a929de96b7d85e798de5e9598",
+    "scripts/evaluate_motion_sources.py": "bb7ca242b4870501f56136c33376d247b94f52a13fd7c42d7a6ee4b5036bc767",
+    "scripts/build_train_caches.py": "f32c578e32129c2e75cab411ccc7382226e636f64fa156a3eb041ff407fe823f",
+    "scripts/build_dis_retina.py": "144450205bbe1a21e2a415a6e68d391b8114b15936245597ec54c2ec41a1b33a"
+  }
+}

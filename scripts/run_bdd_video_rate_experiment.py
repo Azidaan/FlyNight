@@ -25,7 +25,9 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from datasets.bdd100k_loader import CLASS_NAMES, DATA_ROOT  # noqa: E402
 from evaluation.hota_eval import evaluate_hota  # noqa: E402
 from tracking.classical_motion import OpenCVMotionEstimator  # noqa: E402
-from tracking.flyvis_motion import FlyVisMotionEstimator, TileLayout  # noqa: E402
+from tracking.flyvis_motion import (  # noqa: E402
+    FlyVisMotionEstimator, TileLayout, GEOMETRY_VERSION, GEOMETRY_VERSIONS,
+)
 from tracking.flyvis_tracker import (  # noqa: E402
     FlyVisTracker,
     FlyVisTrackerConfig,
@@ -59,6 +61,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--conf", type=float, default=0.01)
     parser.add_argument("--iou", type=float, default=0.7)
     parser.add_argument("--max-dt", type=float, default=0.02)
+    parser.add_argument("--flyvis-geometry-version", "--motion-geometry-version", choices=GEOMETRY_VERSIONS,
+                        default=GEOMETRY_VERSION)
     parser.add_argument("--search-radius", type=int, default=24)
     parser.add_argument(
         "--motion-sources",
@@ -233,6 +237,7 @@ def build_detection_cache(
             device=device,
             verbose=False,
         )
+    prediction_device = torch.device(model.predictor.device)
 
     capture = cv2.VideoCapture(str(video))
     if not capture.isOpened():
@@ -248,8 +253,8 @@ def build_detection_cache(
         if not ok:
             decode_seconds.pop()
             break
-        if torch.cuda.is_available():
-            torch.cuda.synchronize()
+        if prediction_device.type == "cuda":
+            torch.cuda.synchronize(prediction_device)
         detector_started = time.perf_counter()
         result = model.predict(
             frame,
@@ -266,8 +271,8 @@ def build_detection_cache(
             xyxy = boxes.xyxy.detach().cpu().numpy().astype(np.float32)
             scores = boxes.conf.detach().cpu().numpy().astype(np.float32)
             classes = boxes.cls.detach().cpu().numpy().astype(np.int16)
-        if torch.cuda.is_available():
-            torch.cuda.synchronize()
+        if prediction_device.type == "cuda":
+            torch.cuda.synchronize(prediction_device)
         detector_seconds.append(time.perf_counter() - detector_started)
         if len(scores):
             xyxy_all.append(xyxy)
@@ -308,7 +313,8 @@ def build_detection_cache(
             "opencv": cv2.__version__,
             "torch": torch.__version__,
             "ultralytics": __import__("ultralytics").__version__,
-            "gpu": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
+            "prediction_device": str(prediction_device),
+            "gpu": torch.cuda.get_device_name(prediction_device) if prediction_device.type == "cuda" else None,
         },
     }
     save_json(meta_path, metadata)
@@ -325,11 +331,13 @@ def detections_for_frame(cache: dict, frame_index: int):
     return cache["xyxy"][mask], cache["conf"][mask], cache["cls"][mask]
 
 
-def make_motion_estimator(source: str, fps: float, max_dt: float, model: str = "flow/0000/000"):
+def make_motion_estimator(source: str, fps: float, max_dt: float, model: str = "flow/0000/000",
+                          *, geometry_version: str = GEOMETRY_VERSION, device=None):
     if source in {"dis", "dis_half", "dis_quarter", "farneback"}:
         method = "dis" if source.startswith("dis") else source
         scale = {"dis_half": 0.5, "dis_quarter": 0.25}.get(source, 1.0)
-        return OpenCVMotionEstimator(method, processing_scale=scale, sample_step=8)
+        return OpenCVMotionEstimator(method, processing_scale=scale, sample_step=8,
+                                    geometry_version=geometry_version)
     mode = source.removeprefix("flyvis_")
     return FlyVisMotionEstimator(
         mode=mode,
@@ -340,6 +348,8 @@ def make_motion_estimator(source: str, fps: float, max_dt: float, model: str = "
         temporal_resampling="linear",
         flow_aggregation="mean",
         model=model,
+        geometry_version=geometry_version,
+        device=device,
     )
 
 
@@ -351,15 +361,43 @@ def build_motion_cache(
     fps: float,
     max_dt: float,
     force: bool,
+    geometry_version: str = GEOMETRY_VERSION,
 ) -> dict:
     data_path = output / f"{source}.npz"
     meta_path = output / f"{source}.json"
+    if not np.isfinite(fps) or fps <= 0 or not np.isfinite(max_dt) or max_dt <= 0:
+        raise ValueError("fps и max_dt должны быть конечными положительными числами")
+    if geometry_version not in GEOMETRY_VERSIONS:
+        raise ValueError(f"Неизвестная геометрия поля: {geometry_version}")
+    # Старые файлы сохраняются: --force-motion не разрешает превратить
+    # прежний эксперимент в новый под тем же именем.
+    if data_path.exists() and not meta_path.exists():
+        raise RuntimeError(f"У {data_path} нет метаданных; выберите новый output")
+    if meta_path.exists():
+        previous = json.loads(meta_path.read_text(encoding="utf-8"))
+        previous_geometry = previous.get("geometry_version", "legacy_v1")
+        if previous_geometry != geometry_version:
+            raise RuntimeError(
+                f"{data_path}: геометрия {previous_geometry}, запрошена {geometry_version}; "
+                "выберите новый output либо явно прежнюю geometry_version"
+            )
     if data_path.exists() and meta_path.exists() and not force:
+        metadata = json.loads(meta_path.read_text(encoding="utf-8"))
+        if metadata.get("source") != source or not np.isclose(
+            metadata.get("fps", float("nan")), fps, rtol=1e-9, atol=0
+        ):
+            raise RuntimeError(f"{data_path}: источник или fps не совпадает с запросом; выберите новый output")
+        previous_dt = metadata.get("integration", {}).get("requested_max_dt_seconds")
+        if source.startswith("flyvis_") and previous_dt is not None and not np.isclose(
+            previous_dt, max_dt, rtol=1e-9, atol=0
+        ):
+            raise RuntimeError(f"{data_path}: max_dt не совпадает с запросом; выберите новый output")
         print(f"[CACHE] движение {source}: {data_path}", flush=True)
-        return json.loads(meta_path.read_text(encoding="utf-8"))
+        metadata.setdefault("geometry_version", "legacy_v1")
+        return metadata
 
     initialized = time.perf_counter()
-    estimator = make_motion_estimator(source, fps, max_dt)
+    estimator = make_motion_estimator(source, fps, max_dt, geometry_version=geometry_version)
     initialization_seconds = time.perf_counter() - initialized
     capture = cv2.VideoCapture(str(video))
     if not capture.isOpened():
@@ -400,8 +438,11 @@ def build_motion_cache(
         "initialization_seconds_excluded": initialization_seconds,
         "observation": distribution(observation_seconds),
         "estimator_stats": estimator.stats,
+        "geometry_version": estimator.geometry_version,
     }
     if isinstance(estimator, FlyVisMotionEstimator):
+        metadata["flow_gain_status"] = ("raw_unvalidated_resize_diagnostic" if estimator.geometry_version == "resize_v2"
+                                        else "raw_legacy_empirical_vector_convention")
         metadata["integration"] = {
             "steps_per_video_frame": estimator.integration_steps,
             "integration_dt_seconds": estimator.dt,
@@ -413,7 +454,19 @@ def build_motion_cache(
     return metadata
 
 
-def load_motion_cache(path: Path, gain: float) -> tuple[np.ndarray, np.ndarray]:
+def load_motion_cache(path: Path, gain: float, *, allow_unvalidated_resize: bool = False) -> tuple[np.ndarray, np.ndarray]:
+    # Старые потребители передают фиксированные эмпирические gains без версии.
+    # Для новой гипотезы декодера такой перенос не разрешён автоматически.
+    path = Path(path)
+    metadata_path = path.with_suffix(".json")
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8")) if metadata_path.exists() else {}
+    version = metadata.get("geometry_version", "legacy_v1")
+    if version not in GEOMETRY_VERSIONS:
+        raise ValueError(f"Неизвестная геометрия кэша {path}: {version}")
+    source = metadata.get("source", path.stem)
+    if source.startswith("flyvis") and version == "resize_v2" and not allow_unvalidated_resize:
+        raise RuntimeError(f"{path}: resize_v2 не совместим с прежней калибровкой; "
+                           "для явной диагностики задайте allow_unvalidated_resize=True")
     with np.load(path) as data:
         return data["points"], data["vectors"] * float(gain)
 
@@ -669,6 +722,11 @@ def endpoint_motion_audit(
 
 def main() -> int:
     args = parse_args()
+    if args.flyvis_geometry_version == "resize_v2" and not args.motion_only:
+        if any(name.startswith("flyvis") for name in args.trackers):
+            raise ValueError("Трекеры FlyVis используют прежние эмпирические gains: resize_v2 "
+                             "допустим только как --motion-only диагностика; "
+                             "для стенда используйте pixel_centers_v2 либо явный legacy_v1")
     video, truth_path, images = resolve_paths(args)
     args.output.mkdir(parents=True, exist_ok=True)
     truth = json.loads(truth_path.read_text(encoding="utf-8"))
@@ -703,6 +761,7 @@ def main() -> int:
             fps=fps,
             max_dt=args.max_dt,
             force=args.force_motion,
+            geometry_version=args.flyvis_geometry_version,
         )
 
     if args.motion_only:
