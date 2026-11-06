@@ -1,0 +1,171 @@
+E:\Dissertation\.venv\lib\site-packages\torch\nn\modules\module.py:2586: UserWarning: for 0.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  module._load_from_state_dict(
+E:\Dissertation\.venv\lib\site-packages\torch\nn\modules\module.py:2586: UserWarning: for 0.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  module._load_from_state_dict(
+E:\Dissertation\.venv\lib\site-packages\torch\nn\modules\module.py:2586: UserWarning: for 1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  module._load_from_state_dict(
+E:\Dissertation\.venv\lib\site-packages\torch\nn\modules\module.py:2586: UserWarning: for 1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  module._load_from_state_dict(
+E:\Dissertation\.venv\lib\site-packages\torch\nn\modules\module.py:2586: UserWarning: for 3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  module._load_from_state_dict(
+E:\Dissertation\.venv\lib\site-packages\torch\nn\modules\module.py:2586: UserWarning: for 3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+  module._load_from_state_dict(
+{
+  "actual_admission": [
+    {
+      "arm": "numeric",
+      "seed": 42,
+      "rows": 64,
+      "cpu_vs_saved_max_abs": 2.980232238769531e-07,
+      "checkpoint_sha256": "8febdb8041102acfed90effa888e2653868c7b0d15b50d1fbe5fcfa46604daea",
+      "normalization_sha256": "c365747ab113dcad7612cc9f04d21a7e227a6c4ab885d18279ee1455382bfc82",
+      "valid_contract": true
+    },
+    {
+      "arm": "numeric",
+      "seed": 43,
+      "rows": 64,
+      "cpu_vs_saved_max_abs": 2.980232238769531e-07,
+      "checkpoint_sha256": "5147f760db8890cebd8aa59a77445cd93465bbb2fcaedf99664b2c6dc278453e",
+      "normalization_sha256": "c365747ab113dcad7612cc9f04d21a7e227a6c4ab885d18279ee1455382bfc82",
+      "valid_contract": true
+    },
+    {
+      "arm": "numeric",
+      "seed": 44,
+      "rows": 64,
+      "cpu_vs_saved_max_abs": 1.4901161193847656e-07,
+      "checkpoint_sha256": "ef97df31399ccd87bc471500e9aea34b243e9458c8a5912d595c9c9a018cdd15",
+      "normalization_sha256": "c365747ab113dcad7612cc9f04d21a7e227a6c4ab885d18279ee1455382bfc82",
+      "valid_contract": true
+    },
+    {
+      "arm": "appearance",
+      "seed": 42,
+      "rows": 64,
+      "cpu_vs_saved_max_abs": 1.1920928955078125e-07,
+      "checkpoint_sha256": "736a0521d9cd0e64b64fe31b32250f71882f098f2e2ae36f2ee147b0610712dc",
+      "normalization_sha256": "e5785fbf2ba44fa20977570e186febadce7fc215b42dba2ae09e827777c571aa",
+      "valid_contract": true
+    },
+    {
+      "arm": "appearance",
+      "seed": 43,
+      "rows": 64,
+      "cpu_vs_saved_max_abs": 2.384185791015625e-07,
+      "checkpoint_sha256": "4a4437e2d71237302b6aea7fc402ceb55dabad25cddebd1760aa7a7672039d9b",
+      "normalization_sha256": "e5785fbf2ba44fa20977570e186febadce7fc215b42dba2ae09e827777c571aa",
+      "valid_contract": true
+    },
+    {
+      "arm": "appearance",
+      "seed": 44,
+      "rows": 64,
+      "cpu_vs_saved_max_abs": 2.384185791015625e-07,
+      "checkpoint_sha256": "05d13c60602dbfbabc3fe3a089c0b96b23416cf29b8ee74064a9b86f62a60f19",
+      "normalization_sha256": "e5785fbf2ba44fa20977570e186febadce7fc215b42dba2ae09e827777c571aa",
+      "valid_contract": true
+    }
+  ],
+  "actual_reliability": [
+    {
+      "path": "runs/e2e_motion_source/head_none.json",
+      "sha256": "6cebb5876e3d45a150c20e26a9c5ad496825674c83bc5d1619596ea33db66016",
+      "valid_contract": true
+    },
+    {
+      "path": "runs/e2e_motion_source/head_lamina.json",
+      "sha256": "bad9dd52444816ba34537091ef01e8d4b83986786d337974a6b99a6f6e381efc",
+      "valid_contract": true
+    }
+  ],
+  "admission_malformed": {
+    "nan_weight": {
+      "accepted": true,
+      "finite_output": false,
+      "output": [
+        "nan",
+        "nan"
+      ]
+    },
+    "overflow_weight": {
+      "accepted": true,
+      "finite_output": true,
+      "output": [
+        0.6207239627838135,
+        1.0
+      ]
+    },
+    "zero_numeric_std": {
+      "accepted": true,
+      "finite_output": true,
+      "output": [
+        0.5828632712364197,
+        0.5828632712364197
+      ]
+    },
+    "zero_input_std": {
+      "accepted": true,
+      "finite_output": true,
+      "output": [
+        0.5267367362976074,
+        0.5267367362976074
+      ]
+    },
+    "unknown_arm": {
+      "accepted": true,
+      "finite_output": true,
+      "output": [
+        0.5952866673469543,
+        0.5884996652603149
+      ],
+      "raw_equals_appearance": true,
+      "raw_equals_numeric": false
+    },
+    "ambient_meta_cpu_request": {
+      "error": "NotImplementedError",
+      "message": "Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device."
+    }
+  },
+  "reliability_malformed": {
+    "permuted_feature_contract": {
+      "accepted": true,
+      "actual": 0.52497918747894,
+      "expected_by_saved_feature_order": 0.549833997312478,
+      "difference": -0.02485480983353794
+    },
+    "nan_weight": {
+      "accepted": true,
+      "finite_output": false,
+      "output": [
+        "nan"
+      ]
+    },
+    "zero_scale": {
+      "accepted": true,
+      "finite_output": true,
+      "output": [
+        1.0
+      ]
+    },
+    "negative_scale": {
+      "accepted": true,
+      "finite_output": true,
+      "output": [
+        0.47502081252106
+      ]
+    },
+    "scalar_normalization_broadcast": {
+      "accepted": true,
+      "output": [
+        0.52497918747894
+      ]
+    }
+  },
+  "source_sha256": {
+    "tracking/learned_recovery_admission.py": "dd5f6293dd4816e38ad69a277efad0ecde48134813c03c65a194391315f0b8bb",
+    "tracking/reliability_head.py": "00c1fede5d94e59c81d8b7efa31937fdaa71708db24650f6f07251f59da11ab5"
+  },
+  "script_sha256": "3f919e656c1b8006722964fe4edf7102217b8e9634662c312302a8ba3dc72246",
+  "boundary": "Malformed artifacts are isolated synthetic counterexamples; no evidence that the inspected historical artifacts are malformed. CPU replay is engineering validation, not tracker/HOTA benefit."
+}

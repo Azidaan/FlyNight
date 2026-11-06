@@ -1,0 +1,70 @@
+--- a/tracking/b1_tracker_runtime.py
++++ b/tracking/b1_tracker_runtime.py
+@@ -142,19 +142,64 @@
+         self.head.requires_grad_(False)
+         self.cursor = ck['cursor']
+ 
++    def _check_candidate(self, state, current, activity=None, *, check_activity=False):
++        """Reject invalid backend values before they enter the object's history.
++
++        The official backends return new states. This does not undo arbitrary
++        in-place writes by a replacement backend into the preceding state.
++        """
++        import torch
++        from collections.abc import Mapping
++        batch, columns = current.shape
++        if self.arm in ('C', 'D'):
++            values = getattr(getattr(state, 'nodes', None), 'activity', None)
++            state_shape = (batch, self.bb.net.stimulus.n_nodes)
++            channels = self.bb.index.shape[0]
++        elif self.arm == 'B':
++            values = state.get('h') if isinstance(state, Mapping) else None
++            state_shape = (batch, self.bb.out.w.shape[1], columns)
++            channels = self.bb.out.w.shape[0]
++        else:
++            values = state
++            state_shape = (batch, self.bb.alpha.shape[1], columns)
++            channels = 2 * self.bb.alpha.shape[1]
++        if (not torch.is_tensor(values) or tuple(values.shape) != state_shape
++                or values.device != current.device or not torch.isfinite(values).all()):
++            raise ValueError(f'Expected finite recurrent state with shape {state_shape} on the observation device')
++        if check_activity:
++            shape = (batch, channels, columns)
++            if (not torch.is_tensor(activity) or tuple(activity.shape) != shape
++                    or activity.device != current.device or not torch.isfinite(activity).all()):
++                raise ValueError(f'Expected finite recurrent activity with shape {shape} on the observation device')
++
+     def start(self, history):
+         import torch
++        if len(history) != 4:
++            raise ValueError('Historical residual engine requires exactly four observations')
+         hx = torch.stack([h['hex'] for h in history])[None]
++        if hx.ndim != 3 or not hx.shape[-1] or not torch.isfinite(hx).all():
++            raise ValueError('Four finite nonempty receptor vectors required')
+         with torch.no_grad():
+             state = self.bb.init(hx[:, :1])
++            self._check_candidate(state, hx[:, 0])
+             for i in range(1, 4):
+                 state, reference = self.bb.step(state, hx[:, i - 1], hx[:, i])
++                self._check_candidate(state, hx[:, i], reference, check_activity=True)
+         return dict(state=state, last=hx[:, -1], reference=reference)
+ 
+     def advance(self, eye, current):
+-        with __import__('torch').no_grad():
+-            eye['state'], eye['current'] = self.bb.step(eye['state'], eye['last'], current[None])
+-            eye['last'] = current[None]
++        import torch
++        previous = eye['last']
++        if (not torch.is_tensor(current) or current.ndim != 1
++                or previous.ndim != 2 or tuple(current.shape) != tuple(previous.shape[1:])
++                or current.device != previous.device or current.dtype != previous.dtype
++                or not torch.isfinite(previous).all() or not torch.isfinite(current).all()):
++            raise ValueError('Matching finite receptor observations on the same device and dtype required')
++        observed = current[None]
++        with torch.no_grad():
++            state, activity = self.bb.step(eye['state'], previous, observed)
++            self._check_candidate(state, observed, activity, check_activity=True)
++        eye.update(state=state, current=activity, last=observed)
+ 
+     def correction(self, eye, masks, reference_mask, probability, zero=False):
+         import torch

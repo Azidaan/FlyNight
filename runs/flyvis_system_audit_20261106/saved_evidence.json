@@ -1,0 +1,46 @@
+{
+  "saved_training_sample": {
+    "uid": 0,
+    "frames": [
+      18,
+      21,
+      22,
+      24,
+      26
+    ],
+    "gaps": [
+      3,
+      1,
+      2,
+      2
+    ],
+    "source": "runs\\z13_data\\0001542f-5ce3cf52.npz",
+    "source_sha256": "721867a99aa11933db94d46e8e2d92d01460a305f83e9967d63140de90c52bf7",
+    "selection": "runs\\b1_real_inputs_20261026\\gpu_samples.json",
+    "selection_sha256": "d1e1cbc6e893092ed67fd910bb694333f01da033a59458498d6a54a31e92728d"
+  },
+  "saved_live_events": {
+    "source": "runs\\recovery_research_20261027\\b1_tracker\\continuation_recovery1\\events\\D\\b230a7b2-c881c382.json",
+    "sha256": "a4107ee6af090cd20f961673adc28b7fd3ec580383de914d15d800b3820342e5",
+    "selection": "smallest existing D event file by byte size; descriptive single-video audit",
+    "events": 1900,
+    "episodes": 201,
+    "first_query_gap_histogram": {
+      "2": 201
+    }
+  },
+  "independent_boundary_validation": {
+    "conversion_ratio_equals_height_over_width": true,
+    "square_control_ratio_one": true,
+    "first_state_jump_two_frames": true,
+    "reported_interval_one_frame": true,
+    "shared_inputs": "Reads boundary_report.json; independent formulas, not independent execution of network or tracker."
+  },
+  "source_hashes_unchanged": {
+    "runs\\flyvis_system_audit_20261106\\audit_boundaries.py": true,
+    "tracking\\b1_tracker_runtime.py": true,
+    "tracking\\z13_readout.py": true,
+    "tracking\\flyvis_motion.py": true
+  },
+  "script_sha256": "5972442c52f24ca9594a05a539852ab7caf1bf010a04ec93d9b1f05b2933bdf7"
+}

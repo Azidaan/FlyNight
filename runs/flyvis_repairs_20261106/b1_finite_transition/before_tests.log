@@ -1,0 +1,299 @@
+......................................FFFFFFFFFFFF                       [100%]
+================================== FAILURES ===================================
+_ test_failed_backend_transition_does_not_publish_eye_or_advance_clock[state_nan-R1] _
+
+arm = 'R1', defect = 'state_nan'
+
+    @pytest.mark.parametrize('arm',['R1','B'])
+    @pytest.mark.parametrize('defect',['state_nan','activity_nan','state_shape','activity_shape'])
+    def test_failed_backend_transition_does_not_publish_eye_or_advance_clock(arm,defect):
+        bb,head=modules(arm);checkpoint=timestamped_checkpoint(bb,head,cursor=0)
+        engine=TimestampedResidualEngine(bb,head,checkpoint,source_fps=30.)
+        x=torch.tensor([[.1,.2,.3,.4],[.15,.25,.35,.45],[.2,.3,.4,.5]],dtype=torch.float32)
+        history=[dict(frame=i,hex=h) for i,h in enumerate(x[:2])]
+        eye=engine.start(history);control=engine.start(history)
+        previous=dict(eye);before_state=eye['state'].clone() if arm=='R1' else eye['state']['h'].clone()
+        raw_step=bb.backend.step
+        def broken(*args):
+            state,activity=raw_step(*args)
+            if defect=='state_nan':
+                if arm=='R1':state=torch.full_like(state,float('nan'))
+                else:state={'h':torch.full_like(state['h'],float('nan'))}
+            elif defect=='activity_nan':activity=torch.full_like(activity,float('nan'))
+            elif defect=='state_shape':state=state[:,:,:-1] if arm=='R1' else {'h':state['h'][:,:,:-1]}
+            else:activity=activity[:,:,:-1]
+            return state,activity
+        bb.backend.step=broken
+>       with pytest.raises(ValueError):engine.advance_at(eye,x[2],2)
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:338: Failed
+_ test_failed_backend_transition_does_not_publish_eye_or_advance_clock[state_nan-B] _
+
+arm = 'B', defect = 'state_nan'
+
+    @pytest.mark.parametrize('arm',['R1','B'])
+    @pytest.mark.parametrize('defect',['state_nan','activity_nan','state_shape','activity_shape'])
+    def test_failed_backend_transition_does_not_publish_eye_or_advance_clock(arm,defect):
+        bb,head=modules(arm);checkpoint=timestamped_checkpoint(bb,head,cursor=0)
+        engine=TimestampedResidualEngine(bb,head,checkpoint,source_fps=30.)
+        x=torch.tensor([[.1,.2,.3,.4],[.15,.25,.35,.45],[.2,.3,.4,.5]],dtype=torch.float32)
+        history=[dict(frame=i,hex=h) for i,h in enumerate(x[:2])]
+        eye=engine.start(history);control=engine.start(history)
+        previous=dict(eye);before_state=eye['state'].clone() if arm=='R1' else eye['state']['h'].clone()
+        raw_step=bb.backend.step
+        def broken(*args):
+            state,activity=raw_step(*args)
+            if defect=='state_nan':
+                if arm=='R1':state=torch.full_like(state,float('nan'))
+                else:state={'h':torch.full_like(state['h'],float('nan'))}
+            elif defect=='activity_nan':activity=torch.full_like(activity,float('nan'))
+            elif defect=='state_shape':state=state[:,:,:-1] if arm=='R1' else {'h':state['h'][:,:,:-1]}
+            else:activity=activity[:,:,:-1]
+            return state,activity
+        bb.backend.step=broken
+>       with pytest.raises(ValueError):engine.advance_at(eye,x[2],2)
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:338: Failed
+_ test_failed_backend_transition_does_not_publish_eye_or_advance_clock[activity_nan-R1] _
+
+arm = 'R1', defect = 'activity_nan'
+
+    @pytest.mark.parametrize('arm',['R1','B'])
+    @pytest.mark.parametrize('defect',['state_nan','activity_nan','state_shape','activity_shape'])
+    def test_failed_backend_transition_does_not_publish_eye_or_advance_clock(arm,defect):
+        bb,head=modules(arm);checkpoint=timestamped_checkpoint(bb,head,cursor=0)
+        engine=TimestampedResidualEngine(bb,head,checkpoint,source_fps=30.)
+        x=torch.tensor([[.1,.2,.3,.4],[.15,.25,.35,.45],[.2,.3,.4,.5]],dtype=torch.float32)
+        history=[dict(frame=i,hex=h) for i,h in enumerate(x[:2])]
+        eye=engine.start(history);control=engine.start(history)
+        previous=dict(eye);before_state=eye['state'].clone() if arm=='R1' else eye['state']['h'].clone()
+        raw_step=bb.backend.step
+        def broken(*args):
+            state,activity=raw_step(*args)
+            if defect=='state_nan':
+                if arm=='R1':state=torch.full_like(state,float('nan'))
+                else:state={'h':torch.full_like(state['h'],float('nan'))}
+            elif defect=='activity_nan':activity=torch.full_like(activity,float('nan'))
+            elif defect=='state_shape':state=state[:,:,:-1] if arm=='R1' else {'h':state['h'][:,:,:-1]}
+            else:activity=activity[:,:,:-1]
+            return state,activity
+        bb.backend.step=broken
+>       with pytest.raises(ValueError):engine.advance_at(eye,x[2],2)
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:338: Failed
+_ test_failed_backend_transition_does_not_publish_eye_or_advance_clock[activity_nan-B] _
+
+arm = 'B', defect = 'activity_nan'
+
+    @pytest.mark.parametrize('arm',['R1','B'])
+    @pytest.mark.parametrize('defect',['state_nan','activity_nan','state_shape','activity_shape'])
+    def test_failed_backend_transition_does_not_publish_eye_or_advance_clock(arm,defect):
+        bb,head=modules(arm);checkpoint=timestamped_checkpoint(bb,head,cursor=0)
+        engine=TimestampedResidualEngine(bb,head,checkpoint,source_fps=30.)
+        x=torch.tensor([[.1,.2,.3,.4],[.15,.25,.35,.45],[.2,.3,.4,.5]],dtype=torch.float32)
+        history=[dict(frame=i,hex=h) for i,h in enumerate(x[:2])]
+        eye=engine.start(history);control=engine.start(history)
+        previous=dict(eye);before_state=eye['state'].clone() if arm=='R1' else eye['state']['h'].clone()
+        raw_step=bb.backend.step
+        def broken(*args):
+            state,activity=raw_step(*args)
+            if defect=='state_nan':
+                if arm=='R1':state=torch.full_like(state,float('nan'))
+                else:state={'h':torch.full_like(state['h'],float('nan'))}
+            elif defect=='activity_nan':activity=torch.full_like(activity,float('nan'))
+            elif defect=='state_shape':state=state[:,:,:-1] if arm=='R1' else {'h':state['h'][:,:,:-1]}
+            else:activity=activity[:,:,:-1]
+            return state,activity
+        bb.backend.step=broken
+>       with pytest.raises(ValueError):engine.advance_at(eye,x[2],2)
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:338: Failed
+_ test_failed_backend_transition_does_not_publish_eye_or_advance_clock[state_shape-R1] _
+
+arm = 'R1', defect = 'state_shape'
+
+    @pytest.mark.parametrize('arm',['R1','B'])
+    @pytest.mark.parametrize('defect',['state_nan','activity_nan','state_shape','activity_shape'])
+    def test_failed_backend_transition_does_not_publish_eye_or_advance_clock(arm,defect):
+        bb,head=modules(arm);checkpoint=timestamped_checkpoint(bb,head,cursor=0)
+        engine=TimestampedResidualEngine(bb,head,checkpoint,source_fps=30.)
+        x=torch.tensor([[.1,.2,.3,.4],[.15,.25,.35,.45],[.2,.3,.4,.5]],dtype=torch.float32)
+        history=[dict(frame=i,hex=h) for i,h in enumerate(x[:2])]
+        eye=engine.start(history);control=engine.start(history)
+        previous=dict(eye);before_state=eye['state'].clone() if arm=='R1' else eye['state']['h'].clone()
+        raw_step=bb.backend.step
+        def broken(*args):
+            state,activity=raw_step(*args)
+            if defect=='state_nan':
+                if arm=='R1':state=torch.full_like(state,float('nan'))
+                else:state={'h':torch.full_like(state['h'],float('nan'))}
+            elif defect=='activity_nan':activity=torch.full_like(activity,float('nan'))
+            elif defect=='state_shape':state=state[:,:,:-1] if arm=='R1' else {'h':state['h'][:,:,:-1]}
+            else:activity=activity[:,:,:-1]
+            return state,activity
+        bb.backend.step=broken
+>       with pytest.raises(ValueError):engine.advance_at(eye,x[2],2)
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:338: Failed
+_ test_failed_backend_transition_does_not_publish_eye_or_advance_clock[state_shape-B] _
+
+arm = 'B', defect = 'state_shape'
+
+    @pytest.mark.parametrize('arm',['R1','B'])
+    @pytest.mark.parametrize('defect',['state_nan','activity_nan','state_shape','activity_shape'])
+    def test_failed_backend_transition_does_not_publish_eye_or_advance_clock(arm,defect):
+        bb,head=modules(arm);checkpoint=timestamped_checkpoint(bb,head,cursor=0)
+        engine=TimestampedResidualEngine(bb,head,checkpoint,source_fps=30.)
+        x=torch.tensor([[.1,.2,.3,.4],[.15,.25,.35,.45],[.2,.3,.4,.5]],dtype=torch.float32)
+        history=[dict(frame=i,hex=h) for i,h in enumerate(x[:2])]
+        eye=engine.start(history);control=engine.start(history)
+        previous=dict(eye);before_state=eye['state'].clone() if arm=='R1' else eye['state']['h'].clone()
+        raw_step=bb.backend.step
+        def broken(*args):
+            state,activity=raw_step(*args)
+            if defect=='state_nan':
+                if arm=='R1':state=torch.full_like(state,float('nan'))
+                else:state={'h':torch.full_like(state['h'],float('nan'))}
+            elif defect=='activity_nan':activity=torch.full_like(activity,float('nan'))
+            elif defect=='state_shape':state=state[:,:,:-1] if arm=='R1' else {'h':state['h'][:,:,:-1]}
+            else:activity=activity[:,:,:-1]
+            return state,activity
+        bb.backend.step=broken
+>       with pytest.raises(ValueError):engine.advance_at(eye,x[2],2)
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:338: Failed
+_ test_failed_backend_transition_does_not_publish_eye_or_advance_clock[activity_shape-R1] _
+
+arm = 'R1', defect = 'activity_shape'
+
+    @pytest.mark.parametrize('arm',['R1','B'])
+    @pytest.mark.parametrize('defect',['state_nan','activity_nan','state_shape','activity_shape'])
+    def test_failed_backend_transition_does_not_publish_eye_or_advance_clock(arm,defect):
+        bb,head=modules(arm);checkpoint=timestamped_checkpoint(bb,head,cursor=0)
+        engine=TimestampedResidualEngine(bb,head,checkpoint,source_fps=30.)
+        x=torch.tensor([[.1,.2,.3,.4],[.15,.25,.35,.45],[.2,.3,.4,.5]],dtype=torch.float32)
+        history=[dict(frame=i,hex=h) for i,h in enumerate(x[:2])]
+        eye=engine.start(history);control=engine.start(history)
+        previous=dict(eye);before_state=eye['state'].clone() if arm=='R1' else eye['state']['h'].clone()
+        raw_step=bb.backend.step
+        def broken(*args):
+            state,activity=raw_step(*args)
+            if defect=='state_nan':
+                if arm=='R1':state=torch.full_like(state,float('nan'))
+                else:state={'h':torch.full_like(state['h'],float('nan'))}
+            elif defect=='activity_nan':activity=torch.full_like(activity,float('nan'))
+            elif defect=='state_shape':state=state[:,:,:-1] if arm=='R1' else {'h':state['h'][:,:,:-1]}
+            else:activity=activity[:,:,:-1]
+            return state,activity
+        bb.backend.step=broken
+>       with pytest.raises(ValueError):engine.advance_at(eye,x[2],2)
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:338: Failed
+_ test_failed_backend_transition_does_not_publish_eye_or_advance_clock[activity_shape-B] _
+
+arm = 'B', defect = 'activity_shape'
+
+    @pytest.mark.parametrize('arm',['R1','B'])
+    @pytest.mark.parametrize('defect',['state_nan','activity_nan','state_shape','activity_shape'])
+    def test_failed_backend_transition_does_not_publish_eye_or_advance_clock(arm,defect):
+        bb,head=modules(arm);checkpoint=timestamped_checkpoint(bb,head,cursor=0)
+        engine=TimestampedResidualEngine(bb,head,checkpoint,source_fps=30.)
+        x=torch.tensor([[.1,.2,.3,.4],[.15,.25,.35,.45],[.2,.3,.4,.5]],dtype=torch.float32)
+        history=[dict(frame=i,hex=h) for i,h in enumerate(x[:2])]
+        eye=engine.start(history);control=engine.start(history)
+        previous=dict(eye);before_state=eye['state'].clone() if arm=='R1' else eye['state']['h'].clone()
+        raw_step=bb.backend.step
+        def broken(*args):
+            state,activity=raw_step(*args)
+            if defect=='state_nan':
+                if arm=='R1':state=torch.full_like(state,float('nan'))
+                else:state={'h':torch.full_like(state['h'],float('nan'))}
+            elif defect=='activity_nan':activity=torch.full_like(activity,float('nan'))
+            elif defect=='state_shape':state=state[:,:,:-1] if arm=='R1' else {'h':state['h'][:,:,:-1]}
+            else:activity=activity[:,:,:-1]
+            return state,activity
+        bb.backend.step=broken
+>       with pytest.raises(ValueError):engine.advance_at(eye,x[2],2)
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:338: Failed
+__ test_nonfinite_initial_state_is_rejected_before_history_is_published[R1] ___
+
+arm = 'R1'
+
+    @pytest.mark.parametrize('arm',['R1','B'])
+    def test_nonfinite_initial_state_is_rejected_before_history_is_published(arm):
+        bb,head=modules(arm);checkpoint=timestamped_checkpoint(bb,head,cursor=0)
+        engine=TimestampedResidualEngine(bb,head,checkpoint,source_fps=30.)
+        original=bb.backend.init
+        def broken(first):
+            state=original(first)
+            return torch.full_like(state,float('nan')) if arm=='R1' else {'h':torch.full_like(state['h'],float('nan'))}
+        bb.backend.init=broken
+>       with pytest.raises(ValueError):engine.start([dict(frame=0,hex=torch.ones(4))])
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:358: Failed
+___ test_nonfinite_initial_state_is_rejected_before_history_is_published[B] ___
+
+arm = 'B'
+
+    @pytest.mark.parametrize('arm',['R1','B'])
+    def test_nonfinite_initial_state_is_rejected_before_history_is_published(arm):
+        bb,head=modules(arm);checkpoint=timestamped_checkpoint(bb,head,cursor=0)
+        engine=TimestampedResidualEngine(bb,head,checkpoint,source_fps=30.)
+        original=bb.backend.init
+        def broken(first):
+            state=original(first)
+            return torch.full_like(state,float('nan')) if arm=='R1' else {'h':torch.full_like(state['h'],float('nan'))}
+        bb.backend.init=broken
+>       with pytest.raises(ValueError):engine.start([dict(frame=0,hex=torch.ones(4))])
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:358: Failed
+____ test_finite_receptor_values_that_overflow_real_r1_state_are_rejected _____
+
+    def test_finite_receptor_values_that_overflow_real_r1_state_are_rejected():
+        bb,head=modules();engine=TimestampedResidualEngine(bb,head,timestamped_checkpoint(bb,head,cursor=0),source_fps=30.)
+        large=torch.full((4,),torch.finfo(torch.float32).max)
+        eye=engine.start([dict(frame=0,hex=large)])
+        before=dict(eye)
+>       with pytest.raises(ValueError,match='finite'):engine.advance_at(eye,-large,1)
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:366: Failed
+___ test_nonfinite_unread_core_neuron_is_rejected_even_with_finite_readout ____
+
+    def test_nonfinite_unread_core_neuron_is_rejected_even_with_finite_readout():
+        class Net:
+            stimulus=SimpleNamespace(input_index=np.array([[0,1]]),n_nodes=3)
+            def forward(self,values,dt,state,as_states):
+                activity=torch.tensor([[1.,2.,float('nan')]])
+                return [SimpleNamespace(nodes=SimpleNamespace(activity=activity)) for _ in range(values.shape[1])]
+        raw=SimpleNamespace(dev=torch.device('cpu'),net=Net(),index=torch.tensor([[0,1]]))
+        bb=TimestampedBackbone(raw,'C');x=torch.ones(1,2)
+>       with pytest.raises(ValueError,match='finite'):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:380: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_b1_timestamped.py::test_failed_backend_transition_does_not_publish_eye_or_advance_clock[state_nan-R1]
+FAILED tests/test_b1_timestamped.py::test_failed_backend_transition_does_not_publish_eye_or_advance_clock[state_nan-B]
+FAILED tests/test_b1_timestamped.py::test_failed_backend_transition_does_not_publish_eye_or_advance_clock[activity_nan-R1]
+FAILED tests/test_b1_timestamped.py::test_failed_backend_transition_does_not_publish_eye_or_advance_clock[activity_nan-B]
+FAILED tests/test_b1_timestamped.py::test_failed_backend_transition_does_not_publish_eye_or_advance_clock[state_shape-R1]
+FAILED tests/test_b1_timestamped.py::test_failed_backend_transition_does_not_publish_eye_or_advance_clock[state_shape-B]
+FAILED tests/test_b1_timestamped.py::test_failed_backend_transition_does_not_publish_eye_or_advance_clock[activity_shape-R1]
+FAILED tests/test_b1_timestamped.py::test_failed_backend_transition_does_not_publish_eye_or_advance_clock[activity_shape-B]
+FAILED tests/test_b1_timestamped.py::test_nonfinite_initial_state_is_rejected_before_history_is_published[R1]
+FAILED tests/test_b1_timestamped.py::test_nonfinite_initial_state_is_rejected_before_history_is_published[B]
+FAILED tests/test_b1_timestamped.py::test_finite_receptor_values_that_overflow_real_r1_state_are_rejected
+FAILED tests/test_b1_timestamped.py::test_nonfinite_unread_core_neuron_is_rejected_even_with_finite_readout
+12 failed, 38 passed in 7.95s

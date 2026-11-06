@@ -1,0 +1,147 @@
+- banner [active]:
+  - link "Skip to main content":
+    - /url: "#content-body"
+    - generic: Skip to main content
+  - link "Homepage":
+    - /url: /
+    - generic: Homepage
+  - button "Search or go to… /":
+    - generic: Search or go to…
+    - generic: /
+  - link "View GitLab Intelligence":
+    - /url: /explore/analytics_dashboards
+  - button "Create new…":
+    - generic: Create new…
+  - link "0 Assigned work items":
+    - /url: /dashboard/issues?assignee_username=owamskeizz
+    - generic: "0"
+  - link "0 Merge requests":
+    - /url: /dashboard/merge_requests
+    - generic: "0"
+  - link "1 To-do items":
+    - /url: /dashboard/todos
+    - generic: "1"
+  - link "Егор Мороз user’s menu":
+    - /url: /owamskeizz
+    - generic: Егор Мороз user’s menu
+- navigation "Primary navigation":
+  - heading "Primary navigation" [level=2]
+  - generic: Project
+  - list:
+    - link "DRBdISS":
+      - /url: /aziteam-group/drbdiss
+      - generic: D
+      - generic: DRBdISS
+  - button "Pinned" [expanded]:
+    - generic: Pinned
+  - list:
+    - link "Members":
+      - /url: /aziteam-group/drbdiss/-/project_members
+      - generic: Members
+    - button "Unpin Members":
+    - link "Work items":
+      - /url: /aziteam-group/drbdiss/-/work_items
+      - generic: Work items
+      - generic: "0"
+    - button "Unpin Work items":
+    - link "Branches":
+      - /url: /aziteam-group/drbdiss/-/branches
+      - generic: Branches
+    - button "Unpin Branches":
+    - link "Merge requests":
+      - /url: /aziteam-group/drbdiss/-/merge_requests
+      - generic: Merge requests
+      - generic: "0"
+    - button "Unpin Merge requests":
+    - link "Pipelines":
+      - /url: /aziteam-group/drbdiss/-/pipelines
+      - generic: Pipelines
+    - button "Unpin Pipelines":
+  - button "Feature catalog":
+    - generic: Feature catalog
+  - separator
+  - list "Project":
+    - button "Manage":
+      - generic: Manage
+    - button "Plan":
+      - generic: Plan
+    - button "AI":
+      - generic: AI
+    - button "Code":
+      - generic: Code
+    - button "Build":
+      - generic: Build
+    - button "Secure":
+      - generic: Secure
+    - button "Deploy":
+      - generic: Deploy
+    - button "Operate":
+      - generic: Operate
+    - button "Monitor":
+      - generic: Monitor
+    - button "Analyze":
+      - generic: Analyze
+    - button "Observe":
+      - generic: Observe
+    - button "Settings":
+      - generic: Settings
+  - link "Upgrade subscription":
+    - /url: /groups/aziteam-group/-/billings
+    - generic: Upgrade subscription
+  - button "Help":
+    - generic: Help
+  - button "Collapse sidebar":
+    - generic: Collapse sidebar
+- navigation "Breadcrumb":
+  - list:
+    - link "AziTeam-group":
+      - /url: /aziteam-group
+    - text: /
+    - link "DRBdISS":
+      - /url: /aziteam-group/drbdiss
+    - text: /
+    - link "Pipelines":
+      - /url: /aziteam-group/drbdiss/-/pipelines
+    - text: /
+    - link "#3038392556":
+      - /url: /aziteam-group/drbdiss/-/pipelines/3038392556
+- button "Delete the pipeline":
+- main:
+  - heading "#3038392556" [level=1]
+  - link "Failed":
+    - /url: /aziteam-group/drbdiss/-/pipelines/3038392556
+    - generic: Failed
+  - text: Created
+  - time: 12 minutes ago
+  - text: by
+  - link "Егор Мороз":
+    - /url: https://gitlab.com/owamskeizz
+  - text: ", finished"
+  - time: 12 minutes ago
+  - text: For commit
+  - link "1985eaff":
+    - /url: /aziteam-group/drbdiss/-/commit/1985eaffb4f8ecbd0340a2dc3b2b5baf92277baf
+  - button "Copy commit SHA":
+  - text: Validate reliability features and keep native readout tests on CPU
+  - text: In
+  - link "codex/system-integrity-20261106-e8f674ce":
+    - /url: /aziteam-group/drbdiss/-/commits/codex/system-integrity-20261106-e8f674ce
+  - button "latest":
+    - generic: latest
+  - button "yaml invalid":
+    - generic: yaml invalid
+  - button "error":
+    - generic: error
+  - button "branch":
+    - generic: branch
+  - button "0 jobs":
+    - text: 0 jobs
+  - alert:
+    - heading "Verify your identity to run this pipeline" [level=2]
+    - generic: This step is separate from the verification you completed during registration.
+    - link "Verify identity":
+      - /url: /-/identity_verification
+      - generic: Verify identity
+    - button "Dismiss":
+- navigation "Duo controls":
+  - button "GitLab Duo Agent Platform":

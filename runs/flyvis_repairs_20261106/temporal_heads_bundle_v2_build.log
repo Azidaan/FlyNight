@@ -1,0 +1,40 @@
+{
+  "changes": 5,
+  "dependencies": 67,
+  "combined_patch_sha256": "4707cd704899697ca29fbbb05095630fdda0f01fc8ea818fffc0369372378967",
+  "verification": {
+    "no_git_repository_discovered": true,
+    "commands": [
+      {
+        "command": [
+          "apply",
+          "--check",
+          "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\temporal_heads_bundle_v2\\combined.patch"
+        ],
+        "returncode": 0,
+        "stderr": ""
+      },
+      {
+        "command": [
+          "apply",
+          "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\temporal_heads_bundle_v2\\combined.patch"
+        ],
+        "returncode": 0,
+        "stderr": "E:/Dissertation/runs/flyvis_repairs_20261106/temporal_heads_bundle_v2/combined.patch:1185: trailing whitespace.\n\"\"\"Malformed parameters must fail before becoming tracker decisions.\"\"\"\r\nE:/Dissertation/runs/flyvis_repairs_20261106/temporal_heads_bundle_v2/combined.patch:1186: trailing whitespace.\nimport importlib.util\r\nE:/Dissertation/runs/flyvis_repairs_20261106/temporal_heads_bundle_v2/combined.patch:1187: trailing whitespace.\nfrom pathlib import Path\r\nE:/Dissertation/runs/flyvis_repairs_20261106/temporal_heads_bundle_v2/combined.patch:1188: trailing whitespace.\n\r\nE:/Dissertation/runs/flyvis_repairs_20261106/temporal_heads_bundle_v2/combined.patch:1189: trailing whitespace.\nimport numpy as np\r\nwarning: squelched 132 whitespace errors\nwarning: 137 lines add whitespace errors.\n"
+      },
+      {
+        "command": [
+          "apply",
+          "--reverse",
+          "combined.patch"
+        ],
+        "returncode": 0,
+        "stderr": ""
+      }
+    ],
+    "forward_equals_after_exact": true,
+    "reverse_equals_baseline_exact": true,
+    "production_files_unchanged": true,
+    "index_and_git_history_unchanged": true
+  }
+}

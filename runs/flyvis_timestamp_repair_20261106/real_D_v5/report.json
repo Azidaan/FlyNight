@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "arm": "D",
+  "frames": [
+    18,
+    21,
+    22,
+    24,
+    26
+  ],
+  "source_fps": 30.202929825289456,
+  "elapsed_input_seconds": 0.2648749656499038,
+  "adjacent_max_abs_difference": 0.0,
+  "losses": [
+    0.4904146265058631,
+    0.4881563430126401
+  ],
+  "core_gradient_norms": [
+    {
+      "nodes_bias": 0.0,
+      "nodes_time_const": 0.0,
+      "edges_syn_strength": 0.0
+    },
+    {
+      "nodes_bias": 0.0009598676697351038,
+      "nodes_time_const": 0.0003852203080896288,
+      "edges_syn_strength": 0.03903732821345329
+    }
+  ],
+  "offline_streamed_exact": true,
+  "checkpoint_restore_after_mutation_exact": true,
+  "optimizer_restore_exact": true,
+  "diagnostic_rejected": true,
+  "cuda_initialized": false,
+  "unchanged": {
+    "scripts\\b1_timestamped_smoke_20261106.py": true,
+    "tracking\\b1_timestamped.py": true,
+    "tracking\\flyvis_checkpoint.py": true,
+    "tracking\\b1_learning.py": true,
+    "tracking\\b1_tracker_runtime.py": true,
+    "tracking\\z13_readout.py": true,
+    "tracking\\flyvis_temporal_residual.py": true,
+    "runs\\b1_real_inputs_20261026\\gpu_samples.json": true,
+    "runs\\z13_data\\0001542f-5ce3cf52.npz": true,
+    "runs\\train_cache\\0001542f-5ce3cf52\\motion\\flyvis_tiled.json": true
+  },
+  "checkpoint_sha256": "b37ec065beba68061ea52584e690b6efa812ee90da9323833078dc7be8caf493",
+  "outputs_sha256": "ca2eeb9357e838e1ad4cfd452e1087ddcb91995c3e5a01a5a3290ea96c741d22",
+  "protocol_sha256": "a7f1add65a1be2423d070fff9541d5178fab2b30cb38be5893467907840e9c96",
+  "scientific_hypothesis_accepted": false,
+  "hota_measured": false
+}

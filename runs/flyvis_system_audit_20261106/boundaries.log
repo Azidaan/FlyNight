@@ -1,0 +1,111 @@
+{
+  "flow_inverse_resize": [
+    {
+      "width": 720,
+      "height": 720,
+      "decoded_one_eye_pixel": [
+        [
+          [
+            0.4322250783443451
+          ],
+          [
+            0.0
+          ]
+        ]
+      ],
+      "actual_x": 1.8414322137832642,
+      "inverse_resize_x": 1.8414322250639386,
+      "ratio": 1.0
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "decoded_one_eye_pixel": [
+        [
+          [
+            0.4322250783443451
+          ],
+          [
+            0.0
+          ]
+        ]
+      ],
+      "actual_x": 1.8414322137832642,
+      "inverse_resize_x": 3.2736572890025575,
+      "ratio": 0.5625
+    },
+    {
+      "width": 492,
+      "height": 400,
+      "decoded_one_eye_pixel": [
+        [
+          [
+            0.4322250783443451
+          ],
+          [
+            0.0
+          ]
+        ]
+      ],
+      "actual_x": 1.0230180025100708,
+      "inverse_resize_x": 1.258312020460358,
+      "ratio": 0.8130082488059998
+    }
+  ],
+  "b1_timestamp_trace": {
+    "calls": [
+      {
+        "start_frames": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "advance_from": 3,
+        "advance_to": 5,
+        "fixed_backbone_steps": 2,
+        "fixed_backbone_dt": 0.016666666666666666
+      },
+      {
+        "advance_from": 5,
+        "advance_to": 6,
+        "fixed_backbone_steps": 2,
+        "fixed_backbone_dt": 0.016666666666666666
+      },
+      {
+        "advance_from": 6,
+        "advance_to": 7,
+        "fixed_backbone_steps": 2,
+        "fixed_backbone_dt": 0.016666666666666666
+      }
+    ],
+    "events": [
+      {
+        "frame": 5,
+        "reference_frame": 3,
+        "track": 1
+      },
+      {
+        "frame": 6,
+        "reference_frame": 3,
+        "track": 1
+      },
+      {
+        "frame": 7,
+        "reference_frame": 3,
+        "track": 1
+      }
+    ],
+    "scope": "Actual B1Tracker scheduling; neural/appearance stand-ins. Timing constants from ResidualEngine and FlyBackbone, not measured neural outputs."
+  },
+  "cuda_initialized": false,
+  "source_sha256": {
+    "runs\\flyvis_system_audit_20261106\\audit_boundaries.py": "4accef8d273c87a2c8d469b18f7d59f289cdf957aeafeeeda71d93f5cc734021",
+    "tracking\\b1_tracker_runtime.py": "609e18b3577ad8177b769f7f662487d8b8b9d7b22deaaff1a24f94209c74a66b",
+    "tracking\\z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "tracking\\flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d"
+  }
+}
+stock checkpoints 50

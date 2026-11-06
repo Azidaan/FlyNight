@@ -1,0 +1,113 @@
+--- a/tracking/learned_recovery_admission.py
++++ b/tracking/learned_recovery_admission.py
+@@ -1,25 +1,101 @@
+ """Одинаковые обучаемые головы: числовой контроль и реальные области; вход не получает меток."""
+-from pathlib import Path
++from collections.abc import Mapping
++from numbers import Integral
+ import numpy as np
+ import torch
++
++from tracking.flyvis_checkpoint import validate_state
++
++
++def _finite_array(value, name):
++    array = np.asarray(value)
++    if array.dtype.kind not in 'fiu' or not np.isfinite(array).all():
++        raise ValueError(f'{name} must contain finite real numbers')
++    return array
++
++
++def _numeric_contract(numeric_mean, numeric_std, projection):
++    mean = _finite_array(numeric_mean, 'numeric_mean')
++    std = _finite_array(numeric_std, 'numeric_std')
++    proj = _finite_array(projection, 'projection')
++    if mean.ndim != 1 or not len(mean) or std.shape != mean.shape or (std <= 0).any():
++        raise ValueError('numeric_mean/std must be equal nonempty vectors with positive std')
++    if proj.ndim != 2 or proj.shape[0] != len(mean) or not proj.shape[1]:
++        raise ValueError('projection must have one row per numeric feature')
++    return mean, std, proj
++
++
++def _arm_contract(arm):
++    if arm not in ('numeric', 'appearance'):
++        raise ValueError('arm must be numeric or appearance')
+ 
+ def head(input_dim):
+     return torch.nn.Sequential(torch.nn.LayerNorm(input_dim),torch.nn.Linear(input_dim,32),torch.nn.ReLU(),torch.nn.Linear(32,1))
+ 
+ def raw_input(numeric,embeddings,arm,numeric_mean,numeric_std,projection):
+-    z=np.clip((numeric-numeric_mean)/numeric_std,-10,10).astype(np.float32)
+-    if arm=='numeric':extra=np.tanh(z@projection)
++    _arm_contract(arm)
++    numeric_mean,numeric_std,projection=_numeric_contract(numeric_mean,numeric_std,projection)
++    numeric=_finite_array(numeric,'numeric')
++    if numeric.ndim!=2 or numeric.shape[1]!=len(numeric_mean):
++        raise ValueError('numeric must be a matrix with one column per numeric feature')
++    with np.errstate(over='ignore',invalid='ignore'):
++        standardized=(numeric-numeric_mean)/numeric_std
++    _finite_array(standardized,'standardized numeric')
++    z=np.clip(standardized,-10,10).astype(np.float32)
++    if arm=='numeric':
++        with np.errstate(over='ignore',invalid='ignore'):
++            projected=z@projection
++        _finite_array(projected,'projected numeric')
++        extra=np.tanh(projected)
+     else:
+-        e=np.asarray(embeddings,np.float32);e=e/np.maximum(np.linalg.norm(e,axis=2,keepdims=True),1e-12)
++        e=_finite_array(embeddings,'embeddings')
++        if e.ndim!=3 or e.shape[:2]!=(len(numeric),2) or 4*e.shape[2]!=projection.shape[1]:
++            raise ValueError('embeddings must align with rows and the trained appearance width')
++        with np.errstate(over='ignore',invalid='ignore'):
++            e=e.astype(np.float32);length=np.linalg.norm(e,axis=2,keepdims=True)
++        _finite_array(e,'float32 embeddings');_finite_array(length,'embedding norm')
++        e=e/np.maximum(length,1e-12)
+         a,b=e[:,0],e[:,1];extra=np.concatenate([a,b,np.abs(a-b),a*b],axis=1)
+-    result=np.concatenate([z,extra],axis=1).astype(np.float32);assert np.isfinite(result).all();return result
++    result=np.concatenate([z,extra],axis=1).astype(np.float32)
++    return _finite_array(result,'raw input')
+ 
+ class AdmissionModel:
+     def __init__(self,checkpoint,normalization,device='cpu'):
+         saved=torch.load(checkpoint,map_location='cpu',weights_only=True)
+-        self.arm=saved['arm'];self.device=device;self.norm=dict(np.load(normalization))
+-        self.model=head(saved['input_dim']);self.model.load_state_dict(saved['state_dict'],strict=True);self.model.to(device).eval()
++        if not isinstance(saved,Mapping):
++            raise ValueError('Admission checkpoint must be a mapping')
++        arm=saved.get('arm');_arm_contract(arm)
++        input_dim=saved.get('input_dim')
++        if isinstance(input_dim,bool) or not isinstance(input_dim,Integral) or input_dim<=0:
++            raise ValueError('input_dim must be a positive integer')
++        with np.load(normalization,allow_pickle=False) as archive:
++            norm={key:archive[key].copy() for key in archive.files}
++        required={'numeric_mean','numeric_std','projection','input_mean','input_std'}
++        if not required.issubset(norm):
++            raise ValueError(f'Missing normalization arrays: {sorted(required-set(norm))}')
++        mean,_,projection=_numeric_contract(norm['numeric_mean'],norm['numeric_std'],norm['projection'])
++        if len(mean)+projection.shape[1]!=input_dim:
++            raise ValueError('input_dim disagrees with numeric/projection dimensions')
++        for key in ('input_mean','input_std'):
++            value=_finite_array(norm[key],key)
++            if value.shape!=(input_dim,) or (key=='input_std' and (value<=0).any()):
++                raise ValueError(f'{key} must have input_dim entries and std must be positive')
++        # Loading an already trained head must not depend on an ambient device
++        # or advance the caller's CPU/CUDA random streams.
++        with torch.random.fork_rng(devices=[]),torch.device('cpu'):
++            model=head(int(input_dim)).float()
++        validate_state(model,saved.get('state_dict'),'admission')
++        model.load_state_dict(saved['state_dict'],strict=True)
++        model.to(device).eval()
++        self.arm,self.device,self.norm,self.model=arm,device,norm,model
+     def probabilities(self,numeric,embeddings=None):
+         n=self.norm;array=raw_input(numeric,embeddings,self.arm,n['numeric_mean'],n['numeric_std'],n['projection'])
+-        array=np.clip((array-n['input_mean'])/n['input_std'],-10,10).astype(np.float32)
+-        with torch.inference_mode():return self.model(torch.from_numpy(array).to(self.device)).sigmoid()[:,0].cpu().numpy()
++        with np.errstate(over='ignore',invalid='ignore'):
++            array=(array-n['input_mean'])/n['input_std']
++        _finite_array(array,'standardized input')
++        array=np.clip(array,-10,10).astype(np.float32)
++        with torch.inference_mode():
++            logits=self.model(torch.from_numpy(array).to(self.device))
++            if not bool(torch.isfinite(logits).all()):
++                raise ValueError('Admission head produced nonfinite logits')
++            return logits.sigmoid()[:,0].cpu().numpy()

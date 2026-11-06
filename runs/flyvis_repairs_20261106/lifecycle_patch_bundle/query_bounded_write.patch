@@ -1,0 +1,11 @@
+--- a/tracking/query_bounded_write.py
++++ b/tracking/query_bounded_write.py
+@@ -21,6 +21,8 @@
+ class PeriodicWriteTracker(QueryAppearanceTracker):
+     def __init__(self,args,server=None,weight=0.,shadow=False):
+         super().__init__(args,server,weight,shadow);self.write_events=[]
++    def reset(self):
++        super().reset();self.write_events.clear()
+     def update_query_frame(self,detections,active):
+         before=self.query_history.copy();result=super().update_query_frame(detections,active)
+         if active and self.weight:

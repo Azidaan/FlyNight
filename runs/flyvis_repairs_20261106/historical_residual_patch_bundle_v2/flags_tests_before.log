@@ -1,0 +1,624 @@
+.F.F.F.FFFFFFFFF.F.F                                                     [100%]
+================================== FAILURES ===================================
+_______ test_success_and_exception_restore_both_flags[False-False-True] _______
+
+enabled = False, warn_only = True, raises = False
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    @pytest.mark.parametrize("raises", [False, True])
+    def test_success_and_exception_restore_both_flags(enabled, warn_only, raises):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+        failure = RuntimeError("backend failure")
+    
+        @deterministic_call
+        def backend(value, *, increment):
+            """Backend documentation stays visible to callers."""
+            assert flags() == (True, False)
+            if raises:
+                raise failure
+            return value + increment
+    
+        if raises:
+            with pytest.raises(RuntimeError) as caught:
+                backend(11, increment=6)
+            assert caught.value is failure
+        else:
+            assert backend(11, increment=6) == 17
+>       assert flags() == (enabled, warn_only)
+E       assert (False, False) == (False, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:46: AssertionError
+_______ test_success_and_exception_restore_both_flags[False-True-True] ________
+
+enabled = True, warn_only = True, raises = False
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    @pytest.mark.parametrize("raises", [False, True])
+    def test_success_and_exception_restore_both_flags(enabled, warn_only, raises):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+        failure = RuntimeError("backend failure")
+    
+        @deterministic_call
+        def backend(value, *, increment):
+            """Backend documentation stays visible to callers."""
+            assert flags() == (True, False)
+            if raises:
+                raise failure
+            return value + increment
+    
+        if raises:
+            with pytest.raises(RuntimeError) as caught:
+                backend(11, increment=6)
+            assert caught.value is failure
+        else:
+            assert backend(11, increment=6) == 17
+>       assert flags() == (enabled, warn_only)
+E       assert (True, False) == (True, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:46: AssertionError
+_______ test_success_and_exception_restore_both_flags[True-False-True] ________
+
+enabled = False, warn_only = True, raises = True
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    @pytest.mark.parametrize("raises", [False, True])
+    def test_success_and_exception_restore_both_flags(enabled, warn_only, raises):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+        failure = RuntimeError("backend failure")
+    
+        @deterministic_call
+        def backend(value, *, increment):
+            """Backend documentation stays visible to callers."""
+            assert flags() == (True, False)
+            if raises:
+                raise failure
+            return value + increment
+    
+        if raises:
+            with pytest.raises(RuntimeError) as caught:
+                backend(11, increment=6)
+            assert caught.value is failure
+        else:
+            assert backend(11, increment=6) == 17
+>       assert flags() == (enabled, warn_only)
+E       assert (False, False) == (False, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:46: AssertionError
+________ test_success_and_exception_restore_both_flags[True-True-True] ________
+
+enabled = True, warn_only = True, raises = True
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    @pytest.mark.parametrize("raises", [False, True])
+    def test_success_and_exception_restore_both_flags(enabled, warn_only, raises):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+        failure = RuntimeError("backend failure")
+    
+        @deterministic_call
+        def backend(value, *, increment):
+            """Backend documentation stays visible to callers."""
+            assert flags() == (True, False)
+            if raises:
+                raise failure
+            return value + increment
+    
+        if raises:
+            with pytest.raises(RuntimeError) as caught:
+                backend(11, increment=6)
+            assert caught.value is failure
+        else:
+            assert backend(11, increment=6) == 17
+>       assert flags() == (enabled, warn_only)
+E       assert (True, False) == (True, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:46: AssertionError
+_ test_nested_scope_restores_immediate_parent_then_original[False-False-False] _
+
+enabled = False, warn_only = False, raises = False
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    @pytest.mark.parametrize("raises", [False, True])
+    def test_nested_scope_restores_immediate_parent_then_original(enabled, warn_only, raises):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+    
+        @deterministic_call
+        def inner():
+            assert flags() == (True, False)
+            if raises:
+                raise ValueError("inner failure")
+            return 23
+    
+        @deterministic_call
+        def outer():
+            assert flags() == (True, False)
+            # A backend may itself temporarily permit deterministic warnings.
+            torch.use_deterministic_algorithms(True, warn_only=True)
+            if raises:
+                with pytest.raises(ValueError, match="inner failure"):
+                    inner()
+            else:
+                assert inner() == 23
+            assert flags() == (True, True)
+    
+>       outer()
+
+tests\test_b1_deterministic_flag_restore.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\b1_deterministic_runtime.py:13: in execute
+    return function(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    @deterministic_call
+    def outer():
+        assert flags() == (True, False)
+        # A backend may itself temporarily permit deterministic warnings.
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        if raises:
+            with pytest.raises(ValueError, match="inner failure"):
+                inner()
+        else:
+            assert inner() == 23
+>       assert flags() == (True, True)
+E       assert (True, False) == (True, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:73: AssertionError
+_ test_nested_scope_restores_immediate_parent_then_original[False-False-True] _
+
+enabled = False, warn_only = True, raises = False
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    @pytest.mark.parametrize("raises", [False, True])
+    def test_nested_scope_restores_immediate_parent_then_original(enabled, warn_only, raises):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+    
+        @deterministic_call
+        def inner():
+            assert flags() == (True, False)
+            if raises:
+                raise ValueError("inner failure")
+            return 23
+    
+        @deterministic_call
+        def outer():
+            assert flags() == (True, False)
+            # A backend may itself temporarily permit deterministic warnings.
+            torch.use_deterministic_algorithms(True, warn_only=True)
+            if raises:
+                with pytest.raises(ValueError, match="inner failure"):
+                    inner()
+            else:
+                assert inner() == 23
+            assert flags() == (True, True)
+    
+>       outer()
+
+tests\test_b1_deterministic_flag_restore.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\b1_deterministic_runtime.py:13: in execute
+    return function(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    @deterministic_call
+    def outer():
+        assert flags() == (True, False)
+        # A backend may itself temporarily permit deterministic warnings.
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        if raises:
+            with pytest.raises(ValueError, match="inner failure"):
+                inner()
+        else:
+            assert inner() == 23
+>       assert flags() == (True, True)
+E       assert (True, False) == (True, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:73: AssertionError
+_ test_nested_scope_restores_immediate_parent_then_original[False-True-False] _
+
+enabled = True, warn_only = False, raises = False
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    @pytest.mark.parametrize("raises", [False, True])
+    def test_nested_scope_restores_immediate_parent_then_original(enabled, warn_only, raises):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+    
+        @deterministic_call
+        def inner():
+            assert flags() == (True, False)
+            if raises:
+                raise ValueError("inner failure")
+            return 23
+    
+        @deterministic_call
+        def outer():
+            assert flags() == (True, False)
+            # A backend may itself temporarily permit deterministic warnings.
+            torch.use_deterministic_algorithms(True, warn_only=True)
+            if raises:
+                with pytest.raises(ValueError, match="inner failure"):
+                    inner()
+            else:
+                assert inner() == 23
+            assert flags() == (True, True)
+    
+>       outer()
+
+tests\test_b1_deterministic_flag_restore.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\b1_deterministic_runtime.py:13: in execute
+    return function(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    @deterministic_call
+    def outer():
+        assert flags() == (True, False)
+        # A backend may itself temporarily permit deterministic warnings.
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        if raises:
+            with pytest.raises(ValueError, match="inner failure"):
+                inner()
+        else:
+            assert inner() == 23
+>       assert flags() == (True, True)
+E       assert (True, False) == (True, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:73: AssertionError
+_ test_nested_scope_restores_immediate_parent_then_original[False-True-True] __
+
+enabled = True, warn_only = True, raises = False
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    @pytest.mark.parametrize("raises", [False, True])
+    def test_nested_scope_restores_immediate_parent_then_original(enabled, warn_only, raises):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+    
+        @deterministic_call
+        def inner():
+            assert flags() == (True, False)
+            if raises:
+                raise ValueError("inner failure")
+            return 23
+    
+        @deterministic_call
+        def outer():
+            assert flags() == (True, False)
+            # A backend may itself temporarily permit deterministic warnings.
+            torch.use_deterministic_algorithms(True, warn_only=True)
+            if raises:
+                with pytest.raises(ValueError, match="inner failure"):
+                    inner()
+            else:
+                assert inner() == 23
+            assert flags() == (True, True)
+    
+>       outer()
+
+tests\test_b1_deterministic_flag_restore.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\b1_deterministic_runtime.py:13: in execute
+    return function(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    @deterministic_call
+    def outer():
+        assert flags() == (True, False)
+        # A backend may itself temporarily permit deterministic warnings.
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        if raises:
+            with pytest.raises(ValueError, match="inner failure"):
+                inner()
+        else:
+            assert inner() == 23
+>       assert flags() == (True, True)
+E       assert (True, False) == (True, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:73: AssertionError
+_ test_nested_scope_restores_immediate_parent_then_original[True-False-False] _
+
+enabled = False, warn_only = False, raises = True
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    @pytest.mark.parametrize("raises", [False, True])
+    def test_nested_scope_restores_immediate_parent_then_original(enabled, warn_only, raises):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+    
+        @deterministic_call
+        def inner():
+            assert flags() == (True, False)
+            if raises:
+                raise ValueError("inner failure")
+            return 23
+    
+        @deterministic_call
+        def outer():
+            assert flags() == (True, False)
+            # A backend may itself temporarily permit deterministic warnings.
+            torch.use_deterministic_algorithms(True, warn_only=True)
+            if raises:
+                with pytest.raises(ValueError, match="inner failure"):
+                    inner()
+            else:
+                assert inner() == 23
+            assert flags() == (True, True)
+    
+>       outer()
+
+tests\test_b1_deterministic_flag_restore.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\b1_deterministic_runtime.py:13: in execute
+    return function(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    @deterministic_call
+    def outer():
+        assert flags() == (True, False)
+        # A backend may itself temporarily permit deterministic warnings.
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        if raises:
+            with pytest.raises(ValueError, match="inner failure"):
+                inner()
+        else:
+            assert inner() == 23
+>       assert flags() == (True, True)
+E       assert (True, False) == (True, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:73: AssertionError
+_ test_nested_scope_restores_immediate_parent_then_original[True-False-True] __
+
+enabled = False, warn_only = True, raises = True
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    @pytest.mark.parametrize("raises", [False, True])
+    def test_nested_scope_restores_immediate_parent_then_original(enabled, warn_only, raises):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+    
+        @deterministic_call
+        def inner():
+            assert flags() == (True, False)
+            if raises:
+                raise ValueError("inner failure")
+            return 23
+    
+        @deterministic_call
+        def outer():
+            assert flags() == (True, False)
+            # A backend may itself temporarily permit deterministic warnings.
+            torch.use_deterministic_algorithms(True, warn_only=True)
+            if raises:
+                with pytest.raises(ValueError, match="inner failure"):
+                    inner()
+            else:
+                assert inner() == 23
+            assert flags() == (True, True)
+    
+>       outer()
+
+tests\test_b1_deterministic_flag_restore.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\b1_deterministic_runtime.py:13: in execute
+    return function(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    @deterministic_call
+    def outer():
+        assert flags() == (True, False)
+        # A backend may itself temporarily permit deterministic warnings.
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        if raises:
+            with pytest.raises(ValueError, match="inner failure"):
+                inner()
+        else:
+            assert inner() == 23
+>       assert flags() == (True, True)
+E       assert (True, False) == (True, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:73: AssertionError
+_ test_nested_scope_restores_immediate_parent_then_original[True-True-False] __
+
+enabled = True, warn_only = False, raises = True
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    @pytest.mark.parametrize("raises", [False, True])
+    def test_nested_scope_restores_immediate_parent_then_original(enabled, warn_only, raises):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+    
+        @deterministic_call
+        def inner():
+            assert flags() == (True, False)
+            if raises:
+                raise ValueError("inner failure")
+            return 23
+    
+        @deterministic_call
+        def outer():
+            assert flags() == (True, False)
+            # A backend may itself temporarily permit deterministic warnings.
+            torch.use_deterministic_algorithms(True, warn_only=True)
+            if raises:
+                with pytest.raises(ValueError, match="inner failure"):
+                    inner()
+            else:
+                assert inner() == 23
+            assert flags() == (True, True)
+    
+>       outer()
+
+tests\test_b1_deterministic_flag_restore.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\b1_deterministic_runtime.py:13: in execute
+    return function(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    @deterministic_call
+    def outer():
+        assert flags() == (True, False)
+        # A backend may itself temporarily permit deterministic warnings.
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        if raises:
+            with pytest.raises(ValueError, match="inner failure"):
+                inner()
+        else:
+            assert inner() == 23
+>       assert flags() == (True, True)
+E       assert (True, False) == (True, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:73: AssertionError
+__ test_nested_scope_restores_immediate_parent_then_original[True-True-True] __
+
+enabled = True, warn_only = True, raises = True
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    @pytest.mark.parametrize("raises", [False, True])
+    def test_nested_scope_restores_immediate_parent_then_original(enabled, warn_only, raises):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+    
+        @deterministic_call
+        def inner():
+            assert flags() == (True, False)
+            if raises:
+                raise ValueError("inner failure")
+            return 23
+    
+        @deterministic_call
+        def outer():
+            assert flags() == (True, False)
+            # A backend may itself temporarily permit deterministic warnings.
+            torch.use_deterministic_algorithms(True, warn_only=True)
+            if raises:
+                with pytest.raises(ValueError, match="inner failure"):
+                    inner()
+            else:
+                assert inner() == 23
+            assert flags() == (True, True)
+    
+>       outer()
+
+tests\test_b1_deterministic_flag_restore.py:75: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\b1_deterministic_runtime.py:13: in execute
+    return function(*args, **kwargs)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    @deterministic_call
+    def outer():
+        assert flags() == (True, False)
+        # A backend may itself temporarily permit deterministic warnings.
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        if raises:
+            with pytest.raises(ValueError, match="inner failure"):
+                inner()
+        else:
+            assert inner() == 23
+>       assert flags() == (True, True)
+E       assert (True, False) == (True, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:73: AssertionError
+______ test_cpu_values_and_rng_progression_match_direct_call[False-True] ______
+
+enabled = False, warn_only = True
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    def test_cpu_values_and_rng_progression_match_direct_call(enabled, warn_only):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+        # Seed an isolated CPU generator; do not touch CUDA's RNG or allocate there.
+        initial_rng = torch.Generator(device="cpu").manual_seed(20261106).get_state()
+    
+        def backend():
+            x = torch.rand((7, 11), device="cpu", dtype=torch.float64)
+            return torch.tanh(x @ x.T)
+    
+        torch.random.set_rng_state(initial_rng)
+        expected = backend()
+        expected_rng = torch.random.get_rng_state().clone()
+        torch.random.set_rng_state(initial_rng)
+        actual = deterministic_call(backend)()
+        assert torch.equal(actual, expected)
+        assert actual.dtype == expected.dtype
+        assert torch.equal(torch.random.get_rng_state(), expected_rng)
+>       assert flags() == (enabled, warn_only)
+E       assert (False, False) == (False, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:97: AssertionError
+______ test_cpu_values_and_rng_progression_match_direct_call[True-True] _______
+
+enabled = True, warn_only = True
+
+    @pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+    def test_cpu_values_and_rng_progression_match_direct_call(enabled, warn_only):
+        torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+        # Seed an isolated CPU generator; do not touch CUDA's RNG or allocate there.
+        initial_rng = torch.Generator(device="cpu").manual_seed(20261106).get_state()
+    
+        def backend():
+            x = torch.rand((7, 11), device="cpu", dtype=torch.float64)
+            return torch.tanh(x @ x.T)
+    
+        torch.random.set_rng_state(initial_rng)
+        expected = backend()
+        expected_rng = torch.random.get_rng_state().clone()
+        torch.random.set_rng_state(initial_rng)
+        actual = deterministic_call(backend)()
+        assert torch.equal(actual, expected)
+        assert actual.dtype == expected.dtype
+        assert torch.equal(torch.random.get_rng_state(), expected_rng)
+>       assert flags() == (enabled, warn_only)
+E       assert (True, False) == (True, True)
+E         
+E         At index 1 diff: False != True
+E         Use -v to get more diff
+
+tests\test_b1_deterministic_flag_restore.py:97: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_b1_deterministic_flag_restore.py::test_success_and_exception_restore_both_flags[False-False-True]
+FAILED tests/test_b1_deterministic_flag_restore.py::test_success_and_exception_restore_both_flags[False-True-True]
+FAILED tests/test_b1_deterministic_flag_restore.py::test_success_and_exception_restore_both_flags[True-False-True]
+FAILED tests/test_b1_deterministic_flag_restore.py::test_success_and_exception_restore_both_flags[True-True-True]
+FAILED tests/test_b1_deterministic_flag_restore.py::test_nested_scope_restores_immediate_parent_then_original[False-False-False]
+FAILED tests/test_b1_deterministic_flag_restore.py::test_nested_scope_restores_immediate_parent_then_original[False-False-True]
+FAILED tests/test_b1_deterministic_flag_restore.py::test_nested_scope_restores_immediate_parent_then_original[False-True-False]
+FAILED tests/test_b1_deterministic_flag_restore.py::test_nested_scope_restores_immediate_parent_then_original[False-True-True]
+FAILED tests/test_b1_deterministic_flag_restore.py::test_nested_scope_restores_immediate_parent_then_original[True-False-False]
+FAILED tests/test_b1_deterministic_flag_restore.py::test_nested_scope_restores_immediate_parent_then_original[True-False-True]
+FAILED tests/test_b1_deterministic_flag_restore.py::test_nested_scope_restores_immediate_parent_then_original[True-True-False]
+FAILED tests/test_b1_deterministic_flag_restore.py::test_nested_scope_restores_immediate_parent_then_original[True-True-True]
+FAILED tests/test_b1_deterministic_flag_restore.py::test_cpu_values_and_rng_progression_match_direct_call[False-True]
+FAILED tests/test_b1_deterministic_flag_restore.py::test_cpu_values_and_rng_progression_match_direct_call[True-True]
+14 failed, 6 passed in 7.05s

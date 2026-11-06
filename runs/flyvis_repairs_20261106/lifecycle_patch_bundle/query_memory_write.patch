@@ -1,0 +1,11 @@
+--- a/tracking/query_memory_write.py
++++ b/tracking/query_memory_write.py
+@@ -21,6 +21,8 @@
+         super().__init__(args,server,weight,shadow)
+         assert policy in ('last','mean','cautious')
+         self.policy=policy;self.beta=beta;self.write_events=[]
++    def reset(self):
++        super().reset();self.write_events.clear()
+     def update_query_frame(self,detections,active):
+         before=self.query_history.copy()
+         result=super().update_query_frame(detections,active)

@@ -1,0 +1,68 @@
+[2026-11-06 21:02:14] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-11-06 21:02:14] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-11-06 21:02:20] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-11-06 21:02:23] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-11-06 21:02:23] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+{
+  "passed": true,
+  "arm": "D",
+  "frames": [
+    18,
+    21,
+    22,
+    24,
+    26
+  ],
+  "source_fps": 30.202929825289456,
+  "elapsed_input_seconds": 0.2648749656499038,
+  "adjacent_max_abs_difference": 0.0,
+  "losses": [
+    0.4904146265058631,
+    0.4881563430126401
+  ],
+  "core_gradient_norms": [
+    {
+      "nodes_bias": 0.0,
+      "nodes_time_const": 0.0,
+      "edges_syn_strength": 0.0
+    },
+    {
+      "nodes_bias": 0.0009598676697351038,
+      "nodes_time_const": 0.0003852203080896288,
+      "edges_syn_strength": 0.03903732821345329
+    }
+  ],
+  "offline_streamed_exact": true,
+  "checkpoint_restore_after_mutation_exact": true,
+  "optimizer_restore_exact": true,
+  "diagnostic_rejected": true,
+  "cuda_initialized": false,
+  "unchanged": {
+    "scripts\\b1_timestamped_smoke_20261106.py": true,
+    "tracking\\b1_timestamped.py": true,
+    "tracking\\flyvis_checkpoint.py": true,
+    "tracking\\b1_learning.py": true,
+    "tracking\\b1_tracker_runtime.py": true,
+    "tracking\\z13_readout.py": true,
+    "tracking\\flyvis_temporal_residual.py": true,
+    "runs\\b1_real_inputs_20261026\\gpu_samples.json": true,
+    "runs\\z13_data\\0001542f-5ce3cf52.npz": true,
+    "runs\\train_cache\\0001542f-5ce3cf52\\motion\\flyvis_tiled.json": true
+  },
+  "checkpoint_sha256": "b37ec065beba68061ea52584e690b6efa812ee90da9323833078dc7be8caf493",
+  "outputs_sha256": "ca2eeb9357e838e1ad4cfd452e1087ddcb91995c3e5a01a5a3290ea96c741d22",
+  "protocol_sha256": "a7f1add65a1be2423d070fff9541d5178fab2b30cb38be5893467907840e9c96",
+  "scientific_hypothesis_accepted": false,
+  "hota_measured": false
+}

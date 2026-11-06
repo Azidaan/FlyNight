@@ -1,0 +1,311 @@
+{
+  "schema": "b1_historical_safety_patch_bundle_v1",
+  "changes": [
+    {
+      "target": "tracking/b1_deterministic_runtime.py",
+      "kind": "existing_prior_untracked_delta",
+      "patch": "01_deterministic_flags.patch",
+      "before_sha256": "0482621a20d42863a263560440da574672bf0ac4b746cbece311aa66283505fc",
+      "after_sha256": "d4cfd216a97bfaba726124fcafe08debae14cb24edcc1cb83db435cf330d03b3",
+      "before_size": 903,
+      "after_size": 1016,
+      "baseline_evidence": {
+        "path": "runs/flyvis_system_fixes_20261106/b1_engine_review/before_b1_deterministic_runtime.py",
+        "size": 903,
+        "sha256": "0482621a20d42863a263560440da574672bf0ac4b746cbece311aa66283505fc"
+      },
+      "before_condition": "exact recorded source bytes"
+    },
+    {
+      "target": "tracking/b1_tracker_runtime.py",
+      "kind": "existing_prior_untracked_delta",
+      "patch": "02_historical_residual.patch",
+      "before_sha256": "609e18b3577ad8177b769f7f662487d8b8b9d7b22deaaff1a24f94209c74a66b",
+      "after_sha256": "0b766835cad156dea996c72d7475b538abfafe8a549f01a039ed0849a2e66058",
+      "before_size": 15948,
+      "after_size": 18656,
+      "baseline_evidence": {
+        "path": "runs/flyvis_system_fixes_20261106/historical_residual_transaction/before_b1_tracker_runtime.py",
+        "size": 15948,
+        "sha256": "609e18b3577ad8177b769f7f662487d8b8b9d7b22deaaff1a24f94209c74a66b"
+      },
+      "before_condition": "exact recorded source bytes"
+    },
+    {
+      "target": "tests/test_b1_deterministic_flag_restore.py",
+      "kind": "new_test_patch",
+      "patch": "03_deterministic_flags_test.patch",
+      "before_sha256": null,
+      "after_sha256": "8d6fe32a3be1cb667aabe745ed13db58055ccc7cf33050cc3b0f415454512e7f",
+      "before_size": null,
+      "after_size": 3491,
+      "baseline_evidence": null,
+      "before_condition": "target must not exist"
+    },
+    {
+      "target": "tests/test_b1_residual_transaction.py",
+      "kind": "new_test_patch",
+      "patch": "04_historical_residual_test.patch",
+      "before_sha256": null,
+      "after_sha256": "0b55295da43c5993120b561575cefacc1283d9f86bb4ab76015c7afbab09e1f4",
+      "before_size": null,
+      "after_size": 6122,
+      "baseline_evidence": null,
+      "before_condition": "target must not exist"
+    }
+  ],
+  "evidence_origins": [
+    {
+      "published": "flags_before_report.json",
+      "original": {
+        "path": "runs/flyvis_system_fixes_20261106/b1_engine_review/deterministic_flags_before_report.json",
+        "size": 643,
+        "sha256": "aac9a4172e7e7ccabcfed351d5f2bfb281334c621e901b44f28d4a2bef175051"
+      }
+    },
+    {
+      "published": "flags_after_report.json",
+      "original": {
+        "path": "runs/flyvis_system_fixes_20261106/b1_engine_review/deterministic_flags_after_report.json",
+        "size": 2801,
+        "sha256": "7ca6ea3aea5f11c895de1879786c87faac76eeef9c8e738c782077ecb9d3ba63"
+      }
+    },
+    {
+      "published": "flags_tests_before.log",
+      "original": {
+        "path": "runs/flyvis_system_fixes_20261106/b1_engine_review/flags_tests_before.log",
+        "size": 26550,
+        "sha256": "a56610c6de2ee6de24a90a19db2e8061751e5e1d8e042e85b356108d36f5a422"
+      }
+    },
+    {
+      "published": "flags_tests_after.log",
+      "original": {
+        "path": "runs/flyvis_system_fixes_20261106/b1_engine_review/flags_tests_after.log",
+        "size": 101,
+        "sha256": "e90535bad8279b586aac7d7dec70c59b53bcc0c1e710fbfe5feae35c05d83138"
+      }
+    },
+    {
+      "published": "historical_REPORT.txt",
+      "original": {
+        "path": "runs/flyvis_system_fixes_20261106/historical_residual_transaction/REPORT.txt",
+        "size": 7546,
+        "sha256": "73b45bcccbfc05fba0d5a0892ba0569040203bd983202aaac2758e134abb801c"
+      }
+    },
+    {
+      "published": "historical_FINAL_REPORT.json",
+      "original": {
+        "path": "runs/flyvis_system_fixes_20261106/historical_residual_transaction/FINAL_REPORT.json",
+        "size": 6356,
+        "sha256": "6e788a8c7d2ed4bec146444488a26705bd4562fbfd5d48fc0f989d9ad4f82bfd"
+      }
+    },
+    {
+      "published": "historical_tests_before.log",
+      "original": {
+        "path": "runs/flyvis_system_fixes_20261106/historical_residual_transaction/tests_before_v2.log",
+        "size": 87173,
+        "sha256": "18de20c0f62b06b3861c09679d0e8dfeaa5cec6d4a60c762c77500b99f8a17a6"
+      }
+    },
+    {
+      "published": "historical_tests_after.log",
+      "original": {
+        "path": "runs/flyvis_system_fixes_20261106/historical_residual_transaction/tests_after_v2.log",
+        "size": 183,
+        "sha256": "6fc6a504184e8ca44c9f19ebdf3700a6e1572fe81a77fb32d17268fa10f12c7a"
+      }
+    },
+    {
+      "published": "historical_native_before_report.json",
+      "original": {
+        "path": "runs/flyvis_system_fixes_20261106/historical_residual_transaction/native_before_report.json",
+        "size": 2571,
+        "sha256": "6ac9d2d6381c5d4a8d7ab8112c1cd6da2351980948af5d62a46d4e3a23c7badc"
+      }
+    },
+    {
+      "published": "historical_native_after_report.json",
+      "original": {
+        "path": "runs/flyvis_system_fixes_20261106/historical_residual_transaction/native_after_report.json",
+        "size": 2562,
+        "sha256": "1085cd5d0af34302b2b8c881307a5a7998e973f10aea393bdd882228671f8d5a"
+      }
+    },
+    {
+      "published": "historical_native_before.log",
+      "original": {
+        "path": "runs/flyvis_system_fixes_20261106/historical_residual_transaction/native_before.log",
+        "size": 4560,
+        "sha256": "0eaaa4f2c84673f2b6401a96f06228ff8fa00b0f589145802a17f639f6be453c"
+      }
+    },
+    {
+      "published": "historical_native_after.log",
+      "original": {
+        "path": "runs/flyvis_system_fixes_20261106/historical_residual_transaction/native_after.log",
+        "size": 4551,
+        "sha256": "d35612298954f8e43fdadde37f36d82ad84e6588204dcd8a3b16a4edf265431a"
+      }
+    },
+    {
+      "published": "independent_report.json",
+      "original": {
+        "path": "runs/flyvis_repairs_20261106/historical_residual_independent/report.json",
+        "size": 4120,
+        "sha256": "e7ad9e55aa1f6fc1158b942bb47df3f884594e0a56ace575f1d48cea48842b5f"
+      }
+    },
+    {
+      "published": "independent_review.log",
+      "original": {
+        "path": "runs/flyvis_repairs_20261106/historical_residual_independent/review.log",
+        "size": 5265,
+        "sha256": "f5f9a39b8d81b5bfb72164e6ba45d32d27e77f82efc616e3f6ef91d6e1735afb"
+      }
+    }
+  ],
+  "external_probes": [
+    {
+      "path": "runs/flyvis_system_fixes_20261106/historical_residual_transaction/native_cpu.py",
+      "size": 6711,
+      "sha256": "3eda9f384722f57963d9eb6b43942883d2099ff4309b3880424e3eccf1fa1b9f"
+    },
+    {
+      "path": "runs/flyvis_system_fixes_20261106/historical_residual_transaction/run_baseline_tests.py",
+      "size": 571,
+      "sha256": "28acdc38a8d5771a18c2e068aacf8377c7671001dfe7c3cefb186ed29ae880ec"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_independent/review.py",
+      "size": 9118,
+      "sha256": "740684cc3a72e3937fd799be99fbe81397dafb5794060c32ed29833d2599d28a"
+    }
+  ],
+  "apply": {
+    "cwd": "target project root",
+    "conditions": "Require every before SHA256 and absent new test before any command",
+    "check": "git -c core.autocrlf=false apply --check --whitespace=nowarn \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/01_deterministic_flags.patch\" \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/02_historical_residual.patch\" \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/03_deterministic_flags_test.patch\" \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/04_historical_residual_test.patch\"",
+    "execute": "git -c core.autocrlf=false apply --whitespace=nowarn \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/01_deterministic_flags.patch\" \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/02_historical_residual.patch\" \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/03_deterministic_flags_test.patch\" \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/04_historical_residual_test.patch\"",
+    "verify": "Require every after SHA256; do not accept a merely clean patch exit as numerical proof"
+  },
+  "reverse": {
+    "cwd": "target project root",
+    "conditions": "Require every after SHA256 before any command",
+    "check": "git -c core.autocrlf=false apply --reverse --check --whitespace=nowarn \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/04_historical_residual_test.patch\" \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/03_deterministic_flags_test.patch\" \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/02_historical_residual.patch\" \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/01_deterministic_flags.patch\"",
+    "execute": "git -c core.autocrlf=false apply --reverse --whitespace=nowarn \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/04_historical_residual_test.patch\" \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/03_deterministic_flags_test.patch\" \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/02_historical_residual.patch\" \"runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/01_deterministic_flags.patch\"",
+    "verify": "Require exact original source SHA256 and absence of both newly added tests"
+  },
+  "validation_report": {
+    "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/apply_reverse_report.json",
+    "size": 4409,
+    "sha256": "f88e7d53efa4e10e82a52faaea9371ec3d5d1e0e452c6faa1c699ee394826795"
+  },
+  "publication_boundary": "Patches, reports/logs, manifest and path list only; no complete original user source, weights, array data or dependency snapshots",
+  "package_files": [
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/01_deterministic_flags.patch",
+      "size": 608,
+      "sha256": "5cb58e8fe2b932764aea03f86fd3c9e464cc312857d622b740edf9b239651aec"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/02_historical_residual.patch",
+      "size": 3818,
+      "sha256": "02df5072a66b3ae5c1c4e3ff1c20ee501e4d7e161dda10eb0fffa0ce8d53aed2"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/03_deterministic_flags_test.patch",
+      "size": 3669,
+      "sha256": "19e93f6d2383eae741fa09f97b74bbdcb98cfe79dc2dc19a0393a27b05a3b48b"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/04_historical_residual_test.patch",
+      "size": 6350,
+      "sha256": "df7312a6eaae82cedf51e9c3a220aa16eb9b0325ad7dfd785da7df6d89ac3253"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/apply_reverse_report.json",
+      "size": 4409,
+      "sha256": "f88e7d53efa4e10e82a52faaea9371ec3d5d1e0e452c6faa1c699ee394826795"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/flags_after_report.json",
+      "size": 2801,
+      "sha256": "7ca6ea3aea5f11c895de1879786c87faac76eeef9c8e738c782077ecb9d3ba63"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/flags_before_report.json",
+      "size": 643,
+      "sha256": "aac9a4172e7e7ccabcfed351d5f2bfb281334c621e901b44f28d4a2bef175051"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/flags_tests_after.log",
+      "size": 101,
+      "sha256": "e90535bad8279b586aac7d7dec70c59b53bcc0c1e710fbfe5feae35c05d83138"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/flags_tests_before.log",
+      "size": 26550,
+      "sha256": "a56610c6de2ee6de24a90a19db2e8061751e5e1d8e042e85b356108d36f5a422"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/historical_FINAL_REPORT.json",
+      "size": 6356,
+      "sha256": "6e788a8c7d2ed4bec146444488a26705bd4562fbfd5d48fc0f989d9ad4f82bfd"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/historical_native_after.log",
+      "size": 4551,
+      "sha256": "d35612298954f8e43fdadde37f36d82ad84e6588204dcd8a3b16a4edf265431a"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/historical_native_after_report.json",
+      "size": 2562,
+      "sha256": "1085cd5d0af34302b2b8c881307a5a7998e973f10aea393bdd882228671f8d5a"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/historical_native_before.log",
+      "size": 4560,
+      "sha256": "0eaaa4f2c84673f2b6401a96f06228ff8fa00b0f589145802a17f639f6be453c"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/historical_native_before_report.json",
+      "size": 2571,
+      "sha256": "6ac9d2d6381c5d4a8d7ab8112c1cd6da2351980948af5d62a46d4e3a23c7badc"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/historical_REPORT.txt",
+      "size": 7546,
+      "sha256": "73b45bcccbfc05fba0d5a0892ba0569040203bd983202aaac2758e134abb801c"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/historical_tests_after.log",
+      "size": 183,
+      "sha256": "6fc6a504184e8ca44c9f19ebdf3700a6e1572fe81a77fb32d17268fa10f12c7a"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/historical_tests_before.log",
+      "size": 87173,
+      "sha256": "18de20c0f62b06b3861c09679d0e8dfeaa5cec6d4a60c762c77500b99f8a17a6"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/independent_report.json",
+      "size": 4120,
+      "sha256": "e7ad9e55aa1f6fc1158b942bb47df3f884594e0a56ace575f1d48cea48842b5f"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/independent_review.log",
+      "size": 5265,
+      "sha256": "f5f9a39b8d81b5bfb72164e6ba45d32d27e77f82efc616e3f6ef91d6e1735afb"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/README.txt",
+      "size": 4385,
+      "sha256": "b7e8595c7233fbdd237f5b0cb5bff0457e90ff471bd43d662f2fb71aaa91cf89"
+    }
+  ],
+  "source_freeze_verified": true
+}

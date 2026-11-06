@@ -1,0 +1,1862 @@
+{
+  "flow_inverse_resize": [
+    {
+      "width": 720,
+      "height": 720,
+      "decoded_one_eye_pixel": [
+        [
+          [
+            0.4322250783443451
+          ],
+          [
+            0.0
+          ]
+        ]
+      ],
+      "actual_x": 1.8414322137832642,
+      "inverse_resize_x": 1.8414322250639386,
+      "ratio": 1.0
+    },
+    {
+      "width": 1280,
+      "height": 720,
+      "decoded_one_eye_pixel": [
+        [
+          [
+            0.4322250783443451
+          ],
+          [
+            0.0
+          ]
+        ]
+      ],
+      "actual_x": 1.8414322137832642,
+      "inverse_resize_x": 3.2736572890025575,
+      "ratio": 0.5625
+    },
+    {
+      "width": 492,
+      "height": 400,
+      "decoded_one_eye_pixel": [
+        [
+          [
+            0.4322250783443451
+          ],
+          [
+            0.0
+          ]
+        ]
+      ],
+      "actual_x": 1.0230180025100708,
+      "inverse_resize_x": 1.258312020460358,
+      "ratio": 0.8130082488059998
+    }
+  ],
+  "b1_timestamp_trace": {
+    "calls": [
+      {
+        "start_frames": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "advance_from": 3,
+        "advance_to": 5,
+        "fixed_backbone_steps": 2,
+        "fixed_backbone_dt": 0.016666666666666666
+      },
+      {
+        "advance_from": 5,
+        "advance_to": 6,
+        "fixed_backbone_steps": 2,
+        "fixed_backbone_dt": 0.016666666666666666
+      },
+      {
+        "advance_from": 6,
+        "advance_to": 7,
+        "fixed_backbone_steps": 2,
+        "fixed_backbone_dt": 0.016666666666666666
+      }
+    ],
+    "events": [
+      {
+        "frame": 5,
+        "reference_frame": 3,
+        "track": 1
+      },
+      {
+        "frame": 6,
+        "reference_frame": 3,
+        "track": 1
+      },
+      {
+        "frame": 7,
+        "reference_frame": 3,
+        "track": 1
+      }
+    ],
+    "scope": "Actual B1Tracker scheduling; neural/appearance stand-ins. Timing constants from ResidualEngine and FlyBackbone, not measured neural outputs."
+  },
+  "all_stock_checkpoints": [
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\000\\best_chkpt",
+      "sha256": "d8a57a022aa18ca338599be713af9db29b89cde4b00098ffe42b78f0d583e46a",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.006728408392518759,
+          "max": 0.7954618334770203
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01943179965019226,
+          "max": 0.3162950873374939
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.36427417397499084
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\001\\best_chkpt",
+      "sha256": "f351b025e25fc02e6ab9e2a80f6fd641fc62f5b3f33210e0a2318af5cc0614ae",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 6,
+          "min": -0.7056780457496643,
+          "max": 1.7526508569717407
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019402343779802322,
+          "max": 0.24394626915454865
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.7385337948799133
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\002\\best_chkpt",
+      "sha256": "34c70cdc875f9602053f31acf03443cc071982923a9407a367666086637ae866",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 8,
+          "min": -0.6027538776397705,
+          "max": 2.134861469268799
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019290149211883545,
+          "max": 0.528103232383728
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.38507893681526184
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\003\\best_chkpt",
+      "sha256": "b6764982671b5f0051e682360adc52f8ed6493e478fb9c0edbf66f1d256e1501",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 8,
+          "min": -0.6496617794036865,
+          "max": 2.091972589492798
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019594762474298477,
+          "max": 0.39958956837654114
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.6200352311134338
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\004\\best_chkpt",
+      "sha256": "d3e5ffd015020dec45ccb87c92ceb8091a8f8e65a83a553a9dc3887dd1b6072d",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 2,
+          "min": -0.3738592267036438,
+          "max": 0.8555892705917358
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019422346726059914,
+          "max": 0.5430768132209778
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.5879207849502563
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\005\\best_chkpt",
+      "sha256": "237db8bd6b015aacd54a0719014ef5a146236a6b4e2ab769b81d314907753ffa",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 5,
+          "min": -0.4498741626739502,
+          "max": 1.1409744024276733
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019113941118121147,
+          "max": 0.36711061000823975
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.422432541847229
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\006\\best_chkpt",
+      "sha256": "6fb45c35839d04f78073b5a8e67fabcf59131fbf340925459952a5ff1de3b4ea",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 11,
+          "min": -0.7526795268058777,
+          "max": 2.144779920578003
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019440170377492905,
+          "max": 0.22829662263393402
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.6252475380897522
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\007\\best_chkpt",
+      "sha256": "cd1b53eef47db91d3529613a98d0879a739390dcfc53d6148a6953ff9fb13469",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 9,
+          "min": -1.0685104131698608,
+          "max": 1.6770681142807007
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01927182450890541,
+          "max": 0.4390500485897064
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.7168963551521301
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\008\\best_chkpt",
+      "sha256": "e54b1f0790f97ef791b7aeee056fb88a2bfc7ab4329dd9f7dca10300eb945897",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 8,
+          "min": -0.5639365315437317,
+          "max": 2.2532899379730225
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019516969099640846,
+          "max": 0.2377619743347168
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.3789897561073303
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\009\\best_chkpt",
+      "sha256": "37c2676a83587dd7642cbbd3a0d0be219cb999d587ac1830285bdc838f4891f6",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 8,
+          "min": -0.4627858102321625,
+          "max": 2.041128158569336
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019546303898096085,
+          "max": 0.4086122512817383
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.608238160610199
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\010\\best_chkpt",
+      "sha256": "ed8be3c396c7a549b2d8b85cd5b14527c43eec58b5ddaae054d18ab9a2b6a300",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 12,
+          "min": -1.2979406118392944,
+          "max": 2.3722546100616455
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01952923834323883,
+          "max": 0.3784678876399994
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.9890520572662354
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\011\\best_chkpt",
+      "sha256": "bad9dabe0e9432a1f305a4544a847a1fdf7da871021f6d69b1e52a3fa7fcda67",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 12,
+          "min": -0.8731751441955566,
+          "max": 1.9258760213851929
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01948104053735733,
+          "max": 0.23525606095790863
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.6993300914764404
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\012\\best_chkpt",
+      "sha256": "d0c816909660cae35811b1631b3ff8cbd40a3acc076b6b083f4c88abbfc19f60",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 11,
+          "min": -1.2844138145446777,
+          "max": 2.5274486541748047
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019493412226438522,
+          "max": 0.4178968667984009
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.48749977350234985
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\013\\best_chkpt",
+      "sha256": "bde19f62d1a9ce2fce20fce68b72cced1a082a5192c210f4a69c89708e1476d8",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 8,
+          "min": -0.7244318127632141,
+          "max": 2.1297104358673096
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019343717023730278,
+          "max": 0.34160757064819336
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.6225762963294983
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\014\\best_chkpt",
+      "sha256": "0bcac347539e36750a00adf71e7c1236a341c4b363cf6b84c0fb6fed349cf967",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 11,
+          "min": -1.0224649906158447,
+          "max": 2.445206880569458
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01949351653456688,
+          "max": 0.44185617566108704
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 1.0990890264511108
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\015\\best_chkpt",
+      "sha256": "02d2cd384f7f8040582ab33bd52fa2c44edce50ca5be27897d0f105475d819cb",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 7,
+          "min": -0.6020584106445312,
+          "max": 2.1495566368103027
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019422829151153564,
+          "max": 0.3066807687282562
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.6796263456344604
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\016\\best_chkpt",
+      "sha256": "8fbfc7d39d48eca441e0e23a735dcbedb0a3e364b3a9de48cfa651d0e7c8e7bc",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 1,
+          "min": -0.00010003587522078305,
+          "max": 1.0265876054763794
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019110223278403282,
+          "max": 0.23840384185314178
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.5696803331375122
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\017\\best_chkpt",
+      "sha256": "299ac9ab1a50e5dfc5f1716627a9b09f7c5abd8820436eda63f4a178c555e1e1",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 11,
+          "min": -1.2484362125396729,
+          "max": 2.320279359817505
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019514819607138634,
+          "max": 0.3504786491394043
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.4933752119541168
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\018\\best_chkpt",
+      "sha256": "8c738269fdbecce5da3e4cc5d44718910be1adc61fc693959792eb1817960277",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 10,
+          "min": -0.783372163772583,
+          "max": 2.3947672843933105
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019538866356015205,
+          "max": 0.24437369406223297
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.4150078594684601
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\019\\best_chkpt",
+      "sha256": "6fb18d56f4c014ccf7a53b6914df6fe93f8f594d28b056ebe056a919d70aa596",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 8,
+          "min": -0.5049508213996887,
+          "max": 2.2933223247528076
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019368236884474754,
+          "max": 0.4407053291797638
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.43278300762176514
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\020\\best_chkpt",
+      "sha256": "03061634c6c83a2b4560005d0e97f40103ef5767d0a831b5205256bc47919ef9",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 10,
+          "min": -0.8012564778327942,
+          "max": 2.4190244674682617
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019349098205566406,
+          "max": 0.2956729829311371
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.5985999703407288
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\021\\best_chkpt",
+      "sha256": "9285061e7e0af9b9e23e16a976f3ad158808a0a708c24590de1b85c23aea0727",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 1,
+          "min": -0.08991410583257675,
+          "max": 0.931331992149353
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019407333806157112,
+          "max": 0.40483298897743225
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.5612378120422363
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\022\\best_chkpt",
+      "sha256": "dd864e23444915ad4bc4fab9d1c401567923c31388c174d3b3caf2b7874d4383",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 7,
+          "min": -0.7386480569839478,
+          "max": 1.8661621809005737
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01959443837404251,
+          "max": 0.2718108594417572
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 1.0154352188110352
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\023\\best_chkpt",
+      "sha256": "41a283e29e36ad7dbf2be0604138abd7887b87a1e7d168cf17d3f21103d5b88d",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 10,
+          "min": -0.4438283145427704,
+          "max": 2.1016085147857666
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01920199766755104,
+          "max": 0.38210856914520264
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.450892835855484
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\024\\best_chkpt",
+      "sha256": "8400223db1a0702c2ec4eb863e47918fdcc5b998f6718c4f8b0f1a41264f386a",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 9,
+          "min": -0.7083823084831238,
+          "max": 1.918187141418457
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019336029887199402,
+          "max": 0.23096826672554016
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.4635503590106964
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\025\\best_chkpt",
+      "sha256": "3c780db8bc7c1d5fa614e2475e4dc42b2ad15375b522f6e7ed8e153fe62847e4",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 8,
+          "min": -0.7304444313049316,
+          "max": 2.0671966075897217
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019319312646985054,
+          "max": 0.3153579831123352
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.6700960993766785
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\026\\best_chkpt",
+      "sha256": "6981fb1933705bfcb13b072f4c26520e3c3af5cb7e87652efbb6877ddf68b3e9",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 4,
+          "min": -0.4860764443874359,
+          "max": 0.7575204968452454
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019480597227811813,
+          "max": 0.30907565355300903
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.5646210312843323
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\027\\best_chkpt",
+      "sha256": "5f3723c0011f6d561ecb3861b2a2b8e13ea923011fd23a10f7c33ff0cbb6b6e7",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 11,
+          "min": -1.0217666625976562,
+          "max": 2.4135890007019043
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01945265755057335,
+          "max": 0.27064669132232666
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.47383439540863037
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\028\\best_chkpt",
+      "sha256": "b19c5c1e94760ec1479bea2adba122441c2c4c95e2ca174526a922d964395b64",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 9,
+          "min": -1.1523643732070923,
+          "max": 1.5511250495910645
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019504955038428307,
+          "max": 0.2740168273448944
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.6541528701782227
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\029\\best_chkpt",
+      "sha256": "2454e817485656d040fcee69eddc30e6ff7cd587ecd6a908ef3564e03ec95835",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.07399480044841766,
+          "max": 0.8699082732200623
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01953718066215515,
+          "max": 0.2420932650566101
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.4279400706291199
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\030\\best_chkpt",
+      "sha256": "2b7a878d5f4328e2a26291522d2807e5b5a47410da16c15fa0fd55c195d464f7",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 10,
+          "min": -0.9385071992874146,
+          "max": 1.8917447328567505
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01960587128996849,
+          "max": 0.2722073197364807
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.4867343604564667
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\031\\best_chkpt",
+      "sha256": "1b6a145b53375ba5eea53c30aacd1ad916f756458acdce1c11dfbf733bb6c49a",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 12,
+          "min": -1.151382565498352,
+          "max": 2.5828168392181396
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01959741860628128,
+          "max": 0.40895402431488037
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.47407692670822144
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\032\\best_chkpt",
+      "sha256": "e8b23729a4951ab3584d8d6fb7bf9b54e4a675ab05fa4afb3d49d9dde07ea858",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 11,
+          "min": -1.4118213653564453,
+          "max": 2.04070782661438
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0195790883153677,
+          "max": 0.24859626591205597
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.5905906558036804
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\033\\best_chkpt",
+      "sha256": "4dead734972b429850aca796eb23874e16d449036c892a99cbae0b02856b1ef6",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 7,
+          "min": -0.6062594652175903,
+          "max": 1.2099533081054688
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01943890191614628,
+          "max": 0.37929898500442505
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.6369783282279968
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\034\\best_chkpt",
+      "sha256": "7145f3e4504557d0439ab95c79a1b300fcdef9b8889c65022bd5318db7097980",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 13,
+          "min": -1.2592979669570923,
+          "max": 2.558105230331421
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019511932507157326,
+          "max": 0.452553927898407
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.5099191069602966
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\035\\best_chkpt",
+      "sha256": "2c59918d9bd267330d9a8c2a9f42da1dc5335901a6c1c62fdcfdc10faa3ff737",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 1,
+          "min": -0.033875349909067154,
+          "max": 0.9541234970092773
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01892281509935856,
+          "max": 0.5335018038749695
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.3635833263397217
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\036\\best_chkpt",
+      "sha256": "052b7e31cebc6b60f73e37e166911dc6889795abbaa5f38717d5374ab1d0cc6d",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 7,
+          "min": -0.7715116143226624,
+          "max": 1.4416664838790894
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01921895518898964,
+          "max": 0.34200677275657654
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.4700626730918884
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\037\\best_chkpt",
+      "sha256": "93f25c9d4dc6a6f93d7a8d19fc372a9eeedc5455b388779de8152763337baeee",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 7,
+          "min": -0.585828959941864,
+          "max": 1.3221290111541748
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019512249156832695,
+          "max": 0.2723647356033325
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.47693532705307007
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\038\\best_chkpt",
+      "sha256": "a336ca91868486678c4dfbf871ef8f1c009c12974df20289b8697a79f1db86e0",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 6,
+          "min": -0.612666666507721,
+          "max": 2.090182304382324
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019247258082032204,
+          "max": 0.36174511909484863
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.5140613913536072
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\039\\best_chkpt",
+      "sha256": "a280006d540ceb2d1e6e0cd25e912500235ea79e3c258cf3f93ea518459083d7",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 10,
+          "min": -0.4520452320575714,
+          "max": 1.3955280780792236
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019408006221055984,
+          "max": 0.28880542516708374
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.6784052848815918
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\040\\best_chkpt",
+      "sha256": "67a85cdcfb55d9e59fbe750a365c044d333d782ab89c0d44d75ffe9a736fac84",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 7,
+          "min": -0.923198938369751,
+          "max": 2.1165995597839355
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.01953776367008686,
+          "max": 0.2360766977071762
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.5856381058692932
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\041\\best_chkpt",
+      "sha256": "76759a8d7d714bf7886000e41eca56b8c02aecd2df7feb630f4aa98f645f6f32",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 7,
+          "min": -0.9170156121253967,
+          "max": 2.1728038787841797
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019511429592967033,
+          "max": 0.2815341651439667
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.7489156126976013
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\042\\best_chkpt",
+      "sha256": "d57aa0a374be4f63a2e8d955a73b15fbcc72b799fcb7906ff5cd6366b42a0f6d",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 8,
+          "min": -0.7133157253265381,
+          "max": 0.987006664276123
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.018780678510665894,
+          "max": 0.3226850628852844
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.455114483833313
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\043\\best_chkpt",
+      "sha256": "9536964c530de66dd3356e04c47d4057a2764e25a40faf04a45c8e8083612d76",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 7,
+          "min": -0.8028748631477356,
+          "max": 1.7697322368621826
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019199872389435768,
+          "max": 0.19912970066070557
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.2802082896232605
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\044\\best_chkpt",
+      "sha256": "efc1850265ed305bdc2b6c645fe8a74faa2b2ea2a238d097148ca490b83fcd80",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 8,
+          "min": -0.9825413823127747,
+          "max": 1.5279641151428223
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019536323845386505,
+          "max": 0.23214541375637054
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.6273385882377625
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\045\\best_chkpt",
+      "sha256": "19323db328787e33b91ac0473046f0e361ef4dadf0394e3f389b5359b9fdedce",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 6,
+          "min": -0.6253914833068848,
+          "max": 2.0126006603240967
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019524814561009407,
+          "max": 0.3477550745010376
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.5380921959877014
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\046\\best_chkpt",
+      "sha256": "604b2cf4dddbd7fbaefad7b350903ace541acb1c412242705dccf246cd904750",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 21,
+          "min": -1.2763046026229858,
+          "max": 2.628485679626465
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.018816253170371056,
+          "max": 0.2154051512479782
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.5878978967666626
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\047\\best_chkpt",
+      "sha256": "f5f98dbc53a94606a07e21079268b57a26950be66fe2f879fb06647a35d870fb",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 13,
+          "min": -1.2725844383239746,
+          "max": 2.531719923019409
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019569160416722298,
+          "max": 0.30587583780288696
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.4528874158859253
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\048\\best_chkpt",
+      "sha256": "781eae13aaef429af6b98f0e4a436974a41f399ed532aabfc2d7973d28545bfe",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 12,
+          "min": -0.8498923182487488,
+          "max": 1.767120599746704
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019608408212661743,
+          "max": 0.31546124815940857
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.7396955490112305
+        }
+      }
+    },
+    {
+      "path": "runs\\flyvis\\results\\flow\\0000\\049\\best_chkpt",
+      "sha256": "b0dd6e351eed6b3ac18941fb02760c97426fe71aba1c194b0bd24a09d8d5960f",
+      "has_network": true,
+      "has_flow": true,
+      "summary": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 14,
+          "min": -1.0086841583251953,
+          "max": 2.6330392360687256
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.019477559253573418,
+          "max": 0.1368982493877411
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "finite": true,
+          "negative": 0,
+          "min": 0.0,
+          "max": 0.20093585550785065
+        }
+      }
+    }
+  ],
+  "cuda_initialized": false,
+  "source_sha256": {
+    "runs\\flyvis_system_audit_20261106\\audit_boundaries.py": "4accef8d273c87a2c8d469b18f7d59f289cdf957aeafeeeda71d93f5cc734021",
+    "tracking\\b1_tracker_runtime.py": "609e18b3577ad8177b769f7f662487d8b8b9d7b22deaaff1a24f94209c74a66b",
+    "tracking\\z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "tracking\\flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d"
+  }
+}

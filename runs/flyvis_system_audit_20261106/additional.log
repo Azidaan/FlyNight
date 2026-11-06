@@ -1,0 +1,69 @@
+[2026-11-06 19:11:40] chkpt_utils:41 Could not recover network state.
+[2026-11-06 19:11:40] chkpt_utils:67 Could not recover state of flow decoder.
+[2026-11-06 19:11:40] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-11-06 19:11:40] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-11-06 19:11:45] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-11-06 19:11:45] chkpt_utils:36 Recovered network state.
+[2026-11-06 19:11:47] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-11-06 19:11:47] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-11-06 19:11:47] chkpt_utils:65 Recovered flow decoder state.
+{
+  "network_missing_payload": {
+    "raised": false,
+    "initialization_retained": true
+  },
+  "decoder_missing_payload": {
+    "raised": false,
+    "initialization_retained": true
+  },
+  "constant_dt_patch": {
+    "max_abs_diff": 0.0,
+    "exact": true
+  },
+  "gradient": {
+    "nodes_bias": {
+      "present": true,
+      "finite": true,
+      "norm": 1.0730819702148438
+    },
+    "nodes_time_const": {
+      "present": true,
+      "finite": true,
+      "norm": 10.922415733337402
+    },
+    "edges_syn_strength": {
+      "present": true,
+      "finite": true,
+      "norm": 92.59569549560547
+    }
+  },
+  "weights_unchanged": true,
+  "network_devices": [
+    "cpu"
+  ],
+  "b2_D_projection": {
+    "checkpoint": "runs\\continuation_20261028\\b2_sparse_training_pilot\\checkpoints\\final.pt",
+    "sha256": "8826b9d0d6e00ba0da8dbcd0186296d2d7d5e294df98f8cc34be2bcfd4343491",
+    "changes": {
+      "nodes_bias": 0.0,
+      "nodes_time_const": 0.0,
+      "edges_sign": 0.0,
+      "edges_syn_count": 0.0,
+      "edges_syn_strength": 0.0
+    },
+    "note": "Current saved checkpoint constraints only; not a reproduction of YOLO dev losses."
+  },
+  "cuda_initialized": false,
+  "script_sha256": "557abad0581bccdab4acdca4c6a0b7bb949734465c3298b8de97fe6aae1cf645"
+}

@@ -1,0 +1,43 @@
+--- a/tracking/history_pair_runtime.py
++++ b/tracking/history_pair_runtime.py
+@@ -28,11 +28,22 @@
+     класса нет чтения разметки, оценки качества или изменения второй ассоциации.
+     """
+     def __init__(self,args,model,variant,alpha=.2):
+-        super().__init__(args)
++        saved=BaseTrack._count
++        try:super().__init__(args)
++        finally:BaseTrack._count=saved
+         self.model=model.eval();self.variant=variant;self.alpha=float(alpha)
+         self.real_history=defaultdict(lambda:deque(maxlen=6))
+         self._own_counter=0;self.first=False;self.context=None;self.shadow_pairs=0
+         self.events=[]
++
++    def reset(self):
++        saved=BaseTrack._count
++        try:super().reset()
++        finally:BaseTrack._count=saved
++        self.real_history.clear();self._own_counter=0;self.first=False
++        self.context=None;self.shadow_pairs=0;self.events.clear()
++        for name in ('raw_frame','raw_boxes','raw_scores'):
++            self.__dict__.pop(name,None)
+ 
+     def _first_association(self,*args):
+         self.first=True
+@@ -80,6 +91,8 @@
+         return corrected
+ 
+     def update_frame(self,frame,boxes,scores,classes,context=None):
++        if hasattr(self,'raw_frame') and int(frame)<=self.raw_frame:
++            raise ValueError('Strictly increasing observed frames required; reset before a new video')
+         self.raw_frame=int(frame);self.raw_boxes=boxes;self.raw_scores=scores;self.context=context
+         saved=BaseTrack._count;BaseTrack._count=self._own_counter
+         try:
+@@ -93,4 +106,7 @@
+                 self.real_history[int(row[4])].append(RealObservation(frame=int(frame),det=d,
+                     box=np.asarray(boxes[d]).copy(),quality=float(scores[d]),embedding=roi['embedding'].copy(),
+                     camera=np.asarray(context['camera'],np.float32).copy(),epoch=int(context['epoch'])))
++        alive={int(t.track_id) for t in self.tracked_stracks+self.lost_stracks}
++        for ident in set(self.real_history)-alive:
++            del self.real_history[ident]
+         return output

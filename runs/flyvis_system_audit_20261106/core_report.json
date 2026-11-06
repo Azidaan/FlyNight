@@ -1,0 +1,184 @@
+{
+  "scope": "CPU engineering audit; no training, no HOTA, no repairs",
+  "checks": {
+    "loaded_weights": {
+      "network": {
+        "same_keys": true,
+        "exact": true,
+        "finite": true
+      },
+      "decoder": {
+        "same_keys": true,
+        "exact": true,
+        "finite": true
+      },
+      "parameters": {
+        "nodes_bias": {
+          "shape": [
+            65
+          ],
+          "min": 0.006728408392518759,
+          "max": 0.7954618334770203,
+          "negative": 0
+        },
+        "nodes_time_const": {
+          "shape": [
+            65
+          ],
+          "min": 0.01943179965019226,
+          "max": 0.3162950873374939,
+          "negative": 0
+        },
+        "edges_sign": {
+          "shape": [
+            604
+          ],
+          "min": -1.0,
+          "max": 1.0,
+          "negative": 228
+        },
+        "edges_syn_count": {
+          "shape": [
+            2355
+          ],
+          "min": -3.107571840286255,
+          "max": 4.970444679260254,
+          "negative": 196
+        },
+        "edges_syn_strength": {
+          "shape": [
+            604
+          ],
+          "min": 0.0,
+          "max": 0.36427417397499084,
+          "negative": 0
+        }
+      }
+    },
+    "connections": {
+      "nodes": 45669,
+      "edges": 1513231,
+      "source_indices_match": true,
+      "target_indices_match": true,
+      "index_range_valid": true,
+      "input_shape": [
+        8,
+        721
+      ],
+      "input_unique": true,
+      "output_columns": {
+        "T1": 721,
+        "T2": 721,
+        "T2a": 721,
+        "T3": 721,
+        "T4a": 721,
+        "T4b": 721,
+        "T4c": 721,
+        "T4d": 721,
+        "T5a": 721,
+        "T5b": 721,
+        "T5c": 721,
+        "T5d": 721,
+        "Tm1": 721,
+        "Tm2": 721,
+        "Tm3": 721,
+        "Tm4": 721,
+        "Tm5Y": 721,
+        "Tm5a": 721,
+        "Tm5b": 721,
+        "Tm5c": 721,
+        "Tm9": 721,
+        "Tm16": 721,
+        "Tm20": 721,
+        "Tm28": 721,
+        "Tm30": 721,
+        "TmY3": 721,
+        "TmY4": 721,
+        "TmY5a": 721,
+        "TmY9": 721,
+        "TmY10": 721,
+        "TmY13": 721,
+        "TmY14": 721,
+        "TmY15": 721,
+        "TmY18": 721
+      },
+      "coordinates_match_receptors": true,
+      "effective_weights_finite": true,
+      "weight_product_exact": true,
+      "target_sum_max_abs_error": 2.0323933256349846e-06,
+      "target_sum_close_1e_5": true
+    },
+    "sequence_reset": {
+      "reset_replay_exact": true,
+      "finite": true,
+      "weights_unchanged": true
+    },
+    "native_eye_bank": {
+      "shapes": {
+        "1": [
+          34,
+          721
+        ],
+        "2": [
+          34,
+          721
+        ]
+      },
+      "same": true
+    },
+    "b1_checkpoints": [
+      {
+        "path": "runs\\b123_20261027\\b1_training\\B\\checkpoint.pt",
+        "sha256": "35667fd8874b7c504541f0c1b6e335e3764d5e65423d39f1e0bce0c3368a14a7",
+        "arm": "B",
+        "finite": true,
+        "core_keys_match": false,
+        "core_equal_stock": false,
+        "negative_strengths": null
+      },
+      {
+        "path": "runs\\b123_20261027\\b1_training\\C\\checkpoint.pt",
+        "sha256": "ab63fc759811bd956bb921ee2d7261e3132f425f9f2ff81729b829885f659fc4",
+        "arm": "C",
+        "finite": true,
+        "core_keys_match": true,
+        "core_equal_stock": true,
+        "negative_strengths": 0
+      },
+      {
+        "path": "runs\\b123_20261027\\b1_training\\D\\checkpoint.pt",
+        "sha256": "30246c5f32b8d0781f6f88b5c7a8ca9eaaa44b8b5dbdb5ec9937119728146f17",
+        "arm": "D",
+        "finite": true,
+        "core_keys_match": true,
+        "core_equal_stock": false,
+        "negative_strengths": 0
+      },
+      {
+        "path": "runs\\b123_20261027\\b1_training\\R1\\checkpoint.pt",
+        "sha256": "800ae79a0a16e79cea485b13e2618de3e51653683e358246a06b3c18c8e29273",
+        "arm": "R1",
+        "finite": true,
+        "core_keys_match": false,
+        "core_equal_stock": true,
+        "negative_strengths": null
+      }
+    ]
+  },
+  "checkpoint": {
+    "path": "E:\\Dissertation\\runs\\flyvis\\results\\flow\\0000\\000\\chkpts\\chkpt_00000",
+    "sha256": "d0e42857e738d0315897c2d50fde9eb3fb1a3fb1f071d55dfc13d53d72bccc3f",
+    "keys": [
+      "network",
+      "decoder"
+    ]
+  },
+  "cuda_initialized": true,
+  "source_sha256": {
+    "runs\\flyvis_system_audit_20261106\\audit_core_cpu.py": "cec6ace0a6eae984d68676c312e3b5529bf20f3864aab6e61abc78d7cd2aaf12",
+    "tracking\\flyvis_motion.py": "052a5657b334646f3d6d0252f8bb2ce1cb556effbb1e6b2efe15521fb71a0a5d",
+    "tracking\\foveated_eyes.py": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
+    "tracking\\z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "tracking\\flyvis_adapter.py": "c444e9df3718390a18416d613fd5d8431475f2f643a00c62b158a91f7fce0eb4"
+  }
+}

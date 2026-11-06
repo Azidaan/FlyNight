@@ -1,0 +1,87 @@
+FFF.F.                                                                   [100%]
+================================== FAILURES ===================================
+_________ test_constructor_and_reset_leave_external_counter_unchanged _________
+
+    def test_constructor_and_reset_leave_external_counter_unchanged():
+        saved = BaseTrack._count
+        try:
+            BaseTrack._count = 927
+            tracker = IndependentByteTracker(config())
+>           assert BaseTrack._count == 927
+E           assert 0 == 927
+E            +  where 0 = BaseTrack._count
+
+tests\test_b2_lifecycle_isolation.py:33: AssertionError
+____ test_reused_tracker_replays_fresh_video_with_identical_states[False] _____
+
+regional = False
+
+    @pytest.mark.parametrize('regional', [False, True])
+    def test_reused_tracker_replays_fresh_video_with_identical_states(regional):
+        cls = make_region_tracker(IndependentByteTracker, lambda: None) if regional else IndependentByteTracker
+        old, fresh = cls(config()), cls(config())
+        for frame in range(35):
+            old.step(*observations(frame))
+        old.reset()
+        for frame in range(35):
+>           assert np.array_equal(old.step(*observations(frame)), fresh.step(*observations(frame)))
+E           assert False
+E            +  where False = <function array_equal at 0x0000027876880FF0>(array([[          0,          10,          20,          30,           5,         0.9,           0,           0],\n     ...        80,          50,         100,          70,           6,         0.9,           0,           1]], dtype=float32), array([[          0,          10,          20,          30,           1,         0.9,           0,           0],\n     ...        80,          50,         100,          70,           2,         0.9,           0,           1]], dtype=float32))
+E            +    where <function array_equal at 0x0000027876880FF0> = np.array_equal
+E            +    and   array([[          0,          10,          20,          30,           5,         0.9,           0,           0],\n     ...        80,          50,         100,          70,           6,         0.9,           0,           1]], dtype=float32) = step(*(array([[          0,          10,          20,          30],\n       [         80,          50,         100,          70]], dtype=float32), array([        0.9,         0.9], dtype=float32), array([0, 0], dtype=int16)))
+E            +      where step = <tracking.b2_pilot_runtime.IndependentByteTracker object at 0x0000027821057B80>.step
+E            +      and   (array([[          0,          10,          20,          30],\n       [         80,          50,         100,          70]], dtype=float32), array([        0.9,         0.9], dtype=float32), array([0, 0], dtype=int16)) = observations(0)
+E            +    and   array([[          0,          10,          20,          30,           1,         0.9,           0,           0],\n     ...        80,          50,         100,          70,           2,         0.9,           0,           1]], dtype=float32) = step(*(array([[          0,          10,          20,          30],\n       [         80,          50,         100,          70]], dtype=float32), array([        0.9,         0.9], dtype=float32), array([0, 0], dtype=int16)))
+E            +      where step = <tracking.b2_pilot_runtime.IndependentByteTracker object at 0x0000027821057970>.step
+E            +      and   (array([[          0,          10,          20,          30],\n       [         80,          50,         100,          70]], dtype=float32), array([        0.9,         0.9], dtype=float32), array([0, 0], dtype=int16)) = observations(0)
+
+tests\test_b2_lifecycle_isolation.py:50: AssertionError
+_____ test_reused_tracker_replays_fresh_video_with_identical_states[True] _____
+
+regional = True
+
+    @pytest.mark.parametrize('regional', [False, True])
+    def test_reused_tracker_replays_fresh_video_with_identical_states(regional):
+        cls = make_region_tracker(IndependentByteTracker, lambda: None) if regional else IndependentByteTracker
+        old, fresh = cls(config()), cls(config())
+        for frame in range(35):
+            old.step(*observations(frame))
+        old.reset()
+        for frame in range(35):
+>           assert np.array_equal(old.step(*observations(frame)), fresh.step(*observations(frame)))
+E           assert False
+E            +  where False = <function array_equal at 0x0000027876880FF0>(array([[          0,          10,          20,          30,           5,         0.9,           0,           0],\n     ...        80,          50,         100,          70,           6,         0.9,           0,           1]], dtype=float32), array([[          0,          10,          20,          30,           1,         0.9,           0,           0],\n     ...        80,          50,         100,          70,           2,         0.9,           0,           1]], dtype=float32))
+E            +    where <function array_equal at 0x0000027876880FF0> = np.array_equal
+E            +    and   array([[          0,          10,          20,          30,           5,         0.9,           0,           0],\n     ...        80,          50,         100,          70,           6,         0.9,           0,           1]], dtype=float32) = step(*(array([[          0,          10,          20,          30],\n       [         80,          50,         100,          70]], dtype=float32), array([        0.9,         0.9], dtype=float32), array([0, 0], dtype=int16)))
+E            +      where step = <tracking.z13_region_runtime.make_region_tracker.<locals>.RegionalTracker object at 0x0000027821083B20>.step
+E            +      and   (array([[          0,          10,          20,          30],\n       [         80,          50,         100,          70]], dtype=float32), array([        0.9,         0.9], dtype=float32), array([0, 0], dtype=int16)) = observations(0)
+E            +    and   array([[          0,          10,          20,          30,           1,         0.9,           0,           0],\n     ...        80,          50,         100,          70,           2,         0.9,           0,           1]], dtype=float32) = step(*(array([[          0,          10,          20,          30],\n       [         80,          50,         100,          70]], dtype=float32), array([        0.9,         0.9], dtype=float32), array([0, 0], dtype=int16)))
+E            +      where step = <tracking.z13_region_runtime.make_region_tracker.<locals>.RegionalTracker object at 0x0000027821083A00>.step
+E            +      and   (array([[          0,          10,          20,          30],\n       [         80,          50,         100,          70]], dtype=float32), array([        0.9,         0.9], dtype=float32), array([0, 0], dtype=int16)) = observations(0)
+
+tests\test_b2_lifecycle_isolation.py:50: AssertionError
+____________ test_failed_update_does_not_reuse_consumed_local_ids _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002782108EB00>
+
+    def test_failed_update_does_not_reuse_consumed_local_ids(monkeypatch):
+        tracker = IndependentByteTracker(config())
+        saved = BaseTrack._count
+        def fail_after_allocating(*args, **kwargs):
+            BaseTrack.next_id()
+            raise RuntimeError('Failure after allocating an ID')
+        monkeypatch.setattr(tracker, 'update', fail_after_allocating)
+        with pytest.raises(RuntimeError):
+            tracker.step(*observations(0))
+        assert BaseTrack._count == saved
+>       assert tracker.own_counter == 1
+E       assert 0 == 1
+E        +  where 0 = <tracking.b2_pilot_runtime.IndependentByteTracker object at 0x000002782108E890>.own_counter
+
+tests\test_b2_lifecycle_isolation.py:83: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_b2_lifecycle_isolation.py::test_constructor_and_reset_leave_external_counter_unchanged
+FAILED tests/test_b2_lifecycle_isolation.py::test_reused_tracker_replays_fresh_video_with_identical_states[False]
+FAILED tests/test_b2_lifecycle_isolation.py::test_reused_tracker_replays_fresh_video_with_identical_states[True]
+FAILED tests/test_b2_lifecycle_isolation.py::test_failed_update_does_not_reuse_consumed_local_ids
+4 failed, 2 passed in 5.53s

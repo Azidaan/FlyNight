@@ -1,0 +1,140 @@
+--- /dev/null
++++ b/tests/test_learned_head_contracts.py
+@@ -0,0 +1,137 @@
++"""Malformed parameters must fail before becoming tracker decisions."""
++import importlib.util
++from pathlib import Path
++
++import numpy as np
++import pytest
++import torch
++
++from tracking.learned_recovery_admission import AdmissionModel, head, raw_input
++
++
++@pytest.fixture
++def artifacts(tmp_path):
++    with torch.random.fork_rng(devices=[]):
++        torch.manual_seed(13)
++        saved = dict(arm='numeric', input_dim=10, state_dict=head(10).state_dict())
++    norm = dict(numeric_mean=np.zeros(2, np.float32), numeric_std=np.ones(2, np.float32),
++                projection=np.arange(16, dtype=np.float32).reshape(2, 8) / 16,
++                input_mean=np.zeros(10, np.float32), input_std=np.ones(10, np.float32))
++    def write(saved=saved, norm=norm):
++        cp, normalization = tmp_path / 'head.pt', tmp_path / 'normalization.npz'
++        torch.save(saved, cp)
++        np.savez(normalization, **norm)
++        return cp, normalization
++    return saved, norm, write
++
++
++@pytest.mark.parametrize('value', [float('nan'), float('inf'), 1e300])
++def test_admission_rejects_nonfinite_and_cast_overflow_weights(artifacts, value):
++    saved, norm, write = artifacts
++    saved['state_dict']['1.weight'] = saved['state_dict']['1.weight'].double()
++    saved['state_dict']['1.weight'][0, 0] = value
++    with pytest.raises(ValueError):
++        AdmissionModel(*write())
++
++
++@pytest.mark.parametrize('key,value', [
++    ('arm', 'numerci'), ('input_dim', True), ('input_dim', 10.), ('input_dim', 11),
++])
++def test_admission_rejects_invalid_schema(artifacts, key, value):
++    saved, _, write = artifacts
++    saved[key] = value
++    with pytest.raises(ValueError):
++        AdmissionModel(*write())
++
++
++@pytest.mark.parametrize('key,value', [
++    ('numeric_std', np.array([0., 1.])), ('numeric_std', np.array([-1., 1.])),
++    ('input_std', np.zeros(10)), ('input_std', np.ones(1)),
++    ('input_mean', np.full(10, np.nan)), ('numeric_mean', np.zeros(1)),
++    ('projection', np.ones((3, 8))), ('projection', np.full((2, 8), np.inf)),
++])
++def test_admission_rejects_normalization_before_constructing_model(artifacts, key, value, monkeypatch):
++    _, norm, write = artifacts
++    norm[key] = value
++    monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
++    with pytest.raises(ValueError):
++        AdmissionModel(*write())
++
++
++def test_admission_explicit_cpu_and_rng_preserved_under_ambient_meta(artifacts):
++    _, _, write = artifacts
++    files = write()
++    rng = torch.get_rng_state().clone()
++    with torch.device('meta'):
++        model = AdmissionModel(*files, device='cpu')
++    assert torch.equal(rng, torch.get_rng_state())
++    assert all(p.device.type == 'cpu' for p in model.model.parameters())
++    assert np.isfinite(model.probabilities(np.array([[1., 2.]], np.float32))).all()
++
++
++def test_admission_missing_normalization_or_weights_rejected(artifacts):
++    saved, norm, write = artifacts
++    value = norm.pop('numeric_std')
++    with pytest.raises(ValueError, match='normalization'):
++        AdmissionModel(*write())
++    norm['numeric_std'] = value
++    saved['state_dict'].pop('3.bias')
++    with pytest.raises(ValueError):
++        AdmissionModel(*write())
++
++
++def test_admission_inference_dtype_is_independent_of_ambient_default(artifacts):
++    _, _, write = artifacts
++    files = write()
++    x = np.array([[1., 2.]], np.float32)
++    expected = AdmissionModel(*files).probabilities(x)
++    dtype = torch.get_default_dtype()
++    try:
++        torch.set_default_dtype(torch.float64)
++        current = AdmissionModel(*files)
++        assert all(p.dtype == torch.float32 for p in current.model.parameters())
++        assert np.array_equal(current.probabilities(x), expected)
++    finally:
++        torch.set_default_dtype(dtype)
++
++
++def test_admission_rejects_runtime_overflow_in_finite_parameters(artifacts):
++    _, _, write = artifacts
++    model = AdmissionModel(*write())
++    with torch.no_grad():
++        model.model[3].weight.fill_(torch.finfo(torch.float32).max)
++        model.model[1].bias.fill_(100)
++    with pytest.raises(ValueError, match='logits'):
++        model.probabilities(np.array([[1., 2.]], np.float32))
++
++
++@pytest.mark.parametrize('numeric,embeddings,arm', [
++    (np.array([[np.inf, 1.]]), None, 'numeric'),
++    (np.array([[1., 2.]]), np.ones((1, 2, 2)), 'wrong'),
++    (np.array([[1., 2.]]), None, 'appearance'),
++    (np.ones((2, 2)), np.ones((1, 2, 2)), 'appearance'),
++    (np.ones((1, 2)), np.full((1, 2, 2), np.nan), 'appearance'),
++])
++def test_raw_input_rejects_invalid_observation(artifacts, numeric, embeddings, arm):
++    _, n, _ = artifacts
++    with pytest.raises(ValueError):
++        raw_input(numeric, embeddings, arm, n['numeric_mean'], n['numeric_std'], n['projection'])
++
++
++def test_admission_valid_inputs_exact_against_original(artifacts):
++    old_path = Path(__file__).resolve().parents[1] / 'runs/flyvis_repairs_20261106/learned_head_review/original/learned_recovery_admission.py'
++    if not old_path.exists():
++        pytest.skip('Historical review snapshot is not in this checkout')
++    module_spec = importlib.util.spec_from_file_location('original_admission_contract_review', old_path)
++    old = importlib.util.module_from_spec(module_spec)
++    module_spec.loader.exec_module(old)
++    saved, norm, write = artifacts
++    rng = np.random.default_rng(51)
++    x = rng.normal(size=(17, 2)).astype(np.float32)
++    e = rng.normal(size=(17, 2, 2)).astype(np.float32)
++    for arm in ('numeric', 'appearance'):
++        saved['arm'] = arm
++        files = write()
++        original = old.AdmissionModel(*files)
++        current = AdmissionModel(*files)
++        assert np.array_equal(original.probabilities(x, e), current.probabilities(x, e))

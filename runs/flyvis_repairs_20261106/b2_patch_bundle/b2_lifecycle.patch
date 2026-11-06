@@ -1,0 +1,29 @@
+--- a/tracking/b2_pilot_runtime.py
++++ b/tracking/b2_pilot_runtime.py
+@@ -22,7 +22,15 @@
+ class IndependentByteTracker(XYWHByteTrack):
+     """Изолированный счётчик ID, штатная ассоциация и состояние XYWHByteTrack."""
+     def __init__(self,args):
+-        super().__init__(args)
++        saved=BaseTrack._count
++        try:super().__init__(args)
++        finally:BaseTrack._count=saved
++        self.own_counter=0
++
++    def reset(self):
++        saved=BaseTrack._count
++        try:super().reset()
++        finally:BaseTrack._count=saved
+         self.own_counter=0
+ 
+     def step(self,boxes,scores,classes):
+@@ -30,8 +38,8 @@
+         BaseTrack._count=self.own_counter
+         try:
+             out=np.asarray(self.update(_DetSlice(boxes,scores,classes)),np.float32).reshape(-1,8)
++        finally:
+             self.own_counter=BaseTrack._count
+-        finally:
+             BaseTrack._count=saved
+         return out
+ 

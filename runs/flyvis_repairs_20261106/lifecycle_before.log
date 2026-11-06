@@ -1,0 +1,52 @@
+FFFFFFFF                                                                 [100%]
+================================== FAILURES ===================================
+_ test_query_reset_replays_new_video_exactly_and_preserves_external_ids[QueryAppearanceTracker] _
+tests\test_tracker_lifecycle_reset.py:35: in test_query_reset_replays_new_video_exactly_and_preserves_external_ids
+    assert BaseTrack._count==927
+E   assert 0 == 927
+E    +  where 0 = BaseTrack._count
+_ test_query_reset_replays_new_video_exactly_and_preserves_external_ids[MemoryWriteTracker] _
+tests\test_tracker_lifecycle_reset.py:35: in test_query_reset_replays_new_video_exactly_and_preserves_external_ids
+    assert BaseTrack._count==927
+E   assert 0 == 927
+E    +  where 0 = BaseTrack._count
+_ test_query_reset_replays_new_video_exactly_and_preserves_external_ids[AssignmentWriteTracker] _
+tests\test_tracker_lifecycle_reset.py:35: in test_query_reset_replays_new_video_exactly_and_preserves_external_ids
+    assert BaseTrack._count==927
+E   assert 0 == 927
+E    +  where 0 = BaseTrack._count
+_ test_query_reset_replays_new_video_exactly_and_preserves_external_ids[BoundedWriteTracker] _
+tests\test_tracker_lifecycle_reset.py:35: in test_query_reset_replays_new_video_exactly_and_preserves_external_ids
+    assert BaseTrack._count==927
+E   assert 0 == 927
+E    +  where 0 = BaseTrack._count
+_ test_query_reset_replays_new_video_exactly_and_preserves_external_ids[PeriodicWriteTracker] _
+tests\test_tracker_lifecycle_reset.py:35: in test_query_reset_replays_new_video_exactly_and_preserves_external_ids
+    assert BaseTrack._count==927
+E   assert 0 == 927
+E    +  where 0 = BaseTrack._count
+_________ test_lazy_reset_replays_native_ids_without_global_mutation __________
+tests\test_tracker_lifecycle_reset.py:55: in test_lazy_reset_replays_native_ids_without_global_mutation
+    assert BaseTrack._count==927 and not old.events and old.changed_cost_frames==0
+E   assert (0 == 927)
+E    +  where 0 = BaseTrack._count
+__________ test_history_reset_clears_context_and_replays_fresh_model __________
+tests\test_tracker_lifecycle_reset.py:70: in test_history_reset_clears_context_and_replays_fresh_model
+    assert BaseTrack._count==927 and not old.real_history and old.context is None
+E   assert (0 == 927)
+E    +  where 0 = BaseTrack._count
+________ test_removed_tracks_release_history_but_lost_tracks_retain_it ________
+tests\test_tracker_lifecycle_reset.py:86: in test_removed_tracks_release_history_but_lost_tracks_retain_it
+    assert not tracker.real_history
+E   assert not defaultdict(<function HistoryAssociationTracker.__init__.<locals>.<lambda> at 0x0000023CCB200820>, {1: deque([RealObse...       0,           0], dtype=float32), camera=array([          0,           0], dtype=float32), epoch=0)], maxlen=6)})
+E    +  where defaultdict(<function HistoryAssociationTracker.__init__.<locals>.<lambda> at 0x0000023CCB200820>, {1: deque([RealObse...       0,           0], dtype=float32), camera=array([          0,           0], dtype=float32), epoch=0)], maxlen=6)}) = <tracking.history_pair_runtime.HistoryAssociationTracker object at 0x0000023CC919F460>.real_history
+=========================== short test summary info ===========================
+FAILED tests/test_tracker_lifecycle_reset.py::test_query_reset_replays_new_video_exactly_and_preserves_external_ids[QueryAppearanceTracker]
+FAILED tests/test_tracker_lifecycle_reset.py::test_query_reset_replays_new_video_exactly_and_preserves_external_ids[MemoryWriteTracker]
+FAILED tests/test_tracker_lifecycle_reset.py::test_query_reset_replays_new_video_exactly_and_preserves_external_ids[AssignmentWriteTracker]
+FAILED tests/test_tracker_lifecycle_reset.py::test_query_reset_replays_new_video_exactly_and_preserves_external_ids[BoundedWriteTracker]
+FAILED tests/test_tracker_lifecycle_reset.py::test_query_reset_replays_new_video_exactly_and_preserves_external_ids[PeriodicWriteTracker]
+FAILED tests/test_tracker_lifecycle_reset.py::test_lazy_reset_replays_native_ids_without_global_mutation
+FAILED tests/test_tracker_lifecycle_reset.py::test_history_reset_clears_context_and_replays_fresh_model
+FAILED tests/test_tracker_lifecycle_reset.py::test_removed_tracks_release_history_but_lost_tracks_retain_it
+8 failed in 4.82s

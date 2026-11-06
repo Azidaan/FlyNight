@@ -1,0 +1,23 @@
+{
+  "checked_at_utc": "2026-11-06T20:43:29.909811+00:00",
+  "supersedes_uncertainty_in": "report.json",
+  "previous_report_sha256": "ba7e8651b2cc978edc4776af36e31a6a898c5975d9f84e6f211c0ad138cb401e",
+  "ui_evidence": [
+    {
+      "path": "runs/flyvis_repairs_20261106/gitlab_ci_review/pipeline_new_ui.txt",
+      "sha256": "1cb36b55dca3baa2f595acb66953b79b757a0d43e265dd175342dfd10de97485",
+      "pipeline_id": 3038392556,
+      "commit": "1985eaffb4f8ecbd0340a2dc3b2b5baf92277baf"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/gitlab_ci_review/pipeline_old_ui.txt",
+      "sha256": "29974552a679db1b6fefb19ec3caa92276671a5e28a8012e1676ab663eaa880e",
+      "pipeline_id": 2991553488,
+      "commit": "9626126d90390740e052c331cc07337a9e85620e"
+    }
+  ],
+  "confirmed": "The authenticated GitLab UI for both fixed pipeline IDs explicitly requires identity verification before running the pipeline, separate from registration verification. This is the observed pre-execution blocker; no jobs or test execution occurred.",
+  "attribution": "UI text was captured by the parent agent in the authenticated browser; this review verifies the saved text and its pipeline/commit identity. The connector API alone did not expose this reason.",
+  "limitation": "The UI also displays a generic yaml invalid badge while the API yaml_errors field is null. The explicit actionable banner is the identity-verification prerequisite; no additional syntax defect is established. Completing verification or rerunning CI was not attempted.",
+  "repository_or_account_mutations": false
+}

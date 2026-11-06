@@ -1,0 +1,198 @@
+[2026-11-06 21:17:10] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-11-06 21:17:10] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-11-06 21:17:16] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-11-06 21:17:19] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-11-06 21:17:19] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+C independent native wrapped faults/retry passed
+D independent native wrapped faults/retry passed
+{
+  "source_sha256": "0b766835cad156dea996c72d7475b538abfafe8a549f01a039ed0849a2e66058",
+  "baseline_sha256": "609e18b3577ad8177b769f7f662487d8b8b9d7b22deaaff1a24f94209c74a66b",
+  "deterministic_source_sha256": "d4cfd216a97bfaba726124fcafe08debae14cb24edcc1cb83db435cf330d03b3",
+  "independent_probe_sha256": "740684cc3a72e3937fd799be99fbe81397dafb5794060c32ed29833d2599d28a",
+  "unchanged_AST_outside_three_methods": true,
+  "saved_native_arrays": [
+    {
+      "key": "B_False_activity",
+      "exact": true,
+      "shape": [
+        1,
+        34,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "B_False_state",
+      "exact": true,
+      "shape": [
+        1,
+        16,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "C_False_activity",
+      "exact": true,
+      "shape": [
+        1,
+        34,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "C_False_state",
+      "exact": true,
+      "shape": [
+        1,
+        45669
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "C_True_activity",
+      "exact": true,
+      "shape": [
+        1,
+        34,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "C_True_state",
+      "exact": true,
+      "shape": [
+        1,
+        45669
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "D_False_activity",
+      "exact": true,
+      "shape": [
+        1,
+        34,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "D_False_state",
+      "exact": true,
+      "shape": [
+        1,
+        45669
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "D_True_activity",
+      "exact": true,
+      "shape": [
+        1,
+        34,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "D_True_state",
+      "exact": true,
+      "shape": [
+        1,
+        45669
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "R1_False_activity",
+      "exact": true,
+      "shape": [
+        1,
+        34,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "R1_False_state",
+      "exact": true,
+      "shape": [
+        1,
+        17,
+        721
+      ],
+      "dtype": "float32"
+    }
+  ],
+  "actual_checkpoint_hashes": {
+    "B": "35667fd8874b7c504541f0c1b6e335e3764d5e65423d39f1e0bce0c3368a14a7",
+    "C": "ab63fc759811bd956bb921ee2d7261e3132f425f9f2ff81729b829885f659fc4",
+    "D": "30246c5f32b8d0781f6f88b5c7a8ca9eaaa44b8b5dbdb5ec9937119728146f17"
+  },
+  "independent_checks": [
+    {
+      "arm": "R1",
+      "dtype": "torch.float32",
+      "valid_exact": true,
+      "rejected_before_backend": true,
+      "retry_exact": true
+    },
+    {
+      "arm": "R1",
+      "dtype": "torch.float64",
+      "valid_exact": true,
+      "rejected_before_backend": true,
+      "retry_exact": true
+    },
+    {
+      "arm": "C",
+      "fault": "unselected_neuron_nan",
+      "wrapped": true,
+      "old_eye_refs_and_values_preserved": true,
+      "warn_only_flags_preserved": true,
+      "retry_and_next_exact": true
+    },
+    {
+      "arm": "C",
+      "fault": "wrapped_exception",
+      "wrapped": true,
+      "old_eye_refs_and_values_preserved": true,
+      "warn_only_flags_preserved": true,
+      "retry_and_next_exact": true
+    },
+    {
+      "arm": "D",
+      "fault": "unselected_neuron_nan",
+      "wrapped": true,
+      "old_eye_refs_and_values_preserved": true,
+      "warn_only_flags_preserved": true,
+      "retry_and_next_exact": true
+    },
+    {
+      "arm": "D",
+      "fault": "wrapped_exception",
+      "wrapped": true,
+      "old_eye_refs_and_values_preserved": true,
+      "warn_only_flags_preserved": true,
+      "retry_and_next_exact": true
+    }
+  ],
+  "cuda_initialized": false,
+  "limitations": "Checks atomic eye publication for functional official backends only; internal stimulus buffers are not rolled back; no complete tracker transaction, no GPU or training, no HOTA claim."
+}
