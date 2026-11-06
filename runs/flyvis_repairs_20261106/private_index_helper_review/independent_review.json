@@ -1,0 +1,17 @@
+{
+  "helper_sha256": "afdf3416ab3cafd834c3db7cf33bef01ee74579cc3a64b78a255ac307d9cdaca",
+  "reviewer": "/root/temporal_fix",
+  "independent_read_only_review": "PASS",
+  "material_findings": [],
+  "final_read_only_preflight_passed": true,
+  "shared_snapshots_unchanged": true,
+  "apply_executed": false,
+  "private_directory_created": false,
+  "source_frozen": true,
+  "boundaries": [
+    "All Git-writing commands use the private index environment; immutable objects are intentionally written to the shared object store only by a later root-authorized --apply.",
+    "The new non-branch ref uses no-deref and compare-and-swap from zero; existing normal or symbolic refs are refused.",
+    "Failures may leave unreachable objects or a private index. No shared state rollback is performed.",
+    "Other actors may change shared HEAD/index/branches during a real run; receipt records observed drift without reverting it."
+  ]
+}

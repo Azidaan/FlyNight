@@ -1,0 +1,154 @@
+{
+  "base_commit": "f451455074126d3d4a9f082e4872186a45c3d0d5",
+  "selected_card_ids": [
+    "flyvis_system_lifecycle_repair_20261106",
+    "flyvis_system_repairs_batch1_20261106",
+    "flyvis_system_integrity_stable_packages_20261106",
+    "flyvis_system_integrity_final_20261106"
+  ],
+  "files": [
+    {
+      "path": "dissertation/ЕДИНЫЙ_ПЛАН.md",
+      "baseline_sha256": "dbc90e74f6a835e4d1a79df4511b8adb0d09e864c74a43b008a6df7b9d9c0951",
+      "after_sha256": "d1e1ce70c12ebd8a7b9bcaf95e15d58e10f909eefd037088239efcb4cee9f292",
+      "staged_candidate": "runs/flyvis_repairs_20261106/audit_ledger_overlay_v2/after/dissertation/ЕДИНЫЙ_ПЛАН.md",
+      "patch": "runs/flyvis_repairs_20261106/audit_ledger_overlay_v2/ЕДИНЫЙ_ПЛАН.md.patch"
+    },
+    {
+      "path": "experiments/project_history.json",
+      "baseline_sha256": "74245b94734903fe153c5544d0b268a07760e7ddee470ec46b19f10b9c6b238b",
+      "after_sha256": "2c1e9bdc807c6d80ba5ab52c15538d9c3f22f77403ae13d01888145525eb5dd2",
+      "staged_candidate": "runs/flyvis_repairs_20261106/audit_ledger_overlay_v2/after/experiments/project_history.json",
+      "patch": "runs/flyvis_repairs_20261106/audit_ledger_overlay_v2/project_history.json.patch"
+    }
+  ],
+  "selected_journal_entries": [
+    {
+      "recorded_at": "2026-11-06T23:58:33.060699+03:00",
+      "source": "runs/flyvis_repairs_20261106/final_journal.txt",
+      "sha256": "440cecbaa36aa547980d71aba33162702eb52c51be1374276067d10e948c076f"
+    },
+    {
+      "recorded_at": "2026-11-06T22:58:21.682740+03:00",
+      "source": "stable_packages_journal.txt",
+      "sha256": "31a37dc70d6a37a0e0426b55bf66d9cbee54e65f2b8f667140863d0a0187f4f4"
+    },
+    {
+      "recorded_at": "2026-11-06T22:32:35.202679+03:00",
+      "source": "geometry_correction_journal.txt",
+      "sha256": "4967aeed103ecda2aa1e7dd4e8457391892808623557bf6634b5ae4a907a6250"
+    },
+    {
+      "recorded_at": "2026-11-06T21:47:30.792924+03:00",
+      "source": "batch1_journal.txt",
+      "sha256": "e3989152daa5284a28d84cec039c19bda2e2ab5c38637eadbfbdcbd64860a340"
+    },
+    {
+      "recorded_at": "2026-11-06T21:33:10.269300+03:00",
+      "source": "reconstructed lifecycle literals",
+      "sha256": "7601323d56be4311cb58618f91b99387a7ff91223d61ccbf8ca699f9ddbac7f2"
+    }
+  ],
+  "counts": {
+    "HEAD_cards": 248,
+    "working_cards": 322,
+    "overlay_cards": 252
+  },
+  "verification": {
+    "all_HEAD_cards_unchanged": true,
+    "non_experiment_HEAD_fields_unchanged": true,
+    "HEAD_catalogue_original_bytes_recoverable": true,
+    "HEAD_plan_original_bytes_recoverable": true,
+    "working_ledger_unchanged": true,
+    "git_writes_performed": false
+  },
+  "excluded_working_changes": {
+    "added_other_card_ids": [
+      "b1_temporal_residual_training_v1",
+      "b2_predetection_gradient_v1",
+      "b3_object_memory_gradient_v1",
+      "b1_residual_bound_audit_v1",
+      "b1_base_export_vectorized_v1",
+      "busca_recovery_readiness_v1",
+      "ltr_recovery_readiness_v1",
+      "recovery_motion_output_control_v1",
+      "busca_runtime_profile_v1",
+      "busca_output_recovery_pilot_v1",
+      "sam2_mask_runtime_profile_v1",
+      "sam2_mask_output_recovery_pilot_v1",
+      "sam2_mask_precision_profile_v1",
+      "sam2_query_mask_output_pilot_v1",
+      "detection_supported_recovery_v1",
+      "online_detection_support_verification_v1",
+      "detection_support_transfer_v1",
+      "recovery_admission_oracle_v1",
+      "hota_error_budget_current_v1",
+      "recovery_admission_data_v1",
+      "recovery_appearance_profile_v1",
+      "recovery_appearance_features_v1",
+      "recovery_admission_learning_v1",
+      "pixel_box_refinement_v1",
+      "pixel_box_numeric_control_v1",
+      "lazy_appearance_association_v1",
+      "fixed_association_geometry_composition_v1",
+      "frame_masa_association_v1",
+      "frame_masa_fp16_association_v1",
+      "masa_feature_contribution_v1",
+      "b1_full_tracker_pilot_v1",
+      "history_representations_factorial_v1",
+      "history_pair_inputs_v1",
+      "history_visual_inputs_v1",
+      "history_factorial_training_v1",
+      "history_factorial_two_epoch_pilot_v1",
+      "history_factorial_tracker_two_epoch_v1",
+      "b2_causal_manifest_v1",
+      "b2_causal960_path_v1",
+      "b2_sparse_training_pilot_v1",
+      "reid_masa_detic_v1",
+      "reid_mgor_v1",
+      "tracking_scaletrack_v1",
+      "query_memory_write_v1",
+      "query_assignment_write_v1",
+      "query_bounded_write_v1",
+      "query_cost_use_v1",
+      "flyvis_y1_latency_gate_v1",
+      "flyvis_y1_latency_fp64_v1",
+      "flyvis_tau_half_v1",
+      "flyvis_tau_gain_loso_v1",
+      "flyvis_offset_v1",
+      "flyvis_offset_recovery1_v1",
+      "flyvis_offset_recovery2_v1",
+      "flyvis_still_gate_v1",
+      "flyvis_robust_still_gate_v1",
+      "flyvis_local_motion_gate_v1",
+      "flyvis_local_gate_stress_v1",
+      "flyvis_brightness_gate_v1",
+      "flyvis_order_gate_v1",
+      "flyvis_counterfactual_static_v1",
+      "flyvis_counterfactual_static_recovery1_v1",
+      "flyvis_internal_signal_probe_v1",
+      "flyvis_equal_readout_v1",
+      "flyvis_full_spatial_capture_probe_v1",
+      "flyvis_t4t5_tensor_skill_probe_v1",
+      "flyvis_t4t5_paired_eval_v1",
+      "flyvis_t4t5_paired_eval_recovery1_v1",
+      "flyvis_history_state_swap_v1",
+      "flyvis_partial_state_swap_v1"
+    ],
+    "changed_other_card_ids": [
+      "z13_val20_native_masa_v1",
+      "flyvis_temporal_residual_association_v1",
+      "flyvis_predetection_temporal_branch_v1",
+      "flyvis_connectome_object_memory_v1"
+    ],
+    "removed_other_card_ids": [],
+    "other_plan_changes": "All working-plan differences except the exact selected journal insertions are excluded."
+  },
+  "working_ledger_sha256": {
+    "dissertation/ЕДИНЫЙ_ПЛАН.md": "6e75a851c5c42c18abca54e16be49960369f0f7803beea787352d24834893d70",
+    "experiments/project_history.json": "12610c46a88640c028b6f75a454e21f07cb82d3798e7af52b0dfaa4f9173d07b"
+  },
+  "HEAD_glossary_sha256": "8fdc5e7ab0120104facdb95ecc1107279c6b7988091db31fee4e13ad36327540",
+  "script_sha256": "58371e44c3f8838e885bee6bd0744d5ea348b7982e6d3dee89c3502e144dae1a",
+  "boundary": "Prepared files only. No index staging, branch changes, commits or working-ledger edits. Subsequent index-only staging must verify base_commit and candidate hashes."
+}
