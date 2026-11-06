@@ -1,0 +1,17 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_______ test_hardlinked_target_is_rejected_instead_of_splitting_aliases _______
+
+writer = <function _patch_datamate_hdf5_writer.<locals>.safe_write_h5 at 0x00000210E0603250>
+tmp_path = WindowsPath('E:/Dissertation/runs/flyvis_repairs_20261106/hdf5_transaction/hardlink_before_temp/test_hardlinked_target_is_reje0')
+
+    def test_hardlinked_target_is_rejected_instead_of_splitting_aliases(writer,tmp_path):
+        path=tmp_path/'value.h5';alias=tmp_path/'alias.h5'
+        writer(path,np.arange(5));os.link(path,alias);before=path.read_bytes()
+>       with pytest.raises(OSError,match='hard link'):writer(path,np.arange(8))
+E       Failed: DID NOT RAISE OSError
+
+tests\test_flyvis_hdf5_transaction.py:135: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_flyvis_hdf5_transaction.py::test_hardlinked_target_is_rejected_instead_of_splitting_aliases
+1 failed, 20 deselected in 0.66s

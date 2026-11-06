@@ -1,0 +1,1131 @@
+{
+  "passed": true,
+  "source_sha256": "f053f52a6f1bb6233884de818a4175c1bb01ab5dff6e0d037f2262bea5b3ffdc",
+  "baseline_sha256": "02f025826ca3b298acfb71e7bfce2725caa9d0d862f4e696c50e537622023c38",
+  "fault_cases": [
+    {
+      "first": true,
+      "failure": "initial_raise",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "initial_wrong_nodes",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "initial_nan",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_raise",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_wrong_time",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_wrong_channels",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_nan",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "field_raise",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "network_raise",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "zero_steps",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "short_steps",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "long_steps",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "activity_nan",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_raise",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_wrong_time",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_wrong_channels",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_nan",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_overflow",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "field_raise",
+      "mode": "full",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "initial_raise",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "initial_wrong_nodes",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "initial_nan",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_raise",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_wrong_time",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_wrong_channels",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_nan",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "field_raise",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "network_raise",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "zero_steps",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "short_steps",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "long_steps",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "activity_nan",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_raise",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_wrong_time",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_wrong_channels",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_nan",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_overflow",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "field_raise",
+      "mode": "full",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "initial_raise",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "initial_wrong_nodes",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "initial_nan",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_raise",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_wrong_time",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_wrong_channels",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_nan",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "field_raise",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "network_raise",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "zero_steps",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "short_steps",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "long_steps",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "activity_nan",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_raise",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_wrong_time",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_wrong_channels",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_nan",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_overflow",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "field_raise",
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "initial_raise",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "initial_wrong_nodes",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "initial_nan",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_raise",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_wrong_time",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_wrong_channels",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "decoder_nan",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "failure": "field_raise",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "network_raise",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "zero_steps",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "short_steps",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "long_steps",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "activity_nan",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_raise",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_wrong_time",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_wrong_channels",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_nan",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "decoder_overflow",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": false,
+      "failure": "field_raise",
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "state_and_aliases_unchanged": true,
+      "retry_exact": true
+    },
+    {
+      "first": true,
+      "malformed_shape": [
+        0,
+        10
+      ],
+      "dtype": "uint8",
+      "state_and_aliases_unchanged": true
+    },
+    {
+      "first": true,
+      "malformed_shape": [
+        8,
+        10,
+        2
+      ],
+      "dtype": "uint8",
+      "state_and_aliases_unchanged": true
+    },
+    {
+      "first": true,
+      "malformed_shape": [
+        8,
+        10
+      ],
+      "dtype": "float64",
+      "state_and_aliases_unchanged": true
+    },
+    {
+      "first": true,
+      "malformed_shape": [
+        8,
+        10
+      ],
+      "dtype": "float16",
+      "state_and_aliases_unchanged": true
+    },
+    {
+      "first": false,
+      "malformed_shape": [
+        0,
+        10
+      ],
+      "dtype": "uint8",
+      "state_and_aliases_unchanged": true
+    },
+    {
+      "first": false,
+      "malformed_shape": [
+        8,
+        10,
+        2
+      ],
+      "dtype": "uint8",
+      "state_and_aliases_unchanged": true
+    },
+    {
+      "first": false,
+      "malformed_shape": [
+        8,
+        10
+      ],
+      "dtype": "float64",
+      "state_and_aliases_unchanged": true
+    },
+    {
+      "first": false,
+      "malformed_shape": [
+        8,
+        10
+      ],
+      "dtype": "float16",
+      "state_and_aliases_unchanged": true
+    }
+  ],
+  "valid_old_new_cases": [
+    {
+      "mode": "full",
+      "dtype": "torch.float32",
+      "resampling": "hold",
+      "aggregation": "mean",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float32",
+      "resampling": "hold",
+      "aggregation": "mean",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float32",
+      "resampling": "hold",
+      "aggregation": "last",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float32",
+      "resampling": "hold",
+      "aggregation": "last",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float32",
+      "resampling": "hold",
+      "aggregation": "sum",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float32",
+      "resampling": "hold",
+      "aggregation": "sum",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float32",
+      "resampling": "linear",
+      "aggregation": "mean",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float32",
+      "resampling": "linear",
+      "aggregation": "mean",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float32",
+      "resampling": "linear",
+      "aggregation": "last",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float32",
+      "resampling": "linear",
+      "aggregation": "last",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float32",
+      "resampling": "linear",
+      "aggregation": "sum",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float32",
+      "resampling": "linear",
+      "aggregation": "sum",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float64",
+      "resampling": "hold",
+      "aggregation": "mean",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float64",
+      "resampling": "hold",
+      "aggregation": "mean",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float64",
+      "resampling": "hold",
+      "aggregation": "last",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float64",
+      "resampling": "hold",
+      "aggregation": "last",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float64",
+      "resampling": "hold",
+      "aggregation": "sum",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float64",
+      "resampling": "hold",
+      "aggregation": "sum",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float64",
+      "resampling": "linear",
+      "aggregation": "mean",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float64",
+      "resampling": "linear",
+      "aggregation": "mean",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float64",
+      "resampling": "linear",
+      "aggregation": "last",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float64",
+      "resampling": "linear",
+      "aggregation": "last",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float64",
+      "resampling": "linear",
+      "aggregation": "sum",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "full",
+      "dtype": "torch.float64",
+      "resampling": "linear",
+      "aggregation": "sum",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "resampling": "hold",
+      "aggregation": "mean",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "resampling": "hold",
+      "aggregation": "mean",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "resampling": "hold",
+      "aggregation": "last",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "resampling": "hold",
+      "aggregation": "last",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "resampling": "hold",
+      "aggregation": "sum",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "resampling": "hold",
+      "aggregation": "sum",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "resampling": "linear",
+      "aggregation": "mean",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "resampling": "linear",
+      "aggregation": "mean",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "resampling": "linear",
+      "aggregation": "last",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "resampling": "linear",
+      "aggregation": "last",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "resampling": "linear",
+      "aggregation": "sum",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float32",
+      "resampling": "linear",
+      "aggregation": "sum",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "resampling": "hold",
+      "aggregation": "mean",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "resampling": "hold",
+      "aggregation": "mean",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "resampling": "hold",
+      "aggregation": "last",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "resampling": "hold",
+      "aggregation": "last",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "resampling": "hold",
+      "aggregation": "sum",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "resampling": "hold",
+      "aggregation": "sum",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "resampling": "linear",
+      "aggregation": "mean",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "resampling": "linear",
+      "aggregation": "mean",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "resampling": "linear",
+      "aggregation": "last",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "resampling": "linear",
+      "aggregation": "last",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "resampling": "linear",
+      "aggregation": "sum",
+      "subtract": false,
+      "frames": 4,
+      "exact": true
+    },
+    {
+      "mode": "tiled",
+      "dtype": "torch.float64",
+      "resampling": "linear",
+      "aggregation": "sum",
+      "subtract": true,
+      "frames": 4,
+      "exact": true
+    }
+  ],
+  "old_failure_mutates": true,
+  "float64_preserved": true,
+  "boundary": {
+    "custom_inplace_not_rolled_back": true,
+    "meaning": "Wrapper publication is atomic for functional backend outputs. It is not a transaction for arbitrary backend mutation, RNG, weights or external side effects."
+  },
+  "cuda_initialized": false,
+  "script_sha256": "f2706dacbf2cfeea5c656f95a978d182c30d37236137609cc2c6ed7c22f5a130"
+}

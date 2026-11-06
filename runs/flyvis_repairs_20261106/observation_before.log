@@ -1,0 +1,92 @@
+FFFFF.                                                                   [100%]
+================================== FAILURES ===================================
+___ test_failed_first_observation_leaves_uninitialized_state[baseline_nan] ____
+
+failure = 'baseline_nan'
+
+    @pytest.mark.parametrize('failure',['baseline_nan','baseline_shape','initial_activity_nan'])
+    def test_failed_first_observation_leaves_uninitialized_state(failure):
+        estimator=model()
+        if failure=='baseline_nan':estimator.decoder_mode='nan'
+        if failure=='baseline_shape':estimator.decoder_mode='wrong_shape'
+        if failure=='initial_activity_nan':estimator.bad_initial=True
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_observation_transaction.py:62: Failed
+__ test_failed_first_observation_leaves_uninitialized_state[baseline_shape] ___
+
+failure = 'baseline_shape'
+
+    @pytest.mark.parametrize('failure',['baseline_nan','baseline_shape','initial_activity_nan'])
+    def test_failed_first_observation_leaves_uninitialized_state(failure):
+        estimator=model()
+        if failure=='baseline_nan':estimator.decoder_mode='nan'
+        if failure=='baseline_shape':estimator.decoder_mode='wrong_shape'
+        if failure=='initial_activity_nan':estimator.bad_initial=True
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_observation_transaction.py:62: Failed
+_ test_failed_first_observation_leaves_uninitialized_state[initial_activity_nan] _
+
+failure = 'initial_activity_nan'
+
+    @pytest.mark.parametrize('failure',['baseline_nan','baseline_shape','initial_activity_nan'])
+    def test_failed_first_observation_leaves_uninitialized_state(failure):
+        estimator=model()
+        if failure=='baseline_nan':estimator.decoder_mode='nan'
+        if failure=='baseline_shape':estimator.decoder_mode='wrong_shape'
+        if failure=='initial_activity_nan':estimator.bad_initial=True
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_observation_transaction.py:62: Failed
+_ test_failed_later_observation_preserves_last_successful_frame[decoder_nan] __
+
+failure = 'decoder_nan'
+
+    @pytest.mark.parametrize('failure',['decoder_nan','activity_nan','decoder_exception'])
+    def test_failed_later_observation_preserves_last_successful_frame(failure):
+        estimator=model(); control=model()
+        frame=np.array([[1]],np.float32)
+        estimator.observe(frame); control.observe(frame)
+        old_state=estimator._state
+        old_hex=estimator._last_hex.clone()
+        old_baseline=estimator._baseline_flow.clone()
+        if failure=='decoder_nan':estimator.decoder_mode='nan'
+        if failure=='activity_nan':estimator.bad_activity=True
+        if failure=='decoder_exception':estimator.decoder_mode='raise'
+        with pytest.raises((ValueError,RuntimeError)):
+            estimator.observe(np.array([[8]],np.float32))
+>       assert estimator._state is old_state
+E       assert namespace(nodes=namespace(activity=tensor([[9., 9., 9.]]))) is namespace(nodes=namespace(activity=tensor([[1., 1., 1.]])))
+E        +  where namespace(nodes=namespace(activity=tensor([[9., 9., 9.]]))) = <tracking.flyvis_motion.FlyVisMotionEstimator object at 0x0000018BEC7EB1C0>._state
+
+tests\test_flyvis_observation_transaction.py:87: AssertionError
+_ test_failed_later_observation_preserves_last_successful_frame[activity_nan] _
+
+failure = 'activity_nan'
+
+    @pytest.mark.parametrize('failure',['decoder_nan','activity_nan','decoder_exception'])
+    def test_failed_later_observation_preserves_last_successful_frame(failure):
+        estimator=model(); control=model()
+        frame=np.array([[1]],np.float32)
+        estimator.observe(frame); control.observe(frame)
+        old_state=estimator._state
+        old_hex=estimator._last_hex.clone()
+        old_baseline=estimator._baseline_flow.clone()
+        if failure=='decoder_nan':estimator.decoder_mode='nan'
+        if failure=='activity_nan':estimator.bad_activity=True
+        if failure=='decoder_exception':estimator.decoder_mode='raise'
+>       with pytest.raises((ValueError,RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_flyvis_observation_transaction.py:85: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_flyvis_observation_transaction.py::test_failed_first_observation_leaves_uninitialized_state[baseline_nan]
+FAILED tests/test_flyvis_observation_transaction.py::test_failed_first_observation_leaves_uninitialized_state[baseline_shape]
+FAILED tests/test_flyvis_observation_transaction.py::test_failed_first_observation_leaves_uninitialized_state[initial_activity_nan]
+FAILED tests/test_flyvis_observation_transaction.py::test_failed_later_observation_preserves_last_successful_frame[decoder_nan]
+FAILED tests/test_flyvis_observation_transaction.py::test_failed_later_observation_preserves_last_successful_frame[activity_nan]
+5 failed, 1 passed in 4.35s

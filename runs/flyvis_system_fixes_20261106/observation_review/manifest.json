@@ -1,0 +1,34 @@
+{
+  "scope": "read-only production review; root owns implementation and tests",
+  "reviewed_source": {
+    "path": "tracking/flyvis_motion.py",
+    "sha256": "f053f52a6f1bb6233884de818a4175c1bb01ab5dff6e0d037f2262bea5b3ffdc"
+  },
+  "artifacts": {
+    "additional_before.log": "61ff9c40fa98c81cd63499d7f84aaba5e931aa9f0dff5ed9795235500b278fbf",
+    "additional_before_report.json": "cb7db22cddc13b59051619073164cc5e48be7cf4559c88a63d1acecbfbd09fcc",
+    "before_flyvis_motion.py": "02f025826ca3b298acfb71e7bfce2725caa9d0d862f4e696c50e537622023c38",
+    "before_manifest.json": "28c2bce3e44554029b206db55064e3c9571b08c6f092e08390110297debf53ed",
+    "before_test_flyvis_observation_transaction.py": "a5d704c6e796b3d4d8f2a5ebe9c1410e88c6cdc2b1ac32e361777d384d20dc80",
+    "CALLER_REVIEW.txt": "5b1e3dff3a6af559f2b840a2f543766996abde38103c435cbffbafa046f2268e",
+    "FINAL_REVIEW.txt": "c0086a728320f866cbcf246ba5b1f750e6f20798878147034ab5ba53e5400c60",
+    "independent_after.log": "7296ce1c20a39a2ba778c5f6c5d2f9746cc8ed8d5b3882008736079c617c8e20",
+    "independent_before.log": "f1edf095a1b65bf34e5fae0c89b2a5dfbd1737cc8a79ade5d4d037f89033648c",
+    "native.log": "af64e9880a4d5bbce56a38695ac4a0535f42f1c850e9c1975f5679fe5c255b5d",
+    "native_compare.py": "73b6d2c5446528614cb7dd2ad18c42060531ad5ea688ea4d56923f2ebe4df534",
+    "native_inputs.npz": "da4fa5028fa10c2c02912775564998d030b77919f56f665280a7c7e274d823a1",
+    "native_outputs.npz": "7e5e4336f8f0eec2cee657f21f0f0ad308fa4adf8fe0392f99e32569261e73eb",
+    "native_report.json": "95e9794ab12501ede120ee99ce4be8fa3f783c079d468b07405e4396682a19d2",
+    "probe_additional_before.py": "b3585aeb305c8e5fbc558e5170972a8868b8bc8b08137752387f24f3596baa27"
+  },
+  "reviewed_tests": [
+    {
+      "path": "tests/test_flyvis_observation_transaction.py",
+      "sha256": "c6520bbd1391aab462cc680aab690d24fa038d5af72ea059c8f5c2e5c01c47b1"
+    },
+    {
+      "path": "tests/test_flyvis_activity_readout.py",
+      "sha256": "c0d9577ea0f2fdf38f05c3ea30483a31ca2a32b26e302844caafc384b2024973"
+    }
+  ]
+}

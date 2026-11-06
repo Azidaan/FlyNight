@@ -1,0 +1,49 @@
+{
+  "original_module_sha256": "02f025826ca3b298acfb71e7bfce2725caa9d0d862f4e696c50e537622023c38",
+  "current_module_sha256": "f053f52a6f1bb6233884de818a4175c1bb01ab5dff6e0d037f2262bea5b3ffdc",
+  "native_device": "cpu",
+  "cuda_initialized": false,
+  "checks": [
+    {
+      "mode": "full",
+      "temporal": "hold",
+      "frames": 12,
+      "all_state_activity_fields_exact": true
+    },
+    {
+      "mode": "full",
+      "temporal": "linear",
+      "frames": 12,
+      "all_state_activity_fields_exact": true
+    },
+    {
+      "mode": "tiled",
+      "temporal": "hold",
+      "frames": 12,
+      "all_state_activity_fields_exact": true
+    },
+    {
+      "mode": "tiled",
+      "temporal": "linear",
+      "frames": 12,
+      "all_state_activity_fields_exact": true
+    }
+  ],
+  "injected_native_decoder_nan": [
+    {
+      "phase": "first",
+      "retry_exact": true,
+      "stats_unchanged": true
+    },
+    {
+      "phase": "later",
+      "retry_exact": true,
+      "stats_unchanged": true
+    }
+  ],
+  "sequences": 4,
+  "observations_per_estimator": 48,
+  "field_comparisons": 132,
+  "seconds": 43.76599999999962,
+  "limits": "Native numerical/error-retry regression checks only; no GPU, training, HOTA or scientific benefit claim"
+}

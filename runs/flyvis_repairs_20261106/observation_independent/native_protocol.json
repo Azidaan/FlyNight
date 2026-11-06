@@ -1,0 +1,13 @@
+{
+  "source_sha256": "f053f52a6f1bb6233884de818a4175c1bb01ab5dff6e0d037f2262bea5b3ffdc",
+  "script_sha256": "85ab5b85cc53ce5e08e7e7c57cbf4b8f2b48c2c3f321fde89e01e20bedf3f1a3",
+  "scope": "One native CPU estimator; decoder exceptions before publication, retry compared exactly with reset clean replay. No training or HOTA.",
+  "geometry_version": "legacy_v1",
+  "source_fps": 30.0,
+  "flow_gain": 1.0,
+  "criteria": [
+    "First failure restores uninitialized layout/state",
+    "Later decoder failure after simulate preserves published tensor and NumPy objects and values",
+    "Correct retry equals clean reset replay exactly"
+  ]
+}

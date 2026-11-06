@@ -1,0 +1,115 @@
+{
+  "head": "7636309c73729a8f6cd3ade7f6c18e39037a2146",
+  "passed": false,
+  "shared": {
+    "passed": true,
+    "exit_code": 0,
+    "command": [
+      "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_flyvis_hdf5_transaction.py",
+      "tests/test_flyvis_observation_transaction.py",
+      "tests/test_flyvis_adapter.py",
+      "tests/test_flyvis_device_contract.py",
+      "tests/test_flyvis_motion_contracts.py",
+      "tests/test_flyvis_activity_readout.py",
+      "tests/test_flyvis_checkpoint_strict.py",
+      "-q",
+      "-rs",
+      "-p",
+      "no:cacheprovider",
+      "--basetemp=E:\\Dissertation\\runs\\flyvis_repairs_20261106\\third_stable_package\\shared_temp_1793995229663697300"
+    ],
+    "cwd": "E:\\Dissertation",
+    "seconds": 31.625,
+    "log": "runs/flyvis_repairs_20261106/third_stable_package/shared_tests.log"
+  },
+  "isolated": {
+    "passed": false,
+    "exit_code": 1,
+    "command": [
+      "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+      "-m",
+      "pytest",
+      "tests/test_flyvis_hdf5_transaction.py",
+      "tests/test_flyvis_observation_transaction.py",
+      "tests/test_flyvis_adapter.py",
+      "tests/test_flyvis_device_contract.py",
+      "tests/test_flyvis_motion_contracts.py",
+      "tests/test_flyvis_activity_readout.py",
+      "tests/test_flyvis_checkpoint_strict.py",
+      "-q",
+      "-rs",
+      "-p",
+      "no:cacheprovider",
+      "--basetemp=E:\\Dissertation\\runs\\flyvis_repairs_20261106\\third_stable_package\\isolated_temp_1793995264222060400"
+    ],
+    "cwd": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\third_stable_package\\isolated_1793995261299854700",
+    "seconds": 9.718999999997322,
+    "log": "runs/flyvis_repairs_20261106/third_stable_package/isolated_tests.log"
+  },
+  "overlay": [
+    {
+      "path": "tracking/flyvis_adapter.py",
+      "size": 8896,
+      "sha256": "5f0473a35c8b70270643d3f31b061d8a5be8bc79eb346053de07566b24e8d5ab",
+      "head_blob": "22f728363309ef60f5191fe2ee040409fc6841e2",
+      "index_blob": "22f728363309ef60f5191fe2ee040409fc6841e2",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/hdf5_transaction/original_flyvis_adapter.py",
+        "size": 7199,
+        "sha256": "0a1a6b0341ac1f1a619deab77c76821ce0bebda5ffcf991957062edc990951fd"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/hdf5_transaction/original_flyvis_adapter.py",
+          "size": 7199,
+          "sha256": "0a1a6b0341ac1f1a619deab77c76821ce0bebda5ffcf991957062edc990951fd"
+        }
+      ]
+    },
+    {
+      "path": "tracking/flyvis_motion.py",
+      "size": 23159,
+      "sha256": "f053f52a6f1bb6233884de818a4175c1bb01ab5dff6e0d037f2262bea5b3ffdc",
+      "head_blob": "f0db1e78902f326dee2cd75ed327ba8d74be3f99",
+      "index_blob": "f0db1e78902f326dee2cd75ed327ba8d74be3f99",
+      "baseline": {
+        "path": "runs/flyvis_repairs_20261106/observation_transaction/flyvis_motion.py",
+        "size": 20392,
+        "sha256": "02f025826ca3b298acfb71e7bfce2725caa9d0d862f4e696c50e537622023c38"
+      },
+      "baseline_equals_HEAD": true,
+      "classification": "tracked_clean_at_start",
+      "successive_snapshots": [
+        {
+          "path": "runs/flyvis_repairs_20261106/observation_transaction/flyvis_motion.py",
+          "size": 20392,
+          "sha256": "02f025826ca3b298acfb71e7bfce2725caa9d0d862f4e696c50e537622023c38"
+        }
+      ]
+    },
+    {
+      "path": "tests/test_flyvis_hdf5_transaction.py",
+      "size": 9024,
+      "sha256": "dedcfe081577a1ddeaea2cbc6c0468ac95236690ef7d8010474aa59eeaae6bc3",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    },
+    {
+      "path": "tests/test_flyvis_observation_transaction.py",
+      "size": 7396,
+      "sha256": "c6520bbd1391aab462cc680aab690d24fa038d5af72ea059c8f5c2e5c01c47b1",
+      "head_blob": null,
+      "index_blob": null,
+      "classification": "new_by_current_task",
+      "successive_snapshots": []
+    }
+  ],
+  "scope": "HEAD plus exactly the 4 specified frozen source/test files; no vendor runtime or unrelated dirty sources"
+}
