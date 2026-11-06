@@ -1,0 +1,1824 @@
+{
+  "passed": true,
+  "cases": 32,
+  "protocol_sha256": "5f63811fcc977034013de252902ec244afa115136588fc6570722d0c3b2a67aa",
+  "inference_sha256": "02c062844f6a538a9a6e3c406a5d6182fb3e36cbc3e3b23323013d629b22fb2d",
+  "identity_and_full_swap_exact": true,
+  "history_effect_cases": 32,
+  "groups": {
+    "1.0": {
+      "moving": {
+        "epe": 1.5922704317614569,
+        "capped_latency": 1.5625,
+        "not_found": 0,
+        "correct_sign_fraction": 0.9348958333333333
+      },
+      "stationary": {
+        "epe": 1.4961784249975645,
+        "capped_latency": 0.375,
+        "not_found": 0,
+        "correct_sign_fraction": 0.984375
+      },
+      "stationary_minus_moving_epe": {
+        "mean": -0.09609200676389265,
+        "ci95": [
+          -0.10977879422419416,
+          -0.08445986942172695
+        ],
+        "scene_differences": [
+          -0.08040610179815302,
+          -0.11588721196590394,
+          -0.0914535409990648,
+          -0.0966211722924488
+        ]
+      },
+      "stationary_minus_moving_capped_latency": {
+        "mean": -1.1875,
+        "ci95": [
+          -1.25,
+          -1.0625
+        ],
+        "scene_differences": [
+          -1.25,
+          -1.0,
+          -1.25,
+          -1.25
+        ]
+      },
+      "history_mean_vector_difference": 0.12750254706308994
+    },
+    "0.25": {
+      "moving": {
+        "epe": 2.451933422402364,
+        "capped_latency": 11.375,
+        "not_found": 7,
+        "correct_sign_fraction": 0.53125
+      },
+      "stationary": {
+        "epe": 2.4386033977105424,
+        "capped_latency": 11.1875,
+        "not_found": 7,
+        "correct_sign_fraction": 0.5390625
+      },
+      "stationary_minus_moving_epe": {
+        "mean": -0.013330024691821443,
+        "ci95": [
+          -0.014889203764855335,
+          -0.011947952100346826
+        ],
+        "scene_differences": [
+          -0.012197706662160634,
+          -0.01578636946575357,
+          -0.011698197538533017,
+          -0.013637825100838552
+        ]
+      },
+      "stationary_minus_moving_capped_latency": {
+        "mean": -0.1875,
+        "ci95": [
+          -0.5625,
+          0.0
+        ],
+        "scene_differences": [
+          0.0,
+          0.0,
+          -0.75,
+          0.0
+        ]
+      },
+      "history_mean_vector_difference": 0.015379019556682165
+    }
+  },
+  "rows": [
+    {
+      "case": {
+        "id": "s4_c1.0_v1_a0_still",
+        "scene": 4,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 1,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 0.1797902061466622,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary": {
+          "epe": 0.1501489871034415,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 0.1797902061466622,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "moving_gets_stationary": {
+          "epe": 0.1501489871034415,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 0.1797902061466622,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_stationary": {
+          "epe": 0.1501489871034415,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 0.5756664597988603,
+      "history_mean_vector_difference": 0.047092964000419985,
+      "boundary_max_state_difference": 0.2852087503274717,
+      "sha256": "4e774de872a49365f4882eef425567648ca179b295546f89485457bb55be3c8f"
+    },
+    {
+      "case": {
+        "id": "s4_c1.0_v1_a1_still",
+        "scene": 4,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 1,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 0.800415370055509,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "stationary": {
+          "epe": 0.777026028275816,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 0.800415370055509,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "moving_gets_stationary": {
+          "epe": 0.777026028275816,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 0.800415370055509,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "identity_stationary": {
+          "epe": 0.777026028275816,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 0.7840706936091476,
+      "history_mean_vector_difference": 0.04555073140891865,
+      "boundary_max_state_difference": 0.23250609325104976,
+      "sha256": "6a3fb7a8a1510d4b87c4384c45a1bdece77d345e6fae2b421f7862b63bc87694"
+    },
+    {
+      "case": {
+        "id": "s4_c1.0_v4_a0_still",
+        "scene": 4,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 4,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 2.1847674444091654,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "stationary": {
+          "epe": 2.062273557524852,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 2.1847674444091654,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "moving_gets_stationary": {
+          "epe": 2.062273557524852,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 2.1847674444091654,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "identity_stationary": {
+          "epe": 2.062273557524852,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 2.6521869530602515,
+      "history_mean_vector_difference": 0.17032484778854953,
+      "boundary_max_state_difference": 0.8065862668238506,
+      "sha256": "c6e981ceb50f28defb11ed71e73945920001c149acd387f1db9617f712ef44fc"
+    },
+    {
+      "case": {
+        "id": "s4_c1.0_v4_a1_still",
+        "scene": 4,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 4,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 3.0550821159219423,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "stationary": {
+          "epe": 2.9089821564365574,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 3.0550821159219423,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "moving_gets_stationary": {
+          "epe": 2.9089821564365574,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 3.0550821159219423,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "identity_stationary": {
+          "epe": 2.9089821564365574,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 3.4866088342030963,
+      "history_mean_vector_difference": 0.21564020277746446,
+      "boundary_max_state_difference": 0.765766666955507,
+      "sha256": "8e4a043f28b31556496901f3f1d4a9cdeffd958d6681488fc6f8631eafe1d3a7"
+    },
+    {
+      "case": {
+        "id": "s4_c0.25_v1_a0_still",
+        "scene": 4,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 1,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 0.7367472072179151,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary": {
+          "epe": 0.7335628878889544,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 0.7367472072179151,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "moving_gets_stationary": {
+          "epe": 0.7335628878889544,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 0.7367472072179151,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_stationary": {
+          "epe": 0.7335628878889544,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 0.08687677483216591,
+      "history_mean_vector_difference": 0.004076062191734688,
+      "boundary_max_state_difference": 0.07672986301647466,
+      "sha256": "7fe4467234a8b4b2f38ce995251574bb6a3272e19128849ed1af04220e47ead2"
+    },
+    {
+      "case": {
+        "id": "s4_c0.25_v1_a1_still",
+        "scene": 4,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 1,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 1.2908663691924656,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary": {
+          "epe": 1.2853878779244998,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_moving": {
+          "epe": 1.2908663691924656,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "moving_gets_stationary": {
+          "epe": 1.2853878779244998,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary_gets_moving": {
+          "epe": 1.2908663691924656,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_stationary": {
+          "epe": 1.2853878779244998,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        }
+      },
+      "history_max_field_difference": 0.08531184394064883,
+      "history_mean_vector_difference": 0.006463725578614482,
+      "boundary_max_state_difference": 0.06181888700097726,
+      "sha256": "b65ad54c217e4ea6c13c27ea899a66bae0ac8526794c6c59c03a0bd0bdcce4d2"
+    },
+    {
+      "case": {
+        "id": "s4_c0.25_v4_a0_still",
+        "scene": 4,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 4,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 3.5681102534501843,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary": {
+          "epe": 3.5499769266457704,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 3.5681102534501843,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "moving_gets_stationary": {
+          "epe": 3.5499769266457704,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 3.5681102534501843,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_stationary": {
+          "epe": 3.5499769266457704,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 0.4562706684484057,
+      "history_mean_vector_difference": 0.02012900258544136,
+      "boundary_max_state_difference": 0.2940805943312106,
+      "sha256": "d8a1b678c87d83238f4b424d61e318c8a447fbfdf2c4de7ddc036c7f4430ad05"
+    },
+    {
+      "case": {
+        "id": "s4_c0.25_v4_a1_still",
+        "scene": 4,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 4,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 4.195183631472167,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary": {
+          "epe": 4.173188942224865,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_moving": {
+          "epe": 4.195183631472167,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "moving_gets_stationary": {
+          "epe": 4.173188942224865,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary_gets_moving": {
+          "epe": 4.195183631472167,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_stationary": {
+          "epe": 4.173188942224865,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        }
+      },
+      "history_max_field_difference": 0.3456897953167069,
+      "history_mean_vector_difference": 0.025740668278199416,
+      "boundary_max_state_difference": 0.21508114371561815,
+      "sha256": "f38312ec782917ffe618c82f11e029a2b1515ad52b55e9f6cee5774f77990d51"
+    },
+    {
+      "case": {
+        "id": "s5_c1.0_v1_a0_still",
+        "scene": 5,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 1,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 0.4186166094918093,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary": {
+          "epe": 0.36116395906739807,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 0.4186166094918093,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "moving_gets_stationary": {
+          "epe": 0.36116395906739807,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 0.4186166094918093,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_stationary": {
+          "epe": 0.36116395906739807,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 0.8719614558661128,
+      "history_mean_vector_difference": 0.07851828814240648,
+      "boundary_max_state_difference": 0.2229653259554223,
+      "sha256": "b80250c4e595956d593c99fd46e76a857bbbc87e725627e1062d96fb753f330b"
+    },
+    {
+      "case": {
+        "id": "s5_c1.0_v1_a1_still",
+        "scene": 5,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 1,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 1.1370972673013295,
+          "latency": 5,
+          "capped_latency": 5,
+          "correct_sign_fraction": 0.7916666666666666
+        },
+        "stationary": {
+          "epe": 1.0956565906778652,
+          "latency": 4,
+          "capped_latency": 4,
+          "correct_sign_fraction": 0.8333333333333334
+        },
+        "identity_moving": {
+          "epe": 1.1370972673013295,
+          "latency": 5,
+          "capped_latency": 5,
+          "correct_sign_fraction": 0.7916666666666666
+        },
+        "moving_gets_stationary": {
+          "epe": 1.0956565906778652,
+          "latency": 4,
+          "capped_latency": 4,
+          "correct_sign_fraction": 0.8333333333333334
+        },
+        "stationary_gets_moving": {
+          "epe": 1.1370972673013295,
+          "latency": 5,
+          "capped_latency": 5,
+          "correct_sign_fraction": 0.7916666666666666
+        },
+        "identity_stationary": {
+          "epe": 1.0956565906778652,
+          "latency": 4,
+          "capped_latency": 4,
+          "correct_sign_fraction": 0.8333333333333334
+        }
+      },
+      "history_max_field_difference": 0.8603670532731182,
+      "history_mean_vector_difference": 0.05505182840632141,
+      "boundary_max_state_difference": 0.24953778041279584,
+      "sha256": "83da9bde205db7aae7a2e291af2f23d0f2c8ec5d4f4b5a67505a5f02de1c5c70"
+    },
+    {
+      "case": {
+        "id": "s5_c1.0_v4_a0_still",
+        "scene": 5,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 4,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 1.3361201057569942,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "stationary": {
+          "epe": 1.1393184648190704,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 1.3361201057569942,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "moving_gets_stationary": {
+          "epe": 1.1393184648190704,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 1.3361201057569942,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "identity_stationary": {
+          "epe": 1.1393184648190704,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 2.930072474937497,
+      "history_mean_vector_difference": 0.3039772794159245,
+      "boundary_max_state_difference": 0.8095421301456136,
+      "sha256": "0921fe8a24a2d7ce3d93662407be782d187d79194bc1b1966845727c05129040"
+    },
+    {
+      "case": {
+        "id": "s5_c1.0_v4_a1_still",
+        "scene": 5,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 4,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 3.3690028466974113,
+          "latency": 3,
+          "capped_latency": 3,
+          "correct_sign_fraction": 0.875
+        },
+        "stationary": {
+          "epe": 3.201148966819595,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "identity_moving": {
+          "epe": 3.3690028466974113,
+          "latency": 3,
+          "capped_latency": 3,
+          "correct_sign_fraction": 0.875
+        },
+        "moving_gets_stationary": {
+          "epe": 3.201148966819595,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "stationary_gets_moving": {
+          "epe": 3.3690028466974113,
+          "latency": 3,
+          "capped_latency": 3,
+          "correct_sign_fraction": 0.875
+        },
+        "identity_stationary": {
+          "epe": 3.201148966819595,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        }
+      },
+      "history_max_field_difference": 2.9220167205567558,
+      "history_mean_vector_difference": 0.23402238928751054,
+      "boundary_max_state_difference": 0.794828966932625,
+      "sha256": "d7e28f17ed4d91f47f0ba3dc751bee37084d106ca66df633645e3d159979adaf"
+    },
+    {
+      "case": {
+        "id": "s5_c0.25_v1_a0_still",
+        "scene": 5,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 1,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 0.7805718520126504,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary": {
+          "epe": 0.7739751570261303,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 0.7805718520126504,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "moving_gets_stationary": {
+          "epe": 0.7739751570261303,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 0.7805718520126504,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_stationary": {
+          "epe": 0.7739751570261303,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 0.11960744133422418,
+      "history_mean_vector_difference": 0.008116337247803652,
+      "boundary_max_state_difference": 0.059838023987687006,
+      "sha256": "71a6b876806fd78ee7e03aad3222b66d0304916df13aa8168fc39e7efa2c4ccc"
+    },
+    {
+      "case": {
+        "id": "s5_c0.25_v1_a1_still",
+        "scene": 5,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 1,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 1.352548723080533,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary": {
+          "epe": 1.3463575292160967,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_moving": {
+          "epe": 1.352548723080533,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "moving_gets_stationary": {
+          "epe": 1.3463575292160967,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary_gets_moving": {
+          "epe": 1.352548723080533,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_stationary": {
+          "epe": 1.3463575292160967,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        }
+      },
+      "history_max_field_difference": 0.10535596094554162,
+      "history_mean_vector_difference": 0.007493759394798239,
+      "boundary_max_state_difference": 0.06391215740263978,
+      "sha256": "d0728857e42e8c16fcdd19469f0786df9357e0c50c5735a13967907da59baa5d"
+    },
+    {
+      "case": {
+        "id": "s5_c0.25_v4_a0_still",
+        "scene": 5,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 4,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 3.4391923881058495,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary": {
+          "epe": 3.408598648907058,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 3.4391923881058495,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "moving_gets_stationary": {
+          "epe": 3.408598648907058,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 3.4391923881058495,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_stationary": {
+          "epe": 3.408598648907058,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 0.3963980066041537,
+      "history_mean_vector_difference": 0.033143031117580254,
+      "boundary_max_state_difference": 0.21760599176156714,
+      "sha256": "511f62fe2ca6f4274771223ed255c9cae999bd257b05778d0d4655161c009b35"
+    },
+    {
+      "case": {
+        "id": "s5_c0.25_v4_a1_still",
+        "scene": 5,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 4,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 4.333123111839478,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary": {
+          "epe": 4.313359262026212,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_moving": {
+          "epe": 4.333123111839478,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "moving_gets_stationary": {
+          "epe": 4.313359262026212,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary_gets_moving": {
+          "epe": 4.333123111839478,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_stationary": {
+          "epe": 4.313359262026212,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        }
+      },
+      "history_max_field_difference": 0.39476913480303066,
+      "history_mean_vector_difference": 0.022938599868524534,
+      "boundary_max_state_difference": 0.2104268999109835,
+      "sha256": "4c81abe0782f66ccd081db329ac546528a7d77fc555a6d86b2d56d413939a75c"
+    },
+    {
+      "case": {
+        "id": "s6_c1.0_v1_a0_still",
+        "scene": 6,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 1,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 0.4607939765110733,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary": {
+          "epe": 0.4413880971547342,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 0.4607939765110733,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "moving_gets_stationary": {
+          "epe": 0.4413880971547342,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 0.4607939765110733,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_stationary": {
+          "epe": 0.4413880971547342,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 0.4536685409915078,
+      "history_mean_vector_difference": 0.024131664038692904,
+      "boundary_max_state_difference": 0.16778111609824664,
+      "sha256": "cf01f643ec6e33a544a0955d4e12ee10a331910650308a490d45f5b8e469c02d"
+    },
+    {
+      "case": {
+        "id": "s6_c1.0_v1_a1_still",
+        "scene": 6,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 1,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 0.758078485661681,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "stationary": {
+          "epe": 0.7202903817896565,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 0.758078485661681,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "moving_gets_stationary": {
+          "epe": 0.7202903817896565,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 0.758078485661681,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "identity_stationary": {
+          "epe": 0.7202903817896565,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 0.7326998376448262,
+      "history_mean_vector_difference": 0.04327854754446852,
+      "boundary_max_state_difference": 0.2001850644879828,
+      "sha256": "bb1bd80daf152ab4d0849a36b1433bccbf61ea2571dbae347506ca7cf92db06d"
+    },
+    {
+      "case": {
+        "id": "s6_c1.0_v4_a0_still",
+        "scene": 6,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 4,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 2.9512377709151996,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "stationary": {
+          "epe": 2.8808743753889865,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 2.9512377709151996,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "moving_gets_stationary": {
+          "epe": 2.8808743753889865,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 2.9512377709151996,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "identity_stationary": {
+          "epe": 2.8808743753889865,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 1.5426316961956177,
+      "history_mean_vector_difference": 0.07788255194579802,
+      "boundary_max_state_difference": 0.7146588655616958,
+      "sha256": "2e39094b1ab7114de767dc3c16700ca326de5a7b587e5545c9588b6796cabfbe"
+    },
+    {
+      "case": {
+        "id": "s6_c1.0_v4_a1_still",
+        "scene": 6,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 4,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 2.367497053563875,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "stationary": {
+          "epe": 2.1292402683221923,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 2.367497053563875,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "moving_gets_stationary": {
+          "epe": 2.1292402683221923,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 2.367497053563875,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "identity_stationary": {
+          "epe": 2.1292402683221923,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 4.113558602733317,
+      "history_mean_vector_difference": 0.25567313382841506,
+      "boundary_max_state_difference": 0.6462848259578288,
+      "sha256": "de1b9bc88264b7ea9c135900d5082c317340c69ec9e027c0819c2d9aab97b1d0"
+    },
+    {
+      "case": {
+        "id": "s6_c0.25_v1_a0_still",
+        "scene": 6,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 1,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 0.8173380046025095,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary": {
+          "epe": 0.8139097572346244,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 0.8173380046025095,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "moving_gets_stationary": {
+          "epe": 0.8139097572346244,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 0.8173380046025095,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_stationary": {
+          "epe": 0.8139097572346244,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 0.07186576671742526,
+      "history_mean_vector_difference": 0.0038491153208392074,
+      "boundary_max_state_difference": 0.04476617374587999,
+      "sha256": "bfca8fbb100a4dfa9449c119b6e75d563d4878b2d222f77af3ed4cd6e6a0a9fd"
+    },
+    {
+      "case": {
+        "id": "s6_c0.25_v1_a1_still",
+        "scene": 6,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 1,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 1.1891382627425757,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary": {
+          "epe": 1.1830102018694013,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_moving": {
+          "epe": 1.1891382627425757,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "moving_gets_stationary": {
+          "epe": 1.1830102018694013,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary_gets_moving": {
+          "epe": 1.1891382627425757,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_stationary": {
+          "epe": 1.1830102018694013,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        }
+      },
+      "history_max_field_difference": 0.1916814209577936,
+      "history_mean_vector_difference": 0.007711451303679157,
+      "boundary_max_state_difference": 0.0489012103183879,
+      "sha256": "5aa754bf1e603db43b2c9cd173dc7b7dc20bfbf5284c744f548711613ec339b7"
+    },
+    {
+      "case": {
+        "id": "s6_c0.25_v4_a0_still",
+        "scene": 6,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 4,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 3.7235481250624693,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary": {
+          "epe": 3.712522224258329,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 3.7235481250624693,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "moving_gets_stationary": {
+          "epe": 3.712522224258329,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 3.7235481250624693,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_stationary": {
+          "epe": 3.712522224258329,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 0.2701878026125154,
+      "history_mean_vector_difference": 0.011364216436254558,
+      "boundary_max_state_difference": 0.1884525372223893,
+      "sha256": "26c70a7122303e3e1d83c4bd22af731599f067a29860dfd6abcf669489e10907"
+    },
+    {
+      "case": {
+        "id": "s6_c0.25_v4_a1_still",
+        "scene": 6,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 4,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 4.048614031190451,
+          "latency": 14,
+          "capped_latency": 14,
+          "correct_sign_fraction": 0.5
+        },
+        "stationary": {
+          "epe": 4.0224034500815185,
+          "latency": 11,
+          "capped_latency": 11,
+          "correct_sign_fraction": 0.625
+        },
+        "identity_moving": {
+          "epe": 4.048614031190451,
+          "latency": 14,
+          "capped_latency": 14,
+          "correct_sign_fraction": 0.5
+        },
+        "moving_gets_stationary": {
+          "epe": 4.0224034500815185,
+          "latency": 11,
+          "capped_latency": 11,
+          "correct_sign_fraction": 0.625
+        },
+        "stationary_gets_moving": {
+          "epe": 4.048614031190451,
+          "latency": 14,
+          "capped_latency": 14,
+          "correct_sign_fraction": 0.5
+        },
+        "identity_stationary": {
+          "epe": 4.0224034500815185,
+          "latency": 11,
+          "capped_latency": 11,
+          "correct_sign_fraction": 0.625
+        }
+      },
+      "history_max_field_difference": 0.8161638335359358,
+      "history_mean_vector_difference": 0.032686188304327506,
+      "boundary_max_state_difference": 0.16329065558793565,
+      "sha256": "e24e1015d4addcadcff2f8306a37b10d2a987cd27810d3d0145306b7f094f983"
+    },
+    {
+      "case": {
+        "id": "s7_c1.0_v1_a0_still",
+        "scene": 7,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 1,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 0.2995655493909197,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "stationary": {
+          "epe": 0.2625294831860327,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 0.2995655493909197,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "moving_gets_stationary": {
+          "epe": 0.2625294831860327,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 0.2995655493909197,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "identity_stationary": {
+          "epe": 0.2625294831860327,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 1.053967489140636,
+      "history_mean_vector_difference": 0.04801328859305417,
+      "boundary_max_state_difference": 0.19804848469806502,
+      "sha256": "4e9b18c6cd282a6494bcaf9e9236667a27650a9b0e6a1c3c3a3315022419ef76"
+    },
+    {
+      "case": {
+        "id": "s7_c1.0_v1_a1_still",
+        "scene": 7,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 1,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 0.7246607051579813,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "stationary": {
+          "epe": 0.6759383856713859,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "identity_moving": {
+          "epe": 0.7246607051579813,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "moving_gets_stationary": {
+          "epe": 0.6759383856713859,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "stationary_gets_moving": {
+          "epe": 0.7246607051579813,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "identity_stationary": {
+          "epe": 0.6759383856713859,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        }
+      },
+      "history_max_field_difference": 0.8863350725875596,
+      "history_mean_vector_difference": 0.055524803320176765,
+      "boundary_max_state_difference": 0.20579989511936247,
+      "sha256": "219bffb140bb95d15cc2b1a42a89c4e9c643bf0691ca1ef2f849e5a40461ff2b"
+    },
+    {
+      "case": {
+        "id": "s7_c1.0_v4_a0_still",
+        "scene": 7,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 4,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 2.255035649078686,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "stationary": {
+          "epe": 2.121393712836722,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 2.255035649078686,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "moving_gets_stationary": {
+          "epe": 2.121393712836722,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 2.255035649078686,
+          "latency": 1,
+          "capped_latency": 1,
+          "correct_sign_fraction": 0.9583333333333334
+        },
+        "identity_stationary": {
+          "epe": 2.121393712836722,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 4.721879854935078,
+      "history_mean_vector_difference": 0.17489233578960958,
+      "boundary_max_state_difference": 0.9366638249199812,
+      "sha256": "efd3f7d29e3347aaf9b63b7b08e3a2b94d36416560288e93ac57b17665c88a17"
+    },
+    {
+      "case": {
+        "id": "s7_c1.0_v4_a1_still",
+        "scene": 7,
+        "split": "evaluation",
+        "contrast": 1.0,
+        "speed": 4,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 3.1785657521230752,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "stationary": {
+          "epe": 3.0114813848867263,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 3.1785657521230752,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "moving_gets_stationary": {
+          "epe": 3.0114813848867263,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 3.1785657521230752,
+          "latency": 2,
+          "capped_latency": 2,
+          "correct_sign_fraction": 0.9166666666666666
+        },
+        "identity_stationary": {
+          "epe": 3.0114813848867263,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 3.616750963229083,
+      "history_mean_vector_difference": 0.21046589672170868,
+      "boundary_max_state_difference": 0.6379089745301889,
+      "sha256": "502f0c3d512a6055224004407ef970982c6e06a0ab2a66f7ac500cafd470220f"
+    },
+    {
+      "case": {
+        "id": "s7_c0.25_v1_a0_still",
+        "scene": 7,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 1,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 0.8280093756248118,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary": {
+          "epe": 0.8224186020933665,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 0.8280093756248118,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "moving_gets_stationary": {
+          "epe": 0.8224186020933665,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 0.8280093756248118,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_stationary": {
+          "epe": 0.8224186020933665,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 0.16001497686102617,
+      "history_mean_vector_difference": 0.006487453372872353,
+      "boundary_max_state_difference": 0.05080053212856406,
+      "sha256": "7fb3f924c6fd7bcd094bc61b46762b80ec04664eb4e40a1bf41edc38345dcdc7"
+    },
+    {
+      "case": {
+        "id": "s7_c0.25_v1_a1_still",
+        "scene": 7,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 1,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 1.1933133178981274,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary": {
+          "epe": 1.1875623612194286,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_moving": {
+          "epe": 1.1933133178981274,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "moving_gets_stationary": {
+          "epe": 1.1875623612194286,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary_gets_moving": {
+          "epe": 1.1933133178981274,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_stationary": {
+          "epe": 1.1875623612194286,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        }
+      },
+      "history_max_field_difference": 0.21564666462024573,
+      "history_mean_vector_difference": 0.006970968189673583,
+      "boundary_max_state_difference": 0.05462066226637052,
+      "sha256": "fb1650b9e7e37d7aa327ab05361ead2a3a677f2655ff0f22ee600a32fec7c38d"
+    },
+    {
+      "case": {
+        "id": "s7_c0.25_v4_a0_still",
+        "scene": 7,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 4,
+        "axis": 0,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 3.635207004306802,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary": {
+          "epe": 3.610921926129681,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_moving": {
+          "epe": 3.635207004306802,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "moving_gets_stationary": {
+          "epe": 3.610921926129681,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "stationary_gets_moving": {
+          "epe": 3.635207004306802,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        },
+        "identity_stationary": {
+          "epe": 3.610921926129681,
+          "latency": 0,
+          "capped_latency": 0,
+          "correct_sign_fraction": 1.0
+        }
+      },
+      "history_max_field_difference": 0.6836069703235389,
+      "history_mean_vector_difference": 0.024776653738749,
+      "boundary_max_state_difference": 0.26125226899640963,
+      "sha256": "4bb6e8397ba0de6ac0d75590f4fe7a69a9bcdebf0a2d2532a5b28d68104b9354"
+    },
+    {
+      "case": {
+        "id": "s7_c0.25_v4_a1_still",
+        "scene": 7,
+        "split": "evaluation",
+        "contrast": 0.25,
+        "speed": 4,
+        "axis": 1,
+        "start": "still",
+        "event": "reverse"
+      },
+      "metrics": {
+        "moving": {
+          "epe": 4.0994231006388295,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary": {
+          "epe": 4.08049860862274,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_moving": {
+          "epe": 4.0994231006388295,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "moving_gets_stationary": {
+          "epe": 4.08049860862274,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "stationary_gets_moving": {
+          "epe": 4.0994231006388295,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        },
+        "identity_stationary": {
+          "epe": 4.08049860862274,
+          "latency": null,
+          "capped_latency": 24,
+          "correct_sign_fraction": 0.0
+        }
+      },
+      "history_max_field_difference": 0.5108492875102585,
+      "history_mean_vector_difference": 0.024117079977822656,
+      "boundary_max_state_difference": 0.21219297181528773,
+      "sha256": "06b6ee362b8c20bf262515a03f3662a5a6af38aae4d3a4cac6abbd61a8c7fadd"
+    }
+  ],
+  "limits": "One model;4 previously studied BDD TRAIN images x2 contrasts x2 speeds x2 axes; artificial whole-scene motion, not natural video or HOTA. No fresh dataset, training, GPU or altered core parameters. Difference can include normal adaptation to history, not solely harmful inertia.",
+  "audit_scope": "Independently recomputed metrics and controls from saved arrays, checking per-step recurrent-state hashes recorded by runner; no independent full model reexecution."
+}
