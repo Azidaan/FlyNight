@@ -1,0 +1,53 @@
+{
+  "stable_tests": [
+    "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "tests/test_flyvis_adapter.py",
+    "tests/test_flyvis_checkpoint_strict.py",
+    "tests/test_flyvis_device_contract.py",
+    "tests/test_flyvis_connectome_transfer.py",
+    "tests/test_detection_cache_integrity.py",
+    "tests/test_q_cache_readonly_cli.py",
+    "tests/test_z13_checkpoint_transaction.py",
+    "tests/test_z13_stop_guard_fallback.py",
+    "tests/test_z13_resume.py",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=runs/flyvis_repairs_20261106/stable_loading_cache_temp"
+  ],
+  "isolated_validation": [
+    "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+    "runs\\flyvis_repairs_20261106\\first_stable_package\\build_package.py",
+    "--validate"
+  ],
+  "native_probes": [
+    [
+      ".venv/Scripts/python.exe",
+      "scripts/check_detection_cache_parity_20261106.py"
+    ],
+    [
+      ".venv/Scripts/python.exe",
+      "runs/flyvis_system_fixes_20261106/loading_native_probe.py"
+    ],
+    [
+      ".venv/Scripts/python.exe",
+      "runs/flyvis_system_fixes_20261106/connectome_transfer_native_probe.py"
+    ],
+    [
+      ".venv/Scripts/python.exe",
+      "runs/flyvis_system_fixes_20261106/q_cache_legacy_read_probe.py"
+    ],
+    [
+      ".venv/Scripts/python.exe",
+      "runs/flyvis_system_fixes_20261106/stop_guard_probe.py"
+    ]
+  ],
+  "prerequisites": "Native FlyVis probes require the existing vendor runtime/checkpoints/connectome JSON; detector probe requires the existing baseline weights and three train JPGs; legacy read probe requires the existing saved Q cache. These inputs are not part of this code package.",
+  "output_policy": "CPU detector probe defaults to a unique output path. Other historical probes use their recorded report paths; preserve prior reports or copy the probe to a separately named artifact before rerunning.",
+  "staging_for_parent_only": [
+    "git add --pathspec-from-file=runs\\flyvis_repairs_20261106\\first_stable_package\\source_paths.txt",
+    "git add -f --pathspec-from-file=runs\\flyvis_repairs_20261106\\first_stable_package\\artifact_paths.txt"
+  ]
+}

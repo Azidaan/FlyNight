@@ -88,22 +88,50 @@ def build_variants(seed: int = 0) -> dict:
     return info
 
 
-def make_network(json_path, model: str = "flow/0000/000"):
-    """Сеть FlyVis из файла связей json_path с обученными свободными параметрами модели model."""
+def transfer_free_parameters(destination, source) -> None:
+    """Перенести свободные параметры по типам клеток/пар, не по позиции.
+
+    Равенство форм не подтверждает соответствие биологических групп: порядок
+    групп зависит от порядка узлов и рёбер в JSON. Все соответствия проверяются
+    до первой записи, закреплённые знак и число синапсов не изменяются.
+    """
     import torch
+
+    copies = []
+    for name in FREE:
+        dst, src = getattr(destination, name), getattr(source, name)
+        route, field = name.split("_", 1)
+        attribute = "node_params" if route == "nodes" else "edge_params"
+        dst_keys = list(getattr(destination, attribute)[field].keys)
+        src_keys = list(getattr(source, attribute)[field].keys)
+        if len(set(src_keys)) != len(src_keys) or len(set(dst_keys)) != len(dst_keys):
+            raise ValueError(f"{name}: неоднозначные повторяющиеся ключи групп")
+        if set(src_keys) != set(dst_keys):
+            raise ValueError(f"{name}: набор типов клеток/пар отличается от штатного")
+        if dst.shape != src.shape or dst.ndim != 1 or len(dst_keys) != len(dst) or len(src_keys) != len(src):
+            raise ValueError(f"{name}: форма параметров не соответствует ключам групп")
+        lookup = {key: i for i, key in enumerate(src_keys)}
+        order = torch.as_tensor([lookup[key] for key in dst_keys], device=src.device)
+        mapped = src.detach().index_select(0, order).to(device=dst.device, dtype=dst.dtype)
+        if not bool(torch.isfinite(mapped).all()):
+            raise ValueError(f"{name}: нечисловые параметры при переносе")
+        copies.append((dst, mapped))
+    with torch.no_grad():
+        for dst, mapped in copies:
+            dst.copy_(mapped)
+
+
+def make_network(json_path, model: str = "flow/0000/000", *, device=None):
+    """Сеть FlyVis из файла связей json_path с обученными свободными параметрами модели model."""
     from tracking.flyvis_adapter import activate_flyvis
-    flyvis = activate_flyvis()
+    from tracking.flyvis_checkpoint import load_network
+    flyvis = activate_flyvis(device=device)
     from flyvis.network.network import Network
     view = flyvis.NetworkView(model)
-    ref = view.init_network()                      # штатная сеть с обученными параметрами
+    ref = load_network(view)                      # штатная сеть с проверенными весами
     cfg = view.dir.config.network.to_dict()
     cfg["connectome"] = dict(cfg["connectome"]); cfg["connectome"]["file"] = str(Path(json_path).resolve())
     net = Network(**cfg)
-    with torch.no_grad():
-        for name in FREE:
-            dst, src = getattr(net, name), getattr(ref, name)
-            if dst.shape != src.shape:
-                raise ValueError(f"{name}: форма {tuple(dst.shape)} не совпадает со штатной {tuple(src.shape)} — набор пар типов изменился")
-            dst.copy_(src)
+    transfer_free_parameters(net, ref)
     net.eval().requires_grad_(False)
     return net, ref, view

@@ -23,11 +23,47 @@ from tracking.z13_checkpoint import atomic_json
 
 
 def stop_owned_child(proc):
-    """Caller supplies only a Popen it created and still owns."""
-    if proc is not None and proc.poll() is None:
-        subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"],
+    """Stop our live Popen and report whether taskkill confirmed its tree.
+
+    If Windows denies taskkill, the existing Popen handle can still stop the
+    direct child. That fallback does not claim to stop unknown descendants.
+    A child that remains alive is an error, never a successful hard stop.
+    """
+    if proc is None:
+        return None
+    report = dict(pid=proc.pid, was_running=proc.poll() is None,
+                  tree_termination='not_attempted', handle_fallback=False)
+    if not report['was_running']:
+        report['exit_code'] = proc.returncode
+        return report
+    try:
+        result = subprocess.run(["taskkill", "/PID", str(proc.pid), "/T", "/F"],
             creationflags=subprocess.CREATE_NO_WINDOW, check=False,
-            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=5)
+        encoding = 'oem' if os.name == 'nt' else 'utf-8'
+        report.update(taskkill_returncode=result.returncode,
+                      taskkill_stdout=result.stdout.decode(encoding, errors='replace'),
+                      taskkill_stderr=result.stderr.decode(encoding, errors='replace'))
+        report['tree_termination'] = 'taskkill_reported_success' if result.returncode == 0 else 'unconfirmed'
+    except (OSError, subprocess.TimeoutExpired) as error:
+        report.update(taskkill_error=repr(error), tree_termination='unconfirmed')
+    if report['tree_termination'] == 'unconfirmed':
+        print(f"[STOP WARNING] taskkill did not confirm tree termination for owned PID {proc.pid}: "
+              f"{report.get('taskkill_stderr') or report.get('taskkill_error') or report.get('taskkill_returncode')}. "
+              "Fallback covers only the direct child handle.", file=sys.stderr, flush=True)
+    if proc.poll() is None:
+        report['handle_fallback'] = True
+        try:
+            proc.terminate()
+        except OSError as error:
+            # The process may have exited between poll and TerminateProcess.
+            if proc.poll() is None:
+                raise RuntimeError(f"Cannot stop owned child: {report}; handle error: {error}") from error
+    try:
+        report['exit_code'] = proc.wait(timeout=5)
+    except subprocess.TimeoutExpired as error:
+        raise RuntimeError(f"Owned child remains alive after hard stop: {report}") from error
+    return report
 
 
 def accept_t3(run_root):
@@ -119,7 +155,9 @@ def main():
                 # handle prevents confusing this child with a reused PID.
                 with ownership_lock:
                     proc = current["process"]
-                    stop_owned_child(proc)
+                    stopped = stop_owned_child(proc)
+                    if stopped is not None and stopped['was_running']:
+                        atomic_json(job / 'stop_result.json', stopped)
                 return
 
     watchdog = threading.Thread(target=guard, daemon=True)
@@ -180,7 +218,9 @@ def main():
         return 0
     finally:
         with ownership_lock:
-            stop_owned_child(current["process"])
+            stopped = stop_owned_child(current["process"])
+            if stopped is not None and stopped['was_running']:
+                atomic_json(job / 'stop_result.json', stopped)
         finished.set()
         watchdog.join(timeout=2)
         lock.close()

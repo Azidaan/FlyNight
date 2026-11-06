@@ -32,6 +32,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from scripts.run_tracker_grid_search import subset_videos  # noqa: E402
 from tracking.detection_cache import load_video_cache  # noqa: E402
+from tracking.cache_readonly import require_cached_videos  # noqa: E402
 from tracking.inference_with_q import build_detection_cache_with_q  # noqa: E402
 
 RESULTS = PROJECT_ROOT / 'experiments' / 'results'
@@ -40,11 +41,11 @@ Q_CACHE = PROJECT_ROOT / 'runs' / 'det_cache_q'
 
 
 def collect_pairs(split: str, video_ids: list[str], q_key: str,
-                  min_conf: float) -> tuple[np.ndarray, np.ndarray, list]:
+                  min_conf: float, *, cache_dir=None) -> tuple[np.ndarray, np.ndarray, list]:
     """Пары (conf, q) всех детекций поднабора + метки (video, frame_idx)."""
     confs, qs, frames = [], [], []
     for vid in video_ids:
-        cache = load_video_cache(Q_CACHE, split, vid)
+        cache = load_video_cache(Q_CACHE if cache_dir is None else cache_dir, split, vid)
         if q_key not in cache:
             raise KeyError(f'{vid}: нет {q_key} в кэше — модель без DRB?')
         m = cache['conf'] >= min_conf
@@ -56,7 +57,10 @@ def collect_pairs(split: str, video_ids: list[str], q_key: str,
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--model', required=True)
+    ap.add_argument('--model', help='веса для построения кэша (не нужны с --cached-only)')
+    ap.add_argument('--cache-dir', type=Path, default=Q_CACHE)
+    ap.add_argument('--cached-only', action='store_true',
+                    help='только читать полный существующий кэш, не подтверждая происхождение весов')
     ap.add_argument('--split', default='val')
     ap.add_argument('--subsets', nargs='+', default=['night'])
     ap.add_argument('--agg', default='mean')
@@ -70,6 +74,8 @@ def main() -> int:
                     help='ограничить число видео поднабора (0 — все); '
                          'для быстрой прикидки знака и разброса хватает 5')
     args = ap.parse_args()
+    if not args.cached_only and not args.model:
+        ap.error('--model обязателен без --cached-only')
 
     from scipy.stats import pearsonr, spearmanr
 
@@ -77,8 +83,11 @@ def main() -> int:
     if args.max_videos:
         by_subset = {k: sorted(v)[:args.max_videos] for k, v in by_subset.items()}
     all_ids = sorted({v for vids in by_subset.values() for v in vids})
-    build_detection_cache_with_q(args.model, all_ids, args.split, Q_CACHE,
-                                 device=args.device)
+    if args.cached_only:
+        require_cached_videos(args.cache_dir, args.split, all_ids, required=(f'q_{args.agg}',))
+    else:
+        build_detection_cache_with_q(args.model, all_ids, args.split, args.cache_dir,
+                                     device=args.device)
 
     RESULTS.mkdir(parents=True, exist_ok=True)
     FIGS.mkdir(parents=True, exist_ok=True)
@@ -91,7 +100,7 @@ def main() -> int:
                          'spearman', 'spearman_p'])
         for subset in args.subsets:
             conf, q, frames = collect_pairs(args.split, by_subset[subset],
-                                            q_key, args.min_conf)
+                                            q_key, args.min_conf, cache_dir=args.cache_dir)
             pr, pp = pearsonr(conf, q)
             sr, sp = spearmanr(conf, q)
             writer.writerow([subset, len(conf), f'{pr:.4f}', f'{pp:.2e}',

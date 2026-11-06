@@ -1,0 +1,133 @@
+{
+  "passed": true,
+  "exit_code": 0,
+  "seconds": 24.92199999999866,
+  "command": [
+    "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+    "-m",
+    "pytest",
+    "tests/test_flyvis_adapter.py",
+    "tests/test_flyvis_checkpoint_strict.py",
+    "tests/test_flyvis_device_contract.py",
+    "tests/test_flyvis_connectome_transfer.py",
+    "tests/test_detection_cache_integrity.py",
+    "tests/test_q_cache_readonly_cli.py",
+    "tests/test_z13_checkpoint_transaction.py",
+    "tests/test_z13_stop_guard_fallback.py",
+    "tests/test_z13_resume.py",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=E:\\Dissertation\\runs\\flyvis_repairs_20261106\\first_stable_package\\isolated_1793991795399706700\\pytest_tmp"
+  ],
+  "cwd": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\first_stable_package\\isolated_1793991795399706700",
+  "head": "9626126d90390740e052c331cc07337a9e85620e",
+  "overlay": [
+    {
+      "path": "tracking/flyvis_adapter.py",
+      "size": 7199,
+      "sha256": "0a1a6b0341ac1f1a619deab77c76821ce0bebda5ffcf991957062edc990951fd"
+    },
+    {
+      "path": "tracking/flyvis_checkpoint.py",
+      "size": 6051,
+      "sha256": "f59013d4037e99e63acc3a1a4cdc502120fc839583a614431fde6d94971fc63d"
+    },
+    {
+      "path": "tracking/flyvis_connectome_swap.py",
+      "size": 9901,
+      "sha256": "a89c45e976cfafd5eac64f8d8fc036a7bfccd3a6c36254f4b36d4d8822e11197"
+    },
+    {
+      "path": "tracking/detection_cache.py",
+      "size": 6781,
+      "sha256": "774aeaff48a0a86863639ad5b820a4b40f25ef1c5e0e09532ddb9a4daa7c8421"
+    },
+    {
+      "path": "tracking/inference_with_q.py",
+      "size": 11054,
+      "sha256": "ea69cd362d2590577710b058445f7440a3706fa6752403639ece64cf18b0d9ec"
+    },
+    {
+      "path": "tracking/cache_integrity.py",
+      "size": 5045,
+      "sha256": "78c62614502473682471df1624757e0425051f4c74797ee814c254da42018eea"
+    },
+    {
+      "path": "tracking/cache_readonly.py",
+      "size": 1914,
+      "sha256": "241d36f072c11181a19bdac66196751652e9732c52c2ddc249b7ee58af40c70c"
+    },
+    {
+      "path": "tracking/z13_checkpoint.py",
+      "size": 12051,
+      "sha256": "b5c1e7e432d68dfd330574c75c0357d13b77a295d2f83aa965595b707f1f153d"
+    },
+    {
+      "path": "scripts/z13_window_runner.py",
+      "size": 11423,
+      "sha256": "54b65e7817d2e46b6ae18a81e46eaa26094803159ab241cf95c984a1d477d6bb"
+    },
+    {
+      "path": "scripts/run_tracking_three_modes.py",
+      "size": 10318,
+      "sha256": "7fb957029f73515458455c5a373a5df082b3dd207ecdf48fa20bcab8beaa5d00"
+    },
+    {
+      "path": "scripts/sweep_lqa_k.py",
+      "size": 5761,
+      "sha256": "b51471872bc5a0409620c23405a372221bb0d56b095a6aba19dfd729a280516c"
+    },
+    {
+      "path": "scripts/q_aggregation_ablation.py",
+      "size": 4893,
+      "sha256": "967fe899cf76711fe2cd7488447e6b56de5ecd6a56cff9e30c915fb54a857847"
+    },
+    {
+      "path": "scripts/correlation_experiment.py",
+      "size": 8415,
+      "sha256": "2640b584a82675c71b9b05eda96d33f2648a1dc567540527fdf0c674e559d4bb"
+    },
+    {
+      "path": "scripts/check_detection_cache_parity_20261106.py",
+      "size": 3176,
+      "sha256": "a94b72bf04420328a774589b5dfb170f66d26816937a4d38407a5cedfedf762e"
+    },
+    {
+      "path": "tests/test_flyvis_checkpoint_strict.py",
+      "size": 5031,
+      "sha256": "f4d34bd5cf0ab4e5c3065b288ff3ca769d2050ae9ee9fe674ad2a5011c7fd5b0"
+    },
+    {
+      "path": "tests/test_flyvis_device_contract.py",
+      "size": 4006,
+      "sha256": "19d64a5d23561c08813a3b7a802402cca744c10f2b648ac75e2fbae23f741fbf"
+    },
+    {
+      "path": "tests/test_flyvis_connectome_transfer.py",
+      "size": 2742,
+      "sha256": "bdbd48b673e428b776c58d80172bf8263f4f30cf9acb93987ef2c809d77dd3a9"
+    },
+    {
+      "path": "tests/test_detection_cache_integrity.py",
+      "size": 8792,
+      "sha256": "51e08fc63bf5f2efe4edfba3848f29300ed0ec6987613781e975d6e5cee1d04e"
+    },
+    {
+      "path": "tests/test_q_cache_readonly_cli.py",
+      "size": 4468,
+      "sha256": "daaf99366e31726e977aa0de441ff2da9208a999dc3dd47dfd252a81c3847971"
+    },
+    {
+      "path": "tests/test_z13_checkpoint_transaction.py",
+      "size": 9613,
+      "sha256": "0e8bae093469f3bb63abb165e86308467d6d40a580ef270c00e23eb2efe4f019"
+    },
+    {
+      "path": "tests/test_z13_stop_guard_fallback.py",
+      "size": 2502,
+      "sha256": "76878f38967502bccc843528b0b298f9988ae5bb0371aa35c0b9de01111a7a58"
+    }
+  ],
+  "scope": "Tracked HEAD archive plus only explicit source allowlist; no B2, motion or other dirty worktree source overlay"
+}

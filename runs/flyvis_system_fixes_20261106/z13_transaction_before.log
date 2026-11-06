@@ -1,0 +1,495 @@
+FFFFFFFFFFFFFFFF                                                         [100%]
+================================== FAILURES ===================================
+_____________ test_invalid_resume_is_transactional[backbone_key] ______________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac0')
+kind = 'backbone_key'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+        with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+            restore_checkpoint(torch, path, 'D', core, readout, optimizer, rng, {'fixture': 1})
+>       equivalent(before, snapshot(core, readout, optimizer, rng))
+
+tests\test_z13_checkpoint_transaction.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+left = tensor([[3.4293, 3.0210],
+        [2.5673, 2.3359]])
+right = tensor([[ 0.4293,  0.0210],
+        [-0.4327, -0.6641]])
+
+    def equivalent(left, right):
+        if torch.is_tensor(left):
+>           assert torch.equal(left, right)
+E           assert False
+E            +  where False = <built-in method equal of type object at 0x00007FFD61A988B0>(tensor([[3.4293, 3.0210],\n        [2.5673, 2.3359]]), tensor([[ 0.4293,  0.0210],\n        [-0.4327, -0.6641]]))
+E            +    where <built-in method equal of type object at 0x00007FFD61A988B0> = torch.equal
+
+tests\test_z13_checkpoint_transaction.py:15: AssertionError
+___________ test_invalid_resume_is_transactional[backbone_overflow] ___________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac1')
+kind = 'backbone_overflow'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+>       with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError, KeyError, TypeError)
+
+tests\test_z13_checkpoint_transaction.py:96: Failed
+_____________ test_invalid_resume_is_transactional[anchor_count] ______________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac2')
+kind = 'anchor_count'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+        with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+            restore_checkpoint(torch, path, 'D', core, readout, optimizer, rng, {'fixture': 1})
+>       equivalent(before, snapshot(core, readout, optimizer, rng))
+
+tests\test_z13_checkpoint_transaction.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+left = tensor([[3.6811, 3.0240],
+        [2.8875, 2.7250]])
+right = tensor([[ 0.6811,  0.0240],
+        [-0.1125, -0.2750]])
+
+    def equivalent(left, right):
+        if torch.is_tensor(left):
+>           assert torch.equal(left, right)
+E           assert False
+E            +  where False = <built-in method equal of type object at 0x00007FFD61A988B0>(tensor([[3.6811, 3.0240],\n        [2.8875, 2.7250]]), tensor([[ 0.6811,  0.0240],\n        [-0.1125, -0.2750]]))
+E            +    where <built-in method equal of type object at 0x00007FFD61A988B0> = torch.equal
+
+tests\test_z13_checkpoint_transaction.py:15: AssertionError
+_____________ test_invalid_resume_is_transactional[anchor_shape] ______________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac3')
+kind = 'anchor_shape'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+>       with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError, KeyError, TypeError)
+
+tests\test_z13_checkpoint_transaction.py:96: Failed
+____________ test_invalid_resume_is_transactional[anchor_overflow] ____________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac4')
+kind = 'anchor_overflow'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+>       with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError, KeyError, TypeError)
+
+tests\test_z13_checkpoint_transaction.py:96: Failed
+____________ test_invalid_resume_is_transactional[optimizer_shape] ____________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac5')
+kind = 'optimizer_shape'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+>       with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError, KeyError, TypeError)
+
+tests\test_z13_checkpoint_transaction.py:96: Failed
+__________ test_invalid_resume_is_transactional[optimizer_overflow] ___________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac6')
+kind = 'optimizer_overflow'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+>       with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError, KeyError, TypeError)
+
+tests\test_z13_checkpoint_transaction.py:96: Failed
+______________ test_invalid_resume_is_transactional[python_rng] _______________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac7')
+kind = 'python_rng'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+        with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+            restore_checkpoint(torch, path, 'D', core, readout, optimizer, rng, {'fixture': 1})
+>       equivalent(before, snapshot(core, readout, optimizer, rng))
+
+tests\test_z13_checkpoint_transaction.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+left = tensor([[2.4435, 2.7958],
+        [3.0443, 3.5950]])
+right = tensor([[-0.5565, -0.2042],
+        [ 0.0443,  0.5950]])
+
+    def equivalent(left, right):
+        if torch.is_tensor(left):
+>           assert torch.equal(left, right)
+E           assert False
+E            +  where False = <built-in method equal of type object at 0x00007FFD61A988B0>(tensor([[2.4435, 2.7958],\n        [3.0443, 3.5950]]), tensor([[-0.5565, -0.2042],\n        [ 0.0443,  0.5950]]))
+E            +    where <built-in method equal of type object at 0x00007FFD61A988B0> = torch.equal
+
+tests\test_z13_checkpoint_transaction.py:15: AssertionError
+_______________ test_invalid_resume_is_transactional[numpy_rng] _______________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac8')
+kind = 'numpy_rng'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+        with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+            restore_checkpoint(torch, path, 'D', core, readout, optimizer, rng, {'fixture': 1})
+>       equivalent(before, snapshot(core, readout, optimizer, rng))
+
+tests\test_z13_checkpoint_transaction.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+left = tensor([[3.6711, 2.9338],
+        [3.3824, 2.5357]])
+right = tensor([[ 0.6711, -0.0662],
+        [ 0.3824, -0.4643]])
+
+    def equivalent(left, right):
+        if torch.is_tensor(left):
+>           assert torch.equal(left, right)
+E           assert False
+E            +  where False = <built-in method equal of type object at 0x00007FFD61A988B0>(tensor([[3.6711, 2.9338],\n        [3.3824, 2.5357]]), tensor([[ 0.6711, -0.0662],\n        [ 0.3824, -0.4643]]))
+E            +    where <built-in method equal of type object at 0x00007FFD61A988B0> = torch.equal
+
+tests\test_z13_checkpoint_transaction.py:15: AssertionError
+_______________ test_invalid_resume_is_transactional[torch_rng] _______________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac9')
+kind = 'torch_rng'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+        with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+            restore_checkpoint(torch, path, 'D', core, readout, optimizer, rng, {'fixture': 1})
+>       equivalent(before, snapshot(core, readout, optimizer, rng))
+
+tests\test_z13_checkpoint_transaction.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+left = tensor([[3.3479, 3.2444],
+        [3.6508, 3.0462]])
+right = tensor([[0.3479, 0.2444],
+        [0.6508, 0.0462]])
+
+    def equivalent(left, right):
+        if torch.is_tensor(left):
+>           assert torch.equal(left, right)
+E           assert False
+E            +  where False = <built-in method equal of type object at 0x00007FFD61A988B0>(tensor([[3.3479, 3.2444],\n        [3.6508, 3.0462]]), tensor([[0.3479, 0.2444],\n        [0.6508, 0.0462]]))
+E            +    where <built-in method equal of type object at 0x00007FFD61A988B0> = torch.equal
+
+tests\test_z13_checkpoint_transaction.py:15: AssertionError
+_____________ test_invalid_resume_is_transactional[generator_rng] _____________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac10')
+kind = 'generator_rng'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+        with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+            restore_checkpoint(torch, path, 'D', core, readout, optimizer, rng, {'fixture': 1})
+>       equivalent(before, snapshot(core, readout, optimizer, rng))
+
+tests\test_z13_checkpoint_transaction.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+left = tensor([[2.5714, 3.3477],
+        [3.2995, 3.4334]])
+right = tensor([[-0.4286,  0.3477],
+        [ 0.2995,  0.4334]])
+
+    def equivalent(left, right):
+        if torch.is_tensor(left):
+>           assert torch.equal(left, right)
+E           assert False
+E            +  where False = <built-in method equal of type object at 0x00007FFD61A988B0>(tensor([[2.5714, 3.3477],\n        [3.2995, 3.4334]]), tensor([[-0.4286,  0.3477],\n        [ 0.2995,  0.4334]]))
+E            +    where <built-in method equal of type object at 0x00007FFD61A988B0> = torch.equal
+
+tests\test_z13_checkpoint_transaction.py:15: AssertionError
+_____________ test_invalid_resume_is_transactional[step_missing] ______________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac11')
+kind = 'step_missing'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+        with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+            restore_checkpoint(torch, path, 'D', core, readout, optimizer, rng, {'fixture': 1})
+>       equivalent(before, snapshot(core, readout, optimizer, rng))
+
+tests\test_z13_checkpoint_transaction.py:98: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+left = tensor([[3.1063, 2.9592],
+        [3.3366, 2.5631]])
+right = tensor([[ 0.1063, -0.0408],
+        [ 0.3366, -0.4369]])
+
+    def equivalent(left, right):
+        if torch.is_tensor(left):
+>           assert torch.equal(left, right)
+E           assert False
+E            +  where False = <built-in method equal of type object at 0x00007FFD61A988B0>(tensor([[3.1063, 2.9592],\n        [3.3366, 2.5631]]), tensor([[ 0.1063, -0.0408],\n        [ 0.3366, -0.4369]]))
+E            +    where <built-in method equal of type object at 0x00007FFD61A988B0> = torch.equal
+
+tests\test_z13_checkpoint_transaction.py:15: AssertionError
+_____________ test_invalid_resume_is_transactional[step_boolean] ______________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac12')
+kind = 'step_boolean'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+>       with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError, KeyError, TypeError)
+
+tests\test_z13_checkpoint_transaction.py:96: Failed
+_____________ test_invalid_resume_is_transactional[history_type] ______________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_invalid_resume_is_transac13')
+kind = 'history_type'
+
+    @pytest.mark.parametrize('kind', ['backbone_key', 'backbone_overflow', 'anchor_count',
+        'anchor_shape', 'anchor_overflow', 'optimizer_shape', 'optimizer_overflow',
+        'python_rng', 'numpy_rng', 'torch_rng', 'generator_rng', 'step_missing',
+        'step_boolean', 'history_type'])
+    def test_invalid_resume_is_transactional(tmp_path, kind):
+        core, readout, optimizer, rng, path, state = fixture_checkpoint(tmp_path)
+        damage(state, kind)
+        torch.save(state, path)
+        before = snapshot(core, readout, optimizer, rng)
+>       with pytest.raises((ValueError, RuntimeError, KeyError, TypeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError, KeyError, TypeError)
+
+tests\test_z13_checkpoint_transaction.py:96: Failed
+_____ test_live_optimizer_hook_failure_rolls_back_without_reinvoking_hook _____
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_live_optimizer_hook_failu0')
+
+    def test_live_optimizer_hook_failure_rolls_back_without_reinvoking_hook(tmp_path):
+        core, readout, optimizer, rng, path, _ = fixture_checkpoint(tmp_path)
+        before = snapshot(core, readout, optimizer, rng)
+        parameters = list(optimizer.param_groups[0]['params'])
+        calls = []
+        def hook(actual, state):
+            if actual is optimizer:
+                actual.param_groups[0]['lr'] = 100
+                random.random(); np.random.random(); torch.rand(1, device='cpu')
+                calls.append(1)
+                raise RuntimeError('live optimizer hook failed')
+        optimizer.register_load_state_dict_pre_hook(hook)
+        with pytest.raises(RuntimeError, match='live optimizer'):
+            restore_checkpoint(torch, path, 'D', core, readout, optimizer, rng, {'fixture': 1})
+>       equivalent(before, snapshot(core, readout, optimizer, rng))
+
+tests\test_z13_checkpoint_transaction.py:115: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+left = tensor([[2.7085, 3.4688],
+        [2.5557, 3.3090]])
+right = tensor([[-0.2915,  0.4688],
+        [-0.4443,  0.3090]])
+
+    def equivalent(left, right):
+        if torch.is_tensor(left):
+>           assert torch.equal(left, right)
+E           assert False
+E            +  where False = <built-in method equal of type object at 0x00007FFD61A988B0>(tensor([[2.7085, 3.4688],\n        [2.5557, 3.3090]]), tensor([[-0.2915,  0.4688],\n        [-0.4443,  0.3090]]))
+E            +    where <built-in method equal of type object at 0x00007FFD61A988B0> = torch.equal
+
+tests\test_z13_checkpoint_transaction.py:15: AssertionError
+________ test_live_model_hook_failure_restores_already_copied_weights _________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-601/test_live_model_hook_failure_r0')
+
+    def test_live_model_hook_failure_restores_already_copied_weights(tmp_path):
+        core, readout, optimizer, rng, path, _ = fixture_checkpoint(tmp_path)
+        before = snapshot(core, readout, optimizer, rng)
+        def fail(module, incompatible):
+            raise RuntimeError('model load hook failed')
+        readout.register_load_state_dict_post_hook(fail)
+        with pytest.raises(RuntimeError, match='model load hook'):
+            restore_checkpoint(torch, path, 'D', core, readout, optimizer, rng, {'fixture': 1})
+>       equivalent(before, snapshot(core, readout, optimizer, rng))
+
+tests\test_z13_checkpoint_transaction.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+tests\test_z13_checkpoint_transaction.py:21: in equivalent
+    equivalent(left[key], right[key])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+left = tensor([[3.0254, 2.3342],
+        [2.6710, 3.2995]])
+right = tensor([[ 0.0254, -0.6658],
+        [-0.3290,  0.2995]])
+
+    def equivalent(left, right):
+        if torch.is_tensor(left):
+>           assert torch.equal(left, right)
+E           assert False
+E            +  where False = <built-in method equal of type object at 0x00007FFD61A988B0>(tensor([[3.0254, 2.3342],\n        [2.6710, 3.2995]]), tensor([[ 0.0254, -0.6658],\n        [-0.3290,  0.2995]]))
+E            +    where <built-in method equal of type object at 0x00007FFD61A988B0> = torch.equal
+
+tests\test_z13_checkpoint_transaction.py:15: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[backbone_key]
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[backbone_overflow]
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[anchor_count]
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[anchor_shape]
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[anchor_overflow]
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[optimizer_shape]
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[optimizer_overflow]
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[python_rng]
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[numpy_rng]
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[torch_rng]
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[generator_rng]
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[step_missing]
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[step_boolean]
+FAILED tests/test_z13_checkpoint_transaction.py::test_invalid_resume_is_transactional[history_type]
+FAILED tests/test_z13_checkpoint_transaction.py::test_live_optimizer_hook_failure_rolls_back_without_reinvoking_hook
+FAILED tests/test_z13_checkpoint_transaction.py::test_live_model_hook_failure_restores_already_copied_weights
+16 failed in 5.95s
