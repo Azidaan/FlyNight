@@ -1,0 +1,20 @@
+{
+  "source": "tracking/b2_pilot_runtime.py",
+  "baseline_sha256": "7b8f951650f4e5937903b368280ee78bb01960dca116b989d2f47fcfc687e04f",
+  "expected_after_sha256": "09f238b479414c5cceb12a7f3392549876d9a31855762cdd5b34d0c0e45d0028",
+  "patch": "runs\\flyvis_system_fixes_20261106\\loading_prior_untracked_b2.patch",
+  "patch_sha256": "14a9f81de2b66a8be711a75950e765adf35b84eeefd034c8e8b1304e04fe9073",
+  "new_test": "tests/test_b2_lifecycle_isolation.py",
+  "new_test_sha256": "54cd5c00e5933635bb26d2f2f5133d38aad680e4d2700d4d3ba8579d6f1fe7cd",
+  "dependencies": [
+    "tracking/b1_fast_stimulus.py",
+    "tracking/b1_index_copy_stimulus.py",
+    "tracking/b1_learning.py",
+    "tracking/b1_real_inputs.py",
+    "tracking/b2_causal_detector.py",
+    "tracking/b2_feature_temporal.py",
+    "tracking/b2_pilot_runtime.py",
+    "tracking/cache_integrity.py"
+  ],
+  "instruction": "Preserve this patch and the authored test as review artifacts. Verify exact baseline hash before applying to another checkout. Do not stage the prior untracked source or the test as an executable repository test without its original dependency closure."
+}

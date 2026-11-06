@@ -1,0 +1,72 @@
+{
+  "scope": "CPU inference-only R1 recurrence, no learned head/core construction, no training or data files",
+  "cuda_initialized": false,
+  "frames": [
+    [
+      0.10000000149011612,
+      0.20000000298023224,
+      0.30000001192092896,
+      0.4000000059604645
+    ],
+    [
+      0.15000000596046448,
+      0.25,
+      0.3499999940395355,
+      0.44999998807907104
+    ],
+    [
+      0.20000000298023224,
+      0.30000001192092896,
+      0.4000000059604645,
+      0.5
+    ],
+    [
+      0.25,
+      0.3499999940395355,
+      0.44999998807907104,
+      0.550000011920929
+    ],
+    [
+      0.30000001192092896,
+      0.4000000059604645,
+      0.5,
+      0.6000000238418579
+    ],
+    [
+      0.3499999940395355,
+      0.44999998807907104,
+      0.550000011920929,
+      0.6499999761581421
+    ]
+  ],
+  "cases": {
+    "timestamped": {
+      "finite_original_input": true,
+      "finite_original_state": true,
+      "bad_backend_output_accepted": true,
+      "state_reference_changed": true,
+      "current_state_finite": false,
+      "last_input_changed": true,
+      "downstream_actual_head_error": "Non-finite FlyVis activity",
+      "committed_last_frame": 4,
+      "same_frame_retry_error": "Live observations must advance time",
+      "next_clean_step_state_finite": false
+    },
+    "legacy": {
+      "finite_original_input": true,
+      "finite_original_state": true,
+      "bad_backend_output_accepted": true,
+      "state_reference_changed": true,
+      "current_state_finite": false,
+      "last_input_changed": true,
+      "downstream_actual_head_error": "Non-finite FlyVis activity",
+      "next_clean_step_state_finite": false
+    }
+  },
+  "source_sha256": {
+    "before_b1_learning.py": "b8b9152b78d8a4499f6700f49bdf149d6b9ceaebafdb8e3224b4be60e5d613da",
+    "before_b1_timestamped.py": "e2147764f56672cba2abfe2be73ca5122c764967213c15725a662525874969a0",
+    "before_b1_tracker_runtime.py": "609e18b3577ad8177b769f7f662487d8b8b9d7b22deaaff1a24f94209c74a66b",
+    "before_flyvis_temporal_residual.py": "d809da65d394ade61c052b67e5526a90cffb3a216539d2992cc3b2c99c9e37a5"
+  }
+}

@@ -1,0 +1,21 @@
+--- a/tracking/query_appearance_comparison.py
++++ b/tracking/query_appearance_comparison.py
+@@ -7,6 +7,9 @@
+     def __init__(self,args,server=None,weight=0.,shadow=False):
+         super().__init__(args,server,weight)
+         self.query_active=False;self.query_history={};self.shadow=shadow;self.shadow_pairs=0
++    def reset(self):
++        super().reset()
++        self.query_active=False;self.query_history.clear();self.shadow_pairs=0
+     def init_track(self,results,img=None):
+         if self.query_active:return super().init_track(results,img)
+         server=self.server;self.server=None
+@@ -39,6 +42,8 @@
+ class FrozenFrameServer(FrameMasaServer):
+     def __init__(self,encoder,preprocessor):
+         super().__init__(encoder);self.preprocessor=preprocessor;self.current_ledger={}
++    def reset(self):
++        super().reset();self.current_ledger.clear()
+     def start_frame(self,frame,image):
+         super().start_frame(frame,image);self.current_ledger={}
+     def features(self,tokens,null_seed=None):

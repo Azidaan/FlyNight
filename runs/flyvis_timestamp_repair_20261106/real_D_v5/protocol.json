@@ -1,0 +1,26 @@
+{
+  "registered_msk": "2026-11-06T23:01:59.319439+03:00",
+  "arm": "D",
+  "uid": 0,
+  "source_fps": 30.202929825289456,
+  "scope": "CPU engineering validation only. One previously saved row, two synthetic identity-loss optimizer steps; no scientific training result or HOTA.",
+  "criteria": [
+    "Timestamped adjacent pair agrees with original backend at same FPS",
+    "All gaps use saved frame numbers; duplicate IDs consume no time",
+    "Zero head preserves base exactly; two optimizer steps have finite gradients",
+    "Checkpoint save/load and streamed inference reproduce offline corrected probability exactly",
+    "Old sources and original data unchanged; diagnostic checkpoint rejected by default inference"
+  ],
+  "sha256": {
+    "scripts\\b1_timestamped_smoke_20261106.py": "42ff26fb5ab3e0693377122073a2095a2a23c2f58919dd8d329919e799062521",
+    "tracking\\b1_timestamped.py": "b77636e25d8e7f5d9a9c116f9a257814b021eeb9fd96684327234b70f38ab8c7",
+    "tracking\\flyvis_checkpoint.py": "f59013d4037e99e63acc3a1a4cdc502120fc839583a614431fde6d94971fc63d",
+    "tracking\\b1_learning.py": "b8b9152b78d8a4499f6700f49bdf149d6b9ceaebafdb8e3224b4be60e5d613da",
+    "tracking\\b1_tracker_runtime.py": "609e18b3577ad8177b769f7f662487d8b8b9d7b22deaaff1a24f94209c74a66b",
+    "tracking\\z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "tracking\\flyvis_temporal_residual.py": "d809da65d394ade61c052b67e5526a90cffb3a216539d2992cc3b2c99c9e37a5",
+    "runs\\b1_real_inputs_20261026\\gpu_samples.json": "d1e1cbc6e893092ed67fd910bb694333f01da033a59458498d6a54a31e92728d",
+    "runs\\z13_data\\0001542f-5ce3cf52.npz": "721867a99aa11933db94d46e8e2d92d01460a305f83e9967d63140de90c52bf7",
+    "runs\\train_cache\\0001542f-5ce3cf52\\motion\\flyvis_tiled.json": "0ac0b8d5ad9990314fe981511543939af22581a5c410799aad3b27db3e570e2d"
+  }
+}

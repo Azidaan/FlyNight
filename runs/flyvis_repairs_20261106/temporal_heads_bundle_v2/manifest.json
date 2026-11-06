@@ -1,0 +1,656 @@
+{
+  "created_utc": "2026-11-06T20:18:27.351615+00:00",
+  "changes": [
+    {
+      "path": "tracking/learned_recovery_admission.py",
+      "role": "prior_untracked_user_source",
+      "baseline_path": "runs/flyvis_repairs_20261106/learned_head_review/original/learned_recovery_admission.py",
+      "baseline_sha256": "dd5f6293dd4816e38ad69a277efad0ecde48134813c03c65a194391315f0b8bb",
+      "after_sha256": "42ae4de28da4407ced85f8600aaef24cb30a0a4ac7d089271b9f58e798454fae",
+      "patch": "patches/tracking__learned_recovery_admission.py.patch",
+      "patch_sha256": "8ba6dfb5163a87ad54f3322d995bcaeac36d71c40b1f8604610e9fa5d75862af",
+      "git_tracked": false,
+      "baseline_equals_HEAD": null
+    },
+    {
+      "path": "tracking/b1_timestamped.py",
+      "role": "new_agent_file",
+      "baseline_path": null,
+      "baseline_sha256": null,
+      "after_sha256": "b77636e25d8e7f5d9a9c116f9a257814b021eeb9fd96684327234b70f38ab8c7",
+      "patch": "patches/tracking__b1_timestamped.py.patch",
+      "patch_sha256": "e59fcc84160ea81a8f427dcd302387ab9ab69625a87ce8f40d1df2572f23dc1c",
+      "git_tracked": false,
+      "baseline_equals_HEAD": null
+    },
+    {
+      "path": "tests/test_b1_timestamped.py",
+      "role": "new_agent_file",
+      "baseline_path": null,
+      "baseline_sha256": null,
+      "after_sha256": "224cfb8f1fa1a4ee970a41fd338a63f898652c05c72ff9006d2e072f532ab822",
+      "patch": "patches/tests__test_b1_timestamped.py.patch",
+      "patch_sha256": "4717b7229e5c849dafc78c5ad370fc6291e59d141e584c418dccd39d6c88f34a",
+      "git_tracked": false,
+      "baseline_equals_HEAD": null
+    },
+    {
+      "path": "scripts/b1_timestamped_smoke_20261106.py",
+      "role": "new_agent_file",
+      "baseline_path": null,
+      "baseline_sha256": null,
+      "after_sha256": "42ff26fb5ab3e0693377122073a2095a2a23c2f58919dd8d329919e799062521",
+      "patch": "patches/scripts__b1_timestamped_smoke_20261106.py.patch",
+      "patch_sha256": "ee0b72b83191390d375ad19ee997242baa26ced05993473587c969ed1814c765",
+      "git_tracked": false,
+      "baseline_equals_HEAD": null
+    },
+    {
+      "path": "tests/test_learned_head_contracts.py",
+      "role": "new_agent_file",
+      "baseline_path": null,
+      "baseline_sha256": null,
+      "after_sha256": "1145d409119d932a405c30816563ae022e236521c7ed1678f142e6c4bb67c2c4",
+      "patch": "patches/tests__test_learned_head_contracts.py.patch",
+      "patch_sha256": "70b8c295f0003d56e371dc61ff298d303c9f2d1c06fb9177c87c40dda19d2549",
+      "git_tracked": false,
+      "baseline_equals_HEAD": null
+    }
+  ],
+  "combined_patch_sha256": "4707cd704899697ca29fbbb05095630fdda0f01fc8ea818fffc0369372378967",
+  "dependencies": [
+    {
+      "path": "datasets/bdd100k_loader.py",
+      "sha256": "f91b3681bb99f030e16488bf93bf1ea76ed578dbb4dd66c73c07449451589b1d",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "datasets/subset_filter.py",
+      "sha256": "df0eb35263c349f74a6a10dcea2f1d0ae59b67da8014ac28e2823d8d989589f2",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "evaluation/hota_eval.py",
+      "sha256": "68dcaa64fac4a1613dca16e88f3b23c029de43865dcfd5bf0715010c96af6d63",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/association_log.py",
+      "sha256": "e8c6681234cc75a4be7ca02fafc441fc5252ca1b5413821c2bf83561a6f0d810",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/build_dino_embeddings.py",
+      "sha256": "3a615615e6468aeae4db35f183d574259545281cff305857f2fb835878526f92",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/fly_lifecycle_alive.py",
+      "sha256": "8d0b333e14689c4bdbd68263de19f4b3a1a73d268e579084dc3b8878fe59ed26",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/fovea_target_30hz.py",
+      "sha256": "1bfccface796c00b1939bf44754016f6dd9fd66a6ebc4ad2145cd6ba6cfd8294",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/freeze_bench.py",
+      "sha256": "1fcba740b00cb60fa0a088d4bff8f4cbea1134934dc977f93114f0cfe93631bd",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/oracle_detection_ladder.py",
+      "sha256": "0a7300572f44b84df9896f85b5988220e6c2b53832db31e9fbb86eae189c89dd",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/output_filter_oracle.py",
+      "sha256": "6a779a04ee9ce5dfaa4e18da8f5d60c8a598dd70bf358c14daee422f4dcb095b",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/run_bdd_video_rate_experiment.py",
+      "sha256": "2511260bdd8f304284e9d365d4693d0a31db6651d6b67dadbf37e121033d5653",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/sweep_bytetrack_video_rate.py",
+      "sha256": "a11ea7060a65e2e67947f6a7877d463633356dcaf72ea1d757475e675f6b97f0",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_candidate_identity_20261021.py",
+      "sha256": "bd43032418f86b8badda4040b9412281a004a170c47a55fac3ba709e37cf1452",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_candidate_ranker_20261021.py",
+      "sha256": "690878e7219eeb2bf6764d418f092cacd9ca592360e4299c0d210f5c003389fb",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_candidate_reserve_20261021.py",
+      "sha256": "acda8e3e322fd0199a48bae6ad8feda076705dfabdd1a0470f9d3ae345910f32",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_console_progress.py",
+      "sha256": "d911fe1bf8c682467c4da851a001639272b4392afcffd0814d8fd319bd183caf",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_continue.py",
+      "sha256": "f96bb135de88d3beda083aa085557a3cc7cd16391a5f877e40fc933b5fbe34fa",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_hota_deadline_guard.py",
+      "sha256": "fe2666de49a5f1bbae13070cbb3f378c1e3cf5d4bcc811701529469ba620f8f6",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_localization_labels_20261023.py",
+      "sha256": "51b377479fcf67dce9c124e64e7a7f424d78192db760bde4e027d7bbe22674e8",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_masa_exemplar_snap_20261026.py",
+      "sha256": "bac10857647a6e2c139ee42378d55a5577ec466beca25915ee7cc511d603ec35",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_observed_memory_20261021.py",
+      "sha256": "0bd0a064951598cc1bbeff18526728669ae87386ad4f78cc439933a36e3b9627",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_region_assignment_recovery2_20261025.py",
+      "sha256": "b436c5112fa4f65755061551cb8bd6cd25277410dd8b1f3d504d44b2475f3068",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_spatial_train.py",
+      "sha256": "649509916bafab12a21c5abfa896ba2d8e3b2a82a85b9927e37517a056ee7337",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_target_model.py",
+      "sha256": "e7bc7967c8d5fdf04983ed3e01c5fae9d54dbc6ed7b4b17c4c10235beccd862a",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_threshold_diagnostic.py",
+      "sha256": "5237538dea1910c0c3b15a308179739e9bad693b37230406f43315cc496a3a20",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "scripts/z13_train.py",
+      "sha256": "d42a24e91a213a89546e6c43c1f17762f915e2fcfefd91de4e264df849f7f334",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/b1_appearance.py",
+      "sha256": "67ca5cb9955ce812a15684e1593d8a2e1fec08d177267c0cd8fef14e7e1c4c1c",
+      "git_tracked": false,
+      "equals_HEAD": null,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/b1_appearance_fast.py",
+      "sha256": "f0bfdf78b8582877029bdd7ce202b387baaa1544cfb00f325d0018e8f118d6eb",
+      "git_tracked": false,
+      "equals_HEAD": null,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/b1_fast_stimulus.py",
+      "sha256": "2c08b44ad06f7a424f54a549ad816e90358fd04105a0e470bc5fb368a9bf3a69",
+      "git_tracked": false,
+      "equals_HEAD": null,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/b1_index_copy_stimulus.py",
+      "sha256": "f6db7d12c96e13418f6a15fba64999cc70bb77d430a7c8208254db2144431caf",
+      "git_tracked": false,
+      "equals_HEAD": null,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/b1_learning.py",
+      "sha256": "b8b9152b78d8a4499f6700f49bdf149d6b9ceaebafdb8e3224b4be60e5d613da",
+      "git_tracked": false,
+      "equals_HEAD": null,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/b1_real_inputs.py",
+      "sha256": "fcbe0a765154286ca15bcb8b85d619e49f0316ba6a34d22d670bfdfe86d75fc5",
+      "git_tracked": false,
+      "equals_HEAD": null,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/b1_tracker_runtime.py",
+      "sha256": "0b766835cad156dea996c72d7475b538abfafe8a549f01a039ed0849a2e66058",
+      "git_tracked": false,
+      "equals_HEAD": null,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/birth_policy.py",
+      "sha256": "f279720a8090854bb2aaafe796be0919677539f630401073caef93767d6f29f4",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/cache_integrity.py",
+      "sha256": "78c62614502473682471df1624757e0425051f4c74797ee814c254da42018eea",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/classical_motion.py",
+      "sha256": "b29590efa83105f17e27e92b30dd24f91bae20a92b901dda3d92fe20808fb7c7",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/confidence_audit.py",
+      "sha256": "c44f1e83e48095d7aefd95cd141e86dd5f24f220577115b69c813aad79c39f04",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/decision_log.py",
+      "sha256": "ad7e857f3e9b24cf9aee847b837a00d1d3200840f1580cfdbbfb52ea0494b005",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/detection_cache.py",
+      "sha256": "774aeaff48a0a86863639ad5b820a4b40f25ef1c5e0e09532ddb9a4daa7c8421",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/event_dataset.py",
+      "sha256": "677179b078be9c707400e99e2489277bc8bf45c8828baf025b48096189044e55",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/flyvis_activity.py",
+      "sha256": "cbed742a83d365275f59818fc7eee0912ba46e726e4c4c40f242f907dac29d3d",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/flyvis_adapter.py",
+      "sha256": "5f0473a35c8b70270643d3f31b061d8a5be8bc79eb346053de07566b24e8d5ab",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/flyvis_checkpoint.py",
+      "sha256": "f59013d4037e99e63acc3a1a4cdc502120fc839583a614431fde6d94971fc63d",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/flyvis_motion.py",
+      "sha256": "f053f52a6f1bb6233884de818a4175c1bb01ab5dff6e0d037f2262bea5b3ffdc",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/flyvis_temporal_residual.py",
+      "sha256": "d809da65d394ade61c052b67e5526a90cffb3a216539d2992cc3b2c99c9e37a5",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/flyvis_tracker.py",
+      "sha256": "e5f763172ac95e890271018f6fd7553af00c69411dcb0c6a4314fa24c5546c99",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/foveated_eyes.py",
+      "sha256": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/gpu_lock.py",
+      "sha256": "18a1a4ded94df357383d2bb88432fb73c68756e957a2dbbb1d570d32667dc0b9",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/lqa_guided_tracker.py",
+      "sha256": "f228a889f9a92379cc45a0c9d3a1f26052749b71b6275a6303b86e68c4735afc",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/masa_r50.py",
+      "sha256": "181f52a2f3b1964554818dd7ddcdeb4bc8c203ff4794eedc1b3e7ee8166569d7",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/motion_source_bytetrack.py",
+      "sha256": "f0471f9257c3ef802da901295d4c4e798b1465ba128281a8fe29995fabf35369",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/offline_association.py",
+      "sha256": "b7d4ab568d25708df3601fe890b85b488f646ce010459e3110aa84ee78d54ceb",
+      "git_tracked": true,
+      "equals_HEAD": false,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/video_alignment.py",
+      "sha256": "bd5a0a10fb972faea04d00b3aa12d0e0854c456320d5a5f3b1325297fc3cf451",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/xywh_bytetrack.py",
+      "sha256": "85f5d5eaceabdd19cd7cb668fcd2153771466b3f539a8ffa374ddd6f9a946675",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/z13_candidate_identity.py",
+      "sha256": "a762f18c036a66951c3b7d2f7eb7e114166b6f5e258ea2de26d95e6a045adc86",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/z13_candidate_ranker.py",
+      "sha256": "fd2d820efa909371630124f7177af51a3ba820fdeb34589f4adb9c2fead97b2e",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/z13_candidates.py",
+      "sha256": "81631fc66011e4aa8dd31ce2ab916d68be24b09afb645d48ce3faa36a0b4cd21",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/z13_checkpoint.py",
+      "sha256": "b5c1e7e432d68dfd330574c75c0357d13b77a295d2f83aa965595b707f1f153d",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/z13_filter_descriptor.py",
+      "sha256": "371ed92a398d952736ec2914de1fffc1ea6ae2fcf4b6bf352f433ce1748eabd4",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/z13_localization_labels.py",
+      "sha256": "cb75876397f6e9920593bd3891bb370110d8b705205e1cf6a0a9025b6b2700a2",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/z13_matched_data_budget.py",
+      "sha256": "11fd3005db73c3f66f3f1e6b5b8fae2b3a4160f9cd14b5150c99f66b2fbfbc01",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/z13_observed_memory.py",
+      "sha256": "1750a9cce67c4a257cf0690b1962905b9709533971a532ee3fcb71e37b4e4652",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/z13_readout.py",
+      "sha256": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/z13_region_assignment.py",
+      "sha256": "4a79f30d337ef6c442b74a25f379c4a587b325210697490a23d2406a0c806a42",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/z13_region_assignment_context.py",
+      "sha256": "00ba59f6a3daa9af4678dfbbd8eede0b8f98ee242626cd4880911b298a1c1831",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/z13_spatial.py",
+      "sha256": "df9b1b275892fc802509baf1e74797c63afb457e22852a6e2e01c4368669f533",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    },
+    {
+      "path": "tracking/z13_target_center.py",
+      "sha256": "018153b2b3c004d3f216ff2488b3df18af8a21d5c27087ad31d68e3d4a67811b",
+      "git_tracked": true,
+      "equals_HEAD": true,
+      "classification": "external dependency snapshot; no ownership or clean status inferred from untracked state"
+    }
+  ],
+  "dependency_limit": "Static local import closure only; optional branches may be included, dynamic imports, installed packages and external model/data files are not copied or certified.",
+  "external_top_level_imports": [
+    "__future__",
+    "argparse",
+    "bisect",
+    "collections",
+    "concurrent",
+    "copy",
+    "ctypes",
+    "cv2",
+    "dataclasses",
+    "datamate",
+    "datasets",
+    "datetime",
+    "enum",
+    "evaluation",
+    "flyvis",
+    "gc",
+    "glob",
+    "gzip",
+    "h5py",
+    "hashlib",
+    "importlib",
+    "inspect",
+    "itertools",
+    "joblib",
+    "json",
+    "math",
+    "msvcrt",
+    "numbers",
+    "numpy",
+    "os",
+    "pathlib",
+    "pickle",
+    "platform",
+    "pytest",
+    "random",
+    "re",
+    "safetensors",
+    "scipy",
+    "scripts",
+    "shutil",
+    "sklearn",
+    "subprocess",
+    "sys",
+    "tempfile",
+    "threading",
+    "time",
+    "timm",
+    "torch",
+    "torchvision",
+    "trackeval",
+    "tracking",
+    "types",
+    "typing",
+    "ultralytics",
+    "warnings"
+  ],
+  "evidence": {
+    "runs/flyvis_timestamp_repair_20261106/real_D_v3/protocol.json": "b0f469abe17653a49372b58f9040282cd67dde146179ed47901ee558994f707e",
+    "runs/flyvis_timestamp_repair_20261106/real_D_v3/report.json": "ec654b6e7aa79ca72182b22ebeaf24db37e299142774e1de64032e57599371ae",
+    "runs/flyvis_timestamp_repair_20261106/independent_validation_v3.json": "79f91e10f1bcd1c8491a65f4e4041a1cc508bb551d2fd01adccc5a05958f52c9",
+    "runs/flyvis_timestamp_repair_20261106/tests_v3.log": "370cd41712321d278bddd654edc88b381b06899428f6787ffc02b033d4f5f97f",
+    "runs/flyvis_timestamp_repair_20261106/README.txt": "06eeecbf0f6b54647c3a1362679bf55f96ed2bd800db4a399d313d11608824d6",
+    "runs/flyvis_timestamp_repair_20261106/real_D_v4/protocol.json": "f85a92bd4359ee4e8193b71962fb04d49e58decac59a6eccd6c2115a81017cce",
+    "runs/flyvis_timestamp_repair_20261106/real_D_v4/report.json": "f9494dce64a7689d23ebead5ddbb1e000aa4389e0301db7770146763bf524964",
+    "runs/flyvis_repairs_20261106/b1_finite_transition/tests_joint_final.log": "6537e8327714e89740ca2e48fa5ff7a911134336e5cca7cabc189f5137849eaa",
+    "runs/flyvis_repairs_20261106/b1_finite_transition/before_tests.log": "6a1ce9d7d03b3acbb43f6b0e951d0c3dd22c65735b7e816e050a40ac02a6b0b6",
+    "runs/flyvis_repairs_20261106/b1_finite_transition/head_boundary_before.log": "6fe528d6e83bced69fb6ed47dff47b393396cb6d947bfbbb304eedcfa0eca1fe",
+    "runs/flyvis_repairs_20261106/b1_finite_transition/REPORT.txt": "a2446687ddd1c7922ce9c6b4f97004a2342a05946610add8ea4494c519b550ec",
+    "runs/flyvis_timestamp_repair_20261106/real_D_v5/protocol.json": "a7f1add65a1be2423d070fff9541d5178fab2b30cb38be5893467907840e9c96",
+    "runs/flyvis_timestamp_repair_20261106/real_D_v5/report.json": "0466b152f028746fdfc39fda7bb62c46573e28fe7a2696c97e306d2e4b86bbcf",
+    "runs/flyvis_timestamp_repair_20261106/real_D_v5/runtime_binding.json": "dde0b031395f9b1ebbcd2b34b07e20256c035ec3250cb98a7c078879198010b2",
+    "runs/flyvis_timestamp_repair_20261106/independent_validation_v5.json": "0a6964c2ca2023902461243f3689be8617e41f331785cb9dea67569c7dcbf3e4",
+    "runs/flyvis_repairs_20261106/learned_head_review/report.json": "25797349d4b551d6fce8d67b1e52e7d5fec705bb5139f6801c6c556d12002f8e",
+    "runs/flyvis_repairs_20261106/learned_head_review/after_report.json": "5552cac2a8f382502a5fdc57b2e61075eb17d6590edfd28d4fac5967e46526ef",
+    "runs/flyvis_repairs_20261106/learned_head_review/after_tests_final_v2.log": "75b63f085dc84f6316a3ae0ca35f00cc31fea2d74320f8a2624af52325b379d2",
+    "runs/flyvis_repairs_20261106/learned_head_review/REPORT.txt": "48ba0e495bb132e1fc19ac5ee5da466b9166ac5aa2ab35e18e9be0851aab569a",
+    "runs/flyvis_repairs_20261106/head_test_split/report.json": "789cb44c26609a43a8cfd659d4627ca3616ff653104b640c97e957520c1af409",
+    "runs/flyvis_repairs_20261106/head_test_split/tests_joint_after_split.log": "117729d1af935c7bbd9337cc2905cc618793a2a31ecc3333c268a28bb338a405",
+    "runs/flyvis_repairs_20261106/head_test_split/reliability_standalone.log": "4e4236803ce30cc16218b8a47d58ebe3f2f6f6b9112f8ebc7db1de4cbc1f4cff",
+    "runs/flyvis_repairs_20261106/head_test_split/tests_final_runtime_dependency.log": "3a6f762620a120e92e58bd8ba1d643d7dab4ff2ca5a206c5e374d6c37cafb7c6",
+    "runs/flyvis_repairs_20261106/historical_residual_independent/report.json": "e7ad9e55aa1f6fc1158b942bb47df3f884594e0a56ace575f1d48cea48842b5f",
+    "runs/flyvis_system_fixes_20261106/b1_engine_review/timestamped_after_report.json": "869104b838c8068a1cded4b6236f132de531bc2b1a20920caa662e2f18a29d0c",
+    "runs/flyvis_system_fixes_20261106/b1_engine_review/TIMESTAMPED_INDEPENDENT_REVIEW.txt": "f467f978968221c521b2c96a3fe160dc3778221e12a90b826a377ace6751161d",
+    "runs/flyvis_system_fixes_20261106/b1_engine_review/timestamped_review_manifest.json": "2525d51e08b2914fb083e726dc709057c323f74a40d1c0f48afb9ece38f0e833"
+  },
+  "verification": {
+    "no_git_repository_discovered": true,
+    "commands": [
+      {
+        "command": [
+          "apply",
+          "--check",
+          "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\temporal_heads_bundle_v2\\combined.patch"
+        ],
+        "returncode": 0,
+        "stderr": ""
+      },
+      {
+        "command": [
+          "apply",
+          "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\temporal_heads_bundle_v2\\combined.patch"
+        ],
+        "returncode": 0,
+        "stderr": "E:/Dissertation/runs/flyvis_repairs_20261106/temporal_heads_bundle_v2/combined.patch:1185: trailing whitespace.\n\"\"\"Malformed parameters must fail before becoming tracker decisions.\"\"\"\r\nE:/Dissertation/runs/flyvis_repairs_20261106/temporal_heads_bundle_v2/combined.patch:1186: trailing whitespace.\nimport importlib.util\r\nE:/Dissertation/runs/flyvis_repairs_20261106/temporal_heads_bundle_v2/combined.patch:1187: trailing whitespace.\nfrom pathlib import Path\r\nE:/Dissertation/runs/flyvis_repairs_20261106/temporal_heads_bundle_v2/combined.patch:1188: trailing whitespace.\n\r\nE:/Dissertation/runs/flyvis_repairs_20261106/temporal_heads_bundle_v2/combined.patch:1189: trailing whitespace.\nimport numpy as np\r\nwarning: squelched 132 whitespace errors\nwarning: 137 lines add whitespace errors.\n"
+      },
+      {
+        "command": [
+          "apply",
+          "--reverse",
+          "combined.patch"
+        ],
+        "returncode": 0,
+        "stderr": ""
+      }
+    ],
+    "forward_equals_after_exact": true,
+    "reverse_equals_baseline_exact": true,
+    "production_files_unchanged": true,
+    "index_and_git_history_unchanged": true
+  },
+  "boundary": "Patch delivery only. Prior-untracked user sources remain prior-untracked unless parent separately authorizes staging. No trained historical weights or scientific artifacts changed. B1 checkpoint semantics require separate new training.",
+  "script_sha256": "f4cfac7e24486246d7618679b3ecd15effbdc5554ead165217331ee3929b6f5f"
+}

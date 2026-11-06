@@ -1,0 +1,32 @@
+--- a/tracking/lazy_appearance_association.py
++++ b/tracking/lazy_appearance_association.py
+@@ -18,6 +18,9 @@
+     """Общие неизменные признаки реальных детекций; история назначений раздельна."""
+     def __init__(self,encoder=None):
+         self.encoder=encoder;self.frame=-1;self.image=None;self.tokens={};self.embedded=0
++    def reset(self):
++        """Start a new video; call once on the shared server, outside trackers."""
++        self.frame=-1;self.image=None;self.tokens.clear();self.embedded=0
+     def start_frame(self,frame,image):
+         assert frame>self.frame;self.frame=frame;self.image=image
+         self.tokens={k:t for k,t in self.tokens.items() if t.frame>=frame-32}
+@@ -56,8 +59,18 @@
+ 
+ class LazyAppearanceXYWH(XYWHByteTrack):
+     def __init__(self,args,server=None,weight=0.,null_seed=None,margin=.15):
+-        super().__init__(args);self.server=server;self.weight=float(weight);self.null_seed=null_seed;self.margin=margin
++        external=BaseTrack._count
++        try:super().__init__(args)
++        finally:BaseTrack._count=external
++        self.server=server;self.weight=float(weight);self.null_seed=null_seed;self.margin=margin
+         self._id_count=0;self._inside_first=False;self.events=[];self.changed_cost_frames=0
++    def reset(self):
++        """Reset local video state without touching another variant's ID counter."""
++        external=BaseTrack._count
++        try:super().reset()
++        finally:BaseTrack._count=external
++        self._id_count=0;self._inside_first=False
++        self.events.clear();self.changed_cost_frames=0
+     def update(self,*args,**kwargs):
+         external=BaseTrack._count;BaseTrack._count=self._id_count
+         try:return super().update(*args,**kwargs)

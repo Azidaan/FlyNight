@@ -1,0 +1,118 @@
+{
+  "temporary_copy_only": true,
+  "no_repository_index_changes": true,
+  "commands": [
+    {
+      "arguments": [
+        "git",
+        "-c",
+        "core.autocrlf=false",
+        "apply",
+        "--check",
+        "--whitespace=nowarn",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\01_deterministic_flags.patch",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\02_historical_residual.patch",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\03_deterministic_flags_test.patch",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\04_historical_residual_test.patch"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "git",
+        "-c",
+        "core.autocrlf=false",
+        "apply",
+        "--whitespace=nowarn",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\01_deterministic_flags.patch",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\02_historical_residual.patch",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\03_deterministic_flags_test.patch",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\04_historical_residual_test.patch"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "git",
+        "-c",
+        "core.autocrlf=false",
+        "apply",
+        "--reverse",
+        "--check",
+        "--whitespace=nowarn",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\04_historical_residual_test.patch",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\03_deterministic_flags_test.patch",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\02_historical_residual.patch",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\01_deterministic_flags.patch"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "arguments": [
+        "git",
+        "-c",
+        "core.autocrlf=false",
+        "apply",
+        "--reverse",
+        "--whitespace=nowarn",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\04_historical_residual_test.patch",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\03_deterministic_flags_test.patch",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\02_historical_residual.patch",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\historical_residual_patch_bundle_v2\\01_deterministic_flags.patch"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "applied": [
+    {
+      "target": "tracking/b1_deterministic_runtime.py",
+      "sha256": "d4cfd216a97bfaba726124fcafe08debae14cb24edcc1cb83db435cf330d03b3",
+      "exact": true
+    },
+    {
+      "target": "tracking/b1_tracker_runtime.py",
+      "sha256": "0b766835cad156dea996c72d7475b538abfafe8a549f01a039ed0849a2e66058",
+      "exact": true
+    },
+    {
+      "target": "tests/test_b1_deterministic_flag_restore.py",
+      "sha256": "8d6fe32a3be1cb667aabe745ed13db58055ccc7cf33050cc3b0f415454512e7f",
+      "exact": true
+    },
+    {
+      "target": "tests/test_b1_residual_transaction.py",
+      "sha256": "0b55295da43c5993120b561575cefacc1283d9f86bb4ab76015c7afbab09e1f4",
+      "exact": true
+    }
+  ],
+  "reversed": [
+    {
+      "target": "tracking/b1_deterministic_runtime.py",
+      "sha256": "0482621a20d42863a263560440da574672bf0ac4b746cbece311aa66283505fc",
+      "exact": true
+    },
+    {
+      "target": "tracking/b1_tracker_runtime.py",
+      "sha256": "609e18b3577ad8177b769f7f662487d8b8b9d7b22deaaff1a24f94209c74a66b",
+      "exact": true
+    },
+    {
+      "target": "tests/test_b1_deterministic_flag_restore.py",
+      "removed": true
+    },
+    {
+      "target": "tests/test_b1_residual_transaction.py",
+      "removed": true
+    }
+  ],
+  "exact_apply_and_reverse": true,
+  "gpu_or_tests_executed": false
+}

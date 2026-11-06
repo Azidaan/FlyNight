@@ -1,0 +1,1784 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFF....FFFFFFFFFFFFFFFF.                        [100%]
+================================== FAILURES ===================================
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_nan-R1] _
+
+arm = 'R1', defect = 'state_nan'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_nan-B] _
+
+arm = 'B', defect = 'state_nan'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_nan-C] _
+
+arm = 'C', defect = 'state_nan'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_nan-D] _
+
+arm = 'D', defect = 'state_nan'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_nan-R1] _
+
+arm = 'R1', defect = 'activity_nan'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_nan-B] _
+
+arm = 'B', defect = 'activity_nan'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_nan-C] _
+
+arm = 'C', defect = 'activity_nan'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_nan-D] _
+
+arm = 'D', defect = 'activity_nan'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_shape-R1] _
+
+arm = 'R1', defect = 'state_shape'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_shape-B] _
+
+arm = 'B', defect = 'state_shape'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_shape-C] _
+
+arm = 'C', defect = 'state_shape'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_shape-D] _
+
+arm = 'D', defect = 'state_shape'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_shape-R1] _
+
+arm = 'R1', defect = 'activity_shape'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_shape-B] _
+
+arm = 'B', defect = 'activity_shape'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_shape-C] _
+
+arm = 'C', defect = 'activity_shape'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_shape-D] _
+
+arm = 'D', defect = 'activity_shape'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_device-R1] _
+
+arm = 'R1', defect = 'state_device'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_device-B] _
+
+arm = 'B', defect = 'state_device'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_device-C] _
+
+arm = 'C', defect = 'state_device'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_device-D] _
+
+arm = 'D', defect = 'state_device'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_device-R1] _
+
+arm = 'R1', defect = 'activity_device'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_device-B] _
+
+arm = 'B', defect = 'activity_device'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_device-C] _
+
+arm = 'C', defect = 'activity_device'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_device-D] _
+
+arm = 'D', defect = 'activity_device'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_none-R1] _
+
+arm = 'R1', defect = 'activity_none'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_none-B] _
+
+arm = 'B', defect = 'activity_none'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_none-C] _
+
+arm = 'C', defect = 'activity_none'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_none-D] _
+
+arm = 'D', defect = 'activity_none'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['state_nan', 'activity_nan', 'state_shape', 'activity_shape', 'state_device', 'activity_device', 'activity_none', 'exception'])
+    def test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control(arm, defect):
+        obj = engine(arm)
+        frames, history = observations()
+        eye, control = obj.start(history), obj.start(history)
+        saved = dict(eye)
+        saved_state = state_values(obj, eye['state']).clone()
+        original = obj.bb.step
+    
+        def broken(*args):
+            if defect == 'exception':
+                raise RuntimeError('backend failure')
+            state, activity = original(*args)
+            values = state_values(obj, state)
+            if defect == 'state_nan':
+                values = torch.full_like(values, float('nan'))
+            elif defect == 'state_shape':
+                values = values[..., :-1]
+            elif defect == 'state_device':
+                values = torch.empty_like(values, device='meta')
+            if defect.startswith('state_'):
+                state = values if arm == 'R1' else obj.bb.state(values)
+            if defect == 'activity_nan':
+                activity = torch.full_like(activity, float('nan'))
+            elif defect == 'activity_shape':
+                activity = activity[..., :-1]
+            elif defect == 'activity_device':
+                activity = torch.empty_like(activity, device='meta')
+            elif defect == 'activity_none':
+                activity = None
+            return state, activity
+    
+        obj.bb.step = broken
+>       with pytest.raises((ValueError, RuntimeError)):
+E       Failed: DID NOT RAISE any of (ValueError, RuntimeError)
+
+tests\test_b1_residual_transaction.py:85: Failed
+_ test_invalid_initial_history_is_rejected_and_can_be_retried[initial_state-R1] _
+
+arm = 'R1', defect = 'initial_state'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['initial_state', 'history_state', 'history_activity'])
+    def test_invalid_initial_history_is_rejected_and_can_be_retried(arm, defect):
+        obj = engine(arm)
+        _, history = observations()
+        expected = obj.start(history)
+        original_init, original_step = obj.bb.init, obj.bb.step
+    
+        def invalid_state(state):
+            values = torch.full_like(state_values(obj, state), float('nan'))
+            return values if arm == 'R1' else obj.bb.state(values)
+    
+        if defect == 'initial_state':
+            obj.bb.init = lambda x: invalid_state(original_init(x))
+        else:
+            calls = 0
+            def broken(*args):
+                nonlocal calls
+                calls += 1
+                state, activity = original_step(*args)
+                # A later valid state must not conceal an invalid intermediate step.
+                if calls == 1:
+                    if defect == 'history_state':
+                        state = invalid_state(state)
+                    else:
+                        activity = torch.full_like(activity, float('nan'))
+                return state, activity
+            obj.bb.step = broken
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_residual_transaction.py:124: Failed
+_ test_invalid_initial_history_is_rejected_and_can_be_retried[initial_state-B] _
+
+arm = 'B', defect = 'initial_state'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['initial_state', 'history_state', 'history_activity'])
+    def test_invalid_initial_history_is_rejected_and_can_be_retried(arm, defect):
+        obj = engine(arm)
+        _, history = observations()
+        expected = obj.start(history)
+        original_init, original_step = obj.bb.init, obj.bb.step
+    
+        def invalid_state(state):
+            values = torch.full_like(state_values(obj, state), float('nan'))
+            return values if arm == 'R1' else obj.bb.state(values)
+    
+        if defect == 'initial_state':
+            obj.bb.init = lambda x: invalid_state(original_init(x))
+        else:
+            calls = 0
+            def broken(*args):
+                nonlocal calls
+                calls += 1
+                state, activity = original_step(*args)
+                # A later valid state must not conceal an invalid intermediate step.
+                if calls == 1:
+                    if defect == 'history_state':
+                        state = invalid_state(state)
+                    else:
+                        activity = torch.full_like(activity, float('nan'))
+                return state, activity
+            obj.bb.step = broken
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_residual_transaction.py:124: Failed
+_ test_invalid_initial_history_is_rejected_and_can_be_retried[initial_state-C] _
+
+arm = 'C', defect = 'initial_state'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['initial_state', 'history_state', 'history_activity'])
+    def test_invalid_initial_history_is_rejected_and_can_be_retried(arm, defect):
+        obj = engine(arm)
+        _, history = observations()
+        expected = obj.start(history)
+        original_init, original_step = obj.bb.init, obj.bb.step
+    
+        def invalid_state(state):
+            values = torch.full_like(state_values(obj, state), float('nan'))
+            return values if arm == 'R1' else obj.bb.state(values)
+    
+        if defect == 'initial_state':
+            obj.bb.init = lambda x: invalid_state(original_init(x))
+        else:
+            calls = 0
+            def broken(*args):
+                nonlocal calls
+                calls += 1
+                state, activity = original_step(*args)
+                # A later valid state must not conceal an invalid intermediate step.
+                if calls == 1:
+                    if defect == 'history_state':
+                        state = invalid_state(state)
+                    else:
+                        activity = torch.full_like(activity, float('nan'))
+                return state, activity
+            obj.bb.step = broken
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_residual_transaction.py:124: Failed
+_ test_invalid_initial_history_is_rejected_and_can_be_retried[initial_state-D] _
+
+arm = 'D', defect = 'initial_state'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['initial_state', 'history_state', 'history_activity'])
+    def test_invalid_initial_history_is_rejected_and_can_be_retried(arm, defect):
+        obj = engine(arm)
+        _, history = observations()
+        expected = obj.start(history)
+        original_init, original_step = obj.bb.init, obj.bb.step
+    
+        def invalid_state(state):
+            values = torch.full_like(state_values(obj, state), float('nan'))
+            return values if arm == 'R1' else obj.bb.state(values)
+    
+        if defect == 'initial_state':
+            obj.bb.init = lambda x: invalid_state(original_init(x))
+        else:
+            calls = 0
+            def broken(*args):
+                nonlocal calls
+                calls += 1
+                state, activity = original_step(*args)
+                # A later valid state must not conceal an invalid intermediate step.
+                if calls == 1:
+                    if defect == 'history_state':
+                        state = invalid_state(state)
+                    else:
+                        activity = torch.full_like(activity, float('nan'))
+                return state, activity
+            obj.bb.step = broken
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_residual_transaction.py:124: Failed
+_ test_invalid_initial_history_is_rejected_and_can_be_retried[history_state-R1] _
+
+arm = 'R1', defect = 'history_state'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['initial_state', 'history_state', 'history_activity'])
+    def test_invalid_initial_history_is_rejected_and_can_be_retried(arm, defect):
+        obj = engine(arm)
+        _, history = observations()
+        expected = obj.start(history)
+        original_init, original_step = obj.bb.init, obj.bb.step
+    
+        def invalid_state(state):
+            values = torch.full_like(state_values(obj, state), float('nan'))
+            return values if arm == 'R1' else obj.bb.state(values)
+    
+        if defect == 'initial_state':
+            obj.bb.init = lambda x: invalid_state(original_init(x))
+        else:
+            calls = 0
+            def broken(*args):
+                nonlocal calls
+                calls += 1
+                state, activity = original_step(*args)
+                # A later valid state must not conceal an invalid intermediate step.
+                if calls == 1:
+                    if defect == 'history_state':
+                        state = invalid_state(state)
+                    else:
+                        activity = torch.full_like(activity, float('nan'))
+                return state, activity
+            obj.bb.step = broken
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_residual_transaction.py:124: Failed
+_ test_invalid_initial_history_is_rejected_and_can_be_retried[history_state-B] _
+
+arm = 'B', defect = 'history_state'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['initial_state', 'history_state', 'history_activity'])
+    def test_invalid_initial_history_is_rejected_and_can_be_retried(arm, defect):
+        obj = engine(arm)
+        _, history = observations()
+        expected = obj.start(history)
+        original_init, original_step = obj.bb.init, obj.bb.step
+    
+        def invalid_state(state):
+            values = torch.full_like(state_values(obj, state), float('nan'))
+            return values if arm == 'R1' else obj.bb.state(values)
+    
+        if defect == 'initial_state':
+            obj.bb.init = lambda x: invalid_state(original_init(x))
+        else:
+            calls = 0
+            def broken(*args):
+                nonlocal calls
+                calls += 1
+                state, activity = original_step(*args)
+                # A later valid state must not conceal an invalid intermediate step.
+                if calls == 1:
+                    if defect == 'history_state':
+                        state = invalid_state(state)
+                    else:
+                        activity = torch.full_like(activity, float('nan'))
+                return state, activity
+            obj.bb.step = broken
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_residual_transaction.py:124: Failed
+_ test_invalid_initial_history_is_rejected_and_can_be_retried[history_state-C] _
+
+arm = 'C', defect = 'history_state'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['initial_state', 'history_state', 'history_activity'])
+    def test_invalid_initial_history_is_rejected_and_can_be_retried(arm, defect):
+        obj = engine(arm)
+        _, history = observations()
+        expected = obj.start(history)
+        original_init, original_step = obj.bb.init, obj.bb.step
+    
+        def invalid_state(state):
+            values = torch.full_like(state_values(obj, state), float('nan'))
+            return values if arm == 'R1' else obj.bb.state(values)
+    
+        if defect == 'initial_state':
+            obj.bb.init = lambda x: invalid_state(original_init(x))
+        else:
+            calls = 0
+            def broken(*args):
+                nonlocal calls
+                calls += 1
+                state, activity = original_step(*args)
+                # A later valid state must not conceal an invalid intermediate step.
+                if calls == 1:
+                    if defect == 'history_state':
+                        state = invalid_state(state)
+                    else:
+                        activity = torch.full_like(activity, float('nan'))
+                return state, activity
+            obj.bb.step = broken
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_residual_transaction.py:124: Failed
+_ test_invalid_initial_history_is_rejected_and_can_be_retried[history_state-D] _
+
+arm = 'D', defect = 'history_state'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['initial_state', 'history_state', 'history_activity'])
+    def test_invalid_initial_history_is_rejected_and_can_be_retried(arm, defect):
+        obj = engine(arm)
+        _, history = observations()
+        expected = obj.start(history)
+        original_init, original_step = obj.bb.init, obj.bb.step
+    
+        def invalid_state(state):
+            values = torch.full_like(state_values(obj, state), float('nan'))
+            return values if arm == 'R1' else obj.bb.state(values)
+    
+        if defect == 'initial_state':
+            obj.bb.init = lambda x: invalid_state(original_init(x))
+        else:
+            calls = 0
+            def broken(*args):
+                nonlocal calls
+                calls += 1
+                state, activity = original_step(*args)
+                # A later valid state must not conceal an invalid intermediate step.
+                if calls == 1:
+                    if defect == 'history_state':
+                        state = invalid_state(state)
+                    else:
+                        activity = torch.full_like(activity, float('nan'))
+                return state, activity
+            obj.bb.step = broken
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_residual_transaction.py:124: Failed
+_ test_invalid_initial_history_is_rejected_and_can_be_retried[history_activity-R1] _
+
+arm = 'R1', defect = 'history_activity'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['initial_state', 'history_state', 'history_activity'])
+    def test_invalid_initial_history_is_rejected_and_can_be_retried(arm, defect):
+        obj = engine(arm)
+        _, history = observations()
+        expected = obj.start(history)
+        original_init, original_step = obj.bb.init, obj.bb.step
+    
+        def invalid_state(state):
+            values = torch.full_like(state_values(obj, state), float('nan'))
+            return values if arm == 'R1' else obj.bb.state(values)
+    
+        if defect == 'initial_state':
+            obj.bb.init = lambda x: invalid_state(original_init(x))
+        else:
+            calls = 0
+            def broken(*args):
+                nonlocal calls
+                calls += 1
+                state, activity = original_step(*args)
+                # A later valid state must not conceal an invalid intermediate step.
+                if calls == 1:
+                    if defect == 'history_state':
+                        state = invalid_state(state)
+                    else:
+                        activity = torch.full_like(activity, float('nan'))
+                return state, activity
+            obj.bb.step = broken
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_residual_transaction.py:124: Failed
+_ test_invalid_initial_history_is_rejected_and_can_be_retried[history_activity-B] _
+
+arm = 'B', defect = 'history_activity'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['initial_state', 'history_state', 'history_activity'])
+    def test_invalid_initial_history_is_rejected_and_can_be_retried(arm, defect):
+        obj = engine(arm)
+        _, history = observations()
+        expected = obj.start(history)
+        original_init, original_step = obj.bb.init, obj.bb.step
+    
+        def invalid_state(state):
+            values = torch.full_like(state_values(obj, state), float('nan'))
+            return values if arm == 'R1' else obj.bb.state(values)
+    
+        if defect == 'initial_state':
+            obj.bb.init = lambda x: invalid_state(original_init(x))
+        else:
+            calls = 0
+            def broken(*args):
+                nonlocal calls
+                calls += 1
+                state, activity = original_step(*args)
+                # A later valid state must not conceal an invalid intermediate step.
+                if calls == 1:
+                    if defect == 'history_state':
+                        state = invalid_state(state)
+                    else:
+                        activity = torch.full_like(activity, float('nan'))
+                return state, activity
+            obj.bb.step = broken
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_residual_transaction.py:124: Failed
+_ test_invalid_initial_history_is_rejected_and_can_be_retried[history_activity-C] _
+
+arm = 'C', defect = 'history_activity'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['initial_state', 'history_state', 'history_activity'])
+    def test_invalid_initial_history_is_rejected_and_can_be_retried(arm, defect):
+        obj = engine(arm)
+        _, history = observations()
+        expected = obj.start(history)
+        original_init, original_step = obj.bb.init, obj.bb.step
+    
+        def invalid_state(state):
+            values = torch.full_like(state_values(obj, state), float('nan'))
+            return values if arm == 'R1' else obj.bb.state(values)
+    
+        if defect == 'initial_state':
+            obj.bb.init = lambda x: invalid_state(original_init(x))
+        else:
+            calls = 0
+            def broken(*args):
+                nonlocal calls
+                calls += 1
+                state, activity = original_step(*args)
+                # A later valid state must not conceal an invalid intermediate step.
+                if calls == 1:
+                    if defect == 'history_state':
+                        state = invalid_state(state)
+                    else:
+                        activity = torch.full_like(activity, float('nan'))
+                return state, activity
+            obj.bb.step = broken
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_residual_transaction.py:124: Failed
+_ test_invalid_initial_history_is_rejected_and_can_be_retried[history_activity-D] _
+
+arm = 'D', defect = 'history_activity'
+
+    @pytest.mark.parametrize('arm', ['R1', 'B', 'C', 'D'])
+    @pytest.mark.parametrize('defect', ['initial_state', 'history_state', 'history_activity'])
+    def test_invalid_initial_history_is_rejected_and_can_be_retried(arm, defect):
+        obj = engine(arm)
+        _, history = observations()
+        expected = obj.start(history)
+        original_init, original_step = obj.bb.init, obj.bb.step
+    
+        def invalid_state(state):
+            values = torch.full_like(state_values(obj, state), float('nan'))
+            return values if arm == 'R1' else obj.bb.state(values)
+    
+        if defect == 'initial_state':
+            obj.bb.init = lambda x: invalid_state(original_init(x))
+        else:
+            calls = 0
+            def broken(*args):
+                nonlocal calls
+                calls += 1
+                state, activity = original_step(*args)
+                # A later valid state must not conceal an invalid intermediate step.
+                if calls == 1:
+                    if defect == 'history_state':
+                        state = invalid_state(state)
+                    else:
+                        activity = torch.full_like(activity, float('nan'))
+                return state, activity
+            obj.bb.step = broken
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_residual_transaction.py:124: Failed
+____________ test_invalid_input_rejected_before_backend_call[nan] _____________
+
+bad = 'nan'
+
+    @pytest.mark.parametrize('bad', ['nan', 'shape', 'dtype', 'device'])
+    def test_invalid_input_rejected_before_backend_call(bad):
+        obj = engine('R1')
+        frames, history = observations()
+        eye = obj.start(history)
+        value = frames[4]
+        if bad == 'nan': value = torch.full_like(value, float('nan'))
+        elif bad == 'shape': value = value[:-1]
+        elif bad == 'dtype': value = value.double()
+        else: value = torch.empty_like(value, device='meta')
+        def forbidden(*args): raise AssertionError('Invalid input reached backend')
+        obj.bb.step = forbidden
+>       with pytest.raises(ValueError): obj.advance(eye, value)
+
+tests\test_b1_residual_transaction.py:144: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+runs\flyvis_system_fixes_20261106\historical_residual_transaction\before_b1_tracker_runtime.py:156: in advance
+    eye['state'], eye['current'] = self.bb.step(eye['state'], eye['last'], current[None])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (tensor([[[0.1007, 0.1107, 0.1207, 0.1307],
+         [0.0903, 0.1003, 0.1103, 0.1203],
+         [0.0798, 0.0898, 0.099...       [0.0073, 0.0173, 0.0273, 0.0373]]]), tensor([[0.1200, 0.1300, 0.1400, 0.1500]]), tensor([[nan, nan, nan, nan]]))
+
+>   def forbidden(*args): raise AssertionError('Invalid input reached backend')
+E   AssertionError: Invalid input reached backend
+
+tests\test_b1_residual_transaction.py:142: AssertionError
+___________ test_invalid_input_rejected_before_backend_call[shape] ____________
+
+bad = 'shape'
+
+    @pytest.mark.parametrize('bad', ['nan', 'shape', 'dtype', 'device'])
+    def test_invalid_input_rejected_before_backend_call(bad):
+        obj = engine('R1')
+        frames, history = observations()
+        eye = obj.start(history)
+        value = frames[4]
+        if bad == 'nan': value = torch.full_like(value, float('nan'))
+        elif bad == 'shape': value = value[:-1]
+        elif bad == 'dtype': value = value.double()
+        else: value = torch.empty_like(value, device='meta')
+        def forbidden(*args): raise AssertionError('Invalid input reached backend')
+        obj.bb.step = forbidden
+>       with pytest.raises(ValueError): obj.advance(eye, value)
+
+tests\test_b1_residual_transaction.py:144: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+runs\flyvis_system_fixes_20261106\historical_residual_transaction\before_b1_tracker_runtime.py:156: in advance
+    eye['state'], eye['current'] = self.bb.step(eye['state'], eye['last'], current[None])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (tensor([[[0.1007, 0.1107, 0.1207, 0.1307],
+         [0.0903, 0.1003, 0.1103, 0.1203],
+         [0.0798, 0.0898, 0.099...   [0.0073, 0.0173, 0.0273, 0.0373]]]), tensor([[0.1200, 0.1300, 0.1400, 0.1500]]), tensor([[0.1600, 0.1700, 0.1800]]))
+
+>   def forbidden(*args): raise AssertionError('Invalid input reached backend')
+E   AssertionError: Invalid input reached backend
+
+tests\test_b1_residual_transaction.py:142: AssertionError
+___________ test_invalid_input_rejected_before_backend_call[dtype] ____________
+
+bad = 'dtype'
+
+    @pytest.mark.parametrize('bad', ['nan', 'shape', 'dtype', 'device'])
+    def test_invalid_input_rejected_before_backend_call(bad):
+        obj = engine('R1')
+        frames, history = observations()
+        eye = obj.start(history)
+        value = frames[4]
+        if bad == 'nan': value = torch.full_like(value, float('nan'))
+        elif bad == 'shape': value = value[:-1]
+        elif bad == 'dtype': value = value.double()
+        else: value = torch.empty_like(value, device='meta')
+        def forbidden(*args): raise AssertionError('Invalid input reached backend')
+        obj.bb.step = forbidden
+>       with pytest.raises(ValueError): obj.advance(eye, value)
+
+tests\test_b1_residual_transaction.py:144: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+runs\flyvis_system_fixes_20261106\historical_residual_transaction\before_b1_tracker_runtime.py:156: in advance
+    eye['state'], eye['current'] = self.bb.step(eye['state'], eye['last'], current[None])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (tensor([[[0.1007, 0.1107, 0.1207, 0.1307],
+         [0.0903, 0.1003, 0.1103, 0.1203],
+         [0.0798, 0.0898, 0.099....0373]]]), tensor([[0.1200, 0.1300, 0.1400, 0.1500]]), tensor([[0.1600, 0.1700, 0.1800, 0.1900]], dtype=torch.float64))
+
+>   def forbidden(*args): raise AssertionError('Invalid input reached backend')
+E   AssertionError: Invalid input reached backend
+
+tests\test_b1_residual_transaction.py:142: AssertionError
+___________ test_invalid_input_rejected_before_backend_call[device] ___________
+
+bad = 'device'
+
+    @pytest.mark.parametrize('bad', ['nan', 'shape', 'dtype', 'device'])
+    def test_invalid_input_rejected_before_backend_call(bad):
+        obj = engine('R1')
+        frames, history = observations()
+        eye = obj.start(history)
+        value = frames[4]
+        if bad == 'nan': value = torch.full_like(value, float('nan'))
+        elif bad == 'shape': value = value[:-1]
+        elif bad == 'dtype': value = value.double()
+        else: value = torch.empty_like(value, device='meta')
+        def forbidden(*args): raise AssertionError('Invalid input reached backend')
+        obj.bb.step = forbidden
+>       with pytest.raises(ValueError): obj.advance(eye, value)
+
+tests\test_b1_residual_transaction.py:144: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+runs\flyvis_system_fixes_20261106\historical_residual_transaction\before_b1_tracker_runtime.py:156: in advance
+    eye['state'], eye['current'] = self.bb.step(eye['state'], eye['last'], current[None])
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (tensor([[[0.1007, 0.1107, 0.1207, 0.1307],
+         [0.0903, 0.1003, 0.1103, 0.1203],
+         [0.0798, 0.0898, 0.099....0073, 0.0173, 0.0273, 0.0373]]]), tensor([[0.1200, 0.1300, 0.1400, 0.1500]]), tensor(..., device='meta', size=(1, 4)))
+
+>   def forbidden(*args): raise AssertionError('Invalid input reached backend')
+E   AssertionError: Invalid input reached backend
+
+tests\test_b1_residual_transaction.py:142: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_nan-R1]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_nan-B]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_nan-C]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_nan-D]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_nan-R1]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_nan-B]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_nan-C]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_nan-D]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_shape-R1]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_shape-B]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_shape-C]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_shape-D]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_shape-R1]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_shape-B]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_shape-C]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_shape-D]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_device-R1]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_device-B]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_device-C]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[state_device-D]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_device-R1]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_device-B]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_device-C]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_device-D]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_none-R1]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_none-B]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_none-C]
+FAILED tests/test_b1_residual_transaction.py::test_backend_failure_keeps_eye_unchanged_and_clean_retry_matches_control[activity_none-D]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_initial_history_is_rejected_and_can_be_retried[initial_state-R1]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_initial_history_is_rejected_and_can_be_retried[initial_state-B]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_initial_history_is_rejected_and_can_be_retried[initial_state-C]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_initial_history_is_rejected_and_can_be_retried[initial_state-D]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_initial_history_is_rejected_and_can_be_retried[history_state-R1]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_initial_history_is_rejected_and_can_be_retried[history_state-B]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_initial_history_is_rejected_and_can_be_retried[history_state-C]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_initial_history_is_rejected_and_can_be_retried[history_state-D]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_initial_history_is_rejected_and_can_be_retried[history_activity-R1]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_initial_history_is_rejected_and_can_be_retried[history_activity-B]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_initial_history_is_rejected_and_can_be_retried[history_activity-C]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_initial_history_is_rejected_and_can_be_retried[history_activity-D]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_input_rejected_before_backend_call[nan]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_input_rejected_before_backend_call[shape]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_input_rejected_before_backend_call[dtype]
+FAILED tests/test_b1_residual_transaction.py::test_invalid_input_rejected_before_backend_call[device]
+44 failed, 5 passed in 1.46s

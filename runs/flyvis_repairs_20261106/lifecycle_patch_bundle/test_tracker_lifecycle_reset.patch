@@ -1,0 +1,108 @@
+--- /dev/null
++++ b/tests/test_tracker_lifecycle_reset.py
+@@ -0,0 +1,105 @@
++"""Video boundaries must clear local state without resetting another tracker's IDs."""
++import copy
++from types import SimpleNamespace
++import numpy as np
++import pytest
++import torch
++from ultralytics.trackers.basetrack import BaseTrack
++from tracking.offline_association import _DetSlice
++from tracking.lazy_appearance_association import LazyAppearanceXYWH
++from tracking.query_appearance_comparison import QueryAppearanceTracker, assert_states_equal
++from tracking.query_memory_write import MemoryWriteTracker
++from tracking.query_assignment_write import AssignmentWriteTracker
++from tracking.query_bounded_write import BoundedWriteTracker, PeriodicWriteTracker
++from tracking.history_pair_runtime import HistoryAssociationTracker
++from tracking.history_pair_model import HistoryPairHead
++from tests.test_query_appearance_comparison import Server
++
++def args():
++    return SimpleNamespace(track_high_thresh=.25,track_low_thresh=.1,new_track_thresh=.25,
++                           track_buffer=3,match_thresh=.8,fuse_score=True)
++
++def detections(frame):
++    boxes=np.array([[10+frame*.1,10,40+frame*.1,40],[15+frame*.1,10,45+frame*.1,40]],np.float32)
++    return _DetSlice(boxes,np.array([.9,.8],np.float32),np.zeros(2,np.float32))
++
++@pytest.mark.parametrize('cls',[QueryAppearanceTracker,MemoryWriteTracker,AssignmentWriteTracker,BoundedWriteTracker,PeriodicWriteTracker])
++def test_query_reset_replays_new_video_exactly_and_preserves_external_ids(cls):
++    server=Server(None);fresh_server=Server(None)
++    tracker=cls(args(),server,.1);fresh=cls(args(),fresh_server,.1)
++    for f in range(8):
++        server.start_frame(f,None);tracker.update_query_frame(detections(f),True);server.finish_frame()
++    assert tracker.query_history
++    BaseTrack._count=927
++    tracker.reset()
++    assert BaseTrack._count==927
++    assert not tracker.query_history and not tracker.events and not tracker.query_active
++    assert tracker._id_count==0 and tracker.changed_cost_frames==0 and tracker.shadow_pairs==0
++    if hasattr(tracker,'write_events'):assert not tracker.write_events
++    if hasattr(tracker,'safe_keys'):assert not tracker.safe_keys
++    # Server is shared externally and reset deliberately, never by one tracker.
++    assert server.frame==7
++    server.reset()
++    for f in range(8):
++        for s in (server,fresh_server):s.start_frame(f,None)
++        a=tracker.update_query_frame(detections(f),True)
++        b=fresh.update_query_frame(detections(f),True)
++        for s in (server,fresh_server):s.finish_frame()
++        assert np.array_equal(a,b);assert_states_equal(tracker,fresh)
++    assert tracker.events==fresh.events
++
++def test_lazy_reset_replays_native_ids_without_global_mutation():
++    old=LazyAppearanceXYWH(args());new=LazyAppearanceXYWH(args())
++    old.update(detections(0));old.events.append({'past':1});old.changed_cost_frames=4
++    BaseTrack._count=927;old.reset()
++    assert BaseTrack._count==927 and not old.events and old.changed_cost_frames==0
++    assert np.array_equal(old.update(detections(0)),new.update(detections(0)))
++
++def test_history_reset_clears_context_and_replays_fresh_model():
++    torch.set_num_threads(2);torch.manual_seed(3)
++    model=HistoryPairHead();old=HistoryAssociationTracker(args(),model,'134',0)
++    fresh=HistoryAssociationTracker(args(),copy.deepcopy(model),'134',0)
++    d=detections(0)
++    def context():
++        return dict(rois={i:dict(embedding=np.zeros(256,np.float32),image=np.zeros((3,64,64),np.uint8)) for i in range(2)},
++                    camera=np.zeros(2,np.float32),epoch=0,video_size=np.array([100,100]))
++    old.update_frame(0,d.xyxy,d.conf,d.cls,context())
++    old.update_frame(1,d.xyxy,d.conf,d.cls,context())
++    assert old.real_history and old.events
++    BaseTrack._count=927;old.reset()
++    assert BaseTrack._count==927 and not old.real_history and old.context is None
++    assert not old.events and old.shadow_pairs==0 and old._own_counter==0
++    assert np.array_equal(old.update_frame(0,d.xyxy,d.conf,d.cls,context()),fresh.update_frame(0,d.xyxy,d.conf,d.cls,context()))
++    assert_states_equal(old,fresh)
++
++def test_removed_tracks_release_history_but_lost_tracks_retain_it():
++    torch.set_num_threads(2)
++    tracker=HistoryAssociationTracker(args(),HistoryPairHead(),'134',0)
++    d=detections(0)
++    c=dict(rois={i:dict(embedding=np.zeros(256,np.float32),image=np.zeros((3,64,64),np.uint8)) for i in range(2)},camera=np.zeros(2),epoch=0,video_size=np.array([100,100]))
++    tracker.update_frame(0,d.xyxy,d.conf,d.cls,c)
++    empty=np.empty((0,4),np.float32);conf=np.empty(0,np.float32)
++    tracker.update_frame(1,empty,conf,conf)
++    assert tracker.real_history and tracker.lost_stracks
++    for f in range(2,10):tracker.update_frame(f,empty,conf,conf)
++    assert not tracker.tracked_stracks and not tracker.lost_stracks
++    assert not tracker.real_history
++
++def test_constructing_isolated_tracker_preserves_external_counter():
++    BaseTrack._count=927
++    LazyAppearanceXYWH(args())
++    assert BaseTrack._count==927
++    HistoryAssociationTracker(args(),HistoryPairHead(),'134',0)
++    assert BaseTrack._count==927
++
++def test_history_rejects_repeated_or_backwards_frames_without_state_change():
++    tracker=HistoryAssociationTracker(args(),HistoryPairHead(),'134',0)
++    d=detections(0)
++    tracker.update_frame(3,d.xyxy,d.conf,d.cls)
++    state=[(t.track_id,t.mean.copy(),t.covariance.copy()) for t in tracker.tracked_stracks]
++    for f in (3,2):
++        with pytest.raises(ValueError,match='increasing'):
++            tracker.update_frame(f,d.xyxy,d.conf,d.cls)
++    assert tracker.frame_id==1 and tracker.raw_frame==3
++    for t,(ident,mean,cov) in zip(tracker.tracked_stracks,state):
++        assert t.track_id==ident and np.array_equal(t.mean,mean) and np.array_equal(t.covariance,cov)

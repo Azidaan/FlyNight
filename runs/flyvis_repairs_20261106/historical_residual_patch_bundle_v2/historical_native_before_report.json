@@ -1,0 +1,110 @@
+{
+  "phase": "before",
+  "before_source_sha256": "609e18b3577ad8177b769f7f662487d8b8b9d7b22deaaff1a24f94209c74a66b",
+  "current_source_sha256": "609e18b3577ad8177b769f7f662487d8b8b9d7b22deaaff1a24f94209c74a66b",
+  "checkpoints": {
+    "B": "35667fd8874b7c504541f0c1b6e335e3764d5e65423d39f1e0bce0c3368a14a7",
+    "C": "ab63fc759811bd956bb921ee2d7261e3132f425f9f2ff81729b829885f659fc4",
+    "D": "30246c5f32b8d0781f6f88b5c7a8ca9eaaa44b8b5dbdb5ec9937119728146f17"
+  },
+  "checks": [
+    {
+      "arm": "R1",
+      "wrapped_deterministic": false,
+      "valid_six_observations_exact": true,
+      "state_shape": [
+        1,
+        17,
+        721
+      ],
+      "output_shape": [
+        1,
+        34,
+        721
+      ],
+      "injected_backend_nan_rejected": false,
+      "clean_retry_exact": false
+    },
+    {
+      "arm": "B",
+      "wrapped_deterministic": false,
+      "valid_six_observations_exact": true,
+      "state_shape": [
+        1,
+        16,
+        721
+      ],
+      "output_shape": [
+        1,
+        34,
+        721
+      ],
+      "injected_backend_nan_rejected": false,
+      "clean_retry_exact": false
+    },
+    {
+      "arm": "C",
+      "wrapped_deterministic": false,
+      "valid_six_observations_exact": true,
+      "state_shape": [
+        1,
+        45669
+      ],
+      "output_shape": [
+        1,
+        34,
+        721
+      ]
+    },
+    {
+      "arm": "C",
+      "wrapped_deterministic": true,
+      "valid_six_observations_exact": true,
+      "state_shape": [
+        1,
+        45669
+      ],
+      "output_shape": [
+        1,
+        34,
+        721
+      ],
+      "injected_backend_nan_rejected": false,
+      "clean_retry_exact": false
+    },
+    {
+      "arm": "D",
+      "wrapped_deterministic": false,
+      "valid_six_observations_exact": true,
+      "state_shape": [
+        1,
+        45669
+      ],
+      "output_shape": [
+        1,
+        34,
+        721
+      ]
+    },
+    {
+      "arm": "D",
+      "wrapped_deterministic": true,
+      "valid_six_observations_exact": true,
+      "state_shape": [
+        1,
+        45669
+      ],
+      "output_shape": [
+        1,
+        34,
+        721
+      ],
+      "injected_backend_nan_rejected": false,
+      "clean_retry_exact": false
+    }
+  ],
+  "cuda_initialized": false,
+  "seconds": 34.31200000000172,
+  "frames_per_arm": 6,
+  "limits": "Existing B/C/D weights, tiny CPU execution with 0.02s test fade-in, no training/GPU/HOTA; not a performance benchmark"
+}

@@ -1,0 +1,980 @@
+FFFFFFFFFFFFFFFFFF..FFFFFFFFFFFFFFFF..                                   [100%]
+================================== FAILURES ===================================
+_______ test_admission_rejects_nonfinite_and_cast_overflow_weights[nan] _______
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462CBBEB0>)
+value = nan
+
+    @pytest.mark.parametrize('value', [float('nan'), float('inf'), 1e300])
+    def test_admission_rejects_nonfinite_and_cast_overflow_weights(artifacts, value):
+        saved, norm, write = artifacts
+        saved['state_dict']['1.weight'] = saved['state_dict']['1.weight'].double()
+        saved['state_dict']['1.weight'][0, 0] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:35: Failed
+_______ test_admission_rejects_nonfinite_and_cast_overflow_weights[inf] _______
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462CBA200>)
+value = inf
+
+    @pytest.mark.parametrize('value', [float('nan'), float('inf'), 1e300])
+    def test_admission_rejects_nonfinite_and_cast_overflow_weights(artifacts, value):
+        saved, norm, write = artifacts
+        saved['state_dict']['1.weight'] = saved['state_dict']['1.weight'].double()
+        saved['state_dict']['1.weight'][0, 0] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:35: Failed
+_____ test_admission_rejects_nonfinite_and_cast_overflow_weights[1e+300] ______
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462C43910>)
+value = 1e+300
+
+    @pytest.mark.parametrize('value', [float('nan'), float('inf'), 1e300])
+    def test_admission_rejects_nonfinite_and_cast_overflow_weights(artifacts, value):
+        saved, norm, write = artifacts
+        saved['state_dict']['1.weight'] = saved['state_dict']['1.weight'].double()
+        saved['state_dict']['1.weight'][0, 0] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:35: Failed
+_____________ test_admission_rejects_invalid_schema[arm-numerci] ______________
+
+artifacts = ({'arm': 'numerci', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462CDD240>)
+key = 'arm', value = 'numerci'
+
+    @pytest.mark.parametrize('key,value', [
+        ('arm', 'numerci'), ('input_dim', True), ('input_dim', 10.), ('input_dim', 11),
+    ])
+    def test_admission_rejects_invalid_schema(artifacts, key, value):
+        saved, _, write = artifacts
+        saved[key] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:45: Failed
+____________ test_admission_rejects_invalid_schema[input_dim-True] ____________
+
+artifacts = ({'arm': 'numeric', 'input_dim': True, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1.,..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462CDD120>)
+key = 'input_dim', value = True
+
+    @pytest.mark.parametrize('key,value', [
+        ('arm', 'numerci'), ('input_dim', True), ('input_dim', 10.), ('input_dim', 11),
+    ])
+    def test_admission_rejects_invalid_schema(artifacts, key, value):
+        saved, _, write = artifacts
+        saved[key] = value
+        with pytest.raises(ValueError):
+>           AdmissionModel(*write())
+
+tests\test_learned_head_contracts.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\learned_recovery_admission.py:21: in __init__
+    self.model=head(saved['input_dim']);self.model.load_state_dict(saved['state_dict'],strict=True);self.model.to(device).eval()
+tracking\learned_recovery_admission.py:7: in head
+    return torch.nn.Sequential(torch.nn.LayerNorm(input_dim),torch.nn.Linear(input_dim,32),torch.nn.ReLU(),torch.nn.Linear(32,1))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = LayerNorm((True,), eps=1e-05, elementwise_affine=True)
+normalized_shape = (True,), eps = 1e-05, elementwise_affine = True, bias = True
+device = None, dtype = None
+
+    def __init__(
+        self,
+        normalized_shape: _shape_t,
+        eps: float = 1e-5,
+        elementwise_affine: bool = True,
+        bias: bool = True,
+        device=None,
+        dtype=None,
+    ) -> None:
+        factory_kwargs = {"device": device, "dtype": dtype}
+        super().__init__()
+        if isinstance(normalized_shape, numbers.Integral):
+            # mypy error: incompatible types in assignment
+            normalized_shape = (normalized_shape,)  # type: ignore[assignment]
+        self.normalized_shape = tuple(normalized_shape)  # type: ignore[arg-type]
+        self.eps = eps
+        self.elementwise_affine = elementwise_affine
+        if self.elementwise_affine:
+            self.weight = Parameter(
+>               torch.empty(self.normalized_shape, **factory_kwargs)
+            )
+E           TypeError: empty() received an invalid combination of arguments - got (tuple, dtype=NoneType, device=NoneType), but expected one of:
+E            * (tuple of ints size, *, tuple of names names, torch.memory_format memory_format = None, torch.dtype dtype = None, torch.layout layout = None, torch.device device = None, bool pin_memory = False, bool requires_grad = False)
+E            * (tuple of ints size, *, torch.memory_format memory_format = None, Tensor out = None, torch.dtype dtype = None, torch.layout layout = None, torch.device device = None, bool pin_memory = False, bool requires_grad = False)
+
+.venv\lib\site-packages\torch\nn\modules\normalization.py:208: TypeError
+____________ test_admission_rejects_invalid_schema[input_dim-10.0] ____________
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10.0, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1.,..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462CDC040>)
+key = 'input_dim', value = 10.0
+
+    @pytest.mark.parametrize('key,value', [
+        ('arm', 'numerci'), ('input_dim', True), ('input_dim', 10.), ('input_dim', 11),
+    ])
+    def test_admission_rejects_invalid_schema(artifacts, key, value):
+        saved, _, write = artifacts
+        saved[key] = value
+        with pytest.raises(ValueError):
+>           AdmissionModel(*write())
+
+tests\test_learned_head_contracts.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\learned_recovery_admission.py:21: in __init__
+    self.model=head(saved['input_dim']);self.model.load_state_dict(saved['state_dict'],strict=True);self.model.to(device).eval()
+tracking\learned_recovery_admission.py:7: in head
+    return torch.nn.Sequential(torch.nn.LayerNorm(input_dim),torch.nn.Linear(input_dim,32),torch.nn.ReLU(),torch.nn.Linear(32,1))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <[KeyError('normalized_shape') raised in repr()] LayerNorm object at 0x2c462db7ee0>
+normalized_shape = 10.0, eps = 1e-05, elementwise_affine = True, bias = True
+device = None, dtype = None
+
+    def __init__(
+        self,
+        normalized_shape: _shape_t,
+        eps: float = 1e-5,
+        elementwise_affine: bool = True,
+        bias: bool = True,
+        device=None,
+        dtype=None,
+    ) -> None:
+        factory_kwargs = {"device": device, "dtype": dtype}
+        super().__init__()
+        if isinstance(normalized_shape, numbers.Integral):
+            # mypy error: incompatible types in assignment
+            normalized_shape = (normalized_shape,)  # type: ignore[assignment]
+>       self.normalized_shape = tuple(normalized_shape)  # type: ignore[arg-type]
+E       TypeError: 'float' object is not iterable
+
+.venv\lib\site-packages\torch\nn\modules\normalization.py:203: TypeError
+_____________ test_admission_rejects_invalid_schema[input_dim-11] _____________
+
+artifacts = ({'arm': 'numeric', 'input_dim': 11, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462CDD480>)
+key = 'input_dim', value = 11
+
+    @pytest.mark.parametrize('key,value', [
+        ('arm', 'numerci'), ('input_dim', True), ('input_dim', 10.), ('input_dim', 11),
+    ])
+    def test_admission_rejects_invalid_schema(artifacts, key, value):
+        saved, _, write = artifacts
+        saved[key] = value
+        with pytest.raises(ValueError):
+>           AdmissionModel(*write())
+
+tests\test_learned_head_contracts.py:46: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\learned_recovery_admission.py:21: in __init__
+    self.model=head(saved['input_dim']);self.model.load_state_dict(saved['state_dict'],strict=True);self.model.to(device).eval()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = Sequential(
+  (0): LayerNorm((11,), eps=1e-05, elementwise_affine=True)
+  (1): Linear(in_features=11, out_features=32, bias=True)
+  (2): ReLU()
+  (3): Linear(in_features=32, out_features=1, bias=True)
+)
+state_dict = OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])), ('0.bias', tensor([0., 0., 0., 0., 0., 0....08,
+          0.1152,  0.0548, -0.0245,  0.0579, -0.0392, -0.0850, -0.0433,  0.0242]])), ('3.bias', tensor([0.1535]))])
+strict = True, assign = False
+
+    def load_state_dict(
+        self, state_dict: Mapping[str, Any], strict: bool = True, assign: bool = False
+    ):
+        r"""Copy parameters and buffers from :attr:`state_dict` into this module and its descendants.
+    
+        If :attr:`strict` is ``True``, then
+        the keys of :attr:`state_dict` must exactly match the keys returned
+        by this module's :meth:`~torch.nn.Module.state_dict` function.
+    
+        .. warning::
+            If :attr:`assign` is ``True`` the optimizer must be created after
+            the call to :attr:`load_state_dict` unless
+            :func:`~torch.__future__.get_swap_module_params_on_conversion` is ``True``.
+    
+        Args:
+            state_dict (dict): a dict containing parameters and
+                persistent buffers.
+            strict (bool, optional): whether to strictly enforce that the keys
+                in :attr:`state_dict` match the keys returned by this module's
+                :meth:`~torch.nn.Module.state_dict` function. Default: ``True``
+            assign (bool, optional): When set to ``False``, the properties of the tensors
+                in the current module are preserved whereas setting it to ``True`` preserves
+                properties of the Tensors in the state dict. The only
+                exception is the ``requires_grad`` field of :class:`~torch.nn.Parameter`
+                for which the value from the module is preserved. Default: ``False``
+    
+        Returns:
+            ``NamedTuple`` with ``missing_keys`` and ``unexpected_keys`` fields:
+                * ``missing_keys`` is a list of str containing any keys that are expected
+                    by this module but missing from the provided ``state_dict``.
+                * ``unexpected_keys`` is a list of str containing the keys that are not
+                    expected by this module but present in the provided ``state_dict``.
+    
+        Note:
+            If a parameter or buffer is registered as ``None`` and its corresponding key
+            exists in :attr:`state_dict`, :meth:`load_state_dict` will raise a
+            ``RuntimeError``.
+        """
+        if not isinstance(state_dict, Mapping):
+            raise TypeError(
+                f"Expected state_dict to be dict-like, got {type(state_dict)}."
+            )
+    
+        missing_keys: list[str] = []
+        unexpected_keys: list[str] = []
+        error_msgs: list[str] = []
+    
+        # copy state_dict so _load_from_state_dict can modify it
+        metadata = getattr(state_dict, "_metadata", None)
+        state_dict = OrderedDict(state_dict)
+        if metadata is not None:
+            # mypy isn't aware that "_metadata" exists in state_dict
+            state_dict._metadata = metadata  # type: ignore[attr-defined]
+    
+        def load(module, local_state_dict, prefix="") -> None:
+            local_metadata = {} if metadata is None else metadata.get(prefix[:-1], {})
+            if assign:
+                local_metadata["assign_to_params_buffers"] = assign
+            module._load_from_state_dict(
+                local_state_dict,
+                prefix,
+                local_metadata,
+                True,
+                missing_keys,
+                unexpected_keys,
+                error_msgs,
+            )
+            for name, child in module._modules.items():
+                if child is not None:
+                    child_prefix = prefix + name + "."
+                    child_state_dict = {
+                        k: v
+                        for k, v in local_state_dict.items()
+                        if k.startswith(child_prefix)
+                    }
+                    load(child, child_state_dict, child_prefix)  # noqa: F821
+    
+            # Note that the hook can modify missing_keys and unexpected_keys.
+            incompatible_keys = _IncompatibleKeys(missing_keys, unexpected_keys)
+            for hook in module._load_state_dict_post_hooks.values():
+                out = hook(module, incompatible_keys)
+                assert out is None, (
+                    "Hooks registered with ``register_load_state_dict_post_hook`` are not"
+                    "expected to return new values, if incompatible_keys need to be modified,"
+                    "it should be done inplace."
+                )
+    
+        load(self, state_dict)
+        del load
+    
+        if strict:
+            if len(unexpected_keys) > 0:
+                error_msgs.insert(
+                    0,
+                    "Unexpected key(s) in state_dict: {}. ".format(
+                        ", ".join(f'"{k}"' for k in unexpected_keys)
+                    ),
+                )
+            if len(missing_keys) > 0:
+                error_msgs.insert(
+                    0,
+                    "Missing key(s) in state_dict: {}. ".format(
+                        ", ".join(f'"{k}"' for k in missing_keys)
+                    ),
+                )
+    
+        if len(error_msgs) > 0:
+>           raise RuntimeError(
+                "Error(s) in loading state_dict for {}:\n\t{}".format(
+                    self.__class__.__name__, "\n\t".join(error_msgs)
+                )
+            )
+E           RuntimeError: Error(s) in loading state_dict for Sequential:
+E           	size mismatch for 0.weight: copying a param with shape torch.Size([10]) from checkpoint, the shape in current model is torch.Size([11]).
+E           	size mismatch for 0.bias: copying a param with shape torch.Size([10]) from checkpoint, the shape in current model is torch.Size([11]).
+E           	size mismatch for 1.weight: copying a param with shape torch.Size([32, 10]) from checkpoint, the shape in current model is torch.Size([32, 11]).
+
+.venv\lib\site-packages\torch\nn\modules\module.py:2635: RuntimeError
+_ test_admission_rejects_normalization_before_constructing_model[numeric_std-value0] _
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462CDD900>)
+key = 'numeric_std', value = array([0., 1.])
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002C462D13C10>
+
+    @pytest.mark.parametrize('key,value', [
+        ('numeric_std', np.array([0., 1.])), ('numeric_std', np.array([-1., 1.])),
+        ('input_std', np.zeros(10)), ('input_std', np.ones(1)),
+        ('input_mean', np.full(10, np.nan)), ('numeric_mean', np.zeros(1)),
+        ('projection', np.ones((3, 8))), ('projection', np.full((2, 8), np.inf)),
+    ])
+    def test_admission_rejects_normalization_before_constructing_model(artifacts, key, value, monkeypatch):
+        _, norm, write = artifacts
+        norm[key] = value
+        monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+        with pytest.raises(ValueError):
+>           AdmissionModel(*write())
+
+tests\test_learned_head_contracts.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\learned_recovery_admission.py:21: in __init__
+    self.model=head(saved['input_dim']);self.model.load_state_dict(saved['state_dict'],strict=True);self.model.to(device).eval()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+_ = (10,)
+
+>   monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+E   Failed: Model built before schema rejection
+
+tests\test_learned_head_contracts.py:58: Failed
+_ test_admission_rejects_normalization_before_constructing_model[numeric_std-value1] _
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462D86170>)
+key = 'numeric_std', value = array([-1.,  1.])
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002C462DD0520>
+
+    @pytest.mark.parametrize('key,value', [
+        ('numeric_std', np.array([0., 1.])), ('numeric_std', np.array([-1., 1.])),
+        ('input_std', np.zeros(10)), ('input_std', np.ones(1)),
+        ('input_mean', np.full(10, np.nan)), ('numeric_mean', np.zeros(1)),
+        ('projection', np.ones((3, 8))), ('projection', np.full((2, 8), np.inf)),
+    ])
+    def test_admission_rejects_normalization_before_constructing_model(artifacts, key, value, monkeypatch):
+        _, norm, write = artifacts
+        norm[key] = value
+        monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+        with pytest.raises(ValueError):
+>           AdmissionModel(*write())
+
+tests\test_learned_head_contracts.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\learned_recovery_admission.py:21: in __init__
+    self.model=head(saved['input_dim']);self.model.load_state_dict(saved['state_dict'],strict=True);self.model.to(device).eval()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+_ = (10,)
+
+>   monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+E   Failed: Model built before schema rejection
+
+tests\test_learned_head_contracts.py:58: Failed
+_ test_admission_rejects_normalization_before_constructing_model[input_std-value2] _
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462CDE0E0>)
+key = 'input_std', value = array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002C462D11F00>
+
+    @pytest.mark.parametrize('key,value', [
+        ('numeric_std', np.array([0., 1.])), ('numeric_std', np.array([-1., 1.])),
+        ('input_std', np.zeros(10)), ('input_std', np.ones(1)),
+        ('input_mean', np.full(10, np.nan)), ('numeric_mean', np.zeros(1)),
+        ('projection', np.ones((3, 8))), ('projection', np.full((2, 8), np.inf)),
+    ])
+    def test_admission_rejects_normalization_before_constructing_model(artifacts, key, value, monkeypatch):
+        _, norm, write = artifacts
+        norm[key] = value
+        monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+        with pytest.raises(ValueError):
+>           AdmissionModel(*write())
+
+tests\test_learned_head_contracts.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\learned_recovery_admission.py:21: in __init__
+    self.model=head(saved['input_dim']);self.model.load_state_dict(saved['state_dict'],strict=True);self.model.to(device).eval()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+_ = (10,)
+
+>   monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+E   Failed: Model built before schema rejection
+
+tests\test_learned_head_contracts.py:58: Failed
+_ test_admission_rejects_normalization_before_constructing_model[input_std-value3] _
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462DDB370>)
+key = 'input_std', value = array([1.])
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002C462D17A60>
+
+    @pytest.mark.parametrize('key,value', [
+        ('numeric_std', np.array([0., 1.])), ('numeric_std', np.array([-1., 1.])),
+        ('input_std', np.zeros(10)), ('input_std', np.ones(1)),
+        ('input_mean', np.full(10, np.nan)), ('numeric_mean', np.zeros(1)),
+        ('projection', np.ones((3, 8))), ('projection', np.full((2, 8), np.inf)),
+    ])
+    def test_admission_rejects_normalization_before_constructing_model(artifacts, key, value, monkeypatch):
+        _, norm, write = artifacts
+        norm[key] = value
+        monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+        with pytest.raises(ValueError):
+>           AdmissionModel(*write())
+
+tests\test_learned_head_contracts.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\learned_recovery_admission.py:21: in __init__
+    self.model=head(saved['input_dim']);self.model.load_state_dict(saved['state_dict'],strict=True);self.model.to(device).eval()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+_ = (10,)
+
+>   monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+E   Failed: Model built before schema rejection
+
+tests\test_learned_head_contracts.py:58: Failed
+_ test_admission_rejects_normalization_before_constructing_model[input_mean-value4] _
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1...y([nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]), ...}, <function artifacts.<locals>.write at 0x000002C462DDB640>)
+key = 'input_mean'
+value = array([nan, nan, nan, nan, nan, nan, nan, nan, nan, nan])
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002C462D131C0>
+
+    @pytest.mark.parametrize('key,value', [
+        ('numeric_std', np.array([0., 1.])), ('numeric_std', np.array([-1., 1.])),
+        ('input_std', np.zeros(10)), ('input_std', np.ones(1)),
+        ('input_mean', np.full(10, np.nan)), ('numeric_mean', np.zeros(1)),
+        ('projection', np.ones((3, 8))), ('projection', np.full((2, 8), np.inf)),
+    ])
+    def test_admission_rejects_normalization_before_constructing_model(artifacts, key, value, monkeypatch):
+        _, norm, write = artifacts
+        norm[key] = value
+        monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+        with pytest.raises(ValueError):
+>           AdmissionModel(*write())
+
+tests\test_learned_head_contracts.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\learned_recovery_admission.py:21: in __init__
+    self.model=head(saved['input_dim']);self.model.load_state_dict(saved['state_dict'],strict=True);self.model.to(device).eval()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+_ = (10,)
+
+>   monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+E   Failed: Model built before schema rejection
+
+tests\test_learned_head_contracts.py:58: Failed
+_ test_admission_rejects_normalization_before_constructing_model[numeric_mean-value5] _
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462DDB6D0>)
+key = 'numeric_mean', value = array([0.])
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002C462D18AC0>
+
+    @pytest.mark.parametrize('key,value', [
+        ('numeric_std', np.array([0., 1.])), ('numeric_std', np.array([-1., 1.])),
+        ('input_std', np.zeros(10)), ('input_std', np.ones(1)),
+        ('input_mean', np.full(10, np.nan)), ('numeric_mean', np.zeros(1)),
+        ('projection', np.ones((3, 8))), ('projection', np.full((2, 8), np.inf)),
+    ])
+    def test_admission_rejects_normalization_before_constructing_model(artifacts, key, value, monkeypatch):
+        _, norm, write = artifacts
+        norm[key] = value
+        monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+        with pytest.raises(ValueError):
+>           AdmissionModel(*write())
+
+tests\test_learned_head_contracts.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\learned_recovery_admission.py:21: in __init__
+    self.model=head(saved['input_dim']);self.model.load_state_dict(saved['state_dict'],strict=True);self.model.to(device).eval()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+_ = (10,)
+
+>   monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+E   Failed: Model built before schema rejection
+
+tests\test_learned_head_contracts.py:58: Failed
+_ test_admission_rejects_normalization_before_constructing_model[projection-value6] _
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462D853F0>)
+key = 'projection'
+value = array([[1., 1., 1., 1., 1., 1., 1., 1.],
+       [1., 1., 1., 1., 1., 1., 1., 1.],
+       [1., 1., 1., 1., 1., 1., 1., 1.]])
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002C462D17880>
+
+    @pytest.mark.parametrize('key,value', [
+        ('numeric_std', np.array([0., 1.])), ('numeric_std', np.array([-1., 1.])),
+        ('input_std', np.zeros(10)), ('input_std', np.ones(1)),
+        ('input_mean', np.full(10, np.nan)), ('numeric_mean', np.zeros(1)),
+        ('projection', np.ones((3, 8))), ('projection', np.full((2, 8), np.inf)),
+    ])
+    def test_admission_rejects_normalization_before_constructing_model(artifacts, key, value, monkeypatch):
+        _, norm, write = artifacts
+        norm[key] = value
+        monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+        with pytest.raises(ValueError):
+>           AdmissionModel(*write())
+
+tests\test_learned_head_contracts.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\learned_recovery_admission.py:21: in __init__
+    self.model=head(saved['input_dim']);self.model.load_state_dict(saved['state_dict'],strict=True);self.model.to(device).eval()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+_ = (10,)
+
+>   monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+E   Failed: Model built before schema rejection
+
+tests\test_learned_head_contracts.py:58: Failed
+_ test_admission_rejects_normalization_before_constructing_model[projection-value7] _
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462DDB250>)
+key = 'projection'
+value = array([[inf, inf, inf, inf, inf, inf, inf, inf],
+       [inf, inf, inf, inf, inf, inf, inf, inf]])
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002C462D1BAF0>
+
+    @pytest.mark.parametrize('key,value', [
+        ('numeric_std', np.array([0., 1.])), ('numeric_std', np.array([-1., 1.])),
+        ('input_std', np.zeros(10)), ('input_std', np.ones(1)),
+        ('input_mean', np.full(10, np.nan)), ('numeric_mean', np.zeros(1)),
+        ('projection', np.ones((3, 8))), ('projection', np.full((2, 8), np.inf)),
+    ])
+    def test_admission_rejects_normalization_before_constructing_model(artifacts, key, value, monkeypatch):
+        _, norm, write = artifacts
+        norm[key] = value
+        monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+        with pytest.raises(ValueError):
+>           AdmissionModel(*write())
+
+tests\test_learned_head_contracts.py:60: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\learned_recovery_admission.py:21: in __init__
+    self.model=head(saved['input_dim']);self.model.load_state_dict(saved['state_dict'],strict=True);self.model.to(device).eval()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+_ = (10,)
+
+>   monkeypatch.setattr('tracking.learned_recovery_admission.head', lambda *_: pytest.fail('Model built before schema rejection'))
+E   Failed: Model built before schema rejection
+
+tests\test_learned_head_contracts.py:58: Failed
+______ test_admission_explicit_cpu_and_rng_preserved_under_ambient_meta _______
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462D85F30>)
+
+    def test_admission_explicit_cpu_and_rng_preserved_under_ambient_meta(artifacts):
+        _, _, write = artifacts
+        files = write()
+        rng = torch.get_rng_state().clone()
+        with torch.device('meta'):
+>           model = AdmissionModel(*files, device='cpu')
+
+tests\test_learned_head_contracts.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\learned_recovery_admission.py:21: in __init__
+    self.model=head(saved['input_dim']);self.model.load_state_dict(saved['state_dict'],strict=True);self.model.to(device).eval()
+.venv\lib\site-packages\torch\nn\modules\module.py:1381: in to
+    return self._apply(convert)
+.venv\lib\site-packages\torch\nn\modules\module.py:933: in _apply
+    module._apply(fn)
+.venv\lib\site-packages\torch\nn\modules\module.py:964: in _apply
+    param_applied = fn(param)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+t = Parameter containing:
+tensor(..., device='meta', size=(10,), requires_grad=True)
+
+    def convert(t):
+        try:
+            if convert_to_format is not None and t.dim() in (4, 5):
+                return t.to(
+                    device,
+                    dtype if t.is_floating_point() or t.is_complex() else None,
+                    non_blocking,
+                    memory_format=convert_to_format,
+                )
+            return t.to(
+                device,
+                dtype if t.is_floating_point() or t.is_complex() else None,
+                non_blocking,
+            )
+        except NotImplementedError as e:
+            if str(e) == "Cannot copy out of meta tensor; no data!":
+>               raise NotImplementedError(
+                    f"{e} Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() "
+                    f"when moving module from meta to a different device."
+                ) from None
+E               NotImplementedError: Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty() instead of torch.nn.Module.to() when moving module from meta to a different device.
+
+.venv\lib\site-packages\torch\nn\modules\module.py:1374: NotImplementedError
+______ test_raw_input_rejects_invalid_observation[numeric0-None-numeric] ______
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C464074CA0>)
+numeric = array([[inf,  1.]]), embeddings = None, arm = 'numeric'
+
+    @pytest.mark.parametrize('numeric,embeddings,arm', [
+        (np.array([[np.inf, 1.]]), None, 'numeric'),
+        (np.array([[1., 2.]]), np.ones((1, 2, 2)), 'wrong'),
+        (np.array([[1., 2.]]), None, 'appearance'),
+        (np.ones((2, 2)), np.ones((1, 2, 2)), 'appearance'),
+        (np.ones((1, 2)), np.full((1, 2, 2), np.nan), 'appearance'),
+    ])
+    def test_raw_input_rejects_invalid_observation(artifacts, numeric, embeddings, arm):
+        _, n, _ = artifacts
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:83: Failed
+___ test_raw_input_rejects_invalid_observation[numeric1-embeddings1-wrong] ____
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C462C84550>)
+numeric = array([[1., 2.]]), embeddings = array([[[1., 1.],
+        [1., 1.]]])
+arm = 'wrong'
+
+    @pytest.mark.parametrize('numeric,embeddings,arm', [
+        (np.array([[np.inf, 1.]]), None, 'numeric'),
+        (np.array([[1., 2.]]), np.ones((1, 2, 2)), 'wrong'),
+        (np.array([[1., 2.]]), None, 'appearance'),
+        (np.ones((2, 2)), np.ones((1, 2, 2)), 'appearance'),
+        (np.ones((1, 2)), np.full((1, 2, 2), np.nan), 'appearance'),
+    ])
+    def test_raw_input_rejects_invalid_observation(artifacts, numeric, embeddings, arm):
+        _, n, _ = artifacts
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:83: Failed
+_ test_raw_input_rejects_invalid_observation[numeric4-embeddings4-appearance] _
+
+artifacts = ({'arm': 'numeric', 'input_dim': 10, 'state_dict': OrderedDict([('0.weight', tensor([1., 1., 1., 1., 1., 1., 1., 1., 1..., 0., 0., 0., 0., 0., 0., 0., 0., 0.], dtype=float32), ...}, <function artifacts.<locals>.write at 0x000002C4640765F0>)
+numeric = array([[1., 1.]])
+embeddings = array([[[nan, nan],
+        [nan, nan]]]), arm = 'appearance'
+
+    @pytest.mark.parametrize('numeric,embeddings,arm', [
+        (np.array([[np.inf, 1.]]), None, 'numeric'),
+        (np.array([[1., 2.]]), np.ones((1, 2, 2)), 'wrong'),
+        (np.array([[1., 2.]]), None, 'appearance'),
+        (np.ones((2, 2)), np.ones((1, 2, 2)), 'appearance'),
+        (np.ones((1, 2)), np.full((1, 2, 2), np.nan), 'appearance'),
+    ])
+    def test_raw_input_rejects_invalid_observation(artifacts, numeric, embeddings, arm):
+        _, n, _ = artifacts
+        with pytest.raises(ValueError):
+>           raw_input(numeric, embeddings, arm, n['numeric_mean'], n['numeric_std'], n['projection'])
+
+tests\test_learned_head_contracts.py:84: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+numeric = array([[1., 1.]])
+embeddings = array([[[nan, nan],
+        [nan, nan]]]), arm = 'appearance'
+numeric_mean = array([0., 0.], dtype=float32)
+numeric_std = array([1., 1.], dtype=float32)
+projection = array([[0.    , 0.0625, 0.125 , 0.1875, 0.25  , 0.3125, 0.375 , 0.4375],
+       [0.5   , 0.5625, 0.625 , 0.6875, 0.75  , 0.8125, 0.875 , 0.9375]],
+      dtype=float32)
+
+    def raw_input(numeric,embeddings,arm,numeric_mean,numeric_std,projection):
+        z=np.clip((numeric-numeric_mean)/numeric_std,-10,10).astype(np.float32)
+        if arm=='numeric':extra=np.tanh(z@projection)
+        else:
+            e=np.asarray(embeddings,np.float32);e=e/np.maximum(np.linalg.norm(e,axis=2,keepdims=True),1e-12)
+            a,b=e[:,0],e[:,1];extra=np.concatenate([a,b,np.abs(a-b),a*b],axis=1)
+>       result=np.concatenate([z,extra],axis=1).astype(np.float32);assert np.isfinite(result).all();return result
+E       AssertionError
+
+tracking\learned_recovery_admission.py:15: AssertionError
+________ test_logistic_head_rejects_malformed_parameters[scale-value0] ________
+
+key = 'scale', value = array([0., 0., 0., 0., 0., 0., 0., 0.])
+
+    @pytest.mark.parametrize('key,value', [
+        ('scale', np.zeros(8)), ('scale', -np.ones(8)), ('scale', 1.),
+        ('coef', np.full(8, np.nan)), ('coef', np.zeros(1)),
+        ('mean', 0.), ('mean', np.full(8, np.inf)), ('intercept', float('nan')),
+        ('features', ['box_w'] * 8), ('features', []),
+    ])
+    def test_logistic_head_rejects_malformed_parameters(key, value):
+        s = spec()
+        s[key] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:101: Failed
+________ test_logistic_head_rejects_malformed_parameters[scale-value1] ________
+
+key = 'scale', value = array([-1., -1., -1., -1., -1., -1., -1., -1.])
+
+    @pytest.mark.parametrize('key,value', [
+        ('scale', np.zeros(8)), ('scale', -np.ones(8)), ('scale', 1.),
+        ('coef', np.full(8, np.nan)), ('coef', np.zeros(1)),
+        ('mean', 0.), ('mean', np.full(8, np.inf)), ('intercept', float('nan')),
+        ('features', ['box_w'] * 8), ('features', []),
+    ])
+    def test_logistic_head_rejects_malformed_parameters(key, value):
+        s = spec()
+        s[key] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:101: Failed
+_________ test_logistic_head_rejects_malformed_parameters[scale-1.0] __________
+
+key = 'scale', value = 1.0
+
+    @pytest.mark.parametrize('key,value', [
+        ('scale', np.zeros(8)), ('scale', -np.ones(8)), ('scale', 1.),
+        ('coef', np.full(8, np.nan)), ('coef', np.zeros(1)),
+        ('mean', 0.), ('mean', np.full(8, np.inf)), ('intercept', float('nan')),
+        ('features', ['box_w'] * 8), ('features', []),
+    ])
+    def test_logistic_head_rejects_malformed_parameters(key, value):
+        s = spec()
+        s[key] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:101: Failed
+________ test_logistic_head_rejects_malformed_parameters[coef-value3] _________
+
+key = 'coef', value = array([nan, nan, nan, nan, nan, nan, nan, nan])
+
+    @pytest.mark.parametrize('key,value', [
+        ('scale', np.zeros(8)), ('scale', -np.ones(8)), ('scale', 1.),
+        ('coef', np.full(8, np.nan)), ('coef', np.zeros(1)),
+        ('mean', 0.), ('mean', np.full(8, np.inf)), ('intercept', float('nan')),
+        ('features', ['box_w'] * 8), ('features', []),
+    ])
+    def test_logistic_head_rejects_malformed_parameters(key, value):
+        s = spec()
+        s[key] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:101: Failed
+________ test_logistic_head_rejects_malformed_parameters[coef-value4] _________
+
+key = 'coef', value = array([0.])
+
+    @pytest.mark.parametrize('key,value', [
+        ('scale', np.zeros(8)), ('scale', -np.ones(8)), ('scale', 1.),
+        ('coef', np.full(8, np.nan)), ('coef', np.zeros(1)),
+        ('mean', 0.), ('mean', np.full(8, np.inf)), ('intercept', float('nan')),
+        ('features', ['box_w'] * 8), ('features', []),
+    ])
+    def test_logistic_head_rejects_malformed_parameters(key, value):
+        s = spec()
+        s[key] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:101: Failed
+__________ test_logistic_head_rejects_malformed_parameters[mean-0.0] __________
+
+key = 'mean', value = 0.0
+
+    @pytest.mark.parametrize('key,value', [
+        ('scale', np.zeros(8)), ('scale', -np.ones(8)), ('scale', 1.),
+        ('coef', np.full(8, np.nan)), ('coef', np.zeros(1)),
+        ('mean', 0.), ('mean', np.full(8, np.inf)), ('intercept', float('nan')),
+        ('features', ['box_w'] * 8), ('features', []),
+    ])
+    def test_logistic_head_rejects_malformed_parameters(key, value):
+        s = spec()
+        s[key] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:101: Failed
+________ test_logistic_head_rejects_malformed_parameters[mean-value6] _________
+
+key = 'mean', value = array([inf, inf, inf, inf, inf, inf, inf, inf])
+
+    @pytest.mark.parametrize('key,value', [
+        ('scale', np.zeros(8)), ('scale', -np.ones(8)), ('scale', 1.),
+        ('coef', np.full(8, np.nan)), ('coef', np.zeros(1)),
+        ('mean', 0.), ('mean', np.full(8, np.inf)), ('intercept', float('nan')),
+        ('features', ['box_w'] * 8), ('features', []),
+    ])
+    def test_logistic_head_rejects_malformed_parameters(key, value):
+        s = spec()
+        s[key] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:101: Failed
+_______ test_logistic_head_rejects_malformed_parameters[intercept-nan] ________
+
+key = 'intercept', value = nan
+
+    @pytest.mark.parametrize('key,value', [
+        ('scale', np.zeros(8)), ('scale', -np.ones(8)), ('scale', 1.),
+        ('coef', np.full(8, np.nan)), ('coef', np.zeros(1)),
+        ('mean', 0.), ('mean', np.full(8, np.inf)), ('intercept', float('nan')),
+        ('features', ['box_w'] * 8), ('features', []),
+    ])
+    def test_logistic_head_rejects_malformed_parameters(key, value):
+        s = spec()
+        s[key] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:101: Failed
+______ test_logistic_head_rejects_malformed_parameters[features-value8] _______
+
+key = 'features'
+value = ['box_w', 'box_w', 'box_w', 'box_w', 'box_w', 'box_w', ...]
+
+    @pytest.mark.parametrize('key,value', [
+        ('scale', np.zeros(8)), ('scale', -np.ones(8)), ('scale', 1.),
+        ('coef', np.full(8, np.nan)), ('coef', np.zeros(1)),
+        ('mean', 0.), ('mean', np.full(8, np.inf)), ('intercept', float('nan')),
+        ('features', ['box_w'] * 8), ('features', []),
+    ])
+    def test_logistic_head_rejects_malformed_parameters(key, value):
+        s = spec()
+        s[key] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:101: Failed
+______ test_logistic_head_rejects_malformed_parameters[features-value9] _______
+
+key = 'features', value = []
+
+    @pytest.mark.parametrize('key,value', [
+        ('scale', np.zeros(8)), ('scale', -np.ones(8)), ('scale', 1.),
+        ('coef', np.full(8, np.nan)), ('coef', np.zeros(1)),
+        ('mean', 0.), ('mean', np.full(8, np.inf)), ('intercept', float('nan')),
+        ('features', ['box_w'] * 8), ('features', []),
+    ])
+    def test_logistic_head_rejects_malformed_parameters(key, value):
+        s = spec()
+        s[key] = value
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:101: Failed
+_____________ test_reliability_rejects_wrong_feature_order[base] ______________
+
+part = 'base'
+
+    @pytest.mark.parametrize('part', ['base', 'fly'])
+    def test_reliability_rejects_wrong_feature_order(part):
+        b, f = spec(), spec(BASE_FEATURES + FLY_FEATURES)
+        s = b if part == 'base' else f
+        s['features'][0], s['features'][1] = s['features'][1], s['features'][0]
+>       with pytest.raises(ValueError, match='feature'):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:110: Failed
+______________ test_reliability_rejects_wrong_feature_order[fly] ______________
+
+part = 'fly'
+
+    @pytest.mark.parametrize('part', ['base', 'fly'])
+    def test_reliability_rejects_wrong_feature_order(part):
+        b, f = spec(), spec(BASE_FEATURES + FLY_FEATURES)
+        s = b if part == 'base' else f
+        s['features'][0], s['features'][1] = s['features'][1], s['features'][0]
+>       with pytest.raises(ValueError, match='feature'):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:110: Failed
+___________ test_logistic_head_rejects_malformed_feature_matrix[x0] ___________
+
+x = array([1., 1., 1., 1., 1., 1., 1., 1.])
+
+    @pytest.mark.parametrize('x', [np.ones(8), np.ones((2, 1)), np.full((2, 8), np.nan)])
+    def test_logistic_head_rejects_malformed_feature_matrix(x):
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:116: Failed
+___________ test_logistic_head_rejects_malformed_feature_matrix[x1] ___________
+
+x = array([[1.],
+       [1.]])
+
+    @pytest.mark.parametrize('x', [np.ones(8), np.ones((2, 1)), np.full((2, 8), np.nan)])
+    def test_logistic_head_rejects_malformed_feature_matrix(x):
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:116: Failed
+___________ test_logistic_head_rejects_malformed_feature_matrix[x2] ___________
+
+x = array([[nan, nan, nan, nan, nan, nan, nan, nan],
+       [nan, nan, nan, nan, nan, nan, nan, nan]])
+
+    @pytest.mark.parametrize('x', [np.ones(8), np.ones((2, 1)), np.full((2, 8), np.nan)])
+    def test_logistic_head_rejects_malformed_feature_matrix(x):
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_learned_head_contracts.py:116: Failed
+============================== warnings summary ===============================
+tests/test_learned_head_contracts.py::test_admission_explicit_cpu_and_rng_preserved_under_ambient_meta
+  E:\Dissertation\.venv\lib\site-packages\torch\nn\modules\module.py:2586: UserWarning: for 0.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+    module._load_from_state_dict(
+
+tests/test_learned_head_contracts.py::test_admission_explicit_cpu_and_rng_preserved_under_ambient_meta
+  E:\Dissertation\.venv\lib\site-packages\torch\nn\modules\module.py:2586: UserWarning: for 0.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+    module._load_from_state_dict(
+
+tests/test_learned_head_contracts.py::test_admission_explicit_cpu_and_rng_preserved_under_ambient_meta
+  E:\Dissertation\.venv\lib\site-packages\torch\nn\modules\module.py:2586: UserWarning: for 1.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+    module._load_from_state_dict(
+
+tests/test_learned_head_contracts.py::test_admission_explicit_cpu_and_rng_preserved_under_ambient_meta
+  E:\Dissertation\.venv\lib\site-packages\torch\nn\modules\module.py:2586: UserWarning: for 1.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+    module._load_from_state_dict(
+
+tests/test_learned_head_contracts.py::test_admission_explicit_cpu_and_rng_preserved_under_ambient_meta
+  E:\Dissertation\.venv\lib\site-packages\torch\nn\modules\module.py:2586: UserWarning: for 3.weight: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+    module._load_from_state_dict(
+
+tests/test_learned_head_contracts.py::test_admission_explicit_cpu_and_rng_preserved_under_ambient_meta
+  E:\Dissertation\.venv\lib\site-packages\torch\nn\modules\module.py:2586: UserWarning: for 3.bias: copying from a non-meta parameter in the checkpoint to a meta parameter in the current model, which is a no-op. (Did you mean to pass `assign=True` to assign items in the state dictionary to their corresponding key in the module instead of copying them in place?)
+    module._load_from_state_dict(
+
+tests/test_learned_head_contracts.py::test_logistic_valid_math_exact_and_extreme_finite_scores
+  E:\Dissertation\tracking\reliability_head.py:55: RuntimeWarning: overflow encountered in exp
+    return 1.0 / (1.0 + np.exp(-(z @ self.coef + self.intercept)))
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_nonfinite_and_cast_overflow_weights[nan]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_nonfinite_and_cast_overflow_weights[inf]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_nonfinite_and_cast_overflow_weights[1e+300]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_invalid_schema[arm-numerci]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_invalid_schema[input_dim-True]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_invalid_schema[input_dim-10.0]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_invalid_schema[input_dim-11]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_normalization_before_constructing_model[numeric_std-value0]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_normalization_before_constructing_model[numeric_std-value1]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_normalization_before_constructing_model[input_std-value2]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_normalization_before_constructing_model[input_std-value3]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_normalization_before_constructing_model[input_mean-value4]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_normalization_before_constructing_model[numeric_mean-value5]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_normalization_before_constructing_model[projection-value6]
+FAILED tests/test_learned_head_contracts.py::test_admission_rejects_normalization_before_constructing_model[projection-value7]
+FAILED tests/test_learned_head_contracts.py::test_admission_explicit_cpu_and_rng_preserved_under_ambient_meta
+FAILED tests/test_learned_head_contracts.py::test_raw_input_rejects_invalid_observation[numeric0-None-numeric]
+FAILED tests/test_learned_head_contracts.py::test_raw_input_rejects_invalid_observation[numeric1-embeddings1-wrong]
+FAILED tests/test_learned_head_contracts.py::test_raw_input_rejects_invalid_observation[numeric4-embeddings4-appearance]
+FAILED tests/test_learned_head_contracts.py::test_logistic_head_rejects_malformed_parameters[scale-value0]
+FAILED tests/test_learned_head_contracts.py::test_logistic_head_rejects_malformed_parameters[scale-value1]
+FAILED tests/test_learned_head_contracts.py::test_logistic_head_rejects_malformed_parameters[scale-1.0]
+FAILED tests/test_learned_head_contracts.py::test_logistic_head_rejects_malformed_parameters[coef-value3]
+FAILED tests/test_learned_head_contracts.py::test_logistic_head_rejects_malformed_parameters[coef-value4]
+FAILED tests/test_learned_head_contracts.py::test_logistic_head_rejects_malformed_parameters[mean-0.0]
+FAILED tests/test_learned_head_contracts.py::test_logistic_head_rejects_malformed_parameters[mean-value6]
+FAILED tests/test_learned_head_contracts.py::test_logistic_head_rejects_malformed_parameters[intercept-nan]
+FAILED tests/test_learned_head_contracts.py::test_logistic_head_rejects_malformed_parameters[features-value8]
+FAILED tests/test_learned_head_contracts.py::test_logistic_head_rejects_malformed_parameters[features-value9]
+FAILED tests/test_learned_head_contracts.py::test_reliability_rejects_wrong_feature_order[base]
+FAILED tests/test_learned_head_contracts.py::test_reliability_rejects_wrong_feature_order[fly]
+FAILED tests/test_learned_head_contracts.py::test_logistic_head_rejects_malformed_feature_matrix[x0]
+FAILED tests/test_learned_head_contracts.py::test_logistic_head_rejects_malformed_feature_matrix[x1]
+FAILED tests/test_learned_head_contracts.py::test_logistic_head_rejects_malformed_feature_matrix[x2]
+34 failed, 4 passed, 7 warnings in 6.50s

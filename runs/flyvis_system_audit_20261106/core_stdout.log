@@ -1,0 +1,44 @@
+[2026-11-06 19:05:31] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-11-06 19:05:31] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+Traceback (most recent call last):
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\network\initialization.py", line 166, in __init__
+    _values = torch.normal(
+  File "E:\Dissertation\.venv\lib\site-packages\torch\utils\_device.py", line 109, in __torch_function__
+    return func(*args, **kwargs)
+RuntimeError: Expected a 'cpu' device type for generator but found 'cuda'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\Dissertation\runs\flyvis_system_audit_20261106\audit_core.py", line 25, in <module>
+    model = FlyVisMotionEstimator(source_fps=30, flow_gain=1, fade_in_seconds=.1)
+  File "E:\Dissertation\tracking\flyvis_motion.py", line 118, in __init__
+    self.network = view.init_network()
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\network\network_view.py", line 304, in init_network
+    checkpointed_network.init()
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\network\network_view.py", line 438, in init
+    self.network = self.network_class(**self.config)
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\network\network.py", line 157, in __init__
+    param = forward_subclass(
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\utils\class_utils.py", line 70, in forward_subclass
+    init_with_kwargs(instance)
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\utils\class_utils.py", line 61, in init_with_kwargs
+    instance.__init__(**kwargs)
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\network\initialization.py", line 222, in wrapper
+    return f(cls, deepcopy(param_config), connectome)
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\network\initialization.py", line 353, in __init__
+    self.parameter = forward_subclass(
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\utils\class_utils.py", line 70, in forward_subclass
+    init_with_kwargs(instance)
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\utils\class_utils.py", line 61, in init_with_kwargs
+    instance.__init__(**kwargs)
+  File "E:\Dissertation\tools\flyvis-runtime\flyvis\network\initialization.py", line 172, in __init__
+    raise RuntimeError(
+RuntimeError: Failed to sample from normal with mean [0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
+ 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
+ 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
+ 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5] and std [0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05
+ 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05
+ 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05
+ 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05
+ 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05 0.05]

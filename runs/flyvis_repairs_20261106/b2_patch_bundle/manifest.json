@@ -1,0 +1,92 @@
+{
+  "source": {
+    "path": "tracking/b2_pilot_runtime.py",
+    "size": 3672,
+    "sha256": "09f238b479414c5cceb12a7f3392549876d9a31855762cdd5b34d0c0e45d0028"
+  },
+  "baseline": {
+    "path": "runs/flyvis_system_fixes_20261106/loading_before/b2_pilot_runtime.py",
+    "size": 3451,
+    "sha256": "7b8f951650f4e5937903b368280ee78bb01960dca116b989d2f47fcfc687e04f"
+  },
+  "new_test": {
+    "path": "tests/test_b2_lifecycle_isolation.py",
+    "size": 3795,
+    "sha256": "54cd5c00e5933635bb26d2f2f5133d38aad680e4d2700d4d3ba8579d6f1fe7cd"
+  },
+  "patches": [
+    {
+      "path": "runs/flyvis_repairs_20261106/b2_patch_bundle/b2_lifecycle.patch",
+      "size": 975,
+      "sha256": "14a9f81de2b66a8be711a75950e765adf35b84eeefd034c8e8b1304e04fe9073"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/b2_patch_bundle/b2_lifecycle_test.patch",
+      "size": 3965,
+      "sha256": "ceb9a1f5c02323dda4a243a71384cc4ec9451dddaf1b7dbe5d9ff7c73d78d94a"
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "tracking/b1_fast_stimulus.py",
+      "size": 1117,
+      "sha256": "2c08b44ad06f7a424f54a549ad816e90358fd04105a0e470bc5fb368a9bf3a69",
+      "classification": "preexisting_untracked_source_not_in_bundle"
+    },
+    {
+      "path": "tracking/b1_index_copy_stimulus.py",
+      "size": 1103,
+      "sha256": "f6db7d12c96e13418f6a15fba64999cc70bb77d430a7c8208254db2144431caf",
+      "classification": "preexisting_untracked_source_not_in_bundle"
+    },
+    {
+      "path": "tracking/b1_learning.py",
+      "size": 4761,
+      "sha256": "b8b9152b78d8a4499f6700f49bdf149d6b9ceaebafdb8e3224b4be60e5d613da",
+      "classification": "preexisting_untracked_source_not_in_bundle"
+    },
+    {
+      "path": "tracking/b1_real_inputs.py",
+      "size": 2978,
+      "sha256": "fcbe0a765154286ca15bcb8b85d619e49f0316ba6a34d22d670bfdfe86d75fc5",
+      "classification": "preexisting_untracked_source_not_in_bundle"
+    },
+    {
+      "path": "tracking/b2_causal_detector.py",
+      "size": 7155,
+      "sha256": "4e304c5100640d90ee2f01db864f8e408189de90a52a9c9906cb0886791c01f4",
+      "classification": "preexisting_untracked_source_not_in_bundle"
+    },
+    {
+      "path": "tracking/b2_feature_temporal.py",
+      "size": 3498,
+      "sha256": "bc79ed37b4db5a035af26ee3a240cf0717b7bf5b05cae24afc521fd68b337730",
+      "classification": "preexisting_untracked_source_not_in_bundle"
+    },
+    {
+      "path": "tracking/b2_pilot_runtime.py",
+      "size": 3672,
+      "sha256": "09f238b479414c5cceb12a7f3392549876d9a31855762cdd5b34d0c0e45d0028",
+      "classification": "preexisting_untracked_source_not_in_bundle"
+    },
+    {
+      "path": "tracking/cache_integrity.py",
+      "size": 5045,
+      "sha256": "78c62614502473682471df1624757e0425051f4c74797ee814c254da42018eea",
+      "classification": "tracked_dependency"
+    }
+  ],
+  "original_manifest": {
+    "path": "runs/flyvis_system_fixes_20261106/loading_prior_untracked_b2_manifest.json",
+    "size": 1149,
+    "sha256": "4b8e4df2aa19b6184b89110f020facd4f259c72cf0547911449896d1feb5b5d8"
+  },
+  "application_report": {
+    "path": "runs/flyvis_repairs_20261106/b2_patch_bundle/apply_report.json",
+    "size": 2991,
+    "sha256": "a4b20a5ed1e3aead6cc3296b6d04daa1624247869633ced5c1a53dca597f5d59"
+  },
+  "publication_boundary": "Only patch/provenance files, not the complete preexisting untracked source or its dependency tree. The test is stored as a new-file patch, not installed as an executable test in a partial checkout.",
+  "application_requirement": "The recipient must provide the exact original source whose SHA256 is recorded. Reject a different baseline; do not apply with offset/fuzz as proof of correctness.",
+  "limitations": "The dependency list was collected by conservative AST imports; it is provenance, not a self-contained runnable environment. No original source, original test or repository index was modified by this check."
+}

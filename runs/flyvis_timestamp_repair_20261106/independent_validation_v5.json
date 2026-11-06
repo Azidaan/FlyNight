@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "scope": "Independent formulas and saved-output/hash verification; shares primary saved data; does not rerun tracker or establish HOTA.",
+  "frames": [
+    18,
+    21,
+    22,
+    24,
+    26
+  ],
+  "gaps": [
+    3,
+    1,
+    2,
+    2
+  ],
+  "source_fps": 30.202929825289456,
+  "interval_seconds": [
+    0.09932811211871394,
+    0.03310937070623798,
+    0.06621874141247595,
+    0.06621874141247595
+  ],
+  "integration_counts": [
+    5,
+    2,
+    4,
+    4
+  ],
+  "integration_dt": [
+    0.019865622423742787,
+    0.01655468535311899,
+    0.01655468535311899,
+    0.01655468535311899
+  ],
+  "elapsed_seconds": 0.2648749656499038,
+  "legacy_four_intervals_at_30fps_seconds": 0.13333333333333333,
+  "streamed_vs_offline_max_abs_delta": 0.0,
+  "protocol_sources_current_hash_match": {
+    "scripts\\b1_timestamped_smoke_20261106.py": true,
+    "tracking\\b1_timestamped.py": true,
+    "tracking\\flyvis_checkpoint.py": true,
+    "tracking\\b1_learning.py": true,
+    "tracking\\b1_tracker_runtime.py": true,
+    "tracking\\z13_readout.py": true,
+    "tracking\\flyvis_temporal_residual.py": true,
+    "runs\\b1_real_inputs_20261026\\gpu_samples.json": true,
+    "runs\\z13_data\\0001542f-5ce3cf52.npz": true,
+    "runs\\train_cache\\0001542f-5ce3cf52\\motion\\flyvis_tiled.json": true
+  },
+  "early_source_snapshots_match": {
+    "scripts\\b1_timestamped_smoke_20261106.py": true,
+    "tracking\\b1_timestamped.py": true
+  },
+  "diagnostic_checkpoint_finite": true,
+  "cuda_initialized": false,
+  "script_sha256": "05da562d6d4e54d5bb0c957db047d110d65dca8d236f9663040596af188cad74"
+}

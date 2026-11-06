@@ -1,0 +1,27 @@
+..................................................FF                     [100%]
+================================== FAILURES ===================================
+___ test_finite_extreme_activity_cannot_publish_nonfinite_head_probability ____
+
+    def test_finite_extreme_activity_cannot_publish_nonfinite_head_probability():
+        bb,head=modules();engine=TimestampedResidualEngine(bb,head,timestamped_checkpoint(bb,head,cursor=0),source_fps=30.)
+        large=torch.full((4,),torch.finfo(torch.float32).max)
+        eye=engine.start([dict(frame=0,hex=large)]);engine.advance_at(eye,large,1)
+        assert torch.isfinite(eye['current']).all()
+>       with pytest.raises(ValueError,match='finite'):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:389: Failed
+_____________ test_training_uses_the_same_nonfinite_head_boundary _____________
+
+    def test_training_uses_the_same_nonfinite_head_boundary():
+        bb,head=modules();x=torch.full((1,3,4),torch.finfo(torch.float32).max)
+        row=dict(reference_index=1,choices=[-1,0],current_masks=[[0,1,2,3]],reference_mask=[0,1,2,3],has_history=True)
+        inputs=tensors_for_row(row,x,np.array([np.nan,.5]),'cpu')
+>       with pytest.raises(ValueError,match='finite'):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped.py:398: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_b1_timestamped.py::test_finite_extreme_activity_cannot_publish_nonfinite_head_probability
+FAILED tests/test_b1_timestamped.py::test_training_uses_the_same_nonfinite_head_boundary
+2 failed, 50 passed in 7.98s

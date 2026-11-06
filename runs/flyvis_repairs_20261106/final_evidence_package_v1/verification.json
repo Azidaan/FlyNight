@@ -1,0 +1,304 @@
+{
+  "patch_bundles": [
+    {
+      "name": "lifecycle_patch_bundle",
+      "count": 13,
+      "listing": {
+        "path": "runs/flyvis_repairs_20261106/lifecycle_patch_bundle/artifact_paths.txt",
+        "size": 1032,
+        "sha256": "dcb0ce2990d1ec1d0f3f1d92d040f649ea84ee6e49fb2fefd726671ac48106c8"
+      },
+      "manifest": {
+        "path": "runs/flyvis_repairs_20261106/lifecycle_patch_bundle/manifest.json",
+        "size": 4972,
+        "sha256": "b451bdc4b8b044a43bdd9e60a3f7797519aa4ba77d83593d630b5cf6b0ff0be0"
+      }
+    },
+    {
+      "name": "b2_patch_bundle",
+      "count": 7,
+      "listing": {
+        "path": "runs/flyvis_repairs_20261106/b2_patch_bundle/artifact_paths.txt",
+        "size": 463,
+        "sha256": "23589fa4f488c7b7d825c6deb220ddb124a08ce01c2ce70a56546343a77ffb05"
+      },
+      "manifest": {
+        "path": "runs/flyvis_repairs_20261106/b2_patch_bundle/manifest.json",
+        "size": 3982,
+        "sha256": "659100de47b91540a0b6274efb5673a35bc9e9c1a676a1640143ef1e163ee234"
+      }
+    },
+    {
+      "name": "temporal_heads_bundle_v2",
+      "count": 55,
+      "listing": {
+        "path": "runs/flyvis_repairs_20261106/temporal_heads_bundle_v2/artifact_paths.txt",
+        "size": 3975,
+        "sha256": "dd6b5b0c6445848e02585078eca6b3b30d766f4fa03b7de329e51a43f3ded57c"
+      },
+      "manifest": {
+        "path": "runs/flyvis_repairs_20261106/temporal_heads_bundle_v2/manifest.json",
+        "size": 31330,
+        "sha256": "387f1eebc5ac43f05fab7c0da5c98e42253dab0454c99e5067ce96dac243997d"
+      }
+    },
+    {
+      "name": "historical_residual_patch_bundle_v2",
+      "count": 22,
+      "listing": {
+        "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/artifact_paths.txt",
+        "size": 2003,
+        "sha256": "5aa47cbb744d64b8ed80cee1cf55e8b5ce88bdb5fb092504bad9df31f4dc893d"
+      },
+      "manifest": {
+        "path": "runs/flyvis_repairs_20261106/historical_residual_patch_bundle_v2/manifest.json",
+        "size": 14507,
+        "sha256": "9ed72419957f778d850aee69729bc862d799c61936fde5237ce068f6f5f6de30"
+      }
+    }
+  ],
+  "current_patch_target_checks": [
+    {
+      "bundle": "lifecycle_patch_bundle",
+      "path": "tracking/history_pair_runtime.py",
+      "expected": "601f952d9ea6abfb88ea473d707bf1aace6032638b1616894ed9dd9f94e73a38",
+      "current": "601f952d9ea6abfb88ea473d707bf1aace6032638b1616894ed9dd9f94e73a38",
+      "exact": true
+    },
+    {
+      "bundle": "lifecycle_patch_bundle",
+      "path": "tracking/lazy_appearance_association.py",
+      "expected": "ddb5f6aa114bcc1504967226d7200c382b05ef22f202af04ea749cd7c81924f6",
+      "current": "ddb5f6aa114bcc1504967226d7200c382b05ef22f202af04ea749cd7c81924f6",
+      "exact": true
+    },
+    {
+      "bundle": "lifecycle_patch_bundle",
+      "path": "tracking/query_appearance_comparison.py",
+      "expected": "4ed19882f56d659a3f24801f9c584185d685ed7e5b7f768c3cecf0bc1906b582",
+      "current": "4ed19882f56d659a3f24801f9c584185d685ed7e5b7f768c3cecf0bc1906b582",
+      "exact": true
+    },
+    {
+      "bundle": "lifecycle_patch_bundle",
+      "path": "tracking/frame_masa_appearance.py",
+      "expected": "b06fde6a78ea85029e50f8991b90ba6ab1baab0fb33a0832f7e179b5dc284b75",
+      "current": "b06fde6a78ea85029e50f8991b90ba6ab1baab0fb33a0832f7e179b5dc284b75",
+      "exact": true
+    },
+    {
+      "bundle": "lifecycle_patch_bundle",
+      "path": "tracking/query_assignment_write.py",
+      "expected": "e1921c5dba295a01058a943d30f0473d88200e6dd299df9c31e0afd0cca5a917",
+      "current": "e1921c5dba295a01058a943d30f0473d88200e6dd299df9c31e0afd0cca5a917",
+      "exact": true
+    },
+    {
+      "bundle": "lifecycle_patch_bundle",
+      "path": "tracking/query_memory_write.py",
+      "expected": "eb57cac6d3ac4c1b59f2f251613234be5569039f5c1f183e5672baeeb92e8866",
+      "current": "eb57cac6d3ac4c1b59f2f251613234be5569039f5c1f183e5672baeeb92e8866",
+      "exact": true
+    },
+    {
+      "bundle": "lifecycle_patch_bundle",
+      "path": "tracking/query_bounded_write.py",
+      "expected": "e03e13f082dc5d4321a80750d9be9a220877d56a337ea9c9a23fabffdb340d59",
+      "current": "e03e13f082dc5d4321a80750d9be9a220877d56a337ea9c9a23fabffdb340d59",
+      "exact": true
+    },
+    {
+      "bundle": "lifecycle_patch_bundle",
+      "path": "tests/test_tracker_lifecycle_reset.py",
+      "expected": "cc1acfaea311cb0f62134f2f2fc164ff9350eb2bfc316845bb64a8b20e44c9d2",
+      "current": "cc1acfaea311cb0f62134f2f2fc164ff9350eb2bfc316845bb64a8b20e44c9d2",
+      "exact": true
+    },
+    {
+      "bundle": "lifecycle_patch_bundle",
+      "path": "scripts/check_lifecycle_parity_20261106.py",
+      "expected": "77d9815eb76b89261e939a1f67aadde31d34eba1c023c4712266c679b8851147",
+      "current": "77d9815eb76b89261e939a1f67aadde31d34eba1c023c4712266c679b8851147",
+      "exact": true
+    },
+    {
+      "bundle": "b2_patch_bundle",
+      "path": "tracking/b2_pilot_runtime.py",
+      "expected": "09f238b479414c5cceb12a7f3392549876d9a31855762cdd5b34d0c0e45d0028",
+      "current": "09f238b479414c5cceb12a7f3392549876d9a31855762cdd5b34d0c0e45d0028",
+      "exact": true
+    },
+    {
+      "bundle": "b2_patch_bundle",
+      "path": "tests/test_b2_lifecycle_isolation.py",
+      "expected": "54cd5c00e5933635bb26d2f2f5133d38aad680e4d2700d4d3ba8579d6f1fe7cd",
+      "current": "54cd5c00e5933635bb26d2f2f5133d38aad680e4d2700d4d3ba8579d6f1fe7cd",
+      "exact": true
+    },
+    {
+      "bundle": "temporal_heads_bundle_v2",
+      "path": "tracking/learned_recovery_admission.py",
+      "expected": "42ae4de28da4407ced85f8600aaef24cb30a0a4ac7d089271b9f58e798454fae",
+      "current": "42ae4de28da4407ced85f8600aaef24cb30a0a4ac7d089271b9f58e798454fae",
+      "exact": true
+    },
+    {
+      "bundle": "temporal_heads_bundle_v2",
+      "path": "tracking/b1_timestamped.py",
+      "expected": "b77636e25d8e7f5d9a9c116f9a257814b021eeb9fd96684327234b70f38ab8c7",
+      "current": "b77636e25d8e7f5d9a9c116f9a257814b021eeb9fd96684327234b70f38ab8c7",
+      "exact": true
+    },
+    {
+      "bundle": "temporal_heads_bundle_v2",
+      "path": "tests/test_b1_timestamped.py",
+      "expected": "224cfb8f1fa1a4ee970a41fd338a63f898652c05c72ff9006d2e072f532ab822",
+      "current": "224cfb8f1fa1a4ee970a41fd338a63f898652c05c72ff9006d2e072f532ab822",
+      "exact": true
+    },
+    {
+      "bundle": "temporal_heads_bundle_v2",
+      "path": "scripts/b1_timestamped_smoke_20261106.py",
+      "expected": "42ff26fb5ab3e0693377122073a2095a2a23c2f58919dd8d329919e799062521",
+      "current": "42ff26fb5ab3e0693377122073a2095a2a23c2f58919dd8d329919e799062521",
+      "exact": true
+    },
+    {
+      "bundle": "temporal_heads_bundle_v2",
+      "path": "tests/test_learned_head_contracts.py",
+      "expected": "1145d409119d932a405c30816563ae022e236521c7ed1678f142e6c4bb67c2c4",
+      "current": "1145d409119d932a405c30816563ae022e236521c7ed1678f142e6c4bb67c2c4",
+      "exact": true
+    },
+    {
+      "bundle": "historical_residual_patch_bundle_v2",
+      "path": "tracking/b1_deterministic_runtime.py",
+      "expected": "d4cfd216a97bfaba726124fcafe08debae14cb24edcc1cb83db435cf330d03b3",
+      "current": "d4cfd216a97bfaba726124fcafe08debae14cb24edcc1cb83db435cf330d03b3",
+      "exact": true
+    },
+    {
+      "bundle": "historical_residual_patch_bundle_v2",
+      "path": "tracking/b1_tracker_runtime.py",
+      "expected": "0b766835cad156dea996c72d7475b538abfafe8a549f01a039ed0849a2e66058",
+      "current": "0b766835cad156dea996c72d7475b538abfafe8a549f01a039ed0849a2e66058",
+      "exact": true
+    },
+    {
+      "bundle": "historical_residual_patch_bundle_v2",
+      "path": "tests/test_b1_deterministic_flag_restore.py",
+      "expected": "8d6fe32a3be1cb667aabe745ed13db58055ccc7cf33050cc3b0f415454512e7f",
+      "current": "8d6fe32a3be1cb667aabe745ed13db58055ccc7cf33050cc3b0f415454512e7f",
+      "exact": true
+    },
+    {
+      "bundle": "historical_residual_patch_bundle_v2",
+      "path": "tests/test_b1_residual_transaction.py",
+      "expected": "0b55295da43c5993120b561575cefacc1283d9f86bb4ab76015c7afbab09e1f4",
+      "current": "0b55295da43c5993120b561575cefacc1283d9f86bb4ab76015c7afbab09e1f4",
+      "exact": true
+    }
+  ],
+  "all_twenty_patch_targets_exact": true,
+  "integrated_source_count": 1429,
+  "integrated_current_mismatches": [],
+  "integrated_result": {
+    "returncode": 0,
+    "passed": true,
+    "concurrently_changed_sources": [],
+    "test_files": 48,
+    "runtime": {
+      "pytest_returncode": 0,
+      "cuda_initialized_before": false,
+      "cuda_initialized_after": false,
+      "torch_default_device": "cpu"
+    }
+  },
+  "integrated_runtime": {
+    "pytest_returncode": 0,
+    "cuda_initialized_before": false,
+    "cuda_initialized_after": false,
+    "torch_default_device": "cpu"
+  },
+  "initial_audit_already_tracked": [],
+  "initial_audit_added": [
+    "runs/flyvis_system_audit_20261106/additional.log",
+    "runs/flyvis_system_audit_20261106/additional_report.json",
+    "runs/flyvis_system_audit_20261106/audit_additional.py",
+    "runs/flyvis_system_audit_20261106/audit_boundaries.py",
+    "runs/flyvis_system_audit_20261106/audit_core.py",
+    "runs/flyvis_system_audit_20261106/audit_core_cpu.py",
+    "runs/flyvis_system_audit_20261106/AUDIT_REPORT.txt",
+    "runs/flyvis_system_audit_20261106/audit_saved_evidence.py",
+    "runs/flyvis_system_audit_20261106/boundaries.log",
+    "runs/flyvis_system_audit_20261106/boundary_report.json",
+    "runs/flyvis_system_audit_20261106/core_cpu_stdout.log",
+    "runs/flyvis_system_audit_20261106/core_report.json",
+    "runs/flyvis_system_audit_20261106/core_stdout.log",
+    "runs/flyvis_system_audit_20261106/import_stall_stack.txt",
+    "runs/flyvis_system_audit_20261106/manifest.json",
+    "runs/flyvis_system_audit_20261106/run_checks.py",
+    "runs/flyvis_system_audit_20261106/saved_evidence.json",
+    "runs/flyvis_system_audit_20261106/tests.log",
+    "runs/flyvis_system_audit_20261106/timestamped_smoke.log"
+  ],
+  "initial_audit_manifest_entries_verified": 17,
+  "geometry_correction_already_tracked": [
+    {
+      "path": "runs/flyvis_system_fixes_20261106/calibration_guard/FINAL_DECISION.txt",
+      "size": 10880,
+      "sha256": "ec6581ac786d273c02f5e7fdda21119557af9a4745814dc9da27e82690b3f8b5"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/geometry_calibration_counterevidence.json",
+      "size": 3271,
+      "sha256": "4186be9b90f04fb89ede637f275a420a859b1b0e127aa5271118609d3d947a19"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/coordinate_only_roi/protocol_before_run.json",
+      "size": 1462,
+      "sha256": "c92035ba6a9b36e2bf48cd6bc7fc988293ae9070f5226c1db2b56ede71d27955"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/coordinate_only_roi/report.json",
+      "size": 2200,
+      "sha256": "29488b6517dfacdec376828f65748a64363c992fef5b500477a155bfcd67f5a4"
+    },
+    {
+      "path": "runs/flyvis_repairs_20261106/coordinate_only_roi_review/report.json",
+      "size": 2368,
+      "sha256": "6ea92e083943e4f5886571f891a724edfffab72105c63a2bda72ea182e344391"
+    }
+  ],
+  "ci_review_manifest": {
+    "path": "runs/flyvis_repairs_20261106/gitlab_ci_review/manifest_v2.json",
+    "size": 2731,
+    "sha256": "d29dec6eaf587e757902b6c9373a713a8479738dc261c23e4f2b26eaedb41884"
+  },
+  "ci_source_snapshot_excluded": [
+    {
+      "path": "runs/flyvis_repairs_20261106/gitlab_ci_review/original_ci.yml",
+      "bytes": 916,
+      "sha256": "3b0014fc0b24e13760ef824b584fd3918383f8ead8679c5876e906817e20a2cc",
+      "reason": "Full preexisting CI source snapshot; original configuration remains in tracked .gitlab-ci.yml"
+    }
+  ],
+  "b2_evidence_boundary": "Existing test_interleaved_independent_tracker_matches_native_baseline_exactly compares actual XYWHByteTrack on60synthetic frames. No separate B2 native-core report exists or is claimed.",
+  "no_training_or_gpu_or_test_execution": true,
+  "no_index_or_production_changes": true,
+  "byte_exact_publication": {
+    "report": {
+      "path": "runs/flyvis_repairs_20261106/final_evidence_package_v1/patch_byte_publication_check.json",
+      "size": 6358,
+      "sha256": "fd7c91947d96a0aee5c6be8fb2499ac29c0a797e39fb84b7a7b73c5e99716a05"
+    },
+    "attributes": {
+      "path": "runs/.gitattributes",
+      "size": 10637,
+      "sha256": "16e55ef8469c2850a194ecfa559f3aa29d610047be2a3e885327b8bfb0c6b38a"
+    },
+    "root_attributes_sha256": "44ac996bb750de1e15f84a42bcda6d0f428a3ce1840985c9c39761b24d1f0890",
+    "tracked_status_digest_before_after": "0884a1f285f1fb4f67eab7c31576e92cae0160961bad8eddbd28ddc0d0dfcec9",
+    "index_listing_digest_before_after": "d49749f62f82dfb63ab0a41b9d9813e28eed655ed139c4fd9c09fa7354a8fea6"
+  }
+}

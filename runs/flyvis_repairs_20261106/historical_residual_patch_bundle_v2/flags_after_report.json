@@ -1,0 +1,149 @@
+{
+  "before_source_sha256": "0482621a20d42863a263560440da574672bf0ac4b746cbece311aa66283505fc",
+  "after_source_sha256": "d4cfd216a97bfaba726124fcafe08debae14cb24edcc1cb83db435cf330d03b3",
+  "new_test_sha256": "8d6fe32a3be1cb667aabe745ed13db58055ccc7cf33050cc3b0f415454512e7f",
+  "source_was_prior_untracked": true,
+  "source_scope": "Two-line change only; original existing file preserved in before snapshot",
+  "tests_before": {
+    "failed": 14,
+    "passed": 6,
+    "source": "flags_tests_before.log"
+  },
+  "tests_after": {
+    "passed": 21,
+    "source": "flags_tests_after.log"
+  },
+  "cases": [
+    {
+      "before": [
+        false,
+        false
+      ],
+      "inside": [
+        true,
+        false
+      ],
+      "after": [
+        false,
+        false
+      ],
+      "throws": false,
+      "result": 17
+    },
+    {
+      "before": [
+        false,
+        false
+      ],
+      "inside": [
+        true,
+        false
+      ],
+      "after": [
+        false,
+        false
+      ],
+      "throws": true,
+      "result": "backend failure"
+    },
+    {
+      "before": [
+        false,
+        true
+      ],
+      "inside": [
+        true,
+        false
+      ],
+      "after": [
+        false,
+        true
+      ],
+      "throws": false,
+      "result": 17
+    },
+    {
+      "before": [
+        false,
+        true
+      ],
+      "inside": [
+        true,
+        false
+      ],
+      "after": [
+        false,
+        true
+      ],
+      "throws": true,
+      "result": "backend failure"
+    },
+    {
+      "before": [
+        true,
+        false
+      ],
+      "inside": [
+        true,
+        false
+      ],
+      "after": [
+        true,
+        false
+      ],
+      "throws": false,
+      "result": 17
+    },
+    {
+      "before": [
+        true,
+        false
+      ],
+      "inside": [
+        true,
+        false
+      ],
+      "after": [
+        true,
+        false
+      ],
+      "throws": true,
+      "result": "backend failure"
+    },
+    {
+      "before": [
+        true,
+        true
+      ],
+      "inside": [
+        true,
+        false
+      ],
+      "after": [
+        true,
+        true
+      ],
+      "throws": false,
+      "result": 17
+    },
+    {
+      "before": [
+        true,
+        true
+      ],
+      "inside": [
+        true,
+        false
+      ],
+      "after": [
+        true,
+        true
+      ],
+      "throws": true,
+      "result": "backend failure"
+    }
+  ],
+  "cpu_rng_preserved": true,
+  "cuda_initialized": false,
+  "limits": "Process-global PyTorch flags remain process-global; this repair does not introduce thread synchronization. No GPU execution or performance/scientific quality claim."
+}

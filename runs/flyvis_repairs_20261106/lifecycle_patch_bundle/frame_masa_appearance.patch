@@ -1,0 +1,12 @@
+--- a/tracking/frame_masa_appearance.py
++++ b/tracking/frame_masa_appearance.py
+@@ -6,6 +6,9 @@
+ class FrameMasaServer(AppearanceServer):
+     def __init__(self,encoder):
+         super().__init__(encoder);self.feats=None;self.scale=None;self.finished=True;self.encoded_frames=0
++    def reset(self):
++        super().reset()
++        self.feats=None;self.scale=None;self.finished=True;self.encoded_frames=0
+     def start_frame(self,frame,image):
+         assert self.finished,'Сначала сохранить признаки реальных наблюдений предыдущего кадра'
+         super().start_frame(frame,image);self.feats=None;self.scale=None;self.finished=False

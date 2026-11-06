@@ -1,0 +1,119 @@
+{
+  "passed": true,
+  "current_source_exact_bytes": true,
+  "new_test_exact_bytes": true,
+  "reverse_restores_exact_baseline": true,
+  "scratch": "runs/flyvis_repairs_20261106/b2_patch_bundle/apply_check_1793993605682311000",
+  "repository_discovery_disabled": true,
+  "line_endings": "Explicit process-local core.autocrlf=false/core.eol=lf; no source normalization or Git config write",
+  "commands": [
+    {
+      "command": [
+        "git",
+        "-c",
+        "core.autocrlf=false",
+        "-c",
+        "core.eol=lf",
+        "rev-parse",
+        "--show-toplevel"
+      ],
+      "exit_code": 128,
+      "stdout": "",
+      "stderr": "fatal: not a git repository (or any of the parent directories): .git\n"
+    },
+    {
+      "command": [
+        "git",
+        "-c",
+        "core.autocrlf=false",
+        "-c",
+        "core.eol=lf",
+        "apply",
+        "--check",
+        "--whitespace=nowarn",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\b2_patch_bundle\\b2_lifecycle.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-c",
+        "core.autocrlf=false",
+        "-c",
+        "core.eol=lf",
+        "apply",
+        "--whitespace=nowarn",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\b2_patch_bundle\\b2_lifecycle.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-c",
+        "core.autocrlf=false",
+        "-c",
+        "core.eol=lf",
+        "apply",
+        "--check",
+        "--whitespace=nowarn",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\b2_patch_bundle\\b2_lifecycle_test.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-c",
+        "core.autocrlf=false",
+        "-c",
+        "core.eol=lf",
+        "apply",
+        "--whitespace=nowarn",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\b2_patch_bundle\\b2_lifecycle_test.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-c",
+        "core.autocrlf=false",
+        "-c",
+        "core.eol=lf",
+        "apply",
+        "--reverse",
+        "--whitespace=nowarn",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\b2_patch_bundle\\b2_lifecycle_test.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "-c",
+        "core.autocrlf=false",
+        "-c",
+        "core.eol=lf",
+        "apply",
+        "--reverse",
+        "--whitespace=nowarn",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\b2_patch_bundle\\b2_lifecycle.patch"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

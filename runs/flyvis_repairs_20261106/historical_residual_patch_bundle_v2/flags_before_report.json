@@ -1,0 +1,32 @@
+{
+  "source_sha256": "0482621a20d42863a263560440da574672bf0ac4b746cbece311aa66283505fc",
+  "cases": [
+    {
+      "throws": false,
+      "before": [
+        true,
+        true
+      ],
+      "after": [
+        true,
+        false
+      ],
+      "result": 17,
+      "state_preserved": false
+    },
+    {
+      "throws": true,
+      "before": [
+        true,
+        true
+      ],
+      "after": [
+        true,
+        false
+      ],
+      "result": "backend failure",
+      "state_preserved": false
+    }
+  ],
+  "scope": "Valid CPU-only PyTorch flag configuration; no model, tensor, CUDA or training execution"
+}

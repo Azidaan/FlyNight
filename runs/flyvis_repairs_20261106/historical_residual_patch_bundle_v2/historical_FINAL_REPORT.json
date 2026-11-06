@@ -1,0 +1,276 @@
+{
+  "before_source_sha256": "609e18b3577ad8177b769f7f662487d8b8b9d7b22deaaff1a24f94209c74a66b",
+  "after_source_sha256": "0b766835cad156dea996c72d7475b538abfafe8a549f01a039ed0849a2e66058",
+  "source_prior_untracked": true,
+  "untouched_ast_outside": [
+    "ResidualEngine.start",
+    "ResidualEngine.advance",
+    "ResidualEngine._check_candidate"
+  ],
+  "tests_before": {
+    "failed": 44,
+    "passed": 5,
+    "source": "tests_before_v2.log"
+  },
+  "tests_after": {
+    "passed": 74,
+    "source": "tests_after_v2.log",
+    "new_transaction_cases": 49,
+    "existing_caller_and_flag_cases": 25
+  },
+  "cross_process_arrays": [
+    {
+      "key": "R1_False_state",
+      "exact": true,
+      "shape": [
+        1,
+        17,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "R1_False_activity",
+      "exact": true,
+      "shape": [
+        1,
+        34,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "B_False_state",
+      "exact": true,
+      "shape": [
+        1,
+        16,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "B_False_activity",
+      "exact": true,
+      "shape": [
+        1,
+        34,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "C_False_state",
+      "exact": true,
+      "shape": [
+        1,
+        45669
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "C_False_activity",
+      "exact": true,
+      "shape": [
+        1,
+        34,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "C_True_state",
+      "exact": true,
+      "shape": [
+        1,
+        45669
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "C_True_activity",
+      "exact": true,
+      "shape": [
+        1,
+        34,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "D_False_state",
+      "exact": true,
+      "shape": [
+        1,
+        45669
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "D_False_activity",
+      "exact": true,
+      "shape": [
+        1,
+        34,
+        721
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "D_True_state",
+      "exact": true,
+      "shape": [
+        1,
+        45669
+      ],
+      "dtype": "float32"
+    },
+    {
+      "key": "D_True_activity",
+      "exact": true,
+      "shape": [
+        1,
+        34,
+        721
+      ],
+      "dtype": "float32"
+    }
+  ],
+  "native_valid_runs": [
+    {
+      "arm": "R1",
+      "wrapped_deterministic": false,
+      "valid_six_observations_exact": true,
+      "state_shape": [
+        1,
+        17,
+        721
+      ],
+      "output_shape": [
+        1,
+        34,
+        721
+      ],
+      "injected_backend_nan_rejected": true,
+      "clean_retry_exact": true
+    },
+    {
+      "arm": "B",
+      "wrapped_deterministic": false,
+      "valid_six_observations_exact": true,
+      "state_shape": [
+        1,
+        16,
+        721
+      ],
+      "output_shape": [
+        1,
+        34,
+        721
+      ],
+      "injected_backend_nan_rejected": true,
+      "clean_retry_exact": true
+    },
+    {
+      "arm": "C",
+      "wrapped_deterministic": false,
+      "valid_six_observations_exact": true,
+      "state_shape": [
+        1,
+        45669
+      ],
+      "output_shape": [
+        1,
+        34,
+        721
+      ]
+    },
+    {
+      "arm": "C",
+      "wrapped_deterministic": true,
+      "valid_six_observations_exact": true,
+      "state_shape": [
+        1,
+        45669
+      ],
+      "output_shape": [
+        1,
+        34,
+        721
+      ],
+      "injected_backend_nan_rejected": true,
+      "clean_retry_exact": true
+    },
+    {
+      "arm": "D",
+      "wrapped_deterministic": false,
+      "valid_six_observations_exact": true,
+      "state_shape": [
+        1,
+        45669
+      ],
+      "output_shape": [
+        1,
+        34,
+        721
+      ]
+    },
+    {
+      "arm": "D",
+      "wrapped_deterministic": true,
+      "valid_six_observations_exact": true,
+      "state_shape": [
+        1,
+        45669
+      ],
+      "output_shape": [
+        1,
+        34,
+        721
+      ],
+      "injected_backend_nan_rejected": true,
+      "clean_retry_exact": true
+    }
+  ],
+  "fault_probe_note": "NaN fault/retry executed once per arm without deterministic wrapper; wrapped and unwrapped C/D valid paths are both bit-identical. Flags/failure nesting separately covered by21 flag tests.",
+  "cuda_initialized": false,
+  "callers": [
+    {
+      "path": "scripts/run_b1_tracker_20261028.py",
+      "sha256": "133a71622c834bb2d5b3514084f2913287d1ae79183ecf9e7f6dc7fe6b8cea88"
+    },
+    {
+      "path": "scripts/diagnose_b1_incremental_20261028.py",
+      "sha256": "4dad93b366607d4c1503635acb7caa57a0db2334009b744f65d2415976ea54bb"
+    },
+    {
+      "path": "scripts/diagnose_b1_live_shapes_20261028.py",
+      "sha256": "79c72838059c4387fc8285b2a6dea45855589e43f58f8943aa6e1cd70c5b0341"
+    },
+    {
+      "path": "scripts/run_b1_last_video_20261028.py",
+      "sha256": "7432ab4e6a018caf18bdeff262b6a457cf2c89e3fd46d26a5970454c55e3a0b9"
+    },
+    {
+      "path": "scripts/run_b1_tracker_continuation1_20261028.py",
+      "sha256": "20210c5e74859c0ea465dd1021143bb314e18e4b1c340109394722fb3b35abec"
+    },
+    {
+      "path": "scripts/run_b1_tracker_recovery1_20261028.py",
+      "sha256": "9d1a8ec86c7e34b2139943a3f65af51122edf2fbd2013c4058a1d376228df748"
+    },
+    {
+      "path": "scripts/run_b1_tracker_continuation_recovery1_20261028.py",
+      "sha256": "f957cdda2793860365ff3c53b218a9e94585da87586de32a17cc4d5a49412532"
+    },
+    {
+      "path": "scripts/run_b1_tracker_recovery2_20261028.py",
+      "sha256": "4db0ea4aec0f6d334968a1ce1673d0f121c181ad5921dbda0af7e136a5b189ca"
+    },
+    {
+      "path": "tracking/b1_deterministic_runtime.py",
+      "sha256": "d4cfd216a97bfaba726124fcafe08debae14cb24edcc1cb83db435cf330d03b3"
+    }
+  ],
+  "limits": "Atomically publishes engine eye only; no general tracker rollback, no protection against arbitrary in-place replacement backends, no timing-policy change, no GPU performance or tracking-quality claim."
+}

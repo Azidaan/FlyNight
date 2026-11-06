@@ -1,0 +1,16 @@
+--- a/tracking/b1_deterministic_runtime.py
++++ b/tracking/b1_deterministic_runtime.py
+@@ -8,11 +8,12 @@
+     def execute(*args, **kwargs):
+         import torch
+         original = torch.are_deterministic_algorithms_enabled()
++        original_warn_only = torch.is_deterministic_algorithms_warn_only_enabled()
+         torch.use_deterministic_algorithms(True)
+         try:
+             return function(*args, **kwargs)
+         finally:
+-            torch.use_deterministic_algorithms(original)
++            torch.use_deterministic_algorithms(original, warn_only=original_warn_only)
+     return execute
+ 
+ 

@@ -1,0 +1,11 @@
+--- a/tracking/query_assignment_write.py
++++ b/tracking/query_assignment_write.py
+@@ -11,6 +11,8 @@
+     def __init__(self,args,server=None,weight=0.,shadow=False):
+         super().__init__(args,server,weight,shadow)
+         self.write_events=[];self.safe_keys=set()
++    def reset(self):
++        super().reset();self.write_events.clear();self.safe_keys.clear()
+     def get_dists(self,tracks,detections):
+         if self.query_active and self._inside_first and len(tracks) and len(detections):
+             original=XYWHByteTrack.get_dists(self,tracks,detections)
