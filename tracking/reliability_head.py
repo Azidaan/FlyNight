@@ -44,15 +44,44 @@ def fly_features(delta: np.ndarray, magnitude: np.ndarray, n_inside: np.ndarray)
 
 class LogisticHead:
     def __init__(self, spec: dict) -> None:
-        self.features = list(spec["features"])
-        self.mean = np.asarray(spec["mean"], dtype=np.float64)
-        self.scale = np.asarray(spec["scale"], dtype=np.float64)
-        self.coef = np.asarray(spec["coef"], dtype=np.float64)
-        self.intercept = float(spec["intercept"])
+        features = spec.get("features")
+        if (not isinstance(features, (list, tuple)) or not features
+                or not all(isinstance(name, str) and name for name in features)
+                or len(set(features)) != len(features)):
+            raise ValueError("features must be a nonempty sequence of unique names")
+        arrays = {}
+        for key in ("mean", "scale", "coef"):
+            raw = np.asarray(spec.get(key))
+            if raw.dtype.kind not in 'fiu':
+                raise ValueError(f"{key} must contain real numbers")
+            value = raw.astype(np.float64)
+            if value.shape != (len(features),) or not np.isfinite(value).all():
+                raise ValueError(f"{key} must be a finite vector aligned with features")
+            arrays[key] = value
+        if (arrays['scale'] <= 0).any():
+            raise ValueError("scale must be strictly positive")
+        raw_intercept = np.asarray(spec.get('intercept'))
+        if raw_intercept.shape != () or raw_intercept.dtype.kind not in 'fiu' or not np.isfinite(raw_intercept):
+            raise ValueError("intercept must be a finite real scalar")
+        self.features = list(features)
+        self.mean, self.scale, self.coef = (arrays[key] for key in ('mean', 'scale', 'coef'))
+        self.intercept = float(raw_intercept)
 
     def __call__(self, X: np.ndarray) -> np.ndarray:
-        z = (np.asarray(X, dtype=np.float64) - self.mean) / self.scale
-        return 1.0 / (1.0 + np.exp(-(z @ self.coef + self.intercept)))
+        raw = np.asarray(X)
+        if raw.dtype.kind not in 'fiu':
+            raise ValueError("Features must contain real numbers")
+        X = raw.astype(np.float64)
+        if X.ndim != 2 or X.shape[1] != len(self.features) or not np.isfinite(X).all():
+            raise ValueError("Feature matrix must be finite and aligned with the trained head")
+        with np.errstate(over='ignore', invalid='ignore', divide='ignore'):
+            z = (X - self.mean) / self.scale
+            logits = z @ self.coef + self.intercept
+        if not np.isfinite(z).all() or not np.isfinite(logits).all():
+            raise ValueError("Reliability head produced nonfinite standardized features or logits")
+        # Exp overflow for a large negative finite logit correctly gives p=0.
+        with np.errstate(over='ignore'):
+            return 1.0 / (1.0 + np.exp(-logits))
 
 
 def xywh_xyxy(b: np.ndarray) -> np.ndarray:
@@ -90,6 +119,10 @@ class FlyLookup:
 
 class ReliabilityFunction:
     def __init__(self, base: LogisticHead, fly: LogisticHead | None = None, lookup: FlyLookup | None = None) -> None:
+        if base.features != list(BASE_FEATURES):
+            raise ValueError("Base feature order disagrees with base_features")
+        if fly is not None and fly.features != list(BASE_FEATURES + FLY_FEATURES):
+            raise ValueError("Fly feature order disagrees with the online feature generators")
         self.base, self.fly, self.lookup = base, fly, lookup
 
     def __call__(self, pred_xywh: np.ndarray, dis_xyxy: np.ndarray | None, raw_index: int) -> np.ndarray:

@@ -1,0 +1,38 @@
+{
+  "shared_tests": [
+    "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+    "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\native_activity_test_guard\\run_pytest_cpu.py",
+    "--report",
+    "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\fourth_stable_package\\shared_cpu_report.json",
+    "tests/test_reliability_head_contracts.py",
+    "tests/test_flyvis_activity_readout.py",
+    "-q",
+    "-rs",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=E:\\Dissertation\\runs\\flyvis_repairs_20261106\\fourth_stable_package\\shared_temp_1793995955547875200"
+  ],
+  "isolated_tests": [
+    "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+    "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\native_activity_test_guard\\run_pytest_cpu.py",
+    "--report",
+    "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\fourth_stable_package\\isolated_cpu_report.json",
+    "tests/test_reliability_head_contracts.py",
+    "tests/test_flyvis_activity_readout.py",
+    "-q",
+    "-rs",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=E:\\Dissertation\\runs\\flyvis_repairs_20261106\\fourth_stable_package\\isolated_temp_1793995995049527400"
+  ],
+  "rebuild": [
+    "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+    "runs\\flyvis_repairs_20261106\\fourth_stable_package\\build_package.py",
+    "--validate"
+  ],
+  "staging_for_parent_only": [
+    "git add --pathspec-from-file=runs\\flyvis_repairs_20261106\\fourth_stable_package\\source_paths.txt",
+    "git add -f --pathspec-from-file=runs\\flyvis_repairs_20261106\\fourth_stable_package\\artifact_paths.txt"
+  ],
+  "native_probe_policy": "Probe reports record their actual source versions. Repeated native probes must use separate output names/directories to preserve earlier evidence. No training, HOTA or GPU run is authorized by this script."
+}

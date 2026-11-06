@@ -139,11 +139,19 @@ def test_box_readout_t4t5_subtracts_baseline() -> None:
 
 def test_estimator_exposes_internal_activity_of_current_frame_only() -> None:
     """Настоящая сеть FlyVis: после кадра доступны baseline и активность внутренних шагов."""
+    from tracking.flyvis_adapter import DEFAULT_DATA_DIR, DEFAULT_RUNTIME_DIR
     from tracking.flyvis_motion import FlyVisMotionEstimator, TileLayout
+
+    if not (DEFAULT_RUNTIME_DIR / "flyvis").is_dir():
+        pytest.skip(f"Локальный FlyVis runtime отсутствует: {DEFAULT_RUNTIME_DIR / 'flyvis'}")
+    checkpoint_dir = DEFAULT_DATA_DIR / "results" / "flow" / "0000" / "000" / "chkpts"
+    if not any(path.is_file() for path in checkpoint_dir.glob("chkpt_*")):
+        pytest.skip(f"Нет локальных контрольных точек chkpt_*: {checkpoint_dir}")
 
     estimator = FlyVisMotionEstimator(
         mode="tiled", layout=TileLayout(2, 3, 0.20), source_fps=30.0, dt=0.02,
         flow_gain=1.0, temporal_resampling="linear", flow_aggregation="mean",
+        device="cpu",
     )
     rng = np.random.default_rng(0)
     frames = [rng.integers(0, 255, (180, 320), dtype=np.uint8) for _ in range(2)]

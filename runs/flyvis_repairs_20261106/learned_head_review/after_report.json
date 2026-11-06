@@ -1,0 +1,83 @@
+{
+  "admission": [
+    {
+      "arm": "numeric",
+      "seed": 42,
+      "rows": 64,
+      "old_new_exact": true,
+      "cpu_vs_saved_max_abs": 2.980232238769531e-07,
+      "checkpoint_sha256": "8febdb8041102acfed90effa888e2653868c7b0d15b50d1fbe5fcfa46604daea",
+      "normalization_sha256": "c365747ab113dcad7612cc9f04d21a7e227a6c4ab885d18279ee1455382bfc82"
+    },
+    {
+      "arm": "numeric",
+      "seed": 43,
+      "rows": 64,
+      "old_new_exact": true,
+      "cpu_vs_saved_max_abs": 2.980232238769531e-07,
+      "checkpoint_sha256": "5147f760db8890cebd8aa59a77445cd93465bbb2fcaedf99664b2c6dc278453e",
+      "normalization_sha256": "c365747ab113dcad7612cc9f04d21a7e227a6c4ab885d18279ee1455382bfc82"
+    },
+    {
+      "arm": "numeric",
+      "seed": 44,
+      "rows": 64,
+      "old_new_exact": true,
+      "cpu_vs_saved_max_abs": 1.4901161193847656e-07,
+      "checkpoint_sha256": "ef97df31399ccd87bc471500e9aea34b243e9458c8a5912d595c9c9a018cdd15",
+      "normalization_sha256": "c365747ab113dcad7612cc9f04d21a7e227a6c4ab885d18279ee1455382bfc82"
+    },
+    {
+      "arm": "appearance",
+      "seed": 42,
+      "rows": 64,
+      "old_new_exact": true,
+      "cpu_vs_saved_max_abs": 1.1920928955078125e-07,
+      "checkpoint_sha256": "736a0521d9cd0e64b64fe31b32250f71882f098f2e2ae36f2ee147b0610712dc",
+      "normalization_sha256": "e5785fbf2ba44fa20977570e186febadce7fc215b42dba2ae09e827777c571aa"
+    },
+    {
+      "arm": "appearance",
+      "seed": 43,
+      "rows": 64,
+      "old_new_exact": true,
+      "cpu_vs_saved_max_abs": 2.384185791015625e-07,
+      "checkpoint_sha256": "4a4437e2d71237302b6aea7fc402ceb55dabad25cddebd1760aa7a7672039d9b",
+      "normalization_sha256": "e5785fbf2ba44fa20977570e186febadce7fc215b42dba2ae09e827777c571aa"
+    },
+    {
+      "arm": "appearance",
+      "seed": 44,
+      "rows": 64,
+      "old_new_exact": true,
+      "cpu_vs_saved_max_abs": 2.384185791015625e-07,
+      "checkpoint_sha256": "05d13c60602dbfbabc3fe3a089c0b96b23416cf29b8ee74064a9b86f62a60f19",
+      "normalization_sha256": "e5785fbf2ba44fa20977570e186febadce7fc215b42dba2ae09e827777c571aa"
+    }
+  ],
+  "reliability": [
+    {
+      "path": "runs/e2e_motion_source/head_none.json",
+      "sha256": "6cebb5876e3d45a150c20e26a9c5ad496825674c83bc5d1619596ea33db66016",
+      "head_and_wrapper_old_new_exact": true,
+      "rows": 64
+    },
+    {
+      "path": "runs/e2e_motion_source/head_lamina.json",
+      "sha256": "bad9dd52444816ba34537091ef01e8d4b83986786d337974a6b99a6f6e381efc",
+      "head_and_wrapper_old_new_exact": true,
+      "rows": 64
+    }
+  ],
+  "source_sha256": {
+    "tracking/learned_recovery_admission.py": "42ae4de28da4407ced85f8600aaef24cb30a0a4ac7d089271b9f58e798454fae",
+    "tracking/reliability_head.py": "b9728e7d9190f6fb3111071cf4a26aa24a4e73a822a5ba7f144c5cbdf8bd84c0",
+    "tracking/flyvis_checkpoint.py": "f59013d4037e99e63acc3a1a4cdc502120fc839583a614431fde6d94971fc63d",
+    "tests/test_learned_head_contracts.py": "800ed4e2ea9f7909eadb9c6a76a48f17a941a62ce84a4213e5466329310f26b9"
+  },
+  "outputs_sha256": "497e51f1ea271ab9ffcb35d7249d1a613013f57a9229697d2971f6bbbe316f13",
+  "script_sha256": "9e6e8e9b66033413d69a28703a2330ee2e4224eeb7a24769782126ac9b348a23",
+  "historical_files_unchanged": true,
+  "cuda_initialized": false,
+  "boundary": "64-row CPU compatibility replay; no retraining or new tracker quality measurement. Correct historical weights are not declared malformed."
+}

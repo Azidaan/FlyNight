@@ -1,0 +1,32 @@
+{
+  "function_AST_exact": true,
+  "all_function_names_preserved": [
+    "artifacts",
+    "spec",
+    "test_admission_explicit_cpu_and_rng_preserved_under_ambient_meta",
+    "test_admission_inference_dtype_is_independent_of_ambient_default",
+    "test_admission_missing_normalization_or_weights_rejected",
+    "test_admission_rejects_invalid_schema",
+    "test_admission_rejects_nonfinite_and_cast_overflow_weights",
+    "test_admission_rejects_normalization_before_constructing_model",
+    "test_admission_rejects_runtime_overflow_in_finite_parameters",
+    "test_admission_valid_inputs_exact_against_original",
+    "test_logistic_head_rejects_malformed_feature_matrix",
+    "test_logistic_head_rejects_malformed_parameters",
+    "test_logistic_rejects_runtime_overflow_in_finite_parameters",
+    "test_logistic_valid_math_exact_and_extreme_finite_scores",
+    "test_raw_input_rejects_invalid_observation",
+    "test_reliability_rejects_wrong_feature_order"
+  ],
+  "moved_functions": [
+    "spec",
+    "test_logistic_head_rejects_malformed_parameters",
+    "test_reliability_rejects_wrong_feature_order",
+    "test_logistic_head_rejects_malformed_feature_matrix",
+    "test_logistic_rejects_runtime_overflow_in_finite_parameters",
+    "test_logistic_valid_math_exact_and_extreme_finite_scores"
+  ],
+  "old_sha256": "800ed4e2ea9f7909eadb9c6a76a48f17a941a62ce84a4213e5466329310f26b9",
+  "admission_test_sha256": "1145d409119d932a405c30816563ae022e236521c7ed1678f142e6c4bb67c2c4",
+  "reliability_test_sha256": "e811742b59a1bdfc0e51d4dc7c4f9e9f1ecf3833a09a75298cfa4b17d74632d4"
+}
