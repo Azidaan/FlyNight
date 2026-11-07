@@ -272,6 +272,18 @@ def resolved_tasks(history):
             target['limit']+=' Прохождение сигнала до T4/T5 само по себе не означает правильного выбора объекта; искусственная граница окна может менять сигнал движения. Центрированные полные виды автомобилей и HOTA здесь не проверены.'
             target['primary'] += ['runs/flyvis_two_frame_input_20261107/independent_audit.json','runs/flyvis_two_frame_input_20261107/exposure_audit.json']
             target['next']=two_frame['decision']
+    cached_readout=next((c for c in history['experiments'] if c['id']=='flyvis_cached_readout_comparison_v1'),None)
+    cached_dir=ROOT/'runs/flyvis_readout_comparison_20261107'
+    if cached_readout and cached_readout.get('done') and (cached_dir/'controller_verified.json').is_file():
+        checked=json.loads((cached_dir/'controller_verified.json').read_bytes())
+        if checked.get('passed') and checked.get('all_owned_ended'):
+            target=next(t for t in tasks if t['title'].startswith('Задача 3'))
+            target['ids'].append(cached_readout['id'])
+            target['attempt']+=' На тех же сохранённых восьми вкладах T4/T5 обучили четыре малых считывателя: линейный, обычную сеть, заданные произведения и ΣΠ. Ядро не меняли; один вариант выбирали на отдельных видео подбора до оценки.'
+            target['result']+=' '+cached_readout['summary']+' '+cached_readout['obtained']
+            target['limit']+=' Это условный выбор между двумя известными кандидатами на прежних исследовательских видео, не HOTA и не сравнение всего ядра со входом глаза. Дополнительные взаимодействия не восстанавливают отсутствующую пространственную информацию.'
+            target['primary'] += ['runs/flyvis_readout_comparison_20261107/independent_audit.json','runs/flyvis_readout_comparison_20261107/descriptive_fit.json','research_sigma_pi_20261107/ПРИМЕНЕНИЕ.md']
+            target['next']=cached_readout['decision']
     return tasks
 
 
@@ -337,6 +349,9 @@ def build(vault_path,preserve=(),authorize_masa=False,refresh_masa=False,authori
         body+='Полная история попыток и прежних формулировок остаётся в `dissertation/ЕДИНЫЙ_ПЛАН.md` и `experiments/project_history.json`; она не копируется в отдельные узлы.\n\n'
         if task['title'].startswith('Задача 4'):
             body+=G.ref('',literature_path('busca'),'Следующий подход — BUSCA')+'\n\n'+G.ref('',literature_path('ltr'),'Альтернатива — восстановление по маскам')+'\n\n'
+        if task['title'].startswith('Задача 3') and 'flyvis_cached_readout_comparison_v1' in task['ids']:
+            body+='## Использованная литература\n\n'
+            body+='Р. Ю. Порцев, А. В. Макаренко. «Sigma-Pi-нейрон и решение проблемы перемножения факторов в искусственных нейронных сетях», Проблемы управления, 2026, №4, с.15–27. [Первоисточник](http://pu.mtas.ru/archive/Portsev_pu_426.pdf). Формулы6–8 использованы для одной из сравниваемых голов: обучаемого сочетания суммы и произведения. У авторов измерялись арифметические задачи, не трекинг. Наша проверка не подтвердила пользу этой реализации на выборе объекта; статья не объявляется решением проблемы. Проверки формулы, полный итог и ограничения — в `research_sigma_pi_20261107/ПРИМЕНЕНИЕ.md` и `runs/flyvis_readout_comparison_20261107/independent_audit.json`.\n\n'
         if task['title'].startswith('Задача 1'):
             from scripts.obsidian_masa_hypothesis import PATH as MASA_PATH
             body+='## Что означает прибавка связки с MASA\n\n'

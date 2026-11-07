@@ -26311,6 +26311,52 @@
         }
       ],
       "done": "2026-11-07"
+    },
+    {
+      "id": "flyvis_cached_readout_comparison_v1",
+      "title": "Считыватели T4/T5 — сумма, обычная сеть и ΣΠ при неизменном ядре",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-07",
+      "question": "Улучшает ли новый считыватель выбор продолжения объекта на прежних признаках без изменения ядра?",
+      "hypothesis": "Learned combination of the existing eight observable T4/T5 channel contributions improves target choice relative to their frozen sum. Sigma-Pi is one competing head, not a presupposed winner.",
+      "expected": "Выбранный на fit20 вариант проходит основной критерий; тогда отдельная проверка полного трекера.",
+      "acceptance": [
+        {
+          "criterion": "All caches/manifests/UID/video/candidate bindings exact; original172 baseline104/ties0/rank exact, margin abs error<=2e-5; zero residual reproduces baseline; candidate permutation equivariant; no CUDA. Independent NumPy prediction repeat from saved parameters<=1e-9 and every discrete choice exact; independent bootstrap and labels recomputed from saved CSV.",
+          "met": true,
+          "evidence": "runs\\flyvis_readout_comparison_20261107/independent_audit.json; runs\\flyvis_readout_comparison_20261107/controller_verified.json"
+        },
+        {
+          "criterion": "Four ensemble heads versus old sum, pooled paired correct-choice difference. Original26-video cluster bootstrap20000/seed42, ordinary95% and Bonferroni98.75%. Operational gate: DEV-selected head lower98.75%>0 and all3 seed deltas>=0. No test retuning or fallback selection.",
+          "met": false,
+          "evidence": "runs\\flyvis_readout_comparison_20261107/independent_audit.json, main/primary/selected/seed_effects_pp"
+        },
+        {
+          "criterion": "Sigma-Pi minus linear/mlp/products, separate predeclared family3 with Bonferroni98.333333%; only positive lower on all3 supports a Sigma-specific benefit. These do not change operational gate.",
+          "met": false,
+          "evidence": "runs\\flyvis_readout_comparison_20261107/independent_audit.json, sigma_secondary"
+        }
+      ],
+      "summary": "Выбранный только на наборе подбора считыватель — Обычная небольшая сеть. Критерий перехода к полному трекеру не пройден.",
+      "obtained": "baseline — 107/178; linear — 79/178; mlp — 92/178; products — 85/178; sigma_pi — 78/178. Линейный считыватель минус Прежняя сумма: -15,730 п.п.; скорректированный интервал [-32,418; 3,969], исправлено 48, испорчено 76. Обычная небольшая сеть минус Прежняя сумма: -8,427 п.п.; скорректированный интервал [-23,603; 10,000], исправлено 51, испорчено 66. Заданные произведения минус Прежняя сумма: -12,360 п.п.; скорректированный интервал [-29,577; 9,460], исправлено 48, испорчено 70. ΣΠ-нейрон минус Прежняя сумма: -16,292 п.п.; скорректированный интервал [-31,746; 0,000], исправлено 43, испорчено 72. Источник: runs\\flyvis_readout_comparison_20261107/independent_audit.json, conditions/primary.",
+      "interpretation": "При неизменном ядре сравнили только обучаемые остаточные сочетания одних и тех же восьми вкладов. Выбранный только на наборе подбора считыватель — Обычная небольшая сеть. Критерий перехода к полному трекеру не пройден. Отдельный критерий преимущества ΣΠ: False. Положительная условная точность не равна HOTA.",
+      "decision": "Полный трекер для этой версии не запускать. Не заменять победителя по результатам оценочного набора и не подбирать ещё варианты на этих примерах. Сохранить все неудачные сравнения; считать эту малую проверку законченной.",
+      "cannot_claim": "Only eligible two-candidate known-target historical examples, not missing/unknown objects or all tracker decisions. Eight contributions retain fixed spatial averaging. Better head cannot recover absent information; capacity/ordinary interactions can explain benefit. All repeated research videos remain exploratory.",
+      "confirmed_results": [],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_readout_comparison_20261107/protocol.json",
+          "claim": "Критерии, неизменные входы и переход к полному трекеру записаны до обучения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_readout_comparison_20261107/РЕЗУЛЬТАТ.md",
+          "claim": "Все сравнения, решение о полном трекере и ограничения"
+        }
+      ],
+      "done": "2026-11-07"
     }
   ],
   "manual_events": [
