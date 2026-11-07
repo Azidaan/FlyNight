@@ -1,0 +1,40 @@
+{
+  "schema": "flynight-run-fingerprint-v1",
+  "run_id": "9f322655eab14129a260aeb69166448d",
+  "finished_msk": "2026-11-07T05:34:09.261407+03:00",
+  "commit": "4c3545b96ef5ddbbdbb52d72ffb0a51bcfe52565",
+  "branch": "codex/system-integrity-20261106-e8f674ce",
+  "passed": true,
+  "sources_unchanged": true,
+  "inputs_unchanged": true,
+  "source_count": 1570,
+  "input_count": 1140,
+  "outputs_sha256": {
+    "frozen_sources.zip": "0e61b86701b03aeba2eab1094d5c281bcebd289d6ee7957ca6c8ce1920708223",
+    "pipeline_real_video.json": "9db89201be3531cebf8a786180b53209ed68b8df147999d6cd03d5dc6a714214",
+    "run_protocol.json": "2939ff9b7e776e085d1f4e5d38975a847ef0e8f55877083fef6f27ca00b74082",
+    "video/alignment.json": "5dfcd80a529c0fd5883d0cae755c936ac8d65030c99e2dcb3cf74778372caa92",
+    "video/detections/raw_video.json": "6db476ee029e9298e67a5b21cdede0a117825ccf886954c6dd61e920b2114b82",
+    "video/detections/raw_video.npz": "32cf1d6bfdbf6eb4ed259a913a3037af07be821d9fa9b8e21c0d5b774eef7cc4",
+    "video/motion/dis.json": "83c78e6cce579181eb154fb07b112d9548123320efd049f63d3cc178b920a0c3",
+    "video/motion/dis.npz": "093ffbe27486778f8a466f46bce4a62ca2a9687cdd9800950e27542f30b85f2d",
+    "video/motion/flyvis_full.json": "1373f8f1e70284240333b821646cbca82eeb08085761b67ccb8315a510e3a804",
+    "video/motion/flyvis_full.npz": "4b078cf93527ab5d87b36e6edbc31f67ca1e7494969e0d3e57581705e14f816b",
+    "video/motion/flyvis_tiled.json": "b4eefba6bad40547d60c1a854728070f9d08e14a47edbc636bdaf18275413958",
+    "video/motion/flyvis_tiled.npz": "d0a2cc151494efef5ffc17381656e6b303ebb05755d6c05c030ac89db704c403",
+    "video/results/bytetrack/b1c66a42-6f7d68ca.json": "ed3f5cde8efebd3c5013e0b9a7aa830734232db044d5172b0bebf6ac7bc6e666",
+    "video/results/constant_velocity/b1c66a42-6f7d68ca.json": "4ad82193cc62e18410bd2cf9bfbbc224c1d9400842728dea62a8413cb9d466a1",
+    "video/results/dis/b1c66a42-6f7d68ca.json": "c85c29e439e1161846f7ab7d28528f6c9161e717dd79ed44863f8c594d0f13a8",
+    "video/results/flyvis_full_calibrated/b1c66a42-6f7d68ca.json": "044713c241d93d680ea1c42a1528f20afd8c29f553d4b5d8dc6e01125f613174",
+    "video/results/flyvis_full_legacy/b1c66a42-6f7d68ca.json": "c327bc4b8840ea77d418ed9ed69df8330f19dd77b1d255bbcc925ae0e8b95d6b",
+    "video/results/flyvis_tiled_calibrated/b1c66a42-6f7d68ca.json": "20a778765efc92407d29cafaa6754c8ce1783aef3a17c4a17a0175be00e0f2c1",
+    "video/results/flyvis_tiled_legacy/b1c66a42-6f7d68ca.json": "e34ac4d7a3b5d25a97ec2ad9bd6c788d662746f843860311cc6b3c7c2fc66190",
+    "video/summary.json": "5b24ea062f6dd40768eadbb6d7c9f89e0ab0964637ba326417886849fad1156c"
+  },
+  "excluded_live_files": [
+    "memory_guard.json",
+    "memory_guard.worker.log",
+    "supervisor.json"
+  ],
+  "scope": "Default video CLI with fresh detection and motion caches, tracking and evaluation on one full validation video."
+}
