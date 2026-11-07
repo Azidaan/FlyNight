@@ -1,0 +1,38 @@
+[YOLO] 100 кадров
+[YOLO] 200 кадров
+[YOLO] 300 кадров
+[YOLO] 400 кадров
+[YOLO] 500 кадров
+[YOLO] 600 кадров
+[YOLO] 700 кадров
+[YOLO] 800 кадров
+[YOLO] 900 кадров
+[YOLO] 1000 кадров
+[YOLO] 1100 кадров
+[dis] 100 кадров
+[dis] 200 кадров
+[dis] 300 кадров
+[dis] 400 кадров
+[dis] 500 кадров
+[dis] 600 кадров
+[dis] 700 кадров
+[dis] 800 кадров
+[dis] 900 кадров
+[dis] 1000 кадров
+[dis] 1100 кадров
+Traceback (most recent call last):
+  File "E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\pipeline_real_video.py", line 73, in <module>
+    main()
+  File "E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\pipeline_real_video.py", line 34, in main
+    if runner.main() != 0:
+  File "E:\Dissertation\scripts\run_bdd_video_rate_experiment.py", line 781, in main
+    motion_meta[source] = build_motion_cache(
+  File "E:\Dissertation\scripts\run_bdd_video_rate_experiment.py", line 421, in build_motion_cache
+    estimator = make_motion_estimator(source, fps, max_dt, geometry_version=geometry_version, device=device)
+  File "E:\Dissertation\scripts\run_bdd_video_rate_experiment.py", line 342, in make_motion_estimator
+    return FlyVisMotionEstimator(
+  File "E:\Dissertation\tracking\flyvis_motion.py", line 152, in __init__
+    self.flyvis = activate_flyvis(device=device)
+  File "E:\Dissertation\tracking\flyvis_adapter.py", line 140, in activate_flyvis
+    requested_device = torch.device(device)
+RuntimeError: Invalid device string: '0'

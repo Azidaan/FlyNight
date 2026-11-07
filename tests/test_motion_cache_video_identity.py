@@ -160,16 +160,31 @@ def test_builder_forwards_explicit_device_and_preserves_old_default(inputs, monk
     assert calls[0].get("device") == device
 
 
-def test_real_cli_routes_cpu_to_motion_factory(inputs, monkeypatch):
+@pytest.mark.parametrize("selector, logical_device", [(None, "cuda:0"), ("2", "cuda:0"), ("cpu", "cpu")])
+@pytest.mark.parametrize("detection_cache_hit", [False, True])
+def test_cli_shares_resolved_detector_device_with_flyvis(inputs, monkeypatch, selector, logical_device, detection_cache_hit):
     import sys
+    import torch
+    from ultralytics.utils import torch_utils
     right, _, output = inputs
     truth = output.parent / "truth.json"
     truth.write_text('[{"name":"f.jpg"}]', encoding="utf-8")
-    monkeypatch.setattr(sys, "argv", ["video_rate", "--device", "cpu", "--motion-only",
-                                     "--motion-sources", "flyvis_full", "--output", str(output)])
+    argv = ["video_rate", "--motion-only", "--motion-sources", "flyvis_full", "--output", str(output)]
+    if selector is not None:
+        argv.extend(["--device", selector])
+    monkeypatch.setattr(sys, "argv", argv)
     monkeypatch.setattr(script, "resolve_paths", lambda args: (right, truth, []))
     monkeypatch.setattr(script, "build_alignment", lambda *a, **kw: ([{}], {"fps": 5., "decoded_frame_count": 4}))
-    monkeypatch.setattr(script, "build_detection_cache", lambda *a, **kw: {})
+    selections = []
+    def select(device, verbose):
+        selections.append(device)
+        return torch.device(logical_device)
+    monkeypatch.setattr(torch_utils, "select_device", select)
+    def detection_cache(*args, **kwargs):
+        if not detection_cache_hit:
+            assert kwargs["resolve_device"]() == torch.device(logical_device)
+        return {}
+    monkeypatch.setattr(script, "build_detection_cache", detection_cache)
     monkeypatch.setattr(script, "load_detection_cache", lambda *a: {"frame_count": 4})
     calls = []
     class BoundaryReached(Exception):
@@ -180,4 +195,16 @@ def test_real_cli_routes_cpu_to_motion_factory(inputs, monkeypatch):
     monkeypatch.setattr(script, "make_motion_estimator", factory)
     with pytest.raises(BoundaryReached):
         script.main()
-    assert calls[0].get("device") == "cpu"
+    assert calls[0]["device"] == logical_device
+    assert selections == [selector or "0"]
+
+
+def test_cached_flyvis_motion_does_not_select_a_cuda_device(inputs):
+    video, _, output = inputs
+    output.mkdir()
+    path = output / "flyvis_full.npz"
+    path.write_bytes(b"existing motion")
+    path.with_suffix(".json").write_text(json.dumps({"source": "flyvis_full", "fps": 5.0}), encoding="utf-8")
+    result = script.build_motion_cache("flyvis_full", video, output, fps=5., max_dt=.02, force=False,
+                                       device="0", resolve_device=lambda: pytest.fail("selected CUDA on cache hit"))
+    assert result["source"] == "flyvis_full"

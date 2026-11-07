@@ -9,6 +9,7 @@ FlyVis сравнивались без повторного запуска ре�
 from __future__ import annotations
 
 import argparse
+from functools import cache
 import hashlib
 import json
 import platform
@@ -200,6 +201,7 @@ def build_detection_cache(
     iou: float,
     device: str,
     force: bool,
+    resolve_device=None,
 ) -> dict:
     meta_path = cache_path.with_suffix(".json")
     identity = {
@@ -222,6 +224,10 @@ def build_detection_cache(
     import torch
     from ultralytics import YOLO
 
+    # Keep the original CLI selector in cache identity. The shared resolver
+    # supplies the logical Torch device after Ultralytics maps visible GPUs.
+    if resolve_device is not None:
+        device = resolve_device()
     model = YOLO(str(weights))
     warm = cv2.VideoCapture(str(video))
     ok, warm_frame = warm.read()
@@ -368,6 +374,7 @@ def build_motion_cache(
     force: bool,
     geometry_version: str = GEOMETRY_VERSION,
     device=None,
+    resolve_device=None,
 ) -> dict:
     """Новый кэш проверяет видео; исторический без identity читается как есть.
 
@@ -418,6 +425,8 @@ def build_motion_cache(
     if video_identity is None:
         video_identity = motion_video_identity(video)
     initialized = time.perf_counter()
+    if resolve_device is not None and source.startswith("flyvis_"):
+        device = str(resolve_device())
     estimator = make_motion_estimator(source, fps, max_dt, geometry_version=geometry_version, device=device)
     initialization_seconds = time.perf_counter() - initialized
     capture = cv2.VideoCapture(str(video))
@@ -762,6 +771,11 @@ def main() -> int:
     fps = float(video_metadata["fps"])
 
     detection_path = args.output / "detections" / "raw_video.npz"
+    @cache
+    def inference_device():
+        from ultralytics.utils.torch_utils import select_device
+        return select_device(args.device, verbose=False)
+
     detector_meta = build_detection_cache(
         video,
         args.weights,
@@ -771,6 +785,7 @@ def main() -> int:
         iou=args.iou,
         device=args.device,
         force=args.force_detections,
+        resolve_device=inference_device,
     )
     detections = load_detection_cache(detection_path)
     if int(detections["frame_count"]) != int(video_metadata["decoded_frame_count"]):
@@ -787,6 +802,7 @@ def main() -> int:
             force=args.force_motion,
             geometry_version=args.flyvis_geometry_version,
             device=args.device,
+            resolve_device=inference_device,
         )
 
     if args.motion_only:
