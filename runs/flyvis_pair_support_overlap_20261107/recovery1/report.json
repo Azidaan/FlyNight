@@ -1,0 +1,225 @@
+{
+  "complete": true,
+  "totals": {
+    "evaluate26": {
+      "queries_boxes": {
+        "queries": 8326,
+        "known": 5822,
+        "admitted_boxes": 9178,
+        "ambiguous": 2419,
+        "exactly_two": 1368,
+        "any_identical_query": 104,
+        "all_disjoint_query": 609,
+        "square_boxes": 9763,
+        "square_empty": 52,
+        "pre_boxes": 9202,
+        "pre_empty": 24
+      },
+      "pairs": {
+        "square": {
+          "partial_both_unique": 3146,
+          "identical": 121,
+          "disjoint": 5495,
+          "partial_contained": 548,
+          "one_empty": 281,
+          "both_empty": 13
+        },
+        "pre": {
+          "partial_both_unique": 2909,
+          "identical": 108,
+          "disjoint": 5196,
+          "partial_contained": 485,
+          "one_empty": 230,
+          "both_empty": 7
+        },
+        "admitted": {
+          "partial_both_unique": 2909,
+          "identical": 108,
+          "disjoint": 5196,
+          "partial_contained": 485
+        },
+        "exactly_two": {
+          "partial_both_unique": 700,
+          "disjoint": 526,
+          "partial_contained": 112,
+          "identical": 30
+        },
+        "beneficial_vs_incorrect": {
+          "partial_both_unique": 129,
+          "partial_contained": 35,
+          "disjoint": 125,
+          "identical": 2
+        }
+      }
+    },
+    "fit20": {
+      "queries_boxes": {
+        "square_boxes": 4269,
+        "square_empty": 85,
+        "pre_boxes": 3976,
+        "pre_empty": 12,
+        "queries": 4183,
+        "known": 2919,
+        "admitted_boxes": 3964,
+        "ambiguous": 972,
+        "exactly_two": 623,
+        "any_identical_query": 42,
+        "all_disjoint_query": 248
+      },
+      "pairs": {
+        "square": {
+          "disjoint": 1676,
+          "identical": 43,
+          "partial_both_unique": 1076,
+          "partial_contained": 146,
+          "both_empty": 35,
+          "one_empty": 214
+        },
+        "pre": {
+          "disjoint": 1571,
+          "identical": 42,
+          "partial_both_unique": 988,
+          "partial_contained": 125,
+          "one_empty": 62,
+          "both_empty": 2
+        },
+        "admitted": {
+          "disjoint": 1571,
+          "identical": 42,
+          "partial_both_unique": 988,
+          "partial_contained": 125
+        },
+        "exactly_two": {
+          "disjoint": 205,
+          "identical": 16,
+          "partial_both_unique": 358,
+          "partial_contained": 44
+        },
+        "beneficial_vs_incorrect": {
+          "partial_both_unique": 52,
+          "disjoint": 34,
+          "partial_contained": 5,
+          "identical": 2
+        }
+      }
+    },
+    "fit84": {
+      "queries_boxes": {
+        "queries": 24787,
+        "known": 17859,
+        "admitted_boxes": 30344,
+        "ambiguous": 7758,
+        "exactly_two": 4054,
+        "any_identical_query": 404,
+        "all_disjoint_query": 2028,
+        "square_boxes": 32370,
+        "square_empty": 312,
+        "pre_boxes": 30451,
+        "pre_empty": 107
+      },
+      "pairs": {
+        "square": {
+          "partial_both_unique": 10612,
+          "disjoint": 21446,
+          "partial_contained": 1788,
+          "identical": 475,
+          "one_empty": 1315,
+          "both_empty": 101
+        },
+        "pre": {
+          "partial_both_unique": 9816,
+          "disjoint": 20124,
+          "partial_contained": 1567,
+          "identical": 433,
+          "one_empty": 768,
+          "both_empty": 30
+        },
+        "admitted": {
+          "partial_both_unique": 9816,
+          "disjoint": 20124,
+          "partial_contained": 1567,
+          "identical": 433
+        },
+        "exactly_two": {
+          "partial_both_unique": 2076,
+          "disjoint": 1626,
+          "identical": 83,
+          "partial_contained": 269
+        },
+        "beneficial_vs_incorrect": {
+          "partial_both_unique": 525,
+          "disjoint": 590,
+          "partial_contained": 81,
+          "identical": 18
+        }
+      }
+    },
+    "all": {
+      "queries_boxes": {
+        "queries": 37296,
+        "known": 26600,
+        "admitted_boxes": 43486,
+        "ambiguous": 11149,
+        "exactly_two": 6045,
+        "any_identical_query": 550,
+        "all_disjoint_query": 2885,
+        "square_boxes": 46402,
+        "square_empty": 449,
+        "pre_boxes": 43629,
+        "pre_empty": 143
+      },
+      "pairs": {
+        "square": {
+          "partial_both_unique": 14834,
+          "identical": 639,
+          "disjoint": 28617,
+          "partial_contained": 2482,
+          "one_empty": 1810,
+          "both_empty": 149
+        },
+        "pre": {
+          "partial_both_unique": 13713,
+          "identical": 583,
+          "disjoint": 26891,
+          "partial_contained": 2177,
+          "one_empty": 1060,
+          "both_empty": 39
+        },
+        "admitted": {
+          "partial_both_unique": 13713,
+          "identical": 583,
+          "disjoint": 26891,
+          "partial_contained": 2177
+        },
+        "exactly_two": {
+          "partial_both_unique": 3134,
+          "disjoint": 2357,
+          "partial_contained": 425,
+          "identical": 129
+        },
+        "beneficial_vs_incorrect": {
+          "partial_both_unique": 706,
+          "partial_contained": 121,
+          "disjoint": 749,
+          "identical": 22
+        }
+      }
+    }
+  },
+  "seconds": 34.51683529999718,
+  "process_peak_working_set_bytes": 83357696,
+  "gpu_used": false,
+  "guard": {
+    "limit_active": false,
+    "limit_bytes": null,
+    "available_bytes": 11394174976,
+    "policy": "system_reserve_external_supervisor",
+    "supervisor_report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\cbce7faeae744c0c85e4087aa2582dd6\\memory_guard.json"
+  },
+  "sha256": {
+    "runs\\flyvis_pair_support_overlap_20261107\\recovery1\\protocol.json": "8927cbcfb24fae7d48e614d1d1ab65123b435ffa4126f31375c6b51165080b37",
+    "runs\\flyvis_pair_support_overlap_20261107\\recovery1\\input_sha256.json": "4831abb890ef197e2d532fdbadd438b86860c5107063451efffe6479c4210a7c",
+    "runs\\flyvis_pair_support_overlap_20261107\\recovery1\\by_video.json": "f15cbeb55d82ace69399362dfcaa9c43ace66c76d03af119b8459e1fbb7f1869",
+    "runs\\flyvis_pair_support_overlap_20261107\\recovery1\\pairs.csv.gz": "543b8271886a3f9163fffc0f1b7f7371f7ab5ab82afbb3938384b5376233cb04"
+  }
+}

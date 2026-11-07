@@ -1,0 +1,31 @@
+{
+  "id": "flyvis_pair_support_overlap_v1",
+  "registered": "2026-11-07T15:51:01.973160+03:00",
+  "git": "b8269a7c4f6fe7cecc37cbc4c52b61ebef93861e",
+  "question": "В одной сохранённой области глаза два реально предложенных бокса читают одинаковые, общие или раздельные колонки?",
+  "sets": "Primary frozen evaluate26; fit20 and fit84 separately for context. All original queries including unknown identity; no subset by result.",
+  "primary": "For each query all unordered pairs of distinct saved REAL choices; no keep/null action. Report exactly-two separately and any same/no shared cell per query. Within same eye and time only. Same cell means the same index, not equal activity.",
+  "pre": "Before mask.any: high score >=.25, same class, centre inside eye square and distance to nearest grid point <=.6 spacing as in historical region selector. Also count all same-class centres inside the square BEFORE proximity filter including empty boxes. Outside-eye centres are not candidates.",
+  "categories": [
+    "both_empty",
+    "one_empty",
+    "disjoint",
+    "partial_contained",
+    "partial_both_unique",
+    "identical"
+  ],
+  "annotation": "Separate previously known beneficial vs incorrect pair (different indices). Geometry for all pairs is label-free.",
+  "acceptance": "Exact original real choices, UID/frame/track and old quadrant totals for every query across 130 videos, 37296 queries/26600 known. Independently count each pair intersection using grid in rectangle intersection; independent CSV recount. No threshold of scientific success.",
+  "inputs": "Read original report manifests and match SHA of each per-video file before use; use only frame/crop indices and raw cached boxes. No replacement by nearest cell, no model, training, decoded frames, GPU, comparison of tracker accuracy or latency.",
+  "sha256": {
+    "runs/z13_spatial_bins_gate_20261025/recovery1/protocol.json": "b6e12feedd70db05986a087243081d3efe9eed61d97784b3da3abf43a9aa3e09",
+    "runs/z13_spatial_bins_gate_20261025/report.json": "7d259047662eb3bb5555b575c0736c427f61c3b0d78b7e9e4fd1fdf9df6b871d",
+    "runs/z13_region_assignment_20261025/labels/report.json": "b5097bc6692f6a18c106e58cf3248c1f784840244efc72a0dd9a73334e90cae7",
+    "runs/z13_temporal_observation_gate_20261025/report.json": "00258900e8b29ac976ad4855ba634f9e8452ca653de9405d3dbd893d075d8684",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "scripts/flyvis_pair_support_overlap_20261107.py": "509ccf4f76586140b2874d6393b19b3b1227e3c2b106827ac03433c80d7d3e7c",
+    "runs/flyvis_repairs_20261106/unification_20261107/system_memory_guard.py": "72d4ecdda4c220b2bba17adda5787d1cc95ee5075e272d7e42d0d0d38f74daa9",
+    "tracking/z13_region_assignment.py": "4a79f30d337ef6c442b74a25f379c4a587b325210697490a23d2406a0c806a42",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d"
+  }
+}

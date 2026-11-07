@@ -26036,6 +26036,56 @@
           "claim": "Проверенные временные границы и незакрытые ограничения ресурсов"
         }
       ]
+    },
+    {
+      "id": "flyvis_pair_support_overlap_v1",
+      "title": "Общие и раздельные колонки FlyVis у конкурирующих рамок",
+      "area": "flyvis",
+      "state": "infrastructure",
+      "started": "2026-11-07",
+      "question": "В одной сохранённой области глаза два реально предложенных бокса читают одинаковые, общие или раздельные колонки?",
+      "hypothesis": "В одной области глаза разные рамки могут читать общие колонки. Проверяем геометрию, а не различимость активности.",
+      "expected": "Описательный учёт пустых рамок и пересечений на сохранённых спорных запросах.",
+      "acceptance": [
+        {
+          "criterion": "Exact original real choices, UID/frame/track and old quadrant totals for every query across 130 videos, 37296 queries/26600 known. Independently count each pair intersection using grid in rectangle intersection; independent CSV recount. No threshold of scientific success.",
+          "met": true,
+          "evidence": "runs/flyvis_pair_support_overlap_20261107/recovery1/audit.json; runs/flyvis_pair_support_overlap_20261107/recovery1/report.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_pair_support_overlap_20261107/protocol.json",
+          "claim": "Срезы, категории, контроль до подсчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_pair_support_overlap_20261107/recovery1/protocol.json",
+          "claim": "Исполнение с соединением по UID"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_pair_support_overlap_20261107/recovery1/report.json",
+          "claim": "Полные номера выборок и счётчики"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_pair_support_overlap_20261107/recovery1/audit.json",
+          "claim": "Сверка источников и независимая классификация всех строк"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_pair_support_overlap_20261107/recovery1/РЕЗУЛЬТАТ.md",
+          "claim": "Вывод и ограничения"
+        }
+      ],
+      "done": "2026-11-07",
+      "summary": "На 26 видео при ровно двух реальных кандидатах (1368 запросов): раздельные наборы — 526, общие ячейки и свои у каждой рамки — 700, один набор строго внутри другого — 112, полное совпадение — 30.",
+      "obtained": "На 26 видео при ровно двух реальных кандидатах (1368 запросов): раздельные наборы — 526, общие ячейки и свои у каждой рамки — 700, один набор строго внутри другого — 112, полное совпадение — 30. Перед требованием непустой рамки пустых 24 из 9202 предъявлений с допустимым центром; если включить все центры внутри квадрата до отсечения по близости к сетке — 52 из 9763. Это не уникальные объекты. Источник: runs/flyvis_pair_support_overlap_20261107/recovery1/report.json (totals.evaluate26).",
+      "interpretation": "Полное совпадение редко; большинство пар имеет собственные ячейки у обеих рамок. Геометрия не доказывает различие активности и не идентифицирует объект.",
+      "decision": "Сохранить результаты; допуск прежней четырёхзонной схемы не пересматривать. Обучение и проверка полного трекера не запускались.",
+      "cannot_claim": "Локальное окно глаза вокруг прогноза, одна сетка и момент на пару; только реальные детекции одного класса. Отказ и отсутствие назначения не являются рамками. Повторно использованные видео TRAIN; наборы колонок не измеряют HOTA или пользу FlyVis."
     }
   ],
   "manual_events": [

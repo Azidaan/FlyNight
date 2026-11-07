@@ -1,3 +1,7 @@
 # The vault generator intentionally emits Markdown hard breaks and blank separators.
 # Keep these legal in generated notes while retaining all other whitespace checks.
 ObsidianFlyVis/**/*.md whitespace=-blank-at-eol,-blank-at-eof
+
+# The diagnostic checks SHA-256 of the actual source and result bytes on Windows.
+scripts/*flyvis_pair_support_overlap*20261107.py text eol=lf
+runs/flyvis_pair_support_overlap_20261107/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
