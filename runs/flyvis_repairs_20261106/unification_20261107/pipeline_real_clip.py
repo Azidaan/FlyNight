@@ -4,6 +4,8 @@ import sys,os,json,hashlib,time
 ROOT=Path(__file__).resolve().parents[3];sys.path.insert(0,str(ROOT))
 from system_memory_guard import guard_entrypoint
 job=guard_entrypoint();out=job.run_dir
+passport='--passport' in sys.argv
+if passport:sys.argv.remove('--passport')
 reuse=len(sys.argv)>1
 if reuse:
     out=Path(sys.argv[1]).resolve()
@@ -18,6 +20,13 @@ from scripts import run_bdd_video_rate_experiment as runner
 
 source=runner.DATA_ROOT/'videos/val'/f'{runner.DEFAULT_VIDEO_ID}.mov'
 weights=ROOT/'weights/baseline_seed42/best.pt'
+protocol=None
+if passport:
+    assert not reuse,'A fingerprinted acceptance run must build fresh caches'
+    from run_fingerprint import begin,finish
+    protocol=begin(out,source,weights,dict(frames=3,imgsz=960,conf=.01,iou=.7,device='cpu',
+        model='flow/0000/000',sources=['flyvis_full','flyvis_tiled'],max_dt=1/50,geometry='legacy_v1',
+        temporal_resampling='linear',flow_aggregation='mean',clip_codec='MJPG',torch_threads=2))
 def sha(p):
     h=hashlib.sha256()
     with p.open('rb') as f:
@@ -71,4 +80,5 @@ report=dict(passed=True,source_video=str(source),source_video_sha256=sha(source)
             scope='Execution and cache reuse on a three-frame reencoded val clip; no full-video HOTA or benefit claim.')
 report['cache_directory']=str(out)
 (job.run_dir/'pipeline_real_clip.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
+if protocol is not None:finish(job.run_dir,protocol)
 print(json.dumps(report),flush=True)
