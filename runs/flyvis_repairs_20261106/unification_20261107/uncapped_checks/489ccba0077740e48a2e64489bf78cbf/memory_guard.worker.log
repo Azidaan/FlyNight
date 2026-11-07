@@ -1,0 +1,35 @@
+[CACHE] обнаружения: E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\uncapped_checks\489ccba0077740e48a2e64489bf78cbf\detections.npz
+[2026-11-07 02:43:11] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-11-07 02:43:11] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-11-07 02:43:15] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-11-07 02:43:18] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-11-07 02:43:18] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[CACHE] движение flyvis_full: E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\uncapped_checks\489ccba0077740e48a2e64489bf78cbf\flyvis_full.npz
+[2026-11-07 02:43:19] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-11-07 02:43:23] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-11-07 02:43:26] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-11-07 02:43:26] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[CACHE] движение flyvis_tiled: E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\uncapped_checks\489ccba0077740e48a2e64489bf78cbf\flyvis_tiled.npz
+{"passed": true, "source_video": "E:\\Dissertation\\data\\bdd100k\\videos\\val\\b1c66a42-6f7d68ca.mov", "source_video_sha256": "a30203862234972202297b2b1fa65c7c8d69a20ea5ffe4b63f55f7c4053df825", "clip_sha256": "99fbe8ab2ecb0f7d8e6f3b2e8e97142384e40647072c08f02362e55e7865cc38", "weights_sha256": "15cd5efb77b90401464589f62b299537ce2d2e086b4146f5c4ee7556cbd0c7c7", "weights_unchanged": true, "frames": 3, "fps": 29.770992366412212, "device": "cpu", "results": {"bytetrack": {"frames": 3, "labels": [27, 26, 26], "stats": {"association": {"samples": 3, "mean_ms": 4.539533333324168, "median_ms": 4.204099999697064, "p90_ms": 6.61978000025556, "p99_ms": 7.163308000381221, "fps_from_mean": 220.28696048096407}}}, "flyvis_full_calibrated": {"frames": 3, "labels": [27, 27, 28], "stats": {"association": {"samples": 3, "mean_ms": 8.077166667741645, "median_ms": 11.610400000790833, "p90_ms": 11.645840001438046, "p99_ms": 11.653814001583669, "fps_from_mean": 123.80578996763445}}}, "flyvis_tiled_calibrated": {"frames": 3, "labels": [27, 27, 28], "stats": {"association": {"samples": 3, "mean_ms": 12.936466666360502, "median_ms": 18.46779999868886, "p90_ms": 19.00707999993756, "p99_ms": 19.128418000218517, "fps_from_mean": 77.30086010273286}}}}, "seconds": 24.514999999999418, "scope": "Execution and cache reuse on a three-frame reencoded val clip; no full-video HOTA or benefit claim.", "cache_directory": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\489ccba0077740e48a2e64489bf78cbf"}

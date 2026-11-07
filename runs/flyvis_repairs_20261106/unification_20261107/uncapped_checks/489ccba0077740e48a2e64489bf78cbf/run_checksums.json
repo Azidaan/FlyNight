@@ -1,0 +1,33 @@
+{
+  "schema": "flynight-run-fingerprint-v1",
+  "run_id": "489ccba0077740e48a2e64489bf78cbf",
+  "finished_msk": "2026-11-07T04:43:32.334298+03:00",
+  "commit": "59ccfa823ba5f616ba8eaf58975e964a7162bad8",
+  "branch": "codex/system-integrity-20261106-e8f674ce",
+  "passed": true,
+  "sources_unchanged": true,
+  "inputs_unchanged": true,
+  "source_count": 1570,
+  "input_count": 937,
+  "outputs_sha256": {
+    "bytetrack.json": "079e400a4d9039cfee4dc1374224aa36088bd015883e746f24cbc9273366cf8e",
+    "detections.json": "3200edd15f5b7a2ef37ddd0ae74616587d6fda777184667ba81c14d10c465123",
+    "detections.npz": "23d7cd9b0580178c8d1847d1848ac2ee0bac6029bad27ea61732243dc82138bc",
+    "flyvis_full.json": "6495fbd92581fe77e0c02d1ad59c14e55ec14cba4dba7fb0c058971f3f78a2fc",
+    "flyvis_full.npz": "f9259d4335286e6f094a41e032358c306b2003b19c087681f419e3e00fc86851",
+    "flyvis_full_calibrated.json": "d7f6923b61917d871ea26ff4ae162da1bfd9f2d92255ed63814126be0fef99d2",
+    "flyvis_tiled.json": "1bc18bdcb3e06f2ce4badcc820e979fd03b849f62c8c4aa870219f5971a54096",
+    "flyvis_tiled.npz": "739760f5d79a96e146ee957dc6723aa215234f025916edf556adfa2ed9bf166c",
+    "flyvis_tiled_calibrated.json": "ea6718e1c9255ec4483c01dbc0c8e8a43e972556ebba3bfa14c96071d6679964",
+    "frozen_sources.zip": "4fefe89fbf8ec7d6e9d257792574d42a550320e1749f790c13eec31172cce5df",
+    "pipeline_real_clip.json": "209ab5efc9e8fe1f3e833819a061669f9e822622e62079b9776c2f2eced2061a",
+    "run_protocol.json": "0b14758160f74c638d63e58cfae160de66a992f274c9615c243b70a3731efc50",
+    "three_real_frames.avi": "99fbe8ab2ecb0f7d8e6f3b2e8e97142384e40647072c08f02362e55e7865cc38"
+  },
+  "excluded_live_files": [
+    "memory_guard.json",
+    "memory_guard.worker.log",
+    "supervisor.json"
+  ],
+  "scope": "Byte identity and completed three-frame CPU execution; not full-video accuracy or proof of bitwise repeatability."
+}

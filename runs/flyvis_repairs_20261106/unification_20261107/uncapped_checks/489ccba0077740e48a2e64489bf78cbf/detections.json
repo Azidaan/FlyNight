@@ -1,0 +1,40 @@
+{
+  "identity": {
+    "video_path": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\489ccba0077740e48a2e64489bf78cbf\\three_real_frames.avi",
+    "video_sha256": "99fbe8ab2ecb0f7d8e6f3b2e8e97142384e40647072c08f02362e55e7865cc38",
+    "weights_path": "E:\\Dissertation\\weights\\baseline_seed42\\best.pt",
+    "weights_sha256": "15cd5efb77b90401464589f62b299537ce2d2e086b4146f5c4ee7556cbd0c7c7",
+    "imgsz": 960,
+    "conf": 0.01,
+    "iou": 0.7,
+    "device": "cpu"
+  },
+  "frame_count": 3,
+  "detections": 232,
+  "decode": {
+    "samples": 3,
+    "mean_ms": 5.005633332378541,
+    "median_ms": 5.1195999985793605,
+    "p90_ms": 5.557679999037646,
+    "p99_ms": 5.65624799914076,
+    "fps_from_mean": 199.77492029461678
+  },
+  "detector": {
+    "samples": 3,
+    "mean_ms": 149.62186666646934,
+    "median_ms": 149.65859999938402,
+    "p90_ms": 150.95500000024913,
+    "p99_ms": 151.24669000044378,
+    "fps_from_mean": 6.683515065542907
+  },
+  "wall_seconds_including_decode": 0.46465940000052797,
+  "pipeline_fps_including_decode": 6.456342000176024,
+  "software": {
+    "python": "3.10.11",
+    "opencv": "4.13.0",
+    "torch": "2.10.0+cu130",
+    "ultralytics": "8.4.84",
+    "prediction_device": "cpu",
+    "gpu": null
+  }
+}
