@@ -1,0 +1,328 @@
+{
+  "id": "identity_geometry_competition_protocol_v1_20261108",
+  "status": "prepared_not_executed_not_launch_ready",
+  "prepared": "2026-11-08T01:15:20.342843+03:00",
+  "base_commit": "01815dc9253108c81737c6723077ab603336d7c2",
+  "branch": "codex/system-integrity-20261106-e8f674ce",
+  "authorization": "Prepare a concrete protocol for singleton refusal and old-ID competition, with matched no-FlyVis controls. No scientific execution.",
+  "system_level": "External spatial readout and first-stage association of the author system; frozen FlyVis core.",
+  "problems": [
+    "singleton_readout_fallback",
+    "old_track_loses_global_assignment"
+  ],
+  "native_config": {
+    "track_high_thresh": 0.25,
+    "track_low_thresh": 0.1,
+    "new_track_thresh": 0.25,
+    "track_buffer": 30,
+    "match_thresh": 0.8,
+    "fuse_score": true
+  },
+  "geometry": {
+    "source": "research_spatial_identity_20261107/comparison_protocol.json/geometry",
+    "eligibility": "Same causal exactly-two high-confidence search and nominal 2 marginal SD size/edge ranges; nonempty position grid; >=3 current and reference geometric cells.",
+    "singleton": "Return the unique admissible candidate; do not require evaluating the invalid candidate.",
+    "proposal_cost": "C_G[i,j]=C[i,j]-alpha*g[i,j]; retain other native edges.",
+    "alignment": "One feature-independent minimum standardized-edge-residual transform; tie W,H,tx,ty.",
+    "common_support": "Exact receptor geometry intersected with DIS interpolation domain; >=3 unique reference cells for feature scores. No outside fill.",
+    "no_observation_change": true
+  },
+  "competition": {
+    "timing": "After prediction, before any state update. One solve of the full first-stage matrix.",
+    "native_ids": "Preserve through native re_activate(new_id=False), no output relabeling or historical stitching.",
+    "rivals": "R(j): native C<=0.8 or g=1. At least2 same-class rows; missing geometry or mandatory score disables only feature correction of the column.",
+    "correction": "C_Z[i,j]=C_G[i,j]-beta*(a[i,j]-mean_R(a[:,j])); center across TRACKS, never across a singleton row.",
+    "observer": "One current eye per affected column: minimum position-covariance trace, then start time, then ID as a computational tie.",
+    "complete_lifecycle": "Evaluate second stage, unconfirmed tracks, births, duplicate removal and actual output; a first-stage win is not yet ID preservation."
+  },
+  "arms": [
+    "B0",
+    "G",
+    "G_SHIFT",
+    "G_IMAGE",
+    "G_R1",
+    "G_DIS",
+    "G_FLYVIS",
+    "G_PERM"
+  ],
+  "representations": {
+    "G": "No image or core features.",
+    "G_SHIFT": "Uniform -beta over competing edges; no feature content.",
+    "G_IMAGE": "Processed receptor brightness and2 spatial derivatives, old fixed fit84 normalization.",
+    "G_R1": "17 fixed causal EMA+17 transient direct channels, old R1 normalization.",
+    "G_DIS": "Cached dis_quarter gain1.0; vector cosine without spatial centering; validate units, axes, times and interpolation.",
+    "G_FLYVIS": "8 direct standardized T4/T5 maps, frozen flow/0000/000; centered spatial correlation.",
+    "G_PERM": "Same8 maps,32 fixed joint-vector spatial permutations; mean score, no best permutation."
+  },
+  "undefined": "Zero feature correction for entire affected column of that arm; preserve G. Never treat missing as bad identity.",
+  "calibration": {
+    "source": "fit20",
+    "initial_known_queries": 323,
+    "initial_shadow_queries": 300,
+    "alpha_grid": [
+      0,
+      0.1,
+      0.2,
+      0.4,
+      0.8
+    ],
+    "alpha_for": "G only, then fixed shared alpha",
+    "beta_grid": [
+      0,
+      0.1,
+      0.2,
+      0.4,
+      0.8
+    ],
+    "beta_for": "Each additional arm, equal5-value budget, includes zero.",
+    "criterion": "J=correct old-ID assignments-wrong old-ID assignments on fixed known queries, full assigned detection including outside pair; unassigned0; unknown masked.",
+    "tie": "Fewer changes of native assignments, then smaller parameter.",
+    "freeze_before": "evaluate26"
+  },
+  "cohorts": {
+    "inventory": {
+      "evaluate26": {
+        "total": 1368,
+        "by_reason": {
+          "unknown_candidate": 293,
+          "unknown_target_or_query": 434,
+          "neither_target": 463,
+          "ok": 178
+        },
+        "contributing_videos": 26
+      },
+      "fit84": {
+        "total": 4054,
+        "by_reason": {
+          "neither_target": 1384,
+          "unknown_candidate": 809,
+          "ok": 667,
+          "unknown_target_or_query": 1194
+        },
+        "contributing_videos": 83
+      },
+      "fit20": {
+        "total": 623,
+        "by_reason": {
+          "neither_target": 233,
+          "unknown_candidate": 135,
+          "ok": 90,
+          "unknown_target_or_query": 165
+        },
+        "contributing_videos": 20
+      }
+    },
+    "queries": "queries.json",
+    "evaluator_only": "evaluation_strata.json",
+    "known_filter": "ok or neither_target; frozen before selection; neither means neither SEARCH candidate, not absence from frame.",
+    "historical_limit": "Reused train-source queries and selected historical archive; no independent or unconditional tracker claim.",
+    "future_val20": {
+      "source": "runs/continuation_20261029/cost_use_val/protocol.json/sources",
+      "videos": [
+        "b1d10d08-743fd86c",
+        "b23b2649-8349d2a1",
+        "b242f6b2-0033bdfb",
+        "b230132b-ff8f2719",
+        "b1f4491b-cf446195",
+        "b23f7012-32d284ce",
+        "b2036451-aa924fd1",
+        "b1d0a191-de8948f6",
+        "b20b69d2-ca16c907",
+        "b200b84e-4a792877",
+        "b251064f-5f6b663e",
+        "b23a79d1-43dfeecd",
+        "b23adb0d-72704b27",
+        "b216243d-ad4306b9",
+        "b1cd1e94-549d0bfe",
+        "b1ca2e5d-84cf9134",
+        "b1e3e9f5-92377424",
+        "b20d494a-cdebe83e",
+        "b230a7b2-c881c382",
+        "b23f7012-fab06dac"
+      ],
+      "detector_unseen": true,
+      "researcher_unseen": false,
+      "readiness": "Verify cached detector/checkpoint provenance and disjointness before launch; no silent substitution."
+    }
+  },
+  "readiness": {
+    "launch_ready": false,
+    "available": "935 recovered positive-case map/state packages; native full matrices for those935 queries; source candidate metadata; one DIS cache inspected.",
+    "missing": [
+      "Complete negative/unknown query export",
+      "All rival preassociation mean/covariance and real observation histories",
+      "Rival reference maps and full column evaluator identities",
+      "Validated DIS bindings/coverage for every cohort",
+      "Runtime implementation and zero-intervention parity",
+      "Prospective run card, actual source hashes and explicit run instruction"
+    ]
+  },
+  "stages": [
+    "Technical readiness and first fixed fit84 cost/parity gate",
+    "Fit20 calibration on complete known positives and negatives",
+    "Single evaluate26 fixed-state diagnostic, retain unknown shadow cases",
+    "Separately authorized full causal historical val20 pilot only after gate"
+  ],
+  "screening": "Prepare full pilot if lower95% paired-video J improvement vsB0 positive for G orG_FLYVIS; exploratory gate, not tracker evidence.",
+  "full_metrics": [
+    "HOTA",
+    "AssA",
+    "IDF1",
+    "IDSw",
+    "FP",
+    "FN",
+    "old_ID_reactivation",
+    "wrong_target_takeover",
+    "duplicate_ID",
+    "sustained_ID_return"
+  ],
+  "sustained": "Current plus next2 available annotated observations; censored if unavailable; never used for runtime decision.",
+  "inference": {
+    "unit": "video",
+    "samples": 20000,
+    "seed": 42,
+    "primary_comparisons": [
+      [
+        "G",
+        "B0"
+      ],
+      [
+        "G_FLYVIS",
+        "G"
+      ],
+      [
+        "G_FLYVIS",
+        "G_SHIFT"
+      ],
+      [
+        "G_FLYVIS",
+        "G_IMAGE"
+      ],
+      [
+        "G_FLYVIS",
+        "G_R1"
+      ],
+      [
+        "G_FLYVIS",
+        "G_DIS"
+      ],
+      [
+        "G_FLYVIS",
+        "G_PERM"
+      ]
+    ],
+    "family_size": 7,
+    "ci_levels_percent": [
+      95,
+      99.28571428571429
+    ],
+    "geometry_acceptance": "Corrected lower HOTA bound G-B0>0.",
+    "flyvis_acceptance": "All6 corrected lower HOTA bounds of G_FLYVIS vscontrols>0.",
+    "harm_guard": "For accepted variant vs its main control: nonnegative mean AssA/IDF1 changes; no increase in total IDSw,FP,FN.",
+    "no_success_from": "Conditional pair accuracy, selected subgroup, pure cost shift, first-stage win before lifecycle, or reused-history pseudo rollout."
+  },
+  "literature": [
+    {
+      "title": "ByteTrack",
+      "year": 2022,
+      "url": "https://arxiv.org/abs/2110.06864v3",
+      "code": "https://github.com/FoundationVision/ByteTrack/blob/main/yolox/tracker/byte_tracker.py",
+      "used": "Global assignment and native same-ID reactivation are existing baseline mechanisms, not our novelty."
+    },
+    {
+      "title": "Tracking without bells and whistles",
+      "year": 2019,
+      "url": "https://arxiv.org/html/1903.05625v3",
+      "code": "https://github.com/phil-bergmann/tracking_wo_bnw/blob/master/src/tracktor/tracker.py",
+      "used": "Inactive-track references and geometry-gated reidentification; not evidence for our active-rival correction."
+    },
+    {
+      "title": "Fast Optical Flow using Dense Inverse Search",
+      "year": 2016,
+      "url": "https://arxiv.org/abs/1603.03590",
+      "documentation": "https://docs.opencv.org/4.13.0/de/d4f/classcv_1_1DISOpticalFlow.html",
+      "used": "Ordinary no-core motion control."
+    }
+  ],
+  "failed_links": [
+    {
+      "url": "https://openaccess.thecvf.com/content_ICCV_2019/papers/Bergmann_Tracking_Without_Bells_and_Whistles_ICCV_2019_paper.pdf",
+      "result": "403, replaced by checked arXiv and official code"
+    },
+    {
+      "url": "https://docs.opencv.org/4.x/da/d06/classcv_1_1DISOpticalFlow.html",
+      "result": "404, replaced by checked official4.13 documentation"
+    }
+  ],
+  "execution_policy": "No execution now. At future launch: explicit MSK deadline, one CUDA mutex, hidden Idle workers, sequential system reserve max(6GiB,20%RAM)+2GiB at start. Do not repeat finished work.",
+  "source_sha256": {
+    "runs/flyvis_exclusive_t4t5_20261107/choices.csv.gz": "19c99fe9e631b24b5d195ddd758d42db93caf3b94a82a775959ed25ceeeba39d",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0001542f-5ce3cf52.json": "3ecb6ba17629e53892532753a99e3b63d1c32607a0fe4fb2040f4dde7cd3288f",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0001542f-ec815219.json": "f0fd8482248506957bdf55835428a47de8531fe12645021b8db1e400fddd0bcb",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/001c5339-13a07470.json": "9054e32d9831431ffeef6272f77986e3f1aac4836018630e8d3da1dd9d38500b",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/00268999-cb063914.json": "3c87b635b90bb0e7131c2a58a5da2af8528b1b4001bec5282794d00ba87159ef",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/00423717-0ef3c8dc.json": "b36cf3e351a6f85845690bf99f133e979972af739f647981df1a5e9bc9167288",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/004855fc-ff3946ad.json": "88fc033668b47ff970ceece7e457a9c83b1381f3f9ed1c43144f354a45d44c57",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/005ff190-5be4cdfa.json": "e6ab3ebb5ed029c7b552a75f2569dd8ec8e95ddeb2fe948ddf52860497a68475",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/006676e5-0a512e75.json": "3b616ca7841e368c073422cd0fd188bce5878a76f01379df59eb5e028fd8deb2",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0070bc56-401304be.json": "842e9f919486345884c7863f96735259be692608bab09d55b53f31644c7705d6",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/007c01ea-63aa326c.json": "60db4028c53caa22371eeb4b6bc5b5a10d68363b3987446ab6e1a27aae9880f5",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/007c01ea-a02f29ef.json": "b21aa37ac89dbe1734e24fcfabed8baab14f25366ef16d866de18524ee59d9af",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/007eddfc-528c4da4.json": "543ff94a097503cf9636fd0374269fc2b8de3cde5654ac630fe381ca35debe50",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/009215e2-62d79d70.json": "06b151f487d187b2a4071fdebe4026d9f2f62f97b61986d4722c57dbc9e08029",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/009215e2-ea063b28.json": "8890ac6a7aba84aa0188d1296e15f951a6f7359db12e227cb2be51ffa8acd305",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0096bcca-27a61cb3.json": "dfde9b2d3a2df6f8f3479fc7b782b1cc6f8f3f5b5d7952ba52b7e45e8fc89437",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/00982f76-83a093ef.json": "93cd25707f1292bdf194df685b27156b5ec1bf1065c3fdbb9ca2a59528f1a20a",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/00b56f41-e0e5d918.json": "e9de9990d4ab9891c78136f11ff46ccd43fb894b2e94b7875f845039776918c7",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/00b93c6e-6298aa25.json": "2545daa9169bd66307322d6fef9c3f3c07245c97505dece502d5c8d5bdd50645",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/00beeb02-50440dcd.json": "2400b90e644bc0bbe34ab684b3442626a9988c2f4f4d636c44bd69e0509b20de",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/00ccf2e8-59a6bfc9.json": "fa9eb48d6886993fd3bc4123c4bc5f0cec680a7908997174850c46a2f17fcbac",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/00d18b13-52d3e4c4.json": "19af8c77d3b0dcc33eaab9b4a566149dac2e18cfb8efa168395c24f30588e7aa",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/00d7268f-fd4487be.json": "cc038deab602f6342ae985cdc422db234aeba94a7835fe987efa8c6acdba5a74",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/00d79c0a-23bea078.json": "049f300feeb74935bc0cb8b1bf53c7d1d543f53ebe49162cf03fec7b2ad83301",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/00d79c0a-a2b85ca4.json": "3c4dd1bbdc8b20328af8f7ca7de07df8764bab4353024fd52a615b3a39a7294d",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/00d9e313-038310a2.json": "a2bbe8d6a756105ca1d7c915c56a82ac835a81ac6ddc74810fe42e33555ec123",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/015ccf71-56e8d5b8.json": "150589ed17bf8b34439e8f8425fdab1d6ba7817d871cf4bef32e58570a988934",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0166faa5-5fbc53c5.json": "d8638daf7293a0bcfc342e2b905a99a3a70649df377508009181befcaf68dfa0",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/017bec14-1c6f8718.json": "6d9d36f7ab6322630b276899e61f27d141779cc82a15f40d29597a2fbfb2b9fa",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0199e7fc-0b6d1a35.json": "7fa1aab9e970ff795bb1d60cf037ca521cdac281bce33d803da2fdc7de833335",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0204aad7-eeb13c43.json": "c1de79b2561722041fa8ec48cb22e12271a46c6a3705ba358a345fc770b7fdfa",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/023a70d5-cde2a67a.json": "63ee31cb778c0ab8c7e77d4b10758322b11eaaf2e89cc72b97d2cd5796fc2073",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0279c430-962e3702.json": "8c3cf080acdf405bd5ef3330cccf655b1e4822d0dae61004c2002d28e7c074ad",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/027b216c-bfae3d6d.json": "78a64215ca09f97170b4f3891812e323c8bffddd643fa2d71de796a6f638774e",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/029556a0-0ec9fa6f.json": "ba6160fd6673aad9614d7f779de914a8b3be0ed959e963715a8a9678ab0af7ff",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/02bd959c-f20a2437.json": "907ec7fac1bc374f959c29557b6442a9a88e9ce2af63ce9841ef12b2026977c8",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/02c2a4d8-94d32b2f.json": "e985db6f847f65c0832cce11682fd03f46c7ca24701146a2f380530c9bf0094a",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/02d5e1be-bd9bd999.json": "2dab60381d7bb6b8bc642d5e8e4a31c2942960a55c14316cf9250b858f1eba37",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/02f101f6-56ba9106.json": "d8e4aa1ab008849ba1ef6be7ea6fc43bbab12bf74143faaf6dbbfe5d120c23e5",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0329d6b9-abddbf95.json": "aba0d4c1e8d7ba846d0d6b1fb39f7e3691d493bfebda06d634107219386791d7",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0332bb54-c4bee5eb.json": "2139c6f5e9081f06833252c8e474c000844fdcd1bc283e8e717ca7a64908f880",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0336de82-802d2437.json": "4c2553d3c9d8806dc2ec9c679e465e72cf7f6c071d17063c5bb25c13df399964",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/035d6940-18869b73.json": "68e55c93f63f9df3dee39666372f987ef515d3d7aa1096f6b6535707d816e970",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/03b0697b-faa11b32.json": "130011fbc5f8932b98548de8ed9558b0befc3f310867c5d384a34067566051d7",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/03bf498b-044cb72c.json": "4e50f471c3e86f19708416b9dbedf83b3e97d10f452f0d4da86e5ba5eabec445",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/03c239e4-9e0fbb75.json": "bfe9ee06103db2eb47bf9bcc5ee201cce44226f6345fab6fac2b552f950cb841",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/03d75f61-ce25863a.json": "a42858fbc4d27c8993a11a6fe541c3ccca18de2dc56abb9ab8c9bb6f6030c2ef",
+    "AGENTS.md": "eb110ded5496955abd83ecdcd844eef02da665fbe9c7f8517cd4922dd494787b",
+    "runs/spatial_identity_maps_20261107/comparison_report.json": "2d130343201b8622132bbe8b3d2576caaa3d5b7f5e07190271dfde44b0c458ed",
+    "runs/spatial_identity_maps_20261107/bottleneck_report.json": "efc608738cf294c1c983483cfdacfc5106d0bc4a8ffdfb68eb86c86691f63a87",
+    "runs/spatial_identity_maps_20261107/native_diagnosis.json": "6a08fd9ae1484cc85ddd6654076d11b92aa1ccff9ee660f763c1460224c243dd",
+    "runs/spatial_identity_maps_20261107/competitor_histories.json": "6edb81cc60efc824825cda96b554c7a01a13f04f3f12b244edb11f3adb33141c",
+    "runs/spatial_identity_maps_20261107/execution_protocol.json": "c1da22f605c782dda0705029b80445b42ca5cee71e47963f608675cd616d99bf",
+    "runs/spatial_identity_maps_20261107/independent_audit.json": "f195484ef1ee2437c393249b0e9e10cecfc14fbc411de1511bd3de5e27e28cfb",
+    "runs/spatial_identity_maps_20261107/image_normalization.json": "88d6522e4f7cc7b11354239e92ba9e588887f41a7d3d01f6f88b7e019a098ea1",
+    "runs/continuation_20261029/cost_use_val_audit/report.json": "b89f49289036bcea107d1db04d6e2bb5f61dfb67e3725ef652311a2d37420089",
+    "runs/continuation_20261029/cost_use_val/protocol.json": "6633afe8f9233da14e3e845ca49f18079bac73f4d89fde7687154c1848be25d7",
+    "runs/stitch_v2/gap150_dist5/report.json": "88eace708c4b3e53ab4e2904564125d8999bb518aa8a23d1d43ecfa67cccc93b",
+    "tracking/xywh_bytetrack.py": "85f5d5eaceabdd19cd7cb668fcd2153771466b3f539a8ffa374ddd6f9a946675",
+    ".venv/Lib/site-packages/ultralytics/trackers/byte_tracker.py": "00c7c1ff8b1076fc89347071519ae0b06a30bfce00dded94826620e068b1928f",
+    ".venv/Lib/site-packages/ultralytics/trackers/utils/stracks.py": "b219717726be42eedb5c711428f7ca51050f8ad722291a43ccd98194f5b1ce4e",
+    ".venv/Lib/site-packages/ultralytics/trackers/utils/matching.py": "0c5dcddde75ce343ca9626273e3d95e2ea061bcf69f2e0ac0ef519ac1aaffe07",
+    "research_spatial_identity_20261107/comparison_protocol.json": "3040c38eeeec9654670a36d034d03320ce5b6c44392867e954496832c7cd6928",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "runs/z13_target_center_dev_20261018/C/normalization.json": "c06f1147f7f9da0d2d652d137c2c8a85257ba2737d1f7a1bbbde41235193fa4b",
+    "runs/z13_target_center_dev_20261018/R1/normalization.json": "2038ae665ef0c641cbbb1d6c5cb0133276780274073deea9498a38817c3825a8",
+    "scripts/run_bdd_video_rate_experiment.py": "babb1eeac2f4a7ee8e2138e7863f437bd1f30cb5d179f938b0944ded65f91acc",
+    "runs/train_cache/0001542f-ec815219/motion/dis_quarter.json": "ef7f92299895cc8bc2752af8e006a022d4b0c69050e720c2295c6f498b3b3aef"
+  }
+}
