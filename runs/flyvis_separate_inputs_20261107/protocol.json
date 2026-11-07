@@ -1,0 +1,3115 @@
+{
+  "id": "flyvis_separate_inputs_v1",
+  "registered": "2026-11-07T17:58:31.565050+03:00",
+  "git": "f3e5d54de38b6a61d8fdeb13721f752cd3bd4c2b",
+  "author": "Давай проверим на тех же эпизодах: отдельные вырезки каждой машины с небольшим окружением против нынешней общей карты. Сохраним одинаковый масштаб и те же прошлые кадры",
+  "hypothesis": "Separate candidate windows before the recurrent core improve frozen T4/T5 candidate choices; not established.",
+  "scope": "Same172 historical evaluate26 pairs,23 contributing videos; full original episode prefixes. No selection of images/results, training, new data or HOTA.",
+  "input": "Replay each full video from frame0 through original lamina preprocessing,blur_downscale4. At archived fr_frame extract exactly archived fr_crop. Original BoxEye grid and source-pixels per receptor. Quantize all inputs to original float16 then float32.",
+  "intervention": "Inflate CURRENT DETECTION width/height by1.25 (12.5% each side), express in current common crop normalized coordinates, keep this mask in the SAME canonical coordinates for ALL original prefix frames. Outside=127.5 AFTER shared retinal front-end and BEFORE BoxEye. No recentering or object zoom. Canvas/render scale exactly old crop at each time. Not a known candidate trajectory or perfect instance segmentation; overlapping objects remain possible.",
+  "controls": "Archived common-map baseline reused scientifically. Re-render common input and cloned sequence validate archive/identity. Union control retains BOTH inflated windows on one canvas, same neutral outside: tests object separation versus just removing background.",
+  "constants": {
+    "context": 1.25,
+    "neutral": 127.5,
+    "bootstrap": 20000,
+    "bootstrap_seed": 42,
+    "tie": 1e-10
+  },
+  "primary": "Separate-common AND separate-union paired correct-choice differences. Both lower Bonferroni97.5% bounds>0 for main support; ordinary95% too. Resample all26 original videos including3 without eligible pairs. Ties0.5; publish unfavorable effects. Reused exploratory data.",
+  "scoring": "Same observed-exemplar target coefficients from old w chunks; original normalization; direct T4/T5 channels4:12 only; mean over original FULL candidate masks. Labels only in audit.",
+  "gates": {
+    "common_retinal_float16_max": 0.0,
+    "archive_normalized_map_max": 0.002,
+    "archive_score_max": 2e-05,
+    "identity_map_max": 1e-05,
+    "identity_score_max": 1e-07
+  },
+  "budget": "Sequential guardedCPU inputs,GPUworker with shared mutex,independentCPU audit. FreeRAM reserve max(6GiB,20%),+2GiB to start; no per-process cap. Disk>=5GiB. Finite172; first full video/case timing.4800s each compute stage,no unbounded recovery; Saturday full day.",
+  "source_sha256": {
+    "scripts/flyvis_atlas_core_20261107.py": "f2b81ade55f5d14fa8c57f1745b96bd4b2545906ee5fe12646af461384362f78",
+    "scripts/flyvis_atlas_core_audit_20261107.py": "a0bff8e1ab2b94d223b43a97ca5f23357522ca3b1c9cf815a95f056493727c8f",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "tracking/flyvis_motion.py": "f053f52a6f1bb6233884de818a4175c1bb01ab5dff6e0d037f2262bea5b3ffdc",
+    "tracking/foveated_eyes.py": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
+    "tracking/flyvis_checkpoint.py": "0280e2ef363f85a2a9455fcd2a2a8148e23daf2bf3d1c394eb6c93cff07fd30e",
+    "tools/flyvis-runtime/flyvis/network/network.py": "eb172be7db1727a2b1af9f4211c2e1a8655004e8602a4db677e56702a3dfeb43",
+    "runs/z13_target_center_dev_20261018/C/normalization.json": "c06f1147f7f9da0d2d652d137c2c8a85257ba2737d1f7a1bbbde41235193fa4b",
+    "runs/flyvis/results/flow/0000/000/best_chkpt": "d8a57a022aa18ca338599be713af9db29b89cde4b00098ffe42b78f0d583e46a",
+    "tools/flyvis-runtime/flyvis/connectome/fib25-fib19_v2.2.json": "bfbb0766251ff09e22723d0ebbf7b14793e70b3ae8ad0eea64eac9d28223351a",
+    "runs/flyvis_state_subgroups_ram_stream4_20261107/node_types.npy": "77dd4531e46d53d296d114942ffe5c9d65bae1a95164ded9bbca6a76b4db71e7",
+    "runs/flyvis_repairs_20261106/unification_20261107/system_memory_guard.py": "72d4ecdda4c220b2bba17adda5787d1cc95ee5075e272d7e42d0d0d38f74daa9",
+    "runs/flyvis_exclusive_t4t5_20261107/choices.csv.gz": "19c99fe9e631b24b5d195ddd758d42db93caf3b94a82a775959ed25ceeeba39d",
+    "runs/flyvis_exclusive_t4t5_20261107/inputs_used.json": "d71deb3a74134727ea46b97cb2b034502ed3c8f31bf654e519a10a5f348bbe2b",
+    "runs/flyvis_exclusive_t4t5_20261107/measurement.json": "215a4efcbc87788663a8f958d5a78d4c68dca305ffd1dbaf83aa7665ddca77a6",
+    "runs/z13_temporal_pair_readiness_20261025/protocol.json": "d515715934e07ce28ea30ff5284b2b0e1c0f90f59b32bf8676b6e96fce4b65d3",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00001.npz": "2e8f4343a34b0b9fa2a0fbba9cdf6cb3992883fe5fdcfb5e473fe4190a3ec333",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00002.npz": "30d36cd693c98e52f8f8fd35b14a5f200c2593729d16b166d357cda0e81eb5b9",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00008.npz": "7d5c703ed5e337b667a16f01fe9ef7986f603b7df2ce700fc6e7f63e257fe4c6",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00010.npz": "0d98bb05dec426ecb3e1eb06fa0793db77f26a7c4ae8d69e1813858fa4e1c4a7",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00013.npz": "934d1da33b4a73e2c2875e68c458d0cac9a719c49666e338bc3160ce7f6e48c5",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00016.npz": "da6df25096eb481e8e785e46c22efd9c7272bb3784db1805f7fcec56ae3849b4",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00019.npz": "2c5606d2a9365d1e2f0d257961ef07e2a75b59906b863b726f4b0bb0d02f4e3d",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00022.npz": "c6b0379fd1a8897a6fdc17fe2d9677056f59d7f6232132ab3b0a1dee02a08b4c",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00024.npz": "4d86e9df008706e13cdae61ca759a55720ba3eeea46db7994ac7d846749d978f",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00026.npz": "d968397f281bd8b2b2b53105a1f1e0bc15c42d1858401ef832d88abdc334e2bf",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00033.npz": "103163c094220d52ac3153feaf715893736bb3d4b326e0876ce6a1c6108b907b",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00044.npz": "38b6e1b72be2de146982383b20f7d0fb3ee6dd14792444f907eb6ce990125e37",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00050.npz": "b7bcb7396d4f0599fa0cf2a927339269d9fb4a0d41bb02160c983c51430f31c4",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00056.npz": "7e40786b60550651a8f8be4296344ed875aabb03aa84ff55f74b52a63274c468",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00060.npz": "fa1ac5b9cc2109e5e8e19176bb6b4c80f9c11b58cf5f93651f8d126cdd1088a9",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00061.npz": "26ac7de30e3d314784a275cbca26b262dd16e6a991fb0797033f39a24c7c82b1",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00070.npz": "569e2b88532c8af2c34eb929c5f253bf688537de6a1de8111d0a83afe7056ff4",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00071.npz": "db7324ab00fdc4880597b9ee3377683e8f4247104e293b15c7bd2b968549b091",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00073.npz": "e231336322e45f17e4d25c9b0bf3c5d7c7b14986b32b6bc1cb9a499a05e09473",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00074.npz": "8c408fd10c1c5b7028cab092fdd4b495bd047990e98d4590394dd24641577819",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00077.npz": "142cf744a6919af64c298a9fc78c420e35d7a1163282ac113c71823c7c27f401",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00080.npz": "58b8e21904573f891e01a10152ca21c3052b1889a0fd49b19881d906b46b8cd2",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00082.npz": "aaf309b94124afea2d8921dcc89201fb0c2490483e1cb885dbb305a7fb1fe5b1",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00086.npz": "facae97c1e04c84c5f1c3dbf4cbaec20efa6b553a48059e0aca3968fa342cac1",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00087.npz": "0be5a94c683bd64b77186b84dfb2cb0b1419ad1f61ded025f86cf73c3a501408",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00091.npz": "37db3c5ce0ca2d147331eda43bacf767637150ef9bde0f261b0ca38f7a59c56b",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00096.npz": "becfcbb083c136430f7787e7f0cba976d0ac66d31f285429f1a69539feaffa8a",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00100.npz": "560d9675ebede569858e01cdaafadb70d13e2443df4ae3d2c85b1bb38a5a9c1f",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00102.npz": "9ccd45f5a69b38599773ab9e60f5bca8442b93bc2d2ba964f66847d50a3a6286",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00104.npz": "5e61f1b83ff45d6a5d970b8ec7aa1d86a2f33328c0cbe8136522d6901c02d208",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00105.npz": "2c73a167814bdd34b68a4516a0db5d17bffb8830576c3072638a390b604b1ef2",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00107.npz": "9df3c01698a8fa48d04b96c9ba5e9b64ad3524069c003720ee85cee31702942e",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00108.npz": "e0d557f75b7951305b80d68e7f62de93be2abc3deb8bf888436ba0853a9dc07a",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00109.npz": "0baa80bf005f6da7834c5c1d9b3158d51fd7bda503631cdabae5ac24492af30a",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00110.npz": "0256b4bfc37573f7cfb5c62f26b1a5702e25c466ffca60bdfc81b99b177487ce",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00111.npz": "4f859da91b16d37293df7d0c1f1d440fd765ee412f81ae90c5e9e03c57e7387a",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00112.npz": "7f62592066bdb1fb3dbb12489ad2e6c34e83a297a2e77f59d8d2b09f81217918",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00113.npz": "5315b12ef1ec02ca8b8de9c54ef554a02f26de906028fcee4fe56579ddcc09f5",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00114.npz": "c7e7d50d1d9cc178838f11d08f4af9c824adcfd1fb7743a42f54e0bbccd79de0",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00115.npz": "74995311070e2fb0cbc136126647a3f16aeeae5ee1240ebf405dc931e60cf387",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00118.npz": "295985d082b955ef23150e417246b135314f23974808689272b412256417036d",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00119.npz": "241025d7a7e702b45bb25c8d777f65552bef64221385ac17e79151b27ddee213",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00121.npz": "6093848eba156e89704297d7945c8b898f1fec21d3c24c210e87d47e214a2227",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00122.npz": "7edf73176d400740f2e220f51dbfb0e36e50d0062eb317f4c231ee594672d923",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00124.npz": "cb4e62669dd5d56baa0f52f20dde9a6b8f517b5fbb87531212507e85bc81a6cd",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00126.npz": "73ebf5b2bc3628f45acac75da98f4c2bab3a3b0a8eec7f8043891cb0651e3b78",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00128.npz": "cc8b3aba8ec74724b9e258f401228ce208ecca08b680bb4a3f93eeb09b93b0a0",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00129.npz": "e260f90ccd5434a63d8d9a5f93c3d1b2f00e406ecb76041e69c1d581efc742bb",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00130.npz": "9fc99ab49e21ae512a8a1dd967b674b7b54ce397a9072c6b92e7bc335d791c1c",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00134.npz": "9ad5bbe53ed069d8d5c9de63759d6edec98e8ded28a27b5b3dc593679fdf5d2b",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00135.npz": "dde8cd68536fe20752d76130a2210869f567ca58b8a80ce1024d003bf0905db7",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00139.npz": "39829fd331a0e0b39ecae720e0b3b60cf01717f27c4bfcbb781f24a99ac33569",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00145.npz": "aa1da344d83eadf1898575763983ef899c1db039a0e73ccf33849c2df2aa3319",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00147.npz": "2a6a48338345603e03a9808e8225fd929ea2e37c4d477a39fb1e1d8123e47ab6",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00149.npz": "330596f08cda05b8e3a3d35e56dceca92be46527e8951fbfa6cf4f8bf19bf552",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00150.npz": "0022a5b6bd8ed3e13847079eac1dcad5937483b1b1de3304bd9615975b0c6548",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00151.npz": "649cce72757d1c9ef77fc0ed569ff04635cc35698c1da5ca61ab17cccbc23391",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00152.npz": "cf399d2166106501ddbf8afa6c23ac12e156f360ddf2de30f2a927acef9274fb",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00155.npz": "5ed66745aa986bb808539e85534416a6e518edd23ccb727927ab9defb792793e",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00161.npz": "188002b9c52bcf5772b8d1cfd230535774e038e54342ce8187bb115e6658a360",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00162.npz": "d0dedb943638ced4d21dc3e84c26890c22790be3aa07909af74a48315f976961",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00163.npz": "ecf65f2fe722250b39b03f3c3404fdbedbb4a9b002948130e12fe23eab99fa20",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00166.npz": "1d2c17f3dceee039047b3bdea005d074a23032e3b8593ce2ad2bfdf9598619f8",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00171.npz": "a11caabc84abfe2d9d54a021e9e8fa548c50e24d105ca98b1803b416eebfc826",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00173.npz": "2caf9f7979f237b3761b589890e4ec62e944d48833f83dadca3f8734b65a5b08",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00179.npz": "7260b90659738ff2a098bafab8d70825ebb524586ddfa3adb6ab54a1e13dc548",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00181.npz": "ef2886baee036787ab62c1ae35ded0beff740100ad97c8d849a9d8ef8466ce7b",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00183.npz": "7d447e7b86a1b4a220d787c23dc2547cd6700b527e0417871d0b75895d314730",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00184.npz": "c25d8aff2434198987b675625923df2a7eb5680fa330debede7f55e87ceafdfa",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00187.npz": "7fb1d464911ce53afb65f5bdc397f78456b14f82a157ee98f19ece46dd8ae1aa",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00191.npz": "49289638effef192fc4547f7f0a50587f3003a2e3ab6d816ffd4eadc6a32fe42",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00192.npz": "61ceb3ffac609121efc53db269b2d2ca96b59ae772d5ba727a2ad8aeb5450a24",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00196.npz": "66ada9f7d3b8603cebcfd7ef0cd7d7ddc57bc322260d577322a659436da191f9",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00197.npz": "6a5f0a5f463bfe64d573027e94eda6fa3cc378bcfd1b5455685b3289f23ba3b8",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00198.npz": "8aff4d53deef63decee9c75c63a6b035164c5ec2c6c87369cfcb5d26c746b4ad",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00199.npz": "92544ba7575b026ca3bcd0e1ebe413ae8e3c001b07404bbeacf82030f123f1e5",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00200.npz": "2dc69e622d058bd08a14dadeb72038f51a3773a0a1c50669c5b1d05ccb0c7938",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00201.npz": "11d3725e005806ad105d57dd5fd8cd87e0cf3dbfd0c216d4eb951bf36bcb0b87",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00203.npz": "48c8888550b5ea7e064f101c5f379a629702fc9ff479547785f62d9c29a205ce",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00207.npz": "393c5755bee85618d983d77cea3f65916d2889ae65cd117842aec49c8657a433",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00210.npz": "0c2fbdf97607ef6ad4dc5fea35f6b054d51b9b3d25a64a839d585d787a17578c",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00213.npz": "c6c908735b7bcadda986796d14bc8ed534ce7e518257aca4c301a338a8b652af",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00214.npz": "6ede658945de96fc7c5ec556d9feaf246bca985e978be62a3cd44a31001aa1b5",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00215.npz": "e417e1c5a072bdad00505da9249ade59be3aaf51e40eec17a31a6365fe1dd7ec",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00216.npz": "9793b95794877f08d3c8de868577537e38fbbb21c6ec492ff4d3c58346f3bc36",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00217.npz": "f89d050ae952c0bd65a25994824ed5bec5ba54cf2a979a3a9534c5ca1e7ddbe7",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00218.npz": "92781e7563108dba2ed727a77365be6ee60815179a2bf62a413d53218097466f",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00220.npz": "20386f4b4273fe6f22e529405b9b899e61ba373ded589b15884b0a9e3c8be584",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00225.npz": "aabf2233af18fcd3e37ff1e9bd5310bdae802ba96370ed20066b78bb5ba3202b",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00230.npz": "a30e93c7d319868fb494e5b5c83a72220ebe455b6a875617fea2f8722f39fe83",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00235.npz": "c50f7d6aa37873ab4bc2ef9cf4a092742bd9df12bf75e72b9c9f937135a3d6cc",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00237.npz": "68ff7add41afbda51727fa4430cbbc5db3cde5ecf05a22ec0f4ba849461a2aed",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00241.npz": "61e7fddf6bbad9107ae563880c5f0a714441aa4ad21d6f8d76f53aaa8b017301",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00242.npz": "0e3359ae5e6e5879fdbd2bd474530ec409cba0795bb2d2b5a6fdc84654572fc9",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00251.npz": "391448313d8fcc49154756443e0973d1228a6a2597a223113e9863ad4d7994fb",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00254.npz": "3e175e1e5ccd0bd5f6052001ae2d1427323fdc445962d6400597089abb9cab6b",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00255.npz": "37a459466b61b73fd12158874afefb32ba25de6782127ea48e3fabd347eff264",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00256.npz": "da54e2ad546cac689e1438bc81c0286f862ccc51b91bb1c71e17bdb090b07ca3",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00259.npz": "1da36a9b43bae8d0e77310a0cd6d59be30507c0fbaa6de2a86529e29e7b26f8d",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00265.npz": "c40b3b7a30a928351a937be1fc5e77432c677a827e740ecdcf80a1640ea294a6",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00267.npz": "3586867d7f9cc9de36ada57e23d09d762656bb6afe53b640ef4130eafa5c7ff0",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00270.npz": "dac3259b4ce145e2b94f86aece98a231d24affc27910da4c6beaae5daeec2c76",
+    "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00272.npz": "9c803431aaba640c48029f769481902d0327c41df872d80f88d80a7de56b8701",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00000.npz": "21f2108d1dc0e67e143143eec70fdf850f579c911e9a63ba062c2dd306d4158c",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00001.npz": "0bbc37e5effd41488afd1edd5267de872615c509511ca92050d28f62431bd9ca",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00004.npz": "338047d82953efae960682ab206ad7bd51af44c655244313d58fa83bdf1ef48d",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00005.npz": "d6a0be71b151f6f205335c66f4b7d27df989895b445c34c2bedc313c91ba9849",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00006.npz": "aff25c80dd6bfc26e5c520aeaca7104f718a56669592a0476f8e568bc329ebee",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00008.npz": "0bbb5b5f9698a8199806909afaffd15cdf3d74d3634d28f6ded0f35af125bc27",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00009.npz": "3197fe7a51fad35061f0d279873cd0ef3145da19584228e63be9036a9df3b257",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00011.npz": "22c9729a4b80fe7a356717e040006f70afef23669d208c3d0f0790a938ad7499",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00012.npz": "001d1ccee6bc9f28497b6db1574dee2585ff5b33172e5ff9508d49b005f224eb",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00013.npz": "128b0c9e911b79cb6a165e285c00c83f98e660a282c952a9758fc591acde9f45",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00016.npz": "4b9114f4d884b155e0a46642116096cac761920e93be49dd1653b340d934a648",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00022.npz": "37ae79d1fda2f6bddb188285e0e24aedc310331244b7c292fe328ab9f6a58b88",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00025.npz": "5dad77d1541285076f9e3b20db50c60bd5359adbe7981629e221db4dbca6e2bb",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00028.npz": "2526e9ccb0e9ec47b4b77986b40f339aba3cc6a9c65034e2813c78e63fa9d9c0",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00030.npz": "f7e07fd8aa1dd395571b1579ba85622c1787733c57e2b14364ef2ab41f07f510",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00035.npz": "5137b616507aa588de8f3f94c17d0aba894ba31d2d8dd8a96b747b85ffd4774d",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00036.npz": "18a0a28b65c76dcdcecc336b7d137da1f665379aa9fc7443aead3b7b89f88a28",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00037.npz": "483009db05963431704d19735d680569a3acb42c01f5a024b1ebdc13b2e64261",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00038.npz": "82da924f9f9c9241f5d6abc388613448631b27b5b2b1b4cdb283671b59dd9fd0",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00040.npz": "3005e45b62389c5fec1bb3995cf3181b81f587f0c495b30f0ae4b3b1ad70f106",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00041.npz": "a3e07a13b95ccc4c10fb172d620b8e38041f926cadc321f902f3e890cbc4e336",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00043.npz": "cda614e114274bb4f77f74d3f955273777d3bd920ece571a6a02922371e9c06d",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00045.npz": "5068d4b07d4832a87d3416b44aadc6f6dc0dc1a159add945cc1259c8badad778",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00048.npz": "6fe2b575a998c86a3bdce6f0c7282d10510fdc8d2030d39921749a80e21b92fa",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00050.npz": "9cd1a2bf9918bf2979f34648fc5f76bff6c3367d08724273113e320fd90d872d",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00051.npz": "8c791128b555b1d9b152a1cea86d888dff4239f80c0414337fab2461b2dbeda1",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00052.npz": "660757e78ceb464c82268dbd3d7a75ee681a3d77a56dbfaed9f283d924e49be3",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00053.npz": "99b22134080c10475b7d0eea544e5501dd7aad31b6f8653335bf98f38fcf6a68",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00054.npz": "41d0516fd79b0170757fcf07016689bc7fdeb2fb64a33bb6d97934560705ba87",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00055.npz": "3d968db9383598717853ec4221e807c66253892663553645e66a3877f65698ff",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00056.npz": "7088219fe6f76bc5964bc41fe05bb698d4205f5255e0610f9d2df739eb24fb3d",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00057.npz": "100cb6c33d3b573345580b4828ced8b7ffed11615e487a21ab77eb228a2f3d86",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00059.npz": "b15205695cb257f3d845d7471691b2e8c306e4eb53f75c8630d2a33f65d62eed",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00060.npz": "0c4cc77c9eb11c1b0e4d4c980e1d89e19e518bd041c4eed40797ce029bcf9d73",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00061.npz": "0a7b381d9b71f1fe8b8e6a2f0c405ef80412543de0699881816dd8fd9e6eaaa9",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00062.npz": "bcd9cb5c1de691f4c600984145893962e76762a91fd005bc0709a7bf82a7807e",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00063.npz": "a973d8a7be285d01264442d7630f48e9628b13f86c26795f0d440d46e404fdd7",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00064.npz": "09bb0550cb9063829c493eb2a8cc419f45809dfaf8e937587c24fd15838a389a",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00065.npz": "893ac2639b75e104f22a911277daa8b476a70889236a3595f23bdf8683fc9ad1",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00067.npz": "bb34958601838c2e5ca2f6068871056314dd70f962aba96d2c30134035b146b2",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00069.npz": "8d25bcb2baa4ce4a3cac3569a88ee61ab42f05a83d6e2ec5340d568cb9915d58",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00072.npz": "21c2d4b3043ae22c16b90a49e8e8f4bf0c08e7c75a28f641975e37d59a189656",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00073.npz": "2757943b3de666aada7b7d81312166aab38fc46569b66ab27189231b3dff044b",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00074.npz": "631c0579e316c529edbd7e527a82fbaa6f42818af812149513e8a0a9471adc50",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00075.npz": "bb81ca42372da46c023f2d3fecae1155c3f7e69b8b2139bec0972bef27415055",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00076.npz": "4b23e146aae4a30ce946b16ed7db38165fa300dc50ddd92e6b34c8e2ac596c63",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00077.npz": "f5de54bddf68a8047627ba0367d9dc25ff00e599c45278d775e1df617653cc21",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00080.npz": "58b3234537f3779b573888cff2ff3cdd4ca5307889e603ab2705b9b940c5bc47",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00081.npz": "69eeb2dab5e391e6f507aad4670e447fb3b98f41c8dc0bef908486c1fa97562f",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00083.npz": "684915723fd61122bae3d47b6b604aea897bb10d05377f67959f3a92fddae83d",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00085.npz": "26d6c7c8391b86595e387f5c3455d1f9c0f5c60549305febed34e324ff249ed2",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00086.npz": "d0f2915f36f4a044ac3cdc5121026be82292f5522e948ef509a9489824b18f6d",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00089.npz": "ef91a24a7bee7c6cbd4e8f4636f0cb334ed72fdde6ec8ef81af4051df3df7b3f",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00090.npz": "4e0dff4124f8fa6e645e53cb008c88e2c518056ea18d06bac347c838b76c6397",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00091.npz": "e7e9cf8299d59d47b4d9d3214041dd232eaa09939299656a8ebf7b7c2bec6e3b",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00092.npz": "7c9f47040d7478448b27ef81abe12dbee361d5377f62a5173ee8e54d583f62e5",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00093.npz": "39a41af3256cf07951c84ff9c7543a82495b24866f4b5b2f80e45241298c60c3",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00095.npz": "0cce8374f3eff1c19c6a7e1cd06140c76b1af915a277f6a32b5264ed10dc9378",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00096.npz": "dce5acb8613c0967b729bb92f6dd7968a473532cd35c10278cbdfbc50e6ae773",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00098.npz": "5bc2d995612bdfcc1f918a4c2b9787f3aad93e6a78820de2c84bf8d9ff01e365",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00099.npz": "418e1e076cdb4f4f9ab6ddd518aac69c7b2ad7103016f8718e9e5b949ea22213",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00100.npz": "7d1cb672da95198dd4d5668c3a2ea54f8b3995cf03bd7e3073d9b0fb1b2a10ca",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00101.npz": "12110a105a845c99a66d1e42ffe8f572dbca36d8b3babdbd8f0f4ec2d83e0258",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00103.npz": "9259afa942ebdb939ebc883b00f971f2aada485425c048957c5765aa8b99e612",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00105.npz": "eb5bd813318c71902c5f9e984c8da2f26120a8dfe4aacfd0545549f650ce7b8a",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00106.npz": "25a85956763ebb0e75362a6ef74721a96dfd673c22cff6731da940d83234346f",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00107.npz": "4e60d5f909aa7ba523fbc895bcdbfb6914493183edfe4d612db9448e746e2f79",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00108.npz": "3fa2457958079515d550134ebd43517f8399d628323688d9f8aad72e717f9711",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00109.npz": "18ae6b1fc24e3508b2c8123e56ce6088757e7e5ae544a1fa17846ced3e3af963",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00110.npz": "334e5e1f4f744e5239784f858079ef4e0c7c884b66f40a3cfaf0d95e26a3c747",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00112.npz": "76f5a699ad246603f60bda1b9db18677125339a6a4b0308c8267ae73a7ba31a9",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00115.npz": "6fa716a5d553a06414e9aabdd01243a922c597c903c3f8a275e6bc64b54a99a9",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00117.npz": "3fc25fb15067b66b88a9520baced33526c835c6873e26d7c0bd0d5186d963ea0",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00118.npz": "e810b0dbbdf3294ef8fd553a4fc84ee23a5b81ff85df984b7e4371bc18ee7de8",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00120.npz": "be14c584ab50364dc7d2ccf1af4bc8fffc73f66b23dcc49312ad7c8d4ca9e108",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00121.npz": "5ac3684832f9e57988af33f82800bd5f8d1bdff8503d78d1bbf8b039f2250127",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00125.npz": "39ae68bfc5d1f07704d9f5dc2e7f8bb49e6ecab8e57e87d006ab8bb929b6f6ab",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00127.npz": "0bf4f5a462857fc12940a9623b3ebfc384c4a4c012bf463d28b83ef07a6a5b8f",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00128.npz": "6ce130fc3d057e84ddd43d9777b7428811d315d21edddda07a83a0d5920f8863",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00129.npz": "902f2818dbaf759a6745a14f206af7bc4d9ff05af2b85025e98f11cf084faf70",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00132.npz": "134e7e812a7b6379f224f5e252f59b3760a066c976ab78a844385602032683d4",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00133.npz": "b602db999efffb6a61a2afb55951877b8e3ee7bb197ff23fcf578fa7aa077af5",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00135.npz": "e03a04fe1c224a1793956d09e89a7979f9f53b1281f5045bb686f48db8b1236e",
+    "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00136.npz": "9eb45d6a9565d052ba4d0767736ff6df6d8c0f0181e68306e671cb6fdaac3114",
+    "runs/z13_data/0001542f-ec815219.npz": "075ecda0ebdce547308a872edb9192d73aedc7d7a23fb028d090b505f5272ec4",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0001542f-ec815219.json": "f0fd8482248506957bdf55835428a47de8531fe12645021b8db1e400fddd0bcb",
+    "runs/z13_data/004855fc-ff3946ad.npz": "96f6cfddbe5ed474f265f7b84e403f892517863f1b1469c57ba603e9377c3988",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/004855fc-ff3946ad.json": "88fc033668b47ff970ceece7e457a9c83b1381f3f9ed1c43144f354a45d44c57",
+    "runs/z13_data/007eddfc-528c4da4.npz": "68bdea2f015591ea42be98e7200af0249c46abc0ec2e470a56770a1071416241",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/007eddfc-528c4da4.json": "543ff94a097503cf9636fd0374269fc2b8de3cde5654ac630fe381ca35debe50",
+    "runs/z13_data/00b56f41-e0e5d918.npz": "5df670837e3d8be7222ace3a814f6d4f3ae7d3c8bd1a19ee486fa54c858818d7",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/00b56f41-e0e5d918.json": "e9de9990d4ab9891c78136f11ff46ccd43fb894b2e94b7875f845039776918c7",
+    "runs/z13_data/015ccf71-56e8d5b8.npz": "749d9652659fb3c267d69af712a4c6eee522b379aac2057b71417933884f9e80",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/015ccf71-56e8d5b8.json": "150589ed17bf8b34439e8f8425fdab1d6ba7817d871cf4bef32e58570a988934",
+    "runs/z13_data/0166faa5-5fbc53c5.npz": "d113c869428c48a2842d41954386ef79a7a4e7bb79c6588ab2f17de10bdd53f1",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0166faa5-5fbc53c5.json": "d8638daf7293a0bcfc342e2b905a99a3a70649df377508009181befcaf68dfa0",
+    "runs/z13_data/017bec14-1c6f8718.npz": "a98f08df802bcbdc240beb48c879a8f2f4ed5d69778f52a8be5c0355d410d37e",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/017bec14-1c6f8718.json": "6d9d36f7ab6322630b276899e61f27d141779cc82a15f40d29597a2fbfb2b9fa",
+    "runs/z13_data/0199e7fc-0b6d1a35.npz": "1d5a20fd07763e93bc510196409d1ee5d691228b050e3c13102685f553bc8d63",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0199e7fc-0b6d1a35.json": "7fa1aab9e970ff795bb1d60cf037ca521cdac281bce33d803da2fdc7de833335",
+    "runs/z13_data/0204aad7-eeb13c43.npz": "f885f19b108ab916dd1fd358a28e467f06bf43f9c59adcb58037c4ab1b36f6ed",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0204aad7-eeb13c43.json": "c1de79b2561722041fa8ec48cb22e12271a46c6a3705ba358a345fc770b7fdfa",
+    "runs/z13_data/0279c430-962e3702.npz": "57cde94c2a482f7f1768de70f6cd5e7d004d8eec09e43929ad7d111ed5965667",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0279c430-962e3702.json": "8c3cf080acdf405bd5ef3330cccf655b1e4822d0dae61004c2002d28e7c074ad",
+    "runs/z13_data/027b216c-bfae3d6d.npz": "968242869e132779faa58c3eb3e7616505933c0e8482920bb6021f38f19551b2",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/027b216c-bfae3d6d.json": "78a64215ca09f97170b4f3891812e323c8bffddd643fa2d71de796a6f638774e",
+    "runs/z13_data/029556a0-0ec9fa6f.npz": "a8d0a4ad6a3200adad78f0a35d139b99717fd7ecd8408d6d11a0a7780e346095",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/029556a0-0ec9fa6f.json": "ba6160fd6673aad9614d7f779de914a8b3be0ed959e963715a8a9678ab0af7ff",
+    "runs/z13_data/02bd959c-f20a2437.npz": "786116b632444067b2206d6e58d5635b6ad7ff299a25160e999909639f9c9996",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/02bd959c-f20a2437.json": "907ec7fac1bc374f959c29557b6442a9a88e9ce2af63ce9841ef12b2026977c8",
+    "runs/z13_data/02c2a4d8-94d32b2f.npz": "786e16536354d04f13a3bb46d4ddda07ea193cd25143783bc590b95ddd6a8e5c",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/02c2a4d8-94d32b2f.json": "e985db6f847f65c0832cce11682fd03f46c7ca24701146a2f380530c9bf0094a",
+    "runs/z13_data/02d5e1be-bd9bd999.npz": "beafbad5d217104335e9c5b60bdfc14df88ff51cb08a85666067bf8420234f4b",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/02d5e1be-bd9bd999.json": "2dab60381d7bb6b8bc642d5e8e4a31c2942960a55c14316cf9250b858f1eba37",
+    "runs/z13_data/02f101f6-56ba9106.npz": "80ccfecd89a3720cf656eeec4d1c27af1b8a5ff524ac0d6bebf0beaa5a29b8e9",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/02f101f6-56ba9106.json": "d8e4aa1ab008849ba1ef6be7ea6fc43bbab12bf74143faaf6dbbfe5d120c23e5",
+    "runs/z13_data/0329d6b9-abddbf95.npz": "ce8d61722c384183c75a570fc46cdd03e3de07eedfb2d560b7ecf14d762a3d67",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0329d6b9-abddbf95.json": "aba0d4c1e8d7ba846d0d6b1fb39f7e3691d493bfebda06d634107219386791d7",
+    "runs/z13_data/0332bb54-c4bee5eb.npz": "89bc4a073b1cbcb0e5c767379266b41900510c6ad426bda8eebbbc51ea626bc0",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/0332bb54-c4bee5eb.json": "2139c6f5e9081f06833252c8e474c000844fdcd1bc283e8e717ca7a64908f880",
+    "runs/z13_data/035d6940-18869b73.npz": "68285eebe460a586c6da638f422f15be73cba530508b3346122bbd185922a6cf",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/035d6940-18869b73.json": "68e55c93f63f9df3dee39666372f987ef515d3d7aa1096f6b6535707d816e970",
+    "runs/z13_data/03b0697b-faa11b32.npz": "4227204c35fae2aab82ed9a898545a52eca54aee95bc718d0d1eff313292fa49",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/03b0697b-faa11b32.json": "130011fbc5f8932b98548de8ed9558b0befc3f310867c5d384a34067566051d7",
+    "runs/z13_data/03bf498b-044cb72c.npz": "0020e2090479d5f282beb6d9babe53fef69f5edc1129ddf95b23935cd6f4af05",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/03bf498b-044cb72c.json": "4e50f471c3e86f19708416b9dbedf83b3e97d10f452f0d4da86e5ba5eabec445",
+    "runs/z13_data/03c239e4-9e0fbb75.npz": "24d0302eb7edf6ba96419ef89cbb8dcf79d9b95126545d43161cf3293652adac",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/03c239e4-9e0fbb75.json": "bfe9ee06103db2eb47bf9bcc5ee201cce44226f6345fab6fac2b552f950cb841",
+    "runs/z13_data/03d75f61-ce25863a.npz": "c415a58f496a555557c313f4ec8f2d2ad182d5b68ff83f77ba43c593ec44c19a",
+    "runs/z13_temporal_pair_readiness_20261025/inputs/03d75f61-ce25863a.json": "a42858fbc4d27c8993a11a6fe541c3ccca18de2dc56abb9ab8c9bb6f6030c2ef",
+    "scripts/flyvis_input_separation_20261107.py": "98a9d219ba159bf33de58a75717dc1e0d9a56116abb4330e151186f031f45164",
+    "scripts/audit_flyvis_separate_inputs_20261107.py": "8133b274b6a7753f7b30c0aab8f595a09ffef6e14a6475031ece1f85426ea927",
+    "scripts/chain_flyvis_separate_inputs_20261107.py": "4b711042ccb87814eb84ae2fd2521e272efde3792c3c3c3fe6b1cdf8d924f058",
+    "runs/flyvis_atlas_core_20261107/protocol.json": "8e37f573bfd8164990c3ffa4c0bf944c20d4475780bdb4b6e41bb7613b1af5a7",
+    "runs/flyvis_atlas_core_20261107/independent_audit.json": "9c9e75644e77cf209926c65916f01cbbd227e318c5ffa163a262f0483b5e8147",
+    "scripts/z13_data.py": "ffc4fcd71ae087eb4e18a7a4dfecb2d29a0dafec096910dd07a266d440e66557",
+    "tracking/retina.py": "71e51747fa9959652766da0179a3b75953c49f94159da155c52b10999b27c322",
+    "tools/flyvis-runtime/flyvis/datasets/rendering/eye.py": "7be1a81423bdf3b9bb8a9a3a106fd949a57786ce798cc55cf7b06b4140f901cf",
+    "data/bdd100k/videos/train/0001542f-ec815219.mov": "503b3e33c934fd4da46b7efe1718eb286a6a0ab296dbd55b0b157aeb12f09008",
+    "runs/train_cache/0001542f-ec815219/detections/raw_video.npz": "f1514c87da55f292921c4a172a5717423207f63c5f5c08324363c8b6e4040423",
+    "data/bdd100k/videos/train/004855fc-ff3946ad.mov": "2b59c081bffa6f454649434e26756546c66839606c61eef2c16fe2dd0a263bf0",
+    "runs/train_cache/004855fc-ff3946ad/detections/raw_video.npz": "a4df85a25e5dc29d4969d840ae665424618cb17b158909c1830b6835ee8e9220",
+    "data/bdd100k/videos/train/007eddfc-528c4da4.mov": "afe768d8c7d928ab85b1d9981990188c7a5ea544366d7e3254a4f18d1392f8ce",
+    "runs/train_cache/007eddfc-528c4da4/detections/raw_video.npz": "95f3b35d265a04368468bc35c4f61a47992760fa06b11c6d3821ecc25056553c",
+    "data/bdd100k/videos/train/00b56f41-e0e5d918.mov": "5c5812ed398d0156f52317e7415482667b44607f17da511b5f9bd30f398b2821",
+    "runs/train_cache/00b56f41-e0e5d918/detections/raw_video.npz": "c971c4c583763a19c6513bed1b4dac80f0d3e588f32625dff06de1c8bd331981",
+    "data/bdd100k/videos/train/015ccf71-56e8d5b8.mov": "60bb698179b59ec58128f535037fb22d0141699903e8ad07b9810b4adf1b5b58",
+    "runs/train_cache/015ccf71-56e8d5b8/detections/raw_video.npz": "04bb90fce94ad15e3295c700be00ae389c60ac8a5f20db0c3fa23c9dd729c2f6",
+    "data/bdd100k/videos/train/0166faa5-5fbc53c5.mov": "02201f9c38854bb9afe8ec1fb43fb4c15721801e774321e017fd701c89be95aa",
+    "runs/train_cache/0166faa5-5fbc53c5/detections/raw_video.npz": "171d1ca57bde2e8c32225b2cc69e1d1b08859d599d3ab6075b90298d6f24556c",
+    "data/bdd100k/videos/train/017bec14-1c6f8718.mov": "5d7f866d27e00f5bdbbdeb373d4ca964db30d09d91c61dcb02ea236db33e49fa",
+    "runs/train_cache/017bec14-1c6f8718/detections/raw_video.npz": "2738211223de606ac4cf872232115d352c1bc36f7c2efc86ade007137fabe370",
+    "data/bdd100k/videos/train/0199e7fc-0b6d1a35.mov": "fe9a499ad2b1abf0d18d8920fa3fdea4d56d22efe77ee86cff9b666e6f5645fb",
+    "runs/train_cache/0199e7fc-0b6d1a35/detections/raw_video.npz": "9ccbdbbebda5d72818babcb2f0b68c47cfbce2bb2747675b27efcd840ebb5e20",
+    "data/bdd100k/videos/train/0204aad7-eeb13c43.mov": "db73c798e1b6072768eb63246fe5cac79cbf691fec033130cb2e2ed0277a92c3",
+    "runs/train_cache/0204aad7-eeb13c43/detections/raw_video.npz": "740e382ed24245e3b0e967b68016c84e9513ee9eb0916036d865b8471d3945be",
+    "data/bdd100k/videos/train/0279c430-962e3702.mov": "a81d373012882516df91bb0a5de48988eadecf40cfb5c3fee6b3e0e619964f14",
+    "runs/train_cache/0279c430-962e3702/detections/raw_video.npz": "327378b338511d952d87feb66c47dce9852e5e43c6c6f9ea8fc6524ba816463e",
+    "data/bdd100k/videos/train/027b216c-bfae3d6d.mov": "5ea91a8ff8e50ae57c4821ca7c3b32645917d168f7d0208358c27a414dfa7b86",
+    "runs/train_cache/027b216c-bfae3d6d/detections/raw_video.npz": "9ecb0bb7c09f7028101a0a20db1f19da45d154a9fcf9b3e55b44faeb8e91e407",
+    "data/bdd100k/videos/train/029556a0-0ec9fa6f.mov": "53cb09878f809d13f7458037848175c6c1ab04d0390f47973a2be56f55ad1343",
+    "runs/train_cache/029556a0-0ec9fa6f/detections/raw_video.npz": "7c65baa15cd3b2932c6ca546dcf02db3613d06cdbb8315ad7a1862d0a461b1d2",
+    "data/bdd100k/videos/train/02bd959c-f20a2437.mov": "8cabc8bc29bb5d1fedd5440d3951542f09e559711711529a0a8cac2a18cedbf2",
+    "runs/train_cache/02bd959c-f20a2437/detections/raw_video.npz": "d0f27ef5361a54a7c7fa6de560bdf7d0d4ced5e080910bf9330d9b5b4655ea2e",
+    "data/bdd100k/videos/train/02c2a4d8-94d32b2f.mov": "54a3f530d4183d40f64accec1c48b016a57b17bc5e52866c7e627687a2e4c848",
+    "runs/train_cache/02c2a4d8-94d32b2f/detections/raw_video.npz": "094de755d6396305596e9c0dfce505765ab8e5f3d6098acb7cfc51a7a0363514",
+    "data/bdd100k/videos/train/02d5e1be-bd9bd999.mov": "16f41c982ca50f2aecad0bdb5436997e7ae8867c3a29db93204958fcd30dd251",
+    "runs/train_cache/02d5e1be-bd9bd999/detections/raw_video.npz": "32eef34c778973ec950b6e3be27837254265d5111a1c658e834e6e15830b0789",
+    "data/bdd100k/videos/train/02f101f6-56ba9106.mov": "fb1a5c643f61aabd142017005875aff7fa7ebaab2db1d761e3e9fa1449ae4bab",
+    "runs/train_cache/02f101f6-56ba9106/detections/raw_video.npz": "fe9d50b1f0d9b01e8fbcd0f8660a09b504760e5e78564fe065bc4c2683a02dae",
+    "data/bdd100k/videos/train/0329d6b9-abddbf95.mov": "29962f7a6f045d97a72f7e7843265a42768b0dc046567d5d435669b3e58ae2f3",
+    "runs/train_cache/0329d6b9-abddbf95/detections/raw_video.npz": "31d63826c1c5a3ecd97633f7026aea8a46a3a8f3e6765d3ba9eeb52c46784707",
+    "data/bdd100k/videos/train/0332bb54-c4bee5eb.mov": "8df2efcd93dc9084a027a307da7fefd4b3adc934dc1cf4a3dc414189f74bc611",
+    "runs/train_cache/0332bb54-c4bee5eb/detections/raw_video.npz": "c6e23ba8485b906b9c766893bbd3ea8e7841038913958099dd8966a17feea424",
+    "data/bdd100k/videos/train/035d6940-18869b73.mov": "d678e527928be02001b12074bc6b80b480ad756fabdd4f74ab3709b744e8445d",
+    "runs/train_cache/035d6940-18869b73/detections/raw_video.npz": "26baa71336c179fe732e00d430458a14dcc6eb07b0fa91985f27cbcc8f7635bf",
+    "data/bdd100k/videos/train/03b0697b-faa11b32.mov": "b227902c2ce81fae58ea1a4477529d04fcab2b252c5fc22988d220a635d05d5f",
+    "runs/train_cache/03b0697b-faa11b32/detections/raw_video.npz": "0412718767c70ebebd35394127c0039519848922d69c8b777b4e90af9930eee1",
+    "data/bdd100k/videos/train/03bf498b-044cb72c.mov": "41594a5bc723645127dc7ff978a128c099e29553f17cc52ee1fa1b03927e56b2",
+    "runs/train_cache/03bf498b-044cb72c/detections/raw_video.npz": "4a75fd5115175edf20d038ddd55e65878b5e96b3fe857fba9139cd1292a25dbf",
+    "data/bdd100k/videos/train/03c239e4-9e0fbb75.mov": "d9d87c16c526d27a073523f154b88a2a2de53c3b271ecb090d2d1fc233db68fe",
+    "runs/train_cache/03c239e4-9e0fbb75/detections/raw_video.npz": "522086d04de6e85b67e490f1b13a38049a7de66ee2d4901fdf15d696f2daa2a3",
+    "data/bdd100k/videos/train/03d75f61-ce25863a.mov": "7d660c7ad882c3d33ccc6ce1dd64b15b26d2e6eaa47df640fc276ae42716861d",
+    "runs/train_cache/03d75f61-ce25863a/detections/raw_video.npz": "07ec6162ce36a7712b473e93b3c99a8c60357b4a5269d2bd5b8d9549d20deb38"
+  },
+  "cases": [
+    {
+      "uid": 29017,
+      "video": "0001542f-ec815219",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00001.npz",
+        9
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00000.npz",
+        47
+      ],
+      "choices": [
+        2,
+        5
+      ]
+    },
+    {
+      "uid": 29231,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00008.npz",
+        6
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00004.npz",
+        6
+      ],
+      "choices": [
+        1,
+        2
+      ]
+    },
+    {
+      "uid": 29705,
+      "video": "007eddfc-528c4da4",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00024.npz",
+        7
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00012.npz",
+        7
+      ],
+      "choices": [
+        0,
+        1
+      ]
+    },
+    {
+      "uid": 29955,
+      "video": "00b56f41-e0e5d918",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00033.npz",
+        5
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00016.npz",
+        38
+      ],
+      "choices": [
+        1,
+        2
+      ]
+    },
+    {
+      "uid": 30283,
+      "video": "015ccf71-56e8d5b8",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00044.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00022.npz",
+        0
+      ],
+      "choices": [
+        7,
+        10
+      ]
+    },
+    {
+      "uid": 30485,
+      "video": "0166faa5-5fbc53c5",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00050.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00025.npz",
+        0
+      ],
+      "choices": [
+        8,
+        13
+      ]
+    },
+    {
+      "uid": 31094,
+      "video": "017bec14-1c6f8718",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00070.npz",
+        15
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00035.npz",
+        15
+      ],
+      "choices": [
+        0,
+        10
+      ]
+    },
+    {
+      "uid": 31171,
+      "video": "0199e7fc-0b6d1a35",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00073.npz",
+        26
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00036.npz",
+        55
+      ],
+      "choices": [
+        3,
+        5
+      ]
+    },
+    {
+      "uid": 31405,
+      "video": "0204aad7-eeb13c43",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00080.npz",
+        21
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00040.npz",
+        21
+      ],
+      "choices": [
+        7,
+        8
+      ]
+    },
+    {
+      "uid": 31932,
+      "video": "0279c430-962e3702",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00096.npz",
+        7
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00048.npz",
+        7
+      ],
+      "choices": [
+        4,
+        6
+      ]
+    },
+    {
+      "uid": 32113,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00102.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00051.npz",
+        0
+      ],
+      "choices": [
+        0,
+        7
+      ]
+    },
+    {
+      "uid": 32784,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00124.npz",
+        19
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00062.npz",
+        19
+      ],
+      "choices": [
+        15,
+        23
+      ]
+    },
+    {
+      "uid": 33461,
+      "video": "02bd959c-f20a2437",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00145.npz",
+        9
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00072.npz",
+        49
+      ],
+      "choices": [
+        6,
+        13
+      ]
+    },
+    {
+      "uid": 33676,
+      "video": "02c2a4d8-94d32b2f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00152.npz",
+        14
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00076.npz",
+        14
+      ],
+      "choices": [
+        6,
+        9
+      ]
+    },
+    {
+      "uid": 34235,
+      "video": "02d5e1be-bd9bd999",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00171.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00085.npz",
+        35
+      ],
+      "choices": [
+        23,
+        25
+      ]
+    },
+    {
+      "uid": 34571,
+      "video": "02f101f6-56ba9106",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00183.npz",
+        2
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00091.npz",
+        24
+      ],
+      "choices": [
+        8,
+        9
+      ]
+    },
+    {
+      "uid": 34936,
+      "video": "0329d6b9-abddbf95",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00197.npz",
+        22
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00098.npz",
+        53
+      ],
+      "choices": [
+        5,
+        7
+      ]
+    },
+    {
+      "uid": 35228,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00207.npz",
+        1
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00103.npz",
+        21
+      ],
+      "choices": [
+        14,
+        15
+      ]
+    },
+    {
+      "uid": 35805,
+      "video": "035d6940-18869b73",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00225.npz",
+        19
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00112.npz",
+        41
+      ],
+      "choices": [
+        0,
+        6
+      ]
+    },
+    {
+      "uid": 35982,
+      "video": "03b0697b-faa11b32",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00230.npz",
+        32
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00115.npz",
+        32
+      ],
+      "choices": [
+        4,
+        5
+      ]
+    },
+    {
+      "uid": 36192,
+      "video": "03bf498b-044cb72c",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00237.npz",
+        33
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00118.npz",
+        74
+      ],
+      "choices": [
+        4,
+        5
+      ]
+    },
+    {
+      "uid": 36350,
+      "video": "03c239e4-9e0fbb75",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00242.npz",
+        5
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00121.npz",
+        5
+      ],
+      "choices": [
+        6,
+        7
+      ]
+    },
+    {
+      "uid": 36902,
+      "video": "03d75f61-ce25863a",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00259.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00129.npz",
+        32
+      ],
+      "choices": [
+        10,
+        14
+      ]
+    },
+    {
+      "uid": 29057,
+      "video": "0001542f-ec815219",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00002.npz",
+        19
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00001.npz",
+        19
+      ],
+      "choices": [
+        1,
+        8
+      ]
+    },
+    {
+      "uid": 29235,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00008.npz",
+        10
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00004.npz",
+        10
+      ],
+      "choices": [
+        1,
+        2
+      ]
+    },
+    {
+      "uid": 29706,
+      "video": "007eddfc-528c4da4",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00024.npz",
+        8
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00012.npz",
+        8
+      ],
+      "choices": [
+        0,
+        1
+      ]
+    },
+    {
+      "uid": 29961,
+      "video": "00b56f41-e0e5d918",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00033.npz",
+        11
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00016.npz",
+        44
+      ],
+      "choices": [
+        0,
+        2
+      ]
+    },
+    {
+      "uid": 30657,
+      "video": "0166faa5-5fbc53c5",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00056.npz",
+        17
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00028.npz",
+        17
+      ],
+      "choices": [
+        0,
+        2
+      ]
+    },
+    {
+      "uid": 31108,
+      "video": "017bec14-1c6f8718",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00071.npz",
+        13
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00035.npz",
+        29
+      ],
+      "choices": [
+        6,
+        7
+      ]
+    },
+    {
+      "uid": 31184,
+      "video": "0199e7fc-0b6d1a35",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00074.npz",
+        7
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00037.npz",
+        7
+      ],
+      "choices": [
+        9,
+        12
+      ]
+    },
+    {
+      "uid": 31487,
+      "video": "0204aad7-eeb13c43",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00082.npz",
+        34
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00041.npz",
+        34
+      ],
+      "choices": [
+        8,
+        13
+      ]
+    },
+    {
+      "uid": 31935,
+      "video": "0279c430-962e3702",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00096.npz",
+        10
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00048.npz",
+        10
+      ],
+      "choices": [
+        3,
+        8
+      ]
+    },
+    {
+      "uid": 32129,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00102.npz",
+        16
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00051.npz",
+        16
+      ],
+      "choices": [
+        2,
+        4
+      ]
+    },
+    {
+      "uid": 32785,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00124.npz",
+        20
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00062.npz",
+        20
+      ],
+      "choices": [
+        16,
+        17
+      ]
+    },
+    {
+      "uid": 33548,
+      "video": "02bd959c-f20a2437",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00147.npz",
+        33
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00073.npz",
+        67
+      ],
+      "choices": [
+        4,
+        8
+      ]
+    },
+    {
+      "uid": 33751,
+      "video": "02c2a4d8-94d32b2f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00155.npz",
+        9
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00077.npz",
+        44
+      ],
+      "choices": [
+        3,
+        16
+      ]
+    },
+    {
+      "uid": 34261,
+      "video": "02d5e1be-bd9bd999",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00171.npz",
+        26
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00085.npz",
+        61
+      ],
+      "choices": [
+        6,
+        22
+      ]
+    },
+    {
+      "uid": 34594,
+      "video": "02f101f6-56ba9106",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00184.npz",
+        4
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00092.npz",
+        4
+      ],
+      "choices": [
+        4,
+        8
+      ]
+    },
+    {
+      "uid": 34938,
+      "video": "0329d6b9-abddbf95",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00197.npz",
+        24
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00098.npz",
+        55
+      ],
+      "choices": [
+        5,
+        7
+      ]
+    },
+    {
+      "uid": 35348,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00210.npz",
+        33
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00105.npz",
+        33
+      ],
+      "choices": [
+        3,
+        9
+      ]
+    },
+    {
+      "uid": 35983,
+      "video": "03b0697b-faa11b32",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00230.npz",
+        33
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00115.npz",
+        33
+      ],
+      "choices": [
+        4,
+        6
+      ]
+    },
+    {
+      "uid": 36314,
+      "video": "03bf498b-044cb72c",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00241.npz",
+        7
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00120.npz",
+        46
+      ],
+      "choices": [
+        2,
+        3
+      ]
+    },
+    {
+      "uid": 36663,
+      "video": "03c239e4-9e0fbb75",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00251.npz",
+        4
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00125.npz",
+        42
+      ],
+      "choices": [
+        2,
+        3
+      ]
+    },
+    {
+      "uid": 37087,
+      "video": "03d75f61-ce25863a",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00265.npz",
+        23
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00132.npz",
+        45
+      ],
+      "choices": [
+        2,
+        8
+      ]
+    },
+    {
+      "uid": 29300,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00010.npz",
+        14
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00005.npz",
+        14
+      ],
+      "choices": [
+        7,
+        8
+      ]
+    },
+    {
+      "uid": 29709,
+      "video": "007eddfc-528c4da4",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00024.npz",
+        11
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00012.npz",
+        11
+      ],
+      "choices": [
+        0,
+        6
+      ]
+    },
+    {
+      "uid": 30764,
+      "video": "0166faa5-5fbc53c5",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00060.npz",
+        3
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00030.npz",
+        3
+      ],
+      "choices": [
+        2,
+        14
+      ]
+    },
+    {
+      "uid": 31204,
+      "video": "0199e7fc-0b6d1a35",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00074.npz",
+        27
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00037.npz",
+        27
+      ],
+      "choices": [
+        2,
+        5
+      ]
+    },
+    {
+      "uid": 31618,
+      "video": "0204aad7-eeb13c43",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00086.npz",
+        24
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00043.npz",
+        24
+      ],
+      "choices": [
+        17,
+        23
+      ]
+    },
+    {
+      "uid": 31938,
+      "video": "0279c430-962e3702",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00096.npz",
+        13
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00048.npz",
+        13
+      ],
+      "choices": [
+        7,
+        8
+      ]
+    },
+    {
+      "uid": 32201,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00104.npz",
+        21
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00052.npz",
+        21
+      ],
+      "choices": [
+        7,
+        11
+      ]
+    },
+    {
+      "uid": 32865,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00126.npz",
+        31
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00063.npz",
+        31
+      ],
+      "choices": [
+        16,
+        18
+      ]
+    },
+    {
+      "uid": 33601,
+      "video": "02bd959c-f20a2437",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00149.npz",
+        18
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00074.npz",
+        52
+      ],
+      "choices": [
+        9,
+        12
+      ]
+    },
+    {
+      "uid": 33774,
+      "video": "02c2a4d8-94d32b2f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00155.npz",
+        32
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00077.npz",
+        67
+      ],
+      "choices": [
+        7,
+        9
+      ]
+    },
+    {
+      "uid": 34262,
+      "video": "02d5e1be-bd9bd999",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00171.npz",
+        27
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00085.npz",
+        62
+      ],
+      "choices": [
+        10,
+        20
+      ]
+    },
+    {
+      "uid": 34666,
+      "video": "02f101f6-56ba9106",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00187.npz",
+        2
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00093.npz",
+        41
+      ],
+      "choices": [
+        8,
+        12
+      ]
+    },
+    {
+      "uid": 34941,
+      "video": "0329d6b9-abddbf95",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00198.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00099.npz",
+        0
+      ],
+      "choices": [
+        5,
+        9
+      ]
+    },
+    {
+      "uid": 35349,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00210.npz",
+        34
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00105.npz",
+        34
+      ],
+      "choices": [
+        3,
+        4
+      ]
+    },
+    {
+      "uid": 36112,
+      "video": "03b0697b-faa11b32",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00235.npz",
+        12
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00117.npz",
+        38
+      ],
+      "choices": [
+        2,
+        3
+      ]
+    },
+    {
+      "uid": 36315,
+      "video": "03bf498b-044cb72c",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00241.npz",
+        8
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00120.npz",
+        47
+      ],
+      "choices": [
+        2,
+        3
+      ]
+    },
+    {
+      "uid": 36788,
+      "video": "03c239e4-9e0fbb75",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00254.npz",
+        20
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00127.npz",
+        20
+      ],
+      "choices": [
+        8,
+        11
+      ]
+    },
+    {
+      "uid": 37125,
+      "video": "03d75f61-ce25863a",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00267.npz",
+        7
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00133.npz",
+        32
+      ],
+      "choices": [
+        3,
+        15
+      ]
+    },
+    {
+      "uid": 29384,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00013.npz",
+        5
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00006.npz",
+        29
+      ],
+      "choices": [
+        1,
+        5
+      ]
+    },
+    {
+      "uid": 29752,
+      "video": "007eddfc-528c4da4",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00026.npz",
+        13
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00013.npz",
+        13
+      ],
+      "choices": [
+        4,
+        6
+      ]
+    },
+    {
+      "uid": 30802,
+      "video": "0166faa5-5fbc53c5",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00061.npz",
+        11
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00030.npz",
+        41
+      ],
+      "choices": [
+        3,
+        4
+      ]
+    },
+    {
+      "uid": 31285,
+      "video": "0199e7fc-0b6d1a35",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00077.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00038.npz",
+        34
+      ],
+      "choices": [
+        3,
+        5
+      ]
+    },
+    {
+      "uid": 31631,
+      "video": "0204aad7-eeb13c43",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00087.npz",
+        12
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00043.npz",
+        37
+      ],
+      "choices": [
+        11,
+        17
+      ]
+    },
+    {
+      "uid": 31952,
+      "video": "0279c430-962e3702",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00096.npz",
+        27
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00048.npz",
+        27
+      ],
+      "choices": [
+        6,
+        7
+      ]
+    },
+    {
+      "uid": 32202,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00105.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00052.npz",
+        22
+      ],
+      "choices": [
+        6,
+        11
+      ]
+    },
+    {
+      "uid": 32928,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00128.npz",
+        21
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00064.npz",
+        21
+      ],
+      "choices": [
+        9,
+        14
+      ]
+    },
+    {
+      "uid": 33604,
+      "video": "02bd959c-f20a2437",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00149.npz",
+        21
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00074.npz",
+        55
+      ],
+      "choices": [
+        5,
+        9
+      ]
+    },
+    {
+      "uid": 33953,
+      "video": "02c2a4d8-94d32b2f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00161.npz",
+        20
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00080.npz",
+        58
+      ],
+      "choices": [
+        6,
+        7
+      ]
+    },
+    {
+      "uid": 34299,
+      "video": "02d5e1be-bd9bd999",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00173.npz",
+        20
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00086.npz",
+        36
+      ],
+      "choices": [
+        11,
+        14
+      ]
+    },
+    {
+      "uid": 34797,
+      "video": "02f101f6-56ba9106",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00191.npz",
+        11
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00095.npz",
+        41
+      ],
+      "choices": [
+        4,
+        8
+      ]
+    },
+    {
+      "uid": 34975,
+      "video": "0329d6b9-abddbf95",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00198.npz",
+        34
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00099.npz",
+        34
+      ],
+      "choices": [
+        7,
+        8
+      ]
+    },
+    {
+      "uid": 35350,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00210.npz",
+        35
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00105.npz",
+        35
+      ],
+      "choices": [
+        3,
+        6
+      ]
+    },
+    {
+      "uid": 36316,
+      "video": "03bf498b-044cb72c",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00241.npz",
+        9
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00120.npz",
+        48
+      ],
+      "choices": [
+        1,
+        3
+      ]
+    },
+    {
+      "uid": 36804,
+      "video": "03c239e4-9e0fbb75",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00255.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00127.npz",
+        36
+      ],
+      "choices": [
+        1,
+        7
+      ]
+    },
+    {
+      "uid": 37130,
+      "video": "03d75f61-ce25863a",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00267.npz",
+        12
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00133.npz",
+        37
+      ],
+      "choices": [
+        1,
+        5
+      ]
+    },
+    {
+      "uid": 29476,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00016.npz",
+        2
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00008.npz",
+        2
+      ],
+      "choices": [
+        3,
+        4
+      ]
+    },
+    {
+      "uid": 30807,
+      "video": "0166faa5-5fbc53c5",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00061.npz",
+        16
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00030.npz",
+        46
+      ],
+      "choices": [
+        14,
+        15
+      ]
+    },
+    {
+      "uid": 31291,
+      "video": "0199e7fc-0b6d1a35",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00077.npz",
+        6
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00038.npz",
+        40
+      ],
+      "choices": [
+        7,
+        10
+      ]
+    },
+    {
+      "uid": 31761,
+      "video": "0204aad7-eeb13c43",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00091.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00045.npz",
+        33
+      ],
+      "choices": [
+        0,
+        14
+      ]
+    },
+    {
+      "uid": 32057,
+      "video": "0279c430-962e3702",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00100.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00050.npz",
+        0
+      ],
+      "choices": [
+        1,
+        6
+      ]
+    },
+    {
+      "uid": 32259,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00107.npz",
+        10
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00053.npz",
+        41
+      ],
+      "choices": [
+        10,
+        12
+      ]
+    },
+    {
+      "uid": 32950,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00129.npz",
+        11
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00064.npz",
+        43
+      ],
+      "choices": [
+        9,
+        12
+      ]
+    },
+    {
+      "uid": 33630,
+      "video": "02bd959c-f20a2437",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00150.npz",
+        15
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00075.npz",
+        15
+      ],
+      "choices": [
+        6,
+        12
+      ]
+    },
+    {
+      "uid": 33988,
+      "video": "02c2a4d8-94d32b2f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00162.npz",
+        22
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00081.npz",
+        22
+      ],
+      "choices": [
+        10,
+        14
+      ]
+    },
+    {
+      "uid": 34300,
+      "video": "02d5e1be-bd9bd999",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00173.npz",
+        21
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00086.npz",
+        37
+      ],
+      "choices": [
+        9,
+        15
+      ]
+    },
+    {
+      "uid": 34805,
+      "video": "02f101f6-56ba9106",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00192.npz",
+        6
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00096.npz",
+        6
+      ],
+      "choices": [
+        4,
+        13
+      ]
+    },
+    {
+      "uid": 34976,
+      "video": "0329d6b9-abddbf95",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00198.npz",
+        35
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00099.npz",
+        35
+      ],
+      "choices": [
+        6,
+        7
+      ]
+    },
+    {
+      "uid": 35430,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00213.npz",
+        3
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00106.npz",
+        37
+      ],
+      "choices": [
+        6,
+        7
+      ]
+    },
+    {
+      "uid": 36836,
+      "video": "03c239e4-9e0fbb75",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00256.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00128.npz",
+        0
+      ],
+      "choices": [
+        6,
+        14
+      ]
+    },
+    {
+      "uid": 37213,
+      "video": "03d75f61-ce25863a",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00270.npz",
+        7
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00135.npz",
+        7
+      ],
+      "choices": [
+        8,
+        11
+      ]
+    },
+    {
+      "uid": 29477,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00016.npz",
+        3
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00008.npz",
+        3
+      ],
+      "choices": [
+        11,
+        13
+      ]
+    },
+    {
+      "uid": 30820,
+      "video": "0166faa5-5fbc53c5",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00061.npz",
+        29
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00030.npz",
+        59
+      ],
+      "choices": [
+        6,
+        8
+      ]
+    },
+    {
+      "uid": 31310,
+      "video": "0199e7fc-0b6d1a35",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00077.npz",
+        25
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00038.npz",
+        59
+      ],
+      "choices": [
+        4,
+        7
+      ]
+    },
+    {
+      "uid": 31762,
+      "video": "0204aad7-eeb13c43",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00091.npz",
+        1
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00045.npz",
+        34
+      ],
+      "choices": [
+        1,
+        17
+      ]
+    },
+    {
+      "uid": 32283,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00108.npz",
+        5
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00054.npz",
+        5
+      ],
+      "choices": [
+        2,
+        10
+      ]
+    },
+    {
+      "uid": 32959,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00129.npz",
+        20
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00064.npz",
+        52
+      ],
+      "choices": [
+        13,
+        14
+      ]
+    },
+    {
+      "uid": 33644,
+      "video": "02bd959c-f20a2437",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00151.npz",
+        3
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00075.npz",
+        29
+      ],
+      "choices": [
+        8,
+        10
+      ]
+    },
+    {
+      "uid": 34003,
+      "video": "02c2a4d8-94d32b2f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00163.npz",
+        3
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00081.npz",
+        37
+      ],
+      "choices": [
+        2,
+        10
+      ]
+    },
+    {
+      "uid": 34471,
+      "video": "02d5e1be-bd9bd999",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00179.npz",
+        11
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00089.npz",
+        40
+      ],
+      "choices": [
+        7,
+        8
+      ]
+    },
+    {
+      "uid": 34906,
+      "video": "02f101f6-56ba9106",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00196.npz",
+        23
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00098.npz",
+        23
+      ],
+      "choices": [
+        1,
+        2
+      ]
+    },
+    {
+      "uid": 34977,
+      "video": "0329d6b9-abddbf95",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00198.npz",
+        36
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00099.npz",
+        36
+      ],
+      "choices": [
+        6,
+        7
+      ]
+    },
+    {
+      "uid": 35431,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00213.npz",
+        4
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00106.npz",
+        38
+      ],
+      "choices": [
+        2,
+        6
+      ]
+    },
+    {
+      "uid": 36849,
+      "video": "03c239e4-9e0fbb75",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00256.npz",
+        13
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00128.npz",
+        13
+      ],
+      "choices": [
+        10,
+        12
+      ]
+    },
+    {
+      "uid": 37283,
+      "video": "03d75f61-ce25863a",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00272.npz",
+        22
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00136.npz",
+        22
+      ],
+      "choices": [
+        19,
+        20
+      ]
+    },
+    {
+      "uid": 29487,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00016.npz",
+        13
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00008.npz",
+        13
+      ],
+      "choices": [
+        7,
+        9
+      ]
+    },
+    {
+      "uid": 32287,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00108.npz",
+        9
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00054.npz",
+        9
+      ],
+      "choices": [
+        9,
+        10
+      ]
+    },
+    {
+      "uid": 32960,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00129.npz",
+        21
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00064.npz",
+        53
+      ],
+      "choices": [
+        13,
+        16
+      ]
+    },
+    {
+      "uid": 33660,
+      "video": "02bd959c-f20a2437",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00151.npz",
+        19
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00075.npz",
+        45
+      ],
+      "choices": [
+        11,
+        12
+      ]
+    },
+    {
+      "uid": 34004,
+      "video": "02c2a4d8-94d32b2f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00163.npz",
+        4
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00081.npz",
+        38
+      ],
+      "choices": [
+        3,
+        11
+      ]
+    },
+    {
+      "uid": 34519,
+      "video": "02d5e1be-bd9bd999",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00181.npz",
+        9
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00090.npz",
+        26
+      ],
+      "choices": [
+        7,
+        12
+      ]
+    },
+    {
+      "uid": 34907,
+      "video": "02f101f6-56ba9106",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00196.npz",
+        24
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00098.npz",
+        24
+      ],
+      "choices": [
+        5,
+        9
+      ]
+    },
+    {
+      "uid": 34979,
+      "video": "0329d6b9-abddbf95",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00199.npz",
+        1
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00099.npz",
+        38
+      ],
+      "choices": [
+        5,
+        10
+      ]
+    },
+    {
+      "uid": 35460,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00214.npz",
+        5
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00107.npz",
+        5
+      ],
+      "choices": [
+        5,
+        7
+      ]
+    },
+    {
+      "uid": 29488,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00016.npz",
+        14
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00008.npz",
+        14
+      ],
+      "choices": [
+        8,
+        9
+      ]
+    },
+    {
+      "uid": 32307,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00109.npz",
+        6
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00054.npz",
+        29
+      ],
+      "choices": [
+        8,
+        10
+      ]
+    },
+    {
+      "uid": 32961,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00129.npz",
+        22
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00064.npz",
+        54
+      ],
+      "choices": [
+        13,
+        16
+      ]
+    },
+    {
+      "uid": 34017,
+      "video": "02c2a4d8-94d32b2f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00163.npz",
+        17
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00081.npz",
+        51
+      ],
+      "choices": [
+        4,
+        12
+      ]
+    },
+    {
+      "uid": 34997,
+      "video": "0329d6b9-abddbf95",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00199.npz",
+        19
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00099.npz",
+        56
+      ],
+      "choices": [
+        12,
+        14
+      ]
+    },
+    {
+      "uid": 35462,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00214.npz",
+        7
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00107.npz",
+        7
+      ],
+      "choices": [
+        5,
+        7
+      ]
+    },
+    {
+      "uid": 29489,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00016.npz",
+        15
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00008.npz",
+        15
+      ],
+      "choices": [
+        8,
+        17
+      ]
+    },
+    {
+      "uid": 32342,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00110.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00055.npz",
+        0
+      ],
+      "choices": [
+        6,
+        7
+      ]
+    },
+    {
+      "uid": 32962,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00129.npz",
+        23
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00064.npz",
+        55
+      ],
+      "choices": [
+        11,
+        14
+      ]
+    },
+    {
+      "uid": 34103,
+      "video": "02c2a4d8-94d32b2f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00166.npz",
+        23
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00083.npz",
+        23
+      ],
+      "choices": [
+        5,
+        11
+      ]
+    },
+    {
+      "uid": 35006,
+      "video": "0329d6b9-abddbf95",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00200.npz",
+        8
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00100.npz",
+        8
+      ],
+      "choices": [
+        11,
+        12
+      ]
+    },
+    {
+      "uid": 35465,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00214.npz",
+        10
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00107.npz",
+        10
+      ],
+      "choices": [
+        4,
+        9
+      ]
+    },
+    {
+      "uid": 29575,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00019.npz",
+        21
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00009.npz",
+        45
+      ],
+      "choices": [
+        5,
+        6
+      ]
+    },
+    {
+      "uid": 32343,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00110.npz",
+        1
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00055.npz",
+        1
+      ],
+      "choices": [
+        7,
+        9
+      ]
+    },
+    {
+      "uid": 32988,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00130.npz",
+        12
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00065.npz",
+        12
+      ],
+      "choices": [
+        9,
+        15
+      ]
+    },
+    {
+      "uid": 35052,
+      "video": "0329d6b9-abddbf95",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00201.npz",
+        16
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00100.npz",
+        54
+      ],
+      "choices": [
+        8,
+        11
+      ]
+    },
+    {
+      "uid": 35485,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00215.npz",
+        10
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00107.npz",
+        30
+      ],
+      "choices": [
+        5,
+        8
+      ]
+    },
+    {
+      "uid": 29576,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00019.npz",
+        22
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00009.npz",
+        46
+      ],
+      "choices": [
+        10,
+        13
+      ]
+    },
+    {
+      "uid": 32344,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00110.npz",
+        2
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00055.npz",
+        2
+      ],
+      "choices": [
+        7,
+        9
+      ]
+    },
+    {
+      "uid": 33122,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00134.npz",
+        2
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00067.npz",
+        2
+      ],
+      "choices": [
+        17,
+        19
+      ]
+    },
+    {
+      "uid": 35053,
+      "video": "0329d6b9-abddbf95",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00201.npz",
+        17
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00100.npz",
+        55
+      ],
+      "choices": [
+        7,
+        12
+      ]
+    },
+    {
+      "uid": 35515,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00216.npz",
+        19
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00108.npz",
+        19
+      ],
+      "choices": [
+        3,
+        7
+      ]
+    },
+    {
+      "uid": 29577,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00019.npz",
+        23
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00009.npz",
+        47
+      ],
+      "choices": [
+        11,
+        15
+      ]
+    },
+    {
+      "uid": 32345,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00110.npz",
+        3
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00055.npz",
+        3
+      ],
+      "choices": [
+        7,
+        9
+      ]
+    },
+    {
+      "uid": 33152,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00135.npz",
+        6
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00067.npz",
+        32
+      ],
+      "choices": [
+        7,
+        16
+      ]
+    },
+    {
+      "uid": 35067,
+      "video": "0329d6b9-abddbf95",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00201.npz",
+        31
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00100.npz",
+        69
+      ],
+      "choices": [
+        7,
+        11
+      ]
+    },
+    {
+      "uid": 35552,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00217.npz",
+        23
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00108.npz",
+        56
+      ],
+      "choices": [
+        2,
+        4
+      ]
+    },
+    {
+      "uid": 29647,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00022.npz",
+        5
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00011.npz",
+        5
+      ],
+      "choices": [
+        11,
+        17
+      ]
+    },
+    {
+      "uid": 32390,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00111.npz",
+        6
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00055.npz",
+        48
+      ],
+      "choices": [
+        1,
+        4
+      ]
+    },
+    {
+      "uid": 33154,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00135.npz",
+        8
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00067.npz",
+        34
+      ],
+      "choices": [
+        10,
+        12
+      ]
+    },
+    {
+      "uid": 35152,
+      "video": "0329d6b9-abddbf95",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00203.npz",
+        31
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00101.npz",
+        73
+      ],
+      "choices": [
+        7,
+        12
+      ]
+    },
+    {
+      "uid": 35564,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00218.npz",
+        1
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00109.npz",
+        1
+      ],
+      "choices": [
+        2,
+        3
+      ]
+    },
+    {
+      "uid": 29654,
+      "video": "004855fc-ff3946ad",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00022.npz",
+        12
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00011.npz",
+        12
+      ],
+      "choices": [
+        13,
+        16
+      ]
+    },
+    {
+      "uid": 32391,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00111.npz",
+        7
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00055.npz",
+        49
+      ],
+      "choices": [
+        8,
+        11
+      ]
+    },
+    {
+      "uid": 33155,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00135.npz",
+        9
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00067.npz",
+        35
+      ],
+      "choices": [
+        11,
+        14
+      ]
+    },
+    {
+      "uid": 35567,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00218.npz",
+        4
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00109.npz",
+        4
+      ],
+      "choices": [
+        1,
+        5
+      ]
+    },
+    {
+      "uid": 32444,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00112.npz",
+        22
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00056.npz",
+        22
+      ],
+      "choices": [
+        1,
+        2
+      ]
+    },
+    {
+      "uid": 33289,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00139.npz",
+        5
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00069.npz",
+        43
+      ],
+      "choices": [
+        8,
+        11
+      ]
+    },
+    {
+      "uid": 35580,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00218.npz",
+        17
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00109.npz",
+        17
+      ],
+      "choices": [
+        2,
+        3
+      ]
+    },
+    {
+      "uid": 32445,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00112.npz",
+        23
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00056.npz",
+        23
+      ],
+      "choices": [
+        1,
+        2
+      ]
+    },
+    {
+      "uid": 33290,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00139.npz",
+        6
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00069.npz",
+        44
+      ],
+      "choices": [
+        6,
+        11
+      ]
+    },
+    {
+      "uid": 35638,
+      "video": "0332bb54-c4bee5eb",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00220.npz",
+        3
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00110.npz",
+        3
+      ],
+      "choices": [
+        2,
+        3
+      ]
+    },
+    {
+      "uid": 32485,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00113.npz",
+        26
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00056.npz",
+        63
+      ],
+      "choices": [
+        7,
+        8
+      ]
+    },
+    {
+      "uid": 33291,
+      "video": "029556a0-0ec9fa6f",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00139.npz",
+        7
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00069.npz",
+        45
+      ],
+      "choices": [
+        7,
+        10
+      ]
+    },
+    {
+      "uid": 32496,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00114.npz",
+        10
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00057.npz",
+        10
+      ],
+      "choices": [
+        5,
+        6
+      ]
+    },
+    {
+      "uid": 32507,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00114.npz",
+        21
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00057.npz",
+        21
+      ],
+      "choices": [
+        1,
+        8
+      ]
+    },
+    {
+      "uid": 32513,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00114.npz",
+        27
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00057.npz",
+        27
+      ],
+      "choices": [
+        2,
+        4
+      ]
+    },
+    {
+      "uid": 32522,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00115.npz",
+        0
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00057.npz",
+        36
+      ],
+      "choices": [
+        6,
+        13
+      ]
+    },
+    {
+      "uid": 32523,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00115.npz",
+        1
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00057.npz",
+        37
+      ],
+      "choices": [
+        7,
+        12
+      ]
+    },
+    {
+      "uid": 32597,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00118.npz",
+        6
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00059.npz",
+        6
+      ],
+      "choices": [
+        9,
+        10
+      ]
+    },
+    {
+      "uid": 32598,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00118.npz",
+        7
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00059.npz",
+        7
+      ],
+      "choices": [
+        10,
+        13
+      ]
+    },
+    {
+      "uid": 32650,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00119.npz",
+        32
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00059.npz",
+        59
+      ],
+      "choices": [
+        4,
+        20
+      ]
+    },
+    {
+      "uid": 32703,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00121.npz",
+        17
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00060.npz",
+        52
+      ],
+      "choices": [
+        12,
+        23
+      ]
+    },
+    {
+      "uid": 32713,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00122.npz",
+        2
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00061.npz",
+        2
+      ],
+      "choices": [
+        4,
+        11
+      ]
+    },
+    {
+      "uid": 32715,
+      "video": "027b216c-bfae3d6d",
+      "w": [
+        "runs/z13_region_assignment_20261025/recovery2/features/C/train26/chunk_00122.npz",
+        4
+      ],
+      "full": [
+        "runs/z13_spatial_set_readout_20261025/recovery2/features/C/train26/chunk_00061.npz",
+        4
+      ],
+      "choices": [
+        7,
+        9
+      ]
+    }
+  ],
+  "cluster_videos": [
+    "0001542f-ec815219",
+    "004855fc-ff3946ad",
+    "007eddfc-528c4da4",
+    "009215e2-ea063b28",
+    "00b56f41-e0e5d918",
+    "015ccf71-56e8d5b8",
+    "0166faa5-5fbc53c5",
+    "017bec14-1c6f8718",
+    "0199e7fc-0b6d1a35",
+    "0204aad7-eeb13c43",
+    "023a70d5-cde2a67a",
+    "0279c430-962e3702",
+    "027b216c-bfae3d6d",
+    "029556a0-0ec9fa6f",
+    "02bd959c-f20a2437",
+    "02c2a4d8-94d32b2f",
+    "02d5e1be-bd9bd999",
+    "02f101f6-56ba9106",
+    "0329d6b9-abddbf95",
+    "0332bb54-c4bee5eb",
+    "0336de82-802d2437",
+    "035d6940-18869b73",
+    "03b0697b-faa11b32",
+    "03bf498b-044cb72c",
+    "03c239e4-9e0fbb75",
+    "03d75f61-ce25863a"
+  ]
+}

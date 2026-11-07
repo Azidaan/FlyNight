@@ -26214,6 +26214,40 @@
       "interpretation": "Чувствительность данного считывания к короткому импульсу. Измерение не проверяет длительную роль клетки, идентичность после окклюзии или HOTA.",
       "cannot_claim": "Повторно использованы исторические пары. Одна модель, один горизонт. Один тип представлен разным числом нейронов. Отсутствие смены победителя не означает отсутствие изменения баллов.",
       "decision": "Сохранить все сравнения и контроль с усилением. Не выбирать исправление по этим же 172 парам."
+    },
+    {
+      "id": "flyvis_separate_inputs_v1",
+      "title": "Раздельные входы FlyVis для двух рамок при прежнем масштабе",
+      "area": "flyvis",
+      "state": "ready",
+      "started": "2026-11-07",
+      "tags": [
+        "fly-problem-P8"
+      ],
+      "question": "Помогают ли раздельные входы двух рамок выбрать продолжение при прежнем масштабе и тех же прошлых кадрах?",
+      "hypothesis": "Separate candidate windows before the recurrent core improve frozen T4/T5 candidate choices; not established.",
+      "expected": "Inflate CURRENT DETECTION width/height by1.25 (12.5% each side), express in current common crop normalized coordinates, keep this mask in the SAME canonical coordinates for ALL original prefix frames. Outside=127.5 AFTER shared retinal front-end and BEFORE BoxEye. No recentering or object zoom. Canvas/render scale exactly old crop at each time. Not a known candidate trajectory or perfect instance segmentation; overlapping objects remain possible. Archived common-map baseline reused scientifically. Re-render common input and cloned sequence validate archive/identity. Union control retains BOTH inflated windows on one canvas, same neutral outside: tests object separation versus just removing background.",
+      "acceptance": [
+        {
+          "criterion": "Побитно восстановить прежний float16 вход, проверить масштаб/кадры, архивное решение и тождественную копию; независимый аудит172 пар.",
+          "met": null
+        },
+        {
+          "criterion": "Separate-common AND separate-union paired correct-choice differences. Both lower Bonferroni97.5% bounds>0 for main support; ordinary95% too. Resample all26 original videos including3 without eligible pairs. Ties0.5; publish unfavorable effects. Reused exploratory data.",
+          "met": null
+        }
+      ],
+      "obtained": "",
+      "interpretation": "",
+      "decision": "",
+      "cannot_claim": "Диагностический выбор на прежних исторических видео, не качество полных треков. Окна не сегментируют перекрывающиеся машины. Маски, заданные текущими детекциями, не знают прошлую истинную траекторию.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_separate_inputs_20261107/protocol.json",
+          "claim": "Условия и контроли до расчёта"
+        }
+      ]
     }
   ],
   "manual_events": [
