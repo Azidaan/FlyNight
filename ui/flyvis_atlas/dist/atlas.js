@@ -351,7 +351,7 @@
   }
   function route(){const name=location.hash.replace(/^#/,"");return ["lab","network","study","upload"].includes(name)?name:"lab"}
   function navigate(){
-    stop();const page=route();if(page!=="network")window.FlyBlockMap.leave();
+    stop();const page=route();document.body.dataset.page=page;if(page!=="network")window.FlyBlockMap.leave();
     document.querySelectorAll(".nav a").forEach(a=>a.hash==="#"+page?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
     ({lab:renderLab,network:renderNetwork,study:renderStudy,upload:renderUpload})[page]();
     document.title=(document.querySelector("h1")?.textContent||"Лаборатория зрения")+" · Атлас FlyVis";

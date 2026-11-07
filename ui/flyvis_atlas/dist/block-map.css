@@ -16,6 +16,21 @@
 .bm-wire.quiet,.bm-wire.wait{stroke:#b8b0a2;stroke-width:1.5;stroke-dasharray:4 5}.bm-tip.quiet,.bm-tip.wait{fill:#b8b0a2}
 .bm-wire.exit,.bm-wire.walked{stroke:#b45536;stroke-width:2.7}.bm-tip.exit,.bm-tip.walked{fill:#b45536}
 .bm-wire.entry{stroke:#36766b;stroke-width:2.7}.bm-tip.entry{fill:#36766b}
+.bm-wire.current{stroke:#a4482c;stroke-width:3.2}.bm-tip.current{fill:#a4482c}
+.bm-wire.walked{stroke:#b99c82;stroke-width:1.8}.bm-tip.walked{fill:#b99c82}
+.bm-localEdges{stroke-linejoin:round;stroke-linecap:round}
+.bm-envelope{fill:#f9f7ef;fill-opacity:.95;stroke:#d7c9b5;stroke-width:.42px}
+.bm-envelope.related{fill:#f6eee0;stroke:#b48a66;stroke-width:.7px}
+.bm-bundle-wire.wait{opacity:.24}.bm-bundle-wire.current{stroke:#a4482c;stroke-width:1.2}.bm-bundle-wire.walked{opacity:.5}
+.bm-timeline{max-height:250px;overflow:auto;overscroll-behavior:contain;padding:4px 6px 4px 0;margin-top:13px;scrollbar-width:thin}
+.bm-timeline button{display:flex;align-items:center;gap:9px;width:100%;position:relative;text-align:left;border:0;border-radius:6px;background:transparent;padding:7px 8px;min-height:47px}
+.bm-timeline button:not(:last-child):after{content:"";position:absolute;width:1px;top:33px;bottom:-14px;left:19px;background:#d6c4af;z-index:0}
+.bm-timeline i{position:relative;z-index:1;display:grid;place-items:center;width:23px;height:23px;flex-shrink:0;font:11px var(--mono);font-style:normal;border:1px solid #d9c7b2;background:#fffdf8;border-radius:50%;color:#8a735c}
+.bm-timeline button>span{display:flex;flex-direction:column;gap:0}.bm-timeline b{font:13px var(--mono)}.bm-timeline small{font-size:11px;color:#80715f;line-height:1.2}
+.bm-timeline em{font:9px var(--mono);color:#4b7768;margin-left:auto;letter-spacing:0}
+.bm-timeline .active{background:#f3e6d5}.bm-timeline .active i{border-color:#a95434;background:#a95434;color:#fff}.bm-timeline .active b{color:#99462d}.bm-timeline .future{opacity:.65}.bm-timeline .past i{background:#eae0d2}
+.bm-step-copy{font-size:13px!important;padding-top:6px}.bm-follow{padding:10px 0}.bm-side .bm-nav{position:relative;gap:7px}
+@media(prefers-reduced-motion:reduce){.bm-traveller{display:none}}
 .bm-legend{padding:12px 17px;border-top:1px solid #e5dfd4;flex-wrap:wrap;color:#716657;font-size:12px}
 .bm-legend span:first-child{display:inline-flex;align-items:center;gap:8px}.bm-legend i{width:24px;height:1.5px;background:#a96d51;position:relative}
 .bm-legend i:after{content:"";position:absolute;right:-1px;top:-3px;border-left:5px solid #a96d51;border-block:3.5px solid transparent}
@@ -45,3 +60,12 @@
 @media(max-width:1050px) and (min-width:861px){.bm-layout{grid-template-columns:minmax(0,2.5fr) minmax(212px,1fr);gap:10px}.bm-side{padding:15px}}
 @media(max-width:860px){.bm-layout{grid-template-columns:minmax(0,1fr)}.bm-side{max-width:none}.bm-side h2{font-size:26px}}
 @media(max-width:640px){.bm-top,.bm-legend{padding:9px 11px}.bm-stamp{font-size:9px}.bm-switch button{padding:5px 7px;font-size:12px}.bm-legend{font-size:11px}.bm-caption{font-size:12px}.bm-name{font-size:15px}.bm-id{font-size:10.5px}}
+body[data-page=network] .wrap{width:min(1980px,calc(100% - 48px))}
+body[data-page=network] .bm-layout{grid-template-columns:minmax(0,1fr) 310px;gap:24px}
+body[data-page=network] .bm-side{padding:20px}
+.fp-timeline{max-height:262px}.fp-timeline button{min-height:34px;padding:4px 8px}.fp-timeline button:not(:last-child):after{top:27px;bottom:-7px}.fp-timeline b{font-family:Plex,sans-serif}
+.fp-copy{padding-top:12px;border-top:1px solid #e8e0d5;margin-top:12px}.fp-copy h2{font-size:23px}.fp-copy .bm-dir{flex-wrap:wrap}.fp-copy p+p{margin-top:9px}.fp-start{margin-top:17px;border-color:#c7a485;background:#f6ebdd}
+.fp-scene{min-width:0}.fp-scene svg{max-height:75svh}.fp-copy .bm-note{font-size:12px}
+@media(min-width:1450px){body[data-page=network] .bm-layout{grid-template-columns:minmax(0,1fr) 330px;gap:28px}body[data-page=network] .bm-side{padding:24px}body[data-page=network] .bm-svg{max-height:79svh}}
+@media(max-width:950px){body[data-page=network] .bm-layout{grid-template-columns:1fr;gap:16px}.bm-plate{position:relative;top:auto}body[data-page=network] .bm-side{max-width:none}}
+@media(max-width:640px){body[data-page=network] .wrap{width:calc(100% - 24px)}.fp-timeline{max-height:none}}
