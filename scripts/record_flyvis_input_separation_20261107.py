@@ -37,6 +37,15 @@ def main():
     geometry["empty_pixel_windows"]+=sum(not (np.any((xx>=w[0,0])&(xx<=w[1,0])) and np.any((yy>=w[0,1])&(yy<=w[1,1]))) for w in z["windows"])
  write(OUT/"input_effects.json",geometry)
  cmp={x["name"]:x for x in a["comparisons"]};conditions={x["name"]:x for x in a["conditions"]}
+ cluster=p["cluster_videos"];cases_by={r["uid"]:r for r in extra["cases"]};uids=[r["uid"] for r in a["cases"]];vid=np.array([r["video"] for r in a["cases"]])
+ scores1=np.asarray([r["correct"] for r in a["cases"]]);scores2=np.asarray([cases_by[u]["correct"] for u in uids])
+ diffs=np.stack([scores1[:,2]-scores1[:,0],scores1[:,2]-scores1[:,1],scores2[:,2]-scores2[:,0],scores2[:,2]-scores2[:,1]],1)
+ blocks=np.stack([diffs[vid==v].sum(0) for v in cluster]);counts=np.array([(vid==v).sum() for v in cluster])
+ registration=read(OUT/"matched_history/family4_registration.json")
+ draws=np.random.default_rng(42).multinomial(len(cluster),np.full(len(cluster),1/len(cluster)),size=20000);den=draws@counts
+ ci=np.quantile(100*(draws[den>0]@blocks)/den[den>0,None],registration["quantiles"],axis=0).T
+ family4=dict(conditions=[dict(name=n,delta_pp=float(diffs[:,i].mean()*100),ci98_75_pp=ci[i].tolist()) for i,n in enumerate(registration["contrasts"])],registration_sha256=sha(OUT/"matched_history/family4_registration.json"))
+ write(OUT/"family4_summary.json",family4)
  fmt=lambda v:f"{v:.3f}".replace(".",",")
  desc=lambda r:f"{fmt(r['delta_pp'])} п.п.; 97,5% ДИ [{fmt(r['ci97_5_pp'][0])}; {fmt(r['ci97_5_pp'][1])}], исправлено {r['gains']}, испорчено {r['losses']}"
  primary=[x for x in a["comparisons"] if x["primary"]]
@@ -55,6 +64,8 @@ def main():
  result+="Этот контроль зарегистрирован отдельно до первых новых GPU-выходов (matched_history/preregistration_receipt.json). Все прошлые входы и состояние перед текущим кадром одинаковы; меняется только текущий вход. Он проверяет альтернативу потери цели в обрезанной предыстории, но может вносить резкую границу маски на последнем кадре. Он не заменяет первичный критерий.\n\n"
  for x in extra["comparisons"]:
   result+=x["name"]+": "+desc(x)+". Источник: matched_history/independent_audit.json, comparisons.\n\n"
+ result+="Заранее зарегистрированная дополнительная поправка на все четыре сравнения (98,75%):\n\n"
+ for x in family4["conditions"]:result+=x["name"]+f": {fmt(x['delta_pp'])} п.п. [{fmt(x['ci98_75_pp'][0])}; {fmt(x['ci98_75_pp'][1])}]. Источник: family4_summary.json.\n\n"
  result+="Приёмка требует обеих положительных нижних границ97,5%. Проверены все172 сохранённых выхода; баллы независимо пересчитаны из карт. Источник всех чисел — independent_audit.json, поля conditions/comparisons. Вход общей версии восстановлен побитно в исходном float16. Тождественный контроль и сравнение с прежними картами выдержали заранее заданные допуски.\n\n"
  result+=f"Геометрический контроль: из344 кандидатных рамок {geometry['partly_outside_original_field']} частично выходят за прежнее поле глаза; {geometry['unchanged_separate_vs_union']} раздельных входов совпадают с объединённым окном на всём префиксе. Источник: input_effects.json. В этой пробе видимые части объектов остаются на прежних координатах.\n\n"
  result+="Эта проверка относится к ограничению входа перед ядром. Фронтальная обработка lamina остаётся общей; перекрывающаяся машина может оставаться в вырезке. Изменились также границы и фон окна. Не проверен отдельный центрированный вид каждого автомобиля целиком: он потребует контроля смены поля зрения. Результат не устанавливает качество полных траекторий, пользу сегментации или всех способов подачи объектов в FlyVis. Использованы прежние исследовательские видео, это не независимый итоговый тест.\n\n"

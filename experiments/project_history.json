@@ -26219,7 +26219,7 @@
       "id": "flyvis_separate_inputs_v1",
       "title": "Раздельные входы FlyVis для двух рамок при прежнем масштабе",
       "area": "flyvis",
-      "state": "ready",
+      "state": "inconclusive",
       "started": "2026-11-07",
       "tags": [
         "fly-problem-P8"
@@ -26230,22 +26230,45 @@
       "acceptance": [
         {
           "criterion": "Побитно восстановить прежний float16 вход, проверить масштаб/кадры, архивное решение и тождественную копию; независимый аудит172 пар.",
-          "met": null
+          "met": true,
+          "evidence": "runs\\flyvis_separate_inputs_20261107/inputs_completed.json; runs\\flyvis_separate_inputs_20261107/independent_audit.json; runs\\flyvis_separate_inputs_20261107/controller_verified.json"
         },
         {
           "criterion": "Separate-common AND separate-union paired correct-choice differences. Both lower Bonferroni97.5% bounds>0 for main support; ordinary95% too. Resample all26 original videos including3 without eligible pairs. Ties0.5; publish unfavorable effects. Reused exploratory data.",
-          "met": null
+          "met": false,
+          "evidence": "runs\\flyvis_separate_inputs_20261107/independent_audit.json, comparisons/main"
         }
       ],
-      "obtained": "",
-      "interpretation": "",
-      "decision": "",
+      "obtained": "172 пары/23 видео. Общая карта 104/172, объединённые окна 105/172, раздельные 100/172. Separate-common: -2,326 п.п.; 97,5% ДИ [-5,618; 1,081], исправлено 2, испорчено 6. Separate-union: -2,907 п.п.; 97,5% ДИ [-5,976; 0,000], исправлено 0, испорчено 5. Источник: runs\\flyvis_separate_inputs_20261107/independent_audit.json, conditions/comparisons. Дополнительный заранее записанный контроль одинаковой предыстории: separate-common 0,000 п.п.; 97,5% ДИ [0,000; 0,000], исправлено 0, испорчено 0; separate-union 0,000 п.п.; 97,5% ДИ [0,000; 0,000], исправлено 0, испорчено 0. Источник: runs\\flyvis_separate_inputs_20261107/matched_history/independent_audit.json, comparisons.",
+      "interpretation": "Диагностический эффект ограниченных окон до ядра при прежнем масштабе. Отдельные входы сохраняют перекрывающиеся части объектов и используют исходный считыватель без переобучения. При изменении одного текущего входа T4/T5 не изменились побитно во всех172 случаях: вмешательство ещё не достигло этих выходов при двух внутренних шагах. Источник: runs/flyvis_separate_inputs_20261107/activation_exposure.json. Это контроль экспозиции, не отрицательный тест потенциальной пользы текущего отдельного вида.",
+      "decision": "Сохранить полный результат и оба контроля; новый научный опыт требует отдельного решения автора.",
       "cannot_claim": "Диагностический выбор на прежних исторических видео, не качество полных треков. Окна не сегментируют перекрывающиеся машины. Маски, заданные текущими детекциями, не знают прошлую истинную траекторию.",
       "evidence": [
         {
           "kind": "file",
           "ref": "runs/flyvis_separate_inputs_20261107/protocol.json",
           "claim": "Условия и контроли до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_separate_inputs_20261107/РЕЗУЛЬТАТ.md",
+          "claim": "Полный итог, обе главные проверки, ограничения и прежняя ошибка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_separate_inputs_20261107/activation_exposure.json",
+          "claim": "Все сохранённые карты и минимальная длина пути сигнала по реализации"
+        }
+      ],
+      "done": "2026-11-07",
+      "summary": "Раздельные входы не прошли общий критерий.",
+      "revisions": [
+        {
+          "date": "2026-11-07",
+          "commit": "e71199b2bcc16f639c6258dc4966b1096456e1a2",
+          "field": "interpretation",
+          "old": "Диагностический эффект ограниченных окон до ядра при прежнем масштабе. Отдельные входы сохраняют перекрывающиеся части объектов и используют исходный считыватель без переобучения.",
+          "reason": "По сохранённым массивам проверено достижение входного вмешательства выбранных карт; одинаковый выбор не трактуется как бесполезность текущего сигнала."
         }
       ]
     }

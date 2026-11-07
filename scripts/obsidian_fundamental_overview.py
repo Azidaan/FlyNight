@@ -244,6 +244,20 @@ def resolved_tasks(history):
         target['limit']+=' Выигрыш у прежней добавки сам по себе не отделяет содержание внешности от смягчения порога; это авторская адаптация сопоставления, не полный Deep SORT/BoT-SORT и не ядро FlyVis.'
         target['primary'].append('runs/continuation_20261029/cost_use_val_audit/report.json')
         target['next']=cost_use['decision']
+    separated=next((c for c in history['experiments'] if c['id']=='flyvis_separate_inputs_v1'),None)
+    separated_dir=ROOT/'runs/flyvis_separate_inputs_20261107'
+    if separated and separated.get('done') and (separated_dir/'controller_verified.json').is_file():
+        checked=json.loads((separated_dir/'controller_verified.json').read_bytes())
+        if checked.get('passed') and checked.get('all_owned_ended'):
+            measured=json.loads((separated_dir/'independent_audit.json').read_bytes())
+            exposure=json.loads((separated_dir/'activation_exposure.json').read_bytes())
+            target=next(t for t in tasks if t['title'].startswith('Задача 3'))
+            values={x['name']:x['correct'] for x in measured['conditions']}
+            target['ids'].append(separated['id'])
+            target['attempt']+=' Проверили раздельные входные окна двух кандидатов до ядра FlyVis при прежнем масштабе и тех же кадрах, с контролем двух окон вместе.'
+            target['result']+=f" На {measured['pairs']} прежних парах общая карта дала {values['common']:g} верных выборов, раздельные входы — {values['separate']:g}; главный критерий прибавки не пройден. При изменении только текущего входа с общей предысторией T4/T5 побитно не изменились во всех {exposure['pairs']} случаях: вмешательство ещё не достигло этих выходов за два внутренних обновления."
+            target['limit']+=' Это ограниченные окна в прежнем поле глаза, не центрированные полные виды автомобилей; нулевой контроль одного кадра не проверяет потенциальную пользу нового текущего сигнала.'
+            target['primary'] += ['runs/flyvis_separate_inputs_20261107/independent_audit.json','runs/flyvis_separate_inputs_20261107/matched_history/independent_audit.json','runs/flyvis_separate_inputs_20261107/activation_exposure.json']
     return tasks
 
 

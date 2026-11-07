@@ -1,0 +1,88 @@
+{
+  "pairs": 172,
+  "conditions": {
+    "whole_prefix": {
+      "order": [
+        "union",
+        "separate_a",
+        "separate_b"
+      ],
+      "changed_input_cases": [
+        171,
+        172,
+        172
+      ],
+      "changed_T4T5_map_cases": [
+        171,
+        172,
+        172
+      ],
+      "max_abs_map_delta": [
+        8.020029067993164,
+        8.020051956176758,
+        8.021148681640625
+      ],
+      "max_abs_worker_score_delta": [
+        0.03517310698971836,
+        0.2040854126266396,
+        0.16639405218346043
+      ]
+    },
+    "same_history": {
+      "order": [
+        "union",
+        "separate_a",
+        "separate_b"
+      ],
+      "changed_input_cases": [
+        171,
+        172,
+        172
+      ],
+      "changed_T4T5_map_cases": [
+        0,
+        0,
+        0
+      ],
+      "max_abs_map_delta": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "max_abs_worker_score_delta": [
+        0.0,
+        0.0,
+        1.3877787807814457e-17
+      ]
+    }
+  },
+  "type_graph_min_edges_from_input": {
+    "T4a": 2,
+    "T4b": 2,
+    "T4c": 2,
+    "T4d": 2,
+    "T5a": 3,
+    "T5b": 3,
+    "T5c": 3,
+    "T5d": 3
+  },
+  "min_explicit_updates": {
+    "T4a": 3,
+    "T4b": 3,
+    "T4c": 3,
+    "T4d": 3,
+    "T5a": 4,
+    "T5b": 4,
+    "T5c": 4,
+    "T5d": 4
+  },
+  "observed_internal_steps_per_frame": 2,
+  "basis": "FlyBackbone.step uses previous-state activity; original C uses two simultaneous explicit integration steps per frame. Type-graph distances are optimistic lower bounds, sufficient to rule out an effect within two updates.",
+  "conclusion": "Current-only changed input did NOT reach the selected T4/T5 output in this readout step; unchanged decisions cannot assess whether that current input would be useful after propagation.",
+  "sources_sha256": {
+    "ui\\flyvis_atlas\\dist\\data\\connectome.js": "e6a7df3635e34afd059a6ff12e64093a039a23ff37185dc16ecf3998f9bb839a",
+    "tracking\\z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "tracking\\foveated_eyes.py": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
+    "scripts\\explain_flyvis_input_separation_20261107.py": "722bb5792ca22031188a52dbd789fb1f1cd1f3a466875e0fa63ce071c586f4e1"
+  }
+}
