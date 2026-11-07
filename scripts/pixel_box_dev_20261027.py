@@ -1,0 +1,5 @@
+from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from scripts.evaluate_pixel_box_refinement_20261027 import run
+if __name__=='__main__':run('pixel_box_dev')

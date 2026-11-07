@@ -2,20 +2,64 @@
 # 109 ГБ, 805 тысяч файлов — качается отдельно
 data/
 
-# ═══ Артефакты обучения и прогонов ════════════════════
-runs/*
-# манифест и отчёт воспроизводимости стенда (цель 0) — маленькие JSON, нужны в репозитории
-!runs/bench_freeze/
-runs/bench_freeze/*
-!runs/bench_freeze/*.json
+# ═══ Научные результаты — хранить, большие выгрузки — нет ═══
+# runs содержит десятки ГиБ покадровых JSON, поэтому не открываем все *.json.
+# Каталоги проходим, автоматически разрешаем отчёты и воспроизводимость.
+/runs/**
+!/runs/**/
+!/runs/**/*.md
+!/runs/**/*.csv
+!/runs/**/*.tsv
+!/runs/**/*.yaml
+!/runs/**/*.yml
+!/runs/**/*.toml
+!/runs/**/*summary*.json
+!/runs/**/*report*.json
+!/runs/**/*protocol*.json
+!/runs/**/*config*.json
+!/runs/**/*manifest*.json
+!/runs/**/*metadata*.json
+!/runs/**/*metric*.json
+!/runs/**/*reproduction*.json
+!/runs/**/*audit*.json
+!/runs/**/*contract*.json
+!/runs/**/*authorization*.json
+!/runs/**/*result*.json
+!/runs/**/*recorded*.json
+!/runs/**/*criteria*.json
+!/runs/**/*decision*.json
+!/runs/**/*hash*.json
+!/runs/**/*rows*.json
+!/runs/**/per_video*.json
+!/runs/**/selection*.json
+!/runs/**/signatures.json
+!/runs/**/done.json
+!/runs/**/completed.json
+!/runs/**/completed_jobs/*.json
+# Прежнее исключение: полные небольшие манифесты замороженного стенда.
+!/runs/bench_freeze/*.json
+# Встроенные пакеты и компиляционные кэши не являются результатами опыта.
+/runs/**/packages/
+/runs/**/site-packages/
+/runs/**/inductor_cache/
+/runs/**/triton_cache/
+/runs/**/.cache/
+
+# ═══ Веса и массивы: отдельное хранение, нужное малое — адресно ═══
 weights/
-figs/
-ods_probe/
 graphify-out/
 *.pt
 *.pth
 *.onnx
 *.engine
+*.npz
+*.npy
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.safetensors
+*.joblib
 
 # ═══ Окружение (восстанавливается из requirements) ════
 .venv/
@@ -24,35 +68,27 @@ wheelhouse/
 installers/
 third_party/
 .cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+/ChatGPT Cache/
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
+*.dll
+*.exe
+*.msi
 *.egg-info/
 
 # ═══ Сторонние инструменты со своими репозиториями ════
 # skillopt и graphify — отдельные проекты, внутри свои .venv (598 МБ)
 tools/
 
-# ═══ Документы: по требованию заливаем только код ═════
-# Исключения — хроника работы над DRB и схема проекта: они нужны при защите
-# и должны переживать переустановку системы наравне с кодом.
-dissertation/*
-!dissertation/ЕДИНЫЙ_ПЛАН.md
-!dissertation/План целей по Трекеру.md
-# обзор с дословными цитатами: нужен во введении, восстановить поиском нельзя
-!dissertation/lit_confidence_open_problems.md
-!dissertation/Исследование_модернизация_мухи.md
-!dissertation/схема_проекта.drawio
-!dissertation/WTConv1d.drawio
-# Однолистовая архитектура FlyVis и воспроизводимые изображения просмотра.
-!dissertation/architecture/
-# архив исходных документов (07.09.2026): хроника и разборы нужны при защите
-!dissertation/backup_20260907/
-!dissertation/backup_20260907/**
-notes/
-СВОДНЫЙ_ПЛАН1.md
-*.docx
-*.pdf
+# ═══ Документы и схемы — часть проекта ═══════════════
+# dissertation/, notes/, figs/, *.drawio, PDF и DOCX больше не скрываются.
+# Файл схемы .drawio — исходник; программа draw.io/её установщик — инструмент.
+# У .gitignore нет ограничения по размеру: перед добавлением проверять объём.
 
 # ═══ Игра «Ночная лавка зелий» ════════════════════════
 # Исходники игры хранятся в репозитории (влиты через git subtree,
@@ -64,6 +100,21 @@ notes/
 *.zip
 *.7z
 *.tar.gz
+*.whl
+
+# ═══ Доступы не хранятся даже в приватном репозитории ═══
+.env
+.env.*
+!.env.example
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+service-account*.json
+token.json
+tokens.json
 
 # ═══ Редакторы и служебное ════════════════════════════
 .claude/

@@ -1,0 +1,40 @@
+[CACHE] обнаружения: E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\uncapped_checks\1f406d2b3a274531af139a5db524cf9f\detections.npz
+[2026-11-07 02:11:21] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-11-07 02:11:21] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-11-07 02:11:25] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-11-07 02:11:28] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-11-07 02:11:28] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[CACHE] движение flyvis_full: E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\uncapped_checks\1f406d2b3a274531af139a5db524cf9f\flyvis_full.npz
+[2026-11-07 02:11:29] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-11-07 02:11:33] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-11-07 02:11:35] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-11-07 02:11:35] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[CACHE] движение flyvis_tiled: E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\uncapped_checks\1f406d2b3a274531af139a5db524cf9f\flyvis_tiled.npz
+Traceback (most recent call last):
+  File "E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\pipeline_real_clip.py", line 56, in <module>
+    rows,stats=runner.run_tracker(name,detections,meta,matches,out)
+  File "E:\Dissertation\scripts\run_bdd_video_rate_experiment.py", line 582, in run_tracker
+    rows.append(scalabel_frame(truth[0]["videoName"], truth[reference_index], output))
+KeyError: 'videoName'

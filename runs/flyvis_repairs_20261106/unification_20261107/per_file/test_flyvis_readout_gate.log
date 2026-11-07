@@ -1,0 +1,13 @@
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 5 items
+
+tests/test_flyvis_readout_gate.py::test_frame_activity_matrix_is_tile_major_like_points PASSED [ 20%]
+tests/test_flyvis_readout_gate.py::test_readout_pair_features_has_declared_names_and_pair_terms PASSED [ 40%]
+tests/test_flyvis_readout_gate.py::test_readout_pair_features_cosine_is_one_for_identical_activity PASSED [ 60%]
+tests/test_flyvis_readout_gate.py::test_shuffle_within_video_permutes_rows_only_inside_each_video PASSED [ 80%]
+tests/test_flyvis_readout_gate.py::test_join_fovea_rows_matches_pairs_by_frame_and_detection_indices PASSED [100%]
+
+============================== 5 passed in 2.43s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 2014736384, "peak_process_bytes": 2014736384}

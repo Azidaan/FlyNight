@@ -1,0 +1,31 @@
+{
+  "registered_msk": "2026-11-07T02:58:54.360480+03:00",
+  "scientific_protocol_sha256": "b46c16445b8b345f3038886bfd8517948c6adbd69a1e69063a9995f1a0df83f3",
+  "new_sources": {
+    "tracking/windows_memory_job.py": "f7d49622c5f0625562f35b8c2f3008825223e2721c6422da91c85b9536e4217e",
+    "scripts/flyvis_state_ram_stream4_20261107.py": "36ca23c3bfa1efd0c51d4f43e67ff049d7ba93a8b2649694d0c5a694a7356379",
+    "scripts/control_flyvis_state_ram_stream4_20261107.py": "aa6a4a927e39e407c10f0dd0fb3c740de96655663d65ad435bdaa6c7bd2fc0d7"
+  },
+  "reused_cases": {
+    "s0_c1.0_v1_a0": {
+      "source": "runs/flyvis_state_subgroups_ram_cached3_20261107/cases/s0_c1.0_v1_a0.npz",
+      "sha256": "41a3401710d6dd0665450aa45dd2ea2f9bb31f7e1d902611e84b890485bbebd8"
+    },
+    "s0_c1.0_v1_a1": {
+      "source": "runs/flyvis_state_subgroups_ram_cached3_20261107/cases/s0_c1.0_v1_a1.npz",
+      "sha256": "3a994dfab0522d800a956200bcf5be7695ebc9937ee18e3fadf3ddce252b2847"
+    },
+    "s0_c1.0_v4_a0": {
+      "source": "runs/flyvis_state_subgroups_ram_cached3_20261107/cases/s0_c1.0_v4_a0.npz",
+      "sha256": "878bd2d34c879a59c508b4fa8322c31cf9a15976be25e49c9d130ec134087400"
+    }
+  },
+  "previous_controller_result_sha256": "44404281ab759e9cc83a47fc452c44037783f08d005ddb107ffa253278ecd537",
+  "previous_failure": "tree_memory_cap/exit15; all owned ended. No new completed cases.",
+  "correction": "Additional bounded streaming of official fade_in_state: same input fade, dt, parameters and Euler _next_state calls, retaining only the last state instead of the discarded 60-state list. Frame1/state2 batching, cached exact input,4GiB Job/12GiB reserve unchanged.",
+  "gate": "Fresh mandatory probe recomputes fade and both full histories, compares saved boundary<=1e-10; all103 eye vectors<=1e-12 and24arms/2suffixes full fields<=1e-10/signs exact. No run before probe pass and ended PIDs.",
+  "video_codec_hypothesis": "Not established: cached3 still failed after source_images/textures were saved. Source review identifies retained fade states as the next concrete node; do not claim codec was the cause.",
+  "official_network_sha256": "eb172be7db1727a2b1af9f4211c2e1a8655004e8602a4db677e56702a3dfeb43",
+  "scientific_settings_unchanged": true,
+  "deadline": "2026-11-07T04:30:00+03:00"
+}

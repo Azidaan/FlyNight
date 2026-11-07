@@ -1,0 +1,70 @@
+{
+  "passed": true,
+  "source_video": "E:\\Dissertation\\data\\bdd100k\\videos\\val\\b1c66a42-6f7d68ca.mov",
+  "source_video_sha256": "a30203862234972202297b2b1fa65c7c8d69a20ea5ffe4b63f55f7c4053df825",
+  "clip_sha256": "99fbe8ab2ecb0f7d8e6f3b2e8e97142384e40647072c08f02362e55e7865cc38",
+  "weights_sha256": "15cd5efb77b90401464589f62b299537ce2d2e086b4146f5c4ee7556cbd0c7c7",
+  "weights_unchanged": true,
+  "frames": 3,
+  "fps": 29.770992366412212,
+  "device": "cpu",
+  "results": {
+    "bytetrack": {
+      "frames": 3,
+      "labels": [
+        27,
+        26,
+        26
+      ],
+      "stats": {
+        "association": {
+          "samples": 3,
+          "mean_ms": 3.401500000109081,
+          "median_ms": 2.9001999992033234,
+          "p90_ms": 5.157880000115256,
+          "p99_ms": 5.665858000320441,
+          "fps_from_mean": 293.987946484766
+        }
+      }
+    },
+    "flyvis_full_calibrated": {
+      "frames": 3,
+      "labels": [
+        27,
+        27,
+        28
+      ],
+      "stats": {
+        "association": {
+          "samples": 3,
+          "mean_ms": 16.039966666236676,
+          "median_ms": 8.6498999989999,
+          "p90_ms": 32.73406000007526,
+          "p99_ms": 38.152996000317216,
+          "fps_from_mean": 62.344269212538315
+        }
+      }
+    },
+    "flyvis_tiled_calibrated": {
+      "frames": 3,
+      "labels": [
+        27,
+        27,
+        28
+      ],
+      "stats": {
+        "association": {
+          "samples": 3,
+          "mean_ms": 11.04726666623416,
+          "median_ms": 14.946899998903973,
+          "p90_ms": 17.02761999986251,
+          "p99_ms": 17.49578200007818,
+          "fps_from_mean": 90.52012866282011
+        }
+      }
+    }
+  },
+  "seconds": 0.5319999999992433,
+  "scope": "Execution and cache reuse on a three-frame reencoded val clip; no full-video HOTA or benefit claim.",
+  "cache_directory": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\1f406d2b3a274531af139a5db524cf9f"
+}

@@ -1,0 +1,88 @@
+---
+aliases:
+- 'Цель 4: головы q_det / q_match / q_birth / q_alive без FlyVis — ранжирование, калибровка, контроль монотонного преобразования'
+tags:
+- эксперимент
+- исход/completed_positive
+- направление/event_confidence
+- метка/goal4
+- метка/line-B
+- метка/heads
+- метка/calibration
+исход: положительный
+направление: Раздельная событийная уверенность (линия B)
+начат: '2026-09-16'
+завершён: '2026-09-16'
+---
+
+# 🟢 Цель 4: головы q_det / q_match / q_birth / q_alive без FlyVis — ранжирование, калибровка, контроль монотонного преобразования
+
+↑ [[02 Эксперименты/Направления/Раздельная событийная уверенность (линия B)|Раздельная событийная уверенность (линия B)]] · **Исход:** положительный · `event_heads_v1`
+
+Логистические головы на выборках event_dataset_v1; лестница control (монотонное преобразование исходной оценки: conf для q_det/q_birth, IoU+conf для q_match, возраст для q_alive) → base (все признаки без DIS) → base + DIS. Критерии — из Плана целей 3.5 (записаны до опыта): встраивается только голова, чей вклад подтверждён относительно той же модели без неё; новая модель должна менять ранжирование, а не масштабировать confidence.
+
+## Вопрос
+Какие события предсказуемы сверх исходной оценки и меняет ли голова ранжирование?
+
+## Ожидалось (до прогона)
+По плану 3.5: четыре отдельных теста информативности; q_det ожидаемо не улучшится (направление коррекции confidence закрыто ранее).
+
+## Что сделано
+scripts/evaluate_event_heads.py, прогон 16.09 23:4x MSK (CPU, секунды). Карточка создана после прогона; критерии взяты из плана 3.5.
+
+## Получено
+Отложенные видео. q_det: control AP 0.9190, base 0.9197, +DIS 0.9199; ΔAP base−control -0.0026, ДИ [-0.0162, 0.0071] — нет вклада (повтор закрытого направления коррекции confidence). q_match: 0.9043 → 0.9209 (+DIS 0.9210); ΔAP +0.0132, ДИ [0.009, 0.0175], на каждом видео; Brier 0.0349 → 0.0315; страта lost-треков AP 0,386 против 0,944 у tracked. q_birth: 0.5480 → 0.6931 (+DIS 0.7014); ΔAP +0.1372, ДИ [0.0982, 0.1612], на каждом видео; Spearman головы с conf 0,088 — ранжирование меняется, а не масштабируется; поклассово pedestrian 0,402 → 0,696, car 0,626 → 0,786; DIS +0,0052, ДИ [+0,0011; +0,0108]; ECE головы 0,109 против 0,061 у контроля — калибровка хуже. q_alive: 0.8593 → 0.9550; ΔAP +0.0604, ДИ [-0.0061, 0.1322] (через ноль из-за тёмного видео, где контроль 0,979); Brier 0.1401 → 0.0825, ДИ целиком отрицательный; DIS не помогает.
+
+## Интерпретация
+Рождение и продолжение — разные события: исходный confidence почти не ранжирует безопасность рождения, а признаки контекста трекера, геометрии и изображения дают +0,14 AP; для q_match вклад скромный (+0,013), для q_alive — по Brier. Истинность рамки (q_det) из тех же признаков не улучшается. Это уровень событий, не трекера.
+
+## Решение
+К встраиванию (цель 6) допускаются q_birth (сильный сигнал), q_match (устойчивый малый) и q_alive (по калибровке); q_det не встраивается. DIS — только для q_birth. Следующая карточка: встраивание q_birth в политику рождения XYWHByteTrack с парной точкой по одинаковой точности рождений.
+
+## Ограничения
+Уровень событий, не трекера. Три отложенных видео; q_alive — 1 148 тестовых единиц с 84 % положительных; калибровка q_birth хуже контроля (ECE 0,109); страта occluded для q_det вырождена (атрибут есть только у сопоставленных). Карточка создана после прогона по критериям плана 3.5.
+
+## Нельзя заявлять
+Прирост HOTA/IDSw/ложных рождений; новизну (соседи: UncertaintyTrack, UTrack, ByteTrack) — проверка литературы отдельно.
+
+## Условия
+- **baseline:** монотонное преобразование исходной оценки события
+- **variant:** логистическая голова на признаках детекции, трека, изображения (+DIS)
+- **dataset:** runs/event_dataset (7 видео)
+- **split:** 4 обучающих / 3 отложенных
+- **detector:** weights/baseline_seed42/best.pt
+- **tracker:** XYWHByteTrack замороженного стенда (события)
+
+## Критерии приёмки (записаны до прогона)
+- ✅ q_birth: AP выше контроля и Brier не хуже на каждом отложенном видео  
+  *runs/event_heads/report.json → events.q_birth.comparisons.base_vs_control (AP на каждом видео; Brier ДИ [−0,0156; +0,007], по видео 2 из 3)*
+- ✅ q_match: AP выше контроля на каждом отложенном видео  
+  *runs/event_heads/report.json → events.q_match.comparisons.base_vs_control*
+- ✅ q_alive: AP или Brier лучше контроля с ДИ, не пересекающим ноль  
+  *runs/event_heads/report.json → events.q_alive.comparisons.base_vs_control.brier*
+- ❌ q_det: вклад сверх conf  
+  *runs/event_heads/report.json → events.q_det.comparisons.base_vs_control ΔAP −0,0026, ДИ через ноль*
+- ✅ голова меняет ранжирование, а не масштабирует confidence (Spearman с исходной оценкой < 0,5 для q_birth)  
+  *runs/event_heads/report.json → events.q_birth.groups.base.spearman_vs_raw_score = 0,088*
+- ⏳ подтверждение на уровне трекера: FP, ложные рождения, IDSw, HOTA (цель 6)
+
+## Метрики
+| метрика | значение | baseline | подмножество | источник |
+|---|---|---|---|---|
+| [AP↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FAP) | 0.6931338172896222 | 0.5480199550003195 | q_birth, отложенные: base / control(conf) | `runs/event_heads/report.json` · events.q_birth.groups.base.test.average_precision |
+| [AP↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FAP) | 0.9209282901129066 | 0.9043054040671763 | q_match, отложенные: base / control(IoU+conf) | `runs/event_heads/report.json` · events.q_match.groups.base.test.average_precision |
+| [AP↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FAP) | 0.9549913384486244 | 0.8592585712815901 | q_alive, отложенные: base / control(age) | `runs/event_heads/report.json` · events.q_alive.groups.base.test.average_precision |
+| [AP↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FAP) | 0.9197464084998922 | 0.9189593089306165 | q_det, отложенные: base / control(conf) — нет вклада | `runs/event_heads/report.json` · events.q_det.groups.base.test.average_precision |
+| [Brier↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FBrier%20score) | 0.08254910737464174 | 0.14005729398200775 | q_alive, отложенные | `runs/event_heads/report.json` · events.q_alive.groups.base.test.brier |
+| [ECE↗](obsidian://open?vault=ObsidianFlyVis&file=04%20%D0%A2%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D1%8B%20%D0%B8%20%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D0%BA%D0%B8%2FECE) | 0.10894460676684162 | 0.060947205222609505 | q_birth, отложенные: голова хуже контроля по калибровке | `runs/event_heads/report.json` · events.q_birth.groups.base.test.ece |
+
+## Доказательства
+- критерии информативности и запрет монотонного масштабирования: 3.5. Цель 4
+- четыре события, три группы, бутстрап по видео: `runs/event_heads/report.json` · events
+
+## Код
+- `scripts/evaluate_event_heads.py`
+
+## Данные
+- `runs/event_heads`
+

@@ -1,0 +1,11 @@
+CPU_GUARD_V2: GPU branches intentionally not evaluated
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 2 items
+
+tests/test_project_history_cache_transient.py::test_disk_cache_excludes_transient_paths_and_preserves_history PASSED [ 50%]
+tests/test_project_history_cache_transient.py::test_cached_load_rebuilds_same_current_working_state PASSED [100%]
+
+============================== 2 passed in 0.25s ==============================
+SYSTEM_MEMORY_POLICY {"limit_active": false, "limit_bytes": null, "available_bytes": 17110904832, "policy": "system_reserve_external_supervisor", "supervisor_report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\01d1a9f1acb341abb45948e15751d2f2\\memory_guard.json"}

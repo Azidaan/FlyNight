@@ -1,0 +1,63 @@
+---
+aliases:
+- 'З13: оценка полезности по полной карте ответа'
+tags:
+- эксперимент
+- исход/inconclusive
+- направление/flyvis
+- метка/Z13
+- метка/fly-problem-P8
+- муха
+- проверка-гипотезы/завершена
+исход: неопределённый
+направление: FlyVis
+начат: '2026-10-18'
+---
+
+# 🟢 З13: оценка полезности по полной карте ответа
+
+↑ [[01 Муха/Темы/Прочее о мухе|Прочее о мухе]] · **Исход:** неопределённый · `z13_map_utility_v1`
+
+## Вопрос
+Добавляют ли неоднозначность и форма карты ответа пользу отбора сверх геометрии и высоты пика?
+
+## Гипотеза
+Восемь заранее заданных статистик карты могут отделять полезные центры от уверенных неверных; это гипотеза.
+
+## Ожидалось (до прогона)
+At1%: D map-utility minus original, geometry and limited utility all lower95%video CIs>0.2/5% secondary, not rescue. D/C/R1 map-head comparisons separate.
+
+## Что сделано
+2026-10-18
+
+## Получено
+runs/z13_map_utility_20261018/report.json: {"arms": {"D": {"coverage": {"original": {"0.01": {"selected": 84, "known": 64, "unknown": 20, "useful": 2, "harmful": 62, "useful_share_known": 0.03125}, "0.02": {"selected": 167, "known": 132, "unknown": 35, "useful": 4, "harmful": 128, "useful_share_known": 0.030303030303030304}, "0.05": {"selected": 417, "known": 338, "unknown": 79, "useful": 9, "harmful": 329, "useful_share_known": 0.026627218934911243}}, "geometry": {"0.01": {"selected": 84, "known": 38, "unknown": 46, "useful": 5, "harmful": 33, "useful_share_known": 0.13157894736842105}, "0.02": {"selected": 167, "known": 83, "unknown": 84, "useful": 18, "harmful": 65, "useful_share_known": 0.21686746987951808}, "0.05": {"selected": 417, "known": 232, "unknown": 185, "useful": 47, "harmful": 185, "useful_share_known": 0.2025862068965517}}, "limited": {"0.01": {"selected": 84, "known": 36, "unknown": 48, "useful": 5, "harmful": 31, "useful_share_known": 0.1388888888888889}, "0.02": {"selected": 167, "known": 82, "unknown": 85, "useful": 17, "harmful": 65, "useful_share_known": 0.2073170731707317}, "0.05": {"selected": 417, "known": 233, "unknown": 184, "useful": 49, "harmful": 184, "useful_share_known": 0.21030042918454936}}, "map_utility": {"0.01": {"selected": 84, "known": 46, "unknown": 38, "useful": 11, "harmful": 35, "useful_share_known": 0.2391304347826087}, "0.02": {"selected": 167, "known": 100, "unknown": 67, "useful": 22, "harmful": 78, "useful_share_known": 0.22}, "0.05": {"selected": 417, "known": 238, "unknown": 179, "useful": 56, "harmful": 182, "useful_share_known": 0.23529411764705882}}}, "paired_selected_success": {"0.01": {"map_utility-original": {"mean_per_video": 0.0034320364748281237, "ci95": [-0.0003225426909887848, 0.008469763363922205], "better": 5, "n": 26}, "map_utility-geometry": {"mean_per_video": 0.0020323028694024217, "ci95": [-0.0012014081440267722, 0.005969064037641698], "better": 5, "n": 26}, "map_utility-limited": {"mean_per_video": 0.0024896943151659604, "ci95": [-0.0012168257712138171, 0.006862074058716019], "better": 6, "n": 26}}, "0.02": {"map_utility-original": {"mean_per_video": 0.007964432063147484, "ci95": [0.0021861439859618896, 0.01460662162055932], "better": 10, "n": 26}, "map_utility-geometry": {"mean_per_video": -0.00023294928209203876, "ci95": [-0.006619974843582575, 0.005216406025338047], "better": 6, "n": 26}, "map_utility-limited": {"mean_per_video": 0.0005298736841868195, "ci95": [-0.005944339300712695, 0.005968156188923603], "better": 7, "n": 26}}, "0.05": {"map_utility-original": {"mean_per_video": 0.05208881749042507, "ci95": [0.017384340849143844, 0.10135812980895278], "better": 18, "n": 26}, "map_utility-geometry": {"mean_per_video": 0.0048022310398671995, "ci95": [-0.006695275790693566, 0.016528382790109382], "better": 10, "n": 26}, "map_utility-limited": {"mean_per_video": 0.003693256680892841, "ci95": [-0.007526430764154179, 0.01546953311250028], "better": 9, "n": 26}}}}, "C": {"coverage": {"original": {"0.01": {"selected": 84, "known": 67, "unknown": 17, "useful": 2, "harmful": 65, "useful_share_known": 0.029850746268656716}, "0.02": {"selected": 167, "known": 137, "unknown": 30, "useful": 3, "harmful": 134, "useful_share_known": 0.021897810218978103}, "0.05": {"selected": 417, "known": 341, "unknown": 76, "useful": 7, "harmful": 334, "useful_share_known": 0.020527859237536656}}, "geometry": {"0.01": {"selected": 84, "known": 40, "unknown": 44, "useful": 7, "harmful": 33, "useful_share_known": 0.175}, "0.02": {"selected": 167, "known": 92, "unknown": 75, "useful": 17, "harmful": 75, "useful_share_known": 0.18478260869565216}, "0.05": {"selected": 417, "known": 234, "unknown": 183, "useful": 49, "harmful": 185, "useful_share_known": 0.2094017094017094}}, "limited": {"0.01": {"selected": 84, "known": 42, "unknown": 42, "useful": 8, "harmful": 34, "useful_share_known": 0.19047619047619047}, "0.02": {"selected": 167, "known": 87, "unknown": 80, "useful": 26, "harmful": 61, "useful_share_known": 0.2988505747126437}, "0.05": {"selected": 417, "known": 238, "unknown": 179, "useful": 53, "harmful": 185, "useful_share_known": 0.22268907563025211}}, "map_utility": {"0.01": {"selected": 84, "known": 47, "unknown": 37, "useful": 14, "harmful": 33, "useful_share_known": 0.2978723404255319}, "0.02": {"selected": 167, "known": 99, "unknown": 68, "useful": 28, "harmful": 71, "useful_share_known": 0.2828282828282828}, "0.05": {"selected": 417, "known": 231, "unknown": 186, "useful": 62, "harmful": 169, "useful_share_known": 0.2683982683982684}}}, "paired_selected_success": {"0.01": {"map_utility-original": {"mean_per_video": 0.011755967888461012, "ci95": [0.002886286644181017, 0.02391415639982403], "better": 9, "n": 26}, "map_utility-geometry": {"mean_per_video": 0.006535291793309471, "ci95": [0.0004881444863740694, 0.014499295785126614], "better": 7, "n": 26}, "map_utility-limited": {"mean_per_video": 0.006478384896924588, "ci95": [0.0003465003465003465, 0.016988223895135678], "better": 4, "n": 26}}, "0.02": {"map_utility-original": {"mean_per_video": 0.022536023552461273, "ci95": [0.007181366739869753, 0.045333144793296344], "better": 9, "n": 26}, "map_utility-geometry": {"mean_per_video": -0.009454824609577897, "ci95": [-0.05314191988671247, 0.01669313428427727], "better": 9, "n": 26}, "map_utility-limited": {"mean_per_video": -0.03472388871825897, "ci95": [-0.11505850213860616, 0.007892986759350186], "better": 7, "n": 26}}, "0.05": {"map_utility-original": {"mean_per_video": 0.05801718505648372, "ci95": [0.023315364651626726, 0.10625193837540789], "better": 18, "n": 26}, "map_utility-geometry": {"mean_per_video": -0.013845806278935884, "ci95": [-0.05841434418560717, 0.013674704493141013], "better": 9, "n": 26}, "map_utility-limited": {"mean_per_video": -0.018474188042626585, "ci95": [-0.06329560967540998, 0.008743936838634449], "better": 8, "n": 26}}}}, "R1": {"coverage": {"original": {"0.01": {"selected": 84, "known": 48, "unknown": 36, "useful": 1, "harmful": 47, "useful_share_known": 0.020833333333333332}, "0.02": {"selected": 167, "known": 109, "unknown": 58, "useful": 4, "harmful": 105, "useful_share_known": 0.03669724770642202}, "0.05": {"selected": 417, "known": 302, "unknown": 115, "useful": 4, "harmful": 298, "useful_share_known": 0.013245033112582781}}, "geometry": {"0.01": {"selected": 84, "known": 59, "unknown": 25, "useful": 8, "harmful": 51, "useful_share_known": 0.13559322033898305}, "0.02": {"selected": 167, "known": 112, "unknown": 55, "useful": 11, "harmful": 101, "useful_share_known": 0.09821428571428571}, "0.05": {"selected": 417, "known": 269, "unknown": 148, "useful": 31, "harmful": 238, "useful_share_known": 0.11524163568773234}}, "limited": {"0.01": {"selected": 84, "known": 59, "unknown": 25, "useful": 6, "harmful": 53, "useful_share_known": 0.1016949152542373}, "0.02": {"selected": 167, "known": 109, "unknown": 58, "useful": 12, "harmful": 97, "useful_share_known": 0.11009174311926606}, "0.05": {"selected": 417, "known": 259, "unknown": 158, "useful": 29, "harmful": 230, "useful_share_known": 0.11196911196911197}}, "map_utility": {"0.01": {"selected": 84, "known": 60, "unknown": 24, "useful": 6, "harmful": 54, "useful_share_known": 0.1}, "0.02": {"selected": 167, "known": 114, "unknown": 53, "useful": 10, "harmful": 104, "useful_share_known": 0.08771929824561403}, "0.05": {"selected": 417, "known": 273, "unknown": 144, "useful": 31, "harmful": 242, "useful_share_known": 0.11355311355311355}}}, "paired_selected_success": {"0.01": {"map_utility-original": {"mean_per_video": 0.004869495547822602, "ci95": [0.0002632628330952353, 0.011374272989293173], "better": 5, "n": 26}, "map_utility-geometry": {"mean_per_video": -0.006272687958734471, "ci95": [-0.018648396373687072, 0.00322866471122285], "better": 2, "n": 26}, "map_utility-limited": {"mean_per_video": -0.0027033406393871507, "ci95": [-0.010477430135860367, 0.00392431787780625], "better": 2, "n": 26}}, "0.02": {"map_utility-original": {"mean_per_video": 0.006795994450127956, "ci95": [-0.0010275218323605418, 0.01870181621358172], "better": 6, "n": 26}, "map_utility-geometry": {"mean_per_video": -0.004143868853203659, "ci95": [-0.011649950652713093, 0.0021587720459488643], "better": 4, "n": 26}, "map_utility-limited": {"mean_per_video": -0.005038323236030134, "ci95": [-0.012279355497732788, 0.0008151793274698282], "better": 3, "n": 26}}, "0.05": {"map_utility-original": {"mean_per_video": 0.022672395424013787, "ci95": [0.010257334383789906, 0.039872233699159536], "better": 16, "n": 26}, "map_utility-geometry": {"mean_per_video": 0.001983445071356475, "ci95": [-0.004198491678333129, 0.009195267170429615], "better": 6, "n": 26}, "map_utility-limited": {"mean_per_video": 0.002963456606963256, "ci95": [-0.003063342178214556, 0.009930899446853731], "better": 7, "n": 26}}}}}, "paired": {"D_map_utility-C_map_utility": {"mean_per_video": -0.007763925191341531, "ci95": [-0.019638067434078598, 0.0013782581528094622], "better": 3, "n": 26}, "D_map_utility-R1_map_utility": {"mean_per_video": -0.00013752622557978801, "ci95": [-0.00717887435290579, 0.006331150190662618], "better": 3, "n": 26}}, "primary_pass": false, "fly_control_pass": false, "decision": "full_map_utility_gate_not_passed", "cuda_initialized": false, "dev_evaluated": false, "hota_measured": false, "limitations": "Second implementation after failed limited head. Reused train26 is exploratory. One seed, no risk guarantee for unknowns, no dev/HOTA/heldout75. No conclusion about all representations if it fails."}
+
+## Интерпретация
+Фиксированный критерий полного оценщика не выполнен. Эта реализация не подтверждена; причина ограничений всего представления не установлена.
+
+## Решение
+full_map_utility_gate_not_passed
+
+## Нельзя заявлять
+Нет HOTA, независимой проверкиdev или гарантии риска на неизвестных исходах. Train26 повторно использован; один сид.
+
+## Критерии приёмки (записаны до прогона)
+- ✅ For every fixed source row: identical video/label/kind/useful; center difference<0.5px, peak difference<0.001. Use saved original centers/outcomes for final comparison.  
+  *runs/z13_map_utility_20261018/report.json*
+- ❌ At1%: D map-utility minus original, geometry and limited utility all lower95%video CIs>0.2/5% secondary, not rescue. D/C/R1 map-head comparisons separate.  
+  *runs/z13_map_utility_20261018/report.json*
+
+## Доказательства
+- Фиксированные признаки/контроли до извлечения: `runs/z13_map_utility_20261018/protocol.json` · 
+- Неуспех ограниченного оценщика, основание следующей реализации: `runs/z13_parallel_next_20261018/utility/report.json` · 
+- Фактический CPU-запуск и предел времени: `runs/z13_map_utility_20261018/controller.json` · 
+- Проверенный полный/частичный первичный итог: `runs/z13_map_utility_20261018/report.json` · 
+
+## Код
+- `scripts/z13_map_utility.py`
+- `tracking/z13_response_utility.py`
+
+## Данные
+- `runs/z13_map_utility_20261018`
+

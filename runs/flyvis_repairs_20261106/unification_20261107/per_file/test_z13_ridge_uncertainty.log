@@ -1,0 +1,12 @@
+CPU_GUARD_V2: GPU branches intentionally not evaluated
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 3 items
+
+tests/test_z13_ridge_uncertainty.py::test_posterior_mean_is_identical_to_existing_ridge_and_variance_matches_direct_inverse PASSED [ 33%]
+tests/test_z13_ridge_uncertainty.py::test_uncertainty_increases_in_unobserved_feature_direction PASSED [ 66%]
+tests/test_z13_ridge_uncertainty.py::test_old_path_exact_and_constant_control_only_penalizes_shared_confidence PASSED [100%]
+
+============================== 3 passed in 0.23s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 1461161984, "peak_process_bytes": 1461161984}

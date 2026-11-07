@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "frames": 3,
+  "model": "flow/0000/000",
+  "mode": "full",
+  "fade_in_seconds": 1.0,
+  "source_fps": 30.0,
+  "geometry_version": "legacy_v1",
+  "parameters_unchanged": true,
+  "cuda_initialized": false,
+  "rows": [
+    {
+      "frame": 0,
+      "ids": [
+        1.0,
+        2.0
+      ],
+      "track_shape": [
+        2,
+        8
+      ],
+      "baseline_shape": [
+        1,
+        45669
+      ],
+      "activity_shape": null
+    },
+    {
+      "frame": 1,
+      "ids": [
+        1.0,
+        2.0
+      ],
+      "track_shape": [
+        2,
+        8
+      ],
+      "baseline_shape": [
+        1,
+        45669
+      ],
+      "activity_shape": [
+        1,
+        2,
+        45669
+      ]
+    },
+    {
+      "frame": 2,
+      "ids": [
+        1.0,
+        2.0
+      ],
+      "track_shape": [
+        2,
+        8
+      ],
+      "baseline_shape": [
+        1,
+        45669
+      ],
+      "activity_shape": [
+        1,
+        2,
+        45669
+      ]
+    }
+  ],
+  "seconds": 16.45299999999952,
+  "job": {
+    "limit_bytes": 4294967296,
+    "limit_active": true,
+    "peak_job_bytes": 2846543872,
+    "peak_process_bytes": 2846543872
+  },
+  "scope": "Real FlyVis eye/core/decoder -> motion field -> tracker. Fixed synthetic detections; detector inference and HOTA are not tested."
+}

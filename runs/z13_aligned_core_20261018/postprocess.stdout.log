@@ -1,2 +1,85 @@
 [OK] файлов: 759, удалено устаревших: 2 → E:\Dissertation\ObsidianFlyVis
 Preserved existing edited files: 22
+[main a5ef555] Record bounded FlyVis utility and aligned-core checks
+ 83 files changed, 556927 insertions(+), 4 deletions(-)
+ create mode 100644 "ObsidianFlyVis/01 \320\234\321\203\321\205\320\260/\320\255\320\272\321\201\320\277\320\265\321\200\320\270\320\274\320\265\320\275\321\202\321\213/z13_aligned_core_v1.md"
+ create mode 100644 "ObsidianFlyVis/06 \320\226\321\203\321\200\320\275\320\260\320\273/2026-10-18 14-53 \320\277\320\276\321\201\321\202\320\260\320\275\320\276\320\262\320\272\320\260 \320\276\320\261\321\203\321\207\320\265\320\275\320\270\321\217 D \321\207\320\265\321\200\320\265\320\267 \320\275\321\213\320\275\320\265\321\210\320\275\320\270\320\271 \321\201\321\207\320\270\321\202\321\213\320\262\320\260\321\202\320\265\320\273\321\214.md"
+ create mode 100644 "ObsidianFlyVis/06 \320\226\321\203\321\200\320\275\320\260\320\273/2026-10-18 14-57 \320\267\320\260\320\277\321\203\321\201\320\272 z13_aligned_core_v1.md"
+ create mode 100644 "ObsidianFlyVis/06 \320\226\321\203\321\200\320\275\320\260\320\273/2026-10-18 15-18 \320\270\321\202\320\276\320\263 \321\201\320\276\321\205\321\200\320\260\320\275\320\265\320\275\320\270\320\265 z13_aligned_core_v1.md"
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/0001542f-ec815219.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/004855fc-ff3946ad.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/007eddfc-528c4da4.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/009215e2-ea063b28.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/00b56f41-e0e5d918.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/015ccf71-56e8d5b8.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/0166faa5-5fbc53c5.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/017bec14-1c6f8718.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/0199e7fc-0b6d1a35.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/0204aad7-eeb13c43.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/023a70d5-cde2a67a.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/0279c430-962e3702.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/027b216c-bfae3d6d.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/029556a0-0ec9fa6f.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/02bd959c-f20a2437.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/02c2a4d8-94d32b2f.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/02d5e1be-bd9bd999.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/02f101f6-56ba9106.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/0329d6b9-abddbf95.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/0332bb54-c4bee5eb.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/0336de82-802d2437.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/035d6940-18869b73.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/03b0697b-faa11b32.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/03bf498b-044cb72c.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/03c239e4-9e0fbb75.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/03d75f61-ce25863a.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/rows.json
+ create mode 100644 runs/z13_aligned_core_20261018/baseline/summary.json
+ create mode 100644 runs/z13_aligned_core_20261018/checkpoint.pt
+ create mode 100644 runs/z13_aligned_core_20261018/checkpoint_250.pt
+ create mode 100644 runs/z13_aligned_core_20261018/commit_scope.json
+ create mode 100644 runs/z13_aligned_core_20261018/controller.stderr.log
+ create mode 100644 runs/z13_aligned_core_20261018/controller.stdout.log
+ create mode 100644 runs/z13_aligned_core_20261018/controller_result.json
+ create mode 100644 runs/z13_aligned_core_20261018/history.json
+ create mode 100644 runs/z13_aligned_core_20261018/postprocess.stderr.log
+ create mode 100644 runs/z13_aligned_core_20261018/postprocess.stdout.log
+ create mode 100644 runs/z13_aligned_core_20261018/recorded.json
+ create mode 100644 runs/z13_aligned_core_20261018/report.json
+ create mode 100644 runs/z13_aligned_core_20261018/reproduction.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/0001542f-ec815219.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/004855fc-ff3946ad.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/007eddfc-528c4da4.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/009215e2-ea063b28.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/00b56f41-e0e5d918.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/015ccf71-56e8d5b8.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/0166faa5-5fbc53c5.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/017bec14-1c6f8718.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/0199e7fc-0b6d1a35.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/0204aad7-eeb13c43.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/023a70d5-cde2a67a.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/0279c430-962e3702.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/027b216c-bfae3d6d.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/029556a0-0ec9fa6f.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/02bd959c-f20a2437.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/02c2a4d8-94d32b2f.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/02d5e1be-bd9bd999.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/02f101f6-56ba9106.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/0329d6b9-abddbf95.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/0332bb54-c4bee5eb.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/0336de82-802d2437.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/035d6940-18869b73.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/03b0697b-faa11b32.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/03bf498b-044cb72c.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/03c239e4-9e0fbb75.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/03d75f61-ce25863a.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/comparison.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/rows.json
+ create mode 100644 runs/z13_aligned_core_20261018/stage250/summary.json
+ create mode 100644 runs/z13_aligned_core_20261018/status.json
+ create mode 100644 runs/z13_aligned_core_20261018/stderr.log
+ create mode 100644 runs/z13_aligned_core_20261018/stdout.log
+ create mode 100644 runs/z13_aligned_core_20261018/validation_0.log
+ create mode 100644 runs/z13_aligned_core_20261018/validation_1.log
+ create mode 100644 runs/z13_aligned_core_20261018/validation_result.json
+ create mode 100644 runs/z13_aligned_core_20261018/vault_preservation.json
+Recorded and verified; commit a5ef555e088b31fc6df83460d96a1f83d54eae96 push exit 0

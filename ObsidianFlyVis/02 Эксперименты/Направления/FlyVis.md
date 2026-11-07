@@ -9,7 +9,7 @@ tags:
 
 Коннектомно-ограниченный источник признаков движения; самостоятельный FlyVisTracker (линия A).
 
-## Эксперименты (183)
+## Эксперименты (185)
 - 🔴 [Стресс-проверка FlyVis: полный кадр и перекрывающиеся фрагменты на семи видео↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_stress) — отрицательный, 2026-09-13
 - 🔴 [Аудит motion_confidence FlyVis: антиинформативна в рабочем диапазоне↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fmotion_confidence_audit) — отрицательный, 2026-09-13
 - 🔴 [Цель 2: считывание внутренней активности FlyVis (T4/T5, 34 типа) для q_match против декодированного потока и shuffled↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fflyvis_internal_readout_v1) — отрицательный, 2026-09-16
@@ -193,3 +193,5 @@ tags:
 - 🔴 [Гибридное узнавание цели — базовая ветвь внешнего вида MASA и ветвь FlyVis, решение о переносе рамки↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fz13_hybrid_identity_v1) — отрицательный, 2026-10-26
 - 🔴 [Гибридное узнавание цели v2 — точнее образец внешнего вида и обучаемое сравнение компонент, ветвь FlyVis и решение о переносе↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fz13_hybrid_identity_v2) — отрицательный, 2026-10-26
 - 🔴 [Проверка вклада FlyVis в гибридное узнавание цели на train26 — замороженная версия v2, одна оценка↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fz13_hybrid_fly_confirm_v1) — отрицательный, 2026-10-26
+- 🟡 [Б1 — обучение временной поправки к сильной базе, первая эпоха↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Fb1_temporal_residual_training_v1) — неопределённый, 2026-10-27
+- 🔴 [Восстановление потерянного объекта — контроль выдачи калмановского прогноза↗](obsidian://open?vault=ObsidianFlyVis&file=01%20%D0%9C%D1%83%D1%85%D0%B0%2F%D0%AD%D0%BA%D1%81%D0%BF%D0%B5%D1%80%D0%B8%D0%BC%D0%B5%D0%BD%D1%82%D1%8B%2Frecovery_motion_output_control_v1) — отрицательный, 2026-10-27

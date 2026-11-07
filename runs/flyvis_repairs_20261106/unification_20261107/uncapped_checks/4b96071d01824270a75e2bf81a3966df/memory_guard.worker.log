@@ -1,0 +1,8 @@
+[CACHE] обнаружения: E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\uncapped_checks\1f406d2b3a274531af139a5db524cf9f\detections.npz
+[CACHE] обнаружения: E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\uncapped_checks\1f406d2b3a274531af139a5db524cf9f\detections.npz
+Traceback (most recent call last):
+  File "E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\pipeline_real_clip.py", line 55, in <module>
+    runner.build_motion_cache(source_name,clip,out,**kw)
+  File "E:\Dissertation\scripts\run_bdd_video_rate_experiment.py", line 406, in build_motion_cache
+    raise RuntimeError(f"{data_path}: источник или fps не совпадает с запросом; выберите новый output")
+RuntimeError: E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\uncapped_checks\1f406d2b3a274531af139a5db524cf9f\flyvis_full.npz: источник или fps не совпадает с запросом; выберите новый output

@@ -1,0 +1,39 @@
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 7 items
+
+tests/test_neck_v3.py::test_kernel PASSED                                [ 14%]
+tests/test_neck_v3.py::test_zero_trainable PASSED                        [ 28%]
+tests/test_neck_v3.py::test_identity_at_zero PASSED                      [ 42%]
+tests/test_neck_v3.py::test_shapes_and_finite PASSED                     [ 57%]
+tests/test_neck_v3.py::test_smoothing_actually_smooths PASSED            [ 71%]
+tests/test_neck_v3.py::test_amp_and_devices FAILED                       [ 85%]
+
+================================== FAILURES ===================================
+____________________________ test_amp_and_devices _____________________________
+tests\test_neck_v3.py:109: in test_amp_and_devices
+    check('под autocast fp16 нет NaN', torch.isfinite(y_amp).all(),
+.venv\lib\site-packages\torch\utils\_device.py:109: in __torch_function__
+    return func(*args, **kwargs)
+E   torch.AcceleratorError: CUDA error: unknown error
+E   Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+E   CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+E   For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+E   Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+---------------------------- Captured stdout call -----------------------------
+[OK ] CPU и CUDA согласованы — макс. расхождение 0.00e+00
+---------------------------- Captured stderr call -----------------------------
+fatal   : Memory allocation failure
+fatal   : Memory allocation failure
+fatal   : Memory allocation failure
+fatal   : Memory allocation failure
+=========================== short test summary info ===========================
+FAILED tests/test_neck_v3.py::test_amp_and_devices - torch.AcceleratorError: CUDA error: unknown error
+Search for `cudaErrorUnknown' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+========================= 1 failed, 5 passed in 3.20s =========================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 2163933184, "peak_process_bytes": 2163933184}

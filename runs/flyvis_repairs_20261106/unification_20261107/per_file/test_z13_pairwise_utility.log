@@ -1,0 +1,15 @@
+CPU_GUARD_V2: GPU branches intentionally not evaluated
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 6 items
+
+tests/test_z13_pairwise_utility.py::test_gradient_for_both_fixed_objectives PASSED [ 16%]
+tests/test_z13_pairwise_utility.py::test_pairs_are_bounded_distinct_and_reproducible PASSED [ 33%]
+tests/test_z13_pairwise_utility.py::test_point_objective_matches_high_precision_sklearn PASSED [ 50%]
+tests/test_z13_pairwise_utility.py::test_unknowns_do_not_enter_fit_or_scaler PASSED [ 66%]
+tests/test_z13_pairwise_utility.py::test_held_out_outcomes_cannot_change_own_predictions PASSED [ 83%]
+tests/test_z13_pairwise_utility.py::test_cancellation_is_checked_during_optimization PASSED [100%]
+
+============================== 6 passed in 2.34s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 2076393472, "peak_process_bytes": 2076393472}

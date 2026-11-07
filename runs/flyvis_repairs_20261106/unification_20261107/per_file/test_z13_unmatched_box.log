@@ -1,0 +1,11 @@
+CPU_GUARD_V2: GPU branches intentionally not evaluated
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 2 items
+
+tests/test_z13_unmatched_box.py::test_existing_assignment_is_preserved_by_both_admission_rules PASSED [ 50%]
+tests/test_z13_unmatched_box.py::test_unmatched_rule_and_free_rule_differ_only_for_a_claimed_detection PASSED [100%]
+
+============================== 2 passed in 0.21s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 1426956288, "peak_process_bytes": 1426956288}

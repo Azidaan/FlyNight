@@ -1,10 +1,25 @@
-"""Один изолированный узел проверенных гипотез; переходы не создают рёбер."""
+"""Отдельная группа Б1–Б3 и сводка завершённых проверок."""
 from __future__ import annotations
 
 import re
 
 NOTE = 'Проверенные гипотезы — результаты и ограничения'
+HUB_NOTE = 'Гипотезы'
 TESTED = {'completed_positive', 'completed_negative', 'inconclusive'}
+HYPOTHESIS_TAGS = {'HY26-1', 'HY26-2', 'HY26-3'}
+
+
+def is_branch(card):
+    return bool(HYPOTHESIS_TAGS.intersection(card.get('tags', [])))
+
+
+def verification_tag(card):
+    """Цвет обозначает завершённую проверку, включая отрицательную."""
+    if not card.get('hypothesis'):
+        return None
+    measured = (card.get('state') in TESTED | {'closed', 'superseded'}
+                and bool(card.get('obtained')) and bool(card.get('evidence')))
+    return 'проверка-гипотезы/завершена' if measured else 'проверка-гипотезы/не-завершена'
 
 
 def plain(value):
@@ -38,5 +53,18 @@ def build(vault, history, card_paths, ref, fm, states):
                     body += f'**{title}.** {plain(c[field])}\n\n'
             body += ref('', card_paths[c['id']], 'Карточка, критерии и первичные источники') + '\n\n'
     vault.write(NOTE + '.md', fm({'aliases': ['Проверенные гипотезы'],
-                                'tags': ['проверенные-гипотезы'], 'проверок': len(cards)}) + body)
+                                'tags': ['проверенные-гипотезы', 'проверка-гипотезы/завершена'], 'проверок': len(cards)}) + body)
+    hub = (f'# {HUB_NOTE}\n\n'
+           'Центр отдельной группы: три луча ведут к Б1, Б2 и Б3. '
+           'С остальными группами графа структурных связей нет.\n\n'
+           '## Новые гипотезы\n\n')
+    for card in history['experiments']:
+        if not is_branch(card):
+            continue
+        hub += f"### {plain(card['title'])}\n\n"
+        hub += f"**Статус:** {states[card['state']]}.\n\n{plain(card['hypothesis'])}\n\n"
+        hub += f"[[{card_paths[card['id']]}|{plain(card['title'])}]]\n\n"
+    hub += '## Проверенные гипотезы\n\n'
+    hub += ref('', NOTE, 'Завершённые проверки, результаты и ограничения') + '\n'
+    vault.write(HUB_NOTE + '.md', fm({'tags': ['гипотезы-узел']}) + hub)
     return len(cards)

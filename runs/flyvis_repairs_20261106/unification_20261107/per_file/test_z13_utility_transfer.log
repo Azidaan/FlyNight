@@ -1,0 +1,12 @@
+CPU_GUARD_V2: GPU branches intentionally not evaluated
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 3 items
+
+tests/test_z13_utility_transfer.py::test_disjoint_video_boundary_is_enforced PASSED [ 33%]
+tests/test_z13_utility_transfer.py::test_unknown_rows_cannot_change_training_normalization_or_predictions PASSED [ 66%]
+tests/test_z13_utility_transfer.py::test_saved_estimator_predicts_without_evaluation_outcomes PASSED [100%]
+
+============================== 3 passed in 2.28s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 2044276736, "peak_process_bytes": 2044276736}

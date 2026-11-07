@@ -1,0 +1,23 @@
+"""Публикация отдельного масочного пилота после проверки старых деревьев."""
+from pathlib import Path
+import hashlib,json
+import psutil
+ROOT=Path(__file__).resolve().parents[1]
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def main():
+    run=ROOT/'runs/b123_20261027/sam2_query_output_pilot'
+    assert 'OK: каталог согласован с источниками' in (run/'catalog_validation.log').read_text(encoding='utf-8')
+    assert '58 passed' in (run/'catalog_tests.log').read_text(encoding='utf-8')
+    for folder in ['sam2_output_pilot','sam2_precision_profile']:
+        end=json.loads((ROOT/'runs/b123_20261027'/folder/'controller_result.json').read_text())
+        assert end['all_owned_ended']
+        for pid,birth in end['owned'].items():
+            if psutil.pid_exists(int(pid)):assert abs(psutil.Process(int(pid)).create_time()-birth)>.01
+    p=json.loads((run/'protocol.json').read_text(encoding='utf-8'))
+    for name,h in p['sha256'].items():assert sha(ROOT/name)==h,name
+    source='scripts/b123_sam2_query_output_pilot_20261027.py'
+    job=ROOT/'runs/b123_20261027/ready_jobs/140_sam2_query_output_pilot.json';assert not job.exists()
+    job.write_text(json.dumps(dict(title='Восстановление потерянного объекта — маска по запросу выдачи',folder=run.relative_to(ROOT).as_posix(),
+        script=source,script_sha256=sha(ROOT/source),protocol_sha256=sha(run/'protocol.json')),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    print('Published query-only mask pilot; all previous GPU trees ended')
+if __name__=='__main__':main()

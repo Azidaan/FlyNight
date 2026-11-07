@@ -8,12 +8,13 @@ tags:
 - метка/engineering-future
 - метка/fly-problem-P8
 - метка/KeepTrack
+- проверка-гипотезы/не-завершена
 исход: запланирован
 направление: FlyVis
 начат: '2026-10-16'
 ---
 
-# ⚪ KeepTrack — память цели и похожих кандидатов в считывании FlyVis
+# 🔴 KeepTrack — память цели и похожих кандидатов в считывании FlyVis
 
 ↑ [[09 Запланировано/FlyVis — планы|FlyVis]] · **Исход:** запланирован · `fly_future_keeptrack_candidates_v1`
 

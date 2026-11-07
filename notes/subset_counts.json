@@ -1,0 +1,52 @@
+{
+  "train": {
+    "total_videos": 1400,
+    "with_attributes": 1400,
+    "subsets": {
+      "normal": {
+        "videos": 274,
+        "frames": 55050
+      },
+      "night": {
+        "videos": 564,
+        "frames": 111895
+      },
+      "rain": {
+        "videos": 85,
+        "frames": 16376
+      },
+      "fog": {
+        "videos": 197,
+        "frames": 39437
+      }
+    }
+  },
+  "val": {
+    "total_videos": 200,
+    "with_attributes": 200,
+    "subsets": {
+      "normal": {
+        "videos": 36,
+        "frames": 7190
+      },
+      "night": {
+        "videos": 71,
+        "frames": 14265
+      },
+      "rain": {
+        "videos": 16,
+        "frames": 3142
+      },
+      "fog": {
+        "videos": 26,
+        "frames": 5257
+      }
+    }
+  },
+  "definitions": {
+    "normal": "timeofday == 'daytime' и weather == 'clear'",
+    "night": "timeofday == 'night' (любая погода)",
+    "rain": "weather == 'rainy' (любое время суток)",
+    "fog": "weather in {'foggy', 'overcast'} (любое время суток)"
+  }
+}

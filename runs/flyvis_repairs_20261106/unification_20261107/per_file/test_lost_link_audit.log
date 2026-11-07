@@ -1,0 +1,17 @@
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 9 items
+
+tests/test_lost_link_audit.py::test_merge_simple_link PASSED             [ 11%]
+tests/test_lost_link_audit.py::test_merge_chain_conflict_gets_small_unique_int PASSED [ 22%]
+tests/test_lost_link_audit.py::test_merge_conflict_own_id_taken_uses_max_plus_one PASSED [ 33%]
+tests/test_lost_link_audit.py::test_merge_no_links_keeps_ids PASSED      [ 44%]
+tests/test_lost_link_audit.py::test_tracker_config_buffer PASSED         [ 55%]
+tests/test_lost_link_audit.py::test_revisions_replaced_text_kept PASSED  [ 66%]
+tests/test_lost_link_audit.py::test_revisions_append_not_counted PASSED  [ 77%]
+tests/test_lost_link_audit.py::test_find_breaks_long_legal_in_window PASSED [ 88%]
+tests/test_lost_link_audit.py::test_find_breaks_illegal_when_ids_cooccur PASSED [100%]
+
+============================== 9 passed in 1.20s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 1968975872, "peak_process_bytes": 1968975872}

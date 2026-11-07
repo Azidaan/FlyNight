@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "case_hashes_checked": 64,
+  "source_hashes_checked": 18,
+  "stable_artifacts_checked": 43,
+  "mutable_terminal_artifacts": {
+    "finalize.log": {
+      "before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "after": "99985c98a057ff3ec90094d83824a07de356ef7b6c88dd1be65ff0732318166a"
+    },
+    "postprocess.stage.json": {
+      "before": "c4a05bd2bd7935c2660cddf34ba2f48a65bd83ab92ee1027d0d038f72407df26",
+      "after": "325638d9cd6eed6c4ab5d7b095783b62da38e9dc8fe1aa29e58b53a3c6c29466"
+    }
+  },
+  "explanation": "The finalizer captured its own log before printing and the chain status before completing; stable reports and all case arrays match.",
+  "python_files_compiled": 1661
+}

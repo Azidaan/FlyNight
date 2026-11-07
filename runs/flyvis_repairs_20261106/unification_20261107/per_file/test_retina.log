@@ -1,0 +1,16 @@
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 8 items
+
+tests/test_retina.py::test_none_is_identity PASSED                       [ 12%]
+tests/test_retina.py::test_output_range_and_shape[norm] PASSED           [ 25%]
+tests/test_retina.py::test_output_range_and_shape[photoreceptor] PASSED  [ 37%]
+tests/test_retina.py::test_output_range_and_shape[lamina] PASSED         [ 50%]
+tests/test_retina.py::test_photoreceptor_equalizes_dark_and_bright_scenes PASSED [ 62%]
+tests/test_retina.py::test_adaptation_follows_time_constant PASSED       [ 75%]
+tests/test_retina.py::test_lamina_removes_smooth_gradient PASSED         [ 87%]
+tests/test_retina.py::test_invalid_mode PASSED                           [100%]
+
+============================== 8 passed in 0.75s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 1453068288, "peak_process_bytes": 1453068288}

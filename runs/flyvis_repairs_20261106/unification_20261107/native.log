@@ -1,0 +1,64 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_______ test_estimator_exposes_internal_activity_of_current_frame_only ________
+
+    def test_estimator_exposes_internal_activity_of_current_frame_only() -> None:
+        """Настоящая сеть FlyVis: после кадра доступны baseline и активность внутренних шагов."""
+        from tracking.flyvis_adapter import DEFAULT_DATA_DIR, DEFAULT_RUNTIME_DIR
+        from tracking.flyvis_motion import FlyVisMotionEstimator, TileLayout
+    
+        if not (DEFAULT_RUNTIME_DIR / "flyvis").is_dir():
+            pytest.skip(f"Локальный FlyVis runtime отсутствует: {DEFAULT_RUNTIME_DIR / 'flyvis'}")
+        checkpoint_dir = DEFAULT_DATA_DIR / "results" / "flow" / "0000" / "000" / "chkpts"
+        if not any(path.is_file() for path in checkpoint_dir.glob("chkpt_*")):
+            pytest.skip(f"Нет локальных контрольных точек chkpt_*: {checkpoint_dir}")
+    
+>       estimator = FlyVisMotionEstimator(
+            mode="tiled", layout=TileLayout(2, 3, 0.20), source_fps=30.0, dt=0.02,
+            flow_gain=1.0, temporal_resampling="linear", flow_aggregation="mean",
+            device="cpu",
+        )
+
+tests\test_flyvis_activity_readout.py:151: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\flyvis_motion.py:157: in __init__
+    self.network, decoders = load_network_and_decoder(view)
+tracking\flyvis_checkpoint.py:128: in load_network_and_decoder
+    network = view.network_class(**view.dir.config.network.to_dict())
+tools\flyvis-runtime\flyvis\network\network.py:139: in __init__
+    self._source_indices = torch.tensor(self.connectome.edges.source_index[:])
+tools\flyvis-runtime\datamate\io.py:95: in __getitem__
+    raise e
+tools\flyvis-runtime\datamate\io.py:91: in __getitem__
+    data = f["data"][key]
+h5py/_objects.pyx:54: in h5py._objects.with_phil.wrapper
+    ???
+h5py/_objects.pyx:55: in h5py._objects.with_phil.wrapper
+    ???
+tools\flyvis-runtime\h5py\_hl\dataset.py:872: in __getitem__
+    return self._fast_reader.read(args)
+h5py/_objects.pyx:54: in h5py._objects.with_phil.wrapper
+    ???
+h5py/_objects.pyx:55: in h5py._objects.with_phil.wrapper
+    ???
+h5py/_selector.pyx:385: in h5py._selector.Reader.read
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   numpy._core._exceptions._ArrayMemoryError: Unable to allocate 11.5 MiB for an array with shape (1513231,) and data type int64
+
+h5py/_selector.pyx:358: MemoryError
+------------------------------ Captured log call ------------------------------
+WARNING  root:logging_utils.py:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+=========================== short test summary info ===========================
+FAILED tests/test_flyvis_activity_readout.py::test_estimator_exposes_internal_activity_of_current_frame_only
+1 failed in 9.07s
+Traceback (most recent call last):
+  File "E:\Dissertation\runs\flyvis_repairs_20261106\unification_20261107\run_regression.py", line 41, in <module>
+    system_available_bytes=psutil.virtual_memory().available)
+  File "E:\Dissertation\.venv\lib\site-packages\psutil\__init__.py", line 2049, in virtual_memory
+    ret = _psplatform.virtual_memory()
+  File "E:\Dissertation\.venv\lib\site-packages\psutil\_pswindows.py", line 187, in virtual_memory
+    mem = cext.virtual_mem()
+OSError: [WinError 1450] Недостаточно системных ресурсов для завершения операции

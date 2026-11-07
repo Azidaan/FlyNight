@@ -1,0 +1,96 @@
+"""Independent B2 counters must survive construction, reuse and interleaving."""
+from types import SimpleNamespace
+
+import numpy as np
+import pytest
+from ultralytics.trackers.basetrack import BaseTrack
+
+from tracking.b2_pilot_runtime import IndependentByteTracker, assert_tracker_state_equal
+from tracking.offline_association import _DetSlice
+from tracking.xywh_bytetrack import XYWHByteTrack
+from tracking.z13_region_runtime import make_region_tracker
+
+
+def config():
+    return SimpleNamespace(track_high_thresh=.5, track_low_thresh=.1,
+                           new_track_thresh=.6, track_buffer=3,
+                           match_thresh=.8, fuse_score=True)
+
+
+def observations(frame):
+    boxes = np.array([[frame * .2, 10, frame * .2 + 20, 30],
+                      [80, 50 + frame * .1, 100, 70 + frame * .1]], np.float32)
+    if frame % 13 in (6, 7, 8, 9, 10):
+        boxes = boxes[1:]
+    return boxes, np.full(len(boxes), .9, np.float32), np.zeros(len(boxes), np.int16)
+
+
+def test_constructor_and_reset_leave_external_counter_unchanged():
+    saved = BaseTrack._count
+    try:
+        BaseTrack._count = 927
+        tracker = IndependentByteTracker(config())
+        assert BaseTrack._count == 927
+        tracker.step(*observations(0))
+        tracker.reset()
+        assert BaseTrack._count == 927
+        assert tracker.own_counter == 0
+    finally:
+        BaseTrack._count = saved
+
+
+@pytest.mark.parametrize('regional', [False, True])
+def test_reused_tracker_replays_fresh_video_with_identical_states(regional):
+    cls = make_region_tracker(IndependentByteTracker, lambda: None) if regional else IndependentByteTracker
+    old, fresh = cls(config()), cls(config())
+    for frame in range(35):
+        old.step(*observations(frame))
+    old.reset()
+    for frame in range(35):
+        assert np.array_equal(old.step(*observations(frame)), fresh.step(*observations(frame)))
+        assert_tracker_state_equal(old, fresh)
+
+
+def test_interleaved_independent_tracker_matches_native_baseline_exactly():
+    saved = BaseTrack._count
+    try:
+        native = XYWHByteTrack(config())
+        isolated = IndependentByteTracker(config())
+        other = IndependentByteTracker(config())
+        for frame in range(60):
+            boxes, scores, classes = observations(frame)
+            expected = native.update(_DetSlice(boxes, scores, classes))
+            external = BaseTrack._count
+            other.step(*observations(frame + 20))
+            actual = isolated.step(boxes, scores, classes)
+            assert BaseTrack._count == external
+            assert np.array_equal(actual, expected)
+            assert_tracker_state_equal(isolated, native)
+    finally:
+        BaseTrack._count = saved
+
+
+def test_failed_update_does_not_reuse_consumed_local_ids(monkeypatch):
+    tracker = IndependentByteTracker(config())
+    saved = BaseTrack._count
+    def fail_after_allocating(*args, **kwargs):
+        BaseTrack.next_id()
+        raise RuntimeError('Failure after allocating an ID')
+    monkeypatch.setattr(tracker, 'update', fail_after_allocating)
+    with pytest.raises(RuntimeError):
+        tracker.step(*observations(0))
+    assert BaseTrack._count == saved
+    assert tracker.own_counter == 1
+
+
+def test_regional_decorator_preserves_native_reset_semantics():
+    # The regional factory does not own the external localizer or ID policy.
+    # It must retain whatever reset behavior its supplied base class defines.
+    cls = make_region_tracker(XYWHByteTrack, lambda: None)
+    tracker = cls(config())
+    boxes, scores, classes = observations(0)
+    expected = tracker.update(_DetSlice(boxes, scores, classes))
+    tracker.reset()
+    actual = tracker.update(_DetSlice(boxes, scores, classes))
+    assert np.array_equal(actual, expected)
+    assert not tracker._regional_first

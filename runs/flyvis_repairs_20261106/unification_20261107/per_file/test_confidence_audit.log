@@ -1,0 +1,22 @@
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 14 items
+
+tests/test_confidence_audit.py::MatchingTest::test_age_is_frame_distance_and_crowd_is_excluded PASSED [  7%]
+tests/test_confidence_audit.py::MatchingTest::test_crowd_does_not_remove_a_matched_object PASSED [ 14%]
+tests/test_confidence_audit.py::MatchingTest::test_detection_cannot_explain_two_objects PASSED [ 21%]
+tests/test_confidence_audit.py::MatchingTest::test_high_candidate_is_not_stolen_by_low_duplicate PASSED [ 28%]
+tests/test_confidence_audit.py::MatchingTest::test_wrong_class_and_empty PASSED [ 35%]
+tests/test_confidence_audit.py::TrackerTest::test_control_does_not_change_first_stage_cost PASSED [ 42%]
+tests/test_confidence_audit.py::TrackerTest::test_gate_creates_tentative_then_actual_confirmation PASSED [ 50%]
+tests/test_confidence_audit.py::TrackerTest::test_installed_second_stage_rejects_perfect_low_detection PASSED [ 57%]
+tests/test_confidence_audit.py::TrackerTest::test_iou_control_keeps_id_and_original_score PASSED [ 64%]
+tests/test_confidence_audit.py::TrackerTest::test_no_intervention_matches_unwrapped_tracker PASSED [ 71%]
+tests/test_confidence_audit.py::TrackerTest::test_original_detection_index_survives_splitting PASSED [ 78%]
+tests/test_confidence_audit.py::OutputAuditTest::test_delay_uses_output_and_includes_never_tracked_in_denominator PASSED [ 85%]
+tests/test_confidence_audit.py::CohortTest::test_equal_counts_strata_and_left_censoring PASSED [ 92%]
+tests/test_confidence_audit.py::CohortTest::test_fraction_sets_are_nested_and_never_round_up PASSED [100%]
+
+============================= 14 passed in 1.27s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 1496522752, "peak_process_bytes": 1496522752}

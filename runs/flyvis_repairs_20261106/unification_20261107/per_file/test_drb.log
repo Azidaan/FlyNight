@@ -1,0 +1,21 @@
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 8 items
+
+tests/test_drb.py::test_level ERROR                                      [ 12%]
+
+=================================== ERRORS ====================================
+________________________ ERROR at setup of test_level _________________________
+file E:\Dissertation\tests\test_drb.py, line 36
+  def test_level(level: str, c: int, h: int, w: int, device: str) -> None:
+E       fixture 'level' not found
+>       available fixtures: capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, doctest_namespace, monkeypatch, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, subtests, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+E:\Dissertation\tests\test_drb.py:36
+=========================== short test summary info ===========================
+ERROR tests/test_drb.py::test_level
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+============================== 1 error in 0.28s ===============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 1425743872, "peak_process_bytes": 1425743872}

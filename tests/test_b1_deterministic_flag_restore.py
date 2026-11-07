@@ -1,0 +1,97 @@
+"""The deterministic scope must restore both caller flags, including on errors."""
+import itertools
+
+import pytest
+import torch
+
+from tracking.b1_deterministic_runtime import deterministic_call
+
+
+def flags():
+    return (torch.are_deterministic_algorithms_enabled(),
+            torch.is_deterministic_algorithms_warn_only_enabled())
+
+
+@pytest.fixture(autouse=True)
+def restore_process_settings():
+    original_flags = flags()
+    original_rng = torch.random.get_rng_state().clone()
+    try:
+        yield
+    finally:
+        torch.use_deterministic_algorithms(original_flags[0], warn_only=original_flags[1])
+        torch.random.set_rng_state(original_rng)
+
+
+@pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+@pytest.mark.parametrize("raises", [False, True])
+def test_success_and_exception_restore_both_flags(enabled, warn_only, raises):
+    torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+    failure = RuntimeError("backend failure")
+
+    @deterministic_call
+    def backend(value, *, increment):
+        """Backend documentation stays visible to callers."""
+        assert flags() == (True, False)
+        if raises:
+            raise failure
+        return value + increment
+
+    if raises:
+        with pytest.raises(RuntimeError) as caught:
+            backend(11, increment=6)
+        assert caught.value is failure
+    else:
+        assert backend(11, increment=6) == 17
+    assert flags() == (enabled, warn_only)
+    assert backend.__name__ == "backend"
+    assert backend.__doc__ == "Backend documentation stays visible to callers."
+
+
+@pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+@pytest.mark.parametrize("raises", [False, True])
+def test_nested_scope_restores_immediate_parent_then_original(enabled, warn_only, raises):
+    torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+
+    @deterministic_call
+    def inner():
+        assert flags() == (True, False)
+        if raises:
+            raise ValueError("inner failure")
+        return 23
+
+    @deterministic_call
+    def outer():
+        assert flags() == (True, False)
+        # A backend may itself temporarily permit deterministic warnings.
+        torch.use_deterministic_algorithms(True, warn_only=True)
+        if raises:
+            with pytest.raises(ValueError, match="inner failure"):
+                inner()
+        else:
+            assert inner() == 23
+        assert flags() == (True, True)
+
+    outer()
+    assert flags() == (enabled, warn_only)
+
+
+@pytest.mark.parametrize("enabled,warn_only", list(itertools.product((False, True), repeat=2)))
+def test_cpu_values_and_rng_progression_match_direct_call(enabled, warn_only):
+    torch.use_deterministic_algorithms(enabled, warn_only=warn_only)
+    # Seed an isolated CPU generator; do not touch CUDA's RNG or allocate there.
+    initial_rng = torch.Generator(device="cpu").manual_seed(20261106).get_state()
+
+    def backend():
+        x = torch.rand((7, 11), device="cpu", dtype=torch.float64)
+        return torch.tanh(x @ x.T)
+
+    torch.random.set_rng_state(initial_rng)
+    expected = backend()
+    expected_rng = torch.random.get_rng_state().clone()
+    torch.random.set_rng_state(initial_rng)
+    actual = deterministic_call(backend)()
+    assert torch.equal(actual, expected)
+    assert actual.dtype == expected.dtype
+    assert torch.equal(torch.random.get_rng_state(), expected_rng)
+    assert flags() == (enabled, warn_only)

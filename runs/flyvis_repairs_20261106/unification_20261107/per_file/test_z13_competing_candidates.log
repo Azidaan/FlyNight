@@ -1,0 +1,11 @@
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 3 items
+
+tests/test_z13_competing_candidates.py::test_single_good_choice_is_exact_four_way_cross_entropy PASSED [ 33%]
+tests/test_z13_competing_candidates.py::test_multiple_acceptable_choices_and_padding_do_not_invent_a_winner PASSED [ 66%]
+tests/test_z13_competing_candidates.py::test_null_rows_push_scores_down_and_unknown_is_not_a_measured_error PASSED [100%]
+
+============================== 3 passed in 0.31s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 1477935104, "peak_process_bytes": 1477935104}

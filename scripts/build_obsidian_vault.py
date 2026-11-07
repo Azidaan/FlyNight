@@ -24,6 +24,7 @@ import argparse
 import json
 import re
 import shutil
+import sys
 from collections import defaultdict
 from pathlib import Path
 from urllib.parse import quote
@@ -31,7 +32,9 @@ from urllib.parse import quote
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 VAULT_NAME = "ObsidianFlyVis"
+HYPOTHESIS_PATHS: set[str] = set()
 
 STATE_RU = {"planned": "запланирован", "ready": "готов к запуску", "running": "идёт", "completed_positive": "положительный",
             "completed_negative": "отрицательный", "inconclusive": "неопределённый", "closed": "закрыт", "infrastructure": "инфраструктура",
@@ -103,7 +106,7 @@ def ref(src_block: str, path: str, label: str, structural: bool = False) -> str:
     Все остальные ссылки (по тексту, между заметками одного блока и между блоками) — obsidian://open:
     кликабельны, но рёбер в графе не дают, чтобы каждый блок оставался деревом, а не клубком."""
     label = lab(label)
-    if structural and block(path) == src_block:
+    if structural and block(path) == src_block and path not in HYPOTHESIS_PATHS:
         return f"[[{path}|{label}]]"
     return f"[{label}↗](obsidian://open?vault={quote(VAULT_NAME)}&file={quote(path, safe='')})"
 
@@ -115,6 +118,9 @@ class Vault:
         self.preserve = set(preserve)
 
     def write(self, rel: str, text: str) -> None:
+        from scripts.obsidian_graph_policy import overview_path
+        if overview_path(rel.removesuffix('.md')) and text.startswith('---\n'):
+            text=text.replace('tags:\n','tags:\n- обзор-графа\n',1)
         p = self.path / rel
         p.parent.mkdir(parents=True, exist_ok=True)
         if rel not in self.preserve:
@@ -146,6 +152,8 @@ class Linker:
                 fence = not fence; out.append(line); continue
             if fence:
                 out.append(line); continue
+            # Source text and JSON arrays are data, never graph structure.
+            line = line.replace('[[', r'\[\[').replace(']]', r'\]\]')
             line = self.card_re.sub(lambda m: ref(src, self.card_path[m.group(1)], m.group(1)), line)
 
             def sec(m):
@@ -181,6 +189,21 @@ def split_journal(text: str):
 
 
 def main() -> int:
+    from scripts.obsidian_fundamental_overview import main as build_fundamental_overview
+    return build_fundamental_overview()
+
+
+def archive_obsolete_note(path: Path, vault: Path) -> None:
+    """Старая производная заметка сохраняется вне хранилища, не удаляется."""
+    from datetime import datetime
+    relative=path.resolve().relative_to(vault.resolve())
+    target=ROOT/'runs/obsidian_archive'/datetime.now().strftime('%Y%m%d_%H%M%S_%f')/relative
+    target.resolve().relative_to((ROOT/'runs/obsidian_archive').resolve())
+    target.parent.mkdir(parents=True,exist_ok=True)
+    path.rename(target)
+
+
+def legacy_main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--vault", type=Path, default=ROOT / VAULT_NAME)
     ap.add_argument('--preserve-note', action='append', default=[], help='Сохранить чужую заметку побайтно')
@@ -192,12 +215,14 @@ def main() -> int:
     H = json.loads((ROOT / "experiments/project_history.json").read_text(encoding="utf-8"))
     G = json.loads((ROOT / "experiments/metrics_glossary.json").read_text(encoding="utf-8"))
     cards_all = {e["id"]: e for e in H["experiments"]}
+    from scripts.obsidian_graph_policy import FUNDAMENTAL, PLANS as VISIBLE_PLANS, DETAILS, CURRENT, OVERVIEW_PATHS
     # в граф попадают только завершённые эксперименты и закрытые ветки (решение автора 04.10);
     # запланированные, идущие и инфраструктура остаются только в плане и каталоге
-    cards = {i: e for i, e in cards_all.items() if e["state"] in FINAL}
+    cards = {i: e for i, e in cards_all.items() if e["state"] in FINAL and i in FUNDAMENTAL}
     # запланированное и идущее — отдельный красный блок 09 (решение автора 04.10)
     # теории и задумки — в 09 (решение автора 07.10): планы, идущие, и подготовительные шаги ещё не выполненных идей К
-    planned = {i: e for i, e in cards_all.items() if e["state"] in PLANNED or (e["state"] == "infrastructure" and any(re.fullmatch(r"K\d+", t) for t in e.get("tags", [])))}
+    planned = {i: e for i, e in cards_all.items() if e["state"] in PLANNED and i in VISIBLE_PLANS}
+    detailed = {i:e for i,e in cards_all.items() if i not in cards and i not in planned}
     areas = {a["id"]: a for a in H["areas"]}
 
     # где живёт каждая карточка: муха — в блоке 01 по темам, остальные — в 02 по направлениям
@@ -209,16 +234,25 @@ def main() -> int:
     for i, e in cards.items():
         if e["area"] == "flyvis" and i not in fly_theme:
             fly_theme[i] = FLY_OTHER
-    card_path = {i: (f"01 Муха/Эксперименты/{i}" if i in fly_theme else f"02 Эксперименты/{i}") for i in cards}
-    card_path.update({i: f"09 Запланировано/{i}" for i in planned})
-    # New hypotheses use semantic filenames as well as visible titles.
-    for i, e in cards_all.items():
-        if any(t in {'HY26-1', 'HY26-2', 'HY26-3'} for t in e.get('tags', [])) and i in card_path:
-            folder = card_path[i].rsplit('/', 1)[0]
-            card_path[i] = f"{folder}/{safe(e['title'])}"
+    from scripts.obsidian_semantic_paths import semantic_paths
+    card_path = semantic_paths(cards, planned, fly_theme, safe)
+    card_path.update({i:DETAILS for i in detailed})
     plan_group = {aid: f"09 Запланировано/{safe(a['title'])} — планы" for aid, a in areas.items()}
+    from scripts.obsidian_checked_hypotheses import is_branch, verification_tag, HUB_NOTE as HYPOTHESIS_HUB
+    HYPOTHESIS_PATHS.clear()
+    HYPOTHESIS_PATHS.update(card_path[i] for i, e in cards_all.items() if i in card_path and is_branch(e))
+    from scripts.obsidian_hypothesis_tree import child_paths
+    HYPOTHESIS_PATHS.update(child_paths())
     area_path = {aid: f"02 Эксперименты/Направления/{safe(a['title'])}" for aid, a in areas.items()}
     theme_path = {t: f"01 Муха/Темы/{safe(t)}" for t in [t for t, _ in FLY_THEMES] + [FLY_OTHER]}
+    OVERVIEW_PATHS.clear()
+    OVERVIEW_PATHS.update(p for i,p in card_path.items() if i not in detailed)
+    OVERVIEW_PATHS.update(HUB[k] for k in ('01','02','07','09','10','11'))
+    OVERVIEW_PATHS.update(theme_path[t] for t in set(fly_theme.values()))
+    OVERVIEW_PATHS.update(plan_group[e['area']] for e in planned.values())
+    OVERVIEW_PATHS.add(CURRENT)
+    from scripts.obsidian_b123_literature import INDEX, path as literature_path
+    OVERVIEW_PATHS.update([INDEX,literature_path('busca'),literature_path('ltr')])
 
     pre, secs, journal_text = split_plan((ROOT / "dissertation/ЕДИНЫЙ_ПЛАН.md").read_text(encoding="utf-8"))
     sec_note, plan_notes = {}, []
@@ -261,20 +295,27 @@ def main() -> int:
     V.write(HUB["04"] + ".md", fm({"tags": ["центр"]}) + hub)
 
     # ---------------- карточки ----------------
-    for e in list(cards.values()) + list(planned.values()):
+    details_bodies=[]
+    for e in list(cards.values()) + list(planned.values()) + list(detailed.values()):
         p = card_path[e["id"]]; src = block(p)
         a = areas.get(e["area"], {"title": e["area"]})
-        if src == "09":
+        if is_branch(e):
+            up = ref('', HYPOTHESIS_HUB, HYPOTHESIS_HUB)
+        elif src == "09":
             up = ref(src, plan_group[e["area"]], a["title"], structural=True)
         elif src == "01":
             up = ref(src, theme_path[fly_theme[e["id"]]], fly_theme[e["id"]], structural=True)
         else:
             up = ref(src, area_path[e["area"]], a["title"], structural=True)
         tags = ["эксперимент", f"исход/{e['state']}", f"направление/{tag(e['area'])}"] + [f"метка/{tag(t)}" for t in e.get("tags", [])] + (["муха"] if src == "01" else [])
-        aliases = [e['title'], e['id']] if any(t in {'HY26-1', 'HY26-2', 'HY26-3'} for t in e.get('tags', [])) else [e['title']]
+        checked_tag = verification_tag(e)
+        if checked_tag:
+            tags.append(checked_tag)
+        aliases = list(dict.fromkeys([e['title'], e['id'], *e.get('aliases', [])]))
         props = {"aliases": aliases, "tags": tags, "исход": STATE_RU.get(e["state"], e["state"]), "направление": a["title"],
                  "начат": e.get("started") or None, "завершён": e.get("finished") or None}
-        body = f"# {STATE_ICON.get(e['state'], '')} {e['title']}\n\n↑ {up} · **Исход:** {STATE_RU.get(e['state'], e['state'])} · `{e['id']}`\n\n"
+        icon = ('🟢' if checked_tag.endswith('/завершена') else '🔴') if checked_tag else STATE_ICON.get(e['state'], '')
+        body = f"# {icon} {e['title']}\n\n↑ {up} · **Исход:** {STATE_RU.get(e['state'], e['state'])} · `{e['id']}`\n\n"
         if e.get("summary"):
             body += f"{L(e['summary'], src)}\n\n"
         for f, lbl in FIELDS:
@@ -309,7 +350,17 @@ def main() -> int:
         for f, lbl in (("files", "Код"), ("runs", "Данные"), ("commits", "Коммиты")):
             if e.get(f):
                 body += f"## {lbl}\n" + "".join(f"- `{x}`\n" for x in e[f]) + "\n"
-        V.write(p + ".md", fm(props) + body)
+        if is_branch(e):
+            from scripts.obsidian_b123_literature import branch_section
+            body += branch_section(e, ref)
+            from scripts.obsidian_hypothesis_tree import section as hypothesis_tree_section
+            body += hypothesis_tree_section(e)
+        if p==DETAILS:
+            details_bodies.append(body.replace('# ', '## ', 1))
+        else:
+            V.write(p + ".md", fm(props) + body)
+    V.write(DETAILS+'.md',fm({'tags':['подробности']})+'# Подробные проверки и первичные источники\n\n'
+        'Это справочная запись, а не отдельные кружки на каждый служебный шаг. Полный каталог хранится в `experiments/project_history.json`; хронология — в `dissertation/ЕДИНЫЙ_ПЛАН.md`.\n\n'+'\n\n'.join(details_bodies))
 
     # ---------------- 02 Эксперименты: направления ----------------
     by_area = defaultdict(list)
@@ -317,6 +368,7 @@ def main() -> int:
         by_area[e["area"]].append(e)
     for aid, a in areas.items():
         es = sorted(by_area.get(aid, []), key=lambda x: x.get("started") or "")
+        if not es:continue
         body = f"# {a['title']}\n\n↑ [[{HUB['02']}|{BLOCK_TITLE['02']}]]\n\n{a.get('description', '')}\n\n## Эксперименты ({len(es)})\n"
         body += "".join(f"- {STATE_ICON.get(x['state'], '')} {ref('02', card_path[x['id']], x['title'], structural=True)} — {STATE_RU.get(x['state'], x['state'])}, {x.get('started') or '—'}\n" for x in es)
         V.write(area_path[aid] + ".md", fm({"tags": ["направление"]}) + body)
@@ -324,7 +376,7 @@ def main() -> int:
     for e in cards.values():
         n_state[e["state"]] += 1
     hub = f"# {BLOCK_TITLE['02']}\n\n↑ [[00 Главная|Главная]]\n\nЗавершённые эксперименты по направлениям (запланированные и идущие — только в плане и каталоге). Эксперименты мухи живут в блоке {ref('02', HUB['01'], 'Муха')} (ссылки на них отмечены ↗).\n\n"
-    hub += "## Направления\n" + "".join(f"- [[{area_path[aid]}|{a['title']}]] ({len(by_area.get(aid, []))})\n" for aid, a in sorted(areas.items(), key=lambda x: x[1].get("order", 0)))
+    hub += "## Направления\n" + "".join(f"- [[{area_path[aid]}|{a['title']}]] ({len(by_area.get(aid, []))})\n" for aid, a in sorted(areas.items(), key=lambda x: x[1].get("order", 0)) if by_area.get(aid))
     hub += "\n## По исходам\n" + "".join(f"- {STATE_ICON.get(s, '')} {STATE_RU.get(s, s)}: {n}\n" for s, n in sorted(n_state.items(), key=lambda x: -x[1]))
     V.write(HUB["02"] + ".md", fm({"tags": ["центр"]}) + hub)
 
@@ -345,6 +397,10 @@ def main() -> int:
         body += "Источники: `research_flyvis_mechanism_2026-10-16/ИНЖЕНЕРНЫЕ_АНАЛОГИ.md`, `ПРОВЕРКА_РЕКОМЕНДАЦИИ_CODEX.md` в том же каталоге.\n"
         V.write(note + ".md", fm({"tags": ["запланировано", "идея", "идея/муха"]}) + body)
     hub = f"# {BLOCK_TITLE['09']}\n\n↑ [[00 Главная|Главная]]\n\nИдеи и эксперименты, которые ещё не завершены: запланированные, готовые к запуску и идущие. После завершения карточка переезжает в блок экспериментов (или мухи).\n\n"
+    from scripts.obsidian_graph_policy import build_current
+    build_current(V,H,card_path,ref,fm,HUB['09'])
+    hub+='## Сейчас\n\n'+f'[[{CURRENT}|Текущая работа: Б1–Б3, BUSCA и восстановление по маскам]]\n\n'
+    hub+='## Остальные постановки каталога\n\nСтатусы ниже взяты из каталога; они не означают автоматического запуска сейчас.\n\n'
     if future:
         hub += f"[[{note}|Инженерные механизмы — будущие узлы FlyVis]]\n\n"
     hub += "".join(f"- [[{plan_group[aid]}|{areas[aid]['title']}]] ({len(es)})\n" for aid, es in sorted(p_area.items(), key=lambda x: areas[x[0]].get("order", 0)))
@@ -488,6 +544,8 @@ def main() -> int:
         head += "## Темы\n" + "".join(f"- {'✅' if ok else '·'} [[{nm}|{lab(it.get('id', '') + ' ' + it['name'])}]]\n" for it, nm, ok in items_md)
         V.write(tnote + ".md", fm({"tags": ["исследование"]}) + head)
         rlinks.append((rtitle, tnote))
+    from scripts.obsidian_b123_literature import build as build_b123_literature
+    rlinks.append(build_b123_literature(V, H, card_path, ref, fm, HUB['07']))
     V.write(HUB["07"] + ".md", fm({"tags": ["центр"]}) + f"# {BLOCK_TITLE['07']}\n\n↑ [[00 Главная|Главная]]\n\n" + "".join(f"- [[{n}|{t}]]\n" for t, n in rlinks))
 
     # ---------------- 08 Документы ----------------
@@ -533,6 +591,8 @@ def main() -> int:
     # Intentionally absent from all hubs: one isolated graph node, author 26.10.
     from scripts.obsidian_checked_hypotheses import build as build_checked_hypotheses
     build_checked_hypotheses(V, H, card_path, ref, fm, STATE_RU)
+    from scripts.obsidian_hypothesis_tree import build as build_hypothesis_tree
+    build_hypothesis_tree(V, H, card_path, ref, fm)
 
     # ---------------- 00 Главная ----------------
     home = "# Диссертация: трекинг и муха (FlyVis)\n\nХранилище собрано скриптом `scripts/build_obsidian_vault.py`; пересобирается без потери ваших заметок.\n\n"
@@ -718,7 +778,14 @@ def graph_settings(vault: Path) -> None:
     g = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
     rgb = lambda h: int(h.lstrip("#"), 16)
     g["colorGroups"] = [
-        {"query": 'tag:#проверенные-гипотезы', "color": {"a": 1, "rgb": rgb("#58a6ff")}},
+        {"query": 'tag:#проверка-гипотезы/завершена', "color": {"a": 1, "rgb": rgb("#2ea043")}},
+        {"query": 'tag:#проверка-гипотезы/не-завершена', "color": {"a": 1, "rgb": rgb("#ff2d2d")}},
+        {"query": 'tag:#гипотезы-узел', "color": {"a": 1, "rgb": rgb("#58a6ff")}},
+        {"query": 'tag:#проблемы-узел', "color": {"a": 1, "rgb": rgb("#58a6ff")}},
+        {"query": 'tag:#проблема/open', "color": {"a": 1, "rgb": rgb("#ff2d2d")}},
+        {"query": 'tag:#проблема/partial', "color": {"a": 1, "rgb": rgb("#e3b341")}},
+        {"query": 'tag:#проблема/resolved', "color": {"a": 1, "rgb": rgb("#2ea043")}},
+        {"query": 'tag:#повторение-проблем', "color": {"a": 1, "rgb": rgb("#a371f7")}},
         {"query": 'path:"11 Лучшие результаты"', "color": {"a": 1, "rgb": rgb("#e6b422")}},
         # статус — первым: зелёный (решено / выполнено) и жёлтый (частично) перекрывают красные блоки 09 и 10
         {"query": "tag:#статус/решено OR tag:#статус/выполнено", "color": {"a": 1, "rgb": rgb("#2ea043")}},

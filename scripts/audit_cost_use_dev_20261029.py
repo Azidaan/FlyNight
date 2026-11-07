@@ -1,0 +1,6 @@
+from pathlib import Path
+import sys
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from scripts.cost_use_dev_20261029 import main
+if __name__=='__main__':
+    sys.argv.append('--audit');main()

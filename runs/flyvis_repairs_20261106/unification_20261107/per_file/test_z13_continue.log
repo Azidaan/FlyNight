@@ -1,0 +1,14 @@
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 6 items
+
+tests/test_z13_continue.py::test_migrate_optimizer_keeps_readout_moments_and_drops_core PASSED [ 16%]
+tests/test_z13_continue.py::test_frozen_core_unchanged_trained_core_changes_identical_batches PASSED [ 33%]
+tests/test_z13_continue.py::test_frozen_rejects_core_gradients PASSED    [ 50%]
+tests/test_z13_continue.py::test_resume_equals_uninterrupted PASSED      [ 66%]
+tests/test_z13_continue.py::test_coverage_same_denominator_and_unknown_separate PASSED [ 83%]
+tests/test_z13_continue.py::test_paired_by_video PASSED                  [100%]
+
+============================== 6 passed in 2.60s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 1533280256, "peak_process_bytes": 1533280256}

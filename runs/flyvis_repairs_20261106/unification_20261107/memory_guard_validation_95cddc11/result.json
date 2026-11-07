@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checks": {
+    "guarded_entrypoint_without_cap": true,
+    "concurrent_audit_launch_is_rejected": true,
+    "refuses_start_without_system_reserve": true,
+    "stops_only_launched_worker_when_reserve_falls": true,
+    "wrong_birth_or_launch_marker_cannot_kill_process": true,
+    "four_active_launchers_have_no_explicit_job_cap": true
+  },
+  "torch_imported": false,
+  "real_memory_exhaustion_attempted": false,
+  "available_bytes": 17374396416
+}

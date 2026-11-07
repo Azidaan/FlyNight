@@ -1,0 +1,13 @@
+CPU_GUARD_V2: GPU branches intentionally not evaluated
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 4 items
+
+tests/test_z13_spatial_localizer.py::test_unsupervised_percentile_retains_all_ties PASSED [ 25%]
+tests/test_z13_spatial_localizer.py::test_neuron_timestep_matches_training_not_video_rate PASSED [ 50%]
+tests/test_z13_spatial_localizer.py::test_no_intervention_preserves_tracker_state_and_memory_is_continuous PASSED [ 75%]
+tests/test_z13_spatial_localizer.py::test_intervention_changes_only_lost_center_and_chunks_keep_track_identity PASSED [100%]
+
+============================== 4 passed in 1.11s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 2000416768, "peak_process_bytes": 2000416768}

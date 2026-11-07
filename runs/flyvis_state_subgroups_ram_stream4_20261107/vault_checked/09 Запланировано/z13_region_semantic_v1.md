@@ -1,0 +1,36 @@
+---
+aliases:
+- Правильный ответ как цель обучения регионального считывателя
+tags:
+- эксперимент
+- исход/ready
+- направление/flyvis
+- метка/fly-problem-P8
+исход: готов к запуску
+направление: FlyVis
+начат: '2026-10-25'
+---
+
+# ⚪ Правильный ответ как цель обучения регионального считывателя
+
+↑ [[09 Запланировано/FlyVis — планы|FlyVis]] · **Исход:** готов к запуску · `z13_region_semantic_v1`
+
+## Вопрос
+Поможет ли обучение всем правильным невредным решениям вместо только редких улучшений, с допустимым правильным бездействием?
+
+## Гипотеза
+Рабочая гипотеза: обучение редкому улучшению может не научить различать сам правильный ответ. Наличие больше положительных меток не доказывает эту причину.
+
+## Ожидалось (до прогона)
+Change the acceptable action target, not the likelihood family or input: include every own-correct, nonharmful action instead of only strictly beneficial changes. Include unchanged in the positive marginal whenever the original own assignment was correct. If neither an action nor baseline is correct, unchanged is the conservative expressible fallback.
+
+## Нельзя заявлять
+Correct neutral actions need not improve the stand; expanding the acceptable set may dilute rare useful corrections or leave an easy unchanged solution. Fixed response/mean-pooled representation may remain insufficient. One-row outcomes omit feedback; repeatedtrain26 is exploratory, not HOTA or proven causal diagnosis.
+
+## Критерии приёмки (записаны до прогона)
+- ⏳ All12utility models exactly replayed; actual fit84 two-query CPU forward/backward finite. Mask/NULL/fallback gradients and utility special-case value+gradient equivalence tested. Same full caches/sources/UID batches, no completed training repeated. First full model2*seconds*11+60 fits original1800s; independent controller only own tree. Independently re-infer12new models/rows/calibration and paired intervals before final acceptance.
+- ⏳ Dsemantic-baseline and Dsemantic-Dutility means both>=2pp; all5paired-video95%lower>0: baseline,utilityD,semanticC,semanticR1,semanticgeometry. All26videos and3seeds. Same net-beneficial assignment metric; semantic label accuracy cannot rescue a failed primary.
+
+## Доказательства
+- Предварительные критерии, неизменные контроли/пакеты и семантика цели: `runs/z13_region_semantic_20261025/protocol.json` · 
+

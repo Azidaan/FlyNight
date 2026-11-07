@@ -1,0 +1,13 @@
+CPU_GUARD_V2: GPU branches intentionally not evaluated
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 4 items
+
+tests/test_z13_directional_context.py::test_angular_assignment_uses_geometry_not_neighbor_storage_order PASSED [ 25%]
+tests/test_z13_directional_context.py::test_contrasts_preserve_baseline_and_distinguish_equal_neighbor_means PASSED [ 50%]
+tests/test_z13_directional_context.py::test_shuffle_is_fixed_and_preserves_each_local_set PASSED [ 75%]
+tests/test_z13_directional_context.py::test_batched_feature_layout_matches_individual_frames PASSED [100%]
+
+============================== 4 passed in 0.32s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 1461116928, "peak_process_bytes": 1461116928}

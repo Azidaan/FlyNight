@@ -1,0 +1,92 @@
+........................................................................ [  7%]
+........................................................................ [ 15%]
+........................................................................ [ 23%]
+........................................................................ [ 30%]
+.......F................................................................ [ 38%]
+................ss...................................................... [ 46%]
+........................................................................ [ 54%]
+........................................................................ [ 61%]
+........................................................................ [ 69%]
+........................................................................ [ 77%]
+........................................................................ [ 84%]
+........................................................................ [ 92%]
+....................................................................     [100%]
+================================== FAILURES ===================================
+_______ test_estimator_exposes_internal_activity_of_current_frame_only ________
+
+    def test_estimator_exposes_internal_activity_of_current_frame_only() -> None:
+        """Настоящая сеть FlyVis: после кадра доступны baseline и активность внутренних шагов."""
+        from tracking.flyvis_adapter import DEFAULT_DATA_DIR, DEFAULT_RUNTIME_DIR
+        from tracking.flyvis_motion import FlyVisMotionEstimator, TileLayout
+    
+        if not (DEFAULT_RUNTIME_DIR / "flyvis").is_dir():
+            pytest.skip(f"Локальный FlyVis runtime отсутствует: {DEFAULT_RUNTIME_DIR / 'flyvis'}")
+        checkpoint_dir = DEFAULT_DATA_DIR / "results" / "flow" / "0000" / "000" / "chkpts"
+        if not any(path.is_file() for path in checkpoint_dir.glob("chkpt_*")):
+            pytest.skip(f"Нет локальных контрольных точек chkpt_*: {checkpoint_dir}")
+    
+>       estimator = FlyVisMotionEstimator(
+            mode="tiled", layout=TileLayout(2, 3, 0.20), source_fps=30.0, dt=0.02,
+            flow_gain=1.0, temporal_resampling="linear", flow_aggregation="mean",
+            device="cpu",
+        )
+
+tests\test_flyvis_activity_readout.py:151: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tracking\flyvis_motion.py:157: in __init__
+    self.network, decoders = load_network_and_decoder(view)
+tracking\flyvis_checkpoint.py:128: in load_network_and_decoder
+    network = view.network_class(**view.dir.config.network.to_dict())
+tools\flyvis-runtime\flyvis\network\network.py:193: in __init__
+    param = forward_subclass(
+tools\flyvis-runtime\flyvis\utils\class_utils.py:70: in forward_subclass
+    init_with_kwargs(instance)
+tools\flyvis-runtime\flyvis\utils\class_utils.py:61: in init_with_kwargs
+    instance.__init__(**kwargs)
+tools\flyvis-runtime\flyvis\network\initialization.py:222: in wrapper
+    return f(cls, deepcopy(param_config), connectome)
+tools\flyvis-runtime\flyvis\network\initialization.py:398: in __init__
+    edges = pd.DataFrame({
+.venv\lib\site-packages\pandas\core\frame.py:782: in __init__
+    mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)
+.venv\lib\site-packages\pandas\core\internals\construction.py:503: in dict_to_mgr
+    return arrays_to_mgr(arrays, columns, index, dtype=dtype, typ=typ, consolidate=copy)
+.venv\lib\site-packages\pandas\core\internals\construction.py:119: in arrays_to_mgr
+    arrays, refs = _homogenize(arrays, index, dtype)
+.venv\lib\site-packages\pandas\core\internals\construction.py:629: in _homogenize
+    val = sanitize_array(val, index, dtype=dtype, copy=False)
+.venv\lib\site-packages\pandas\core\construction.py:661: in sanitize_array
+    subarr = _sanitize_str_dtypes(subarr, data, dtype, copy)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = array(['L1', 'L1', 'L1', ..., 'TmY18', 'TmY18', 'TmY18'], shape=(1513231,), dtype='<U8')
+data = array(['L1', 'L1', 'L1', ..., 'TmY18', 'TmY18', 'TmY18'], shape=(1513231,), dtype='<U8')
+dtype = None, copy = False
+
+    def _sanitize_str_dtypes(
+        result: np.ndarray, data, dtype: np.dtype | None, copy: bool
+    ) -> np.ndarray:
+        """
+        Ensure we have a dtype that is supported by pandas.
+        """
+    
+        # This is to prevent mixed-type Series getting all casted to
+        # NumPy string type, e.g. NaN --> '-1#IND'.
+        if issubclass(result.dtype.type, str):
+            # GH#16605
+            # If not empty convert the data to dtype
+            # GH#19853: If data is a scalar, result has already the result
+            if not lib.is_scalar(data):
+                if not np.all(isna(data)):
+                    data = np.asarray(data, dtype=dtype)
+                if not copy:
+>                   result = np.asarray(data, dtype=object)
+E                   MemoryError
+
+.venv\lib\site-packages\pandas\core\construction.py:749: MemoryError
+------------------------------ Captured log call ------------------------------
+WARNING  root:logging_utils.py:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+=========================== short test summary info ===========================
+FAILED tests/test_flyvis_activity_readout.py::test_estimator_exposes_internal_activity_of_current_frame_only
+1 failed, 929 passed, 2 skipped in 115.05s (0:01:55)
+{"returncode": 1, "seconds": 116.25, "files": 95, "job": {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 2148536320, "peak_process_bytes": 2148536320}, "cuda_initialized": false, "source_unchanged": true, "changed_sources": [], "system_available_bytes": 15929597952}

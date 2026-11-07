@@ -1,0 +1,48 @@
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 7 items
+
+tests/test_foveated_eyes.py::test_crop_box_is_square_with_context_and_minimum_side PASSED [ 14%]
+tests/test_foveated_eyes.py::test_crop_box_is_shifted_inside_frame_without_resizing PASSED [ 28%]
+tests/test_foveated_eyes.py::test_crop_box_larger_than_frame_keeps_square_of_frame_height PASSED [ 42%]
+tests/test_foveated_eyes.py::test_box_to_crop_frame_scales_into_eye_pixels PASSED [ 57%]
+tests/test_foveated_eyes.py::test_original_detection_index_maps_subset_index_back PASSED [ 71%]
+tests/test_foveated_eyes.py::test_eye_bank_births_steps_and_removes_eyes_deterministically FAILED [ 85%]
+
+================================== FAILURES ===================================
+________ test_eye_bank_births_steps_and_removes_eyes_deterministically ________
+tests\test_foveated_eyes.py:50: in test_eye_bank_births_steps_and_removes_eyes_deterministically
+    estimator = FlyVisMotionEstimator(mode="tiled", layout=TileLayout(2, 3, 0.20), source_fps=30.0, dt=0.02, flow_gain=1.0, temporal_resampling="linear")
+tracking\flyvis_motion.py:157: in __init__
+    self.network, decoders = load_network_and_decoder(view)
+tracking\flyvis_checkpoint.py:128: in load_network_and_decoder
+    network = view.network_class(**view.dir.config.network.to_dict())
+tools\flyvis-runtime\flyvis\network\network.py:139: in __init__
+    self._source_indices = torch.tensor(self.connectome.edges.source_index[:])
+tools\flyvis-runtime\datamate\io.py:95: in __getitem__
+    raise e
+tools\flyvis-runtime\datamate\io.py:91: in __getitem__
+    data = f["data"][key]
+h5py/_objects.pyx:54: in h5py._objects.with_phil.wrapper
+    ???
+h5py/_objects.pyx:55: in h5py._objects.with_phil.wrapper
+    ???
+tools\flyvis-runtime\h5py\_hl\dataset.py:872: in __getitem__
+    return self._fast_reader.read(args)
+h5py/_objects.pyx:54: in h5py._objects.with_phil.wrapper
+    ???
+h5py/_objects.pyx:55: in h5py._objects.with_phil.wrapper
+    ???
+h5py/_selector.pyx:385: in h5py._selector.Reader.read
+    ???
+h5py/_selector.pyx:358: in h5py._selector.Reader.make_array
+    ???
+E   numpy._core._exceptions._ArrayMemoryError: Unable to allocate 11.5 MiB for an array with shape (1513231,) and data type int64
+------------------------------ Captured log call ------------------------------
+WARNING  root:logging_utils.py:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+=========================== short test summary info ===========================
+FAILED tests/test_foveated_eyes.py::test_eye_bank_births_steps_and_removes_eyes_deterministically - numpy._core._exceptions._ArrayMemoryError: Unable to allocate 11.5 MiB for an array with shape (1513231,) and data type int64
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!
+========================= 1 failed, 5 passed in 9.02s =========================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 2173030400, "peak_process_bytes": 2173030400}

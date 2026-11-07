@@ -1,0 +1,70 @@
+topic: 'Target identity among similar neighbours in the FlyVis readout for MOT: can a bio-inspired motion model add anything to strong appearance (MASA-R50), how to fuse/train it, and how to check the hypothetical benefit mathematically before any GPU training'
+created: '2026-10-26'
+time_range: unlimited, emphasis on 2020 and later; Chinese research explicitly included
+context: 'Project: modernized FlyVis (734-parameter connectome-constrained recurrent model, 721 grey hexagonal columns, 34 output cell types incl. T4a-d/T5a-d motion cells) inside a MOT test bench: YOLO26s detector -> XYWHByteTrack -> MASA stitching on BDD100K MOT (low light, glare, occlusion, clutter); metric HOTA with paired bootstrap over videos. FlyVis sees a bounded grey crop around the tracker prediction ("eye"); per real detection region we have 68 regional activity features (34 types + 6-neighbour means), observed-target descriptor, geometry, assignment context. Readout = two stages: (1) identity "this region is our target" (gradient boosting, nested folds), (2) gate that transfers the full box of the chosen region into the track before ByteTrack matching, with a threshold chosen on calibration videos. Measured (offline utility = mean per video of (helpful-harmful)/known, pp): with PERFECT identity the decision gives +2.93 [2.38; 3.47] on fit104 and +2.84 [1.87; 3.83] on train26 - the decision design is not the bottleneck; pre-registered criterion is +2 pp. FlyVis identity from saved features saturates at AUC 0.950-0.956 (no-fly geometry 0.92-0.93), utility +0.02..+0.25 pp, CI includes 0, FlyVis D (modernized) = stock C. Hybrid: frozen MASA-R50 RoIAlign embeddings (same track after 5 frames cosine 0.955, different objects 0.103) give cosines to exemplar (snapped to a detection), previous target, bank, plus 32 PCA products; FlyVis features concatenated into the same gradient boosting. On reused fit104 FlyVis added +0.409 [0.134; 0.687] over appearance, but the single pre-registered train26 check gave +0.107 [-0.176; +0.400]; FlyVis not better than eye input R1 (-0.042) or stock C (-0.095); appearance alone +0.660 [+0.035; +1.302] over the bench (tracker gain, not FlyVis). AUC on train26: appearance 0.965, +D 0.973, +C 0.971, +R1 0.971. Untried: joint/end-to-end training of a fly branch on identity (core fine-tuning script prepared), learned projection with alpha starting at 0, new FlyVis activity, lobula/LC pathway. Project rules: only FlyVis nodes are modernized (input preparation, neuron dynamics, connections/parameters, state, readout); external modules allowed if they become part of our fly version; a FlyVis result requires (fly+X) better than (X without fly) with equal capacity; one 12 GB GPU; the author wants a MATHEMATICAL/statistical pre-check of hypothetical benefit on saved features before GPU runs. Earlier reviews (2026-10-23, 2026-10-25) covered KeepTrack, DMTrack, SiamMOT, KYS, DAM4SAM, DiMP/ToMP, STMTrack, LTMU, STARK, DeepMOT, GMTracker, object permanence, MotionTrack, OC-SORT, Hybrid-SORT, AlphaRefine, MeMOTR, MOTIP, STMD feedback (results in research_flyvis_advantage_readout_2026-10-25): do not repeat them except where an item explicitly asks.'
+mandatory_question: 'For each source: what evidence (ablation table) shows that a weaker added branch (motion / bio-inspired / temporal) gives a gain OVER an already strong appearance base, under which conditions (similar look, darkness, occlusion, crowding), and what cheap computation on our saved features would predict whether the same can happen for FlyVis before GPU training. Never transfer foreign AUC/HOTA/IDF1 gains into expected utility of our bench.'
+questions:
+- 'Q1 Can motion/bio features carry identity information unique beyond strong appearance, and in which regimes; how is this measured.'
+- 'Q2 How to fuse and train a weak branch over a frozen strong base so it is neither ignored (modality imbalance) nor harmful (residual alpha, zero-init, late fusion, unimodal pre-training, cue masking).'
+- 'Q3 Which FlyVis node change (core fine-tuning on identity, lobula/LC-like output, facilitation state, readout projection) is supported by evidence, with equal no-fly controls.'
+- 'Q4 Mathematical pre-check: estimators of conditional/unique information, error complementarity, oracle combination bounds, Bayes-error bounds, conditional importance tests; decision rule to stop before GPU.'
+items:
+- id: C01
+  name: Residual fusion with alpha over a frozen strong model (Tip-Adapter, CLIP-Adapter, ControlNet zero-convolution, ReZero) and learned multi-cue association over off-the-shelf cues (CAMELTrack 2025 with cue masking)
+  group: first
+  description: '[Depth: full analysis (paper, ablations, official code of fusion and init)] When does a small added branch with residual ratio alpha / zero init improve over the frozen base, how alpha is chosen or learned, ablations with alpha=0 and with a non-informative branch of equal capacity. CAMELTrack: transformer association over ready-made cues, cue masking during training; which cue ablations show a weak cue (motion) adds over appearance. Transfer: replacing our concatenation-into-boosting by a learned projection of FlyVis activity added with alpha to MASA similarity.'
+  depth: full analysis
+- id: C02
+  name: Modality imbalance and competition in joint training (Huang et al. NeurIPS 2021, ICML 2022 modality competition; OGM-GE CVPR 2022; PMR CVPR 2023; UMT/UME ICML 2023; Diagnosing & Re-learning ECCV 2024; MMPareto ICML 2024; greedy learner Wu et al. ICML 2022)
+  group: first
+  description: '[Depth: full analysis of theory and remedies with ablation tables] Why a strong modality (appearance) starves a weak one (motion) in joint training; when the weak branch carries information that joint training fails to use; unimodal pre-training then late fusion (UMT) vs gradient modulation. Diagnostics computable BEFORE training (unimodal separability / learning state). Transfer: does our failure look like imbalance (fly alone AUC 0.95 but adds nothing jointly) or like redundancy; what check distinguishes them on saved features.'
+  depth: full analysis
+- id: C03
+  name: Mathematical estimators of usable and unique information of one feature set given another (V-usable information Xu et al. ICLR 2020; PVI Ethayarajh et al. ICML 2022; PID estimators Liang et al. NeurIPS 2023; conditional mutual information estimators for high-dimensional features)
+  group: first
+  description: '[Depth: full analysis with formulas and code] Concrete CPU procedures to estimate the information FlyVis features carry about target identity beyond MASA appearance (conditional V-information as log-likelihood gain of a probe on [MASA, fly] vs [MASA]; PVI on individual confusable pairs; PID redundancy/uniqueness/synergy), required sample sizes, bias, confidence intervals, how results relate to achievable classification gain; a decision rule for our saved fit104/train26 features (5345 rows, 928 targets on train26).'
+  depth: full analysis
+- id: C04
+  name: Statistical tests of conditional contribution, Bayes-error bounds and ensemble diversity (CPI with knockoffs Watson & Wright 2021; LOCO; Shapley/modality dropout; FeeBee NeurIPS D&B 2021 Bayes error estimators; Wood et al. JMLR 2023 bias-variance-diversity; oracle combination bounds)
+  group: second
+  description: '[Depth: full analysis] Tests that a feature block is needed given correlated features; Bayes-error lower bounds (1NN, GHP) with and without the block on confusable pairs; error complementarity (fly right where appearance wrong) and the oracle upper bound of combining two scorers; how to translate an identity error reduction into the maximum utility gain given the +2.8 pp perfect-identity ceiling. Give a ready recipe with stop rule.'
+  depth: full analysis
+- id: C05
+  name: Video-based person re-identification with motion/gait as a complement to appearance (two-stream ReID with optical flow, McLaughlin et al. 2016 and successors; GaitSet; GI-ReID CVPR 2022; appearance+gait fusion ablations)
+  group: second
+  description: '[Depth: short check with ablation tables] Where motion/gait demonstrably distinguishes identities that appearance confuses (cloth change, low light, similar clothes), how big the gain over a strong appearance model is, and when it vanishes. Distinguish vehicle-like rigid objects (our BDD100K) from walking people. Transfer: is there any analogue of gait for rigid road agents that T4/T5 could carry.'
+  depth: short check
+- id: C06
+  name: MOT with similar-looking objects where motion wins, plus training-free weak motion cues as no-fly controls (DanceTrack CVPR 2022, SportsMOT/MixSort ICCV 2023, DiffMOT CVPR 2024, TOPICTrack TIP 2025, DeconfuseTrack CVPR 2024)
+  group: second
+  description: '[Depth: short check] Ablations showing when motion cues beat appearance for association and by how much; which simple no-training motion cues (velocity direction, motion level gating) achieve it. These define the equal no-fly control required by our rules: if a simple weak motion cue gives the same gain, the effect is not a FlyVis result. Check whether BDD100K-like data was used.'
+  depth: short check
+- id: C07
+  name: Motion/state memory used to select or gate appearance comparison in trackers (SAMURAI 2024 motion-aware memory selection; HiM2SAM 2025; Samba/SambaMOTR ICLR 2025; TrackSSM 2024)
+  group: third
+  description: '[Depth: short check with code] A motion cue choosing WHICH past appearances to compare against (memory gate) or a per-tracklet state-space memory, instead of adding a feature. Ablations, horizon, occlusion. Transfer: FlyVis recurrent state as a gate over MASA memory bank vs a generic SSM of equal size (control).'
+  depth: short check
+- id: C08
+  name: Training and fine-tuning connectome-constrained visual models for new tasks (FlyVis Lappalainen et al. Nature 2024; Cowley et al. Nature 2024 knockout training of LC neurons; Shiu et al. Nature 2024 whole-brain FlyWire model; task-optimized fly vision models 2023-2026)
+  group: third
+  description: '[Depth: full analysis (papers, code)] What was trained (which parameters stay connectome-fixed), objectives, data, how task performance and biological fidelity change, whether any work trained such a model for object identity / discrimination among similar objects. Transfer: our prepared core fine-tuning on target identity; what ablation shows connectome constraints help vs an unconstrained network of equal size.'
+  depth: full analysis
+- id: C09
+  name: Biology and models of selecting one target among distractors (dragonfly CSTMD1 selective attention Wiederman & O'Carroll 2013; ESTMD facilitation Bagheri/Wiederman 2015-2017; fly LC10/LC11/LPLC object pathways, LC connectome inputs eNeuro 2022, LC feature map Janelia; figure-ground FD cells)
+  group: third
+  description: '[Depth: short check] Which neural mechanisms let insects lock onto one target among similar distractors (facilitation along a trajectory, winner-take-all, lobula object cells), what inputs they take from T4/T5 and others, and whether FlyVis (optic lobe up to T4/T5 and 34 output types) lacks them. Candidate node: lobula-like output layer or facilitation state on top of FlyVis outputs, connectome available in FlyWire 783; cheap CPU test.'
+  depth: short check
+- id: C10
+  name: Contrastive identity learning with hard/ambiguous neighbour pairs on top of ready features (QDTrack CVPR 2021; MASA CVPR 2024 training recipe; UCSL ICCV 2023 ambiguity contrast; FocalLink 2026; adapters for ReID)
+  group: fourth
+  description: '[Depth: short check with code] How hard negatives from neighbours are sampled, how an adapter/added branch is trained only on pairs the base confuses without degrading the base. Transfer: train only the FlyVis addition on MASA-confused pairs; what saved data we already have for that.'
+  depth: short check
+- id: C11
+  name: Bio-inspired / spiking motion branches for identity in MOT (SpikeMOT 2023/IEEE Access 2025; SMTrack 2025; SpikingMOT 2026; event-based MOT with motion features)
+  group: fourth
+  description: '[Depth: short check] Nearest competing claims of bio-inspired motion features used for identity association: what they add over appearance, controls, datasets. Needed for the novelty position (one line in cannot_claim, work not stopped) and as a control architecture.'
+  depth: short check
+execution:
+  batch_size: 3
+  items_per_agent: 1
+  output_dir: ./results

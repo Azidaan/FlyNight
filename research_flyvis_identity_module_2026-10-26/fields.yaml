@@ -1,0 +1,86 @@
+field_categories:
+- category: Source
+  fields:
+  - name: bibliography
+    description: Full bibliographic records of each primary source examined (authors, year, title, venue, version), direct links (DOI/arXiv/PDF) and official code repository links; mark duplicates (preprint vs journal, several papers of one system on the same data are NOT independent confirmations)
+    detail_level: detailed
+    required: true
+  - name: full_text_checked
+    description: Which parts were actually read (full text, appendix, supplementary, specific code files with paths); what could not be accessed. Never claim reading something not opened.
+    detail_level: brief
+    required: true
+- category: Setup comparison (ours vs authors)
+  fields:
+  - name: inputs_state_output
+    description: Authors' branches (strong base vs weak/added branch), inputs, internal state/memory, fusion point and output; compare with ours (frozen MASA-R50 RoIAlign appearance of each real detection region vs exemplar/previous target/bank; FlyVis activity from a bounded grey crop, 34 output types incl. T4/T5 plus neighbour means, temporal state over exemplar+search frames; two-stage readout identity -> full-box transfer gate)
+    detail_level: detailed
+    required: true
+  - name: fusion_and_training
+    description: How branches are combined (concatenation, residual with alpha, gating, late score fusion), what is frozen, what is trained jointly, initialisation (zero-init), how the added branch is prevented from being ignored or from damaging the base
+    detail_level: detailed
+    required: true
+  - name: labels_and_loss
+    description: Training labels (identity, pairs/triplets, contrastive, consequence of assignment), losses, handling of hard negatives (similar neighbours), class imbalance
+    detail_level: detailed
+    required: true
+  - name: data_camera_resolution_rate
+    description: Datasets, number of independent videos/identities, train/test split, camera motion, input resolution, frame rate, lighting conditions
+    detail_level: moderate
+    required: true
+  - name: metrics_and_numbers
+    description: Metrics and key numbers with exact location (table/figure/section); these are the authors' metrics and must not be translated into expected HOTA or utility for our bench
+    detail_level: detailed
+    required: true
+- category: Evidence
+  fields:
+  - name: distinguishing_ablations
+    description: Ablations that isolate the added branch's contribution over the strong base (base alone vs base+branch vs base+equal-capacity non-informative branch), negative results, seeds/runs; when the added branch gave nothing
+    detail_level: detailed
+    required: true
+  - name: explanations_addressed
+    description: For each competing explanation of our failure (fly features carry no unique identity information beyond appearance; information exists but the fusion/training ignores it (modality imbalance); saved readout features lost it, new activity or fine-tuned core needed; FlyVis lacks the biological object/identity pathway (lobula); motion helps only in subsets (darkness, glare, occlusion, similar look) diluted by averaging; ceiling too low (+2.8 pp perfect identity vs +2 pp threshold)) say whether and how this source informs it (direct evidence / design analogy / caution / not addressed)
+    detail_level: detailed
+    required: true
+  - name: evidence_strength
+    description: Peer-reviewed or preprint, independent replications, code availability verified, overall strength (strong/moderate/weak) with reason
+    detail_level: brief
+    required: true
+- category: Transfer to FlyVis
+  fields:
+  - name: difference_from_tried
+    description: How the mechanism differs from what we already tried (frozen MASA cosines + snapped exemplar + 32 PCA products; FlyVis D/C/R1 saved features concatenated into gradient boosting; neighbour-relative features, tagged previous target, bank, T4/T5 motion consistency; core identity fine-tuning prepared but not run); if no difference, say so
+    detail_level: moderate
+    required: true
+  - name: math_precheck
+    description: Cheap mathematical/statistical check on already saved features (CPU, no training of the core) that would show BEFORE GPU training whether this mechanism can help at all - e.g. conditional/unique information of fly given appearance, complementarity of errors (fly right where appearance wrong), oracle upper bound of the combination, required effect size versus the +2.8 pp perfect-identity ceiling; state the decision rule (what result means stop)
+    detail_level: detailed
+    required: true
+  - name: cue_role_and_regime
+    description: How the motion/weak cue enters (feature, gate/weight, memory selector, per-candidate state, training-only regulariser) and which neighbour-ambiguity regime it targets (same class and look, crossing paths, occlusion, darkness/glare); without this a gain elsewhere says nothing about BDD100K
+    detail_level: moderate
+    required: true
+  - name: no_fly_equivalent_control
+    description: Cheapest cue without FlyVis with the same role and capacity (velocity direction, Kalman, eye input R1, SSM/MLP of equal size) needed for the three-way comparison (base / addition without fly / addition with fly)
+    detail_level: moderate
+    required: true
+  - name: bio_node_mapping
+    description: Which FlyVis or insect node the mechanism corresponds to (T4/T5, lobula LC/LPLC, STMD facilitation, recurrent state) and whether connectome data exist (FlyWire 783); needed by the project scope rule
+    detail_level: brief
+    required: true
+  - name: novelty_overlap
+    description: Nearest prior claim and how our version differs; one line, does not stop the work
+    detail_level: brief
+    required: false
+  - name: candidate_node_change
+    description: Concrete FlyVis node change (input preparation, core/connections/parameters, state, readout, loss) implied by the source, why it fixes a FlyVis problem, equal controls (appearance only, appearance + stock C, appearance + eye input R1, equal-capacity no-fly branch), and the condition to proceed to GPU
+    detail_level: detailed
+    required: true
+  - name: strongest_objection
+    description: Strongest objection to using this source/mechanism for our decision
+    detail_level: moderate
+    required: true
+  - name: cost_and_hardware
+    description: Estimated cost of a bounded adaptation; what fits on CPU with saved features vs needs new FlyVis maps or core training on one 12 GB GPU
+    detail_level: brief
+    required: true
+uncertain: []

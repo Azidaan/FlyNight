@@ -1,0 +1,12 @@
+CPU_GUARD_V2: GPU branches intentionally not evaluated
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 3 items
+
+tests/test_z13_region_runtime.py::test_cost_adapter_only_runs_during_first_association_and_restores_on_error PASSED [ 33%]
+tests/test_z13_region_runtime.py::test_readout_costs_equal_frozen_hard_region_and_null_actions PASSED [ 66%]
+tests/test_z13_region_runtime.py::test_receptor_runtime_preserves_history_and_original_readout PASSED [100%]
+
+============================== 3 passed in 0.27s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 1494171648, "peak_process_bytes": 1494171648}

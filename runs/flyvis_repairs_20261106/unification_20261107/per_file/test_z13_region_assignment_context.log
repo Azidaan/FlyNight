@@ -1,0 +1,12 @@
+CPU_GUARD_V2: GPU branches intentionally not evaluated
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 3 items
+
+tests/test_z13_region_assignment_context.py::test_context_uses_other_tracks_and_alternatives_without_mutating_costs PASSED [ 33%]
+tests/test_z13_region_assignment_context.py::test_no_competitor_no_detection_have_explicit_finite_conventions PASSED [ 66%]
+tests/test_z13_region_assignment_context.py::test_original_assignment_flags_are_observable_and_distinguish_null PASSED [100%]
+
+============================== 3 passed in 0.24s ==============================
+MEMORY_JOB {"limit_bytes": 2147483648, "limit_active": true, "peak_job_bytes": 1428402176, "peak_process_bytes": 1428402176}
