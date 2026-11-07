@@ -185,7 +185,7 @@
     $("play").onclick=()=>{if(store.running){stop();drawLab();return}const a=indices(ep);if(a.length<2)return;if(store.at===a.at(-1))store.at=a[0];store.running=true;drawLab();
       store.playHandle=setInterval(()=>{const i=a.indexOf(store.at);if(i===a.length-1)stop();else store.at=a[i+1];drawLab()},325)};
     root.querySelectorAll("[data-policy]").forEach(b=>b.onclick=()=>{store.mask=b.dataset.policy;renderLab();root.querySelector(`[data-policy="${store.mask}"]`).focus({preventScroll:true})});
-    if($("learn-type"))$("learn-type").onclick=()=>{store.focus=channelLabel(store.channel);location.hash="network"};
+    if($("learn-type"))$("learn-type").onclick=()=>{store.focus=channelLabel(store.channel);store.networkDetail=true;location.hash="network"};
     updateChannelDescription();drawLab();
   }
   function labBelow(s){
@@ -215,8 +215,15 @@
     return `<section class="below panel"><div class="section-head"><div><p class="panel-tag">Решение в кадре ${esc(ep.frame)}</p><h2>Сравнение двух рамок</h2></div><div class="seg" aria-label="Ячейки для вычисления балла"><button data-policy="all" aria-pressed="${store.mask==="all"}">Вся рамка</button><button data-policy="exclusive" aria-pressed="${store.mask==="exclusive"}">Только свои</button></div></div><div class="detail"><div class="scorelist">${b.map((v,i)=>`<div class="scoreline"><span>Рамка ${i?"Б":"А"}</span><meter min="${Math.min(...b,0)-.01}" max="${Math.max(...b,0)+.01}" value="${v}"></meter><strong>${signed(v,5)}</strong></div>`).join("")}</div><div><strong class="answer">Выбор: ${pick}</strong><p class="tiny muted">Рамка продолжения по разметке: ${target}. Больше балл — выше сходство с прошлым образцом.</p></div></div></section>`;
   }
   function renderNetwork(){
-    root.innerHTML=head("Архитектура","Связи между клетками","Выберите тип и проследите один шаг сигнала: от кого он получает вход и кому передаёт его дальше.",[[graphTypes.length,"типов клеток"],[graph.outputs?.length||channels.length,"доступны в картах"]]);
+    root.innerHTML=head("Архитектура",store.networkDetail?"Связи одного типа":"Как устроено зрение FlyVis",store.networkDetail?"От кого получает сигнал выбранный тип клеток и кому передаёт его дальше.":"От фоторецепторов до клеток движения. Нажмите на блок, чтобы заглянуть внутрь.",[[graphTypes.length,"типов клеток"],[graph.edges.length,"связей типов"]]);
     if(!graphTypes.length){root.insertAdjacentHTML("beforeend",'<div class="panel">Схема связей отсутствует в этом комплекте.</div>');return}
+    if(!store.networkDetail){
+      const holder=document.createElement("section");root.append(holder);
+      window.FlyBlockMap.mount(holder,graph,name=>{store.focus=name;store.networkDetail=true;renderNetwork();$("network-type").focus({preventScroll:true});root.scrollIntoView({block:"start"})});
+      return;
+    }
+    root.insertAdjacentHTML("beforeend",'<div class="bm-backrow"><button id="back-to-blocks">← К карте блоков</button></div>');
+    $("back-to-blocks").onclick=()=>{window.FlyBlockMap.reveal(store.focus,graph);store.networkDetail=false;renderNetwork();root.querySelector("[data-block][aria-pressed=true]")?.focus({preventScroll:true})};
     const t=store.focus||graphTypes[0], ins=graph.edges.filter(e=>e[1]===t).sort((a,b)=>b[2]-a[2]), outs=graph.edges.filter(e=>e[0]===t).sort((a,b)=>b[2]-a[2]);
     const chip=(name,v)=>`<button class="chip" data-focus="${esc(name)}" title="${esc(name)} · контактов в шаблоне: ${Number(v)}">${esc(name)}</button>`;
     const self=ins.some(e=>e[0]===t);
@@ -268,7 +275,7 @@
     root.querySelector(".results-card").insertAdjacentHTML("beforebegin",`<section class="below panel"><p class="panel-tag">Перед последним кадром</p><div class="section-head"><h2>Вмешательство во внутреннее состояние</h2>${items.length?`<label class="field">Тип клеток<select id="core-type">${selectItems(items.map(x=>[x.name,x.name]),items.some(x=>x.name==="T4a")?"T4a":items[0].name)}</select></label>`:""}</div><p class="bodycopy">${esc(core?.message||"В этом комплекте пока доступны результаты вмешательств при считывании.")}</p>${items.length?'<div id="core-result"></div>':""}</section>`);
     if($("core-type")){const sync=()=>{$("core-result").innerHTML=coreInfo($("core-type").value)};$("core-type").onchange=sync;sync()}
     $("study-sort").onchange=e=>{store.sort=e.target.value;renderStudy();$("study-sort").focus()};
-    root.querySelectorAll("[data-celltype]").forEach(b=>b.onclick=()=>{store.focus=b.dataset.celltype;location.hash="network"});
+    root.querySelectorAll("[data-celltype]").forEach(b=>b.onclick=()=>{store.focus=b.dataset.celltype;store.networkDetail=true;location.hash="network"});
   }
   function loopback(){return ["http:","https:"].includes(location.protocol)&&["localhost","127.0.0.1","[::1]"].includes(location.hostname)}
   async function checkServer(){
@@ -344,7 +351,7 @@
   }
   function route(){const name=location.hash.replace(/^#/,"");return ["lab","network","study","upload"].includes(name)?name:"lab"}
   function navigate(){
-    stop();const page=route();
+    stop();const page=route();if(page!=="network")window.FlyBlockMap.leave();
     document.querySelectorAll(".nav a").forEach(a=>a.hash==="#"+page?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
     ({lab:renderLab,network:renderNetwork,study:renderStudy,upload:renderUpload})[page]();
     document.title=(document.querySelector("h1")?.textContent||"Лаборатория зрения")+" · Атлас FlyVis";
