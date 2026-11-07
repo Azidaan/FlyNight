@@ -1,0 +1,7 @@
+{"pairs": 172, "conditions": [{"name": "common", "correct": 104.0, "accuracy": 0.6046511627906976, "ties": 0}, {"name": "union", "correct": 105.0, "accuracy": 0.6104651162790697, "ties": 0}, {"name": "separate", "correct": 102.0, "accuracy": 0.5930232558139535, "ties": 0}], "comparisons": [{"name": "separate-common", "primary": true, "delta_pp": -1.1627906976744187, "ci95_pp": [-4.061135048990674, 1.4285714285714286], "ci97_5_pp": [-4.545454545454546, 1.8181818181818181], "gains": 1, "losses": 3, "changed": 4}, {"name": "separate-union", "primary": true, "delta_pp": -1.744186046511628, "ci95_pp": [-3.932584269662921, 0.0], "ci97_5_pp": [-4.310422351773754, 0.0], "gains": 0, "losses": 3, "changed": 3}, {"name": "union-common", "primary": false, "delta_pp": 0.5813953488372093, "ci95_pp": [-1.2820512820512822, 2.9702970297029703], "ci97_5_pp": [-1.530612244897959, 3.4722222222222223], "gains": 2, "losses": 1, "changed": 3}], "main": false}
+Traceback (most recent call last):
+  File "E:\Dissertation\scripts\flyvis_two_frame_input_20261107.py", line 149, in <module>
+    audit()
+  File "E:\Dissertation\scripts\flyvis_two_frame_input_20261107.py", line 141, in audit
+    assert first[k]==rows[0][k],k
+AssertionError: t4_max

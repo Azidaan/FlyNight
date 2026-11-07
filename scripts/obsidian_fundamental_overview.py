@@ -258,6 +258,20 @@ def resolved_tasks(history):
             target['result']+=f" На {measured['pairs']} прежних парах общая карта дала {values['common']:g} верных выборов, раздельные входы — {values['separate']:g}; главный критерий прибавки не пройден. При изменении только текущего входа с общей предысторией T4/T5 побитно не изменились во всех {exposure['pairs']} случаях: вмешательство ещё не достигло этих выходов за два внутренних обновления."
             target['limit']+=' Это ограниченные окна в прежнем поле глаза, не центрированные полные виды автомобилей; нулевой контроль одного кадра не проверяет потенциальную пользу нового текущего сигнала.'
             target['primary'] += ['runs/flyvis_separate_inputs_20261107/independent_audit.json','runs/flyvis_separate_inputs_20261107/matched_history/independent_audit.json','runs/flyvis_separate_inputs_20261107/activation_exposure.json']
+    two_frame=next((c for c in history['experiments'] if c['id']=='flyvis_two_frame_input_v1'),None)
+    two_dir=ROOT/'runs/flyvis_two_frame_input_20261107'
+    if two_frame and two_frame.get('done') and (two_dir/'controller_verified.json').is_file():
+        checked=json.loads((two_dir/'controller_verified.json').read_bytes())
+        if checked.get('passed') and checked.get('all_owned_ended'):
+            measured=json.loads((two_dir/'independent_audit.json').read_bytes())
+            exposure=json.loads((two_dir/'exposure_audit.json').read_bytes())
+            target=next(t for t in tasks if t['title'].startswith('Задача 3'))
+            target['ids'].append(two_frame['id'])
+            target['attempt']+=' Затем изменили последние два уже известных входа, сохранив буквально одинаковую более раннюю память; число внутренних шагов не увеличивали.'
+            target['result']+=' '+two_frame['summary']+' '+two_frame['obtained']
+            target['limit']+=' Прохождение сигнала до T4/T5 само по себе не означает правильного выбора объекта; искусственная граница окна может менять сигнал движения. Центрированные полные виды автомобилей и HOTA здесь не проверены.'
+            target['primary'] += ['runs/flyvis_two_frame_input_20261107/independent_audit.json','runs/flyvis_two_frame_input_20261107/exposure_audit.json']
+            target['next']=two_frame['decision']
     return tasks
 
 

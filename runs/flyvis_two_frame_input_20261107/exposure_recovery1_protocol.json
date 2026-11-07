@@ -1,0 +1,7 @@
+{
+  "source_sha256": "d7b95567aa877857d96fd11dac73c301e9fea8d1a114b833b70b2a37513a3b95",
+  "failed_controller_sha256": "bb390acdfaee996d15dda9a668547726c543ee508c8db4c2916c1f28bfe05c10",
+  "original_protocol_sha256": "3e7f6b8e7049a9cf9b5f451bc52ff416fb959f58aeb6aa87fc42eaf659d1df7c",
+  "reused_quality_audit_sha256": "1db0b8eb3e61c016ec7f1cb21de2ce12975f8b799ec0ec38c656282aebdf9438",
+  "reason": "Worker subtracted float32 arrays; extra audit compared with unrounded float64 subtraction. Verify EXACT original float32 statistic plus independent float64 statistic. No tolerance or scientific gate change, no repeated inference or quality evaluation."
+}

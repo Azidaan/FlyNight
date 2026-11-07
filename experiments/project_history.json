@@ -26271,6 +26271,46 @@
           "reason": "По сохранённым массивам проверено достижение входного вмешательства выбранных карт; одинаковый выбор не трактуется как бесполезность текущего сигнала."
         }
       ]
+    },
+    {
+      "id": "flyvis_two_frame_input_v1",
+      "title": "Два последних входа FlyVis — отдельные окна при одинаковой ранней памяти",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "question": "Доходит ли ограничение двух последних известных входов до T4/T5 и улучшает ли выбор между двумя рамками?",
+      "hypothesis": "Limiting the last TWO already observed retinal inputs to candidate windows, at the original scale and position, improves frozen target ranking relative to common and union inputs after an identical earlier state.",
+      "expected": "Прохождение сигнала до обоих семейств и положительные нижние границы обеих первичных разностей.",
+      "acceptance": [
+        {
+          "criterion": "Первая фиксированная пара: изменение T4 и T5 >1e-7 выше тождественного контроля; все172 выхода и численный независимый аудит с прежними допусками.",
+          "met": true,
+          "evidence": "runs\\flyvis_two_frame_input_20261107/first_case.json;runs\\flyvis_two_frame_input_20261107/exposure_audit.json;runs\\flyvis_two_frame_input_20261107/independent_audit.json;runs\\flyvis_two_frame_input_20261107/controller_verified.json"
+        },
+        {
+          "criterion": "Separate-common и separate-union: обе нижние границы97,5% >0; 20k кластерных повторов, seed42, исходные26 видео.",
+          "met": false,
+          "evidence": "runs\\flyvis_two_frame_input_20261107/independent_audit.json,comparisons/main"
+        }
+      ],
+      "started": "2026-11-07",
+      "summary": "Сигнал двух последних входов достиг T4 и T5. Общий критерий улучшения выбора не пройден.",
+      "obtained": "Общая карта104/172, два окна вместе105/172, раздельные102/172. separate-common: -1,163 п.п.;97,5% ДИ[-4,545;1,818], исправлено1, испорчено3. separate-union: -1,744 п.п.;97,5% ДИ[-4,310;0,000], исправлено0, испорчено3. Источник:runs\\flyvis_two_frame_input_20261107/independent_audit.json,conditions/comparisons. T4 изменились172/172, T5172/172; источник:runs\\flyvis_two_frame_input_20261107/exposure_audit.json.",
+      "interpretation": "В отличие от вмешательства только в текущий кадр, два последних входа меняют T4/T5. Изменение активности не дало подтверждённого преимущества по обоим зарегистрированным критериям.",
+      "decision": "Сохранить все сравнения; не увеличивать число кадров и не менять считыватель по итогам этих эпизодов без отдельной согласованной постановки.",
+      "cannot_claim": "Не HOTA; исторические исследовательские172 пары из23 видео,26 исходных кластеров. Ограниченные окна прежнего поля после общей lamina, не полные центрированные автомобили;129/344 рамок частично вне поля. Не доказывает устранение смешения объектов или пользу ядра в полном трекере.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_two_frame_input_20261107/protocol.json",
+          "claim": "Условия и первая проверка прохождения сигнала до измерения новых выходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_two_frame_input_20261107/РЕЗУЛЬТАТ.md",
+          "claim": "Полный итог и ограничения"
+        }
+      ],
+      "done": "2026-11-07"
     }
   ],
   "manual_events": [
