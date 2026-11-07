@@ -11,7 +11,7 @@
 - врезка идемпотентна (повторный вызов не наслаивает фильтры);
 - оба размещения (upsample / levels) собираются и считают.
 
-Запуск: python tests/test_neck_v3.py  (без pytest — стиль smoke-скриптов проекта).
+Запуск: python tests/test_neck_v3.py или pytest для этого файла.
 """
 import sys
 from pathlib import Path
@@ -35,7 +35,7 @@ def check(name: str, ok: bool, detail: str = '') -> None:
         FAILURES.append(name)
 
 
-def test_kernel() -> None:
+def check_kernel() -> None:
     k = gaussian_kernel2d(5, 1.0)
     check('ядро суммируется в единицу', abs(float(k.sum()) - 1.0) < 1e-6,
           f'сумма {float(k.sum()):.8f}')
@@ -50,7 +50,7 @@ def test_kernel() -> None:
         check('чётное ядро отвергается', True)
 
 
-def test_zero_trainable() -> None:
+def check_zero_trainable() -> None:
     f = FixedLowPass(64)
     n_par = sum(p.numel() for p in f.parameters())
     n_buf = sum(b.numel() for b in f.buffers())
@@ -58,7 +58,7 @@ def test_zero_trainable() -> None:
     check('ядро лежит в state_dict', 'kernel' in f.state_dict())
 
 
-def test_identity_at_zero() -> None:
+def check_identity_at_zero() -> None:
     f = FixedLowPass(32, strength=0.0)
     for shp in SHAPES:
         x = torch.randn(*shp)
@@ -69,7 +69,7 @@ def test_identity_at_zero() -> None:
     check('strength=0 побитовое тождество на всех формах', True, f'{len(SHAPES)} форм')
 
 
-def test_shapes_and_finite() -> None:
+def check_shapes_and_finite() -> None:
     f = FixedLowPass(32, kernel_size=5, sigma=1.0, strength=1.0)
     bad = []
     for shp in SHAPES:
@@ -81,7 +81,7 @@ def test_shapes_and_finite() -> None:
           f'проверено форм: {len(SHAPES)}' + (f'; сбои: {bad}' if bad else ''))
 
 
-def test_smoothing_actually_smooths() -> None:
+def check_smoothing_actually_smooths() -> None:
     """Фильтр обязан снижать высокочастотную энергию — иначе он бесполезен."""
     f = FixedLowPass(1, kernel_size=5, sigma=1.0, strength=1.0)
     x = torch.randn(1, 1, 64, 64)
@@ -93,7 +93,7 @@ def test_smoothing_actually_smooths() -> None:
           f'до {before:.4f} → после {after:.4f} ({after/before:.0%})')
 
 
-def test_amp_and_devices() -> None:
+def check_amp_and_devices() -> None:
     f = FixedLowPass(32, strength=1.0)
     x = torch.randn(1, 32, 48, 80)
     y_cpu = f(x)
@@ -111,7 +111,7 @@ def test_amp_and_devices() -> None:
     f.cpu()
 
 
-def test_insertion(placement: str) -> None:
+def check_insertion(placement: str) -> None:
     """Врезка в настоящую модель: маршрутизация, формы выходов, идемпотентность."""
     import warnings
     warnings.filterwarnings('ignore')
@@ -164,17 +164,18 @@ def test_insertion(placement: str) -> None:
 
 
 def main() -> int:
+    FAILURES.clear()
     print('=== ядро ===')
-    test_kernel()
+    check_kernel()
     print('\n=== модуль ===')
-    test_zero_trainable()
-    test_identity_at_zero()
-    test_shapes_and_finite()
-    test_smoothing_actually_smooths()
-    test_amp_and_devices()
+    check_zero_trainable()
+    check_identity_at_zero()
+    check_shapes_and_finite()
+    check_smoothing_actually_smooths()
+    check_amp_and_devices()
     print('\n=== врезка в модель ===')
     for placement in ('upsample', 'levels'):
-        test_insertion(placement)
+        check_insertion(placement)
         print()
 
     if FAILURES:
@@ -182,6 +183,10 @@ def main() -> int:
         return 1
     print('--- OK: все проверки фильтра пройдены ---')
     return 0
+
+
+def test_neck_v3_checks() -> None:
+    assert main() == 0, FAILURES
 
 
 if __name__ == '__main__':

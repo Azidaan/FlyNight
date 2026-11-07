@@ -4,7 +4,22 @@ from datetime import datetime
 from zoneinfo import ZoneInfo
 import json,hashlib,shutil,zipfile
 ROOT=Path(__file__).resolve().parents[1];OUT=ROOT/'runs/flyvis_state_subgroups_20261107'
+# The chain owns these streams and status files until after main() returns.
+CHAIN_FILES = {
+    "chain.stdout.log", "chain.stderr.log", "chain_result.json", "chain_failure.json",
+    "postprocess.stage.json", "finalize.log", "finalize.ended.json",
+}
 def sha(p):return hashlib.sha256(Path(p).read_bytes()).hexdigest()
+
+
+def closed_artifact_hashes(directory):
+    return {
+        path.name: sha(path) for path in sorted(directory.iterdir())
+        if path.is_file() and path.suffix in {".json", ".md", ".log"}
+        and path.name != "completion_verified.json" and path.name not in CHAIN_FILES
+    }
+
+
 def main():
     assert '71 passed' in (OUT/'record_tests.log').read_text(encoding='utf-8-sig')
     assert 'OK: каталог согласован с источниками' in (OUT/'catalog_check.log').read_text(encoding='utf-8-sig')
@@ -35,7 +50,8 @@ def main():
     case=problem['cases'][-1];assert OUT.name in case['fact']
     snapshot=dict(card=c,problem_id=problem['id'],appended_problem_case=case,problem_evidence=[e for e in problem['evidence'] if OUT.name in e['source']],note='Exact task-specific entries; shared catalog, chronology, roadmap and vault retain their other uncommitted work and are not staged wholesale.')
     (OUT/'record_snapshot.json').write_text(json.dumps(snapshot,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    artifacts={f.name:sha(f) for f in OUT.iterdir() if f.is_file() and f.suffix in ('.json','.md','.log') and f.name!='completion_verified.json'}
+    artifacts=closed_artifact_hashes(OUT)
     result=dict(complete=True,checked_msk=datetime.now(ZoneInfo('Europe/Moscow')).isoformat(),artifacts=artifacts,cases={c['id']:sha(OUT/'cases'/(c['id']+'.npz')) for c in p['cases']},catalog_passed=True,tests_passed=71,source_hashes_still_exact=True,source_archive_sha256=sha(archive),scope='Completed bounded partial-state history diagnostic with continuing-motion control and documentation; no further scientific run scheduled.')
+    result['excluded_chain_files'] = sorted(CHAIN_FILES)
     (OUT/'completion_verified.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');print('Completion verified; 64 cases, 71 tests.')
 if __name__=='__main__':main()

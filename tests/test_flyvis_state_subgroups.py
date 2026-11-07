@@ -14,3 +14,19 @@ def test_partition_matches_connectome_without_readout_cells():
 def test_wrong_parent_is_rejected():
     with pytest.raises(ValueError):
         validate_partition(sum(GROUPS.values(), [])[:-1]+["T4a"])
+
+
+def test_completion_hashes_survive_the_chain_finishing(tmp_path):
+    from scripts.finalize_flyvis_state_subgroups_20261107 import closed_artifact_hashes
+
+    for name in ("record_tests.log", "independent_audit.json", "finalize.log",
+                 "chain.stdout.log", "chain.stderr.log", "postprocess.stage.json"):
+        (tmp_path / name).write_text("before", encoding="utf-8")
+    saved = closed_artifact_hashes(tmp_path)
+    assert set(saved) == {"record_tests.log", "independent_audit.json"}
+    for name in ("finalize.log", "chain.stdout.log", "chain.stderr.log", "postprocess.stage.json",
+                 "completion_verified.json", "finalize.ended.json", "chain_result.json", "chain_failure.json"):
+        (tmp_path / name).write_text("after", encoding="utf-8")
+    assert closed_artifact_hashes(tmp_path) == saved
+    (tmp_path / "independent_audit.json").write_text("changed", encoding="utf-8")
+    assert closed_artifact_hashes(tmp_path) != saved

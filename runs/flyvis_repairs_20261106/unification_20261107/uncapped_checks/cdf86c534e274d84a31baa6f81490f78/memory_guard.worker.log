@@ -1,0 +1,20 @@
+CPU_GUARD_V2: GPU branches intentionally not evaluated
+============================= test session starts =============================
+platform win32 -- Python 3.10.11, pytest-9.1.1, pluggy-1.6.0 -- E:\Dissertation\.venv\Scripts\python.exe
+rootdir: E:\Dissertation
+collecting ... collected 11 items
+
+tests/test_bench_freeze.py::test_compare_scalabel_identical_rows_report_zero_mismatches PASSED [  9%]
+tests/test_bench_freeze.py::test_compare_scalabel_detects_changed_id_with_locator PASSED [ 18%]
+tests/test_bench_freeze.py::test_compare_scalabel_detects_changed_box_coordinate PASSED [ 27%]
+tests/test_bench_freeze.py::test_detection_caches_identical_ignores_timing_arrays PASSED [ 36%]
+tests/test_bench_freeze.py::test_detection_caches_identical_detects_changed_confidence PASSED [ 45%]
+tests/test_bench_freeze.py::test_tracking_reads_ground_truth_flags_label_access PASSED [ 54%]
+tests/test_bench_freeze.py::test_tracking_package_label_hits_are_confined_to_verified_research_oracle PASSED [ 63%]
+tests/test_bench_freeze.py::test_loaded_oracle_fails_label_audit_even_when_imported_indirectly PASSED [ 72%]
+tests/test_bench_freeze.py::test_run_xywh_on_sequences_is_invariant_to_video_order PASSED [ 81%]
+tests/test_bench_freeze.py::test_run_xywh_on_sequences_restarts_ids_for_every_video PASSED [ 90%]
+tests/test_bench_freeze.py::test_build_manifest_is_deterministic_and_lists_required_sections PASSED [100%]
+
+============================= 11 passed in 2.00s ==============================
+SYSTEM_MEMORY_POLICY {"limit_active": false, "limit_bytes": null, "available_bytes": 17309290496, "policy": "system_reserve_external_supervisor", "supervisor_report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\cdf86c534e274d84a31baa6f81490f78\\memory_guard.json"}

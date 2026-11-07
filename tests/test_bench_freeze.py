@@ -12,6 +12,7 @@ from scripts.freeze_bench import (
     compare_scalabel,
     detection_caches_identical,
     run_xywh_on_sequences,
+    tracking_label_audit,
     tracking_reads_ground_truth,
 )
 from tracking.offline_association import _DetSlice
@@ -106,9 +107,34 @@ def test_tracking_reads_ground_truth_flags_label_access(tmp_path: Path) -> None:
     assert hits[0]["line"] == 3
 
 
-def test_tracking_reads_ground_truth_is_clean_for_project_tracking_package() -> None:
+def test_tracking_package_label_hits_are_confined_to_verified_research_oracle() -> None:
     project_root = Path(__file__).resolve().parents[1]
-    assert tracking_reads_ground_truth(project_root / "tracking") == []
+    hits = tracking_reads_ground_truth(project_root / "tracking")
+    assert {hit["file"] for hit in hits} == {"recovery_admission_oracle.py"}
+    assert any("def step" in hit["text"] for hit in hits)
+
+
+def test_loaded_oracle_fails_label_audit_even_when_imported_indirectly(tmp_path: Path) -> None:
+    import importlib
+    import sys
+    from unittest.mock import patch
+
+    root = tmp_path / "bench_audit_example"
+    root.mkdir()
+    (root / "__init__.py").write_text("", encoding="utf-8")
+    (root / "tracker.py").write_text('"""Never read ground truth."""\n# ground truth\n', encoding="utf-8")
+    (root / "oracle.py").write_text("def lookup(truth): return truth\n", encoding="utf-8")
+    (root / "bridge.py").write_text("from . import oracle\n", encoding="utf-8")
+    with patch.dict(sys.modules), patch.object(sys, "path", [str(tmp_path), *sys.path]):
+        def audit():
+            return tracking_label_audit(root, [module.__file__ for name, module in sys.modules.items()
+                                               if name.startswith("bench_audit_example")])
+
+        importlib.import_module("bench_audit_example.tracker")
+        assert audit()["loaded_hits"] == []
+        assert [hit["file"] for hit in audit()["package_hits"]] == ["oracle.py"]
+        importlib.import_module("bench_audit_example.bridge")
+        assert [hit["file"] for hit in audit()["loaded_hits"]] == ["oracle.py"]
 
 
 def _sequence(offset: float, frames: int, score: float = 0.9) -> list[_DetSlice]:

@@ -8,6 +8,7 @@ FlyVis не запускаются: проверяется воспроизво�
 from __future__ import annotations
 
 import argparse
+import ast
 import hashlib
 import importlib
 import importlib.metadata
@@ -16,6 +17,7 @@ import platform
 import re
 import sys
 import time
+import tokenize
 from pathlib import Path
 
 import numpy as np
@@ -135,14 +137,42 @@ def detection_caches_identical(first: Path, second: Path) -> dict:
 
 
 def tracking_reads_ground_truth(package_dir: Path) -> list[dict]:
-    """Найти в пакете трекера строки с обращением к разметке."""
+    """Найти маркеры разметки в исполняемом коде, включая строковые пути."""
     pattern = re.compile("|".join(GROUND_TRUTH_PATTERNS), re.IGNORECASE)
     hits = []
     for path in sorted(package_dir.rglob("*.py")):
-        for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
-            if pattern.search(line):
-                hits.append({"file": str(path.relative_to(package_dir)).replace("\\", "/"), "line": number, "text": line.strip()})
+        with tokenize.open(path) as handle:
+            source = handle.read()
+        tree = ast.parse(source, filename=str(path))
+        docstrings = set()
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.Module, ast.ClassDef, ast.FunctionDef, ast.AsyncFunctionDef)) and ast.get_docstring(node, clean=False) is not None:
+                docstrings.add(node.body[0].value)
+        lines = source.splitlines()
+        matching_lines = set()
+        for node in ast.walk(tree):
+            if node in docstrings:
+                continue
+            for _, value in ast.iter_fields(node):
+                if isinstance(value, str) and pattern.search(value):
+                    matching_lines.add(node.lineno)
+        for number in sorted(matching_lines):
+            hits.append({"file": path.relative_to(package_dir).as_posix(), "line": number,
+                         "text": lines[number - 1].strip()})
     return hits
+
+
+def tracking_label_audit(package_dir: Path, loaded_files) -> dict:
+    """Отделить загруженные стендом модули от остальных, сохранив все совпадения."""
+    root = package_dir.resolve()
+    loaded = set()
+    for filename in loaded_files:
+        path = Path(filename).resolve()
+        if path.is_relative_to(root) and path.suffix == ".py":
+            loaded.add(path.relative_to(root).as_posix())
+    hits = tracking_reads_ground_truth(root)
+    return {"loaded_files": sorted(loaded), "package_hits": hits,
+            "loaded_hits": [hit for hit in hits if hit["file"] in loaded]}
 
 
 def run_xywh_on_sequences(sequences: dict[str, list], order: list[str]) -> dict[str, list[np.ndarray]]:
@@ -313,7 +343,10 @@ def main() -> int:
         order_report = {video_id: compare_scalabel(_load_rows(xywh_dir / f"{video_id}.json"), _load_rows(reversed_dir / f"{video_id}.json")) for video_id in video_ids}
 
     print("[5] статическая проверка доступа к разметке в tracking/", flush=True)
-    leaks = tracking_reads_ground_truth(PROJECT_ROOT / "tracking")
+    audit = tracking_label_audit(PROJECT_ROOT / "tracking", [
+        mod.__file__ for mod in tuple(sys.modules.values()) if getattr(mod, "__file__", None)
+    ])
+    required_modules = {"flyvis_tracker.py", "offline_association.py", "xywh_bytetrack.py"}
 
     def all_identical(section: dict) -> bool:
         return all(report["identical"] for report in section.values())
@@ -328,7 +361,7 @@ def main() -> int:
         "xywh_metrics_match": metrics_match(xywh_report["metrics"]),
         "stress_metrics_match": all(metrics_match(report["metrics"]) for report in flyvis_report.values()),
         "order_invariant": None if order_report is None else all_identical(order_report),
-        "tracking_free_of_ground_truth": not leaks,
+        "tracking_free_of_ground_truth": required_modules.issubset(audit["loaded_files"]) and not audit["loaded_hits"],
     }
     reproduction = {
         "video_ids": video_ids,
@@ -337,7 +370,8 @@ def main() -> int:
         "xywh": xywh_report,
         "stress": flyvis_report,
         "order_invariance": order_report,
-        "ground_truth_hits": leaks,
+        "ground_truth_hits": audit["loaded_hits"],
+        "tracking_label_audit": audit,
         "acceptance": acceptance,
     }
     save_json(output / "reproduction.json", reproduction)

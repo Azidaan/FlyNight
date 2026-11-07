@@ -9,7 +9,7 @@
 - FGA с маской-единицами ≈ тождественное преобразование (нейтральный старт);
 - работает и на CPU, и на CUDA; под autocast (AMP) NaN не появляются.
 
-Запуск: python tests/test_drb.py  (без pytest — стиль smoke-скриптов проекта).
+Запуск: python tests/test_drb.py или pytest для этого файла.
 """
 import sys
 from pathlib import Path
@@ -33,7 +33,7 @@ def check(name: str, cond: bool, detail: str = '') -> None:
         FAILURES.append(name)
 
 
-def test_level(level: str, c: int, h: int, w: int, device: str) -> None:
+def check_level(level: str, c: int, h: int, w: int, device: str) -> None:
     torch.manual_seed(0)
     drb = DRB(c, h, w).to(device)
     x = torch.randn(2, c, h, w, device=device, requires_grad=True)
@@ -71,7 +71,7 @@ def test_level(level: str, c: int, h: int, w: int, device: str) -> None:
           f'α₁ 0.5→{a1_new:.4f}, α₂ 0.5→{a2_new:.4f}')
 
 
-def test_fga_identity(device: str) -> None:
+def check_fga_identity(device: str) -> None:
     c, h, w = 32, 40, 40
     fga = FGA(c, h, w).to(device)
     x = torch.randn(2, c, h, w, device=device)
@@ -80,7 +80,7 @@ def test_fga_identity(device: str) -> None:
           err < 1e-4, f'max_err={err:.2e}')
 
 
-def test_amp_cuda() -> None:
+def check_amp_cuda() -> None:
     c, h, w = 64, 80, 80
     drb = DRB(c, h, w).cuda()
     x = torch.randn(2, c, h, w, device='cuda')
@@ -100,7 +100,7 @@ def _decay_only(module) -> None:
         yield
 
 
-def test_mask_neutral_under_decay() -> None:
+def check_mask_neutral_under_decay() -> None:
     """Штраф за величину больше не гасит маску частот.
 
     Регрессия: раньше хранилась сама маска (старт — единицы), и штраф тянул
@@ -117,7 +117,7 @@ def test_mask_neutral_under_decay() -> None:
     check('маска остаётся нейтральной под штрафом', dev < 1e-6, f'отклонение {dev:.2e}')
 
 
-def test_block_excluded_from_decay() -> None:
+def check_block_excluded_from_decay() -> None:
     """Маска и веса ветвей выводятся из-под штрафа в оптимизаторе.
 
     Отклонение маски спасает её саму, но логит α спасать нечем: его нейтраль
@@ -145,7 +145,7 @@ def test_block_excluded_from_decay() -> None:
           f'w_lqa {w:+.4f} (задавали -2.0)')
 
 
-def test_adaptive_survives_other_sizes() -> None:
+def check_adaptive_survives_other_sizes() -> None:
     """Адаптивный подъём работает на картах любого размера, не только обучающего.
 
     Регрессия 21.08: разметка колец бралась для обучающего размера, а
@@ -167,7 +167,7 @@ def test_adaptive_survives_other_sizes() -> None:
         check(f'размер {h}x{w} работает', ok)
 
 
-def test_gated_fusion_is_identity() -> None:
+def check_gated_fusion_is_identity() -> None:
     """В режиме поправки блок тождественен при ЛЮБОМ вкладе ветвей.
 
     Прежняя форма прибавляла выход ветви: при нейтральной маске это копия
@@ -195,7 +195,7 @@ def test_gated_fusion_is_identity() -> None:
               f'{dev:.3e}')
 
 
-def test_optimizer_compatible_shapes() -> None:
+def check_optimizer_compatible_shapes() -> None:
     """Формы параметров должны перевариваться оптимизатором MuSGD.
 
     Регрессия: Ultralytics при длинных обучениях выбирает MuSGD и шлёт в
@@ -213,19 +213,20 @@ def test_optimizer_compatible_shapes() -> None:
 
 
 def main() -> int:
+    FAILURES.clear()
     devices = ['cpu'] + (['cuda'] if torch.cuda.is_available() else [])
     for device in devices:
         for level, (c, h, w) in PYRAMID.items():
-            test_level(level, c, h, w, device)
-        test_fga_identity(device)
+            check_level(level, c, h, w, device)
+        check_fga_identity(device)
     if 'cuda' in devices:
-        test_amp_cuda()
+        check_amp_cuda()
 
-    test_optimizer_compatible_shapes()
-    test_mask_neutral_under_decay()
-    test_block_excluded_from_decay()
-    test_gated_fusion_is_identity()
-    test_adaptive_survives_other_sizes()
+    check_optimizer_compatible_shapes()
+    check_mask_neutral_under_decay()
+    check_block_excluded_from_decay()
+    check_gated_fusion_is_identity()
+    check_adaptive_survives_other_sizes()
 
     n_params = sum(p.numel() for p in DRB(256, 80, 80).parameters())
     print(f'\n[INFO] параметров DRB на P3 (C=256, 80×80): {n_params:,} '
@@ -236,6 +237,10 @@ def main() -> int:
         return 1
     print('\n--- OK: все проверки DRB пройдены ---')
     return 0
+
+
+def test_drb_checks() -> None:
+    assert main() == 0, FAILURES
 
 
 if __name__ == '__main__':

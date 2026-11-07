@@ -106,7 +106,7 @@ class Observation:
                     supervisor_report=str(self.run_dir / 'memory_guard.json'))
 
 
-def guard_entrypoint():
+def guard_entrypoint(*, timeout=600):
     """Call before importing Torch. Re-enter only below a verified supervisor."""
     if sys.argv[-1].startswith(MARK):
         marker = sys.argv.pop()
@@ -133,7 +133,7 @@ def guard_entrypoint():
             (run_dir / 'supervisor.json').write_text(json.dumps({'pid': p.pid, 'birth': p.create_time()}), encoding='utf-8')
             marker = MARK + token
             command = [sys.executable, '-u', str(Path(sys.argv[0]).resolve()), *sys.argv[1:], marker]
-            report = supervise(command, marker, run_dir / 'memory_guard.json')
+            report = supervise(command, marker, run_dir / 'memory_guard.json', timeout=timeout)
             print('SYSTEM_MEMORY_GUARD ' + json.dumps(report), flush=True)
             raise SystemExit(125 if report['reason'] else report['returncode'])
         finally:
