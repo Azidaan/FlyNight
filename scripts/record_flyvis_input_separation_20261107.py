@@ -8,9 +8,16 @@ from scripts.flyvis_input_separation_20261107 import OUT,IDENT,read,sha,write
 def main():
  import numpy as np
  a=read(OUT/"independent_audit.json");p=read(OUT/"protocol.json");c=read(OUT/"recovery1/controller.json")
+ extra=read(OUT/"matched_history/independent_audit.json");assert extra["passed"] and extra["pairs"]==172
  assert a["passed"] and c["passed"] and a["pairs"]==172 and a["protocol_sha256"]==sha(OUT/"protocol.json")
  owned=dict(c["owned"]);launch=read(OUT/"recovery1/start_launcher.json");owned[str(launch["pid"])]=launch["birth"]
  inner=read(OUT/"recovery1/launch.json");owned[str(inner["pid"])]=inner["birth"]
+ einfer=read(OUT/"matched_history/inference_completed.json")
+ eguard_path=Path(einfer["guard"]["supervisor_report"]);eguard=read(eguard_path)
+ assert eguard["returncode"]==0 and eguard["reason"] is None
+ owned.update(eguard["owned"])
+ esuper=read(eguard_path.parent/"supervisor.json");owned[str(esuper["pid"])]=esuper["birth"]
+ elaunch=read(OUT/"matched_history/launch.json");owned[str(elaunch["pid"])]=elaunch["birth"]
  for pid,birth in owned.items():
   try:assert psutil.Process(int(pid)).create_time()!=birth,("owned_still_alive",pid)
   except psutil.NoSuchProcess:pass
@@ -44,6 +51,10 @@ def main():
   x=conditions[name];result+=f"| {title} | {x['correct']:g} | {fmt(x['accuracy']*100)}% |\n"
  result+="\nОсновные сравнения с поправкой на две проверки: отдельные входы минус общая карта — "+desc(cmp["separate-common"])+". Отдельные минус объединённые окна — "+desc(cmp["separate-union"])+".\n\n"
  result+="Контроль удаления внешнего фона: объединённые окна минус общая карта — "+desc(cmp["union-common"])+". Это описательное сравнение.\n\n"
+ result+="## Контроль буквально одинаковой предыстории\n\n"
+ result+="Этот контроль зарегистрирован отдельно до первых новых GPU-выходов (matched_history/preregistration_receipt.json). Все прошлые входы и состояние перед текущим кадром одинаковы; меняется только текущий вход. Он проверяет альтернативу потери цели в обрезанной предыстории, но может вносить резкую границу маски на последнем кадре. Он не заменяет первичный критерий.\n\n"
+ for x in extra["comparisons"]:
+  result+=x["name"]+": "+desc(x)+". Источник: matched_history/independent_audit.json, comparisons.\n\n"
  result+="Приёмка требует обеих положительных нижних границ97,5%. Проверены все172 сохранённых выхода; баллы независимо пересчитаны из карт. Источник всех чисел — independent_audit.json, поля conditions/comparisons. Вход общей версии восстановлен побитно в исходном float16. Тождественный контроль и сравнение с прежними картами выдержали заранее заданные допуски.\n\n"
  result+=f"Геометрический контроль: из344 кандидатных рамок {geometry['partly_outside_original_field']} частично выходят за прежнее поле глаза; {geometry['unchanged_separate_vs_union']} раздельных входов совпадают с объединённым окном на всём префиксе. Источник: input_effects.json. В этой пробе видимые части объектов остаются на прежних координатах.\n\n"
  result+="Эта проверка относится к ограничению входа перед ядром. Фронтальная обработка lamina остаётся общей; перекрывающаяся машина может оставаться в вырезке. Изменились также границы и фон окна. Не проверен отдельный центрированный вид каждого автомобиля целиком: он потребует контроля смены поля зрения. Результат не устанавливает качество полных траекторий, пользу сегментации или всех способов подачи объектов в FlyVis. Использованы прежние исследовательские видео, это не независимый итоговый тест.\n\n"
@@ -56,6 +67,7 @@ def main():
   interpretation="Диагностический эффект ограниченных окон до ядра при прежнем масштабе. Отдельные входы сохраняют перекрывающиеся части объектов и используют исходный считыватель без переобучения.",
   decision="Сохранить полный результат и оба контроля; новый научный опыт требует отдельного решения автора.")
  card["acceptance"][0].update(met=True,evidence=f"{OUT}/inputs_completed.json; {OUT}/independent_audit.json; {OUT}/controller_verified.json")
+ card["obtained"]+=" Дополнительный заранее записанный контроль одинаковой предыстории: "+"; ".join(x["name"]+" "+desc(x) for x in extra["comparisons"] if x["primary"])+f". Источник: {OUT}/matched_history/independent_audit.json, comparisons."
  card["acceptance"][1].update(met=a["main"],evidence=f"{OUT}/independent_audit.json, comparisons/main")
  card["evidence"].append(dict(kind="file",ref=dest.as_posix(),claim="Полный итог, обе главные проверки, ограничения и прежняя ошибка"))
  write("experiments/project_history.json",cat)
