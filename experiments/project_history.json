@@ -26086,6 +26086,56 @@
       "interpretation": "Полное совпадение редко; большинство пар имеет собственные ячейки у обеих рамок. Геометрия не доказывает различие активности и не идентифицирует объект.",
       "decision": "Сохранить результаты; допуск прежней четырёхзонной схемы не пересматривать. Обучение и проверка полного трекера не запускались.",
       "cannot_claim": "Локальное окно глаза вокруг прогноза, одна сетка и момент на пару; только реальные детекции одного класса. Отказ и отсутствие назначения не являются рамками. Повторно использованные видео TRAIN; наборы колонок не измеряют HOTA или пользу FlyVis."
+    },
+    {
+      "id": "flyvis_exclusive_t4t5_v1",
+      "title": "Выбор цели по собственным ячейкам T4/T5 двух рамок",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-07",
+      "question": "Улучшает ли удаление общих колонок из двух рамок выбор правильного продолжения по сохранённым каналам T4/T5?",
+      "hypothesis": "Сигнал общих ячеек может смешивать движения; исключение может также выбросить полезную часть цели.",
+      "expected": "Больше верных выборов при одной и той же оценке сходства с прошлой целью.",
+      "acceptance": [
+        {
+          "criterion": "Verify manifests, every admitted pair and old mask; whole-box mean exact against the stored same-array FP32 mean; independent score per pair via per-cell score sums minus shared cells. Primary defined prospectively above.",
+          "met": true,
+          "evidence": "runs/flyvis_exclusive_t4t5_20261107/measurement.json"
+        },
+        {
+          "criterion": "Frozen historical evaluate26, exactly two admitted real candidates, known query and target, both candidate identities known, exactly one is target, BOTH exclusive sets nonempty. Pooled paired percentage-point difference exclusive minus whole. Cluster bootstrap all 26 source videos with replacement, 20000 samples seed42, percentile 95% CI, dropping only resamples with zero denominator. Support for improvement only if lower bound >0, deterioration if upper <0, otherwise inconclusive.",
+          "met": false,
+          "evidence": "runs/flyvis_exclusive_t4t5_20261107/report.json → comparison.evaluate26.primary"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_exclusive_t4t5_20261107/protocol.json",
+          "claim": "Постановка до подсчёта результатов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_exclusive_t4t5_20261107/report.json",
+          "claim": "Первичный итог и все сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_exclusive_t4t5_20261107/measurement.json",
+          "claim": "Сверка масок и независимый пересчёт баллов выбора"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_exclusive_t4t5_20261107/РЕЗУЛЬТАТ.md",
+          "claim": "Числа, смысл и ограничения"
+        }
+      ],
+      "done": "2026-11-07",
+      "summary": "При данном считывателе исключение общих ячеек ухудшило выбор в проверенных парах.",
+      "obtained": "Основные 26 видео, ровно две допустимые рамки. Из 1368 запросов у 178 известна единственная верная рамка по строгим меткам. У 172 из них обе имеют собственные ячейки. Вся рамка: 104 верных, 0 ничьих, 60,47%; только свои ячейки: 99 верных, 0 ничьих, 57,56%. Разность -2,91 п.п., 95%-й парный интервал по видео [-5,13; -0,93]. В основном сравнении ошибочный выбор стал верным 0 раз, верный стал ошибочным 5 раз. Изменения с ничьей входят в показатель с половинным весом. 23 видео дали оцениваемые пары. Источник: runs/flyvis_exclusive_t4t5_20261107/report.json → comparison.evaluate26.primary.",
+      "interpretation": "При данном считывателе исключение общих ячеек ухудшило выбор в проверенных парах.",
+      "decision": "Сохранить результат диагностики. Изменение штатного сопоставления, новый подбор весов и обучение не выполнялись.",
+      "cannot_claim": "Это выбор между двумя сохранёнными детекциями при заданной цели, а не изменение решений работающего трекера. Использованы нормированные каналы T4/T5 штатной модели и восемь ранее сохранённых коэффициентов наблюдаемой цели. Исторические видео, без обучения, нового прохода модели или HOTA. Уточнение формулировки protocol.inputs: прежний порог уверенности 0,25 отбирал детекции; личности присвоены отдельно, взаимно однозначным сопоставлением с разметкой внутри класса при IoU ≥ 0,5, а не выбором наибольшей уверенности. Использованы готовые метки без изменений."
     }
   ],
   "manual_events": [
