@@ -1,0 +1,6 @@
+{
+  "selection": "Both cases already fixed in tracker_recovery_probe_protocol.json; no additional video or case selection.",
+  "question": "Are the two historical search candidates rejected by the native track's first-association cost threshold?",
+  "calculation": "Use recovered pre-association XYWH mean and unchanged cached candidate boxes/confidence. Cost = 1 - IoU * confidence, first-association threshold 0.8 from the frozen tracker configuration.",
+  "interpretation": "This is an edge-eligibility diagnostic. Admissible edges do not determine the global Hungarian assignment. No new tracking replay, model, threshold tuning or scientific ranking is performed."
+}

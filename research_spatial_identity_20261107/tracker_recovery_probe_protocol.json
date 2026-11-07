@@ -1,0 +1,10 @@
+{
+  "id": "spatial_identity_tracker_recovery_probe_20261107",
+  "video": "0001542f-ec815219",
+  "selection": "First lexicographically listed video in the frozen evaluate26 cohort, chosen without outcomes.",
+  "purpose": "Check whether missing observed boxes, covariance and actual assignment can be recovered from saved detector outputs without video decoding or model execution.",
+  "wall_limit_seconds": 120,
+  "center_tolerance_px": 0.0001,
+  "acceptance": "All selected cases must reproduce exact current crops, observed prefix frame/crop history and last-observation support masks; predicted centers must meet the declared tolerance. No tolerance changes after the probe.",
+  "interpretation": "A passing one-video probe permits considering a separately frozen export for other videos. A mismatch stops recovery and requires source/version investigation. It is not an identity improvement."
+}

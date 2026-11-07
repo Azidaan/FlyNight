@@ -1,0 +1,92 @@
+{
+  "complete": true,
+  "created_msk": "2026-11-07T22:43:30.356906+03:00",
+  "scope": "Archived exactly-two known-target pairs; readiness only, no new rankings or model execution",
+  "totals": {
+    "fit84": {
+      "pairs": 667,
+      "current_spatial_map": 667,
+      "four_observed_retinal_inputs": 667,
+      "last_observed_spatial_map": 0,
+      "last_observed_support_mask": 667,
+      "previous_candidate_metadata": 556,
+      "previous_candidate_spatial_map": 371,
+      "previous_in_observed_prefix": 185,
+      "previous_in_search_prefix": 371,
+      "previous_has_multiple_candidates": 424
+    },
+    "fit20": {
+      "pairs": 90,
+      "current_spatial_map": 90,
+      "four_observed_retinal_inputs": 90,
+      "last_observed_spatial_map": 0,
+      "last_observed_support_mask": 90,
+      "previous_candidate_metadata": 67,
+      "previous_candidate_spatial_map": 43,
+      "previous_in_observed_prefix": 24,
+      "previous_in_search_prefix": 43,
+      "previous_has_multiple_candidates": 45
+    },
+    "evaluate26": {
+      "pairs": 178,
+      "current_spatial_map": 178,
+      "four_observed_retinal_inputs": 178,
+      "last_observed_spatial_map": 0,
+      "last_observed_support_mask": 178,
+      "previous_candidate_metadata": 147,
+      "previous_candidate_spatial_map": 100,
+      "previous_in_observed_prefix": 47,
+      "previous_in_search_prefix": 100,
+      "previous_has_multiple_candidates": 105
+    }
+  },
+  "videos": 121,
+  "rows": 935,
+  "archive_schema": [
+    "ep_id_dist",
+    "ep_identity",
+    "ep_offset",
+    "ep_pert",
+    "ep_start",
+    "ep_tid",
+    "ex_mask",
+    "fr_crop",
+    "fr_frame",
+    "fr_hex",
+    "lab_center",
+    "lab_col",
+    "lab_crop",
+    "lab_ep",
+    "lab_gtbox",
+    "lab_kind",
+    "lab_pos",
+    "lab_pred"
+  ],
+  "unavailable_in_episode_archives": [
+    "observed_box_xyxy",
+    "track_mean_xywh",
+    "track_covariance",
+    "native_assignment_detection_id"
+  ],
+  "current_full_maps_verified": 389,
+  "protected_files_before": {
+    "dissertation/ЕДИНЫЙ_ПЛАН.md": "d4b799d120c6993bc96930e3229d1c7cef25851cdf5fa52543541f290d983178",
+    "dissertation/План целей по Трекеру.md": "09063ca06264ad0cfeab777af6ae827053f1c2b8abd047d7e0dc45c4ede02577",
+    "experiments/project_history.json": "c39e64459c0cdae874d2cfe169f19923bec5f8efd93dcdde3c1cb37bd58b672f",
+    "experiments/metrics_glossary.json": "1d3d81f14c06c2bf28d11f8973eef3869e2791dfb04c0f0c401a916ead839e6b",
+    "ObsidianFlyVis/.graph-visible.json": "299fe8559319fdb86406641b32d3c88763af120d8c4fc6ab355c88c1e6a290fb"
+  },
+  "protected_files_after": {
+    "dissertation/ЕДИНЫЙ_ПЛАН.md": "d4b799d120c6993bc96930e3229d1c7cef25851cdf5fa52543541f290d983178",
+    "dissertation/План целей по Трекеру.md": "09063ca06264ad0cfeab777af6ae827053f1c2b8abd047d7e0dc45c4ede02577",
+    "experiments/project_history.json": "c39e64459c0cdae874d2cfe169f19923bec5f8efd93dcdde3c1cb37bd58b672f",
+    "experiments/metrics_glossary.json": "1d3d81f14c06c2bf28d11f8973eef3869e2791dfb04c0f0c401a916ead839e6b",
+    "ObsidianFlyVis/.graph-visible.json": "299fe8559319fdb86406641b32d3c88763af120d8c4fc6ab355c88c1e6a290fb"
+  },
+  "protected_files_unchanged": true,
+  "seconds": 88.41867939999793,
+  "rows_sha256": "3b96203f3ff3a476aff5f8babe730aa28c76867409fa0ad55a7806acdd63fdb5",
+  "manifest_sha256": "6c14d2affa643a051f0e0e402744d92a08aa608667ae0d53ece6646c0c71d8f2",
+  "scientific_comparison_ready": false,
+  "reason": "Inspect observed-map coverage and missing full tracker state/observed-box fields before designing a faithful spatial identity comparison."
+}

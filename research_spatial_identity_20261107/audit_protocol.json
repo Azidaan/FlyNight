@@ -1,0 +1,10 @@
+{
+  "id": "spatial_identity_readiness_20261107",
+  "authorization": "User requested an audit of saved data and a concrete comparison protocol; subsequently authorized bounded work on existing data to identify the bottleneck.",
+  "selection": "All saved exactly-two rows with label_reason=ok, separately for fit84, fit20, evaluate26. No selection by scores, improvements or identity outcome.",
+  "checks": "Verify archival hashes, bind each UID to episode/frame/crop, distinguish the last observed prefix from a previous search candidate, inventory spatial maps and saved tracker fields.",
+  "execution": "Single sequential CPU process. Read existing arrays and hash referenced archives. No video decoding, model execution, training, new detector output or new identity ranking.",
+  "outputs": ["readiness_report.json", "readiness_rows.json", "source_manifest.json"],
+  "protected": "Existing plan, tracker plan, experiment catalogue, glossary and graph manifest are read and fingerprinted. This audit writes only this new research directory.",
+  "interpretation": "A readiness count is not a tracker result. A previous available candidate is not automatically a reliable target observation. Missing saved fields cannot be filled with ground truth for operational scoring."
+}
