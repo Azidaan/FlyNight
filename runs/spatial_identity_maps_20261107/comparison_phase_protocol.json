@@ -1,0 +1,20 @@
+{
+  "registered": "2026-11-07T23:38:27.267971+03:00",
+  "source_sha256": {
+    "research_spatial_identity_20261107/compare_maps.py": "1a5aca8da44fbbdfbc8ea85d65fecb780f62e5f7692408520443a673df88441b",
+    "research_spatial_identity_20261107/run_common.py": "89dcf1b114b4d25060b578073ed4fb8049180f44df9995c5cafc3e82d4877a53"
+  },
+  "inputs": {
+    "execution_protocol.json": "c1da22f605c782dda0705029b80445b42ca5cee71e47963f608675cd616d99bf",
+    "features_phase_protocol.json": "b964aa28cdeece6311153e242d1d577e8d5f9b192110fdea87354e46706a2572",
+    "features_completed.json": "eb83710fc7e2996db6d838955a6a47468bd782fd95dae6ff7b4162dbd2aa7823",
+    "image_normalization.json": "88d6522e4f7cc7b11354239e92ba9e588887f41a7d3d01f6f88b7e019a098ea1",
+    "tracker_export_completed.json": "d1bc24198805f143b69c527b958f89326dd360d1b7146021afcc6dd5ab88be66"
+  },
+  "clarifications_before_scoring": {
+    "undefined_outside_score": "Conservative upper bound 1; cannot certify dominance over an undefined outside-position correspondence.",
+    "offset_and_scale": "Full size is candidate width/height or larger within predicted mean +/- 2 marginal SD. Endpoints and predicted mean included.",
+    "independent_audit": "Persist all distinct current-to-reference node mappings and their position-admissibility flag; independently recompute all correlations and robust decisions.",
+    "numerical_sanity": "Self-correlation +1, sign reversal -1, constant profile undefined, candidate swap equivariant, delta3 reproduces old choice: passed before scoring."
+  }
+}

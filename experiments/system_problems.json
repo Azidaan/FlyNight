@@ -37,18 +37,39 @@
           "source": "runs/flyvis_y1_latency_fp64_20261104/independent_audit.json",
           "sha256": "c1c04b45d0150f3c12701876043275c5869e5cd10e2506f04c0664176a7f39f3",
           "claim": "Первая проверка отклика; не доказательство пользы ядра для трекера"
+        },
+        {
+          "source": "runs/spatial_identity_maps_20261107/comparison_report.json",
+          "sha256": "2d130343201b8622132bbe8b3d2576caaa3d5b7f5e07190271dfde44b0c458ed",
+          "claim": "Проверка этой версии пространственного решения и исходного общего назначения"
+        },
+        {
+          "source": "runs/spatial_identity_maps_20261107/bottleneck_report.json",
+          "sha256": "efc608738cf294c1c983483cfdacfc5106d0bc4a8ffdfb68eb86c86691f63a87",
+          "claim": "Проверка этой версии пространственного решения и исходного общего назначения"
+        },
+        {
+          "source": "runs/spatial_identity_maps_20261107/native_diagnosis.json",
+          "sha256": "6a08fd9ae1484cc85ddd6654076d11b92aa1ccff9ee660f763c1460224c243dd",
+          "claim": "Проверка этой версии пространственного решения и исходного общего назначения"
+        },
+        {
+          "source": "runs/spatial_identity_maps_20261107/competitor_histories.json",
+          "sha256": "6edb81cc60efc824825cda96b554c7a01a13f04f3f12b244edb11f3adb33141c",
+          "claim": "Проверка этой версии пространственного решения и исходного общего назначения"
         }
       ],
       "cards": [
         "b1_full_tracker_pilot_v1",
-        "flyvis_y1_latency_fp64_v1"
+        "flyvis_y1_latency_fp64_v1",
+        "spatial_identity_maps_v1_20261107"
       ],
       "legacy": [
         "P1",
         "P5"
       ],
       "first_seen": "2026-10-28",
-      "updated": "2026-11-04",
+      "updated": "2026-11-07",
       "cases": [
         {
           "date": "2026-10-28",
@@ -68,6 +89,19 @@
           "evidence": [
             "runs/flyvis_y1_latency_fp64_20261104/analysis.json",
             "runs/flyvis_y1_latency_fp64_20261104/independent_audit.json"
+          ]
+        },
+        {
+          "date": "2026-11-07",
+          "component": "Внешняя память, геометрическое считывание и общее назначение авторской системы",
+          "fact": "Отрицательный итог этой реализации. Ноль вызван отсутствием вмешательств по строгому правилу, а не измеренным равенством информативности FlyVis и контролей. В 94 парах истинная рамка геометрически допустима, соседняя нет, но правило требует оценки обеих; на 39 допустимых парах есть свидетельства отсутствия устойчивого превосходства. Условный выбор рамки не восстанавливает старый ID автоматически.",
+          "hypothesis": "Возможная полезная информация ограничена правилом геометрии/решения; причина появления конкурирующих ID не установлена.",
+          "discriminating_check": "Согласовать действие при недопустимом кандидате и проверку общей матрицы с историями обоих ID; та же правка без ядра обязательна. Новый расчёт не запущен.",
+          "limitation": "Historical train-source videos already examined in this project. This is an exploratory development gate, not an independent final tracking test. Нулевые интервалы возникли при полном совпадении решений и не доказывают равенство признаков. Не измерены HOTA, польза ядра, все способы пространственного считывания или причина появления конкурирующих ID. Полные виды объектов и иные типы клеток не проверялись.",
+          "evidence": [
+            "runs/spatial_identity_maps_20261107/comparison_report.json",
+            "runs/spatial_identity_maps_20261107/native_diagnosis.json",
+            "runs/spatial_identity_maps_20261107/competitor_histories.json"
           ]
         }
       ],
@@ -148,17 +182,38 @@
           "source": "runs/continuation_20261028/history_pair_dataset/protocol.json",
           "sha256": "2390789208c172d2ddba2035fef5188f0dfa18ece1d91824c23f02588472e73d",
           "claim": "Новая метка соответствия последнему реальному наблюдению"
+        },
+        {
+          "source": "runs/spatial_identity_maps_20261107/comparison_report.json",
+          "sha256": "2d130343201b8622132bbe8b3d2576caaa3d5b7f5e07190271dfde44b0c458ed",
+          "claim": "Проверка этой версии пространственного решения и исходного общего назначения"
+        },
+        {
+          "source": "runs/spatial_identity_maps_20261107/bottleneck_report.json",
+          "sha256": "efc608738cf294c1c983483cfdacfc5106d0bc4a8ffdfb68eb86c86691f63a87",
+          "claim": "Проверка этой версии пространственного решения и исходного общего назначения"
+        },
+        {
+          "source": "runs/spatial_identity_maps_20261107/native_diagnosis.json",
+          "sha256": "6a08fd9ae1484cc85ddd6654076d11b92aa1ccff9ee660f763c1460224c243dd",
+          "claim": "Проверка этой версии пространственного решения и исходного общего назначения"
+        },
+        {
+          "source": "runs/spatial_identity_maps_20261107/competitor_histories.json",
+          "sha256": "6edb81cc60efc824825cda96b554c7a01a13f04f3f12b244edb11f3adb33141c",
+          "claim": "Проверка этой версии пространственного решения и исходного общего назначения"
         }
       ],
       "cards": [
         "b1_full_tracker_pilot_v1",
-        "history_pair_inputs_v1"
+        "history_pair_inputs_v1",
+        "spatial_identity_maps_v1_20261107"
       ],
       "legacy": [
         "P5"
       ],
       "first_seen": "2026-10-28",
-      "updated": "2026-10-28",
+      "updated": "2026-11-07",
       "cases": [
         {
           "date": "2026-10-28",
@@ -167,6 +222,19 @@
             "runs/recovery_research_20261027/b1_tracker/protocol.json",
             "runs/continuation_20261028/b1_tracker/report.json",
             "runs/continuation_20261028/history_pair_dataset/protocol.json"
+          ]
+        },
+        {
+          "date": "2026-11-07",
+          "component": "Внешняя память, геометрическое считывание и общее назначение авторской системы",
+          "fact": "На 178 запросах штатное назначение: 42 одной из двух рамок,47 отказов при занятом допустимом ребре,89 без допустимого ребра. В двух запрошенных случаях конкурент дешевле, а старый/нынешний рабочие ID соответствуют однойGT цели на опорных кадрах. Условное ранжирование не является готовым действием общего назначения.",
+          "hypothesis": "Возможная полезная информация ограничена правилом геометрии/решения; причина появления конкурирующих ID не установлена.",
+          "discriminating_check": "Согласовать действие при недопустимом кандидате и проверку общей матрицы с историями обоих ID; та же правка без ядра обязательна. Новый расчёт не запущен.",
+          "limitation": "Historical train-source videos already examined in this project. This is an exploratory development gate, not an independent final tracking test. Нулевые интервалы возникли при полном совпадении решений и не доказывают равенство признаков. Не измерены HOTA, польза ядра, все способы пространственного считывания или причина появления конкурирующих ID. Полные виды объектов и иные типы клеток не проверялись.",
+          "evidence": [
+            "runs/spatial_identity_maps_20261107/comparison_report.json",
+            "runs/spatial_identity_maps_20261107/native_diagnosis.json",
+            "runs/spatial_identity_maps_20261107/competitor_histories.json"
           ]
         }
       ]

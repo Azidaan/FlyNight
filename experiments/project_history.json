@@ -26357,6 +26357,116 @@
         }
       ],
       "done": "2026-11-07"
+    },
+    {
+      "id": "spatial_identity_maps_v1_20261107",
+      "title": "Пространственный образ прошлой цели — выбор продолжения среди соседних рамок",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-07",
+      "question": "Does matching the spatial T4/T5 activity of the last tracked observation improve known-target candidate selection beyond the previous frozen readout and matched controls without the FlyVis core?",
+      "hypothesis": "A spatial reference may retain information lost by the old reference coefficient vector. The location and cause of existing identity errors remain unproven.",
+      "expected": "Парное преимущество карт прошлого и нынешнего наблюдений над прежним считывателем и контролями без ядра при общей геометрии.",
+      "acceptance": [
+        {
+          "criterion": "Complete validated reference and native-state export with unambiguous row bindings before the scientific comparison is ready.",
+          "met": true,
+          "evidence": "runs/spatial_identity_maps_20261107/features_completed.json"
+        },
+        {
+          "criterion": "Old readout reproduction from existing audit without retraining; no-change and candidate-swap equivariance; all transforms and support shared across feature controls; hashes before/after; independent recomputation of new per-case scores and decisions.",
+          "met": true,
+          "evidence": "runs/spatial_identity_maps_20261107/independent_audit.json"
+        },
+        {
+          "criterion": "All four corrected lower bounds positive. This admits preparation of a separate full-tracker comparison; does not automatically execute it.",
+          "met": false,
+          "evidence": "runs/spatial_identity_maps_20261107/comparison_report.json"
+        }
+      ],
+      "obtained": "Восстановлены 935 наборов/682 эпизода/121 видео (runs/spatial_identity_maps_20261107/features_completed.json; tracker_export_completed.json). evaluate26: все варианты 107/178, разности 0 п.п.,95% и 98,75% интервалы[0;0],0 исправлений/0 новых ошибок (comparison_report.json). Геометрически недоступны 139 пар;39 остальных не дают строгого превосходства; нехватки менее 3 ячеек нет (bottleneck_report.json). Независимо пересчитаны 222494 соответствия, максимальная ошибка 1,1103e-15 (independent_audit.json). В обоих исходных запросах допустимая детекция назначена более дешёвому конкуренту; старая и нынешняя траектории связаны с однимGT на опорных кадрах (native_diagnosis.json; competitor_histories.json).",
+      "interpretation": "Отрицательный итог этой реализации. Ноль вызван отсутствием вмешательств по строгому правилу, а не измеренным равенством информативности FlyVis и контролей. В 94 парах истинная рамка геометрически допустима, соседняя нет, но правило требует оценки обеих; на 39 допустимых парах есть свидетельства отсутствия устойчивого превосходства. Условный выбор рамки не восстанавливает старый ID автоматически.",
+      "decision": "Не переносить эту версию в полный трекер. Следующее предложение — отдельно определить действие при недопустимом кандидате и причинное применение признака в общей матрице с историями конкурирующих ID; сравнивать с той же правкой без ядра. Новый протокол и изменение плана здесь не приняты.",
+      "cannot_claim": "Historical train-source videos already examined in this project. This is an exploratory development gate, not an independent final tracking test. Нулевые интервалы возникли при полном совпадении решений и не доказывают равенство признаков. Не измерены HOTA, польза ядра, все способы пространственного считывания или причина появления конкурирующих ID. Полные виды объектов и иные типы клеток не проверялись.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/execution_protocol.json",
+          "claim": "Условия до восстановления и сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/РЕЗУЛЬТАТ.md",
+          "claim": "Проверенный результат и ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/comparison_report.json",
+          "claim": "Проверенный результат и ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/bottleneck_report.json",
+          "claim": "Проверенный результат и ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/independent_audit.json",
+          "claim": "Проверенный результат и ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/native_diagnosis.json",
+          "claim": "Проверенный результат и ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/competitor_histories.json",
+          "claim": "Проверенный результат и ограничения"
+        }
+      ],
+      "tags": [
+        "fly-problem-P8"
+      ],
+      "done": "2026-11-07",
+      "summary": "Строгое пространственное сравнение не вмешалось ни в один выбор; выявлен ограничитель геометрического допуска и разрыв между ранжированием пары и общим назначением.",
+      "revisions": [
+        {
+          "date": "2026-11-07",
+          "commit": "536b9be93dcd8d5d19cbe198d736894bd9198968",
+          "field": "cannot_claim",
+          "old": "Historical train-source videos already examined in this project. This is an exploratory development gate, not an independent final tracking test.",
+          "reason": "Уточнены границы после фактического сравнения и экспорта назначений."
+        },
+        {
+          "date": "2026-11-07",
+          "commit": "536b9be93dcd8d5d19cbe198d736894bd9198968",
+          "field": "obtained",
+          "old": "Восстановлены935наборов/682эпизода/121видео (runs/spatial_identity_maps_20261107/features_completed.json; tracker_export_completed.json). evaluate26: все варианты107/178, разности0п.п.,95%и98,75%интервалы[0;0],0исправлений/0новых ошибок (comparison_report.json). Геометрически недоступны139пар;39остальных не дают строгого превосходства; нехватки менее3ячеек нет (bottleneck_report.json). Независимо пересчитаны222494соответствия, максимальная ошибка1,1103e-15 (independent_audit.json). В обоих исходных запросах допустимая детекция назначена более дешёвому конкуренту; старая и нынешняя траектории связаны с однимGTна опорных кадрах (native_diagnosis.json; competitor_histories.json).",
+          "reason": "Только пробелы для читаемости; числа, смысл и состояние сохранены."
+        },
+        {
+          "date": "2026-11-07",
+          "commit": "536b9be93dcd8d5d19cbe198d736894bd9198968",
+          "field": "interpretation",
+          "old": "Отрицательный итог этой реализации. Ноль вызван отсутствием вмешательств по строгому правилу, а не измеренным равенством информативности FlyVis и контролей. В94парах истинная рамка геометрически допустима, соседняя нет, но правило требует оценки обеих; на39допустимых парах есть свидетельства отсутствия устойчивого превосходства. Условный выбор рамки не восстанавливает старыйIDавтоматически.",
+          "reason": "Только пробелы для читаемости; числа, смысл и состояние сохранены."
+        },
+        {
+          "date": "2026-11-07",
+          "commit": "536b9be93dcd8d5d19cbe198d736894bd9198968",
+          "field": "decision",
+          "old": "Не переносить эту версию в полный трекер. Следующее предложение — отдельно определить действие при недопустимом кандидате и причинное применение признака в общей матрице с историями конкурирующихID; сравнивать с той же правкой без ядра. Новый протокол и изменение плана здесь не приняты.",
+          "reason": "Только пробелы для читаемости; числа, смысл и состояние сохранены."
+        },
+        {
+          "date": "2026-11-07",
+          "commit": "536b9be93dcd8d5d19cbe198d736894bd9198968",
+          "field": "cannot_claim",
+          "old": "Historical train-source videos already examined in this project. This is an exploratory development gate, not an independent final tracking test. Нулевые интервалы возникли при полном совпадении решений и не доказывают равенство признаков. Не измерены HOTA, польза ядра, все способы пространственного считывания или причина появления конкурирующихID. Полные виды объектов и иные типы клеток не проверялись.",
+          "reason": "Только пробелы для читаемости; числа, смысл и состояние сохранены."
+        }
+      ]
     }
   ],
   "manual_events": [

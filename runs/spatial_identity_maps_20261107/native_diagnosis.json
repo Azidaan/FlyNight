@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "uid": 29017,
+      "frame": 332,
+      "lost_tid": 158,
+      "native_assignment": null,
+      "matrix_shape": [
+        13,
+        7
+      ],
+      "native_objective": 5.749597215652466,
+      "independent_objective": 5.749597215652465,
+      "candidates": [
+        {
+          "raw_detection": 8115,
+          "native_owner_tid": 196,
+          "lost_track_cost": 0.6435117721557617,
+          "eligible": true,
+          "owner_cost": 0.42964673042297363,
+          "forced_objective": 5.963462257385254,
+          "objective_increase": 0.21386504173278897
+        },
+        {
+          "raw_detection": 8118,
+          "native_owner_tid": 189,
+          "lost_track_cost": 0.9806104898452759,
+          "eligible": false,
+          "owner_cost": 0.7024834156036377
+        }
+      ]
+    },
+    {
+      "uid": 29057,
+      "frame": 440,
+      "lost_tid": 276,
+      "native_assignment": null,
+      "matrix_shape": [
+        17,
+        14
+      ],
+      "native_objective": 8.071095860004425,
+      "independent_objective": 8.071095860004425,
+      "candidates": [
+        {
+          "raw_detection": 12766,
+          "native_owner_tid": 274,
+          "lost_track_cost": 0.7366343140602112,
+          "eligible": true,
+          "owner_cost": 0.3209572434425354,
+          "forced_objective": 8.486772930622102,
+          "objective_increase": 0.41567707061767756
+        },
+        {
+          "raw_detection": 12773,
+          "native_owner_tid": null,
+          "lost_track_cost": 1.0,
+          "eligible": false
+        }
+      ]
+    }
+  ],
+  "conclusion": "In both cases an eligible candidate was assigned to a cheaper competing track; forcing the lost track increases the full assignment objective. The other candidate is above the native cost limit."
+}

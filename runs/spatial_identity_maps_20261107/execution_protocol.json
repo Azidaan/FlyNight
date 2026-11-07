@@ -1,0 +1,157 @@
+{
+  "id": "spatial_identity_maps_v1_20261107",
+  "status": "running_recovery",
+  "authorization": "User explicitly requested restoration, comparison under the protocol and diagnosis of the two missing assignments.",
+  "question": "Does matching the spatial T4/T5 activity of the last tracked observation improve known-target candidate selection beyond the previous frozen readout and matched controls without the FlyVis core?",
+  "system_level": "Target memory and external spatial readout of the full FlyVis module in the author system",
+  "hypothesis": "A spatial reference may retain information lost by the old reference coefficient vector. The location and cause of existing identity errors remain unproven.",
+  "readiness": {
+    "source": "readiness_report.json",
+    "current_maps": 935,
+    "last_observed_maps": 0,
+    "retinal_observed_prefixes": 935,
+    "unique_episodes": 682,
+    "episode_archive_missing_fields": [
+      "exact observed box",
+      "full predicted XYWH state",
+      "Kalman covariance",
+      "actual selected detector index"
+    ],
+    "one_video_recovery_cases": 2,
+    "one_video_recovery_passed": true,
+    "inference": "Saved inputs can support a new bounded extraction. A complete past-map comparison cannot be executed from the currently saved query maps alone."
+  },
+  "cohorts": {
+    "manifest": "readiness_rows.json",
+    "fit84": {
+      "pairs": 667,
+      "role": "implementation and cost checks; no selection by evaluation outcomes"
+    },
+    "fit20": {
+      "pairs": 90,
+      "role": "threshold calibration only after all methods are frozen"
+    },
+    "evaluate26": {
+      "pairs": 178,
+      "role": "one exploratory comparison after calibration; all26 source video clusters retained"
+    },
+    "previous_172": "reproduction subset only, no new subset winner",
+    "labels": "Known current target identity is used only for evaluation. Unknown, both-target and neither-target cases retain their previous exclusion reasons. No selection of the past candidate by identity labels.",
+    "independence": "Historical train-source videos already examined in this project. This is an exploratory development gate, not an independent final tracking test."
+  },
+  "reference_selection": {
+    "rule": "Last real assigned observation of the same native track before the saved lost/search episode, i.e. source array offset+3. Preserve all four causal observed frames exactly, including original padding.",
+    "reliability": "An assigned observation is not certified correct by ground truth. Report contamination/unknown identity descriptively where annotations exist; do not replace or choose the reference by labels.",
+    "required_fields": [
+      "video, frame, track ID and episode",
+      "observed XYXY box",
+      "crop-to-frame transform",
+      "direct eight T4/T5 maps",
+      "original receptor input",
+      "normalization and source hashes"
+    ]
+  },
+  "recovery": {
+    "tracker": "Reuse the passing first-video probe. Freeze a separate sequential export for remaining videos; reproduce current crop, observed frame/crop history, mask and archived center at every selected query. Save pre-association mean/covariance, available detection indices, all relevant cost edges and actual assignments including competing track IDs. A parity mismatch stops this recovery version.",
+    "past_flyvis": "For each unique episode, use the original frozen C checkpoint and original fade-in followed by only the first four saved retinal frames to obtain the missing reference maps. Do not decode video or rerun the detector. Reuse current spatial maps. First fixed fit84 episode is a technical provenance/cost gate before a full export.",
+    "past_nofly": "Derive the past receptor and R1 features from the same saved prefix. Reuse current receptor inputs and validated R1 cache bindings.",
+    "fidelity": "No inversion of a coefficient vector into a spatial map. No box recovery from occupied-cell extrema. No covariance inferred from crop width. Frozen original inputs and any observed source drift must be reported.",
+    "execution": "One guarded CPU exporter at a time; missing activity only in a separately guarded process with the existing GPU lock when available. Reserve free system memory max(6GiB,20% physical), plus2GiB for start. No arbitrary process allocation cap. First measured unit determines the execution estimate; preserve completed artifacts. All deadlines use Europe/Moscow and the current user schedule."
+  },
+  "features": {
+    "primary": "Eight direct standardized T4a-d/T5a-d maps, indices4:12 in the first34 direct channels; use frozen C normalization.json. Preserve signs. No new core training or nonlinear ON/OFF ratio in the first comparison.",
+    "reason": "Test spatial correspondence before adding a new directional compression or feature-dependent selection of cells.",
+    "input_scope": "Existing eye fields and causal histories. Centering, zooming or restoring pixels outside old fields is a separate intervention.",
+    "nofly_r1": "Existing receptor_features_rich:17 causal EMA channels with tau geomspace(1.5,32,17), plus17 transient channels. Same episode history and fixed archived R1 normalization; direct34 channels only.",
+    "nofly_image": "Original processed receptor brightness and two spatial derivatives estimated by least squares over actual neighboring receptor centers in frame coordinates. Use fixed normalization estimated on fit84 only, without identities; zero scale channels remain explicitly noninformative."
+  },
+  "geometry": {
+    "points": "Use exact saved points from runs/z13_local_peak_20261021/geometry.json and observed/current crop transforms; do not replace them by an ideal HexRound grid.",
+    "uncertainty": "Transform the recovered XYWH covariance to L,R,T,B variances using L=x-w/2,R=x+w/2,T=y-h/2,B=y+h/2. Nominal bounds are mean plus/minus2 marginal standard deviations, with no claim of calibrated joint coverage.",
+    "finite_grid": "Sample full W,H intervals with endpoints and half of the current physical receptor spacing as step. Sample template offsets with endpoints and half of the reference physical receptor spacing along each axis. Include the recovered mean size explicitly. No added aspect-ratio gate. This is a finite grid, not a guarantee over continuous transforms.",
+    "all_transforms": "Candidate box must fit inside the hypothesized full size. All transforms use this same size range; T_all drops only the position constraint, so its protection does not cover unknown scale errors outside that range.",
+    "mapping": "Map current receptor center to current frame, then into reference frame through candidate embedding and scale, then into reference-eye coordinates. Require the projected point inside the actual reference box; nearest actual reference receptor must also be inside the geometric reference support and within0.6 of the reference median spacing. Reject absent support; never fill an empty box from a nearby external cell.",
+    "weights": "Unit geometric weights in all arms. Keep shared current cells for both candidates. For multiple current cells mapping to the same reference cell, use their arithmetic feature mean and give that reference cell total weight1. No activity-derived mask or foreground weight.",
+    "minimum_support": "At least3 unique reference receptors. Zero-variance correspondence is noninformative. If a geometrically allowed correspondence cannot be evaluated, flag the case as uncertain for that arm rather than silently removing an adverse transform.",
+    "cost_gate": "Count transformations and measure one fixed fit84 case before any full scoring pass. Do not enlarge the step or select favorable cases after seeing evaluation labels."
+  },
+  "score": {
+    "definition": "Weighted zero-mean normalized correlation: subtract the spatial mean separately for each channel on the covered unique reference nodes; sum cross-products over nodes and channels; divide by the product of the two centered norms. Geometric weight1. Variance floor1e-12 in frozen normalized units is a numerical rejection criterion, not a foreground threshold.",
+    "decision": "For each candidate calculate min/max score on the same precomputed position-admissible grid. A proposed winner requires positive minimum, minimum greater than competitor maximum by delta, and minimum greater than competitor maximum on T_all. Missing or noninformative geometry gives fallback to the old reference readout.",
+    "interpretation": "Dominance holds only for the enumerated correspondences and supplied feature representation. It is not a guarantee of identity preservation."
+  },
+  "arms": [
+    {
+      "id": "old_readout",
+      "definition": "Reuse original sum of eight candidate-activity times archived target coefficients, original tie tolerance1e-10. These coefficients are not an actual native tracker assignment."
+    },
+    {
+      "id": "flyvis_spatial",
+      "definition": "Primary eight-map spatial score and the fixed decision rule."
+    },
+    {
+      "id": "flyvis_scrambled",
+      "definition": "Permute reference eight-channel vectors jointly across its geometric support,32 fixed permutations seeded by SHA256(video,episode,replicate,42). Keep geometry and cell membership fixed. Average scores at each transform over permutations before applying the same decision rule. No chosen best permutation."
+    },
+    {
+      "id": "receptor_spatial",
+      "definition": "Same geometry/score using processed brightness and two spatial derivatives, without FlyVis-core activity."
+    },
+    {
+      "id": "r1_spatial",
+      "definition": "Same geometry/score using the existing34-channel causal R1 control, without FlyVis-core activity."
+    },
+    {
+      "id": "native_assignment",
+      "definition": "Observed native assignment j,k,other or none from validated export. Report separately; do not force a native choice between the search candidates or count an inadmissible/reserved edge as an identity repair."
+    }
+  ],
+  "calibration": {
+    "threshold_grid": [
+      0.0,
+      0.05,
+      0.1,
+      0.2,
+      0.4,
+      3.0
+    ],
+    "selection": "For each new arm use the same grid and fit20 only; maximize correct-choice credit relative to old_readout over all90 pairs including fallback. Tie: larger delta. delta3 disables all interventions. Freeze all selections before evaluation. No learning of features or transforms and no new score sweep on evaluate26."
+  },
+  "metrics": {
+    "primary": "Difference in correct-choice credit on all178 known-target pairs; wrong-to-right and right-to-wrong relative to old_readout, total interventions, fallbacks and their fixed reasons. Ties receive1/2. Denominator is the full frozen cohort, not accepted interventions only.",
+    "uncertainty": "Paired cluster bootstrap over all26 source videos,20000 samples,seed42. Four primary comparisons of flyvis_spatial to old_readout,scrambled,receptor_spatial,r1_spatial. Publish ordinary95% and Bonferroni98.75% intervals. No assumption that frames within a video are independent.",
+    "native_secondary": "Report counts of j/k/other/none and admissible/occupied candidate edges. Pair-ranking improvements are conditional and cannot by themselves prove native assignment repair or HOTA gain.",
+    "descriptive_strata": "Reference/current field clipping, unique-node support, observed-to-current gap, shared-cell category, native-assignment type. No subgroup rescues a failed primary result."
+  },
+  "gates": {
+    "data": "Complete validated reference and native-state export with unambiguous row bindings before the scientific comparison is ready.",
+    "technical": "Old readout reproduction from existing audit without retraining; no-change and candidate-swap equivariance; all transforms and support shared across feature controls; hashes before/after; independent recomputation of new per-case scores and decisions.",
+    "proceed": "All four corrected lower bounds positive. This admits preparation of a separate full-tracker comparison; does not automatically execute it.",
+    "otherwise": "Retain negative or inconclusive outcome of this implementation. Low coverage alone, a nonsignificant difference, or a tie with a simple control does not prove equivalence or close all spatial-readout methods.",
+    "full_tracker": "Requires a separate causal assignment implementation respecting one-to-one matching and competing tracks, matched detector/input conditions, no-core control, HOTA/AssA/IDF1/IDSw/FP/FN and paired video uncertainty on detector-unseen val. Historical development videos remain marked as reused."
+  },
+  "next_action": "Export missing observed geometry and actual assignments with parity on the frozen cohorts; then measure recovery of one fixed reference map. The current bottleneck established by this audit is archive completeness, not a proven limitation of FlyVis neural information.",
+  "registered": "2026-11-07T23:24:07.591446+03:00",
+  "git": "536b9be93dcd8d5d19cbe198d736894bd9198968",
+  "parent_protocol_sha256": "3040c38eeeec9654670a36d034d03320ce5b6c44392867e954496832c7cd6928",
+  "deadline": "2026-11-09T07:40:00+03:00",
+  "execution_addendum": "Re-export first video to capture previously absent full association matrices, retaining the prior successful recovery probe. Future stages get separate immutable source manifests before outputs; original scientific settings remain those of the draft.",
+  "source_sha256": {
+    "research_spatial_identity_20261107/run_common.py": "89dcf1b114b4d25060b578073ed4fb8049180f44df9995c5cafc3e82d4877a53",
+    "research_spatial_identity_20261107/export_tracker.py": "cfcf9716595fb815ac3a01fea7dc056c42987a561caf500b7c738330f2bfac8a",
+    "research_spatial_identity_20261107/register_execution.py": "0fab4e295e5ae89fe9c805dfae84b9dfa4ed5478fc4a5714ce9b9c8e0fcb7032",
+    "research_spatial_identity_20261107/comparison_protocol.json": "3040c38eeeec9654670a36d034d03320ce5b6c44392867e954496832c7cd6928",
+    "research_spatial_identity_20261107/readiness_rows.json": "3b96203f3ff3a476aff5f8babe730aa28c76867409fa0ad55a7806acdd63fdb5",
+    "research_spatial_identity_20261107/readiness_report.json": "bc0c803e88a547a5e86a01854fb795dd63717b121f7b558e2d12e9b2811a9c8b",
+    "tracking/xywh_bytetrack.py": "85f5d5eaceabdd19cd7cb668fcd2153771466b3f539a8ffa374ddd6f9a946675",
+    "tracking/offline_association.py": "b7d4ab568d25708df3601fe890b85b488f646ce010459e3110aa84ee78d54ceb",
+    "tracking/foveated_eyes.py": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    ".venv/Lib/site-packages/ultralytics/trackers/byte_tracker.py": "00c7c1ff8b1076fc89347071519ae0b06a30bfce00dded94826620e068b1928f",
+    ".venv/Lib/site-packages/ultralytics/trackers/bot_sort.py": "9b32cfcc9f0b52d01f4cbcf76ce279df906e9f6cb2a10bdf92b3dcdf7b2be9d9",
+    ".venv/Lib/site-packages/ultralytics/trackers/utils/matching.py": "0c5dcddde75ce343ca9626273e3d95e2ea061bcf69f2e0ac0ef519ac1aaffe07",
+    "runs/flyvis/results/flow/0000/000/best_chkpt": "d8a57a022aa18ca338599be713af9db29b89cde4b00098ffe42b78f0d583e46a",
+    "runs/z13_target_center_dev_20261018/C/normalization.json": "c06f1147f7f9da0d2d652d137c2c8a85257ba2737d1f7a1bbbde41235193fa4b",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36"
+  }
+}

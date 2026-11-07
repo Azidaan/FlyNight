@@ -1,0 +1,120 @@
+{
+  "uid": 29489,
+  "video": "004855fc-ff3946ad",
+  "split": "evaluate26",
+  "arms": {
+    "flyvis_spatial": [
+      {
+        "minimum": -0.3220941803744737,
+        "maximum": 0.03657042348661669,
+        "all_maximum": 0.03657042348661669,
+        "invalid_position": false,
+        "unknown_outside": false,
+        "certified_no_dominance": "overlapping_subset_intervals"
+      },
+      {
+        "minimum": 0.015173914890364014,
+        "maximum": 0.19920547102198838,
+        "all_maximum": 0.19920547102198838,
+        "invalid_position": false,
+        "unknown_outside": false,
+        "certified_no_dominance": "overlapping_subset_intervals"
+      }
+    ],
+    "flyvis_scrambled": [
+      {
+        "minimum": 0.010763416611387194,
+        "maximum": 0.022206869267322283,
+        "all_maximum": 0.022206869267322283,
+        "invalid_position": false,
+        "unknown_outside": false,
+        "certified_no_dominance": "overlapping_subset_intervals"
+      },
+      {
+        "minimum": 0.0044539578848113385,
+        "maximum": 0.020830617942732305,
+        "all_maximum": 0.020830617942732305,
+        "invalid_position": false,
+        "unknown_outside": false,
+        "certified_no_dominance": "overlapping_subset_intervals"
+      }
+    ],
+    "receptor_spatial": [
+      {
+        "minimum": 0.2209727759476925,
+        "maximum": 0.5647633855160011,
+        "all_maximum": 0.5647633855160011,
+        "invalid_position": false,
+        "unknown_outside": false,
+        "certified_no_dominance": "overlapping_subset_intervals"
+      },
+      {
+        "minimum": 0.5518761470037461,
+        "maximum": 0.7950925409488045,
+        "all_maximum": 0.7950925409488045,
+        "invalid_position": false,
+        "unknown_outside": false,
+        "certified_no_dominance": "overlapping_subset_intervals"
+      }
+    ],
+    "r1_spatial": [
+      {
+        "minimum": 0.058598834763102896,
+        "maximum": 0.1925570395966957,
+        "all_maximum": 0.1925570395966957,
+        "invalid_position": false,
+        "unknown_outside": false,
+        "certified_no_dominance": "overlapping_subset_intervals"
+      },
+      {
+        "minimum": 0.15613110956494952,
+        "maximum": 0.27061903577931207,
+        "all_maximum": 0.27061903577931207,
+        "invalid_position": false,
+        "unknown_outside": false,
+        "certified_no_dominance": "overlapping_subset_intervals"
+      }
+    ]
+  },
+  "geometry": [
+    {
+      "all_transforms": 45085,
+      "position_transforms": 30530,
+      "current_nodes": 120,
+      "reference_nodes": 91,
+      "width_values": 35,
+      "height_values": 20,
+      "evaluated_transforms": 10,
+      "unique_mappings": 10
+    },
+    {
+      "all_transforms": 22040,
+      "position_transforms": 7221,
+      "current_nodes": 82,
+      "reference_nodes": 91,
+      "width_values": 26,
+      "height_values": 19,
+      "evaluated_transforms": 10,
+      "unique_mappings": 10
+    }
+  ],
+  "mappings": [
+    {
+      "path": "runs/spatial_identity_maps_20261107/geometry/29489_0_lazy.npz",
+      "sha256": "bd0da43b766bdbe2aec299850a40bfce9989cda3ea98bcdf2b1e5585f71197ab"
+    },
+    {
+      "path": "runs/spatial_identity_maps_20261107/geometry/29489_1_lazy.npz",
+      "sha256": "358345bf04feed03a8da54f8c8fab642f556986227ebf0fb8ffbea61a885a981"
+    }
+  ],
+  "certificates": {
+    "flyvis_scrambled": "overlapping_subset_intervals",
+    "r1_spatial": "overlapping_subset_intervals",
+    "flyvis_spatial": "overlapping_subset_intervals",
+    "receptor_spatial": "overlapping_subset_intervals"
+  },
+  "partial_intervals": true,
+  "seconds": 0.06250250000448432,
+  "features_sha256": "2e7e72192d80bbb0280423cb609c123e706abd4fcc7ec5fd1460c9684628357f"
+}

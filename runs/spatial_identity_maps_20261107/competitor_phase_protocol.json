@@ -1,0 +1,11 @@
+{
+  "registered": "2026-11-07T23:50:28.042782+03:00",
+  "source_sha256": {
+    "research_spatial_identity_20261107/inspect_competitors.py": "aefec1d94445631d4616f4a3995b179b1965107bb94bcf24cddc962259881931",
+    "runs/train_cache/0001542f-ec815219/detections/raw_video.npz": "f1514c87da55f292921c4a172a5717423207f63c5f5c08324363c8b6e4040423",
+    "runs/train_cache/0001542f-ec815219/alignment.json": "27fa0295f29e8df2df2f3f2514f37577b0ea29f5bf5ff5f82f2fa0b7754bb128",
+    "data/bdd100k/labels/box_track_20/train/0001542f-ec815219.json": "661f25f57fd95331c2890401748a26c93b44509e143bba2a72a0448cdd5aaeaa"
+  },
+  "purpose": "Recover previously absent histories of competing native IDs at the two questioned queries. No modification of association. Offline labels only describe history; they never change runtime or reference selection.",
+  "annotation_rule": "Per annotated frame and class, Hungarian 1-IoU with IoU>=0.5, without interpolation."
+}

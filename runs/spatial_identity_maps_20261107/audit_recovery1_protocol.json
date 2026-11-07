@@ -1,0 +1,9 @@
+{
+  "registered": "2026-11-07T23:48:05.782583+03:00",
+  "sources": {
+    "research_spatial_identity_20261107/audit_comparison_recovery1.py": "61d2162d0ca2a976d8cef6cbec84bae2f057d42e7050518163476e7bcdab8d2d",
+    "research_spatial_identity_20261107/audit_comparison.py": "92240aa1ddc0c0901c2ea4cac0a42fdd9e5b38278a4d02e4a576ad3880f6fb9c"
+  },
+  "reason": "Original scorer omits zero Counter keys when no transforms are traversed. Auditor now checks an absent count as zero, or verifies the support condition that prevented traversal. No scientific artifact changed.",
+  "previous_guard": "165f5c8b71eb4d2a8885ca8059271dff"
+}

@@ -1,0 +1,12 @@
+{
+  "scientific_complete": true,
+  "independent_audit": "runs/spatial_identity_maps_20261107/independent_audit.json",
+  "publication_complete": false,
+  "reason": "External memory guardian declined the final validation launch before any worker started: insufficient_start_reserve.",
+  "guard_receipt": "runs/flyvis_repairs_20261106/unification_20261107/uncapped_checks/64eb7265e07943b78f9c239da0393a40/memory_guard.json",
+  "required_start_free_gib": 8.38,
+  "last_observed_free_gib": 3.69,
+  "rule": "AGENTS.md section9.2: reserve max(6GiB,20% physical), plus2GiB at launch.",
+  "remaining": "Run verify_publish.py with the preserved sources and copy vault, verify all25 protected notes, then selectively commit/push only owned changes and the two owned journal entries. Preserve the existing tracker-plan modifications and the earlier20:43 journal entry. No scientific rerun is needed.",
+  "resume_script": "research_spatial_identity_20261107/verify_publish.py"
+}

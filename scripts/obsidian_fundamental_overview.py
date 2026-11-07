@@ -284,6 +284,19 @@ def resolved_tasks(history):
             target['limit']+=' Это условный выбор между двумя известными кандидатами на прежних исследовательских видео, не HOTA и не сравнение всего ядра со входом глаза. Дополнительные взаимодействия не восстанавливают отсутствующую пространственную информацию.'
             target['primary'] += ['runs/flyvis_readout_comparison_20261107/independent_audit.json','runs/flyvis_readout_comparison_20261107/descriptive_fit.json','research_sigma_pi_20261107/ПРИМЕНЕНИЕ.md']
             target['next']=cached_readout['decision']
+    spatial=next((c for c in history['experiments'] if c['id']=='spatial_identity_maps_v1_20261107'),None)
+    spatial_dir=ROOT/'runs/spatial_identity_maps_20261107'
+    if spatial and spatial.get('done') and (spatial_dir/'independent_audit.json').is_file():
+        checked=json.loads((spatial_dir/'independent_audit.json').read_bytes())
+        if checked.get('passed'):
+            measured=json.loads((spatial_dir/'comparison_report.json').read_bytes())
+            target=next(t for t in tasks if t['title'].startswith('Задача 3'))
+            target['ids'].append(spatial['id'])
+            target['attempt']+=' Восстановили пространственный образ последнего реально назначенного наблюдения и сравнили восемь карт T4/T5 с перестановкой, изображением и временным контролем R1 при общей геометрии.'
+            target['result']+=f" На {measured['pairs']} прежних парах все варианты сохранили прежние {measured['baseline_credit']:g} верных выборов и ни разу не вмешались. В 139 парах нет допустимого сравнения обеих рамок, в остальных 39 нет устойчивого превосходства. В двух исходных примерах нужную детекцию получил более дешёвый конкурирующий рабочий ID той же размеченной машины."
+            target['limit']+=' Это отрицательный итог строгого правила вмешательства, а не доказательство отсутствия пространственной информации. Условный выбор рамки не восстанавливает прежний ID в общем назначении. HOTA и центрированные полные виды не проверялись.'
+            target['primary'] += ['runs/spatial_identity_maps_20261107/РЕЗУЛЬТАТ.md','runs/spatial_identity_maps_20261107/comparison_report.json','runs/spatial_identity_maps_20261107/independent_audit.json','runs/spatial_identity_maps_20261107/native_diagnosis.json','runs/spatial_identity_maps_20261107/competitor_histories.json']
+            target['next']='Предложить отдельный протокол геометрического допуска и применения признаков в общей матрице с историями конкурирующих ID; сохранить контроль без ядра FlyVis. Эта версия не допускается к полному трекеру.'
     return tasks
 
 
