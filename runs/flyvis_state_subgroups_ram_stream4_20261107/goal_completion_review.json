@@ -1,0 +1,171 @@
+{
+  "passed": true,
+  "checked_msk": "2026-11-07T14:24:32.042479+03:00",
+  "checks": {
+    "full_scope": true,
+    "protocol_exact": true,
+    "inference_exact": true,
+    "all_cases_audited": true,
+    "case_shape": true,
+    "all_64_case_checksums": true,
+    "three_finished_cases_reused": true,
+    "source_archive_exact": true,
+    "archived_sources_exact": true,
+    "archived_protocol_exact": true,
+    "weights_and_connectome_exact": true,
+    "closed_historical_artifacts_exact": true,
+    "accepted_numerical_probe": true,
+    "encoder_tolerance": true,
+    "controllers_successful": true,
+    "actual_processes_ended": true,
+    "chain_complete": true,
+    "before_registered_deadline": true,
+    "registered_ram_safeguards": true,
+    "recorded_tests_passed": true,
+    "catalog_and_problem_record_exact": true,
+    "negative_verdict_preserved": true,
+    "chronology_and_roadmap_recorded": true,
+    "graph_preserved_at_recording": true,
+    "protected_notes_currently_exact": true,
+    "figure_exact": true,
+    "main_branch_selected": true,
+    "scientific_evidence_in_main_commit": true
+  },
+  "head": "720ee3e47a96f222ec966836e615f76a4062d1d8",
+  "original_manifest_sha256": "6f9b50be2a5abb8a4e6ceefda797b68eef57276507a6b458130fe4fe98e423ab",
+  "historical_open_file_differences": [
+    "finalize.log",
+    "postprocess.stage.json"
+  ],
+  "explanation": "The original finalizer hashed finalize.log and postprocess.stage.json before its chain closed them. Preserve that historical manifest; this review verifies all other old hashes and binds the closed chain files separately.",
+  "chain_closed_sha256": {
+    "finalize.log": "99985c98a057ff3ec90094d83824a07de356ef7b6c88dd1be65ff0732318166a",
+    "postprocess.stage.json": "325638d9cd6eed6c4ab5d7b095783b62da38e9dc8fe1aa29e58b53a3c6c29466",
+    "chain_result.json": "e0d79d908e34bab94dcb631cad642890e0d7f4a65820d9879bb40542654f72f3",
+    "finalize.ended.json": "ad97f8f0bea01f8fbf9dd7388b4e6b77e1f90a2c16597da8d3d7d07a2513c9e3"
+  },
+  "current_source_drift": {},
+  "controllers": {
+    "execution_probe/controller_result.json": {
+      "exit_code": 0,
+      "reason": null,
+      "all_owned_ended": true
+    },
+    "execution_run/controller_result.json": {
+      "exit_code": 0,
+      "reason": null,
+      "all_owned_ended": true
+    },
+    "execution_audit/controller_result.json": {
+      "exit_code": 0,
+      "reason": null,
+      "all_owned_ended": true
+    },
+    "audit_controller.ended.json": {
+      "exit_code": 0,
+      "reason": null,
+      "all_owned_ended": true
+    },
+    "catalog_check.ended.json": {
+      "exit_code": 0,
+      "reason": null,
+      "all_owned_ended": true
+    },
+    "finalize.ended.json": {
+      "exit_code": 0,
+      "reason": null,
+      "all_owned_ended": true
+    },
+    "plot.ended.json": {
+      "exit_code": 0,
+      "reason": null,
+      "all_owned_ended": true
+    },
+    "record.ended.json": {
+      "exit_code": 0,
+      "reason": null,
+      "all_owned_ended": true
+    },
+    "record_tests.ended.json": {
+      "exit_code": 0,
+      "reason": null,
+      "all_owned_ended": true
+    },
+    "run_controller.ended.json": {
+      "exit_code": 0,
+      "reason": null,
+      "all_owned_ended": true
+    }
+  },
+  "process_identities_checked": 84,
+  "live": [],
+  "protected_notes_checked": 41,
+  "case_sha256": {
+    "s0_c1.0_v1_a0": "41a3401710d6dd0665450aa45dd2ea2f9bb31f7e1d902611e84b890485bbebd8",
+    "s0_c1.0_v1_a1": "3a994dfab0522d800a956200bcf5be7695ebc9937ee18e3fadf3ddce252b2847",
+    "s0_c1.0_v4_a0": "878bd2d34c879a59c508b4fa8322c31cf9a15976be25e49c9d130ec134087400",
+    "s0_c1.0_v4_a1": "0664653be9b2ef04859366cc727a3a2896c9f2af8229d172f6ef6620b0eefb9c",
+    "s0_c0.25_v1_a0": "34411426c5fa3f71f10d408f09b80d9a67e3923340726762cd31cd55e2137504",
+    "s0_c0.25_v1_a1": "fd5a967ca6fea825d0131e3b260eb1f87cb0a0c2b496928d916f3fef026f3352",
+    "s0_c0.25_v4_a0": "c04599c3afa36e2026f88e243d6515ac28a08d2755e3f3cbeafcd1516e710e41",
+    "s0_c0.25_v4_a1": "9ff3532a451370f09070230702bf443382d6db856a7c17dcf383df1182450d54",
+    "s1_c1.0_v1_a0": "e454e7922bf2ebd21f0c0d9a063b6f3e655bad6ea479e9247679c61193372803",
+    "s1_c1.0_v1_a1": "4b6ff59eaa99915f7cf5ea74b1e9cab52b8f9c436973a7bee45ceaeb60d4b761",
+    "s1_c1.0_v4_a0": "75b9f86750aadf246dac9ad38796a9bc14489a47b9bc021fa06ad8e3d0bd189d",
+    "s1_c1.0_v4_a1": "9893567854512cefece455ffc310642a63f8be2d93858a6fa7edcce089d39292",
+    "s1_c0.25_v1_a0": "74b212a36d599ce3f12076fa98d4c73fd05ec50d3c332886b79df778c7d6b138",
+    "s1_c0.25_v1_a1": "d66daa18bac5a95c472eb652c8efd90efbf0052b4a355c53ee2ec0a50f7d1e7a",
+    "s1_c0.25_v4_a0": "c38319c75790475fe45cf0af86f927e91929fd589fe33a247c52f79e157445d3",
+    "s1_c0.25_v4_a1": "85496ec194186decf6bff73b9a16cb11f39d43600bfa630cb386632e0827fc07",
+    "s2_c1.0_v1_a0": "a619f737512ddc550fba81bcdae5f644ee97b3615697cbdafaa6287581a927f6",
+    "s2_c1.0_v1_a1": "b3eecca56967d53d411ebaa55b1309d678ad456cd9f42e0a09269e82eb852694",
+    "s2_c1.0_v4_a0": "08c5d9bd5405db0fb1b8c7f7a74dda6a4c200a2d27746e15967170f2583a5073",
+    "s2_c1.0_v4_a1": "a3be8b17dbfcb6c39e9c4fc76b2683b9df9e60c059e73da38606cb32cfc06635",
+    "s2_c0.25_v1_a0": "b7d40711fba21f5145c4455e570d471312b7d032bf81cce3fe48ccf3423118ce",
+    "s2_c0.25_v1_a1": "227ea7264bf87e092305ca316d176ec83dae90096d88f1e9425c92be83955016",
+    "s2_c0.25_v4_a0": "15d51b0ace347dce65fe0a5c39a09a016828f644e4e11a47e396dd482c6042b7",
+    "s2_c0.25_v4_a1": "d873f0ddfe7c556a0f5dccbb0c244d258b539e8ad4db9ae74c44570a2c76a0b2",
+    "s3_c1.0_v1_a0": "bc9dd2bc245b8b27c602b7f3518675027c5318e3f73049be42d6c0d44385e8b0",
+    "s3_c1.0_v1_a1": "a65145456ecc8ad364231f7a86c47e84823839062b10d492c53f0398a2b440b4",
+    "s3_c1.0_v4_a0": "17a79ec4f58d5031a58138b11421e24ef4a46ea5a7e9a35146d429f1a88a2733",
+    "s3_c1.0_v4_a1": "c62554391befb810bbf55c4d0f046eaf7dae90ce957d63860b0cda332f19046d",
+    "s3_c0.25_v1_a0": "8ba196479ab117dd0d2c0a16ae763776366ba1511fba18fca0cdb280daab8f16",
+    "s3_c0.25_v1_a1": "10b596983581ac14fc0da227a46352cc3922d0065ceb3e294e94c89ca4a27a93",
+    "s3_c0.25_v4_a0": "68865ae54be281f12ac48b10a9e3fe4d3e2a1ac693e98074f237fd33ba62ad34",
+    "s3_c0.25_v4_a1": "7bf4b84c3b47be336b4229edbb5c1503d0764f7e17bdef2c15789deded96ced2",
+    "s4_c1.0_v1_a0": "e0cabb96c6e563479e535071965bacf5ce35c5fa5e02ca9ee9a5417b24c899a2",
+    "s4_c1.0_v1_a1": "355344655de787e17c675f92d9d8a41a8f3eb960576b12134c5c20712a5d5f70",
+    "s4_c1.0_v4_a0": "5e8673d5f450e9174bd6508ce8891d63502da2f2eb50f866973629fe59c07ed2",
+    "s4_c1.0_v4_a1": "7c291620c75c838929fbb0d178d6a9063f7c72b3c1fadc8cdaaa969667e0467d",
+    "s4_c0.25_v1_a0": "fbd4f9015ab32da51724d993e9c7512275e9e0f25f0907ba0db10cf6777a84fd",
+    "s4_c0.25_v1_a1": "c31cc4870b70968dde36a2f654f5c96aa954b1f3a955ced7b889b2be789bbdab",
+    "s4_c0.25_v4_a0": "0ed50dd4b304370d96e6e568d561917dbbd9b67d2c1d792ad1e08a1fffeab10f",
+    "s4_c0.25_v4_a1": "ce1430ed3d07a9be8b85bbcb57216ab741ccb57cbfb01ce050eb9cd289360f79",
+    "s5_c1.0_v1_a0": "88ffabd846127d09d1b3d96f960a06235c9be7a5eed568c89089c2e272837b3f",
+    "s5_c1.0_v1_a1": "1deaefeb1c216999f262a8fccc5472f1360f56991e7987b64ba0cf749f25d8af",
+    "s5_c1.0_v4_a0": "b0f8efe5f397aa355c8f13293eaf13804fd730352d4a894122fe69ac84887bf9",
+    "s5_c1.0_v4_a1": "ed0e55d140e38f83e7c7efabc39ba7436c162996de3075a757ded807f9c7f5c0",
+    "s5_c0.25_v1_a0": "c4df245422e83017649a4137a9557a4e7f12afc9011a9d39b3592ec96eeac9b3",
+    "s5_c0.25_v1_a1": "7f3c8a8ee64b14fddf86a0489aea64b1955b4819ac508cb83257d34111202d75",
+    "s5_c0.25_v4_a0": "c4ba4b9235daff790e507b2a5f3b8e2bce111614766b92be6a683f1e7a537d39",
+    "s5_c0.25_v4_a1": "d3045ee091d644411cdc52e27ba2bdcf74dd634b348a19e201cd11fb3b3926dd",
+    "s6_c1.0_v1_a0": "b970511c426cb19929f5c06587aa64ddbae155865e5e95de9dd8bc27080063e9",
+    "s6_c1.0_v1_a1": "76e4fe168b51d0b109c1a8fb09dcd43010e1a54cd004c9dd468d0e8310743fa0",
+    "s6_c1.0_v4_a0": "f74fce2c95fcfb26e8fc97a5f3a91629b6fa7dc02264dc22e879cdc88245edda",
+    "s6_c1.0_v4_a1": "eaa3b045005430c68469392713745e688917001d56e3c6b7feda1fe8c2cf57eb",
+    "s6_c0.25_v1_a0": "c148f35c2acdf69fb9caddc5c3a73c946d464478a7ee568e23c1b746f60ee3c6",
+    "s6_c0.25_v1_a1": "a6eee8a264acdc44496eee011b0c899bf8fb99758f4fdac4fec4636731cdf138",
+    "s6_c0.25_v4_a0": "9ece7b2020137461ece77ab5405a616b522a9586932140cc36e364faae990948",
+    "s6_c0.25_v4_a1": "0e2cf0fa77332cff6a7eb65993cfe67116e196cb8dde8079fdaf8dd54daf8d8d",
+    "s7_c1.0_v1_a0": "eb863a15ee47f245a85acc6fe905b8f43f7e64eccc92de7962e9414931c19929",
+    "s7_c1.0_v1_a1": "80db951a7c26c1c85f0d5302876d1d945a921590c37dbdf14d966a3d243d4622",
+    "s7_c1.0_v4_a0": "2b4cb1b5d30830cfe4d94b3563dd3c395bf9cd6936dbff11e36146fee72a516b",
+    "s7_c1.0_v4_a1": "bf8447695d0c90b26b9c9172fbdf665fdbfb88b18c27d6d3157f5a138d1c9b37",
+    "s7_c0.25_v1_a0": "1cd4904dcccf8e29a36f9aa72650f2821b15f7e8531539f06200d528e1c38342",
+    "s7_c0.25_v1_a1": "1229743f51d27c4264a3bd06042934f1387e099d5d7d255ac5ea2d307c052641",
+    "s7_c0.25_v4_a0": "d81d673a7c24e900de41860f4d581f257f1281a0c81eee0a703eb779ce179787",
+    "s7_c0.25_v4_a1": "edc70bd25b92033c54e4c6ae30b341a117881c15d32a53b7c279c87fbb9e0383"
+  },
+  "audit_sha256": "99b3c1abf4c6e5e400b94f025f690306c86e3e6a787361aa3a9d05fa34b6b235",
+  "scope": "Evidence completion review only; no inference, metric recomputation, tests or scientific intervention repeated."
+}
