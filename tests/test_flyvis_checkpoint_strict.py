@@ -108,3 +108,87 @@ def test_exact_integer_cast_is_allowed():
     module.register_buffer('count', torch.tensor(0, dtype=torch.int64, device='cpu'))
     validate_state(module, {'count': torch.tensor(1.0, device='cpu')}, 'buffer')
 
+
+class _Distribution:
+    def __init__(self, raw_values, *, exponential=False):
+        self.raw_values = raw_values
+        self.exponential = exponential
+
+    @property
+    def semantic_values(self):
+        return self.raw_values.exp() if self.exponential else self.raw_values
+
+
+def _domain_network():
+    network = torch.nn.Module()
+    network.node_params, network.edge_params, network.clamp_config = {}, {}, {}
+    for name, values, mode, exponential in (
+        ('nodes_bias', [1., 2.], None, False),
+        ('nodes_time_const', [-1., 0.], None, False),
+        ('edges_syn_strength', [.1, .2], 'non_negative', False),
+        ('edges_syn_count', [-2., 1.], None, True),
+    ):
+        parameter = torch.nn.Parameter(torch.tensor(values, device='cpu'), requires_grad=False)
+        network.register_parameter(name, parameter)
+        route, field = name.split('_', 1)
+        registry = network.node_params if route == 'nodes' else network.edge_params
+        registry[field] = SimpleNamespace(parameter=_Distribution(parameter, exponential=exponential), keys=['a', 'b'])
+        network.clamp_config[name] = mode
+    return network
+
+
+@pytest.mark.parametrize('key,value,match', [
+    ('edges_syn_strength', -.1, 'ограничение'),
+    ('edges_syn_count', 1000., 'semantic_values'),
+])
+def test_invalid_parameter_domain_rejected_before_any_write(key, value, match):
+    network, decoders = _domain_network(), modules()[1]
+    source = payload(network, decoders)
+    source['network']['nodes_bias'] += 4
+    source['network'][key][0] = value
+    before, original = deepcopy(network.state_dict()), deepcopy(source)
+    storages = {name: parameter.data_ptr() for name, parameter in network.named_parameters()}
+    decoder_before = deepcopy(decoders['flow'].state_dict())
+    with pytest.raises(ValueError, match=match):
+        load_checkpoint_modules(network, decoders, source)
+    assert all(torch.equal(value, before[name]) for name, value in network.state_dict().items())
+    assert all(torch.equal(value, original['network'][name]) for name, value in source['network'].items())
+    assert all(torch.equal(value, decoder_before[name]) for name, value in decoders['flow'].state_dict().items())
+    for name, parameter in network.named_parameters():
+        assert parameter.data_ptr() == storages[name]
+        route, field = name.split('_', 1)
+        registry = network.node_params if route == 'nodes' else network.edge_params
+        assert registry[field].parameter.raw_values is parameter
+
+
+def test_valid_domains_preserve_storage_and_allow_negative_logcount_and_tau():
+    from tracking.flyvis_checkpoint import validate_state
+    network = _domain_network()
+    state, before = deepcopy(network.state_dict()), deepcopy(network.state_dict())
+    pointers = {name: value.data_ptr() for name, value in network.state_dict().items()}
+    for _ in range(2):
+        validate_state(network, state, 'network')
+    assert all(torch.equal(value, before[name]) for name, value in state.items())
+    assert all(torch.equal(value, before[name]) and value.data_ptr() == pointers[name]
+               for name, value in network.state_dict().items())
+
+
+@pytest.mark.parametrize('mode,values,accepted', [
+    ((0., 1.), [0., 1.], True),
+    ([None, 1.], [-2., 1.], True),
+    ([0., None], [0., 2.], True),
+    ((0., 1.), [-.1, 1.], False),
+    ('unknown', [0., 1.], False),
+])
+def test_only_declared_supported_bounds_are_applied(mode, values, accepted):
+    from tracking.flyvis_checkpoint import validate_state
+    network = _domain_network()
+    network.clamp_config['nodes_bias'] = mode
+    state = deepcopy(network.state_dict())
+    state['nodes_bias'] = torch.tensor(values, device='cpu')
+    if accepted:
+        validate_state(network, state, 'network')
+    else:
+        with pytest.raises(ValueError):
+            validate_state(network, state, 'network')
+

@@ -1,0 +1,202 @@
+[2026-11-06 22:24:12] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-11-06 22:24:12] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-11-06 22:24:16] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-11-06 22:24:19] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-11-06 22:24:19] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-11-06 22:24:25] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+{
+  "comparisons": {
+    "stock_repeat_exact": true,
+    "stock_transfer_exact": false,
+    "negative_frozen_equals_official_clamped": false,
+    "negative_frozen_vs_clamped_max_abs": 0.14348597824573517,
+    "official_clamped_equals_zero_control": true,
+    "negative_transfer_equals_negative_loaded": false,
+    "negative_tau_equals_zero": true,
+    "negative_tau_equals_dt": true
+  },
+  "stock_repeat_max_abs": 0.0,
+  "stock_transfer_max_abs": 2.86102294921875e-06,
+  "destination_fixed_parameter_differences": {
+    "edges_sign": {
+      "exact": true,
+      "max_abs": 0.0
+    },
+    "edges_syn_count": {
+      "exact": false,
+      "max_abs": 2.384185791015625e-07
+    }
+  }
+}
+{
+  "stock_count": 50,
+  "cases": [
+    {
+      "name": "stock_frozen",
+      "accepted": true,
+      "error": null,
+      "strength_trainable": false,
+      "raw_strength_min_before": 0.0,
+      "raw_strength_min_after": 0.0,
+      "raw_strength_mutated_by_forward": false,
+      "semantic_count_finite": true,
+      "effective_weight_finite": true,
+      "effective_weight_negative_count": 526429,
+      "activity_finite": true,
+      "activity_nonfinite_count": 0,
+      "raw_tau_min": 0.01943179965019226,
+      "input_mapping_unchanged": true
+    },
+    {
+      "name": "stock_frozen_repeat",
+      "accepted": true,
+      "error": null,
+      "strength_trainable": false,
+      "raw_strength_min_before": 0.0,
+      "raw_strength_min_after": 0.0,
+      "raw_strength_mutated_by_forward": false,
+      "semantic_count_finite": true,
+      "effective_weight_finite": true,
+      "effective_weight_negative_count": 526429,
+      "activity_finite": true,
+      "activity_nonfinite_count": 0,
+      "raw_tau_min": 0.01943179965019226,
+      "input_mapping_unchanged": true
+    },
+    {
+      "name": "negative_strength_frozen",
+      "accepted": true,
+      "error": null,
+      "strength_trainable": false,
+      "raw_strength_min_before": -0.006883954629302025,
+      "raw_strength_min_after": -0.006883954629302025,
+      "raw_strength_mutated_by_forward": false,
+      "semantic_count_finite": true,
+      "effective_weight_finite": true,
+      "effective_weight_negative_count": 525708,
+      "activity_finite": true,
+      "activity_nonfinite_count": 0,
+      "raw_tau_min": 0.01943179965019226,
+      "input_mapping_unchanged": true
+    },
+    {
+      "name": "negative_strength_trainable_official_clamp",
+      "accepted": true,
+      "error": null,
+      "strength_trainable": true,
+      "raw_strength_min_before": -0.006883954629302025,
+      "raw_strength_min_after": 0.0,
+      "raw_strength_mutated_by_forward": true,
+      "semantic_count_finite": true,
+      "effective_weight_finite": true,
+      "effective_weight_negative_count": 525708,
+      "activity_finite": true,
+      "activity_nonfinite_count": 0,
+      "raw_tau_min": 0.01943179965019226,
+      "input_mapping_unchanged": true
+    },
+    {
+      "name": "zero_strength_frozen_control",
+      "accepted": true,
+      "error": null,
+      "strength_trainable": false,
+      "raw_strength_min_before": 0.0,
+      "raw_strength_min_after": 0.0,
+      "raw_strength_mutated_by_forward": false,
+      "semantic_count_finite": true,
+      "effective_weight_finite": true,
+      "effective_weight_negative_count": 525708,
+      "activity_finite": true,
+      "activity_nonfinite_count": 0,
+      "raw_tau_min": 0.01943179965019226,
+      "input_mapping_unchanged": true
+    },
+    {
+      "name": "finite_log_count_semantic_overflow_frozen",
+      "accepted": true,
+      "error": null,
+      "strength_trainable": false,
+      "raw_strength_min_before": 0.0,
+      "raw_strength_min_after": 0.0,
+      "raw_strength_mutated_by_forward": false,
+      "semantic_count_finite": false,
+      "effective_weight_finite": false,
+      "effective_weight_negative_count": 526429,
+      "activity_finite": false,
+      "activity_nonfinite_count": 61531,
+      "raw_tau_min": 0.01943179965019226,
+      "input_mapping_unchanged": true
+    },
+    {
+      "name": "negative_tau_frozen",
+      "accepted": true,
+      "error": null,
+      "strength_trainable": false,
+      "raw_strength_min_before": 0.0,
+      "raw_strength_min_after": 0.0,
+      "raw_strength_mutated_by_forward": false,
+      "semantic_count_finite": true,
+      "effective_weight_finite": true,
+      "effective_weight_negative_count": 526429,
+      "activity_finite": true,
+      "activity_nonfinite_count": 0,
+      "raw_tau_min": -1.0,
+      "input_mapping_unchanged": true
+    },
+    {
+      "name": "zero_tau_frozen",
+      "accepted": true,
+      "error": null,
+      "strength_trainable": false,
+      "raw_strength_min_before": 0.0,
+      "raw_strength_min_after": 0.0,
+      "raw_strength_mutated_by_forward": false,
+      "semantic_count_finite": true,
+      "effective_weight_finite": true,
+      "effective_weight_negative_count": 526429,
+      "activity_finite": true,
+      "activity_nonfinite_count": 0,
+      "raw_tau_min": 0.0,
+      "input_mapping_unchanged": true
+    },
+    {
+      "name": "dt_tau_frozen",
+      "accepted": true,
+      "error": null,
+      "strength_trainable": false,
+      "raw_strength_min_before": 0.0,
+      "raw_strength_min_after": 0.0,
+      "raw_strength_mutated_by_forward": false,
+      "semantic_count_finite": true,
+      "effective_weight_finite": true,
+      "effective_weight_negative_count": 526429,
+      "activity_finite": true,
+      "activity_nonfinite_count": 0,
+      "raw_tau_min": 0.01943179965019226,
+      "input_mapping_unchanged": true
+    }
+  ],
+  "comparisons": {
+    "stock_repeat_exact": true,
+    "stock_transfer_exact": false,
+    "negative_frozen_equals_official_clamped": false,
+    "negative_frozen_vs_clamped_max_abs": 0.14348597824573517,
+    "official_clamped_equals_zero_control": true,
+    "negative_transfer_equals_negative_loaded": false,
+    "negative_tau_equals_zero": true,
+    "negative_tau_equals_dt": true
+  },
+  "weights_unchanged": true,
+  "cuda_initialized": false
+}

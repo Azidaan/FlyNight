@@ -1,0 +1,83 @@
+...............................................FF.........               [100%]
+================================== FAILURES ===================================
+________________________ test_index_serialises_to_json ________________________
+
+built = <[MemoryError() raised in repr()] Index object at 0x297a6f085e0>
+
+    def test_index_serialises_to_json(built):
+        d = built.to_dict()
+>       s = json.dumps(d, ensure_ascii=False)
+
+tests\test_project_history.py:467: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+python310\tools\lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <json.encoder.JSONEncoder object at 0x00000297A6D8A6E0>
+o = {'built_at': '2026-11-07T00:52:59', 'fingerprint': {'version': 3, 'head': '72b6ed5472bf7d6b121879e694309da52ae709d0', 'plan': '1794001011:2186827', 'catalog': '1794001010:2791698', ...}, 'from_cache': False, 'version': 3, ...}
+
+    def encode(self, o):
+        """Return a JSON string representation of a Python data structure.
+    
+        >>> from json.encoder import JSONEncoder
+        >>> JSONEncoder().encode({"foo": ["bar", "baz"]})
+        '{"foo": ["bar", "baz"]}'
+    
+        """
+        # This is for extremely simple cases and benchmarks.
+        if isinstance(o, str):
+            if self.ensure_ascii:
+                return encode_basestring_ascii(o)
+            else:
+                return encode_basestring(o)
+        # This doesn't pass the iterator directly to ''.join() because the
+        # exceptions aren't as detailed.  The list call should be roughly
+        # equivalent to the PySequence_Fast that ''.join() would do.
+        chunks = self.iterencode(o, _one_shot=True)
+        if not isinstance(chunks, (list, tuple)):
+            chunks = list(chunks)
+>       return ''.join(chunks)
+E       MemoryError
+
+python310\tools\lib\json\encoder.py:202: MemoryError
+________________ test_r16_14_cache_invalidated_by_fingerprint _________________
+
+tmp_path = WindowsPath('E:/Dissertation/Dissertationrunsflyvis_repairs_20261106memory_incident_20261107overlay_tests_boundedpytest_temp/test_r16_14_cache_invalidated_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000297AC263AC0>
+
+    def test_r16_14_cache_invalidated_by_fingerprint(tmp_path, monkeypatch):
+        cache = tmp_path / 'cache'
+>       first = hindex.load_index(PROJECT_ROOT, cache_dir=cache)
+
+tests\test_project_history.py:473: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+evaluation\project_history\index.py:514: in load_index
+    idx = build_index(root, cache_dir=cache_dir, write_cache=True)
+evaluation\project_history\index.py:403: in build_index
+    _write_cache(idx, _cache_file(root, cache_dir))
+evaluation\project_history\index.py:460: in _write_cache
+    tmp.write_text(json.dumps(idx.to_dict(with_working_tree=False),
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = WindowsPath('E:/Dissertation/Dissertationrunsflyvis_repairs_20261106memory_incident_20261107overlay_tests_boundedpytest_temp/test_r16_14_cache_invalidated_0/cache/index.tmp')
+data = '{"built_at": "2026-11-07T00:53:28", "fingerprint": {"version": 3, "head": "72b6ed5472bf7d6b121879e694309da52ae709d0",...plan_closed": 25, "plan_chronology": 25, "manual": 2}, "events_without_commit": 2221, "artifacts": 1129, "areas": 18}}'
+encoding = 'utf-8', errors = None, newline = None
+
+    def write_text(self, data, encoding=None, errors=None, newline=None):
+        """
+        Open the file in text mode, write to it, and close the file.
+        """
+        if not isinstance(data, str):
+            raise TypeError('data must be str, not %s' %
+                            data.__class__.__name__)
+        encoding = io.text_encoding(encoding)
+        with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+>           return f.write(data)
+E           MemoryError
+
+python310\tools\lib\pathlib.py:1155: MemoryError
+=========================== short test summary info ===========================
+FAILED tests/test_project_history.py::test_index_serialises_to_json - MemoryE...
+FAILED tests/test_project_history.py::test_r16_14_cache_invalidated_by_fingerprint
+2 failed, 56 passed in 66.62s (0:01:06)

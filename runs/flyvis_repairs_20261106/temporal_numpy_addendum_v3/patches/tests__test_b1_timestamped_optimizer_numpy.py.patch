@@ -1,0 +1,129 @@
+--- /dev/null
++++ b/tests/test_b1_timestamped_optimizer_numpy.py
+@@ -0,0 +1,126 @@
++"""NumPy optimizer metadata must be checked before live checkpoint mutation."""
++from copy import deepcopy
++import random
++
++import numpy as np
++import pytest
++import torch
++
++from tracking.b1_timestamped import (
++    make_timestamped_modules, restore_timestamped_checkpoint, timestamped_checkpoint,
++)
++
++
++def modules():
++    neighbors = np.tile(np.arange(4)[:, None], (1, 7))
++    bb, head = make_timestamped_modules('B', device='cpu', neighbors=neighbors)
++    parameters = [*head.parameters(), *bb.backend.parameters()]
++    optimizer = torch.optim.Adam(parameters, lr=.001)
++    sum(parameter.sum() for parameter in parameters).backward()
++    optimizer.step()
++    optimizer.zero_grad(set_to_none=True)
++    return bb, head, optimizer
++
++
++def exact(left, right):
++    if torch.is_tensor(left):
++        return torch.is_tensor(right) and left.dtype == right.dtype and torch.equal(left, right)
++    if isinstance(left, np.ndarray):
++        return isinstance(right, np.ndarray) and left.dtype == right.dtype and np.array_equal(left, right, equal_nan=True)
++    if isinstance(left, dict):
++        return isinstance(right, dict) and left.keys() == right.keys() and all(exact(left[key], right[key]) for key in left)
++    if isinstance(left, (list, tuple)):
++        return type(left) is type(right) and len(left) == len(right) and all(exact(a, b) for a, b in zip(left, right))
++    return type(left) is type(right) and left == right
++
++
++BAD = (
++    pytest.param(lambda: np.float16(np.nan), id='float16_nan'),
++    pytest.param(lambda: np.float32(np.nan), id='float32_nan'),
++    pytest.param(lambda: np.float32(np.inf), id='float32_inf'),
++    pytest.param(lambda: np.complex64(complex(float('nan'), 0)), id='complex64_nan'),
++    pytest.param(lambda: np.array(np.nan), id='zero_dim_nan'),
++    pytest.param(lambda: np.array(np.inf), id='zero_dim_inf'),
++    pytest.param(lambda: np.array([np.nan], dtype=np.float32), id='array_nan'),
++    pytest.param(lambda: np.float64(np.nan), id='float64_existing_guard'),
++)
++
++
++@pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
++@pytest.mark.parametrize('value_factory', BAD)
++def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
++    bb, head, optimizer = modules()
++    checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
++    checkpoint['head']['output.weight'].add_(3)
++    checkpoint['backbone']['zr.w'].add_(2)
++    value = value_factory()
++    checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
++    previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
++    parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
++    torch_rng = torch.random.get_rng_state().clone()
++    numpy_rng = deepcopy(np.random.get_state())
++    python_rng = random.getstate()
++    flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
++    try:
++        torch.use_deterministic_algorithms(False, warn_only=True)
++        with pytest.raises(ValueError, match='Nonfinite optimizer'):
++            restore_timestamped_checkpoint(checkpoint, bb, head, optimizer=optimizer)
++        assert exact(head.state_dict(), previous['head'])
++        assert exact(bb.backend.state_dict(), previous['backbone'])
++        assert exact(optimizer.state_dict(), previous['optimizer'])
++        assert all(a is b for a, b in zip(parameters, [p for g in optimizer.param_groups for p in g['params']]))
++        assert torch.equal(torch_rng, torch.random.get_rng_state())
++        assert exact(numpy_rng, np.random.get_state()) and python_rng == random.getstate()
++        assert not torch.are_deterministic_algorithms_enabled()
++        assert torch.is_deterministic_algorithms_warn_only_enabled()
++    finally:
++        torch.use_deterministic_algorithms(flags[0], warn_only=flags[1])
++
++
++@pytest.mark.parametrize('field,kind', [(field, kind)
++    for field in ('lr', 'eps', 'weight_decay', 'betas')
++    for kind in ('float16', 'float32', 'float64', 'array0d')
++    if not (kind == 'array0d' and field in ('eps', 'weight_decay'))])
++def test_valid_numpy_optimizer_metadata_preserves_exact_adam_resume(field, kind):
++    bb, head, optimizer = modules()
++    checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
++    checkpoint['head']['output.weight'].add_(.03)
++    checkpoint['backbone']['zr.w'].add_(.02)
++    scalar = .8 if field == 'betas' else .001
++    value = np.array(scalar) if kind == 'array0d' else getattr(np, kind)(scalar)
++    checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
++    expected_bb, expected_head, expected_optimizer = modules()
++    # Standard PyTorch loading is the unchanged valid-path numerical reference.
++    expected_bb.backend.load_state_dict(checkpoint['backbone'], strict=True)
++    expected_head.load_state_dict(checkpoint['head'], strict=True)
++    expected_optimizer.load_state_dict(deepcopy(checkpoint['optimizer']))
++    assert restore_timestamped_checkpoint(checkpoint, bb, head, optimizer=optimizer) == 2
++    for actual_head, actual_bb, actual_optimizer in ((head, bb, optimizer), (expected_head, expected_bb, expected_optimizer)):
++        sum(parameter.sum() for parameter in [*actual_head.parameters(), *actual_bb.backend.parameters()]).backward()
++        actual_optimizer.step()
++    assert exact(head.state_dict(), expected_head.state_dict())
++    assert exact(bb.backend.state_dict(), expected_bb.backend.state_dict())
++    assert exact(optimizer.state_dict(), expected_optimizer.state_dict())
++    assert all(torch.isfinite(parameter).all() for parameter in [*head.parameters(), *bb.backend.parameters()])
++
++
++@pytest.mark.parametrize('field', ('eps', 'weight_decay'))
++def test_finite_array_native_optimizer_limitation_is_unchanged(field):
++    bb, head, optimizer = modules()
++    checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
++    checkpoint['optimizer']['param_groups'][0][field] = np.array(.001)
++    expected_bb, expected_head, expected_optimizer = modules()
++    expected_bb.backend.load_state_dict(checkpoint['backbone'], strict=True)
++    expected_head.load_state_dict(checkpoint['head'], strict=True)
++    expected_optimizer.load_state_dict(deepcopy(checkpoint['optimizer']))
++    assert restore_timestamped_checkpoint(checkpoint, bb, head, optimizer=optimizer) == 2
++    errors = []
++    for actual_head, actual_bb, actual_optimizer in ((expected_head, expected_bb, expected_optimizer), (head, bb, optimizer)):
++        sum(parameter.sum() for parameter in [*actual_head.parameters(), *actual_bb.backend.parameters()]).backward()
++        with pytest.raises(TypeError) as error:
++            actual_optimizer.step()
++        errors.append(str(error.value))
++    assert errors[0] == errors[1]
++    assert exact(head.state_dict(), expected_head.state_dict())
++    assert exact(bb.backend.state_dict(), expected_bb.backend.state_dict())
++    assert exact(optimizer.state_dict(), expected_optimizer.state_dict())

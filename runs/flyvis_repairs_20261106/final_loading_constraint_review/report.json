@@ -1,0 +1,35 @@
+{
+  "reviewer": "/root/motion_fix",
+  "conclusion": "PASS within the declared bounds",
+  "material_findings": [],
+  "source_sha256": {
+    "tracking/flyvis_checkpoint.py": "0280e2ef363f85a2a9455fcd2a2a8148e23daf2bf3d1c394eb6c93cff07fd30e",
+    "tracking/flyvis_connectome_swap.py": "de6a52ba397f7464ec6f75aa8a9c7cbd03456ecf14ccb51742d235e42b93fa32"
+  },
+  "protected_weights_and_config_hashes_independently_verified": 101,
+  "independently_recomputed_negative_strength_activity_difference": 0.14348597824573517,
+  "independently_recomputed_overflow_nonfinite_activity_elements": 61531,
+  "saved_stock_activity_exact": true,
+  "saved_transfer_activity_exact": true,
+  "source_review": {
+    "mutation_order": "All source/state/domain checks precede live load_state_dict and copy_; mapped transfer tensors are staged first.",
+    "declared_clamp": "None, non_negative and explicit two-element bounds match runtime Network.clamp. No new tau bound is inferred.",
+    "shallow_copy": "Official InitialDistribution/Value/Normal/Lognormal are plain Python objects; semantic_values reads only raw_values, replaced on the copy with a detached clone. The original parameter object/storage is untouched.",
+    "fixed_connectome": "Complete destination state supplies fixed sign/count to validation without copying source fixed connectivity.",
+    "numpy_optimizer_guard": "Read-only inspection of the three-line numeric NumPy branch found no mutation or finite-path numerical change; nonnumeric object/string arrays and full Adam type validation are outside its claim."
+  },
+  "limitations": [
+    "Independent check recomputed stored arrays and hashes; no new 50-model simulation was run.",
+    "Finite semantic values can still overflow later products; the new guard does not prove global dynamical stability.",
+    "Shallow-copy reasoning covers the installed official distributions, not arbitrary custom getters with side effects.",
+    "No training, scientific quality metric, GPU initialization or production edit was performed by this review."
+  ],
+  "evidence_sha256": {
+    "report.json": "2b1395abdd404a449274f105d4eb4870aca97994c12b62f6ee61fe4b59466cfe",
+    "after_report.json": "8044273b9a54fd2eefff23d8b2f1e624defeeaea6af04a781091875efaf520cb",
+    "outputs.npz": "8cfbcc891cbb5303c0e818c2b4e4a7e80fc0f664d739afd9ca45ebe389f895c6",
+    "after_outputs.npz": "833023c15899ff256d907bba811c59fb172a1d091eccff440d6d17f16e4adc4e",
+    "verify_after.py": "cf85176377277f32f0baa7e0faf86f0dc2f2c6e03c1e2cd4ec28654880cc32d7"
+  },
+  "review_script_sha256": "0729bff787e7f2417e361b6932bf32efde061e1e204f4f7904e77b2999053d70"
+}

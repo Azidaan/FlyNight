@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
+from copy import copy
 from pathlib import Path
 from typing import Any
 
@@ -34,6 +35,7 @@ def validate_state(module, state: Mapping[str, Any], label: str) -> None:
     if not isinstance(state, Mapping):
         raise ValueError(f"{label}: ожидается словарь параметров")
     expected = module.state_dict()
+    converted_state = {}
     missing, extra = set(expected) - set(state), set(state) - set(expected)
     if missing or extra:
         raise ValueError(f"{label}: missing={sorted(missing)}, unexpected={sorted(extra)}")
@@ -55,6 +57,41 @@ def validate_state(module, state: Mapping[str, Any], label: str) -> None:
         if not target.is_floating_point() and not target.is_complex():
             if not torch.equal(value.detach().cpu(), converted.to(dtype=value.dtype)):
                 raise ValueError(f"{label}.{key}: потеря значения при приведении к {target.dtype}")
+        converted_state[key] = converted
+    validate_parameter_domains(module, converted_state, label)
+
+
+def validate_parameter_domains(module, state: Mapping[str, Any], label: str) -> None:
+    """Проверить ограничения FlyVis и результат преобразования raw-параметров.
+
+    Проверка не вызывает Network.clamp: тот пропускает замороженные параметры.
+    Копия распределения получает отдельный тензор, исходные веса не изменяются.
+    Модули без API параметров FlyVis сохраняют обычный контракт state_dict.
+    """
+    import torch
+
+    if not hasattr(module, "clamp_config"):
+        return
+    for route, attribute in (("nodes", "node_params"), ("edges", "edge_params")):
+        for field, parameter in getattr(module, attribute).items():
+            key = f"{route}_{field}"
+            value = state[key].detach().cpu()
+            mode = module.clamp_config[key]
+            if mode is None:
+                projected = value
+            elif isinstance(mode, str) and mode == "non_negative":
+                projected = value.clamp(min=0)
+            elif isinstance(mode, (tuple, list)) and len(mode) == 2:
+                projected = value.clamp(min=mode[0], max=mode[1])
+            else:
+                raise ValueError(f"{label}.{key}: неподдерживаемое ограничение {mode!r}")
+            if not torch.equal(value, projected):
+                raise ValueError(f"{label}.{key}: нарушено объявленное ограничение {mode!r}")
+            distribution = copy(parameter.parameter)
+            distribution.raw_values = value.clone()
+            semantic = distribution.semantic_values
+            if not isinstance(semantic, torch.Tensor) or not bool(torch.isfinite(semantic).all()):
+                raise ValueError(f"{label}.{key}: semantic_values содержат NaN или Inf")
 
 
 def load_checkpoint_modules(network, decoders, source):

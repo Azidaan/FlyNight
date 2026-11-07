@@ -1,0 +1,37 @@
+[
+  {
+    "type": "float16",
+    "repr": "np.float16(nan)",
+    "restore_error": null,
+    "step_error": null,
+    "all_parameters_finite": false
+  },
+  {
+    "type": "ndarray",
+    "repr": "array(        nan)",
+    "restore_error": null,
+    "step_error": null,
+    "all_parameters_finite": false
+  },
+  {
+    "type": "ndarray",
+    "repr": "array([        nan])",
+    "restore_error": null,
+    "step_error": "TypeError: addcdiv_(): argument 'value' must be Number, not numpy.ndarray",
+    "all_parameters_finite": true
+  },
+  {
+    "type": "complex64",
+    "repr": "np.complex64(nan+0j)",
+    "restore_error": null,
+    "step_error": null,
+    "all_parameters_finite": false
+  },
+  {
+    "type": "float32",
+    "repr": "np.float32(0.001)",
+    "restore_error": null,
+    "step_error": null,
+    "all_parameters_finite": true
+  }
+]

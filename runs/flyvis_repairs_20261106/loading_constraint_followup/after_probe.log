@@ -1,0 +1,48 @@
+[2026-11-06 22:31:42] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-11-06 22:31:42] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-11-06 22:31:48] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-11-06 22:31:51] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-11-06 22:31:51] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+[2026-11-06 22:31:58] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+{
+  "device": "cpu",
+  "cuda_initialized": false,
+  "stock_count": 50,
+  "stock_activity_exact_before_after": true,
+  "old_new_transfer_state_exact": true,
+  "old_new_transfer_activity_exact": true,
+  "rejected": [
+    {
+      "key": "edges_syn_strength",
+      "rejected": true,
+      "error": "network.edges_syn_strength: нарушено объявленное ограничение 'non_negative'"
+    },
+    {
+      "key": "edges_syn_count",
+      "rejected": true,
+      "error": "network.edges_syn_count: semantic_values содержат NaN или Inf"
+    }
+  ],
+  "transfer_rejection": "transfer.edges_syn_strength: нарушено объявленное ограничение 'non_negative'",
+  "source_destination_and_payload_unchanged": true,
+  "protected_files_unchanged": true,
+  "source_sha256": {
+    "tracking\\flyvis_checkpoint.py": "0280e2ef363f85a2a9455fcd2a2a8148e23daf2bf3d1c394eb6c93cff07fd30e",
+    "tracking\\flyvis_connectome_swap.py": "de6a52ba397f7464ec6f75aa8a9c7cbd03456ecf14ccb51742d235e42b93fa32",
+    "tests\\test_flyvis_checkpoint_strict.py": "8d758997481488bfbf361ead0f4814f525e0ae1b698af0fca1ef36ff5408980a",
+    "tests\\test_flyvis_connectome_transfer.py": "0eef4e2c9da8912049317cf3ca1138ba72ce49c09eaafdf9a8d4feea32727b21"
+  },
+  "probe_sha256": "cf85176377277f32f0baa7e0faf86f0dc2f2c6e03c1e2cd4ec28654880cc32d7",
+  "limitations": "Three synthetic integration steps, no HOTA or training. Independent multiplication of individually finite semantic values can still overflow; no unproved scientific domain constraints added."
+}

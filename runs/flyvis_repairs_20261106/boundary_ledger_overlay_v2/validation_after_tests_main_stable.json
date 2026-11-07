@@ -1,0 +1,19 @@
+{
+  "mode": "tests",
+  "stage": "after",
+  "exit_code": 0,
+  "read_redirections": {
+    "dissertation\\ЕДИНЫЙ_ПЛАН.md": 4,
+    "experiments\\project_history.json": 2,
+    "experiments\\metrics_glossary.json": 2
+  },
+  "production_ledger_and_glossary_unchanged": true,
+  "publication_candidates_unchanged": true,
+  "concurrent_working_ledger_changes": [],
+  "input_sha256": {
+    "dissertation\\ЕДИНЫЙ_ПЛАН.md": "3ef82a9f5fef05bedb21cb029392573a3fb96f78553167452bcf8a3ecaaa6934",
+    "experiments\\project_history.json": "9dde4622cc046f823723635bb8d5a977e536e7a2660e2e908a558199173f2376",
+    "experiments\\metrics_glossary.json": "8fdc5e7ab0120104facdb95ecc1107279c6b7988091db31fee4e13ad36327540"
+  },
+  "boundary": "Only reads of the prepared ledger and HEAD glossary are redirected in this process; actual local artifacts and read-only Git supply evidence. No on-disk production replacement or staging."
+}

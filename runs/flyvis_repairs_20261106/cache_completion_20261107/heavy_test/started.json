@@ -1,0 +1,16 @@
+{
+  "command": [
+    ".venv/Scripts/python.exe",
+    "-u",
+    "-m",
+    "pytest",
+    "tests/test_project_history.py::test_r16_14_cache_invalidated_by_fingerprint",
+    "-vv",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "hard_job_memory_bytes": 536870912,
+  "current_process_assigned_before_spawn": true,
+  "child_inherits_job": true,
+  "completed": false
+}

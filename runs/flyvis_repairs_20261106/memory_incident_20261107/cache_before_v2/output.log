@@ -1,0 +1,19 @@
+F.                                                                       [100%]
+================================== FAILURES ===================================
+_______ test_disk_cache_excludes_transient_paths_and_preserves_history ________
+
+tmp_path = WindowsPath('E:/Dissertation/runs/flyvis_repairs_20261106/memory_incident_20261107/cache_before_v2/pytest_temp/test_disk_cache_excludes_trans0')
+
+    def test_disk_cache_excludes_transient_paths_and_preserves_history(tmp_path):
+        idx = fixture()
+        before = deepcopy(idx.to_dict())
+        path = tmp_path/'index.json'
+        module._write_cache(idx, path)
+        raw = path.read_bytes()
+>       assert b'runs/temporary/' not in raw
+E       assert b'runs/temporary/' not in b'{"built_at": "", "fingerprint": {}, "from_cache": false, "version": 3, "areas": [], "experiments": [], "commits": []...: 0, "events": 2, "by_kind": {"manual": 1, "uncommitted": 1}, "events_without_commit": 0, "artifacts": 0, "areas": 0}}'
+
+tests\test_project_history_cache_transient.py:24: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_project_history_cache_transient.py::test_disk_cache_excludes_transient_paths_and_preserves_history
+1 failed, 1 passed in 0.46s

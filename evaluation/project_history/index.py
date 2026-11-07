@@ -63,13 +63,21 @@ class Index:
             'areas': [a.to_dict() for a in self.areas],
             'experiments': [e.to_dict() for e in self.experiments],
             'commits': [c.to_dict() for c in self.commits],
-            'timeline': [t.to_dict() for t in self.timeline],
+            'timeline': [t.to_dict() for t in self.timeline
+                         if with_working_tree or t.kind != 'uncommitted'],
             'plan': self.plan, 'artifacts': self.artifacts,
             'glossary': self.glossary, 'remote_refs': self.remote_refs,
             'warnings': self.warnings, 'errors': self.errors, 'stats': self.stats,
         }
         if with_working_tree:
             d['working_tree'] = self.working_tree
+        else:
+            d['stats'] = dict(self.stats)
+            if 'events' in d['stats']:
+                d['stats']['events'] = len(d['timeline'])
+            if 'by_kind' in d['stats']:
+                d['stats']['by_kind'] = {kind: count for kind, count in d['stats']['by_kind'].items()
+                                       if kind != 'uncommitted'}
         return d
 
 

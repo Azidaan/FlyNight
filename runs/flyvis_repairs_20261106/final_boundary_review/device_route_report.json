@@ -1,0 +1,33 @@
+{
+  "source_sha256": "2511260bdd8f304284e9d365d4693d0a31db6651d6b67dadbf37e121033d5653",
+  "argv": [
+    "run_bdd_video_rate_experiment",
+    "--device",
+    "cpu",
+    "--motion-only",
+    "--motion-sources",
+    "flyvis_full",
+    "--output",
+    "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\final_boundary_review\\device_route\\output"
+  ],
+  "detector_requested_device": "cpu",
+  "motion_factory_calls": [
+    {
+      "args": [
+        "flyvis_full",
+        5.0,
+        0.02
+      ],
+      "kwargs": {
+        "geometry_version": "legacy_v1"
+      }
+    }
+  ],
+  "motion_factory_effective_device_default": null,
+  "public_geometry_default": "legacy_v1",
+  "public_gain_default": null,
+  "public_resolved_legacy_gain": 102.59663505027247,
+  "implicit_research_gain_rejected": true,
+  "cuda_initialized": false,
+  "scope": "No runtime activation; detection/alignment I/O mocked. Actual parse/main/build_motion_cache route traced. Device option scope needs owner decision."
+}

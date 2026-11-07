@@ -1,0 +1,138 @@
+....................FF....FF.....FF                                      [100%]
+================================== FAILURES ===================================
+_ test_invalid_parameter_domain_rejected_before_any_write[edges_syn_strength--0.1-\u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u0438\u0435] _
+
+key = 'edges_syn_strength', value = -0.1, match = 'ограничение'
+
+    @pytest.mark.parametrize('key,value,match', [
+        ('edges_syn_strength', -.1, 'ограничение'),
+        ('edges_syn_count', 1000., 'semantic_values'),
+    ])
+    def test_invalid_parameter_domain_rejected_before_any_write(key, value, match):
+        network, decoders = _domain_network(), modules()[1]
+        source = payload(network, decoders)
+        source['network']['nodes_bias'] += 4
+        source['network'][key][0] = value
+        before, original = deepcopy(network.state_dict()), deepcopy(source)
+        storages = {name: parameter.data_ptr() for name, parameter in network.named_parameters()}
+        decoder_before = deepcopy(decoders['flow'].state_dict())
+>       with pytest.raises(ValueError, match=match):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_checkpoint_strict.py:152: Failed
+_ test_invalid_parameter_domain_rejected_before_any_write[edges_syn_count-1000.0-semantic_values] _
+
+key = 'edges_syn_count', value = 1000.0, match = 'semantic_values'
+
+    @pytest.mark.parametrize('key,value,match', [
+        ('edges_syn_strength', -.1, 'ограничение'),
+        ('edges_syn_count', 1000., 'semantic_values'),
+    ])
+    def test_invalid_parameter_domain_rejected_before_any_write(key, value, match):
+        network, decoders = _domain_network(), modules()[1]
+        source = payload(network, decoders)
+        source['network']['nodes_bias'] += 4
+        source['network'][key][0] = value
+        before, original = deepcopy(network.state_dict()), deepcopy(source)
+        storages = {name: parameter.data_ptr() for name, parameter in network.named_parameters()}
+        decoder_before = deepcopy(decoders['flow'].state_dict())
+>       with pytest.raises(ValueError, match=match):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_checkpoint_strict.py:152: Failed
+____ test_only_declared_supported_bounds_are_applied[mode3-values3-False] _____
+
+mode = (0.0, 1.0), values = [-0.1, 1.0], accepted = False
+
+    @pytest.mark.parametrize('mode,values,accepted', [
+        ((0., 1.), [0., 1.], True),
+        ([None, 1.], [-2., 1.], True),
+        ([0., None], [0., 2.], True),
+        ((0., 1.), [-.1, 1.], False),
+        ('unknown', [0., 1.], False),
+    ])
+    def test_only_declared_supported_bounds_are_applied(mode, values, accepted):
+        from tracking.flyvis_checkpoint import validate_state
+        network = _domain_network()
+        network.clamp_config['nodes_bias'] = mode
+        state = deepcopy(network.state_dict())
+        state['nodes_bias'] = torch.tensor(values, device='cpu')
+        if accepted:
+            validate_state(network, state, 'network')
+        else:
+>           with pytest.raises(ValueError):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_checkpoint_strict.py:192: Failed
+___ test_only_declared_supported_bounds_are_applied[unknown-values4-False] ____
+
+mode = 'unknown', values = [0.0, 1.0], accepted = False
+
+    @pytest.mark.parametrize('mode,values,accepted', [
+        ((0., 1.), [0., 1.], True),
+        ([None, 1.], [-2., 1.], True),
+        ([0., None], [0., 2.], True),
+        ((0., 1.), [-.1, 1.], False),
+        ('unknown', [0., 1.], False),
+    ])
+    def test_only_declared_supported_bounds_are_applied(mode, values, accepted):
+        from tracking.flyvis_checkpoint import validate_state
+        network = _domain_network()
+        network.clamp_config['nodes_bias'] = mode
+        state = deepcopy(network.state_dict())
+        state['nodes_bias'] = torch.tensor(values, device='cpu')
+        if accepted:
+            validate_state(network, state, 'network')
+        else:
+>           with pytest.raises(ValueError):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_checkpoint_strict.py:192: Failed
+_ test_transfer_domain_failure_precedes_all_parameter_copies[negative_strength] _
+
+fault = 'negative_strength'
+
+    @pytest.mark.parametrize('fault', ['negative_strength', 'semantic_overflow'])
+    def test_transfer_domain_failure_precedes_all_parameter_copies(fault):
+        from tests.test_flyvis_checkpoint_strict import _domain_network
+        source, target = _domain_network(), _domain_network()
+        with torch.no_grad():
+            source.nodes_bias.add_(5)
+            if fault == 'negative_strength':
+                source.edges_syn_strength[0] = -.1
+            else:
+                target.edges_syn_count[0] = 1000.
+        source_before, before = deepcopy(source.state_dict()), deepcopy(target.state_dict())
+        pointers = {name: value.data_ptr() for name, value in target.state_dict().items()}
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_connectome_transfer.py:66: Failed
+_ test_transfer_domain_failure_precedes_all_parameter_copies[semantic_overflow] _
+
+fault = 'semantic_overflow'
+
+    @pytest.mark.parametrize('fault', ['negative_strength', 'semantic_overflow'])
+    def test_transfer_domain_failure_precedes_all_parameter_copies(fault):
+        from tests.test_flyvis_checkpoint_strict import _domain_network
+        source, target = _domain_network(), _domain_network()
+        with torch.no_grad():
+            source.nodes_bias.add_(5)
+            if fault == 'negative_strength':
+                source.edges_syn_strength[0] = -.1
+            else:
+                target.edges_syn_count[0] = 1000.
+        source_before, before = deepcopy(source.state_dict()), deepcopy(target.state_dict())
+        pointers = {name: value.data_ptr() for name, value in target.state_dict().items()}
+>       with pytest.raises(ValueError):
+E       Failed: DID NOT RAISE ValueError
+
+tests\test_flyvis_connectome_transfer.py:66: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_flyvis_checkpoint_strict.py::test_invalid_parameter_domain_rejected_before_any_write[edges_syn_strength--0.1-\u043e\u0433\u0440\u0430\u043d\u0438\u0447\u0435\u043d\u0438\u0435]
+FAILED tests/test_flyvis_checkpoint_strict.py::test_invalid_parameter_domain_rejected_before_any_write[edges_syn_count-1000.0-semantic_values]
+FAILED tests/test_flyvis_checkpoint_strict.py::test_only_declared_supported_bounds_are_applied[mode3-values3-False]
+FAILED tests/test_flyvis_checkpoint_strict.py::test_only_declared_supported_bounds_are_applied[unknown-values4-False]
+FAILED tests/test_flyvis_connectome_transfer.py::test_transfer_domain_failure_precedes_all_parameter_copies[negative_strength]
+FAILED tests/test_flyvis_connectome_transfer.py::test_transfer_domain_failure_precedes_all_parameter_copies[semantic_overflow]
+6 failed, 29 passed in 3.74s

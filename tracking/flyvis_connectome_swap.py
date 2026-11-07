@@ -96,8 +96,10 @@ def transfer_free_parameters(destination, source) -> None:
     до первой записи, закреплённые знак и число синапсов не изменяются.
     """
     import torch
+    from tracking.flyvis_checkpoint import validate_parameter_domains
 
     copies = []
+    candidate = {}
     for name in FREE:
         dst, src = getattr(destination, name), getattr(source, name)
         route, field = name.split("_", 1)
@@ -116,6 +118,13 @@ def transfer_free_parameters(destination, source) -> None:
         if not bool(torch.isfinite(mapped).all()):
             raise ValueError(f"{name}: нечисловые параметры при переносе")
         copies.append((dst, mapped))
+        candidate[name] = mapped
+    # Include fixed destination parameters: they retain the new connectome's
+    # values, but must also remain finite after their semantic transformation.
+    if hasattr(destination, "clamp_config"):
+        complete = dict(destination.state_dict())
+        complete.update(candidate)
+        validate_parameter_domains(destination, complete, "transfer")
     with torch.no_grad():
         for dst, mapped in copies:
             dst.copy_(mapped)

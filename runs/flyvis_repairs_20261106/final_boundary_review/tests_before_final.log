@@ -1,0 +1,365 @@
+F.FFFFFFF.FFF..FF                                                        [100%]
+================================== FAILURES ===================================
+_________ test_new_cache_records_resolved_video_path_and_content_hash _________
+
+inputs = (WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_new_cache_records_resolve0/right.avi'), ...vi'), WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_new_cache_records_resolve0/motion'))
+
+    def test_new_cache_records_resolved_video_path_and_content_hash(inputs):
+        right, _, output = inputs
+        result = build(right, output)
+>       assert result["video_identity"] == {"video_path": str(right.resolve()), "video_sha256": script.sha256(right)}
+E       KeyError: 'video_identity'
+
+tests\test_motion_cache_video_identity.py:40: KeyError
+__ test_changed_video_is_rejected_before_model_or_writes[False-other_video] ___
+
+inputs = (WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_changed_video_is_rejected0/right.avi'), ...vi'), WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_changed_video_is_rejected0/motion'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025B836734C0>
+change = 'other_video', force = False
+
+    @pytest.mark.parametrize("change", ["other_video", "same_path", "same_bytes_other_path"])
+    @pytest.mark.parametrize("force", [False, True])
+    def test_changed_video_is_rejected_before_model_or_writes(inputs, monkeypatch, change, force):
+        right, left, output = inputs
+        build(right, output)
+        before = saved(output)
+        if change == "same_path":
+            right.write_bytes(left.read_bytes())
+            requested = right
+        elif change == "same_bytes_other_path":
+            left.write_bytes(right.read_bytes())
+            requested = left
+        else:
+            requested = left
+        monkeypatch.setattr(script, "make_motion_estimator", lambda *a, **kw: pytest.fail("mismatched cache constructed a model"))
+>       with pytest.raises(RuntimeError, match="видео"):
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\test_motion_cache_video_identity.py:68: Failed
+---------------------------- Captured stdout call -----------------------------
+[CACHE] движение farneback: C:\Users\Егор\AppData\Local\Temp\pytest-of-Егор\pytest-646\test_changed_video_is_rejected0\motion\farneback.npz
+___ test_changed_video_is_rejected_before_model_or_writes[False-same_path] ____
+
+inputs = (WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_changed_video_is_rejected1/right.avi'), ...vi'), WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_changed_video_is_rejected1/motion'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025B8367E410>
+change = 'same_path', force = False
+
+    @pytest.mark.parametrize("change", ["other_video", "same_path", "same_bytes_other_path"])
+    @pytest.mark.parametrize("force", [False, True])
+    def test_changed_video_is_rejected_before_model_or_writes(inputs, monkeypatch, change, force):
+        right, left, output = inputs
+        build(right, output)
+        before = saved(output)
+        if change == "same_path":
+            right.write_bytes(left.read_bytes())
+            requested = right
+        elif change == "same_bytes_other_path":
+            left.write_bytes(right.read_bytes())
+            requested = left
+        else:
+            requested = left
+        monkeypatch.setattr(script, "make_motion_estimator", lambda *a, **kw: pytest.fail("mismatched cache constructed a model"))
+>       with pytest.raises(RuntimeError, match="видео"):
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\test_motion_cache_video_identity.py:68: Failed
+---------------------------- Captured stdout call -----------------------------
+[CACHE] движение farneback: C:\Users\Егор\AppData\Local\Temp\pytest-of-Егор\pytest-646\test_changed_video_is_rejected1\motion\farneback.npz
+_ test_changed_video_is_rejected_before_model_or_writes[False-same_bytes_other_path] _
+
+inputs = (WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_changed_video_is_rejected2/right.avi'), ...vi'), WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_changed_video_is_rejected2/motion'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025B83677910>
+change = 'same_bytes_other_path', force = False
+
+    @pytest.mark.parametrize("change", ["other_video", "same_path", "same_bytes_other_path"])
+    @pytest.mark.parametrize("force", [False, True])
+    def test_changed_video_is_rejected_before_model_or_writes(inputs, monkeypatch, change, force):
+        right, left, output = inputs
+        build(right, output)
+        before = saved(output)
+        if change == "same_path":
+            right.write_bytes(left.read_bytes())
+            requested = right
+        elif change == "same_bytes_other_path":
+            left.write_bytes(right.read_bytes())
+            requested = left
+        else:
+            requested = left
+        monkeypatch.setattr(script, "make_motion_estimator", lambda *a, **kw: pytest.fail("mismatched cache constructed a model"))
+>       with pytest.raises(RuntimeError, match="видео"):
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\test_motion_cache_video_identity.py:68: Failed
+---------------------------- Captured stdout call -----------------------------
+[CACHE] движение farneback: C:\Users\Егор\AppData\Local\Temp\pytest-of-Егор\pytest-646\test_changed_video_is_rejected2\motion\farneback.npz
+___ test_changed_video_is_rejected_before_model_or_writes[True-other_video] ___
+
+inputs = (WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_changed_video_is_rejected3/right.avi'), ...vi'), WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_changed_video_is_rejected3/motion'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025B8366E470>
+change = 'other_video', force = True
+
+    @pytest.mark.parametrize("change", ["other_video", "same_path", "same_bytes_other_path"])
+    @pytest.mark.parametrize("force", [False, True])
+    def test_changed_video_is_rejected_before_model_or_writes(inputs, monkeypatch, change, force):
+        right, left, output = inputs
+        build(right, output)
+        before = saved(output)
+        if change == "same_path":
+            right.write_bytes(left.read_bytes())
+            requested = right
+        elif change == "same_bytes_other_path":
+            left.write_bytes(right.read_bytes())
+            requested = left
+        else:
+            requested = left
+        monkeypatch.setattr(script, "make_motion_estimator", lambda *a, **kw: pytest.fail("mismatched cache constructed a model"))
+        with pytest.raises(RuntimeError, match="видео"):
+>           build(requested, output, force=force)
+
+tests\test_motion_cache_video_identity.py:69: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_motion_cache_video_identity.py:30: in build
+    return script.build_motion_cache("farneback", video, output, fps=5., max_dt=.02, force=force)
+runs\flyvis_repairs_20261106\final_boundary_review\baseline\run_bdd_video_rate_experiment.py:400: in build_motion_cache
+    estimator = make_motion_estimator(source, fps, max_dt, geometry_version=geometry_version)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+a = ('farneback', 5.0, 0.02), kw = {'geometry_version': 'legacy_v1'}
+
+>   monkeypatch.setattr(script, "make_motion_estimator", lambda *a, **kw: pytest.fail("mismatched cache constructed a model"))
+E   Failed: mismatched cache constructed a model
+
+tests\test_motion_cache_video_identity.py:67: Failed
+____ test_changed_video_is_rejected_before_model_or_writes[True-same_path] ____
+
+inputs = (WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_changed_video_is_rejected4/right.avi'), ...vi'), WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_changed_video_is_rejected4/motion'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025B836715D0>
+change = 'same_path', force = True
+
+    @pytest.mark.parametrize("change", ["other_video", "same_path", "same_bytes_other_path"])
+    @pytest.mark.parametrize("force", [False, True])
+    def test_changed_video_is_rejected_before_model_or_writes(inputs, monkeypatch, change, force):
+        right, left, output = inputs
+        build(right, output)
+        before = saved(output)
+        if change == "same_path":
+            right.write_bytes(left.read_bytes())
+            requested = right
+        elif change == "same_bytes_other_path":
+            left.write_bytes(right.read_bytes())
+            requested = left
+        else:
+            requested = left
+        monkeypatch.setattr(script, "make_motion_estimator", lambda *a, **kw: pytest.fail("mismatched cache constructed a model"))
+        with pytest.raises(RuntimeError, match="видео"):
+>           build(requested, output, force=force)
+
+tests\test_motion_cache_video_identity.py:69: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_motion_cache_video_identity.py:30: in build
+    return script.build_motion_cache("farneback", video, output, fps=5., max_dt=.02, force=force)
+runs\flyvis_repairs_20261106\final_boundary_review\baseline\run_bdd_video_rate_experiment.py:400: in build_motion_cache
+    estimator = make_motion_estimator(source, fps, max_dt, geometry_version=geometry_version)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+a = ('farneback', 5.0, 0.02), kw = {'geometry_version': 'legacy_v1'}
+
+>   monkeypatch.setattr(script, "make_motion_estimator", lambda *a, **kw: pytest.fail("mismatched cache constructed a model"))
+E   Failed: mismatched cache constructed a model
+
+tests\test_motion_cache_video_identity.py:67: Failed
+_ test_changed_video_is_rejected_before_model_or_writes[True-same_bytes_other_path] _
+
+inputs = (WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_changed_video_is_rejected5/right.avi'), ...vi'), WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_changed_video_is_rejected5/motion'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025B835E5C00>
+change = 'same_bytes_other_path', force = True
+
+    @pytest.mark.parametrize("change", ["other_video", "same_path", "same_bytes_other_path"])
+    @pytest.mark.parametrize("force", [False, True])
+    def test_changed_video_is_rejected_before_model_or_writes(inputs, monkeypatch, change, force):
+        right, left, output = inputs
+        build(right, output)
+        before = saved(output)
+        if change == "same_path":
+            right.write_bytes(left.read_bytes())
+            requested = right
+        elif change == "same_bytes_other_path":
+            left.write_bytes(right.read_bytes())
+            requested = left
+        else:
+            requested = left
+        monkeypatch.setattr(script, "make_motion_estimator", lambda *a, **kw: pytest.fail("mismatched cache constructed a model"))
+        with pytest.raises(RuntimeError, match="видео"):
+>           build(requested, output, force=force)
+
+tests\test_motion_cache_video_identity.py:69: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_motion_cache_video_identity.py:30: in build
+    return script.build_motion_cache("farneback", video, output, fps=5., max_dt=.02, force=force)
+runs\flyvis_repairs_20261106\final_boundary_review\baseline\run_bdd_video_rate_experiment.py:400: in build_motion_cache
+    estimator = make_motion_estimator(source, fps, max_dt, geometry_version=geometry_version)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+a = ('farneback', 5.0, 0.02), kw = {'geometry_version': 'legacy_v1'}
+
+>   monkeypatch.setattr(script, "make_motion_estimator", lambda *a, **kw: pytest.fail("mismatched cache constructed a model"))
+E   Failed: mismatched cache constructed a model
+
+tests\test_motion_cache_video_identity.py:67: Failed
+___ test_explicit_force_rebuilds_same_video_and_matches_fresh_native_result ___
+
+inputs = (WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_explicit_force_rebuilds_s0/right.avi'), ...vi'), WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_explicit_force_rebuilds_s0/motion'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025B83674D90>
+
+    def test_explicit_force_rebuilds_same_video_and_matches_fresh_native_result(inputs, monkeypatch):
+        right, _, output = inputs
+        build(right, output)
+        calls = []
+        original_factory = script.make_motion_estimator
+        def counted(*args, **kwargs):
+            calls.append(kwargs)
+            return original_factory(*args, **kwargs)
+        monkeypatch.setattr(script, "make_motion_estimator", counted)
+        changed = build(right, output, force=True)
+        assert len(calls) == 1
+        build(right, output.parent / "fresh")
+        actual = script.load_motion_cache(output / "farneback.npz", 1.)
+        expected = script.load_motion_cache(output.parent / "fresh/farneback.npz", 1.)
+>       assert changed["video_identity"]["video_sha256"] == script.sha256(right)
+E       KeyError: 'video_identity'
+
+tests\test_motion_cache_video_identity.py:87: KeyError
+____ test_source_change_during_forced_build_is_rejected_before_publishing _____
+
+inputs = (WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_source_change_during_forc0/right.avi'), ...vi'), WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_source_change_during_forc0/motion'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025B839AF640>
+
+    def test_source_change_during_forced_build_is_rejected_before_publishing(inputs, monkeypatch):
+        right, left, output = inputs
+        build(right, output)
+        before = saved(output)
+        original_factory = script.make_motion_estimator
+        def change_after_identity(*args, **kwargs):
+            right.write_bytes(left.read_bytes())
+            return original_factory(*args, **kwargs)
+        monkeypatch.setattr(script, "make_motion_estimator", change_after_identity)
+>       with pytest.raises(RuntimeError, match="видео"):
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\test_motion_cache_video_identity.py:113: Failed
+_____________ test_hash_read_failure_preserves_previous_cache[1] ______________
+
+inputs = (WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_hash_read_failure_preserv0/right.avi'), ...vi'), WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_hash_read_failure_preserv0/motion'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025B836747C0>
+failed_call = 1
+
+    @pytest.mark.parametrize("failed_call", [1, 2])
+    def test_hash_read_failure_preserves_previous_cache(inputs, monkeypatch, failed_call):
+        right, _, output = inputs
+        build(right, output)
+        before = saved(output)
+        original_sha = script.sha256
+        calls = 0
+        def fail_read(path):
+            nonlocal calls
+            calls += 1
+            if calls == failed_call:
+                raise OSError("video hash read failed")
+            return original_sha(path)
+        monkeypatch.setattr(script, "sha256", fail_read)
+>       with pytest.raises(OSError, match="hash read failed"):
+E       Failed: DID NOT RAISE OSError
+
+tests\test_motion_cache_video_identity.py:132: Failed
+_____________ test_hash_read_failure_preserves_previous_cache[2] ______________
+
+inputs = (WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_hash_read_failure_preserv1/right.avi'), ...vi'), WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_hash_read_failure_preserv1/motion'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025B83671150>
+failed_call = 2
+
+    @pytest.mark.parametrize("failed_call", [1, 2])
+    def test_hash_read_failure_preserves_previous_cache(inputs, monkeypatch, failed_call):
+        right, _, output = inputs
+        build(right, output)
+        before = saved(output)
+        original_sha = script.sha256
+        calls = 0
+        def fail_read(path):
+            nonlocal calls
+            calls += 1
+            if calls == failed_call:
+                raise OSError("video hash read failed")
+            return original_sha(path)
+        monkeypatch.setattr(script, "sha256", fail_read)
+>       with pytest.raises(OSError, match="hash read failed"):
+E       Failed: DID NOT RAISE OSError
+
+tests\test_motion_cache_video_identity.py:132: Failed
+____ test_builder_forwards_explicit_device_and_preserves_old_default[cpu] _____
+
+inputs = (WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_builder_forwards_explicit1/right.avi'), ...vi'), WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_builder_forwards_explicit1/motion'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025B83675AB0>
+device = 'cpu'
+
+    @pytest.mark.parametrize("device", [None, "cpu"])
+    def test_builder_forwards_explicit_device_and_preserves_old_default(inputs, monkeypatch, device):
+        right, _, output = inputs
+        calls = []
+        class BoundaryReached(Exception):
+            pass
+        def factory(*args, **kwargs):
+            calls.append(kwargs)
+            raise BoundaryReached
+        monkeypatch.setattr(script, "make_motion_estimator", factory)
+        options = {} if device is None else {"device": device}
+        with pytest.raises(BoundaryReached):
+>           script.build_motion_cache("flyvis_full", right, output, fps=5., max_dt=.02, force=False, **options)
+E           TypeError: build_motion_cache() got an unexpected keyword argument 'device'
+
+tests\test_motion_cache_video_identity.py:159: TypeError
+_________________ test_real_cli_routes_cpu_to_motion_factory __________________
+
+inputs = (WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_real_cli_routes_cpu_to_mo0/right.avi'), ...vi'), WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-646/test_real_cli_routes_cpu_to_mo0/motion'))
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000025B83671210>
+
+    def test_real_cli_routes_cpu_to_motion_factory(inputs, monkeypatch):
+        import sys
+        right, _, output = inputs
+        truth = output.parent / "truth.json"
+        truth.write_text('[{"name":"f.jpg"}]', encoding="utf-8")
+        monkeypatch.setattr(sys, "argv", ["video_rate", "--device", "cpu", "--motion-only",
+                                         "--motion-sources", "flyvis_full", "--output", str(output)])
+        monkeypatch.setattr(script, "resolve_paths", lambda args: (right, truth, []))
+        monkeypatch.setattr(script, "build_alignment", lambda *a, **kw: ([{}], {"fps": 5., "decoded_frame_count": 4}))
+        monkeypatch.setattr(script, "build_detection_cache", lambda *a, **kw: {})
+        monkeypatch.setattr(script, "load_detection_cache", lambda *a: {"frame_count": 4})
+        calls = []
+        class BoundaryReached(Exception):
+            pass
+        def factory(*args, **kwargs):
+            calls.append(kwargs)
+            raise BoundaryReached
+        monkeypatch.setattr(script, "make_motion_estimator", factory)
+        with pytest.raises(BoundaryReached):
+            script.main()
+>       assert calls[0].get("device") == "cpu"
+E       AssertionError: assert None == 'cpu'
+E        +  where None = <built-in method get of dict object at 0x0000025B834F7680>('device')
+E        +    where <built-in method get of dict object at 0x0000025B834F7680> = {'geometry_version': 'legacy_v1'}.get
+
+tests\test_motion_cache_video_identity.py:183: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_motion_cache_video_identity.py::test_new_cache_records_resolved_video_path_and_content_hash
+FAILED tests/test_motion_cache_video_identity.py::test_changed_video_is_rejected_before_model_or_writes[False-other_video]
+FAILED tests/test_motion_cache_video_identity.py::test_changed_video_is_rejected_before_model_or_writes[False-same_path]
+FAILED tests/test_motion_cache_video_identity.py::test_changed_video_is_rejected_before_model_or_writes[False-same_bytes_other_path]
+FAILED tests/test_motion_cache_video_identity.py::test_changed_video_is_rejected_before_model_or_writes[True-other_video]
+FAILED tests/test_motion_cache_video_identity.py::test_changed_video_is_rejected_before_model_or_writes[True-same_path]
+FAILED tests/test_motion_cache_video_identity.py::test_changed_video_is_rejected_before_model_or_writes[True-same_bytes_other_path]
+FAILED tests/test_motion_cache_video_identity.py::test_explicit_force_rebuilds_same_video_and_matches_fresh_native_result
+FAILED tests/test_motion_cache_video_identity.py::test_source_change_during_forced_build_is_rejected_before_publishing
+FAILED tests/test_motion_cache_video_identity.py::test_hash_read_failure_preserves_previous_cache[1]
+FAILED tests/test_motion_cache_video_identity.py::test_hash_read_failure_preserves_previous_cache[2]
+FAILED tests/test_motion_cache_video_identity.py::test_builder_forwards_explicit_device_and_preserves_old_default[cpu]
+FAILED tests/test_motion_cache_video_identity.py::test_real_cli_routes_cpu_to_motion_factory
+13 failed, 4 passed in 1.82s

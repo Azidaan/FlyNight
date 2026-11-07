@@ -353,6 +353,11 @@ def make_motion_estimator(source: str, fps: float, max_dt: float, model: str = "
     )
 
 
+def motion_video_identity(video: Path) -> dict:
+    """Привязать новое поле к конкретному файлу и его содержимому."""
+    return {"video_path": str(video.resolve()), "video_sha256": sha256(video)}
+
+
 def build_motion_cache(
     source: str,
     video: Path,
@@ -362,7 +367,13 @@ def build_motion_cache(
     max_dt: float,
     force: bool,
     geometry_version: str = GEOMETRY_VERSION,
+    device=None,
 ) -> dict:
+    """Новый кэш проверяет видео; исторический без identity читается как есть.
+
+    Прежние файлы без video_identity не получают подтверждения происхождения.
+    Force пересчитывает то же видео; для смены видео нужен новый output.
+    """
     data_path = output / f"{source}.npz"
     meta_path = output / f"{source}.json"
     if not np.isfinite(fps) or fps <= 0 or not np.isfinite(max_dt) or max_dt <= 0:
@@ -373,6 +384,7 @@ def build_motion_cache(
     # прежний эксперимент в новый под тем же именем.
     if data_path.exists() and not meta_path.exists():
         raise RuntimeError(f"У {data_path} нет метаданных; выберите новый output")
+    video_identity = None
     if meta_path.exists():
         previous = json.loads(meta_path.read_text(encoding="utf-8"))
         previous_geometry = previous.get("geometry_version", "legacy_v1")
@@ -381,6 +393,11 @@ def build_motion_cache(
                 f"{data_path}: геометрия {previous_geometry}, запрошена {geometry_version}; "
                 "выберите новый output либо явно прежнюю geometry_version"
             )
+        if "video_identity" in previous:
+            video_identity = motion_video_identity(video)
+            if previous["video_identity"] != video_identity:
+                raise RuntimeError(f"{data_path}: видео или его содержимое изменилось; "
+                                   "выберите новый output, force не меняет происхождение кэша")
     if data_path.exists() and meta_path.exists() and not force:
         metadata = json.loads(meta_path.read_text(encoding="utf-8"))
         if metadata.get("source") != source or not np.isclose(
@@ -393,11 +410,15 @@ def build_motion_cache(
         ):
             raise RuntimeError(f"{data_path}: max_dt не совпадает с запросом; выберите новый output")
         print(f"[CACHE] движение {source}: {data_path}", flush=True)
+        if "video_identity" not in metadata:
+            print("[CACHE] исторический кэш: происхождение видео не подтверждено", flush=True)
         metadata.setdefault("geometry_version", "legacy_v1")
         return metadata
 
+    if video_identity is None:
+        video_identity = motion_video_identity(video)
     initialized = time.perf_counter()
-    estimator = make_motion_estimator(source, fps, max_dt, geometry_version=geometry_version)
+    estimator = make_motion_estimator(source, fps, max_dt, geometry_version=geometry_version, device=device)
     initialization_seconds = time.perf_counter() - initialized
     capture = cv2.VideoCapture(str(video))
     if not capture.isOpened():
@@ -423,6 +444,8 @@ def build_motion_cache(
     capture.release()
     if points is None:
         raise RuntimeError("Видео не содержит кадров")
+    if motion_video_identity(video) != video_identity:
+        raise RuntimeError("Содержимое видео изменилось во время расчёта; кэш не записан")
     output.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(
         data_path,
@@ -432,6 +455,7 @@ def build_motion_cache(
     )
     metadata = {
         "source": source,
+        "video_identity": video_identity,
         "frame_count": frame_count,
         "fps": fps,
         "flow_gain_in_cache": 1.0,
@@ -762,6 +786,7 @@ def main() -> int:
             max_dt=args.max_dt,
             force=args.force_motion,
             geometry_version=args.flyvis_geometry_version,
+            device=args.device,
         )
 
     if args.motion_only:

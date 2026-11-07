@@ -49,3 +49,22 @@ def test_network_only_loader_requires_network_but_not_unused_decoder():
     assert not loaded.training and torch.equal(loaded.weight,original.weight)
     view.get_checkpoint=lambda key:{"decoder":{"flow":{}}}
     with pytest.raises(ValueError,match="network"):load_network(view)
+
+
+@pytest.mark.parametrize('fault', ['negative_strength', 'semantic_overflow'])
+def test_transfer_domain_failure_precedes_all_parameter_copies(fault):
+    from tests.test_flyvis_checkpoint_strict import _domain_network
+    source, target = _domain_network(), _domain_network()
+    with torch.no_grad():
+        source.nodes_bias.add_(5)
+        if fault == 'negative_strength':
+            source.edges_syn_strength[0] = -.1
+        else:
+            target.edges_syn_count[0] = 1000.
+    source_before, before = deepcopy(source.state_dict()), deepcopy(target.state_dict())
+    pointers = {name: value.data_ptr() for name, value in target.state_dict().items()}
+    with pytest.raises(ValueError):
+        transfer_free_parameters(target, source)
+    assert all(torch.equal(value, before[name]) and value.data_ptr() == pointers[name]
+               for name, value in target.state_dict().items())
+    assert all(torch.equal(value, source_before[name]) for name, value in source.state_dict().items())

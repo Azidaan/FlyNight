@@ -1,0 +1,79 @@
+{
+  "checks": [
+    {
+      "field": "lr",
+      "value_repr": "np.float32(nan)",
+      "value_type": "float32",
+      "restore_error": "ValueError: Nonfinite optimizer NumPy value",
+      "restore_success": false,
+      "head_changed_on_restore": false,
+      "next_step_error": null,
+      "nonfinite_parameters_after_step": [],
+      "RNG_unchanged_by_restore": true,
+      "deterministic_flags_unchanged": true
+    },
+    {
+      "field": "lr",
+      "value_repr": "np.float32(inf)",
+      "value_type": "float32",
+      "restore_error": "ValueError: Nonfinite optimizer NumPy value",
+      "restore_success": false,
+      "head_changed_on_restore": false,
+      "next_step_error": null,
+      "nonfinite_parameters_after_step": [],
+      "RNG_unchanged_by_restore": true,
+      "deterministic_flags_unchanged": true
+    },
+    {
+      "field": "eps",
+      "value_repr": "np.float32(nan)",
+      "value_type": "float32",
+      "restore_error": "ValueError: Nonfinite optimizer NumPy value",
+      "restore_success": false,
+      "head_changed_on_restore": false,
+      "next_step_error": null,
+      "nonfinite_parameters_after_step": [],
+      "RNG_unchanged_by_restore": true,
+      "deterministic_flags_unchanged": true
+    },
+    {
+      "field": "weight_decay",
+      "value_repr": "np.float32(nan)",
+      "value_type": "float32",
+      "restore_error": "ValueError: Nonfinite optimizer NumPy value",
+      "restore_success": false,
+      "head_changed_on_restore": false,
+      "next_step_error": null,
+      "nonfinite_parameters_after_step": [],
+      "RNG_unchanged_by_restore": true,
+      "deterministic_flags_unchanged": true
+    },
+    {
+      "field": "betas",
+      "value_repr": "(np.float32(nan), 0.999)",
+      "value_type": "tuple",
+      "restore_error": "ValueError: Nonfinite optimizer NumPy value",
+      "restore_success": false,
+      "head_changed_on_restore": false,
+      "next_step_error": null,
+      "nonfinite_parameters_after_step": [],
+      "RNG_unchanged_by_restore": true,
+      "deterministic_flags_unchanged": true
+    },
+    {
+      "field": "lr",
+      "value_repr": "nan",
+      "value_type": "float",
+      "restore_error": "ValueError: Nonfinite optimizer value",
+      "restore_success": false,
+      "head_changed_on_restore": false,
+      "next_step_error": null,
+      "nonfinite_parameters_after_step": [],
+      "RNG_unchanged_by_restore": true,
+      "deterministic_flags_unchanged": true
+    }
+  ],
+  "cuda_initialized": false,
+  "source_sha256": "af4e4bb47efbb59eb7e1f7cddad5594436b56bab3077d0a8ecff381f58e81fcd",
+  "boundary": "Only newly constructed diagnostic CPU heads and in-memory checkpoints; no historical weights, production sources or real training data changed."
+}

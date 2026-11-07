@@ -1,0 +1,739 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFF....................                         [100%]
+================================== FAILURES ===================================
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float16_nan-lr] _
+
+field = 'lr', value_factory = <function <lambda> at 0x000001CAECBBDAB0>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float16_nan-eps] _
+
+field = 'eps', value_factory = <function <lambda> at 0x000001CAECBBDAB0>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float16_nan-weight_decay] _
+
+field = 'weight_decay'
+value_factory = <function <lambda> at 0x000001CAECBBDAB0>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float16_nan-betas] _
+
+field = 'betas', value_factory = <function <lambda> at 0x000001CAECBBDAB0>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_nan-lr] _
+
+field = 'lr', value_factory = <function <lambda> at 0x000001CAECBBDB40>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_nan-eps] _
+
+field = 'eps', value_factory = <function <lambda> at 0x000001CAECBBDB40>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_nan-weight_decay] _
+
+field = 'weight_decay'
+value_factory = <function <lambda> at 0x000001CAECBBDB40>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_nan-betas] _
+
+field = 'betas', value_factory = <function <lambda> at 0x000001CAECBBDB40>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_inf-lr] _
+
+field = 'lr', value_factory = <function <lambda> at 0x000001CAECBBDBD0>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_inf-eps] _
+
+field = 'eps', value_factory = <function <lambda> at 0x000001CAECBBDBD0>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_inf-weight_decay] _
+
+field = 'weight_decay'
+value_factory = <function <lambda> at 0x000001CAECBBDBD0>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_inf-betas] _
+
+field = 'betas', value_factory = <function <lambda> at 0x000001CAECBBDBD0>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[complex64_nan-lr] _
+
+field = 'lr', value_factory = <function <lambda> at 0x000001CAECBBDC60>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[complex64_nan-eps] _
+
+field = 'eps', value_factory = <function <lambda> at 0x000001CAECBBDC60>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[complex64_nan-weight_decay] _
+
+field = 'weight_decay'
+value_factory = <function <lambda> at 0x000001CAECBBDC60>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[complex64_nan-betas] _
+
+field = 'betas', value_factory = <function <lambda> at 0x000001CAECBBDC60>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_nan-lr] _
+
+field = 'lr', value_factory = <function <lambda> at 0x000001CAECBBDCF0>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_nan-eps] _
+
+field = 'eps', value_factory = <function <lambda> at 0x000001CAECBBDCF0>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_nan-weight_decay] _
+
+field = 'weight_decay'
+value_factory = <function <lambda> at 0x000001CAECBBDCF0>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_nan-betas] _
+
+field = 'betas', value_factory = <function <lambda> at 0x000001CAECBBDCF0>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_inf-lr] _
+
+field = 'lr', value_factory = <function <lambda> at 0x000001CAECBBDD80>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_inf-eps] _
+
+field = 'eps', value_factory = <function <lambda> at 0x000001CAECBBDD80>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_inf-weight_decay] _
+
+field = 'weight_decay'
+value_factory = <function <lambda> at 0x000001CAECBBDD80>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_inf-betas] _
+
+field = 'betas', value_factory = <function <lambda> at 0x000001CAECBBDD80>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[array_nan-lr] _
+
+field = 'lr', value_factory = <function <lambda> at 0x000001CAECBBDE10>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[array_nan-eps] _
+
+field = 'eps', value_factory = <function <lambda> at 0x000001CAECBBDE10>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[array_nan-weight_decay] _
+
+field = 'weight_decay'
+value_factory = <function <lambda> at 0x000001CAECBBDE10>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+_ test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[array_nan-betas] _
+
+field = 'betas', value_factory = <function <lambda> at 0x000001CAECBBDE10>
+
+    @pytest.mark.parametrize('field', ('lr', 'eps', 'weight_decay', 'betas'))
+    @pytest.mark.parametrize('value_factory', BAD)
+    def test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation(field, value_factory):
+        bb, head, optimizer = modules()
+        checkpoint = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        checkpoint['head']['output.weight'].add_(3)
+        checkpoint['backbone']['zr.w'].add_(2)
+        value = value_factory()
+        checkpoint['optimizer']['param_groups'][0][field] = (value, .999) if field == 'betas' else value
+        previous = timestamped_checkpoint(bb, head, cursor=2, optimizer=optimizer)
+        parameters = tuple(parameter for group in optimizer.param_groups for parameter in group['params'])
+        torch_rng = torch.random.get_rng_state().clone()
+        numpy_rng = deepcopy(np.random.get_state())
+        python_rng = random.getstate()
+        flags = (torch.are_deterministic_algorithms_enabled(), torch.is_deterministic_algorithms_warn_only_enabled())
+        try:
+            torch.use_deterministic_algorithms(False, warn_only=True)
+>           with pytest.raises(ValueError, match='Nonfinite optimizer'):
+E           Failed: DID NOT RAISE ValueError
+
+tests\test_b1_timestamped_optimizer_numpy.py:66: Failed
+=========================== short test summary info ===========================
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float16_nan-lr]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float16_nan-eps]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float16_nan-weight_decay]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float16_nan-betas]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_nan-lr]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_nan-eps]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_nan-weight_decay]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_nan-betas]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_inf-lr]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_inf-eps]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_inf-weight_decay]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[float32_inf-betas]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[complex64_nan-lr]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[complex64_nan-eps]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[complex64_nan-weight_decay]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[complex64_nan-betas]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_nan-lr]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_nan-eps]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_nan-weight_decay]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_nan-betas]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_inf-lr]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_inf-eps]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_inf-weight_decay]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[zero_dim_inf-betas]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[array_nan-lr]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[array_nan-eps]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[array_nan-weight_decay]
+FAILED tests/test_b1_timestamped_optimizer_numpy.py::test_nonfinite_numpy_optimizer_metadata_rejected_before_live_mutation[array_nan-betas]
+28 failed, 20 passed in 7.75s

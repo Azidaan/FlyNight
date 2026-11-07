@@ -1,0 +1,66 @@
+{
+  "base_bundle": "runs/flyvis_repairs_20261106/temporal_heads_bundle_v2",
+  "base_manifest_sha256": "387f1eebc5ac43f05fab7c0da5c98e42253dab0454c99e5067ce96dac243997d",
+  "changes": [
+    {
+      "path": "tracking/b1_timestamped.py",
+      "baseline_sha256": "b77636e25d8e7f5d9a9c116f9a257814b021eeb9fd96684327234b70f38ab8c7",
+      "after_sha256": "af4e4bb47efbb59eb7e1f7cddad5594436b56bab3077d0a8ecff381f58e81fcd",
+      "patch": "runs/flyvis_repairs_20261106/temporal_numpy_addendum_v3/patches/tracking__b1_timestamped.py.patch",
+      "patch_sha256": "c09a3716e49ffa05e558184efb00580265bd91e48bc5bca4ed67812ab2d7b6ea"
+    },
+    {
+      "path": "tests/test_b1_timestamped_optimizer_numpy.py",
+      "baseline_sha256": null,
+      "after_sha256": "cb65fae143855c0366aeb0735ae0d3abdabad75f891197b3c15b9a004ab298d3",
+      "patch": "runs/flyvis_repairs_20261106/temporal_numpy_addendum_v3/patches/tests__test_b1_timestamped_optimizer_numpy.py.patch",
+      "patch_sha256": "89bbaa9f30585ea91b3d48093fa5dbe2384dd5a3b61a9e6a74bdebcb580869c0"
+    }
+  ],
+  "combined_patch_sha256": "be6dfb280edc4b560c1acae4415d15f01a68d0b8835a7428286f3d1427c573dc",
+  "unchanged_AST_outside_optimizer_finite_guard": true,
+  "commands": [
+    {
+      "args": [
+        "apply",
+        "--check",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\temporal_numpy_addendum_v3\\combined.patch"
+      ],
+      "code": 0,
+      "stderr": ""
+    },
+    {
+      "args": [
+        "apply",
+        "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\temporal_numpy_addendum_v3\\combined.patch"
+      ],
+      "code": 0,
+      "stderr": ""
+    },
+    {
+      "args": [
+        "apply",
+        "--reverse",
+        "combined.patch"
+      ],
+      "code": 0,
+      "stderr": ""
+    }
+  ],
+  "verification": {
+    "no_Git_repo_discovered": true,
+    "forward_exact": true,
+    "reverse_exact": true,
+    "production_sources_unchanged_by_packaging": true
+  },
+  "tests": {
+    "before": "28 failed, 20 passed",
+    "after": "150 passed",
+    "new_cases": 48,
+    "valid_numpy_resume_exact": 14,
+    "unchanged_native_finite_array_errors": 2,
+    "existing_float64_reject_cases": 4
+  },
+  "builder_sha256": "c94769234c8e8d4ac6452b8a57ce1ffc4ff8bcffd18089df713880a3822db2ed",
+  "boundary": "Incremental patch on exact published V2 source. V2 history and saved scientific weights are not rewritten. No temporal policy, frame-gap cap, historical engine or optimizer domain/shape rules changed."
+}

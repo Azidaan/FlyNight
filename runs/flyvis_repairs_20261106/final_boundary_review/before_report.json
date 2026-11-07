@@ -1,0 +1,33 @@
+{
+  "source_path": "scripts\\run_bdd_video_rate_experiment.py",
+  "source_sha256": "2511260bdd8f304284e9d365d4693d0a31db6651d6b67dadbf37e121033d5653",
+  "cpu_only_cuda_initialized": false,
+  "source": "farneback",
+  "frame_count": 5,
+  "fps": 5.0,
+  "right_sha256": "3bb10ba5dec5b8a6b22a241c6ee2a823fb8814100796cbf709a5c8e7aa1aa8ab",
+  "left_sha256": "c70ef77a29fe2fe84440d4a3988d43c13c43cac3fd54a3760f874ad646a81a54",
+  "same_video_control_exact": true,
+  "other_video_silently_reuses_metadata": true,
+  "other_video_silently_reuses_vectors": true,
+  "cache_bytes_preserved": true,
+  "fresh_other_video_differs": true,
+  "max_abs_wrong_vs_correct": 5.160684585571289,
+  "cached_last_median_dx": 1.999000906944275,
+  "fresh_last_median_dx": -2.9925761222839355,
+  "metadata_keys": [
+    "estimator_stats",
+    "flow_gain_in_cache",
+    "fps",
+    "frame_count",
+    "geometry_version",
+    "initialization_seconds_excluded",
+    "observation",
+    "source"
+  ],
+  "actual_callers": [
+    "scripts/run_bdd_video_rate_experiment.py:main",
+    "scripts/build_train_caches.py:main"
+  ],
+  "scope": "Cache identity defect; no HOTA or scientific quality claim. No production edits."
+}

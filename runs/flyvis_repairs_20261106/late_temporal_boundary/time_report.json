@@ -1,0 +1,296 @@
+{
+  "checks": [
+    {
+      "kind": "live_frame",
+      "value": "4",
+      "type": "int",
+      "error": null,
+      "unchanged_on_error": false,
+      "valid_exact": true
+    },
+    {
+      "kind": "live_frame",
+      "value": "np.int64(4)",
+      "type": "int64",
+      "error": null,
+      "unchanged_on_error": false,
+      "valid_exact": true
+    },
+    {
+      "kind": "live_frame",
+      "value": "np.uint64(4)",
+      "type": "uint64",
+      "error": null,
+      "unchanged_on_error": false,
+      "valid_exact": true
+    },
+    {
+      "kind": "live_frame",
+      "value": "4.0",
+      "type": "float",
+      "error": "ValueError: Frame numbers must be nonnegative integers",
+      "unchanged_on_error": true,
+      "valid_exact": false
+    },
+    {
+      "kind": "live_frame",
+      "value": "np.float32(4.0)",
+      "type": "float32",
+      "error": "ValueError: Frame numbers must be nonnegative integers",
+      "unchanged_on_error": true,
+      "valid_exact": false
+    },
+    {
+      "kind": "live_frame",
+      "value": "True",
+      "type": "bool",
+      "error": "ValueError: Frame numbers must be nonnegative integers",
+      "unchanged_on_error": true,
+      "valid_exact": false
+    },
+    {
+      "kind": "live_frame",
+      "value": "np.True_",
+      "type": "bool",
+      "error": "ValueError: Frame numbers must be nonnegative integers",
+      "unchanged_on_error": true,
+      "valid_exact": false
+    },
+    {
+      "kind": "live_frame",
+      "value": "nan",
+      "type": "float",
+      "error": "ValueError: Frame numbers must be nonnegative integers",
+      "unchanged_on_error": true,
+      "valid_exact": false
+    },
+    {
+      "kind": "live_frame",
+      "value": "inf",
+      "type": "float",
+      "error": "ValueError: Frame numbers must be nonnegative integers",
+      "unchanged_on_error": true,
+      "valid_exact": false
+    },
+    {
+      "kind": "live_frame",
+      "value": "-1",
+      "type": "int",
+      "error": "ValueError: Frame numbers must be nonnegative integers",
+      "unchanged_on_error": true,
+      "valid_exact": false
+    },
+    {
+      "kind": "live_frame",
+      "value": "3",
+      "type": "int",
+      "error": "ValueError: Live observations must advance time",
+      "unchanged_on_error": true,
+      "valid_exact": false
+    },
+    {
+      "kind": "live_frame",
+      "value": "2",
+      "type": "int",
+      "error": "ValueError: Live observations must advance time",
+      "unchanged_on_error": true,
+      "valid_exact": false
+    },
+    {
+      "kind": "live_frame",
+      "value": "None",
+      "type": "NoneType",
+      "error": "ValueError: Frame numbers must be nonnegative integers",
+      "unchanged_on_error": true,
+      "valid_exact": false
+    },
+    {
+      "kind": "source_fps",
+      "value": "np.int64(30)",
+      "type": "int64",
+      "error": null,
+      "stored": 30.0
+    },
+    {
+      "kind": "source_fps",
+      "value": "np.float32(30.0)",
+      "type": "float32",
+      "error": null,
+      "stored": 30.0
+    },
+    {
+      "kind": "source_fps",
+      "value": "nan",
+      "type": "float",
+      "error": "ValueError: Actual source FPS must be finite and positive",
+      "stored": null
+    },
+    {
+      "kind": "source_fps",
+      "value": "inf",
+      "type": "float",
+      "error": "ValueError: Actual source FPS must be finite and positive",
+      "stored": null
+    },
+    {
+      "kind": "source_fps",
+      "value": "-inf",
+      "type": "float",
+      "error": "ValueError: Actual source FPS must be finite and positive",
+      "stored": null
+    },
+    {
+      "kind": "source_fps",
+      "value": "0.0",
+      "type": "float",
+      "error": "ValueError: Actual source FPS must be finite and positive",
+      "stored": null
+    },
+    {
+      "kind": "source_fps",
+      "value": "-1.0",
+      "type": "float",
+      "error": "ValueError: Actual source FPS must be finite and positive",
+      "stored": null
+    },
+    {
+      "kind": "source_fps",
+      "value": "True",
+      "type": "bool",
+      "error": null,
+      "stored": 1.0
+    },
+    {
+      "kind": "source_fps",
+      "value": "'30'",
+      "type": "str",
+      "error": null,
+      "stored": 30.0
+    },
+    {
+      "kind": "history_rejected",
+      "frames": [
+        2,
+        1,
+        3
+      ],
+      "error": "Observed frames must not go backwards"
+    },
+    {
+      "kind": "history_rejected",
+      "frames": [
+        1,
+        1,
+        2
+      ],
+      "error": "Repeated frame ID must identify the same receptor input"
+    },
+    {
+      "kind": "identical_duplicate",
+      "zero_elapsed_exact": true
+    },
+    {
+      "kind": "huge_absolute_frame_small_gap",
+      "digits": 401,
+      "valid_exact": true
+    },
+    {
+      "kind": "R1_huge_gap_resource_boundary",
+      "requested_steps": 1000000000000,
+      "completed_actual_steps": 2,
+      "no_builtin_work_limit": true,
+      "old_eye_preserved_on_intercept": true,
+      "limit": "Finite loop demand inferred from source and intercepted; no hang executed."
+    },
+    {
+      "kind": "C_D_duration_boundary",
+      "gap": "1000000000000",
+      "fps": "30.0",
+      "allocation_requests": [
+        [
+          "1",
+          "1666666666668"
+        ]
+      ],
+      "error": "WorkIntercept: Large arange intercepted before allocation",
+      "dt": null,
+      "original_state_finite": true
+    },
+    {
+      "kind": "C_D_duration_boundary",
+      "gap": "1",
+      "fps": "1e-320",
+      "allocation_requests": [],
+      "error": "OverflowError: cannot convert float infinity to integer",
+      "dt": null,
+      "original_state_finite": true
+    },
+    {
+      "kind": "C_D_duration_boundary",
+      "gap": "1",
+      "fps": "np.float64(5e-324)",
+      "allocation_requests": [],
+      "error": "OverflowError: cannot convert float infinity to integer",
+      "dt": null,
+      "original_state_finite": true
+    },
+    {
+      "kind": "C_D_duration_boundary",
+      "gap": "1",
+      "fps": "1e+308",
+      "allocation_requests": [
+        [
+          "1",
+          "2"
+        ]
+      ],
+      "error": null,
+      "dt": 1e-308,
+      "original_state_finite": true
+    },
+    {
+      "kind": "C_D_duration_boundary",
+      "gap": "10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "fps": "30.0",
+      "allocation_requests": [],
+      "error": "OverflowError: int too large to convert to float",
+      "dt": null,
+      "original_state_finite": true
+    },
+    {
+      "kind": "failed_factory",
+      "arm": "R1",
+      "RNG_preserved": true,
+      "deterministic_flags_preserved": true
+    },
+    {
+      "kind": "failed_factory",
+      "arm": "B",
+      "RNG_preserved": true,
+      "deterministic_flags_preserved": true
+    },
+    {
+      "kind": "failed_restore",
+      "defect": "head_shape",
+      "model_RNG_and_flags_preserved": true
+    },
+    {
+      "kind": "failed_restore",
+      "defect": "python_nan_optimizer",
+      "model_RNG_and_flags_preserved": true
+    },
+    {
+      "kind": "historical_boundary",
+      "frame_metadata_unused": true,
+      "timing_unchanged": true,
+      "limit": "This preserves historical fixed-step semantics; it is not a new timing correction."
+    }
+  ],
+  "cuda_initialized": false,
+  "production_sources_edited": false,
+  "source_sha256": {
+    "tracking/b1_timestamped.py": "b77636e25d8e7f5d9a9c116f9a257814b021eeb9fd96684327234b70f38ab8c7",
+    "tracking/b1_tracker_runtime.py": "0b766835cad156dea996c72d7475b538abfafe8a549f01a039ed0849a2e66058"
+  },
+  "boundary": "Synthetic CPU checks only. Large resource requests were intercepted before allocation/long loops. No full training, native FlyVis evaluation or old-time policy migration."
+}

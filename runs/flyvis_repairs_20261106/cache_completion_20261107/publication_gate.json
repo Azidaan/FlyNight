@@ -1,0 +1,87 @@
+{
+  "passed": true,
+  "working_tests": 60,
+  "publication_tests": 60,
+  "execution": "Sequential isolated processes: 59 tests and the single memory-intensive test; complete collected test set covered.",
+  "source_sha256": {
+    "tracking/flyvis_checkpoint.py": "0280e2ef363f85a2a9455fcd2a2a8148e23daf2bf3d1c394eb6c93cff07fd30e",
+    "tracking/flyvis_connectome_swap.py": "de6a52ba397f7464ec6f75aa8a9c7cbd03456ecf14ccb51742d235e42b93fa32",
+    "tests/test_flyvis_checkpoint_strict.py": "8d758997481488bfbf361ead0f4814f525e0ae1b698af0fca1ef36ff5408980a",
+    "tests/test_flyvis_connectome_transfer.py": "0eef4e2c9da8912049317cf3ca1138ba72ce49c09eaafdf9a8d4feea32727b21",
+    "scripts/run_bdd_video_rate_experiment.py": "c75a0ad08e666af68c0985326572d09dc2be8473d827c3807b26df2affb4df1f",
+    "tests/test_motion_cache_video_identity.py": "acf3022a65812ac3fd710f9f8b36160c02937b3968f1fe8261911b55a66eadaf",
+    "tracking/b1_timestamped.py": "af4e4bb47efbb59eb7e1f7cddad5594436b56bab3077d0a8ecff381f58e81fcd",
+    "tests/test_b1_timestamped_optimizer_numpy.py": "cb65fae143855c0366aeb0735ae0d3abdabad75f891197b3c15b9a004ab298d3",
+    "evaluation/project_history/index.py": "a316c8f1f094815138e96ef1a570c2c1120fd142d3b211faefe910cf297213bb",
+    "tests/test_project_history_cache_transient.py": "7e28483f8f0b300700d9a6cb9df9e0e5b3647b9401b00a65cf9134d654f20977"
+  },
+  "ledger_sha256": {
+    "dissertation/ЕДИНЫЙ_ПЛАН.md": "3ef82a9f5fef05bedb21cb029392573a3fb96f78553167452bcf8a3ecaaa6934",
+    "experiments/project_history.json": "9dde4622cc046f823723635bb8d5a977e536e7a2660e2e908a558199173f2376"
+  },
+  "outcomes": {
+    "publication_validator": {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-u",
+        "runs/flyvis_repairs_20261106/cache_completion_20261107/validate_publication.py",
+        "--overlay",
+        "runs/flyvis_repairs_20261106/boundary_ledger_overlay_v2",
+        "--mode",
+        "validator"
+      ],
+      "hard_job_memory_bytes": 536870912,
+      "current_process_assigned_before_spawn": true,
+      "child_inherits_job": true,
+      "completed": true,
+      "returncode": 0,
+      "seconds": 31.03100000000086,
+      "peak_process_bytes": 301752320,
+      "peak_job_bytes": 333438976
+    },
+    "publication_tests_main_stable": {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-u",
+        "runs/flyvis_repairs_20261106/cache_completion_20261107/validate_publication.py",
+        "--overlay",
+        "runs/flyvis_repairs_20261106/boundary_ledger_overlay_v2",
+        "--mode",
+        "tests",
+        "--group",
+        "main"
+      ],
+      "hard_job_memory_bytes": 536870912,
+      "current_process_assigned_before_spawn": true,
+      "child_inherits_job": true,
+      "completed": true,
+      "returncode": 0,
+      "seconds": 75.5630000000001,
+      "peak_process_bytes": 446124032,
+      "peak_job_bytes": 456568832
+    },
+    "publication_tests_cache": {
+      "command": [
+        ".venv/Scripts/python.exe",
+        "-u",
+        "runs/flyvis_repairs_20261106/cache_completion_20261107/validate_publication.py",
+        "--overlay",
+        "runs/flyvis_repairs_20261106/boundary_ledger_overlay_v2",
+        "--mode",
+        "tests",
+        "--group",
+        "cache"
+      ],
+      "hard_job_memory_bytes": 536870912,
+      "current_process_assigned_before_spawn": true,
+      "child_inherits_job": true,
+      "completed": true,
+      "returncode": 0,
+      "seconds": 74.40600000000086,
+      "peak_process_bytes": 395644928,
+      "peak_job_bytes": 517287936
+    }
+  },
+  "old_failures_preserved": true,
+  "scientific_weights_changed": false
+}
