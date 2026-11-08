@@ -135,6 +135,7 @@ class Tree:
         self.vault=vault
         self.nodes={}
         self.children=defaultdict(list)
+        self.stealth=defaultdict(list)
         manifest=vault/'.graph-visible.json'
         self.previous=read(manifest) if manifest.exists() else {}
         self.old=self.previous.get('nodes',{})
@@ -182,6 +183,9 @@ class Tree:
             for child in sorted(self.children.get(key,[]),key=lambda k:tuple(map(int,self.nodes[k]['number'].split('.')))):
                 item=self.nodes[child]
                 body+='\n\n[['+item['path'][:-3]+'|'+item['number']+'. '+safe(item['title'],140)+']]'
+            for target,label in self.stealth.get(key,[]):
+                item=self.nodes[target]
+                body+='\n\n['+label+'](obsidian://open?vault=ObsidianFlyVis&file='+quote(item['path'][:-3],safe='')+')'
             rendered[node['path']]='\n'.join(line.expandtabs(4).rstrip() for line in body.strip().splitlines())+'\n'
         assert len(rendered)==len(self.nodes)
         for path,body in rendered.items():
@@ -343,6 +347,25 @@ def problems(tree,vault):
             tree.add('sys:'+item['id'],item['id']+' — '+item['title'],branch,body,
                      {'open':'ожидает','partial':'в-работе','resolved':'выполнено'}.get(item['status']))
 
+def used_literature(tree):
+    registry=ROOT/'experiments/useful_literature.json'
+    if not registry.exists():return
+    for source in read(registry)['sources']:
+        parent=semantic_parent(tree,'Исследования',['Использованная литература',source['problem_group'],source['method_group']])
+        body=source['publication']+'\n\nDOI `'+source['doi']+'`.\n\n[Первичная статья]('+source['url']+')\n\n'
+        for label,field in [('Проверенный раздел','sections'),('Что установили авторы','established'),
+                            ('Связь с нашей проблемой','problem'),('Как использовали','application'),
+                            ('Граница вывода','limitation')]:
+            body+='## '+label+'\n\n'+source[field]+'\n\n'
+        for evidence in source['evidence']:
+            body+=local_file(evidence,'Первичный материал проекта')+'\n\n'
+        key=tree.add('literature:'+source['id'],source['title'],parent,body)
+        for target in source['related']:
+            assert target in tree.nodes,target
+            tree.stealth[key].append((target,tree.nodes[target]['title']))
+            tree.stealth[target].append((key,'Литературное основание — '+source['title']))
+
+
 def build(vault):
     tree=Tree(vault)
     for name in SECTION_NAMES:tree.add(name,name)
@@ -367,6 +390,7 @@ def build(vault):
                 parent=semantic_parent(tree,branch,research_topic(group.name,p.stem))
                 tree.add('research:'+path,p.stem,parent,original(vault,path))
     problems(tree,vault)
+    used_literature(tree)
     results=collect(ROOT,catalog,glossary)
     for group,title in RESULT_GROUPS.items():
         branch=tree.add('resultgrp:'+group,title,'Лучшие результаты')

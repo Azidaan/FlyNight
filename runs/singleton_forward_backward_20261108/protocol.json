@@ -1,0 +1,61 @@
+{
+  "registered": "2026-11-08T21:31:10.514312+03:00",
+  "head": "7db438cfad610a4635c9f0d6177de5a27bc2ade5",
+  "representations": [
+    "FlyVis",
+    "center8",
+    "neighbor8",
+    "input8_temporal"
+  ],
+  "cases": [
+    [
+      "00268999-cb063914",
+      578,
+      390,
+      448
+    ],
+    [
+      "02fa8491-2a4967e3",
+      73,
+      3,
+      273
+    ]
+  ],
+  "forward": "Reuse archived winner delta_f and score, x_i are the same three old-frame centers. d_f=d0+delta_f; y_i=x_i+d_f. Extract the new reference from the current map at y_i.",
+  "backward": "Independently evaluate S(current(y_i),old(y_i-d0+delta_b)) for every delta_b in the same symmetric 19-offset set. Backward prediction is -d0. Returned point is x_i+delta_f+delta_b.",
+  "error": "Euclidean norm(delta_f+delta_b) in original-frame pixels, also eye pixels and axial grid distance. Report residual vector. No threshold selection.",
+  "support": "Preserve all three Q centers, channels and normalization. Require all backward query points inside archived eye hull for every method and shift. Backward lookup uses the whole old eye, including outside old box, like point tracking in the old image. Report old-box coverage for each shift.",
+  "tie": "First exact maximum in the unchanged axes order, with all exactly tied winners recorded.",
+  "acceptance": "Math checks pass first; every backward query supported; independent interpolation and dot products agree 1e-9; no input mutation; original forward scores and winners reused exactly.",
+  "reference": {
+    "title": "Forward-Backward Error: Automatic Detection of Tracking Failures",
+    "authors": [
+      "Zdenek Kalal",
+      "Krystian Mikolajczyk",
+      "Jiri Matas"
+    ],
+    "year": 2010,
+    "doi": "10.1109/ICPR.2010.675",
+    "url": "https://cmp.felk.cvut.cz/ftp/articles/matas/kalal-2010-fb_track-icpr.pdf",
+    "sections": "Section 2 and Figure 1, threshold evaluation Section 3. Section 2 explicitly excludes trackers consistent by construction.",
+    "transfer": "Independent return-distance test on archived feature maps; not a reproduction of Lucas-Kanade or a reversal of FlyVis dynamics."
+  },
+  "sources": {
+    "runs/singleton_forward_backward_20261108/study.py": "c32509c7f9f2ec0f391aa7e2876f6aa2fc662421e84ce37cca5559b69d616c43",
+    "runs/singleton_forward_backward_20261108/mathematical_checks.json": "e8ed7ba4ad1a14fbde772865387d37203b1cfee1469994789cd33aea9e8d568c",
+    "runs/singleton_matched_support_20261108/protocol.json": "d6cd15ab9aeba575bf3d7ea01d0f9d09a208fbefbd8477c481ff4d4482921800",
+    "runs/singleton_matched_support_20261108/scores.json": "22b6eca39766b33a8c2bb88b9274877d9fa5b7cbb44c6aecdcd6472581896ef2",
+    "runs/singleton_neighbor_input_20261108/scores.json": "05fafac2c8938869134a78875bcecf5a165d0b5b55073282d5b80c3d82265c70",
+    "runs/singleton_neighbor_input_20261108/neighbor8_maps.npz": "bdf36166c806e569b1e3829689d7c941635120219e346298b1e9e18c9e7f16bb",
+    "runs/singleton_neighbor_input_20261108/audit.json": "27b3841f49de846c3d050f7f3c1316d3294717c61a0ee0188c702681b1ec2f7f",
+    "runs/singleton_eight_input_20261108/input8_maps.npz": "94915cccb1c6863c0f971f7d6c31ace2729ffff4f959251f29d605d26662f4e8",
+    "runs/singleton_eight_input_20261108/audit.json": "84d8de9bd834d7def38d58290d25edf2624677fe572ae3464ef2da25cfe6de4f",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "runs/bbox_fit_maps_20261108/features/443f3176bcd1c69462efcc751339dc92.npz": "4915de3efd583e89b9dbe27829fe24fd982223b0cc997c8fcb8ed0ba97297b17",
+    "runs/bbox_fit_maps_20261108/features/ed89c4f1ffddccf8b1033113e28ea416.npz": "4f6e25c0979cd2cfd4087241b37007b67bb2cbebb6f716d8966c310d2d645aa0",
+    "runs/singleton_matched_support_20261108/e8f82bd5dc50163c806676501a5c52a9.npz": "1c3e18202cb42802e2e9fbd7761d1aff731b99bca35ac3f803d4875a0e4e0a01",
+    "runs/singleton_matched_support_20261108/05946e7beab0b31aca4b135cb0b1e9f6.npz": "d262ecc48a60135b40e46be3648b814be2c78587d67b3e32188cd7de2483753c",
+    "runs/bbox_confirmation_inventory_20261108/native/00268999-cb063914.json": "8ca76df901e4c436fb92a3ed2c80ad73997f40140d932e65195c4b1a02d688c2",
+    "runs/singleton_working_domain_20261108/native/02fa8491-2a4967e3.json": "4c0ee6613863b9118c90aa934d4ea87a40b4a12050a2545c57ccf821d9c5dcac"
+  }
+}

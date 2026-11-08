@@ -28089,6 +28089,200 @@
           "locator": "pairs.1.variants.FlyVis.local"
         }
       ]
+    },
+    {
+      "id": "singleton_forward_backward_20261108",
+      "title": "Проверка возврата к образцу при прямом и обратном сопоставлении карт",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "question": "Различает ли ошибка независимого обратного поиска свою и чужую машину?",
+      "hypothesis": "Несогласованный возврат может дать дополнительный признак ошибки продолжения.",
+      "expected": "Измерить ошибки возврата на двух прежних парах с четырьмя готовыми представлениями.",
+      "acceptance": [
+        {
+          "criterion": "Math checks pass first; every backward query supported; independent interpolation and dot products agree 1e-9; no input mutation; original forward scores and winners reused exactly.",
+          "met": true,
+          "evidence": "runs/singleton_forward_backward_20261108/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/protocol.json",
+          "claim": "Постановка и математическая проверка до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/mathematical_checks.json",
+          "claim": "Постановка и математическая проверка до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/results.json",
+          "claim": "Первичный результат, проверка или литературное основание"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/audit.json",
+          "claim": "Первичный результат, проверка или литературное основание"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/geometry_control.json",
+          "claim": "Первичный результат, проверка или литературное основание"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/execution_receipt.json",
+          "claim": "Первичный результат, проверка или литературное основание"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Первичный результат, проверка или литературное основание"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/ЛИТЕРАТУРА.md",
+          "claim": "Первичный результат, проверка или литературное основание"
+        }
+      ],
+      "done": "2026-11-08",
+      "obtained": "Ошибка возврата FlyVis равна 0 пикселей/0 шагов решётки на своей 3→273 и 9,702019 пикселя/1 шаг на чужой 390→448. Контроль среднего соседей дал 2,127877 пикселя/1 шаг своей и 8,677749 пикселя/1 шаг чужой. Центральные EMA дали 2,127877 пикселя/1 шаг своей и 15,644035 пикселя/2 шага чужой. Прежние EMA+отклонения дали ноль обеим парам. Источник: runs/singleton_forward_backward_20261108/results.json.",
+      "interpretation": "В этой реализации независимый обратный поиск по T4/T5 различил две пары. Простой контроль с соседями дал одинаковую ошибку в шагах, а прежний временной контроль подтвердил и чужую машину. Разница пикселей простого контроля связана с разным масштабом вырезки. Нулевой возврат не является гарантией личности.",
+      "cannot_claim": "Два события и три точки, прежняя разметка своей машины на кадре 61, шаблон на неразмеченном 71, текущая рамка на 73. Обратный поиск использует весь сохранённый глаз; часть проверяемых гипотез выходит за прежнюю рамку, все выбранные максимумы лежат внутри неё. Порог не подбирался. Это согласованность готовых карт, не обращение динамики ядра и не оценка сохранения ID полным трекером.",
+      "decision": "Первую проблему оставить открытой. Не принимать правило нулевой ошибки по двум событиям. Результат даёт конкретного кандидата на отказ по T4/T5, который требует самостоятельной проверки на других подтверждённых своих и чужих соответствиях.",
+      "metrics": [
+        {
+          "key": "forward_backward_error_px",
+          "value": 9.70201873101891,
+          "baseline": null,
+          "subset": "foreign / FlyVis",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.0.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": null,
+          "subset": "foreign / FlyVis",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.0.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 15.644035137658973,
+          "baseline": null,
+          "subset": "foreign / center8",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.1.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 2,
+          "baseline": null,
+          "subset": "foreign / center8",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.1.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 8.677749360613811,
+          "baseline": null,
+          "subset": "foreign / neighbor8",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.2.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": null,
+          "subset": "foreign / neighbor8",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.2.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "foreign / input8_temporal",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.3.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "foreign / input8_temporal",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.3.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "own / FlyVis",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.4.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "own / FlyVis",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.4.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 2.1278772378516626,
+          "baseline": null,
+          "subset": "own / center8",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.5.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": null,
+          "subset": "own / center8",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.5.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 2.1278772378516626,
+          "baseline": null,
+          "subset": "own / neighbor8",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.6.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": null,
+          "subset": "own / neighbor8",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.6.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "own / input8_temporal",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.7.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "own / input8_temporal",
+          "source": "runs/singleton_forward_backward_20261108/results.json",
+          "locator": "records.7.error_grid_steps"
+        }
+      ]
     }
   ],
   "manual_events": [

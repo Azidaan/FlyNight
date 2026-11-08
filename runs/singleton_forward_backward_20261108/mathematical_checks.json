@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "exact_translation_recovers_origin": true,
+  "backward_not_forced_inverse": {
+    "forward": [
+      1,
+      0
+    ],
+    "backward": [
+      0,
+      1
+    ],
+    "residual": [
+      1,
+      1
+    ]
+  },
+  "constant_reference_abstains": true,
+  "limitation": "The same exact-translation example can represent two different objects with identical features and still gives zero error. Cycle consistency does not establish identity."
+}

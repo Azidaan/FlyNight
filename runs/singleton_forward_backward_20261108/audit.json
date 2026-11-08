@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "mathematical_checks": {
+    "passed": true,
+    "exact_translation_recovers_origin": true,
+    "backward_not_forced_inverse": {
+      "forward": [
+        1,
+        0
+      ],
+      "backward": [
+        0,
+        1
+      ],
+      "residual": [
+        1,
+        1
+      ]
+    },
+    "constant_reference_abstains": true,
+    "limitation": "The same exact-translation example can represent two different objects with identical features and still gives zero error. Cycle consistency does not establish identity."
+  },
+  "interpolation_and_dot_tolerance": 1e-09,
+  "all_queries_inside_eye": true,
+  "ready_forward_reused_exactly": true,
+  "input_hashes_stable": true,
+  "result_sha256": "9ccd1f98bb848cd8f9538c7497d5eae5fb346307597869c08492b50e0ee72fa7"
+}
