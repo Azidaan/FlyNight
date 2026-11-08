@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "tests": 4,
+  "old_identity": "S=sum_pc x_pc*y_pc/(||X||F||Y||F)=sum_c w_c*rho_c; sum(w)<=1.",
+  "candidate": "Mean rho over exactly nonconstant reference channels. Current-constant channel contributes0 and remains in the denominator. No amplitude floor or threshold tuning.",
+  "properties": [
+    "Bounded[-1,1] by Cauchy-Schwarz.",
+    "Invariant to positive channel gains/offsets independently in either patch.",
+    "Equal-energy limit equals original centered correlation.",
+    "Zero-padding and uniform channel duplication do not increase evidence."
+  ],
+  "caveat": "Equal weights can magnify weak noisy channels. No proof of object identity or benefit follows from these identities. Attribution is not a causal neuron ablation."
+}

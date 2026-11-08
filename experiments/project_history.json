@@ -29645,6 +29645,321 @@
           "reason": "Код подготовлен08.11, но зарегистрированная сверка и её фиксация выполнены после полуночи09.11МСК; источник protocol.json:registered."
         }
       ]
+    },
+    {
+      "id": "channel_balance_attribution_20261109",
+      "title": "Вклад ячеек и каналов — одинаковая нормировка пространственного сходства",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "question": "Какие пространственные вклады дают чужой машине больший балл и помогает ли равный вес каналов?",
+      "hypothesis": "Общий знаменатель может чрезмерно взвешивать отдельные каналы; независимая нормировка может убрать этот вклад, но усилить шум.",
+      "expected": "Точный разбор двух пар и один вариант считывателя на прежних200событиях и семи дополнительных исторических случаях.",
+      "acceptance": [
+        {
+          "criterion": "Mathematics, source hashes, same support/shifts, accounting sums1e-9 and unchanged ready results pass.",
+          "met": true,
+          "evidence": "runs/channel_balance_attribution_20261109/summary.json"
+        },
+        {
+          "criterion": "On the two diagnostic pairs the new maxima order own>foreign for both C8 and C34 without parameter selection.",
+          "met": false,
+          "evidence": "runs/channel_balance_attribution_20261109/summary.json"
+        },
+        {
+          "criterion": "On45matched known fit20 pairs neither FlyVis representation AUROC worsens; on the seven historical cases C8 AUROC does not worsen. Paired video-bootstrap intervals and all matched input controls must be reported; passing this point gate alone does not accept a tracker.",
+          "met": true,
+          "evidence": "runs/channel_balance_attribution_20261109/summary.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/channel_balance_attribution_20261109/protocol.json",
+          "claim": "Условия до разложения естественных карт и новых оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/channel_balance_attribution_20261109/attribution.json",
+          "claim": "Первичный разбор и зафиксированная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/channel_balance_attribution_20261109/summary.json",
+          "claim": "Первичный разбор и зафиксированная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/channel_balance_attribution_20261109/results.json",
+          "claim": "Первичный разбор и зафиксированная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/channel_balance_attribution_20261109/transfer.json",
+          "claim": "Первичный разбор и зафиксированная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/channel_balance_attribution_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Отдельная нормировка не принята; прежние результаты сохранены"
+        }
+      ],
+      "done": "2026-11-09",
+      "obtained": "Равная нормировка исправила порядок только для34карт:0,381588своей против0,326055чужой. Для8T4/T5:0,215584против0,333270, порядок неверен. На45условныхпарах AUROC C8:0,574519→0,600962; C34:0,593750→0,620192; интервалы включаютноль. Контроль временного входа34:0,685096. Источник `runs/channel_balance_attribution_20261109/summary.json`.",
+      "interpretation": "Общий вес каналов влияет на оценки, но эта нормировка не исправляет задачу целиком. Максимум чужой34-карты лежит выше размеченной рамки; новая нормировка не меняет этот максимум по положению.",
+      "decision": "Не принимать как общее исправление и не подбирать порог или маску каналов. Проверить конкретную геометрическую причину обрезки изображения отдельным опытом.",
+      "cannot_claim": "Ошибка нейронного ядра или полезность полного трекера не установлены. Две пары диагностические;45пар имеют условные траекторные метки, семь исторических случаев не являются новым независимым тестом.",
+      "metrics": [
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6009615384615384,
+          "baseline": 0.5745192307692307,
+          "subset": "45 matched fit20 / FlyVis",
+          "source": "runs/channel_balance_attribution_20261109/summary.json",
+          "locator": "scores.FlyVis.maximum"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.5817307692307693,
+          "baseline": 0.5769230769230769,
+          "subset": "45 matched fit20 / center8",
+          "source": "runs/channel_balance_attribution_20261109/summary.json",
+          "locator": "scores.center8.maximum"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6129807692307693,
+          "baseline": 0.5985576923076923,
+          "subset": "45 matched fit20 / neighbor8",
+          "source": "runs/channel_balance_attribution_20261109/summary.json",
+          "locator": "scores.neighbor8.maximum"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6850961538461539,
+          "baseline": 0.6033653846153846,
+          "subset": "45 matched fit20 / input8_temporal",
+          "source": "runs/channel_balance_attribution_20261109/summary.json",
+          "locator": "scores.input8_temporal.maximum"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6201923076923077,
+          "baseline": 0.59375,
+          "subset": "45 matched fit20 / C34",
+          "source": "runs/channel_balance_attribution_20261109/summary.json",
+          "locator": "scores.C34.maximum"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6850961538461539,
+          "baseline": 0.6081730769230769,
+          "subset": "45 matched fit20 / R134_temporal",
+          "source": "runs/channel_balance_attribution_20261109/summary.json",
+          "locator": "scores.R134_temporal.maximum"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6129807692307693,
+          "baseline": 0.5889423076923077,
+          "subset": "45 matched fit20 / R134_spatial",
+          "source": "runs/channel_balance_attribution_20261109/summary.json",
+          "locator": "scores.R134_spatial.maximum"
+        }
+      ]
+    },
+    {
+      "id": "clipped_anchor_readout_20261109",
+      "title": "Обрезка краем изображения — привязка пространственного шаблона к видимому краю",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "question": "Искажает ли центр усечённой рамки выбор сравниваемого участка карты?",
+      "hypothesis": "A template centered on the Kalman-state box can compare different visible parts when the image clips a detection. A shared unclipped raw-detection edge gives a better translation anchor in that axis.",
+      "expected": "Одна геометрическая привязка только на оси наблюдаемой обрезки; те же считыватели с FlyVis и без него.",
+      "acceptance": [
+        {
+          "criterion": "Clipping algebra, exact raw-observation provenance, baseline reuse off the changed domain, source hashes and identical signal/control geometry pass.",
+          "met": true,
+          "evidence": "runs/clipped_anchor_readout_20261109/summary.json"
+        },
+        {
+          "criterion": "The global-cosine anchor corrects own>foreign for both C8 and C34 on the requested pairs; equal-channel combination is reported separately, not chosen after evaluation.",
+          "met": false,
+          "evidence": "runs/clipped_anchor_readout_20261109/summary.json"
+        },
+        {
+          "criterion": "Report coverage and matched45-pair AUROC changes for both normalizations and all controls, including new undefined pairs. No tracker or independent ID-preservation claim from this diagnostic.",
+          "met": true,
+          "evidence": "runs/clipped_anchor_readout_20261109/summary.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/protocol.json",
+          "claim": "Условия до новых оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/summary.json",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/results.json",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/post_anchor_attribution.json",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/runtime_verification.json",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/strong_input_control.json",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/РАЗБОР.md",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/pair_88_144.png",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/pair_73_106.png",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        }
+      ],
+      "done": "2026-11-09",
+      "obtained": "Сырые наблюдения200пар восстановлены с точной сверкой индекса confidence-подмножества, класса, балла и состояния. Привязка изменила14случаев;186оценок переиспользованы. Только геометрия исправила порядок C8(0,394469>0,341247), но не C34(0,386390<0,481309). Совместная ветвь: C8 своя0,401315/чужая0,333270; C34 0,376344/0,326055. На45условныхпарах C34 AUROC0,593750→0,687500, разность+0,093750,95%[+0.005710;+0.197534]. Сильнейший прежний входной контроль0,685096; превосходство над ним не подтверждено. Источники `runs/clipped_anchor_readout_20261109/summary.json`, `strong_input_control.json`.",
+      "interpretation": "Один перенос видимого края не выполнил первичный критерий по обеим FlyVis-версиям. Совместный экспериментальный считыватель исправляет эти две пары и улучшает условное ранжирование C34, но это не установленное сохранениеID или отдельная польза ядра.",
+      "decision": "Сохранить совместный считыватель и поячеечный разбор; не принимать отдельную привязку как полное решение. Не внедрять назначенияID до независимой проверки судьбыID; порог или каналы по этим парам не выбирать.",
+      "cannot_claim": "Смена порядка на двух диагностических примерах не доказывает правильное пространственное соответствие поверхности. Разметка прямоугольная; часть центров остаётся вне рамки объекта.45пар имеют условные траекторные метки; результат не является независимым HOTA или доказанным преимуществом FlyVis над сильнейшим входным контролем.",
+      "metrics": [
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6418269230769231,
+          "baseline": 0.5745192307692307,
+          "subset": "45 matched fit20 / FlyVis / global_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.FlyVis.global_max"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6490384615384616,
+          "baseline": 0.5745192307692307,
+          "subset": "45 matched fit20 / FlyVis / balanced_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.FlyVis.balanced_max"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.5817307692307693,
+          "baseline": 0.5769230769230769,
+          "subset": "45 matched fit20 / center8 / global_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.center8.global_max"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.5961538461538461,
+          "baseline": 0.5769230769230769,
+          "subset": "45 matched fit20 / center8 / balanced_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.center8.balanced_max"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.5841346153846154,
+          "baseline": 0.5985576923076923,
+          "subset": "45 matched fit20 / neighbor8 / global_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.neighbor8.global_max"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.5985576923076923,
+          "baseline": 0.5985576923076923,
+          "subset": "45 matched fit20 / neighbor8 / balanced_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.neighbor8.balanced_max"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.5985576923076923,
+          "baseline": 0.6033653846153846,
+          "subset": "45 matched fit20 / input8_temporal / global_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.input8_temporal.global_max"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6177884615384616,
+          "baseline": 0.6033653846153846,
+          "subset": "45 matched fit20 / input8_temporal / balanced_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.input8_temporal.balanced_max"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6490384615384616,
+          "baseline": 0.59375,
+          "subset": "45 matched fit20 / C34 / global_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.C34.global_max"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6875,
+          "baseline": 0.59375,
+          "subset": "45 matched fit20 / C34 / balanced_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.C34.balanced_max"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6009615384615384,
+          "baseline": 0.6081730769230769,
+          "subset": "45 matched fit20 / R134_temporal / global_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.R134_temporal.global_max"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6201923076923077,
+          "baseline": 0.6081730769230769,
+          "subset": "45 matched fit20 / R134_temporal / balanced_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.R134_temporal.balanced_max"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6322115384615384,
+          "baseline": 0.5889423076923077,
+          "subset": "45 matched fit20 / R134_spatial / global_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.R134_spatial.global_max"
+        },
+        {
+          "key": "candidate_identity_auroc",
+          "value": 0.6081730769230769,
+          "baseline": 0.5889423076923077,
+          "subset": "45 matched fit20 / R134_spatial / balanced_max",
+          "source": "runs/clipped_anchor_readout_20261109/summary.json",
+          "locator": "scores.R134_spatial.balanced_max"
+        }
+      ]
     }
   ],
   "manual_events": [

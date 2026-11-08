@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "tests": 4,
+  "model": "A rigid translated interval is intersected with the fixed image bounds. If only the right edge is clipped, the observed left-edge displacement equals true translation; the observed center displacement generally does not. Mirror for other image edges.",
+  "domain": "A shared visible edge and locally unchanged object scale are assumptions. Detector jitter, occlusion and perspective can violate them. This is a geometry/readout correction, not a claim about FlyVis core dynamics.",
+  "intervention": "Override only translation components with an observable common unclipped image edge. Other axes and uncut cases preserve the original prediction exactly. No GT, overlap cutoff, scale fitting or learned threshold."
+}

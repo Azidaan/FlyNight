@@ -1,0 +1,434 @@
+{
+  "events": 200,
+  "known": 46,
+  "matched_known": 45,
+  "own": 32,
+  "foreign": 13,
+  "videos": 17,
+  "changed": 14,
+  "reused": 186,
+  "coverage_known": {
+    "baseline_global": 45,
+    "baseline_balanced": 45,
+    "global_max": 45,
+    "balanced_max": 45
+  },
+  "excluded": [
+    {
+      "video": "00d9e313-038310a2",
+      "frame": 408,
+      "old": 256,
+      "new": 280,
+      "old_cells": 0,
+      "new_cells": 0
+    }
+  ],
+  "scores": {
+    "FlyVis": {
+      "baseline_global": 0.5745192307692307,
+      "baseline_balanced": 0.6009615384615384,
+      "global_max": 0.6418269230769231,
+      "balanced_max": 0.6490384615384616
+    },
+    "center8": {
+      "baseline_global": 0.5769230769230769,
+      "baseline_balanced": 0.5817307692307693,
+      "global_max": 0.5817307692307693,
+      "balanced_max": 0.5961538461538461
+    },
+    "neighbor8": {
+      "baseline_global": 0.5985576923076923,
+      "baseline_balanced": 0.6129807692307693,
+      "global_max": 0.5841346153846154,
+      "balanced_max": 0.5985576923076923
+    },
+    "input8_temporal": {
+      "baseline_global": 0.6033653846153846,
+      "baseline_balanced": 0.6850961538461539,
+      "global_max": 0.5985576923076923,
+      "balanced_max": 0.6177884615384616
+    },
+    "C34": {
+      "baseline_global": 0.59375,
+      "baseline_balanced": 0.6201923076923077,
+      "global_max": 0.6490384615384616,
+      "balanced_max": 0.6875
+    },
+    "R134_temporal": {
+      "baseline_global": 0.6081730769230769,
+      "baseline_balanced": 0.6850961538461539,
+      "global_max": 0.6009615384615384,
+      "balanced_max": 0.6201923076923077
+    },
+    "R134_spatial": {
+      "baseline_global": 0.5889423076923077,
+      "baseline_balanced": 0.6129807692307693,
+      "global_max": 0.6322115384615384,
+      "balanced_max": 0.6081730769230769
+    }
+  },
+  "comparisons": {
+    "FlyVis": {
+      "global_max-baseline_global": {
+        "delta": 0.0673076923076924,
+        "ci95": [
+          0.0,
+          0.14718781218781218
+        ]
+      },
+      "balanced_max-baseline_balanced": {
+        "delta": 0.04807692307692313,
+        "ci95": [
+          -0.02041077969649395,
+          0.1428571428571429
+        ]
+      },
+      "balanced_max-baseline_global": {
+        "delta": 0.07451923076923084,
+        "ci95": [
+          -0.01315861769809142,
+          0.187302243211334
+        ]
+      }
+    },
+    "center8": {
+      "global_max-baseline_global": {
+        "delta": 0.004807692307692402,
+        "ci95": [
+          -0.024138347492920254,
+          0.04761904761904756
+        ]
+      },
+      "balanced_max-baseline_balanced": {
+        "delta": 0.014423076923076872,
+        "ci95": [
+          -0.043010752688172116,
+          0.09333333333333327
+        ]
+      },
+      "balanced_max-baseline_global": {
+        "delta": 0.019230769230769273,
+        "ci95": [
+          -0.060443722943722945,
+          0.10626041666666647
+        ]
+      }
+    },
+    "neighbor8": {
+      "global_max-baseline_global": {
+        "delta": -0.014423076923076872,
+        "ci95": [
+          -0.0472234848484849,
+          0.017952488687782743
+        ]
+      },
+      "balanced_max-baseline_balanced": {
+        "delta": -0.014423076923076983,
+        "ci95": [
+          -0.06666666666666665,
+          0.053057471264367675
+        ]
+      },
+      "balanced_max-baseline_global": {
+        "delta": 0.0,
+        "ci95": [
+          -0.08120891717931186,
+          0.09649561403508768
+        ]
+      }
+    },
+    "input8_temporal": {
+      "global_max-baseline_global": {
+        "delta": -0.004807692307692291,
+        "ci95": [
+          -0.03860294117647056,
+          0.0375033602150537
+        ]
+      },
+      "balanced_max-baseline_balanced": {
+        "delta": -0.06730769230769229,
+        "ci95": [
+          -0.14814943059402894,
+          0.0
+        ]
+      },
+      "balanced_max-baseline_global": {
+        "delta": 0.014423076923076983,
+        "ci95": [
+          -0.07993367346938779,
+          0.12121436256051638
+        ]
+      }
+    },
+    "C34": {
+      "global_max-baseline_global": {
+        "delta": 0.055288461538461564,
+        "ci95": [
+          -0.013729575163398643,
+          0.15838751940993775
+        ]
+      },
+      "balanced_max-baseline_balanced": {
+        "delta": 0.06730769230769229,
+        "ci95": [
+          -0.0063517665130568115,
+          0.1794195581458388
+        ]
+      },
+      "balanced_max-baseline_global": {
+        "delta": 0.09375,
+        "ci95": [
+          0.005710317460317474,
+          0.19753376906318082
+        ]
+      }
+    },
+    "R134_temporal": {
+      "global_max-baseline_global": {
+        "delta": -0.007211538461538436,
+        "ci95": [
+          -0.038963575487013,
+          0.027788662486938204
+        ]
+      },
+      "balanced_max-baseline_balanced": {
+        "delta": -0.06490384615384615,
+        "ci95": [
+          -0.12808197549576855,
+          0.0
+        ]
+      },
+      "balanced_max-baseline_global": {
+        "delta": 0.012019230769230838,
+        "ci95": [
+          -0.0926053639846744,
+          0.14683123249299715
+        ]
+      }
+    },
+    "R134_spatial": {
+      "global_max-baseline_global": {
+        "delta": 0.043269230769230727,
+        "ci95": [
+          -0.00588235294117645,
+          0.1275965517241378
+        ]
+      },
+      "balanced_max-baseline_balanced": {
+        "delta": -0.004807692307692402,
+        "ci95": [
+          -0.042736486486486445,
+          0.056125637755102
+        ]
+      },
+      "balanced_max-baseline_global": {
+        "delta": 0.019230769230769162,
+        "ci95": [
+          -0.06280595813204504,
+          0.12467672413793095
+        ]
+      }
+    }
+  },
+  "local": {
+    "FlyVis": {
+      "baseline_global": {
+        "own": 0.15171294706448143,
+        "foreign": 0.34124718186564196,
+        "correct": false
+      },
+      "baseline_balanced": {
+        "own": 0.21558388186106278,
+        "foreign": 0.33327013631049485,
+        "correct": false
+      },
+      "global_max": {
+        "own": 0.3944692217786012,
+        "foreign": 0.34124718186564196,
+        "correct": true
+      },
+      "balanced_max": {
+        "own": 0.4013152003731338,
+        "foreign": 0.33327013631049485,
+        "correct": true
+      }
+    },
+    "center8": {
+      "baseline_global": {
+        "own": 0.7080143740980442,
+        "foreign": 0.6612036045163826,
+        "correct": true
+      },
+      "baseline_balanced": {
+        "own": 0.7021769260135988,
+        "foreign": 0.7371668458421445,
+        "correct": false
+      },
+      "global_max": {
+        "own": 0.48435286066173755,
+        "foreign": 0.6612036045163826,
+        "correct": false
+      },
+      "balanced_max": {
+        "own": 0.47006434662900465,
+        "foreign": 0.7371668458421445,
+        "correct": false
+      }
+    },
+    "neighbor8": {
+      "baseline_global": {
+        "own": 0.670764022367018,
+        "foreign": 0.6422341259041657,
+        "correct": true
+      },
+      "baseline_balanced": {
+        "own": 0.6542465748649833,
+        "foreign": 0.6896545996503093,
+        "correct": false
+      },
+      "global_max": {
+        "own": 0.3329584829659291,
+        "foreign": 0.6422341259041657,
+        "correct": false
+      },
+      "balanced_max": {
+        "own": 0.253164121034004,
+        "foreign": 0.6896545996503093,
+        "correct": false
+      }
+    },
+    "input8_temporal": {
+      "baseline_global": {
+        "own": 0.5805883902909232,
+        "foreign": 0.5216986079826049,
+        "correct": true
+      },
+      "baseline_balanced": {
+        "own": 0.6544946317170727,
+        "foreign": 0.47841694576391103,
+        "correct": true
+      },
+      "global_max": {
+        "own": 0.5122607945533969,
+        "foreign": 0.5216986079826049,
+        "correct": false
+      },
+      "balanced_max": {
+        "own": 0.3892243171538007,
+        "foreign": 0.47841694576391103,
+        "correct": false
+      }
+    },
+    "C34": {
+      "baseline_global": {
+        "own": 0.4196291102848697,
+        "foreign": 0.4813090349425784,
+        "correct": false
+      },
+      "baseline_balanced": {
+        "own": 0.38158792637717776,
+        "foreign": 0.32605500355561734,
+        "correct": true
+      },
+      "global_max": {
+        "own": 0.38638989694909426,
+        "foreign": 0.4813090349425784,
+        "correct": false
+      },
+      "balanced_max": {
+        "own": 0.37634426348044,
+        "foreign": 0.32605500355561734,
+        "correct": true
+      }
+    },
+    "R134_temporal": {
+      "baseline_global": {
+        "own": 0.579821083512146,
+        "foreign": 0.5313767838454834,
+        "correct": true
+      },
+      "baseline_balanced": {
+        "own": 0.6591282695133954,
+        "foreign": 0.5006812823332865,
+        "correct": true
+      },
+      "global_max": {
+        "own": 0.5580537815328857,
+        "foreign": 0.5313767838454834,
+        "correct": true
+      },
+      "balanced_max": {
+        "own": 0.4098007530854117,
+        "foreign": 0.5006812823332865,
+        "correct": false
+      }
+    },
+    "R134_spatial": {
+      "baseline_global": {
+        "own": 0.6294530732099346,
+        "foreign": 0.6708638069626084,
+        "correct": false
+      },
+      "baseline_balanced": {
+        "own": 0.6284139446878896,
+        "foreign": 0.7153198641401359,
+        "correct": false
+      },
+      "global_max": {
+        "own": 0.3680083074717819,
+        "foreign": 0.6708638069626084,
+        "correct": false
+      },
+      "balanced_max": {
+        "own": 0.2725542943541463,
+        "foreign": 0.7153198641401359,
+        "correct": false
+      }
+    }
+  },
+  "primary_local_gate": false,
+  "joint_local_gate": true,
+  "joint_signal_comparisons": {
+    "FlyVis-center8": {
+      "delta": 0.05288461538461542,
+      "ci95": [
+        -0.02807611965240642,
+        0.17142857142857137
+      ]
+    },
+    "FlyVis-neighbor8": {
+      "delta": 0.050480769230769273,
+      "ci95": [
+        -0.04168750000000001,
+        0.16043226381461678
+      ]
+    },
+    "FlyVis-input8_temporal": {
+      "delta": 0.03125,
+      "ci95": [
+        -0.12160071267816946,
+        0.205563725490196
+      ]
+    },
+    "C34-R134_temporal": {
+      "delta": 0.06730769230769229,
+      "ci95": [
+        -0.10512468434343433,
+        0.25
+      ]
+    },
+    "C34-R134_spatial": {
+      "delta": 0.07932692307692313,
+      "ci95": [
+        -0.019705893806343557,
+        0.23376885211562629
+      ]
+    }
+  },
+  "bootstrap": {
+    "seed": 42,
+    "samples": 5000,
+    "unit": "video",
+    "scope": "Descriptive matched fit20 diagnostic, no new independent-tracker claim."
+  }
+}

@@ -97,6 +97,52 @@
         "exp:template_identity_audit_20261108",
         "sys:С2"
       ]
+    },
+    {
+      "id": "lewis_ncc_channel_normalization",
+      "title": "Нормированное сравнение пространственных шаблонов — Lewis",
+      "publication": "J. P. Lewis. Fast Template Matching. Vision Interface,1995,120–123; авторское пояснение Fast Normalized Cross-Correlation.",
+      "doi": "не указан на авторской странице",
+      "url": "https://scribblethink.org/Work/nvisionInterface/nip.html",
+      "sections": "Template Matching by Cross-Correlation, Eq2; Phase Correlation — оговорка об одинаковом весе слабых компонентов.",
+      "established": "Описана нормированная корреляция шаблона и ограничения её применения при геометрических изменениях. Автор отдельно отмечает риск равных весов незначимых компонентов при фазовой корреляции.",
+      "application": "Источник помог проверить старую формулу и её разложение; независимая нормировка по нейронным каналам проверена как наша ограниченная гипотеза. Отдельный вариант не прошёл критерий; отрицательный итог сохранён.",
+      "limitation": "Статья не вводит наш34-канальный считыватель и не доказывает сохранение личности. Нельзя переносить её оговорку о частотных компонентах как доказанный закон для типов клеток.",
+      "method_group": "Нормировка пространственного сходства",
+      "related": [
+        "exp:channel_balance_attribution_20261109",
+        "exp:clipped_anchor_readout_20261109",
+        "sys:С2"
+      ],
+      "evidence": [
+        "runs/channel_balance_attribution_20261109/protocol.json",
+        "runs/channel_balance_attribution_20261109/summary.json"
+      ],
+      "problem_group": "Сохранение личности",
+      "problem": "С2 — геометрически допустимый кандидат может принадлежать другой машине."
+    },
+    {
+      "id": "cao2023_observation_vs_state",
+      "title": "Разделение наблюдений и фильтрованного состояния — Cao и соавторы",
+      "publication": "Jinkun Cao, Jiangmiao Pang, Xinshuo Weng, Rawal Khirodkar, Kris Kitani. Observation-Centric SORT: Rethinking SORT for Robust Multi-Object Tracking. CVPR,2023; arXiv v3,2023.",
+      "doi": "10.48550/arXiv.2203.14360",
+      "url": "https://arxiv.org/abs/2203.14360",
+      "sections": "Доступна первичная аннотация; официальный ocsort.py, строки94–124, хранение last_observation/observations отдельно от фильтра. CVF403; полный PDF arXiv превысил лимит и в этой проверке не прочитан.",
+      "established": "Предложено исправлять накопление ошибки состояния с опорой на наблюдения. Официальная реализация отдельно сохраняет детекции, а не подменяет их отфильтрованным прямоугольником.",
+      "application": "Разделение наблюдения и состояния использовано при восстановлении точной прошлой детекции и в новом метаданном трекере. Привязка к видимому краю — отдельная наша геометрическая гипотеза с синтетическими проверками и отрицательным первичным критерием.",
+      "limitation": "Полный OC-SORT не воспроизводился. Наша формула обрезки не приписывается авторам. Корректность записи метаданных не доказывает пользу сопоставления или сохраненияID.",
+      "method_group": "Наблюдения и координаты шаблона",
+      "related": [
+        "exp:clipped_anchor_readout_20261109",
+        "sys:С2"
+      ],
+      "evidence": [
+        "runs/clipped_anchor_readout_20261109/protocol.json",
+        "runs/clipped_anchor_readout_20261109/runtime_verification.json",
+        "runs/clipped_anchor_readout_20261109/summary.json"
+      ],
+      "problem_group": "Сохранение личности",
+      "problem": "С2 — геометрически допустимый кандидат может принадлежать другой машине."
     }
   ]
 }
