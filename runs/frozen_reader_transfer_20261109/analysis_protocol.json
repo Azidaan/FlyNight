@@ -1,0 +1,17 @@
+{
+  "seed": 42,
+  "replicates": 5000,
+  "metric": "Pooled own-vs-foreign AUROC with half ties; higher is better. No per-event accept/reject threshold. Separate six other-video new-reader cases from five ready clipped development cases; never pool them.",
+  "bootstrap": "Paired whole-video resampling with replacement. Report number of resamples with both classes and discarded absent-class draws. With one foreign case or one own case, narrow empirical intervals do NOT establish generalization.",
+  "criteria": "Apply original three criteria. Criterion2 requires strict gain on new six-case other-video group, not on reused development cases. The absent independent clipped group is a coverage limitation. Criterion3 is descriptive point superiority over both matched34controls, with uncertainty explicitly reported.",
+  "sources": {
+    "runs/frozen_reader_transfer_20261109/analyze.py": "17e6cef3d6984880a9e800e6af1fa60ea10ed97d9c18af75a5b223164b36cd0c",
+    "runs/frozen_reader_transfer_20261109/results.json": "f30bd8078704da638364e7f7d0e25fb5a4919f7a943d69a6cfcd2da2ccf5652e",
+    "runs/frozen_reader_transfer_20261109/comparison_protocol.json": "7baa92b63c94e48a184fdd0f2680da882616e7df982a0ed669060462d3f88900",
+    "runs/frozen_reader_transfer_20261109/comparison_read_set.json": "f294815f2a5d5a16af8826e8161cd88823483531d6d9ce5fec7a23c6494f730c",
+    "runs/frozen_reader_transfer_20261109/external_inventory.json": "81a01be1b5c12977036197f2823a56b7f7d560a8b69f486b74ad87f661931b5e",
+    "runs/clipped_anchor_readout_20261109/summary.json": "af98803894d553a0b4635477c2576d81c3172a4811f864499c2018f387e58197",
+    "runs/clipped_anchor_readout_20261109/strong_input_control.json": "251274f5483254655a94d6241ea96f8350b67d5c841ae3220dde2c8bef531d36",
+    "runs/bbox_normalized_signals_20261108/full/comparison_report.json": "e38cd02af2b0852bc15092923f46fcc79416f8b199dc837aa7f282709c426a3b"
+  }
+}

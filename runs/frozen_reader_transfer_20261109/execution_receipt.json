@@ -1,0 +1,130 @@
+{
+  "passed": true,
+  "stages": [
+    {
+      "token": "cf45f1c4e23d49e59968c07f8d13934d",
+      "source_log": "analysis.log",
+      "returncode": 0,
+      "reason": null,
+      "owned_ended": true
+    },
+    {
+      "token": "c697b24777214e79bbdecebe35655c3a",
+      "source_log": "analysis_register.log",
+      "returncode": 0,
+      "reason": null,
+      "owned_ended": true
+    },
+    {
+      "token": "dd71ece99e66438389081ae12960f68b",
+      "source_log": "checks.log",
+      "returncode": 0,
+      "reason": null,
+      "owned_ended": true
+    },
+    {
+      "token": "80221b0b7de74022b2359fe0da510ff6",
+      "source_log": "compare_register.log",
+      "returncode": 0,
+      "reason": null,
+      "owned_ended": true
+    },
+    {
+      "token": "d40843d4a45f4f9ba4a3cca6ad6295f7",
+      "source_log": "compare_retry1.log",
+      "returncode": 0,
+      "reason": null,
+      "owned_ended": true
+    },
+    {
+      "token": "8890904d0cd9475ea23756f3e96fe970",
+      "source_log": "external_inventory.log",
+      "returncode": 0,
+      "reason": null,
+      "owned_ended": true
+    },
+    {
+      "token": "44dd89e85aeb4ecdbcb868f6f5bc818a",
+      "source_log": "external_register.log",
+      "returncode": 1,
+      "reason": null,
+      "owned_ended": true
+    },
+    {
+      "token": "30843b8441ec47feabd87765b08f228c",
+      "source_log": "external_register_retry1.log",
+      "returncode": 0,
+      "reason": null,
+      "owned_ended": true
+    },
+    {
+      "token": "1b3555c3c4d948d699a7065d6c13f939",
+      "source_log": "record.log",
+      "returncode": 1,
+      "reason": null,
+      "owned_ended": true
+    },
+    {
+      "token": "b87c62ee2a014b6d8b6e1490c9b3f9b6",
+      "source_log": "record_retry1.log",
+      "returncode": 0,
+      "reason": null,
+      "owned_ended": true
+    },
+    {
+      "token": "7fcc00ac7092470495c2f06ce5b4625c",
+      "source_log": "register_retry1.log",
+      "returncode": 1,
+      "reason": null,
+      "owned_ended": true
+    },
+    {
+      "token": "31ae0d1fd684424080ed091bf4533f26",
+      "source_log": "register_retry2.log",
+      "returncode": 1,
+      "reason": null,
+      "owned_ended": true
+    },
+    {
+      "token": "dec4eab9b67f4b7a95be2dec7dbc14f1",
+      "source_log": "register_retry3.log",
+      "returncode": 0,
+      "reason": null,
+      "owned_ended": true
+    },
+    {
+      "token": "dcf835da0ddb4ec69c47d5886d3ba58e",
+      "source_log": "restore.log",
+      "returncode": 0,
+      "reason": null,
+      "owned_ended": true
+    }
+  ],
+  "failed_preparation_or_assertion_stages_preserved": [
+    {
+      "token": "44dd89e85aeb4ecdbcb868f6f5bc818a",
+      "returncode": 1,
+      "reason": null
+    },
+    {
+      "token": "1b3555c3c4d948d699a7065d6c13f939",
+      "returncode": 1,
+      "reason": null
+    },
+    {
+      "token": "7fcc00ac7092470495c2f06ce5b4625c",
+      "returncode": 1,
+      "reason": null
+    },
+    {
+      "token": "31ae0d1fd684424080ed091bf4533f26",
+      "returncode": 1,
+      "reason": null
+    }
+  ],
+  "all_previous_owned_workers_ended": true,
+  "uncontrolled_initial_syntax_failure_preserved": "register.err",
+  "pre_guard_manifest_path_failure_preserved": "compare.err",
+  "interrupted_journal_write": "annotate_label_grade.py exited1 after label_grade/card save with transient OSError22 opening unchanged plan; finish_label_journal.py finished only that write.",
+  "no_ready_science_repeated": true
+}

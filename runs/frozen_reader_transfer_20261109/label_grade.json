@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "conditional_scores_preserved": true,
+  "ambiguous_previous_identity": [
+    {
+      "video": "004855fc-ff3946ad",
+      "frame": 384,
+      "old": 405,
+      "new": 417,
+      "direct_current": {
+        "identity": "00008217",
+        "iou": 0.8204015461954786,
+        "box": [
+          1035.7968801513034,
+          401.4097232409389,
+          1159.8561523587664,
+          453.16253320135075
+        ]
+      },
+      "past_target_anchors": [
+        {
+          "frame": 378,
+          "matches": [
+            {
+              "identity": "00008216",
+              "iou": 0.5609936324727325,
+              "box": [
+                966.0919829409096,
+                404.89937521799175,
+                1057.222189223452,
+                450.9398139178958
+              ]
+            },
+            {
+              "identity": "00008218",
+              "iou": 0.7241819950673338,
+              "box": [
+                991.8282363000104,
+                408.6169149581599,
+                1065.5291681569302,
+                453.1634158501533
+              ]
+            }
+          ],
+          "unique_identity": false,
+          "pair_kind_robust_to_qualified_alternatives": true
+        }
+      ],
+      "past_identity_unique": false,
+      "latest_reference_annotated": false
+    }
+  ],
+  "strict_unique_previous_counts": {
+    "own": 5,
+    "foreign": 0,
+    "auroc": null
+  },
+  "current_raw_unique_count": 6,
+  "latest_reference_direct_count": 0,
+  "note": "У чужой405→417прошлаярамка378кадра соответствует двумGTприпрежнемIoU≥0,5:00008216(0,560993)и00008218(0,724182). Текущая384кадра однозначно00008217. Метка чужая устойчива к двум квалифицированным альтернативам, но точную старую личность нельзя объявлять однозначной. При строгом требовании уникальной прошлойGTв новомсрезе5своихи0чужих; AUROCтакогострогогосрезанеопределена. Последний кадр шаблона6основныхпар не имеет прямой разметки.",
+  "sources": {
+    "runs/frozen_reader_transfer_20261109/audit.json": "3e028da44c412661b5e4e6339e5fe7bc5047053c78ea862985a7fb6859bbdfcb"
+  }
+}

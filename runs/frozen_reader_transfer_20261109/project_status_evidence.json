@@ -1,0 +1,33 @@
+{
+  "conditional_45": {
+    "events": 45,
+    "own": 32,
+    "foreign": 13,
+    "pairings": 416,
+    "old_auroc": 0.59375,
+    "new_auroc": 0.6875,
+    "strong_input_auroc": 0.6850961538461539,
+    "old_wins": 247,
+    "new_wins": 286,
+    "strong_input_wins": 285,
+    "new_minus_old": 0.09375,
+    "new_minus_old_relative_percent": 15.789473684210526,
+    "new_minus_strong_input": 0.0024038461538461453,
+    "new_minus_strong_input_ci95": [
+      -0.13158617698091385,
+      0.1564148351648351
+    ],
+    "source": "runs/clipped_anchor_readout_20261109/summary.json; strong_input_control.json",
+    "limitation": "416 combinations reuse the same45 cases; not416 independent observations and not39 ID recoveries."
+  },
+  "last_full_tracker": {
+    "source": "runs/bbox_normalized_signals_20261108/full/comparison_report.json",
+    "baseline_hota": 57.900829184147604,
+    "old_flyvis_hota": 57.900829184147604,
+    "delta": 0.0,
+    "relative_percent": 0.0,
+    "accepted": false,
+    "current_joint_reader_not_tested_in_full_tracker": true
+  },
+  "measured_ceiling_not_available": true
+}
