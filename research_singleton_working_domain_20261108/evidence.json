@@ -1,0 +1,62 @@
+{
+  "created": "2026-11-08T14:32:23.340154+03:00",
+  "head": "b410295cb9e329fcf38834e36ce6c5bd4183cb96",
+  "sources": {
+    "runs/bbox_normalized_signals_20261108/inventory.json": "f07f82368ba470028cba0100d822f546adfda48d12bf8918165625cd3cce6ad7",
+    "runs/bbox_normalized_signals_20261108/protocol.json": "b04bae8125b765e24d9b8aac2ab3cf7b18e5483e7c64ac09c81993084e7b6c12",
+    "runs/bbox_normalized_signals_20261108/comparison_report.json": "e191429ab25052548b0a053fe6bf105f32073a9a408bebdf5cc421a67a9fe9ec",
+    "runs/bbox_readout_calibration_20261108/protocol.json": "199937ae4be5c90d243acf4c486eb7c16078e56f0d563319c05a9915d705255c",
+    "runs/bbox_readout_calibration_20261108/comparison_report.json": "c4c7acf8e89614cf310e5b595505e5986fb4ee4ca0537c18554998e0b85873ff",
+    "runs/bbox_fit_maps_20261108/inventory.json": "2b00050da2553f1ce3ecaacbf5ebad8594491cfde8ab46287edf7ae0df307ae8",
+    "runs/bbox_singleton_pilot_20261108/labels/00d18b13-52d3e4c4.json": "b163ca710cefb076463dd13873257eef2e052452da82073153032587ce6d4d2d",
+    "research_bbox_spatial_readiness_20261108/inventory.py": "01406e00799ddeb81be06d1e0044da9b3416c6969fb7b2f17f6b307f78a74dfa",
+    "research_bbox_normalized_signals_20261108/compare.py": "f4b491bd5fb783505574b3bb2e31adc96ac765f741728cc5e97b61f611aea183",
+    "research_bbox_readout_calibration_20261108/compare.py": "ea6ae6ced38a852bef751938c97bc3595fc47d4ef7717e4fd3cc705657a6822d",
+    "tracking/native_confirm_identity.py": "552e3675b0284717d652385a5ba8c726b29c893441f949867491414e17881da9",
+    "tracking/own_template_verification.py": "203e932b76c063b66579374e9798483f05925f6e9a2381274faecfef15262f50",
+    "runs/continuation_20261029/memory_write_val_audit/report.json": "dd354c43b962d756bf55671b53ddc9c7b2199619df4593ed6984839d8486cf92",
+    "runs/continuation_20261029/assignment_write_val_audit/report.json": "d7e3c96567875b410ab6c4e249be8ca99cc5229a75c5484ef3de37ca6be3c955",
+    "runs/continuation_20261029/bounded_write_val_audit/report.json": "1a46cf618722ecc1cabfed3070b9625de30e6d9d345359ab34ef57b82d32a97f",
+    "runs/z13_spatial_set_readout_20261025/protocol.json": "c951e7ea744eddd8946492a33828b7167c6ed34ee39d7c5037a32da641bfa1e6"
+  },
+  "working_domain": {
+    "age_cap": 2,
+    "alpha": 0.025,
+    "matching_threshold": 0.8,
+    "predicted_iou": 0.2,
+    "fit_edges": 22,
+    "known_correct": 4,
+    "known_foreign": 0,
+    "unknown": 18,
+    "source": "runs/bbox_normalized_signals_20261108/inventory.json:counts.fit20"
+  },
+  "broader_readout_diagnosis": {
+    "age_cap": 6,
+    "raw_pairs": 200,
+    "known_correct": 33,
+    "known_foreign": 13,
+    "unknown": 154,
+    "solver_not_replayed": true,
+    "source": "runs/bbox_readout_calibration_20261108/comparison_report.json"
+  },
+  "counterexample": {
+    "video": "00d18b13-52d3e4c4",
+    "frame": 550,
+    "old_tid": 620,
+    "new_tid": 686,
+    "age": 4,
+    "cost": 0.8508175611495972,
+    "corrected_cost_at_alpha025": 0.8258175611495971,
+    "flyvis_score": 0.28641671655442164,
+    "excluded_from_age2_policy": true,
+    "also_above_matching_threshold": true,
+    "target_anchor_frame": 539,
+    "reference_map_frame": 546,
+    "new_fragment_anchors": [
+      551,
+      557
+    ],
+    "reference_identity_at546_unknown": true
+  },
+  "conclusion": "The broad age6 scalar-readout gate failed as registered. It did not test calibration of the complete age2 alpha0.025 policy. This does not accept any system or invalidate the completed full negative/inconclusive comparison."
+}
