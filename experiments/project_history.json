@@ -28283,6 +28283,515 @@
           "locator": "records.7.error_grid_steps"
         }
       ]
+    },
+    {
+      "id": "singleton_forward_backward_transfer_20261108",
+      "title": "Проверка возврата пространственных карт на других размеченных своих и чужих парах",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "question": "Повторяется ли различие ошибки возврата на других прямо размеченных парах?",
+      "hypothesis": "Несогласованный возврат по T4/T5 может отличать чужие продолжения от своих.",
+      "expected": "Ошибки семи новых пар с четырьмя представлениями и ограничениями по масштабу.",
+      "acceptance": [
+        {
+          "criterion": "Immutable source hashes; direct raw annotation rechecked; all methods share three cells; independent interpolation and scalar products agree <=1e-9; no score fitting; unknown/unsupported cases retained explicitly.",
+          "met": true,
+          "evidence": "runs/singleton_forward_backward_transfer_20261108/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/protocol.json",
+          "claim": "Условия до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/summary.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/audit.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/maps_complete.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/inventory_provenance.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Измеренный результат и проверка"
+        }
+      ],
+      "done": "2026-11-08",
+      "obtained": "На 7 новых прямо размеченных парах (4 своих, 3 чужих) точный возврат FlyVis получен у 1/4 своих и 2/3 чужих. Ошибки в шагах у своих 1, 1, 2, 0; у чужих 0, 0, 3. Центральные временные средние дали точный возврат у 3/4 своих и 3/3 чужих; средние с соседями — у 2/4 и 3/3; средние с отклонениями — у 2/4 и 0/3. Источники `runs/singleton_forward_backward_transfer_20261108/results.json`, `runs/singleton_forward_backward_transfer_20261108/summary.json`.",
+      "interpretation": "Различие первого опыта на двух парах не перенеслось. Ошибка независимого возврата по T4/T5 в этой трёхточечной реализации не отделяет свою машину от чужой. Два чужих нулевых возврата лежат внутри старой рамки, поэтому ограничение обратной области этой рамкой их не устраняет. У трёх своих пар FlyVis ошибка ненулевая. Сравнение с простыми признаками также не даёт чистого разделения.",
+      "cannot_claim": "Только 7 событий, 3 опорные ячейки, без подбора порогов. Все 3 чужих случая меняют масштаб вырезки глаза, 4 своих — с постоянным масштабом; группы не согласованы по этому фактору. Между кадрами разметки история старого ID подтверждается сохранёнными опорными наблюдениями, а текущая чужая или своя рамка проверена напрямую. Целые карты, другие опоры и качество полного трекера здесь не проверены. Из сравнения нельзя заключать о причинном преимуществе ядра FlyVis или назначать рабочий порог.",
+      "decision": "Не использовать ошибку возврата этой схемы как самостоятельное подтверждение личности или готовое основание отказа. Первую проблему оставить открытой. Сильнейшая альтернатива — неустойчивость пространственного соответствия при трёх ячейках и изменении масштаба, а не отсутствие информации в полном модуле FlyVis. Для следующего решения нужны согласованная геометрия и подтверждённое сравнение внутри самой карты; автоматически новый этап не запускался.",
+      "metrics": [
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.0.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.0.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.1.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.1.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.2.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.2.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 8.140774337521613,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.3.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.3.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 2.5649015036027003,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 770→844 / own / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.4.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 770→844 / own / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.4.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 770→844 / own / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.5.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 770→844 / own / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.5.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 770→844 / own / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.6.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 770→844 / own / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.6.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 2.5649015036027003,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 770→844 / own / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.7.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": null,
+          "subset": "004855fc-ff3946ad / 770→844 / own / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.7.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.8.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.8.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.9.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.9.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.10.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.10.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 12.638645090216205,
+          "baseline": null,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.11.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": null,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.11.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 24.77442283759569,
+          "baseline": null,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.12.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 3,
+          "baseline": null,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.12.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.13.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.13.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.14.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.14.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 16.29156010230179,
+          "baseline": null,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.15.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 2,
+          "baseline": null,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.15.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 2.379039075805403,
+          "baseline": null,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.16.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": null,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.16.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.17.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.17.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.18.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.18.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.19.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.19.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 4.255754475703325,
+          "baseline": null,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.20.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 2,
+          "baseline": null,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.20.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 2.1278772378516626,
+          "baseline": null,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.21.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": null,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.21.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 2.379039075805403,
+          "baseline": null,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.22.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": null,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.22.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 6.383631713554988,
+          "baseline": null,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.23.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 3,
+          "baseline": null,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.23.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.24.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / FlyVis",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.24.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.25.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / center8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.25.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 4.758078151610806,
+          "baseline": null,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.26.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 2,
+          "baseline": null,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / neighbor8",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.26.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": null,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.27.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": null,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / input8_temporal",
+          "source": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "locator": "records.27.error_grid_steps"
+        }
+      ]
     }
   ],
   "manual_events": [
