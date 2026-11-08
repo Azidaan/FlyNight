@@ -1,0 +1,8 @@
+..............................................................           [100%]
+62 passed in 232.24s (0:03:52)
+{'nodes': 1220, 'experiments': 365, 'journal_entries': 1047}
+{'nodes': 1220, 'experiments': 365, 'journal_entries': 1047}
+Traceback (most recent call last):
+  File "E:\Dissertation\runs\template_identity_audit_20261108\check_records.py", line 31, in <module>
+    assert hypotheses=={p.name:p.read_bytes() for p in (vault/'Карта проекта/Гипотезы').glob('*.md')}
+AssertionError

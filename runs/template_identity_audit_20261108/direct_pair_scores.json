@@ -1,0 +1,627 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "video": "007c01ea-63aa326c",
+      "frame": 733,
+      "old": 421,
+      "new": 430,
+      "direct_kind": "foreign",
+      "reference_identity": "00082098",
+      "candidate_identity": "00082099",
+      "native_current_status": "unique",
+      "conditional_label_preserved": {
+        "video": "007c01ea-63aa326c",
+        "frame": 733,
+        "old_tid": 421,
+        "new_tid": 430,
+        "known": true,
+        "positive": false,
+        "target": "00082098",
+        "identity": "00082099",
+        "target_anchors": [
+          [
+            727,
+            "00082098"
+          ]
+        ],
+        "fragment_anchors": [
+          [
+            733,
+            "00082099"
+          ],
+          [
+            739,
+            "00082099"
+          ],
+          [
+            745,
+            "00082099"
+          ]
+        ],
+        "direct_current_known": true,
+        "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+      },
+      "ready_scores": {
+        "background_patch_gate_20261108": {
+          "cells": [
+            222,
+            247,
+            248,
+            273,
+            274,
+            300,
+            301,
+            328,
+            329,
+            358
+          ],
+          "supported": true,
+          "scores": {
+            "FlyVis": {
+              "correlation_max": 0.15410835117410815,
+              "filter_max": 0.15729247339986172
+            },
+            "center8": {
+              "correlation_max": 0.5083840994561762,
+              "filter_max": 0.5081951315610056
+            },
+            "neighbor8": {
+              "correlation_max": 0.4498140628122207,
+              "filter_max": 0.45739748112639317
+            },
+            "input8_temporal": {
+              "correlation_max": 0.3780593089836678,
+              "filter_max": 0.36704477475509834
+            }
+          }
+        },
+        "decoder34_identity_gate_20261108": {
+          "cells": [
+            222,
+            247,
+            248,
+            273,
+            274,
+            300,
+            301,
+            328,
+            329,
+            358
+          ],
+          "supported": true,
+          "scores": {
+            "C34": {
+              "correlation_max": 0.28949221869022473,
+              "filter_max": 0.29031234319104
+            },
+            "R134_temporal": {
+              "correlation_max": 0.3894448701216716,
+              "filter_max": 0.3783295080658462
+            },
+            "R134_spatial": {
+              "correlation_max": 0.47318084827324414,
+              "filter_max": 0.4825930169270864
+            }
+          }
+        }
+      },
+      "sources": {
+        "runs/background_patch_gate_20261108/events/007c01ea-63aa326c_733_421_430.json": "643e04be3febdbc6297008cb09b4c61c5ff0edb87975e313bae71738b0912223",
+        "runs/decoder34_identity_gate_20261108/events/007c01ea-63aa326c_733_421_430.json": "bb18a081df6e6c97da9f4557eb5dfee560e638329254e10f30defa5b7e55c950"
+      }
+    },
+    {
+      "video": "009215e2-62d79d70",
+      "frame": 908,
+      "old": 437,
+      "new": 443,
+      "direct_kind": "own",
+      "reference_identity": "00102948",
+      "candidate_identity": "00102948",
+      "native_current_status": "unique",
+      "conditional_label_preserved": {
+        "video": "009215e2-62d79d70",
+        "frame": 908,
+        "old_tid": 437,
+        "new_tid": 443,
+        "known": true,
+        "positive": true,
+        "target": "00102948",
+        "identity": "00102948",
+        "target_anchors": [
+          [
+            902,
+            "00102948"
+          ]
+        ],
+        "fragment_anchors": [
+          [
+            908,
+            "00102948"
+          ]
+        ],
+        "direct_current_known": true,
+        "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+      },
+      "ready_scores": {
+        "background_patch_gate_20261108": {
+          "cells": [
+            305,
+            306,
+            333,
+            334,
+            335,
+            362,
+            363,
+            364,
+            391,
+            392,
+            393,
+            420,
+            421
+          ],
+          "supported": true,
+          "scores": {
+            "FlyVis": {
+              "correlation_max": 0.5326515773610291,
+              "filter_max": 0.5373930922321137
+            },
+            "center8": {
+              "correlation_max": 0.7229451985967501,
+              "filter_max": 0.7022582098936441
+            },
+            "neighbor8": {
+              "correlation_max": 0.7775872620066998,
+              "filter_max": 0.7567809348004488
+            },
+            "input8_temporal": {
+              "correlation_max": 0.533115166431644,
+              "filter_max": 0.5519804723162298
+            }
+          }
+        },
+        "decoder34_identity_gate_20261108": {
+          "cells": [
+            305,
+            306,
+            333,
+            334,
+            335,
+            362,
+            363,
+            364,
+            391,
+            392,
+            393,
+            420,
+            421
+          ],
+          "supported": true,
+          "scores": {
+            "C34": {
+              "correlation_max": 0.6248952371465735,
+              "filter_max": 0.6314444983890142
+            },
+            "R134_temporal": {
+              "correlation_max": 0.5303509908094711,
+              "filter_max": 0.5513528517379529
+            },
+            "R134_spatial": {
+              "correlation_max": 0.8005420514160194,
+              "filter_max": 0.7782918494107813
+            }
+          }
+        }
+      },
+      "sources": {
+        "runs/background_patch_gate_20261108/events/009215e2-62d79d70_908_437_443.json": "930a1629940da30287f4d7d92788fde17e967ca6c4c111ff5c1680a70f0eef32",
+        "runs/decoder34_identity_gate_20261108/events/009215e2-62d79d70_908_437_443.json": "1f19039384ffcbed11f1f458ff0d41aaea504cbbbfa0eee3c5b508954e016749"
+      }
+    },
+    {
+      "video": "009215e2-62d79d70",
+      "frame": 920,
+      "old": 448,
+      "new": 453,
+      "direct_kind": "foreign",
+      "reference_identity": "00102948",
+      "candidate_identity": "00102951",
+      "native_current_status": "unique",
+      "conditional_label_preserved": {
+        "video": "009215e2-62d79d70",
+        "frame": 920,
+        "old_tid": 448,
+        "new_tid": 453,
+        "known": false,
+        "positive": null,
+        "target": "00102948",
+        "identity": null,
+        "target_anchors": [
+          [
+            914,
+            "00102948"
+          ]
+        ],
+        "fragment_anchors": [],
+        "direct_current_known": false,
+        "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+      },
+      "ready_scores": {
+        "background_patch_gate_20261108": {
+          "cells": [
+            272,
+            299,
+            300,
+            301,
+            327,
+            328,
+            329,
+            330,
+            331,
+            356,
+            357,
+            358,
+            359,
+            360,
+            361,
+            362,
+            385,
+            386,
+            387,
+            388,
+            389,
+            390,
+            391,
+            392,
+            393,
+            414,
+            415,
+            416,
+            417,
+            418,
+            419,
+            420,
+            421,
+            422,
+            423,
+            443,
+            444,
+            445,
+            446,
+            447,
+            448,
+            449,
+            450,
+            451,
+            471,
+            472,
+            473,
+            474,
+            475,
+            476,
+            477,
+            498,
+            499,
+            500,
+            501,
+            502,
+            524,
+            525,
+            526,
+            549
+          ],
+          "supported": true,
+          "scores": {
+            "FlyVis": {
+              "correlation_max": 0.4512237956610208,
+              "filter_max": 0.4484390429123102
+            },
+            "center8": {
+              "correlation_max": 0.6993456487418517,
+              "filter_max": 0.6908279298640515
+            },
+            "neighbor8": {
+              "correlation_max": 0.6930648922033458,
+              "filter_max": 0.6816283433588185
+            },
+            "input8_temporal": {
+              "correlation_max": 0.4061856698668813,
+              "filter_max": 0.4033567251382617
+            }
+          }
+        },
+        "decoder34_identity_gate_20261108": {
+          "cells": [
+            272,
+            299,
+            300,
+            301,
+            327,
+            328,
+            329,
+            330,
+            331,
+            356,
+            357,
+            358,
+            359,
+            360,
+            361,
+            362,
+            385,
+            386,
+            387,
+            388,
+            389,
+            390,
+            391,
+            392,
+            393,
+            414,
+            415,
+            416,
+            417,
+            418,
+            419,
+            420,
+            421,
+            422,
+            423,
+            443,
+            444,
+            445,
+            446,
+            447,
+            448,
+            449,
+            450,
+            451,
+            471,
+            472,
+            473,
+            474,
+            475,
+            476,
+            477,
+            498,
+            499,
+            500,
+            501,
+            502,
+            524,
+            525,
+            526,
+            549
+          ],
+          "supported": true,
+          "scores": {
+            "C34": {
+              "correlation_max": 0.4651087904251389,
+              "filter_max": 0.45683052685616643
+            },
+            "R134_temporal": {
+              "correlation_max": 0.418925622106821,
+              "filter_max": 0.4155252692055819
+            },
+            "R134_spatial": {
+              "correlation_max": 0.7296640049545574,
+              "filter_max": 0.7178080506704448
+            }
+          }
+        }
+      },
+      "sources": {
+        "runs/background_patch_gate_20261108/events/009215e2-62d79d70_920_448_453.json": "6d81a3638eff16653786e6a48c9f62af92be360ac3bfbd63472d721416d0285c",
+        "runs/decoder34_identity_gate_20261108/events/009215e2-62d79d70_920_448_453.json": "f996f21176ed1f8d09eba7f4d0b93952f0831e0d118349bc31d4792807e8ddb1"
+      }
+    },
+    {
+      "video": "00982f76-83a093ef",
+      "frame": 156,
+      "old": 88,
+      "new": 144,
+      "direct_kind": "own",
+      "reference_identity": "00086017",
+      "candidate_identity": "00086017",
+      "native_current_status": "unique",
+      "conditional_label_preserved": {
+        "video": "00982f76-83a093ef",
+        "frame": 156,
+        "old_tid": 88,
+        "new_tid": 144,
+        "known": true,
+        "positive": true,
+        "target": "00086017",
+        "identity": "00086017",
+        "target_anchors": [
+          [
+            138,
+            "00086017"
+          ],
+          [
+            144,
+            "00086017"
+          ],
+          [
+            150,
+            "00086017"
+          ]
+        ],
+        "fragment_anchors": [
+          [
+            156,
+            "00086017"
+          ]
+        ],
+        "direct_current_known": true,
+        "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+      },
+      "ready_scores": {
+        "background_patch_gate_20261108": {
+          "cells": [
+            149,
+            150,
+            172,
+            173,
+            174,
+            197,
+            198
+          ],
+          "supported": true,
+          "scores": {
+            "FlyVis": {
+              "correlation_max": 0.15171294706448143,
+              "filter_max": 0.15726543315733557
+            },
+            "center8": {
+              "correlation_max": 0.7080143740980442,
+              "filter_max": 0.7124327774879959
+            },
+            "neighbor8": {
+              "correlation_max": 0.670764022367018,
+              "filter_max": 0.6660644977521422
+            },
+            "input8_temporal": {
+              "correlation_max": 0.5805883902909232,
+              "filter_max": 0.5684536369537837
+            }
+          }
+        },
+        "decoder34_identity_gate_20261108": {
+          "cells": [
+            149,
+            150,
+            172,
+            173,
+            174,
+            197,
+            198
+          ],
+          "supported": true,
+          "scores": {
+            "C34": {
+              "correlation_max": 0.4196291102848697,
+              "filter_max": 0.42356250062535095
+            },
+            "R134_temporal": {
+              "correlation_max": 0.579821083512146,
+              "filter_max": 0.5658020731542948
+            },
+            "R134_spatial": {
+              "correlation_max": 0.6294530732099346,
+              "filter_max": 0.629966536352406
+            }
+          }
+        }
+      },
+      "sources": {
+        "runs/background_patch_gate_20261108/events/00982f76-83a093ef_156_88_144.json": "26b53cf135b09efc88ea9c1bd4cb6ddbc2c59928d17e1899b6e98b13fe286bb7",
+        "runs/decoder34_identity_gate_20261108/events/00982f76-83a093ef_156_88_144.json": "230d4d39e1900cf7da36be243fb28cb4ae6b058a82ce124d44c93ca6de4c3520"
+      }
+    },
+    {
+      "video": "00d7268f-fd4487be",
+      "frame": 236,
+      "old": 73,
+      "new": 106,
+      "direct_kind": "foreign",
+      "reference_identity": "00068200",
+      "candidate_identity": "00068205",
+      "native_current_status": "unique",
+      "conditional_label_preserved": {
+        "video": "00d7268f-fd4487be",
+        "frame": 236,
+        "old_tid": 73,
+        "new_tid": 106,
+        "known": true,
+        "positive": false,
+        "target": "00068200",
+        "identity": "00068205",
+        "target_anchors": [
+          [
+            218,
+            "00068200"
+          ],
+          [
+            224,
+            "00068200"
+          ],
+          [
+            230,
+            "00068200"
+          ]
+        ],
+        "fragment_anchors": [
+          [
+            236,
+            "00068205"
+          ]
+        ],
+        "direct_current_known": true,
+        "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+      },
+      "ready_scores": {
+        "background_patch_gate_20261108": {
+          "cells": [
+            216,
+            217,
+            242,
+            243,
+            244,
+            270
+          ],
+          "supported": true,
+          "scores": {
+            "FlyVis": {
+              "correlation_max": 0.34124718186564196,
+              "filter_max": 0.35190851756367497
+            },
+            "center8": {
+              "correlation_max": 0.6612036045163826,
+              "filter_max": 0.6362425222123753
+            },
+            "neighbor8": {
+              "correlation_max": 0.6422341259041657,
+              "filter_max": 0.612885809225386
+            },
+            "input8_temporal": {
+              "correlation_max": 0.5216986079826049,
+              "filter_max": 0.5150726097919665
+            }
+          }
+        },
+        "decoder34_identity_gate_20261108": {
+          "cells": [
+            216,
+            217,
+            242,
+            243,
+            244,
+            270
+          ],
+          "supported": true,
+          "scores": {
+            "C34": {
+              "correlation_max": 0.4813090349425784,
+              "filter_max": 0.4771738639580696
+            },
+            "R134_temporal": {
+              "correlation_max": 0.5313767838454834,
+              "filter_max": 0.5231758920303786
+            },
+            "R134_spatial": {
+              "correlation_max": 0.6708638069626084,
+              "filter_max": 0.6393536859284348
+            }
+          }
+        }
+      },
+      "sources": {
+        "runs/background_patch_gate_20261108/events/00d7268f-fd4487be_236_73_106.json": "5ef1279550bdbfa0e91e2c316961437c4506c7da7cfbabe338fc6b4e901013c0",
+        "runs/decoder34_identity_gate_20261108/events/00d7268f-fd4487be_236_73_106.json": "7eddd5813a12e1d45c879f75a93140f777e971f6a9fc93535c18e5f01b896c08"
+      }
+    }
+  ],
+  "scope": "Read already completed scores for all five directly matched pairs. No new descriptors, score calculation, threshold or AUROC-based choice."
+}

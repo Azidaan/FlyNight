@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "totals": {
+    "events": 200,
+    "reference_unannotated": 153,
+    "current_unannotated": 157,
+    "direct_unknown": 195,
+    "current_unmatched": 23,
+    "reference_unmatched": 18,
+    "current_unique": 20,
+    "reference_unique": 29,
+    "direct_foreign": 3,
+    "direct_own": 2
+  },
+  "conditional_known_counts": {
+    "conditional_known": 46,
+    "reference_unannotated": 29,
+    "current_unannotated": 33,
+    "direct_unknown": 42,
+    "current_unique": 11,
+    "reference_unique": 16,
+    "reference_unmatched": 1,
+    "direct_foreign": 2,
+    "direct_own": 2,
+    "current_unmatched": 2
+  },
+  "reference_conflicts": 0,
+  "raw_native_conflicts": 0,
+  "interpretation": "На прямо размеченной части подмена последнего шаблона не обнаружена. Это не подтверждает чистоту неразмеченной части и не оправдывает замену памяти как уже установленное исправление.",
+  "decision": "Не выдавать защищённую память за подтверждённое лечение. Следующий механизм выбирать по различению экземпляров и отделению фона, сохраняя контроль без FlyVis; исходный полный трекер остаётся базой сравнения.",
+  "limitation": "Соответствие определено рамочной разметкой, одним классом и прежним IoU≥0,5. Это не попиксельная принадлежность активности. Неаннотированные кадры не интерполировались. Прежние условные метки траекторий и результаты45пар сохранены; прямые метки не используются в рабочем решении. Качество полного трекера, новые пороги и польза ядра FlyVis не оценивались."
+}

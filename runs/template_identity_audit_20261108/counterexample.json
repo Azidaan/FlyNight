@@ -1,0 +1,107 @@
+{
+  "passed": true,
+  "own_pair": [
+    "00982f76-83a093ef",
+    88,
+    144
+  ],
+  "foreign_pair": [
+    "00d7268f-fd4487be",
+    73,
+    106
+  ],
+  "own_cells": 7,
+  "foreign_cells": 6,
+  "ready_scores": {
+    "FlyVis": {
+      "correlation_max": {
+        "own": 0.15171294706448143,
+        "foreign": 0.34124718186564196,
+        "own_above_foreign": false
+      },
+      "filter_max": {
+        "own": 0.15726543315733557,
+        "foreign": 0.35190851756367497,
+        "own_above_foreign": false
+      }
+    },
+    "center8": {
+      "correlation_max": {
+        "own": 0.7080143740980442,
+        "foreign": 0.6612036045163826,
+        "own_above_foreign": true
+      },
+      "filter_max": {
+        "own": 0.7124327774879959,
+        "foreign": 0.6362425222123753,
+        "own_above_foreign": true
+      }
+    },
+    "neighbor8": {
+      "correlation_max": {
+        "own": 0.670764022367018,
+        "foreign": 0.6422341259041657,
+        "own_above_foreign": true
+      },
+      "filter_max": {
+        "own": 0.6660644977521422,
+        "foreign": 0.612885809225386,
+        "own_above_foreign": true
+      }
+    },
+    "input8_temporal": {
+      "correlation_max": {
+        "own": 0.5805883902909232,
+        "foreign": 0.5216986079826049,
+        "own_above_foreign": true
+      },
+      "filter_max": {
+        "own": 0.5684536369537837,
+        "foreign": 0.5150726097919665,
+        "own_above_foreign": true
+      }
+    },
+    "C34": {
+      "correlation_max": {
+        "own": 0.4196291102848697,
+        "foreign": 0.4813090349425784,
+        "own_above_foreign": false
+      },
+      "filter_max": {
+        "own": 0.42356250062535095,
+        "foreign": 0.4771738639580696,
+        "own_above_foreign": false
+      }
+    },
+    "R134_temporal": {
+      "correlation_max": {
+        "own": 0.579821083512146,
+        "foreign": 0.5313767838454834,
+        "own_above_foreign": true
+      },
+      "filter_max": {
+        "own": 0.5658020731542948,
+        "foreign": 0.5231758920303786,
+        "own_above_foreign": true
+      }
+    },
+    "R134_spatial": {
+      "correlation_max": {
+        "own": 0.6294530732099346,
+        "foreign": 0.6708638069626084,
+        "own_above_foreign": false
+      },
+      "filter_max": {
+        "own": 0.629966536352406,
+        "foreign": 0.6393536859284348,
+        "own_above_foreign": false
+      }
+    }
+  },
+  "mathematical_result": "If a>=tau accepts an own example with score a and foreign score b>a, then b>=tau also accepts the foreign example. Thus no monotone high-score threshold correctly accepts this own and rejects this foreign pair.",
+  "limitations": "Post-hoc descriptive counterexample, not an independent test or estimated general error rate. Two videos, different scenes and geometry; near-equal support is not a matched physical-scene control. Direct box identity does not imply uncontaminated neural receptive fields. No threshold selected and no claim that all information is absent from the maps.",
+  "sources": {
+    "results.json": "e0c9639fd1c3cac5aadc1a6ab65018d533e8ad49921e9eb053feef12e357118b",
+    "direct_pair_scores.json": "ba780c3e68b7c59034cf390da1745499452aeb78d9a5b0bec8953d35406b665e"
+  }
+}

@@ -75,6 +75,28 @@
         "exp:background_patch_gate_20261108",
         "sys:С2"
       ]
+    },
+    {
+      "id": "yan2021_stark_template_memory",
+      "title": "Начальный и обновляемый шаблоны цели — Yan и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Надёжность памяти",
+      "publication": "Bin Yan, Houwen Peng, Jianlong Fu, Dong Wang, Huchuan Lu. Learning Spatio-Temporal Transformer for Visual Tracking. ICCV,2021,10448–10457.",
+      "doi": "не проверен",
+      "url": "https://arxiv.org/pdf/2103.17154",
+      "sections": "Раздел3.2; официальный https://raw.githubusercontent.com/researchmm/Stark/main/lib/test/tracker/stark_st.py, строки42–54и84–92. CVF PDF403; arXiv и официальный код открыты. DOI-resolver и Crossref API недоступны; номер DOI не принимается из вторичного источника.",
+      "established": "В опубликованном однократном сопровождении заданной цели сохраняется начальный шаблон и по уверенности обновляется динамический. Код не заменяет начальный элемент при динамической записи.",
+      "problem": "С2 — геометрически допустимый чужой объект может получить прежнийID.",
+      "application": "Разделение ролей памяти использовано для постановки аудита: прежде чем менять память, проверить принадлежность последнего шаблона по прямой разметке. Аудит выполнен без запуска STARK и без изменения трекера.",
+      "limitation": "Первый шаблон нашего автоматически рождаемого трека не задан истинной разметкой. Порог0,5 из STARK не переносился; устойчивый банк и нейросеть STARK не реализованы. Работа не доказывает, что наша ошибка вызвана памятью.",
+      "evidence": [
+        "runs/template_identity_audit_20261108/protocol.json",
+        "runs/template_identity_audit_20261108/summary.json"
+      ],
+      "related": [
+        "exp:template_identity_audit_20261108",
+        "sys:С2"
+      ]
     }
   ]
 }
