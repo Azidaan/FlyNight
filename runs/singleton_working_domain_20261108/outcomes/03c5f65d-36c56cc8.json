@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "video": "03c5f65d-36c56cc8",
+  "stages": {
+    "singleton": {
+      "counts": {
+        "unknown": 1
+      },
+      "rows": [
+        {
+          "frame": 30,
+          "old_tid": 57,
+          "new_tid": 63,
+          "cost": 0.8431233167648315,
+          "age": 2,
+          "kind": "unknown",
+          "label": {
+            "video": "03c5f65d-36c56cc8",
+            "frame": 30,
+            "old_tid": 57,
+            "new_tid": 63,
+            "known": false,
+            "positive": null,
+            "target": null,
+            "identity": "00110808",
+            "target_anchors": [],
+            "fragment_anchors": [
+              [
+                35,
+                "00110808"
+              ],
+              [
+                41,
+                "00110808"
+              ]
+            ],
+            "direct_current_known": false,
+            "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+          },
+          "reference_frame": 28,
+          "direct_reference_known": false
+        }
+      ]
+    },
+    "cost_qualified": {
+      "counts": {},
+      "rows": []
+    },
+    "canonical_allowed": {
+      "counts": {},
+      "rows": []
+    },
+    "solver_selected": {
+      "counts": {},
+      "rows": []
+    }
+  },
+  "decisions": [],
+  "original_export_counts": {
+    "native_first_public_confirmations": 136,
+    "old_rows_with_possible_first_public_link": 3,
+    "sole_bbox_at_inventory_iou": 1,
+    "sole_bbox_legacy_k1": 1
+  },
+  "working_iou_candidate_rows": [
+    {
+      "frame": 30,
+      "old_tid": 57,
+      "eligible_columns": [
+        4
+      ]
+    },
+    {
+      "frame": 36,
+      "old_tid": 2,
+      "eligible_columns": []
+    },
+    {
+      "frame": 37,
+      "old_tid": 7,
+      "eligible_columns": []
+    }
+  ],
+  "public_output_signature": "ca0dde874d42857a981761bd16a49d38b77e4ea92b3ece7d8dc1ff014a7315af",
+  "physical_outputs_exact": true
+}

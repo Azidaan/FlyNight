@@ -334,6 +334,12 @@ def resolved_tasks(history):
                     target['ids'].append(calibration['id'])
                     target['result']+=' Проверена альтернатива избыточного отказа порога: '+calibration['obtained']+' '+calibration['interpretation']
                     target['next']=calibration['decision']
+                    working=next((c for c in history['experiments'] if c['id']=='singleton_working_domain_inventory_v1_20261108' and c.get('done')),None)
+                    if working:
+                        target['ids'].append(working['id'])
+                        target['result']+=' Области проверки разделены: прежняя калибровка охватывала пропуски до6кадров, а рабочий допуск — до2. На20других обучающих видео в рабочей области получены6правильных,1чужая и23неизвестных пары. Минимум3чужих из2видео не достигнут; это готовность данных, не новый результат качества трекера.'
+                        target['next']=working['decision']
+                        target['primary'] += ['runs/singleton_working_domain_20261108/recovery2/report.json','runs/singleton_working_domain_20261108/recovery2/independent_audit.json']
                     target['primary'] += ['runs/bbox_readout_calibration_20261108/comparison_report.json','runs/bbox_readout_calibration_20261108/independent_audit.json']
     return tasks
 

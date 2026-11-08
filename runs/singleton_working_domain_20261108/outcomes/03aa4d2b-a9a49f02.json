@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "video": "03aa4d2b-a9a49f02",
+  "stages": {
+    "singleton": {
+      "counts": {
+        "unknown": 1
+      },
+      "rows": [
+        {
+          "frame": 306,
+          "old_tid": 45,
+          "new_tid": 78,
+          "cost": 0.8383671045303345,
+          "age": 2,
+          "kind": "unknown",
+          "label": {
+            "video": "03aa4d2b-a9a49f02",
+            "frame": 306,
+            "old_tid": 45,
+            "new_tid": 78,
+            "known": false,
+            "positive": null,
+            "target": null,
+            "identity": null,
+            "target_anchors": [],
+            "fragment_anchors": [],
+            "direct_current_known": false,
+            "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+          },
+          "reference_frame": 304,
+          "direct_reference_known": false
+        }
+      ]
+    },
+    "cost_qualified": {
+      "counts": {},
+      "rows": []
+    },
+    "canonical_allowed": {
+      "counts": {},
+      "rows": []
+    },
+    "solver_selected": {
+      "counts": {},
+      "rows": []
+    }
+  },
+  "decisions": [],
+  "original_export_counts": {
+    "native_first_public_confirmations": 141,
+    "old_rows_with_possible_first_public_link": 3,
+    "sole_bbox_at_inventory_iou": 1,
+    "sole_bbox_legacy_k1": 1
+  },
+  "working_iou_candidate_rows": [
+    {
+      "frame": 306,
+      "old_tid": 45,
+      "eligible_columns": [
+        5
+      ]
+    },
+    {
+      "frame": 548,
+      "old_tid": 99,
+      "eligible_columns": []
+    },
+    {
+      "frame": 1158,
+      "old_tid": 858,
+      "eligible_columns": []
+    }
+  ],
+  "public_output_signature": "201f5d376109d663b18eb8245309d15faa44092c13636a058269da514cffaa62",
+  "physical_outputs_exact": true
+}

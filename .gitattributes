@@ -48,3 +48,7 @@ runs/singleton_native_confirm_20261108/** -text whitespace=blank-at-eol,blank-at
 runs/singleton_verify_20261108/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # This frozen JSON contains one historical trailing space; keep its recorded bytes.
 runs/singleton_verify_20261108/inventory.json -text whitespace=-blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# Preserve the approved working-domain evidence and exact run sources.
+runs/singleton_working_domain_20261108/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+research_singleton_working_domain_20261108/*.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

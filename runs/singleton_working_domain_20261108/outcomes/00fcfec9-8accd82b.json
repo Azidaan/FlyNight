@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "video": "00fcfec9-8accd82b",
+  "stages": {
+    "singleton": {
+      "counts": {
+        "correct": 1
+      },
+      "rows": [
+        {
+          "frame": 1203,
+          "old_tid": 755,
+          "new_tid": 759,
+          "cost": 0.8526294231414795,
+          "age": 2,
+          "kind": "correct",
+          "label": {
+            "video": "00fcfec9-8accd82b",
+            "frame": 1203,
+            "old_tid": 755,
+            "new_tid": 759,
+            "known": true,
+            "positive": true,
+            "target": "00042727",
+            "identity": "00042727",
+            "target_anchors": [
+              [
+                1201,
+                "00042727"
+              ]
+            ],
+            "fragment_anchors": [
+              [
+                1207,
+                "00042727"
+              ],
+              [
+                1213,
+                "00042727"
+              ]
+            ],
+            "direct_current_known": false,
+            "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+          },
+          "reference_frame": 1201,
+          "direct_reference_known": true
+        }
+      ]
+    },
+    "cost_qualified": {
+      "counts": {},
+      "rows": []
+    },
+    "canonical_allowed": {
+      "counts": {},
+      "rows": []
+    },
+    "solver_selected": {
+      "counts": {},
+      "rows": []
+    }
+  },
+  "decisions": [],
+  "original_export_counts": {
+    "native_first_public_confirmations": 159,
+    "old_rows_with_possible_first_public_link": 2,
+    "sole_bbox_at_inventory_iou": 1,
+    "sole_bbox_legacy_k1": 1
+  },
+  "working_iou_candidate_rows": [
+    {
+      "frame": 1146,
+      "old_tid": 715,
+      "eligible_columns": []
+    },
+    {
+      "frame": 1203,
+      "old_tid": 755,
+      "eligible_columns": [
+        4
+      ]
+    }
+  ],
+  "public_output_signature": "e5231cfcc58e6e2a0f43bb80f4af2482fdfa8f7d889c43a64f9dea9288d78902",
+  "physical_outputs_exact": true
+}

@@ -1,0 +1,123 @@
+{
+  "passed": true,
+  "video": "03b8bba0-fa12a75c",
+  "stages": {
+    "singleton": {
+      "counts": {
+        "correct": 1,
+        "unknown": 1
+      },
+      "rows": [
+        {
+          "frame": 223,
+          "old_tid": 157,
+          "new_tid": 158,
+          "cost": 0.8422393202781677,
+          "age": 2,
+          "kind": "correct",
+          "label": {
+            "video": "03b8bba0-fa12a75c",
+            "frame": 223,
+            "old_tid": 157,
+            "new_tid": 158,
+            "known": true,
+            "positive": true,
+            "target": "00026773",
+            "identity": "00026773",
+            "target_anchors": [
+              [
+                221,
+                "00026773"
+              ]
+            ],
+            "fragment_anchors": [
+              [
+                227,
+                "00026773"
+              ],
+              [
+                233,
+                "00026773"
+              ]
+            ],
+            "direct_current_known": false,
+            "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+          },
+          "reference_frame": 221,
+          "direct_reference_known": true
+        },
+        {
+          "frame": 883,
+          "old_tid": 545,
+          "new_tid": 546,
+          "cost": 0.8458666205406189,
+          "age": 2,
+          "kind": "unknown",
+          "label": {
+            "video": "03b8bba0-fa12a75c",
+            "frame": 883,
+            "old_tid": 545,
+            "new_tid": 546,
+            "known": false,
+            "positive": null,
+            "target": "00026820",
+            "identity": null,
+            "target_anchors": [
+              [
+                880,
+                "00026820"
+              ]
+            ],
+            "fragment_anchors": [],
+            "direct_current_known": false,
+            "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+          },
+          "reference_frame": 881,
+          "direct_reference_known": false
+        }
+      ]
+    },
+    "cost_qualified": {
+      "counts": {},
+      "rows": []
+    },
+    "canonical_allowed": {
+      "counts": {},
+      "rows": []
+    },
+    "solver_selected": {
+      "counts": {},
+      "rows": []
+    }
+  },
+  "decisions": [],
+  "original_export_counts": {
+    "native_first_public_confirmations": 155,
+    "old_rows_with_possible_first_public_link": 3,
+    "sole_bbox_at_inventory_iou": 2,
+    "sole_bbox_legacy_k1": 2
+  },
+  "working_iou_candidate_rows": [
+    {
+      "frame": 223,
+      "old_tid": 157,
+      "eligible_columns": [
+        3
+      ]
+    },
+    {
+      "frame": 224,
+      "old_tid": 143,
+      "eligible_columns": []
+    },
+    {
+      "frame": 883,
+      "old_tid": 545,
+      "eligible_columns": [
+        6
+      ]
+    }
+  ],
+  "public_output_signature": "294c42ca6e7264db3c21c9c6f55ebb6395560bdf1afe11e1285f5345f8707d0f",
+  "physical_outputs_exact": true
+}
