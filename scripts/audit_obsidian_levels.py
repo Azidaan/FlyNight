@@ -14,6 +14,7 @@ def audit(vault):
     assert settings['colorGroups']==[dict(query='tag:#граф-проекта/'+k,color=dict(a=1,rgb=v)) for k,v in COLORS.items()]
     by_path={n['path']:k for k,n in nodes.items()}
     assert len(by_path)==len(nodes) and sorted(by_path)==manifest['files']
+    assert len({n['number'] for n in nodes.values()})==len(nodes),'Duplicate hierarchy number'
     found=set()
     edges=set()
     for file in (vault/FOLDER).rglob('*.md'):
@@ -24,6 +25,11 @@ def audit(vault):
         key=by_path[path]
         found.add(path)
         n=nodes[key]
+        assert 'пункт: "'+n['number']+'"' in front[1],path
+        assert int(re.search(r'^уровень: (\d+)$',front[1],re.M)[1])==len(n['number'].split('.'))
+        assert not re.fullmatch(r'\d{4}-\d{2}(?:-\d{2})?',n['title']),n['path']
+        if key.startswith('day:'):
+            assert n['date']==key[4:] and 'дата: "'+key[4:]+'"' in front[1]
         expected_tags={ACTIVE}
         if n['color']:expected_tags.add('граф-проекта/'+n['color'])
         assert set(re.search(r'tags: \[([^\]]+)\]',front[1])[1].split(', '))==expected_tags
@@ -57,14 +63,34 @@ def audit(vault):
     assert not empty_leaves,empty_leaves
     assert roots==set(SECTION_NAMES) and edges==expected and len(edges)==len(nodes)-len(roots)
     catalog=read(ROOT/'experiments/project_history.json')
-    assert {k[4:] for k in nodes if k.startswith('exp:')}=={c['id'] for c in catalog['experiments']}
+    visible_cards={c['id'] for c in catalog['experiments'] if 'drb' not in (c['area']+' '+c['title']).lower()}
+    assert {k[4:] for k in nodes if k.startswith('exp:')}==visible_cards
+    assert not any(re.search(r'\bDRB\b',n['title'],re.I) for n in nodes.values())
+    # The four large FlyVis outcome groups must not be flat stars.
+    topics=read(ROOT/'experiments/obsidian_experiment_topics.json')['topics']
+    for state in ('completed_negative','infrastructure','inconclusive','completed_positive'):
+        hub='area:flyvis:'+state
+        assert hub in nodes
+        assert not any(k.startswith('exp:') and n['parent']==hub for k,n in nodes.items())
+    for card in catalog['experiments']:
+        key='exp:'+card['id']
+        if key not in nodes:continue
+        path=[];parent=nodes[key]['parent']
+        while parent and parent.startswith('topic:'):
+            path.append(nodes[parent]['title']);parent=nodes[parent]['parent']
+        if path:assert list(reversed(path))==topics[card['id']],card['id']
     glossary=read(ROOT/'experiments/metrics_glossary.json')
-    assert sections['Термины']==1+len(glossary['metrics'])+len(glossary['terms'])
+    assert sections['Термины']==1+sum(not re.search(r'\bDRB\b',g['title'],re.I) for group in ('metrics','terms') for g in glossary[group].values())
     assert all('fly:P'+str(i) in nodes for i in range(1,12))
+    recovered=read(ROOT/'experiments/obsidian_archive_review.json')['ideas']
+    for item in recovered:
+        matches=[n for k,n in nodes.items() if k.startswith('plan:idea:09 Запланировано/Идеи из плана/'+item['id']+' ')]
+        assert len(matches)==1 and matches[0]['color']==item['color']
+        assert item['finding'] in (vault/matches[0]['path']).read_text(encoding='utf8')
     journal=(ROOT/'dissertation/ЕДИНЫЙ_ПЛАН.md').read_text(encoding='utf8').split('## Журнал изменений',1)[1]
     expected_entries=len(re.findall(r'^\*\*\d\d\.\d\d\.\d\d\d\d',journal,re.M))
     entries=sum(len(re.findall(r'^## \d\d:\d\d ',(vault/n['path']).read_text(encoding='utf8'),re.M))
                 for k,n in nodes.items() if k.startswith('day:'))
     assert entries==expected_entries,(entries,expected_entries)
     return dict(passed=True,note_count=len(nodes),components=len(roots),edges=len(edges),sections=sections,
-                journal_entries=entries,missing_targets=[],external_edges=[],empty_leaves=empty_leaves,experiments=len(catalog['experiments']))
+                journal_entries=entries,missing_targets=[],external_edges=[],empty_leaves=empty_leaves,experiments=len(visible_cards),catalog_experiments=len(catalog['experiments']))

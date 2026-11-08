@@ -30,3 +30,24 @@ def test_original_keeps_method_limitations_and_external_sources(tmp_path):
     assert 'Сравниваем историю цели.' in text and 'Нет готовых весов.' in text
     assert '[Статья](https://example.org/paper)' in text
     assert '[[' not in text
+
+
+def test_color_distinguishes_failed_finished_and_unfinished_work():
+    from scripts.obsidian_level_graph import card_color
+    assert card_color({'state':'completed_positive'})=='выполнено'
+    for state in ['completed_negative','inconclusive','closed']:
+        assert card_color({'state':state,'done':'2026-10-01'})=='без-положительного-итога'
+    assert card_color({'state':'planned'})=='ожидает'
+    assert card_color({'state':'running'})=='в-работе'
+    assert card_color({'state':'infrastructure'}) is None
+
+
+def test_semantic_branch_has_one_owner_and_is_reused(tmp_path):
+    from scripts.obsidian_level_graph import semantic_parent
+    tree=Tree(tmp_path)
+    tree.add('Исследования','Исследования')
+    first=semantic_parent(tree,'Исследования',['Память','Внешний вид'])
+    second=semantic_parent(tree,'Исследования',['Память','Внешний вид'])
+    assert first==second
+    assert tree.nodes[first]['number']=='6.1.1'
+    assert tree.nodes[tree.nodes[first]['parent']]['title']=='Память'
