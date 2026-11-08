@@ -1,0 +1,56 @@
+{
+  "known": 45,
+  "positive": 32,
+  "foreign": 13,
+  "videos": 17,
+  "scores": {
+    "C34": {
+      "correlation_max": 0.59375,
+      "filter_max": 0.59375
+    },
+    "R134_temporal": {
+      "correlation_max": 0.6081730769230769,
+      "filter_max": 0.6129807692307693
+    },
+    "R134_spatial": {
+      "correlation_max": 0.5889423076923077,
+      "filter_max": 0.5865384615384616
+    },
+    "C8": {
+      "correlation_max": 0.5745192307692307,
+      "filter_max": 0.5697115384615384
+    }
+  },
+  "chosen_reader": "correlation_max",
+  "best_simple8": 0.6057692307692307,
+  "gate_pass": false,
+  "comparisons": {
+    "C8": {
+      "delta": 0.019230769230769273,
+      "ci95": [
+        -0.09524441076165213,
+        0.12963213213213212
+      ]
+    },
+    "R134_temporal": {
+      "delta": -0.014423076923076872,
+      "ci95": [
+        -0.17410930299539165,
+        0.23336206896551684
+      ]
+    },
+    "R134_spatial": {
+      "delta": 0.004807692307692291,
+      "ci95": [
+        -0.13587618743149438,
+        0.19173407002354365
+      ]
+    }
+  },
+  "bootstrap": {
+    "seed": 42,
+    "resamples": 5000,
+    "valid": 5000,
+    "unit": "video"
+  }
+}
