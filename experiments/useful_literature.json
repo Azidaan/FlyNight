@@ -52,6 +52,29 @@
         "exp:singleton_neighbor_input_20261108",
         "sys:С2"
       ]
+    },
+    {
+      "id": "galoogahi2017_background_patches",
+      "title": "Обучение фильтра на цели и реальных фоновых участках — Galoogahi и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Отделение цели от фона",
+      "publication": "Hamed Kiani Galoogahi, Ashton Fagg, Simon Lucey. Learning Background-Aware Correlation Filters for Visual Tracking. ICCV,2017,1135–1143.",
+      "doi": "10.1109/ICCV.2017.129",
+      "url": "https://arxiv.org/pdf/1703.04590",
+      "sections": "Разделы3–4, уравнение3, рисунок2. DOI-resolver и Crossref API недоступны в этой проверке.",
+      "established": "Авторы обучают пространственный корреляционный фильтр на положительном участке цели и реальных отрицательных фоновых участках; опубликована отдельная эффективная частотная оптимизация.",
+      "problem": "С2 — чужой объект может давать высокое пространственное сходство.",
+      "application": "Принцип целых реальных отрицательных участков использован в прямом пространственном ridge-фильтре на готовых гексагональных картах. Математика проверена, один фиксированный гейт fit20 не пройден.",
+      "limitation": "Это ограниченная адаптация без FFT/ADMM,HOG и обновления BACF. Официальный MATLAB ZIP502, CVF PDF403; первичный arXiv текст открыт. Результаты статьи не приписываются нашей модели и не закрывают С2.",
+      "evidence": [
+        "runs/background_patch_gate_20261108/protocol.json",
+        "runs/background_patch_gate_20261108/summary.json",
+        "runs/background_patch_gate_20261108/РЕЗУЛЬТАТ.md"
+      ],
+      "related": [
+        "exp:background_patch_gate_20261108",
+        "sys:С2"
+      ]
     }
   ]
 }

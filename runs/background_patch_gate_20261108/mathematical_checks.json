@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "method": "Weighted direct spatial ridge: one positive target patch, mean negative-patch loss, fixed unit regularizer. Self-normalize score.",
+  "target_only_identity": "With no negatives the calibrated score equals the old normalized centered dot product exactly.",
+  "conditioning": "Normalized samples give tr(X^T X)<=2, so the unit-regularized matrix has condition<=3 and target response>=1/3.",
+  "tests": "tests/test_hex_background_filter.py: independent primal/dual equality, target-only identity, real-patch geometry, degenerate and stale-state rejection.",
+  "events": 200,
+  "supported": 176,
+  "with_background": 161
+}

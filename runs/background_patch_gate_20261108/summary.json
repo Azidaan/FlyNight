@@ -1,0 +1,66 @@
+{
+  "events": 200,
+  "supported": 176,
+  "known": 45,
+  "positive": 32,
+  "foreign": 13,
+  "unknown": 154,
+  "known_videos": 17,
+  "scores": {
+    "FlyVis": {
+      "correlation_max": 0.5745192307692307,
+      "filter_max": 0.5697115384615384
+    },
+    "center8": {
+      "correlation_max": 0.5769230769230769,
+      "filter_max": 0.5745192307692307
+    },
+    "neighbor8": {
+      "correlation_max": 0.5985576923076923,
+      "filter_max": 0.6057692307692307
+    },
+    "input8_temporal": {
+      "correlation_max": 0.6033653846153846,
+      "filter_max": 0.6033653846153846
+    }
+  },
+  "comparisons": {
+    "FlyVis_filter_minus_correlation": {
+      "delta": -0.004807692307692291,
+      "ci95": [
+        -0.027176947351386347,
+        0.004310344827586188
+      ]
+    },
+    "FlyVis_filter_minus_center8": {
+      "delta": -0.004807692307692291,
+      "ci95": [
+        -0.1074074074074074,
+        0.14288048552754407
+      ]
+    },
+    "FlyVis_filter_minus_neighbor8": {
+      "delta": -0.03605769230769229,
+      "ci95": [
+        -0.15385714285714286,
+        0.09877025462962956
+      ]
+    },
+    "FlyVis_filter_minus_input8_temporal": {
+      "delta": -0.033653846153846145,
+      "ci95": [
+        -0.18731253420908597,
+        0.21113636363636323
+      ]
+    }
+  },
+  "gate_pass": false,
+  "bootstrap": {
+    "seed": 42,
+    "resamples": 5000,
+    "valid": 5000,
+    "unit": "video"
+  },
+  "reused_forward_rows": 12,
+  "missing_background_known": 3
+}
