@@ -28792,6 +28792,510 @@
           "locator": "records.27.error_grid_steps"
         }
       ]
+    },
+    {
+      "id": "singleton_support_size_20261108",
+      "title": "Три опорные ячейки против всей допустимой пространственной поддержки",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "question": "Улучшает ли увеличение шаблона различение своих и чужих продолжений?",
+      "hypothesis": "Трёхточечный шаблон может терять пространственные различия; полная допустимая поддержка может их вернуть.",
+      "expected": "Сравнить ошибки возврата на прежних семи парах для всех четырёх представлений, без подбора порогов.",
+      "acceptance": [
+        {
+          "criterion": "Frozen hashes remain stable; exact three-cell baseline reuse; exact prior full-forward reuse where applicable; common full support; independent interpolation and dot products agree <=1e-9; unsupported cases retained.",
+          "met": true,
+          "evidence": "runs/singleton_support_size_20261108/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_support_size_20261108/protocol.json",
+          "claim": "Условия до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_support_size_20261108/mathematical_checks.json",
+          "claim": "Результат сравнения и его проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_support_size_20261108/results.json",
+          "claim": "Результат сравнения и его проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_support_size_20261108/summary.json",
+          "claim": "Результат сравнения и его проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_support_size_20261108/audit.json",
+          "claim": "Результат сравнения и его проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_support_size_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Результат сравнения и его проверка"
+        }
+      ],
+      "done": "2026-11-08",
+      "obtained": "На тех же 7 парах увеличение с 3 до всех 8–57 допустимых ячеек повысило число точных возвратов FlyVis своих с 1/4 до 3/4; у чужих осталось 2/3. Для 141→173 ошибка изменилась 0→1 шаг, для 349→402 — 3→0, для 405→417 — 0→0. У центральных временных средних свои 3/4→4/4 и чужие 3/3→3/3; у средних с соседями свои 2/4→4/4 и чужие 3/3→3/3; у средних с отклонениями свои 2/4→2/4 и чужие 0/3→2/3. Источники `runs/singleton_support_size_20261108/results.json`, `runs/singleton_support_size_20261108/summary.json`.",
+      "interpretation": "Сокращение шаблона до трёх выбранных опор ухудшало согласованность возврата у части своих пар. Полная поддержка исправила два ненулевых возврата FlyVis своих, но не уменьшила число нулевых возвратов чужих. Два простых контроля замкнули путь на всех семи парах. Поэтому увеличение поддержки стабилизирует сопоставление и для чужих объектов и не превращает согласованность в подтверждение личности. У FlyVis все семь выбранных обратных максимумов лежат внутри прежней рамки; ограничение этой рамкой оставит их прежними.",
+      "cannot_claim": "Только 7 пар и разные числа полных опор. Все чужие пары меняют масштаб вырезки, свои сохраняют его. Внутри пары масштаб одинаков для обеих версий шаблона. Добавление ячеек меняет и их число, и содержимое, включая фон внутри рамки; вклад одного числа ячеек не выделен. Пороги и классификатор не подбирались. Прирост сохранения ID и HOTA не измерялся, причинный вывод о ядре FlyVis невозможен.",
+      "decision": "Одного расширения пространственного шаблона недостаточно для решения первой проблемы. Ошибку возврата не принимать самостоятельным критерием личности. Полные результаты сохранить как вариант сравнения. Сильнейшая альтернатива объяснению нехваткой точек — сходный пространственный сигнал у разных машин и фона, который текущая нормированная корреляция сопоставляет согласованно. Новый результат локализует недостаточность текущего пространственного считывателя; наличие информации в полном модуле FlyVis остаётся отдельным вопросом. Следующую научную постановку автоматически не запускать.",
+      "metrics": [
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.0.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.0.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.1.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.1.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.2.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.2.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 8.140774337521613,
+          "baseline": 8.140774337521613,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.3.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": 1,
+          "subset": "004855fc-ff3946ad / 405→417 / foreign / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.3.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 2.5649015036027003,
+          "baseline": 2.5649015036027003,
+          "subset": "004855fc-ff3946ad / 770→844 / own / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.4.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": 1,
+          "subset": "004855fc-ff3946ad / 770→844 / own / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.4.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "004855fc-ff3946ad / 770→844 / own / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.5.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "004855fc-ff3946ad / 770→844 / own / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.5.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "004855fc-ff3946ad / 770→844 / own / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.6.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "004855fc-ff3946ad / 770→844 / own / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.6.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 2.5649015036027003,
+          "subset": "004855fc-ff3946ad / 770→844 / own / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.7.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 1,
+          "subset": "004855fc-ff3946ad / 770→844 / own / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.7.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 12.638645090216203,
+          "baseline": 0.0,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.8.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": 0,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.8.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.9.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.9.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.10.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.10.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 12.638645090216205,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.11.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 1,
+          "subset": "007c01ea-63aa326c / 141→173 / foreign / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.11.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 24.77442283759569,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.12.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 3,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.12.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.13.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.13.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.14.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.14.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 16.29156010230179,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.15.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 2,
+          "subset": "00ccf2e8-59a6bfc9 / 349→402 / foreign / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.15.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 2.379039075805403,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.16.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 1,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.16.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.17.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.17.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.18.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.18.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.19.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "02bd959c-f20a2437 / 1738→1834 / own / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.19.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 4.255754475703325,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.20.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 2,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.20.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 2.1278772378516626,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.21.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 1,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.21.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 2.379039075805403,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.22.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 1,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.22.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 2.1278772378516626,
+          "baseline": 6.383631713554988,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.23.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 1,
+          "baseline": 3,
+          "subset": "017e2d3b-765af5a6 / 166→172 / own / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.23.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.24.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / FlyVis",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.24.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 0.0,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.25.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 0,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / center8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.25.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 0.0,
+          "baseline": 4.758078151610806,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.26.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 0,
+          "baseline": 2,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / neighbor8",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.26.error_grid_steps"
+        },
+        {
+          "key": "forward_backward_error_px",
+          "value": 4.758078151610806,
+          "baseline": 0.0,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.27.error_px"
+        },
+        {
+          "key": "forward_backward_error_grid",
+          "value": 2,
+          "baseline": 0,
+          "subset": "03d8474d-948d50c6 / 1242→1994 / own / input8_temporal",
+          "source": "runs/singleton_support_size_20261108/results.json",
+          "locator": "records.27.error_grid_steps"
+        }
+      ]
     }
   ],
   "manual_events": [
