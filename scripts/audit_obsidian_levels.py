@@ -36,6 +36,8 @@ def audit(vault):
     expected=set()
     roots=set()
     sections=Counter()
+    parents={n['parent'] for n in nodes.values()}
+    empty_leaves=[]
     for k,n in nodes.items():
         sections[n['section']]+=1
         p=n['parent']
@@ -47,6 +49,12 @@ def audit(vault):
         assert n['section']==nodes[p]['section']
         expected.add((p,k))
         if n['section']=='Термины':assert p=='Термины'
+        if k not in parents:
+            body=(vault/n['path']).read_text(encoding='utf8').split('---\n',2)[2]
+            body=re.sub(r'^#+.*$', '', body, flags=re.M)
+            body=re.sub(r'\[[^\]]*\]\([^)]*\)', '', body).strip()
+            if not body or re.fullmatch(r'\*\*Статус:\*\*[^\n]*',body):empty_leaves.append(n['path'])
+    assert not empty_leaves,empty_leaves
     assert roots==set(SECTION_NAMES) and edges==expected and len(edges)==len(nodes)-len(roots)
     catalog=read(ROOT/'experiments/project_history.json')
     assert {k[4:] for k in nodes if k.startswith('exp:')}=={c['id'] for c in catalog['experiments']}
@@ -59,4 +67,4 @@ def audit(vault):
                 for k,n in nodes.items() if k.startswith('day:'))
     assert entries==expected_entries,(entries,expected_entries)
     return dict(passed=True,note_count=len(nodes),components=len(roots),edges=len(edges),sections=sections,
-                journal_entries=entries,missing_targets=[],external_edges=[],experiments=len(catalog['experiments']))
+                journal_entries=entries,missing_targets=[],external_edges=[],empty_leaves=empty_leaves,experiments=len(catalog['experiments']))

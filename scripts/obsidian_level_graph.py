@@ -40,9 +40,14 @@ def local_file(name,label):
 def original(vault,path):
     text=(vault/(path+'.md')).read_text(encoding='utf8')
     content=re.sub(r'\A---\n.*?\n---\n','',text,flags=re.S)
-    intro=next((line.strip() for line in content.splitlines() if len(line.strip())>36
-                and not line.lstrip().startswith(('#','↑','[[','[','-','|','<'))),'')
-    return plain(intro)+'\n\n'+source_note(path)
+    # Keep the actual method, limitations and evidence, rather than only the
+    # first line (often a status). Original graph edges stay in the archive.
+    content=re.sub(r'^# [^\n]*\n?', '', content, count=1, flags=re.M)
+    content=re.sub(r'^↑[^\n]*?(?: · |$)', '', content, flags=re.M)
+    content=plain(content.strip())
+    if not re.sub(r'\[[^\]]*\]\([^)]*\)', '', content).strip(' \n:').removeprefix('источник').strip(' \n:'):
+        content='В архивной заметке сохранено только название. Подробная постановка в ней отсутствует.\n\n'+content
+    return content+'\n\n'+source_note(path)
 
 def card_color(c):
     if c['state']=='running':return 'в-работе'
