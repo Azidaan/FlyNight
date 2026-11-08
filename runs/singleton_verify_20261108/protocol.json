@@ -1,0 +1,71 @@
+{
+  "id": "singleton_own_template_v1_20261108",
+  "registered": "2026-11-08T06:07:33.632413+03:00",
+  "active_problem": 1,
+  "deferred": [
+    2,
+    3,
+    4
+  ],
+  "deadline": "2026-11-08T14:00:00+03:00",
+  "hypothesis": "An absolute comparison to the track own past template can veto a foreign sole candidate when no second rival track exists. Useful-system benefit and incremental FlyVis benefit are separate questions.",
+  "action": "Keep all native first-stage matches fixed. On the same free sole-geometrically-valid Lost edges with C<1, subtract fixedalpha0.2 only if the own-template verification passes. No direct Kalman replacement, ownership transfer, deduplication change, input expansion or kernel modification.",
+  "alpha": 0.2,
+  "alpha_source": "Previously selected only onfit20: runs/singleton_free_20261108/selection.json. Not retuned on26or20val.",
+  "spatial": "Same cached feature-independent minimum-residual transform and original crop. Keep shared box cells; average repeated current samples per unique reference cell, then equal weight per reference cell. Same DIS valid-domain mask for all representations, at least3unique reference cells. Undefined scores abstain. Centered spatial correlation forIMAGE,R1,FlyVis; scale-corrected uncentered flow cosine forDIS.",
+  "memory": "Last4actual tracker updates, padded as before; those boxes are Kalman-filtered observations, not raw detector boxes. Current sequence is the same causal prefix plus predicted search views. No future frame.",
+  "calibration": {
+    "cohort": "Onlyfit20primary-known query rows with exactly one geometrically valid candidate and C<1, including occupied/already-owned examples as identity-verification examples only.",
+    "labels": "Candidate detection identity versus historical target_identity from existing supervision. Unknowns excluded from fitting and explicitly counted, never negatives. NoGT in runtime.",
+    "thresholds": [
+      "off",
+      -1,
+      -0.75,
+      -0.5,
+      -0.25,
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "objective": "Maximize TPR-FPR (sensitivity minus false-positive rate). Tie: fewer false positives, more true positives, then larger threshold;off is the most conservative tie.",
+    "same_budget": "IMAGE,R1,DIS,FlyVis,spatially permutedFlyVis and deterministic hash score use the identical threshold grid.",
+    "system_selection": "Choose one ofIMAGE,R1,DIS,FlyVis by fit objective, fewer false positives, more true positives, then fixed simplicity orderIMAGE,R1,DIS,FlyVis. Freeze before any evaluate26 labels for this comparison."
+  },
+  "controls": {
+    "B0": "Unchanged native output, reused.",
+    "GEO": "Existing free sole-edge geometryalpha0.2, reused.",
+    "THRESHOLD": "Existing free residual cost relaxationalpha0.2, reused.",
+    "SUPPORT": "Same new spatial correspondence and minimum support; always accept without image/FlyVis values.",
+    "RANDOM": "Same support; hash(video,frame,tid,column,42) mapped uniformly to[-1,1], independent of image.",
+    "IMAGE": "Direct normalized receptor brightness and image derivatives.",
+    "R1": "Direct causal temporal receptor features.",
+    "DIS": "Existing ordinary motion on the exact same domain.",
+    "FLYVIS": "Same fixed standardized8T4/T5 spatial maps.",
+    "PERM": "Mean similarity under32fixed within-reference spatial permutations of those maps."
+  },
+  "evaluation": "All641primary-known historical26queries and727shadow queries. Same original states and full native lifecycle for each one-step intervention. Reuse all existing complete updates if the entire first-match set is identical.",
+  "full_gate": "Only after zero parity, source checks and independent conditional audit: selected system orSUPPORT has lower95%paired-video deltaJ vsB0>0 AND no increase in known wrong query assignments. No full rollout if this gate fails.",
+  "full_acceptance": {
+    "cohort": "Separately registered same20historical val videos, detector-unseen but researcher-seen; no retuning.",
+    "bootstrap_samples": 20000,
+    "seed": 42,
+    "family": 11,
+    "confidence_percent": 99.54545454545455,
+    "primary_comparisons": "Selected system-B0, SUPPORT-B0, FlyVis-eachother9variants; duplicated comparisons count conservatively in the fixed family11.",
+    "accept": "Corrected lower pooled-HOTA bound>0, nonnegative mean-videoAssA/IDF1, no increase in totalIDSw/FP/FN or known wrong-target returns.",
+    "contribution": "A useful selected system may be accepted againstB0 with its source stated. IncrementalFlyVis requires success against every matched control; noFlyVis claim from geometry or image."
+  },
+  "stop": "If the preregistered gate fails, preserve result and do not deploy or mark problem1solved. Problems2–4remain deferred.",
+  "literature": [
+    {
+      "url": "https://arxiv.org/pdf/1703.07402",
+      "role": "DeepSORT§2.2equations3–6: separate appearance admissibility and motion admissibility. It does not validate FlyVis as an identity descriptor."
+    },
+    {
+      "url": "https://arxiv.org/html/2110.06864",
+      "role": "ByteTrack uses tracklet similarity and staged unmatched association; this verifier is a separate hypothesis."
+    }
+  ]
+}

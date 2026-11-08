@@ -1,0 +1,61 @@
+{
+  "id": "native_confirm_identity_v1_20261108",
+  "registered": "2026-11-08T09:53:43.616296+03:00",
+  "deadline": "2026-11-08T14:00:00+03:00",
+  "question": "Can the old public identity be restored only when a new fragment is actually confirmed and emitted by the native tracker, avoiding the earlier extra-box admission?",
+  "method": "Causal canonical public-ID linking. Keep every native track state, association, confidence, class and physical box. Only a never-public native track can receive an absent old canonical identity. The current canonical owner must be a previously public Lost track with the old sole-of-two valid geometry. Preserve native first-stage pairs. Resolve admissible links jointly. On same-frame canonical collision revoke conflicting alias permanently; never drop a native box or rewrite prior output.",
+  "scope": "First problem only. No arbitration between two existing public working tracks. Historical fit20/evaluate26/val20, not an independent final test. This is a constrained causal form of tracklet linking, not a new invention of spatial matching or offline stitching.",
+  "controls": [
+    "B0",
+    "GEOMETRY",
+    "AGE",
+    "RANDOM",
+    "IMAGE",
+    "R1",
+    "DIS",
+    "FLYVIS",
+    "PERM"
+  ],
+  "thresholds": {
+    "SUPPORT": -1,
+    "RANDOM": 0.25,
+    "IMAGE": 0.5,
+    "R1": 0.5,
+    "DIS": -0.25,
+    "FLYVIS": 0.25,
+    "PERM": "off"
+  },
+  "recency_cap": 6,
+  "alpha": 0.2,
+  "matching_threshold": 0.8,
+  "new_threshold_searches": 0,
+  "shared_support": "Same geometry and common analytic DIS hull>=3 unique reference cells for all added-link arms; same coordinate transform and cost. AGE uses the already fitted cap, RANDOM the already frozen hash gate. Reuse exact ready maps; recover only missing causal sequences.",
+  "fit_selection": "Use fixed old fit20 thresholds; no retuning on26or20val. After all fit20 arm outcomes are available, select greatest known correct-minus-foreign links; ties fewer foreign, then fewer links, then GEOMETRY,AGE,IMAGE,R1,DIS,FLYVIS. Unknown links never negative. This is a screening rule, not tracker acceptance.",
+  "labels": "Sparse actual GT anchors only. Old native fragment: consistent known labels within12frames ending at last observation; new native fragment: consistent labels from confirmation through12followingframes. Future anchors only identify a fragment during offline evaluation, never become runtime inputs. Direct-current and delayed-known separated. Unknowns remain unknown.",
+  "conditional_gate": "Proceed to full historical20val only if selected or GEOMETRY has positive lower95%paired-video CI of known(correct−foreign) links on26. Report foreign links separately; eventual acceptance also requires full wrong-return harm guard.",
+  "full_acceptance": "Complete physical outputs must equal ready B0 frame by frame. Selected−B0 HOTA lower corrected CI>0; mean AssA/IDF1 nonnegative; IDSw, FP,FN, known wrong returns nonincrease; correct and sustained old-ID returns increase. If any condition fails, first problem remains open. FlyVis-specific benefit additionally requires all matched controls; no biological-core claim from whole-system gain.",
+  "primary_family_size": 12,
+  "bootstrap": {
+    "seed": 42,
+    "repetitions": 20000,
+    "unit": "video",
+    "corrected_confidence": 0.9958333333333333
+  },
+  "limitations": "Previously studied data and sequentially proposed alternatives. Current T4/T5 readout may not yet contain the current input after two integration steps; preserve that limitation and do not silently change it. Native box equality does not guarantee exact official CLEAR counts when identity-dependent matching changes.",
+  "primary_sources": [
+    {
+      "title": "Simple Online and Realtime Tracking",
+      "url": "https://arxiv.org/pdf/1602.00763",
+      "section": "3.4",
+      "used": "Confirmation to suppress false positives; not proof of this proposed label link."
+    },
+    {
+      "local": ".venv/Lib/site-packages/ultralytics/trackers/byte_tracker.py",
+      "used": "Actual unconfirmed threshold0.7, activation and output rules."
+    },
+    {
+      "local": "experiments/project_history.json: stitch_appearance_models_v1",
+      "used": "Offline all-candidate stitching existed; preserve earlier negative control results and do not reuse label-filtered geometry claims."
+    }
+  ]
+}

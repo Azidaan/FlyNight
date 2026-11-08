@@ -1,0 +1,30 @@
+import sys,copy
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
+from research_identity_assignment_run_20261108.common import *
+RUN=ROOT/'runs/identity_evidence_20261108'
+
+
+def main():
+    full='runs/bbox_normalized_signals_20261108/full/comparison_report.json';audit='runs/bbox_normalized_signals_20261108/full/independent_audit.json';diag='runs/identity_evidence_20261108/return_count_diagnostic.json';ready='runs/bbox_fit_readout_readiness_20261108/readiness.json';assert read(ROOT/audit)['comparison_sha256']==sha(ROOT/full)
+    path=ROOT/'experiments/system_problems.json';data=read(path);before=copy.deepcopy(data);write(RUN/'system_problems_before_normalized.json',before,new=True);by={e['id']:e for e in data['problems']};date=datetime.now(MSK).isoformat()
+    def revise(e,key,value):e.setdefault('revisions',[]).append(dict(date=date,field=key,old=e[key],reason='Добавлен полный20valрезультат относительного совмещения и проверено значение счётчика возвратов.'));e[key]=value
+    for id in ['С1','С2']:
+        e=by[id]
+        for n,c in [(full,'Полное сравнение при общем относительном совмещении'),(audit,'Независимая проверка'),(diag,'Снижение счётчика из-за устранённого разрыва, не потеря этого продолжения'),(ready,'На готовом fit-подмножестве недостаточно чужих пар для калибровки')]:
+            if not any(r['source']==n for r in e['evidence']):e['evidence'].append(dict(source=n,sha256=sha(ROOT/n),claim=c))
+        if 'bbox_singleton_normalized_maps_v1_20261108' not in e['cards']:e['cards'].append('bbox_singleton_normalized_maps_v1_20261108')
+        revise(e,'next_check','Активна только первая проблема. Полный вариант относительного совмещения не принят: IMAGE+0,003723п.п.HOTAсДИ,касающимся0;FlyVisHOTAнеизменнапри1вмешательстве. В исходных fit-парах с обычным допуском<=6есть33известныхправильныхи13чужих,но готовыекаузальныекартысобщейподдержкойестьлишьу6и1; CPU-калибровка не разрешена этим недостаточным подмножеством. Следующая постановка должна сначала восстановить отсутствующие fit-представления и выбрать порог без26/20val. Готовый полный20не повторять. Проблемы2–4отложены.')
+    e=by['С1'];revise(e,'fact',e['fact']+' При новом относительном совмещении полныйFlyVisдалHOTAкакB0;он разрешил1вмешательство. IMAGEдал+0,003723п.п.,95%ДИ[0;0,009625],непринят;его преимуществонадгеометриейи согласованным случайным отказом не установлено. Это отрицание принятой прибавки конкретной политики, не отсутствие информации во всех пространственных картах (runs/bbox_normalized_signals_20261108/full/comparison_report.json).')
+    e['cases'].append(dict(date='2026-11-08',component='Пространственное считывание при относительном совмещении наблюдаемых рамок',fact='Геометрический отказ снят без изменения глаза или ядра. На26IMAGE7правильных/0чужих,FlyVis3/0;в полном20IMAGEнепринят,F.HOTAнеизменна. Fразрешиллишь1пару; фиксированный порог может ограничивать применение.',hypothesis='Избыточный отказ из-за переноса порога в изменённое совмещение — сильная альтернатива объяснению через отсутствие идентифицирующей информации.',discriminating_check='Порог подбирать только наfitснастоящимичужимипарами при том же совмещении; сначала восстановить недостающие fit-карты. Геометрия, изображение, движение, перестановка и согласованный случайный отказ сохраняются.',limitation='На готовом fit-подмножестве6правильныхи1чужаяпара;это не прошедшая готовность минимум3/3. Недостающие нейронные данные этим метадатным шагом не восстанавливались. Исторические наборы;одинпромежуточныйпропуск.',evidence=[full,audit,ready]))
+    e=by['С2'];revise(e,'fact',e['fact']+' Во втором полном контроле после штатного подтверждения FP/FNтакже сохранились:3331/13525. Счётчик правильных возвратов уменьшился на1из-за непрерывной выдачиID100через нативныйID496, а не потери этого продолжения. Поэтому такой счётчик нельзя трактовать как монотонное качество при склейке; исходные критерии не менялись (runs/identity_evidence_20261108/return_count_diagnostic.json).')
+    e['cases'].append(dict(date='2026-11-08',component='Сохранение физических рамок и смысл события возврата',fact='У IMAGEFP/FNнеувеличились,IDSw−2,HOTA+0,003723п.п.ноДИкасается0;устойчивыхвозвратовнеприбавилось. Единственный исчезнувший правильный возврат наb23b2649-8349d2a1/544сталнепрерывнымномером100.',hypothesis='Количество событий возврата может уменьшаться при устранении разрыва. Оно не равно числу правильно сохранённых личностей.',discriminating_check='Сопоставить одни и те же физические строки B0/IMAGE и отделить исчезновение разрыва от чужого или неизвестного продолжения. Проверка выполнена; принять версию это не позволяет из-за остальных непройденных условий.',limitation='Непрерывный номер сам по себе не устанавливает физическую личность на каждом неразмеченном кадре. Менять критерий после полного результата нельзя; нужна отдельная будущая постановка.',evidence=[full,audit,diag]))
+    for pattern in data['patterns']:
+        if pattern['id']=='transfer_pattern':
+            revise(pattern,'observation',pattern['observation']+' Повтор08.11послеотносительногосовмещения:IMAGE7/0наусловных26несталпринятымполнымприростомHOTA;готовыеперестановочныйислучайныйконтроли не позволили приписать пользу пространственному сигналу. Общая причина прежних повторов этим не доказана.')
+            for n,c in [(full,'Условный результат не стал принятым полным улучшением'),(audit,'Независимая проверка этого повтора')]:
+                if not any(r['source']==n for r in pattern['evidence']):pattern['evidence'].append(dict(source=n,sha256=sha(ROOT/n),claim=c))
+    assert before['problems'][2:]==data['problems'][2:];assert [p for p in before['patterns'] if p['id']!='transfer_pattern']==[p for p in data['patterns'] if p['id']!='transfer_pattern'];write(path,data);write(RUN/'normalized_problem_update_receipt.json',dict(passed=True,changed_only=['С1','С2','transfer_pattern'],other_problem_objects_and_patterns_exact=True,before_sha256=sha(RUN/'system_problems_before_normalized.json'),after_sha256=sha(path)),new=True)
+
+
+if __name__=='__main__':main()

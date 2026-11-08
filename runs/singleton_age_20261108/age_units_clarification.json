@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "registered": "2026-11-08T07:41:28.610069+03:00",
+  "definition": "AGE uses current_frame-last_actual_observation_frame. This is elapsed frame count. The number of missing intermediate frames is age-1 for an actual recovery. Full additional return metrics use current_frame-last_emitted_frame-1, a different explicit definition.",
+  "witnesses": [
+    {
+      "uid": 30818,
+      "elapsed_frames": 2,
+      "missing_intermediate_frames": 1
+    },
+    {
+      "uid": 33601,
+      "elapsed_frames": 2,
+      "missing_intermediate_frames": 1
+    },
+    {
+      "uid": 33988,
+      "elapsed_frames": 2,
+      "missing_intermediate_frames": 1
+    },
+    {
+      "uid": 36902,
+      "elapsed_frames": 2,
+      "missing_intermediate_frames": 1
+    }
+  ],
+  "scientific_operation_unchanged": true,
+  "protocol_sha256": "c65aac08705c81988c9c3f8512003c24a66544f12169f1fac910967f532b0062",
+  "dependency_sha256": "f44952402cd45a609abb148515360cd8d6bb3796504c5d4f2b2afa88f7ec8f45"
+}

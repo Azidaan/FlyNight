@@ -1,0 +1,433 @@
+{
+  "passed": true,
+  "updated": "2026-11-08T07:30:49.751408+03:00",
+  "kind": "Static readout dependency audit plus existing exposure evidence; no repeated inference.",
+  "sources": {
+    "runs/identity_assignment_20261108/exports_recovery1/0166faa5-5fbc53c5.json": "f757a9a1f062a4764e2bd1a9f991a02c841e50e083b65586ab3649a470a64309",
+    "runs/identity_assignment_20261108/exports_recovery1/02bd959c-f20a2437.json": "e57dde47656ebc4bf869bde39a8f5763e1bc1508338aeb70fd741e525958bd2c",
+    "runs/identity_assignment_20261108/exports_recovery1/02c2a4d8-94d32b2f.json": "a060a3defa193456e011da0125f29c01dbec6962ba9f3c08a3802610d7da142f",
+    "runs/identity_assignment_20261108/exports_recovery1/03d75f61-ce25863a.json": "a54d1adb23cf6e378474a04d6d82b55f851d721bb32319005eabbae15874a0c8",
+    "research_singleton_age_20261108/record_dependency.py": "57417032a1649e476478fb06afb14e6f38573c6cdb4ce7ba0ed7ba8ccd94eca2",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "tracking/foveated_eyes.py": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
+    "tracking/flyvis_motion.py": "f053f52a6f1bb6233884de818a4175c1bb01ab5dff6e0d037f2262bea5b3ffdc",
+    "scripts/z13_target_model.py": "e7bc7967c8d5fdf04983ed3e01c5fae9d54dbc6ed7b4b17c4c10235beccd862a",
+    "scripts/run_bdd_video_rate_experiment.py": "babb1eeac2f4a7ee8e2138e7863f437bd1f30cb5d179f938b0944ded65f91acc",
+    "tools/flyvis-runtime/flyvis/network/network.py": "eb172be7db1727a2b1af9f4211c2e1a8655004e8602a4db677e56702a3dfeb43",
+    "tools/flyvis-runtime/flyvis/network/dynamics.py": "e77d9e049661321798f213b9c7e98b58945214ad94ab11c5c1ee930bfaacbc86",
+    "tools/flyvis-runtime/flyvis/connectome/connectome.py": "1fdc68d14472b3c3ef3ee4e245b87f1f391e02f28f98b901bfb3ca9707848777",
+    "tools/flyvis-runtime/flyvis/connectome/fib25-fib19_v2.2.json": "bfbb0766251ff09e22723d0ebbf7b14793e70b3ae8ad0eea64eac9d28223351a",
+    "research_singleton_free_20261108/full_features.py": "65cefde9bfcd1df5e3d65d8e416088cfe27958124f9cc065c62751513cd49510",
+    "research_identity_assignment_run_20261108/full_planner.py": "5d1c246695e1f8f1cc93bc763aacd3ab93a9c466fac632748c89d9e19a47f88c",
+    "runs/flyvis_separate_inputs_20261107/activation_exposure.json": "b6dfada7fae162e083ca69b716f3a2a383bf8e63f301c1efa6db4ba80c06e7c1",
+    "runs/singleton_verify_20261108/inventory_recovery1.json": "06e15e9c8a857c5a1b35cab9bb11c71784bf935d9d32053f7a589ed54253f081",
+    "runs/singleton_verify_20261108/comparison_report.json": "bf5550800bdd631ad9d5d045859637083707b211edb5241bd5c195d77d363369",
+    "runs/singleton_verify_20261108/outcomes/evaluate26_FLYVIS.json": "50872e42b8a5e1aa7ed1b562c13f5d3f06851739b204341163d023a59803c1ba"
+  },
+  "current_frame_updates": 2,
+  "minimum_explicit_updates": {
+    "T4a": 3,
+    "T4b": 3,
+    "T4c": 3,
+    "T4d": 3,
+    "T5a": 4,
+    "T5b": 4,
+    "T5c": 4,
+    "T5d": 4
+  },
+  "known_added_correct_witnesses": [
+    {
+      "uid": 30818,
+      "video": "0166faa5-5fbc53c5",
+      "frame": 1097,
+      "last_observation_frame": 1095,
+      "gap": 2,
+      "search_inputs": 1,
+      "reference_sequence": [
+        [
+          1092,
+          [
+            155,
+            194,
+            407,
+            446
+          ]
+        ],
+        [
+          1093,
+          [
+            162,
+            197,
+            406,
+            441
+          ]
+        ],
+        [
+          1094,
+          [
+            180,
+            207,
+            401,
+            428
+          ]
+        ],
+        [
+          1095,
+          [
+            194,
+            213,
+            402,
+            421
+          ]
+        ]
+      ],
+      "current_sequence": [
+        [
+          1092,
+          [
+            155,
+            194,
+            407,
+            446
+          ]
+        ],
+        [
+          1093,
+          [
+            162,
+            197,
+            406,
+            441
+          ]
+        ],
+        [
+          1094,
+          [
+            180,
+            207,
+            401,
+            428
+          ]
+        ],
+        [
+          1095,
+          [
+            194,
+            213,
+            402,
+            421
+          ]
+        ],
+        [
+          1097,
+          [
+            199,
+            212,
+            404,
+            417
+          ]
+        ]
+      ],
+      "current_frame_can_affect_T4T5_this_step": false,
+      "basis": "Strict old-state dependency lower bound, not a new measured intervention."
+    },
+    {
+      "uid": 33601,
+      "video": "02bd959c-f20a2437",
+      "frame": 971,
+      "last_observation_frame": 969,
+      "gap": 2,
+      "search_inputs": 1,
+      "reference_sequence": [
+        [
+          966,
+          [
+            1146,
+            342,
+            1280,
+            476
+          ]
+        ],
+        [
+          967,
+          [
+            1143,
+            338,
+            1280,
+            475
+          ]
+        ],
+        [
+          968,
+          [
+            1131,
+            333,
+            1280,
+            482
+          ]
+        ],
+        [
+          969,
+          [
+            1136,
+            338,
+            1280,
+            482
+          ]
+        ]
+      ],
+      "current_sequence": [
+        [
+          966,
+          [
+            1146,
+            342,
+            1280,
+            476
+          ]
+        ],
+        [
+          967,
+          [
+            1143,
+            338,
+            1280,
+            475
+          ]
+        ],
+        [
+          968,
+          [
+            1131,
+            333,
+            1280,
+            482
+          ]
+        ],
+        [
+          969,
+          [
+            1136,
+            338,
+            1280,
+            482
+          ]
+        ],
+        [
+          971,
+          [
+            1132,
+            336,
+            1280,
+            484
+          ]
+        ]
+      ],
+      "current_frame_can_affect_T4T5_this_step": false,
+      "basis": "Strict old-state dependency lower bound, not a new measured intervention."
+    },
+    {
+      "uid": 33988,
+      "video": "02c2a4d8-94d32b2f",
+      "frame": 660,
+      "last_observation_frame": 658,
+      "gap": 2,
+      "search_inputs": 1,
+      "reference_sequence": [
+        [
+          655,
+          [
+            804,
+            193,
+            873,
+            262
+          ]
+        ],
+        [
+          656,
+          [
+            806,
+            194,
+            872,
+            260
+          ]
+        ],
+        [
+          657,
+          [
+            805,
+            193,
+            874,
+            262
+          ]
+        ],
+        [
+          658,
+          [
+            807,
+            193,
+            875,
+            261
+          ]
+        ]
+      ],
+      "current_sequence": [
+        [
+          655,
+          [
+            804,
+            193,
+            873,
+            262
+          ]
+        ],
+        [
+          656,
+          [
+            806,
+            194,
+            872,
+            260
+          ]
+        ],
+        [
+          657,
+          [
+            805,
+            193,
+            874,
+            262
+          ]
+        ],
+        [
+          658,
+          [
+            807,
+            193,
+            875,
+            261
+          ]
+        ],
+        [
+          660,
+          [
+            808,
+            194,
+            875,
+            261
+          ]
+        ]
+      ],
+      "current_frame_can_affect_T4T5_this_step": false,
+      "basis": "Strict old-state dependency lower bound, not a new measured intervention."
+    },
+    {
+      "uid": 36902,
+      "video": "03d75f61-ce25863a",
+      "frame": 468,
+      "last_observation_frame": 466,
+      "gap": 2,
+      "search_inputs": 1,
+      "reference_sequence": [
+        [
+          461,
+          [
+            1178,
+            256,
+            1260,
+            338
+          ]
+        ],
+        [
+          462,
+          [
+            1182,
+            259,
+            1262,
+            339
+          ]
+        ],
+        [
+          465,
+          [
+            1189,
+            258,
+            1271,
+            340
+          ]
+        ],
+        [
+          466,
+          [
+            1189,
+            257,
+            1272,
+            340
+          ]
+        ]
+      ],
+      "current_sequence": [
+        [
+          461,
+          [
+            1178,
+            256,
+            1260,
+            338
+          ]
+        ],
+        [
+          462,
+          [
+            1182,
+            259,
+            1262,
+            339
+          ]
+        ],
+        [
+          465,
+          [
+            1189,
+            258,
+            1271,
+            340
+          ]
+        ],
+        [
+          466,
+          [
+            1189,
+            257,
+            1272,
+            340
+          ]
+        ],
+        [
+          468,
+          [
+            1193,
+            257,
+            1276,
+            340
+          ]
+        ]
+      ],
+      "current_frame_can_affect_T4T5_this_step": false,
+      "basis": "Strict old-state dependency lower bound, not a new measured intervention."
+    }
+  ],
+  "measured_previous_exposure": {
+    "pairs": 172,
+    "changed_T4T5_cases": [
+      0,
+      0,
+      0
+    ],
+    "source": "runs/flyvis_separate_inputs_20261107/activation_exposure.json"
+  },
+  "conclusion": "The selected T4/T5 current map cannot depend on the newly supplied current input within this two-update readout. For all4new known correct conditional returns only1search input was supplied; thus these4gains cannot establish matching the current candidate visual appearance viaT4/T5. Past appearance, coordinate correspondence and prediction remain possible sources.",
+  "scope": "Concrete frozen full FlyVis module/readout configuration, not a general claim about the FlyVis core. This does not study direction-reversal latency and does not invalidate potential past-signal benefits.",
+  "alternative": "The existing correction benefits from a recent predictable past spatial pattern and geometry; recency alone may explain part, but is not proven sufficient.",
+  "next": "Finish the unchanged full tracker, independent audit and registered age-only control. Any later current-appearance readout must first demonstrate that its input reaches its selected signal; do not increase simulation time silently."
+}

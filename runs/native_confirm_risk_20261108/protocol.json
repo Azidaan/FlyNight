@@ -1,0 +1,73 @@
+{
+  "id": "native_confirm_empirical_risk_v1_20261108",
+  "registered": "2026-11-08T10:44:08.454802+03:00",
+  "source_head": "7f702f5364bb2133b15c3a6c0ddf28dd7c716aeb",
+  "branch": "codex/system-integrity-20261106-e8f674ce",
+  "working_sources_uncommitted": true,
+  "deadline": "2026-11-08T14:00:00+03:00",
+  "active_problem": 1,
+  "deferred": [
+    2,
+    3,
+    4
+  ],
+  "alpha": 0.2,
+  "matching_threshold": 0.8,
+  "question": "Does fitting the abstention gate to reject every observed foreign training link preserve useful correct links in the complete tracker?",
+  "change": "Only the empirical gate calibration and system selection change. Native confirmation, sole-of-two geometry, common support, alpha0.2, native aliases and collision refusal stay identical. No core/model/detector/image or geometry reconstruction. All existing maps, sparse labels, native traces and equivalent policy outcomes reused.",
+  "calibration": {
+    "caps": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      6,
+      8,
+      12,
+      20,
+      30
+    ],
+    "source_candidates": [
+      "GEOMETRY",
+      "IMAGE",
+      "R1",
+      "DIS",
+      "FLYVIS"
+    ],
+    "thresholds": {
+      "SUPPORT": -1,
+      "RANDOM": 0.25,
+      "IMAGE": 0.5,
+      "R1": 0.5,
+      "DIS": -0.25,
+      "FLYVIS": 0.25,
+      "PERM": "off"
+    },
+    "maximum_candidates_per_source": 10,
+    "rule": "On fit20 only, first exclude candidate policies with any observed foreign accepted link; among the rest maximize known correct links, then smaller cap, then GEOMETRY,IMAGE,R1,DIS,FLYVIS. Unknown links are neither negatives nor positives. Off/cap0 always available; if no correct link remains, stop.",
+    "no_new_score_threshold_search": true
+  },
+  "controls": "All main image/motion/FlyVis/geometry variants use the selected same cap. Also include independently fitted pure-geometry AGE_FIT and previously fixed AGE6. RANDOM_MATCHED and PERM_MATCHED use label-free fit-only cutoffs matching the selected gate acceptance rate before aliases; no future-frame top-k choice. Undefined scores always abstain.",
+  "gate": "After fit-only selection is sealed, evaluate the same historical26. Proceed only if the selected system or AGE_FIT has positive lower95%paired-video CI for known correct-minus-foreign links and no observed foreign links on26. This is a development gate, not proof of zero population error.",
+  "full_acceptance": "Exact native physical outputs. Positive corrected pooledHOTA lowerCI versusB0, nonnegative meanAssA/IDF1, nonincreasing IDSw/FP/FN/known wrong returns, more correct and sustained old-ID returns. FlyVis contribution additionally must beat every matched control. Do not weaken a failed guard.",
+  "primary_family_size": 16,
+  "bootstrap": {
+    "seed": 42,
+    "repetitions": 20000,
+    "unit": "paired_video"
+  },
+  "strongest_alternative": "The apparent improvement can come from recency, reduced intervention frequency or another development pass on already studied data. Same-cap geometry, AGE_FIT, AGE6, matched-frequency random and spatial-permutation controls distinguish these explanations.",
+  "limitation": "The previous26result has already been inspected and motivated this change. This is explicitly exploratory development on reused data, not a fresh independent confirmation. Only23known fit candidate edges, including7foreign, are available; zero empirical error is not a probability guarantee. The current T4/T5 readout limitation remains unchanged.",
+  "literature": {
+    "title": "Selective Classification for Deep Neural Networks",
+    "authors": "Yonatan Geifman; Ran El-Yaniv",
+    "year": 2017,
+    "url": "https://papers.nips.cc/paper_files/paper/2017/file/4a8423d5e91fda00bb7e46540e2b0cf1-Paper.pdf",
+    "sections": "2;5.1",
+    "used": "Risk-versus-coverage framing and the explicit warning that controlling training error alone does not guarantee test risk. We do not implement or claim the paper's guaranteed-risk procedure."
+  },
+  "new_core_calls": 0,
+  "new_detector_calls": 0,
+  "new_image_reads": 0
+}

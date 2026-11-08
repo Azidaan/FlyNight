@@ -1,0 +1,863 @@
+{
+  "passed": true,
+  "selection_sha256": "ffae951acefbe3c3d6e64a8379fc8e84ba8ae325f4f0828f3e0b442b6d941459",
+  "parameters": {
+    "B0": {
+      "alpha": 0,
+      "beta": 0
+    },
+    "G": {
+      "alpha": 0.2,
+      "beta": 0
+    },
+    "G_SHIFT": {
+      "alpha": 0.2,
+      "beta": 0
+    },
+    "G_IMAGE": {
+      "alpha": 0.2,
+      "beta": 0
+    },
+    "G_R1": {
+      "alpha": 0.2,
+      "beta": 0.1
+    },
+    "G_DIS": {
+      "alpha": 0.2,
+      "beta": 0
+    },
+    "G_FLYVIS": {
+      "alpha": 0.2,
+      "beta": 0.4
+    },
+    "G_PERM": {
+      "alpha": 0.2,
+      "beta": 0.1
+    }
+  },
+  "summaries": {
+    "fit20": {
+      "B0": {
+        "totals": {
+          "changed_native_bindings": 0,
+          "none": 293,
+          "J": 30,
+          "N": 323,
+          "transition_none_to_none": 293,
+          "neither_target_N": 233,
+          "neither_target_J": 0,
+          "shadow_none": 273,
+          "shadow_N": 300,
+          "ok_N": 90,
+          "ok_J": 30,
+          "correct": 30,
+          "transition_correct_to_correct": 30,
+          "shadow_unknown": 16,
+          "shadow_correct": 10,
+          "shadow_wrong": 1
+        },
+        "other_tracks": {},
+        "first_stage_loss": {}
+      },
+      "G": {
+        "totals": {
+          "changed_native_bindings": 109,
+          "none": 283,
+          "J": 40,
+          "N": 323,
+          "transition_none_to_none": 283,
+          "neither_target_N": 233,
+          "neither_target_J": 0,
+          "shadow_none": 244,
+          "shadow_N": 300,
+          "correct": 40,
+          "transition_none_to_correct": 10,
+          "ok_N": 90,
+          "ok_J": 40,
+          "improved_queries": 10,
+          "none_to_correct": 10,
+          "shadow_unknown": 38,
+          "transition_correct_to_correct": 30,
+          "shadow_correct": 15,
+          "shadow_wrong": 3,
+          "first_stage_assigned_but_not_emitted": 1,
+          "confirmed_duplicate_removal_after_first_assignment": 1
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 70,
+          "other_track_reference_unknown": 61,
+          "other_track_new_assignment_unknown": 6,
+          "other_track_delta_J": -3,
+          "other_track_worsened": 3
+        },
+        "first_stage_loss": {
+          "singleton": 1
+        }
+      },
+      "G_SHIFT": {
+        "totals": {
+          "changed_native_bindings": 109,
+          "none": 283,
+          "J": 40,
+          "N": 323,
+          "transition_none_to_none": 283,
+          "neither_target_N": 233,
+          "neither_target_J": 0,
+          "shadow_none": 244,
+          "shadow_N": 300,
+          "correct": 40,
+          "transition_none_to_correct": 10,
+          "ok_N": 90,
+          "ok_J": 40,
+          "improved_queries": 10,
+          "none_to_correct": 10,
+          "shadow_unknown": 38,
+          "transition_correct_to_correct": 30,
+          "shadow_correct": 15,
+          "shadow_wrong": 3,
+          "first_stage_assigned_but_not_emitted": 1,
+          "confirmed_duplicate_removal_after_first_assignment": 1
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 70,
+          "other_track_reference_unknown": 61,
+          "other_track_new_assignment_unknown": 6,
+          "other_track_delta_J": -3,
+          "other_track_worsened": 3
+        },
+        "first_stage_loss": {
+          "singleton": 1
+        }
+      },
+      "G_IMAGE": {
+        "totals": {
+          "changed_native_bindings": 109,
+          "none": 283,
+          "J": 40,
+          "N": 323,
+          "transition_none_to_none": 283,
+          "neither_target_N": 233,
+          "neither_target_J": 0,
+          "shadow_none": 244,
+          "shadow_N": 300,
+          "correct": 40,
+          "transition_none_to_correct": 10,
+          "ok_N": 90,
+          "ok_J": 40,
+          "improved_queries": 10,
+          "none_to_correct": 10,
+          "shadow_unknown": 38,
+          "transition_correct_to_correct": 30,
+          "shadow_correct": 15,
+          "shadow_wrong": 3,
+          "first_stage_assigned_but_not_emitted": 1,
+          "confirmed_duplicate_removal_after_first_assignment": 1
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 70,
+          "other_track_reference_unknown": 61,
+          "other_track_new_assignment_unknown": 6,
+          "other_track_delta_J": -3,
+          "other_track_worsened": 3
+        },
+        "first_stage_loss": {
+          "singleton": 1
+        }
+      },
+      "G_R1": {
+        "totals": {
+          "changed_native_bindings": 94,
+          "none": 283,
+          "J": 40,
+          "N": 323,
+          "transition_none_to_none": 283,
+          "neither_target_N": 233,
+          "neither_target_J": 0,
+          "shadow_none": 249,
+          "shadow_N": 300,
+          "correct": 40,
+          "transition_none_to_correct": 10,
+          "ok_N": 90,
+          "ok_J": 40,
+          "improved_queries": 10,
+          "none_to_correct": 10,
+          "shadow_unknown": 34,
+          "transition_correct_to_correct": 30,
+          "shadow_correct": 15,
+          "shadow_wrong": 2,
+          "first_stage_assigned_but_not_emitted": 1,
+          "confirmed_duplicate_removal_after_first_assignment": 1
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 60,
+          "other_track_reference_unknown": 52,
+          "other_track_delta_J": -3,
+          "other_track_worsened": 3,
+          "other_track_new_assignment_unknown": 5
+        },
+        "first_stage_loss": {
+          "singleton": 1
+        }
+      },
+      "G_DIS": {
+        "totals": {
+          "changed_native_bindings": 109,
+          "none": 283,
+          "J": 40,
+          "N": 323,
+          "transition_none_to_none": 283,
+          "neither_target_N": 233,
+          "neither_target_J": 0,
+          "shadow_none": 244,
+          "shadow_N": 300,
+          "correct": 40,
+          "transition_none_to_correct": 10,
+          "ok_N": 90,
+          "ok_J": 40,
+          "improved_queries": 10,
+          "none_to_correct": 10,
+          "shadow_unknown": 38,
+          "transition_correct_to_correct": 30,
+          "shadow_correct": 15,
+          "shadow_wrong": 3,
+          "first_stage_assigned_but_not_emitted": 1,
+          "confirmed_duplicate_removal_after_first_assignment": 1
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 70,
+          "other_track_reference_unknown": 61,
+          "other_track_new_assignment_unknown": 6,
+          "other_track_delta_J": -3,
+          "other_track_worsened": 3
+        },
+        "first_stage_loss": {
+          "singleton": 1
+        }
+      },
+      "G_FLYVIS": {
+        "totals": {
+          "changed_native_bindings": 87,
+          "none": 283,
+          "J": 40,
+          "N": 323,
+          "transition_none_to_none": 283,
+          "neither_target_N": 233,
+          "neither_target_J": 0,
+          "shadow_none": 251,
+          "shadow_N": 300,
+          "correct": 40,
+          "transition_none_to_correct": 10,
+          "ok_N": 90,
+          "ok_J": 40,
+          "improved_queries": 10,
+          "none_to_correct": 10,
+          "shadow_unknown": 33,
+          "transition_correct_to_correct": 30,
+          "shadow_correct": 14,
+          "shadow_wrong": 2,
+          "first_stage_assigned_but_not_emitted": 1,
+          "confirmed_duplicate_removal_after_first_assignment": 1
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 53,
+          "other_track_reference_unknown": 47,
+          "other_track_new_assignment_unknown": 5,
+          "other_track_delta_J": -1,
+          "other_track_worsened": 1
+        },
+        "first_stage_loss": {
+          "singleton": 1
+        }
+      },
+      "G_PERM": {
+        "totals": {
+          "changed_native_bindings": 107,
+          "none": 283,
+          "J": 40,
+          "N": 323,
+          "transition_none_to_none": 283,
+          "neither_target_N": 233,
+          "neither_target_J": 0,
+          "shadow_none": 244,
+          "shadow_N": 300,
+          "correct": 40,
+          "transition_none_to_correct": 10,
+          "ok_N": 90,
+          "ok_J": 40,
+          "improved_queries": 10,
+          "none_to_correct": 10,
+          "shadow_unknown": 38,
+          "transition_correct_to_correct": 30,
+          "shadow_correct": 15,
+          "shadow_wrong": 3,
+          "first_stage_assigned_but_not_emitted": 1,
+          "confirmed_duplicate_removal_after_first_assignment": 1
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 68,
+          "other_track_reference_unknown": 59,
+          "other_track_new_assignment_unknown": 6,
+          "other_track_delta_J": -3,
+          "other_track_worsened": 3
+        },
+        "first_stage_loss": {
+          "singleton": 1
+        }
+      }
+    },
+    "evaluate26": {
+      "B0": {
+        "totals": {
+          "changed_native_bindings": 0,
+          "shadow_none": 673,
+          "shadow_N": 727,
+          "none": 594,
+          "J": 35,
+          "N": 641,
+          "transition_none_to_none": 594,
+          "neither_target_N": 463,
+          "neither_target_J": -1,
+          "ok_N": 178,
+          "ok_J": 36,
+          "shadow_unknown": 43,
+          "shadow_correct": 10,
+          "correct": 41,
+          "transition_correct_to_correct": 41,
+          "shadow_wrong": 1,
+          "wrong": 6,
+          "transition_wrong_to_wrong": 6
+        },
+        "other_tracks": {},
+        "first_stage_loss": {}
+      },
+      "G": {
+        "totals": {
+          "changed_native_bindings": 333,
+          "shadow_none": 607,
+          "shadow_N": 727,
+          "shadow_unknown": 101,
+          "none": 561,
+          "J": 46,
+          "N": 641,
+          "transition_none_to_none": 561,
+          "neither_target_N": 463,
+          "neither_target_J": -11,
+          "ok_N": 178,
+          "ok_J": 57,
+          "wrong": 17,
+          "transition_none_to_wrong": 11,
+          "worsened_queries": 11,
+          "none_to_wrong": 11,
+          "shadow_correct": 16,
+          "correct": 63,
+          "transition_none_to_correct": 22,
+          "improved_queries": 22,
+          "none_to_correct": 22,
+          "transition_correct_to_correct": 41,
+          "shadow_wrong": 3,
+          "transition_wrong_to_wrong": 6,
+          "first_stage_assigned_but_not_emitted": 4,
+          "confirmed_duplicate_removal_after_first_assignment": 4
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 233,
+          "other_track_reference_unknown": 203,
+          "other_track_new_assignment_unknown": 8,
+          "other_track_delta_J": 10,
+          "other_track_improved": 16,
+          "other_track_worsened": 6
+        },
+        "first_stage_loss": {
+          "singleton": 4
+        }
+      },
+      "G_SHIFT": {
+        "totals": {
+          "changed_native_bindings": 333,
+          "shadow_none": 607,
+          "shadow_N": 727,
+          "shadow_unknown": 101,
+          "none": 561,
+          "J": 46,
+          "N": 641,
+          "transition_none_to_none": 561,
+          "neither_target_N": 463,
+          "neither_target_J": -11,
+          "ok_N": 178,
+          "ok_J": 57,
+          "wrong": 17,
+          "transition_none_to_wrong": 11,
+          "worsened_queries": 11,
+          "none_to_wrong": 11,
+          "shadow_correct": 16,
+          "correct": 63,
+          "transition_none_to_correct": 22,
+          "improved_queries": 22,
+          "none_to_correct": 22,
+          "transition_correct_to_correct": 41,
+          "shadow_wrong": 3,
+          "transition_wrong_to_wrong": 6,
+          "first_stage_assigned_but_not_emitted": 4,
+          "confirmed_duplicate_removal_after_first_assignment": 4
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 233,
+          "other_track_reference_unknown": 203,
+          "other_track_new_assignment_unknown": 8,
+          "other_track_delta_J": 10,
+          "other_track_improved": 16,
+          "other_track_worsened": 6
+        },
+        "first_stage_loss": {
+          "singleton": 4
+        }
+      },
+      "G_IMAGE": {
+        "totals": {
+          "changed_native_bindings": 333,
+          "shadow_none": 607,
+          "shadow_N": 727,
+          "shadow_unknown": 101,
+          "none": 561,
+          "J": 46,
+          "N": 641,
+          "transition_none_to_none": 561,
+          "neither_target_N": 463,
+          "neither_target_J": -11,
+          "ok_N": 178,
+          "ok_J": 57,
+          "wrong": 17,
+          "transition_none_to_wrong": 11,
+          "worsened_queries": 11,
+          "none_to_wrong": 11,
+          "shadow_correct": 16,
+          "correct": 63,
+          "transition_none_to_correct": 22,
+          "improved_queries": 22,
+          "none_to_correct": 22,
+          "transition_correct_to_correct": 41,
+          "shadow_wrong": 3,
+          "transition_wrong_to_wrong": 6,
+          "first_stage_assigned_but_not_emitted": 4,
+          "confirmed_duplicate_removal_after_first_assignment": 4
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 233,
+          "other_track_reference_unknown": 203,
+          "other_track_new_assignment_unknown": 8,
+          "other_track_delta_J": 10,
+          "other_track_improved": 16,
+          "other_track_worsened": 6
+        },
+        "first_stage_loss": {
+          "singleton": 4
+        }
+      },
+      "G_R1": {
+        "totals": {
+          "changed_native_bindings": 318,
+          "shadow_none": 611,
+          "shadow_N": 727,
+          "shadow_unknown": 98,
+          "none": 563,
+          "J": 46,
+          "N": 641,
+          "transition_none_to_none": 563,
+          "neither_target_N": 463,
+          "neither_target_J": -10,
+          "correct": 62,
+          "transition_none_to_correct": 21,
+          "ok_N": 178,
+          "ok_J": 56,
+          "improved_queries": 21,
+          "none_to_correct": 21,
+          "wrong": 16,
+          "transition_none_to_wrong": 10,
+          "worsened_queries": 10,
+          "none_to_wrong": 10,
+          "shadow_correct": 15,
+          "transition_correct_to_correct": 41,
+          "shadow_wrong": 3,
+          "transition_wrong_to_wrong": 6,
+          "first_stage_assigned_but_not_emitted": 3,
+          "confirmed_duplicate_removal_after_first_assignment": 3
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 224,
+          "other_track_reference_unknown": 194,
+          "other_track_new_assignment_unknown": 9,
+          "other_track_delta_J": 11,
+          "other_track_improved": 16,
+          "other_track_worsened": 5
+        },
+        "first_stage_loss": {
+          "singleton": 3
+        }
+      },
+      "G_DIS": {
+        "totals": {
+          "changed_native_bindings": 333,
+          "shadow_none": 607,
+          "shadow_N": 727,
+          "shadow_unknown": 101,
+          "none": 561,
+          "J": 46,
+          "N": 641,
+          "transition_none_to_none": 561,
+          "neither_target_N": 463,
+          "neither_target_J": -11,
+          "ok_N": 178,
+          "ok_J": 57,
+          "wrong": 17,
+          "transition_none_to_wrong": 11,
+          "worsened_queries": 11,
+          "none_to_wrong": 11,
+          "shadow_correct": 16,
+          "correct": 63,
+          "transition_none_to_correct": 22,
+          "improved_queries": 22,
+          "none_to_correct": 22,
+          "transition_correct_to_correct": 41,
+          "shadow_wrong": 3,
+          "transition_wrong_to_wrong": 6,
+          "first_stage_assigned_but_not_emitted": 4,
+          "confirmed_duplicate_removal_after_first_assignment": 4
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 233,
+          "other_track_reference_unknown": 203,
+          "other_track_new_assignment_unknown": 8,
+          "other_track_delta_J": 10,
+          "other_track_improved": 16,
+          "other_track_worsened": 6
+        },
+        "first_stage_loss": {
+          "singleton": 4
+        }
+      },
+      "G_FLYVIS": {
+        "totals": {
+          "changed_native_bindings": 274,
+          "shadow_none": 615,
+          "shadow_N": 727,
+          "none": 566,
+          "J": 45,
+          "N": 641,
+          "transition_none_to_none": 566,
+          "neither_target_N": 463,
+          "neither_target_J": -9,
+          "correct": 60,
+          "transition_none_to_correct": 19,
+          "ok_N": 178,
+          "ok_J": 54,
+          "improved_queries": 19,
+          "none_to_correct": 19,
+          "shadow_unknown": 94,
+          "wrong": 15,
+          "transition_none_to_wrong": 9,
+          "worsened_queries": 9,
+          "none_to_wrong": 9,
+          "shadow_correct": 15,
+          "transition_correct_to_correct": 41,
+          "shadow_wrong": 3,
+          "transition_wrong_to_wrong": 6,
+          "first_stage_assigned_but_not_emitted": 3,
+          "confirmed_duplicate_removal_after_first_assignment": 3
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 187,
+          "other_track_reference_unknown": 164,
+          "other_track_delta_J": 9,
+          "other_track_improved": 13,
+          "other_track_new_assignment_unknown": 6,
+          "other_track_worsened": 4
+        },
+        "first_stage_loss": {
+          "singleton": 3
+        }
+      },
+      "G_PERM": {
+        "totals": {
+          "changed_native_bindings": 330,
+          "shadow_none": 607,
+          "shadow_N": 727,
+          "shadow_unknown": 101,
+          "none": 561,
+          "J": 44,
+          "N": 641,
+          "transition_none_to_none": 561,
+          "neither_target_N": 463,
+          "neither_target_J": -12,
+          "ok_N": 178,
+          "ok_J": 56,
+          "wrong": 18,
+          "transition_none_to_wrong": 12,
+          "worsened_queries": 12,
+          "none_to_wrong": 12,
+          "shadow_correct": 16,
+          "correct": 62,
+          "transition_none_to_correct": 21,
+          "improved_queries": 21,
+          "none_to_correct": 21,
+          "transition_correct_to_correct": 41,
+          "shadow_wrong": 3,
+          "transition_wrong_to_wrong": 6,
+          "first_stage_assigned_but_not_emitted": 4,
+          "confirmed_duplicate_removal_after_first_assignment": 4
+        },
+        "other_tracks": {
+          "changed_other_track_assignments": 230,
+          "other_track_reference_unknown": 201,
+          "other_track_new_assignment_unknown": 8,
+          "other_track_delta_J": 11,
+          "other_track_improved": 16,
+          "other_track_worsened": 5
+        },
+        "first_stage_loss": {
+          "singleton": 4
+        }
+      }
+    }
+  },
+  "evaluate26_comparisons": {
+    "G-B0": {
+      "delta_J": 11,
+      "delta_J_per100": 1.71606864274571,
+      "ci95": [
+        0.16721014492753625,
+        3.3755443852008615
+      ],
+      "ci99_375": [
+        -0.4080328627359577,
+        4.147413196293534
+      ],
+      "videos": 26,
+      "bootstrap_replicates": 20000,
+      "seed": 42,
+      "unit": "paired_video"
+    },
+    "G_SHIFT-B0": {
+      "delta_J": 11,
+      "delta_J_per100": 1.71606864274571,
+      "ci95": [
+        0.16721014492753625,
+        3.3755443852008615
+      ],
+      "ci99_375": [
+        -0.4080328627359577,
+        4.147413196293534
+      ],
+      "videos": 26,
+      "bootstrap_replicates": 20000,
+      "seed": 42,
+      "unit": "paired_video"
+    },
+    "G_IMAGE-B0": {
+      "delta_J": 11,
+      "delta_J_per100": 1.71606864274571,
+      "ci95": [
+        0.16721014492753625,
+        3.3755443852008615
+      ],
+      "ci99_375": [
+        -0.4080328627359577,
+        4.147413196293534
+      ],
+      "videos": 26,
+      "bootstrap_replicates": 20000,
+      "seed": 42,
+      "unit": "paired_video"
+    },
+    "G_R1-B0": {
+      "delta_J": 11,
+      "delta_J_per100": 1.71606864274571,
+      "ci95": [
+        0.2902652447361225,
+        3.237410071942446
+      ],
+      "ci99_375": [
+        -0.2991788284417712,
+        3.884960296021877
+      ],
+      "videos": 26,
+      "bootstrap_replicates": 20000,
+      "seed": 42,
+      "unit": "paired_video"
+    },
+    "G_DIS-B0": {
+      "delta_J": 11,
+      "delta_J_per100": 1.71606864274571,
+      "ci95": [
+        0.16721014492753625,
+        3.3755443852008615
+      ],
+      "ci99_375": [
+        -0.4080328627359577,
+        4.147413196293534
+      ],
+      "videos": 26,
+      "bootstrap_replicates": 20000,
+      "seed": 42,
+      "unit": "paired_video"
+    },
+    "G_FLYVIS-B0": {
+      "delta_J": 10,
+      "delta_J_per100": 1.5600624024960998,
+      "ci95": [
+        0.19119546655379271,
+        3.0441583245521584
+      ],
+      "ci99_375": [
+        -0.30098951657101963,
+        3.729040164086397
+      ],
+      "videos": 26,
+      "bootstrap_replicates": 20000,
+      "seed": 42,
+      "unit": "paired_video"
+    },
+    "G_PERM-B0": {
+      "delta_J": 9,
+      "delta_J_per100": 1.4040561622464898,
+      "ci95": [
+        -0.18451892852261853,
+        3.1365774249753873
+      ],
+      "ci99_375": [
+        -0.8726300159902536,
+        3.9005491370703154
+      ],
+      "videos": 26,
+      "bootstrap_replicates": 20000,
+      "seed": 42,
+      "unit": "paired_video"
+    },
+    "G_FLYVIS-G": {
+      "delta_J": -1,
+      "delta_J_per100": -0.15600624024961,
+      "ci95": [
+        -0.8695967691045623,
+        0.5338316174091744
+      ],
+      "ci99_375": [
+        -1.2117159141889964,
+        0.8605851979345955
+      ],
+      "videos": 26,
+      "bootstrap_replicates": 20000,
+      "seed": 42,
+      "unit": "paired_video"
+    },
+    "G_FLYVIS-G_SHIFT": {
+      "delta_J": -1,
+      "delta_J_per100": -0.15600624024961,
+      "ci95": [
+        -0.8695967691045623,
+        0.5338316174091744
+      ],
+      "ci99_375": [
+        -1.2117159141889964,
+        0.8605851979345955
+      ],
+      "videos": 26,
+      "bootstrap_replicates": 20000,
+      "seed": 42,
+      "unit": "paired_video"
+    },
+    "G_FLYVIS-G_IMAGE": {
+      "delta_J": -1,
+      "delta_J_per100": -0.15600624024961,
+      "ci95": [
+        -0.8695967691045623,
+        0.5338316174091744
+      ],
+      "ci99_375": [
+        -1.2117159141889964,
+        0.8605851979345955
+      ],
+      "videos": 26,
+      "bootstrap_replicates": 20000,
+      "seed": 42,
+      "unit": "paired_video"
+    },
+    "G_FLYVIS-G_R1": {
+      "delta_J": -1,
+      "delta_J_per100": -0.15600624024961,
+      "ci95": [
+        -0.6525285481239804,
+        0.3891240206005703
+      ],
+      "ci99_375": [
+        -0.863935220699521,
+        0.6422275048893071
+      ],
+      "videos": 26,
+      "bootstrap_replicates": 20000,
+      "seed": 42,
+      "unit": "paired_video"
+    },
+    "G_FLYVIS-G_DIS": {
+      "delta_J": -1,
+      "delta_J_per100": -0.15600624024961,
+      "ci95": [
+        -0.8695967691045623,
+        0.5338316174091744
+      ],
+      "ci99_375": [
+        -1.2117159141889964,
+        0.8605851979345955
+      ],
+      "videos": 26,
+      "bootstrap_replicates": 20000,
+      "seed": 42,
+      "unit": "paired_video"
+    },
+    "G_FLYVIS-G_PERM": {
+      "delta_J": 1,
+      "delta_J_per100": 0.15600624024961,
+      "ci95": [
+        -0.740768216287504,
+        1.1456628477905073
+      ],
+      "ci99_375": [
+        -1.1269781294452348,
+        1.6145426034538914
+      ],
+      "videos": 26,
+      "bootstrap_replicates": 20000,
+      "seed": 42,
+      "unit": "paired_video"
+    }
+  },
+  "full_tracker_gate": {
+    "proceed": true,
+    "criterion": "G or G_FLYVIS paired-video lower95% deltaJ vsB0 >0",
+    "status": "required_next_stage"
+  },
+  "limitations": [
+    "One-frame interventions from archived native states, not a closed-loop rollout.",
+    "Reused historical train-source cohorts, not independent detector validation.",
+    "Sparse unknown assignments neutral and counted; neither-search-candidate is not full-frame absence.",
+    "Rival harm uses only consistent identities in four actual historical observations on annotated frames; remaining identities unknown."
+  ],
+  "outputs": {
+    "runs/identity_assignment_20261108/outcomes/fit20_B0.json": "80e3eb084f5150dd016c5fb004835fca1d87842c5104e0df4d3a1949681c1bbd",
+    "runs/identity_assignment_20261108/outcomes/fit20_G.json": "1bd9ed62b7ec05b3399e3566a0cc9f7d189fcc307f2d4a6c7a011dd2b8553d49",
+    "runs/identity_assignment_20261108/outcomes/fit20_G_SHIFT.json": "d87280ed9f11e102e29033ab45cc2f8cb08093a664feb257f1fdd4a0dbbbe298",
+    "runs/identity_assignment_20261108/outcomes/fit20_G_IMAGE.json": "baef33911d129ef2b05e74f6e0dd5df063f36023251ed56e82c8a2666aa0ae78",
+    "runs/identity_assignment_20261108/outcomes/fit20_G_R1.json": "6049489414cc16b2958651e9907423d40d833c3154cc839dc434058742195434",
+    "runs/identity_assignment_20261108/outcomes/fit20_G_DIS.json": "7e668075b70a6b80aaa95fa0faaee47cd305a6ba866336a29b82cb2c2c86c6f9",
+    "runs/identity_assignment_20261108/outcomes/fit20_G_FLYVIS.json": "e1c236ba664587b5a6a84fcda273abb8f697ffc3df4e5d5a427340008fa4aff7",
+    "runs/identity_assignment_20261108/outcomes/fit20_G_PERM.json": "17e8e5531a46cef62d4be35263e7c91d16670443666a3021570abb03d9f0417b",
+    "runs/identity_assignment_20261108/outcomes/evaluate26_B0.json": "aa6528756f52a774794263264ad7a8f1a0e179e36708f1364a292fbdd721afaa",
+    "runs/identity_assignment_20261108/outcomes/evaluate26_G.json": "89823098277b2871085dda17090bfb20324ec04103f36b90533f6277308838c0",
+    "runs/identity_assignment_20261108/outcomes/evaluate26_G_SHIFT.json": "12cf5ce8deadd303764756ff3842d6076658e8d2a0814c43645188d01faf0d04",
+    "runs/identity_assignment_20261108/outcomes/evaluate26_G_IMAGE.json": "00752cba5fcc8995c17e07dfd165318a6287fa282e0f64d4c288963e765bc3fc",
+    "runs/identity_assignment_20261108/outcomes/evaluate26_G_R1.json": "7a8c9e0b51e75b94c502c74d54e98a49cf21df29827d3f7c2a18647620b6e2c0",
+    "runs/identity_assignment_20261108/outcomes/evaluate26_G_DIS.json": "a44eb4ad45e613fc0d961e4c22ca602351ce267159da4516f3ee75732a81ca31",
+    "runs/identity_assignment_20261108/outcomes/evaluate26_G_FLYVIS.json": "a7445d3b816d11afc18ae2dda1811f5e870082b30c5cc2cd8a3171719fa90f9f",
+    "runs/identity_assignment_20261108/outcomes/evaluate26_G_PERM.json": "843ee7dfedf20df81bef4e2091a23fc40084d69dfe441b171d9010a40e752533"
+  },
+  "restored_parity_frames": 1585,
+  "replayed_distinct_counterfactual_updates": 428
+}

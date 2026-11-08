@@ -1,0 +1,100 @@
+{
+  "passed": true,
+  "checked": 1845,
+  "max_native_cost_error": 0,
+  "max_raw_float64_cost_error": 2.144261534775538e-06,
+  "ordinary_point2_gate_decisions_changed": 0,
+  "worst": [
+    {
+      "video": "0166faa5-5fbc53c5",
+      "frame": 804,
+      "cost_error_float64_raw_box": 2.144261534775538e-06,
+      "native_reconstruction_error": 0.0,
+      "box": [
+        1155.2996826171875,
+        383.180908203125,
+        1177.165283203125,
+        455.65521240234375
+      ],
+      "pred": [
+        1131.8466731246428,
+        371.80881732163755,
+        1174.9640712335697,
+        459.17100419778956
+      ]
+    },
+    {
+      "video": "b1d0a191-de8948f6",
+      "frame": 307,
+      "cost_error_float64_raw_box": 2.017918862562418e-06,
+      "native_reconstruction_error": 0.0,
+      "box": [
+        1123.6136474609375,
+        256.9673156738281,
+        1153.720458984375,
+        318.7495422363281
+      ],
+      "pred": [
+        1089.5545601124288,
+        265.31286739634413,
+        1142.7587401154885,
+        323.09614387965223
+      ]
+    },
+    {
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 768,
+      "cost_error_float64_raw_box": 2.0020698228151446e-06,
+      "native_reconstruction_error": 0.0,
+      "box": [
+        541.1853637695312,
+        310.2715148925781,
+        558.9732666015625,
+        329.7771301269531
+      ],
+      "pred": [
+        534.7997466817053,
+        309.5065059498311,
+        549.1495598947215,
+        330.00151646666393
+      ]
+    },
+    {
+      "video": "027b216c-bfae3d6d",
+      "frame": 986,
+      "cost_error_float64_raw_box": 1.991746560681129e-06,
+      "native_reconstruction_error": 0.0,
+      "box": [
+        699.3329467773438,
+        410.7247314453125,
+        712.2685546875,
+        443.12030029296875
+      ],
+      "pred": [
+        707.1337529506313,
+        411.3042171480765,
+        719.9635033460115,
+        442.1746181811771
+      ]
+    },
+    {
+      "video": "b1e3e9f5-92377424",
+      "frame": 304,
+      "cost_error_float64_raw_box": 1.9627311080849807e-06,
+      "native_reconstruction_error": 0.0,
+      "box": [
+        880.4144897460938,
+        173.52059936523438,
+        898.43994140625,
+        222.25704956054688
+      ],
+      "pred": [
+        867.404486600969,
+        168.7804299540455,
+        882.8288260844699,
+        212.74923005362317
+      ]
+    }
+  ],
+  "explanation": "Native matching casts both boxes to float32 after detection xyxy→xywh→tlwh→xyxy. Raw float64 boxes are not the exact input used by the native IoU cost."
+}

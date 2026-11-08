@@ -1,0 +1,50 @@
+"""Record audited outcomes; preserve all earlier card wording and journal entries."""
+import sys
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
+from research_identity_assignment_run_20261108.common import read,write,sha,datetime,MSK
+
+
+def main():
+    own=ROOT/'runs/singleton_verify_20261108/full';age=ROOT/'runs/singleton_age_20261108/full';err=ROOT/'runs/singleton_error_audit_20261108';quality=ROOT/'runs/singleton_admission_20261108'
+    assert read(own/'independent_audit.json')['passed'] and read(age/'independent_audit.json')['passed'] and read(err/'queue_result.json')['passed'] and read(quality/'quality_report.json')['passed']
+    path=ROOT/'experiments/project_history.json';catalog=read(path);cards={e['id']:e for e in catalog['experiments']}
+    before=sha(path);date=datetime.now(MSK).date().isoformat()
+    def change(e,field,value):
+        if e.get(field)==value:return
+        old=e.get(field,'')
+        if old and field in ['summary','obtained','interpretation','decision','cannot_claim']:
+            e.setdefault('revisions',[]).append(dict(date=date,commit='',field=field,old=old,reason='Завершён полный пилот, независимо проверены результаты и источник дополнительных ошибочных рамок.'))
+        e[field]=value
+    def evidence(e,path,claim):
+        ref=path.relative_to(ROOT).as_posix()
+        if not any(r.get('ref')==ref for r in e['evidence']):e['evidence'].append(dict(kind='file',ref=ref,claim=claim))
+    e=cards['singleton_own_template_v1_20261108'];e['state']='completed_negative';e['done']=date
+    change(e,'obtained','Условные 641 запрос: B0 41 правильный/6 чужих, FlyVis и изображение по 45/6, случаи частично различаются (runs/singleton_verify_20261108/comparison_report.json). Полный пилот 20 видео: HOTA B0 57,900829, FlyVis 57,911939; разность +0,011110 п.п., 95% ДИ [−0,073633;0,102324], поправленный на 11 сравнений ДИ [−0,111732;0,146010]; FP +35, FN −40, IDSw −7, правильные возвраты +13, устойчивые +4 (full/comparison_report.json, pooled, comparisons.FLYVIS-B0). FlyVis−изображение +0,013348 п.п., ДИ содержит ноль. Нулевой выход совпал на 1209 кадрах. Независимая сверка 162 траекторий, 200 компонентов метрик и 8437 матриц пройдена (full/zero_parity.json; full/independent_audit.json).')
+    change(e,'interpretation','Локальные дополнительные правильные назначения не перешли в подтверждённую пользу полного трекера. Рост ложных рамок нарушил условие принятия. Польза сигнала FlyVis сверх изображения и геометрии не установлена. В конкретной реализации текущий вход за два шага интегрирования ещё не достигает T4/T5; это ограничение данного полного модуля, а не доказательство бесполезности ядра.')
+    change(e,'decision','В основную систему не принимать. Первую проблему считать открытой. Следующая проверка первой проблемы должна сохранять штатное подтверждение присутствия рамки и раздельно проверять возврат личности. Проблемы 2–4 отложены по поручению автора.')
+    e['acceptance'][2].update(met=False,evidence='runs/singleton_verify_20261108/full/comparison_report.json: problem1_acceptance=false; FP+35, доверительный интервал HOTA включает ноль.')
+    for p,c in [(own/'comparison_report.json','Полный отрицательный результат'),(own/'independent_audit.json','Независимая проверка полного пилота')]:evidence(e,p,c)
+    e=cards['singleton_recency_control_v1_20261108'];e['state']='completed_negative';e['done']=date
+    change(e,'obtained','На 73 известных fit20 примерах выбрана граница 6 кадров после последнего наблюдения, то есть не более 5 промежуточных пропусков (runs/singleton_age_20261108/selection.json). Условный результат: 46 правильных/6 чужих против B0 41/6 (comparison_report.json). Полный пилот 20 видео: HOTA 57,896376 против 57,900829, разность −0,004454 п.п., 95% ДИ [−0,080363;0,073303], поправленный на 14 сравнений ДИ [−0,119254;0,110375]; FP +29, FN −36, IDSw −1, чужие возвраты +1, правильные +11, устойчивые +4 (full/comparison_report.json). Независимая проверка 757 решений, 697 матриц и 20 отчётов возвратов пройдена (full/independent_audit.json).')
+    change(e,'interpretation','Одна геометрия и давность без дополнительных зрительных признаков воспроизводят часть локальной прибавки пространственной проверки. В полном трекере этот контроль тоже не прошёл условия качества. Разность FlyVis−давность +0,015563 п.п. с ДИ, содержащим ноль, не доказывает добавку FlyVis (full/comparison_report.json).')
+    change(e,'decision','Не принимать. Давность сохранять как обязательный контроль первой проблемы; запрет на дополнительные ложные рамки не ослаблять. Проблемы 2–4 не исследовать до решения первой.')
+    change(e,'cannot_claim','Уже изучавшийся исторический материал, а не независимый финальный тест. «Без дополнительных зрительных признаков» не означает отсутствие детектора YOLO26. Давность 6 означает максимум 5 промежуточных пропущенных кадров. Не переносить результат коротких пропусков на длительные перекрытия.')
+    for a in e['acceptance'][:2]:a.update(met=True,evidence='runs/singleton_age_20261108/selection.json; full/zero_parity.json; full/independent_audit.json')
+    e['acceptance'][2].update(met=False,evidence='runs/singleton_age_20261108/full/comparison_report.json: problem1_acceptance.AGE=false; FP+29, чужие+1, ДИ HOTA содержит ноль.')
+    for p,c in [(age/'comparison_report.json','Полное сравнение давности и зрительных вариантов'),(age/'independent_audit.json','Независимая проверка контроля')]:evidence(e,p,c)
+    e=cards['singleton_error_source_audit_v1_20261108'];e['state']='infrastructure';e['done']=date
+    change(e,'obtained','Все 335 дополнительных первых назначений FlyVis дошли до выходных рамок; удаления дубликатов и превращения сопоставимой сырой рамки в несопоставимую после Калмана не обнаружено (runs/singleton_error_audit_20261108/report.json). Среди 51 добавленной пары на кадрах с разметкой 28 выходных рамок не имеют ни одного допустимого объекта своего класса с IoU≥0,5; у 22 нет пересечения с областями исключения, у 21 из этих 22 исходный B0 также не выпускал рамку рядом с сырым кандидатом. Для 46 из 51 ребра локальный отказ вызван именно включением уверенности детектора в стоимость (runs/singleton_admission_20261108/quality_report.json).')
+    change(e,'interpretation','Подтверждён выпуск дополнительных геометрически неподходящих рамок; порча положения Калманом и удаление дубликата не объясняют прямые потери в этой выборке. Возврат Lost немедленно активирует рамку, а обычное рождение требует последующего штатного подтверждения. Обход этого подтверждения — рабочее объяснение, которое нужно отделить от ошибок личности.')
+    change(e,'decision','Проверить возврат старого ID только после фактического штатного подтверждения нового фрагмента: менять метку личности, сохраняя точный штатный набор рамок. Сначала инвентаризация на fit20, затем контроль без FlyVis и причинная проверка без будущих кадров. Прежнюю офлайн-сшивку не выдавать за новый метод.')
+    change(e,'cannot_claim','Исторические 20 видео и редкая разметка. Неизвестная личность не является отрицательным примером. Локальные 22 неподходящие рамки не являются точным разложением дополнительных 35 CLEAR FP: исключаемые области, сопоставление и последующие изменения траекторий учитываются иначе. Диагностика не доказывает пользу новой правки и не решает проблемы 2–4.')
+    e['acceptance'][0].update(met=True,evidence='runs/singleton_error_audit_20261108/report.json; queue_result.json; runs/singleton_admission_20261108/quality_report.json')
+    for p,c in [(err/'report.json','Разделение прямой ошибки личности, рамки и удаления'),(quality/'quality_protocol.json','Определения до подсчёта'),(quality/'quality_report.json','Неподходящие выходные рамки, исключения и границы вывода')]:evidence(e,p,c)
+    write(path,catalog)
+    plan=ROOT/'dissertation/ЕДИНЫЙ_ПЛАН.md';text=plan.read_text(encoding='utf-8');stamp=datetime.now(MSK).strftime('%d.%m.%Y, %H:%M MSK')
+    entry=f'''\n\n**{stamp}** — Первая проблема: собственная карта и давность не приняты; источник дополнительных рамок.\n\n*Постановка.* Завершить уже зарегистрированные полные проверки единственной свободной рамки, не переходя к проблемам 2–4.\n\n*Получено (`singleton_own_template_v1_20261108`; `singleton_recency_control_v1_20261108`).* Полный FlyVis: HOTA +0,011110 п.п. к B0, 95% ДИ [−0,073633;0,102324], FP +35. Давность: HOTA −0,004454 п.п., ДИ [−0,080363;0,073303], FP +29, чужие возвраты +1. Оба варианта не приняты; независимые проверки пройдены (`runs/singleton_verify_20261108/full/comparison_report.json`, `full/independent_audit.json`; `runs/singleton_age_20261108/full/comparison_report.json`, `full/independent_audit.json`). Готовые траектории и метрики не повторялись.\n\n*Получено (`singleton_error_source_audit_v1_20261108`).* Все 335 добавленных назначений FlyVis вышли наружу. В прямой диагностике Калман не превратил подходящую сырую рамку в неподходящую. На размеченных кадрах обнаружены 22 добавленные неподходящие рамки вне областей исключения; это не точное разложение глобальных +35 FP (`runs/singleton_error_audit_20261108/report.json`; `runs/singleton_admission_20261108/quality_report.json`).\n\n*Вывод.* Снижение стоимости Lost обходит обычное подтверждение нового объекта. Подтверждение присутствия рамки и проверку её личности нужно разделить. Локальный положительный результат не заменяет качество полного трекера.\n\n*Решение.* Первую проблему оставить открытой. Проверить возврат старой метки при первом штатном подтверждении нового фрагмента без изменения штатных рамок. Отличие от прежней офлайн-сшивки — решение по текущему и прошлым кадрам, без пересмотра уже выданных меток. Никаких новых исследований проблем 2–4.\n'''
+    marker='## Журнал изменений';assert text.count(marker)==1;text=text.replace(marker,marker+entry,1);plan.write_text(text,encoding='utf-8',newline='\n')
+    write(quality/'record_results_receipt.json',dict(passed=True,catalog_before_sha256=before,catalog_after_sha256=sha(path),plan_sha256=sha(plan),updated=datetime.now(MSK).isoformat()),new=True)
+
+
+if __name__=='__main__':main()

@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "report_sha256": "f44952402cd45a609abb148515360cd8d6bb3796504c5d4f2b2afa88f7ec8f45",
+  "sources": {
+    "runs/flyvis/results/flow/0000/000/_meta.yaml": "2aa8a9505324c82bbb4011ee2f7c375b5f8b1bddde1a5281e038baecf91fc5dd",
+    "tools/flyvis-runtime/flyvis/network/stimulus.py": "bed184c91e3c5908f6b6853929cb5996af7165580bc5bc6a6b65e51c25c827b0",
+    "tracking/flyvis_checkpoint.py": "0280e2ef363f85a2a9455fcd2a2a8148e23daf2bf3d1c394eb6c93cff07fd30e",
+    "research_singleton_age_20261108/verify_dependency_sources.py": "973756e8986f1031f59d5a72e0c8124eba37c453f08361c4dc81db6954e751ff"
+  },
+  "model": "flow/0000/000",
+  "connectome": {
+    "type": "ConnectomeFromAvgFilters",
+    "file": "fib25-fib19_v2.2.json",
+    "extent": 15,
+    "n_syn_fill": 1
+  },
+  "dynamics": {
+    "type": "PPNeuronIGRSynapses",
+    "activation": {
+      "type": "relu"
+    }
+  },
+  "source_fps": 30,
+  "requested_max_dt": 0.02,
+  "actual_dt": 0.016666666666666666,
+  "steps": 2,
+  "verified_code_contract": "Input buffer reaches only connectome input types. add_edges fills spatial offsets only within listed type pairs. Each Euler velocity uses old-state sources. The selected map is the final state after2updates.",
+  "new_core_calls": 0
+}

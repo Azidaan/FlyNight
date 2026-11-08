@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "checks": {
+    "independent_spatial_scores": 726,
+    "causal_frames": 235850,
+    "independent_return_trajectories": 69,
+    "return_reports": 200,
+    "official_metric_components": 200,
+    "optional_assignments": 284,
+    "independent_intervals": 13
+  },
+  "comparison_sha256": "32450b2377071c35198eb6819f94edcde56e85e8297c41381ce49a462eacfeff",
+  "additional_sha256": "e12c8c971d9f233a6a947e90b271f5ea086fea117c827a4d123988a139e8ffc6",
+  "accepted": {
+    "FLYVIS": false,
+    "AGE_FIT": false,
+    "AGE6": false,
+    "GEOMETRY": false,
+    "IMAGE": false
+  },
+  "problem1_acceptance": false,
+  "scope": "All native physical outputs, independent causal alias reconstruction and optional assignment objective, spatial map arithmetic, sparse identity returns, official metric components and registered intervals. No rerun of tracker/model/evaluator."
+}

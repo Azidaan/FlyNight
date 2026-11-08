@@ -1,0 +1,13 @@
+{
+  "registered": "2026-11-08T13:50:53.449267+03:00",
+  "sources": {
+    "research_bbox_readout_calibration_recovery1_20261108/controller.py": "1e9e24526ca3f8355d6c36d8b34232257b67643e0de36c149ce5c2da4ae4775c",
+    "research_bbox_readout_calibration_recovery1_20261108/schema.py": "f9a137f2bb1d04fbd9b3d56da446251d0977af3acb4b9e502a340a158ee203a5",
+    "research_bbox_readout_calibration_recovery1_20261108/start.py": "e2bdef3287f7ef290dfaa4cd24cb285ad8e932bb48dd8eaca0bafc32e6a09d29",
+    "runs/bbox_readout_calibration_20261108/protocol.json": "199937ae4be5c90d243acf4c486eb7c16078e56f0d563319c05a9915d705255c",
+    "runs/bbox_readout_calibration_20261108/children/verify.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runs/bbox_readout_calibration_20261108/children/verify.err": "6a6b427e4810f5cfbc10107a9fc233b5d0534f6897b1ab8ea0b79d1e41408c2a"
+  },
+  "reason": "A second guarded verification was correctly rejected by the global audit mutex while fit input preparation was active. No second worker or threshold calculation started. Wait for data completion, then run the schema validator and unchanged scientific stages sequentially. Mandatory58tests run once in the final graph verification on the final catalogue; no red check is accepted.",
+  "science_settings_and_sources_unchanged": true
+}

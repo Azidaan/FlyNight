@@ -1,0 +1,29 @@
+{
+  "registered": "2026-11-08T11:10:49.425982+03:00",
+  "error": "Post-feature verifier assumed the old decoded float64 container still existed. Its original released.json proves it was deliberately freed; the actual reader reconstructed a new container inFULL. No OOM; minimum available memory13,062,410,240bytes.",
+  "failed_guardian": {
+    "command": [
+      "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+      "-u",
+      "E:\\Dissertation\\research_native_confirm_full_20261108\\features.py",
+      "--audit-memory-worker=dab6ca06a5174d2e8280565c58cd21e5"
+    ],
+    "limit_active": false,
+    "limit_bytes": null,
+    "reserve_bytes": 6853494374,
+    "minimum_available_bytes": 13062410240,
+    "reason": null,
+    "returncode": 1,
+    "owned": {
+      "39372": 1794124559.5500758,
+      "20664": 1794124559.5738354
+    },
+    "stop_errors": [],
+    "seconds": 183.61000000000058
+  },
+  "partial_maps": 48,
+  "native_trace_reused": true,
+  "catalog_check_reused": true,
+  "repair": "Prepare only required retinal views and verify cached views numerically. GPU reads prepared views; missing-view fallback explicitly raises. Preserve all original sources, logs, failed exit codes, saved maps and decoded first-video scratch.",
+  "science_parameters_unchanged": true
+}

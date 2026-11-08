@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "counts": {
+    "correct_events_retained": 548,
+    "removed_correct_events": 1,
+    "gap_closed_by_continuous_canonical_ID": 1
+  },
+  "delta_correct_return_count": -1,
+  "cases": [
+    {
+      "video": "b23b2649-8349d2a1",
+      "frame": 544,
+      "native_id": 100,
+      "canonical_id": 100,
+      "counter_change": -1,
+      "classification": "gap_closed_by_continuous_canonical_ID",
+      "baseline_event": {
+        "frame": 544,
+        "tid": 100,
+        "gap": 3,
+        "prior_identity": "00130217",
+        "identity": "00130217",
+        "kind": "correct",
+        "sustained": "censored_insufficient_future",
+        "future_frames": []
+      },
+      "image_event": null,
+      "previous_native_owners": [
+        496
+      ],
+      "interpretation": "A missing return event can mean that the public ID was continuous across the native fragment change. This fact alone does not establish the identity of every unannotated physical observation."
+    }
+  ],
+  "source_checksums": {
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b1d10d08-743fd86c.npz": "cac792ce97b1f0ab21232b57a633546b325c27fa5cb6973bfaa7ebe7372032fa",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b1d10d08-743fd86c.npz": "cac792ce97b1f0ab21232b57a633546b325c27fa5cb6973bfaa7ebe7372032fa",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b23b2649-8349d2a1.npz": "fdc8b35bdc236973daa47d19a597cfdb8f5601e085014c85293650721feb0af8",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b23b2649-8349d2a1.npz": "5aed28c247b16b8030df7f4b510caf8eb7018c0e32f45ed2a30a9030ac59fedc",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b242f6b2-0033bdfb.npz": "0c4041c730e989c6de491410b9e559bcfdeecd0273ca0b7ffdd78a581869bfb6",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b242f6b2-0033bdfb.npz": "0c4041c730e989c6de491410b9e559bcfdeecd0273ca0b7ffdd78a581869bfb6",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b230132b-ff8f2719.npz": "67271c932bfc6bc2a741dcaeffc7411f495a530afb72dba780f59688aa5e63f6",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b230132b-ff8f2719.npz": "67271c932bfc6bc2a741dcaeffc7411f495a530afb72dba780f59688aa5e63f6",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b1f4491b-cf446195.npz": "a993e0bdc81831f03adc4e1bdd8ce443dd601315468fd086919ad517778e78fc",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b1f4491b-cf446195.npz": "314a868973db1b6298be34964387f64d9331b9a7d3944114c5022667b8c66e5c",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b23f7012-32d284ce.npz": "168581c3943cf1adc29d7ed0b971363c0e22d5c57952277d2ea06069c960c966",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b23f7012-32d284ce.npz": "168581c3943cf1adc29d7ed0b971363c0e22d5c57952277d2ea06069c960c966",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b2036451-aa924fd1.npz": "ab2ba5749b21491acb6dc9461f03d0d7ce12e76c2decbb7b4cc6d7e2efc5fd9e",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b2036451-aa924fd1.npz": "e6978d2c7fa15fe1a5c5484ebca4ddbb6bd3aa6ecb87ef0e20413d05fd9b5650",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b1d0a191-de8948f6.npz": "e2d901d589fab51f96351591512c1ef9a0c09452ac867257e34c0f98a061cd54",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b1d0a191-de8948f6.npz": "e2d901d589fab51f96351591512c1ef9a0c09452ac867257e34c0f98a061cd54",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b20b69d2-ca16c907.npz": "26ba1b284614edaf54c890d9d4266fc02fe1ca9d40dc2a864dd47e3dd68b3bb6",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b20b69d2-ca16c907.npz": "26ba1b284614edaf54c890d9d4266fc02fe1ca9d40dc2a864dd47e3dd68b3bb6",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b200b84e-4a792877.npz": "fcc93cd3b567216b3cbe053bd99452f66adde1a0ad9883873a046f53efdb2ecf",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b200b84e-4a792877.npz": "fcc93cd3b567216b3cbe053bd99452f66adde1a0ad9883873a046f53efdb2ecf",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b251064f-5f6b663e.npz": "f3108c05fcdd9c0f72151e6f18788154f5029a838298d78959db429629d7b15a",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b251064f-5f6b663e.npz": "b850a296158f1b3a7f5207e31f4856323c6930a88e92cf5e3c630193b1cf627b",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b23a79d1-43dfeecd.npz": "fad31a6dff9c52f7b5cbe4c5534ad1bbfd309ae2b6e3f54ce96ce3bc71695bb0",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b23a79d1-43dfeecd.npz": "fad31a6dff9c52f7b5cbe4c5534ad1bbfd309ae2b6e3f54ce96ce3bc71695bb0",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b23adb0d-72704b27.npz": "723dc4787d534bbaf886aed215c1e1d09ba26b52aaf7ed31c8e7f4cf6790f8d9",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b23adb0d-72704b27.npz": "723dc4787d534bbaf886aed215c1e1d09ba26b52aaf7ed31c8e7f4cf6790f8d9",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b216243d-ad4306b9.npz": "f199b64e3d76ada2a02731b03fb54b6c280b63cd7615f84ae409f6659090f62f",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b216243d-ad4306b9.npz": "f199b64e3d76ada2a02731b03fb54b6c280b63cd7615f84ae409f6659090f62f",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b1cd1e94-549d0bfe.npz": "44bc5b24c8a6286f125d972c2fc6fb53b37c369099b73cf10b69ff145113e372",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b1cd1e94-549d0bfe.npz": "44bc5b24c8a6286f125d972c2fc6fb53b37c369099b73cf10b69ff145113e372",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b1ca2e5d-84cf9134.npz": "a2de36a03ed27132e7a4370ae338caad05b1ef6c293c613ae7e23af951ecffec",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b1ca2e5d-84cf9134.npz": "a2de36a03ed27132e7a4370ae338caad05b1ef6c293c613ae7e23af951ecffec",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b1e3e9f5-92377424.npz": "60a73e909ef5e4690c2f6326b84d9c232081b378948c7bf361e50b61df48660b",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b1e3e9f5-92377424.npz": "60a73e909ef5e4690c2f6326b84d9c232081b378948c7bf361e50b61df48660b",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b20d494a-cdebe83e.npz": "60429d0daf4f7060e60a0442b482fa82021365f050dde2eaf93b766198627003",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b20d494a-cdebe83e.npz": "60429d0daf4f7060e60a0442b482fa82021365f050dde2eaf93b766198627003",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b230a7b2-c881c382.npz": "e5dc5057ee9373f9cc74ec8d558ea77f3022f7ddd3ab701ab60e4a98d0323947",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b230a7b2-c881c382.npz": "e5dc5057ee9373f9cc74ec8d558ea77f3022f7ddd3ab701ab60e4a98d0323947",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/B0/b23f7012-fab06dac.npz": "446058a6ba0e4395064b8b19c1cb0a274c7fe9723584d7ed08643e279f2232a9",
+    "runs/bbox_normalized_signals_20261108/full/rollouts/IMAGE/b23f7012-fab06dac.npz": "446058a6ba0e4395064b8b19c1cb0a274c7fe9723584d7ed08643e279f2232a9"
+  },
+  "acceptance_unchanged": true,
+  "scope": "Exact decomposition of the counter change, not a new quality metric or an excuse to accept a failed trial."
+}

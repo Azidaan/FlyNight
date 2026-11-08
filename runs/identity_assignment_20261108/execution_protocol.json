@@ -1,0 +1,79 @@
+{
+  "id": "identity_assignment_v2_run_20261108",
+  "registered": "2026-11-08T01:33:52.579532+03:00",
+  "parent_protocol": "research_identity_assignment_protocol_20261108\\protocol_v2.json",
+  "parent_sha256": "970acb47208741f9ca75232589aa1d554135cfd6251d9ee8b4ad969c303f98c7",
+  "base_commit": "7f702f5364bb2133b15c3a6c0ddf28dd7c716aeb",
+  "authorization": "User requested implementation, missing-data recovery and matched comparison. First zero-intervention parity; no repeated completed calculations. Emphasize correct/wrong reactivations and harm. Follow all prespecified gates.",
+  "deadline": "2026-11-09T07:40:00+03:00",
+  "arms": [
+    "B0",
+    "G",
+    "G_SHIFT",
+    "G_IMAGE",
+    "G_R1",
+    "G_DIS",
+    "G_FLYVIS",
+    "G_PERM"
+  ],
+  "acceptance": {
+    "unit": "video",
+    "samples": 20000,
+    "seed": 42,
+    "primary_comparisons": [
+      [
+        "G",
+        "B0"
+      ],
+      [
+        "G_FLYVIS",
+        "B0"
+      ],
+      [
+        "G_FLYVIS",
+        "G"
+      ],
+      [
+        "G_FLYVIS",
+        "G_SHIFT"
+      ],
+      [
+        "G_FLYVIS",
+        "G_IMAGE"
+      ],
+      [
+        "G_FLYVIS",
+        "G_R1"
+      ],
+      [
+        "G_FLYVIS",
+        "G_DIS"
+      ],
+      [
+        "G_FLYVIS",
+        "G_PERM"
+      ]
+    ],
+    "family_size": 8,
+    "ci_levels_percent": [
+      95,
+      99.375
+    ],
+    "geometry_acceptance": "Corrected lower HOTA bound G-B0>0.",
+    "flyvis_acceptance": "All6 corrected lower HOTA bounds of G_FLYVIS vscontrols>0.",
+    "harm_guard": "G vsB0; G_FLYVIS vsB0 and each of its6 content controls: nonnegative mean AssA/IDF1 changes and no increase in total IDSw,FP,FN.",
+    "no_success_from": "Conditional pair accuracy, selected subgroup, pure cost shift, first-stage win before lifecycle, or reused-history pseudo rollout.",
+    "system_flyvis_acceptance": "Corrected lower HOTA bound G_FLYVIS-B0>0, in addition to all6 content-control comparisons."
+  },
+  "sources": {
+    "tracking/spatial_identity_assignment.py": "bef5b216dc53e8245db432b29c7822fc05e546c8cd3579fd4424bf5d8fc08098",
+    "tracking/xywh_bytetrack.py": "85f5d5eaceabdd19cd7cb668fcd2153771466b3f539a8ffa374ddd6f9a946675",
+    "tracking/z13_region_assignment.py": "4a79f30d337ef6c442b74a25f379c4a587b325210697490a23d2406a0c806a42",
+    ".venv/Lib/site-packages/ultralytics/trackers/byte_tracker.py": "00c7c1ff8b1076fc89347071519ae0b06a30bfce00dded94826620e068b1928f",
+    ".venv/Lib/site-packages/ultralytics/trackers/utils/matching.py": "0c5dcddde75ce343ca9626273e3d95e2ea061bcf69f2e0ac0ef519ac1aaffe07",
+    ".venv/Lib/site-packages/ultralytics/trackers/utils/stracks.py": "b219717726be42eedb5c711428f7ca51050f8ad722291a43ccd98194f5b1ce4e",
+    "research_identity_assignment_run_20261108/common.py": "f619beadbd83fa09e3800fbdda3dffc5cdd77f77868ba339bfddf17e1c2f65b9",
+    "research_identity_assignment_run_20261108/zero_parity.py": "b261391141077913623d1b8cf67258f48c4721c1d12580c2868c357837a9284a",
+    "tests/test_spatial_identity_assignment.py": "72048da6cd27673053347ab9b24249776ea29adbd4d16ff4c219ce62d5212585"
+  }
+}

@@ -26467,6 +26467,823 @@
           "reason": "Только пробелы для читаемости; числа, смысл и состояние сохранены."
         }
       ]
+    },
+    {
+      "id": "identity_assignment_v2_run_20261108",
+      "title": "Единственная рамка и конкурирующие ID — геометрия против пространственного сигнала FlyVis",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "question": "Исправляет ли общий решатель возврат прежнего ID без лишних чужих назначений и добавляет ли FlyVis пользу сверх общей геометрии и контролей?",
+      "hypothesis": "Геометрическое предложение и относительное сходство историй могут изменить правильное назначение; польза не установлена.",
+      "expected": "Правильные восстановления превышают неправильные; вклад сигнала отделён от геометрии и общего сдвига.",
+      "acceptance": [
+        {
+          "criterion": "Нулевые поправки точно воспроизводят исходные назначения, состояния и полный выход.",
+          "met": true,
+          "evidence": "runs/identity_assignment_20261108/zero_parity.json"
+        },
+        {
+          "criterion": "Полный экспорт причинных запросов, конкурентов и положительных/отрицательных исходов без GT во входе.",
+          "met": true,
+          "evidence": "runs/identity_assignment_20261108/export_complete.json"
+        },
+        {
+          "criterion": "Параметры выбраны только на fit20; оценка evaluate26 без подбора, с ценой ошибок остальных треков.",
+          "met": true,
+          "evidence": "runs/identity_assignment_20261108/selection.json"
+        },
+        {
+          "criterion": "Переход к полному пилоту только по заранее заданному J-гейту; принятие только по HOTA и ограничениям вреда протокола.",
+          "met": false,
+          "evidence": "runs/identity_assignment_20261108/full_precision/comparison_report.json"
+        }
+      ],
+      "obtained": "Нулевой полный выход на1204кадрах и1585восстановленных состояний совпали точно (runs/identity_assignment_20261108/zero_parity.json; restored_zero_parity.json). На641историческом запросе: B0 41правильный/6чужих/594отказа, G63/17/561, G+FlyVis60/15/566 (comparison_report.json). На20val HOTA B0=57,900829, G=58,021311, G+FlyVis=58,054615; FlyVis−B0 +0,153786п.п., ДИ99,375%[−0,019182;+0,361872], IDSw+7, FP+56, FN−61 (runs/identity_assignment_20261108/full_precision/comparison_report.json: pooled; comparisons.G_FLYVIS-B0). Известные чужие возвраты: B0=43, G=70, G+FlyVis=67 (full_precision/additional_report.json: arms.*.totals.wrong_returns).",
+      "interpretation": "Условный выигрыш на запросах не перенёсся в принятую полезность полного трекера: исправленный интервал включает ноль, ограничения вреда нарушены. Добавка FlyVis над геометрией не подтверждена. Значительная часть возвратов не имеет доступной метки личности и учитывается как неизвестная.",
+      "decision": "Эту общую правку не принимать в основной стенд. Продолжить только зарегистрированную ограниченную правку первой проблемы singleton_free_cost_v1_20261108: фиксировать штатные первые пары и работать со свободным остатком. Проблемы2–4отложены.",
+      "cannot_claim": "Исторические разработческие запросы и val; неизвестные метки не отрицательные. Условные назначения не равны HOTA. Критерии исходного протокола не меняются.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/execution_protocol.json",
+          "claim": "Прямое разрешение и условия до исполнения"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_assignment_protocol_20261108/protocol_v2.json",
+          "claim": "Постановка, контроли и критерии до опыта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/comparison_report.json",
+          "claim": "Исторические условные назначения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/independent_audit.json",
+          "claim": "Независимые матрицы, метки и интервалы условной проверки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/full_precision/comparison_report.json",
+          "claim": "Полный20val-пилот не прошёл критерии"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/full_precision/additional_report.json",
+          "claim": "Чужие, правильные, неизвестные и устойчивые возвраты"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/parent_full_result_review.json",
+          "claim": "Краткая сверка завершения и источников"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/full_precision/independent_audit.json",
+          "claim": "Отдельная сверка полного отрицательного результата без повторения трекера"
+        }
+      ],
+      "done": "2026-11-08"
+    },
+    {
+      "id": "singleton_free_cost_v1_20261108",
+      "title": "Единственная свободная рамка — возврат без изменения штатных назначений",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "question": "Можно ли устранить отказ при одной допустимой свободной рамке без чужих назначений и потери качества полного трекера?",
+      "hypothesis": "Locking the original first-stage matches can preserve stable associations while permitting a sole geometrically admissible high-confidence box to rescue an unmatched Lost track.",
+      "expected": "Сохранение исходных назначений и полезный возврат ID; источник эффекта отделён от порога и FlyVis.",
+      "acceptance": [
+        {
+          "criterion": "Нулевая правка точно воспроизводит полный исходный выход; штатные первые назначения фиксированы.",
+          "met": true,
+          "evidence": "runs/singleton_free_20261108/technical.json"
+        },
+        {
+          "criterion": "Параметры выбраны только наfit20, сохранены до26; все первичные и теневые запросы учитываются.",
+          "met": true,
+          "evidence": "runs/singleton_free_20261108/selection.json"
+        },
+        {
+          "criterion": "Полный пилот только по заранее заданномуJ-гейту; принятие поHOTAи ограничениям вреда.",
+          "met": false,
+          "evidence": "runs/singleton_free_20261108/comparison_report.json"
+        }
+      ],
+      "obtained": "Нулевой вариант точно совпал на1204кадрах;5тестов операции прошли (runs/singleton_free_20261108/technical.json). На641запросе: B0=41правильный/6чужих, свободная геометрия=51/11, FlyVis=51/10, изображение=51/10. Нижняя95%граница deltaJдляFlyVis=0; строгий критерий>0не пройден, полный пилот не запускался (runs/singleton_free_20261108/comparison_report.json). Аудит17919строк и14256матриц прошёл (independent_audit.json).",
+      "interpretation": "Фиксация штатных пар сама по себе не решила проблему чужой единственной рамки. В14из15новых известных назначений относительный зрительный счёт не применялся из-за отсутствия второго трека-претендента (runs/singleton_free_20261108/free_verification_diagnosis.json).",
+      "decision": "Версию не принимать. Следующая правка первой проблемы — отдельная проверка сходства с собственным прошлым шаблоном; остальные проблемы отложены.",
+      "cannot_claim": "Свободная рамка не гарантирует правильную личность. Принципunmatched/free уже проверялся с отрицательным исходом в другой операции. Условная проверка не равна улучшению полного трекера.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs\\singleton_free_20261108\\protocol.json",
+          "claim": "Фокус, прежний отрицательный опыт, новые действия, контроли и критерии до исполнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_free_20261108/comparison_report.json",
+          "claim": "Проверенный отрицательный этап первой проблемы"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_free_20261108/independent_audit.json",
+          "claim": "Проверенный отрицательный этап первой проблемы"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_free_20261108/technical.json",
+          "claim": "Проверенный отрицательный этап первой проблемы"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_free_20261108/free_verification_diagnosis.json",
+          "claim": "Проверенный отрицательный этап первой проблемы"
+        }
+      ],
+      "done": "2026-11-08"
+    },
+    {
+      "id": "singleton_own_template_v1_20261108",
+      "title": "Единственная свободная рамка — проверка по собственной прошлой карте цели",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "question": "Можно ли отклонять чужую единственную рамку сравнением с собственной прошлой целью без второго трека-претендента?",
+      "hypothesis": "Абсолютное пространственное сходство может проверять личность там, где относительный счёт между треками не определён.",
+      "expected": "Меньше чужих возвратов при сохранении правильных; контроли отделяют данные изображения, обычное движение, геометрию и FlyVis.",
+      "acceptance": [
+        {
+          "criterion": "Полный нулевой выход и все штатные первые пары сохранены.",
+          "met": true,
+          "evidence": "runs/singleton_verify_20261108/full/zero_parity.json"
+        },
+        {
+          "criterion": "Порог и выбранная система заморожены только поfit20до26.",
+          "met": true,
+          "evidence": "runs/singleton_verify_20261108/selection.json"
+        },
+        {
+          "criterion": "Полный пилот только по зарегистрированному критерию; принятие поHOTAи ограничениям вреда.",
+          "met": false,
+          "evidence": "runs/singleton_verify_20261108/full/comparison_report.json: problem1_acceptance=false; FP+35, доверительный интервал HOTA включает ноль."
+        }
+      ],
+      "obtained": "Условные 641 запрос: B0 41 правильный/6 чужих, FlyVis и изображение по 45/6, случаи частично различаются (runs/singleton_verify_20261108/comparison_report.json). Полный пилот 20 видео: HOTA B0 57,900829, FlyVis 57,911939; разность +0,011110 п.п., 95% ДИ [−0,073633;0,102324], поправленный на 11 сравнений ДИ [−0,111732;0,146010]; FP +35, FN −40, IDSw −7, правильные возвраты +13, устойчивые +4 (full/comparison_report.json, pooled, comparisons.FLYVIS-B0). FlyVis−изображение +0,013348 п.п., ДИ содержит ноль. Нулевой выход совпал на 1209 кадрах. Независимая сверка 162 траекторий, 200 компонентов метрик и 8437 матриц пройдена (full/zero_parity.json; full/independent_audit.json).",
+      "interpretation": "Локальные дополнительные правильные назначения не перешли в подтверждённую пользу полного трекера. Рост ложных рамок нарушил условие принятия. Польза сигнала FlyVis сверх изображения и геометрии не установлена. В конкретной реализации текущий вход за два шага интегрирования ещё не достигает T4/T5; это ограничение данного полного модуля, а не доказательство бесполезности ядра.",
+      "decision": "В основную систему не принимать. Первую проблему считать открытой. Следующая проверка первой проблемы должна сохранять штатное подтверждение присутствия рамки и раздельно проверять возврат личности. Проблемы 2–4 отложены по поручению автора.",
+      "cannot_claim": "Тот же исторический материал. Геометрическая допустимость, отсутствие конкурента и пространственная корреляция не гарантируют личность. Принцип проверки внешности заимствован из прежних трекеров. В конкретном считывании текущий вход за два обновления ещё не достигает T4/T5. Четыре добавленных правильных условных возврата имеют только один поисковый вход; это не подтверждение узнавания текущей внешности через T4/T5. Возможная польза прошлого пространственного образа остаётся открытой (runs/singleton_age_20261108/current_input_dependency.json; dependency_sources_verified.json).",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/protocol.json",
+          "claim": "Конкретное действие, первоисточники, контроли, настройка и остановка до новых карт"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/inventory_recovery1.json",
+          "claim": "589последовательностей; готовые карты переиспользуются"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/comparison_report.json",
+          "claim": "Условный результат, не итог полного трекера"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/independent_audit.json",
+          "claim": "Независимая проверка условного результата"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/full/protocol.json",
+          "claim": "Полный пилот и критерии до его исходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/full/zero_parity.json",
+          "claim": "Точный нулевой полный выход"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_age_20261108/current_input_dependency.json",
+          "claim": "Граница причинного объяснения коротких возвратов по коду и готовым данным"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_age_20261108/dependency_sources_verified.json",
+          "claim": "Проверены реальная конфигурация модели, шаг интегрирования и источник входного сигнала"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/full/comparison_report.json",
+          "claim": "Полный отрицательный результат"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/full/independent_audit.json",
+          "claim": "Независимая проверка полного пилота"
+        }
+      ],
+      "revisions": [
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "cannot_claim",
+          "old": "Тот же исторический материал. Геометрическая допустимость, отсутствие конкурента и пространственная корреляция не гарантируют личность. Принцип проверки внешности заимствован из прежних трекеров.",
+          "reason": "Проверено, может ли текущий вход достигнуть выбранного выхода в этой схеме считывания."
+        },
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "obtained",
+          "old": "На 641 известном историческом запросе исходный трекер дал 41 правильное и 6 чужих назначений; проверка собственной карты FlyVis — 45 и 6. Простое изображение тоже дало 45 и 6, но один из четырёх добавленных правильных случаев у методов различается (runs/singleton_verify_20261108/comparison_report.json; outcomes/evaluate26_FLYVIS.json; outcomes/evaluate26_IMAGE.json). Условная разность J=правильные−чужие составила +4; 95% интервал прибавки на 100 запросов [0,142653;1,284404], интервал с поправкой на 11 сравнений включает ноль (comparison_report.json: comparisons.FLYVIS-B0). Независимая проверка 2156 оценок, 13937 строк исходов и 11088 матриц пройдена (independent_audit.json). Полный нулевой выход на 1209 кадрах совпал точно; полный пилот 20 видео продолжается (full/zero_parity.json; full/protocol.json).",
+          "reason": "Завершён полный пилот, независимо проверены результаты и источник дополнительных ошибочных рамок."
+        },
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "interpretation",
+          "old": "Проверка по собственной прошлой карте работает без второго трека-претендента и прошла предварительное условие перехода. Польза полного трекера ещё не установлена. Равные суммы с изображением не означают одинаковые случаи, а добавка именно FlyVis пока не подтверждена.",
+          "reason": "Завершён полный пилот, независимо проверены результаты и источник дополнительных ошибочных рамок."
+        },
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "decision",
+          "old": "Завершить уже начатый полный пилот и независимую сверку, затем выполнить зарегистрированный контроль по давности пропуска без изображения и FlyVis. Первую проблему пока не считать решённой; проблемы 2–4 остаются отложенными.",
+          "reason": "Завершён полный пилот, независимо проверены результаты и источник дополнительных ошибочных рамок."
+        }
+      ],
+      "done": "2026-11-08"
+    },
+    {
+      "id": "singleton_recency_control_v1_20261108",
+      "title": "Давность пропуска — контроль возврата без изображения и FlyVis",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "question": "Может ли одна давность пропуска объяснить прибавку проверки по прошлой пространственной карте?",
+      "hypothesis": "Разрешение только недавних потерянных треков может воспроизвести часть эффекта без зрительного содержания.",
+      "expected": "Отделить полезность короткого прогноза от содержимого карты; полезный вариант безFlyVisсчитать результатом всей системы.",
+      "acceptance": [
+        {
+          "criterion": "Одинаковые штатные пары, геометрия, стоимость0,2и общая пространственная поддержка; меняется только допуск по давности.",
+          "met": true,
+          "evidence": "runs/singleton_age_20261108/selection.json; full/zero_parity.json; full/independent_audit.json"
+        },
+        {
+          "criterion": "Граница выбрана на прежних73известныхfit20примерах доAGEисходов26и20val.",
+          "met": true,
+          "evidence": "runs/singleton_age_20261108/selection.json; full/zero_parity.json; full/independent_audit.json"
+        },
+        {
+          "criterion": "Полный пилот по заранее заданному условию; отдельные парные сравнения, вред и устойчивость правильногоID.",
+          "met": false,
+          "evidence": "runs/singleton_age_20261108/full/comparison_report.json: problem1_acceptance.AGE=false; FP+29, чужие+1, ДИ HOTA содержит ноль."
+        }
+      ],
+      "obtained": "На 73 известных fit20 примерах выбрана граница 6 кадров после последнего наблюдения, то есть не более 5 промежуточных пропусков (runs/singleton_age_20261108/selection.json). Условный результат: 46 правильных/6 чужих против B0 41/6 (comparison_report.json). Полный пилот 20 видео: HOTA 57,896376 против 57,900829, разность −0,004454 п.п., 95% ДИ [−0,080363;0,073303], поправленный на 14 сравнений ДИ [−0,119254;0,110375]; FP +29, FN −36, IDSw −1, чужие возвраты +1, правильные +11, устойчивые +4 (full/comparison_report.json). Независимая проверка 757 решений, 697 матриц и 20 отчётов возвратов пройдена (full/independent_audit.json).",
+      "interpretation": "Одна геометрия и давность без дополнительных зрительных признаков воспроизводят часть локальной прибавки пространственной проверки. В полном трекере этот контроль тоже не прошёл условия качества. Разность FlyVis−давность +0,015563 п.п. с ДИ, содержащим ноль, не доказывает добавку FlyVis (full/comparison_report.json).",
+      "decision": "Не принимать. Давность сохранять как обязательный контроль первой проблемы; запрет на дополнительные ложные рамки не ослаблять. Проблемы 2–4 не исследовать до решения первой.",
+      "cannot_claim": "Уже изучавшийся исторический материал, а не независимый финальный тест. «Без дополнительных зрительных признаков» не означает отсутствие детектора YOLO26. Давность 6 означает максимум 5 промежуточных пропущенных кадров. Не переносить результат коротких пропусков на длительные перекрытия.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_age_20261108/protocol.json",
+          "claim": "Контроль и условия до его настройки и запуска"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/comparison_report.json",
+          "claim": "Исходный пространственный результат не переписывается"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_age_20261108/full/comparison_report.json",
+          "claim": "Полное сравнение давности и зрительных вариантов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_age_20261108/full/independent_audit.json",
+          "claim": "Независимая проверка контроля"
+        }
+      ],
+      "done": "2026-11-08",
+      "revisions": [
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "cannot_claim",
+          "old": "This follow-up was motivated after inspecting the historical26result and uses previously studied data. It is not an independent final test; gains confined to short gaps cannot be generalized to long occlusions.",
+          "reason": "Завершён полный пилот, независимо проверены результаты и источник дополнительных ошибочных рамок."
+        }
+      ]
+    },
+    {
+      "id": "singleton_error_source_audit_v1_20261108",
+      "title": "Возврат потерянного трека — чужой объект, смещение рамки или удаление дубликата",
+      "area": "flyvis",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "question": "На каком этапе теряется польза возврата единственной свободной рамки?",
+      "hypothesis": "Ошибку выбора личности и ошибку рамки после обновления нужно проверять раздельно; какая преобладает, ещё не установлено.",
+      "expected": "Выбрать следующую правку первой проблемы по сохранённым данным, не повторяя полный трекер.",
+      "acceptance": [
+        {
+          "criterion": "All registered input hashes unchanged, native pairs retained, all direct added pairs counted once, identity and box-error populations separated. No tracker-quality acceptance inferred from this diagnostic.",
+          "met": true,
+          "evidence": "runs/singleton_error_audit_20261108/report.json; queue_result.json; runs/singleton_admission_20261108/quality_report.json"
+        }
+      ],
+      "obtained": "Все 335 дополнительных первых назначений FlyVis дошли до выходных рамок; удаления дубликатов и превращения сопоставимой сырой рамки в несопоставимую после Калмана не обнаружено (runs/singleton_error_audit_20261108/report.json). Среди 51 добавленной пары на кадрах с разметкой 28 выходных рамок не имеют ни одного допустимого объекта своего класса с IoU≥0,5; у 22 нет пересечения с областями исключения, у 21 из этих 22 исходный B0 также не выпускал рамку рядом с сырым кандидатом. Для 46 из 51 ребра локальный отказ вызван именно включением уверенности детектора в стоимость (runs/singleton_admission_20261108/quality_report.json).",
+      "interpretation": "Подтверждён выпуск дополнительных геометрически неподходящих рамок; порча положения Калманом и удаление дубликата не объясняют прямые потери в этой выборке. Возврат Lost немедленно активирует рамку, а обычное рождение требует последующего штатного подтверждения. Обход этого подтверждения — рабочее объяснение, которое нужно отделить от ошибок личности.",
+      "decision": "Проверить возврат старого ID только после фактического штатного подтверждения нового фрагмента: менять метку личности, сохраняя точный штатный набор рамок. Сначала инвентаризация на fit20, затем контроль без FlyVis и причинная проверка без будущих кадров. Прежнюю офлайн-сшивку не выдавать за новый метод.",
+      "cannot_claim": "Исторические 20 видео и редкая разметка. Неизвестная личность не является отрицательным примером. Локальные 22 неподходящие рамки не являются точным разложением дополнительных 35 CLEAR FP: исключаемые области, сопоставление и последующие изменения траекторий учитываются иначе. Диагностика не доказывает пользу новой правки и не решает проблемы 2–4.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_error_audit_20261108/protocol.json",
+          "claim": "Границы и определения до чтения итогов полного пилота"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_error_audit_20261108/report.json",
+          "claim": "Разделение прямой ошибки личности, рамки и удаления"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_admission_20261108/quality_protocol.json",
+          "claim": "Определения до подсчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_admission_20261108/quality_report.json",
+          "claim": "Неподходящие выходные рамки, исключения и границы вывода"
+        }
+      ],
+      "done": "2026-11-08",
+      "revisions": [
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "cannot_claim",
+          "old": "Historical20val and sparseGT. Local direct-edge diagnosis does not account for all later closed-loop effects. Unknowns are not negative labels. A different identity cannot be repaired merely by a better post-match Kalman update. No claim about problems2–4or a causal test of field coverage.",
+          "reason": "Завершён полный пилот, независимо проверены результаты и источник дополнительных ошибочных рамок."
+        }
+      ]
+    },
+    {
+      "id": "singleton_native_confirm_inventory_v1_20261108",
+      "title": "Возврат старого ID после штатного подтверждения рамки — доступность сохранённых случаев",
+      "area": "flyvis",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "question": "Есть ли в сохранённых fit20 состояниях новые подтверждённые фрагменты, которым можно причинно вернуть потерянную личность?",
+      "hypothesis": "Сначала штатное подтверждение присутствия рамки, затем отдельная проверка старой личности может избежать добавленных ложных рамок.",
+      "expected": "Получить нижнюю оценку доступных случаев; не объявлять пользу трекеру по одной инвентаризации.",
+      "acceptance": [
+        {
+          "criterion": "Только fit20; настоящая первая выдача ранее неподтверждённого трека; известные правильные, чужие и неизвестные случаи отдельно; готовые расчёты не повторяются.",
+          "met": true,
+          "evidence": "runs/singleton_native_confirm_20261108/fit_inventory.json; native_trace_complete.json; metadata_queue_result.json"
+        }
+      ],
+      "obtained": "20 fit-видео, 23 529 кадров: полный исходный выход совпал с сохранёнными B0; обнаружены 88 моментов с 93 допустимыми рёбрами к впервые подтверждённому новому фрагменту. Архивные стоимости, первые пары, прогнозы и истории совпали (runs/singleton_native_confirm_20261108/native_trace_complete.json).",
+      "interpretation": "Подтверждена доступность причинной проверки, но правильность новых связей ещё не оценена.",
+      "decision": "Проверить качество возврата метки при неизменных штатных рамках; сначала геометрия без FlyVis.",
+      "cannot_claim": "Прежняя офлайн-сшивка уже существовала. Здесь проверяется доступность причинного решения без будущих кадров. Нулевая доступность в архиве запросов не означает её отсутствия между запросами. Проблемы 2–4 не исследуются.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_singleton_native_confirm_20261108/fit_inventory.py",
+          "claim": "Определения инвентаризации до подсчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_native_confirm_20261108/native_trace_complete.json",
+          "claim": "Точная сверка всего выхода и восстановленные события"
+        }
+      ],
+      "done": "2026-11-08"
+    },
+    {
+      "id": "native_confirm_identity_v1_20261108",
+      "title": "Старый ID только после штатного подтверждения новой рамки — причинная связь без дополнительных рамок",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "question": "Can the old public identity be restored only when a new fragment is actually confirmed and emitted by the native tracker, avoiding the earlier extra-box admission?",
+      "hypothesis": "Разделение подтверждения присутствия и проверки личности позволит сохранить старую метку без прежнего обхода защиты от ложных рамок.",
+      "expected": "Принятый вариант улучшит HOTA и устойчивое сохранение личности без нарушения ограничений вреда; добавка FlyVis проверяется отдельно.",
+      "acceptance": [
+        {
+          "criterion": "Complete physical outputs must equal ready B0 frame by frame. Selected−B0 HOTA lower corrected CI>0; mean AssA/IDF1 nonnegative; IDSw, FP,FN, known wrong returns nonincrease; correct and sustained old-ID returns increase. If any condition fails, first problem remains open. FlyVis-specific benefit additionally requires all matched controls; no biological-core claim from whole-system gain.",
+          "met": false,
+          "evidence": "runs/native_confirm_policy_20261108/comparison_report.json: full_gate.proceed=false; full20val not run."
+        }
+      ],
+      "obtained": "Полный исходный выход сохранён на всех 46 видео. На 26 исследовательских видео геометрия дала 30 правильных и 15 чужих связей, FlyVis — 15 и 1, давность — 9 и 0, изображение — 8 и 0 (runs/native_confirm_policy_20261108/comparison_report.json). Выбранная только по fit20 геометрия не прошла условие: нижняя 95% граница J равна нулю. Полный20val не запускался. Независимо проверены 1032 оценки, 396 журналов, 799 назначений и 9 интервалов (independent_audit.json).",
+      "interpretation": "Подтверждение рамки устраняет добавление физических рамок по конструкции, но не гарантирует верную личность. FlyVis снизил число наблюдаемых чужих связей, однако не подтвердил преимущество перед давностью, случайным допуском и обычным движением. Максимизация правильные−чужие допускает выбор варианта с известными ошибками.",
+      "decision": "Первую проблему оставить открытой. Полный пилот этой версии не запускать. Проверить подбор допуска с явным ограничением известных чужих связей на fit20; все готовые карты и исходы переиспользовать. Проблемы 2–4 отложены.",
+      "cannot_claim": "Прежняя офлайн-сшивка уже проверялась. Новый вариант причинный, меняет только публичные метки при первой выдаче нового фрагмента. Готовые расчёты не повторяются. Проблемы 2–4 отложены.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_policy_20261108/protocol.json",
+          "claim": "Метод, контроли и критерии до новых исходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_policy_20261108/comparison_report.json",
+          "claim": "Отрицательный основной гейт при частном положительном счёте FlyVis"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_policy_20261108/independent_audit.json",
+          "claim": "Независимая проверка"
+        }
+      ],
+      "done": "2026-11-08"
+    },
+    {
+      "id": "native_confirm_empirical_risk_v1_20261108",
+      "title": "Старый ID после подтверждения — допуск без известных чужих связей при настройке",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "question": "Does fitting the abstention gate to reject every observed foreign training link preserve useful correct links in the complete tracker?",
+      "hypothesis": "Явное ограничение наблюдаемых ошибок при подборе может выбрать более пригодный допуск, чем одна разность правильные−чужие.",
+      "expected": "Проверить полный эффект без добавления рамок; вклад FlyVis отделить от давности и частоты вмешательства.",
+      "acceptance": [
+        {
+          "criterion": "Exact native physical outputs. Positive corrected pooledHOTA lowerCI versusB0, nonnegative meanAssA/IDF1, nonincreasing IDSw/FP/FN/known wrong returns, more correct and sustained old-ID returns. FlyVis contribution additionally must beat every matched control. Do not weaken a failed guard.",
+          "met": false,
+          "evidence": "runs/native_confirm_risk_20261108/full/comparison_report.json: every accepted=false; HOTA CI crosses zero, harm_passed=true."
+        }
+      ],
+      "obtained": "Полный20val: HOTA B0 57,900829, FlyVis 57,907635, разность +0,006806 п.п.; 95% ДИ [−0,003559;0,018089], поправленный на16сравнений [−0,009038;0,024225]. FP и FN совпали с B0, известных чужих возвратов не добавилось; IDSw −6, правильные возвраты +3, устойчивые +2. Геометрия с давностью6: +0,006532п.п., её ДИ тоже включает ноль (runs/native_confirm_risk_20261108/full/comparison_report.json). Независимо проверены726пространственных оценок,235850кадров выдачи,200отчётов возвратов,200компонентов метрик,284назначения и13интервалов (full/independent_audit.json). Готовые карты сохранены:778переиспользованных карт;516готовых вырезов численно совпали, восстановлены82отсутствовавших (full/features_complete.json; full_recovery1/views_complete.json).",
+      "interpretation": "Прежний рост ложных рамок устранён в этой версии: физическая выдача совпадает с исходной. Но принятого прироста HOTA нет; интервалы не доказывают ни пользу, ни равенство вариантов. Добавка FlyVis к геометрии, изображению, движению и согласованным контролям не подтверждена. Эмпирическое ограничение ошибок не является гарантией обобщения.",
+      "decision": "Не принимать как решённую первую проблему. Не повторять полный пилот. Проверить сохранённое в коде ограничение ровно двумя рамками и зависимость геометрического допуска от ячеек FlyVis: сначала только восстановить недостающий контекст и измерить доступность обычной геометрии рамок. Проблемы2–4отложены.",
+      "cannot_claim": "The previous26result has already been inspected and motivated this change. This is explicitly exploratory development on reused data, not a fresh independent confirmation. Only23known fit candidate edges, including7foreign, are available; zero empirical error is not a probability guarantee. The current T4/T5 readout limitation remains unchanged.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_risk_20261108/protocol.json",
+          "claim": "Критерии и контроли до нового подбора"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_risk_20261108/full/protocol.json",
+          "claim": "Полный протокол до новых20valисходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_risk_20261108/comparison_report.json",
+          "claim": "Условный гейт пройден, не итог полного трекера"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_risk_20261108/full/comparison_report.json",
+          "claim": "Полный неопределённый результат при отсутствии добавленного вреда"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_risk_20261108/full/independent_audit.json",
+          "claim": "Независимая проверка полного результата"
+        }
+      ],
+      "done": "2026-11-08",
+      "revisions": [
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "obtained",
+          "old": "После подбора только наfit20 выбран FlyVis с ограничением 6 кадров после последнего наблюдения. На26 он дал 7 правильных/0 наблюдаемых чужих связей; геометрия с тем же ограничением — 9/0. Дополнительная польза FlyVis не установлена. Условие полного пилота пройдено; все карты уже готовы, новых вызовов ядра для этого сравнения не было (runs/native_confirm_risk_20261108/selection.json; comparison_report.json; independent_audit.json).",
+          "reason": "Завершён полный пилот и независимая проверка; неопределённый научный итог сохраняется без принятия."
+        },
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "interpretation",
+          "old": "Эмпирическое ограничение изменило выбор системы, но ноль ошибок на малой выборке не является гарантией. Полная HOTA и устойчивость личности ещё не проверены.",
+          "reason": "Завершён полный пилот и независимая проверка; неопределённый научный итог сохраняется без принятия."
+        },
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "decision",
+          "old": "Выполнить зарегистрированный полный пилот с точным сохранением штатных рамок и заранее заданными ограничениями вреда. Проблемы 2–4 отложены.",
+          "reason": "Завершён полный пилот и независимая проверка; неопределённый научный итог сохраняется без принятия."
+        }
+      ]
+    },
+    {
+      "id": "native_confirm_bbox_inventory_v1_20261108",
+      "title": "Одна свободная рамка — доступность обычной геометрии без требования двух рамок и ячеек FlyVis",
+      "area": "flyvis",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "question": "How many first native-confirmation opportunities are excluded by the inherited exactly-two-supported-box gate, before any signal ranking?",
+      "hypothesis": "The earlier binary-query and retinal-availability restrictions may constrain the useful scope of the singleton fix. More available cases do not prove correct identity or tracker benefit.",
+      "expected": "Установить размер исключённой области задачи до новой проверки сигналов.",
+      "acceptance": [
+        {
+          "criterion": "Every complete native output equals its ready baseline, all input/source hashes stable. Report exposure by split and legacy support count; do not claim new tracking quality.",
+          "met": true,
+          "evidence": "runs/bbox_confirmation_inventory_20261108/queue_result.json; inventory.json; completed_previous_input_audit.json"
+        }
+      ],
+      "obtained": "Все66видео: полная выдача исходного трекера совпала с готовой. При IoU>=0,2 и давности<=6 доступно200строк fit20,454на26и284на20val. Из454на26лишь134имели ровно2поддержанные прежней сеткой рамки,320имели другое число; это размер области, не правильность идентификаторов (runs/bbox_confirmation_inventory_20261108/inventory.json). Проверены1388артефактов прежнего полного сравнения; вырезы и карты не изменились (completed_previous_input_audit.json).",
+      "interpretation": "Прежнее требование пары отсекало значительную область обычных одиночных кандидатов. Польза снятия ограничения не измерена.",
+      "decision": "Первая проблема остаётся активной; провести дешёвый геометрический пилот до новых нейронных расчётов.",
+      "cannot_claim": "Это инвентаризация доступности и восстановление отсутствующего контекста, не польза геометрии или FlyVis. Сигналы и кадры не вычисляются; проблема покрытия карты причинно не проверяется. Материал исторический.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_confirmation_inventory_20261108/protocol.json",
+          "claim": "Постановка и нулевое условие до экспорта"
+        }
+      ],
+      "done": "2026-11-08"
+    },
+    {
+      "id": "bbox_singleton_geometry_pilot_v1_20261108",
+      "title": "Одна свободная рамка — геометрия без ограничения парой и обратная проверка движения",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "question": "Does removing inherited binary-query and retinal-support restrictions expose useful safe singleton identity links?",
+      "hypothesis": "Among any number of free high same-class detections, exactly one ordinary predicted-IoU>=0.2 candidate may identify a newly native-confirmed fragment. The optional reverse constant-velocity check may reject foreign links. Native physical outputs never change.",
+      "expected": "Отдельно оценить вклад обычной геометрии и движения, не запускать FlyVis при провале.",
+      "acceptance": [
+        {
+          "criterion": "Selected has >0 correct fit links, zero known foreign links on fit and historical26, and positive lower95% paired-video bootstrap delta(correct−foreign) on26. Full20 remains forbidden on failure. Family12 corrected intervals reported; no fresh independent test is claimed.",
+          "met": false,
+          "evidence": "runs/bbox_singleton_pilot_20261108/comparison_report.json: selected=B0, full_gate.proceed=false; independent_audit.json"
+        }
+      ],
+      "obtained": "На fit20короткий допуск BBOX2дал5известных правильных и3чужих склейки; BBOX6—31и12. Обратная проверка движения при давности2сохранила те же5и3. Ни один вариант не прошёл требование отсутствия известных чужих склеек; выбран B0. Полный20valне запущен (runs/bbox_singleton_pilot_20261108/selection.json; comparison_report.json).",
+      "interpretation": "Снятие ограничения пары расширило доступность, но единственность геометрического кандидата не подтверждает личность. Простая обратная скорость не отделила ближайшие чужие случаи.",
+      "decision": "Не запускать полный опыт этой версии. Проверить меньшую поправку исходной стоимости как обязательный контроль без FlyVis; метки и результатыalpha0,2переиспользовать.",
+      "cannot_claim": "Old canonical public-ID reuse only after first native confirmation; no retroactive ID edits. Two previously public working tracks are not arbitrated. max_age=6 bounds scope. Inventory is not identity ground truth. All videos historically examined; this is exploratory.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_singleton_pilot_20261108/protocol.json",
+          "claim": "Условия до открытия новых меток fit20 и26"
+        }
+      ],
+      "done": "2026-11-08"
+    },
+    {
+      "id": "bbox_singleton_cost_control_v1_20261108",
+      "title": "Одна свободная рамка — малая поправка стоимости как контроль без FlyVis",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "question": "Can a smaller ordinary matching-cost correction retain useful singleton links without the foreign links admitted by alpha0.2?",
+      "hypothesis": "Меньшая поправка стоимости может сохранить пограничные правильные продолжения и не допустить чужие; проверяется отдельно от сигнала.",
+      "expected": "Установить, достаточно ли изменения порога вместо нового зрительного признака.",
+      "acceptance": [
+        {
+          "criterion": "Fit selected>0correct and0foreign, historical26selected0foreign and lower95%paired-video delta(correct−foreign)>0. Failure stops full20. Corrected family20 CI also reported. Historical exploratory control; no independent test or guaranteed-risk claim.",
+          "met": false,
+          "evidence": "runs/bbox_cost_pilot_20261108/comparison_report.json: foreign=1, full_gate.proceed=false; independent_audit.json"
+        }
+      ],
+      "obtained": "Подборfit20выбралalpha0,025идавность2:4известных правильных/0чужих/18неизвестных. На исторических26:13правильных/1чужая/40неизвестных,12отменсклейки; разность J=12,95%ДИна100известных[4,918;18,812],поправленный20ДИ[1,163;21,774]. Из-за1известнойчужой full_gate=false; полный20не запускался (runs/bbox_cost_pilot_20261108/comparison_report.json).",
+      "interpretation": "Уменьшение поправки убрало часть ошибок и сохранило правильные возвраты, но не прошло заранее заданный ноль чужих. Чужая26склейкаимеетcost0,804434: один порог не служит доказательством личности. Положительный Jне заменяет пройденный критерий.",
+      "decision": "Не запускать полный20этойверсии и не перебирать порог по26. Активна перваяпроблема: измерить доступность собственной пространственной карты в новомконтекстедопуска; дальше отделять сигнал от геометрии, доступности и случайного отказа. Проблемы2–4отложены.",
+      "cannot_claim": "Это исторический исследовательский контроль. Прибавка от изменения порога не является прибавкой FlyVis; неизвестные личности остаются неизвестными.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_cost_pilot_20261108/protocol.json",
+          "claim": "Граница подбора и контроля до расчёта"
+        }
+      ],
+      "done": "2026-11-08"
+    },
+    {
+      "id": "bbox_singleton_spatial_readiness_v1_20261108",
+      "title": "Одна свободная рамка — готовность сравнения прошлой пространственной карты при малой поправке",
+      "area": "flyvis",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "question": "Are spatial maps available for the small-cost singleton opportunities, and how much exact saved data can be reused?",
+      "hypothesis": "The single known foreign26link has native cost0.804434, so reducing a scalar threshold cannot separate it from all useful more costly fit links. Absolute compatibility with the old spatial template is a testable discriminator; its applicability must first be measured without neural calls.",
+      "expected": "Восстанавливать только действительно отсутствующие пространственные данные, если область сравнения достаточна.",
+      "acceptance": [
+        {
+          "criterion": "Metadata-only readiness: at least5spatially available fit20edges and10historical26edges, no more200missing sequences and1000required views upper bound. Passing authorizes preparation under a separately sealed source/input phase, not full20or a tracking-quality claim. Failing stops missing-neural-data restoration.",
+          "met": true,
+          "evidence": "runs/bbox_spatial_readiness_20261108/inventory.json: metadata gate passed; label_readiness.json: logical fit gate false, no neural calls"
+        }
+      ],
+      "obtained": "При старом совмещении:fit20из22пограничныхрёбердоступны5(все личности неизвестны);все4известныхправильныхисключены. На26доступны19из54,втомчисле5правильных,1чужаяи13неизвестных. Для допустимых карт10последовательностейготовы,38отсутствуют,нонейронноевосстановлениене запускалось:нет ни одного положительного примера подбора (runs/bbox_spatial_readiness_20261108/inventory.json; runs/bbox_spatial_signals_20261108/label_readiness.json).",
+      "interpretation": "У четырёх правильных fit-рёбер75–195ячеек в прошлом и96–220в текущем боксе; отказ вызван нулём допустимых положений по старой2sigmaгеометрии. Нельзя объяснять эти4случая нехваткой ячеек или объявлять проверенными все способы пространственного считывания.",
+      "decision": "Старый контекст не восстанавливать нейронно. Для первой проблемы проверить простое относительное выравнивание наблюдаемых рамок с одинаковыми контролями безFlyVis; не менять положение глаза, не исследовать проблемы2–4.",
+      "cannot_claim": "Only first problem. No causal map-coverage investigation, no turn-direction-lag study, no core modifications. Historical26is not a fresh independent test.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_spatial_readiness_20261108/protocol.json",
+          "claim": "Доступность и граница восстановления до чтения сигналов"
+        }
+      ],
+      "done": "2026-11-08"
+    },
+    {
+      "id": "bbox_singleton_normalized_maps_v1_20261108",
+      "title": "Одна свободная рамка — пространственные карты при относительном выравнивании наблюдаемых рамок",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "question": "Can absolute own-template activity add identity evidence after ordinary singleton admission, once obsolete edge-position restrictions no longer block comparison?",
+      "hypothesis": "После обычного допуска единственной рамки абсолютное пространственное сходство может отделить её личность от геометрической близости; новый допуск сравнения проверяется отдельно от активности.",
+      "expected": "Сопоставить один и тот же способ выравнивания с геометрией без активности, изображением, обычным движением и FlyVis; восстановить только отсутствующие данные.",
+      "acceptance": [
+        {
+          "criterion": "At least1actually known positive fit edge with shared spatial support, at least10supported26edges, <=200missing causal sequences and<=1000required retinal views upper bound; if false, no input/core stages.",
+          "met": true,
+          "evidence": "runs/bbox_normalized_signals_20261108/inventory.json: supported fit positives4; input_complete.json; features_complete.json"
+        },
+        {
+          "criterion": "Proceed to historical full20only if at least one preregistered fit-eligible system has26known foreign0and positive lower95%paired-video delta(correct−foreign) vsB0. Report family20corrected intervals and all controls; selection is not changed using26. This is an exploratory historical screen, not an independent final test.",
+          "met": true,
+          "evidence": "runs/bbox_normalized_signals_20261108/comparison_report.json: qualified_preregistered_systems=[IMAGE]; independent_audit.json"
+        },
+        {
+          "criterion": "Same physical outputs exactly; corrected HOTA lowerCI>0, nondecreasing meanAssA/IDF1, nonincrease IDSw/FP/FN/wrong-known returns, increased correct and sustained old-ID returns. Report primary and predefined secondary separately. FlyVis-specific benefit additionally requires matched SUPPORT/IMAGE/R1/DIS/permutation/random controls; no whole-system gain attributed to core automatically.",
+          "met": false,
+          "evidence": "runs/bbox_normalized_signals_20261108/full/comparison_report.json; runs/bbox_normalized_signals_20261108/full/independent_audit.json"
+        }
+      ],
+      "obtained": "Полный20val: HOTA B057,900829,IMAGE57,904552,разность0,003723п.п.;95%ДИ[0,000000;0,009625],поправленный20ДИ[0,000000;0,013433]. IMAGE: сменID-2,FP+0,FN+0,известныхчужихвозвратов+0;правильныхвозвратов-1,устойчивых+0. FlyVis−B00,000000п.п.,95%ДИ[0,000000;0,000000]. ПринятиезаранеезаданнойальтернативыIMAGE=False;основнойSUPPORTнепрошёлусловнуюпроверкуи не продвигается (runs/bbox_normalized_signals_20261108/full/comparison_report.json; runs/bbox_normalized_signals_20261108/full/independent_audit.json).",
+      "interpretation": "Заранее заданный вариант IMAGE не прошёл условия полного пилота. IMAGE−RANDOM_IMAGE: 0,002499п.п.,поправленныйДИ[-0,005691;0,012689]. IMAGE−PERM_IMAGE: -0,001851п.п.,поправленныйДИ[-0,006937;0,000000]. IMAGE−геометрия: -0,003440п.п.,поправленныйДИ[-0,010369;0,000748] (runs/identity_evidence_20261108/image_geometry_comparison.json). Уменьшение счётчика правильных возвратов на1не означает потерю этого правильного продолжения: единственный исчезнувший случай b23b2649-8349d2a1,кадр544,ID100 стал непрерывной выдачей того же публичного номера через нативныйID496. Счётчик событий возврата немонотонен при устранении разрыва; исходные критерии не меняются (runs/identity_evidence_20261108/return_count_diagnostic.json). Даже без этого ограничения прибавкаHOTAи преимущество изображения над согласованными контролями не доказаны. Польза всей политики, причина эффекта изображения и добавка FlyVis — отдельные выводы. Согласование частоты случайных контролей выполнено наfit; на20valчастоты не подгонялись. Ноль дополнительных физических рамок обеспечивается сохранением штатной выдачи, но сам по себе не доказывает сохранение личности.",
+      "decision": "Полный короткий пилот не принимать. Готовые расчёты не повторять. Снижение счётчика правильных возвратов объяснено устранением одного разрыва,но прибавкаHOTAи преимущество над контролями не доказаны. Не объявлять один перенос порога решением первой проблемы. Сохранить полный отрицательный результат этой калибровки и согласованные контроли;не подбирать по26/20val. Новая проверка трекера требует отдельной постановки и разрешённого времени;проблемы2–4отложены.",
+      "cannot_claim": "Исторические20val,не независимый итоговый тест. Пилот охватывает давность2—один промежуточный пропуск. Его результат не закрывает все длительные перекрытия, конкуренцию двух уже рабочих ID или все способы пространственного считывания. Относительные координаты рамок не гарантируют совпадение физических деталей. Положительная условная связь двух нативных фрагментов не доказывает личность сырой рамки в каждый неразмеченный момент. Ядро FlyVis не менялось; пользу всей системы нельзя автоматически приписать ядру.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_normalized_signals_20261108/protocol.json",
+          "claim": "Условия, контроли и границы до новых карт"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/bbox_normalized_signals_20261108/comparison_report.json",
+          "claim": "Условный результат и неуспех выбранной геометрии"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/bbox_normalized_signals_20261108/independent_audit.json",
+          "claim": "Независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/bbox_normalized_signals_20261108/full/protocol.json",
+          "claim": "Полное испытание до20valисходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/bbox_normalized_signals_20261108/full/comparison_report.json",
+          "claim": "Полный зарегистрированный результат и все контроли"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/bbox_normalized_signals_20261108/full/independent_audit.json",
+          "claim": "Независимая проверка физических выходов, метрик и возвратов"
+        }
+      ],
+      "done": "2026-11-08",
+      "revisions": [
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "obtained",
+          "old": "Восстановлены132отсутствующие последовательностиC,20готовыхпереиспользованы;322выреза=184новых+138готовых. Независимо проверены532пространственныхоценки,414журналов,379764кадра,194назначения,12интервалов. На26геометрия13правильных/1чужая,IMAGE7/0,FlyVis3/0. Условие полного испытания прошёл только заранее заданныйIMAGE; выбраннаянаfitгеометрияSUPPORTнепрошла. FLYVISнепревзошёлсогласованныеконтроли (runs/bbox_normalized_signals_20261108/comparison_report.json; independent_audit.json).",
+          "reason": "Полный20valпилот завершён и независимо проверен; промежуточная формулировка сохранена."
+        },
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "interpretation",
+          "old": "Относительное совмещение вернуло возможность сравнения, но само не устранило чужую связь. Обычное изображение отсекло её и сохранило7известныхправильных; пространственныйFlyVisсохранил3. Полнаяпользасистемынеизмерена. ОсновнойвыбранныйSUPPORTнепрошёлпредварительныйкритерий; IMAGEпроверяетсякак заранее заданнаяальтернатива.",
+          "reason": "Полный20valпилот завершён и независимо проверен; промежуточная формулировка сохранена."
+        },
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "decision",
+          "old": "Зарегистрирован полный20valпилот IMAGEсо всеми согласованными сигналами и дополнительными контролями частоты изображения. Не менять пороги; не повторять готовые Nativeтраектории,карты,движение,метрики. Первую проблему не закрывать по коротким разрывам; проблемы2–4отложены.",
+          "reason": "Полный20valпилот завершён и независимо проверен; промежуточная формулировка сохранена."
+        },
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "cannot_claim",
+          "old": "Box-relative normalization may stretch different visible parts; it is an engineering control, not established occlusion reasoning. No claim about complete physical object coverage or turn lag. Problems2–4remain deferred; native confirmations only, no old working-ID arbitration. Historical videos already examined.",
+          "reason": "Полный20valпилот завершён и независимо проверен; промежуточная формулировка сохранена."
+        },
+        {
+          "date": "2026-11-08",
+          "commit": "",
+          "field": "decision",
+          "old": "Не принимать эту версию как решение первой проблемы; не повторять законченный полный пилот. Проблемы2–4отложены. Перед следующим опытом отдельно разобрать сохранённые правильные/чужие продолжения и разницу с согласованным случайным отказом; пороги по этим20valне менять.",
+          "reason": "Счётчик возвратов разобран;полныеfit-данныеподготовленыипроверенпереноспорога."
+        }
+      ]
+    },
+    {
+      "id": "bbox_fit_readout_readiness_v1_20261108",
+      "title": "Одна свободная рамка — достаточно ли готовых положительных и чужих примеров подбора",
+      "area": "flyvis",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "question": "Есть ли наfit20готовые пространственные карты известных правильных и чужих одиночных продолжений для калибровки порога?",
+      "hypothesis": "Один фиксированный порог в изменённом совмещении может почти отключить сигнал; прежде нового вывода нужны положительные и отрицательные примеры только на подборе.",
+      "expected": "Измерить готовность без новых нейронных расчётов и не подбирать по26или20val.",
+      "acceptance": [
+        {
+          "criterion": "Не менее3известныхправильныхи3чужихfit-парсдвумяготовымикаузальнымикартамиитремяобщимиреференснымиячейками.",
+          "met": false,
+          "evidence": "runs/bbox_fit_readout_readiness_20261108/readiness.json"
+        }
+      ],
+      "obtained": "Наfit20: известныеправильные33,чужие13;готовыподдержанныесдвумяточнымикартами6и1. Новыхрасчётовядра,детектора,кадровитрекеранет(runs/bbox_fit_readout_readiness_20261108/readiness.json).",
+      "interpretation": "Готовность примеров не доказывает, что калибровка улучшит считыватель. Предыдущее ограничение давности2оставило только4положительныхбезизвестныхчужихпримеров.",
+      "decision": "Не запускать калибровку по неполноценному готовому подмножеству. Подготовить отдельный протокол недостающих fit-представлений; без нового нейронного запуска этой проверкой.",
+      "cannot_claim": "Это готовность данных и доступность обучения, не польза порога, FlyVis или полного трекера. Только первая проблема;2–4отложены.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_fit_readout_readiness_20261108/protocol.json",
+          "claim": "Условия до проверки доступности"
+        }
+      ],
+      "done": "2026-11-08"
+    },
+    {
+      "id": "bbox_fit_maps_restoration_v1_20261108",
+      "title": "Одна свободная рамка — восстановить недостающие fit-карты с реальными чужими примерами",
+      "area": "flyvis",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "question": "Restore missing fit-only spatial representations so future readout calibration has real positive and foreign examples.",
+      "hypothesis": "Полная fit-подборка положительных и чужих пар позволит проверить калибровку считывателя без подбора по26или20val.",
+      "expected": "Восстановить только отсутствующие пространственные представления всех fit-предложений, сохранив неизвестные.",
+      "acceptance": [
+        {
+          "criterion": "Every requested fit representation is complete and checksummed; exact ready maps/views reused and new witness checks pass; no new model training or evaluation. Deadline/partial input work is not a completed dataset.",
+          "met": true,
+          "evidence": "runs/bbox_fit_maps_20261108/queue_result.json; features_complete.json; input_complete.json"
+        }
+      ],
+      "obtained": "Подготовлены200fit-пар,втомчисле33известныхправильных/13чужих/154неизвестных. Полныхпоследовательностей399,изних94готовыхпереиспользованыи305новых. Вырезов1062:новых597,готовых465. Источники:runs/bbox_fit_maps_20261108/inventory.json;input_complete.json;features_complete.json;queue_result.json.",
+      "interpretation": "Недостающие fit-представления восстановлены без выбора по разметке:неизвестные оставлены. Это готовность данных,не прибавка трекера илиядра.",
+      "decision": "Готовые представления не повторять. Калибровка считывателя выполнена отдельным fit-протоколом;новые26/20valэтим шагом не оценивались.",
+      "cannot_claim": "Подготовка данных не доказывает пользу FlyVis или нового порога. Никакая калибровка или повторная оценка20valэтим шагом не запускается.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_fit_maps_20261108/protocol.json",
+          "claim": "Постановка подготовки до новых данных"
+        }
+      ],
+      "done": "2026-11-08"
+    },
+    {
+      "id": "bbox_readout_fit_calibration_v1_20261108",
+      "title": "Одна свободная рамка — калибровка считывателя с исключением целого видео подбора",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "question": "Does a fit-only false-link-constrained threshold repair excessive readout abstention under the new box alignment?",
+      "hypothesis": "Spatial activity itself may not distinguish these identities under this correspondence; cross-video calibration with actual foreign pairs distinguishes that from a poorly transferred constant cutoff.",
+      "expected": "Различить избыточный фиксированный отказ и слабую разделимость сохранённых пространственных карт без подбора по26или20val.",
+      "acceptance": [
+        {
+          "criterion": "FLYVIS_FITmustretain>=3knownpositive,accept0knownforeign in left-out-video predictions, and have positive lower95%paired-video delta(correct−foreign) over fixed0.25. Family20corrected intervals also reported. Failure does not authorize26or20valrerevaluation.",
+          "met": false,
+          "evidence": "runs/bbox_readout_calibration_20261108/comparison_report.json;independent_audit.json"
+        }
+      ],
+      "obtained": "С исключением целого fit-видео:FlyVisподобранныйпорог8правильных/1чужихпринятий;старый0,25:7/1. IMAGE_FIT:4/1,R1_FIT:0/1,DIS_FIT:0/1. Условиегипотезыкалибровки=False. Источник:runs/bbox_readout_calibration_20261108/comparison_report.json;независимаяпроверка:independent_audit.json.",
+      "interpretation": "Одна настройка порога не прошла зарегистрированную диагностику избыточного отказа. Это межвидеовая проверка одного скалярного считывателя на историческомfit,не HOTA и не сохранение публичныхID. Порог выше максимального чужого сходства на обучающих19видео не гарантирует отсутствие чужих принятий на исключённом видео.",
+      "decision": "Не объявлять один перенос порога решением первой проблемы. Сохранить полный отрицательный результат этой калибровки и согласованные контроли;не подбирать по26/20val. Новая проверка трекера требует отдельной постановки и разрешённого времени;проблемы2–4отложены.",
+      "cannot_claim": "CPU-only readout diagnosis onfit20. No new core/tracker/evaluator/image run, no26or20valthreshold fitting or evaluation, no new deployed policy, no claim that passing solves first problem. Raw fragment relation labels, not public canonical tracking.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_readout_calibration_20261108/protocol.json",
+          "claim": "Правило и межвидеовая проверка до новых порогов"
+        }
+      ],
+      "done": "2026-11-08"
     }
   ],
   "manual_events": [

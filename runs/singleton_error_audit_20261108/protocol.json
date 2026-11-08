@@ -1,0 +1,27 @@
+{
+  "id": "singleton_error_source_audit_v1_20261108",
+  "registered": "2026-11-08T07:39:46.487704+03:00",
+  "active_problem": 1,
+  "deferred": [
+    2,
+    3,
+    4
+  ],
+  "question": "When sole-free recovery fails, is the chosen detection a different object, is its correctly identified box displaced by the filter, or is the new pair removed by native deduplication?",
+  "action": "Read only the completed and independently audited full outputs, current raw detections, sparse labels and recorded assignments. No tracker/network/evaluator rerun, parameter tuning or update intervention.",
+  "arms": "Same SUPPORT, IMAGE and FLYVIS full trajectories; add AGEonly if its separately registered full study finishes and passes its audit.",
+  "definitions": {
+    "added_first_pairs": "actual_first minus native_first within each variant, never by numeric ID comparison across variants.",
+    "raw_identity": "Current high-confidence detections matched jointly to same-classGT at IoU>=0.5 on actually annotated frames only.",
+    "target": "The emitted trajectory last-known identity if its return event exists; otherwise one consistent identity from actually labeled recent stored observations. Sources recorded; conflicts and unknowns explicit.",
+    "box_degradation": "The matched raw detection has IoU>=0.5 to its known current object, but emitted filtered box has IoU<0.5 to that same object. Count separately when prior and current identity agree.",
+    "assigned_but_not_emitted": "First-stage added pair has no same-variant current output. Native duplicate-removal log checked separately; absence alone is not a cause."
+  },
+  "literature": {
+    "url": "https://arxiv.org/html/2203.14360",
+    "section": "4.1Observation-centric Re-Update",
+    "role": "OC-SORT separates a re-association from correcting the accumulated Kalman state afterwards. This motivates distinguishing two failure stages; it does not prove ORUis needed or solves identity choice here."
+  },
+  "limitations": "Historical20val and sparseGT. Local direct-edge diagnosis does not account for all later closed-loop effects. Unknowns are not negative labels. A different identity cannot be repaired merely by a better post-match Kalman update. No claim about problems2–4or a causal test of field coverage.",
+  "acceptance": "All registered input hashes unchanged, native pairs retained, all direct added pairs counted once, identity and box-error populations separated. No tracker-quality acceptance inferred from this diagnostic."
+}

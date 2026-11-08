@@ -1,0 +1,138 @@
+{
+  "id": "singleton_free_cost_v1_20261108",
+  "registered": "2026-11-08T04:38:18.129427+03:00",
+  "authorization": "Current direct instruction: solve problem1 first, then the others. Continue authorized matched implementation and comparison until14:00MSK.",
+  "active_problem": 1,
+  "deferred": [
+    2,
+    3,
+    4
+  ],
+  "deadline": "2026-11-08T14:00:00+03:00",
+  "hypothesis": "Locking the original first-stage matches can preserve stable associations while permitting a sole geometrically admissible high-confidence box to rescue an unmatched Lost track.",
+  "intervention": "First solve the native complete matrix. Keep its matched pairs fixed. On remaining rows/columns, allow a new edge only for a same-class Lost row with exactly one valid choice among its two historical causal search boxes and positive native IoU (C<1). Change only cost, not the Kalman mean/covariance, memory, identity owner or duplicate cleanup. Resolve all newly allowed edges together and then run the unchanged full native lifecycle.",
+  "visual": "Reuse the frozen eight-map centered relative correction from the parent; apply the corrected cost only to the same admissible free edges. The original reference/current eye, history, rival mean and undefined-score behavior are unchanged. A claimed target is not taken from another native match.",
+  "strongest_alternative": "A simple relaxation of the matching threshold on the free remainder may explain the benefit; geometric eligibility or FlyVis may add nothing.",
+  "controls": {
+    "B0": "Native first-stage matching and full lifecycle, unchanged.",
+    "U_THRESHOLD": "Same locked native pairs. Reduce cost by alpha for all free same-class Lost-to-high edges with C<1, without the exactly-two/unique-geometric rule. Fit its alpha with the same5-value budget.",
+    "U_GEO": "Sole admissible free edge; no image or FlyVis.",
+    "U_SHIFT": "Same geometry, uniform beta cost reduction on identical allowed edges.",
+    "U_IMAGE": "Same geometry and direct processed brightness/derivative map.",
+    "U_R1": "Same geometry and direct causal receptor temporal features.",
+    "U_DIS": "Same geometry and cached ordinary motion.",
+    "U_FLYVIS": "Same geometry and fixed T4/T5 spatial maps.",
+    "U_PERM": "Same geometry and32fixed spatial permutations of the same FlyVis maps."
+  },
+  "arms": [
+    "B0",
+    "U_THRESHOLD",
+    "U_GEO",
+    "U_SHIFT",
+    "U_IMAGE",
+    "U_R1",
+    "U_DIS",
+    "U_FLYVIS",
+    "U_PERM"
+  ],
+  "native_config": {
+    "track_high_thresh": 0.25,
+    "track_low_thresh": 0.1,
+    "new_track_thresh": 0.25,
+    "track_buffer": 30,
+    "match_thresh": 0.8,
+    "fuse_score": true
+  },
+  "calibration": {
+    "cohort": "fit20 only, all323known queries;300shadow queries explicitly retained.",
+    "grid": [
+      0,
+      0.1,
+      0.2,
+      0.4,
+      0.8
+    ],
+    "criterion": "Maximize J=correct-wrong; unassigned0; unknown0 and counted.",
+    "tie": "Fewer changed final emitted track-to-raw bindings, then smaller parameter.",
+    "alpha": "U_GEO selects shared alpha; U_THRESHOLD selects its own alpha with equal budget.",
+    "beta": "Each image/motion/FlyVis/shift/permutation control selects beta at the common geometry alpha.",
+    "freeze": "Save selection before instantiating evaluate26 evaluators or labeling new outcomes."
+  },
+  "evaluation": "All641known historical queries from26videos plus727shadow queries. Same rows and no favorable subgroup selection. Reuse archived full lifecycle outcomes whenever the complete first match set and sources are identical.",
+  "prior_experiment": {
+    "id": "z13_unmatched_box_v1",
+    "source": "runs/z13_unmatched_box_20261025/report.json",
+    "outcome": "Negative: D_free90beneficial/215harmful among5822known; mean-video change−0.0256007,97.5%CI[−0.0394417,−0.0139097].",
+    "distinction": "The admission principle was already tested and is not new. The old intervention replaced the predicted fullXYWH by a selected map/box proposal at full strength. This intervention retains the prediction and all native first-stage matched pairs and changes only costs of uniquely admissible free residual edges."
+  },
+  "primary_comparisons": [
+    [
+      "U_GEO",
+      "B0"
+    ],
+    [
+      "U_GEO",
+      "U_THRESHOLD"
+    ],
+    [
+      "U_THRESHOLD",
+      "B0"
+    ],
+    [
+      "U_FLYVIS",
+      "B0"
+    ],
+    [
+      "U_FLYVIS",
+      "U_THRESHOLD"
+    ],
+    [
+      "U_FLYVIS",
+      "U_GEO"
+    ],
+    [
+      "U_FLYVIS",
+      "U_SHIFT"
+    ],
+    [
+      "U_FLYVIS",
+      "U_IMAGE"
+    ],
+    [
+      "U_FLYVIS",
+      "U_R1"
+    ],
+    [
+      "U_FLYVIS",
+      "U_DIS"
+    ],
+    [
+      "U_FLYVIS",
+      "U_PERM"
+    ]
+  ],
+  "full_tracker_gate": "Proceed to a separately frozen full causal20val pilot only if paired-video lower95%deltaJ vsB0>0 for U_GEO,U_THRESHOLD orU_FLYVIS. Conditional screening is not tracker acceptance.",
+  "full_acceptance": {
+    "family": 11,
+    "primary_ci_percent": 99.54545454545455,
+    "bootstrap_samples": 20000,
+    "seed": 42,
+    "unit": "paired_video",
+    "geometry": "U_GEO-B0 corrected lower pooled-HOTA bound>0 and no harm. U_GEO-U_THRESHOLD explains whether geometry adds value; no claim of that contribution without its positive interval.",
+    "threshold": "U_THRESHOLD-B0 corrected lower pooled-HOTA bound>0 and no harm is a useful ordinary-tracker result, not FlyVis or novel geometry.",
+    "flyvis": "U_FLYVIS must beatB0and every7matched comparator with corrected lower pooled-HOTA bounds>0 and no harm.",
+    "no_harm": "Nonnegative changes in mean-videoAssA/IDF1 and no increase in totalIDSw,FP,FN for each acceptance comparator.",
+    "foreign_returns": "Report correct/wrong/unknown returns after full lifecycle, not first-stage wins. A one-frame gain cannot close problem1."
+  },
+  "literature": [
+    {
+      "url": "https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/09351.pdf",
+      "role": "BUSCA establishes an existing after-association unmatched-track stage. Our cost/geometry rule is a separate hypothesis, not BUSCA implementation or evidence of benefit."
+    },
+    {
+      "url": "https://github.com/FoundationVision/ByteTrack/blob/main/yolox/tracker/byte_tracker.py",
+      "role": "Original assignment and same-ID reactivation; those are baseline mechanisms."
+    }
+  ],
+  "stop": "Preserve failures; never retune on26or20val; if screening or full acceptance fails, do not deploy this version or mark problem1solved. Other problems stay deferred."
+}

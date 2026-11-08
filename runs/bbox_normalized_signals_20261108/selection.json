@@ -1,0 +1,134 @@
+{
+  "selected": "SUPPORT",
+  "eligible_systems": [
+    "SUPPORT",
+    "IMAGE",
+    "DIS",
+    "FLYVIS"
+  ],
+  "configs": {
+    "B0": {
+      "enabled": false,
+      "score_name": null,
+      "threshold": null
+    },
+    "BBOX": {
+      "enabled": true,
+      "score_name": null,
+      "threshold": null
+    },
+    "SUPPORT": {
+      "enabled": true,
+      "score_name": "SUPPORT",
+      "threshold": -1
+    },
+    "RANDOM_MATCHED": {
+      "enabled": true,
+      "score_name": "RANDOM",
+      "threshold": 0.8720869114940196
+    },
+    "PERM_MATCHED": {
+      "enabled": true,
+      "score_name": "PERM",
+      "threshold": 0.021719205529504612
+    },
+    "IMAGE": {
+      "enabled": true,
+      "score_name": "IMAGE",
+      "threshold": 0.5
+    },
+    "R1": {
+      "enabled": true,
+      "score_name": "R1",
+      "threshold": 0.5
+    },
+    "DIS": {
+      "enabled": true,
+      "score_name": "DIS",
+      "threshold": -0.25
+    },
+    "FLYVIS": {
+      "enabled": true,
+      "score_name": "FLYVIS",
+      "threshold": 0.25
+    }
+  },
+  "fit_only": true,
+  "totals": {
+    "B0": {
+      "J": 0,
+      "N": 46
+    },
+    "BBOX": {
+      "N": 46,
+      "unknown": 18,
+      "revoked": 3,
+      "links": 22,
+      "J": 4,
+      "correct": 4
+    },
+    "SUPPORT": {
+      "N": 46,
+      "unknown": 18,
+      "revoked": 3,
+      "links": 22,
+      "J": 4,
+      "correct": 4
+    },
+    "RANDOM_MATCHED": {
+      "N": 46,
+      "unknown": 1,
+      "revoked": 0,
+      "links": 1,
+      "J": 0
+    },
+    "PERM_MATCHED": {
+      "N": 46,
+      "unknown": 1,
+      "revoked": 0,
+      "links": 1,
+      "J": 0
+    },
+    "IMAGE": {
+      "N": 46,
+      "unknown": 8,
+      "revoked": 1,
+      "links": 9,
+      "J": 1,
+      "correct": 1
+    },
+    "R1": {
+      "J": 0,
+      "N": 46
+    },
+    "DIS": {
+      "N": 46,
+      "unknown": 15,
+      "revoked": 3,
+      "links": 18,
+      "J": 3,
+      "correct": 3
+    },
+    "FLYVIS": {
+      "N": 46,
+      "revoked": 0,
+      "links": 1,
+      "J": 1,
+      "correct": 1
+    }
+  },
+  "rate_controls": {
+    "RANDOM_MATCHED": {
+      "target": 1,
+      "defined": 22,
+      "actual": 1,
+      "labels_used": false
+    },
+    "PERM_MATCHED": {
+      "target": 1,
+      "defined": 22,
+      "actual": 1,
+      "labels_used": false
+    }
+  }
+}

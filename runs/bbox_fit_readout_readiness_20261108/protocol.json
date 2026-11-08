@@ -1,0 +1,15 @@
+{
+  "registered": "2026-11-08T13:23:54.285105+03:00",
+  "sources": {
+    "research_bbox_fit_readout_readiness_20261108.py": "4b6eebc2a45c6431cb6bd5308f6d98215e66b22e49bee2b2b8f72c88e718d2a8",
+    "tracking/bbox_singleton_gate.py": "f1eeccf61c8736e5c179de32e48ea0d34fe8d520ed8010c2263904d01d281acb",
+    "tracking/box_normalized_correspondence.py": "9a023c5bc2a986037d4c0a5fa080d77e766e9b4bc7cc7d5af58eeee1447e8724",
+    "tracking/own_template_verification.py": "203e932b76c063b66579374e9798483f05925f6e9a2381274faecfef15262f50",
+    "runs/bbox_normalized_signals_20261108/full/comparison_report.json": "e38cd02af2b0852bc15092923f46fcc79416f8b199dc837aa7f282709c426a3b",
+    "runs/bbox_normalized_signals_20261108/full/independent_audit.json": "6b87e885750292971c4776b7c7bb2e498150cb81ecd04f4fad1f6c27ec4301b3"
+  },
+  "question": "Do exact ready fit20maps contain at least3known positive and3known foreign ordinary-singleton pairs for a meaningful readout-threshold calibration?",
+  "scope": "Metadata and availability only. Use fit20, ordinaryIoU0.2,age<=6andthe same observed-box-relative alignment. Actual known anchors select training examples only, never runtime candidates. No26/20valthreshold fitting, no new neural/image/flow/tracker/evaluator run. Source thresholds and completed experiments unchanged.",
+  "strongest_alternative": "The fixed readout thresholds may be miscalibrated in the new alignment context. The narrow fit gate had4known positive and0foreign cases; FLYVIS permitted only1full20edge, so lack of a tracking gain does not establish absence of identity information.",
+  "gate": "Only if>=3positive and>=3foreign fit edges have both exact ready causal sequence maps and shared3cell support may a separately registered CPU-only calibration be considered. Otherwise no calibration or neural restoration is authorized by this metadata step."
+}

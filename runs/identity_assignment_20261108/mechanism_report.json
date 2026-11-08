@@ -1,0 +1,374 @@
+{
+  "passed": true,
+  "geometry": {
+    "fit20|neither_target": {
+      "eligible_0": 185,
+      "eligible_1": 29,
+      "eligible_2": 13,
+      "native_state_3": 6
+    },
+    "fit20|unknown_candidate": {
+      "eligible_0": 64,
+      "eligible_2": 34,
+      "eligible_1": 31,
+      "native_state_3": 6
+    },
+    "fit20|ok": {
+      "eligible_1": 51,
+      "foreign_invalid": 61,
+      "true_eligible": 76,
+      "eligible_2": 26,
+      "foreign_eligible": 27,
+      "eligible_0": 11,
+      "true_invalid": 12,
+      "native_state_3": 2
+    },
+    "fit20|unknown_target_or_query": {
+      "eligible_1": 62,
+      "eligible_2": 54,
+      "native_state_3": 2,
+      "eligible_0": 47
+    },
+    "evaluate26|unknown_candidate": {
+      "eligible_0": 172,
+      "eligible_2": 51,
+      "eligible_1": 56,
+      "native_state_3": 14
+    },
+    "evaluate26|unknown_target_or_query": {
+      "eligible_1": 131,
+      "eligible_2": 95,
+      "eligible_0": 196,
+      "native_state_3": 12
+    },
+    "evaluate26|neither_target": {
+      "eligible_0": 369,
+      "eligible_1": 45,
+      "eligible_2": 32,
+      "native_state_3": 17
+    },
+    "evaluate26|ok": {
+      "eligible_1": 99,
+      "true_eligible": 130,
+      "foreign_invalid": 133,
+      "eligible_2": 36,
+      "foreign_eligible": 41,
+      "eligible_0": 39,
+      "true_invalid": 44,
+      "native_state_3": 4
+    }
+  },
+  "competition_columns": {
+    "proposed_columns": 890,
+    "no_second_rival": 339,
+    "common_geometry_valid": 449,
+    "DIS_domain_support_failure": 8,
+    "rival_geometry_failure": 78,
+    "cross_class_rival": 15,
+    "fewer_than3_reference_matches": 1
+  },
+  "feature_coverage": {
+    "G_IMAGE": {
+      "columns": 449,
+      "different_rival_scores": 449
+    },
+    "G_R1": {
+      "columns": 449,
+      "different_rival_scores": 449
+    },
+    "G_DIS": {
+      "columns": 449,
+      "different_rival_scores": 449
+    },
+    "G_FLYVIS": {
+      "columns": 449,
+      "different_rival_scores": 449
+    },
+    "G_PERM": {
+      "columns": 449,
+      "different_rival_scores": 449
+    }
+  },
+  "requested_cases": {
+    "29017": {
+      "query": {
+        "uid": 29017,
+        "video": "0001542f-ec815219",
+        "split": "evaluate26",
+        "candidate_high_ids": [
+          2,
+          5
+        ],
+        "source": "runs/z13_temporal_pair_readiness_20261025/inputs/0001542f-ec815219.json",
+        "frame": 332,
+        "tid": 158,
+        "episode": 24
+      },
+      "query_start_frame": 295,
+      "candidate_owners": [
+        {
+          "high_id": 2,
+          "raw_id": 8115,
+          "owner_tid": 196
+        },
+        {
+          "high_id": 5,
+          "raw_id": 8118,
+          "owner_tid": 189
+        }
+      ],
+      "arms": {
+        "B0": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045632"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        },
+        "G": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045632"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        },
+        "G_SHIFT": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045632"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        },
+        "G_IMAGE": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045632"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        },
+        "G_R1": {
+          "outcome": {
+            "kind": "correct",
+            "J": 1,
+            "raw_id": 8115,
+            "identity": "00045632",
+            "target": "00045632"
+          },
+          "first_high_index": 2,
+          "duplicate_events": [
+            {
+              "tracked_id": 158,
+              "lost_id": 196,
+              "tracked_duration": 38,
+              "lost_duration": 5,
+              "iou": 0.9117716550827026,
+              "tracked_dropped": false,
+              "lost_dropped": true
+            }
+          ],
+          "geometric_candidates": 1
+        },
+        "G_DIS": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045632"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        },
+        "G_FLYVIS": {
+          "outcome": {
+            "kind": "correct",
+            "J": 1,
+            "raw_id": 8115,
+            "identity": "00045632",
+            "target": "00045632"
+          },
+          "first_high_index": 2,
+          "duplicate_events": [
+            {
+              "tracked_id": 158,
+              "lost_id": 196,
+              "tracked_duration": 38,
+              "lost_duration": 5,
+              "iou": 0.9117716550827026,
+              "tracked_dropped": false,
+              "lost_dropped": true
+            }
+          ],
+          "geometric_candidates": 1
+        },
+        "G_PERM": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045632"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        }
+      }
+    },
+    "29057": {
+      "query": {
+        "uid": 29057,
+        "video": "0001542f-ec815219",
+        "split": "evaluate26",
+        "candidate_high_ids": [
+          1,
+          8
+        ],
+        "source": "runs/z13_temporal_pair_readiness_20261025/inputs/0001542f-ec815219.json",
+        "frame": 440,
+        "tid": 276,
+        "episode": 46
+      },
+      "query_start_frame": 404,
+      "candidate_owners": [
+        {
+          "high_id": 1,
+          "raw_id": 12766,
+          "owner_tid": 274
+        },
+        {
+          "high_id": 8,
+          "raw_id": 12773,
+          "owner_tid": null
+        }
+      ],
+      "arms": {
+        "B0": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045641"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        },
+        "G": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045641"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        },
+        "G_SHIFT": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045641"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        },
+        "G_IMAGE": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045641"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        },
+        "G_R1": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045641"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        },
+        "G_DIS": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045641"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        },
+        "G_FLYVIS": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045641"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        },
+        "G_PERM": {
+          "outcome": {
+            "kind": "none",
+            "J": 0,
+            "raw_id": null,
+            "identity": null,
+            "target": "00045641"
+          },
+          "first_high_index": null,
+          "duplicate_events": [],
+          "geometric_candidates": 1
+        }
+      }
+    }
+  },
+  "common_unique_reference_nodes": {
+    "pairs": 961,
+    "minimum": 3,
+    "median": 66,
+    "maximum": 233
+  },
+  "comparison_sha256": "0ed6bdc7ac68aa0a8c5ef98d918c37e4c073b24bf67fa5ef957166d546ea133d",
+  "interpretation_boundary": "A queried lost ID may be a later fragment of the same physical car as its rival. Returning that queried ID is not automatically preferable long-term identity continuity."
+}

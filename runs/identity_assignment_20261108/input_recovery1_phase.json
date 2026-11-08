@@ -1,0 +1,16 @@
+{
+  "registered": "2026-11-08T01:50:00.141078+03:00",
+  "sources": {
+    "research_identity_assignment_run_20261108/common.py": "f619beadbd83fa09e3800fbdda3dffc5cdd77f77868ba339bfddf17e1c2f65b9",
+    "tracking/retina.py": "71e51747fa9959652766da0179a3b75953c49f94159da155c52b10999b27c322",
+    "tracking/foveated_eyes.py": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
+    "tracking/flyvis_adapter.py": "5f0473a35c8b70270643d3f31b061d8a5be8bc79eb346053de07566b24e8d5ab",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "runs/z13_temporal_pair_readiness_20261025/protocol.json": "d515715934e07ce28ea30ff5284b2b0e1c0f90f59b32bf8676b6e96fce4b65d3",
+    "runs/identity_assignment_20261108/export_complete.json": "d730f3d2e17a0d8867773703e0cc89f71e55f3ad7b225ddac7c918d046de10fb",
+    "research_identity_assignment_run_20261108/prepare_inputs_recovery1.py": "27f8fd48c5b624c9cb1efb490b965dc2b6ac2ab566e20ae8c58bf18450f5ae2e"
+  },
+  "action": "Read saved retinal inputs and old reference feature packages; render only missing views with original lamina+BoxEye on CPU; one exact archived witness per decoded video.",
+  "reason": "BoxEye._render has shape(B,1,1,721). Archive stores721-vector. A guarded probe confirmed extra singleton dimension; values had exact zero difference. Flatten only singleton dimensions to721, preserving original pixels and witness equality.",
+  "probe_sha256": "365b1716c3a5359a1cfc861c153eacf02ef3d0f52a2098db37fcb0ab29455870"
+}
