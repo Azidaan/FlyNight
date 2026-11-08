@@ -27995,6 +27995,100 @@
           "locator": "pairs.1.variants.FlyVis.local"
         }
       ]
+    },
+    {
+      "id": "singleton_neighbor_input_20261108",
+      "title": "Среднее соседних ячеек в восьми признаках входа глаза против T4/T5",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "question": "Does ordinary neighboring-cell averaging improve identity ordering relative to the matched central-only input?",
+      "hypothesis": "Обычная пространственная обработка может объяснять часть различия с T4/T5.",
+      "expected": "Выделить вклад соседей сравнением одинаковых четырёх временных каналов с повторением либо усреднением соседей.",
+      "acceptance": [
+        {
+          "criterion": "Independent neighbor means, interpolation and dot products agree <=1e-9. Center8 identity to four-channel correlation checked analytically. Sources immutable; ready scores reused verbatim.",
+          "met": true,
+          "evidence": "runs/singleton_neighbor_input_20261108/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_neighbor_input_20261108/protocol.json",
+          "claim": "Условия до оценки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_neighbor_input_20261108/scores.json",
+          "claim": "Первичный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_neighbor_input_20261108/audit.json",
+          "claim": "Первичный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_neighbor_input_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Первичный результат и проверка"
+        }
+      ],
+      "done": "2026-11-08",
+      "obtained": "На своей паре 3→273 четыре центральных EMA, повторённые до восьми каналов, дали 0,325505→0,908726; EMA и средние соседей дали 0,280763→0,904837. На чужой 390→448 соответственно −0,699152→0,737942 и −0,540123→0,707595. Готовые T4/T5 дали 0,794335→0,826478 своей и 0,349265→0,349265 чужой. Источник: runs/singleton_neighbor_input_20261108/scores.json.",
+      "interpretation": "Оба новых простых контроля ранжируют свою пару выше чужой до и после поиска. После поиска соседи снижают оценку своей на 0,003889 и чужой на 0,030347. Исправление порядка относительно прежних восьми EMA+остаток нельзя приписать соседям, поскольку тот же порядок уже получен четырьмя центральными EMA. Существенны состав и относительный вес каналов. Причина различия с FlyVis и польза полному трекеру не установлены.",
+      "decision": "Первая проблема открыта. Завершить эту серию диагностик малой поддержки. Сформулировать запрос Gemini о минимальном правиле пространственного соответствия и отказа с первичными источниками. Порог и новый полный прогон по двум событиям не назначать.",
+      "cannot_claim": "Два события по три опорные ячейки. Нормировка прежняя обучающая, у центрального канала и его соседнего среднего общий масштаб. Соседи берутся из всей сетки, в том числе вне рамки и Q. Постоянные времени прежние, шаги по сохранённым наблюдениям. Разные сцены и размер вырезки 64/261 пиксель. У своей пары последняя разметка прошлого трека на кадре 61, шаблон на неразмеченном 71, текущая рамка размечена на 73. Баллы разных представлений не откалиброваны как вероятность правильного ID.",
+      "metrics": [
+        {
+          "key": "map_centered_similarity",
+          "value": 0.7379423955195197,
+          "baseline": -0.6991524319756593,
+          "subset": "foreign / center8",
+          "source": "runs/singleton_neighbor_input_20261108/scores.json",
+          "locator": "pairs.0.variants.center8.local"
+        },
+        {
+          "key": "map_centered_similarity",
+          "value": 0.707595360756234,
+          "baseline": -0.5401231066608108,
+          "subset": "foreign / neighbor8",
+          "source": "runs/singleton_neighbor_input_20261108/scores.json",
+          "locator": "pairs.0.variants.neighbor8.local"
+        },
+        {
+          "key": "map_centered_similarity",
+          "value": 0.34926549547737357,
+          "baseline": 0.34926549547737357,
+          "subset": "foreign / FlyVis",
+          "source": "runs/singleton_neighbor_input_20261108/scores.json",
+          "locator": "pairs.0.variants.FlyVis.local"
+        },
+        {
+          "key": "map_centered_similarity",
+          "value": 0.9087259364778407,
+          "baseline": 0.32550525455217477,
+          "subset": "own / center8",
+          "source": "runs/singleton_neighbor_input_20261108/scores.json",
+          "locator": "pairs.1.variants.center8.local"
+        },
+        {
+          "key": "map_centered_similarity",
+          "value": 0.9048369685238165,
+          "baseline": 0.28076274622819664,
+          "subset": "own / neighbor8",
+          "source": "runs/singleton_neighbor_input_20261108/scores.json",
+          "locator": "pairs.1.variants.neighbor8.local"
+        },
+        {
+          "key": "map_centered_similarity",
+          "value": 0.8264779605260468,
+          "baseline": 0.794334613406358,
+          "subset": "own / FlyVis",
+          "source": "runs/singleton_neighbor_input_20261108/scores.json",
+          "locator": "pairs.1.variants.FlyVis.local"
+        }
+      ]
     }
   ],
   "manual_events": [

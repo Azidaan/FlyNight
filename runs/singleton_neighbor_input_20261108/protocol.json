@@ -1,0 +1,23 @@
+{
+  "registered": "2026-11-08T20:57:33.325588+03:00",
+  "head": "f46e60c57c9dd53f19f2484244690de6374bd4c3",
+  "channels": "Four ready normalized EMA channels, taus 1.5,3.903211717149933,12.297565051134073,32. Neighbor8 concatenates these four with their six-neighbor means. Center8 repeats the same four twice.",
+  "normalization": "Ready training normalization reused. Identical channel scale for central and pooled counterpart; no new normalization or weighting.",
+  "spatial": "Existing HexGeometry and neighbor_aug, one hop. Grid edge padding uses center as in existing helper. No masking neighbors to box; only comparison centers Q stay fixed.",
+  "geometry": "Same saved three cells, Kalman displacement, 19 pixel offsets per pair, interpolation and joint centered correlation.",
+  "question": "Does ordinary neighboring-cell averaging improve identity ordering relative to the matched central-only input?",
+  "acceptance": "Independent neighbor means, interpolation and dot products agree <=1e-9. Center8 identity to four-channel correlation checked analytically. Sources immutable; ready scores reused verbatim.",
+  "limitation": "Two cases; neighbor8 changes the last four channels relative to the previous EMA+residual control. Attribute pooling only through center8 versus neighbor8, not through previous input8. Same number of channels does not match FlyVis receptive field or dynamics.",
+  "sources": {
+    "runs/singleton_neighbor_input_20261108/compare.py": "62c11d036e450f5f3382fe32e7dd6ee9c728da69a3d89de34789e1a3cde31018",
+    "runs/singleton_eight_input_20261108/input8_maps.npz": "94915cccb1c6863c0f971f7d6c31ace2729ffff4f959251f29d605d26662f4e8",
+    "runs/singleton_eight_input_20261108/protocol.json": "5106b72d841a3b6f37995c91b5a0f33d6ee24b4a6c4f912a0e37c7795d028762",
+    "runs/singleton_eight_input_20261108/scores.json": "985b9bac9ffb261ab8b70ddb2860e09a561bb63794ce6d86b6f23177b401a512",
+    "runs/singleton_eight_input_20261108/audit.json": "84d8de9bd834d7def38d58290d25edf2624677fe572ae3464ef2da25cfe6de4f",
+    "runs/singleton_matched_support_20261108/protocol.json": "d6cd15ab9aeba575bf3d7ea01d0f9d09a208fbefbd8477c481ff4d4482921800",
+    "runs/singleton_matched_support_20261108/scores.json": "22b6eca39766b33a8c2bb88b9274877d9fa5b7cbb44c6aecdcd6472581896ef2",
+    "scripts/z13_target_model.py": "e7bc7967c8d5fdf04983ed3e01c5fae9d54dbc6ed7b4b17c4c10235beccd862a",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36"
+  }
+}
