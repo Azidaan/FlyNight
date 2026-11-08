@@ -27772,6 +27772,121 @@
           "locator": "pairs.1.variants.permuted.local"
         }
       ]
+    },
+    {
+      "id": "singleton_matched_support_20261108",
+      "title": "Сравнение своих и чужих машин при одинаковых трёх ячейках карты",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "question": "Как меняется сходство своей и чужой машины при одинаковой пространственной поддержке и поиске сдвига?",
+      "hypothesis": "Высокое сходство чужой машины после поиска может определяться малым числом ячеек.",
+      "expected": "Равное число ячеек позволит убрать одно из различий прежних двух примеров.",
+      "acceptance": [
+        {
+          "criterion": "Равная поддержка без подбора по оценкам, точное восстановление входа, неизменные веса и независимая сверка новых оценок.",
+          "met": true,
+          "evidence": "runs/singleton_matched_support_20261108/scores.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_matched_support_20261108/protocol.json",
+          "claim": "Условия зафиксированы до восстановления карт и расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_matched_support_20261108/scores.json",
+          "claim": "Первичный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_matched_support_20261108/maps_complete.json",
+          "claim": "Первичный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_matched_support_20261108/audit.json",
+          "claim": "Первичный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_matched_support_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Первичный результат и проверка"
+        }
+      ],
+      "done": "2026-11-08",
+      "obtained": "На равных трёх ячейках своя пара 3→273 дала FlyVis 0,794335→0,826478, яркость −0,999726→0,997012, градиенты 0,553791→0,553791. Чужая 390→448 из готового расчёта дала FlyVis 0,349265→0,349265, яркость −0,773286→0,999658, градиенты −0,563739→0,920580. Источник: runs/singleton_matched_support_20261108/scores.json.",
+      "interpretation": "В этом сравнении FlyVis ранжирует свою пару выше чужой до и после поиска. После поиска оба контроля изображения ранжируют чужую выше своей. Разное число ячеек не объясняет весь прежний эффект. Причина различия представлений и безопасность решения трекера по двум событиям не установлены.",
+      "decision": "Первая проблема открыта. Два примера дают основание сохранить пространственный сигнал как кандидата для проверки отказа, но не вводить по ним порог или передачу ID.",
+      "cannot_claim": "Одна своя и одна чужая пара из разных видео. Вырезки 64 и 522 пикселя дают разный физический размер ячейки и радиус поиска. C содержит восемь нормированных каналов T4/T5, яркость один, градиенты два. Контроль изображения — яркость и градиенты уже подготовленного входа глаза. Прошлая личность своей пары подтверждена разметкой кадра 61, последнее наблюдение шаблона на кадре 71 разметки не имеет. Будущее используется только для метки проверки. Порог и качество траекторий не оценивались.",
+      "metrics": [
+        {
+          "key": "map_centered_similarity",
+          "value": 0.34926549547737357,
+          "baseline": 0.34926549547737357,
+          "subset": "foreign / FlyVis",
+          "source": "runs/singleton_matched_support_20261108/scores.json",
+          "locator": "pairs.0.variants.FlyVis.local"
+        },
+        {
+          "key": "map_centered_similarity",
+          "value": 0.9996582496458026,
+          "baseline": -0.7732858609407199,
+          "subset": "foreign / brightness",
+          "source": "runs/singleton_matched_support_20261108/scores.json",
+          "locator": "pairs.0.variants.brightness.local"
+        },
+        {
+          "key": "map_centered_similarity",
+          "value": 0.92058025655409,
+          "baseline": -0.563738882640234,
+          "subset": "foreign / gradient",
+          "source": "runs/singleton_matched_support_20261108/scores.json",
+          "locator": "pairs.0.variants.gradient.local"
+        },
+        {
+          "key": "map_centered_similarity",
+          "value": 0.5128812782119355,
+          "baseline": -0.5296218728917367,
+          "subset": "foreign / permuted",
+          "source": "runs/singleton_matched_support_20261108/scores.json",
+          "locator": "pairs.0.variants.permuted.local"
+        },
+        {
+          "key": "map_centered_similarity",
+          "value": 0.8264779605260468,
+          "baseline": 0.794334613406358,
+          "subset": "own / FlyVis",
+          "source": "runs/singleton_matched_support_20261108/scores.json",
+          "locator": "pairs.1.variants.FlyVis.local"
+        },
+        {
+          "key": "map_centered_similarity",
+          "value": 0.9970122904285419,
+          "baseline": -0.9997257369188157,
+          "subset": "own / brightness",
+          "source": "runs/singleton_matched_support_20261108/scores.json",
+          "locator": "pairs.1.variants.brightness.local"
+        },
+        {
+          "key": "map_centered_similarity",
+          "value": 0.553790970495278,
+          "baseline": 0.553790970495278,
+          "subset": "own / gradient",
+          "source": "runs/singleton_matched_support_20261108/scores.json",
+          "locator": "pairs.1.variants.gradient.local"
+        },
+        {
+          "key": "map_centered_similarity",
+          "value": 0.7541677049933782,
+          "baseline": 0.5502137104859808,
+          "subset": "own / permuted",
+          "source": "runs/singleton_matched_support_20261108/scores.json",
+          "locator": "pairs.1.variants.permuted.local"
+        }
+      ]
     }
   ],
   "manual_events": [

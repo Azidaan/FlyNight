@@ -1,0 +1,318 @@
+{
+  "registered": "2026-11-08T20:25:28.092589+03:00",
+  "head": "29aef5fa8f84b3028f68fb6045af45cd14401fce",
+  "deadline": "2026-11-09T07:40:00+03:00",
+  "cases": [
+    {
+      "video": "00268999-cb063914",
+      "split": "fit20",
+      "frame": 578,
+      "old": 390,
+      "new": 448,
+      "age": 2,
+      "raw_id": 20631,
+      "forward_iou": 0.3125539639168361,
+      "kind": "foreign",
+      "direct": true,
+      "target": "00034635",
+      "identity": "00034637",
+      "target_anchors": [
+        [
+          566,
+          "00034635"
+        ],
+        [
+          572,
+          "00034635"
+        ]
+      ],
+      "fragment_anchors": [
+        [
+          578,
+          "00034637"
+        ],
+        [
+          590,
+          "00034637"
+        ]
+      ],
+      "raw_matches": [
+        [
+          "00034637",
+          0.8538226658612582
+        ]
+      ],
+      "last_observation": 576,
+      "same_scale": true,
+      "points": 3,
+      "map_keys": [
+        "443f3176bcd1c69462efcc751339dc92",
+        "ed89c4f1ffddccf8b1033113e28ea416"
+      ],
+      "map_paths": [
+        [
+          "runs/bbox_fit_maps_20261108/features/443f3176bcd1c69462efcc751339dc92.npz"
+        ],
+        [
+          "runs/bbox_fit_maps_20261108/features/ed89c4f1ffddccf8b1033113e28ea416.npz"
+        ]
+      ],
+      "eligible": true,
+      "sequences": [
+        [
+          [
+            571,
+            [
+              1108,
+              92,
+              1280,
+              264
+            ]
+          ],
+          [
+            572,
+            [
+              1119,
+              98,
+              1280,
+              259
+            ]
+          ],
+          [
+            573,
+            [
+              1029,
+              54,
+              1280,
+              305
+            ]
+          ],
+          [
+            576,
+            [
+              1019,
+              51,
+              1280,
+              312
+            ]
+          ]
+        ],
+        [
+          [
+            571,
+            [
+              1108,
+              92,
+              1280,
+              264
+            ]
+          ],
+          [
+            572,
+            [
+              1119,
+              98,
+              1280,
+              259
+            ]
+          ],
+          [
+            573,
+            [
+              1029,
+              54,
+              1280,
+              305
+            ]
+          ],
+          [
+            576,
+            [
+              1019,
+              51,
+              1280,
+              312
+            ]
+          ],
+          [
+            578,
+            [
+              1019,
+              51,
+              1280,
+              312
+            ]
+          ]
+        ]
+      ]
+    },
+    {
+      "video": "02fa8491-2a4967e3",
+      "split": "development20",
+      "frame": 73,
+      "old": 3,
+      "new": 273,
+      "age": 2,
+      "raw_id": 7628,
+      "forward_iou": 0.20507138733358785,
+      "kind": "own",
+      "direct": true,
+      "target": "00053307",
+      "identity": "00053307",
+      "target_anchors": [
+        [
+          61,
+          "00053307"
+        ]
+      ],
+      "fragment_anchors": [
+        [
+          73,
+          "00053307"
+        ]
+      ],
+      "raw_matches": [
+        [
+          "00053307",
+          0.8230324505568899
+        ]
+      ],
+      "last_observation": 71,
+      "same_scale": true,
+      "points": 3,
+      "map_keys": [
+        "e8f82bd5dc50163c806676501a5c52a9",
+        "05946e7beab0b31aca4b135cb0b1e9f6"
+      ],
+      "map_paths": [
+        [],
+        []
+      ],
+      "eligible": false,
+      "sequences": [
+        [
+          [
+            66,
+            [
+              384,
+              204,
+              448,
+              268
+            ]
+          ],
+          [
+            68,
+            [
+              389,
+              203,
+              453,
+              267
+            ]
+          ],
+          [
+            69,
+            [
+              389,
+              203,
+              453,
+              267
+            ]
+          ],
+          [
+            71,
+            [
+              390,
+              205,
+              454,
+              269
+            ]
+          ]
+        ],
+        [
+          [
+            66,
+            [
+              384,
+              204,
+              448,
+              268
+            ]
+          ],
+          [
+            68,
+            [
+              389,
+              203,
+              453,
+              267
+            ]
+          ],
+          [
+            69,
+            [
+              389,
+              203,
+              453,
+              267
+            ]
+          ],
+          [
+            71,
+            [
+              390,
+              205,
+              454,
+              269
+            ]
+          ],
+          [
+            73,
+            [
+              393,
+              206,
+              457,
+              270
+            ]
+          ]
+        ]
+      ]
+    }
+  ],
+  "selection": "All direct same-scale singleton car events age<=2 from the saved 86-video inventory. Match cell count exactly to the only foreign case. Selection reads no scores.",
+  "method": "Unchanged fixed Q, 19 offsets, per-channel centering and joint normalized dot product. C uses eight saved T4/T5 channels. Brightness and gradients use the same retinal input. Seed42 joint spatial permutation.",
+  "reuse": "Read foreign scores verbatim. Restore only absent own causal maps, shared prefix evaluated once. No threshold fitting.",
+  "acceptance": "Equal Q count, exact retinal witness, immutable weights and inputs; independent interpolation and scalar products agree 1e-9. Descriptive comparison, no tracker acceptance.",
+  "alternative": "At three cells, maximizing image correlation may fit unrelated structure. Own and foreign have equal counts but may differ in content, geometry and elapsed time.",
+  "sources": {
+    "data/bdd100k/labels/box_track_20/train/00268999-cb063914.json": "f3d0c0fe0891947263cbedf41961944553d128e7c62acbf7192d36c6110fac92",
+    "data/bdd100k/labels/box_track_20/train/02fa8491-2a4967e3.json": "b7d4956ed74c6e82a01c9aab974a640e0db82edfddc4f146563b990400bf9f2e",
+    "data/bdd100k/videos/train/02fa8491-2a4967e3.mov": "8fbc876339dd2ae25115f1441e7ceeb907d89362e4a5b5caadced1ed0ffc26f9",
+    "research_spatial_identity_20261107/extract_reference.py": "fc92b231680dff3a5d0273c236d4488cd913eac15dc56a8623d5ed68150a8b9c",
+    "runs/bbox_confirmation_inventory_20261108/native/00268999-cb063914.json": "8ca76df901e4c436fb92a3ed2c80ad73997f40140d932e65195c4b1a02d688c2",
+    "runs/bbox_fit_maps_20261108/features/443f3176bcd1c69462efcc751339dc92.npz": "4915de3efd583e89b9dbe27829fe24fd982223b0cc997c8fcb8ed0ba97297b17",
+    "runs/bbox_fit_maps_20261108/features/ed89c4f1ffddccf8b1033113e28ea416.npz": "4f6e25c0979cd2cfd4087241b37007b67bb2cbebb6f716d8966c310d2d645aa0",
+    "runs/bbox_singleton_pilot_20261108/labels/00268999-cb063914.json": "d3f163972c3698153573f53b40e7682706203cb05e9fdfbd910d81c0dfe8d47c",
+    "runs/flyvis/results/flow/0000/000/_meta.yaml": "2aa8a9505324c82bbb4011ee2f7c375b5f8b1bddde1a5281e038baecf91fc5dd",
+    "runs/flyvis/results/flow/0000/000/best_chkpt": "d8a57a022aa18ca338599be713af9db29b89cde4b00098ffe42b78f0d583e46a",
+    "runs/flyvis_local_shift_feasibility_20261108/МАТЕМАТИКА_И_ДАННЫЕ.md": "2b2ff54bd790a1c237ff410ef632fe9e0b1ffd7107e2c07d61a4f97dcc8f2247",
+    "runs/singleton_car_map_coverage_20261108/inventory.json": "d2937032c4d96ac78fa9a8bc589f1b516b5a852f56f44b7d20efbcfc9e6dd6e5",
+    "runs/singleton_matched_support_20261108/study.py": "c3fb3083327dc603d3a83cd828b2c4cd4f66284fbc70a57e3a9d0e4ae77326f9",
+    "runs/singleton_two_map_scores_20261108/protocol.json": "d3b9a624805c375bb9fe89bed09f5ff5101d29d8f1f5c61625e580794eabd4ef",
+    "runs/singleton_two_map_scores_20261108/scores.json": "edb6fe08f5a8e9e610ec7c34b3b988659d3063b68084fb8f93fbeb0f3a78e0ce",
+    "runs/singleton_working_domain_20261108/labels/02fa8491-2a4967e3.json": "4660afa28b89a5cb4804c2194106bf95782c3b41089eb219b57d5ecc37e3943f",
+    "runs/singleton_working_domain_20261108/native/02fa8491-2a4967e3.json": "4c0ee6613863b9118c90aa934d4ea87a40b4a12050a2545c57ccf821d9c5dcac",
+    "runs/train_cache/00268999-cb063914/alignment.json": "58bf189f28142fe734e8abc7d915226d704b5e57832c434151d337aaead0e0c0",
+    "runs/train_cache/02fa8491-2a4967e3/alignment.json": "a9190e23b86cf6ea2ba80b06d8f1a67e381bc37383a9581b0be3d271ce0fc4d8",
+    "runs/train_cache/02fa8491-2a4967e3/motion/flyvis_tiled.json": "cea31ff20e44f5d8059c512db6d6f81f98201546c5df9aea2ee74599783e3993",
+    "runs/z13_data/02fa8491-2a4967e3.npz": "06186ee23e24bc8f435bf00c6836a08f2007a775877e37311bd4f5bc431e16dc",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "runs/z13_target_center_dev_20261018/C/normalization.json": "c06f1147f7f9da0d2d652d137c2c8a85257ba2737d1f7a1bbbde41235193fa4b",
+    "scripts/z13_target_model.py": "e7bc7967c8d5fdf04983ed3e01c5fae9d54dbc6ed7b4b17c4c10235beccd862a",
+    "tracking/flyvis_adapter.py": "5f0473a35c8b70270643d3f31b061d8a5be8bc79eb346053de07566b24e8d5ab",
+    "tracking/flyvis_checkpoint.py": "0280e2ef363f85a2a9455fcd2a2a8148e23daf2bf3d1c394eb6c93cff07fd30e",
+    "tracking/flyvis_motion.py": "f053f52a6f1bb6233884de818a4175c1bb01ab5dff6e0d037f2262bea5b3ffdc",
+    "tracking/foveated_eyes.py": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
+    "tracking/retina.py": "71e51747fa9959652766da0179a3b75953c49f94159da155c52b10999b27c322",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d"
+  }
+}

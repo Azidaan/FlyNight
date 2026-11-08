@@ -52,3 +52,6 @@ runs/singleton_verify_20261108/inventory.json -text whitespace=-blank-at-eol,bla
 # Preserve the approved working-domain evidence and exact run sources.
 runs/singleton_working_domain_20261108/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 research_singleton_working_domain_20261108/*.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+
+# Keep exact bytes of the equal-support spatial comparison and its protocol.
+runs/singleton_matched_support_20261108/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
