@@ -1,0 +1,32 @@
+{
+  "time": "2026-11-08T18:14:12.108956+03:00",
+  "head": "d1519ce1d96679902f4e5ee4a23cdbb8dc530914",
+  "cases": [
+    [
+      578,
+      390,
+      448
+    ],
+    [
+      1121,
+      1738,
+      1834
+    ]
+  ],
+  "inputs": {
+    "runs/singleton_car_map_coverage_20261108/inventory.json": "d2937032c4d96ac78fa9a8bc589f1b516b5a852f56f44b7d20efbcfc9e6dd6e5",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "runs/flyvis_local_shift_feasibility_20261108/МАТЕМАТИКА_И_ДАННЫЕ.md": "2b2ff54bd790a1c237ff410ef632fe9e0b1ffd7107e2c07d61a4f97dcc8f2247",
+    "runs/singleton_two_map_scores_20261108/compare.py": "2cb3ffe652c20f7edb0d32861f2dd0857fb1351f6daa52d75ad8e428fc1b6fbc",
+    "runs/bbox_confirmation_inventory_20261108/native/00268999-cb063914.json": "8ca76df901e4c436fb92a3ed2c80ad73997f40140d932e65195c4b1a02d688c2",
+    "runs/bbox_fit_maps_20261108/features/443f3176bcd1c69462efcc751339dc92.npz": "4915de3efd583e89b9dbe27829fe24fd982223b0cc997c8fcb8ed0ba97297b17",
+    "runs/bbox_fit_maps_20261108/features/ed89c4f1ffddccf8b1033113e28ea416.npz": "4f6e25c0979cd2cfd4087241b37007b67bb2cbebb6f716d8966c310d2d645aa0",
+    "runs/bbox_confirmation_inventory_20261108/native/02bd959c-f20a2437.json": "f240b810a4a3a19e7a68c4b4c1795b5fae794816b96acf93c164c1e26def29be",
+    "runs/bbox_normalized_signals_20261108/features/0cedd748019ff6c052a563c2a1b72fe6.npz": "2153dfd162bb7ceb87621197159edb6adff3f0ba863d1c7830128d1eb957b3f8",
+    "runs/bbox_normalized_signals_20261108/features/3e16e449a072b1cddd4920a8bf26c133.npz": "51895f01ae52982064e83e4f5a347bc500bd7858fd26b45b6c41acf9769585ec"
+  },
+  "grid": "Delaunay over saved eye centres, same mesh for all variants; original frame offsets",
+  "scores": "Reference correlation at Kalman prediction and max over 19 common shifts. Mean removed per channel, one joint norm. Zero energy abstains.",
+  "controls": "Brightness primary; two image gradients separately. Shuffle reference C rows jointly on fixed support, default_rng(42) per pair; one illustration.",
+  "acceptance": "Reproduce three and eight fixed points. Independent triangle interpolation and correlation agree for every shift. Descriptive only."
+}

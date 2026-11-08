@@ -1,0 +1,517 @@
+{
+  "protocol_sha": "ab68076ec3dd1456ce274fb60d1973fca0407a4a18eab02f4a1e0cec8a0eba5a",
+  "source_sha": "9cefe4b2fabe7868d9c42c2fc4ccd7f45028508916129d9885996225ad9dd651",
+  "source_result_sha": "1ee2c541a1078d6e5960cce4cd0ab6db245c8a0627ba17b88e6c9b95ac0f5a32",
+  "rows": [
+    {
+      "video": "004855fc-ff3946ad",
+      "t": 1101,
+      "old": 1996,
+      "new": 2051,
+      "kind": "foreign",
+      "geometry": 0.7990365601482626,
+      "cls": 2,
+      "confidence": 0.36061030626296997,
+      "source_frames": [
+        1096,
+        1097,
+        1098,
+        1099
+      ],
+      "own_iou": [
+        0.3244219262272547,
+        0.3221899378328112
+      ],
+      "motion_old": [
+        1.3060465498967915,
+        0.027279249191224153
+      ],
+      "motion_new": [
+        1.011260986328125,
+        -0.5856781005859375
+      ],
+      "motion_error": 0.6801582471266066,
+      "alternatives_birth": [
+        {
+          "raw_birth": 102321,
+          "public_birth": null,
+          "raw_now": 102443,
+          "method": "reciprocal_iou",
+          "birth_iou": 0.8500192370878199,
+          "confidence": 0.17716585099697113,
+          "current_iou": 0.8129212592522277,
+          "current_public": null,
+          "both_warn": true,
+          "motion_error": 1.0328483103869257
+        },
+        {
+          "raw_birth": 102324,
+          "public_birth": null,
+          "raw_now": null,
+          "method": "reciprocal_iou",
+          "birth_iou": 0.4584312530969874,
+          "confidence": 0.1248730793595314,
+          "current_iou": null,
+          "current_public": null,
+          "both_warn": false,
+          "motion_error": null
+        }
+      ],
+      "alternatives_now": [
+        {
+          "index": 102443,
+          "owner": null,
+          "iou": 0.8129212592522277
+        }
+      ],
+      "flags": {
+        "now_warn": true,
+        "owned_at_birth": false,
+        "same_owner_warn": false,
+        "opposed": false,
+        "linked_both": true,
+        "motion_better": false
+      },
+      "labels_for_evaluation_only": {
+        "video": "004855fc-ff3946ad",
+        "frame": 1101,
+        "old_tid": 1996,
+        "new_tid": 2051,
+        "known": true,
+        "positive": false,
+        "target": "00008337",
+        "identity": "00008341",
+        "target_anchors": [
+          [
+            1091,
+            "00008337"
+          ],
+          [
+            1097,
+            "00008337"
+          ]
+        ],
+        "fragment_anchors": [
+          [
+            1103,
+            "00008341"
+          ]
+        ],
+        "direct_current_known": false,
+        "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+      }
+    },
+    {
+      "video": "004855fc-ff3946ad",
+      "t": 384,
+      "old": 405,
+      "new": 417,
+      "kind": "foreign",
+      "geometry": 0.9070992903816876,
+      "cls": 2,
+      "confidence": 0.35962170362472534,
+      "source_frames": [
+        379,
+        380,
+        381,
+        382
+      ],
+      "own_iou": [
+        0.2980369843180147,
+        0.3102971129465696
+      ],
+      "motion_old": [
+        1.5506078462753976,
+        -1.0858234105505744
+      ],
+      "motion_new": [
+        2.50421142578125,
+        -1.73681640625
+      ],
+      "motion_error": 1.1546218719979657,
+      "alternatives_birth": [
+        {
+          "raw_birth": 19668,
+          "public_birth": null,
+          "raw_now": 19747,
+          "method": "reciprocal_iou",
+          "birth_iou": 0.8203081460198433,
+          "confidence": 0.21036459505558014,
+          "current_iou": 0.6872119177853431,
+          "current_public": null,
+          "both_warn": true,
+          "motion_error": 2.34498809444993
+        },
+        {
+          "raw_birth": 19670,
+          "public_birth": null,
+          "raw_now": null,
+          "method": "reciprocal_iou",
+          "birth_iou": 0.5140388509847631,
+          "confidence": 0.14246457815170288,
+          "current_iou": null,
+          "current_public": null,
+          "both_warn": false,
+          "motion_error": null
+        },
+        {
+          "raw_birth": 19671,
+          "public_birth": null,
+          "raw_now": null,
+          "method": "reciprocal_iou",
+          "birth_iou": 0.7598317583347158,
+          "confidence": 0.13464640080928802,
+          "current_iou": null,
+          "current_public": null,
+          "both_warn": false,
+          "motion_error": null
+        }
+      ],
+      "alternatives_now": [
+        {
+          "index": 19745,
+          "owner": null,
+          "iou": 0.6448891676824393
+        },
+        {
+          "index": 19747,
+          "owner": null,
+          "iou": 0.6872119177853431
+        }
+      ],
+      "flags": {
+        "now_warn": true,
+        "owned_at_birth": false,
+        "same_owner_warn": false,
+        "opposed": false,
+        "linked_both": true,
+        "motion_better": false
+      },
+      "labels_for_evaluation_only": {
+        "video": "004855fc-ff3946ad",
+        "frame": 384,
+        "old_tid": 405,
+        "new_tid": 417,
+        "known": true,
+        "positive": false,
+        "target": "00008218",
+        "identity": "00008217",
+        "target_anchors": [
+          [
+            378,
+            "00008218"
+          ]
+        ],
+        "fragment_anchors": [
+          [
+            384,
+            "00008217"
+          ]
+        ],
+        "direct_current_known": true,
+        "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+      }
+    },
+    {
+      "video": "0096bcca-27a61cb3",
+      "t": 1039,
+      "old": 739,
+      "new": 743,
+      "kind": "correct",
+      "geometry": 0.6030093487796913,
+      "cls": 2,
+      "confidence": 0.358431339263916,
+      "source_frames": [
+        1033,
+        1034,
+        1035,
+        1037
+      ],
+      "own_iou": [
+        0.4889864085961904,
+        0.5002025780616308
+      ],
+      "motion_old": [
+        0.5776915887031464,
+        -0.0321044921875
+      ],
+      "motion_new": [
+        0.5472412109375,
+        0.7993927001953125
+      ],
+      "motion_error": 0.8320545693922788,
+      "alternatives_birth": [
+        {
+          "raw_birth": 33247,
+          "public_birth": null,
+          "raw_now": 33277,
+          "method": "reciprocal_iou",
+          "birth_iou": 0.9498596581456633,
+          "confidence": 0.19958969950675964,
+          "current_iou": 0.9035214959340286,
+          "current_public": null,
+          "both_warn": true,
+          "motion_error": 0.7990461749148223
+        },
+        {
+          "raw_birth": 33249,
+          "public_birth": null,
+          "raw_now": null,
+          "method": "reciprocal_iou",
+          "birth_iou": 0.8629240321146415,
+          "confidence": 0.10818628966808319,
+          "current_iou": null,
+          "current_public": null,
+          "both_warn": false,
+          "motion_error": null
+        }
+      ],
+      "alternatives_now": [
+        {
+          "index": 33277,
+          "owner": null,
+          "iou": 0.9035214959340286
+        }
+      ],
+      "flags": {
+        "now_warn": true,
+        "owned_at_birth": false,
+        "same_owner_warn": false,
+        "opposed": false,
+        "linked_both": true,
+        "motion_better": true
+      },
+      "labels_for_evaluation_only": {
+        "video": "0096bcca-27a61cb3",
+        "frame": 1039,
+        "old_tid": 739,
+        "new_tid": 743,
+        "known": true,
+        "positive": true,
+        "target": "00004259",
+        "identity": "00004259",
+        "target_anchors": [
+          [
+            1035,
+            "00004259"
+          ]
+        ],
+        "fragment_anchors": [
+          [
+            1041,
+            "00004259"
+          ],
+          [
+            1047,
+            "00004259"
+          ]
+        ],
+        "direct_current_known": false,
+        "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+      }
+    },
+    {
+      "video": "027b216c-bfae3d6d",
+      "t": 1007,
+      "old": 1825,
+      "new": 1914,
+      "kind": "correct",
+      "geometry": 0.5428266144487254,
+      "cls": 2,
+      "confidence": 0.34404268860816956,
+      "source_frames": [
+        1002,
+        1003,
+        1004,
+        1005
+      ],
+      "own_iou": [
+        0.45450366153662725,
+        0.458523308495327
+      ],
+      "motion_old": [
+        -0.1300679276862411,
+        -0.13810671283573583
+      ],
+      "motion_new": [
+        -0.623138427734375,
+        0.2712554931640625
+      ],
+      "motion_error": 0.6408556262675222,
+      "alternatives_birth": [
+        {
+          "raw_birth": 67074,
+          "public_birth": null,
+          "raw_now": 67187,
+          "method": "reciprocal_iou",
+          "birth_iou": 0.7987796390393836,
+          "confidence": 0.10684661567211151,
+          "current_iou": 0.8419637090388186,
+          "current_public": null,
+          "both_warn": false,
+          "motion_error": 1.871865556356255
+        }
+      ],
+      "alternatives_now": [],
+      "flags": {
+        "now_warn": false,
+        "owned_at_birth": false,
+        "same_owner_warn": false,
+        "opposed": false,
+        "linked_both": false,
+        "motion_better": false
+      },
+      "labels_for_evaluation_only": {
+        "video": "027b216c-bfae3d6d",
+        "frame": 1007,
+        "old_tid": 1825,
+        "new_tid": 1914,
+        "known": true,
+        "positive": true,
+        "target": "00004144",
+        "identity": "00004144",
+        "target_anchors": [
+          [
+            994,
+            "00004144"
+          ],
+          [
+            1000,
+            "00004144"
+          ]
+        ],
+        "fragment_anchors": [
+          [
+            1012,
+            "00004144"
+          ],
+          [
+            1018,
+            "00004144"
+          ]
+        ],
+        "direct_current_known": false,
+        "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+      }
+    },
+    {
+      "video": "03c239e4-9e0fbb75",
+      "t": 532,
+      "old": 860,
+      "new": 867,
+      "kind": "foreign",
+      "geometry": 0.7428672511202491,
+      "cls": 2,
+      "confidence": 0.469083696603775,
+      "source_frames": [
+        527,
+        528,
+        529,
+        530
+      ],
+      "own_iou": [
+        0.30598648883098467,
+        0.34771179227404975
+      ],
+      "motion_old": [
+        0.46350575217979895,
+        0.17301247145263687
+      ],
+      "motion_new": [
+        -0.396881103515625,
+        0.0365753173828125
+      ],
+      "motion_error": 0.8711375542726483,
+      "alternatives_birth": [
+        {
+          "raw_birth": 22785,
+          "public_birth": null,
+          "raw_now": 22826,
+          "method": "reciprocal_iou",
+          "birth_iou": 0.8828800463688744,
+          "confidence": 0.20863227546215057,
+          "current_iou": 0.7813552682019757,
+          "current_public": null,
+          "both_warn": true,
+          "motion_error": 1.635897153161112
+        },
+        {
+          "raw_birth": 22786,
+          "public_birth": null,
+          "raw_now": 22824,
+          "method": "reciprocal_iou",
+          "birth_iou": 0.6395387689038247,
+          "confidence": 0.1770625114440918,
+          "current_iou": 0.6230930253342836,
+          "current_public": null,
+          "both_warn": true,
+          "motion_error": 0.500652797376574
+        },
+        {
+          "raw_birth": 22790,
+          "public_birth": null,
+          "raw_now": null,
+          "method": "reciprocal_iou",
+          "birth_iou": 0.5366175291196629,
+          "confidence": 0.10350580513477325,
+          "current_iou": null,
+          "current_public": null,
+          "both_warn": false,
+          "motion_error": null
+        }
+      ],
+      "alternatives_now": [
+        {
+          "index": 22824,
+          "owner": null,
+          "iou": 0.6230930253342836
+        },
+        {
+          "index": 22826,
+          "owner": null,
+          "iou": 0.7813552682019757
+        }
+      ],
+      "flags": {
+        "now_warn": true,
+        "owned_at_birth": false,
+        "same_owner_warn": false,
+        "opposed": true,
+        "linked_both": true,
+        "motion_better": true
+      },
+      "labels_for_evaluation_only": {
+        "video": "03c239e4-9e0fbb75",
+        "frame": 532,
+        "old_tid": 860,
+        "new_tid": 867,
+        "known": true,
+        "positive": false,
+        "target": "00042340",
+        "identity": "00042338",
+        "target_anchors": [
+          [
+            521,
+            "00042340"
+          ],
+          [
+            527,
+            "00042340"
+          ]
+        ],
+        "fragment_anchors": [
+          [
+            533,
+            "00042338"
+          ],
+          [
+            539,
+            "00042338"
+          ]
+        ],
+        "direct_current_known": false,
+        "limitation": "Evaluation-only identity of two consistent native fragments within12frames. No interpolation; delayed fragment label does not prove the raw box identity at a prior unannotated instant."
+      }
+    }
+  ]
+}

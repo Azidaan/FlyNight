@@ -1,0 +1,945 @@
+{
+  "sources": {
+    "runs/singleton_id_fate_117_20261108/recovery1/summary.json": "0417e4ce3933a7101bfbbd46d606f6aab81c0159ac186278c62bfdf16657e8da",
+    "runs/singleton_id_fate_117_20261108/recovery1/events.json": "8be16e66f815ba05d3da6f39c72d6c8cfaecf03fe0542d7242a13d1ccc7f3be0",
+    "runs/singleton_birth_veto_transfer_20261108/frozen.json": "8687381727bfc17c6f49e645d80d4a76d8bc8b8866c7e14a9d3417a3c428fd53",
+    "runs/bbox_confirmation_inventory_20261108/native/00d18b13-52d3e4c4.npz": "1a9a9617218a1f93a44c252dd778ecdafb7193d909e9e61784bb313abd2b8c84",
+    "runs/train_cache/00d18b13-52d3e4c4/detections/raw_video.npz": "bfa8f6cab36ce67c23a4222bc4af21514984a174eb08fdbd8d9f55f8107002ef",
+    "runs/bbox_confirmation_inventory_20261108/native/00d18b13-52d3e4c4.json": "9e7378bcd47d4e4ebb55febb9de6e65cd6a6fcd32216de2cd62034106ce75254",
+    "runs/train_cache/00d18b13-52d3e4c4/alignment.json": "49dbcbcbdf522999274ba7a920f3df8d8e59f128bcb1f0339a4f4deb4a936da7",
+    "data/bdd100k/labels/box_track_20/train/00d18b13-52d3e4c4.json": "7e12f511ce9028cade4bd37cc5c970b03cca3ec265a688d562f3ec86ed84e5bd",
+    "runs/bbox_confirmation_inventory_20261108/native/0204aad7-eeb13c43.npz": "c7671736004fdb0e12423c40c7cfd503a1a165d881b5c86413ab57d474c94070",
+    "runs/train_cache/0204aad7-eeb13c43/detections/raw_video.npz": "740e382ed24245e3b0e967b68016c84e9513ee9eb0916036d865b8471d3945be",
+    "runs/bbox_confirmation_inventory_20261108/native/0204aad7-eeb13c43.json": "2cda439875edcfa49df1080e77a617cf0ef143dc38990c16803c198e5ed1fe18",
+    "runs/train_cache/0204aad7-eeb13c43/alignment.json": "9c53491b54f94e93060353f5fa2f9dbb1d55bd04af3eaeb35695c9ed2eb2b298",
+    "data/bdd100k/labels/box_track_20/train/0204aad7-eeb13c43.json": "19713faae489ae3fdc25f28d77c6bf8212f75688275a63a7d0d771cdd69e6f4e",
+    "runs/bbox_confirmation_inventory_20261108/native/027b216c-bfae3d6d.npz": "8cf72273e0e20e9cd9cf70c445f4c5ee8f5baf53aee6106bce799a57be8bdcdc",
+    "runs/train_cache/027b216c-bfae3d6d/detections/raw_video.npz": "9ecb0bb7c09f7028101a0a20db1f19da45d154a9fcf9b3e55b44faeb8e91e407",
+    "runs/bbox_confirmation_inventory_20261108/native/027b216c-bfae3d6d.json": "b449d20c5790104f679c8de5ac22e414d518ece80b1b50908a4e21b1f46398ab",
+    "runs/train_cache/027b216c-bfae3d6d/alignment.json": "18d64609b2afb1bb817d281e7e7a6981b9416dd7e8629dfa82b3d4395515cd34",
+    "data/bdd100k/labels/box_track_20/train/027b216c-bfae3d6d.json": "040773091edcf964d9a82b622b44dad1a3549e37bdc7c3b35dae063111297ab9",
+    "runs/bbox_confirmation_inventory_20261108/native/03d75f61-ce25863a.npz": "320ed1a596c825ee60abf3770d9a7a840bae655a1048345fbd013101df60c1a7",
+    "runs/train_cache/03d75f61-ce25863a/detections/raw_video.npz": "07ec6162ce36a7712b473e93b3c99a8c60357b4a5269d2bd5b8d9549d20deb38",
+    "runs/bbox_confirmation_inventory_20261108/native/03d75f61-ce25863a.json": "791885de1c292dd0d7849c73fd29e71c7487be31507e2ec18ad6a6fef99e8e0a",
+    "runs/train_cache/03d75f61-ce25863a/alignment.json": "f1435aa2fd914ef0cce349bbe43dde66ad7791f4a0b6a5c5ed1926651dbff176",
+    "data/bdd100k/labels/box_track_20/train/03d75f61-ce25863a.json": "14445b41a2267c44f52e78e49d91f99b094420f4e7e31427e421b08ff83899fa"
+  },
+  "protocol_sha256": "ef45b0de3804922d2052e7c5ad9a0707427a9e6ff7cdb95dbe02e714bea14b4e",
+  "rows": [
+    {
+      "video": "00d18b13-52d3e4c4",
+      "edge": "814|1000|1156",
+      "target": "00096853",
+      "first_bad": {
+        "frame": 827,
+        "status": "unmatched_target",
+        "target_native": [],
+        "target_public": [],
+        "number_owner_native": null,
+        "number_owner_gt": null,
+        "hijacked": false,
+        "duplicate_native": []
+      },
+      "first_known_change": {
+        "frame": 875,
+        "status": "changed_id",
+        "target_native": [
+          1322
+        ],
+        "target_public": [
+          1322
+        ],
+        "number_owner_native": null,
+        "number_owner_gt": null,
+        "hijacked": false,
+        "duplicate_native": [
+          1322
+        ]
+      },
+      "revocation": null,
+      "first_bad_evidence": {
+        "gt_box": [
+          621.3162134144983,
+          212.64481082733442,
+          640.7532163794081,
+          240.4119579200626
+        ],
+        "gt_class": "car",
+        "gt_attributes": {
+          "occluded": true,
+          "truncated": false,
+          "crowd": false
+        },
+        "raw_hits": [
+          {
+            "raw_id": 50201,
+            "iou": 0.5232896955165139,
+            "conf": 0.1896408051252365,
+            "cls": 2
+          },
+          {
+            "raw_id": 50202,
+            "iou": 0.5154186949949375,
+            "conf": 0.1851435899734497,
+            "cls": 2
+          },
+          {
+            "raw_id": 50225,
+            "iou": 0.7052328985064338,
+            "conf": 0.02631409838795662,
+            "cls": 2
+          }
+        ],
+        "public_hits": [],
+        "best_raw_same_class": 0.7052328985064338
+      },
+      "next_fragment": {
+        "native": 1322,
+        "first_public": 875,
+        "prior_fragment_present": false,
+        "last_prior_public": 870,
+        "age_from_last_public": 5,
+        "exported_old_row": {
+          "row": 26,
+          "old_tid": 1156,
+          "row_data": {
+            "tid": 1156,
+            "state": 2,
+            "cls": 2,
+            "start_frame": 814,
+            "mean": [
+              623.9096667385687,
+              230.12151399611056,
+              21.312686700420226,
+              36.279343241524195,
+              0.12406729214266013,
+              0.06604394848207507,
+              0.0,
+              0.0
+            ],
+            "covariance": [
+              [
+                14.192957106584505,
+                0.0,
+                0.0,
+                0.0,
+                1.3704955725961716,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                36.552367614876424,
+                0.0,
+                0.0,
+                0.0,
+                3.2849638206248364,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                14.192957106584505,
+                0.0,
+                0.0,
+                0.0,
+                1.3704955725961716,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                36.552367614876424,
+                0.0,
+                0.0,
+                0.0,
+                3.2849638206248364
+              ],
+              [
+                1.370495572596171,
+                0.0,
+                0.0,
+                0.0,
+                0.3034543141489807,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                3.284963820624837,
+                0.0,
+                0.0,
+                0.0,
+                0.7562581801145927,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.370495572596171,
+                0.0,
+                0.0,
+                0.0,
+                0.3034543141489807,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                3.284963820624837,
+                0.0,
+                0.0,
+                0.0,
+                0.7562581801145927
+              ]
+            ],
+            "history": [
+              {
+                "frame": 862,
+                "box": [
+                  609.8296426292111,
+                  213.66385518228043,
+                  634.6004680399442,
+                  250.16223642303643
+                ],
+                "crop": [
+                  586,
+                  195,
+                  659,
+                  268
+                ]
+              },
+              {
+                "frame": 863,
+                "box": [
+                  609.9751434882659,
+                  212.1649019752784,
+                  634.172987351612,
+                  249.65438280874693
+                ],
+                "crop": [
+                  585,
+                  193,
+                  660,
+                  268
+                ]
+              },
+              {
+                "frame": 864,
+                "box": [
+                  609.5082335471322,
+                  211.32943454061137,
+                  634.0249178844064,
+                  248.95451899461204
+                ],
+                "crop": [
+                  584,
+                  193,
+                  659,
+                  268
+                ]
+              },
+              {
+                "frame": 870,
+                "box": [
+                  612.5081262756277,
+                  211.59502828394284,
+                  634.0705342800836,
+                  247.98756022345754
+                ],
+                "crop": [
+                  587,
+                  193,
+                  660,
+                  266
+                ]
+              }
+            ],
+            "current_crop": [
+              587,
+              194,
+              660,
+              267
+            ],
+            "search": [
+              [
+                872,
+                [
+                  587,
+                  193,
+                  660,
+                  266
+                ]
+              ],
+              [
+                873,
+                [
+                  587,
+                  193,
+                  660,
+                  266
+                ]
+              ],
+              [
+                874,
+                [
+                  587,
+                  194,
+                  660,
+                  267
+                ]
+              ],
+              [
+                875,
+                [
+                  587,
+                  194,
+                  660,
+                  267
+                ]
+              ]
+            ]
+          },
+          "age": 5,
+          "candidates": [
+            {
+              "column": 21,
+              "raw_id": 54020,
+              "box": [
+                612.4684448242188,
+                222.93698120117188,
+                633.859375,
+                260.1874694824219
+              ],
+              "confidence": 0.3663853406906128,
+              "cost": 0.8175994753837585,
+              "forward_iou": 0.4978379437136546,
+              "new_tid": 1322,
+              "birth": {
+                "frame": 874,
+                "box": [
+                  613.0772705078125,
+                  222.6070556640625,
+                  634.1473999023438,
+                  259.07647705078125
+                ]
+              }
+            }
+          ],
+          "legacy_supported_box_count": 3
+        },
+        "first_context_rows": [
+          1156
+        ],
+        "next_exists_before_link": false
+      }
+    },
+    {
+      "video": "0204aad7-eeb13c43",
+      "edge": "387|217|227",
+      "target": "00046581",
+      "first_bad": {
+        "frame": 402,
+        "status": "unmatched_target",
+        "target_native": [],
+        "target_public": [],
+        "number_owner_native": 227,
+        "number_owner_gt": null,
+        "hijacked": false,
+        "duplicate_native": []
+      },
+      "first_known_change": {
+        "frame": 420,
+        "status": "changed_id",
+        "target_native": [
+          265
+        ],
+        "target_public": [
+          265
+        ],
+        "number_owner_native": 227,
+        "number_owner_gt": null,
+        "hijacked": false,
+        "duplicate_native": [
+          265
+        ]
+      },
+      "revocation": null,
+      "first_bad_evidence": {
+        "gt_box": [
+          349.607390300231,
+          356.67436489607394,
+          415.28868360277136,
+          405.72748267898385
+        ],
+        "gt_class": "car",
+        "gt_attributes": {
+          "crowd": false,
+          "occluded": true,
+          "truncated": false
+        },
+        "raw_hits": [
+          {
+            "raw_id": 13377,
+            "iou": 0.7967263497988256,
+            "conf": 0.01878919079899788,
+            "cls": 2
+          },
+          {
+            "raw_id": 13388,
+            "iou": 0.7525413318738496,
+            "conf": 0.013815262354910374,
+            "cls": 2
+          }
+        ],
+        "public_hits": [],
+        "best_raw_same_class": 0.7967263497988256
+      },
+      "next_fragment": {
+        "native": 265,
+        "first_public": 415,
+        "prior_fragment_present": true,
+        "last_prior_public": 414,
+        "age_from_last_public": 1,
+        "exported_old_row": null,
+        "first_context_rows": [],
+        "next_exists_before_link": false
+      }
+    },
+    {
+      "video": "027b216c-bfae3d6d",
+      "edge": "56|11|107",
+      "target": "00004034",
+      "first_bad": {
+        "frame": 77,
+        "status": "changed_id",
+        "target_native": [
+          136
+        ],
+        "target_public": [
+          136
+        ],
+        "number_owner_native": null,
+        "number_owner_gt": null,
+        "hijacked": false,
+        "duplicate_native": [
+          136
+        ]
+      },
+      "first_known_change": {
+        "frame": 77,
+        "status": "changed_id",
+        "target_native": [
+          136
+        ],
+        "target_public": [
+          136
+        ],
+        "number_owner_native": null,
+        "number_owner_gt": null,
+        "hijacked": false,
+        "duplicate_native": [
+          136
+        ]
+      },
+      "revocation": null,
+      "first_bad_evidence": {
+        "gt_box": [
+          551.014249790444,
+          411.60100586756073,
+          564.2917015926236,
+          427.2925398155909
+        ],
+        "gt_class": "car",
+        "gt_attributes": {
+          "crowd": false,
+          "occluded": true,
+          "truncated": false
+        },
+        "raw_hits": [
+          {
+            "raw_id": 4924,
+            "iou": 0.8042397351141555,
+            "conf": 0.4157654345035553,
+            "cls": 2
+          }
+        ],
+        "public_hits": [
+          {
+            "native_id": 136,
+            "iou": 0.8111776597137675,
+            "conf": 0.4157654345035553,
+            "cls": 2
+          }
+        ],
+        "best_raw_same_class": 0.8042397351141555
+      },
+      "next_fragment": {
+        "native": 136,
+        "first_public": 74,
+        "prior_fragment_present": false,
+        "last_prior_public": 72,
+        "age_from_last_public": 2,
+        "exported_old_row": {
+          "row": 15,
+          "old_tid": 107,
+          "row_data": {
+            "tid": 107,
+            "state": 2,
+            "cls": 2,
+            "start_frame": 56,
+            "mean": [
+              559.6706551280937,
+              414.47246639241257,
+              11.94887835020131,
+              14.217991384258065,
+              0.2803902835007464,
+              -0.022482422468983895,
+              0.0,
+              0.0
+            ],
+            "covariance": [
+              [
+                1.3665044188271942,
+                0.0,
+                0.0,
+                0.0,
+                0.1651815756456333,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                1.7861173498802847,
+                0.0,
+                0.0,
+                0.0,
+                0.19195842974170135,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                1.3665044188271942,
+                0.0,
+                0.0,
+                0.0,
+                0.1651815756456333,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                1.7861173498802847,
+                0.0,
+                0.0,
+                0.0,
+                0.19195842974170135
+              ],
+              [
+                0.1651815756456334,
+                0.0,
+                0.0,
+                0.0,
+                0.07516085413856094,
+                0.0,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.19195842974170138,
+                0.0,
+                0.0,
+                0.0,
+                0.08903248172740842,
+                0.0,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.1651815756456334,
+                0.0,
+                0.0,
+                0.0,
+                0.07516085413856094,
+                0.0
+              ],
+              [
+                0.0,
+                0.0,
+                0.0,
+                0.19195842974170138,
+                0.0,
+                0.0,
+                0.0,
+                0.08903248172740842
+              ]
+            ],
+            "history": [
+              {
+                "frame": 69,
+                "box": [
+                  551.9228886718383,
+                  404.03322565143316,
+                  565.4970809810637,
+                  418.3197329804294
+                ],
+                "crop": [
+                  527,
+                  379,
+                  591,
+                  443
+                ]
+              },
+              {
+                "frame": 70,
+                "box": [
+                  550.7387630843466,
+                  407.0126629349775,
+                  564.0221846163129,
+                  421.3182080658788
+                ],
+                "crop": [
+                  525,
+                  382,
+                  589,
+                  446
+                ]
+              },
+              {
+                "frame": 71,
+                "box": [
+                  551.8544413919632,
+                  407.52068862230277,
+                  564.2191497694942,
+                  421.5047486254692
+                ],
+                "crop": [
+                  526,
+                  383,
+                  590,
+                  447
+                ]
+              },
+              {
+                "frame": 72,
+                "box": [
+                  553.0684950221563,
+                  407.4257793668664,
+                  565.1512541000279,
+                  421.6090831078348
+                ],
+                "crop": [
+                  527,
+                  383,
+                  591,
+                  447
+                ]
+              }
+            ],
+            "current_crop": [
+              528,
+              382,
+              592,
+              446
+            ],
+            "search": [
+              [
+                74,
+                [
+                  528,
+                  382,
+                  592,
+                  446
+                ]
+              ]
+            ]
+          },
+          "age": 2,
+          "candidates": [
+            {
+              "column": 7,
+              "raw_id": 4736,
+              "box": [
+                551.2532348632812,
+                412.759033203125,
+                564.227783203125,
+                427.3138427734375
+              ],
+              "confidence": 0.45362746715545654,
+              "cost": 0.8414400815963745,
+              "forward_iou": 0.3495377372051582,
+              "new_tid": 136,
+              "birth": {
+                "frame": 73,
+                "box": [
+                  551.216552734375,
+                  411.19580078125,
+                  564.1426391601562,
+                  425.74468994140625
+                ]
+              }
+            }
+          ],
+          "legacy_supported_box_count": 2
+        },
+        "first_context_rows": [
+          108,
+          107
+        ],
+        "next_exists_before_link": false
+      }
+    },
+    {
+      "video": "027b216c-bfae3d6d",
+      "edge": "1007|1825|1914",
+      "target": "00004144",
+      "first_bad": {
+        "frame": 1030,
+        "status": "unmatched_target",
+        "target_native": [],
+        "target_public": [],
+        "number_owner_native": null,
+        "number_owner_gt": null,
+        "hijacked": false,
+        "duplicate_native": []
+      },
+      "first_known_change": {
+        "frame": 1048,
+        "status": "changed_id",
+        "target_native": [
+          1978
+        ],
+        "target_public": [
+          1978
+        ],
+        "number_owner_native": null,
+        "number_owner_gt": null,
+        "hijacked": false,
+        "duplicate_native": [
+          1978
+        ]
+      },
+      "revocation": null,
+      "first_bad_evidence": {
+        "gt_box": [
+          547.0390959880871,
+          402.4705347601997,
+          563.8019932933839,
+          418.92293926554385
+        ],
+        "gt_class": "car",
+        "gt_attributes": {
+          "crowd": false,
+          "occluded": true,
+          "truncated": false
+        },
+        "raw_hits": [
+          {
+            "raw_id": 69660,
+            "iou": 0.72484923108542,
+            "conf": 0.19665852189064026,
+            "cls": 2
+          },
+          {
+            "raw_id": 69726,
+            "iou": 0.72484923108542,
+            "conf": 0.014197670854628086,
+            "cls": 4
+          },
+          {
+            "raw_id": 69733,
+            "iou": 0.72484923108542,
+            "conf": 0.012934485450387001,
+            "cls": 3
+          }
+        ],
+        "public_hits": [],
+        "best_raw_same_class": 0.72484923108542
+      },
+      "next_fragment": {
+        "native": 1978,
+        "first_public": 1048,
+        "prior_fragment_present": false,
+        "last_prior_public": 1024,
+        "age_from_last_public": 24,
+        "exported_old_row": null,
+        "first_context_rows": [],
+        "next_exists_before_link": false
+      }
+    },
+    {
+      "video": "027b216c-bfae3d6d",
+      "edge": "1166|2239|2419",
+      "target": "00004182",
+      "first_bad": {
+        "frame": 1186,
+        "status": "changed_id",
+        "target_native": [
+          2002
+        ],
+        "target_public": [
+          2002
+        ],
+        "number_owner_native": null,
+        "number_owner_gt": null,
+        "hijacked": false,
+        "duplicate_native": [
+          2002
+        ]
+      },
+      "first_known_change": {
+        "frame": 1186,
+        "status": "changed_id",
+        "target_native": [
+          2002
+        ],
+        "target_public": [
+          2002
+        ],
+        "number_owner_native": null,
+        "number_owner_gt": null,
+        "hijacked": false,
+        "duplicate_native": [
+          2002
+        ]
+      },
+      "revocation": null,
+      "first_bad_evidence": {
+        "gt_box": [
+          473.8563170933113,
+          398.34847233691164,
+          489.31461601981835,
+          443.5342691990091
+        ],
+        "gt_class": "pedestrian",
+        "gt_attributes": {
+          "crowd": false,
+          "occluded": false,
+          "truncated": false
+        },
+        "raw_hits": [
+          {
+            "raw_id": 98649,
+            "iou": 0.6913771235716024,
+            "conf": 0.5761405229568481,
+            "cls": 0
+          },
+          {
+            "raw_id": 98683,
+            "iou": 0.6336207828147803,
+            "conf": 0.11578401923179626,
+            "cls": 0
+          },
+          {
+            "raw_id": 98688,
+            "iou": 0.6216771120122436,
+            "conf": 0.09535303711891174,
+            "cls": 0
+          },
+          {
+            "raw_id": 98784,
+            "iou": 0.5392366898343132,
+            "conf": 0.02235952578485012,
+            "cls": 2
+          },
+          {
+            "raw_id": 98873,
+            "iou": 0.5392366898343132,
+            "conf": 0.011221983470022678,
+            "cls": 0
+          },
+          {
+            "raw_id": 98879,
+            "iou": 0.6413289681261678,
+            "conf": 0.01077947672456503,
+            "cls": 0
+          }
+        ],
+        "public_hits": [
+          {
+            "native_id": 2002,
+            "iou": 0.7007211645835323,
+            "conf": 0.5761405229568481,
+            "cls": 0
+          }
+        ],
+        "best_raw_same_class": 0.6913771235716024
+      },
+      "next_fragment": {
+        "native": 2002,
+        "first_public": 1057,
+        "prior_fragment_present": false,
+        "last_prior_public": null,
+        "age_from_last_public": null,
+        "exported_old_row": null,
+        "first_context_rows": [],
+        "next_exists_before_link": true
+      }
+    },
+    {
+      "video": "03d75f61-ce25863a",
+      "edge": "692|920|994",
+      "target": "00086115",
+      "first_bad": {
+        "frame": 708,
+        "status": "unmatched_target",
+        "target_native": [],
+        "target_public": [],
+        "number_owner_native": null,
+        "number_owner_gt": null,
+        "hijacked": false,
+        "duplicate_native": []
+      },
+      "first_known_change": null,
+      "revocation": null,
+      "first_bad_evidence": {
+        "gt_box": [
+          1210.8895941961214,
+          253.10323766891466,
+          1247.3073263523959,
+          343.0764582902983
+        ],
+        "gt_class": "pedestrian",
+        "gt_attributes": {
+          "crowd": false,
+          "occluded": true,
+          "truncated": false
+        },
+        "raw_hits": [
+          {
+            "raw_id": 45574,
+            "iou": 0.770513285808059,
+            "conf": 0.23551687598228455,
+            "cls": 0
+          },
+          {
+            "raw_id": 45581,
+            "iou": 0.6599163685733971,
+            "conf": 0.11148129403591156,
+            "cls": 0
+          },
+          {
+            "raw_id": 45598,
+            "iou": 0.6432866125801515,
+            "conf": 0.051164411008358,
+            "cls": 0
+          }
+        ],
+        "public_hits": [],
+        "best_raw_same_class": 0.770513285808059
+      }
+    }
+  ]
+}

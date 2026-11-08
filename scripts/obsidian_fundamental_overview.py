@@ -341,6 +341,25 @@ def resolved_tasks(history):
                         target['next']=working['decision']
                         target['primary'] += ['runs/singleton_working_domain_20261108/recovery2/report.json','runs/singleton_working_domain_20261108/recovery2/independent_audit.json']
                     target['primary'] += ['runs/bbox_readout_calibration_20261108/comparison_report.json','runs/bbox_readout_calibration_20261108/independent_audit.json']
+    latest = next((card for card in history['experiments']
+                   if card['id'] == 'singleton_two_map_scores_20261108' and card.get('done')), None)
+    if latest:
+        target = next(task for task in tasks if task['title'].startswith('Задача 3'))
+        target['ids'].append(latest['id'])
+        target['attempt'] += ' На двух автомобилях с прямой меткой сравнили прогноз положения с поиском по 19 сдвигам. Для яркости, градиентов изображения и T4/T5 использовали одни и те же ячейки.'
+        target['result'] += ' ' + latest['interpretation']
+        target['next'] = latest['decision']
+        target['primary'].extend(['runs/singleton_car_map_coverage_20261108/inventory.json',
+                                  'runs/singleton_two_map_scores_20261108/scores.json'])
+    fate = next((card for card in history['experiments']
+                 if card['id'] == 'singleton_id_fate_117_20261108' and card.get('done')), None)
+    if fate:
+        target = next(task for task in tasks if task['title'].startswith('Задача 4'))
+        target['ids'].append(fate['id'])
+        target['result'] += ' После 117 передач две ближайшие размеченные точки сохранили номер в 10 случаях при двухкадровом предупреждении против 4 у штатного трекера. До конца оставшихся аннотаций номер сохранили те же две машины.'
+        target['limit'] += ' После повторного пропуска 107→136 правильную передачу заблокировала запись о владельце номера. Личность трека, получившего право на этот номер за кадр до отказа, неизвестна.'
+        target['primary'].extend(['runs/singleton_id_fate_117_20261108/recovery1/extended_summary.json',
+                                  'runs/singleton_identity_followup_20261108/ownership.json'])
     return tasks
 
 

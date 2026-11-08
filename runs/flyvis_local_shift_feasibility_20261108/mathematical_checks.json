@@ -1,0 +1,17 @@
+{
+  "roundtrip_error": 7.105427357601002e-15,
+  "affine_field_interpolation_error": 3.552713678800501e-15,
+  "sample_points": 705,
+  "identical_rho": 1.0,
+  "opposite_rho": -1.0,
+  "negative_penalty_counterexample": {
+    "wrong_shift": -0.01,
+    "less_wrong_but_near": -0.5
+  },
+  "conditions": [
+    "Original-coordinate geometry is invertible for positive crop sizes.",
+    "Common coordinates do not undo different input low-pass filters or recurrent context.",
+    "Image affine-field test verifies geometry, not FlyVis equivariance.",
+    "Use identical fixed support for every shift and every signal; reject zero variance."
+  ]
+}

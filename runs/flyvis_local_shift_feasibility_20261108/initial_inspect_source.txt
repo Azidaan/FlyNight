@@ -1,0 +1,71 @@
+"""Mathematical sanity checks and saved-data inventory; no matching-quality experiment."""
+from pathlib import Path
+from collections import Counter
+import json,hashlib,math,sys
+_root=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(_root/'runs/flyvis_repairs_20261106/unification_20261107'))
+from system_memory_guard import guard_entrypoint
+guard_entrypoint(timeout=120)
+import numpy as np
+from scipy.spatial import Delaunay
+P=Path(__file__).resolve().parent;ROOT=P.parents[1]
+sources={}
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def read(p):sources[p.relative_to(ROOT).as_posix()]=sha(p);return json.loads(p.read_text(encoding='utf-8'))
+def save(name,v):
+    with (P/name).open('x',encoding='utf-8') as f:json.dump(v,f,indent=2,ensure_ascii=False,allow_nan=False)
+g=read(ROOT/'runs/z13_local_peak_20261021/geometry.json');p=np.array(g['points']);E=g['eye_size']
+dirs=np.array([(u,v) for u in range(-2,3) for v in range(-2,3) if max(abs(u),abs(v),abs(u+v))<=2]);assert len(dirs)==19
+# Coordinates are historical frame_points convention. Half-pixel correction is audited separately.
+basis=np.array([[13.,6.5],[0.,13.]])
+def xy(c):c=np.array(c,float);return c[:2]+p*(c[2:]-c[:2])/E
+def in_box(q,b):return ((q>=b[:2])&(q<=b[2:])).all(1)
+def support(row,currentbox):
+    c0=np.array(row['history'][-1]['crop'],float);ct=np.array(row['current_crop'],float);b0=np.array(row['history'][-1]['box'],float)
+    S0=(c0[2:]-c0[:2])/E;St=(ct[2:]-ct[:2])/E
+    X=xy(c0);Y=xy(ct);delta=np.array(row['mean'][:2])-(b0[:2]+b0[2:])/2
+    step=np.maximum(S0,St);shifts=dirs@basis*step
+    trial=X[:,None,:]+delta+shifts[None,:,:]
+    valid=(Delaunay(Y).find_simplex(trial.reshape(-1,2)).reshape(len(X),-1)>=0)&in_box(trial,currentbox)
+    old=in_box(X,b0)
+    fixed=old&valid.all(1)
+    zero=old&valid[:,np.flatnonzero((dirs==0).all(1))[0]]
+    # Current and reference retinal support have no direct causal ownership semantics.
+    return dict(old_cells=int(old.sum()),current_cells=int(in_box(Y,currentbox).sum()),fixed_all19=int(fixed.sum()),at_predicted=int(zero.sum()),same_crop_extent=bool(np.array_equal(c0[2:]-c0[:2],ct[2:]-ct[:2])),scale_ratio=(St/S0).tolist(),half_pixel_delta=((St-S0)/2).tolist())
+events={};files={};summary={}
+for name in ('bbox_fit_maps_20261108','bbox_normalized_signals_20261108'):
+    base=ROOT/'runs'/name;inv=read(base/'inventory_recovery1.json');manifest=read(base/'features_complete.json')['files'];counts=Counter();health=Counter();local=[]
+    for k,h in manifest.items():
+        q=base/'features'/f'{k}.npz';assert sha(q)==h;sources[q.relative_to(ROOT).as_posix()]=h
+        with np.load(q) as z:
+            spec=tuple((a,tuple(z[a].shape),str(z[a].dtype)) for a in z.files);assert z['C'].shape==(721,8) and z['IMAGE'].shape==(721,3)
+            assert all(np.isfinite(z[a]).all() for a in z.files)
+            health['files']+=1;health['flat_C']+=bool(np.all(np.var(z['C'],axis=0)<1e-12));health['flat_image']+=bool(np.var(z['IMAGE'][:,0])<1e-12)
+            files[k]=dict(path=q.relative_to(ROOT).as_posix(),arrays=spec)
+    for e in inv['events']:
+        key=(e['video'],e['frame'],e['old_tid'],e['new_tid'])
+        if e['unavailable']:counts['legacy_unavailable']+=1;continue
+        assert all(k in manifest for k in (e['reference_key'],e['current_key']))
+        s=support(e['row_data'],np.array(e['box'],float));s.update(video=e['video'],frame=e['frame'],old=e['old_tid'],new=e['new_tid'],reference_key=e['reference_key'],current_key=e['current_key'])
+        events[key]=s;local.append(s);counts['pairs']+=1
+        if s['same_crop_extent']:counts['equal_extent']+=1
+        if s['fixed_all19']>=3:counts['fixed_support_at_least3']+=1
+        if s['fixed_all19']>=3 and s['same_crop_extent']:counts['equal_extent_fixed_at_least3']+=1
+    summary[name]=dict(counts=counts,health=health,quantiles={key:np.percentile([a[key] for a in local],[0,25,50,75,100]).tolist() for key in ('old_cells','current_cells','fixed_all19','at_predicted')})
+# An affine scalar field has exact barycentric interpolation in original-frame coordinates.
+from scipy.interpolate import LinearNDInterpolator
+c0=np.array([10,20,74,84]);ct=np.array([5,9,133,137]);X=xy(c0);Y=xy(ct);d=np.array([7.,-3.])
+target=X+d;tri=Delaunay(Y);mask=tri.find_simplex(target)>=0;f=lambda q: .17*q[:,0]-.23*q[:,1]+.4
+inter=LinearNDInterpolator(Y,f(Y-d));err=float(np.max(np.abs(inter(target[mask])-f(X[mask]))));assert err<1e-12
+u=(target-ct[:2])/((ct[2:]-ct[:2])/E);back=ct[:2]+u*((ct[2:]-ct[:2])/E);roundtrip=float(abs(back-target).max());assert roundtrip<1e-12
+def rho(x,y):
+    x=x-x.mean(0);y=y-y.mean(0);return float((x*y).sum()/np.sqrt((x*x).sum()*(y*y).sum()))
+a=np.array([[1.,2.],[2.,-1.],[4.,0.],[0.,3.]])
+assert abs(rho(a,a)-1)<1e-12 and abs(rho(a,-a)+1)<1e-12
+assert abs(rho(a,a)-rho(np.tile(a,(1,4)),np.tile(a,(1,4))))<1e-12
+assert -1*.01>-.5*1 # multiplicative flow penalty can improve a negative mismatch.
+math_report=dict(roundtrip_error=roundtrip,affine_field_interpolation_error=err,sample_points=int(mask.sum()),identical_rho=rho(a,a),opposite_rho=rho(a,-a),negative_penalty_counterexample=dict(wrong_shift=-.01,less_wrong_but_near=-.5),conditions=['Original-coordinate geometry is invertible for positive crop sizes.','Common coordinates do not undo different input low-pass filters or recurrent context.','Image affine-field test verifies geometry, not FlyVis equivariance.','Use identical fixed support for every shift and every signal; reject zero variance.'])
+assert all(sha(ROOT/k)==v for k,v in sources.items())
+save('inventory.json',dict(summary=summary,unique_pairs=len(events),unique_feature_keys=len(files),features=files,pairs=list(events.values()),sources=sources))
+save('mathematical_checks.json',math_report)
+print(json.dumps(summary));print(math_report)

@@ -1,0 +1,46 @@
+{
+  "video": "02d5e1be-bd9bd999",
+  "split": "evaluate26",
+  "candidates": {
+    "859|1147|1197": {
+      "old": 1147,
+      "new": 1197,
+      "t": 859,
+      "score": 0.9201918538192149,
+      "veto": true,
+      "alternatives": [
+        51142
+      ],
+      "kind": "unknown"
+    },
+    "1101|1448|1468": {
+      "old": 1448,
+      "new": 1468,
+      "t": 1101,
+      "score": 0.8973288848317856,
+      "veto": false,
+      "alternatives": [],
+      "kind": "unknown"
+    }
+  },
+  "arms": {
+    "H": {
+      "links": {
+        "859|1147|1197": 1147,
+        "1101|1448|1468": 1448
+      },
+      "revocations": {
+        "859|1147|1197": {
+          "frame": 863,
+          "kept": 1147
+        }
+      }
+    },
+    "V": {
+      "links": {
+        "1101|1448|1468": 1448
+      },
+      "revocations": {}
+    }
+  }
+}

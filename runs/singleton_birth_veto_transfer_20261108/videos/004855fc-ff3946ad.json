@@ -1,0 +1,131 @@
+{
+  "video": "004855fc-ff3946ad",
+  "split": "evaluate26",
+  "candidates": {
+    "360|278|368": {
+      "old": 278,
+      "new": 368,
+      "t": 360,
+      "score": 1.0686970066280421,
+      "veto": false,
+      "alternatives": [],
+      "kind": "foreign"
+    },
+    "384|405|417": {
+      "old": 405,
+      "new": 417,
+      "t": 384,
+      "score": 0.9070992903816876,
+      "veto": true,
+      "alternatives": [
+        19668,
+        19670,
+        19671
+      ],
+      "kind": "foreign"
+    },
+    "421|456|460": {
+      "old": 456,
+      "new": 460,
+      "t": 421,
+      "score": 0.7786534513564969,
+      "veto": true,
+      "alternatives": [
+        21831
+      ],
+      "kind": "unknown"
+    },
+    "446|500|515": {
+      "old": 500,
+      "new": 515,
+      "t": 446,
+      "score": 0.7043171426164657,
+      "veto": false,
+      "alternatives": [],
+      "kind": "unknown"
+    },
+    "557|770|844": {
+      "old": 770,
+      "new": 844,
+      "t": 557,
+      "score": 1.0282356651133295,
+      "veto": false,
+      "alternatives": [],
+      "kind": "correct"
+    },
+    "658|865|1077": {
+      "old": 865,
+      "new": 1077,
+      "t": 658,
+      "score": 1.3227434876815258,
+      "veto": false,
+      "alternatives": [],
+      "kind": "unknown"
+    },
+    "683|1093|1122": {
+      "old": 1093,
+      "new": 1122,
+      "t": 683,
+      "score": 0.8208446690488439,
+      "veto": true,
+      "alternatives": [
+        50510,
+        50512
+      ],
+      "kind": "unknown"
+    },
+    "841|1290|1356": {
+      "old": 1290,
+      "new": 1356,
+      "t": 841,
+      "score": 1.0681501516250318,
+      "veto": false,
+      "alternatives": [],
+      "kind": "unknown"
+    },
+    "1014|1753|1797": {
+      "old": 1753,
+      "new": 1797,
+      "t": 1014,
+      "score": 1.0670692297415312,
+      "veto": false,
+      "alternatives": [],
+      "kind": "unknown"
+    },
+    "1101|1996|2051": {
+      "old": 1996,
+      "new": 2051,
+      "t": 1101,
+      "score": 0.7990365601482626,
+      "veto": true,
+      "alternatives": [
+        102321,
+        102324
+      ],
+      "kind": "foreign"
+    }
+  },
+  "arms": {
+    "H": {
+      "links": {
+        "384|405|417": 405,
+        "421|456|460": 456,
+        "446|500|515": 500,
+        "683|1093|1122": 1093,
+        "1101|1996|2051": 1996
+      },
+      "revocations": {
+        "384|405|417": {
+          "frame": 385,
+          "kept": 405
+        }
+      }
+    },
+    "V": {
+      "links": {
+        "446|500|515": 500
+      },
+      "revocations": {}
+    }
+  }
+}

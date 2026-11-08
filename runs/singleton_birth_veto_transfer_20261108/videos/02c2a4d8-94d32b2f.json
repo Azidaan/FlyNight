@@ -1,0 +1,67 @@
+{
+  "video": "02c2a4d8-94d32b2f",
+  "split": "evaluate26",
+  "candidates": {
+    "64|15|104": {
+      "old": 15,
+      "new": 104,
+      "t": 64,
+      "score": 1.075443798324608,
+      "veto": false,
+      "alternatives": [],
+      "kind": "unknown"
+    },
+    "310|505|530": {
+      "old": 505,
+      "new": 530,
+      "t": 310,
+      "score": 0.700092703479673,
+      "veto": true,
+      "alternatives": [
+        18356,
+        18357
+      ],
+      "kind": "unknown"
+    },
+    "545|882|896": {
+      "old": 882,
+      "new": 896,
+      "t": 545,
+      "score": 0.5007842771496144,
+      "veto": false,
+      "alternatives": [],
+      "kind": "unknown"
+    },
+    "683|1087|1137": {
+      "old": 1087,
+      "new": 1137,
+      "t": 683,
+      "score": 0.6560823672265369,
+      "veto": false,
+      "alternatives": [],
+      "kind": "unknown"
+    }
+  },
+  "arms": {
+    "H": {
+      "links": {
+        "310|505|530": 505,
+        "545|882|896": 882,
+        "683|1087|1137": 1087
+      },
+      "revocations": {
+        "310|505|530": {
+          "frame": 317,
+          "kept": 505
+        }
+      }
+    },
+    "V": {
+      "links": {
+        "545|882|896": 882,
+        "683|1087|1137": 1087
+      },
+      "revocations": {}
+    }
+  }
+}
