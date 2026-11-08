@@ -1,0 +1,40 @@
+{
+  "registered": "2026-11-08T20:44:38.144960+03:00",
+  "head": "fb46fd41782e76c5aafe0f4650ca8e37fd5a0104",
+  "channel_indices": [
+    0,
+    5,
+    11,
+    16,
+    17,
+    22,
+    28,
+    33
+  ],
+  "taus": [
+    1.5,
+    3.903211717149933,
+    12.297565051134073,
+    32.0
+  ],
+  "definition": "Existing R1 EMA and h-EMA. Four log-spaced indices nearest to linspace(0,16,4), fixed before scores. Old R1 training normalization, no refitting. Filters advance once per archived causal observation, as in existing R1 extraction.",
+  "formula": "m_j(t)=(1-1/tau_j)*m_j(t-1)+h(t)/tau_j, initialized with h(0); other four channels h(t)-m_j(t).",
+  "geometry": "Reuse exact three reference cells, predictions and 19 pixel offsets per pair. Same interpolation, channel centering and joint norm as archived C.",
+  "reuse": "C and image scores read verbatim. Foreign R1 rows sliced from existing 34-channel maps. Only own missing R1 computed from five saved retinal observations. No model inference.",
+  "acceptance": "All arrays finite; own EMA agrees with closed form <=1e-12; interpolation/dot products agree <=1e-9; original hashes stable and original scores reused exactly.",
+  "limitation": "Eight columns do not imply eight independent signals. EMA and residual channels are linearly related. Different scenes, eye scales and temporal histories remain. Diagnostic on two pairs.",
+  "sources": {
+    "runs/singleton_matched_support_20261108/protocol.json": "d6cd15ab9aeba575bf3d7ea01d0f9d09a208fbefbd8477c481ff4d4482921800",
+    "runs/singleton_matched_support_20261108/scores.json": "22b6eca39766b33a8c2bb88b9274877d9fa5b7cbb44c6aecdcd6472581896ef2",
+    "runs/singleton_matched_support_20261108/maps_complete.json": "994d5ff67b286cb846e2577f1364682cf6a9a29e3ad27cded9d56aaf7e9cba41",
+    "runs/singleton_matched_support_20261108/retinal.npz": "b7c472dcc2ae75f5b216ccf631cb1b92ada711895d8c04a05c88358a46df7e24",
+    "scripts/z13_target_model.py": "e7bc7967c8d5fdf04983ed3e01c5fae9d54dbc6ed7b4b17c4c10235beccd862a",
+    "runs/z13_target_center_dev_20261018/R1/normalization.json": "2038ae665ef0c641cbbb1d6c5cb0133276780274073deea9498a38817c3825a8",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "runs/singleton_eight_input_20261108/compare.py": "8096a4b3f4e96b7ea0f3c77974055481cf7b28bb1a1b0eb173db6bc1dff52618",
+    "runs/bbox_fit_maps_20261108/features/443f3176bcd1c69462efcc751339dc92.npz": "4915de3efd583e89b9dbe27829fe24fd982223b0cc997c8fcb8ed0ba97297b17",
+    "runs/bbox_fit_maps_20261108/features/ed89c4f1ffddccf8b1033113e28ea416.npz": "4f6e25c0979cd2cfd4087241b37007b67bb2cbebb6f716d8966c310d2d645aa0",
+    "runs/bbox_fit_maps_20261108/features_complete.json": "849ea6de0150b60793f202cdd79ec1cb79f3785ba010413f347d10e7fceb2b10",
+    "research_singleton_verify_20261108/extract_features.py": "c60cc2c3315ce4e05a83329f5e93a349e802c6bdfbe50a32324f114ae6746dba"
+  }
+}
