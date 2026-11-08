@@ -6,6 +6,9 @@ ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from scripts.obsidian_hypothesis_tree import child_paths,TITLES,FOLDER
 
 def audit(vault):
+    if json.loads((vault/'.graph-visible.json').read_text(encoding='utf8')).get('version')==2:
+        from scripts.audit_obsidian_levels import audit as audit_levels
+        return audit_levels(vault)
     from scripts.obsidian_visible_sections import visible_files,SECTIONS
     selected=visible_files(vault)
     notes={Path(name).with_suffix('').as_posix():vault/name for name in selected}
@@ -86,5 +89,5 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--vault',type=Path,default=ROOT/'ObsidianFlyVis');p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     result=audit(a.vault);a.output.parent.mkdir(parents=True,exist_ok=True)
     a.output.write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print(json.dumps({k:result[k] for k in ['passed','note_count','hypothesis_node_count','hypothesis_edge_count','root_rays','external_hypothesis_edges','missing_targets','journal_notes','canvas_files']},ensure_ascii=False))
+    print(json.dumps({k:v for k,v in result.items() if k in ('passed','note_count','components','edges','sections','experiments','journal_entries','hypothesis_node_count','hypothesis_edge_count','missing_targets')},ensure_ascii=False))
 if __name__=='__main__':main()

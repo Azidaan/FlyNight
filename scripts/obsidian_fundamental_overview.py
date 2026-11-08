@@ -506,4 +506,9 @@ def main():
     parser.add_argument('--preserve-note',action='append',default=[])
     parser.add_argument('--authorize-core-dynamics',action='store_true',help='Применить прямо порученное добавление гипотезы Я1')
     args=parser.parse_args()
-    return build(args.vault,args.preserve_note,authorize_core_dynamics=args.authorize_core_dynamics)
+    from scripts.obsidian_level_graph import build as build_levels
+    if not (args.vault/'Гипотезы.md').exists() or args.authorize_core_dynamics:
+        build(args.vault,args.preserve_note,authorize_core_dynamics=args.authorize_core_dynamics,
+              authorize_tracking=not (args.vault/'Гипотезы.md').exists())
+    print(build_levels(args.vault))
+    return 0
