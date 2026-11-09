@@ -1,0 +1,2489 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "video": "004855fc-ff3946ad",
+      "frame": 557,
+      "old": 770,
+      "new": 844,
+      "kind": "own",
+      "earlier_identity": "00008250",
+      "current_candidate_identity": "00008250",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/train/004855fc-ff3946ad.json",
+      "current_label_frame_index": 94,
+      "identity_box": [
+        515.377637787149,
+        388.3160755706407,
+        552.3698435827957,
+        409.90920674047123
+      ],
+      "identity_attributes": {
+        "occluded": true,
+        "truncated": false,
+        "crowd": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 35365,
+          "box": [
+            516.931884765625,
+            389.1553955078125,
+            551.8442993164062,
+            412.55206298828125
+          ],
+          "confidence": 0.45812541246414185,
+          "gt_iou": 0.8131629724140467,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 35387,
+          "box": [
+            516.72265625,
+            391.00982666015625,
+            555.6412353515625,
+            415.20849609375
+          ],
+          "confidence": 0.07289408147335052,
+          "gt_iou": 0.6314969249289976,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 35428,
+          "box": [
+            521.3246459960938,
+            384.1437683105469,
+            563.027587890625,
+            417.1730651855469
+          ],
+          "confidence": 0.024674003943800926,
+          "gt_iou": 0.44517743147727373,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 35369,
+          "box": [
+            517.4134521484375,
+            399.46636962890625,
+            549.4147338867188,
+            415.1138610839844
+          ],
+          "confidence": 0.2936273515224457,
+          "gt_iou": 0.3461853251956887,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 35375,
+          "box": [
+            518.0442504882812,
+            399.0697937011719,
+            551.4788208007812,
+            417.57098388671875
+          ],
+          "confidence": 0.164393350481987,
+          "gt_iou": 0.34353530216994493,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.8131629724140467,
+      "identity_detections": [
+        {
+          "raw_id": 35365,
+          "confidence": 0.45812541246414185,
+          "gt_iou": 0.8131629724140467,
+          "saved_candidate": {
+            "column": 11,
+            "raw_id": 35365,
+            "box": [
+              516.931884765625,
+              389.1553955078125,
+              551.8442993164062,
+              412.55206298828125
+            ],
+            "confidence": 0.45812541246414185,
+            "cost": 0.8633393049240112,
+            "forward_iou": 0.29830411358524106,
+            "new_tid": 844,
+            "birth": {
+              "frame": 556,
+              "box": [
+                519.0738525390625,
+                390.08258056640625,
+                551.0283813476562,
+                412.03466796875
+              ]
+            }
+          },
+          "forward_iou": 0.29830411358524106,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 36
+        },
+        {
+          "raw_id": 35387,
+          "confidence": 0.07289408147335052,
+          "gt_iou": 0.6314969249289976,
+          "saved_candidate": null,
+          "forward_iou": 0.3759514106836032,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 63
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "004855fc-ff3946ad",
+      "frame": 683,
+      "old": 1093,
+      "new": 1122,
+      "kind": "foreign",
+      "earlier_identity": "00008250",
+      "current_candidate_identity": "00008291",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/train/004855fc-ff3946ad.json",
+      "current_label_frame_index": 115,
+      "identity_box": [
+        456.96945704992345,
+        376.86337152750144,
+        507.3693826755662,
+        421.6230684405537
+      ],
+      "identity_attributes": {
+        "occluded": true,
+        "truncated": false,
+        "crowd": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 50614,
+          "box": [
+            453.7303161621094,
+            377.5007019042969,
+            512.0033569335938,
+            425.43798828125
+          ],
+          "confidence": 0.7591530680656433,
+          "gt_iou": 0.7870135133043582,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 50672,
+          "box": [
+            455.24005126953125,
+            376.5960693359375,
+            508.9086608886719,
+            412.9754638671875
+          ],
+          "confidence": 0.026249997317790985,
+          "gt_iou": 0.7620774271440343,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 50667,
+          "box": [
+            456.7156982421875,
+            379.3604736328125,
+            515.6570434570312,
+            426.36407470703125
+          ],
+          "confidence": 0.027336230501532555,
+          "gt_iou": 0.7354296087617622,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 50660,
+          "box": [
+            452.19464111328125,
+            376.05511474609375,
+            514.0272216796875,
+            426.1380310058594
+          ],
+          "confidence": 0.035551682114601135,
+          "gt_iou": 0.7284673051040707,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 50671,
+          "box": [
+            464.72320556640625,
+            377.25482177734375,
+            511.5953063964844,
+            425.27899169921875
+          ],
+          "confidence": 0.02638051100075245,
+          "gt_iou": 0.7236413470784494,
+          "matches_identity": true
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.7870135133043582,
+      "identity_detections": [
+        {
+          "raw_id": 50614,
+          "confidence": 0.7591530680656433,
+          "gt_iou": 0.7870135133043582,
+          "saved_candidate": null,
+          "forward_iou": 0.8350478440388825,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 108
+        },
+        {
+          "raw_id": 50672,
+          "confidence": 0.026249997317790985,
+          "gt_iou": 0.7620774271440343,
+          "saved_candidate": null,
+          "forward_iou": 0.8014779337646415,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 66
+        },
+        {
+          "raw_id": 50667,
+          "confidence": 0.027336230501532555,
+          "gt_iou": 0.7354296087617622,
+          "saved_candidate": null,
+          "forward_iou": 0.7237362877579737,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 102
+        },
+        {
+          "raw_id": 50660,
+          "confidence": 0.035551682114601135,
+          "gt_iou": 0.7284673051040707,
+          "saved_candidate": null,
+          "forward_iou": 0.7629875366767247,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 124
+        },
+        {
+          "raw_id": 50671,
+          "confidence": 0.02638051100075245,
+          "gt_iou": 0.7236413470784494,
+          "saved_candidate": null,
+          "forward_iou": 0.7156407874548718,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 72
+        },
+        {
+          "raw_id": 50649,
+          "confidence": 0.0530756376683712,
+          "gt_iou": 0.6558158254581378,
+          "saved_candidate": null,
+          "forward_iou": 0.670524896484877,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 143
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "015ccf71-56e8d5b8",
+      "frame": 1016,
+      "old": 965,
+      "new": 989,
+      "kind": "own",
+      "earlier_identity": "00075565",
+      "current_candidate_identity": "00075565",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/train/015ccf71-56e8d5b8.json",
+      "current_label_frame_index": 171,
+      "identity_box": [
+        601.9241982507289,
+        399.88338192419826,
+        647.0553935860058,
+        438.71720116618076
+      ],
+      "identity_attributes": {
+        "crowd": false,
+        "occluded": true,
+        "truncated": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 43531,
+          "box": [
+            600.086181640625,
+            399.9669189453125,
+            650.7618408203125,
+            440.4144287109375
+          ],
+          "confidence": 0.4743085205554962,
+          "gt_iou": 0.8516525472095463,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 43549,
+          "box": [
+            544.895263671875,
+            428.22027587890625,
+            658.4534912109375,
+            500.13531494140625
+          ],
+          "confidence": 0.014355100691318512,
+          "gt_iou": 0.05015538416553585,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 43551,
+          "box": [
+            628.5114135742188,
+            408.6340026855469,
+            832.6202392578125,
+            548.8187866210938
+          ],
+          "confidence": 0.01213274709880352,
+          "gt_iou": 0.01871536972294066,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 43532,
+          "box": [
+            368.28997802734375,
+            390.29443359375,
+            497.28582763671875,
+            486.27099609375
+          ],
+          "confidence": 0.3745901584625244,
+          "gt_iou": 0.0,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 43533,
+          "box": [
+            823.9823608398438,
+            378.19061279296875,
+            981.8790893554688,
+            513.8184814453125
+          ],
+          "confidence": 0.2567937672138214,
+          "gt_iou": 0.0,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.8516525472095463,
+      "identity_detections": [
+        {
+          "raw_id": 43531,
+          "confidence": 0.4743085205554962,
+          "gt_iou": 0.8516525472095463,
+          "saved_candidate": {
+            "column": 0,
+            "raw_id": 43531,
+            "box": [
+              600.086181640625,
+              399.9669189453125,
+              650.7618408203125,
+              440.4144287109375
+            ],
+            "confidence": 0.4743085205554962,
+            "cost": 0.8602139353752136,
+            "forward_iou": 0.2947154827854938,
+            "new_tid": 989,
+            "birth": {
+              "frame": 1015,
+              "box": [
+                602.4151611328125,
+                407.75927734375,
+                649.7501831054688,
+                446.9341735839844
+              ]
+            }
+          },
+          "forward_iou": 0.2947154827854938,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 56
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "0204aad7-eeb13c43",
+      "frame": 390,
+      "old": 217,
+      "new": 234,
+      "kind": "own",
+      "earlier_identity": "00046581",
+      "current_candidate_identity": "00046581",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/train/0204aad7-eeb13c43.json",
+      "current_label_frame_index": 66,
+      "identity_box": [
+        384.526558891455,
+        349.1916859122403,
+        412.7944572748268,
+        389.9307159353349
+      ],
+      "identity_attributes": {
+        "crowd": false,
+        "occluded": true,
+        "truncated": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 12748,
+          "box": [
+            385.56988525390625,
+            349.3046875,
+            412.62646484375,
+            391.48895263671875
+          ],
+          "confidence": 0.6361252069473267,
+          "gt_iou": 0.9207835952130178,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 12749,
+          "box": [
+            380.5662841796875,
+            347.8768310546875,
+            412.5000915527344,
+            391.711181640625
+          ],
+          "confidence": 0.3924376666545868,
+          "gt_iou": 0.8072125917099532,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 12758,
+          "box": [
+            350.1241455078125,
+            347.5951843261719,
+            412.7391357421875,
+            393.3537292480469
+          ],
+          "confidence": 0.07001837342977524,
+          "gt_iou": 0.40083111434128893,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 12745,
+          "box": [
+            391.19671630859375,
+            346.9427185058594,
+            437.49664306640625,
+            386.78070068359375
+          ],
+          "confidence": 0.7334592938423157,
+          "gt_iou": 0.3716755828301376,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 12754,
+          "box": [
+            347.9924011230469,
+            346.1560974121094,
+            413.80194091796875,
+            393.3072509765625
+          ],
+          "confidence": 0.09144888073205948,
+          "gt_iou": 0.3711274224495735,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.9207835952130178,
+      "identity_detections": [
+        {
+          "raw_id": 12748,
+          "confidence": 0.6361252069473267,
+          "gt_iou": 0.9207835952130178,
+          "saved_candidate": null,
+          "forward_iou": 0.22586448336928427,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 30
+        },
+        {
+          "raw_id": 12749,
+          "confidence": 0.3924376666545868,
+          "gt_iou": 0.8072125917099532,
+          "saved_candidate": {
+            "column": 10,
+            "raw_id": 12749,
+            "box": [
+              380.5662841796875,
+              347.8768310546875,
+              412.5000915527344,
+              391.711181640625
+            ],
+            "confidence": 0.3924376666545868,
+            "cost": 0.8869734406471252,
+            "forward_iou": 0.288011495727187,
+            "new_tid": 234,
+            "birth": {
+              "frame": 389,
+              "box": [
+                385.04266357421875,
+                347.4881591796875,
+                411.494384765625,
+                390.8562927246094
+              ]
+            }
+          },
+          "forward_iou": 0.288011495727187,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 40
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "023a70d5-cde2a67a",
+      "frame": 413,
+      "old": 208,
+      "new": 216,
+      "kind": "own",
+      "earlier_identity": "00075152",
+      "current_candidate_identity": "00075152",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/train/023a70d5-cde2a67a.json",
+      "current_label_frame_index": 68,
+      "identity_box": [
+        467.5295420642445,
+        430.4281362527739,
+        500.39325349202306,
+        457.32449219214243
+      ],
+      "identity_attributes": {
+        "crowd": false,
+        "occluded": true,
+        "truncated": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 8695,
+          "box": [
+            470.9903259277344,
+            431.4791259765625,
+            496.1051940917969,
+            459.2588806152344
+          ],
+          "confidence": 0.06523022800683975,
+          "gt_iou": 0.6960919637735792,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 8692,
+          "box": [
+            467.3890380859375,
+            419.3016357421875,
+            497.0894775390625,
+            458.8663330078125
+          ],
+          "confidence": 0.4341520071029663,
+          "gt_iou": 0.6290245276977964,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 8684,
+          "box": [
+            353.2535095214844,
+            392.1225280761719,
+            476.2172546386719,
+            503.52386474609375
+          ],
+          "confidence": 0.9366415143013,
+          "gt_iou": 0.01628509223095304,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 8686,
+          "box": [
+            923.6417846679688,
+            427.17852783203125,
+            1052.6033935546875,
+            505.98797607421875
+          ],
+          "confidence": 0.8606801629066467,
+          "gt_iou": 0.0,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 8688,
+          "box": [
+            826.1058349609375,
+            431.14117431640625,
+            927.6715087890625,
+            474.81634521484375
+          ],
+          "confidence": 0.6421085596084595,
+          "gt_iou": 0.0,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.6960919637735792,
+      "identity_detections": [
+        {
+          "raw_id": 8695,
+          "confidence": 0.06523022800683975,
+          "gt_iou": 0.6960919637735792,
+          "saved_candidate": null,
+          "forward_iou": 0.469635989069031,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 32
+        },
+        {
+          "raw_id": 8692,
+          "confidence": 0.4341520071029663,
+          "gt_iou": 0.6290245276977964,
+          "saved_candidate": {
+            "column": 8,
+            "raw_id": 8692,
+            "box": [
+              467.3890380859375,
+              419.3016357421875,
+              497.0894775390625,
+              458.8663330078125
+            ],
+            "confidence": 0.4341520071029663,
+            "cost": 0.8236912488937378,
+            "forward_iou": 0.4060991270839563,
+            "new_tid": 216,
+            "birth": {
+              "frame": 412,
+              "box": [
+                466.6044921875,
+                418.6328125,
+                496.3176574707031,
+                464.6068115234375
+              ]
+            }
+          },
+          "forward_iou": 0.4060991270839563,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 68
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "027b216c-bfae3d6d",
+      "frame": 545,
+      "old": 859,
+      "new": 966,
+      "kind": "own",
+      "earlier_identity": "00004090",
+      "current_candidate_identity": "00004090",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/train/027b216c-bfae3d6d.json",
+      "current_label_frame_index": 92,
+      "identity_box": [
+        763.9966969446739,
+        428.07597027250205,
+        805.6151940545004,
+        458.9925681255161
+      ],
+      "identity_attributes": {
+        "crowd": false,
+        "occluded": true,
+        "truncated": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 35000,
+          "box": [
+            764.9015502929688,
+            428.46405029296875,
+            800.23974609375,
+            459.892578125
+          ],
+          "confidence": 0.7217146754264832,
+          "gt_iou": 0.8182153819910281,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 35013,
+          "box": [
+            763.7157592773438,
+            421.55804443359375,
+            830.2322998046875,
+            460.03656005859375
+          ],
+          "confidence": 0.01639368012547493,
+          "gt_iou": 0.5027245835638998,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 35017,
+          "box": [
+            774.953857421875,
+            430.1216735839844,
+            828.4733276367188,
+            461.84698486328125
+          ],
+          "confidence": 0.013364167883992195,
+          "gt_iou": 0.4216531061678522,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 35006,
+          "box": [
+            772.229736328125,
+            416.7122802734375,
+            865.0773315429688,
+            460.79693603515625
+          ],
+          "confidence": 0.026625849306583405,
+          "gt_iou": 0.2374052262233698,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 35007,
+          "box": [
+            775.5580444335938,
+            414.398681640625,
+            869.2955322265625,
+            462.19952392578125
+          ],
+          "confidence": 0.026584690436720848,
+          "gt_iou": 0.19206954237851231,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.8182153819910281,
+      "identity_detections": [
+        {
+          "raw_id": 35000,
+          "confidence": 0.7217146754264832,
+          "gt_iou": 0.8182153819910281,
+          "saved_candidate": {
+            "column": 7,
+            "raw_id": 35000,
+            "box": [
+              764.9015502929688,
+              428.46405029296875,
+              800.23974609375,
+              459.892578125
+            ],
+            "confidence": 0.7217146754264832,
+            "cost": 0.822156548500061,
+            "forward_iou": 0.2464179509649653,
+            "new_tid": 966,
+            "birth": {
+              "frame": 544,
+              "box": [
+                760.7689208984375,
+                421.43548583984375,
+                799.4132690429688,
+                452.08447265625
+              ]
+            }
+          },
+          "forward_iou": 0.2464179509649653,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 15
+        },
+        {
+          "raw_id": 35013,
+          "confidence": 0.01639368012547493,
+          "gt_iou": 0.5027245835638998,
+          "saved_candidate": null,
+          "forward_iou": 0.3689281352996335,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 45
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "027b216c-bfae3d6d",
+      "frame": 934,
+      "old": 1634,
+      "new": 1727,
+      "kind": "own",
+      "earlier_identity": "00004130",
+      "current_candidate_identity": "00004130",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/train/027b216c-bfae3d6d.json",
+      "current_label_frame_index": 157,
+      "identity_box": [
+        593.9554087530965,
+        425.6977704376548,
+        622.4938067712634,
+        443.5342691990091
+      ],
+      "identity_attributes": {
+        "crowd": false,
+        "occluded": true,
+        "truncated": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 59848,
+          "box": [
+            593.0700073242188,
+            427.05902099609375,
+            614.07763671875,
+            443.9496765136719
+          ],
+          "confidence": 0.07053299248218536,
+          "gt_iou": 0.6227585687712324,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 59889,
+          "box": [
+            598.3386840820312,
+            426.44183349609375,
+            615.7882080078125,
+            443.4691162109375
+          ],
+          "confidence": 0.01032680831849575,
+          "gt_iou": 0.5837000461463668,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 59837,
+          "box": [
+            593.559326171875,
+            427.5303649902344,
+            613.228271484375,
+            444.9117431640625
+          ],
+          "confidence": 0.5290234088897705,
+          "gt_iou": 0.5685995423219264,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 59869,
+          "box": [
+            605.02734375,
+            427.40045166015625,
+            616.68408203125,
+            443.9087829589844
+          ],
+          "confidence": 0.02109609916806221,
+          "gt_iou": 0.3663246774644362,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 59861,
+          "box": [
+            606.0732421875,
+            426.69580078125,
+            617.5595092773438,
+            442.3437194824219
+          ],
+          "confidence": 0.031879719346761703,
+          "gt_iou": 0.3530988405089528,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.6227585687712324,
+      "identity_detections": [
+        {
+          "raw_id": 59848,
+          "confidence": 0.07053299248218536,
+          "gt_iou": 0.6227585687712324,
+          "saved_candidate": null,
+          "forward_iou": 0.23524389458915654,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 9
+        },
+        {
+          "raw_id": 59889,
+          "confidence": 0.01032680831849575,
+          "gt_iou": 0.5837000461463668,
+          "saved_candidate": null,
+          "forward_iou": 0.23241170260047678,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 6
+        },
+        {
+          "raw_id": 59837,
+          "confidence": 0.5290234088897705,
+          "gt_iou": 0.5685995423219264,
+          "saved_candidate": {
+            "column": 9,
+            "raw_id": 59837,
+            "box": [
+              593.559326171875,
+              427.5303649902344,
+              613.228271484375,
+              444.9117431640625
+            ],
+            "confidence": 0.5290234088897705,
+            "cost": 0.8880662322044373,
+            "forward_iou": 0.21158566126680742,
+            "new_tid": 1727,
+            "birth": {
+              "frame": 933,
+              "box": [
+                591.298095703125,
+                425.278564453125,
+                611.8403930664062,
+                442.2416076660156
+              ]
+            }
+          },
+          "forward_iou": 0.21158566126680742,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 6
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "02bd959c-f20a2437",
+      "frame": 1121,
+      "old": 1738,
+      "new": 1834,
+      "kind": "own",
+      "earlier_identity": "00036148",
+      "current_candidate_identity": "00036148",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/train/02bd959c-f20a2437.json",
+      "current_label_frame_index": 188,
+      "identity_box": [
+        488.52659305033796,
+        405.8597575721575,
+        500.4856282642505,
+        425.5921611131033
+      ],
+      "identity_attributes": {
+        "crowd": false,
+        "occluded": true,
+        "truncated": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 78127,
+          "box": [
+            488.677734375,
+            406.8912353515625,
+            500.08929443359375,
+            421.8279724121094
+          ],
+          "confidence": 0.08252933621406555,
+          "gt_iou": 0.7223116404679711,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 78114,
+          "box": [
+            488.213134765625,
+            404.48809814453125,
+            502.54412841796875,
+            418.474609375
+          ],
+          "confidence": 0.37312424182891846,
+          "gt_iou": 0.5283010300711724,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 78154,
+          "box": [
+            491.8265380859375,
+            402.6402587890625,
+            511.9344177246094,
+            426.65887451171875
+          ],
+          "confidence": 0.01745561510324478,
+          "gt_iou": 0.3117517223038645,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 78149,
+          "box": [
+            492.29254150390625,
+            404.0450134277344,
+            506.29473876953125,
+            418.611572265625
+          ],
+          "confidence": 0.022427240386605263,
+          "gt_iou": 0.3114360894782979,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 78122,
+          "box": [
+            494.55078125,
+            401.3969421386719,
+            511.58343505859375,
+            414.6141357421875
+          ],
+          "confidence": 0.14074702560901642,
+          "gt_iou": 0.12698542258807693,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.7223116404679711,
+      "identity_detections": [
+        {
+          "raw_id": 78127,
+          "confidence": 0.08252933621406555,
+          "gt_iou": 0.7223116404679711,
+          "saved_candidate": null,
+          "forward_iou": 0.6173641099208831,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 6
+        },
+        {
+          "raw_id": 78114,
+          "confidence": 0.37312424182891846,
+          "gt_iou": 0.5283010300711724,
+          "saved_candidate": {
+            "column": 12,
+            "raw_id": 78114,
+            "box": [
+              488.213134765625,
+              404.48809814453125,
+              502.54412841796875,
+              418.474609375
+            ],
+            "confidence": 0.37312424182891846,
+            "cost": 0.8100866675376892,
+            "forward_iou": 0.508981489734961,
+            "new_tid": 1834,
+            "birth": {
+              "frame": 1120,
+              "box": [
+                488.43994140625,
+                404.39453125,
+                503.45166015625,
+                418.7922668457031
+              ]
+            }
+          },
+          "forward_iou": 0.508981489734961,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 8
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "02c2a4d8-94d32b2f",
+      "frame": 894,
+      "old": 1388,
+      "new": 1426,
+      "kind": "own",
+      "earlier_identity": "00052843",
+      "current_candidate_identity": "00052843",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/train/02c2a4d8-94d32b2f.json",
+      "current_label_frame_index": 150,
+      "identity_box": [
+        325.7224586179954,
+        231.31102751699157,
+        351.25474301030084,
+        248.74461155837437
+      ],
+      "identity_attributes": {
+        "crowd": false,
+        "occluded": true,
+        "truncated": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 51195,
+          "box": [
+            323.9261474609375,
+            229.9565887451172,
+            350.20343017578125,
+            247.81472778320312
+          ],
+          "confidence": 0.4338310658931732,
+          "gt_iou": 0.7916564831751193,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 51189,
+          "box": [
+            293.53289794921875,
+            233.82907104492188,
+            342.25531005859375,
+            266.2181396484375
+          ],
+          "confidence": 0.7906957864761353,
+          "gt_iou": 0.13880272012020572,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 51228,
+          "box": [
+            291.5506896972656,
+            234.40414428710938,
+            347.4141845703125,
+            281.6096496582031
+          ],
+          "confidence": 0.019940003752708435,
+          "gt_iou": 0.11225430077476373,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 51185,
+          "box": [
+            340.1278381347656,
+            226.0669403076172,
+            413.89581298828125,
+            271.3935852050781
+          ],
+          "confidence": 0.9317000508308411,
+          "gt_iou": 0.05396190421477077,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 51181,
+          "box": [
+            0.0,
+            220.75634765625,
+            367.19085693359375,
+            442.4024353027344
+          ],
+          "confidence": 0.9627991318702698,
+          "gt_iou": 0.005469207985744618,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.7916564831751193,
+      "identity_detections": [
+        {
+          "raw_id": 51195,
+          "confidence": 0.4338310658931732,
+          "gt_iou": 0.7916564831751193,
+          "saved_candidate": {
+            "column": 14,
+            "raw_id": 51195,
+            "box": [
+              323.9261474609375,
+              229.9565887451172,
+              350.20343017578125,
+              247.81472778320312
+            ],
+            "confidence": 0.4338310658931732,
+            "cost": 0.8169988989830017,
+            "forward_iou": 0.42182571835936844,
+            "new_tid": 1426,
+            "birth": {
+              "frame": 893,
+              "box": [
+                321.56219482421875,
+                230.12789916992188,
+                350.4158935546875,
+                248.9364776611328
+              ]
+            }
+          },
+          "forward_iou": 0.42182571835936844,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 21
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "02d5e1be-bd9bd999",
+      "frame": 330,
+      "old": 484,
+      "new": 488,
+      "kind": "foreign",
+      "earlier_identity": "00019602",
+      "current_candidate_identity": "00019608",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/train/02d5e1be-bd9bd999.json",
+      "current_label_frame_index": 55,
+      "identity_box": [
+        451.8098608210365,
+        338.8698547260612,
+        462.43193329157765,
+        375.7786509011519
+      ],
+      "identity_attributes": {
+        "crowd": false,
+        "occluded": true,
+        "truncated": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 23661,
+          "box": [
+            452.06982421875,
+            338.7423095703125,
+            468.3052673339844,
+            373.672119140625
+          ],
+          "confidence": 0.02096938155591488,
+          "gt_iou": 0.6025236411565079,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 23669,
+          "box": [
+            452.9876708984375,
+            338.66461181640625,
+            468.7315368652344,
+            371.07275390625
+          ],
+          "confidence": 0.013765702955424786,
+          "gt_iou": 0.5084599512054321,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 23651,
+          "box": [
+            434.49542236328125,
+            336.9539794921875,
+            464.36572265625,
+            368.96478271484375
+          ],
+          "confidence": 0.452891081571579,
+          "gt_iou": 0.3107973342196736,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 23664,
+          "box": [
+            427.9351806640625,
+            337.0702819824219,
+            453.06048583984375,
+            368.5440673828125
+          ],
+          "confidence": 0.015894468873739243,
+          "gt_iou": 0.032391115873717485,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 23642,
+          "box": [
+            461.4237060546875,
+            322.12646484375,
+            542.7771606445312,
+            388.929931640625
+          ],
+          "confidence": 0.9246382713317871,
+          "gt_iou": 0.006427544955960542,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.6025236411565079,
+      "identity_detections": [
+        {
+          "raw_id": 23661,
+          "confidence": 0.02096938155591488,
+          "gt_iou": 0.6025236411565079,
+          "saved_candidate": null,
+          "forward_iou": 0.10487954803387613,
+          "passes_frozen_geometry": false,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 0
+        },
+        {
+          "raw_id": 23669,
+          "confidence": 0.013765702955424786,
+          "gt_iou": 0.5084599512054321,
+          "saved_candidate": null,
+          "forward_iou": 0.0780066056622331,
+          "passes_frozen_geometry": false,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 0
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "0329d6b9-abddbf95",
+      "frame": 922,
+      "old": 696,
+      "new": 770,
+      "kind": "foreign",
+      "earlier_identity": "00014820",
+      "current_candidate_identity": "00014879",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/train/0329d6b9-abddbf95.json",
+      "current_label_frame_index": 154,
+      "identity_box": [
+        262.9033262721421,
+        346.3071401239941,
+        281.0345901529795,
+        391.63529982608753
+      ],
+      "identity_attributes": {
+        "crowd": false,
+        "occluded": true,
+        "truncated": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 37758,
+          "box": [
+            260.3502197265625,
+            349.48638916015625,
+            277.8363037109375,
+            386.60614013671875
+          ],
+          "confidence": 0.030988559126853943,
+          "gt_iou": 0.6047259003991564,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 37775,
+          "box": [
+            261.617919921875,
+            341.79742431640625,
+            289.15777587890625,
+            386.2950439453125
+          ],
+          "confidence": 0.013997050933539867,
+          "gt_iou": 0.5483175002789575,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 37747,
+          "box": [
+            258.2880859375,
+            348.3127136230469,
+            277.7806396484375,
+            382.7673034667969
+          ],
+          "confidence": 0.07008829712867737,
+          "gt_iou": 0.5225872218544994,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 37754,
+          "box": [
+            248.5915985107422,
+            346.2705993652344,
+            275.0998229980469,
+            380.15960693359375
+          ],
+          "confidence": 0.044727664440870285,
+          "gt_iou": 0.3158245859838025,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 37769,
+          "box": [
+            258.4454345703125,
+            348.14434814453125,
+            275.82977294921875,
+            365.0238952636719
+          ],
+          "confidence": 0.016114838421344757,
+          "gt_iou": 0.2432188035672525,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.6047259003991564,
+      "identity_detections": [
+        {
+          "raw_id": 37758,
+          "confidence": 0.030988559126853943,
+          "gt_iou": 0.6047259003991564,
+          "saved_candidate": null,
+          "forward_iou": 0.4690669244667626,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 7
+        },
+        {
+          "raw_id": 37775,
+          "confidence": 0.013997050933539867,
+          "gt_iou": 0.5483175002789575,
+          "saved_candidate": null,
+          "forward_iou": 0.8226563600118528,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 47
+        },
+        {
+          "raw_id": 37747,
+          "confidence": 0.07008829712867737,
+          "gt_iou": 0.5225872218544994,
+          "saved_candidate": null,
+          "forward_iou": 0.41268485029266083,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 13
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "b1d10d08-743fd86c",
+      "frame": 122,
+      "old": 56,
+      "new": 72,
+      "kind": "own",
+      "earlier_identity": "00126601",
+      "current_candidate_identity": "00126601",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/val/b1d10d08-743fd86c.json",
+      "current_label_frame_index": 20,
+      "identity_box": [
+        0.0,
+        420.51096888725476,
+        51.63601654104669,
+        465.0470501430743
+      ],
+      "identity_attributes": {
+        "occluded": false,
+        "truncated": true,
+        "crowd": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 2420,
+          "box": [
+            0.0,
+            426.48968505859375,
+            39.79328155517578,
+            463.6424560546875
+          ],
+          "confidence": 0.4932483732700348,
+          "gt_iou": 0.642889356677656,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 2431,
+          "box": [
+            0.0,
+            425.98516845703125,
+            27.554576873779297,
+            461.7051696777344
+          ],
+          "confidence": 0.012332906015217304,
+          "gt_iou": 0.42799675969086315,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 2432,
+          "box": [
+            0.0,
+            426.2627868652344,
+            23.62396812438965,
+            462.7605895996094
+          ],
+          "confidence": 0.011932700872421265,
+          "gt_iou": 0.3749340135700446,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 2416,
+          "box": [
+            625.776123046875,
+            332.73828125,
+            798.3370971679688,
+            496.0195007324219
+          ],
+          "confidence": 0.9549224376678467,
+          "gt_iou": 0.0,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 2417,
+          "box": [
+            174.3008270263672,
+            423.0259704589844,
+            263.2808837890625,
+            471.8908386230469
+          ],
+          "confidence": 0.7677446007728577,
+          "gt_iou": 0.0,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.642889356677656,
+      "identity_detections": [
+        {
+          "raw_id": 2420,
+          "confidence": 0.4932483732700348,
+          "gt_iou": 0.642889356677656,
+          "saved_candidate": {
+            "column": 4,
+            "raw_id": 2420,
+            "box": [
+              0.0,
+              426.48968505859375,
+              39.79328155517578,
+              463.6424560546875
+            ],
+            "confidence": 0.4932483732700348,
+            "cost": 0.8656670451164246,
+            "forward_iou": 0.2723434321597514,
+            "new_tid": 72,
+            "birth": {
+              "frame": 121,
+              "box": [
+                0.0,
+                426.1309509277344,
+                37.86904525756836,
+                462.6326599121094
+              ]
+            }
+          },
+          "forward_iou": 0.2723434321597514,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 5
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "b23b2649-8349d2a1",
+      "frame": 305,
+      "old": 190,
+      "new": 318,
+      "kind": "own",
+      "earlier_identity": "00130225",
+      "current_candidate_identity": "00130225",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/val/b23b2649-8349d2a1.json",
+      "current_label_frame_index": 51,
+      "identity_box": [
+        899.5171699466179,
+        536.2568719623935,
+        944.3900884391683,
+        554.2060393594136
+      ],
+      "identity_attributes": {
+        "occluded": true,
+        "truncated": false,
+        "crowd": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 29933,
+          "box": [
+            913.0377807617188,
+            536.8336181640625,
+            943.5045166015625,
+            554.54541015625
+          ],
+          "confidence": 0.04711324721574783,
+          "gt_iou": 0.6488106839968175,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 29902,
+          "box": [
+            915.9071655273438,
+            536.9899291992188,
+            944.971435546875,
+            555.0285034179688
+          ],
+          "confidence": 0.33599087595939636,
+          "gt_iou": 0.584223993438781,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 29943,
+          "box": [
+            918.4512939453125,
+            536.5073852539062,
+            943.2257080078125,
+            547.157958984375
+          ],
+          "confidence": 0.029775671660900116,
+          "gt_iou": 0.32760292439518945,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 29908,
+          "box": [
+            897.9462890625,
+            539.3516235351562,
+            918.0333251953125,
+            552.7937622070312
+          ],
+          "confidence": 0.17913572490215302,
+          "gt_iou": 0.30112814934164983,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 29963,
+          "box": [
+            896.6287841796875,
+            540.1432495117188,
+            914.85205078125,
+            552.694580078125
+          ],
+          "confidence": 0.017901023849844933,
+          "gt_iou": 0.2286761055914525,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.6488106839968175,
+      "identity_detections": [
+        {
+          "raw_id": 29933,
+          "confidence": 0.04711324721574783,
+          "gt_iou": 0.6488106839968175,
+          "saved_candidate": null,
+          "forward_iou": 0.617159976570314,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 14
+        },
+        {
+          "raw_id": 29902,
+          "confidence": 0.33599087595939636,
+          "gt_iou": 0.584223993438781,
+          "saved_candidate": {
+            "column": 12,
+            "raw_id": 29902,
+            "box": [
+              915.9071655273438,
+              536.9899291992188,
+              944.971435546875,
+              555.0285034179688
+            ],
+            "confidence": 0.33599087595939636,
+            "cost": 0.8108693361282349,
+            "forward_iou": 0.5629041661673607,
+            "new_tid": 318,
+            "birth": {
+              "frame": 304,
+              "box": [
+                915.537841796875,
+                536.910888671875,
+                945.2114868164062,
+                555.2018432617188
+              ]
+            }
+          },
+          "forward_iou": 0.5629041661673607,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 15
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "b1f4491b-cf446195",
+      "frame": 402,
+      "old": 1464,
+      "new": 1587,
+      "kind": "own",
+      "earlier_identity": "00119459",
+      "current_candidate_identity": "00119459",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/val/b1f4491b-cf446195.json",
+      "current_label_frame_index": 67,
+      "identity_box": [
+        797.7716276420588,
+        262.92702506465395,
+        817.8782630924575,
+        276.68419668861094
+      ],
+      "identity_attributes": {
+        "occluded": true,
+        "truncated": false,
+        "crowd": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 43490,
+          "box": [
+            797.2643432617188,
+            263.857177734375,
+            817.8680419921875,
+            276.5948486328125
+          ],
+          "confidence": 0.47368788719177246,
+          "gt_iou": 0.9042980251099274,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 43479,
+          "box": [
+            565.5144653320312,
+            237.49856567382812,
+            642.7008666992188,
+            324.71649169921875
+          ],
+          "confidence": 0.9268324971199036,
+          "gt_iou": 0.0,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 43480,
+          "box": [
+            472.561767578125,
+            251.48240661621094,
+            537.1993408203125,
+            303.3544006347656
+          ],
+          "confidence": 0.9223602414131165,
+          "gt_iou": 0.0,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 43481,
+          "box": [
+            195.0057830810547,
+            248.53353881835938,
+            264.6819763183594,
+            278.01068115234375
+          ],
+          "confidence": 0.9108979105949402,
+          "gt_iou": 0.0,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 43482,
+          "box": [
+            895.027099609375,
+            258.27178955078125,
+            956.427734375,
+            286.26995849609375
+          ],
+          "confidence": 0.8709840774536133,
+          "gt_iou": 0.0,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.9042980251099274,
+      "identity_detections": [
+        {
+          "raw_id": 43490,
+          "confidence": 0.47368788719177246,
+          "gt_iou": 0.9042980251099274,
+          "saved_candidate": {
+            "column": 11,
+            "raw_id": 43490,
+            "box": [
+              797.2643432617188,
+              263.857177734375,
+              817.8680419921875,
+              276.5948486328125
+            ],
+            "confidence": 0.47368788719177246,
+            "cost": 0.8430956602096558,
+            "forward_iou": 0.33123992407857694,
+            "new_tid": 1587,
+            "birth": {
+              "frame": 401,
+              "box": [
+                795.7012939453125,
+                264.5464782714844,
+                816.384521484375,
+                277.3861999511719
+              ]
+            }
+          },
+          "forward_iou": 0.33123992407857694,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 8
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "b23f7012-32d284ce",
+      "frame": 708,
+      "old": 433,
+      "new": 456,
+      "kind": "own",
+      "earlier_identity": "00127159",
+      "current_candidate_identity": "00127159",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/val/b23f7012-32d284ce.json",
+      "current_label_frame_index": 118,
+      "identity_box": [
+        609.067006613019,
+        352.68584176559636,
+        631.0955302366345,
+        377.16197912516935
+      ],
+      "identity_attributes": {
+        "occluded": true,
+        "truncated": false,
+        "crowd": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 17509,
+          "box": [
+            609.7431640625,
+            354.90618896484375,
+            628.919677734375,
+            376.738037109375
+          ],
+          "confidence": 0.18570300936698914,
+          "gt_iou": 0.776482895286359,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 17506,
+          "box": [
+            608.486572265625,
+            355.0228271484375,
+            626.1318359375,
+            376.67486572265625
+          ],
+          "confidence": 0.3929552137851715,
+          "gt_iou": 0.6696774383709381,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 17519,
+          "box": [
+            618.50146484375,
+            356.1342468261719,
+            638.0631103515625,
+            377.74163818359375
+          ],
+          "confidence": 0.03578443080186844,
+          "gt_iou": 0.3799358245454856,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 17510,
+          "box": [
+            619.97509765625,
+            355.5837097167969,
+            644.2088623046875,
+            379.26812744140625
+          ],
+          "confidence": 0.17630712687969208,
+          "gt_iou": 0.27481249164322147,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 17518,
+          "box": [
+            621.257568359375,
+            352.0953369140625,
+            643.44189453125,
+            375.8711853027344
+          ],
+          "confidence": 0.03657611459493637,
+          "gt_iou": 0.2720202257502953,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.776482895286359,
+      "identity_detections": [
+        {
+          "raw_id": 17509,
+          "confidence": 0.18570300936698914,
+          "gt_iou": 0.776482895286359,
+          "saved_candidate": null,
+          "forward_iou": 0.5601514613853953,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 30
+        },
+        {
+          "raw_id": 17506,
+          "confidence": 0.3929552137851715,
+          "gt_iou": 0.6696774383709381,
+          "saved_candidate": {
+            "column": 5,
+            "raw_id": 17506,
+            "box": [
+              608.486572265625,
+              355.0228271484375,
+              626.1318359375,
+              376.67486572265625
+            ],
+            "confidence": 0.3929552137851715,
+            "cost": 0.8216224312782288,
+            "forward_iou": 0.4539386740884171,
+            "new_tid": 456,
+            "birth": {
+              "frame": 707,
+              "box": [
+                607.8868408203125,
+                354.5942077636719,
+                625.8896484375,
+                376.6722106933594
+              ]
+            }
+          },
+          "forward_iou": 0.4539386740884171,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 24
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "b1d0a191-de8948f6",
+      "frame": 613,
+      "old": 648,
+      "new": 708,
+      "kind": "own",
+      "earlier_identity": "00123072",
+      "current_candidate_identity": "00123072",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/val/b1d0a191-de8948f6.json",
+      "current_label_frame_index": 103,
+      "identity_box": [
+        627.9562337826476,
+        270.03801581430747,
+        658.2597517667969,
+        301.01494530921553
+      ],
+      "identity_attributes": {
+        "occluded": true,
+        "truncated": false,
+        "crowd": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 33929,
+          "box": [
+            623.9725952148438,
+            270.1189880371094,
+            659.8621215820312,
+            301.4482727050781
+          ],
+          "confidence": 0.5704923272132874,
+          "gt_iou": 0.8308636874322946,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 33934,
+          "box": [
+            574.9376220703125,
+            269.53228759765625,
+            640.044921875,
+            315.62200927734375
+          ],
+          "confidence": 0.1649552583694458,
+          "gt_iou": 0.10504029994713512,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 33930,
+          "box": [
+            557.445068359375,
+            268.26885986328125,
+            641.2472534179688,
+            314.804931640625
+          ],
+          "confidence": 0.4823375344276428,
+          "gt_iou": 0.09300469222996456,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 33948,
+          "box": [
+            559.6317138671875,
+            267.8143310546875,
+            637.5769653320312,
+            306.37640380859375
+          ],
+          "confidence": 0.014299135655164719,
+          "gt_iou": 0.08172968241896272,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 33927,
+          "box": [
+            653.6344604492188,
+            267.90875244140625,
+            698.656494140625,
+            306.4591979980469
+          ],
+          "confidence": 0.8126970529556274,
+          "gt_iou": 0.05660781209855941,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.8308636874322946,
+      "identity_detections": [
+        {
+          "raw_id": 33929,
+          "confidence": 0.5704923272132874,
+          "gt_iou": 0.8308636874322946,
+          "saved_candidate": {
+            "column": 13,
+            "raw_id": 33929,
+            "box": [
+              623.9725952148438,
+              270.1189880371094,
+              659.8621215820312,
+              301.4482727050781
+            ],
+            "confidence": 0.5704923272132874,
+            "cost": 0.87715744972229,
+            "forward_iou": 0.21532726106548208,
+            "new_tid": 708,
+            "birth": {
+              "frame": 612,
+              "box": [
+                631.2164306640625,
+                277.411376953125,
+                660.4750366210938,
+                304.6239929199219
+              ]
+            }
+          },
+          "forward_iou": 0.21532726106548208,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 48
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "b1e3e9f5-92377424",
+      "frame": 360,
+      "old": 467,
+      "new": 476,
+      "kind": "own",
+      "earlier_identity": "00116597",
+      "current_candidate_identity": "00116597",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/val/b1e3e9f5-92377424.json",
+      "current_label_frame_index": 61,
+      "identity_box": [
+        210.05892470280182,
+        213.59526946565686,
+        297.35614016370647,
+        226.3261133870388
+      ],
+      "identity_attributes": {
+        "occluded": true,
+        "truncated": false,
+        "crowd": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 14809,
+          "box": [
+            212.9673309326172,
+            211.9243621826172,
+            299.52935791015625,
+            227.7487030029297
+          ],
+          "confidence": 0.061297737061977386,
+          "gt_iou": 0.7636696654292631,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 14826,
+          "box": [
+            207.21676635742188,
+            211.57762145996094,
+            302.1680603027344,
+            226.98434448242188
+          ],
+          "confidence": 0.015234678983688354,
+          "gt_iou": 0.7597075050097783,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 14805,
+          "box": [
+            210.35910034179688,
+            211.53884887695312,
+            300.5452880859375,
+            229.66648864746094
+          ],
+          "confidence": 0.49445948004722595,
+          "gt_iou": 0.6758750481376068,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 14816,
+          "box": [
+            211.9019775390625,
+            212.01968383789062,
+            299.68634033203125,
+            230.76132202148438
+          ],
+          "confidence": 0.029904477298259735,
+          "gt_iou": 0.651952103886911,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 14820,
+          "box": [
+            207.8597412109375,
+            211.9425048828125,
+            301.64349365234375,
+            231.04104614257812
+          ],
+          "confidence": 0.02294425666332245,
+          "gt_iou": 0.6204828681870999,
+          "matches_identity": true
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.7636696654292631,
+      "identity_detections": [
+        {
+          "raw_id": 14809,
+          "confidence": 0.061297737061977386,
+          "gt_iou": 0.7636696654292631,
+          "saved_candidate": null,
+          "forward_iou": 0.2969018058672141,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 4
+        },
+        {
+          "raw_id": 14826,
+          "confidence": 0.015234678983688354,
+          "gt_iou": 0.7597075050097783,
+          "saved_candidate": null,
+          "forward_iou": 0.3050130125926896,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 0
+        },
+        {
+          "raw_id": 14805,
+          "confidence": 0.49445948004722595,
+          "gt_iou": 0.6758750481376068,
+          "saved_candidate": {
+            "column": 12,
+            "raw_id": 14805,
+            "box": [
+              210.35910034179688,
+              211.53884887695312,
+              300.5452880859375,
+              229.66648864746094
+            ],
+            "confidence": 0.49445948004722595,
+            "cost": 0.8700777888298035,
+            "forward_iou": 0.2627560324210745,
+            "new_tid": 476,
+            "birth": {
+              "frame": 359,
+              "box": [
+                225.0327911376953,
+                212.5470428466797,
+                313.30194091796875,
+                229.8406219482422
+              ]
+            }
+          },
+          "forward_iou": 0.2627560324210745,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 8
+        },
+        {
+          "raw_id": 14816,
+          "confidence": 0.029904477298259735,
+          "gt_iou": 0.651952103886911,
+          "saved_candidate": null,
+          "forward_iou": 0.25431361105261,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 8
+        },
+        {
+          "raw_id": 14820,
+          "confidence": 0.02294425666332245,
+          "gt_iou": 0.6204828681870999,
+          "saved_candidate": null,
+          "forward_iou": 0.2504489306468346,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 9
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "b1e3e9f5-92377424",
+      "frame": 600,
+      "old": 921,
+      "new": 948,
+      "kind": "own",
+      "earlier_identity": "00116635",
+      "current_candidate_identity": "00116635",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/val/b1e3e9f5-92377424.json",
+      "current_label_frame_index": 101,
+      "identity_box": [
+        513.7804868271992,
+        214.2015001285798,
+        528.33002273735,
+        224.50742139826994
+      ],
+      "identity_attributes": {
+        "occluded": false,
+        "truncated": false,
+        "crowd": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 28102,
+          "box": [
+            513.1478271484375,
+            214.12619018554688,
+            527.3948974609375,
+            225.27549743652344
+          ],
+          "confidence": 0.3428161144256592,
+          "gt_iou": 0.8327821120730672,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 28122,
+          "box": [
+            514.0455322265625,
+            215.87008666992188,
+            526.8386840820312,
+            225.23614501953125
+          ],
+          "confidence": 0.033030640333890915,
+          "gt_iou": 0.6937866555843928,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 28124,
+          "box": [
+            525.3111572265625,
+            211.6902313232422,
+            537.8921508789062,
+            224.50161743164062
+          ],
+          "confidence": 0.03144669160246849,
+          "gt_iou": 0.11103983150299519,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 28136,
+          "box": [
+            527.8358764648438,
+            211.44168090820312,
+            539.233642578125,
+            224.22381591796875
+          ],
+          "confidence": 0.014688449911773205,
+          "gt_iou": 0.017037503476458674,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 28088,
+          "box": [
+            870.0888671875,
+            237.1481170654297,
+            1279.7166748046875,
+            491.17803955078125
+          ],
+          "confidence": 0.9517368674278259,
+          "gt_iou": 0.0,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.8327821120730672,
+      "identity_detections": [
+        {
+          "raw_id": 28102,
+          "confidence": 0.3428161144256592,
+          "gt_iou": 0.8327821120730672,
+          "saved_candidate": {
+            "column": 14,
+            "raw_id": 28102,
+            "box": [
+              513.1478271484375,
+              214.12619018554688,
+              527.3948974609375,
+              225.27549743652344
+            ],
+            "confidence": 0.3428161144256592,
+            "cost": 0.8348759412765503,
+            "forward_iou": 0.4816694775276015,
+            "new_tid": 948,
+            "birth": {
+              "frame": 599,
+              "box": [
+                513.0029907226562,
+                214.18960571289062,
+                526.7423706054688,
+                225.43133544921875
+              ]
+            }
+          },
+          "forward_iou": 0.4816694775276015,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 3
+        },
+        {
+          "raw_id": 28122,
+          "confidence": 0.033030640333890915,
+          "gt_iou": 0.6937866555843928,
+          "saved_candidate": null,
+          "forward_iou": 0.48070530529257677,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 0
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    },
+    {
+      "video": "b20d494a-cdebe83e",
+      "frame": 1034,
+      "old": 899,
+      "new": 1007,
+      "kind": "own",
+      "earlier_identity": "00119664",
+      "current_candidate_identity": "00119664",
+      "exact_current_identity_labels": 1,
+      "source_annotation": "data/bdd100k/labels/box_track_20/val/b20d494a-cdebe83e.json",
+      "current_label_frame_index": 173,
+      "identity_box": [
+        496.55658584346025,
+        377.5407475666648,
+        529.4651845879168,
+        394.5258307896101
+      ],
+      "identity_attributes": {
+        "occluded": false,
+        "truncated": false,
+        "crowd": false
+      },
+      "best_raw_detections": [
+        {
+          "raw_id": 45891,
+          "box": [
+            496.41552734375,
+            376.4668884277344,
+            535.2109985351562,
+            394.81048583984375
+          ],
+          "confidence": 0.42886781692504883,
+          "gt_iou": 0.7854373185296561,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 46113,
+          "box": [
+            490.1814880371094,
+            374.7979431152344,
+            539.0241088867188,
+            396.2955322265625
+          ],
+          "confidence": 0.012215298600494862,
+          "gt_iou": 0.5323391125892676,
+          "matches_identity": true
+        },
+        {
+          "raw_id": 46043,
+          "box": [
+            480.6248779296875,
+            373.6451110839844,
+            531.616455078125,
+            396.7492370605469
+          ],
+          "confidence": 0.020970486104488373,
+          "gt_iou": 0.47444849411633283,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 46122,
+          "box": [
+            476.9983825683594,
+            369.4862060546875,
+            518.3414916992188,
+            393.2605895996094
+          ],
+          "confidence": 0.011596071533858776,
+          "gt_iou": 0.2855205100852419,
+          "matches_identity": false
+        },
+        {
+          "raw_id": 45975,
+          "box": [
+            524.904541015625,
+            369.28460693359375,
+            544.134033203125,
+            384.8229675292969
+          ],
+          "confidence": 0.0383695550262928,
+          "gt_iou": 0.04027903094541335,
+          "matches_identity": false
+        }
+      ],
+      "identity_center_inside_eye_hull": true,
+      "best_gt_iou": 0.7854373185296561,
+      "identity_detections": [
+        {
+          "raw_id": 45891,
+          "confidence": 0.42886781692504883,
+          "gt_iou": 0.7854373185296561,
+          "saved_candidate": {
+            "column": 7,
+            "raw_id": 45891,
+            "box": [
+              496.41552734375,
+              376.4668884277344,
+              535.2109985351562,
+              394.81048583984375
+            ],
+            "confidence": 0.42886781692504883,
+            "cost": 0.8035350441932678,
+            "forward_iou": 0.4581014197226821,
+            "new_tid": 1007,
+            "birth": {
+              "frame": 1033,
+              "box": [
+                497.93798828125,
+                377.02691650390625,
+                539.5426025390625,
+                395.594482421875
+              ]
+            }
+          },
+          "forward_iou": 0.4581014197226821,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": true,
+          "earlier_template_19shift_support": 27
+        },
+        {
+          "raw_id": 46113,
+          "confidence": 0.012215298600494862,
+          "gt_iou": 0.5323391125892676,
+          "saved_candidate": null,
+          "forward_iou": 0.4588703303715685,
+          "passes_frozen_geometry": true,
+          "passes_native_high_confidence": false,
+          "earlier_template_19shift_support": 42
+        }
+      ],
+      "status": "exact_current_identity_annotation_available"
+    }
+  ],
+  "no_model_or_similarity_calls": true,
+  "no_missing_identity_imputation": true
+}

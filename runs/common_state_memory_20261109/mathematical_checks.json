@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "new_common_grid_affine_roundtrip_max_error": 2.5579538487363607e-13,
+  "existing_reader_proof": "runs/clipped_anchor_readout_20261109/runtime_verification.json",
+  "shared_current_isolation": "B/C consume one exact current map object and the same query tensor; only reference content changes. Matched roundtrip control bounds interpolation explanations, not actual visibility/age.",
+  "counterexample": "With equal norm feature pairs [appearance,dynamic], appearance cos=1-epsilon, old target dynamic +v and current target -v while distractor +v, early wrong-minus-own=(2*gamma^2-epsilon)/(1+gamma^2)>0 for gamma^2>epsilon/2. This only disproves unconditional earlier-is-better, not an observed cause in FlyVis."
+}

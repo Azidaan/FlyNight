@@ -1,0 +1,276 @@
+{
+  "passed": true,
+  "independent_rankdata_metric_checks": 336,
+  "sources_stable": true,
+  "common_current_maps_B_C": true,
+  "new_grid_error": 4.440892098500626e-16,
+  "native_ownership_and_context": "context_audit.json",
+  "completed_workers_verified_ended": true,
+  "successful_guards": [
+    {
+      "stage": "retinal",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\runs\\common_state_memory_20261109\\study.py",
+          "retinal",
+          "--audit-memory-worker=993e0fec2811486c8e7c5930677ae16a"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 10822930432,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "41972": 1794186808.771667,
+          "14016": 1794186808.7978632
+        },
+        "stop_errors": [],
+        "seconds": 734.9059999999881
+      }
+    },
+    {
+      "stage": "audit_math",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\runs\\common_state_memory_20261109\\audit_math.py",
+          "--audit-memory-worker=98dc568d1be64684bbe57279c3bf80f8"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 11947286528,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "29724": 1794187544.5661724,
+          "41128": 1794187544.5936077
+        },
+        "stop_errors": [],
+        "seconds": 1.9690000000118744
+      }
+    },
+    {
+      "stage": "recover_maps_register",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\runs\\common_state_memory_20261109\\recover_maps.py",
+          "register",
+          "--audit-memory-worker=4a60ae30f1994e53bb951afe7ab6fe53"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 11806183424,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "30476": 1794187549.227076,
+          "40080": 1794187549.2557964
+        },
+        "stop_errors": [],
+        "seconds": 2.187999999994645
+      }
+    },
+    {
+      "stage": "recover_maps_run_resume1",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\runs\\common_state_memory_20261109\\recover_maps.py",
+          "run",
+          "--audit-memory-worker=bf3d42398d294c709d671b3538048afc"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 10032136192,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "42796": 1794187610.7095108,
+          "42140": 1794187610.740527
+        },
+        "stop_errors": [],
+        "seconds": 65.18700000000536
+      }
+    },
+    {
+      "stage": "compare_register_resume1",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\runs\\common_state_memory_20261109\\compare.py",
+          "register",
+          "--audit-memory-worker=d0c63e5b58504368b503c63e73dc9273"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 11399192576,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "35904": 1794187677.4541736,
+          "40680": 1794187677.4806488
+        },
+        "stop_errors": [],
+        "seconds": 2.3589999999967404
+      }
+    },
+    {
+      "stage": "compare_run_resume1",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\runs\\common_state_memory_20261109\\compare.py",
+          "run",
+          "--audit-memory-worker=41e16277a9de4a38ba6feb8e4b8ac78f"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 11428802560,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "24180": 1794187681.9526973,
+          "32680": 1794187681.9807885
+        },
+        "stop_errors": [],
+        "seconds": 5.592999999993481
+      }
+    },
+    {
+      "stage": "compare_analyze_resume1",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\runs\\common_state_memory_20261109\\compare.py",
+          "analyze",
+          "--audit-memory-worker=236ee1aaecff45cc8ac2c9784bf3e65b"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 11528093696,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "19132": 1794187688.4355793,
+          "4792": 1794187688.4616785
+        },
+        "stop_errors": [],
+        "seconds": 7.171999999991385
+      }
+    },
+    {
+      "stage": "candidate_register",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\runs\\common_state_memory_20261109\\candidate_audit.py",
+          "register",
+          "--audit-memory-worker=312f206d99da4350ac7cb87c6e9d9f94"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 11823890432,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "20152": 1794187818.732068,
+          "16968": 1794187818.7596524
+        },
+        "stop_errors": [],
+        "seconds": 1.75
+      }
+    },
+    {
+      "stage": "candidate_run",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\runs\\common_state_memory_20261109\\candidate_audit.py",
+          "run",
+          "--audit-memory-worker=09387ae6e35f4b489ce83126a46779f8"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 11739602944,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "31388": 1794187837.862541,
+          "416": 1794187837.8912044
+        },
+        "stop_errors": [],
+        "seconds": 3.26500000001397
+      }
+    },
+    {
+      "stage": "ownership_register",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\runs\\common_state_memory_20261109\\ownership_audit.py",
+          "register",
+          "--audit-memory-worker=9b4543ae7c9243cfb6c9c896b4cbdf1c"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 11866857472,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "21748": 1794187966.7591972,
+          "4928": 1794187966.805961
+        },
+        "stop_errors": [],
+        "seconds": 1.562999999994645
+      }
+    },
+    {
+      "stage": "ownership_run",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\runs\\common_state_memory_20261109\\ownership_audit.py",
+          "run",
+          "--audit-memory-worker=79047c7a6bd6454e99348e98e8693401"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 11739213824,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "36784": 1794187985.9645116,
+          "10368": 1794187985.9917164
+        },
+        "stop_errors": [],
+        "seconds": 2.5309999999881256
+      }
+    }
+  ],
+  "gemini_full_text_sha256_verified": true,
+  "original_failure_preserved": "queue.py shadowed stdlib queue before model inference; old failed logs and queue_status retained; run_sequence.py restored the same frozen protocol without replaying retinal inputs or completed mathematics."
+}

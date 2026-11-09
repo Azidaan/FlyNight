@@ -30091,6 +30091,80 @@
           "claim": "Протокол, полный учёт и независимая проверка прямой разметки"
         }
       ]
+    },
+    {
+      "id": "common_state_memory_20261109",
+      "title": "Ранняя и последняя память на одной истории состояния — проверка личности",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "question": "Меняет ли выбор раннего шаблона порядок своих и чужих связей при одной текущей карте и общей пространственной поддержке?",
+      "hypothesis": "Ранний шаблон может сохранить различия цели, но возраст, ракурс и нейронная фаза могут ухудшить соответствие; польза не предполагается.",
+      "expected": "Фиксированные A/B/C, C34/C8 и одинаковые обычные временные и пространственные признаки, только недостающие данные.",
+      "acceptance": [
+        {
+          "criterion": "Exact shared current samples, immutable input/weights, all available archived retinal witnesses exact (new videos without an archived witness explicitly disclosed), independent interpolations and similarities agree<=1e-9; all ready maps reused.",
+          "met": true,
+          "evidence": "runs/common_state_memory_20261109/audit.json"
+        },
+        {
+          "criterion": "At fixed common support C34 early C improves AUROC over latest B and interpolation-only Broundtrip after search, including available clip strata without observed worsening.",
+          "met": false,
+          "evidence": "runs/common_state_memory_20261109/summary.json"
+        },
+        {
+          "criterion": "C34 C exceeds matched34-channel temporal and spatial input C; uncertainty and sparse coverage reported, no full tracker claim.",
+          "met": false,
+          "evidence": "runs/common_state_memory_20261109/summary.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/protocol.json",
+          "claim": "Протокол до новых карт и оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/summary.json",
+          "claim": "Первичный результат, независимая сверка или граница интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/audit.json",
+          "claim": "Первичный результат, независимая сверка или граница интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/candidate_audit.json",
+          "claim": "Первичный результат, независимая сверка или граница интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/ownership_audit.json",
+          "claim": "Первичный результат, независимая сверка или граница интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/context_audit.json",
+          "claim": "Первичный результат, независимая сверка или граница интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Первичный результат, независимая сверка или граница интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "research_gemini_memory_review_20261109/ПРОВЕРКА.md",
+          "claim": "Полный ответ Gemini проверен по коду и первичным статьям"
+        }
+      ],
+      "done": "2026-11-09",
+      "obtained": "На19пригодныхпарах16своих/3чужихиз22пряморазмеченных,16видео: C34AUROCпосле19сдвигов A0,208333,B0,145833,Bчерезраннююсетку0,166667,C0,125000;10/48,7/48,8/48,6/48ранжирований. C−B−0,020833,ДИ95%[−0,142857;0,133333],4804/5000парныхвидеобутстрэпвыборок. R134временнойC0,229167,пространственныйC0,166667. Обрезка1своя/0чужих,AUROCнеопределена. 123новыхвходовглаза/51готовых;81недостающийснимок/4готовых;518новыхсеток/280готовых. Источники `runs/common_state_memory_20261109/summary.json`, `results.json`, `retinal_complete.json`, `maps_complete.json`.",
+      "interpretation": "Ранняя память и длинная причинная история не прошли зафиксированное условие улучшения. Геометрия сильнее этих сходств на данном малом срезе; общие ранжирования разных видео не заменяют выбор внутри одного запроса. В1093→1122своярамка уже принадлежит штатному844; в484→488и696→770свои рамки ниже исходного низкого допуска0,1. Не установлено, что отказ вызван именно памятью или ядромFlyVis.",
+      "decision": "Не внедрять раннийшаблон и не подбирать пороги. Сохранить общую цепочку и данные. Дальнейший дешёвый анализ — место формирования кандидатов и фактическиеID/дубликаты; не повторять прежнее относительное выравнивание и отрицательные простые запреты памяти.",
+      "cannot_claim": "Нет подтверждённого выигрыша ядра, модуля или полного трекера.19событий/48сочетаний не являются48независимыми передачамиID. Все3чужих из3train-видео; частьсвоихизval. Последнийпромежуточныйшаблон обычно не размечен; старыйкадр выбран по расписаниюGTтолько дляоценки. У7новыхval-видео не было архивного свидетеля входаглаза. ПересеченияGTрамок не являются масками и не доказывают источник активности. Полнаяматрица прежнего общего сопоставления не сохранена; причинапобеды844не установлена."
     }
   ],
   "manual_events": [
