@@ -1,0 +1,298 @@
+{
+  "passed": true,
+  "edges": 91,
+  "own": 15,
+  "foreign": 76,
+  "videos": 32,
+  "metrics": {
+    "G_ready": {
+      "own_accept": 13,
+      "own_reject": 2,
+      "foreign_accept": 26,
+      "foreign_reject": 50,
+      "balanced_accuracy": 0.762280701754386
+    },
+    "G_support": {
+      "own_accept": 10,
+      "own_reject": 5,
+      "foreign_accept": 23,
+      "foreign_reject": 53,
+      "balanced_accuracy": 0.6820175438596491
+    },
+    "C34_old_mean": {
+      "own_accept": 10,
+      "own_reject": 5,
+      "foreign_accept": 22,
+      "foreign_reject": 54,
+      "balanced_accuracy": 0.6885964912280702
+    },
+    "C34_old_channels": {
+      "own_accept": 11,
+      "own_reject": 4,
+      "foreign_accept": 20,
+      "foreign_reject": 56,
+      "balanced_accuracy": 0.7350877192982456
+    },
+    "C34_full_mean": {
+      "own_accept": 10,
+      "own_reject": 5,
+      "foreign_accept": 23,
+      "foreign_reject": 53,
+      "balanced_accuracy": 0.6820175438596491
+    },
+    "C34_full_channels": {
+      "own_accept": 12,
+      "own_reject": 3,
+      "foreign_accept": 15,
+      "foreign_reject": 61,
+      "balanced_accuracy": 0.8013157894736842
+    },
+    "R134_spatial_old_mean": {
+      "own_accept": 11,
+      "own_reject": 4,
+      "foreign_accept": 23,
+      "foreign_reject": 53,
+      "balanced_accuracy": 0.7153508771929824
+    },
+    "R134_spatial_old_channels": {
+      "own_accept": 11,
+      "own_reject": 4,
+      "foreign_accept": 19,
+      "foreign_reject": 57,
+      "balanced_accuracy": 0.7416666666666667
+    },
+    "R134_spatial_full_mean": {
+      "own_accept": 11,
+      "own_reject": 4,
+      "foreign_accept": 23,
+      "foreign_reject": 53,
+      "balanced_accuracy": 0.7153508771929824
+    },
+    "R134_spatial_full_channels": {
+      "own_accept": 13,
+      "own_reject": 2,
+      "foreign_accept": 20,
+      "foreign_reject": 56,
+      "balanced_accuracy": 0.8017543859649123
+    },
+    "R134_temporal_old_mean": {
+      "own_accept": 11,
+      "own_reject": 4,
+      "foreign_accept": 23,
+      "foreign_reject": 53,
+      "balanced_accuracy": 0.7153508771929824
+    },
+    "R134_temporal_old_channels": {
+      "own_accept": 11,
+      "own_reject": 4,
+      "foreign_accept": 23,
+      "foreign_reject": 53,
+      "balanced_accuracy": 0.7153508771929824
+    },
+    "R134_temporal_full_mean": {
+      "own_accept": 10,
+      "own_reject": 5,
+      "foreign_accept": 23,
+      "foreign_reject": 53,
+      "balanced_accuracy": 0.6820175438596491
+    },
+    "R134_temporal_full_channels": {
+      "own_accept": 13,
+      "own_reject": 2,
+      "foreign_accept": 22,
+      "foreign_reject": 54,
+      "balanced_accuracy": 0.7885964912280702
+    }
+  },
+  "pilot_admission": {
+    "C34_full_mean": false,
+    "C34_full_channels": false,
+    "R134_spatial_full_mean": false,
+    "R134_spatial_full_channels": false,
+    "R134_temporal_full_mean": false,
+    "R134_temporal_full_channels": true
+  },
+  "selected_development_arm": "R134_temporal_full_channels",
+  "paired_video_intervals": {
+    "C34_full_mean__G_ready": {
+      "point": -0.08026315789473693,
+      "ci95": [
+        -0.28119996921182266,
+        0.08768203653072092
+      ],
+      "valid_draws": 4000
+    },
+    "C34_full_mean__G_support": {
+      "point": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "valid_draws": 4000
+    },
+    "C34_full_mean__C34_old_mean": {
+      "point": -0.006578947368421129,
+      "ci95": [
+        -0.02238805970149249,
+        0.0
+      ],
+      "valid_draws": 4000
+    },
+    "C34_full_channels__G_ready": {
+      "point": 0.0390350877192982,
+      "ci95": [
+        -0.07523561507936521,
+        0.16280776515151527
+      ],
+      "valid_draws": 4000
+    },
+    "C34_full_channels__G_support": {
+      "point": 0.11929824561403513,
+      "ci95": [
+        -0.014301114231361484,
+        0.2973007623007624
+      ],
+      "valid_draws": 4000,
+      "ci98_75_primary_family": [
+        -0.04259526940844988,
+        0.3532960639210638
+      ]
+    },
+    "C34_full_channels__C34_old_channels": {
+      "point": 0.06622807017543864,
+      "ci95": [
+        0.007246376811594235,
+        0.1425491801761789
+      ],
+      "valid_draws": 4000,
+      "ci98_75_primary_family": [
+        0.0,
+        0.16955505687123332
+      ]
+    },
+    "R134_spatial_full_mean__G_ready": {
+      "point": -0.0469298245614036,
+      "ci95": [
+        -0.237012987012987,
+        0.10895260989010992
+      ],
+      "valid_draws": 4000
+    },
+    "R134_spatial_full_mean__G_support": {
+      "point": 0.033333333333333326,
+      "ci95": [
+        0.0,
+        0.125
+      ],
+      "valid_draws": 4000
+    },
+    "R134_spatial_full_mean__R134_spatial_old_mean": {
+      "point": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "valid_draws": 4000
+    },
+    "R134_spatial_full_channels__G_ready": {
+      "point": 0.03947368421052633,
+      "ci95": [
+        -0.020547945205479312,
+        0.1049382716049383
+      ],
+      "valid_draws": 4000
+    },
+    "R134_spatial_full_channels__G_support": {
+      "point": 0.11973684210526325,
+      "ci95": [
+        -0.038763706140350865,
+        0.31578547905732246
+      ],
+      "valid_draws": 4000
+    },
+    "R134_spatial_full_channels__R134_spatial_old_channels": {
+      "point": 0.060087719298245634,
+      "ci95": [
+        -0.09846215721215713,
+        0.21184314186200792
+      ],
+      "valid_draws": 4000
+    },
+    "R134_temporal_full_mean__G_ready": {
+      "point": -0.08026315789473693,
+      "ci95": [
+        -0.28119996921182266,
+        0.08768203653072092
+      ],
+      "valid_draws": 4000
+    },
+    "R134_temporal_full_mean__G_support": {
+      "point": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "valid_draws": 4000
+    },
+    "R134_temporal_full_mean__R134_temporal_old_mean": {
+      "point": -0.033333333333333326,
+      "ci95": [
+        -0.125,
+        0.0
+      ],
+      "valid_draws": 4000
+    },
+    "R134_temporal_full_channels__G_ready": {
+      "point": 0.02631578947368418,
+      "ci95": [
+        -0.008067821258593327,
+        0.06818181818181812
+      ],
+      "valid_draws": 4000
+    },
+    "R134_temporal_full_channels__G_support": {
+      "point": 0.1065789473684211,
+      "ci95": [
+        -0.050000000000000044,
+        0.2977716210693854
+      ],
+      "valid_draws": 4000
+    },
+    "R134_temporal_full_channels__R134_temporal_old_channels": {
+      "point": 0.07324561403508778,
+      "ci95": [
+        -0.08333333333333337,
+        0.22610360360360363
+      ],
+      "valid_draws": 4000
+    },
+    "C34_full_channels__R134_spatial_full_channels": {
+      "point": -0.00043859649122812705,
+      "ci95": [
+        -0.11334090909090914,
+        0.11518799603174609
+      ],
+      "valid_draws": 4000,
+      "ci98_75_primary_family": [
+        -0.14859737095036074,
+        0.14788003516624026
+      ]
+    },
+    "C34_full_channels__R134_temporal_full_channels": {
+      "point": 0.012719298245614019,
+      "ci95": [
+        -0.09159309791332264,
+        0.1277074314574314
+      ],
+      "valid_draws": 4000,
+      "ci98_75_primary_family": [
+        -0.12286729470890735,
+        0.16123608954451332
+      ]
+    }
+  },
+  "geometry_only_coverage_control": true,
+  "old_features_and_G_reused": true,
+  "new_neural_calls": 0,
+  "new_ID_assignments": 0
+}

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "E:\Dissertation\runs\full_template_identity_20261109\compare.py", line 121, in <module>
+    if __name__=='__main__':{'register':register,'extract':extract,'fit':fit}[sys.argv[1]]()
+  File "E:\Dissertation\runs\full_template_identity_20261109\compare.py", line 19, in register
+    journal('Проверка геометрии целого шаблона пройдена, сигналы ещё не считались',f'*Получено (`{OUT.name}`).* Все6 математических тестов пройдены. Прежние ячейки и координаты воспроизведены точно, максимальная ошибка0. В90из91 пар полная опора больше: медиана23→49 ячеек при медиане77 ячеек прошлой рамки. Медианная сохранённая доля прошлого шаблона0,302632→0,704762; это медианы отношений, а не отношение медиан. Источник `runs/{OUT.name}/geometry_results.json`.\n\n*Вывод.* Усечение поддержкой всех сдвигов действительно удаляет пространственные измерения, но их полезность не измерена.\n\n*Решение.* По исходному критерию разрешён следующий этап без сети: готовые114 снимков, старые признаки и оценки переиспользуются. Условия и новые исходники перед вычислением сигналов зафиксированы в `runs/{OUT.name}/comparison_protocol.json`. Сравниваются одинаковые старые/полные модели при той же расширенной геометрии; порог0 и штраф1. Предыдущее отрицательное обучение остаётся отрицательным.')
+  File "E:\Dissertation\runs\full_template_identity_20261109\geometry.py", line 39, in journal
+    p.write_text(s.replace('## Журнал изменений\n','## Журнал изменений\n\n**'+stamp+'** — '+title+'\n\n'+body+'\n\n',1),encoding='utf8')
+  File "E:\Dissertation\python310\tools\lib\pathlib.py", line 1154, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+  File "E:\Dissertation\python310\tools\lib\pathlib.py", line 1119, in open
+    return self._accessor.open(self, mode, buffering, encoding, errors,
+OSError: [Errno 22] Invalid argument: 'E:\\Dissertation\\dissertation\\ЕДИНЫЙ_ПЛАН.md'

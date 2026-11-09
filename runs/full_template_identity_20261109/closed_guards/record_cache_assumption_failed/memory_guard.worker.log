@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "E:\Dissertation\runs\full_template_identity_20261109\record.py", line 159, in <module>
+    if __name__=='__main__':main()
+  File "E:\Dissertation\runs\full_template_identity_20261109\record.py", line 73, in main
+    assert image.stat().st_size==m['bytes'];inputs[marker.relative_to(ROOT).as_posix()]=sha(marker)
+  File "E:\Dissertation\python310\tools\lib\pathlib.py", line 1097, in stat
+    return self._accessor.stat(self, follow_symlinks=follow_symlinks)
+FileNotFoundError: [WinError 2] Не удается найти указанный файл: 'E:\\Dissertation\\runs\\identity_assignment_20261108\\full_precision\\processed\\b1d10d08-743fd86c.float64'

@@ -1,0 +1,31 @@
+{
+  "registered": "2026-11-09T09:13:08.966688+03:00",
+  "head": "699c017e4d26b7f7565f6d8597649adaddb2389d",
+  "action": "Same full-template support change, direct original-seven-geometry ablation. No new maps/correlations/thresholds. Six new fits compare directly to ready old-support/seven-geometry models.",
+  "diagnostic_number": 3,
+  "maximum_signal_diagnostics": 3,
+  "reason": "The added two coverage geometry features alone degraded own accepts13→10. The direct old7+old support vs old7+full support contrast was missing. This is a post-result explanatory ablation, not independent confirmation.",
+  "data": "Same91 strict-last pairs,15 own/76 foreign,32 videos. Reuse full and old feature vectors and all baseline decisions. Exactly first7 geometry features and the STORED old training-fold geometry normalization.",
+  "model": "Same fixedlambda1,free intercept,class-balanced logistic loss,zero init,damped Newton,zero threshold. Full-mean and full-channels for C34,R134spatial,R134temporal;6 new models, no hyperparameter or sample search. Undefined feature falls back to ready G7; no G model refit.",
+  "validation": "Same32 leave-one-video-out folds, no video/ID/label/owner as predictive features. OOF development selection, not a new official split.",
+  "admission": "For each new full7 arm, own accepts >= G_ready,G_support and its same-representation/same-kind ready OLD7 model; foreign accepts STRICTLY LOWER than all three, balanced accuracy higher than all three. These are the same preservation/rejection requirements as before, with the correct original7 comparator.",
+  "selection": "Primary C34channels enters a candidate pilot if it passes. Otherwise select a passing arm by balanced accuracy, then fewer foreign accepts, then mean before34weights, then C34,R134spatial,R134temporal order. If none pass, the already admitted temporal-full9 arm remains a separate possible candidate; do not reinterpret any failed gate.",
+  "uncertainty": "Same4000 paired video draws,seed20261109. Descriptive95%;99% intervals for five fixed C34channel contrasts vs G_ready,G_support,readyold7C34channels,full7R134spatialchannels,full7R134temporalchannels. No tracker or core success from this development ablation.",
+  "next": "After this final signal diagnostic, implement actual causal assignment and complete zero-intervention parity, then evaluate actual IDs/HOTA or stop the version. No more channel/geometry/threshold variants on these pairs.",
+  "save_stop": "2026-11-09T23:54:00+03:00",
+  "authorization": "research_identity_synthesis_20261109/authorization.json",
+  "sources": {
+    "runs/full_template_identity_20261109/original_geometry.py": "0c512a619813ebc7ce65bcacdd32a004adf7ca1b9dbfa3df8fdb2558985b4222",
+    "runs/full_template_identity_20261109/protocol.json": "1761c570c6d41cdb2cc88ae1944815bc6d6c789ba0560af8a7b6b7d039eed5e0",
+    "runs/full_template_identity_20261109/comparison_protocol.json": "c761e2ae4aa836dd895aba6b02a4da62d41ac58345f6afeb0f2c7c98d9b70941",
+    "runs/full_template_identity_20261109/features.json": "db63697e53e5ca9554d37e3749ab10f9b1a9269f1a82b2ee9bd8d4b84f1c69d3",
+    "runs/full_template_identity_20261109/predictions.json": "53408796d13681810e84b764b2912cd3d931658d11208cbe2212a254165669ee",
+    "runs/full_template_identity_20261109/summary.json": "b5693549d765211f28617a9035d492435a24f0f486e31fbfde6369c85f4c9be0",
+    "runs/full_template_identity_20261109/audit.json": "22fa967a550be5844eeb9ed89211feb8101b03cb9342fd26edd0db64705823d2",
+    "runs/full_template_identity_20261109/record.py": "736dc5b1008740535280e0b4ef27c74eb046d1693d55cf67295de260e583ab4b",
+    "runs/identity_channel_head_20261109/protocol.json": "752029f276e392bc3d66948fbf76fb2476920aea5bc06a237f95110a4ed12ebe",
+    "runs/identity_channel_head_20261109/predictions.json": "4dfe817be78a1e711adc28510b56b8e66ecdf890a384e128c26968ce26458516",
+    "runs/identity_channel_head_20261109/summary.json": "3e40dc4bf1e4f7b8a25af8509b6cf36ddc0c517be558dc8ab1e810df5155a257",
+    "tracking/channel_identity_head.py": "c39c2b3770aedf6fdab9b71a3e68dc35bea52768614cdcebf02823163cc0e79c"
+  }
+}
