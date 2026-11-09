@@ -1,0 +1,39 @@
+{
+  "checked": "2026-11-09",
+  "sources": [
+    {
+      "title": "Learning Spatio-Temporal Transformer for Visual Tracking",
+      "authors": "Bin Yan et al.",
+      "year": 2021,
+      "paper": "https://arxiv.org/abs/2103.17154",
+      "code": "https://raw.githubusercontent.com/researchmm/Stark/main/lib/test/tracker/stark_st.py",
+      "access": "Primary abstract and official code opened; first template retained, dynamic copies separately updated, lines42-54 and84-92.",
+      "role": "Separates initial/dynamic memory roles. Does not prove an older automatically initialized template is correct."
+    },
+    {
+      "title": "Learning Target Candidate Association to Keep Track of What Not to Track",
+      "authors": "Christoph Mayer, Martin Danelljan, Danda Pani Paudel, Luc Van Gool",
+      "year": 2021,
+      "paper": "https://arxiv.org/pdf/2103.16556",
+      "code": "https://raw.githubusercontent.com/visionml/pytracking/master/pytracking/tracker/keep_track/keep_track.py",
+      "access": "arXiv PDF opened; CVF PDF403; official candidate code opened.",
+      "role": "Explicit identity propagation of target and distractor candidates differs from merely freezing a template. Already reviewed locally25Oct. Official code245-247 has a high-score single-to-single shortcut; not a universal identity guarantee."
+    },
+    {
+      "title": "MeMOTR: Long-Term Memory-Augmented Transformer for Multi-Object Tracking",
+      "authors": "Ruopeng Gao, Limin Wang",
+      "year": 2023,
+      "paper": "https://arxiv.org/pdf/2307.15700",
+      "code": "https://raw.githubusercontent.com/MCG-NJU/MeMOTR/main/models/query_updater.py",
+      "access": "arXiv PDF sections3.3-3.5 and ablations4.6 opened; CVF PDF403; official code opened.",
+      "role": "Separates slow object memory, confidence-weighted short-term fusion and learned inter-track interaction. Its learned joint detector/tracker is not a ready FlyVis reader or proof of simple averaging."
+    }
+  ],
+  "local_prior_work": [
+    "research_flyvis_deep_2026-10-25/СВОДКА.md",
+    "runs/z13_history_clock_20261025/replay/report.json",
+    "runs/continuation_20261029/assignment_write_val_audit/report.json",
+    "runs/continuation_20261029/bounded_write_val_audit/report.json"
+  ],
+  "decision": "Literature and audit inform a common-state three-arm control before any earlier-template experiment; no architecture or threshold was changed."
+}
