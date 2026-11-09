@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "gate": true,
+  "edges": 26,
+  "own": 20,
+  "foreign": 6,
+  "videos": 20,
+  "metrics": {
+    "G7": {
+      "own_accept": 14,
+      "own_reject": 6,
+      "foreign_accept": 5,
+      "foreign_reject": 1,
+      "balanced_accuracy": 0.4333333333333333
+    },
+    "C34": {
+      "own_accept": 17,
+      "own_reject": 3,
+      "foreign_accept": 2,
+      "foreign_reject": 4,
+      "balanced_accuracy": 0.7583333333333333
+    },
+    "R134_spatial": {
+      "own_accept": 17,
+      "own_reject": 3,
+      "foreign_accept": 3,
+      "foreign_reject": 3,
+      "balanced_accuracy": 0.675
+    },
+    "R134_temporal": {
+      "own_accept": 16,
+      "own_reject": 4,
+      "foreign_accept": 4,
+      "foreign_reject": 2,
+      "balanced_accuracy": 0.5666666666666667
+    }
+  },
+  "paired_video_intervals": {
+    "G7": {
+      "point": 0.325,
+      "ci95": [
+        0.0,
+        0.6161309523809524
+      ],
+      "draws": 3997
+    },
+    "R134_spatial": {
+      "point": 0.08333333333333326,
+      "ci95": [
+        -0.09571428571428578,
+        0.2592731829573935
+      ],
+      "draws": 3997
+    },
+    "R134_temporal": {
+      "point": 0.19166666666666665,
+      "ci95": [
+        -0.04291925465838505,
+        0.3987394957983193
+      ],
+      "draws": 3997
+    }
+  },
+  "zero_threshold_tuning": true,
+  "actual_IDs_evaluated": false,
+  "interpretation": "Fixed development leave-video-out admission only. No native trajectory gain or unique FlyVis benefit established. Stop this version if gatefalse."
+}

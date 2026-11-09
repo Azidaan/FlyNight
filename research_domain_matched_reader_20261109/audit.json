@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "audited_fits": 80,
+  "all20heldoutvideofolds_checked": true,
+  "independent_gradient_max": 8.366050907593348e-11,
+  "independent_loss_max_error": 2.220446049250313e-16,
+  "prediction_max_error": 0.0,
+  "metrics": {
+    "G7": {
+      "own_accept": 14,
+      "own_reject": 6,
+      "foreign_accept": 5,
+      "foreign_reject": 1,
+      "balanced_accuracy": 0.4333333333333333
+    },
+    "C34": {
+      "own_accept": 17,
+      "own_reject": 3,
+      "foreign_accept": 2,
+      "foreign_reject": 4,
+      "balanced_accuracy": 0.7583333333333333
+    },
+    "R134_spatial": {
+      "own_accept": 17,
+      "own_reject": 3,
+      "foreign_accept": 3,
+      "foreign_reject": 3,
+      "balanced_accuracy": 0.675
+    },
+    "R134_temporal": {
+      "own_accept": 16,
+      "own_reject": 4,
+      "foreign_accept": 4,
+      "foreign_reject": 2,
+      "balanced_accuracy": 0.5666666666666667
+    }
+  },
+  "gate": true,
+  "sources": {
+    "protocol_v2.json": "e9a1b2c4bf011d3fd1b4288bd7b025a61c9d37b7367f855b0aff25dfac884c33",
+    "execution_protocol.json": "87b6b052ce5b9d6b95abc5fb6883b147fc47cc53ab3ec6d0bb1226d1f71f09c5",
+    "features.json": "15a25be182ee42090de1639caf734e6837c2f3d29c34321bf0ac841ce1c2b9ef",
+    "predictions.json": "7a8b3821a6f7caf7485c0022ff3e9b1d64ce70619535d9ba77b99087bc29e492",
+    "summary.json": "588eb0c1ee47ad8a423f6ecf9b9f694d206d673a97d84e27e0da9f56fab2dcc2"
+  },
+  "source_sha256": "a732334ba6b0c7e7bbe4f5e17e6f82ceb18558e71b93a68dd36102deac9757e8",
+  "zero_refits": true,
+  "zero_core_or_tracker_calls": true,
+  "goal_achieved": false
+}

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "source": "experiments/useful_literature.json",
+  "old_sha256": "c4a80ce833c0f90fab777a22756dd8528dcef5ed27ad601c313f7bc115aa1e7a",
+  "new_sha256": "5d16645d6d971d988b594861e3b3e143bd740c377032686c46b34b227a657c33",
+  "snapshot": "research_domain_matched_reader_20261109/useful_literature_before_doi.json",
+  "change": "Only add the required DOI metadata field to the newly added Sugiyama source. DOI not guessed; explicitly absent from the checked original.",
+  "previous_guard": "54d40a4312a644d0883d02b23064c11f",
+  "tests": "58 catalog tests passed before the preview KeyError; catalogue, glossary, plan, topics and problem records remain unchanged. Verify graph with corrected citation metadata; no reason to repeat the scientific calculation or catalogue tests."
+}

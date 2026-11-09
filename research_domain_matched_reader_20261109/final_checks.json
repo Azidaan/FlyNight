@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "catalog_tests": 58,
+  "catalog_tests_reused": true,
+  "tests_evidence": "catalog_tests_receipt.json; catalog_tests.log",
+  "graph": {
+    "passed": true,
+    "note_count": 1267,
+    "components": 8,
+    "edges": 1259,
+    "sections": {
+      "Гипотезы": 33,
+      "Эксперименты": 694,
+      "Термины": 78,
+      "Журнал": 50,
+      "План": 190,
+      "Исследования": 117,
+      "Проблемы мухи": 26,
+      "Лучшие результаты": 79
+    },
+    "journal_entries": 1114,
+    "missing_targets": [],
+    "external_edges": [],
+    "empty_leaves": [],
+    "experiments": 387,
+    "catalog_experiments": 389
+  },
+  "hypothesis_files": 81,
+  "hypotheses_unchanged": true,
+  "stable_sources": {
+    "experiments/project_history.json": "9296302ffdbe565948fa01924a137f0b53e46f1edce902adde7fe83f89c1d35b",
+    "experiments/metrics_glossary.json": "10c077aa9e0817e69dd5131e6b7b0b06d607c4e876bea8158d6f716463cbb6aa",
+    "experiments/obsidian_experiment_topics.json": "fe9da003457ebf2927d6260e781bf816dce40d830be40505c101d67136ff71d1",
+    "experiments/system_problems.json": "3c973c0bc7817e6810733aa317b15f1392f4cb84085f97c4caef1650e742c0c0",
+    "experiments/useful_literature.json": "5d16645d6d971d988b594861e3b3e143bd740c377032686c46b34b227a657c33",
+    "dissertation/ЕДИНЫЙ_ПЛАН.md": "647d7ae73ed226eab18ad81a84bbe89916b05ef865f19b5caef4a064580990f3"
+  },
+  "citation_metadata_fix": {
+    "passed": true,
+    "source": "experiments/useful_literature.json",
+    "old_sha256": "c4a80ce833c0f90fab777a22756dd8528dcef5ed27ad601c313f7bc115aa1e7a",
+    "new_sha256": "5d16645d6d971d988b594861e3b3e143bd740c377032686c46b34b227a657c33",
+    "snapshot": "research_domain_matched_reader_20261109/useful_literature_before_doi.json",
+    "change": "Only add the required DOI metadata field to the newly added Sugiyama source. DOI not guessed; explicitly absent from the checked original.",
+    "previous_guard": "54d40a4312a644d0883d02b23064c11f",
+    "tests": "58 catalog tests passed before the preview KeyError; catalogue, glossary, plan, topics and problem records remain unchanged. Verify graph with corrected citation metadata; no reason to repeat the scientific calculation or catalogue tests."
+  },
+  "scientific_audit_sha256": "dadaeffcf136940f99701b5df7c0a7940c1114405aea7b164a144e924cc43792",
+  "goal_achieved": false,
+  "scope": "Completed coordinate/domain diagnostics, matched20video-fold comparison, final training heads and hypothesis-preserving graph. No native-ID benefit claimed."
+}

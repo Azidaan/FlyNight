@@ -1,0 +1,22 @@
+{
+  "registered": "2026-11-09T13:51:26.479369+03:00",
+  "sources": {
+    "research_domain_matched_reader_20261109/safe_phase.py": "128a6b2d8de074e51ead172d4d6701e569d119e3cadf46f8169a3220588a644a",
+    "research_domain_matched_reader_20261109/queue_recovery.py": "4b4916c6597908f80a6f23763c867597c7e16b1f21f589886767c675a608d198",
+    "research_domain_matched_reader_20261109/compute.py": "9a54b545d7c55c6888f8808d4cd7813c3774d348989bd7e94ccd226b1eff510d",
+    "research_domain_matched_reader_20261109/audit.py": "a732334ba6b0c7e7bbe4f5e17e6f82ceb18558e71b93a68dd36102deac9757e8",
+    "research_domain_matched_reader_20261109/record_result.py": "5d062168268965a7de4d38c34f5bd7a40ab5a946960a30bf6de599aefd17a42b",
+    "research_domain_matched_reader_20261109/check_records.py": "053a156d267fdf18cd4d5d7b397cdc5906fb30b0db293f4a841146309c394f0b",
+    "research_domain_matched_reader_20261109/execution_protocol.json": "87b6b052ce5b9d6b95abc5fb6883b147fc47cc53ab3ec6d0bb1226d1f71f09c5",
+    "research_domain_matched_reader_20261109/queue.py": "2daf1a1ff38f77e2c9b25d4b03373b0fc3f0611eab61836c6c1879fe7587ba69",
+    "research_domain_matched_reader_20261109/inputs_complete.json": "e5470a7f8f63a5768ca9733855146425753a9a1fc5bb85c91bc9586731e6d16c",
+    "runs/flyvis_repairs_20261106/unification_20261107/uncapped_checks/2e62bf53d9f6423485d946ca95add11d/memory_guard.json": "758b47598d332faa7731b5933675a3336a9aadde3b91f5c2d7b5b9e666e4d42c",
+    "runs/flyvis_repairs_20261106/unification_20261107/uncapped_checks/2e62bf53d9f6423485d946ca95add11d/memory_guard.worker.log": "ac1337531ed50459326174695960f8be8376e83993d8c9d85d43e1c8f864af67"
+  },
+  "standard_queue_path": "E:\\Dissertation\\python310\\tools\\Lib\\queue.py",
+  "standard_queue_sha256": "3160b770dc5cbdf0a5f9297dd8ea7fb77acd99b36af8088c8015b119d2e5069f",
+  "failure": "Torch dataloader imported queue; Python resolved the experiment local queue.py, which executed the orchestration script again and failed on existing logs. Direct traceback proves the module path. No core/map work had begun.",
+  "recovery": "Keep all frozen sources, failed queue/guard/logs and ready52inputs. Safe bootstrap removes only the experiment directory from import search, verifies and preloads standard queue, then executes the unchanged bound phase with its correct __file__. Bootstrap target survives guard worker reentry via a task-specific environment variable.",
+  "scientific_invariants": "No changed data,weights,reader,model,threshold,fold or criterion. Existing ready snapshots reused. Resume only failed restore stage, then original registered sequence.",
+  "goal_achieved": false
+}

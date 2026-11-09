@@ -1,0 +1,6382 @@
+{
+  "registered": "2026-11-09T13:30:20.746447+03:00",
+  "head": "1c67d9d9b51f545871f1f6679d23d25609819277",
+  "sources": {
+    "research_domain_matched_reader_20261109/restore_inputs.py": "bd0ec5f05a380063f320fc6661af38724b7087d0cb78859e7871432818d300f5",
+    "research_domain_matched_reader_20261109/protocol.json": "2a061b16e72c1661454c86b4679d8a06c70ec9ef8686adbb54451aa8695e628b",
+    "research_domain_matched_reader_20261109/input_inventory.json": "4068e723630bf4f67e8c4ae4bbbc0c2136fde4715e3f37c9a647692d274156a0",
+    "tracking/retina.py": "71e51747fa9959652766da0179a3b75953c49f94159da155c52b10999b27c322",
+    "tracking/foveated_eyes.py": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
+    "scripts/z13_data.py": "ffc4fcd71ae087eb4e18a7a4dfecb2d29a0dafec096910dd07a266d440e66557",
+    "runs/full_template_native_20261109/sparse_views.py": "8509cc9e9b2609105056655d2a7e09c0c8e25a1aed5dc78d5a615c1c3cf98361",
+    "runs/full_template_native_20261109/common.py": "be07a1219e53dcedbb0c8910d3bc1b14361dc1b22bedbeaaf7e10896a66e7350",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "runs/z13_data/00ed2e85-95394dfd.npz": "2e198d239d4a06e8cdc449d71e751c84a9cc442e948b16748f6cd4a01290eec9",
+    "runs/train_cache/00ed2e85-95394dfd/motion/flyvis_tiled.json": "b23694e104530dd13e0c3b9997a6e0938d4ef2d37ae87844583096072c99151e",
+    "runs/z13_data/017e2d3b-765af5a6.npz": "05a1e1495153cdf37f5029293cfe6ef7bf97826be8ec258a7edef0b0cb81d567",
+    "runs/train_cache/017e2d3b-765af5a6/motion/flyvis_tiled.json": "feaa46922876cb56a483990e0e83c8e1da750b29030be14ce88ffdd8a0ae58d8",
+    "runs/z13_data/02006c28-c2c5e796.npz": "7ab4deb8c6881be0c86bcc75f1786ced70ce8fda1db03c97cb4859f5d839caeb",
+    "runs/train_cache/02006c28-c2c5e796/motion/flyvis_tiled.json": "de7639386f2053f51905f76ad29d65e16c06223795fb30c69d128d83a4fc2cf6",
+    "runs/z13_data/0232c9f2-5600d649.npz": "816f26f2f70cac8477b991faf12236a77d52137568478c67c9f0e7f67f1069e5",
+    "runs/train_cache/0232c9f2-5600d649/motion/flyvis_tiled.json": "12ba837813cf42e4c84c88a1f34aff18b8101c730e3ed36610a0e79eb257a389",
+    "data/bdd100k/videos/train/0232c9f2-5600d649.mov": "61ba94468413a7bc195e159c76966bb8fe54b9d5d4355a59fe002497a46726c4",
+    "runs/z13_data/02364369-bd3d1838.npz": "4b2f4e4b2b0a707cfda9f90dff48831722efad7730c63a5cfa0e7c90a71be98d",
+    "runs/train_cache/02364369-bd3d1838/motion/flyvis_tiled.json": "669868d697de2a2fb5f4d38dd08765887d44fa24fc9500235e5f88ef73568e58",
+    "data/bdd100k/videos/train/02364369-bd3d1838.mov": "ccd42fce35ce0f9e0164e08411468c1898d77c9d6937164b8d7277e229020940",
+    "runs/z13_data/02521568-a335c1a0.npz": "196157769baf3b97f79d8016fd406ee9b5aef247b95e843bd4e15db0310fced6",
+    "runs/train_cache/02521568-a335c1a0/motion/flyvis_tiled.json": "f73ce458be3a1b5f1000ca786414749102ab780b4cfa1b3e7026eb58233fdb23",
+    "data/bdd100k/videos/train/02521568-a335c1a0.mov": "1e05bc9a15cf06e521379374fab48859a47a02a84968aeec182d607121541a90",
+    "runs/z13_data/02521568-dd1da95c.npz": "c03957fa09e32209bac4ac2a8bf0a21051a92bf84200fb8df82b77fb51b9ff4e",
+    "runs/train_cache/02521568-dd1da95c/motion/flyvis_tiled.json": "638ed34366da2aa56f419eb1b7383b432bd3e77b37bd795d3a29c747ab50f86a",
+    "data/bdd100k/videos/train/02521568-dd1da95c.mov": "dd71bb463d963fef51db826e37528393b957c9f63321de0b8fb1eb1fbf558269",
+    "runs/z13_data/0252f2b5-2e69185a.npz": "6301af7f546cf22d9b847566548492dc3fc852f4b82fb80ca3e14d3a99431ce6",
+    "runs/train_cache/0252f2b5-2e69185a/motion/flyvis_tiled.json": "b06232b53449ead8318c34f76a4f726023aae98d388e6e5ab9d0a5d3230f54d0",
+    "data/bdd100k/videos/train/0252f2b5-2e69185a.mov": "9d8a3fdfaeeabe74ebce25476fe90ab6e3d1760b64001205f397b6756a41e356",
+    "runs/z13_data/02927def-14c4c3cb.npz": "ae7fd156634f211936b6794aec5a42e702ba73d8dba2a426edbd5d7eebc3f355",
+    "runs/train_cache/02927def-14c4c3cb/motion/flyvis_tiled.json": "efb0fbed1dcbd7fadcb90cf30eb746db960046cb76bb4ab3ebb0df6bf2e431bf",
+    "data/bdd100k/videos/train/02927def-14c4c3cb.mov": "377167e594e5d1b9518eddf080a41ad5944b8033050762cdd437a234ea712c23",
+    "runs/z13_data/02a70c1f-6df7ce64.npz": "eeb75aa87aa46ff3d409f883566b19710d726c908ea04da06c522fe606b28e87",
+    "runs/train_cache/02a70c1f-6df7ce64/motion/flyvis_tiled.json": "711ed65f02e5ae8454d29181d47517c957500e854a9a924c7d25e4c6f4b5fe0c",
+    "data/bdd100k/videos/train/02a70c1f-6df7ce64.mov": "8c82515108232563b18d368b80e5011cc9cc10c0a1682ab8dfba26b0a9c6f6c4",
+    "runs/z13_data/02a70c1f-6f18e57f.npz": "712ae894e7ad448c35ef4cdf07c90d940e2da16166cd289d03eb8754e0a0aa88",
+    "runs/train_cache/02a70c1f-6f18e57f/motion/flyvis_tiled.json": "e15d9a9d9f2c212d11f64be229d13f2db1abd83cd0b76529c5de5ba0c696084e",
+    "data/bdd100k/videos/train/02a70c1f-6f18e57f.mov": "04b452ad086be7c10ebee4ec4c5809ab0c4993b1cb88025f5e348f57b813c02b",
+    "runs/z13_data/02bb67ae-8c3d61f8.npz": "ff4a490a2d7241afa767c49b7540563ccf60b4eb77d59a6caea14435d509d08b",
+    "runs/train_cache/02bb67ae-8c3d61f8/motion/flyvis_tiled.json": "3cbb2638af265d0ad827cd17db641a71be8155b54ba630a4d75d65660f3af2ce",
+    "runs/z13_data/02c928dc-b7de7ec8.npz": "e0aabdea9b10a6c1218b87b6f91514d4fbfd8fdcc61ac8331e72ace4f93c21ae",
+    "runs/train_cache/02c928dc-b7de7ec8/motion/flyvis_tiled.json": "67d0b5382c34e3b012631061553c892b8680c4e028c85b1ca964a9918810a718",
+    "runs/z13_data/02cdc06d-5502f174.npz": "6a2fd7e74ab54a9d24f194379494e5e1b299e4c6781872e7aded774f78c6a907",
+    "runs/train_cache/02cdc06d-5502f174/motion/flyvis_tiled.json": "6040e3e3f119d0e8ed97e9700c3092e1235d31388a52520c4aa83be0acef0230",
+    "data/bdd100k/videos/train/02cdc06d-5502f174.mov": "3e99a11e7c7cb3f5bcd05163235a98733d6c67a25b272c21f927a6b4b888e5a6",
+    "runs/z13_data/02d478d1-42ca3cfb.npz": "933bb891a572d0e43a6462d82191d9754e7029601d40ae327713b1390c843fc0",
+    "runs/train_cache/02d478d1-42ca3cfb/motion/flyvis_tiled.json": "f7adfa249b23ee00d4c9f65c1843435c9e2fd648828e7b9daee8e0642bc28fdb",
+    "data/bdd100k/videos/train/02d478d1-42ca3cfb.mov": "c2654ab14d3eb07c85cf7587ee7ac2ae2276167e64a49151a0937a152eef92fe",
+    "runs/z13_data/02d5e1be-87ae2130.npz": "582cc98ba607367d26359bb148b6f04abb05244df730f46a2aea0944759bd93b",
+    "runs/train_cache/02d5e1be-87ae2130/motion/flyvis_tiled.json": "4e61b4e7c017d5661b2fc84593b557cbad377e31f64480b5eee6b6ea263c2f7d",
+    "runs/z13_data/02d5e1be-98109303.npz": "5b4515829ae8d8d9590664f3d22ec62eeebb0b3e6964a62dc82b21995f6caff4",
+    "runs/train_cache/02d5e1be-98109303/motion/flyvis_tiled.json": "93e7aaf5869338883fc20b1138f723167ea2499b307056f7428ae0525f87b926",
+    "runs/z13_data/02ef72c1-6e9a4af4.npz": "8ccf036d56a372c70ca2c882f3de455d088a23c4284710141b5c9febafa32c6e",
+    "runs/train_cache/02ef72c1-6e9a4af4/motion/flyvis_tiled.json": "492d73c770124d9371eac2fe94f6b886beff3f8279a00c8a9e45e6cd428f1075",
+    "runs/z13_data/03164aef-f18deb04.npz": "209703a49e901dae645180d427bc0e690602a90e05155ad54d0a919f1635f264",
+    "runs/train_cache/03164aef-f18deb04/motion/flyvis_tiled.json": "06021dc20ba063acabc98d7c190fac0f98ed92f57a8c1bc5969edb962e1fbfa3",
+    "data/bdd100k/videos/train/03164aef-f18deb04.mov": "d8f733dbab96a24faaf451703d2964897b6a046cfb1fd31a65e4f3f8b99edf3a",
+    "runs/z13_data/03626025-876e549e.npz": "cf914156b052501eee7467beae07f41e60ae043ada1cec23f29e53ac5ebeded8",
+    "runs/train_cache/03626025-876e549e/motion/flyvis_tiled.json": "9037eba587ce33e8431dad98a9fcdd98d2b23d756f05ea04db6ccf91a89da16f",
+    "data/bdd100k/videos/train/03626025-876e549e.mov": "4c9400064ecb152ebae9249f68a4f11c451e1a45766e99527ea55fbf3dab1d49"
+  },
+  "videos": {
+    "00ed2e85-95394dfd": {
+      "data": "runs/z13_data/00ed2e85-95394dfd.npz",
+      "fps_file": "runs/train_cache/00ed2e85-95394dfd/motion/flyvis_tiled.json",
+      "video_path": null,
+      "views": {
+        "418c4496de3ca74b4c7206b195409be4": {
+          "frame": 915,
+          "crop": [
+            982,
+            209,
+            1191,
+            418
+          ],
+          "archive_indices": [
+            4462
+          ]
+        },
+        "fca5ce57ec094b79308047c0b2db32f4": {
+          "frame": 916,
+          "crop": [
+            985,
+            206,
+            1198,
+            419
+          ],
+          "archive_indices": [
+            4463
+          ]
+        },
+        "5620a07155f39daa6add0e03977f97bd": {
+          "frame": 917,
+          "crop": [
+            1003,
+            209,
+            1205,
+            411
+          ],
+          "archive_indices": [
+            4464
+          ]
+        },
+        "c52063fe3e0bd194644971125ad905c6": {
+          "frame": 918,
+          "crop": [
+            1009,
+            198,
+            1221,
+            410
+          ],
+          "archive_indices": [
+            4465
+          ]
+        },
+        "5fa08303a02cfadb2043fd214e8cab2b": {
+          "frame": 920,
+          "crop": [
+            1025,
+            191,
+            1238,
+            404
+          ],
+          "archive_indices": [
+            4466
+          ]
+        },
+        "dbb9027912da4c9c94d44ac28a231fb6": {
+          "frame": 921,
+          "crop": [
+            1032,
+            188,
+            1245,
+            401
+          ],
+          "archive_indices": [
+            4467
+          ]
+        },
+        "2846352a54d9a2d50d2af8c86e75359f": {
+          "frame": 922,
+          "crop": [
+            1040,
+            184,
+            1253,
+            397
+          ],
+          "archive_indices": [
+            4468
+          ]
+        },
+        "d7d7db6412c5d6c641291ac06f8ccbe6": {
+          "frame": 923,
+          "crop": [
+            1048,
+            181,
+            1261,
+            394
+          ],
+          "archive_indices": [
+            4469
+          ]
+        },
+        "4721b9b85f2905d9061e9811e7038c21": {
+          "frame": 924,
+          "crop": [
+            1056,
+            178,
+            1269,
+            391
+          ],
+          "archive_indices": [
+            4470
+          ]
+        }
+      },
+      "missing": [],
+      "witnesses": []
+    },
+    "017e2d3b-765af5a6": {
+      "data": "runs/z13_data/017e2d3b-765af5a6.npz",
+      "fps_file": "runs/train_cache/017e2d3b-765af5a6/motion/flyvis_tiled.json",
+      "video_path": null,
+      "views": {
+        "d34568bf3a8b28a55940705dc0b45874": {
+          "frame": 90,
+          "crop": [
+            659,
+            323,
+            723,
+            387
+          ],
+          "archive_indices": [
+            290,
+            291
+          ]
+        },
+        "da30a20409674913a6bf535a1428f72b": {
+          "frame": 91,
+          "crop": [
+            658,
+            322,
+            722,
+            386
+          ],
+          "archive_indices": [
+            292,
+            461
+          ]
+        },
+        "1e89a959e57b580079a4452345bef08e": {
+          "frame": 92,
+          "crop": [
+            657,
+            321,
+            721,
+            385
+          ],
+          "archive_indices": [
+            293,
+            462
+          ]
+        },
+        "b0377ffe169846a757ede9730f026cf1": {
+          "frame": 94,
+          "crop": [
+            656,
+            319,
+            720,
+            383
+          ],
+          "archive_indices": [
+            294
+          ]
+        },
+        "274fdab1fa89742195fbb7366ce4d4b8": {
+          "frame": 95,
+          "crop": [
+            655,
+            319,
+            719,
+            383
+          ],
+          "archive_indices": [
+            295
+          ]
+        },
+        "e2c2a65ceaf25a83083d8ef21a0480ad": {
+          "frame": 96,
+          "crop": [
+            654,
+            318,
+            718,
+            382
+          ],
+          "archive_indices": [
+            296
+          ]
+        },
+        "674ebd226e5a34261e7d2ed7d2d84588": {
+          "frame": 97,
+          "crop": [
+            654,
+            318,
+            718,
+            382
+          ],
+          "archive_indices": [
+            297
+          ]
+        },
+        "f6a9d0332c03708f3cafeef8dadbfcbf": {
+          "frame": 98,
+          "crop": [
+            653,
+            317,
+            717,
+            381
+          ],
+          "archive_indices": [
+            298
+          ]
+        }
+      },
+      "missing": [],
+      "witnesses": []
+    },
+    "02006c28-c2c5e796": {
+      "data": "runs/z13_data/02006c28-c2c5e796.npz",
+      "fps_file": "runs/train_cache/02006c28-c2c5e796/motion/flyvis_tiled.json",
+      "video_path": null,
+      "views": {
+        "3052139456aef26d09276be254686b25": {
+          "frame": 565,
+          "crop": [
+            717,
+            319,
+            781,
+            383
+          ],
+          "archive_indices": [
+            1026
+          ]
+        },
+        "3827f1dad0f7dd1e7d41ecc8f2e5eb55": {
+          "frame": 566,
+          "crop": [
+            718,
+            320,
+            782,
+            384
+          ],
+          "archive_indices": [
+            1027
+          ]
+        },
+        "d8ca34288eb3743fca3c9cd351f289ac": {
+          "frame": 568,
+          "crop": [
+            718,
+            324,
+            782,
+            388
+          ],
+          "archive_indices": [
+            1028
+          ]
+        },
+        "c50a452b0d90870e09eeab2efdb49fdc": {
+          "frame": 569,
+          "crop": [
+            719,
+            326,
+            783,
+            390
+          ],
+          "archive_indices": [
+            1029
+          ]
+        },
+        "0f10e8b3685fb692c658423bb8a73f70": {
+          "frame": 571,
+          "crop": [
+            720,
+            328,
+            784,
+            392
+          ],
+          "archive_indices": [
+            1030
+          ]
+        },
+        "fe3c6641cd22f01d933fb33cd2131220": {
+          "frame": 572,
+          "crop": [
+            720,
+            330,
+            784,
+            394
+          ],
+          "archive_indices": [
+            1031
+          ]
+        },
+        "996954660a4aac3be194ae7db4f033ef": {
+          "frame": 573,
+          "crop": [
+            721,
+            331,
+            785,
+            395
+          ],
+          "archive_indices": [
+            1032
+          ]
+        },
+        "6eb2385a7b32ed519a2a6a8584dccefc": {
+          "frame": 574,
+          "crop": [
+            721,
+            332,
+            785,
+            396
+          ],
+          "archive_indices": [
+            1033
+          ]
+        },
+        "612adfdea4d439b03e2727a3c4e1785d": {
+          "frame": 575,
+          "crop": [
+            721,
+            334,
+            785,
+            398
+          ],
+          "archive_indices": [
+            1034
+          ]
+        }
+      },
+      "missing": [],
+      "witnesses": []
+    },
+    "0232c9f2-5600d649": {
+      "data": "runs/z13_data/0232c9f2-5600d649.npz",
+      "fps_file": "runs/train_cache/0232c9f2-5600d649/motion/flyvis_tiled.json",
+      "video_path": "data/bdd100k/videos/train/0232c9f2-5600d649.mov",
+      "views": {
+        "3fbf13ec447ff605797f25bbea846587": {
+          "frame": 1040,
+          "crop": [
+            336,
+            333,
+            437,
+            434
+          ],
+          "archive_indices": []
+        },
+        "11250c2a6a77369fb1f8d125410d8476": {
+          "frame": 1041,
+          "crop": [
+            322,
+            326,
+            438,
+            442
+          ],
+          "archive_indices": []
+        },
+        "69804df0dbabdb7b29b0da96b419e495": {
+          "frame": 1042,
+          "crop": [
+            321,
+            329,
+            433,
+            441
+          ],
+          "archive_indices": []
+        },
+        "0acf0ed5651288f67ad426836df59dcb": {
+          "frame": 1043,
+          "crop": [
+            314,
+            329,
+            430,
+            445
+          ],
+          "archive_indices": []
+        },
+        "f8d4bbdc43676bc001648c904a1075ff": {
+          "frame": 1045,
+          "crop": [
+            309,
+            327,
+            429,
+            447
+          ],
+          "archive_indices": []
+        },
+        "c30e73383aae63161b0c0a475566784a": {
+          "frame": 1046,
+          "crop": [
+            307,
+            327,
+            427,
+            447
+          ],
+          "archive_indices": []
+        },
+        "02ba0a68e090b398052ecc6421aa57df": {
+          "frame": 1047,
+          "crop": [
+            306,
+            327,
+            426,
+            447
+          ],
+          "archive_indices": []
+        },
+        "791aafc1de6947b6285dd5cf4b9aff85": {
+          "frame": 1048,
+          "crop": [
+            304,
+            327,
+            424,
+            447
+          ],
+          "archive_indices": []
+        },
+        "81e0d94e7b97668b32afece88c46b8b0": {
+          "frame": 1049,
+          "crop": [
+            302,
+            327,
+            422,
+            447
+          ],
+          "archive_indices": []
+        }
+      },
+      "missing": [
+        "3fbf13ec447ff605797f25bbea846587",
+        "11250c2a6a77369fb1f8d125410d8476",
+        "69804df0dbabdb7b29b0da96b419e495",
+        "0acf0ed5651288f67ad426836df59dcb",
+        "f8d4bbdc43676bc001648c904a1075ff",
+        "c30e73383aae63161b0c0a475566784a",
+        "02ba0a68e090b398052ecc6421aa57df",
+        "791aafc1de6947b6285dd5cf4b9aff85",
+        "81e0d94e7b97668b32afece88c46b8b0"
+      ],
+      "witnesses": [
+        {
+          "frame": 14,
+          "crop": [
+            674,
+            353,
+            738,
+            417
+          ],
+          "archive_index": 0
+        },
+        {
+          "frame": 1205,
+          "crop": [
+            1128,
+            370,
+            1280,
+            522
+          ],
+          "archive_index": 2145
+        }
+      ]
+    },
+    "02364369-bd3d1838": {
+      "data": "runs/z13_data/02364369-bd3d1838.npz",
+      "fps_file": "runs/train_cache/02364369-bd3d1838/motion/flyvis_tiled.json",
+      "video_path": "data/bdd100k/videos/train/02364369-bd3d1838.mov",
+      "views": {
+        "ae39794c3d450636e8bdebf1dd77d2e6": {
+          "frame": 48,
+          "crop": [
+            773,
+            311,
+            837,
+            375
+          ],
+          "archive_indices": [
+            243,
+            244
+          ]
+        },
+        "8aa544a25360cc3ad78336b54805df5a": {
+          "frame": 49,
+          "crop": [
+            772,
+            311,
+            836,
+            375
+          ],
+          "archive_indices": [
+            245
+          ]
+        },
+        "fd900e3a0db8461fd176ef246205cff8": {
+          "frame": 50,
+          "crop": [
+            772,
+            311,
+            836,
+            375
+          ],
+          "archive_indices": [
+            246
+          ]
+        },
+        "a7e9a4e38b7bf4df61aa1a2267140254": {
+          "frame": 52,
+          "crop": [
+            771,
+            312,
+            835,
+            376
+          ],
+          "archive_indices": []
+        },
+        "5d32a52b0f6db04c4426e4864c299a70": {
+          "frame": 53,
+          "crop": [
+            771,
+            312,
+            835,
+            376
+          ],
+          "archive_indices": []
+        },
+        "ed9a3c1d10783d924d11c699ddfea25a": {
+          "frame": 54,
+          "crop": [
+            771,
+            312,
+            835,
+            376
+          ],
+          "archive_indices": []
+        },
+        "e70e2a4eb679f9e089fe9857d00c05f2": {
+          "frame": 55,
+          "crop": [
+            771,
+            312,
+            835,
+            376
+          ],
+          "archive_indices": []
+        },
+        "c3cb90292c04bab4e01228f9885b4cf4": {
+          "frame": 56,
+          "crop": [
+            771,
+            313,
+            835,
+            377
+          ],
+          "archive_indices": []
+        },
+        "4ca669f164e8c50e741ca1d35ebd89ae": {
+          "frame": 86,
+          "crop": [
+            703,
+            305,
+            767,
+            369
+          ],
+          "archive_indices": [
+            571
+          ]
+        },
+        "741bd3e8e7935892f82013fef7b84dc0": {
+          "frame": 87,
+          "crop": [
+            703,
+            305,
+            767,
+            369
+          ],
+          "archive_indices": [
+            572
+          ]
+        },
+        "e92f602035ba0135c3542d9734a4db51": {
+          "frame": 88,
+          "crop": [
+            703,
+            305,
+            767,
+            369
+          ],
+          "archive_indices": [
+            573,
+            580
+          ]
+        },
+        "fb037999be37f4183eab9f50c815c3b6": {
+          "frame": 89,
+          "crop": [
+            702,
+            304,
+            766,
+            368
+          ],
+          "archive_indices": [
+            574,
+            581
+          ]
+        },
+        "25902b126d7516b8e393697dc1ae2978": {
+          "frame": 91,
+          "crop": [
+            701,
+            304,
+            765,
+            368
+          ],
+          "archive_indices": []
+        },
+        "50ccfc931304d63b5629129d5b1dafa3": {
+          "frame": 92,
+          "crop": [
+            701,
+            303,
+            765,
+            367
+          ],
+          "archive_indices": []
+        },
+        "0c56a5b93609675e8fa1aee5fd2b8592": {
+          "frame": 93,
+          "crop": [
+            700,
+            303,
+            764,
+            367
+          ],
+          "archive_indices": []
+        },
+        "0073691844b81a6bfae682d5e12373a1": {
+          "frame": 94,
+          "crop": [
+            700,
+            303,
+            764,
+            367
+          ],
+          "archive_indices": []
+        },
+        "ab18ebd1419e63e5a3a7ab7bcc9daddf": {
+          "frame": 95,
+          "crop": [
+            699,
+            302,
+            763,
+            366
+          ],
+          "archive_indices": []
+        },
+        "f460da39ec88087070d44542ec1e5d7a": {
+          "frame": 103,
+          "crop": [
+            749,
+            310,
+            813,
+            374
+          ],
+          "archive_indices": [
+            621
+          ]
+        },
+        "5cbdfecdf9345f06469af799fe004c51": {
+          "frame": 104,
+          "crop": [
+            750,
+            310,
+            814,
+            374
+          ],
+          "archive_indices": [
+            622
+          ]
+        },
+        "a2c2d9914b8fee43ff200c3a87d00039": {
+          "frame": 105,
+          "crop": [
+            750,
+            310,
+            814,
+            374
+          ],
+          "archive_indices": [
+            623
+          ]
+        },
+        "4529dabf098c1becaee51f16186bf8a6": {
+          "frame": 107,
+          "crop": [
+            750,
+            310,
+            814,
+            374
+          ],
+          "archive_indices": []
+        },
+        "0c8e0bd42f7f119b3167d5e687876361": {
+          "frame": 109,
+          "crop": [
+            750,
+            310,
+            814,
+            374
+          ],
+          "archive_indices": []
+        },
+        "653fed2e4426ea5c9a53cf83d37c2d23": {
+          "frame": 110,
+          "crop": [
+            750,
+            310,
+            814,
+            374
+          ],
+          "archive_indices": []
+        },
+        "5b09ac3e92f28be3fb823d708725c844": {
+          "frame": 111,
+          "crop": [
+            750,
+            310,
+            814,
+            374
+          ],
+          "archive_indices": []
+        },
+        "c5ec132d2f5718c2a2dcbe70fe77fa53": {
+          "frame": 112,
+          "crop": [
+            750,
+            310,
+            814,
+            374
+          ],
+          "archive_indices": []
+        },
+        "04dd53592d455d800ec6ff30b69c9d66": {
+          "frame": 113,
+          "crop": [
+            750,
+            310,
+            814,
+            374
+          ],
+          "archive_indices": []
+        },
+        "ac599d98e27a872f76ed904b3dbd90fd": {
+          "frame": 141,
+          "crop": [
+            778,
+            313,
+            842,
+            377
+          ],
+          "archive_indices": [
+            913,
+            914
+          ]
+        },
+        "cf24407eb38c48c1199589c6064ee9fa": {
+          "frame": 142,
+          "crop": [
+            779,
+            314,
+            843,
+            378
+          ],
+          "archive_indices": [
+            915
+          ]
+        },
+        "56282a559ecf27779458f51267ef094d": {
+          "frame": 143,
+          "crop": [
+            780,
+            313,
+            844,
+            377
+          ],
+          "archive_indices": [
+            916
+          ]
+        },
+        "0241f9c6f6397e90e85e7117a54f3af7": {
+          "frame": 145,
+          "crop": [
+            782,
+            313,
+            846,
+            377
+          ],
+          "archive_indices": []
+        },
+        "cfb6ab15a922519c49df74e0568dfc3c": {
+          "frame": 146,
+          "crop": [
+            782,
+            312,
+            846,
+            376
+          ],
+          "archive_indices": []
+        },
+        "88a5559a56b5a3364207c6f42d0cb830": {
+          "frame": 147,
+          "crop": [
+            783,
+            312,
+            847,
+            376
+          ],
+          "archive_indices": []
+        },
+        "aa61249ec1263df80a23d709ee889913": {
+          "frame": 148,
+          "crop": [
+            784,
+            311,
+            848,
+            375
+          ],
+          "archive_indices": []
+        },
+        "8a40c55f5b539da7ae5f464cbac7b40b": {
+          "frame": 149,
+          "crop": [
+            785,
+            311,
+            849,
+            375
+          ],
+          "archive_indices": []
+        }
+      },
+      "missing": [
+        "a7e9a4e38b7bf4df61aa1a2267140254",
+        "5d32a52b0f6db04c4426e4864c299a70",
+        "ed9a3c1d10783d924d11c699ddfea25a",
+        "e70e2a4eb679f9e089fe9857d00c05f2",
+        "c3cb90292c04bab4e01228f9885b4cf4",
+        "25902b126d7516b8e393697dc1ae2978",
+        "50ccfc931304d63b5629129d5b1dafa3",
+        "0c56a5b93609675e8fa1aee5fd2b8592",
+        "0073691844b81a6bfae682d5e12373a1",
+        "ab18ebd1419e63e5a3a7ab7bcc9daddf",
+        "4529dabf098c1becaee51f16186bf8a6",
+        "0c8e0bd42f7f119b3167d5e687876361",
+        "653fed2e4426ea5c9a53cf83d37c2d23",
+        "5b09ac3e92f28be3fb823d708725c844",
+        "c5ec132d2f5718c2a2dcbe70fe77fa53",
+        "04dd53592d455d800ec6ff30b69c9d66",
+        "0241f9c6f6397e90e85e7117a54f3af7",
+        "cfb6ab15a922519c49df74e0568dfc3c",
+        "88a5559a56b5a3364207c6f42d0cb830",
+        "aa61249ec1263df80a23d709ee889913",
+        "8a40c55f5b539da7ae5f464cbac7b40b"
+      ],
+      "witnesses": [
+        {
+          "frame": 0,
+          "crop": [
+            562,
+            294,
+            626,
+            358
+          ],
+          "archive_index": 20
+        },
+        {
+          "frame": 1198,
+          "crop": [
+            30,
+            250,
+            100,
+            320
+          ],
+          "archive_index": 5397
+        }
+      ]
+    },
+    "02521568-a335c1a0": {
+      "data": "runs/z13_data/02521568-a335c1a0.npz",
+      "fps_file": "runs/train_cache/02521568-a335c1a0/motion/flyvis_tiled.json",
+      "video_path": "data/bdd100k/videos/train/02521568-a335c1a0.mov",
+      "views": {
+        "72ede508089ce9e3ceab579776740977": {
+          "frame": 65,
+          "crop": [
+            410,
+            313,
+            474,
+            377
+          ],
+          "archive_indices": []
+        },
+        "13e1ea3a8a93742f884a9ba94debdebe": {
+          "frame": 66,
+          "crop": [
+            409,
+            313,
+            473,
+            377
+          ],
+          "archive_indices": []
+        },
+        "a6e8cf52e71ed0419fc83c589d23273f": {
+          "frame": 68,
+          "crop": [
+            409,
+            313,
+            473,
+            377
+          ],
+          "archive_indices": []
+        },
+        "2f90c8a2c1936d112a3bae2b27d042fb": {
+          "frame": 69,
+          "crop": [
+            409,
+            313,
+            473,
+            377
+          ],
+          "archive_indices": []
+        },
+        "3d8319dc4c7c037c70cab135537db1e5": {
+          "frame": 70,
+          "crop": [
+            409,
+            313,
+            473,
+            377
+          ],
+          "archive_indices": []
+        },
+        "1c35e9fa5f4471e0b9313b4b8cd43fa6": {
+          "frame": 71,
+          "crop": [
+            409,
+            313,
+            473,
+            377
+          ],
+          "archive_indices": []
+        },
+        "6b52bc767b8a96b6bfee46c6579ce29a": {
+          "frame": 72,
+          "crop": [
+            409,
+            313,
+            473,
+            377
+          ],
+          "archive_indices": []
+        },
+        "e02496666bc4c49d5694ce3d0a7fb3d4": {
+          "frame": 87,
+          "crop": [
+            355,
+            321,
+            419,
+            385
+          ],
+          "archive_indices": [
+            550
+          ]
+        },
+        "1cf348aeb8483037ed15dc89ba977ba3": {
+          "frame": 88,
+          "crop": [
+            357,
+            321,
+            421,
+            385
+          ],
+          "archive_indices": [
+            551
+          ]
+        },
+        "db58ad13927493605ac289a5ede44582": {
+          "frame": 89,
+          "crop": [
+            358,
+            322,
+            422,
+            386
+          ],
+          "archive_indices": [
+            552
+          ]
+        },
+        "b750031b1257cb53b4ccf1d4ee1a1853": {
+          "frame": 90,
+          "crop": [
+            359,
+            322,
+            423,
+            386
+          ],
+          "archive_indices": [
+            553
+          ]
+        },
+        "6173462f931615a474529fa2b29f6dbf": {
+          "frame": 92,
+          "crop": [
+            363,
+            324,
+            427,
+            388
+          ],
+          "archive_indices": [
+            554
+          ]
+        },
+        "76e5bfa6f687a60b270e3ffedb6d29e6": {
+          "frame": 93,
+          "crop": [
+            365,
+            324,
+            429,
+            388
+          ],
+          "archive_indices": [
+            555
+          ]
+        },
+        "2cc6f298e4cac579d41d77b0d02311c7": {
+          "frame": 94,
+          "crop": [
+            367,
+            325,
+            431,
+            389
+          ],
+          "archive_indices": [
+            556
+          ]
+        },
+        "ecd7d8cc7648d7c430d36354dbad8a3c": {
+          "frame": 95,
+          "crop": [
+            370,
+            326,
+            434,
+            390
+          ],
+          "archive_indices": [
+            557
+          ]
+        },
+        "9fe8468310aeed54c7652c687427d1c3": {
+          "frame": 96,
+          "crop": [
+            372,
+            327,
+            436,
+            391
+          ],
+          "archive_indices": [
+            558
+          ]
+        }
+      },
+      "missing": [
+        "72ede508089ce9e3ceab579776740977",
+        "13e1ea3a8a93742f884a9ba94debdebe",
+        "a6e8cf52e71ed0419fc83c589d23273f",
+        "2f90c8a2c1936d112a3bae2b27d042fb",
+        "3d8319dc4c7c037c70cab135537db1e5",
+        "1c35e9fa5f4471e0b9313b4b8cd43fa6",
+        "6b52bc767b8a96b6bfee46c6579ce29a"
+      ],
+      "witnesses": [
+        {
+          "frame": 0,
+          "crop": [
+            0,
+            305,
+            136,
+            441
+          ],
+          "archive_index": 15
+        },
+        {
+          "frame": 1199,
+          "crop": [
+            288,
+            273,
+            437,
+            422
+          ],
+          "archive_index": 4502
+        }
+      ]
+    },
+    "02521568-dd1da95c": {
+      "data": "runs/z13_data/02521568-dd1da95c.npz",
+      "fps_file": "runs/train_cache/02521568-dd1da95c/motion/flyvis_tiled.json",
+      "video_path": "data/bdd100k/videos/train/02521568-dd1da95c.mov",
+      "views": {
+        "b2e8d1d5756674bbb34fa42231e44d32": {
+          "frame": 577,
+          "crop": [
+            288,
+            276,
+            377,
+            365
+          ],
+          "archive_indices": [
+            2198,
+            2199,
+            2200
+          ]
+        },
+        "fbda879e9028e88728d7649505e06f49": {
+          "frame": 578,
+          "crop": [
+            284,
+            274,
+            377,
+            367
+          ],
+          "archive_indices": [
+            2201
+          ]
+        },
+        "1b2a25e740d5548fd9314aa2683ff377": {
+          "frame": 581,
+          "crop": [
+            270,
+            263,
+            381,
+            374
+          ],
+          "archive_indices": []
+        },
+        "bf67e497d354d1cff0b2fe162ea0bda5": {
+          "frame": 583,
+          "crop": [
+            265,
+            259,
+            381,
+            375
+          ],
+          "archive_indices": []
+        },
+        "b9bdf65c67b716836fc2217b47315c53": {
+          "frame": 584,
+          "crop": [
+            264,
+            259,
+            380,
+            375
+          ],
+          "archive_indices": []
+        },
+        "18e56ea1bb377709483314b87ac8cbcd": {
+          "frame": 585,
+          "crop": [
+            263,
+            258,
+            379,
+            374
+          ],
+          "archive_indices": []
+        },
+        "28cfa5f3eeb18e38f59b5e7a358d753f": {
+          "frame": 586,
+          "crop": [
+            262,
+            258,
+            378,
+            374
+          ],
+          "archive_indices": []
+        },
+        "199edc1f7057d4c9c163133074b3caf0": {
+          "frame": 587,
+          "crop": [
+            260,
+            257,
+            376,
+            373
+          ],
+          "archive_indices": []
+        }
+      },
+      "missing": [
+        "1b2a25e740d5548fd9314aa2683ff377",
+        "bf67e497d354d1cff0b2fe162ea0bda5",
+        "b9bdf65c67b716836fc2217b47315c53",
+        "18e56ea1bb377709483314b87ac8cbcd",
+        "28cfa5f3eeb18e38f59b5e7a358d753f",
+        "199edc1f7057d4c9c163133074b3caf0"
+      ],
+      "witnesses": [
+        {
+          "frame": 0,
+          "crop": [
+            487,
+            289,
+            551,
+            353
+          ],
+          "archive_index": 6
+        },
+        {
+          "frame": 1205,
+          "crop": [
+            263,
+            315,
+            327,
+            379
+          ],
+          "archive_index": 3790
+        }
+      ]
+    },
+    "0252f2b5-2e69185a": {
+      "data": "runs/z13_data/0252f2b5-2e69185a.npz",
+      "fps_file": "runs/train_cache/0252f2b5-2e69185a/motion/flyvis_tiled.json",
+      "video_path": "data/bdd100k/videos/train/0252f2b5-2e69185a.mov",
+      "views": {
+        "b1b6614c274d0cab55185664d1b3f2a4": {
+          "frame": 288,
+          "crop": [
+            631,
+            618,
+            695,
+            682
+          ],
+          "archive_indices": [
+            578
+          ]
+        },
+        "1b5f443b10ac0062bf7840e577ef9c5e": {
+          "frame": 289,
+          "crop": [
+            631,
+            617,
+            695,
+            681
+          ],
+          "archive_indices": [
+            579
+          ]
+        },
+        "f945b7539ab754008428c7a14653e2b1": {
+          "frame": 290,
+          "crop": [
+            630,
+            616,
+            695,
+            681
+          ],
+          "archive_indices": [
+            580
+          ]
+        },
+        "9f081b8baca748a38efa54387a351581": {
+          "frame": 291,
+          "crop": [
+            629,
+            616,
+            694,
+            681
+          ],
+          "archive_indices": [
+            581
+          ]
+        },
+        "64b603cbf70d523aee031ca405c5c155": {
+          "frame": 293,
+          "crop": [
+            628,
+            616,
+            693,
+            681
+          ],
+          "archive_indices": []
+        },
+        "338a68a23ed184746ebb05005ddeadc7": {
+          "frame": 294,
+          "crop": [
+            627,
+            616,
+            692,
+            681
+          ],
+          "archive_indices": []
+        },
+        "edab32286fa9fa60680978d165f47f5c": {
+          "frame": 295,
+          "crop": [
+            627,
+            615,
+            692,
+            680
+          ],
+          "archive_indices": []
+        },
+        "866517525d5c3a5fb80138d0b6ac5cf1": {
+          "frame": 296,
+          "crop": [
+            627,
+            615,
+            692,
+            680
+          ],
+          "archive_indices": []
+        },
+        "a158031b62d903a2c805f326016978fc": {
+          "frame": 297,
+          "crop": [
+            626,
+            615,
+            691,
+            680
+          ],
+          "archive_indices": []
+        },
+        "9ca45756b0378f04af010cfae9bcf5fa": {
+          "frame": 440,
+          "crop": [
+            440,
+            597,
+            504,
+            661
+          ],
+          "archive_indices": [
+            1244,
+            1245,
+            1246
+          ]
+        },
+        "ab6a018679388b186320bc7da29d6691": {
+          "frame": 441,
+          "crop": [
+            439,
+            596,
+            503,
+            660
+          ],
+          "archive_indices": [
+            1247
+          ]
+        },
+        "98cbcb63bf7b574d1076c61a8c7ccf8a": {
+          "frame": 443,
+          "crop": [
+            439,
+            596,
+            503,
+            660
+          ],
+          "archive_indices": [
+            1248
+          ]
+        },
+        "7a021a38408dae41dc67d610238a24d8": {
+          "frame": 444,
+          "crop": [
+            439,
+            596,
+            503,
+            660
+          ],
+          "archive_indices": [
+            1249
+          ]
+        },
+        "63700c97ef4474fd4f2ebc615a1cfb70": {
+          "frame": 445,
+          "crop": [
+            439,
+            596,
+            503,
+            660
+          ],
+          "archive_indices": [
+            1250
+          ]
+        },
+        "143de29ef94e30866f78e5c6e9699376": {
+          "frame": 446,
+          "crop": [
+            439,
+            596,
+            503,
+            660
+          ],
+          "archive_indices": [
+            1251
+          ]
+        },
+        "b7a83f6bf729709ee146ca4af654b20d": {
+          "frame": 447,
+          "crop": [
+            439,
+            596,
+            503,
+            660
+          ],
+          "archive_indices": [
+            1252
+          ]
+        }
+      },
+      "missing": [
+        "64b603cbf70d523aee031ca405c5c155",
+        "338a68a23ed184746ebb05005ddeadc7",
+        "edab32286fa9fa60680978d165f47f5c",
+        "866517525d5c3a5fb80138d0b6ac5cf1",
+        "a158031b62d903a2c805f326016978fc"
+      ],
+      "witnesses": [
+        {
+          "frame": 7,
+          "crop": [
+            490,
+            608,
+            554,
+            672
+          ],
+          "archive_index": 0
+        },
+        {
+          "frame": 1190,
+          "crop": [
+            0,
+            580,
+            140,
+            720
+          ],
+          "archive_index": 3475
+        }
+      ]
+    },
+    "02927def-14c4c3cb": {
+      "data": "runs/z13_data/02927def-14c4c3cb.npz",
+      "fps_file": "runs/train_cache/02927def-14c4c3cb/motion/flyvis_tiled.json",
+      "video_path": "data/bdd100k/videos/train/02927def-14c4c3cb.mov",
+      "views": {
+        "9aba9ecf72cc16cdc8057ea64852b50b": {
+          "frame": 658,
+          "crop": [
+            411,
+            375,
+            486,
+            450
+          ],
+          "archive_indices": []
+        },
+        "174555cb3bb4b4ee336935beca7ae431": {
+          "frame": 659,
+          "crop": [
+            412,
+            374,
+            486,
+            448
+          ],
+          "archive_indices": []
+        },
+        "434aa3c78665278f804b671282a09035": {
+          "frame": 660,
+          "crop": [
+            411,
+            373,
+            483,
+            445
+          ],
+          "archive_indices": []
+        },
+        "c194a4b613cfd25bfdc32a99a37d2f8c": {
+          "frame": 661,
+          "crop": [
+            410,
+            370,
+            483,
+            443
+          ],
+          "archive_indices": []
+        },
+        "b62cb9f67ce10be0c35198b96665d9cf": {
+          "frame": 663,
+          "crop": [
+            409,
+            367,
+            482,
+            440
+          ],
+          "archive_indices": []
+        },
+        "1be8624a7f05eb303c189dbdc4c75dc1": {
+          "frame": 664,
+          "crop": [
+            409,
+            365,
+            482,
+            438
+          ],
+          "archive_indices": []
+        },
+        "60fb0db66ae5cf24a52811a2b44af424": {
+          "frame": 665,
+          "crop": [
+            409,
+            364,
+            482,
+            437
+          ],
+          "archive_indices": []
+        },
+        "a02feb4a16915ef6ff023f251a8d2e33": {
+          "frame": 666,
+          "crop": [
+            408,
+            362,
+            481,
+            435
+          ],
+          "archive_indices": []
+        },
+        "8acee289cc75738d0fd23a9726713ef3": {
+          "frame": 667,
+          "crop": [
+            408,
+            361,
+            481,
+            434
+          ],
+          "archive_indices": []
+        }
+      },
+      "missing": [
+        "9aba9ecf72cc16cdc8057ea64852b50b",
+        "174555cb3bb4b4ee336935beca7ae431",
+        "434aa3c78665278f804b671282a09035",
+        "c194a4b613cfd25bfdc32a99a37d2f8c",
+        "b62cb9f67ce10be0c35198b96665d9cf",
+        "1be8624a7f05eb303c189dbdc4c75dc1",
+        "60fb0db66ae5cf24a52811a2b44af424",
+        "a02feb4a16915ef6ff023f251a8d2e33",
+        "8acee289cc75738d0fd23a9726713ef3"
+      ],
+      "witnesses": [
+        {
+          "frame": 0,
+          "crop": [
+            69,
+            366,
+            202,
+            499
+          ],
+          "archive_index": 0
+        },
+        {
+          "frame": 1213,
+          "crop": [
+            0,
+            162,
+            290,
+            452
+          ],
+          "archive_index": 3596
+        }
+      ]
+    },
+    "02a70c1f-6df7ce64": {
+      "data": "runs/z13_data/02a70c1f-6df7ce64.npz",
+      "fps_file": "runs/train_cache/02a70c1f-6df7ce64/motion/flyvis_tiled.json",
+      "video_path": "data/bdd100k/videos/train/02a70c1f-6df7ce64.mov",
+      "views": {
+        "40a3be7a515a7d918fb031687b0a2ed8": {
+          "frame": 734,
+          "crop": [
+            453,
+            214,
+            517,
+            278
+          ],
+          "archive_indices": [
+            4605
+          ]
+        },
+        "b1d7d0a50f8074dfe965c89803c28ff7": {
+          "frame": 735,
+          "crop": [
+            453,
+            214,
+            517,
+            278
+          ],
+          "archive_indices": [
+            4606
+          ]
+        },
+        "f6a681222583c34d37d6e716920f4692": {
+          "frame": 736,
+          "crop": [
+            454,
+            215,
+            518,
+            279
+          ],
+          "archive_indices": [
+            4607
+          ]
+        },
+        "e822ef1b0fd6cdc21fa07fe6be2b65aa": {
+          "frame": 737,
+          "crop": [
+            455,
+            216,
+            519,
+            280
+          ],
+          "archive_indices": [
+            4608
+          ]
+        },
+        "d25d67252cc6b3d12304cff945c9d81f": {
+          "frame": 739,
+          "crop": [
+            457,
+            217,
+            521,
+            281
+          ],
+          "archive_indices": [
+            4609
+          ]
+        },
+        "4a6ad0c0a483d08e52ad8082ad583074": {
+          "frame": 740,
+          "crop": [
+            457,
+            217,
+            521,
+            281
+          ],
+          "archive_indices": [
+            4610
+          ]
+        },
+        "af98ccbd5d07a9763baf355c082500e7": {
+          "frame": 741,
+          "crop": [
+            458,
+            217,
+            522,
+            281
+          ],
+          "archive_indices": [
+            4611
+          ]
+        },
+        "5b90533c3ad4fa841c4d225639e38bc1": {
+          "frame": 742,
+          "crop": [
+            459,
+            218,
+            523,
+            282
+          ],
+          "archive_indices": [
+            4612
+          ]
+        },
+        "1e0b539b3edd0905297ad94248f89da0": {
+          "frame": 743,
+          "crop": [
+            460,
+            218,
+            524,
+            282
+          ],
+          "archive_indices": [
+            4613
+          ]
+        },
+        "56177ecaaeacbfce271256079b16f991": {
+          "frame": 896,
+          "crop": [
+            158,
+            216,
+            222,
+            280
+          ],
+          "archive_indices": [
+            6286
+          ]
+        },
+        "9d8886dfe4d88d633a6979759dd7311a": {
+          "frame": 897,
+          "crop": [
+            151,
+            211,
+            225,
+            285
+          ],
+          "archive_indices": [
+            6287
+          ]
+        },
+        "97a7c8a69ad3a9c2ee9b56278eb5f916": {
+          "frame": 898,
+          "crop": [
+            163,
+            217,
+            227,
+            281
+          ],
+          "archive_indices": [
+            6288
+          ]
+        },
+        "b37039b188b42b05cb13dfc3b48cbf74": {
+          "frame": 899,
+          "crop": [
+            166,
+            217,
+            230,
+            281
+          ],
+          "archive_indices": [
+            6289
+          ]
+        },
+        "e3a59f7d6b82ab43d8d752721b40a14a": {
+          "frame": 901,
+          "crop": [
+            171,
+            218,
+            235,
+            282
+          ],
+          "archive_indices": []
+        },
+        "bfe86b91bbd29202d4ecd5f5d77a743c": {
+          "frame": 902,
+          "crop": [
+            173,
+            218,
+            237,
+            282
+          ],
+          "archive_indices": []
+        },
+        "a3093bb1c538728a120fe97910b18189": {
+          "frame": 903,
+          "crop": [
+            176,
+            219,
+            240,
+            283
+          ],
+          "archive_indices": []
+        },
+        "2ce990a134a4941d30eb1ce78ba23a26": {
+          "frame": 904,
+          "crop": [
+            179,
+            219,
+            243,
+            283
+          ],
+          "archive_indices": []
+        },
+        "db51a21cf313a63010476a5731fadadf": {
+          "frame": 905,
+          "crop": [
+            181,
+            219,
+            245,
+            283
+          ],
+          "archive_indices": []
+        }
+      },
+      "missing": [
+        "e3a59f7d6b82ab43d8d752721b40a14a",
+        "bfe86b91bbd29202d4ecd5f5d77a743c",
+        "a3093bb1c538728a120fe97910b18189",
+        "2ce990a134a4941d30eb1ce78ba23a26",
+        "db51a21cf313a63010476a5731fadadf"
+      ],
+      "witnesses": [
+        {
+          "frame": 0,
+          "crop": [
+            395,
+            177,
+            459,
+            241
+          ],
+          "archive_index": 5
+        },
+        {
+          "frame": 1205,
+          "crop": [
+            338,
+            218,
+            402,
+            282
+          ],
+          "archive_index": 8924
+        }
+      ]
+    },
+    "02a70c1f-6f18e57f": {
+      "data": "runs/z13_data/02a70c1f-6f18e57f.npz",
+      "fps_file": "runs/train_cache/02a70c1f-6f18e57f/motion/flyvis_tiled.json",
+      "video_path": "data/bdd100k/videos/train/02a70c1f-6f18e57f.mov",
+      "views": {
+        "76f9dda7f2f9f56db8701050154d6d00": {
+          "frame": 837,
+          "crop": [
+            240,
+            241,
+            304,
+            305
+          ],
+          "archive_indices": [
+            913,
+            914,
+            915,
+            1347,
+            1348
+          ]
+        },
+        "1a5a0de40ec1a1b8b920a319e61c3e00": {
+          "frame": 838,
+          "crop": [
+            239,
+            238,
+            303,
+            302
+          ],
+          "archive_indices": [
+            916,
+            1349
+          ]
+        },
+        "943d0651a6a4de4f5fc81486255e081b": {
+          "frame": 840,
+          "crop": [
+            239,
+            238,
+            303,
+            302
+          ],
+          "archive_indices": []
+        },
+        "9c50ab2bf1c7fbf4dec7baee59839ef0": {
+          "frame": 841,
+          "crop": [
+            239,
+            238,
+            303,
+            302
+          ],
+          "archive_indices": []
+        },
+        "7fb9014406eaf730f515f19c1cccee9d": {
+          "frame": 842,
+          "crop": [
+            239,
+            238,
+            303,
+            302
+          ],
+          "archive_indices": []
+        },
+        "5c9ba5f04e63358fe65ad2c6bd4a5891": {
+          "frame": 843,
+          "crop": [
+            239,
+            238,
+            303,
+            302
+          ],
+          "archive_indices": []
+        },
+        "9a4a72d5a152a498c0db189043968f90": {
+          "frame": 844,
+          "crop": [
+            239,
+            238,
+            303,
+            302
+          ],
+          "archive_indices": []
+        }
+      },
+      "missing": [
+        "943d0651a6a4de4f5fc81486255e081b",
+        "9c50ab2bf1c7fbf4dec7baee59839ef0",
+        "7fb9014406eaf730f515f19c1cccee9d",
+        "5c9ba5f04e63358fe65ad2c6bd4a5891",
+        "9a4a72d5a152a498c0db189043968f90"
+      ],
+      "witnesses": [
+        {
+          "frame": 0,
+          "crop": [
+            1081,
+            272,
+            1145,
+            336
+          ],
+          "archive_index": 0
+        },
+        {
+          "frame": 1210,
+          "crop": [
+            560,
+            0,
+            1280,
+            720
+          ],
+          "archive_index": 3971
+        }
+      ]
+    },
+    "02bb67ae-8c3d61f8": {
+      "data": "runs/z13_data/02bb67ae-8c3d61f8.npz",
+      "fps_file": "runs/train_cache/02bb67ae-8c3d61f8/motion/flyvis_tiled.json",
+      "video_path": null,
+      "views": {
+        "f1fa8ecd45912523c5766e79d0aad6d9": {
+          "frame": 1123,
+          "crop": [
+            299,
+            401,
+            370,
+            472
+          ],
+          "archive_indices": [
+            1440
+          ]
+        },
+        "8bd3dc14857714858e92140747a263ed": {
+          "frame": 1124,
+          "crop": [
+            297,
+            397,
+            375,
+            475
+          ],
+          "archive_indices": [
+            1441
+          ]
+        },
+        "bb239e1c5d4a0f4e031f2841503e4024": {
+          "frame": 1125,
+          "crop": [
+            296,
+            396,
+            376,
+            476
+          ],
+          "archive_indices": [
+            1442
+          ]
+        },
+        "b19ea6d4d341c98db0bfb3c14406d2eb": {
+          "frame": 1126,
+          "crop": [
+            296,
+            396,
+            375,
+            475
+          ],
+          "archive_indices": [
+            1443
+          ]
+        },
+        "219f6684cbc157eae02f4ad8e418729b": {
+          "frame": 1128,
+          "crop": [
+            296,
+            396,
+            376,
+            476
+          ],
+          "archive_indices": [
+            1444
+          ]
+        },
+        "def36d9881cbbe1cfe59926439779089": {
+          "frame": 1129,
+          "crop": [
+            296,
+            396,
+            376,
+            476
+          ],
+          "archive_indices": [
+            1445
+          ]
+        },
+        "0a99f5faf96607395f7918dde18ce166": {
+          "frame": 1130,
+          "crop": [
+            297,
+            396,
+            377,
+            476
+          ],
+          "archive_indices": [
+            1446
+          ]
+        },
+        "4fabbbaea00a191bbbac949e1fe49fac": {
+          "frame": 1131,
+          "crop": [
+            297,
+            396,
+            377,
+            476
+          ],
+          "archive_indices": [
+            1447
+          ]
+        },
+        "1973e08d7dcc2c8be6eb60d8bd4a3983": {
+          "frame": 1132,
+          "crop": [
+            297,
+            395,
+            377,
+            475
+          ],
+          "archive_indices": [
+            1448
+          ]
+        }
+      },
+      "missing": [],
+      "witnesses": []
+    },
+    "02c928dc-b7de7ec8": {
+      "data": "runs/z13_data/02c928dc-b7de7ec8.npz",
+      "fps_file": "runs/train_cache/02c928dc-b7de7ec8/motion/flyvis_tiled.json",
+      "video_path": null,
+      "views": {
+        "b65c6b07f1c72f783ea6be6fba5c5e2e": {
+          "frame": 886,
+          "crop": [
+            436,
+            344,
+            500,
+            408
+          ],
+          "archive_indices": [
+            4092,
+            4093,
+            4094
+          ]
+        },
+        "0bde6eb2398f48f28e61d54a6c0a991b": {
+          "frame": 887,
+          "crop": [
+            435,
+            345,
+            499,
+            409
+          ],
+          "archive_indices": [
+            4095
+          ]
+        },
+        "7533f38987727dc5e6a1736ccee3b405": {
+          "frame": 889,
+          "crop": [
+            435,
+            345,
+            499,
+            409
+          ],
+          "archive_indices": [
+            4096
+          ]
+        },
+        "702342083f00035fd5132fe2248e024d": {
+          "frame": 890,
+          "crop": [
+            435,
+            345,
+            499,
+            409
+          ],
+          "archive_indices": [
+            4097
+          ]
+        },
+        "29bb3fc6ad131341c56b51afa249efdc": {
+          "frame": 891,
+          "crop": [
+            435,
+            345,
+            499,
+            409
+          ],
+          "archive_indices": [
+            4098
+          ]
+        },
+        "37a0741c5fdc90bf3990142b1d5322e0": {
+          "frame": 892,
+          "crop": [
+            435,
+            345,
+            499,
+            409
+          ],
+          "archive_indices": [
+            4099
+          ]
+        },
+        "88ddb943b0079afafccea1adadce490a": {
+          "frame": 893,
+          "crop": [
+            435,
+            345,
+            499,
+            409
+          ],
+          "archive_indices": [
+            4100
+          ]
+        }
+      },
+      "missing": [],
+      "witnesses": []
+    },
+    "02cdc06d-5502f174": {
+      "data": "runs/z13_data/02cdc06d-5502f174.npz",
+      "fps_file": "runs/train_cache/02cdc06d-5502f174/motion/flyvis_tiled.json",
+      "video_path": "data/bdd100k/videos/train/02cdc06d-5502f174.mov",
+      "views": {
+        "ffa1983998f28cf1682a1e301bf0cf34": {
+          "frame": 818,
+          "crop": [
+            444,
+            350,
+            508,
+            414
+          ],
+          "archive_indices": [
+            2063
+          ]
+        },
+        "509fecffbfe973b40b00701f7787d30f": {
+          "frame": 819,
+          "crop": [
+            443,
+            350,
+            507,
+            414
+          ],
+          "archive_indices": [
+            2064
+          ]
+        },
+        "8278fbcafdab21a41258611ad27fc2c5": {
+          "frame": 820,
+          "crop": [
+            442,
+            350,
+            506,
+            414
+          ],
+          "archive_indices": [
+            2065
+          ]
+        },
+        "95e475f013df412eba9cd2f61e969834": {
+          "frame": 821,
+          "crop": [
+            442,
+            350,
+            506,
+            414
+          ],
+          "archive_indices": [
+            2066
+          ]
+        },
+        "5d1c41a38714720a5abc9512c9041e78": {
+          "frame": 823,
+          "crop": [
+            440,
+            350,
+            504,
+            414
+          ],
+          "archive_indices": []
+        },
+        "87ac8e002600d76dac1f85faf850eb92": {
+          "frame": 824,
+          "crop": [
+            440,
+            350,
+            504,
+            414
+          ],
+          "archive_indices": []
+        },
+        "cbc0e89e4652da7434f0db6a76754b68": {
+          "frame": 825,
+          "crop": [
+            439,
+            350,
+            503,
+            414
+          ],
+          "archive_indices": []
+        },
+        "4c1678b175aaa6437f87cca7a7bfccbf": {
+          "frame": 826,
+          "crop": [
+            439,
+            349,
+            503,
+            413
+          ],
+          "archive_indices": []
+        },
+        "fa6cc0b85fcd908b29b6156f8dcf2877": {
+          "frame": 827,
+          "crop": [
+            438,
+            349,
+            502,
+            413
+          ],
+          "archive_indices": []
+        }
+      },
+      "missing": [
+        "5d1c41a38714720a5abc9512c9041e78",
+        "87ac8e002600d76dac1f85faf850eb92",
+        "cbc0e89e4652da7434f0db6a76754b68",
+        "4c1678b175aaa6437f87cca7a7bfccbf",
+        "fa6cc0b85fcd908b29b6156f8dcf2877"
+      ],
+      "witnesses": [
+        {
+          "frame": 0,
+          "crop": [
+            393,
+            336,
+            457,
+            400
+          ],
+          "archive_index": 0
+        },
+        {
+          "frame": 1204,
+          "crop": [
+            146,
+            300,
+            269,
+            423
+          ],
+          "archive_index": 3026
+        }
+      ]
+    },
+    "02d478d1-42ca3cfb": {
+      "data": "runs/z13_data/02d478d1-42ca3cfb.npz",
+      "fps_file": "runs/train_cache/02d478d1-42ca3cfb/motion/flyvis_tiled.json",
+      "video_path": "data/bdd100k/videos/train/02d478d1-42ca3cfb.mov",
+      "views": {
+        "dee4f3f48d41ba2ea8b49ba9324b4800": {
+          "frame": 885,
+          "crop": [
+            310,
+            229,
+            509,
+            428
+          ],
+          "archive_indices": [
+            1724
+          ]
+        },
+        "9b9bccbe344f35267a22aeb5844df79c": {
+          "frame": 886,
+          "crop": [
+            275,
+            210,
+            516,
+            451
+          ],
+          "archive_indices": [
+            1725
+          ]
+        },
+        "aabd2f2d07ff2001713defa9496438f0": {
+          "frame": 887,
+          "crop": [
+            252,
+            199,
+            517,
+            464
+          ],
+          "archive_indices": [
+            1726
+          ]
+        },
+        "b66fec997df710f69d332c6b69866110": {
+          "frame": 888,
+          "crop": [
+            255,
+            206,
+            508,
+            459
+          ],
+          "archive_indices": [
+            1727
+          ]
+        },
+        "1655d98ec0ce871f087bf7cda73f17ff": {
+          "frame": 890,
+          "crop": [
+            245,
+            206,
+            501,
+            462
+          ],
+          "archive_indices": []
+        },
+        "9f5a4a5ca92e985ae8f956a61a9b5248": {
+          "frame": 891,
+          "crop": [
+            241,
+            207,
+            497,
+            463
+          ],
+          "archive_indices": []
+        },
+        "280d39d44dafd42f60833ac3b8f0fa4c": {
+          "frame": 892,
+          "crop": [
+            237,
+            207,
+            493,
+            463
+          ],
+          "archive_indices": []
+        },
+        "f698f54bdecd9b348ab4298d6044044c": {
+          "frame": 893,
+          "crop": [
+            233,
+            208,
+            489,
+            464
+          ],
+          "archive_indices": []
+        },
+        "d2280b87e59d1b851b7107516455b280": {
+          "frame": 894,
+          "crop": [
+            229,
+            209,
+            485,
+            465
+          ],
+          "archive_indices": []
+        }
+      },
+      "missing": [
+        "1655d98ec0ce871f087bf7cda73f17ff",
+        "9f5a4a5ca92e985ae8f956a61a9b5248",
+        "280d39d44dafd42f60833ac3b8f0fa4c",
+        "f698f54bdecd9b348ab4298d6044044c",
+        "d2280b87e59d1b851b7107516455b280"
+      ],
+      "witnesses": [
+        {
+          "frame": 13,
+          "crop": [
+            700,
+            206,
+            764,
+            270
+          ],
+          "archive_index": 0
+        },
+        {
+          "frame": 1200,
+          "crop": [
+            603,
+            277,
+            667,
+            341
+          ],
+          "archive_index": 2851
+        }
+      ]
+    },
+    "02d5e1be-87ae2130": {
+      "data": "runs/z13_data/02d5e1be-87ae2130.npz",
+      "fps_file": "runs/train_cache/02d5e1be-87ae2130/motion/flyvis_tiled.json",
+      "video_path": null,
+      "views": {
+        "03be1c6905300653a77f901a44d9e816": {
+          "frame": 309,
+          "crop": [
+            390,
+            324,
+            454,
+            388
+          ],
+          "archive_indices": [
+            987,
+            988,
+            989
+          ]
+        },
+        "c25362b397518283a3201d26dfe86fdd": {
+          "frame": 310,
+          "crop": [
+            392,
+            324,
+            456,
+            388
+          ],
+          "archive_indices": [
+            990
+          ]
+        },
+        "2b0d5d31c197711d5472c51f328fc853": {
+          "frame": 312,
+          "crop": [
+            392,
+            324,
+            456,
+            388
+          ],
+          "archive_indices": [
+            991
+          ]
+        },
+        "faa743e16e218ae4656db3f464eefff1": {
+          "frame": 313,
+          "crop": [
+            392,
+            324,
+            456,
+            388
+          ],
+          "archive_indices": [
+            992
+          ]
+        },
+        "662a85175ac947c7fe16f536dea1d774": {
+          "frame": 314,
+          "crop": [
+            392,
+            324,
+            456,
+            388
+          ],
+          "archive_indices": [
+            993
+          ]
+        },
+        "1189f08a8a868d0650f99edf75003b3b": {
+          "frame": 315,
+          "crop": [
+            392,
+            324,
+            456,
+            388
+          ],
+          "archive_indices": [
+            994
+          ]
+        },
+        "91fb86775337237fd14095ecbb874af8": {
+          "frame": 316,
+          "crop": [
+            392,
+            324,
+            456,
+            388
+          ],
+          "archive_indices": [
+            995
+          ]
+        }
+      },
+      "missing": [],
+      "witnesses": []
+    },
+    "02d5e1be-98109303": {
+      "data": "runs/z13_data/02d5e1be-98109303.npz",
+      "fps_file": "runs/train_cache/02d5e1be-98109303/motion/flyvis_tiled.json",
+      "video_path": null,
+      "views": {
+        "b0d8f9a291145e9a78d3befca3bc8bac": {
+          "frame": 252,
+          "crop": [
+            5,
+            311,
+            141,
+            447
+          ],
+          "archive_indices": [
+            635
+          ]
+        },
+        "3f823a9ddd40d29a04e540c4fa5c8301": {
+          "frame": 253,
+          "crop": [
+            0,
+            310,
+            139,
+            449
+          ],
+          "archive_indices": [
+            636
+          ]
+        },
+        "dd9009a1d08f3680c010074f1e653cc5": {
+          "frame": 254,
+          "crop": [
+            0,
+            308,
+            143,
+            451
+          ],
+          "archive_indices": [
+            637
+          ]
+        },
+        "d0d16f691f846dc38b16f5bb5347a7d5": {
+          "frame": 255,
+          "crop": [
+            8,
+            319,
+            130,
+            441
+          ],
+          "archive_indices": [
+            638
+          ]
+        },
+        "9bb25bb865a51773471fdf485c014d61": {
+          "frame": 257,
+          "crop": [
+            3,
+            320,
+            124,
+            441
+          ],
+          "archive_indices": [
+            639
+          ]
+        },
+        "af23d00e7acfcc1120e6cb5202a6f7de": {
+          "frame": 258,
+          "crop": [
+            0,
+            321,
+            121,
+            442
+          ],
+          "archive_indices": [
+            640
+          ]
+        },
+        "bd738b8594a0894cdfede0ef62e77833": {
+          "frame": 259,
+          "crop": [
+            0,
+            322,
+            121,
+            443
+          ],
+          "archive_indices": [
+            641
+          ]
+        },
+        "206dbcd2cb321e0d59d56e43a317bbf0": {
+          "frame": 260,
+          "crop": [
+            0,
+            322,
+            121,
+            443
+          ],
+          "archive_indices": [
+            642
+          ]
+        },
+        "c554ec52a7878b30f1b3c3e3ba9033b2": {
+          "frame": 261,
+          "crop": [
+            0,
+            323,
+            121,
+            444
+          ],
+          "archive_indices": [
+            643
+          ]
+        }
+      },
+      "missing": [],
+      "witnesses": []
+    },
+    "02ef72c1-6e9a4af4": {
+      "data": "runs/z13_data/02ef72c1-6e9a4af4.npz",
+      "fps_file": "runs/train_cache/02ef72c1-6e9a4af4/motion/flyvis_tiled.json",
+      "video_path": null,
+      "views": {
+        "28cd7a71d83c5333b733af2470da76d3": {
+          "frame": 956,
+          "crop": [
+            746,
+            294,
+            826,
+            374
+          ],
+          "archive_indices": [
+            2168
+          ]
+        },
+        "fcf5d41eefdf685059626d80317c1dcf": {
+          "frame": 957,
+          "crop": [
+            746,
+            296,
+            825,
+            375
+          ],
+          "archive_indices": [
+            2169
+          ]
+        },
+        "eeaafe7253b51c6eca7a0a260fd99ffc": {
+          "frame": 958,
+          "crop": [
+            747,
+            294,
+            824,
+            371
+          ],
+          "archive_indices": [
+            2170
+          ]
+        },
+        "43c8fce668932287a7e4722d2c782470": {
+          "frame": 959,
+          "crop": [
+            746,
+            297,
+            822,
+            373
+          ],
+          "archive_indices": [
+            2171
+          ]
+        },
+        "5e9bda98e32cb3bcf094c4a45b50a9c3": {
+          "frame": 961,
+          "crop": [
+            746,
+            298,
+            822,
+            374
+          ],
+          "archive_indices": [
+            2172
+          ]
+        },
+        "899f6f0a05f7f6664be1f5b4a650e7a0": {
+          "frame": 962,
+          "crop": [
+            746,
+            298,
+            822,
+            374
+          ],
+          "archive_indices": [
+            2173
+          ]
+        },
+        "d51fe81e5378c7d3ae6da6cc099e1044": {
+          "frame": 963,
+          "crop": [
+            745,
+            298,
+            821,
+            374
+          ],
+          "archive_indices": [
+            2174
+          ]
+        },
+        "182b9c897008802c910cc18a14ca23f8": {
+          "frame": 964,
+          "crop": [
+            745,
+            298,
+            821,
+            374
+          ],
+          "archive_indices": [
+            2175
+          ]
+        },
+        "427996c73d17ed53b0dd1b366602d364": {
+          "frame": 965,
+          "crop": [
+            745,
+            298,
+            821,
+            374
+          ],
+          "archive_indices": [
+            2176
+          ]
+        }
+      },
+      "missing": [],
+      "witnesses": []
+    },
+    "03164aef-f18deb04": {
+      "data": "runs/z13_data/03164aef-f18deb04.npz",
+      "fps_file": "runs/train_cache/03164aef-f18deb04/motion/flyvis_tiled.json",
+      "video_path": "data/bdd100k/videos/train/03164aef-f18deb04.mov",
+      "views": {
+        "43b0445d29ec89e1429aef35472a01ab": {
+          "frame": 701,
+          "crop": [
+            584,
+            226,
+            648,
+            290
+          ],
+          "archive_indices": [
+            4564,
+            4565
+          ]
+        },
+        "9492a16e3f96cdda927966674e2c1aa9": {
+          "frame": 702,
+          "crop": [
+            584,
+            225,
+            648,
+            289
+          ],
+          "archive_indices": [
+            4566
+          ]
+        },
+        "075b8c5b166d3fda047733415d9b3f01": {
+          "frame": 703,
+          "crop": [
+            586,
+            225,
+            650,
+            289
+          ],
+          "archive_indices": [
+            4567
+          ]
+        },
+        "1722d75e61466d21d43dd076bfc951a8": {
+          "frame": 705,
+          "crop": [
+            587,
+            224,
+            651,
+            288
+          ],
+          "archive_indices": []
+        },
+        "4c2ad81bd0447d60e03709427732d980": {
+          "frame": 706,
+          "crop": [
+            588,
+            224,
+            652,
+            288
+          ],
+          "archive_indices": []
+        },
+        "f51c0d0ece2753077db31cfbc044d93c": {
+          "frame": 707,
+          "crop": [
+            588,
+            224,
+            652,
+            288
+          ],
+          "archive_indices": []
+        },
+        "f42c89da0cb7577c20230f660e88bae7": {
+          "frame": 708,
+          "crop": [
+            589,
+            224,
+            653,
+            288
+          ],
+          "archive_indices": []
+        },
+        "940b274568b386ddf5c814d1265871eb": {
+          "frame": 709,
+          "crop": [
+            590,
+            223,
+            654,
+            287
+          ],
+          "archive_indices": []
+        }
+      },
+      "missing": [
+        "1722d75e61466d21d43dd076bfc951a8",
+        "4c2ad81bd0447d60e03709427732d980",
+        "f51c0d0ece2753077db31cfbc044d93c",
+        "f42c89da0cb7577c20230f660e88bae7",
+        "940b274568b386ddf5c814d1265871eb"
+      ],
+      "witnesses": [
+        {
+          "frame": 0,
+          "crop": [
+            532,
+            205,
+            596,
+            269
+          ],
+          "archive_index": 0
+        },
+        {
+          "frame": 1207,
+          "crop": [
+            1014,
+            258,
+            1280,
+            524
+          ],
+          "archive_index": 6595
+        }
+      ]
+    },
+    "03626025-876e549e": {
+      "data": "runs/z13_data/03626025-876e549e.npz",
+      "fps_file": "runs/train_cache/03626025-876e549e/motion/flyvis_tiled.json",
+      "video_path": "data/bdd100k/videos/train/03626025-876e549e.mov",
+      "views": {
+        "3302e6a394dd798dd95abf60b4d21c53": {
+          "frame": 1045,
+          "crop": [
+            555,
+            310,
+            619,
+            374
+          ],
+          "archive_indices": []
+        },
+        "0f1fa012e320f551cde73cb102356e02": {
+          "frame": 1046,
+          "crop": [
+            555,
+            305,
+            619,
+            369
+          ],
+          "archive_indices": []
+        },
+        "9fef000db9e24c79750481ad603e7549": {
+          "frame": 1047,
+          "crop": [
+            555,
+            302,
+            619,
+            366
+          ],
+          "archive_indices": []
+        },
+        "c2e80d4b260f484c66347a8306f5a41a": {
+          "frame": 1048,
+          "crop": [
+            555,
+            296,
+            619,
+            360
+          ],
+          "archive_indices": []
+        },
+        "feb3f3bbb55e3cecc0beb31f00a05eef": {
+          "frame": 1050,
+          "crop": [
+            556,
+            294,
+            620,
+            358
+          ],
+          "archive_indices": []
+        },
+        "688fc832c74fdafd62dbf316ab2b782d": {
+          "frame": 1051,
+          "crop": [
+            556,
+            293,
+            620,
+            357
+          ],
+          "archive_indices": []
+        },
+        "f490d4d3cf26d53608c762ceb1ee39a1": {
+          "frame": 1052,
+          "crop": [
+            556,
+            293,
+            620,
+            357
+          ],
+          "archive_indices": []
+        },
+        "f3f038ef767523f5481ac36df6e9c337": {
+          "frame": 1053,
+          "crop": [
+            557,
+            292,
+            621,
+            356
+          ],
+          "archive_indices": []
+        },
+        "9f7e2b36b0ae4910776d06c15587647e": {
+          "frame": 1054,
+          "crop": [
+            557,
+            291,
+            621,
+            355
+          ],
+          "archive_indices": []
+        }
+      },
+      "missing": [
+        "3302e6a394dd798dd95abf60b4d21c53",
+        "0f1fa012e320f551cde73cb102356e02",
+        "9fef000db9e24c79750481ad603e7549",
+        "c2e80d4b260f484c66347a8306f5a41a",
+        "feb3f3bbb55e3cecc0beb31f00a05eef",
+        "688fc832c74fdafd62dbf316ab2b782d",
+        "f490d4d3cf26d53608c762ceb1ee39a1",
+        "f3f038ef767523f5481ac36df6e9c337",
+        "9f7e2b36b0ae4910776d06c15587647e"
+      ],
+      "witnesses": [
+        {
+          "frame": 1,
+          "crop": [
+            0,
+            228,
+            427,
+            655
+          ],
+          "archive_index": 0
+        },
+        {
+          "frame": 1204,
+          "crop": [
+            39,
+            242,
+            202,
+            405
+          ],
+          "archive_index": 2574
+        }
+      ]
+    }
+  },
+  "requests": {
+    "55b9d0010de434f75227c85f1046714b": {
+      "video": "00ed2e85-95394dfd",
+      "sequence": [
+        [
+          915,
+          [
+            982,
+            209,
+            1191,
+            418
+          ]
+        ],
+        [
+          916,
+          [
+            985,
+            206,
+            1198,
+            419
+          ]
+        ],
+        [
+          917,
+          [
+            1003,
+            209,
+            1205,
+            411
+          ]
+        ],
+        [
+          918,
+          [
+            1009,
+            198,
+            1221,
+            410
+          ]
+        ]
+      ]
+    },
+    "5d8b4d1ab58635fd171613aaf997fba8": {
+      "video": "00ed2e85-95394dfd",
+      "sequence": [
+        [
+          915,
+          [
+            982,
+            209,
+            1191,
+            418
+          ]
+        ],
+        [
+          916,
+          [
+            985,
+            206,
+            1198,
+            419
+          ]
+        ],
+        [
+          917,
+          [
+            1003,
+            209,
+            1205,
+            411
+          ]
+        ],
+        [
+          918,
+          [
+            1009,
+            198,
+            1221,
+            410
+          ]
+        ],
+        [
+          920,
+          [
+            1025,
+            191,
+            1238,
+            404
+          ]
+        ],
+        [
+          921,
+          [
+            1032,
+            188,
+            1245,
+            401
+          ]
+        ],
+        [
+          922,
+          [
+            1040,
+            184,
+            1253,
+            397
+          ]
+        ],
+        [
+          923,
+          [
+            1048,
+            181,
+            1261,
+            394
+          ]
+        ],
+        [
+          924,
+          [
+            1056,
+            178,
+            1269,
+            391
+          ]
+        ]
+      ]
+    },
+    "64f203b1a1bcf8b03f431f22db8a8b3b": {
+      "video": "017e2d3b-765af5a6",
+      "sequence": [
+        [
+          90,
+          [
+            659,
+            323,
+            723,
+            387
+          ]
+        ],
+        [
+          90,
+          [
+            659,
+            323,
+            723,
+            387
+          ]
+        ],
+        [
+          91,
+          [
+            658,
+            322,
+            722,
+            386
+          ]
+        ],
+        [
+          92,
+          [
+            657,
+            321,
+            721,
+            385
+          ]
+        ]
+      ]
+    },
+    "5ab11ec51950c7116a5d7ce58a3ce417": {
+      "video": "017e2d3b-765af5a6",
+      "sequence": [
+        [
+          90,
+          [
+            659,
+            323,
+            723,
+            387
+          ]
+        ],
+        [
+          90,
+          [
+            659,
+            323,
+            723,
+            387
+          ]
+        ],
+        [
+          91,
+          [
+            658,
+            322,
+            722,
+            386
+          ]
+        ],
+        [
+          92,
+          [
+            657,
+            321,
+            721,
+            385
+          ]
+        ],
+        [
+          94,
+          [
+            656,
+            319,
+            720,
+            383
+          ]
+        ],
+        [
+          95,
+          [
+            655,
+            319,
+            719,
+            383
+          ]
+        ],
+        [
+          96,
+          [
+            654,
+            318,
+            718,
+            382
+          ]
+        ],
+        [
+          97,
+          [
+            654,
+            318,
+            718,
+            382
+          ]
+        ],
+        [
+          98,
+          [
+            653,
+            317,
+            717,
+            381
+          ]
+        ]
+      ]
+    },
+    "a8da70f2a7d15e84b73a68a82088fe1a": {
+      "video": "02006c28-c2c5e796",
+      "sequence": [
+        [
+          565,
+          [
+            717,
+            319,
+            781,
+            383
+          ]
+        ],
+        [
+          566,
+          [
+            718,
+            320,
+            782,
+            384
+          ]
+        ],
+        [
+          568,
+          [
+            718,
+            324,
+            782,
+            388
+          ]
+        ],
+        [
+          569,
+          [
+            719,
+            326,
+            783,
+            390
+          ]
+        ]
+      ]
+    },
+    "36897fd73435d1a6359cf06eff48f893": {
+      "video": "02006c28-c2c5e796",
+      "sequence": [
+        [
+          565,
+          [
+            717,
+            319,
+            781,
+            383
+          ]
+        ],
+        [
+          566,
+          [
+            718,
+            320,
+            782,
+            384
+          ]
+        ],
+        [
+          568,
+          [
+            718,
+            324,
+            782,
+            388
+          ]
+        ],
+        [
+          569,
+          [
+            719,
+            326,
+            783,
+            390
+          ]
+        ],
+        [
+          571,
+          [
+            720,
+            328,
+            784,
+            392
+          ]
+        ],
+        [
+          572,
+          [
+            720,
+            330,
+            784,
+            394
+          ]
+        ],
+        [
+          573,
+          [
+            721,
+            331,
+            785,
+            395
+          ]
+        ],
+        [
+          574,
+          [
+            721,
+            332,
+            785,
+            396
+          ]
+        ],
+        [
+          575,
+          [
+            721,
+            334,
+            785,
+            398
+          ]
+        ]
+      ]
+    },
+    "19d7cb3eec17d04ae329c0601f13812c": {
+      "video": "0232c9f2-5600d649",
+      "sequence": [
+        [
+          1040,
+          [
+            336,
+            333,
+            437,
+            434
+          ]
+        ],
+        [
+          1041,
+          [
+            322,
+            326,
+            438,
+            442
+          ]
+        ],
+        [
+          1042,
+          [
+            321,
+            329,
+            433,
+            441
+          ]
+        ],
+        [
+          1043,
+          [
+            314,
+            329,
+            430,
+            445
+          ]
+        ]
+      ]
+    },
+    "9f9926888ca79fde5ccc42dea88e9708": {
+      "video": "0232c9f2-5600d649",
+      "sequence": [
+        [
+          1040,
+          [
+            336,
+            333,
+            437,
+            434
+          ]
+        ],
+        [
+          1041,
+          [
+            322,
+            326,
+            438,
+            442
+          ]
+        ],
+        [
+          1042,
+          [
+            321,
+            329,
+            433,
+            441
+          ]
+        ],
+        [
+          1043,
+          [
+            314,
+            329,
+            430,
+            445
+          ]
+        ],
+        [
+          1045,
+          [
+            309,
+            327,
+            429,
+            447
+          ]
+        ],
+        [
+          1046,
+          [
+            307,
+            327,
+            427,
+            447
+          ]
+        ],
+        [
+          1047,
+          [
+            306,
+            327,
+            426,
+            447
+          ]
+        ],
+        [
+          1048,
+          [
+            304,
+            327,
+            424,
+            447
+          ]
+        ],
+        [
+          1049,
+          [
+            302,
+            327,
+            422,
+            447
+          ]
+        ]
+      ]
+    },
+    "8546c65b12261c7d3ea4ed3bae9f2e26": {
+      "video": "02364369-bd3d1838",
+      "sequence": [
+        [
+          48,
+          [
+            773,
+            311,
+            837,
+            375
+          ]
+        ],
+        [
+          48,
+          [
+            773,
+            311,
+            837,
+            375
+          ]
+        ],
+        [
+          49,
+          [
+            772,
+            311,
+            836,
+            375
+          ]
+        ],
+        [
+          50,
+          [
+            772,
+            311,
+            836,
+            375
+          ]
+        ]
+      ]
+    },
+    "faa7bf554ca0703e5f2ca7700c74b804": {
+      "video": "02364369-bd3d1838",
+      "sequence": [
+        [
+          48,
+          [
+            773,
+            311,
+            837,
+            375
+          ]
+        ],
+        [
+          48,
+          [
+            773,
+            311,
+            837,
+            375
+          ]
+        ],
+        [
+          49,
+          [
+            772,
+            311,
+            836,
+            375
+          ]
+        ],
+        [
+          50,
+          [
+            772,
+            311,
+            836,
+            375
+          ]
+        ],
+        [
+          52,
+          [
+            771,
+            312,
+            835,
+            376
+          ]
+        ],
+        [
+          53,
+          [
+            771,
+            312,
+            835,
+            376
+          ]
+        ],
+        [
+          54,
+          [
+            771,
+            312,
+            835,
+            376
+          ]
+        ],
+        [
+          55,
+          [
+            771,
+            312,
+            835,
+            376
+          ]
+        ],
+        [
+          56,
+          [
+            771,
+            313,
+            835,
+            377
+          ]
+        ]
+      ]
+    },
+    "0ec9a49066427034fa74470b5e91bc19": {
+      "video": "02364369-bd3d1838",
+      "sequence": [
+        [
+          86,
+          [
+            703,
+            305,
+            767,
+            369
+          ]
+        ],
+        [
+          87,
+          [
+            703,
+            305,
+            767,
+            369
+          ]
+        ],
+        [
+          88,
+          [
+            703,
+            305,
+            767,
+            369
+          ]
+        ],
+        [
+          89,
+          [
+            702,
+            304,
+            766,
+            368
+          ]
+        ]
+      ]
+    },
+    "1f8ebf780dbc9e65d2fbd1471b1f0f88": {
+      "video": "02364369-bd3d1838",
+      "sequence": [
+        [
+          86,
+          [
+            703,
+            305,
+            767,
+            369
+          ]
+        ],
+        [
+          87,
+          [
+            703,
+            305,
+            767,
+            369
+          ]
+        ],
+        [
+          88,
+          [
+            703,
+            305,
+            767,
+            369
+          ]
+        ],
+        [
+          89,
+          [
+            702,
+            304,
+            766,
+            368
+          ]
+        ],
+        [
+          91,
+          [
+            701,
+            304,
+            765,
+            368
+          ]
+        ],
+        [
+          92,
+          [
+            701,
+            303,
+            765,
+            367
+          ]
+        ],
+        [
+          93,
+          [
+            700,
+            303,
+            764,
+            367
+          ]
+        ],
+        [
+          94,
+          [
+            700,
+            303,
+            764,
+            367
+          ]
+        ],
+        [
+          95,
+          [
+            699,
+            302,
+            763,
+            366
+          ]
+        ]
+      ]
+    },
+    "8618156f949c7ab52e7bab986da2078f": {
+      "video": "02364369-bd3d1838",
+      "sequence": [
+        [
+          103,
+          [
+            749,
+            310,
+            813,
+            374
+          ]
+        ],
+        [
+          104,
+          [
+            750,
+            310,
+            814,
+            374
+          ]
+        ],
+        [
+          105,
+          [
+            750,
+            310,
+            814,
+            374
+          ]
+        ],
+        [
+          107,
+          [
+            750,
+            310,
+            814,
+            374
+          ]
+        ]
+      ]
+    },
+    "adfaa7107ae31a2bf6d8b608639e787e": {
+      "video": "02364369-bd3d1838",
+      "sequence": [
+        [
+          103,
+          [
+            749,
+            310,
+            813,
+            374
+          ]
+        ],
+        [
+          104,
+          [
+            750,
+            310,
+            814,
+            374
+          ]
+        ],
+        [
+          105,
+          [
+            750,
+            310,
+            814,
+            374
+          ]
+        ],
+        [
+          107,
+          [
+            750,
+            310,
+            814,
+            374
+          ]
+        ],
+        [
+          109,
+          [
+            750,
+            310,
+            814,
+            374
+          ]
+        ],
+        [
+          110,
+          [
+            750,
+            310,
+            814,
+            374
+          ]
+        ],
+        [
+          111,
+          [
+            750,
+            310,
+            814,
+            374
+          ]
+        ],
+        [
+          112,
+          [
+            750,
+            310,
+            814,
+            374
+          ]
+        ],
+        [
+          113,
+          [
+            750,
+            310,
+            814,
+            374
+          ]
+        ]
+      ]
+    },
+    "c9124dbc730e5ad18a5b698bca6498d9": {
+      "video": "02364369-bd3d1838",
+      "sequence": [
+        [
+          141,
+          [
+            778,
+            313,
+            842,
+            377
+          ]
+        ],
+        [
+          141,
+          [
+            778,
+            313,
+            842,
+            377
+          ]
+        ],
+        [
+          142,
+          [
+            779,
+            314,
+            843,
+            378
+          ]
+        ],
+        [
+          143,
+          [
+            780,
+            313,
+            844,
+            377
+          ]
+        ]
+      ]
+    },
+    "a6df4d82b9a8b3705c218b110b39a289": {
+      "video": "02364369-bd3d1838",
+      "sequence": [
+        [
+          141,
+          [
+            778,
+            313,
+            842,
+            377
+          ]
+        ],
+        [
+          141,
+          [
+            778,
+            313,
+            842,
+            377
+          ]
+        ],
+        [
+          142,
+          [
+            779,
+            314,
+            843,
+            378
+          ]
+        ],
+        [
+          143,
+          [
+            780,
+            313,
+            844,
+            377
+          ]
+        ],
+        [
+          145,
+          [
+            782,
+            313,
+            846,
+            377
+          ]
+        ],
+        [
+          146,
+          [
+            782,
+            312,
+            846,
+            376
+          ]
+        ],
+        [
+          147,
+          [
+            783,
+            312,
+            847,
+            376
+          ]
+        ],
+        [
+          148,
+          [
+            784,
+            311,
+            848,
+            375
+          ]
+        ],
+        [
+          149,
+          [
+            785,
+            311,
+            849,
+            375
+          ]
+        ]
+      ]
+    },
+    "96348003c71b512c128ffe4f64939995": {
+      "video": "02521568-a335c1a0",
+      "sequence": [
+        [
+          65,
+          [
+            410,
+            313,
+            474,
+            377
+          ]
+        ],
+        [
+          65,
+          [
+            410,
+            313,
+            474,
+            377
+          ]
+        ],
+        [
+          65,
+          [
+            410,
+            313,
+            474,
+            377
+          ]
+        ],
+        [
+          66,
+          [
+            409,
+            313,
+            473,
+            377
+          ]
+        ]
+      ]
+    },
+    "7ccba9301ae32ac26fa8e03503b7bf11": {
+      "video": "02521568-a335c1a0",
+      "sequence": [
+        [
+          65,
+          [
+            410,
+            313,
+            474,
+            377
+          ]
+        ],
+        [
+          65,
+          [
+            410,
+            313,
+            474,
+            377
+          ]
+        ],
+        [
+          65,
+          [
+            410,
+            313,
+            474,
+            377
+          ]
+        ],
+        [
+          66,
+          [
+            409,
+            313,
+            473,
+            377
+          ]
+        ],
+        [
+          68,
+          [
+            409,
+            313,
+            473,
+            377
+          ]
+        ],
+        [
+          69,
+          [
+            409,
+            313,
+            473,
+            377
+          ]
+        ],
+        [
+          70,
+          [
+            409,
+            313,
+            473,
+            377
+          ]
+        ],
+        [
+          71,
+          [
+            409,
+            313,
+            473,
+            377
+          ]
+        ],
+        [
+          72,
+          [
+            409,
+            313,
+            473,
+            377
+          ]
+        ]
+      ]
+    },
+    "5075b1212f88f5698ce92efc3fa82a32": {
+      "video": "02521568-a335c1a0",
+      "sequence": [
+        [
+          87,
+          [
+            355,
+            321,
+            419,
+            385
+          ]
+        ],
+        [
+          88,
+          [
+            357,
+            321,
+            421,
+            385
+          ]
+        ],
+        [
+          89,
+          [
+            358,
+            322,
+            422,
+            386
+          ]
+        ],
+        [
+          90,
+          [
+            359,
+            322,
+            423,
+            386
+          ]
+        ]
+      ]
+    },
+    "9c4db5159073c3f0e920c7fdc5e45a66": {
+      "video": "02521568-a335c1a0",
+      "sequence": [
+        [
+          87,
+          [
+            355,
+            321,
+            419,
+            385
+          ]
+        ],
+        [
+          88,
+          [
+            357,
+            321,
+            421,
+            385
+          ]
+        ],
+        [
+          89,
+          [
+            358,
+            322,
+            422,
+            386
+          ]
+        ],
+        [
+          90,
+          [
+            359,
+            322,
+            423,
+            386
+          ]
+        ],
+        [
+          92,
+          [
+            363,
+            324,
+            427,
+            388
+          ]
+        ],
+        [
+          93,
+          [
+            365,
+            324,
+            429,
+            388
+          ]
+        ],
+        [
+          94,
+          [
+            367,
+            325,
+            431,
+            389
+          ]
+        ],
+        [
+          95,
+          [
+            370,
+            326,
+            434,
+            390
+          ]
+        ],
+        [
+          96,
+          [
+            372,
+            327,
+            436,
+            391
+          ]
+        ]
+      ]
+    },
+    "7ea3a75c4298878b14a86d2e51ae4379": {
+      "video": "02521568-dd1da95c",
+      "sequence": [
+        [
+          577,
+          [
+            288,
+            276,
+            377,
+            365
+          ]
+        ],
+        [
+          577,
+          [
+            288,
+            276,
+            377,
+            365
+          ]
+        ],
+        [
+          578,
+          [
+            284,
+            274,
+            377,
+            367
+          ]
+        ],
+        [
+          581,
+          [
+            270,
+            263,
+            381,
+            374
+          ]
+        ]
+      ]
+    },
+    "79ffa017b8609c91610ac2a9af771d98": {
+      "video": "02521568-dd1da95c",
+      "sequence": [
+        [
+          577,
+          [
+            288,
+            276,
+            377,
+            365
+          ]
+        ],
+        [
+          577,
+          [
+            288,
+            276,
+            377,
+            365
+          ]
+        ],
+        [
+          578,
+          [
+            284,
+            274,
+            377,
+            367
+          ]
+        ],
+        [
+          581,
+          [
+            270,
+            263,
+            381,
+            374
+          ]
+        ],
+        [
+          583,
+          [
+            265,
+            259,
+            381,
+            375
+          ]
+        ],
+        [
+          584,
+          [
+            264,
+            259,
+            380,
+            375
+          ]
+        ],
+        [
+          585,
+          [
+            263,
+            258,
+            379,
+            374
+          ]
+        ],
+        [
+          586,
+          [
+            262,
+            258,
+            378,
+            374
+          ]
+        ],
+        [
+          587,
+          [
+            260,
+            257,
+            376,
+            373
+          ]
+        ]
+      ]
+    },
+    "59f75ab9bb0870c71e8ad9667ccd0a3a": {
+      "video": "0252f2b5-2e69185a",
+      "sequence": [
+        [
+          288,
+          [
+            631,
+            618,
+            695,
+            682
+          ]
+        ],
+        [
+          289,
+          [
+            631,
+            617,
+            695,
+            681
+          ]
+        ],
+        [
+          290,
+          [
+            630,
+            616,
+            695,
+            681
+          ]
+        ],
+        [
+          291,
+          [
+            629,
+            616,
+            694,
+            681
+          ]
+        ]
+      ]
+    },
+    "7f44d817dcc913e16b108fbedaa3fcae": {
+      "video": "0252f2b5-2e69185a",
+      "sequence": [
+        [
+          288,
+          [
+            631,
+            618,
+            695,
+            682
+          ]
+        ],
+        [
+          289,
+          [
+            631,
+            617,
+            695,
+            681
+          ]
+        ],
+        [
+          290,
+          [
+            630,
+            616,
+            695,
+            681
+          ]
+        ],
+        [
+          291,
+          [
+            629,
+            616,
+            694,
+            681
+          ]
+        ],
+        [
+          293,
+          [
+            628,
+            616,
+            693,
+            681
+          ]
+        ],
+        [
+          294,
+          [
+            627,
+            616,
+            692,
+            681
+          ]
+        ],
+        [
+          295,
+          [
+            627,
+            615,
+            692,
+            680
+          ]
+        ],
+        [
+          296,
+          [
+            627,
+            615,
+            692,
+            680
+          ]
+        ],
+        [
+          297,
+          [
+            626,
+            615,
+            691,
+            680
+          ]
+        ]
+      ]
+    },
+    "26d2effc43f01b9daef348c69c1ec5d4": {
+      "video": "0252f2b5-2e69185a",
+      "sequence": [
+        [
+          440,
+          [
+            440,
+            597,
+            504,
+            661
+          ]
+        ],
+        [
+          440,
+          [
+            440,
+            597,
+            504,
+            661
+          ]
+        ],
+        [
+          440,
+          [
+            440,
+            597,
+            504,
+            661
+          ]
+        ],
+        [
+          441,
+          [
+            439,
+            596,
+            503,
+            660
+          ]
+        ]
+      ]
+    },
+    "0c18101f9667b372a80ce8784618313f": {
+      "video": "0252f2b5-2e69185a",
+      "sequence": [
+        [
+          440,
+          [
+            440,
+            597,
+            504,
+            661
+          ]
+        ],
+        [
+          440,
+          [
+            440,
+            597,
+            504,
+            661
+          ]
+        ],
+        [
+          440,
+          [
+            440,
+            597,
+            504,
+            661
+          ]
+        ],
+        [
+          441,
+          [
+            439,
+            596,
+            503,
+            660
+          ]
+        ],
+        [
+          443,
+          [
+            439,
+            596,
+            503,
+            660
+          ]
+        ],
+        [
+          444,
+          [
+            439,
+            596,
+            503,
+            660
+          ]
+        ],
+        [
+          445,
+          [
+            439,
+            596,
+            503,
+            660
+          ]
+        ],
+        [
+          446,
+          [
+            439,
+            596,
+            503,
+            660
+          ]
+        ],
+        [
+          447,
+          [
+            439,
+            596,
+            503,
+            660
+          ]
+        ]
+      ]
+    },
+    "5cf39a54b7bc8f3b33fa0cf7fe36b044": {
+      "video": "02927def-14c4c3cb",
+      "sequence": [
+        [
+          658,
+          [
+            411,
+            375,
+            486,
+            450
+          ]
+        ],
+        [
+          659,
+          [
+            412,
+            374,
+            486,
+            448
+          ]
+        ],
+        [
+          660,
+          [
+            411,
+            373,
+            483,
+            445
+          ]
+        ],
+        [
+          661,
+          [
+            410,
+            370,
+            483,
+            443
+          ]
+        ]
+      ]
+    },
+    "c9bd1834773fc774ba2dab7dea561394": {
+      "video": "02927def-14c4c3cb",
+      "sequence": [
+        [
+          658,
+          [
+            411,
+            375,
+            486,
+            450
+          ]
+        ],
+        [
+          659,
+          [
+            412,
+            374,
+            486,
+            448
+          ]
+        ],
+        [
+          660,
+          [
+            411,
+            373,
+            483,
+            445
+          ]
+        ],
+        [
+          661,
+          [
+            410,
+            370,
+            483,
+            443
+          ]
+        ],
+        [
+          663,
+          [
+            409,
+            367,
+            482,
+            440
+          ]
+        ],
+        [
+          664,
+          [
+            409,
+            365,
+            482,
+            438
+          ]
+        ],
+        [
+          665,
+          [
+            409,
+            364,
+            482,
+            437
+          ]
+        ],
+        [
+          666,
+          [
+            408,
+            362,
+            481,
+            435
+          ]
+        ],
+        [
+          667,
+          [
+            408,
+            361,
+            481,
+            434
+          ]
+        ]
+      ]
+    },
+    "086168cdb79b3bfe090f59deb2e946eb": {
+      "video": "02a70c1f-6df7ce64",
+      "sequence": [
+        [
+          734,
+          [
+            453,
+            214,
+            517,
+            278
+          ]
+        ],
+        [
+          735,
+          [
+            453,
+            214,
+            517,
+            278
+          ]
+        ],
+        [
+          736,
+          [
+            454,
+            215,
+            518,
+            279
+          ]
+        ],
+        [
+          737,
+          [
+            455,
+            216,
+            519,
+            280
+          ]
+        ]
+      ]
+    },
+    "3f7952bb914a39ee8ed72eb606e95cda": {
+      "video": "02a70c1f-6df7ce64",
+      "sequence": [
+        [
+          734,
+          [
+            453,
+            214,
+            517,
+            278
+          ]
+        ],
+        [
+          735,
+          [
+            453,
+            214,
+            517,
+            278
+          ]
+        ],
+        [
+          736,
+          [
+            454,
+            215,
+            518,
+            279
+          ]
+        ],
+        [
+          737,
+          [
+            455,
+            216,
+            519,
+            280
+          ]
+        ],
+        [
+          739,
+          [
+            457,
+            217,
+            521,
+            281
+          ]
+        ],
+        [
+          740,
+          [
+            457,
+            217,
+            521,
+            281
+          ]
+        ],
+        [
+          741,
+          [
+            458,
+            217,
+            522,
+            281
+          ]
+        ],
+        [
+          742,
+          [
+            459,
+            218,
+            523,
+            282
+          ]
+        ],
+        [
+          743,
+          [
+            460,
+            218,
+            524,
+            282
+          ]
+        ]
+      ]
+    },
+    "b37a671b20a6a8274581c2226363759d": {
+      "video": "02a70c1f-6df7ce64",
+      "sequence": [
+        [
+          896,
+          [
+            158,
+            216,
+            222,
+            280
+          ]
+        ],
+        [
+          897,
+          [
+            151,
+            211,
+            225,
+            285
+          ]
+        ],
+        [
+          898,
+          [
+            163,
+            217,
+            227,
+            281
+          ]
+        ],
+        [
+          899,
+          [
+            166,
+            217,
+            230,
+            281
+          ]
+        ]
+      ]
+    },
+    "5cf03fd53ea81b627c56edeba6977b92": {
+      "video": "02a70c1f-6df7ce64",
+      "sequence": [
+        [
+          896,
+          [
+            158,
+            216,
+            222,
+            280
+          ]
+        ],
+        [
+          897,
+          [
+            151,
+            211,
+            225,
+            285
+          ]
+        ],
+        [
+          898,
+          [
+            163,
+            217,
+            227,
+            281
+          ]
+        ],
+        [
+          899,
+          [
+            166,
+            217,
+            230,
+            281
+          ]
+        ],
+        [
+          901,
+          [
+            171,
+            218,
+            235,
+            282
+          ]
+        ],
+        [
+          902,
+          [
+            173,
+            218,
+            237,
+            282
+          ]
+        ],
+        [
+          903,
+          [
+            176,
+            219,
+            240,
+            283
+          ]
+        ],
+        [
+          904,
+          [
+            179,
+            219,
+            243,
+            283
+          ]
+        ],
+        [
+          905,
+          [
+            181,
+            219,
+            245,
+            283
+          ]
+        ]
+      ]
+    },
+    "8a0d149a4f8d8ccde80080053adcd6d2": {
+      "video": "02a70c1f-6f18e57f",
+      "sequence": [
+        [
+          837,
+          [
+            240,
+            241,
+            304,
+            305
+          ]
+        ],
+        [
+          837,
+          [
+            240,
+            241,
+            304,
+            305
+          ]
+        ],
+        [
+          837,
+          [
+            240,
+            241,
+            304,
+            305
+          ]
+        ],
+        [
+          838,
+          [
+            239,
+            238,
+            303,
+            302
+          ]
+        ]
+      ]
+    },
+    "dee24b0937b1a7f0fe412e661254171c": {
+      "video": "02a70c1f-6f18e57f",
+      "sequence": [
+        [
+          837,
+          [
+            240,
+            241,
+            304,
+            305
+          ]
+        ],
+        [
+          837,
+          [
+            240,
+            241,
+            304,
+            305
+          ]
+        ],
+        [
+          837,
+          [
+            240,
+            241,
+            304,
+            305
+          ]
+        ],
+        [
+          838,
+          [
+            239,
+            238,
+            303,
+            302
+          ]
+        ],
+        [
+          840,
+          [
+            239,
+            238,
+            303,
+            302
+          ]
+        ],
+        [
+          841,
+          [
+            239,
+            238,
+            303,
+            302
+          ]
+        ],
+        [
+          842,
+          [
+            239,
+            238,
+            303,
+            302
+          ]
+        ],
+        [
+          843,
+          [
+            239,
+            238,
+            303,
+            302
+          ]
+        ],
+        [
+          844,
+          [
+            239,
+            238,
+            303,
+            302
+          ]
+        ]
+      ]
+    },
+    "3240fd92aae87542d6ee571bd25a89f0": {
+      "video": "02bb67ae-8c3d61f8",
+      "sequence": [
+        [
+          1123,
+          [
+            299,
+            401,
+            370,
+            472
+          ]
+        ],
+        [
+          1124,
+          [
+            297,
+            397,
+            375,
+            475
+          ]
+        ],
+        [
+          1125,
+          [
+            296,
+            396,
+            376,
+            476
+          ]
+        ],
+        [
+          1126,
+          [
+            296,
+            396,
+            375,
+            475
+          ]
+        ]
+      ]
+    },
+    "bd9f0b9927e9db1fa56aa763b16e02c3": {
+      "video": "02bb67ae-8c3d61f8",
+      "sequence": [
+        [
+          1123,
+          [
+            299,
+            401,
+            370,
+            472
+          ]
+        ],
+        [
+          1124,
+          [
+            297,
+            397,
+            375,
+            475
+          ]
+        ],
+        [
+          1125,
+          [
+            296,
+            396,
+            376,
+            476
+          ]
+        ],
+        [
+          1126,
+          [
+            296,
+            396,
+            375,
+            475
+          ]
+        ],
+        [
+          1128,
+          [
+            296,
+            396,
+            376,
+            476
+          ]
+        ],
+        [
+          1129,
+          [
+            296,
+            396,
+            376,
+            476
+          ]
+        ],
+        [
+          1130,
+          [
+            297,
+            396,
+            377,
+            476
+          ]
+        ],
+        [
+          1131,
+          [
+            297,
+            396,
+            377,
+            476
+          ]
+        ],
+        [
+          1132,
+          [
+            297,
+            395,
+            377,
+            475
+          ]
+        ]
+      ]
+    },
+    "0386ab0eb8188eadd129e70d7d674949": {
+      "video": "02c928dc-b7de7ec8",
+      "sequence": [
+        [
+          886,
+          [
+            436,
+            344,
+            500,
+            408
+          ]
+        ],
+        [
+          886,
+          [
+            436,
+            344,
+            500,
+            408
+          ]
+        ],
+        [
+          886,
+          [
+            436,
+            344,
+            500,
+            408
+          ]
+        ],
+        [
+          887,
+          [
+            435,
+            345,
+            499,
+            409
+          ]
+        ]
+      ]
+    },
+    "f3811671dcb33e29141ab3dc3e7679f6": {
+      "video": "02c928dc-b7de7ec8",
+      "sequence": [
+        [
+          886,
+          [
+            436,
+            344,
+            500,
+            408
+          ]
+        ],
+        [
+          886,
+          [
+            436,
+            344,
+            500,
+            408
+          ]
+        ],
+        [
+          886,
+          [
+            436,
+            344,
+            500,
+            408
+          ]
+        ],
+        [
+          887,
+          [
+            435,
+            345,
+            499,
+            409
+          ]
+        ],
+        [
+          889,
+          [
+            435,
+            345,
+            499,
+            409
+          ]
+        ],
+        [
+          890,
+          [
+            435,
+            345,
+            499,
+            409
+          ]
+        ],
+        [
+          891,
+          [
+            435,
+            345,
+            499,
+            409
+          ]
+        ],
+        [
+          892,
+          [
+            435,
+            345,
+            499,
+            409
+          ]
+        ],
+        [
+          893,
+          [
+            435,
+            345,
+            499,
+            409
+          ]
+        ]
+      ]
+    },
+    "440f50c1f326020006fb918f4585061f": {
+      "video": "02cdc06d-5502f174",
+      "sequence": [
+        [
+          818,
+          [
+            444,
+            350,
+            508,
+            414
+          ]
+        ],
+        [
+          819,
+          [
+            443,
+            350,
+            507,
+            414
+          ]
+        ],
+        [
+          820,
+          [
+            442,
+            350,
+            506,
+            414
+          ]
+        ],
+        [
+          821,
+          [
+            442,
+            350,
+            506,
+            414
+          ]
+        ]
+      ]
+    },
+    "51db41ee3b1c685eb1415fc26220a6fa": {
+      "video": "02cdc06d-5502f174",
+      "sequence": [
+        [
+          818,
+          [
+            444,
+            350,
+            508,
+            414
+          ]
+        ],
+        [
+          819,
+          [
+            443,
+            350,
+            507,
+            414
+          ]
+        ],
+        [
+          820,
+          [
+            442,
+            350,
+            506,
+            414
+          ]
+        ],
+        [
+          821,
+          [
+            442,
+            350,
+            506,
+            414
+          ]
+        ],
+        [
+          823,
+          [
+            440,
+            350,
+            504,
+            414
+          ]
+        ],
+        [
+          824,
+          [
+            440,
+            350,
+            504,
+            414
+          ]
+        ],
+        [
+          825,
+          [
+            439,
+            350,
+            503,
+            414
+          ]
+        ],
+        [
+          826,
+          [
+            439,
+            349,
+            503,
+            413
+          ]
+        ],
+        [
+          827,
+          [
+            438,
+            349,
+            502,
+            413
+          ]
+        ]
+      ]
+    },
+    "3b8e09b9b598eb9750bff5970e9cc634": {
+      "video": "02d478d1-42ca3cfb",
+      "sequence": [
+        [
+          885,
+          [
+            310,
+            229,
+            509,
+            428
+          ]
+        ],
+        [
+          886,
+          [
+            275,
+            210,
+            516,
+            451
+          ]
+        ],
+        [
+          887,
+          [
+            252,
+            199,
+            517,
+            464
+          ]
+        ],
+        [
+          888,
+          [
+            255,
+            206,
+            508,
+            459
+          ]
+        ]
+      ]
+    },
+    "1347a1a05ec6162ac36632b2070a77b2": {
+      "video": "02d478d1-42ca3cfb",
+      "sequence": [
+        [
+          885,
+          [
+            310,
+            229,
+            509,
+            428
+          ]
+        ],
+        [
+          886,
+          [
+            275,
+            210,
+            516,
+            451
+          ]
+        ],
+        [
+          887,
+          [
+            252,
+            199,
+            517,
+            464
+          ]
+        ],
+        [
+          888,
+          [
+            255,
+            206,
+            508,
+            459
+          ]
+        ],
+        [
+          890,
+          [
+            245,
+            206,
+            501,
+            462
+          ]
+        ],
+        [
+          891,
+          [
+            241,
+            207,
+            497,
+            463
+          ]
+        ],
+        [
+          892,
+          [
+            237,
+            207,
+            493,
+            463
+          ]
+        ],
+        [
+          893,
+          [
+            233,
+            208,
+            489,
+            464
+          ]
+        ],
+        [
+          894,
+          [
+            229,
+            209,
+            485,
+            465
+          ]
+        ]
+      ]
+    },
+    "1a1ce13a9a70252ae6dea9ab35c59bab": {
+      "video": "02d5e1be-87ae2130",
+      "sequence": [
+        [
+          309,
+          [
+            390,
+            324,
+            454,
+            388
+          ]
+        ],
+        [
+          309,
+          [
+            390,
+            324,
+            454,
+            388
+          ]
+        ],
+        [
+          309,
+          [
+            390,
+            324,
+            454,
+            388
+          ]
+        ],
+        [
+          310,
+          [
+            392,
+            324,
+            456,
+            388
+          ]
+        ]
+      ]
+    },
+    "4b1769798fd33165c370a9d23bb00b44": {
+      "video": "02d5e1be-87ae2130",
+      "sequence": [
+        [
+          309,
+          [
+            390,
+            324,
+            454,
+            388
+          ]
+        ],
+        [
+          309,
+          [
+            390,
+            324,
+            454,
+            388
+          ]
+        ],
+        [
+          309,
+          [
+            390,
+            324,
+            454,
+            388
+          ]
+        ],
+        [
+          310,
+          [
+            392,
+            324,
+            456,
+            388
+          ]
+        ],
+        [
+          312,
+          [
+            392,
+            324,
+            456,
+            388
+          ]
+        ],
+        [
+          313,
+          [
+            392,
+            324,
+            456,
+            388
+          ]
+        ],
+        [
+          314,
+          [
+            392,
+            324,
+            456,
+            388
+          ]
+        ],
+        [
+          315,
+          [
+            392,
+            324,
+            456,
+            388
+          ]
+        ],
+        [
+          316,
+          [
+            392,
+            324,
+            456,
+            388
+          ]
+        ]
+      ]
+    },
+    "3452fbc87ee10cac083044c095aeeb36": {
+      "video": "02d5e1be-98109303",
+      "sequence": [
+        [
+          252,
+          [
+            5,
+            311,
+            141,
+            447
+          ]
+        ],
+        [
+          253,
+          [
+            0,
+            310,
+            139,
+            449
+          ]
+        ],
+        [
+          254,
+          [
+            0,
+            308,
+            143,
+            451
+          ]
+        ],
+        [
+          255,
+          [
+            8,
+            319,
+            130,
+            441
+          ]
+        ]
+      ]
+    },
+    "9727569ec465de35e7e40eb941013845": {
+      "video": "02d5e1be-98109303",
+      "sequence": [
+        [
+          252,
+          [
+            5,
+            311,
+            141,
+            447
+          ]
+        ],
+        [
+          253,
+          [
+            0,
+            310,
+            139,
+            449
+          ]
+        ],
+        [
+          254,
+          [
+            0,
+            308,
+            143,
+            451
+          ]
+        ],
+        [
+          255,
+          [
+            8,
+            319,
+            130,
+            441
+          ]
+        ],
+        [
+          257,
+          [
+            3,
+            320,
+            124,
+            441
+          ]
+        ],
+        [
+          258,
+          [
+            0,
+            321,
+            121,
+            442
+          ]
+        ],
+        [
+          259,
+          [
+            0,
+            322,
+            121,
+            443
+          ]
+        ],
+        [
+          260,
+          [
+            0,
+            322,
+            121,
+            443
+          ]
+        ],
+        [
+          261,
+          [
+            0,
+            323,
+            121,
+            444
+          ]
+        ]
+      ]
+    },
+    "733af9c7c41bf30ff2ceb6ead2c048b8": {
+      "video": "02ef72c1-6e9a4af4",
+      "sequence": [
+        [
+          956,
+          [
+            746,
+            294,
+            826,
+            374
+          ]
+        ],
+        [
+          957,
+          [
+            746,
+            296,
+            825,
+            375
+          ]
+        ],
+        [
+          958,
+          [
+            747,
+            294,
+            824,
+            371
+          ]
+        ],
+        [
+          959,
+          [
+            746,
+            297,
+            822,
+            373
+          ]
+        ]
+      ]
+    },
+    "907de04712deda26480489ef86f067c2": {
+      "video": "02ef72c1-6e9a4af4",
+      "sequence": [
+        [
+          956,
+          [
+            746,
+            294,
+            826,
+            374
+          ]
+        ],
+        [
+          957,
+          [
+            746,
+            296,
+            825,
+            375
+          ]
+        ],
+        [
+          958,
+          [
+            747,
+            294,
+            824,
+            371
+          ]
+        ],
+        [
+          959,
+          [
+            746,
+            297,
+            822,
+            373
+          ]
+        ],
+        [
+          961,
+          [
+            746,
+            298,
+            822,
+            374
+          ]
+        ],
+        [
+          962,
+          [
+            746,
+            298,
+            822,
+            374
+          ]
+        ],
+        [
+          963,
+          [
+            745,
+            298,
+            821,
+            374
+          ]
+        ],
+        [
+          964,
+          [
+            745,
+            298,
+            821,
+            374
+          ]
+        ],
+        [
+          965,
+          [
+            745,
+            298,
+            821,
+            374
+          ]
+        ]
+      ]
+    },
+    "3399ed1dd2281504534763fca86ca63b": {
+      "video": "03164aef-f18deb04",
+      "sequence": [
+        [
+          701,
+          [
+            584,
+            226,
+            648,
+            290
+          ]
+        ],
+        [
+          701,
+          [
+            584,
+            226,
+            648,
+            290
+          ]
+        ],
+        [
+          702,
+          [
+            584,
+            225,
+            648,
+            289
+          ]
+        ],
+        [
+          703,
+          [
+            586,
+            225,
+            650,
+            289
+          ]
+        ]
+      ]
+    },
+    "b4bcc6e92573888efb41d77709a804ee": {
+      "video": "03164aef-f18deb04",
+      "sequence": [
+        [
+          701,
+          [
+            584,
+            226,
+            648,
+            290
+          ]
+        ],
+        [
+          701,
+          [
+            584,
+            226,
+            648,
+            290
+          ]
+        ],
+        [
+          702,
+          [
+            584,
+            225,
+            648,
+            289
+          ]
+        ],
+        [
+          703,
+          [
+            586,
+            225,
+            650,
+            289
+          ]
+        ],
+        [
+          705,
+          [
+            587,
+            224,
+            651,
+            288
+          ]
+        ],
+        [
+          706,
+          [
+            588,
+            224,
+            652,
+            288
+          ]
+        ],
+        [
+          707,
+          [
+            588,
+            224,
+            652,
+            288
+          ]
+        ],
+        [
+          708,
+          [
+            589,
+            224,
+            653,
+            288
+          ]
+        ],
+        [
+          709,
+          [
+            590,
+            223,
+            654,
+            287
+          ]
+        ]
+      ]
+    },
+    "d787c77d5800e0d6ef26014045d8b97c": {
+      "video": "03626025-876e549e",
+      "sequence": [
+        [
+          1045,
+          [
+            555,
+            310,
+            619,
+            374
+          ]
+        ],
+        [
+          1046,
+          [
+            555,
+            305,
+            619,
+            369
+          ]
+        ],
+        [
+          1047,
+          [
+            555,
+            302,
+            619,
+            366
+          ]
+        ],
+        [
+          1048,
+          [
+            555,
+            296,
+            619,
+            360
+          ]
+        ]
+      ]
+    },
+    "f96b4babf37166db07dc00a738f38765": {
+      "video": "03626025-876e549e",
+      "sequence": [
+        [
+          1045,
+          [
+            555,
+            310,
+            619,
+            374
+          ]
+        ],
+        [
+          1046,
+          [
+            555,
+            305,
+            619,
+            369
+          ]
+        ],
+        [
+          1047,
+          [
+            555,
+            302,
+            619,
+            366
+          ]
+        ],
+        [
+          1048,
+          [
+            555,
+            296,
+            619,
+            360
+          ]
+        ],
+        [
+          1050,
+          [
+            556,
+            294,
+            620,
+            358
+          ]
+        ],
+        [
+          1051,
+          [
+            556,
+            293,
+            620,
+            357
+          ]
+        ],
+        [
+          1052,
+          [
+            556,
+            293,
+            620,
+            357
+          ]
+        ],
+        [
+          1053,
+          [
+            557,
+            292,
+            621,
+            356
+          ]
+        ],
+        [
+          1054,
+          [
+            557,
+            291,
+            621,
+            355
+          ]
+        ]
+      ]
+    }
+  },
+  "deadline": "2026-11-09T23:54:00+03:00",
+  "reason": "Whole exact unperturbed episodes exist for only11of26pairs. Do not reduce the26case sample. Recover individual EXACT(frame,crop)views; a missing whole episode does not imply every view is absent.",
+  "derivation": "rho_t=Retina(I0..It); eye_t,c=Sample_c(rho_t). In scripts/z13_data.py retina advances once per video frame outside the render(crops) loop. Eye rendering is stateless in crop identity. Hence an exact(frame,crop)view can be reused across episode IDs/perturbation flags, while the core receives the original causal sequence in its original order. This does NOT authorize reusing a recurrent core state across histories.",
+  "operation": "First reuse exact archived fr_hex views, requiring all duplicate indices to hold identical float16 arrays. For absent exact views, decode source video strictly sequentially from0, same lamina retina/fps/blur_downscale4, and call the already witnessed SparseViews.render CPU implementation. No cap.seek, nearby crops, detector, FlyVis, fitting or metric calls.",
+  "witness": "On each video requiring decoding, exactly reproduce earliest and latest archived eye view before accepting ANY newly decoded view. They bracket the archived clock; decode through max(witnessframes,requestedframes). Witnesses are validation only and never enter an earlier core input. Stop on any float16 mismatch; preserve diagnostic failure.",
+  "source_limit": "Original raw-video hash was not captured by the old z13_data extraction. This protocol hashes the actual current source and proves exact archived-view witnesses; never present the new hash as an original pre-run hash.",
+  "parity": "Ready12core/12ordinarysnapshots and all original arrays remain unchanged. Restore ONLY missing eye inputs/maps in new folders; ordinary processing and frozen core snapshot restoration require separate subsequent execution passports."
+}
