@@ -1,0 +1,42 @@
+"""Independent coordinate/score audit and fixed exploratory gate."""
+import probe as p
+from probe import *
+def main():
+    protocol=read(OUT/'protocol.json');s.verify(protocol);bp=read(BASE/'protocol.json');source=read(OUT/'results.json');ready=read(OUT/'readiness.json');old=read(BASE/'summary.json');g=read(ROOT/'runs/z13_local_peak_20261021/geometry.json');reader=ObservedSpatialReader(g['points'],g['eye_size'],[1280,720]);nb=HexGeometry(np.array(g['points']),g['eye_size']).neighbors;rows=[];maxerr=0.;coordinate_error=0.;audited=0
+    def features(key):
+        a=s.arrays(key,bp);c=a['C34'].astype(float);r=a['R1'].astype(float);cen=r[:,s.SELECT[:4]]
+        return dict(C34=c,FlyVis=c[:,4:12],R134_temporal=r,R134_spatial=neighbor_aug(r[:,:17].T[None],nb)[0].T,input8_temporal=r[:,s.SELECT],center8=np.concatenate([cen,cen],1),neighbor8=neighbor_aug(cen.T[None],nb)[0].T)
+    def outcome(a,b):return 0. if a is None or b is None else (1. if a>b else (.5 if a==b else 0.))
+    table={metric:{name:dict(points=0.,correct=0,tie=0,wrong=0,abstain=0) for name in s.NAMES+['cost','shape']} for metric in ['fixed','maximum']}
+    for case,plan,result,previous in zip(bp['cases'],ready['plans'],source['records'],old['records']):
+        assert len(plan['cells'])>=3 and result['cells']==len(plan['cells']);assert plan['plans'][0]['cells']==plan['plans'][1]['cells']==plan['cells'];ref,cur=[features(k) for k in case['keys']];idx=np.array(plan['cells']);rc=np.array(case['sequence'][case['reference_relative']][1]);ct=np.array(case['sequence'][-1][1]);b0=np.array(case['reference_raw']['state_box']);x=reader.points[idx]*(rc[2:]-rc[:2])/g['eye_size']+rc[:2];uv=(x-b0[:2])/(b0[2:]-b0[:2]);decisions={metric:{} for metric in table}
+        for candidate,subplan in zip(case['candidates'],plan['plans']):
+            box=np.array(candidate['box']);physical=box[:2]+uv*(box[2:]-box[:2]);expected=(physical[:,None]+np.array(candidate['plan']['offsets'])-ct[:2])/((ct[2:]-ct[:2])/g['eye_size']);query=np.array(subplan['query']);coordinate_error=max(coordinate_error,float(np.max(abs(query-expected))));simplex=reader.mesh.find_simplex(query);vertices=reader.mesh.simplices[simplex];xy=reader.points[vertices];beta=np.linalg.solve((xy[...,:2,:]-xy[...,2:3,:]).swapaxes(-1,-2),(query-xy[...,2,:])[...,None])[...,0]
+            for name in s.NAMES:
+                values=cur[name][vertices];patches=(values[...,2,:]+(beta[...,None]*(values[...,:2,:]-values[...,2:3,:])).sum(-2)).transpose(1,0,2);template=ref[name][idx];actual=next(v for v in result['variants'][name] if v['kind']==candidate['kind']);aa=np.ptp(template,axis=0)!=0;a0=template-template.mean(0);a0[:,~aa]=0;an=np.linalg.norm(a0,axis=0)
+                for patch,score in zip(patches,actual['scores']):
+                    bb=np.ptp(patch,axis=0)!=0;b=patch-patch.mean(0);b[:,~bb]=0;den=an*np.linalg.norm(b,axis=0);rho=np.divide((a0*b).sum(0),den,out=np.zeros_like(an),where=den>0);witness=float(rho.sum()/aa.sum()) if aa.any() and bb.any() else None;assert (score is None)==(witness is None)
+                    if score is not None:maxerr=max(maxerr,abs(score-witness))
+                    audited+=1
+        for metric in table:
+            for name in s.NAMES:
+                vals={k['kind']:k[metric] for k in result['variants'][name]};a,b=vals['own'],vals['foreign'];point=outcome(a,b);kind='abstain' if a is None or b is None else ('correct' if a>b else ('tie' if a==b else 'wrong'));decisions[metric][name]=point;table[metric][name]['points']+=point;table[metric][name][kind]+=1
+            shapes={k['kind']:k['score'] for k in result['shape']};point=outcome(shapes['own'],shapes['foreign']);decisions[metric]['shape']=point;table[metric]['shape']['points']+=point;table[metric]['shape']['correct' if point==1 else ('tie' if point==.5 else 'wrong')]+=1
+            point=previous['decisions'][metric]['cost']['points'];decisions[metric]['cost']=point;table[metric]['cost']['points']+=point;table[metric]['cost']['correct' if point==1 else ('tie' if point==.5 else 'wrong')]+=1
+        rows.append(dict(uid=case['uid'],video=case['video'],decisions=decisions,old_C34=previous['decisions']['maximum']['C34']['points']))
+    assert maxerr<=1e-9 and coordinate_error<1e-10;assert audited==12*2*7*19
+    rng=np.random.default_rng(42);draws=rng.integers(0,12,(5000,12));differences={}
+    for control in ['cost','R134_temporal','R134_spatial','neighbor8','shape']:
+        v=np.array([r['decisions']['maximum']['C34']-r['decisions']['maximum'][control] for r in rows]);differences[control]=dict(mean=float(v.mean()),ci95=np.percentile(v[draws].mean(1),[2.5,97.5]).tolist(),corrected=int((v>0).sum()),newly_wrong=int((v<0).sum()))
+    gate=all(differences[k]['ci95'][0]>0 for k in ['cost','R134_temporal','R134_spatial']) and table['maximum']['C34']['abstain']==0
+    write('summary.json',dict(passed=True,exploratory_reader_gate=gate,table=table,differences=differences,records=rows,same12_previously_seen=True,changes_alignment_AND_support=True,no_ID_assignment=True))
+    write('audit.json',dict(passed=True,independent_scores=audited,independent_2x2_interpolation_score_error=maxerr,independent_relative_coordinate_error=coordinate_error,all12_same_previous_cells_across_both_candidates_and_all_representations=True,old_failed_isolation_gate_unchanged=not read(OLD/'readiness.json')['passed'],source_and_map_hashes_stable=True,no_model_replay=True))
+    path=ROOT/'experiments/project_history.json';cat=read(path);card=next(c for c in cat['experiments'] if c['id']==OUT.name);card.update(state='inconclusive' if gate else 'completed_negative',done='2026-11-09',obtained=f'Все 12 запросов поддержаны общим прошлым шаблоном (6–88 ячеек). C34 до/после поиска: 4/12 → 10/12; T4/T5: 3/12 → 11/12. Обычный временной R134: 6/12 → 5/12; пространственный R134: 5/12 → 9/12; соседние 8 простых признаков: 5/12 → 10/12. Исходная стоимость — 8/12, согласованность размеров — 9/12. Прежний C34 на этих же запросах — 7/12. Независимо проверены 3192 оценки, ошибка ≤{maxerr:.4g}. Критерий преимущества C34: {gate}. Источники `runs/{OUT.name}/summary.json`, `audit.json`.',interpretation='Полная комбинация относительного выравнивания, другого участка и поиска улучшила описательный результат C34 с 7 до 10 выборов на 12 просмотренных запросах. Но простые соседние признаки дают те же 10/12, а гарантированное преимущество FlyVis над контролями не установлено. Улучшение нельзя приписать только координатам или ядру.',decision='Сохранить математически проверенную реализацию как исследовательский вариант. Не внедрять передачу ID, не выбирать T4/T5 основным после результатов, не подбирать пороги или веса по этим 12 случаям.',cannot_claim='Это уже просмотренные исторические обучающие запросы, не независимый перенос. Новая комбинация меняет и координаты, и опорный участок; прежний чистый допуск координат остаётся провален. Корректный локальный выбор не доказывает сохранение старого ID через общий решатель. Нет HOTA и последующей судьбы ID; ядро и детектор не изменялись.')
+    for item,met in zip(card['acceptance'],[True,True,gate]):item.update(met=met,evidence=f'runs/{OUT.name}/audit.json' if met and item is not card['acceptance'][2] else f'runs/{OUT.name}/summary.json')
+    card['evidence'] += [dict(kind='file',ref=f'runs/{OUT.name}/{name}',claim='Полный результат и независимая проверка, без утверждения о выигрыше ID') for name in ['summary.json','audit.json','ИТОГ.md']];path.write_text(json.dumps(cat,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+    path=ROOT/'experiments/obsidian_experiment_topics.json';topics=read(path);topics['topics'][OUT.name]=['Сохранение личности','Выбор продолжения среди рамок','Соответствие участков карты'];path.write_text(json.dumps(topics,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+    ci='\n\n'.join(f'Сравнение C34 с {name}: разность долей {v["mean"]:.6f}, 95% интервал {v["ci95"]}; исправлено {v["corrected"]}, испорчено {v["newly_wrong"]}.' for name,v in differences.items())
+    (OUT/'ИТОГ.md').write_text(f'# {card["title"]}\n\n1. Результат\n\n{card["obtained"]}\n\n{ci}\n\n2. Значение\n\n{card["interpretation"]}\n\n3. Решение\n\n{card["decision"]}\n\n4. Граница\n\n{card["cannot_claim"]}\n',encoding='utf8')
+    s.journal(card['title'],f'*Получено (`{OUT.name}`).* {card["obtained"]}\n\n*Сравнения.* {ci}\n\n*Вывод.* {card["interpretation"]}\n\n*Решение.* {card["decision"]} {card["cannot_claim"]}')
+    print('FIXED SUMMARY',table,differences,'GATE',gate,flush=True)
+if __name__=='__main__':main()

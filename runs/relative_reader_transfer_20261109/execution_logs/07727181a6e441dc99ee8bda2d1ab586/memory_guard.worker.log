@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "E:\Dissertation\runs\relative_reader_transfer_20261109\finish.py", line 71, in <module>
+    if __name__=='__main__':{'record':record,'checks':checks}[sys.argv[1]]()
+  File "E:\Dissertation\runs\relative_reader_transfer_20261109\finish.py", line 44, in record
+    card['evidence'] += [dict(kind='file',ref=f'runs/{OUT.name}/{name}',claim='Описательный перенос и независимая проверка без ID-вывода') for name in ['summary.json','audit.json','ИТОГ.md']];path.write_text(json.dumps(cat,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+  File "E:\Dissertation\python310\tools\lib\pathlib.py", line 1154, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+  File "E:\Dissertation\python310\tools\lib\pathlib.py", line 1119, in open
+    return self._accessor.open(self, mode, buffering, encoding, errors,
+OSError: [Errno 22] Invalid argument: 'E:\\Dissertation\\experiments\\project_history.json'

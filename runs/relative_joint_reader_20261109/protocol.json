@@ -1,0 +1,53 @@
+{
+  "registered": "2026-11-09T06:05:13.515581+03:00",
+  "sources": {
+    "runs/relative_joint_reader_20261109/probe.py": "7530e5039019be9b193dadb359615c3680e85cf34a415e4f185b75fadf070936",
+    "runs/relative_joint_reader_20261109/math.json": "c26c3688af8253d1eb694b53393b57f09eeec0046ac621c01bea34c716d1c7ca",
+    "runs/candidate_relative_alignment_20261109/math.json": "8d1e866d79b59c119ce450c4fd392e4095fb1c6bec03f8ad12f8ea73f215287e",
+    "runs/candidate_relative_alignment_20261109/readiness.json": "efe766bc0d913a879090eaf7a6e6750a17a27ad06b70d2ba87844ce71c9a81c3",
+    "runs/historical_two_candidate_comparison_20261109/protocol.json": "7226d0a916e6c45f9d985a6c88cc917ceb51d061289b2dd102e05d017d8533e5",
+    "runs/historical_two_candidate_comparison_20261109/results.json": "b566106f7673dac5bd4e9c2d83f2a11e82b9414221a7023d20b0dd6f71977577",
+    "runs/historical_two_candidate_comparison_20261109/summary.json": "18f35db9633f594e1e912fa4444263eea31fcf1d738eb6ecaa4574eff75c1abd",
+    "runs/historical_two_candidate_comparison_20261109/maps_complete.json": "5b75f08267a8784f19966b4bfe3d531376d7d41a31f0e519229c12882decc04e",
+    "tracking/observed_spatial_reader.py": "66f391d4520edfc9a9f9c46d57157e04dbbcaf73a8d3d1013e931e28e16b045d",
+    "tracking/hex_linear_interpolation.py": "6398d9d9654328e13a9a04c335bed92b5202dabcf8b63ca19a69ebc925ab477e",
+    "tracking/channel_balanced_correspondence.py": "f024871ccebbcb329bd147061d0bf621896eef64cf63a31154d2e244737502bd",
+    "tracking/box_normalized_correspondence.py": "9a023c5bc2a986037d4c0a5fa080d77e766e9b4bc7cc7d5af58eeee1447e8724",
+    "tracking/own_template_verification.py": "203e932b76c063b66579374e9798483f05925f6e9a2381274faecfef15262f50"
+  },
+  "cases": [
+    4982,
+    7796,
+    9541,
+    9909,
+    11705,
+    12206,
+    12633,
+    14150,
+    15282,
+    16170,
+    17832,
+    18233
+  ],
+  "scope": "Exploratory WHOLE-method replication on already seen12 cases. Old coordinate-isolation failed5/12 and stays failed; no score on its failed subset. This question permits different support from the old prediction method, and cannot attribute any gain solely to coordinates.",
+  "method": "Use ALL reference STATE-box cells. Per candidate T_k(x)=Bk_lo+(x-B0_lo)*(Bk_size/B0_size). Same original19 physical-pixel offsets, no new scale clip/anchor/threshold. Intersect full19 valid/hull masks across the TWO RELATIVE candidate transforms ONLY. Both candidates and all7 representations use exactly the SAME previous cells, but different current query tensors. Minimum3 unchanged.",
+  "history": "Box-relative coordinates already tested with older nearest/global C8/R1/image/DIS method and failed full-tracker benefit. This tests their combination with continuous exact-constant interpolation and frozen channel-balanced full34 reader. It is not a new idea or a revision of the previous failed isolation criterion.",
+  "controls": "Reuse original reader and local native cost; all7 existing FlyVis/input representations with identical new support/query. Additional no-FlyVis centered-shape IoU compares reference/current dimensions after removing centers, no threshold. Geometry and resupport are part of this method, not credited to neural core.",
+  "readiness": "At least8/12 queries have >=3 common reference cells before any new real score. All12 remain denominator, unsupported=abstention0; no selective deletion.",
+  "metrics": "Fixed offset9 and maximum over19; ties0.5, abstention0. Primary C34 maximum correctness minus original local cost and both34-channel input controls, paired5000 video bootstrap seed42. Exploratory gate requires positive95%lower against all3 and zero unsupported. A pass still needs distinct frozen cases/actual global ID fate before any deployment.",
+  "acceptance": [
+    {
+      "criterion": "Math and identical common previous cells across relative candidates/representations, sources/maps stable, no new model or threshold.",
+      "met": null
+    },
+    {
+      "criterion": "At least8 supported queries before scoring.",
+      "met": null
+    },
+    {
+      "criterion": "Exploratory C34 lower95% paired correctness difference positive versus original cost and both34-input controls, without unsupported queries.",
+      "met": null
+    }
+  ],
+  "stop": "If readiness fails no scoring. If gate fails stop, do not choose favorable channel subset or change shift/support thresholds. No full tracker or ID intervention."
+}

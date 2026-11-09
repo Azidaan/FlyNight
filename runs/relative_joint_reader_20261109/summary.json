@@ -1,0 +1,536 @@
+{
+  "passed": true,
+  "exploratory_reader_gate": false,
+  "table": {
+    "fixed": {
+      "C34": {
+        "points": 4.0,
+        "correct": 4,
+        "tie": 0,
+        "wrong": 8,
+        "abstain": 0
+      },
+      "FlyVis": {
+        "points": 3.0,
+        "correct": 3,
+        "tie": 0,
+        "wrong": 9,
+        "abstain": 0
+      },
+      "R134_temporal": {
+        "points": 6.0,
+        "correct": 6,
+        "tie": 0,
+        "wrong": 6,
+        "abstain": 0
+      },
+      "R134_spatial": {
+        "points": 5.0,
+        "correct": 5,
+        "tie": 0,
+        "wrong": 7,
+        "abstain": 0
+      },
+      "input8_temporal": {
+        "points": 8.0,
+        "correct": 8,
+        "tie": 0,
+        "wrong": 4,
+        "abstain": 0
+      },
+      "center8": {
+        "points": 5.0,
+        "correct": 5,
+        "tie": 0,
+        "wrong": 7,
+        "abstain": 0
+      },
+      "neighbor8": {
+        "points": 5.0,
+        "correct": 5,
+        "tie": 0,
+        "wrong": 7,
+        "abstain": 0
+      },
+      "cost": {
+        "points": 8.0,
+        "correct": 8,
+        "tie": 0,
+        "wrong": 4,
+        "abstain": 0
+      },
+      "shape": {
+        "points": 9.0,
+        "correct": 9,
+        "tie": 0,
+        "wrong": 3,
+        "abstain": 0
+      }
+    },
+    "maximum": {
+      "C34": {
+        "points": 10.0,
+        "correct": 10,
+        "tie": 0,
+        "wrong": 2,
+        "abstain": 0
+      },
+      "FlyVis": {
+        "points": 11.0,
+        "correct": 11,
+        "tie": 0,
+        "wrong": 1,
+        "abstain": 0
+      },
+      "R134_temporal": {
+        "points": 5.0,
+        "correct": 5,
+        "tie": 0,
+        "wrong": 7,
+        "abstain": 0
+      },
+      "R134_spatial": {
+        "points": 9.0,
+        "correct": 9,
+        "tie": 0,
+        "wrong": 3,
+        "abstain": 0
+      },
+      "input8_temporal": {
+        "points": 5.0,
+        "correct": 5,
+        "tie": 0,
+        "wrong": 7,
+        "abstain": 0
+      },
+      "center8": {
+        "points": 7.0,
+        "correct": 7,
+        "tie": 0,
+        "wrong": 5,
+        "abstain": 0
+      },
+      "neighbor8": {
+        "points": 10.0,
+        "correct": 10,
+        "tie": 0,
+        "wrong": 2,
+        "abstain": 0
+      },
+      "cost": {
+        "points": 8.0,
+        "correct": 8,
+        "tie": 0,
+        "wrong": 4,
+        "abstain": 0
+      },
+      "shape": {
+        "points": 9.0,
+        "correct": 9,
+        "tie": 0,
+        "wrong": 3,
+        "abstain": 0
+      }
+    }
+  },
+  "differences": {
+    "cost": {
+      "mean": 0.16666666666666666,
+      "ci95": [
+        -0.16666666666666666,
+        0.5
+      ],
+      "corrected": 3,
+      "newly_wrong": 1
+    },
+    "R134_temporal": {
+      "mean": 0.4166666666666667,
+      "ci95": [
+        0.08333333333333333,
+        0.75
+      ],
+      "corrected": 6,
+      "newly_wrong": 1
+    },
+    "R134_spatial": {
+      "mean": 0.08333333333333333,
+      "ci95": [
+        -0.25,
+        0.4166666666666667
+      ],
+      "corrected": 3,
+      "newly_wrong": 2
+    },
+    "neighbor8": {
+      "mean": 0.0,
+      "ci95": [
+        -0.3333333333333333,
+        0.3333333333333333
+      ],
+      "corrected": 2,
+      "newly_wrong": 2
+    },
+    "shape": {
+      "mean": 0.08333333333333333,
+      "ci95": [
+        -0.25,
+        0.4166666666666667
+      ],
+      "corrected": 3,
+      "newly_wrong": 2
+    }
+  },
+  "records": [
+    {
+      "uid": 4982,
+      "video": "00ed2e85-95394dfd",
+      "decisions": {
+        "fixed": {
+          "C34": 0.0,
+          "FlyVis": 0.0,
+          "R134_temporal": 0.0,
+          "R134_spatial": 0.0,
+          "input8_temporal": 1.0,
+          "center8": 0.0,
+          "neighbor8": 0.0,
+          "shape": 1.0,
+          "cost": 1.0
+        },
+        "maximum": {
+          "C34": 0.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 0.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 0.0,
+          "center8": 1.0,
+          "neighbor8": 1.0,
+          "shape": 1.0,
+          "cost": 1.0
+        }
+      },
+      "old_C34": 0.0
+    },
+    {
+      "uid": 7796,
+      "video": "019d6206-d5de804a",
+      "decisions": {
+        "fixed": {
+          "C34": 1.0,
+          "FlyVis": 0.0,
+          "R134_temporal": 1.0,
+          "R134_spatial": 0.0,
+          "input8_temporal": 1.0,
+          "center8": 0.0,
+          "neighbor8": 0.0,
+          "shape": 1.0,
+          "cost": 1.0
+        },
+        "maximum": {
+          "C34": 1.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 1.0,
+          "R134_spatial": 0.0,
+          "input8_temporal": 1.0,
+          "center8": 0.0,
+          "neighbor8": 0.0,
+          "shape": 1.0,
+          "cost": 1.0
+        }
+      },
+      "old_C34": 0.0
+    },
+    {
+      "uid": 9541,
+      "video": "02006c28-c2c5e796",
+      "decisions": {
+        "fixed": {
+          "C34": 1.0,
+          "FlyVis": 0.0,
+          "R134_temporal": 1.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 1.0,
+          "center8": 1.0,
+          "neighbor8": 1.0,
+          "shape": 1.0,
+          "cost": 1.0
+        },
+        "maximum": {
+          "C34": 1.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 1.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 1.0,
+          "center8": 1.0,
+          "neighbor8": 1.0,
+          "shape": 1.0,
+          "cost": 1.0
+        }
+      },
+      "old_C34": 1.0
+    },
+    {
+      "uid": 9909,
+      "video": "02124b78-9823f8fc",
+      "decisions": {
+        "fixed": {
+          "C34": 0.0,
+          "FlyVis": 0.0,
+          "R134_temporal": 1.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 1.0,
+          "center8": 1.0,
+          "neighbor8": 1.0,
+          "shape": 0.0,
+          "cost": 1.0
+        },
+        "maximum": {
+          "C34": 1.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 0.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 0.0,
+          "center8": 0.0,
+          "neighbor8": 1.0,
+          "shape": 0.0,
+          "cost": 1.0
+        }
+      },
+      "old_C34": 1.0
+    },
+    {
+      "uid": 11705,
+      "video": "0232c9f2-5600d649",
+      "decisions": {
+        "fixed": {
+          "C34": 0.0,
+          "FlyVis": 0.0,
+          "R134_temporal": 0.0,
+          "R134_spatial": 0.0,
+          "input8_temporal": 0.0,
+          "center8": 0.0,
+          "neighbor8": 0.0,
+          "shape": 1.0,
+          "cost": 1.0
+        },
+        "maximum": {
+          "C34": 1.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 0.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 0.0,
+          "center8": 1.0,
+          "neighbor8": 1.0,
+          "shape": 1.0,
+          "cost": 1.0
+        }
+      },
+      "old_C34": 0.0
+    },
+    {
+      "uid": 12206,
+      "video": "0233c21b-577418b6",
+      "decisions": {
+        "fixed": {
+          "C34": 0.0,
+          "FlyVis": 0.0,
+          "R134_temporal": 1.0,
+          "R134_spatial": 0.0,
+          "input8_temporal": 1.0,
+          "center8": 0.0,
+          "neighbor8": 0.0,
+          "shape": 0.0,
+          "cost": 1.0
+        },
+        "maximum": {
+          "C34": 1.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 0.0,
+          "R134_spatial": 0.0,
+          "input8_temporal": 0.0,
+          "center8": 0.0,
+          "neighbor8": 1.0,
+          "shape": 0.0,
+          "cost": 1.0
+        }
+      },
+      "old_C34": 0.0
+    },
+    {
+      "uid": 12633,
+      "video": "02364369-bd3d1838",
+      "decisions": {
+        "fixed": {
+          "C34": 1.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 1.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 1.0,
+          "center8": 1.0,
+          "neighbor8": 1.0,
+          "shape": 1.0,
+          "cost": 1.0
+        },
+        "maximum": {
+          "C34": 1.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 1.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 1.0,
+          "center8": 1.0,
+          "neighbor8": 1.0,
+          "shape": 1.0,
+          "cost": 1.0
+        }
+      },
+      "old_C34": 1.0
+    },
+    {
+      "uid": 14150,
+      "video": "0252f2b5-2e69185a",
+      "decisions": {
+        "fixed": {
+          "C34": 0.0,
+          "FlyVis": 0.0,
+          "R134_temporal": 0.0,
+          "R134_spatial": 0.0,
+          "input8_temporal": 0.0,
+          "center8": 0.0,
+          "neighbor8": 0.0,
+          "shape": 1.0,
+          "cost": 0.0
+        },
+        "maximum": {
+          "C34": 1.0,
+          "FlyVis": 0.0,
+          "R134_temporal": 0.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 0.0,
+          "center8": 1.0,
+          "neighbor8": 1.0,
+          "shape": 1.0,
+          "cost": 0.0
+        }
+      },
+      "old_C34": 1.0
+    },
+    {
+      "uid": 15282,
+      "video": "02927def-14c4c3cb",
+      "decisions": {
+        "fixed": {
+          "C34": 1.0,
+          "FlyVis": 0.0,
+          "R134_temporal": 1.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 1.0,
+          "center8": 1.0,
+          "neighbor8": 1.0,
+          "shape": 1.0,
+          "cost": 0.0
+        },
+        "maximum": {
+          "C34": 1.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 1.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 1.0,
+          "center8": 1.0,
+          "neighbor8": 1.0,
+          "shape": 1.0,
+          "cost": 0.0
+        }
+      },
+      "old_C34": 1.0
+    },
+    {
+      "uid": 16170,
+      "video": "02a70c1f-6df7ce64",
+      "decisions": {
+        "fixed": {
+          "C34": 0.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 0.0,
+          "R134_spatial": 0.0,
+          "input8_temporal": 0.0,
+          "center8": 0.0,
+          "neighbor8": 0.0,
+          "shape": 1.0,
+          "cost": 0.0
+        },
+        "maximum": {
+          "C34": 1.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 0.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 0.0,
+          "center8": 0.0,
+          "neighbor8": 1.0,
+          "shape": 1.0,
+          "cost": 0.0
+        }
+      },
+      "old_C34": 1.0
+    },
+    {
+      "uid": 17832,
+      "video": "02b4d710-c34ba68e",
+      "decisions": {
+        "fixed": {
+          "C34": 0.0,
+          "FlyVis": 0.0,
+          "R134_temporal": 0.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 1.0,
+          "center8": 1.0,
+          "neighbor8": 1.0,
+          "shape": 1.0,
+          "cost": 0.0
+        },
+        "maximum": {
+          "C34": 0.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 1.0,
+          "R134_spatial": 1.0,
+          "input8_temporal": 1.0,
+          "center8": 1.0,
+          "neighbor8": 1.0,
+          "shape": 1.0,
+          "cost": 0.0
+        }
+      },
+      "old_C34": 0.0
+    },
+    {
+      "uid": 18233,
+      "video": "02bb67ae-8c3d61f8",
+      "decisions": {
+        "fixed": {
+          "C34": 0.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 0.0,
+          "R134_spatial": 0.0,
+          "input8_temporal": 0.0,
+          "center8": 0.0,
+          "neighbor8": 0.0,
+          "shape": 0.0,
+          "cost": 1.0
+        },
+        "maximum": {
+          "C34": 1.0,
+          "FlyVis": 1.0,
+          "R134_temporal": 0.0,
+          "R134_spatial": 0.0,
+          "input8_temporal": 0.0,
+          "center8": 0.0,
+          "neighbor8": 0.0,
+          "shape": 0.0,
+          "cost": 1.0
+        }
+      },
+      "old_C34": 1.0
+    }
+  ],
+  "same12_previously_seen": true,
+  "changes_alignment_AND_support": true,
+  "no_ID_assignment": true
+}

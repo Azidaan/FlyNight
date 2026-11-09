@@ -1,0 +1,26 @@
+................................................F.........               [100%]
+================================== FAILURES ===================================
+________________ test_r16_14_cache_invalidated_by_fingerprint _________________
+
+tmp_path = WindowsPath('C:/Users/Егор/AppData/Local/Temp/pytest-of-Егор/pytest-676/test_r16_14_cache_invalidated_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000136A180B9D0>
+
+    def test_r16_14_cache_invalidated_by_fingerprint(tmp_path, monkeypatch):
+        cache = tmp_path / 'cache'
+        first = hindex.load_index(PROJECT_ROOT, cache_dir=cache)
+        assert (cache / 'index.json').exists()
+        second = hindex.load_index(PROJECT_ROOT, cache_dir=cache)
+>       assert second.from_cache is True and second.fingerprint == first.fingerprint
+E       AssertionError: assert (False is True)
+E        +  where False = Index(built_at='2026-11-09T06:18:59', fingerprint={'version': 3, 'head': '9aa290e55534fceec2c4b98f641e4dfbe6dee776', '... 'plan_closed': 25, 'plan_chronology': 25, 'manual': 2}, 'events_without_commit': 3083, 'artifacts': 682, 'areas': 18}).from_cache
+
+tests\test_project_history.py:476: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_project_history.py::test_r16_14_cache_invalidated_by_fingerprint
+1 failed, 57 passed in 163.98s (0:02:43)
+Traceback (most recent call last):
+  File "E:\Dissertation\runs\relative_reader_transfer_20261109\finish.py", line 72, in <module>
+    if __name__=='__main__':{'record':record,'checks':checks}[sys.argv[1]]()
+  File "E:\Dissertation\runs\relative_reader_transfer_20261109\finish.py", line 63, in checks
+    assert pytest.main(['tests/test_project_history.py','-q'])==0
+AssertionError
