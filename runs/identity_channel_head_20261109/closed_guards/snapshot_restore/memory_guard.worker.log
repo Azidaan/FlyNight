@@ -1,0 +1,74 @@
+[2026-11-09 05:59:16] network_view:122 Initialized network view at E:\Dissertation\runs\flyvis\results\flow\0000\000
+[2026-11-09 05:59:16] logging_utils:23 epe not in E:\Dissertation\runs\flyvis\results\flow\0000\000\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.
+[2026-11-09 05:59:22] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.
+[2026-11-09 05:59:24] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.
+[2026-11-09 05:59:24] decoder:283 DecoderGAVP(
+  (base): Sequential(
+    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): Softplus(beta=1.0, threshold=20.0)
+    (3): Dropout(p=0.5, inplace=False)
+  )
+  (decoder): Sequential(
+    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+  )
+  (head): Sequential()
+)
+MAPS 1 57 2
+MAPS 2 57 4
+MAPS 3 57 6
+MAPS 4 57 8
+MAPS 5 57 10
+MAPS 6 57 12
+MAPS 7 57 14
+MAPS 8 57 16
+MAPS 9 57 18
+MAPS 10 57 20
+MAPS 11 57 22
+MAPS 12 57 24
+MAPS 13 57 26
+MAPS 14 57 28
+MAPS 15 57 30
+MAPS 16 57 32
+MAPS 17 57 34
+MAPS 18 57 36
+MAPS 19 57 38
+MAPS 20 57 40
+MAPS 21 57 42
+MAPS 22 57 44
+MAPS 23 57 46
+MAPS 24 57 48
+MAPS 25 57 50
+MAPS 26 57 52
+MAPS 27 57 54
+MAPS 28 57 56
+MAPS 29 57 58
+MAPS 30 57 60
+MAPS 31 57 62
+MAPS 32 57 64
+MAPS 33 57 66
+MAPS 34 57 68
+MAPS 35 57 70
+MAPS 36 57 72
+MAPS 37 57 74
+MAPS 38 57 76
+MAPS 39 57 78
+MAPS 40 57 80
+MAPS 41 57 82
+MAPS 42 57 84
+MAPS 43 57 86
+MAPS 44 57 88
+MAPS 45 57 90
+MAPS 46 57 92
+MAPS 47 57 94
+MAPS 48 57 96
+MAPS 49 57 98
+MAPS 50 57 100
+MAPS 51 57 102
+MAPS 52 57 104
+MAPS 53 57 106
+MAPS 54 57 108
+MAPS 55 57 110
+MAPS 56 57 112
+MAPS 57 57 114
+Only missing snapshot arrays restored

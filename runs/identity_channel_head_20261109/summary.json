@@ -1,0 +1,174 @@
+{
+  "passed": true,
+  "edges": 91,
+  "own": 15,
+  "foreign": 76,
+  "videos": 32,
+  "metrics": {
+    "G": {
+      "own_accept": 13,
+      "own_reject": 2,
+      "foreign_accept": 26,
+      "foreign_reject": 50,
+      "balanced_accuracy": 0.762280701754386,
+      "auroc": 0.7921052631578948
+    },
+    "G_C34_mean": {
+      "own_accept": 13,
+      "own_reject": 2,
+      "foreign_accept": 27,
+      "foreign_reject": 49,
+      "balanced_accuracy": 0.755701754385965,
+      "auroc": 0.7982456140350878
+    },
+    "G_C34_channels": {
+      "own_accept": 12,
+      "own_reject": 3,
+      "foreign_accept": 18,
+      "foreign_reject": 58,
+      "balanced_accuracy": 0.7815789473684212,
+      "auroc": 0.8552631578947368
+    },
+    "G_R134_spatial_mean": {
+      "own_accept": 13,
+      "own_reject": 2,
+      "foreign_accept": 28,
+      "foreign_reject": 48,
+      "balanced_accuracy": 0.7491228070175439,
+      "auroc": 0.7956140350877193
+    },
+    "G_R134_spatial_channels": {
+      "own_accept": 10,
+      "own_reject": 5,
+      "foreign_accept": 17,
+      "foreign_reject": 59,
+      "balanced_accuracy": 0.7214912280701754,
+      "auroc": 0.8578947368421053
+    },
+    "G_R134_temporal_mean": {
+      "own_accept": 13,
+      "own_reject": 2,
+      "foreign_accept": 27,
+      "foreign_reject": 49,
+      "balanced_accuracy": 0.755701754385965,
+      "auroc": 0.7964912280701755
+    },
+    "G_R134_temporal_channels": {
+      "own_accept": 11,
+      "own_reject": 4,
+      "foreign_accept": 26,
+      "foreign_reject": 50,
+      "balanced_accuracy": 0.6956140350877194,
+      "auroc": 0.793859649122807
+    },
+    "G_neighbor8_mean": {
+      "own_accept": 13,
+      "own_reject": 2,
+      "foreign_accept": 28,
+      "foreign_reject": 48,
+      "balanced_accuracy": 0.7491228070175439,
+      "auroc": 0.7947368421052632
+    },
+    "G_neighbor8_channels": {
+      "own_accept": 11,
+      "own_reject": 4,
+      "foreign_accept": 25,
+      "foreign_reject": 51,
+      "balanced_accuracy": 0.7021929824561404,
+      "auroc": 0.8166666666666667
+    }
+  },
+  "point_pilot_gates": {
+    "C34": false,
+    "R134_spatial": false,
+    "R134_temporal": false,
+    "neighbor8": false
+  },
+  "selected_development_arm": null,
+  "paired_video_intervals": {
+    "G_C34_channels__G": {
+      "point": 0.019298245614035148,
+      "ci95": [
+        -0.06837177828878034,
+        0.08955702257941069
+      ],
+      "valid_draws": 4000
+    },
+    "G_C34_channels__G_C34_mean": {
+      "point": 0.025877192982456165,
+      "ci95": [
+        -0.061724580798947985,
+        0.0946106821106822
+      ],
+      "valid_draws": 4000
+    },
+    "G_C34_channels__G_R134_spatial_channels": {
+      "point": 0.060087719298245745,
+      "ci95": [
+        -0.10993434756732628,
+        0.20239678318135765
+      ],
+      "valid_draws": 4000
+    },
+    "G_C34_channels__G_R134_temporal_channels": {
+      "point": 0.0859649122807018,
+      "ci95": [
+        -0.05611779022105106,
+        0.24117757721817829
+      ],
+      "valid_draws": 4000
+    },
+    "G_R134_spatial_channels__G": {
+      "point": -0.0407894736842106,
+      "ci95": [
+        -0.1807426948051948,
+        0.09999999999999998
+      ],
+      "valid_draws": 4000
+    },
+    "G_R134_spatial_channels__G_R134_spatial_mean": {
+      "point": -0.02763157894736845,
+      "ci95": [
+        -0.16985661764705878,
+        0.11044019933554812
+      ],
+      "valid_draws": 4000
+    },
+    "G_R134_temporal_channels__G": {
+      "point": -0.06666666666666665,
+      "ci95": [
+        -0.22056612203864853,
+        0.044455128205128196
+      ],
+      "valid_draws": 4000
+    },
+    "G_R134_temporal_channels__G_R134_temporal_mean": {
+      "point": -0.060087719298245634,
+      "ci95": [
+        -0.2142857142857142,
+        0.050724637681159424
+      ],
+      "valid_draws": 4000
+    },
+    "G_neighbor8_channels__G": {
+      "point": -0.060087719298245634,
+      "ci95": [
+        -0.13693456905413423,
+        0.0273972602739726
+      ],
+      "valid_draws": 4000
+    },
+    "G_neighbor8_channels__G_neighbor8_mean": {
+      "point": -0.04692982456140349,
+      "ci95": [
+        -0.1256159420289854,
+        0.03676470588235292
+      ],
+      "valid_draws": 4000
+    }
+  },
+  "scalar_parity_max_error": 1.1102230246251565e-16,
+  "new_core_training": false,
+  "new_ID_assignment": false,
+  "conclusion": "Admission gate only; inspect paired uncertainty and then actual ID fate. No tracker or unique-core benefit is proved here."
+}

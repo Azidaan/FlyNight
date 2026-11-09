@@ -515,6 +515,16 @@
       "unit": "шаги решётки",
       "caveat": "Малая ошибка согласованности не является калиброванной вероятностью правильного ID.",
       "source": "runs/singleton_forward_backward_20261108/protocol.json"
+    },
+    "candidate_identity_balanced_accuracy": {
+      "title": "Сбалансированная точность принадлежности рамки",
+      "ru": "Половина суммы доли принятых своих и доли отвергнутых чужих связей при заранее фиксированном нулевом пороге модели.",
+      "better": "higher",
+      "unit": "доля",
+      "range": "0..1",
+      "tool": "tracking/channel_identity_head.py",
+      "caveat": "Диагностика отдельных рёбер с исключением видео. Не доказывает сохранение ID, отсутствие вреда конкурентам или прибавку HOTA.",
+      "source": "runs/identity_channel_head_20261109/protocol.json"
     }
   },
   "aliases": {

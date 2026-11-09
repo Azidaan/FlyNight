@@ -30727,6 +30727,73 @@
           "reason": "Исправлены пробелы и объяснение терминов; числа, критерии и статус не изменены."
         }
       ]
+    },
+    {
+      "id": "identity_channel_head_20261109",
+      "title": "Принадлежность рамки — обучаемые совпадения каналов",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "question": "Помогают ли отдельные пространственные совпадения каналов отвергать чужую рамку лучше геометрии и равного среднего?",
+      "hypothesis": "Равное усреднение может терять полезное различие каналов. Ограниченная обучаемая оценка может сохранить его; сильнейшая альтернатива — тот же эффект обычных пространственно-временных признаков или переобучение на сюжет.",
+      "expected": "Одна межвидеовая проверка зафиксированного решения с одинаковыми контролями, затем реальный пилот назначения только при прохождении критерия.",
+      "acceptance": [
+        {
+          "criterion": "Математика, совпадение среднего с прежним считывателем, отсутствие утечки видео и неизменность источников подтверждены.",
+          "met": true,
+          "evidence": "runs/identity_channel_head_20261109/audit.json"
+        },
+        {
+          "criterion": "For a channel model to enter a bounded actual-ID pilot, balanced accuracy must strictly exceed G and its own scalar model, foreign accepts must be no greater than both, and own accepts must strictly exceed both. This gate is admission only, not proven benefit. All representations are reported; no retuning failed models. If several pass, select highest balanced accuracy, ties lower foreign accepts, then fewer channels, then protocol order. This selection is disclosed as development selection.",
+          "met": false,
+          "evidence": "runs/identity_channel_head_20261109/summary.json → point_pilot_gates"
+        }
+      ],
+      "obtained": "На 91 паре (15 своих/76 чужих), 32 видео, геометрическая модель приняла 13 своих и 26 чужих; геометрия со средним FlyVis — 13/27; с отдельными 34 каналами — 12/18. Источник: runs/identity_channel_head_20261109/summary.json → metrics. Относительно геометрии отвергнуты 12 прежних чужих, пропущены 4 новые; возвращена 1 своя и потеряны 2 прежние. Источник: runs/identity_channel_head_20261109/decision_changes.json → models/G_C34_channels. Разность сбалансированной точности +0,019298, 95% ДИ [−0,068372; 0,089557], summary.json → paired_video_intervals/G_C34_channels__G. Пространственный вход34 дал 10/17, временной вход34 — 11/26, соседний вход8 — 11/25 (свои/чужие), summary.json → metrics. Все 4 допуска к реальным ID провалены. 114 недостающих снимков восстановлены, веса не менялись; maps_complete.json. Все коэффициенты и решения независимо сверены; audit.json.",
+      "interpretation": "Поканальные совпадения FlyVis меняют различение своих и чужих, но фиксированная линейная оценка не сохранила число правильных принятий и дала новые чужие принятия. Интервалы сравнений с геометрией и равными 34-канальными входами включают ноль. Причина не установлена на уровне ядра; локализован недостаточный результат этой функции решения поверх текущей пространственной опоры.",
+      "decision": "Остановить эту версию по заранее записанному критерию. Не запускать с ней полный трекер, не подбирать порог, штраф или каналы на этих результатах. Сохранить данные и модель для объяснения ошибок. Для следующей качественно отличной правки сначала проверить математическое влияние правила общей пространственной опоры всех сдвигов; не повторять готовые карты.",
+      "cannot_claim": "Это 91 отдельная связь из 32 исторических обучающих видео, а не 91 независимый эпизод и не сохранённые ID. Отсутствие утечки между видео не превращает выборку в новый официальный независимый сплит. Не измерялись новые назначения, судьба ID или HOTA; верхний предел не измерен. Более высокий AUROC и меньше чужих принятий по точечному счёту не доказывают надёжный перенос или дополнительную пользу ядра FlyVis.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_head_20261109/protocol.json",
+          "claim": "Условия зарегистрированы до извлечения признаков и обучения."
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_head_20261109/summary.json",
+          "claim": "Полный фиксированный результат и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_head_20261109/audit.json",
+          "claim": "Полный фиксированный результат и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_head_20261109/decision_changes.json",
+          "claim": "Полный фиксированный результат и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_head_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Полный фиксированный результат и независимая проверка"
+        }
+      ],
+      "tags": [
+        "fly-problem-P1"
+      ],
+      "done": "2026-11-09",
+      "metrics": [
+        {
+          "key": "candidate_identity_balanced_accuracy",
+          "value": 0.7815789473684212,
+          "baseline": 0.762280701754386,
+          "subset": "91 строгая последняя опора; 32 исторических видео; межвидеовая проверка",
+          "source": "runs/identity_channel_head_20261109/summary.json",
+          "locator": "metrics.G_C34_channels.balanced_accuracy"
+        }
+      ]
     }
   ],
   "manual_events": [
