@@ -31330,6 +31330,131 @@
         }
       ],
       "done": "2026-11-09"
+    },
+    {
+      "id": "domain_identity_delivery_preflight_20261109",
+      "title": "Новая голова принадлежности — доставка разрешения в общий решатель",
+      "area": "flyvis",
+      "state": "infrastructure",
+      "started": "2026-11-09",
+      "question": "Принимает ли новая голова рёбра стоимости1, которые при вычитании0,2вfloat32остаютсявыше0,8?",
+      "hypothesis": "Смена обучающей области может разрешить ранее отвергавшиеся рёбра и впервые сделать численную границу существенной. Альтернатива — все новые разрешения проходят локальный порог, а их отклоняет только конкуренция.",
+      "expected": "Повторно использовать213готовыхвекторов и полные матрицы старых историй; применить новые окончательные коэффициенты без обучения. Сравнить точнуюfloat64и прежнююfloat32доставку при прежних0,2и0,8.",
+      "acceptance": [
+        {
+          "criterion": "Все213готовыхвекторов и исходные назначения воспроизведены; чистое приведение исходной матрицы кfloat64не меняет сохранённые первые назначения.",
+          "met": true,
+          "evidence": "runs/domain_matched_native_20261109/delivery_report.json → summary"
+        },
+        {
+          "criterion": "Установить число новых разрешений выше границыfloat32и различие глобальных назначений; не выдавать однокадровый контрфакт за новыеID. Любая правка доставки требует одинаковой точности у всех контролей и отдельногоfloat32варианта для отделения эффектов.",
+          "met": true,
+          "evidence": "runs/domain_matched_native_20261109/delivery_report.json → summary"
+        }
+      ],
+      "obtained": "На213готовыхконтекстах новаяголова разрешила136рёбер; разрешений вышеfloat32порога0, изменений общего назначенияfloat32противfloat640 на208полныхматрицах. Чистое приведение без поправки совпало на208/208. Источник: runs/domain_matched_native_20261109/delivery_report.json → summary.",
+      "interpretation": "На этих сохранённых историях численная граница не объясняет доставку разрешений новой головы. Это техническая диагностика, а не новая траектория или подтверждённое сохранениеID.",
+      "decision": "Сохранить прежниеfloat32,alpha0,2иmatch0,8у всех вариантов нативного пилота. Отдельную ветвь изменения точности не запускать.",
+      "cannot_claim": "Вывод относится к213готовымконтекстам старых историй. В новых расходящихся траекториях могут возникнуть иные матрицы; польза дляIDи добавка FlyVis этой проверкой не измерены.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/delivery_protocol.json",
+          "claim": "Условия до новых вычислений доставки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/delivery_report.json",
+          "claim": "Завершённая проверка доставки новых разрешений без повторения готовых карт"
+        }
+      ],
+      "tags": [
+        "fly-problem-P1"
+      ],
+      "revisions": [
+        {
+          "date": "2026-11-09T14:52:00.345084+03:00",
+          "field": "cannot_claim",
+          "old": "Старое исключение численной причины относилось к прежнейголове; новый результат всё ещё не полные траектории и не независимая оценка личности.",
+          "reason": "Завершена зарегистрированная техническая проверка новой головы; границы результата уточнены по первичному отчёту."
+        }
+      ],
+      "done": "2026-11-09"
+    },
+    {
+      "id": "domain_matched_native_identity_20261109",
+      "title": "Рабочее обучение FlyVis — нативные назначения и сохранение ID",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "question": "Does domain-matched training of the unchanged full-map reader preserve real oldIDs and reject foreign continuations in the actual global native tracker?",
+      "hypothesis": "Новый причинный рабочий пул может уменьшить чужие разрешения без потери своих, но результат может исчезнуть при конкуренции и удалении дубликатов. Сильнейшая альтернатива — достаточно геометрической поправки или обычного34канальноговхода.",
+      "expected": "Пять фиксированных вариантов на20прежнихvalвидео, общий решатель, прежняяfloat32доставка и прямой аудит судьбыID. Независимый финальный тест ещё не запускается.",
+      "acceptance": [
+        {
+          "criterion": "Exact two new full wrapper witnesses plus40readyall20zero controls and unchanged shared-source/recipe fingerprints; core weights unchanged; no ready metric or core work repeated.",
+          "met": true,
+          "evidence": "runs/domain_matched_native_20261109/runtime_audit.json; id_fate.json; zero_complete.json"
+        },
+        {
+          "criterion": "AllfiveprimaryC34lowerHOTAbounds>0; nonnegative pointAssA/IDF1 differences and no totalIDSw/FP/FNincrease against native and matched controls. Otherwise no confirmed addedFlyVis or accepted final tracker. OldC34improvement alone insufficient.",
+          "met": false,
+          "evidence": "runs/domain_matched_native_20261109/comparison_report.json → comparisons"
+        },
+        {
+          "criterion": "Persist complete proposals/refusals,fullglobalmatrix/assignment,publicoldID,duplicates and actual futureIDfate for allfivearms; direct labels only at actualannotationframes with unique confirmed sources. Retain unknown and separately report earlier return versus genuinely absent native return within observed video.",
+          "met": true,
+          "evidence": "runs/domain_matched_native_20261109/runtime_audit.json; id_fate.json; zero_complete.json"
+        }
+      ],
+      "obtained": "native_B0: HOTA 57,900829184; AssA 63,314359268; IDF1 66,868983957; IDSw 1001; FP 3331; FN 13525. legacy_unfiltered_G: HOTA 58,021311467; AssA 63,501014001; IDF1 67,177529170; IDSw 1028; FP 3382; FN 13470. old_G7: HOTA 57,931064745; AssA 63,374556904; IDF1 66,971446904; IDSw 1001; FP 3338; FN 13524. old_C34: HOTA 57,923671605; AssA 63,364903649; IDF1 66,963438273; IDSw 1003; FP 3338; FN 13527. G7: HOTA 57,913509474; AssA 63,335476555; IDF1 66,925112959; IDSw 999; FP 3336; FN 13524. G_DOMAIN: HOTA 57,927733855; AssA 63,365146636; IDF1 66,973225147; IDSw 1002; FP 3338; FN 13523. R134_spatial: HOTA 57,927694498; AssA 63,362183207; IDF1 66,974120415; IDSw 1002; FP 3337; FN 13523. R134_temporal: HOTA 57,929077760; AssA 63,363512739; IDF1 66,974120415; IDSw 1002; FP 3336; FN 13522. C34: HOTA 57,937697082; AssA 63,386305103; IDF1 66,975015707; IDSw 1000; FP 3337; FN 13524. Источник: runs/domain_matched_native_20261109/comparison_report.json → pooled. ПрямыеID: runs/domain_matched_native_20261109/id_fate.json → summary,records.",
+      "interpretation": "Эта версия не выполнила зарегистрированные критерии полного пилота. СравнениеC34сG_DOMAINотделяетвкладзрительногосигналаотоднойпоправкистоимости;обычныевходныевариантыотделяютсвойстваFlyVisотпространственно-временнойобработкивхода. Пооднимразрешениямнеприписыватьприростядру.",
+      "decision": "Не переносить эту версию на независимый финальный тест. Разобрать первичные прямые случаи по звеньям: балл, стоимость, общий выбор, дубликаты, публичныйID и дальнейшая судьба; выбрать одну следующую правку по накопленному заключению. Пороги, alpha и точность этого опыта не менять.",
+      "cannot_claim": "Выборка — 20 ранее изученных проверочных видео; она не является новым независимым финальным тестом. Локальное разрешение не равно публичному старому ID. Прямые метки подтверждают только точные прошлое и текущее наблюдения, не чистоту всей истории. Неизвестные не заполнены. Отсутствие наблюдаемого возврата не доказывает безвозвратную потерю. Ошибка ядра не установлена.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/protocol.json",
+          "claim": "Условия и критерии до новых траекторий"
+        },
+        {
+          "kind": "file",
+          "ref": "research_domain_matched_reader_20261109/summary.json",
+          "claim": "Заранее пройденный допуск на рабочих обучающих связях"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Полный итог фиксированной версии"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/comparison_report.json",
+          "claim": "Официальные метрики и парные интервалы"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/id_fate.json",
+          "claim": "Прямые свои/чужие и последующая судьбаID"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/runtime_audit.json",
+          "claim": "Независимая сверка баллов и общего решателя"
+        }
+      ],
+      "tags": [
+        "fly-problem-P1"
+      ],
+      "revisions": [
+        {
+          "date": "2026-11-09T15:29:25.901012+03:00",
+          "field": "cannot_claim",
+          "old": "Предварительная точность17/20своих и2/6чужих не является сохранённымиID. Пилот разработческий, не новый независимый тест. Дефект ядра не установлен.",
+          "reason": "Завершён фиксированный нативный пилот, добавлены полный результат и границы вывода."
+        }
+      ],
+      "done": "2026-11-09"
     }
   ],
   "manual_events": [

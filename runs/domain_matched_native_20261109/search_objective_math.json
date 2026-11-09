@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "recorded": "2026-11-09T15:22:35.637343+03:00",
+  "source_sha256": "5b794c53935f932ac3563429aa7179ede8a38072f9fa5ab7dc14bb50d142b7f1",
+  "sources": {
+    "runs/domain_matched_native_20261109/deployment.json": "7fda2c96c5064b7425ad853298149c66f2f6b5e943d8e3e686ddb61e22798989",
+    "tracking/channel_identity_head.py": "c39c2b3770aedf6fdab9b71a3e68dc35bea52768614cdcebf02823163cc0e79c"
+  },
+  "actual_weights": {
+    "positive": 34,
+    "negative": 0,
+    "min": 0.006057633209250481,
+    "max": 0.09878714363049336,
+    "low_channel": 33,
+    "high_channel": 4
+  },
+  "constructed_counterexample": {
+    "mean_a": 0.029411764705882353,
+    "mean_b": 0.026470588235294117,
+    "weighted_a": 0.006057633209250481,
+    "weighted_b": 0.05181662509894687,
+    "all_correlations_bounded": true,
+    "not_an_observed_video": true
+  },
+  "theorem": "Let s0 maximize equal-channel mean over the same valid shift set, z_s=g_score+w dot rho_s+b. Then max_s z_s>=z_s0. At fixed threshold0 and fixed validity,fallback,support,head and geometry, every previously accepted edge remains accepted. Changing only the selected shift to maximize the head cannot reject any previously accepted foreign edge. It can change global assignments, so it does not prove public foreign IDs remain unchanged.",
+  "distinction": "Unequal positive weights suffice for mean-max and weighted-max to differ; negative weights are not required. This establishes possible objective mismatch, not its causal role in either own refusal.",
+  "decision": "Do not present maximize-the-new-head alone as a solution to both own refusal and foreign permission. Any retrained joint spatial classifier is a separate intervention with matched controls and prior old-target-model comparison, not a proven fix.",
+  "no_inference": true,
+  "no_fit": true,
+  "no_tracker_or_core": true,
+  "goal_achieved": false
+}

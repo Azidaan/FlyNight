@@ -1,0 +1,29 @@
+{
+  "registered": "2026-11-09T15:19:40.024442+03:00",
+  "new_C34_native_not_started": false,
+  "previous_failed_precheck": "case_registration_attempt.json",
+  "case_selection_before_C34": true,
+  "matching_rules_registered_after_C34_started": true,
+  "native_stage_at_registration": {
+    "stage": "native_rollout",
+    "updated": "2026-11-09T15:19:38.237497+03:00",
+    "arm": "C34",
+    "video": "b1f4491b-cf446195",
+    "frame": 1000,
+    "total": 1209,
+    "events": 427
+  },
+  "sources": {
+    "runs/domain_matched_native_20261109/register_case_followup_v2.py": "665f95a7abcef6b93378ab5f4ce1c64f157cf5205eb076a85683c84314380296",
+    "runs/domain_matched_native_20261109/register_case_followup.py": "3dd871e7e09457f38265484fd77315e1a2c37aca769294d2eb3175685c8ec294",
+    "runs/domain_matched_native_20261109/case_registration_attempt.json": "99ac1b06f28826e93b69945cf07a64d3b0ad91f26c58c420180332b84f19c010",
+    "runs/domain_matched_native_20261109/compare_previous_cases.py": "7b5e64a8051e73f7458ff4c6be4bd7fdcbe39fe66aec7d82d0ae5f81df706823",
+    "runs/domain_matched_native_20261109/evaluation_common.py": "049f21d1f63abe32ac3c6cccea75d863f3dfca13883cc2b9083f7b62596adbe7",
+    "runs/domain_matched_native_20261109/execution_protocol.json": "1c10ba53f7972584aacfeef1b43d81a547b683e86a2b53755d3439f78bb968a3",
+    "runs/domain_matched_native_20261109/protocol.json": "2a7b1a877e74c0a280a478ba1e1652c7c8d990fdb788e726bbd5c94c700ce1b5",
+    "runs/domain_matched_native_20261109/previous_contexts_check.json": "34972e4ee3c37918695bd63042be52e9b565791a0f769aeebf50c4d652ea5e30",
+    "runs/full_template_native_20261109/id_fate.json": "8d3d8050b42a980639e5c22cc2f7405c0c76c6c389b1dc00a463c9cb03deb773"
+  },
+  "question": "For every old directly labeled C34 case, does the new full trajectory fix the old failure when IDs are linked through a reference raw observation?",
+  "selection": "Sixcases alreadyfixed in previous_contexts_check before C34. Allfivearms, no favorable selection. Matching adapter registered after C34 began, before aggregate evaluation/fate exists. Descriptive diagnosis only; no new primary success criterion and no threshold selection. Missing proposals have no invented cause."
+}

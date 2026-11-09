@@ -1,0 +1,22 @@
+{
+  "registered": "2026-11-09T15:27:07.014814+03:00",
+  "failure": "The new deployment stores the independently computed final gradient residual per arm as a dictionary, while the audit treated it as a scalar. Failure occurred before any event matrix or classifier check. No scientific output invalidated.",
+  "change": "AST replaces only the scalar comparison with all per-arm residuals<1e-7. Original audit, sources, thresholds and scientific results preserved.",
+  "sources": {
+    "runs/domain_matched_native_20261109/register_audit_schema_recovery.py": "44678ab1df0756e0d62a8e475dfadbcf4880f7aa9145f2a6856c2ea209cbcdee",
+    "runs/domain_matched_native_20261109/run_runtime_audit_v2.py": "bf64b3cfcedce193443a32c3b3345e0384a2d965f9e2e287058ac4b35d618879",
+    "runs/domain_matched_native_20261109/audit_runtime.py": "8b97573880584953f1ed5acb093c025e15520214c98c2a04ab08d454f0d9ccb7",
+    "runs/domain_matched_native_20261109/audit_protocol.json": "297408320862de5f8336d21090489ad8edb376d4420b031423b6e641246baba3",
+    "runs/domain_matched_native_20261109/deployment.json": "7fda2c96c5064b7425ad853298149c66f2f6b5e943d8e3e686ddb61e22798989",
+    "runs/flyvis_repairs_20261106/unification_20261107/uncapped_checks/5d3f1c5c4b834e5cb5c663c7b87983f5/memory_guard.json": "69342557e5679b6e6d20bc5b108ca2cf32acc27ddb3d185b7719c097b8c02c30",
+    "runs/flyvis_repairs_20261106/unification_20261107/uncapped_checks/5d3f1c5c4b834e5cb5c663c7b87983f5/memory_guard.worker.log": "b4b92d1d68e6c965dcfa2496dd4c381e93559fe64d2ef44ed49e7c38e46c03ec"
+  },
+  "independent_gradients": {
+    "G7": 5.745404152435185e-15,
+    "C34": 1.011715711207728e-11,
+    "R134_spatial": 9.84757414501658e-12,
+    "R134_temporal": 5.175027073534011e-14
+  },
+  "no_fit": true,
+  "no_tracker_or_core_repeated": true
+}
