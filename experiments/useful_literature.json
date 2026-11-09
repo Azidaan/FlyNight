@@ -156,6 +156,27 @@
       ],
       "problem_group": "Сохранение личности",
       "problem": "С2 — геометрически допустимый кандидат может принадлежать другой машине."
+    },
+    {
+      "id": "van_smeden_epv_limits",
+      "title": "Почему одного числа событий на параметр недостаточно — van Smeden и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Надёжность обучаемого решения",
+      "publication": "Maarten van Smeden, Joris A. H. de Groot, Karel G. M. Moons, Gary S. Collins, Douglas G. Altman, Marinus J. C. Eijkemans, Johannes B. Reitsma. No rationale for 1 variable per 10 events criterion for binary logistic regression analysis. BMC Medical Research Methodology, 2016, 16:163.",
+      "doi": "10.1186/s12874-016-0267-3",
+      "url": "https://link.springer.com/article/10.1186/s12874-016-0267-3",
+      "sections": "Abstract, Accuracy of logit coefficients in small samples, Separation, Discussion.",
+      "established": "Точность при малой выборке зависит не только от отношения событий к параметрам; разбиение данных и способ оценки существенно меняют выводы. Универсальный запрет по одному отношению не обоснован.",
+      "problem": "Оценить риск обучаемой головы по небольшому числу условных пар, не подменяя проверку жёстким правилом EPV.",
+      "application": "Источник использован для критики категорического вывода Gemini: оставлена необходимость межвидеовой проверки и аудита меток, но математически допустимая модель не объявлена невозможной по одному отношению13/34.",
+      "limitation": "Работа не проверяет наши карты, не обосновывает достаточность нашей выборки и не предлагает считыватель FlyVis. Правильность модели принадлежности и реальных ID остаётся непроверенной.",
+      "evidence": [
+        "research_identity_synthesis_20261109/ПРОВЕРКА_GEMINI.md",
+        "research_identity_synthesis_20261109/math_checks.json"
+      ],
+      "related": [
+        "sys:С2"
+      ]
     }
   ]
 }

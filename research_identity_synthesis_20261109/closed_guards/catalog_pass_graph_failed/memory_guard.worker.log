@@ -1,0 +1,20 @@
+..........................................................               [100%]
+58 passed in 176.56s (0:02:56)
+Traceback (most recent call last):
+  File "E:\Dissertation\runs\identity_channel_training_readiness_20261109\finish.py", line 47, in <module>
+    if __name__=='__main__':{'record':record,'checks':checks}[sys.argv[1]]()
+  File "E:\Dissertation\runs\identity_channel_training_readiness_20261109\finish.py", line 44, in checks
+    copy=Path(tmp)/'ObsidianFlyVis';shutil.copytree(vault,copy);build(copy);result=audit(copy);build(vault);assert audit(vault)==result
+  File "E:\Dissertation\runs\identity_channel_training_readiness_20261109\finish.py", line 42, in build
+    def build(v):sys.argv=['scripts/build_obsidian_vault.py','--vault',str(v)];assert main()==0
+  File "E:\Dissertation\scripts\build_obsidian_vault.py", line 193, in main
+    return build_fundamental_overview()
+  File "E:\Dissertation\scripts\obsidian_fundamental_overview.py", line 513, in main
+    print(build_levels(args.vault))
+  File "E:\Dissertation\scripts\obsidian_level_graph.py", line 442, in build
+    problems(tree,vault)
+  File "E:\Dissertation\scripts\obsidian_level_graph.py", line 387, in problems
+    registry=system_problems()
+  File "E:\Dissertation\scripts\obsidian_system_problems.py", line 24, in load
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == source['sha256'], source
+AssertionError: {'source': 'research_identity_synthesis_20261109/СВОДКА_v4.md', 'sha256': '6009419181afb6e71ed577f20c6f3638aa64e9b2cb3ce7dd5c779c54d9e78fdf', 'claim': 'Читаемая актуальная постановка; прежние версии и результаты сохранены.'}

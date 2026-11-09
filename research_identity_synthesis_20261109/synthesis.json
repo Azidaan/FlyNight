@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "updated": "2026-11-09T06:57:50.375891+03:00",
+  "problem": "С2",
+  "status": "open",
+  "system_level": "Вся авторская система; локализованная работа — внешний пространственный считыватель, не доказанная ошибка ядра FlyVis.",
+  "facts": [
+    {
+      "id": "F1",
+      "kind": "measured",
+      "claim": "При одинаковом поиске C34 дал 7/12 прежним способом и 10/12 полной относительной комбинацией; простой соседний вход также дал 10/12.",
+      "sources": [
+        "runs/historical_two_candidate_comparison_20261109/summary.json",
+        "runs/relative_joint_reader_20261109/summary.json"
+      ],
+      "locators": [
+        "table.maximum.C34.correct",
+        "table.maximum.neighbor8.correct"
+      ],
+      "limit": "Просмотренные исторические запросы; меняются координаты и участок. Это не сохранение ID."
+    },
+    {
+      "id": "F2",
+      "kind": "measured",
+      "claim": "На трёх других видео C34 изменился с 1/3 до 3/3; все относительные входные контроли и исходная стоимость также дали 3/3.",
+      "sources": [
+        "runs/relative_reader_transfer_20261109/summary.json"
+      ],
+      "locators": [
+        "table.old.maximum",
+        "table.relative.maximum"
+      ],
+      "limit": "Три случая недостаточны для принятия метода; добавка FlyVis не выявлена."
+    },
+    {
+      "id": "F3",
+      "kind": "mathematical_consequence",
+      "claim": "В двух готовых запросах чужой кандидат имеет большее сходство, чем свой. Один монотонный порог не может в каждом таком запросе принять свою рамку и отвергнуть чужую.",
+      "sources": [
+        "runs/relative_joint_reader_20261109/results.json"
+      ],
+      "locators": [
+        "records:uid=4982",
+        "records:uid=17832"
+      ],
+      "limit": "Это двухкандидатная поддержка. Работа при удалённой альтернативе ещё не измерена."
+    },
+    {
+      "id": "F4",
+      "kind": "measured",
+      "claim": "В 6/12 отказов оба ребра выше прежнего порога; в других 6 есть допустимое ребро и более дешёвое конкурирующее ребро другого ряда.",
+      "sources": [
+        "runs/historical_assignment_context_20261109/results.json"
+      ],
+      "locators": [
+        "totals"
+      ],
+      "limit": "Полная матрица и личность конкурирующего ряда не восстановлены. Точная причина глобального выбора не доказана."
+    },
+    {
+      "id": "F5",
+      "kind": "verified_fix",
+      "claim": "Численная ошибка ровной карты исправлена: ложных чисел на инварианте нет; прежние реальные ранжирования от исправления не изменились.",
+      "sources": [
+        "runs/interpolation_constant_audit_20261109/audit.json"
+      ],
+      "locators": [
+        "fixed_flat_scores",
+        "real_rank_changes"
+      ],
+      "limit": "Техническая корректность считывателя не является приростом трекинга."
+    },
+    {
+      "id": "F6",
+      "kind": "measured_negative",
+      "claim": "Фиксированный пространственный фильтр с реальным фоном и прежнее вычитание наблюдавшихся фоновых прототипов не прошли свои критерии.",
+      "sources": [
+        "runs/background_patch_gate_20261108/summary.json",
+        "runs/z13_observed_contrast_20261025/report.json"
+      ],
+      "locators": [
+        "gate_pass",
+        "primary_pass"
+      ],
+      "limit": "Это отрицание конкретных реализаций, а не всех способов учёта окружения."
+    },
+    {
+      "id": "F7",
+      "kind": "measured_negative",
+      "claim": "Полная прежняя правка глобальных назначений не принята: скорректированный интервал HOTA включает ноль и IDSw вырос на 7.",
+      "sources": [
+        "runs/identity_assignment_20261108/full_precision/comparison_report.json"
+      ],
+      "locators": [
+        "accepted_flyvis_system_and_increment",
+        "comparisons.G_FLYVIS-B0"
+      ],
+      "limit": "Этот результат нельзя переносить на ещё не испытанную новую версию считывателя; готовый полный опыт повторять не надо."
+    },
+    {
+      "id": "F8",
+      "kind": "scope",
+      "claim": "Ранний шаблон на общей цепочке состояния уже проверен; подтверждённой пользы не получено.",
+      "sources": [
+        "runs/common_state_memory_20261109/summary.json"
+      ],
+      "locators": [
+        "table",
+        "differences"
+      ],
+      "limit": "Сравнивался выбор памяти при фиксированном текущем состоянии, не все возможные механизмы памяти."
+    }
+  ],
+  "counterexamples": [
+    {
+      "uid": 4982,
+      "own": 0.058051620423729446,
+      "foreign": 0.25159249206742984
+    },
+    {
+      "uid": 17832,
+      "foreign": 0.2819789963155739,
+      "own": 0.13050808222007299
+    }
+  ],
+  "sources": {
+    "runs/historical_two_candidate_comparison_20261109/summary.json": "18f35db9633f594e1e912fa4444263eea31fcf1d738eb6ecaa4574eff75c1abd",
+    "runs/relative_joint_reader_20261109/summary.json": "9de8971c414b35c0e041af93566aa9cd55dfb7876cc2359b629649f56d860b88",
+    "runs/relative_joint_reader_20261109/results.json": "caa5b070b3e925e5e116f026c63e204d9cba4e0f38ba0301646c0964508e7c57",
+    "runs/relative_reader_transfer_20261109/summary.json": "8a4f942d7cc9a5f2fe51167d3ae5f15c2a4d3f0bdbf387dd47f36436a075be8e",
+    "runs/historical_assignment_context_20261109/results.json": "55b210ea61e70530838ecec0f46cf84c4dd6c6e1a43bcc6c873362d479298337",
+    "runs/interpolation_constant_audit_20261109/audit.json": "078949a6fb6222cc077015dd0ed848f55030d31586730ce77bb9d71b5fa51e3a",
+    "runs/background_patch_gate_20261108/summary.json": "bc95f86dfba2c4f45ea14a91ecde3b1d498fb4515e4012d739ab6eb04294e05c",
+    "runs/z13_observed_contrast_20261025/report.json": "9922c73bf47c920da0f7e12c77221afa5fefed31728e0357117fdfff4c79cbbe",
+    "runs/identity_assignment_20261108/full_precision/comparison_report.json": "0d0c5cabac03e02ade119db6fab4f54cd273b29486530de4df4ef60218b11e36",
+    "runs/common_state_memory_20261109/summary.json": "7eada5d0f077ecf3316577d2a7fd8d3ba7c83065e809eb415429342596a9a9d1"
+  },
+  "scientific_text_check": {
+    "method_object_distinguished": true,
+    "no_new_result_claimed": true,
+    "old_results_not_rewritten": true,
+    "adjacent_sections_checked_for_duplication": true
+  },
+  "current_conclusion": "Новый способ сопоставления полезен на ограниченных запросах, но сходство ещё не является достаточным свидетельством личности. Отдельно остаются качество различающего сигнала, доступность нужной детекции и последствия общего назначения. Основная цель не достигнута."
+}
