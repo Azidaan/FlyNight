@@ -1,0 +1,23 @@
+{
+  "registered": "2026-11-09T05:54:35.716192+03:00",
+  "sources": {
+    "runs/historical_two_candidate_comparison_20261109/attribute.py": "801b41d21ad6a370c2f0659be9c181e10488c290ba20754ca263405556280d8d",
+    "runs/historical_two_candidate_comparison_20261109/results.json": "b566106f7673dac5bd4e9c2d83f2a11e82b9414221a7023d20b0dd6f71977577",
+    "runs/historical_two_candidate_comparison_20261109/summary.json": "18f35db9633f594e1e912fa4444263eea31fcf1d738eb6ecaa4574eff75c1abd",
+    "runs/historical_two_candidate_comparison_20261109/protocol.json": "7226d0a916e6c45f9d985a6c88cc917ceb51d061289b2dd102e05d017d8533e5",
+    "runs/historical_two_candidate_comparison_20261109/maps_complete.json": "5b75f08267a8784f19966b4bfe3d531376d7d41a31f0e519229c12882decc04e",
+    "tracking/channel_balanced_correspondence.py": "f024871ccebbcb329bd147061d0bf621896eef64cf63a31154d2e244737502bd",
+    "tracking/hex_linear_interpolation.py": "6398d9d9654328e13a9a04c335bed92b5202dabcf8b63ca19a69ebc925ab477e",
+    "tracking/flyvis_activity.py": "cbed742a83d365275f59818fc7eee0912ba46e726e4c4c40f242f907dac29d3d"
+  },
+  "scope": "Supplementary accounting for the frozen twelve-query negative result. Read only saved C34-selected winners; do not rerun19 shifts, pick channels, fit weights or alter any decision.",
+  "representations": [
+    "C34",
+    "R134_temporal",
+    "R134_spatial"
+  ],
+  "identity": "S=sum_pc [(a_pc-mean(a_c))*(b_pc-mean(b_c)) / (||a_c||*||b_c||*number_of_reference_active_channels)]. Exact constant channels contribute zero. Sum of cell/channel terms must equal the already saved score at the already saved winner.",
+  "quantities": "Per channel and cell signed contributions for own and foreign. For C34 explicitly report sum from fixed T4/T5 indices4:12 and remaining26, not a new ranking policy. C8 score at C34 winning shift compared descriptively with ready C8 maximum to distinguish channel averaging from winning-shift change.",
+  "spatial_caveat": "Convert existing winner query to physical pixels, count points inside own GT rectangle only, foreign only, both or neither. Ground truth used only after scoring. Rectangles are not pixel masks; point inclusion does not establish ownership of nonlocal neural activity.",
+  "stop": "Identity and current maps unchanged, accounting error<=1e-10. No deployment or independent-validation claim. Failed identities remain failures; attribution is algebra, not causal intervention."
+}

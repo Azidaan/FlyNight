@@ -1,0 +1,1406 @@
+{
+  "passed": true,
+  "technical_pass": true,
+  "reader_gate_pass": false,
+  "table": {
+    "fixed": {
+      "C34": {
+        "correct": 7,
+        "wrong": 5,
+        "tie": 0,
+        "abstain": 0,
+        "points": 7.0
+      },
+      "FlyVis": {
+        "correct": 4,
+        "wrong": 8,
+        "tie": 0,
+        "abstain": 0,
+        "points": 4.0
+      },
+      "R134_temporal": {
+        "correct": 5,
+        "wrong": 7,
+        "tie": 0,
+        "abstain": 0,
+        "points": 5.0
+      },
+      "R134_spatial": {
+        "correct": 6,
+        "wrong": 6,
+        "tie": 0,
+        "abstain": 0,
+        "points": 6.0
+      },
+      "input8_temporal": {
+        "correct": 5,
+        "wrong": 7,
+        "tie": 0,
+        "abstain": 0,
+        "points": 5.0
+      },
+      "center8": {
+        "correct": 5,
+        "wrong": 7,
+        "tie": 0,
+        "abstain": 0,
+        "points": 5.0
+      },
+      "neighbor8": {
+        "correct": 5,
+        "wrong": 7,
+        "tie": 0,
+        "abstain": 0,
+        "points": 5.0
+      },
+      "cost": {
+        "correct": 8,
+        "wrong": 4,
+        "tie": 0,
+        "abstain": 0,
+        "points": 8.0
+      }
+    },
+    "maximum": {
+      "C34": {
+        "correct": 7,
+        "wrong": 5,
+        "tie": 0,
+        "abstain": 0,
+        "points": 7.0
+      },
+      "FlyVis": {
+        "correct": 8,
+        "wrong": 4,
+        "tie": 0,
+        "abstain": 0,
+        "points": 8.0
+      },
+      "R134_temporal": {
+        "correct": 5,
+        "wrong": 7,
+        "tie": 0,
+        "abstain": 0,
+        "points": 5.0
+      },
+      "R134_spatial": {
+        "correct": 6,
+        "wrong": 6,
+        "tie": 0,
+        "abstain": 0,
+        "points": 6.0
+      },
+      "input8_temporal": {
+        "correct": 6,
+        "wrong": 6,
+        "tie": 0,
+        "abstain": 0,
+        "points": 6.0
+      },
+      "center8": {
+        "correct": 6,
+        "wrong": 6,
+        "tie": 0,
+        "abstain": 0,
+        "points": 6.0
+      },
+      "neighbor8": {
+        "correct": 6,
+        "wrong": 6,
+        "tie": 0,
+        "abstain": 0,
+        "points": 6.0
+      },
+      "cost": {
+        "correct": 8,
+        "wrong": 4,
+        "tie": 0,
+        "abstain": 0,
+        "points": 8.0
+      }
+    }
+  },
+  "differences": {
+    "cost": {
+      "mean": -0.08333333333333333,
+      "ci95": [
+        -0.5,
+        0.3333333333333333
+      ],
+      "corrected": 3,
+      "newly_wrong": 4
+    },
+    "R134_temporal": {
+      "mean": 0.16666666666666666,
+      "ci95": [
+        0.0,
+        0.4166666666666667
+      ],
+      "corrected": 2,
+      "newly_wrong": 0
+    },
+    "R134_spatial": {
+      "mean": 0.08333333333333333,
+      "ci95": [
+        -0.25,
+        0.4166666666666667
+      ],
+      "corrected": 3,
+      "newly_wrong": 2
+    }
+  },
+  "records": [
+    {
+      "video": "00ed2e85-95394dfd",
+      "uid": 4982,
+      "frame": 924,
+      "tid": 1480,
+      "decisions": {
+        "fixed": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": -0.0010058685407433108,
+            "foreign": -0.02880123694631611
+          },
+          "FlyVis": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": -0.08355597589583999,
+            "foreign": 0.01373254935597823
+          },
+          "R134_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.3707946167346836,
+            "foreign": 0.15920768546701267
+          },
+          "R134_spatial": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.7372861538834726,
+            "foreign": 0.7346077766544792
+          },
+          "input8_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.34299733727484427,
+            "foreign": 0.11791948805787597
+          },
+          "center8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.667085650453184,
+            "foreign": 0.5993709000221332
+          },
+          "neighbor8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.6827820937556983,
+            "foreign": 0.6685095720710947
+          }
+        },
+        "maximum": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.22128130694088505,
+            "foreign": 0.5185228744826507
+          },
+          "FlyVis": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.23036664038052168,
+            "foreign": 0.43537203502030253
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.3707946167346836,
+            "foreign": 0.553598361746466
+          },
+          "R134_spatial": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.7372861538834726,
+            "foreign": 0.7346077766544792
+          },
+          "input8_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.34299733727484427,
+            "foreign": 0.509948334103991
+          },
+          "center8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.667085650453184,
+            "foreign": 0.6180974354760879
+          },
+          "neighbor8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.6827820937556983,
+            "foreign": 0.6705784119652034
+          }
+        }
+      }
+    },
+    {
+      "video": "019d6206-d5de804a",
+      "uid": 7796,
+      "frame": 312,
+      "tid": 203,
+      "decisions": {
+        "fixed": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.16333970909381296,
+            "foreign": -0.29990087404039695
+          },
+          "FlyVis": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": -0.046020445128150955,
+            "foreign": -0.5017286313616194
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.45878638284995354,
+            "foreign": 0.48269092179549833
+          },
+          "R134_spatial": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.8928343608039934,
+            "foreign": 0.6839776536826893
+          },
+          "input8_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.43986165082332057,
+            "foreign": 0.44636681997972066
+          },
+          "center8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.8561528597663552,
+            "foreign": 0.5543946731553164
+          },
+          "neighbor8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.8660279557972437,
+            "foreign": 0.5979312229300671
+          }
+        },
+        "maximum": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.4398609071361823,
+            "foreign": 0.4560629699299826
+          },
+          "FlyVis": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.4513884150148043,
+            "foreign": 0.4423684268777698
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5908967736489719,
+            "foreign": 0.6103635090289781
+          },
+          "R134_spatial": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.8928343608039934,
+            "foreign": 0.7314001878400093
+          },
+          "input8_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5931831708787774,
+            "foreign": 0.576072525925357
+          },
+          "center8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.8561528597663552,
+            "foreign": 0.7252044169047254
+          },
+          "neighbor8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.8672998520908661,
+            "foreign": 0.6725460331045814
+          }
+        }
+      }
+    },
+    {
+      "video": "02006c28-c2c5e796",
+      "uid": 9541,
+      "frame": 575,
+      "tid": 535,
+      "decisions": {
+        "fixed": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": -0.27341934594597317,
+            "foreign": 0.045369048819457594
+          },
+          "FlyVis": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": -0.38397951175559036,
+            "foreign": -0.3117688699275916
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.22870080175206972,
+            "foreign": 0.35781355025602546
+          },
+          "R134_spatial": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.7886456228864436,
+            "foreign": 0.8314376747508792
+          },
+          "input8_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.20868704660737297,
+            "foreign": 0.3469021731473887
+          },
+          "center8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.6658925571185083,
+            "foreign": 0.7696705728564707
+          },
+          "neighbor8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.740995816426887,
+            "foreign": 0.8110769058727152
+          }
+        },
+        "maximum": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5957937835360081,
+            "foreign": 0.3557388050028315
+          },
+          "FlyVis": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.6733209165911349,
+            "foreign": 0.4769557610295946
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5122109680545817,
+            "foreign": 0.5484809735082736
+          },
+          "R134_spatial": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.8092906602222202,
+            "foreign": 0.8800730947635637
+          },
+          "input8_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.4696369860101654,
+            "foreign": 0.5123596417116838
+          },
+          "center8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.6658925571185083,
+            "foreign": 0.7964826321659344
+          },
+          "neighbor8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.7561760897374913,
+            "foreign": 0.8470103822096697
+          }
+        }
+      }
+    },
+    {
+      "video": "02124b78-9823f8fc",
+      "uid": 9909,
+      "frame": 668,
+      "tid": 914,
+      "decisions": {
+        "fixed": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": -0.38828216208487615,
+            "foreign": 0.18457001130156755
+          },
+          "FlyVis": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": -0.4291009210269431,
+            "foreign": 0.32280257708341153
+          },
+          "R134_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.14729947871964189,
+            "foreign": 0.015416654680812259
+          },
+          "R134_spatial": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.34298242838467596,
+            "foreign": 0.06799430305946468
+          },
+          "input8_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.14310728430594266,
+            "foreign": 0.01666066781103919
+          },
+          "center8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.42988212946195353,
+            "foreign": 0.09171818142657007
+          },
+          "neighbor8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.30742666161304655,
+            "foreign": 0.05568312812187116
+          }
+        },
+        "maximum": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.37593589601034677,
+            "foreign": 0.24663543360894355
+          },
+          "FlyVis": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.4894489101970821,
+            "foreign": 0.3831943498484862
+          },
+          "R134_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.2931528152385399,
+            "foreign": 0.20110402972595845
+          },
+          "R134_spatial": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.35585769362184494,
+            "foreign": 0.22732783607089407
+          },
+          "input8_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.2925461601964656,
+            "foreign": 0.18611393691412773
+          },
+          "center8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.42988212946195353,
+            "foreign": 0.3112342453150345
+          },
+          "neighbor8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.3221267548060982,
+            "foreign": 0.21546869370859925
+          }
+        }
+      }
+    },
+    {
+      "video": "0232c9f2-5600d649",
+      "uid": 11705,
+      "frame": 1127,
+      "tid": 792,
+      "decisions": {
+        "fixed": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": -0.18297690986893464,
+            "foreign": -0.011880545103358146
+          },
+          "FlyVis": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": -0.23748359774571784,
+            "foreign": -0.19848125656229154
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.26842799478375445,
+            "foreign": 0.31448156186589105
+          },
+          "R134_spatial": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.582257715254115,
+            "foreign": 0.662440461819548
+          },
+          "input8_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.2544375929151482,
+            "foreign": 0.30732046432038923
+          },
+          "center8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5470005164422369,
+            "foreign": 0.6462835072425661
+          },
+          "neighbor8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.546514043510756,
+            "foreign": 0.6448133185031815
+          }
+        },
+        "maximum": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.27985255241033236,
+            "foreign": 0.42826822314733987
+          },
+          "FlyVis": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.28063538136860544,
+            "foreign": 0.31090040594059015
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.3435771708406875,
+            "foreign": 0.43380630085171995
+          },
+          "R134_spatial": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5944295157911289,
+            "foreign": 0.708702145460348
+          },
+          "input8_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.3138343492870625,
+            "foreign": 0.4120645238882148
+          },
+          "center8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5470005164422369,
+            "foreign": 0.6552142818128244
+          },
+          "neighbor8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.546514043510756,
+            "foreign": 0.6793406644761415
+          }
+        }
+      }
+    },
+    {
+      "video": "0233c21b-577418b6",
+      "uid": 12206,
+      "frame": 974,
+      "tid": 2112,
+      "decisions": {
+        "fixed": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": -0.08588091506446824,
+            "foreign": 0.3285642208565765
+          },
+          "FlyVis": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": -0.1585717324432156,
+            "foreign": 0.15132350513191162
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.4038757072724618,
+            "foreign": 0.7507404399780917
+          },
+          "R134_spatial": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5523511618732944,
+            "foreign": 0.7953623030315792
+          },
+          "input8_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.3948018236211822,
+            "foreign": 0.756529847942298
+          },
+          "center8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5171778507716731,
+            "foreign": 0.8097979623118459
+          },
+          "neighbor8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5539459505793556,
+            "foreign": 0.81363066417518
+          }
+        },
+        "maximum": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.12688657596747308,
+            "foreign": 0.454512215749951
+          },
+          "FlyVis": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.1475495789655094,
+            "foreign": 0.3442626163649456
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.4038757072724618,
+            "foreign": 0.7507404399780917
+          },
+          "R134_spatial": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5523511618732944,
+            "foreign": 0.7953623030315792
+          },
+          "input8_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.3948018236211822,
+            "foreign": 0.756529847942298
+          },
+          "center8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5171778507716731,
+            "foreign": 0.8097979623118459
+          },
+          "neighbor8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5539459505793556,
+            "foreign": 0.81363066417518
+          }
+        }
+      }
+    },
+    {
+      "video": "02364369-bd3d1838",
+      "uid": 12633,
+      "frame": 359,
+      "tid": 1145,
+      "decisions": {
+        "fixed": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.13796632036966136,
+            "foreign": 0.11111605305574018
+          },
+          "FlyVis": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.08969781192139416,
+            "foreign": 0.09030506604137875
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.38371577164916504,
+            "foreign": 0.45348851455904393
+          },
+          "R134_spatial": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.6760716653050598,
+            "foreign": 0.6733276902952458
+          },
+          "input8_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.3432973247863854,
+            "foreign": 0.43018213877375855
+          },
+          "center8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5944420439360686,
+            "foreign": 0.6258252791671154
+          },
+          "neighbor8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.6124462787109075,
+            "foreign": 0.6295811899858923
+          }
+        },
+        "maximum": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5567282716842841,
+            "foreign": 0.3784368497067619
+          },
+          "FlyVis": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5571785389752861,
+            "foreign": 0.20198623178247224
+          },
+          "R134_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5948911073224149,
+            "foreign": 0.45348851455904393
+          },
+          "R134_spatial": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.7969134807329347,
+            "foreign": 0.6733276902952458
+          },
+          "input8_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5860086388333531,
+            "foreign": 0.43018213877375855
+          },
+          "center8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.6931757250065638,
+            "foreign": 0.6258252791671154
+          },
+          "neighbor8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.7515680032829395,
+            "foreign": 0.6295811899858923
+          }
+        }
+      }
+    },
+    {
+      "video": "0252f2b5-2e69185a",
+      "uid": 14150,
+      "frame": 617,
+      "tid": 860,
+      "decisions": {
+        "fixed": {
+          "cost": {
+            "points": 0.0,
+            "outcome": "wrong"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5741925623843228,
+            "foreign": 0.5247011114039362
+          },
+          "FlyVis": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.4499070870887065,
+            "foreign": 0.4589680453836595
+          },
+          "R134_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.6657176180568325,
+            "foreign": 0.5905120954891927
+          },
+          "R134_spatial": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.9413012623864728,
+            "foreign": 0.9707212069067651
+          },
+          "input8_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.6348066073563982,
+            "foreign": 0.5581165290114936
+          },
+          "center8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.913842734193646,
+            "foreign": 0.9362822304296983
+          },
+          "neighbor8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.9236513081354052,
+            "foreign": 0.9495167373791231
+          }
+        },
+        "maximum": {
+          "cost": {
+            "points": 0.0,
+            "outcome": "wrong"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.7445375763916671,
+            "foreign": 0.6261595353621244
+          },
+          "FlyVis": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.7056000838298664,
+            "foreign": 0.5545753634062996
+          },
+          "R134_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.701950184778411,
+            "foreign": 0.6696014650579403
+          },
+          "R134_spatial": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.9413012623864728,
+            "foreign": 0.9707212069067651
+          },
+          "input8_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.6916264136008989,
+            "foreign": 0.6531793705763097
+          },
+          "center8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.913842734193646,
+            "foreign": 0.9362822304296983
+          },
+          "neighbor8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.9236513081354052,
+            "foreign": 0.9495167373791231
+          }
+        }
+      }
+    },
+    {
+      "video": "02927def-14c4c3cb",
+      "uid": 15282,
+      "frame": 578,
+      "tid": 374,
+      "decisions": {
+        "fixed": {
+          "cost": {
+            "points": 0.0,
+            "outcome": "wrong"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.03180422092833963,
+            "foreign": 0.00713434260264742
+          },
+          "FlyVis": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": -0.05695481578807228,
+            "foreign": -0.04051865590175869
+          },
+          "R134_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.05633410749677469,
+            "foreign": -0.08435090056218887
+          },
+          "R134_spatial": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5316733366255894,
+            "foreign": 0.2962404577876558
+          },
+          "input8_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.0414404525049768,
+            "foreign": -0.09256524124153694
+          },
+          "center8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.4402630392313791,
+            "foreign": 0.22285457414063922
+          },
+          "neighbor8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.4742374569461399,
+            "foreign": 0.2419602137971943
+          }
+        },
+        "maximum": {
+          "cost": {
+            "points": 0.0,
+            "outcome": "wrong"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.23943226011565238,
+            "foreign": 0.09388619779797812
+          },
+          "FlyVis": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.20903193510345863,
+            "foreign": 0.08282103050384489
+          },
+          "R134_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.18702496923441725,
+            "foreign": -0.07484694837183363
+          },
+          "R134_spatial": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5670978752309155,
+            "foreign": 0.327138892763283
+          },
+          "input8_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.17913526336430385,
+            "foreign": -0.08631550161689538
+          },
+          "center8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5115938447159185,
+            "foreign": 0.2725877486514203
+          },
+          "neighbor8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5142240907993731,
+            "foreign": 0.26844393125065985
+          }
+        }
+      }
+    },
+    {
+      "video": "02a70c1f-6df7ce64",
+      "uid": 16170,
+      "frame": 743,
+      "tid": 1671,
+      "decisions": {
+        "fixed": {
+          "cost": {
+            "points": 0.0,
+            "outcome": "wrong"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5006830211530764,
+            "foreign": 0.2100650206553545
+          },
+          "FlyVis": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.8423446032467412,
+            "foreign": -0.020191745484304847
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.2756954267412833,
+            "foreign": 0.573582434577784
+          },
+          "R134_spatial": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.7058931828112035,
+            "foreign": 0.9408946450363083
+          },
+          "input8_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.2515913440420506,
+            "foreign": 0.5505019594641637
+          },
+          "center8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.695757768314615,
+            "foreign": 0.8724166031987998
+          },
+          "neighbor8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.6590713879109642,
+            "foreign": 0.9218043068807513
+          }
+        },
+        "maximum": {
+          "cost": {
+            "points": 0.0,
+            "outcome": "wrong"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5659660532121562,
+            "foreign": 0.499543733740097
+          },
+          "FlyVis": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.8423446032467412,
+            "foreign": 0.5673497996492943
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5509568848413627,
+            "foreign": 0.7075376713077672
+          },
+          "R134_spatial": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.7058931828112035,
+            "foreign": 0.9408946450363083
+          },
+          "input8_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.5647137605253003,
+            "foreign": 0.6648173588762514
+          },
+          "center8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.695757768314615,
+            "foreign": 0.8724166031987998
+          },
+          "neighbor8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.6735512325127622,
+            "foreign": 0.9218043068807513
+          }
+        }
+      }
+    },
+    {
+      "video": "02b4d710-c34ba68e",
+      "uid": 17832,
+      "frame": 827,
+      "tid": 2503,
+      "decisions": {
+        "fixed": {
+          "cost": {
+            "points": 0.0,
+            "outcome": "wrong"
+          },
+          "C34": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": -0.26385044290582904,
+            "foreign": -0.1196677987469319
+          },
+          "FlyVis": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": -0.11110768699830648,
+            "foreign": -0.1116605514724226
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.3553759736954127,
+            "foreign": 0.5773965642803138
+          },
+          "R134_spatial": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.7948328297310363,
+            "foreign": 0.7992974420532365
+          },
+          "input8_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.3363343499460205,
+            "foreign": 0.5716345620163369
+          },
+          "center8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.724594609947163,
+            "foreign": 0.7612508492744071
+          },
+          "neighbor8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.7680963287423003,
+            "foreign": 0.7870894677128206
+          }
+        },
+        "maximum": {
+          "cost": {
+            "points": 0.0,
+            "outcome": "wrong"
+          },
+          "C34": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.07528281182077341,
+            "foreign": 0.09330439945280242
+          },
+          "FlyVis": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.13560806324304595,
+            "foreign": 0.14247887899165745
+          },
+          "R134_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.42008777338562836,
+            "foreign": 0.5773965642803138
+          },
+          "R134_spatial": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.7948328297310363,
+            "foreign": 0.7992974420532365
+          },
+          "input8_temporal": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.4040821070411694,
+            "foreign": 0.5716345620163369
+          },
+          "center8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.724594609947163,
+            "foreign": 0.7612508492744071
+          },
+          "neighbor8": {
+            "points": 0.0,
+            "outcome": "wrong",
+            "own": 0.7680963287423003,
+            "foreign": 0.7870894677128206
+          }
+        }
+      }
+    },
+    {
+      "video": "02bb67ae-8c3d61f8",
+      "uid": 18233,
+      "frame": 1132,
+      "tid": 376,
+      "decisions": {
+        "fixed": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.4601415903957136,
+            "foreign": -0.1655910076264382
+          },
+          "FlyVis": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.5965794134211123,
+            "foreign": -0.013342161450108928
+          },
+          "R134_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.6762269464192672,
+            "foreign": 0.32608981504875023
+          },
+          "R134_spatial": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.8312626873755132,
+            "foreign": 0.4911858827081563
+          },
+          "input8_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.6375713089157472,
+            "foreign": 0.3510082576583756
+          },
+          "center8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.809978991450467,
+            "foreign": 0.5280009260659504
+          },
+          "neighbor8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.8298227255045694,
+            "foreign": 0.470905873360967
+          }
+        },
+        "maximum": {
+          "cost": {
+            "points": 1.0,
+            "outcome": "correct"
+          },
+          "C34": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.8411650785685633,
+            "foreign": 0.2393192418496446
+          },
+          "FlyVis": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.9398127965157337,
+            "foreign": 0.3495762146217065
+          },
+          "R134_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.700458548877888,
+            "foreign": 0.39884772710510114
+          },
+          "R134_spatial": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.9099334853801356,
+            "foreign": 0.592447964423009
+          },
+          "input8_temporal": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.6594701624690822,
+            "foreign": 0.4177713354821081
+          },
+          "center8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.8876275796017555,
+            "foreign": 0.6111947180662437
+          },
+          "neighbor8": {
+            "points": 1.0,
+            "outcome": "correct",
+            "own": 0.9060311719057046,
+            "foreign": 0.5585816293276564
+          }
+        }
+      }
+    }
+  ],
+  "queries": 12,
+  "videos": 12,
+  "actual_native_old_row_assignment": "none for all12; cost endpoint is LOCAL ranking only, not actual IDs",
+  "no_threshold_tuning": true
+}

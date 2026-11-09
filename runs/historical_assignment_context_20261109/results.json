@@ -1,0 +1,530 @@
+{
+  "passed": true,
+  "totals": {
+    "queries": 12,
+    "all_edges_rejected": 6,
+    "some_locally_admitted": 6,
+    "own_admitted": 4,
+    "foreign_admitted": 2,
+    "admitted_with_cheaper_competitor": 6,
+    "admitted_without_cheaper_competitor": 0
+  },
+  "admitted_edges_per_query": {
+    "0": 6,
+    "1": 6
+  },
+  "public_ownership": {
+    "own": {
+      "public_before": 6,
+      "first_public_at_query": 1,
+      "not_public": 5
+    },
+    "foreign": {
+      "public_before": 10,
+      "first_public_at_query": 1,
+      "not_public": 1
+    }
+  },
+  "records": [
+    {
+      "uid": 4982,
+      "video": "00ed2e85-95394dfd",
+      "frame": 924,
+      "old_tid": 1480,
+      "original_row_assigned": false,
+      "candidates": [
+        {
+          "kind": "own",
+          "raw_id": 43308,
+          "cost": 0.8063942193984985,
+          "lowest_competing_cost": 1.0,
+          "alternative_cost": 0.9536836743354797,
+          "local_admitted": false,
+          "cheaper_competing_edge": false,
+          "public_owners": [],
+          "owner_category": "not_public"
+        },
+        {
+          "kind": "foreign",
+          "raw_id": 43310,
+          "cost": 0.9536836743354797,
+          "lowest_competing_cost": 1.0,
+          "alternative_cost": 0.8063942193984985,
+          "local_admitted": false,
+          "cheaper_competing_edge": false,
+          "public_owners": [],
+          "owner_category": "not_public"
+        }
+      ]
+    },
+    {
+      "uid": 7796,
+      "video": "019d6206-d5de804a",
+      "frame": 312,
+      "old_tid": 203,
+      "original_row_assigned": false,
+      "candidates": [
+        {
+          "kind": "foreign",
+          "raw_id": 10143,
+          "cost": 0.9363241195678711,
+          "lowest_competing_cost": 0.3624637722969055,
+          "alternative_cost": 0.873261570930481,
+          "local_admitted": false,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 167,
+              "first_public": 236,
+              "last_public_before": 311,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        },
+        {
+          "kind": "own",
+          "raw_id": 10146,
+          "cost": 0.873261570930481,
+          "lowest_competing_cost": 0.3778170943260193,
+          "alternative_cost": 0.9363241195678711,
+          "local_admitted": false,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 213,
+              "first_public": 310,
+              "last_public_before": 311,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        }
+      ]
+    },
+    {
+      "uid": 9541,
+      "video": "02006c28-c2c5e796",
+      "frame": 575,
+      "old_tid": 535,
+      "original_row_assigned": false,
+      "candidates": [
+        {
+          "kind": "foreign",
+          "raw_id": 30474,
+          "cost": 0.905901312828064,
+          "lowest_competing_cost": 0.25689584016799927,
+          "alternative_cost": 0.8471704721450806,
+          "local_admitted": false,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 373,
+              "first_public": 438,
+              "last_public_before": 574,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        },
+        {
+          "kind": "own",
+          "raw_id": 30485,
+          "cost": 0.8471704721450806,
+          "lowest_competing_cost": 0.9670248031616211,
+          "alternative_cost": 0.905901312828064,
+          "local_admitted": false,
+          "cheaper_competing_edge": false,
+          "public_owners": [],
+          "owner_category": "not_public"
+        }
+      ]
+    },
+    {
+      "uid": 9909,
+      "video": "02124b78-9823f8fc",
+      "frame": 668,
+      "old_tid": 914,
+      "original_row_assigned": false,
+      "candidates": [
+        {
+          "kind": "foreign",
+          "raw_id": 33830,
+          "cost": 0.914342999458313,
+          "lowest_competing_cost": 0.045685648918151855,
+          "alternative_cost": 0.6796496510505676,
+          "local_admitted": false,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 749,
+              "first_public": 521,
+              "last_public_before": 667,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        },
+        {
+          "kind": "own",
+          "raw_id": 33839,
+          "cost": 0.7617607116699219,
+          "lowest_competing_cost": 0.5684814453125,
+          "alternative_cost": 0.6796496510505676,
+          "local_admitted": true,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 915,
+              "first_public": 666,
+              "last_public_before": 667,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        }
+      ]
+    },
+    {
+      "uid": 11705,
+      "video": "0232c9f2-5600d649",
+      "frame": 1127,
+      "old_tid": 792,
+      "original_row_assigned": false,
+      "candidates": [
+        {
+          "kind": "foreign",
+          "raw_id": 37126,
+          "cost": 0.8359479904174805,
+          "lowest_competing_cost": 0.13930851221084595,
+          "alternative_cost": 0.7313696146011353,
+          "local_admitted": false,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 668,
+              "first_public": 1022,
+              "last_public_before": 1126,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        },
+        {
+          "kind": "own",
+          "raw_id": 37131,
+          "cost": 0.7313696146011353,
+          "lowest_competing_cost": 0.6561384201049805,
+          "alternative_cost": 0.8359479904174805,
+          "local_admitted": true,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 640,
+              "first_public": 1006,
+              "last_public_before": 1126,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        }
+      ]
+    },
+    {
+      "uid": 12206,
+      "video": "0233c21b-577418b6",
+      "frame": 974,
+      "old_tid": 2112,
+      "original_row_assigned": false,
+      "candidates": [
+        {
+          "kind": "foreign",
+          "raw_id": 105016,
+          "cost": 0.8866355419158936,
+          "lowest_competing_cost": 0.12878108024597168,
+          "alternative_cost": 0.7268233299255371,
+          "local_admitted": false,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 2070,
+              "first_public": 922,
+              "last_public_before": 973,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        },
+        {
+          "kind": "own",
+          "raw_id": 105021,
+          "cost": 0.7268233299255371,
+          "lowest_competing_cost": 0.18628573417663574,
+          "alternative_cost": 0.8866355419158936,
+          "local_admitted": true,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 1928,
+              "first_public": 862,
+              "last_public_before": 973,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        }
+      ]
+    },
+    {
+      "uid": 12633,
+      "video": "02364369-bd3d1838",
+      "frame": 359,
+      "old_tid": 1145,
+      "original_row_assigned": false,
+      "candidates": [
+        {
+          "kind": "foreign",
+          "raw_id": 38594,
+          "cost": 0.8479641675949097,
+          "lowest_competing_cost": 0.9616122245788574,
+          "alternative_cost": 0.8139256834983826,
+          "local_admitted": false,
+          "cheaper_competing_edge": false,
+          "public_owners": [
+            {
+              "tid": 1176,
+              "first_public": 359,
+              "last_public_before": null,
+              "category": "first_public_at_query"
+            }
+          ],
+          "owner_category": "first_public_at_query"
+        },
+        {
+          "kind": "own",
+          "raw_id": 38597,
+          "cost": 0.8139256834983826,
+          "lowest_competing_cost": 0.9723511934280396,
+          "alternative_cost": 0.8479641675949097,
+          "local_admitted": false,
+          "cheaper_competing_edge": false,
+          "public_owners": [
+            {
+              "tid": 1177,
+              "first_public": 359,
+              "last_public_before": null,
+              "category": "first_public_at_query"
+            }
+          ],
+          "owner_category": "first_public_at_query"
+        }
+      ]
+    },
+    {
+      "uid": 14150,
+      "video": "0252f2b5-2e69185a",
+      "frame": 617,
+      "old_tid": 860,
+      "original_row_assigned": false,
+      "candidates": [
+        {
+          "kind": "foreign",
+          "raw_id": 41215,
+          "cost": 0.7020878791809082,
+          "lowest_competing_cost": 0.3700537085533142,
+          "alternative_cost": 0.9214012622833252,
+          "local_admitted": true,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 60,
+              "first_public": 120,
+              "last_public_before": 616,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        },
+        {
+          "kind": "own",
+          "raw_id": 41219,
+          "cost": 0.9214012622833252,
+          "lowest_competing_cost": 0.6084611415863037,
+          "alternative_cost": 0.7020878791809082,
+          "local_admitted": false,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 908,
+              "first_public": 609,
+              "last_public_before": 616,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        }
+      ]
+    },
+    {
+      "uid": 15282,
+      "video": "02927def-14c4c3cb",
+      "frame": 578,
+      "old_tid": 374,
+      "original_row_assigned": false,
+      "candidates": [
+        {
+          "kind": "foreign",
+          "raw_id": 23777,
+          "cost": 0.6999984979629517,
+          "lowest_competing_cost": 0.27523255348205566,
+          "alternative_cost": 0.9250155091285706,
+          "local_admitted": true,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 295,
+              "first_public": 459,
+              "last_public_before": 577,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        },
+        {
+          "kind": "own",
+          "raw_id": 23788,
+          "cost": 0.9250155091285706,
+          "lowest_competing_cost": 0.9303176403045654,
+          "alternative_cost": 0.6999984979629517,
+          "local_admitted": false,
+          "cheaper_competing_edge": false,
+          "public_owners": [],
+          "owner_category": "not_public"
+        }
+      ]
+    },
+    {
+      "uid": 16170,
+      "video": "02a70c1f-6df7ce64",
+      "frame": 743,
+      "old_tid": 1671,
+      "original_row_assigned": false,
+      "candidates": [
+        {
+          "kind": "foreign",
+          "raw_id": 45759,
+          "cost": 0.8368998169898987,
+          "lowest_competing_cost": 0.21233701705932617,
+          "alternative_cost": 0.9140669703483582,
+          "local_admitted": false,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 1538,
+              "first_public": 668,
+              "last_public_before": 742,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        },
+        {
+          "kind": "own",
+          "raw_id": 45770,
+          "cost": 0.9140669703483582,
+          "lowest_competing_cost": 0.9716907143592834,
+          "alternative_cost": 0.8368998169898987,
+          "local_admitted": false,
+          "cheaper_competing_edge": false,
+          "public_owners": [],
+          "owner_category": "not_public"
+        }
+      ]
+    },
+    {
+      "uid": 17832,
+      "video": "02b4d710-c34ba68e",
+      "frame": 827,
+      "old_tid": 2503,
+      "original_row_assigned": false,
+      "candidates": [
+        {
+          "kind": "foreign",
+          "raw_id": 89464,
+          "cost": 0.8846378922462463,
+          "lowest_competing_cost": 0.63111412525177,
+          "alternative_cost": 0.8949460983276367,
+          "local_admitted": false,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 2518,
+              "first_public": 812,
+              "last_public_before": 826,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        },
+        {
+          "kind": "own",
+          "raw_id": 89476,
+          "cost": 0.8949460983276367,
+          "lowest_competing_cost": 0.7853840589523315,
+          "alternative_cost": 0.8846378922462463,
+          "local_admitted": false,
+          "cheaper_competing_edge": true,
+          "public_owners": [],
+          "owner_category": "not_public"
+        }
+      ]
+    },
+    {
+      "uid": 18233,
+      "video": "02bb67ae-8c3d61f8",
+      "frame": 1132,
+      "old_tid": 376,
+      "original_row_assigned": false,
+      "candidates": [
+        {
+          "kind": "foreign",
+          "raw_id": 26332,
+          "cost": 0.8443345427513123,
+          "lowest_competing_cost": 0.5527491569519043,
+          "alternative_cost": 0.7919560074806213,
+          "local_admitted": false,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 383,
+              "first_public": 1089,
+              "last_public_before": 1131,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        },
+        {
+          "kind": "own",
+          "raw_id": 26335,
+          "cost": 0.7919560074806213,
+          "lowest_competing_cost": 0.6252201199531555,
+          "alternative_cost": 0.8443345427513123,
+          "local_admitted": true,
+          "cheaper_competing_edge": true,
+          "public_owners": [
+            {
+              "tid": 401,
+              "first_public": 1130,
+              "last_public_before": 1131,
+              "category": "public_before"
+            }
+          ],
+          "owner_category": "public_before"
+        }
+      ]
+    }
+  ],
+  "no_solver_replay": true,
+  "no_map_or_score_calculation": true
+}

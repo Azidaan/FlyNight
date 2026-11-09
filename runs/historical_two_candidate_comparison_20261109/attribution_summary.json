@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "errors": [
+    {
+      "uid": 4982,
+      "margin": -0.29724156754176567,
+      "T4T5_contribution": -0.00794151299461766,
+      "other26_contribution": -0.289300054547148,
+      "other26_dominates_wrong_margin": true,
+      "foreign_query_rectangle_counts": {
+        "own_only": 0,
+        "foreign_only": 10,
+        "both": 5,
+        "neither": 0
+      }
+    },
+    {
+      "uid": 7796,
+      "margin": -0.01620206279380044,
+      "T4T5_contribution": 0.002122350149890446,
+      "other26_contribution": -0.018324412943690888,
+      "other26_dominates_wrong_margin": true,
+      "foreign_query_rectangle_counts": {
+        "own_only": 2,
+        "foreign_only": 8,
+        "both": 0,
+        "neither": 0
+      }
+    },
+    {
+      "uid": 11705,
+      "margin": -0.14841567073700745,
+      "T4T5_contribution": -0.013948295608401396,
+      "other26_contribution": -0.13446737512860601,
+      "other26_dominates_wrong_margin": true,
+      "foreign_query_rectangle_counts": {
+        "own_only": 0,
+        "foreign_only": 0,
+        "both": 97,
+        "neither": 0
+      }
+    },
+    {
+      "uid": 12206,
+      "margin": -0.32762563978247794,
+      "T4T5_contribution": -0.046285420564573215,
+      "other26_contribution": -0.2813402192179047,
+      "other26_dominates_wrong_margin": true,
+      "foreign_query_rectangle_counts": {
+        "own_only": 0,
+        "foreign_only": 23,
+        "both": 0,
+        "neither": 1
+      }
+    },
+    {
+      "uid": 17832,
+      "margin": -0.018021587632029008,
+      "T4T5_contribution": -0.0195852880488325,
+      "other26_contribution": 0.0015637004168034992,
+      "other26_dominates_wrong_margin": false,
+      "foreign_query_rectangle_counts": {
+        "own_only": 0,
+        "foreign_only": 33,
+        "both": 16,
+        "neither": 0
+      }
+    }
+  ],
+  "wrong_orders": 5,
+  "errors_with_foreign_only_sample_points": 4,
+  "errors_other26_dominate": 4,
+  "maximum_accounting_error": 3.3306690738754696e-16,
+  "no_new_winner_search": true,
+  "interpretation": "Common bbox overlap cannot explain every wrong order. Four errors are arithmetically dominated by non-T4/T5 channels at saved C34 winners; that does not justify selecting/deleting channels on these cases. Point location is not neural ownership or a causal intervention."
+}

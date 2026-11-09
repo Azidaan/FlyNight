@@ -1,0 +1,48 @@
+{
+  "registered": "2026-11-09T05:43:04.498904+03:00",
+  "sources": {
+    "runs/candidate_relative_alignment_20261109/diagnostic.py": "8242028feed1f8d9d270be1fc6447ed0967f0b51468ab8c1828963d82d263e86",
+    "runs/candidate_relative_alignment_20261109/math.json": "8d1e866d79b59c119ce450c4fd392e4095fb1c6bec03f8ad12f8ea73f215287e",
+    "runs/historical_two_candidate_comparison_20261109/protocol.json": "7226d0a916e6c45f9d985a6c88cc917ceb51d061289b2dd102e05d017d8533e5",
+    "runs/historical_two_candidate_comparison_20261109/execution_protocol.json": "fcdbe5dd4ddc2500b688eab171264d46c42b351313135edbbdd2b8de03eb7095",
+    "runs/historical_two_candidate_comparison_20261109/results.json": "b566106f7673dac5bd4e9c2d83f2a11e82b9414221a7023d20b0dd6f71977577",
+    "runs/historical_two_candidate_comparison_20261109/summary.json": "18f35db9633f594e1e912fa4444263eea31fcf1d738eb6ecaa4574eff75c1abd",
+    "runs/historical_two_candidate_comparison_20261109/maps_complete.json": "5b75f08267a8784f19966b4bfe3d531376d7d41a31f0e519229c12882decc04e",
+    "tracking/box_normalized_correspondence.py": "9a023c5bc2a986037d4c0a5fa080d77e766e9b4bc7cc7d5af58eeee1447e8724",
+    "tracking/own_template_verification.py": "203e932b76c063b66579374e9798483f05925f6e9a2381274faecfef15262f50",
+    "tracking/observed_spatial_reader.py": "66f391d4520edfc9a9f9c46d57157e04dbbcaf73a8d3d1013e931e28e16b045d",
+    "tracking/hex_linear_interpolation.py": "6398d9d9654328e13a9a04c335bed92b5202dabcf8b63ca19a69ebc925ab477e",
+    "tracking/channel_balanced_correspondence.py": "f024871ccebbcb329bd147061d0bf621896eef64cf63a31154d2e244737502bd"
+  },
+  "cases": [
+    4982,
+    7796,
+    9541,
+    9909,
+    11705,
+    12206,
+    12633,
+    14150,
+    15282,
+    16170,
+    17832,
+    18233
+  ],
+  "scope": "Exploratory diagnosis on already evaluated twelve queries, not independent validation. No model replay, threshold tuning, new candidate or ID write.",
+  "formula": "T_k(x)=Bk_lo+(x-B0_lo)*(Bk_size/B0_size), B0=archived reference STATE box, Bk=current RAW observed box. Same nineteen physical-pixel offsets added AFTER transform. Positive box extents required. No scale clipping, rotation/anchor optimization or mask.",
+  "support": "Per candidate intersect original full-19 support with affine full-19 box/hull support. Compare prediction and affine on EXACT SAME reference cell indices for that candidate. Never intersect two candidates. Minimum three unchanged; abstention retained in denominator. Ready if at least eight queries support BOTH candidates before evaluating any new scores.",
+  "controls": "All seven previous representations and original local cost. Reuse original grids if common support identical. Primary descriptive comparison C34 affine_common versus prediction_common; original_full is context, not a support-matched causal comparison.",
+  "history": "Observed-box relative correspondence is NOT new: tracking/own_template_verification.py already tested it with nearest cell matching, global centered cosine and old C8/R1/image/DIS. Here only continuous interpolation, frozen channel-balanced reader/full34 and fixed19 shifts form a different combination. Lewis NCC source confirms scale/perspective limitations, not this exact engineering hypothesis.",
+  "literature": "https://scribblethink.org/Work/nvisionInterface/nip.html",
+  "acceptance": [
+    {
+      "criterion": "Math, all source hashes and identical per-candidate common support verified; no new map or ID write.",
+      "met": null
+    },
+    {
+      "criterion": "At least eight queries support both candidates on frozen common support before scoring.",
+      "met": null
+    }
+  ],
+  "stop": "If readiness fails record geometry only and do not loosen cells/offsets. If scores do not improve do not retune. A positive descriptive result requires a distinct frozen test before deployment."
+}
