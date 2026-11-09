@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "metrics": {
+    "C34__parts": {
+      "own_accept": 17,
+      "foreign_accept": 2,
+      "balanced_accuracy": 0.7583333333333333
+    },
+    "C34__mixed_parts": {
+      "own_accept": 17,
+      "foreign_accept": 2,
+      "balanced_accuracy": 0.7583333333333333
+    },
+    "C34__scale_only": {
+      "own_accept": 17,
+      "foreign_accept": 2,
+      "balanced_accuracy": 0.7583333333333333
+    },
+    "R134_spatial__parts": {
+      "own_accept": 17,
+      "foreign_accept": 3,
+      "balanced_accuracy": 0.675
+    },
+    "R134_spatial__mixed_parts": {
+      "own_accept": 17,
+      "foreign_accept": 3,
+      "balanced_accuracy": 0.675
+    },
+    "R134_spatial__scale_only": {
+      "own_accept": 18,
+      "foreign_accept": 3,
+      "balanced_accuracy": 0.7
+    },
+    "R134_temporal__parts": {
+      "own_accept": 15,
+      "foreign_accept": 4,
+      "balanced_accuracy": 0.5416666666666666
+    },
+    "R134_temporal__mixed_parts": {
+      "own_accept": 16,
+      "foreign_accept": 4,
+      "balanced_accuracy": 0.5666666666666667
+    },
+    "R134_temporal__scale_only": {
+      "own_accept": 15,
+      "foreign_accept": 4,
+      "balanced_accuracy": 0.5416666666666666
+    }
+  },
+  "ready_baselines": {
+    "G7": {
+      "own_accept": 14,
+      "own_reject": 6,
+      "foreign_accept": 5,
+      "foreign_reject": 1,
+      "balanced_accuracy": 0.4333333333333333
+    },
+    "C34": {
+      "own_accept": 17,
+      "own_reject": 3,
+      "foreign_accept": 2,
+      "foreign_reject": 4,
+      "balanced_accuracy": 0.7583333333333333
+    },
+    "R134_spatial": {
+      "own_accept": 17,
+      "own_reject": 3,
+      "foreign_accept": 3,
+      "foreign_reject": 3,
+      "balanced_accuracy": 0.675
+    },
+    "R134_temporal": {
+      "own_accept": 16,
+      "own_reject": 4,
+      "foreign_accept": 4,
+      "foreign_reject": 2,
+      "balanced_accuracy": 0.5666666666666667
+    }
+  },
+  "gates": {
+    "C34": false,
+    "R134_spatial": false,
+    "R134_temporal": false
+  },
+  "any_gate": false,
+  "fits": 180,
+  "duplicate_control_reused_by_proof": true,
+  "actual_IDs_evaluated": false,
+  "goal_achieved": false
+}

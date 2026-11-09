@@ -354,6 +354,36 @@
         "sys:С2"
       ],
       "doi": "не указан на официальной странице PMLR"
+    },
+    {
+      "id": "sklearn_feature_scale_regularization",
+      "title": "Шкала признаков и штраф обучения — документация scikit-learn",
+      "problem_group": "Сохранение личности",
+      "method_group": "Обучение признака принадлежности",
+      "publication": "The scikit-learn developers. Importance of Feature Scaling. Официальная документация; проверено09.11.2026.",
+      "doi": "Не применяется: официальная документация программной библиотеки.",
+      "url": "https://scikit-learn.org/stable/auto_examples/preprocessing/plot_scaling_importance.html",
+      "sections": "Effect of rescaling on model performance: зависимость регуляризации от шкалы; последнее предупреждение об усилении шума. В примере присутствуетPCA, наша модель его не использует.",
+      "established": "Пример демонстрирует изменение обученной модели и выбранной силы регуляризации при смене масштаба; непредсказательные малые признаки после усиления могут увеличить переобучение.",
+      "problem": "С2 — неверный выбор своего и чужого продолжения.",
+      "application": "Помог сформулировать проверку эффективного штрафа и контроль общего усиления вместо предположения, что всякая стандартизация полезна. Точная алгебра для нашей модели проверена отдельно в research_signal_scaling_20261109/math_checks.json. Общее усиление и поканальное деление сравнены при фиксированных условиях; рабочие ошибки не устранены, deployment_screen.json.",
+      "limitation": "Это методическое основание, не исследование идентичности и не подтверждение пользыFlyVis. ЧислаPCAизпримера не переносятся. Эксперимент нашего считывателя отрицательный по рабочему критерию.",
+      "experiments": [
+        "signal_scale_identity_20261109"
+      ],
+      "related": [
+        "sys:С2",
+        "exp:signal_scale_identity_20261109"
+      ],
+      "related": [
+        "sys:С2",
+        "exp:signal_scale_identity_20261109"
+      ],
+      "evidence": [
+        "research_signal_scaling_20261109/math_checks.json",
+        "research_signal_scaling_20261109/summary.json",
+        "research_signal_scaling_20261109/deployment_screen.json"
+      ]
     }
   ]
 }

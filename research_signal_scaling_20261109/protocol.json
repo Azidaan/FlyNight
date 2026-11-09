@@ -1,0 +1,54 @@
+{
+  "registered": "2026-11-09T17:53:26.981601+03:00",
+  "head": "dd91b93750c7021164f384bcc54aa1af2813b82d",
+  "sources": {
+    "research_signal_scaling_20261109/register.py": "9e262995152417d3207426c8f3d0fdc0da11486eb4fbb464c83ef727524ebbb7",
+    "research_signal_scaling_20261109/study.py": "66518a8c1bf1e435a9916c351c132ef726ca936e8c2c23efa82fe487bc1638aa",
+    "research_signal_scaling_20261109/audit.py": "9d8f755548d3ee5af8b26b1440dc023b29d4d8ef1e556441ea6da7be9591a513",
+    "research_signal_scaling_20261109/statistics.py": "d2c6193acef74fe60611e251822332d4b1d6f043b1e377addf212e968d57dd67",
+    "research_signal_scaling_20261109/preflight.py": "6717e440d2267f53dac62b2f7d3e0dc8b4c5a803a05bbcbf8416bdde65edc667",
+    "research_signal_scaling_20261109/queue.py": "c2e04a56603826f6a5873eff7c1975e5946fed03a035765d73e8455342ec6be2",
+    "research_signal_scaling_20261109/math_check.py": "960e83c5eff1797123560490e389cb468b1682fc75c515f3d4dec24b53156791",
+    "research_signal_scaling_20261109/math_checks.json": "89f4c0f457ba98dd648b20831d9f834a53626b20c3abdfa35e6d7957bbc069b1",
+    "research_domain_matched_reader_20261109/features.json": "15a25be182ee42090de1639caf734e6837c2f3d29c34321bf0ac841ce1c2b9ef",
+    "research_domain_matched_reader_20261109/predictions.json": "7a8b3821a6f7caf7485c0022ff3e9b1d64ce70619535d9ba77b99087bc29e492",
+    "research_domain_matched_reader_20261109/summary.json": "588eb0c1ee47ad8a423f6ecf9b9f694d206d673a97d84e27e0da9f56fab2dcc2",
+    "research_domain_matched_reader_20261109/audit.json": "dadaeffcf136940f99701b5df7c0a7940c1114405aea7b164a144e924cc43792",
+    "research_domain_matched_reader_20261109/compute.py": "9a54b545d7c55c6888f8808d4cd7813c3774d348989bd7e94ccd226b1eff510d",
+    "research_domain_matched_reader_20261109/protocol_v2.json": "e9a1b2c4bf011d3fd1b4288bd7b025a61c9d37b7367f855b0aff25dfac884c33",
+    "tracking/channel_identity_head.py": "c39c2b3770aedf6fdab9b71a3e68dc35bea52768614cdcebf02823163cc0e79c",
+    "research_visible_geometry_head_20261109/preflight.py": "042b667e8aae791e4ae0b785f953824969b1a2afa7a0989bc0c9264d30b1f88b",
+    "research_partitioned_correspondence_20261109/summary.json": "3d60c776a397f5f8ea4f685a223cb6ddea133519e6707aae102fbfb0fbb09962",
+    "research_partitioned_correspondence_20261109/audit.json": "4d760125741be6c3bdc25f1cbdd3f77b6444ff56fab230a1a964ed18c4374673",
+    "research_identity_training_stability_20261109/comparison.json": "4f1e4e669fc5ed5c0f50b41949d5d7daec38f1a8822cac8ccc13781e9d416987",
+    "research_identity_synthesis_20261109/gemini_request_v20.txt": "8b17d66b60ad1d879f28aa10539af5d40257d08b50fe56b612251f945e7f3341",
+    "research_identity_synthesis_20261109/gemini_v20_submission.json": "e7c83700c29d65ee77bdc1662c7b2633e264f0e0a362842979558fb4033b3ec2"
+  },
+  "action": "Change ONLY signal feature scaling before the existing regularized logistic fit. Use saved34correlations at saved old shifts/cells;7geometryfeatures andfoldnormalizations unchanged. No feature extraction,maps,core,video,detections,geometrysearch,costalpha or threshold change.",
+  "mathematics": "Verified BEFORE this plan: mean centering is exactly absorbed by freeintercept withsameL2; channeldivision bysigma changes rawcoefficientpenalty to sum(sigma^2*beta^2)/2. An invertible affine transform doesNOT add information to thelinear feature class. Norms andpredictors canbe folded back to raw34coefficients exactly. math_checks.json remains frozen; no proof repeat.",
+  "treatments": "For each C34,R134spatial,R134temporal: unit=(r-mu_train)/SD_train perchannel; common=(r-mu_train)/RMS_train(SD ofvaryingchannels) withONEcommonfactor. Exactconstantchannels use divisor1 andcenter to0; no clipping/epsilon/tunedfloor. Both have same total training variance overvaryingchannels; common controls global signal-block strength. Means/SD use ONLYcurrenttrainingfold. Center-only baseline is reused by exactequivalence, no unnecessaryrefit.",
+  "data": "Same26previouslydirectlylabeled workingdomain edges20own/6foreign/20trainvideos, same20leave-video-out folds. No selection/removal or5valqueries in this stage. Sixnegative examples remain a limitation, not an algebraic inabilitytofit.",
+  "fit": "120NEWfixedfits:3signals x(unit,common) x20folds. Sameclassbalancedmeanlogloss+||w||^2/2,L2lambda1,freeintercept,z>0. Readyold80models and allold predictions reused. Independentlycheckloss,gradient,heldoutpredictions,train-only statistics andrawcoefficient folding.",
+  "acceptance": [
+    {
+      "criterion": "Frozen mathematics/inputs verified; same26edges,oldfeaturevectors,winners,cells and7geometry inputs. Train-only scaling andexactrawcoefficient folding; no oldfits/maps/core/video repeated.",
+      "met": null
+    },
+    {
+      "criterion": "Each of6treatments individually: own_accept>=its readyoldraw baseline,foreign_accept<=baseline,andstrictlyhigher balancedaccuracy. Channel-specific benefit additionally requires unit Pareto-superior tocommon. ReportALLgates. Selection perrepresentation fixednow: ifonlyunitpasseschooseunit; ifcommonpasseschoosecommon unless unit also strictlyPareto-dominatescommon; neither=>none. No choosing by5valfailurecases orHOTA.",
+      "met": null
+    },
+    {
+      "criterion": "Independent120-fit auditpasses; descriptivepaired4000video-bootstrap intervals(seed20261109) reported, missing-class draws disclosed. A pointpass admits a separatelyregistered actualnativecomparison,not method adoption. Ifallfail,no nativepilot or threshold/lambda retuning.",
+      "met": null
+    }
+  ],
+  "uncertainty": "4000multinomialvideo-cluster draws,20clusters,seed20261109; pooledbalancedaccuracydifference unit/raw,common/raw,unit/common for eachsignal. Dropandcount bootstrapdraws missing aclass. Descriptiveunadjusted95%only; not an independentconfirmation or sourceforhyperparameterchoice.",
+  "strongest_alternative": "Standardization can amplify noisy channels and overfit sixforeign examples. A gain may be merelyweaker signal-block regularization; common-total-variance controltests this. Ordinaryinputs get identical transformation. No generalizable coreadvantage follows frombetterdevelopmentcounts.",
+  "literature": "The checked existingLin/Weng/Keerthi2008source supports regularizedlogisticobjective,not a guaranteednormalization gain. Own algebra fixes thespecificpenaltychange. Officialprimarysoftwareexample https://scikit-learn.org/stable/auto_examples/preprocessing/plot_scaling_importance.html sectionEffectofrescalingonmodelperformance illustrates regularization/scale dependence andwarns noisyfeatureamplification; itsPCAexample isNOT our model or identity proof. HastieauthorPDFdidnotopen andisnot treated aschecked.",
+  "gemini": "Updatedv20technicaldraft prepared, butnot submitted: userinputinterruptedUI. This run doesnot claim Gemini endorsement or an answer that was not obtained.",
+  "authorization": "research_identity_synthesis_20261109/authorization.json",
+  "save_stop": "2026-11-09T23:54:00+03:00",
+  "hard_stop": "2026-11-09T23:59:00+03:00",
+  "goal_achieved": false
+}

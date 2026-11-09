@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "arm": "C34",
+      "constant_channels": 0,
+      "signal_SD_min": 0.2253413082391715,
+      "signal_SD_median": 0.30178332211350856,
+      "signal_SD_max": 0.3972503687413862,
+      "geometry_varying_SD": 1.0,
+      "center_prediction_error": 2.7755575615628914e-16,
+      "center_loss_error": 0.0,
+      "normalized_prediction_error": 2.7755575615628914e-16,
+      "anisotropic_penalty_identity_error": 3.469446951953614e-17,
+      "folded_deployment_error": 6.938893903907228e-18,
+      "unit_variance_trace": 34.0,
+      "common_scale_active_variance_trace": 34.00000000000001
+    },
+    {
+      "arm": "R134_spatial",
+      "constant_channels": 0,
+      "signal_SD_min": 0.23026612739242272,
+      "signal_SD_median": 0.2605132894747111,
+      "signal_SD_max": 0.31416163520002005,
+      "geometry_varying_SD": 1.0,
+      "center_prediction_error": 4.440892098500626e-16,
+      "center_loss_error": 0.0,
+      "normalized_prediction_error": 4.440892098500626e-16,
+      "anisotropic_penalty_identity_error": 6.245004513516506e-17,
+      "folded_deployment_error": 2.220446049250313e-16,
+      "unit_variance_trace": 34.0,
+      "common_scale_active_variance_trace": 33.99999999999998
+    },
+    {
+      "arm": "R134_temporal",
+      "constant_channels": 0,
+      "signal_SD_min": 0.17601204913404103,
+      "signal_SD_median": 0.22233659431596503,
+      "signal_SD_max": 0.3362650169606674,
+      "geometry_varying_SD": 1.0,
+      "center_prediction_error": 1.3877787807814457e-16,
+      "center_loss_error": 0.0,
+      "normalized_prediction_error": 1.3877787807814457e-16,
+      "anisotropic_penalty_identity_error": 7.979727989493313e-17,
+      "folded_deployment_error": 6.938893903907228e-18,
+      "unit_variance_trace": 34.0,
+      "common_scale_active_variance_trace": 34.0
+    }
+  ],
+  "sources": {
+    "research_domain_matched_reader_20261109/features.json": "15a25be182ee42090de1639caf734e6837c2f3d29c34321bf0ac841ce1c2b9ef",
+    "runs/domain_matched_native_20261109/deployment.json": "7fda2c96c5064b7425ad853298149c66f2f6b5e943d8e3e686ddb61e22798989",
+    "tracking/channel_identity_head.py": "c39c2b3770aedf6fdab9b71a3e68dc35bea52768614cdcebf02823163cc0e79c",
+    "research_signal_scaling_20261109/math_check.py": "960e83c5eff1797123560490e389cb468b1682fc75c515f3d4dec24b53156791"
+  },
+  "new_fits": 0,
+  "no_core_or_video": true,
+  "identity": "For x_standard=(x-mu)/sigma and raw coefficient beta=w_standard/sigma, penalty ||w_standard||^2/2 equals sum(sigma^2*beta^2)/2. Mean centering alone is exactly absorbed by the unpenalized intercept. Common RMS scaling matches total variance but not channel-specific penalty.",
+  "scope": "Proves the training objectives differ because of feature scale; does NOT prove this explains any wrong ID, that raw scales are a coding error, or that standardization helps. Statistics are from the old training cohort only.",
+  "goal_achieved": false
+}

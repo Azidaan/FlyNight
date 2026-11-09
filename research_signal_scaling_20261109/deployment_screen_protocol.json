@@ -1,0 +1,21 @@
+{
+  "registered": "2026-11-09T18:06:33.904305+03:00",
+  "head": "dd91b93750c7021164f384bcc54aa1af2813b82d",
+  "sources": {
+    "research_signal_scaling_20261109/register_deployment_screen.py": "ecd04048117f1e894ef9bc06b2ee51f6470f10dcad8a25e3b45d02b08d9ef2fb",
+    "research_signal_scaling_20261109/deploy_screen.py": "0130b19d57674ea13095ee22eaf8b270cee94cd32a4fb304a703a1a180828c15",
+    "research_signal_scaling_20261109/protocol.json": "5b18d351e06da1e22616388f8262c8b24e9c488a039a7513a5c4a4a2480c454b",
+    "research_signal_scaling_20261109/summary.json": "375da047e25fd1603371112d5c82fe0e993e2ceabdeddd23d09ade392b96029d",
+    "research_signal_scaling_20261109/audit.json": "9592a4806877b94c90d1c75b8e26b34b7ceffe6fc5ca81b98edd55652639c23e",
+    "research_signal_scaling_20261109/precision_recovery_result.json": "c5cf9d57b6fdfd73480eef294d1469b3cbe5b026e3f628e8b0ef8f18c65a5dfe",
+    "research_domain_matched_reader_20261109/features.json": "15a25be182ee42090de1639caf734e6837c2f3d29c34321bf0ac841ce1c2b9ef",
+    "runs/domain_matched_native_20261109/deployment.json": "7fda2c96c5064b7425ad853298149c66f2f6b5e943d8e3e686ddb61e22798989",
+    "research_identity_training_stability_20261109/comparison.json": "4f1e4e669fc5ed5c0f50b41949d5d7daec38f1a8822cac8ccc13781e9d416987",
+    "research_identity_training_stability_20261109/audit.json": "4c4a0e785a95b5b3451da29205adfa71947881e00743d81f61bab782127593b1",
+    "tracking/channel_identity_head.py": "c39c2b3770aedf6fdab9b71a3e68dc35bea52768614cdcebf02823163cc0e79c"
+  },
+  "action": "Fit exactly3finalcommon-scaleheads onall26trainpairs withtheunchangedobjective andthreshold. Selection follows the old preregistered rule: allthreecommon variants passed; unit showed no Pareto-superiority. Reuse readyfull26G7normalization/model. Fold means/scales into raw34coefficients; independently audit gradients and logits.",
+  "screen": "Use onlytheFIVEalreadyviewedcurrentnativequeries and readyC34/imagecorrelationvectors fromtraining-stabilitycomparison.json. No map, search, geometry or oldmodelrepeats. Eacharmgate: retain every previouslycorrectown/foreigndecision ANDstrictlydecrease itsownoldwronglabels. Reportallthree. Alreadyvieweddevelopmentgate, notindependenttest or actualIDsuccess.",
+  "decision": "Ifallthreegatesfail,no newnativepilot or further scale/threshold/lambda tuning. Ifatleastonepasses,onlya separatelyregistered actualnativecomparison mayfollow,withsamecommon-scaleaction inFlyVisandbothimagearms plusreadystock/geometrybaselines andnewzero-interventionwitness. Animage-onlypass remains usefulfor thewholeauthor-system butdoesnotprove aFlyVisbenefit.",
+  "goal_achieved": false
+}

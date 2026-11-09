@@ -31670,6 +31670,181 @@
         }
       ],
       "done": "2026-11-09"
+    },
+    {
+      "id": "partitioned_correspondence_20261109",
+      "title": "Сопоставление прошлого шаблона — целое и отдельные части",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "question": "Помогает ли соответствие отдельных частей прошлого и текущего шаблона сверх целого канала, масштаба и числа признаков?",
+      "hypothesis": "Одна корреляция канала может скрывать противоположные локальные совпадения; дополнительные упорядоченные части могут сохранять различие экземпляров. На реальных картах это ещё не установлено.",
+      "expected": "Change ONLY the external correspondence readout: concatenate saved full34channelcorrelations and two new34channelcorrelations on ordered reference parts, divideALL3blocks bysqrt3. Parts are median split along the priorbox longeraxis with deterministicsecondaryaxis/cellIDties. Same oldfullreferencecells,all19coordinates andold equal-channel winning shift. No separate part shift search or geometricwarp.",
+      "acceptance": [
+        {
+          "criterion": "Frozen math/source checks pass; all26retain both supported, nonconstant parts in everyrepresentation/control; alloldfullfeatures,winners,7geometryinputs remain unchanged. No core/video/oldmodel repeat.",
+          "met": true,
+          "evidence": "research_partitioned_correspondence_20261109/readiness.json; audit.json"
+        },
+        {
+          "criterion": "For EACHsignal independently, contiguousparts must accept>=own and<=foreign withSTRICTgreater balancedaccuracy versus EACHof readyoldfull,scaleonly,andmixedparts at threshold0. Allgatesreported. Ifnonepass, no newnativepilot. This pointgate is developmentadmission,notIDorcorebenefit.",
+          "met": false,
+          "evidence": "research_partitioned_correspondence_20261109/summary.json → gates"
+        },
+        {
+          "criterion": "Independent180fit loss/gradient/heldoutprediction, train-only scaling and video exclusion audit passes. Any actualnative/developmentcase comparison requires separate frozenprotocol; no automatic model adoption.",
+          "met": true,
+          "evidence": "research_partitioned_correspondence_20261109/readiness.json; audit.json"
+        }
+      ],
+      "obtained": "C34: прежний / части / смешанные части / только масштаб — 17 своих и 2 чужих, 17 своих и 2 чужих, 17 своих и 2 чужих, 17 своих и 2 чужих. R134_spatial: прежний / части / смешанные части / только масштаб — 17 своих и 3 чужих, 17 своих и 3 чужих, 17 своих и 3 чужих, 18 своих и 3 чужих. R134_temporal: прежний / части / смешанные части / только масштаб — 16 своих и 4 чужих, 15 своих и 4 чужих, 16 своих и 4 чужих, 15 своих и 4 чужих. Источник research_partitioned_correspondence_20261109/summary.json → metrics,ready_baselines,gates. Все26связей поддержаны, минимум19ячеек на часть: readiness.json. Решения FlyVis и пространственного входа не изменились: decision_changes.json;180моделей проверены независимо: audit.json.",
+      "interpretation": "Эта двухчастная корреляционная версия не прошла допуск. Математическая возможность сохранить дополнительную информацию не превратилась в прибавку решениям. Отсутствие активной опоры исключено в этом сравнении; причина ядра не установлена.",
+      "decision": "Не запускать полный трекер этой версии. Проверить влияние шкалы корреляций на обучение до новых карт: одинаковая поканальная стандартизация и общий масштабный контроль, без настройки порогов.",
+      "cannot_claim": "Те же26разработческихсвязей. Нет новыхID/HOTA или независимого теста. Не опровергнуты все локальные сопоставления; отрицательна конкретная версия при фиксированном обучении. Контроль масштаба способен менять решение без добавления пространственной информации.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/math_checks.json",
+          "claim": "Математика до регистрации сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/ОСНОВАНИЕ.md",
+          "claim": "История и первичный источник"
+        },
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/protocol.json",
+          "claim": "Одинаковые контроли и допуск до новых локальных признаков"
+        },
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/summary.json",
+          "claim": "Все отрицательные допуски"
+        },
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/decision_changes.json",
+          "claim": "У FlyVis ни одного изменённого решения"
+        },
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/audit.json",
+          "claim": "Независимая проверка180моделей"
+        },
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Ограниченный отрицательный итог"
+        }
+      ],
+      "tags": [
+        "fly-problem-P1"
+      ],
+      "revisions": [
+        {
+          "date": "2026-11-09T17:50:37.814021+03:00",
+          "field": "cannot_claim",
+          "old": "Математический контрпример доказывает возможность дополнительной информации, а не её наличие в реальных машинах. 26 прежних связей — разработческие данные, не независимый тест; ID/HOTA и ядро не проверяются этим этапом. Готовые пространственные опыты не объявляются новыми.",
+          "reason": "Завершён фиксированный двухчастный считыватель и все зарегистрированные контроли."
+        }
+      ],
+      "done": "2026-11-09"
+    },
+    {
+      "id": "signal_scale_identity_20261109",
+      "title": "Обучение принадлежности — выровнять шкалу сигналов",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "question": "Объясняется ли часть отказов разной эффективной регуляризацией геометрии и корреляций?",
+      "hypothesis": "Геометрия стандартизируется, корреляции нет. Разные масштабы меняют штраф за одну и ту же функцию решения. Это может подавлять различение, но выравнивание может усилить шум малого обучающего пула.",
+      "expected": "Change ONLY signal feature scaling before the existing regularized logistic fit. Use saved34correlations at saved old shifts/cells;7geometryfeatures andfoldnormalizations unchanged. No feature extraction,maps,core,video,detections,geometrysearch,costalpha or threshold change. For each C34,R134spatial,R134temporal: unit=(r-mu_train)/SD_train perchannel; common=(r-mu_train)/RMS_train(SD ofvaryingchannels) withONEcommonfactor. Exactconstantchannels use divisor1 andcenter to0; no clipping/epsilon/tunedfloor. Both have same total training variance overvaryingchannels; common controls global signal-block strength. Means/SD use ONLYcurrenttrainingfold. Center-only baseline is reused by exactequivalence, no unnecessaryrefit.",
+      "acceptance": [
+        {
+          "criterion": "Frozen mathematics/inputs verified; same26edges,oldfeaturevectors,winners,cells and7geometry inputs. Train-only scaling andexactrawcoefficient folding; no oldfits/maps/core/video repeated.",
+          "met": true,
+          "evidence": "research_signal_scaling_20261109/summary.json; audit.json; uncertainty.json"
+        },
+        {
+          "criterion": "Each of6treatments individually: own_accept>=its readyoldraw baseline,foreign_accept<=baseline,andstrictlyhigher balancedaccuracy. Channel-specific benefit additionally requires unit Pareto-superior tocommon. ReportALLgates. Selection perrepresentation fixednow: ifonlyunitpasseschooseunit; ifcommonpasseschoosecommon unless unit also strictlyPareto-dominatescommon; neither=>none. No choosing by5valfailurecases orHOTA.",
+          "met": true,
+          "evidence": "research_signal_scaling_20261109/summary.json; audit.json; uncertainty.json"
+        },
+        {
+          "criterion": "Independent120-fit auditpasses; descriptivepaired4000video-bootstrap intervals(seed20261109) reported, missing-class draws disclosed. A pointpass admits a separatelyregistered actualnativecomparison,not method adoption. Ifallfail,no nativepilot or threshold/lambda retuning.",
+          "met": true,
+          "evidence": "research_signal_scaling_20261109/summary.json; audit.json; uncertainty.json"
+        },
+        {
+          "criterion": "Дописан послеCVдо3итоговыхмоделей: на5заранее просмотренныхрабочихзапросах сохранить все прежние правильные решения и строго уменьшить ошибки хотябыодного сигнала. Причина — проверить исходный механизм до дорогого трекера; deployment_screen_protocol.json.",
+          "met": false,
+          "evidence": "research_signal_scaling_20261109/deployment_screen.json → gates, counts"
+        }
+      ],
+      "obtained": "На26разработческихсвязях общий масштаб: FlyVis17своих/1чужая вместо17/2, пространственныйвход17/2вместо17/3, временной16/2вместо16/4. Источник research_signal_scaling_20261109/summary.json. На5рабочихзапросах ни одного изменённого решения: FlyVis3ошибки, обаобычныхвхода по2; deployment_screen.json. Аудиты120+3моделей пройдены: audit.json; final_head_audit.json. Интервал C34[0;0,25]включаетноль: uncertainty.json.",
+      "interpretation": "Общее усиление сигнала меняет решения обучающей проверки, но не исправляет рабочие отказы. Поканальная шкала не превосходит общий масштаб по правилу. Два отрицательных собственных и положительный чужой баллы FlyVis усилились; масштаб не признан причиной этих ошибок. Подтверждённого выигрышаIDнет.",
+      "decision": "Не запускать полный трекер этой версии и не подбирать масштабы/пороги/штраф. Следующий кандидат представления: проверить целевые ранниеL1/L2/L3, их доступность и отличие от прежних ранних считывателей; сначала первоисточники и математика согласованного контроля, без объявления дефекта ядра.",
+      "cannot_claim": "Теже26разработческихсвязей и5ранее просмотренныхзапросов. Нет независимого теста, новыхID/HOTA, подтверждённой пользы FlyVis или поканальной нормировки. Сбой потерял минимум24новыхнесохранённыхмодели; они восстановлены с прежними научными условиями, старые готовые модели/карты не повторены. Нельзя заключать об отсутствии информации в картах или ошибке ядра.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/math_checks.json",
+          "claim": "Точная алгебра штрафа и центрирования до нового обучения"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/protocol.json",
+          "claim": "Два заранее фиксированных варианта и обычные входные контроли"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/summary.json",
+          "claim": "Разработческий результат всех шести вариантов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/decision_changes.json",
+          "claim": "Исправления и новые отказы поштучно"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/uncertainty.json",
+          "claim": "Неподтверждённость разработческого эффекта"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/deployment_screen_protocol.json",
+          "claim": "Критерий до итоговых весов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/deployment_screen.json",
+          "claim": "Ни одно рабочее решение не исправлено"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/final_head_audit.json",
+          "claim": "Независимая проверка итоговых весов и оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Итог и ограничения"
+        }
+      ],
+      "tags": [
+        "fly-problem-P1"
+      ],
+      "revisions": [
+        {
+          "date": "2026-11-09T18:09:56.982834+03:00",
+          "field": "cannot_claim",
+          "old": "Преобразование шкалы не добавляет информации и не является доказанной ошибкой кода. 26разработческих связей, не независимый тест; нет новыхID/HOTA, ядро не меняется. Порог,λ,доза стоимости по просмотренным ошибкам не подбираются.",
+          "reason": "Завершены сравнение шкал и отдельно зарегистрированный до новых весов рабочий контроль."
+        }
+      ],
+      "done": "2026-11-09"
     }
   ],
   "manual_events": [
