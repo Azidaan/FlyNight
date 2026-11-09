@@ -310,6 +310,50 @@
       "related": [
         "sys:С2"
       ]
+    },
+    {
+      "id": "bolme2010_peak_confidence_scope",
+      "title": "Когда качество пика помогает отслеживанию — MOSSE",
+      "problem_group": "Сохранение личности",
+      "method_group": "Контраст пространственного совпадения",
+      "publication": "David S.Bolme,J.Ross Beveridge,Bruce A.Draper,Yui Man Lui. Visual Object Tracking using Adaptive Correlation Filters. CVPR2010; просмотрена расширенная авторская версия.",
+      "url": "https://www.cs.colostate.edu/~draper/papers/bolme_cvpr10.pdf",
+      "doi": "IEEEномер5539960;DOIнепровереннастраницеиз-запроверкиJavaScript",
+      "sections": "Раздел3.5иобсуждениепростогофильтрав4.1.",
+      "established": "PSR использует высоту пика, среднее и разброс боковых откликов. Для простого шаблонного фильтра авторы отмечают неинформативность показателя.",
+      "problem": "Высокая пространственная корреляция может соответствовать чужому объекту.",
+      "application": "Источник помог отделить собственноPSRотвычитаниясреднего и потребовать опыт с контролем обычного входа. Наша поканальная19сдвиговаяадаптацияпроверенаиполучилаотрицательныйрезультат.",
+      "limitation": "Статья не доказывает пользу этого преобразования на картахFlyVis. Отрицательный итог нашей реализации не опровергает MOSSEиливсе показателиформыпика.",
+      "evidence": [
+        "research_shift_contrast_20261109/REVIEW.md",
+        "research_shift_contrast_20261109/summary.json",
+        "research_shift_contrast_20261109/audit.json"
+      ],
+      "related": [
+        "sys:С2"
+      ]
+    },
+    {
+      "id": "koh2017_training_influence",
+      "title": "От какого обучающего примера зависит решение — анализ влияния",
+      "problem_group": "Сохранение личности",
+      "method_group": "Обучение признака принадлежности",
+      "publication": "Pang Wei Koh, Percy Liang. Understanding Black-box Predictions via Influence Functions. ICML, PMLR70:1885–1894,2017.",
+      "url": "https://proceedings.mlr.press/v70/koh17a/koh17a.pdf",
+      "sections": "Разделы2.1 и2.3.",
+      "established": "Исследуется изменение предсказания при изменении обучающих данных; влияние отличается от простой близости признаков. Формула через обратную матрицу вторых производных является приближением.",
+      "problem": "Нужно отличить ошибку считывания от чувствительности общей головы к отдельным обучающим видео.",
+      "application": "Источник помог отвергнуть центроид как доказательство влияния и выбрать применение уже готовых точных моделей с исключением видео. На пяти рабочих запросах решения FlyVis устойчивы, новых обучений нет.",
+      "limitation": "Взята постановка вопроса, а не приближённый алгоритм статьи. Групповое исключение видео отличается от одного примера; устойчивость не доказывает достаточность пула и не сохраняет ID.",
+      "evidence": [
+        "research_identity_synthesis_20261109/ПРОВЕРКА_GEMINI_v18.md",
+        "research_identity_training_stability_20261109/comparison.json",
+        "research_identity_training_stability_20261109/audit.json"
+      ],
+      "related": [
+        "sys:С2"
+      ],
+      "doi": "не указан на официальной странице PMLR"
     }
   ]
 }

@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "arm": "C34",
+      "loss": 0.5612008221531248,
+      "loss_error": 0.0,
+      "gradient_max": 8.185650768322006e-11,
+      "prediction_error": 0.0
+    },
+    {
+      "arm": "R134_spatial",
+      "loss": 0.6037395720028897,
+      "loss_error": 0.0,
+      "gradient_max": 4.411375111355544e-13,
+      "prediction_error": 0.0
+    },
+    {
+      "arm": "R134_temporal",
+      "loss": 0.6443493016888606,
+      "loss_error": 0.0,
+      "gradient_max": 2.248201624865942e-15,
+      "prediction_error": 0.0
+    },
+    {
+      "arm": "C34_scale",
+      "loss": 0.5713531523416131,
+      "loss_error": 0.0,
+      "gradient_max": 3.865242848011263e-11,
+      "prediction_error": 2.220446049250313e-16
+    }
+  ],
+  "cv_decision_changes": [
+    {
+      "video": "02521568-a335c1a0",
+      "frame": 72,
+      "old_id": 193,
+      "raw_id": 4824,
+      "label": "foreign",
+      "old_accept": true,
+      "new_accept": false,
+      "old_logit": 0.31095270474615455,
+      "new_logit": -0.162704544315533
+    }
+  ],
+  "no_refits": true,
+  "no_core_or_video": true,
+  "sources": {
+    "research_visible_geometry_head_20261109/deployment.json": "fbb9f4d3b0ac010e88f372f07dd0b11a1a8170dd411c31dba6173c5841c61a97",
+    "research_visible_geometry_head_20261109/deployment_screen.json": "3747ebaa14a4d85b29fe76227cd250e57fe9e73f74070e322566840933cbe479",
+    "research_visible_geometry_head_20261109/features.json": "daef462d08a00d0ea4a895c4815a603ae2274dcd6b254baa637c345eb2c15394",
+    "research_visible_geometry_head_20261109/deployment_screen_protocol.json": "2ee9543a368c93cf7cd91b7bf81f160081bb96554c99bc2df25719e275e602b8",
+    "research_domain_matched_reader_20261109/features.json": "15a25be182ee42090de1639caf734e6837c2f3d29c34321bf0ac841ce1c2b9ef",
+    "research_domain_matched_reader_20261109/predictions.json": "7a8b3821a6f7caf7485c0022ff3e9b1d64ce70619535d9ba77b99087bc29e492"
+  },
+  "script_sha256": "962cd9f1018c728d1a700e9006202f9ada993791f8c558c1b6d5e69c4319951d",
+  "registered_after_outputs": true,
+  "purpose": "Additional independent final-loss and inference audit; not a new scientific acceptance criterion.",
+  "goal_achieved": false
+}

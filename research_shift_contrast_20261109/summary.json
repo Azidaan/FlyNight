@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "metrics": {
+    "C34_contrast": {
+      "own_accept": 14,
+      "foreign_accept": 5,
+      "balanced_accuracy": 0.4333333333333333
+    },
+    "C34_scale_only": {
+      "own_accept": 17,
+      "foreign_accept": 2,
+      "balanced_accuracy": 0.7583333333333333
+    },
+    "R134_spatial_contrast": {
+      "own_accept": 14,
+      "foreign_accept": 5,
+      "balanced_accuracy": 0.4333333333333333
+    },
+    "R134_spatial_scale_only": {
+      "own_accept": 17,
+      "foreign_accept": 3,
+      "balanced_accuracy": 0.675
+    },
+    "R134_temporal_contrast": {
+      "own_accept": 13,
+      "foreign_accept": 5,
+      "balanced_accuracy": 0.4083333333333333
+    },
+    "R134_temporal_scale_only": {
+      "own_accept": 15,
+      "foreign_accept": 4,
+      "balanced_accuracy": 0.5416666666666666
+    }
+  },
+  "ready_baselines": {
+    "G7": {
+      "own_accept": 14,
+      "own_reject": 6,
+      "foreign_accept": 5,
+      "foreign_reject": 1,
+      "balanced_accuracy": 0.4333333333333333
+    },
+    "C34": {
+      "own_accept": 17,
+      "own_reject": 3,
+      "foreign_accept": 2,
+      "foreign_reject": 4,
+      "balanced_accuracy": 0.7583333333333333
+    },
+    "R134_spatial": {
+      "own_accept": 17,
+      "own_reject": 3,
+      "foreign_accept": 3,
+      "foreign_reject": 3,
+      "balanced_accuracy": 0.675
+    },
+    "R134_temporal": {
+      "own_accept": 16,
+      "own_reject": 4,
+      "foreign_accept": 4,
+      "foreign_reject": 2,
+      "balanced_accuracy": 0.5666666666666667
+    }
+  },
+  "gates": {
+    "C34": false,
+    "R134_spatial": false,
+    "R134_temporal": false
+  },
+  "any_gate": false,
+  "fits": 120,
+  "old_models_not_refit": true,
+  "diagnostic_cases_not_in_gate": true,
+  "actual_IDs_evaluated": false,
+  "goal_achieved": false
+}

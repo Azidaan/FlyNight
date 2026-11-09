@@ -1,0 +1,113 @@
+{
+  "passed": true,
+  "metrics": {
+    "C34__mask_only": {
+      "own_accept": 17,
+      "foreign_accept": 1,
+      "balanced_accuracy": 0.8416666666666667
+    },
+    "C34__aligned": {
+      "own_accept": 17,
+      "foreign_accept": 4,
+      "balanced_accuracy": 0.5916666666666667
+    },
+    "C34__mask_scale_only": {
+      "own_accept": 17,
+      "foreign_accept": 2,
+      "balanced_accuracy": 0.7583333333333333
+    },
+    "C34__aligned_scale_only": {
+      "own_accept": 17,
+      "foreign_accept": 2,
+      "balanced_accuracy": 0.7583333333333333
+    },
+    "R134_spatial__mask_only": {
+      "own_accept": 16,
+      "foreign_accept": 3,
+      "balanced_accuracy": 0.65
+    },
+    "R134_spatial__aligned": {
+      "own_accept": 15,
+      "foreign_accept": 4,
+      "balanced_accuracy": 0.5416666666666666
+    },
+    "R134_spatial__mask_scale_only": {
+      "own_accept": 17,
+      "foreign_accept": 3,
+      "balanced_accuracy": 0.675
+    },
+    "R134_spatial__aligned_scale_only": {
+      "own_accept": 18,
+      "foreign_accept": 3,
+      "balanced_accuracy": 0.7
+    },
+    "R134_temporal__mask_only": {
+      "own_accept": 13,
+      "foreign_accept": 5,
+      "balanced_accuracy": 0.4083333333333333
+    },
+    "R134_temporal__aligned": {
+      "own_accept": 16,
+      "foreign_accept": 5,
+      "balanced_accuracy": 0.48333333333333334
+    },
+    "R134_temporal__mask_scale_only": {
+      "own_accept": 16,
+      "foreign_accept": 4,
+      "balanced_accuracy": 0.5666666666666667
+    },
+    "R134_temporal__aligned_scale_only": {
+      "own_accept": 16,
+      "foreign_accept": 4,
+      "balanced_accuracy": 0.5666666666666667
+    }
+  },
+  "ready_baselines": {
+    "G7": {
+      "own_accept": 14,
+      "own_reject": 6,
+      "foreign_accept": 5,
+      "foreign_reject": 1,
+      "balanced_accuracy": 0.4333333333333333
+    },
+    "C34": {
+      "own_accept": 17,
+      "own_reject": 3,
+      "foreign_accept": 2,
+      "foreign_reject": 4,
+      "balanced_accuracy": 0.7583333333333333
+    },
+    "R134_spatial": {
+      "own_accept": 17,
+      "own_reject": 3,
+      "foreign_accept": 3,
+      "foreign_reject": 3,
+      "balanced_accuracy": 0.675
+    },
+    "R134_temporal": {
+      "own_accept": 16,
+      "own_reject": 4,
+      "foreign_accept": 4,
+      "foreign_reject": 2,
+      "balanced_accuracy": 0.5666666666666667
+    }
+  },
+  "gates": {
+    "C34__mask_only": true,
+    "C34__aligned": false,
+    "R134_spatial__mask_only": false,
+    "R134_spatial__aligned": false,
+    "R134_temporal__mask_only": false,
+    "R134_temporal__aligned": false
+  },
+  "warp_added": {
+    "C34": false,
+    "R134_spatial": false,
+    "R134_temporal": true
+  },
+  "any_gate": true,
+  "fits": 240,
+  "old_models_not_refit": true,
+  "actual_IDs_evaluated": false,
+  "goal_achieved": false
+}

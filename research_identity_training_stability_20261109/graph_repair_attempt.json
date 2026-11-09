@@ -1,0 +1,17 @@
+{
+  "error": "First metadata repair completed its two intended edits, then provenance check used Windows backslashes against POSIX receipt keys and failed. A subsequent graph-only worker failed because the protocol had not yet been written. Neither operation is reported as passed; edits are not repeated.",
+  "repair_script_sha256": "ac811d850701d172481a64e52034980fe408612d6f3963b5205a3974fdb33be3",
+  "failed_followup_guard": "0b796755bede41bc91652141d7cc564e",
+  "current_changes": {
+    "experiments/useful_literature.json": {
+      "before": "bffa7e8854006b6dec58307aed738c6a50b77c76ff201709d8d38c9750cb9b97",
+      "after": "af46851d6795b943d5c89fe5be6ae8d36cd6b8206dcfe4f9c2a4d46fdb7eb62f",
+      "change": "Only omitted doi field added, verified by reconstructing exact prior bytes."
+    },
+    "dissertation/ЕДИНЫЙ_ПЛАН.md": {
+      "before": "8ec0fb9e98a8aa55456ce9c74e7a1b55785298274904279ec442355bbf814b4f",
+      "after": "d8f8aaee112a604223387c8d089e48f858fce18f0c6757d6a199a9651c945511",
+      "change": "One factual infrastructure entry prepended; exact prior bytes reconstructed and checked."
+    }
+  }
+}

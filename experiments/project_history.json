@@ -31455,6 +31455,221 @@
         }
       ],
       "done": "2026-11-09"
+    },
+    {
+      "id": "shift_profile_contrast_20261109",
+      "title": "Контраст пика совпадения — поканальные сдвиги вместо общего уровня",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "question": "Can per-channel contrast over shifts improve identity admission while preserving own continuations and not increasing foreign permissions?",
+      "hypothesis": "Ложное совпадение с общим фоном может быть широким по сдвигам; это ещё не установлено. Альтернатива — чужой объект имеет столь же острый пик или выигрыш даёт только масштаб признаков.",
+      "expected": "Keep original mean-correlation winner, support,19offsets,geometry,folds,L2lambda1,freeintercept,threshold0. Replace ONLY34selected correlations by34selected-minus-nonneighbor-mean values, hex axial distance>=2. Recover18missing channelvectors; reuse ready winner and scalarprofiles. No core,video,tracker,normalization search or new labels.",
+      "acceptance": [
+        {
+          "criterion": "Every old ready mean score/winner agrees within1e-12 with newly completed profiles; fixed support and raw maps unchanged; no dropping samples,undefined-shift imputation or neural calls.",
+          "met": true,
+          "evidence": "research_shift_contrast_20261109/profiles.json; audit.json"
+        },
+        {
+          "criterion": "For each representation separately, contrast must have own_accept>=B,foreign_accept<=B,andstrictlygreaterbalancedaccuracy against BOTH its ready old model and scale-only control. No arm promotion if its gate fails. Point development admission only; no uniqueFlyVis or actualIDclaim.",
+          "met": false,
+          "evidence": "research_shift_contrast_20261109/summary.json → gates"
+        },
+        {
+          "criterion": "Independent all120fit gradient/loss/prediction audit passes; video exclusion and train-only scaling checked. Stop without native rollout if allgatesfalse. A passing arm needs a separate fixed native protocol and matched controls.",
+          "met": true,
+          "evidence": "research_shift_contrast_20261109/profiles.json; audit.json"
+        }
+      ],
+      "obtained": "C34: контраст — свои 14/20, чужие 5/6; прежний — свои 17/20, чужие 2/6; только масштаб — свои 17/20, чужие 2/6. R134_spatial: контраст — свои 14/20, чужие 5/6; прежний — свои 17/20, чужие 3/6; только масштаб — свои 17/20, чужие 3/6. R134_temporal: контраст — свои 13/20, чужие 5/6; прежний — свои 16/20, чужие 4/6; только масштаб — свои 15/20, чужие 4/6. Источник: research_shift_contrast_20261109/summary.json → metrics,ready_baselines,gates. Независимо проверены120моделей, источник audit.json.",
+      "interpretation": "Эта реализация вычитания бокового среднего не прошла ни один допуск. Контроль масштаба сохранил прежний результатC34, поэтому одного масштаба недостаточно для объяснения ухудшения. Карты и сеть не менялись. Из этого не следует бесполезность любой оценки формы пика.",
+      "decision": "Не запускать нативный пилот этой версии. Проверить согласованную геометрию с одинаковым новым обучением как отдельный кандидат; не повторять прежний фиксированный координатный опыт.",
+      "cannot_claim": "Это прежние26разработческихсвязей, а не независимый тест или сохранённыеID. Тристарыхvalпримера не влияли на обучение, допуск или пороги. Не установлена ошибкаядраFlyVis; общий принципPSRнеопровергнут.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_shift_contrast_20261109/protocol.json",
+          "claim": "Одно изменение и критерии до новых профилей и моделей"
+        },
+        {
+          "kind": "file",
+          "ref": "research_shift_contrast_20261109/REVIEW.md",
+          "claim": "Критика Gemini, первоисточник и отличие от прежних попыток"
+        },
+        {
+          "kind": "file",
+          "ref": "research_shift_contrast_20261109/summary.json",
+          "claim": "Все фиксированные контроли"
+        },
+        {
+          "kind": "file",
+          "ref": "research_shift_contrast_20261109/audit.json",
+          "claim": "Независимая проверка120моделей"
+        },
+        {
+          "kind": "file",
+          "ref": "research_shift_contrast_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Отрицательный итог конкретной реализации"
+        }
+      ],
+      "tags": [
+        "fly-problem-P1"
+      ],
+      "revisions": [
+        {
+          "date": "2026-11-09T16:13:33.491225+03:00",
+          "field": "cannot_claim",
+          "old": "Это разработческая проверка считывания на прежних26связях. Три старых примера не обучают модель и не определяют допуск. PSR не гарантирует личность; старые проверки пиков не объявляются новыми. Ядро неизменно.",
+          "reason": "Завершён фиксированный контрастный считыватель с масштабным контролем и независимым аудитом."
+        }
+      ],
+      "done": "2026-11-09"
+    },
+    {
+      "id": "visible_geometry_head_20261109",
+      "title": "Видимая часть шаблона — согласованные координаты при обучении",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "question": "Does training and applying the same visible full-object coordinate system improve identity evidence beyond support selection, feature scale and ordinary input?",
+      "hypothesis": "Растяжение усечённой рамки на весь прошлый объект может нарушать соответствие. Согласованные координаты могут помочь, но прогноз размераКалмана также может быть ошибочным.",
+      "expected": "Change template correspondence only. Reuse saved geometric_match scale/offset from before labels. Do not rerun its search. Compare oldboxstretch on full reference(ready), oldboxstretch on SAME visiblecommoncells(mask_only), and full-object scale/offset onthosecells(aligned). Keep all19physicaloffsets,oldmeanwinner,7geometryfeatures,coremaps,L2lambda1,freeintercept,threshold0 andsame26edges.",
+      "acceptance": [
+        {
+          "criterion": "Oldstates,rawmaps and7readerproofs verified; samecommonsupport>=3 anddefined profiles onALL26pairs; anyidentical oldfeatures reused. No core/video/geometricsearch repeated.",
+          "met": true,
+          "evidence": "research_visible_geometry_head_20261109/features.json; readiness.json"
+        },
+        {
+          "criterion": "Eachrepresentation andeachcandidate(mask_only/aligned) independently: own_accept>=oldfull AND >=its scalecontrol; foreign_accept<=both; balancedaccuracy strictlygreater thanboth. No passing arm inferred from another. Warp-specific benefit additionally requires aligned pareto improvement overmask_only. Allfalse => no nativepilot. Onlydevelopmentadmission,notIDsuccess.",
+          "met": true,
+          "evidence": "research_visible_geometry_head_20261109/summary.json → gates"
+        },
+        {
+          "criterion": "Independent240fit gradient/loss/prediction and train-only normalization/scale audit passes. Any next native action needs a separate fixed matched protocol; no thresholds or masks selected on20val failures.",
+          "met": true,
+          "evidence": "research_visible_geometry_head_20261109/audit.json; final_head_audit.json"
+        },
+        {
+          "criterion": "Отдельный критерий до окончательных весов, deployment_screen_protocol.json: на пяти рабочих запросах сохранить все прежние верные решения и строго уменьшить число ошибок с трёх. При провале полный пилот не запускать.",
+          "met": false,
+          "evidence": "research_visible_geometry_head_20261109/deployment_screen.json → old_errors=3, new_errors=3, gate=false"
+        }
+      ],
+      "obtained": "На 26 связях (20 своих, 6 чужих) FlyVis: полный 17/2, видимая опора 17/1, согласованные координаты 17/4; масштабные контроли 17/2. Источник: research_visible_geometry_head_20261109/summary.json → metrics, ready_baselines. Единственное изменение — отказ чужой 193→raw4824, свои не менялись: final_head_audit.json → cv_decision_changes. На пяти заранее выбранных рабочих запросах ошибки остались 3→3: deployment_screen.json. Независимо проверены 240 промежуточных и 4 окончательные модели: audit.json; final_head_audit.json.",
+      "interpretation": "Сама видимая опора имеет частный выигрыш на обучающем сравнении; геометрическое преобразование его не поддержало. Выбранная маска не прошла отдельный зарегистрированный критерий переноса на рабочие ошибки. Дефект ядра не установлен.",
+      "decision": "Не запускать полный трекер этой версии. Сохранить частный выигрыш и отрицательный перенос раздельно. Следующий механизм выбирать из накопленной сводки и первичных источников, без подбора порога или повторения этих расчётов.",
+      "cannot_claim": "26 связей и пять ранее просмотренных рабочих запросов — разработческие данные, не независимый итоговый тест. Балл не означает выдачу ID. Нет результата HOTA новой маски, подтверждённой пользы ядра или доказанной истинности масштаба Калмана.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_visible_geometry_head_20261109/protocol.json",
+          "claim": "Контроли и допуски до новых векторов и моделей"
+        },
+        {
+          "kind": "file",
+          "ref": "research_geometry_consistency_20261109/coordinate_math.json",
+          "claim": "Ранее проверенная алгебра,нефизическаяистинамасштаба"
+        },
+        {
+          "kind": "file",
+          "ref": "research_visible_geometry_head_20261109/summary.json",
+          "claim": "Частный выигрыш маски и отрицательное преобразование координат"
+        },
+        {
+          "kind": "file",
+          "ref": "research_visible_geometry_head_20261109/deployment_screen_protocol.json",
+          "claim": "Отдельный критерий до окончательных весов и рабочих баллов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_visible_geometry_head_20261109/deployment_screen.json",
+          "claim": "Те же три рабочие ошибки"
+        },
+        {
+          "kind": "file",
+          "ref": "research_visible_geometry_head_20261109/final_head_audit.json",
+          "claim": "Независимая арифметика и единственное изменение решений"
+        },
+        {
+          "kind": "file",
+          "ref": "research_visible_geometry_head_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Отрицательный перенос при сохранении частного выигрыша"
+        }
+      ],
+      "tags": [
+        "fly-problem-P1"
+      ],
+      "revisions": [
+        {
+          "date": "2026-11-09T16:41:41.320457+03:00",
+          "field": "cannot_claim",
+          "old": "Прежний координатный экран со старыми весами отрицательный и не повторяется. Новая проверка на техже26рабочихсвязях не является независимой; частные ошибки20val не обучают модель и не определяют пороги. Вклад опоры, геометрии и ядра разделяется.",
+          "reason": "Завершены компонентное сравнение и отдельный зарегистрированный рабочий экран."
+        }
+      ],
+      "done": "2026-11-09"
+    },
+    {
+      "id": "identity_training_stability_20261109",
+      "title": "Принадлежность машины — устойчивость к составу обучения",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "question": "Can removal of one alreadyexamined trainingvideo change a known incorrect identity decision at the fixed threshold?",
+      "hypothesis": "Рабочее неверное решение может зависеть от отдельного обучающего видео. Устойчивость к его исключению не доказывает достаточность всей выборки.",
+      "expected": "Apply ALL80ready heldout-video heads (20videos x G7,C34,R134spatial,R134temporal) to the same FIVEpredeclared currentnativequeries. No old fits or core maps repeated. C34vectors reused; restore only missing imagecorrelationvectors from10exact ready R1maps withidentical full-relative support and19shiftmeanwinner. No classifier,threshold or tracker changes.",
+      "acceptance": [
+        {
+          "criterion": "All five current histories have both exact ready R1maps withclosedmetadata/receipts; readyC34logit and104heldoutpredictions reproduced within1e-12; no maps/fits/core/video repeated.",
+          "met": true,
+          "evidence": "research_identity_training_stability_20261109/comparison.json; audit.json; все предусмотренные ветви результата сообщены, исправлений при исключении нет"
+        },
+        {
+          "criterion": "For each of three baselineC34errors report all20 sign outcomes, including two pureforeigndeletions andfourmixedgroups separately. A sign correction under either pureforeigndeletion admits direct audit of that removed pair, not model adoption. Mixed-only flips admit only group-sensitivity conclusion. No flips => one-video sensitivity does not explain these decisions; NOT proof that sixnegatives suffice or representation lacks information.",
+          "met": true,
+          "evidence": "research_identity_training_stability_20261109/comparison.json; audit.json; все предусмотренные ветви результата сообщены, исправлений при исключении нет"
+        }
+      ],
+      "obtained": "80 готовых моделей применены к пяти прежним рабочим входам; новых обучений 0. Все 20 исключений видео сохранили все решения FlyVis и обоих обычных входных вариантов. Собственные отказы 232/832 и чужая 574 не исправлены. Источник: research_identity_training_stability_20261109/comparison.json → summary. 104 прежние оценки воспроизведены до 4,45·10⁻¹⁶; 420 новых баллов независимо проверены, audit.json.",
+      "interpretation": "Не подтверждено объяснение этих трёх ошибок зависимостью от одного исключаемого видео. Это не доказывает достаточность всего обучающего пула или потерю информации в признаках. Геометрия меняет некоторые собственные решения, тогда как стабильные сигнальные решения могут оставаться неверными.",
+      "decision": "Не удалять удобные обучающие связи и не выбирать голову по пяти рабочим запросам. Не запускать полный трекер по этой диагностике. Следующий отдельный кандидат — сравнение соответствующих частей шаблона; сначала алгебра, история прежних пространственных считывателей и равные контроли.",
+      "cannot_claim": "Ранее просмотренные пять запросов; ни новых ID, ни независимого теста. Готовые исключения четырёх смешанных видео удаляют также свои связи. Устойчивость к одиночному исключению не доказывает общую достаточность обучения или ошибку ядра.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_identity_training_stability_20261109/protocol.json",
+          "claim": "Все готовые модели и границы вывода до новых рабочих оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_training_stability_20261109/comparison.json",
+          "claim": "Все неизменные и изменённые решения"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_training_stability_20261109/audit.json",
+          "claim": "Независимая арифметика готовых весов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_training_stability_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Отрицательная проверка объяснения одним видео"
+        }
+      ],
+      "tags": [
+        "fly-problem-P1"
+      ],
+      "revisions": [
+        {
+          "date": "2026-11-09T17:01:47.643299+03:00",
+          "field": "cannot_claim",
+          "old": "Alreadyviewed five valqueries, no independent test, actualIDs not measured, no thresholds tuned. Centroid/fulltensor alternatives fromGemini rejected as non-identifying. No automatic new native pilot.",
+          "reason": "Готовые модели применены без переобучения; проверена точность и границы отрицательного вывода."
+        }
+      ],
+      "done": "2026-11-09"
     }
   ],
   "manual_events": [

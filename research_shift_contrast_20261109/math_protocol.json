@@ -1,0 +1,13 @@
+{
+  "registered": "2026-11-09T15:50:39.150006+03:00",
+  "source_sha256": "32d5ed1a2bc86c4836265d7e0a63105226a9a4787e1f79c2d6ca090a0a09d910",
+  "primary_source": "https://www.cs.colostate.edu/~draper/papers/bolme_cvpr10.pdf",
+  "section": "3.5 Failure Detection and PSR; author extended version",
+  "checked_before_data": "19fixedaxialoffsets,nonneighborUdistance>=2; subtract per-channel Umean at the ORIGINAL equal-channel winning shift. Do not change the shift selector or jointly optimize a latent max.",
+  "distinctions": "MOSSE PSR=(peak-mean)/std on a trained response map with11x11exclusion. This is an unnormalized per-channel contrast on19fixed shifts, an engineering hypothesis. Oldmaputility used peakz,separatedgap,entropy andspread on721location responses, not this34channelvector at fixed shift.",
+  "invalid_gemini_stop": "All old raw head scores negative is not a valid universal stop condition for a contrast representation or retrained head. The bounded negative-profile counterexample has positive contrast. Max-minus-median is also not identical to nonneighbor-mean subtraction.",
+  "limits": "Constant-background cancellation is algebraic, not evidence that foreign matches are flat or true matches sharp. A distractor may have a sharper peak. No causality,classification or ID benefit proved.",
+  "no_core": true,
+  "no_fit": true,
+  "no_tracking": true
+}

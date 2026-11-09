@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "synthetic_global_identical": true,
+  "synthetic_local_distinguishable": true,
+  "partition_order_invariant": true,
+  "insufficient_or_constant_part_stays_undefined": true,
+  "duplicate_control": {
+    "prediction_error": 4.440892098500626e-16,
+    "loss_error": 0.0,
+    "gradient_error": 2.2417964921806972e-17,
+    "new_fits": 0
+  },
+  "strict_convexity": "For a nonzero perturbation (v,b), Hessian quadratic form is mean(sw*p*(1-p)*(Xv+b)^2)+||v||^2. Positive for v!=0 by penalty and v=0,b!=0 by logistic curvature. Finite data and both classes, freeintercept; no generalization guarantee.",
+  "scope": "Counterexample proves non-injectivity of global channel correlations and possible additional local information. Does NOT prove these maps carry identity, classify real cars, or improve ID/HOTA. Does not select any pair, threshold, neuron or split from labels.",
+  "sources": {
+    "research_partitioned_correspondence_20261109/math_check.py": "2a70096d3f25c1092401b9f44ddc31cf4eebc8888a3d1df572e5faebd908729b",
+    "tracking/partitioned_channel_correspondence.py": "8751a88c0ade72a538d6d8458b2b2d10d24bce117c40287ce2c56b9a795656a0",
+    "tracking/channel_balanced_correspondence.py": "f024871ccebbcb329bd147061d0bf621896eef64cf63a31154d2e244737502bd",
+    "tracking/channel_identity_head.py": "c39c2b3770aedf6fdab9b71a3e68dc35bea52768614cdcebf02823163cc0e79c",
+    "research_domain_matched_reader_20261109/features.json": "15a25be182ee42090de1639caf734e6837c2f3d29c34321bf0ac841ce1c2b9ef",
+    "runs/domain_matched_native_20261109/deployment.json": "7fda2c96c5064b7425ad853298149c66f2f6b5e943d8e3e686ddb61e22798989"
+  },
+  "goal_achieved": false
+}
