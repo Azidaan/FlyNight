@@ -30964,6 +30964,150 @@
           "reason": "Исправлены пробелы и читаемость текущего итога; числа, критерии и состояние не менялись."
         }
       ]
+    },
+    {
+      "id": "full_template_native_20261109",
+      "title": "Полный шаблон FlyVis — реальные назначения и судьба ID",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "question": "Does the admitted full-template/original-geometry verifier preserve real old IDs and reject foreign continuations after native global assignment and duplicate removal?",
+      "hypothesis": "Сохранённая пространственная опора и замороженная проверка принадлежности могут улучшить реальные продолжения. Альтернатива — весь выигрыш объясняется геометрической поправкой, обычным входом или теряется при глобальном назначении и удалении дубликатов.",
+      "expected": "Точные входы и нулевое вмешательство, затем фиксированный полный пилот20 val-видео с согласованными контролями и прямой судьбойID.",
+      "acceptance": [
+        {
+          "criterion": "Two deterministic cached retinal views from the first fixed video, at/after100 and200, restored both from nearest past checkpoint and from frame0. Require exact array equality and native per-frame dtype. No huge processed-video rebuild. Cache states must not be later than requested input frame.",
+          "met": true,
+          "evidence": "runs/full_template_native_20261109/input_witness_recovery.json:21точныхвида/20видео, включая обе исходныепроверки"
+        },
+        {
+          "criterion": "Exact full raw arrays AND annotated JSON for ALL20 videos, twice: alpha0 disabled and active alpha0.2 with empty accepted votes. Reuse baseline HOTA; source and dtypes pinned.",
+          "met": true,
+          "evidence": "runs/full_template_native_20261109/zero_complete.json:40полныхнулевыхпрогонов;deployment_audit.json:независимаясверка"
+        },
+        {
+          "criterion": "Allfive adjusted lower HOTA bounds>0; mean AssA/IDF1 changes nonnegative and no totalIDSw,FP,FN increase relative to native and matched controls. Otherwise no confirmed added FlyVis benefit. Report ordinary-input/geometry behavior separately without crediting core.",
+          "met": false,
+          "evidence": "runs/full_template_native_20261109/comparison_report.json:все5первичныхсравненийнепрошлиинтервалы/защитныекритерии"
+        },
+        {
+          "criterion": "Record every proposal/refusal,original/corrected matrix,global result,public old IDs,duplicate removal,and subsequent ID trajectory. Direct own/foreign and false-refusal labels only when existing annotations support them; retain unknown cases explicitly.",
+          "met": true,
+          "evidence": "runs/full_template_native_20261109/id_fate.json:все17959предложений4вариантов,unknownсохранены;fate_recovery_protocol.json:привязкаисправленабезизменениятраекторий"
+        }
+      ],
+      "obtained": "Полный пилот на 20 прежних val-видео: HOTA FlyVis 57,923672; штатный трекер 57,900829; геометрическая голова 57,931065; пространственный вход 57,926137; временной вход 57,929988. Все пять первичных сравнений не прошли критерии. Против штатного варианта: IDSw +2, FP +7, FN +2. Источник: runs/full_template_native_20261109/comparison_report.json → pooled, comparisons.\n\nИз 213 предложений FlyVis прямо подтверждены 5 своих и 1 чужая, 207 неизвестны. Две свои ошибочно отвергнуты; три разрешены головой, две выбраны глобально, одна вышла с публичным старым ID. Чужую голова разрешила, но решатель не выбрал. Источник: id_fate.json → summary.C34. Округление не затронуло ни одного из 162 разрешений C34; boundary_audit.json → counts.C34.\n\nВсе 213 баллов разложены без новых расчётов карт или обучения. После переноса среднего уровня обучающих каналов в свободный член две ошибочные свои имеют отрицательный вклад −0,491881 и −0,499689; чужая — положительный +0,259110. Сохранение геометрии само по себе не устраняет оба отказа. Источник: centering_audit.json → coordinates.class_balanced_training_mean.",
+      "interpretation": "Текущая реализация не дала подтверждённой добавки к геометрии и обычным входам. Два неверных отказа сохраняются при исходной геометрии после отделения общего уровня каналов. Причина локализована до взвешенного пространственного признака или его обученных весов; сам дефект ядра не установлен. Конкуренция и удаление дубликатов — отдельные механизмы потери запрошенного номера. Выбор другого, более старого ID не считается ошибкой без проверки его личности.",
+      "decision": "Проверить согласованность геометрии допуска и чтения карты. Восстановить из готовых строк mean/covariance/history выбранные geometric_match масштаб и смещение; сравнить с растяжением B0 на Bk и проверить видимую опору на19сдвигах. Только после математической и координатной проверки выбирать одну реализацию с теми же входными контролями. Ничего не подбирать по двум ошибкам. Простое сохранение геометрических коэффициентов и общий сдвиг балла не исправляют оба отказа после корректного отделения обучающего среднего.",
+      "cannot_claim": "Нет отдельного подтверждённого вклада ядра, нет нового финального независимого теста, нет доказательства безошибочности остальных207связейC34. Локальные разрешения не равны сохранённымID. Один подтверждённый возврат произошёл на6кадров раньше штатного возвращения того жеID; его нельзя объявлять спасением окончательно потерянного номера. Техническое восстановление журнала не является научным улучшением.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/protocol.json",
+          "claim": "Критерии и добавленный геометрический контроль до новых исходов."
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Отрицательный итог реального пилота и границы выводов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/comparison_report.json",
+          "claim": "Полные метрики и пять сравнений"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/id_fate.json",
+          "claim": "Прямые собственность и судьбаID с исправленной точной привязкой"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/boundary_audit.json",
+          "claim": "Численная граница не объясняетC34"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/deployment_audit.json",
+          "claim": "Независимый аудит окончательных голов и нулевых контролей"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/РАЗЛОЖЕНИЕ_ГОЛОВЫ.md",
+          "claim": "Общий положительный уровень не равен информации о личности"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/centering_audit.json",
+          "claim": "Точная инвариантность всех213баллов при центрировании"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/integration_audit.json",
+          "claim": "Воспроизведение двух частей головы"
+        }
+      ],
+      "tags": [
+        "fly-problem-P1"
+      ],
+      "done": "2026-11-09",
+      "metrics": [
+        {
+          "key": "HOTA",
+          "value": 57.923671604628844,
+          "baseline": 57.900829184147604,
+          "subset": "20 прежних val-видео; по объектам",
+          "source": "runs/full_template_native_20261109/comparison_report.json",
+          "locator": "pooled.C34.HOTA"
+        },
+        {
+          "key": "AssA",
+          "value": 63.36490364923254,
+          "baseline": 63.314359268394185,
+          "subset": "20 прежних val-видео; по объектам",
+          "source": "runs/full_template_native_20261109/comparison_report.json",
+          "locator": "pooled.C34.AssA"
+        },
+        {
+          "key": "IDF1",
+          "value": 66.96343827284272,
+          "baseline": 66.86898395721926,
+          "subset": "20 прежних val-видео; по объектам",
+          "source": "runs/full_template_native_20261109/comparison_report.json",
+          "locator": "pooled.C34.IDF1"
+        },
+        {
+          "key": "IDSw",
+          "value": 1003,
+          "baseline": 1001,
+          "subset": "20 прежних val-видео; по объектам",
+          "source": "runs/full_template_native_20261109/comparison_report.json",
+          "locator": "pooled.C34.IDSw"
+        }
+      ],
+      "revisions": [
+        {
+          "date": "2026-11-09",
+          "commit": "c1bd2e59b3858fcbdccf61eda42e5ae248735a9d",
+          "field": "obtained",
+          "old": "Полный пилот20 val-видео: HOTA FlyVis57,923672, штатный57,900829, G7геометрия57,931065, пространственный вход57,926137, временной57,929988; источник runs/full_template_native_20261109/comparison_report.json → pooled. C34−B0 +0,022842,99%интервал[−0,042294;0,133571];IDSw+2,FP+7,FN+2. Два полных нулевых контроля40запусков точны, zero_complete.json. Прямой аудит213предложенийFlyVis:5своих/1чужая/207неизвестных; изсвоихразрешены3,глобальновыбраны2,публичныйстарыйIDнарамкеполучен1;2своиошибочноотклонены. Чужуюголоваразрешила,общийрешательневыбрал; id_fate.json → summary.C34. Численнаяграницанезатронула ниодноиз162разрешенийC34, boundary_audit.json → counts.C34.",
+          "reason": "Добавлен точный разбор сочетания геометрии и сигнала; прежний итог сохранён."
+        },
+        {
+          "date": "2026-11-09",
+          "commit": "c1bd2e59b3858fcbdccf61eda42e5ae248735a9d",
+          "field": "decision",
+          "old": "Не принимать эту версию и не переходить к финальному тесту. На готовых векторах разложить неверные решения на геометрическую часть,34канала и свободное смещение; отделить ошибку сигнала от сдвига геометрической модели. Это определит одну следующую правку, а не перебор порогов/каналов. Точность стоимости и0,8не менять: дляC34причинного эффекта численной границы нет.",
+          "reason": "Алгебра исключила исправление одним общим уровнем; выбран следующий кандидат до запуска."
+        },
+        {
+          "date": "2026-11-09",
+          "commit": "c1bd2e59b3858fcbdccf61eda42e5ae248735a9d",
+          "field": "interpretation",
+          "old": "Зарегистрированный критерий не пройден: текущий способ считывания/объединения сигнала не дал подтверждённой добавки к геометрии и обычному входу. Имеются два прямых ошибочных отказа головы и отдельные потери при общем назначении/удалении дубликатов. Округлениестоимости не объясняет провалC34. Ошибка ядра не установлена. Большинство локальных собственностей неизвестно; реальныеполныевыходыоцененыTrackEval.",
+          "reason": "Уточнение причин по воспроизведённым баллам, без нового обучения."
+        }
+      ]
     }
   ],
   "manual_events": [

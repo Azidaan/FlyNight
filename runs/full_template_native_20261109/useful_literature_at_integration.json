@@ -1,0 +1,228 @@
+{
+  "scope": "Проверенные первоисточники, фактически использованные для метода или содержательного ограничения вывода. Источники показываются через генератор, связи с задачами и проблемами стелс.",
+  "sources": [
+    {
+      "id": "kalal2010_forward_backward",
+      "title": "Проверка возврата отслеженной точки — Kalal и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Согласованность переноса",
+      "publication": "Zdenek Kalal, Krystian Mikolajczyk, Jiri Matas. Forward-Backward Error: Automatic Detection of Tracking Failures. ICPR, 2010, с. 2756–2759.",
+      "doi": "10.1109/ICPR.2010.675",
+      "url": "https://cmp.felk.cvut.cz/ftp/articles/matas/kalal-2010-fb_track-icpr.pdf",
+      "sections": "Раздел 2 и рисунок 1 — независимое обратное прослеживание и расстояние между исходной и возвращённой точкой. Конец раздела 2 — ограничение для методов, согласованных по построению. Раздел 3 — проверка порогов ошибки.",
+      "established": "Авторы предложили оценивать согласованность траектории независимым обратным прослеживанием. Проверяли обнаружение ошибок и сочетание с нормированной корреляцией; нулевой возврат не объявлен гарантией личности объекта.",
+      "problem": "С2 — геометрически допустимое продолжение может принадлежать другой машине.",
+      "application": "Из статьи взят принцип независимого обратного поиска для готовых карт FlyVis и простых признаков. Математический пример специально даёт ненулевой возврат и исключает автоматическую смену знака прямого сдвига. Прямые оценки переиспользованы, обратные вычислены отдельно.\n\n08.11.2026. Та же независимая проверка перенесена на 7 других прямо размеченных пар. Прежнее различие не сохранилось; первичный результат runs/singleton_forward_backward_transfer_20261108/results.json. Польза источника — проверяемая диагностика согласованности, она не даёт гарантии личности.\n\n08.11.2026. На тех же семи парах проверено расширение шаблона с трёх ячеек до всех допустимых. Возврат стал устойчивее у части своих пар, но точное замыкание осталось у двух из трёх чужих. Это конкретное ограничение использования согласованности как признака личности; первичный результат runs/singleton_support_size_20261108/results.json.",
+      "limitation": "Адаптация на двух событиях и трёх опорных ячейках. Это проверка готовых карт, не воспроизведение Lucas–Kanade или обращение динамики ядра FlyVis. Полный трекер и рабочий порог по этому опыту не приняты. Проблема С2 остаётся открытой. Указанные два события относятся к первой проверке. В последующем переносе на семь других событий группы дополнительно различались изменением масштаба глаза; результат не позволяет принять правило назначения ID.",
+      "evidence": [
+        "runs/singleton_forward_backward_20261108/protocol.json",
+        "runs/singleton_forward_backward_20261108/mathematical_checks.json",
+        "runs/singleton_forward_backward_20261108/results.json",
+        "runs/singleton_forward_backward_20261108/РЕЗУЛЬТАТ.md",
+        "runs/singleton_forward_backward_transfer_20261108/protocol.json",
+        "runs/singleton_forward_backward_transfer_20261108/results.json",
+        "runs/singleton_support_size_20261108/protocol.json",
+        "runs/singleton_support_size_20261108/results.json"
+      ],
+      "related": [
+        "exp:singleton_forward_backward_20261108",
+        "sys:С2",
+        "exp:singleton_forward_backward_transfer_20261108",
+        "exp:singleton_support_size_20261108"
+      ]
+    },
+    {
+      "id": "bolme2010_peak_confidence",
+      "title": "Выраженность пика и отказ при потере объекта — Bolme и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Надёжность отклика",
+      "publication": "David S. Bolme, J. Ross Beveridge, Bruce A. Draper, Yui Man Lui. Visual Object Tracking using Adaptive Correlation Filters. CVPR, 2010, с. 2544–2550.",
+      "doi": "10.1109/CVPR.2010.5539960",
+      "url": "https://iacl.ece.jhu.edu/proceedings/cvpr2010/papers/1905.pdf",
+      "sections": "Раздел 3.5 Failure Detection and PSR — отношение пика к боковым откликам с исключением окна 11×11 вокруг максимума. Раздел 3.4 посвящён инициализации и обновлению фильтра.",
+      "established": "Авторы использовали выраженность пика корреляционного фильтра для обнаружения потери объекта и управления сопровождением. Определение относится к плотной карте отклика их фильтра.",
+      "problem": "С2 — высокий максимум сходства сам по себе не подтверждает правильное продолжение объекта.",
+      "application": "Первоисточник помог отделить высокое сходство от надёжности локализации и проверить предложение Gemini. Равенство максимума оценке по прогнозу не означает плоскую поверхность. Готовые 19 значений у чужой пары FlyVis лежат от −0,410 до 0,349 и имеют максимум по прогнозу.",
+      "limitation": "PSR на наших 19 гексагональных сдвигах не применялся. Нужны отдельное определение окрестности и проверка переноса. Эта статья не подтверждает готовый порог или решение проблемы С2.",
+      "evidence": [
+        "runs/singleton_neighbor_input_20261108/scores.json",
+        "runs/singleton_forward_backward_20261108/ЛИТЕРАТУРА.md"
+      ],
+      "related": [
+        "exp:singleton_neighbor_input_20261108",
+        "sys:С2"
+      ]
+    },
+    {
+      "id": "galoogahi2017_background_patches",
+      "title": "Обучение фильтра на цели и реальных фоновых участках — Galoogahi и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Отделение цели от фона",
+      "publication": "Hamed Kiani Galoogahi, Ashton Fagg, Simon Lucey. Learning Background-Aware Correlation Filters for Visual Tracking. ICCV,2017,1135–1143.",
+      "doi": "10.1109/ICCV.2017.129",
+      "url": "https://arxiv.org/pdf/1703.04590",
+      "sections": "Разделы3–4, уравнение3, рисунок2. DOI-resolver и Crossref API недоступны в этой проверке.",
+      "established": "Авторы обучают пространственный корреляционный фильтр на положительном участке цели и реальных отрицательных фоновых участках; опубликована отдельная эффективная частотная оптимизация.",
+      "problem": "С2 — чужой объект может давать высокое пространственное сходство.",
+      "application": "Принцип целых реальных отрицательных участков использован в прямом пространственном ridge-фильтре на готовых гексагональных картах. Математика проверена, один фиксированный гейт fit20 не пройден.",
+      "limitation": "Это ограниченная адаптация без FFT/ADMM,HOG и обновления BACF. Официальный MATLAB ZIP502, CVF PDF403; первичный arXiv текст открыт. Результаты статьи не приписываются нашей модели и не закрывают С2.",
+      "evidence": [
+        "runs/background_patch_gate_20261108/protocol.json",
+        "runs/background_patch_gate_20261108/summary.json",
+        "runs/background_patch_gate_20261108/РЕЗУЛЬТАТ.md"
+      ],
+      "related": [
+        "exp:background_patch_gate_20261108",
+        "sys:С2"
+      ]
+    },
+    {
+      "id": "yan2021_stark_template_memory",
+      "title": "Начальный и обновляемый шаблоны цели — Yan и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Надёжность памяти",
+      "publication": "Bin Yan, Houwen Peng, Jianlong Fu, Dong Wang, Huchuan Lu. Learning Spatio-Temporal Transformer for Visual Tracking. ICCV,2021,10448–10457.",
+      "doi": "не проверен",
+      "url": "https://arxiv.org/pdf/2103.17154",
+      "sections": "Раздел3.2; официальный https://raw.githubusercontent.com/researchmm/Stark/main/lib/test/tracker/stark_st.py, строки42–54и84–92. CVF PDF403; arXiv и официальный код открыты. DOI-resolver и Crossref API недоступны; номер DOI не принимается из вторичного источника.",
+      "established": "В опубликованном однократном сопровождении заданной цели сохраняется начальный шаблон и по уверенности обновляется динамический. Код не заменяет начальный элемент при динамической записи.",
+      "problem": "С2 — геометрически допустимый чужой объект может получить прежнийID.",
+      "application": "Разделение ролей памяти использовано для постановки аудита: прежде чем менять память, проверить принадлежность последнего шаблона по прямой разметке. Аудит выполнен без запуска STARK и без изменения трекера.\n\n09.11.2026. Разделение памяти использовано для фиксированного A/B/Cсравнения. Ранний и последний пространственныешаблоны из одной рекуррентнойистории сравнили с одной текущейкартой наобщейподдержке, с обычнымивременнымиконтролями. Раннийшаблон не улучшил результат: runs/common_state_memory_20261109/summary.json. ОбновлениеSTARKи его пороги не переносились.",
+      "limitation": "Первый шаблон нашего автоматически рождаемого трека не задан истинной разметкой. Порог0,5 из STARK не переносился; устойчивый банк и нейросеть STARK не реализованы. Работа не доказывает, что наша ошибка вызвана памятью.",
+      "evidence": [
+        "runs/template_identity_audit_20261108/protocol.json",
+        "runs/template_identity_audit_20261108/summary.json",
+        "runs/common_state_memory_20261109/protocol.json",
+        "runs/common_state_memory_20261109/summary.json"
+      ],
+      "related": [
+        "exp:template_identity_audit_20261108",
+        "sys:С2",
+        "exp:common_state_memory_20261109"
+      ]
+    },
+    {
+      "id": "lewis_ncc_channel_normalization",
+      "title": "Нормированное сравнение пространственных шаблонов — Lewis",
+      "publication": "J. P. Lewis. Fast Template Matching. Vision Interface,1995,120–123; авторское пояснение Fast Normalized Cross-Correlation.",
+      "doi": "не указан на авторской странице",
+      "url": "https://scribblethink.org/Work/nvisionInterface/nip.html",
+      "sections": "Template Matching by Cross-Correlation, Eq2; Phase Correlation — оговорка об одинаковом весе слабых компонентов.",
+      "established": "Описана нормированная корреляция шаблона и ограничения её применения при геометрических изменениях. Автор отдельно отмечает риск равных весов незначимых компонентов при фазовой корреляции.",
+      "application": "Источник помог проверить старую формулу и её разложение; независимая нормировка по нейронным каналам проверена как наша ограниченная гипотеза. Отдельный вариант не прошёл критерий; отрицательный итог сохранён.\n\n09.11.2026. ФормулаNCCпомогла сформулировать строгую численную проверку: у точно постоянной текущей карты норма центрированного сигнала равна нулю, поэтому числовое сходство недопустимо. Обнаружена ошибка округления в интерполяции и исправлена без нового порога. На19реальныхпарах ранжирования не изменились; источник runs/interpolation_constant_audit_20261109/audit.json.\n\n09.11.2026. Ограничение NCC при изменении масштаба и перспективы использовано для постановки проверки относительного преобразования рамок. Обратимость преобразования математически проверена; также показано, что корреляция двух линейных профилей может быть 1 без совпадения личности. Геометрический допуск общей поддержки не пройден (5/12 при минимуме 8), поэтому новых сходств и заявления о пользе нет. Источник runs/candidate_relative_alignment_20261109/audit.json.\n\n09.11.2026. После отдельного провала сравнения только координат проверена вся комбинация относительного шаблона с одинаковыми прошлыми ячейками двух кандидатов. На 12 просмотренных запросах C34 7/12→10/12, простой соседний вход тоже 10/12. На трёх других запросах все относительные представления и исходная стоимость правильны. Литературное основание касалось ограничений NCC и необходимости явного выравнивания, а не гарантии личности или преимущества FlyVis. Источники runs/relative_joint_reader_20261109/audit.json; runs/relative_reader_transfer_20261109/audit.json.",
+      "limitation": "Статья не вводит наш34-канальный считыватель и не доказывает сохранение личности. Нельзя переносить её оговорку о частотных компонентах как доказанный закон для типов клеток.",
+      "method_group": "Нормировка пространственного сходства",
+      "related": [
+        "exp:channel_balance_attribution_20261109",
+        "exp:clipped_anchor_readout_20261109",
+        "sys:С2",
+        "exp:interpolation_constant_audit_20261109",
+        "exp:candidate_relative_alignment_20261109",
+        "exp:relative_joint_reader_20261109",
+        "exp:relative_reader_transfer_20261109"
+      ],
+      "evidence": [
+        "runs/channel_balance_attribution_20261109/protocol.json",
+        "runs/channel_balance_attribution_20261109/summary.json",
+        "runs/interpolation_constant_audit_20261109/protocol.json",
+        "runs/interpolation_constant_audit_20261109/audit.json",
+        "runs/candidate_relative_alignment_20261109/math.json",
+        "runs/candidate_relative_alignment_20261109/audit.json",
+        "runs/relative_joint_reader_20261109/audit.json",
+        "runs/relative_reader_transfer_20261109/audit.json"
+      ],
+      "problem_group": "Сохранение личности",
+      "problem": "С2 — геометрически допустимый кандидат может принадлежать другой машине."
+    },
+    {
+      "id": "cao2023_observation_vs_state",
+      "title": "Разделение наблюдений и фильтрованного состояния — Cao и соавторы",
+      "publication": "Jinkun Cao, Jiangmiao Pang, Xinshuo Weng, Rawal Khirodkar, Kris Kitani. Observation-Centric SORT: Rethinking SORT for Robust Multi-Object Tracking. CVPR,2023; arXiv v3,2023.",
+      "doi": "10.48550/arXiv.2203.14360",
+      "url": "https://arxiv.org/abs/2203.14360",
+      "sections": "Доступна первичная аннотация; официальный ocsort.py, строки94–124, хранение last_observation/observations отдельно от фильтра. CVF403; полный PDF arXiv превысил лимит и в этой проверке не прочитан.",
+      "established": "Предложено исправлять накопление ошибки состояния с опорой на наблюдения. Официальная реализация отдельно сохраняет детекции, а не подменяет их отфильтрованным прямоугольником.",
+      "application": "Разделение наблюдения и состояния использовано при восстановлении точной прошлой детекции и в новом метаданном трекере. Привязка к видимому краю — отдельная наша геометрическая гипотеза с синтетическими проверками и отрицательным первичным критерием.",
+      "limitation": "Полный OC-SORT не воспроизводился. Наша формула обрезки не приписывается авторам. Корректность записи метаданных не доказывает пользу сопоставления или сохраненияID.",
+      "method_group": "Наблюдения и координаты шаблона",
+      "related": [
+        "exp:clipped_anchor_readout_20261109",
+        "sys:С2"
+      ],
+      "evidence": [
+        "runs/clipped_anchor_readout_20261109/protocol.json",
+        "runs/clipped_anchor_readout_20261109/runtime_verification.json",
+        "runs/clipped_anchor_readout_20261109/summary.json"
+      ],
+      "problem_group": "Сохранение личности",
+      "problem": "С2 — геометрически допустимый кандидат может принадлежать другой машине."
+    },
+    {
+      "id": "van_smeden_epv_limits",
+      "title": "Почему одного числа событий на параметр недостаточно — van Smeden и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Надёжность обучаемого решения",
+      "publication": "Maarten van Smeden, Joris A. H. de Groot, Karel G. M. Moons, Gary S. Collins, Douglas G. Altman, Marinus J. C. Eijkemans, Johannes B. Reitsma. No rationale for 1 variable per 10 events criterion for binary logistic regression analysis. BMC Medical Research Methodology, 2016, 16:163.",
+      "doi": "10.1186/s12874-016-0267-3",
+      "url": "https://link.springer.com/article/10.1186/s12874-016-0267-3",
+      "sections": "Abstract, Accuracy of logit coefficients in small samples, Separation, Discussion.",
+      "established": "Точность при малой выборке зависит не только от отношения событий к параметрам; разбиение данных и способ оценки существенно меняют выводы. Универсальный запрет по одному отношению не обоснован.",
+      "problem": "Оценить риск обучаемой головы по небольшому числу условных пар, не подменяя проверку жёстким правилом EPV.",
+      "application": "Источник использован для критики категорического вывода Gemini: оставлена необходимость межвидеовой проверки и аудита меток, но математически допустимая модель не объявлена невозможной по одному отношению13/34.",
+      "limitation": "Работа не проверяет наши карты, не обосновывает достаточность нашей выборки и не предлагает считыватель FlyVis. Правильность модели принадлежности и реальных ID остаётся непроверенной.",
+      "evidence": [
+        "research_identity_synthesis_20261109/ПРОВЕРКА_GEMINI.md",
+        "research_identity_synthesis_20261109/math_checks.json"
+      ],
+      "related": [
+        "sys:С2"
+      ]
+    },
+    {
+      "id": "lin2008_regularized_logistic",
+      "title": "Регуляризованное решение по признакам — Lin и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Обучаемая оценка принадлежности",
+      "publication": "Chih-Jen Lin, Ruby C. Weng, S. Sathiya Keerthi. Trust Region Newton Method for Large-Scale Logistic Regression. JMLR9, 627–650, 2008.",
+      "url": "https://www.jmlr.org/papers/volume9/lin08b/lin08b.pdf",
+      "sections": "Раздел1, формулы1–2: логистическая потеря и квадратичный штраф; статья описывает метод доверительной области, наша реализация использует обычный демпфированный Ньютон.",
+      "problem": "Проверить, можно ли заменить равное среднее пространственных совпадений ограниченной обучаемой оценкой.",
+      "application": "По этой постановке реализованы фиксированный штраф, аналитические производные и проверка конечного решения; затем проведено одинаковое межвидеовое сравнение FlyVis и входных контролей.",
+      "limitation": "Наши балансировка классов и свободный сдвиг заданы отдельно. Правка не прошла критерий допуска к ID; статья не решила проблему трекинга.",
+      "evidence": [
+        "runs/identity_channel_head_20261109/protocol.json",
+        "runs/identity_channel_head_20261109/math_checks.json",
+        "runs/identity_channel_head_20261109/audit.json",
+        "runs/identity_channel_head_20261109/summary.json"
+      ],
+      "related": [
+        "sys:С2"
+      ],
+      "doi": "издателем не указан",
+      "established": "Дана гладкая регуляризованная постановка двоичной классификации и способ её численного решения. Это не метод идентификации машин и не гарантия переноса малой выборки."
+    },
+    {
+      "id": "bertinetto2016_full_template",
+      "title": "Целый пространственный шаблон в поисковом поле — Bertinetto и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Соответствие пространственных шаблонов",
+      "publication": "Luca Bertinetto, Jack Valmadre, Joao F. Henriques, Andrea Vedaldi, Philip H. S. Torr. Fully-Convolutional Siamese Networks for Object Tracking,2016; прочитана arXiv-версияv3. DOI ниже относится к записи arXiv.",
+      "doi": "10.48550/arXiv.1606.09549",
+      "url": "https://arxiv.org/pdf/1606.09549",
+      "sections": "Раздел2.1, формула2: пространственный шаблон и взаимная корреляция в большем доступном поисковом поле.",
+      "established": "Взаимная корреляция пространственных представлений позволяет оценить переведённые окна поискового изображения одним фиксированным шаблоном. Авторы обучали собственное представление; это не доказательство для FlyVis.",
+      "problem": "Проверить, не теряет ли наш считыватель полезную опору из-за требования оставаться внутри рамки при всех сдвигах.",
+      "application": "Принцип помог выбрать одно изменение: сохранить полный прошлый шаблон в поле глаза и удерживать одинаковые ячейки на всех сдвигах. Алгебраически и по данным установлено прежнее усечение; выполнено согласованное сравнение с входными контролями.",
+      "limitation": "Полный трекер из статьи не переносился. Прибавка реальныхID и отдельная польза ядра FlyVis не доказаны; прошёл только диагностический допуск входного варианта.",
+      "evidence": [
+        "runs/full_template_identity_20261109/МАТЕМАТИКА.md",
+        "runs/full_template_identity_20261109/geometry_results.json",
+        "runs/full_template_identity_20261109/summary.json",
+        "runs/full_template_identity_20261109/audit.json"
+      ],
+      "related": [
+        "sys:С2"
+      ]
+    }
+  ]
+}

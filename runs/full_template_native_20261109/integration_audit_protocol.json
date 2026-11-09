@@ -1,0 +1,55 @@
+{
+  "registered": "2026-11-09T11:44:17.666545+03:00",
+  "question": "Does the frozen joint head reject directly own links because of its channel term or because it also changed geometry coefficients/intercept?",
+  "timing": "Post-result explanatory audit after negative full20video pilot. No independent confirmation or new reader-selection gate.",
+  "math": "zC=bC+wC_geo*g+wC_channels*c = zG7+((bC-bG)+(wC_geo-wG_geo)*g)+wC_channels*c. Normalize g by exactly the deployed training stats. Reproduce BOTH logged zC and zG7 at every scored record. Undefined evidence must remain the exactG7fallback.",
+  "fixed_counterfactual": "For interpretation ONLY compute zG7+wC_channels*c at all frozen213loggedfeaturevectors. No new coefficient fit or decision threshold. Do not call these counterfactual signs actual IDs. If own flips persist, preserving geometry alone is insufficient; if they disappear, changed geometry/intercept are necessary for those particular flips, not proof the channel term generalizes.",
+  "hypotheses": [
+    {
+      "rank": 1,
+      "status": "known model architecture; contribution unmeasured",
+      "cause": "Joint optimization changed seven geometry coefficients and free intercept, possibly reversing a good geometry decision."
+    },
+    {
+      "rank": 2,
+      "status": "strongest alternative",
+      "cause": "The channel correspondence itself is adverse on new instances; freezing geometry will not remove the false refusal."
+    },
+    {
+      "rank": 3,
+      "status": "separate measured mechanism",
+      "cause": "Global competition and duplicate removal explain lost outputs after positive heads, but not the two negative own-head decisions."
+    }
+  ],
+  "primary_basis": "Frozen ridge logistic objective and optimizer in tracking/channel_identity_head.py; Lin,Weng,Keerthi2008 https://jmlr.org/papers/volume9/lin08b/lin08b.pdf already verified/saved. This source supports the optimization method, not identity or transfer. The algebraic attribution and fixed counterfactual are ours.",
+  "next_action": "Use the decomposition to choose one concrete reader-integration correction or reject that correction. No new channel/threshold/regularization variants on91pairs; no inference or full metric repeats.",
+  "sources": {
+    "runs/full_template_native_20261109/integration_audit.py": "aeda2e9017ef89e1ef27730969a28bb72cea9627462b68dc58145bba64bab2b2",
+    "runs/full_template_native_20261109/deployment.json": "6d6e4ee567aa3e43efe656f97a862c1acb8e6ae71aaec18904079e398447bc4b",
+    "runs/full_template_native_20261109/id_fate.json": "8d3d8050b42a980639e5c22cc2f7405c0c76c6c389b1dc00a463c9cb03deb773",
+    "runs/full_template_native_20261109/comparison_report.json": "82c6f5f58a3c02fd81ddaae77ee01fb2a3b3835ab9424b6d251d8297f3ef2fa5",
+    "runs/full_template_native_20261109/boundary_audit.json": "5e86b23c25842becc4ae9b9e2cca1d99afe1fbaf7634b80e4e339bcac55d045e",
+    "tracking/channel_identity_head.py": "c39c2b3770aedf6fdab9b71a3e68dc35bea52768614cdcebf02823163cc0e79c",
+    "experiments/useful_literature.json": "f24d76b33adeecf39e75961d01476f439d6810a3d9dd7742703caaef1e49c499",
+    "runs/full_template_native_20261109/rollouts/C34/b1ca2e5d-84cf9134.events.json.gz": "11a900ab90c649e755008945fb13264e70106da6d2c50fac2562b6045a08cd0a",
+    "runs/full_template_native_20261109/rollouts/C34/b1cd1e94-549d0bfe.events.json.gz": "85b0260e54c6d15c2ddfa9e05906bf3d09bbc266b8115cdc379311b4c26de8b8",
+    "runs/full_template_native_20261109/rollouts/C34/b1d0a191-de8948f6.events.json.gz": "addc79e9c117324125c5e0586062a5682ca7d8b34d9cca6209c3e7ad4dd133cf",
+    "runs/full_template_native_20261109/rollouts/C34/b1d10d08-743fd86c.events.json.gz": "c081e94986231fe16232ae6dd9b4e6808187ec6b2ed7d46c490a3c4de85684d2",
+    "runs/full_template_native_20261109/rollouts/C34/b1e3e9f5-92377424.events.json.gz": "b72979d03d367bef9692814cf09394e919d526017490a3dfdce9b83dba3ecf8f",
+    "runs/full_template_native_20261109/rollouts/C34/b1f4491b-cf446195.events.json.gz": "26231e281d0eff25fd229b12ced128f60bf87ba18f5697ef17053e29212751b5",
+    "runs/full_template_native_20261109/rollouts/C34/b200b84e-4a792877.events.json.gz": "d80c526cf390eaa2c80299106004b89a0be2971fc35eb11702cd45266e9b8ab7",
+    "runs/full_template_native_20261109/rollouts/C34/b2036451-aa924fd1.events.json.gz": "3cab4a175145094598ccb85c6cf46d2faca06a5d67ca316cd852e032eaface5c",
+    "runs/full_template_native_20261109/rollouts/C34/b20b69d2-ca16c907.events.json.gz": "1f93cb1224bfb78ca05be4f391c95aecc5df7e860d857451cd268091c557c030",
+    "runs/full_template_native_20261109/rollouts/C34/b20d494a-cdebe83e.events.json.gz": "8be83052bd5586a5d32af2c00eaa65449d9d27f144325a19eb4f3107d9c0798e",
+    "runs/full_template_native_20261109/rollouts/C34/b216243d-ad4306b9.events.json.gz": "78a0cc72d8dc42f0ebbc9dd6f9bc4c2ac9b71026354f623d807417babdca281b",
+    "runs/full_template_native_20261109/rollouts/C34/b230132b-ff8f2719.events.json.gz": "94d8ed821194c87f8ea4e5803e688fa81fee67495ca0304f9974d38a94d7e2b5",
+    "runs/full_template_native_20261109/rollouts/C34/b230a7b2-c881c382.events.json.gz": "bafd06cbfed5021aaa552ef74bb13cc4ff8e53b90471c0007d85c24ea7f6d85a",
+    "runs/full_template_native_20261109/rollouts/C34/b23a79d1-43dfeecd.events.json.gz": "3aa8ac0b84e6d1ce1c44c1d841b3969b0cff26cd076a76b511965c1067fd690d",
+    "runs/full_template_native_20261109/rollouts/C34/b23adb0d-72704b27.events.json.gz": "89023727ee4741365d78ea6fefa98b767ecb26657ed4876e939da6accea1c2f1",
+    "runs/full_template_native_20261109/rollouts/C34/b23b2649-8349d2a1.events.json.gz": "9644e799f787d91c64f8bc2d83ff8ccdbb3a165b1a56e6e5272c9cdedcbf0908",
+    "runs/full_template_native_20261109/rollouts/C34/b23f7012-32d284ce.events.json.gz": "984fbf31b78b01c28e90dabead47757c7daf7b772a8815bfc8ee5de9f25639ae",
+    "runs/full_template_native_20261109/rollouts/C34/b23f7012-fab06dac.events.json.gz": "21d1e9db4a57ce357242e40c8d756ae39d97881be5c7775ee18c459faeb76a73",
+    "runs/full_template_native_20261109/rollouts/C34/b242f6b2-0033bdfb.events.json.gz": "66dcc44e5ad8e59a0e77d2e460d5289efd719623e5794cc5b79fca7a6228e671",
+    "runs/full_template_native_20261109/rollouts/C34/b251064f-5f6b663e.events.json.gz": "23d0351103eb9d0d47b86d19529a6c6e1b2621d29f0e8bf18588193b64608c98"
+  }
+}

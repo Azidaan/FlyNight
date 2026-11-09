@@ -1,0 +1,14 @@
+{
+  "registered": "2026-11-09T11:49:51.334514+03:00",
+  "reason": "Raw additive decomposition found positive channel terms and negative intercept shifts. Such signs are coordinate dependent: c->c-mu,b->b+w*mu leaves every prediction and the penalized loss identical because the intercept is unpenalized. Do not label raw positive terms beneficial or deploy an uncentered additive score.",
+  "fixed_coordinates": "Report both ordinary91training-row mean and the EXACT class-balanced training mean(.5meanown+.5meanforeign). The latter matches the frozen loss weighting; neither usesval labels. Reexpress all213scores in both coordinates, unchanged z. Separate geometry-slope shift from centered intercept and centered channel term. No retraining or threshold test.",
+  "fixed_interpretive_controls": "At the same frozen vectors show G7+uncenteredchannelterm versus G7+TRAINconstantmeanterm and G7+centeredchannelterm. These are algebraic no-FlyVis/global-shift explanations, not deployed methods or evaluated ID improvements. No coordinate chosen by validation outcome.",
+  "decision": "If a raw positive channel contribution disappears/reverses after moving the fixed training baseline into the intercept, do not pursue blind geometry/intercept preservation as an identity fix. First diagnose why own instance has lower-than-background correspondence. Original real pilot stays negative.",
+  "sources": {
+    "runs/full_template_native_20261109/centering_audit.py": "c292882b8a18b02e274c6fae8ab839a60fcacebda6ee0f2432a1b222a135520f",
+    "runs/full_template_native_20261109/integration_audit.json": "5163da52bb6be7c18069e811b2e9ed243a7ab81f65468a4b7d30167a834e6c6c",
+    "runs/full_template_native_20261109/deployment.json": "6d6e4ee567aa3e43efe656f97a862c1acb8e6ae71aaec18904079e398447bc4b",
+    "runs/full_template_identity_20261109/features.json": "db63697e53e5ca9554d37e3749ab10f9b1a9269f1a82b2ee9bd8d4b84f1c69d3",
+    "tracking/channel_identity_head.py": "c39c2b3770aedf6fdab9b71a3e68dc35bea52768614cdcebf02823163cc0e79c"
+  }
+}
