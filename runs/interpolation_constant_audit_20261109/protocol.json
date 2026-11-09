@@ -1,0 +1,30 @@
+{
+  "registered": "2026-11-09T04:57:49.123128+03:00",
+  "head": "c6a8dadddc226669d52d31b9f5f24378e4d2da2c",
+  "deadline": "2026-11-09T06:40:00+03:00",
+  "scientific_save_stop": "2026-11-09T06:35:00+03:00",
+  "selection": "All19 already valid common query geometries from completed memory study. No real feature maps, GT, detector, tracker or neural model read/executed. The previous13 tests are not repeated.",
+  "math": "A constant field must remain the same exact constant under a linear interpolant. Normalized spatial correlation with a wholly constant current patch is undefined and must abstain. If interpolation creates floating-point variation, subsequent scale-invariant normalization can amplify numerical noise. This is an implementation hypothesis, not yet a measured cause of real wrong identities.",
+  "synthetic": "Reference8channels are deterministic sin/cos fields of eye coordinates. Current maps are exactly constant per channel, .1/.3/1/10 times fixed channel multipliers. Same frozen19 queries and geometry; log every score and interpolation peak-to-peak. No epsilon/variance threshold or fitting.",
+  "acceptance": "Every constant-current score must be null; any non-null value disproves the implemented invariant. If no failure, no interpolation fix is justified by this probe. If failure, retain it and require an exact constant-preserving expression plus affine-field and real-grid controls before adoption.",
+  "literature": [
+    {
+      "url": "https://scribblethink.org/Work/nvisionInterface/nip.html",
+      "role": "Lewis NCC equation2: centered constant patch has zero norm; no valid normalized identity evidence."
+    },
+    {
+      "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.interpolate.LinearNDInterpolator.html",
+      "role": "Official implementation uses Qhull triangles and linear barycentric interpolation; exact partition of unity defines constant reproduction. Current local sampler is inspected directly, not assumed identical to every SciPy version."
+    }
+  ],
+  "sources": {
+    "runs/interpolation_constant_audit_20261109/probe.py": "2df15d7e12ef00a5202eb72a113c59b44e2092ee9235f9c77f21025b93b91b28",
+    "tracking/observed_spatial_reader.py": "b7959ca4d1bc1d996da7df1c7590c92946bd242cde26c72f0ea25e4a5c267389",
+    "tracking/channel_balanced_correspondence.py": "f024871ccebbcb329bd147061d0bf621896eef64cf63a31154d2e244737502bd",
+    "tracking/hex_background_filter.py": "a613452584c1261343360a99a7e89e24eee5110f9ad775f2f0cdc34e4a8c0b79",
+    "runs/common_state_memory_20261109/protocol.json": "2c05b61818d32dec26b5eb48378d98c6fa1d615eb11b571e44039115c3e99254",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "tests/test_observed_spatial_reader.py": "b8d13bc6bbaeab344b3184ba834bf60414f90abbde114e595c4c359277ef5d99",
+    "tests/test_channel_balanced_correspondence.py": "97fe0b0ebc1a16b297e57d5be5eb4eee534616585675d63a4c8bdab583026fa9"
+  }
+}

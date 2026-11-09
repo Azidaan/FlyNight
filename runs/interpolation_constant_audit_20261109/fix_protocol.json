@@ -1,0 +1,30 @@
+{
+  "registered": "2026-11-09T05:02:26.100185+03:00",
+  "before_sources_verified_via_archives": {
+    "tracking/observed_spatial_reader.py": "runs/interpolation_constant_audit_20261109/before/observed_spatial_reader.py",
+    "tracking/hex_background_filter.py": "runs/interpolation_constant_audit_20261109/before/hex_background_filter.py"
+  },
+  "method": "Triangle interpolant v2+b0*(v0-v2)+b1*(v1-v2), same barycentric coordinates and hull. Constant channels exactly preserved. Global unit_patch sets exactly constant channels to zero before normalization, as balanced reader already did. No variance cutoff, epsilon, threshold, weights, geometry or search change.",
+  "math": "Exact partition of unity: sum(b_i)=1 gives the same affine interpolant. Difference expression multiplies zeros for a constant field, avoiding roundoff-generated contrast. Constant-current NCC must abstain; affine fields and source-node values must agree to normal floating error. This corrects implementation consistency, not proof of an identity-bearing signal.",
+  "checks": "Run3new invariants plus directly affected reader/background-filter tests. Reuse unchanged channel-balancing proof by source hash, no GPU/model/detector. Repeat the NEW constant scenario with fixed expression; prior old76grids read, not recalculated.",
+  "real_regression": "Same19 frozen real geometries, maps, templates, controls and six arms as common_state_memory. Only numerical interpolation/constant-centering changes. Read all ready old798grids; evaluate fixed grids without neural replay. Report maximum score change, null transitions, AUROC/ranking changes and whole support. Development/regression evidence only, not an independent new identity benchmark.",
+  "sources": {
+    "runs/interpolation_constant_audit_20261109/fix.py": "5c6063a8f5ad46aae317cf203d96f14ec64c50080d07b12a629dc62ac6f69bcf",
+    "runs/interpolation_constant_audit_20261109/protocol.json": "e8fbbfbed6cc9030c37654db5f079940ea80ec5c3738432553f617b13f15d337",
+    "runs/interpolation_constant_audit_20261109/results.json": "4e63051c3096b37ccf6f39afd668b89e6ea89343d4df4bd3749a7e78f23422a2",
+    "runs/interpolation_constant_audit_20261109/before/observed_spatial_reader.py": "b7959ca4d1bc1d996da7df1c7590c92946bd242cde26c72f0ea25e4a5c267389",
+    "runs/interpolation_constant_audit_20261109/before/hex_background_filter.py": "a613452584c1261343360a99a7e89e24eee5110f9ad775f2f0cdc34e4a8c0b79",
+    "tracking/observed_spatial_reader.py": "66f391d4520edfc9a9f9c46d57157e04dbbcaf73a8d3d1013e931e28e16b045d",
+    "tracking/hex_background_filter.py": "175209c6eda5c7095e55c0d5b19d7d39f16241f8a6e317f862a23974e3c7614e",
+    "tracking/hex_linear_interpolation.py": "6398d9d9654328e13a9a04c335bed92b5202dabcf8b63ca19a69ebc925ab477e",
+    "tests/test_hex_linear_interpolation.py": "98f4cc643926134335dd4d9e8f55d36a6c9b14e6c05979725b9134cb5ad8f59b",
+    "tests/test_observed_spatial_reader.py": "b8d13bc6bbaeab344b3184ba834bf60414f90abbde114e595c4c359277ef5d99",
+    "tests/test_hex_background_filter.py": "f94ae1615fd2ef3d1a4ff50c161c4ea4986d6f49842a10ae537c4e9511bc55a1",
+    "runs/common_state_memory_20261109/protocol.json": "2c05b61818d32dec26b5eb48378d98c6fa1d615eb11b571e44039115c3e99254",
+    "runs/common_state_memory_20261109/results.json": "7ed6ce12e11330fb1af191e80e04e3ca697b0a55619eddb6dced19b1bb053cb8",
+    "runs/common_state_memory_20261109/summary.json": "7eada5d0f077ecf3316577d2a7fd8d3ba7c83065e809eb415429342596a9a9d1",
+    "runs/common_state_memory_20261109/maps_complete.json": "e19dc45199e80d2fdd130c0981f5428761fb8bd99442d17f26c4a4cf2578e49c",
+    "runs/common_state_memory_20261109/recover_maps.py": "9e8418a057904107e397ce3a339f4eb251743f7242e7301dc3fa7246f36aaa92",
+    "runs/common_state_memory_20261109/compare.py": "1b66d24b0058295847ac7e2faf2897642f242acd3dec3a956abe467cb46f1395"
+  }
+}

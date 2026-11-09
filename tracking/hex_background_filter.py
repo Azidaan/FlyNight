@@ -11,7 +11,9 @@ import numpy as np
 def unit_patch(patch):
     a=np.asarray(patch,dtype=np.float64)
     if a.ndim!=2 or not np.isfinite(a).all():raise ValueError('Finite cells-by-channels required')
+    active=np.ptp(a,axis=0)!=0
     a=a-a.mean(0)
+    a[:,~active]=0
     norm=np.linalg.norm(a)
     return None if norm==0 else a.ravel()/norm
 

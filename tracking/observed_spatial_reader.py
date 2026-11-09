@@ -9,6 +9,7 @@ from scipy.spatial import Delaunay
 from tracking.clipping_aware_correspondence import visible_edge_translation
 from tracking.channel_balanced_correspondence import channel_balanced_similarity
 from tracking.hex_background_filter import unit_patch
+from tracking.hex_linear_interpolation import sample_linear
 
 
 class ObservedSpatialReader:
@@ -41,10 +42,7 @@ class ObservedSpatialReader:
         if a.ndim!=2 or b.shape!=a.shape or len(a)!=len(self.points) or not np.isfinite(a).all() or not np.isfinite(b).all():raise ValueError('Equal finite eye maps required')
         idx=np.asarray(plan['cells'],int);query=np.asarray(plan['query'],float)
         if len(idx)<3:return dict(score=None,scores=None,winner=None,reason='fewer_than_three_cells')
-        si=self.mesh.find_simplex(query)
-        if (si<0).any():raise ValueError('Query outside the eye hull')
-        tr=self.mesh.transform[si];w=np.einsum('...ij,...j->...i',tr[...,:2,:],query-tr[...,2,:]);w=np.concatenate([w,1-w.sum(-1,keepdims=True)],-1)
-        patches=np.einsum('...v,...vc->...c',w,b[self.mesh.simplices[si]]).transpose(1,0,2)
+        patches=sample_linear(self.mesh,b,query).transpose(1,0,2)
         if normalization=='channels':scores=[channel_balanced_similarity(a[idx],v) for v in patches]
         else:
             z0=unit_patch(a[idx]);scores=[float(z0@z) if z0 is not None and (z:=unit_patch(v)) is not None else None for v in patches]
