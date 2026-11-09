@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "pearson_own": 0.9994220399047464,
+  "pearson_foreign": 1.0000000000000002,
+  "agreement_own": 0.9993849938499385,
+  "agreement_foreign": 0.22343324250681196,
+  "algebra_max_error": 5.551115123125783e-17,
+  "common_affine_invariance_max_error": 2.220446049250313e-16,
+  "largest_abs_random_coefficient": 0.48734737020852475,
+  "true_match_independent_brightness_score": 0.34417628541448075,
+  "affine_early_channel_pearson_error": 4.440892098500626e-16,
+  "constant_reference_abstains": true,
+  "disappearing_current_gives_zero": true,
+  "action": "Candidate: replace perchannelPearson with agreement retaining its paired means/variances at the OLD fixed winner. Variance-only agreement is a separate control for the paired mean penalty. Ordinary image channels receive identical readout.",
+  "scope": "Synthetic mathematical viability only. Not evidence that any actual foreign pair differs in mean/variance, or that preserved means are identity rather than illumination. No new core/maps/realpair estimates or fits. Affine early-map counterexample warns that new cell names alone may not add features under Pearson.",
+  "sources": {
+    "research_agreement_readout_20261109/math_check.py": "75ba4ad867c42b1b109bfbf68546c4a9dfbcda32ac92942b00c334b360ae8c6d",
+    "tracking/channel_agreement_correspondence.py": "807948699b5f776c7134f51c9a68347afb1bdebeb01462b896607d1dfb8b4740",
+    "tracking/channel_balanced_correspondence.py": "f024871ccebbcb329bd147061d0bf621896eef64cf63a31154d2e244737502bd",
+    "tracking/channel_identity_head.py": "c39c2b3770aedf6fdab9b71a3e68dc35bea52768614cdcebf02823163cc0e79c"
+  },
+  "goal_achieved": false
+}
