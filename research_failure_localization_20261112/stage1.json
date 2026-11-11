@@ -1,0 +1,5282 @@
+{
+  "passed": true,
+  "records": [
+    {
+      "video": "b1cd1e94-549d0bfe",
+      "frame": 540,
+      "old_id": 832,
+      "raw_id": 31468,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00118997",
+          "iou": 0.6254415768131609,
+          "box": [
+            562.1993679131763,
+            382.44254249776344,
+            608.2983077102841,
+            406.8586623814529
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00118997",
+          "iou": 0.6029241193285082,
+          "box": [
+            562.1993679131763,
+            382.44254249776344,
+            604.4508364756507,
+            406.8586623814529
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "head_false_negative",
+      "gate": null,
+      "head_score": -0.3984599334370426,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 14,
+      "column": 8,
+      "shape": [
+        15,
+        9
+      ],
+      "original_cost": 0.8673145771026611,
+      "corrected_cost": 0.8673145771026611,
+      "competitors": [
+        {
+          "row": 8,
+          "column": 8,
+          "tid": 773,
+          "state": 1,
+          "original_cost": 0.7024744749069214,
+          "corrected_cost": 0.7024744749069214,
+          "owner_at_or_before": [
+            {
+              "frame": 522,
+              "raw_id": 30626,
+              "emitted": true,
+              "hits": [],
+              "kind": "unknown"
+            },
+            {
+              "frame": 528,
+              "raw_id": 30929,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00118997",
+                  "iou": 0.5359610699536096,
+                  "box": [
+                    564.4134587140529,
+                    382.44254249776344,
+                    616.877725825305,
+                    406.8586623814529
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 540,
+              "raw_id": 31468,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00118997",
+                  "iou": 0.6029241193285082,
+                  "box": [
+                    562.1993679131763,
+                    382.44254249776344,
+                    604.4508364756507,
+                    406.8586623814529
+                  ]
+                }
+              ],
+              "kind": "own"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 522,
+          "box": [
+            572.6755636648709,
+            381.2860292229476,
+            597.194003568727,
+            403.3966457858354
+          ],
+          "crop": [
+            553,
+            360,
+            617,
+            424
+          ],
+          "raw_id": 30627,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 523,
+          "box": [
+            572.0674347380224,
+            382.30708615842696,
+            596.9927249417885,
+            404.3576109545924
+          ],
+          "crop": [
+            553,
+            361,
+            617,
+            425
+          ],
+          "raw_id": 30664,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 524,
+          "box": [
+            570.2069723573074,
+            383.39814901436944,
+            596.5662064983902,
+            405.3819030181052
+          ],
+          "crop": [
+            551,
+            362,
+            615,
+            426
+          ],
+          "raw_id": 30716,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 534,
+          "box": [
+            565.3101014997933,
+            382.9067008261148,
+            594.5545421636084,
+            406.89693994603937
+          ],
+          "crop": [
+            548,
+            363,
+            612,
+            427
+          ],
+          "raw_id": 31244,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 534,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1cd1e94-549d0bfe",
+      "frame": 546,
+      "old_id": 832,
+      "raw_id": 31734,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00118997",
+          "iou": 0.6254415768131609,
+          "box": [
+            562.1993679131763,
+            382.44254249776344,
+            608.2983077102841,
+            406.8586623814529
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00118997",
+          "iou": 0.6358583201455638,
+          "box": [
+            558.2103209873936,
+            380.14124641330676,
+            599.5087327321871,
+            405.2426343555737
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "gap_exclusion_of_own",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 14,
+      "column": 6,
+      "shape": [
+        16,
+        7
+      ],
+      "original_cost": 0.7875586748123169,
+      "corrected_cost": 0.7875586748123169,
+      "competitors": [
+        {
+          "row": 7,
+          "column": 6,
+          "tid": 773,
+          "state": 1,
+          "original_cost": 0.6189171075820923,
+          "corrected_cost": 0.6189171075820923,
+          "owner_at_or_before": [
+            {
+              "frame": 528,
+              "raw_id": 30929,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00118997",
+                  "iou": 0.5359610699536096,
+                  "box": [
+                    564.4134587140529,
+                    382.44254249776344,
+                    616.877725825305,
+                    406.8586623814529
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 540,
+              "raw_id": 31468,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00118997",
+                  "iou": 0.6029241193285082,
+                  "box": [
+                    562.1993679131763,
+                    382.44254249776344,
+                    604.4508364756507,
+                    406.8586623814529
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 546,
+              "raw_id": 31734,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00118997",
+                  "iou": 0.6358583201455638,
+                  "box": [
+                    558.2103209873936,
+                    380.14124641330676,
+                    599.5087327321871,
+                    405.2426343555737
+                  ]
+                }
+              ],
+              "kind": "own"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 522,
+          "box": [
+            572.6755636648709,
+            381.2860292229476,
+            597.194003568727,
+            403.3966457858354
+          ],
+          "crop": [
+            553,
+            360,
+            617,
+            424
+          ],
+          "raw_id": 30627,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 523,
+          "box": [
+            572.0674347380224,
+            382.30708615842696,
+            596.9927249417885,
+            404.3576109545924
+          ],
+          "crop": [
+            553,
+            361,
+            617,
+            425
+          ],
+          "raw_id": 30664,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 524,
+          "box": [
+            570.2069723573074,
+            383.39814901436944,
+            596.5662064983902,
+            405.3819030181052
+          ],
+          "crop": [
+            551,
+            362,
+            615,
+            426
+          ],
+          "raw_id": 30716,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 534,
+          "box": [
+            565.3101014997933,
+            382.9067008261148,
+            594.5545421636084,
+            406.89693994603937
+          ],
+          "crop": [
+            548,
+            363,
+            612,
+            427
+          ],
+          "raw_id": 31244,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 534,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1cd1e94-549d0bfe",
+      "frame": 552,
+      "old_id": 832,
+      "raw_id": 32021,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00118997",
+          "iou": 0.6254415768131609,
+          "box": [
+            562.1993679131763,
+            382.44254249776344,
+            608.2983077102841,
+            406.8586623814529
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00118997",
+          "iou": 0.7617909352486255,
+          "box": [
+            551.7639834409966,
+            378.77250838666896,
+            589.096077316893,
+            404.74676223662016
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "gap_exclusion_of_own",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 11,
+      "column": 7,
+      "shape": [
+        16,
+        8
+      ],
+      "original_cost": 0.8200114965438843,
+      "corrected_cost": 0.8200114965438843,
+      "competitors": [
+        {
+          "row": 6,
+          "column": 7,
+          "tid": 773,
+          "state": 1,
+          "original_cost": 0.6647180318832397,
+          "corrected_cost": 0.6647180318832397,
+          "owner_at_or_before": [
+            {
+              "frame": 540,
+              "raw_id": 31468,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00118997",
+                  "iou": 0.6029241193285082,
+                  "box": [
+                    562.1993679131763,
+                    382.44254249776344,
+                    604.4508364756507,
+                    406.8586623814529
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 546,
+              "raw_id": 31734,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00118997",
+                  "iou": 0.6358583201455638,
+                  "box": [
+                    558.2103209873936,
+                    380.14124641330676,
+                    599.5087327321871,
+                    405.2426343555737
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 552,
+              "raw_id": 32021,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00118997",
+                  "iou": 0.7617909352486255,
+                  "box": [
+                    551.7639834409966,
+                    378.77250838666896,
+                    589.096077316893,
+                    404.74676223662016
+                  ]
+                }
+              ],
+              "kind": "own"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 522,
+          "box": [
+            572.6755636648709,
+            381.2860292229476,
+            597.194003568727,
+            403.3966457858354
+          ],
+          "crop": [
+            553,
+            360,
+            617,
+            424
+          ],
+          "raw_id": 30627,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 523,
+          "box": [
+            572.0674347380224,
+            382.30708615842696,
+            596.9927249417885,
+            404.3576109545924
+          ],
+          "crop": [
+            553,
+            361,
+            617,
+            425
+          ],
+          "raw_id": 30664,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 524,
+          "box": [
+            570.2069723573074,
+            383.39814901436944,
+            596.5662064983902,
+            405.3819030181052
+          ],
+          "crop": [
+            551,
+            362,
+            615,
+            426
+          ],
+          "raw_id": 30716,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 534,
+          "box": [
+            565.3101014997933,
+            382.9067008261148,
+            594.5545421636084,
+            406.89693994603937
+          ],
+          "crop": [
+            548,
+            363,
+            612,
+            427
+          ],
+          "raw_id": 31244,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 534,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1d0a191-de8948f6",
+      "frame": 619,
+      "old_id": 655,
+      "raw_id": 34153,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00123073",
+          "iou": 0.8349248314945807,
+          "box": [
+            458.1009864689111,
+            286.5017139473519,
+            486.495408476907,
+            343.6096879195543
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00123073",
+          "iou": 0.8345588268549731,
+          "box": [
+            391.5019039809158,
+            272.732924599615,
+            452.89763207944367,
+            360.6342958908618
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "gap_exclusion_of_own",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 15,
+      "column": 7,
+      "shape": [
+        21,
+        15
+      ],
+      "original_cost": 0.9351279735565186,
+      "corrected_cost": 0.9351279735565186,
+      "competitors": [
+        {
+          "row": 10,
+          "column": 7,
+          "tid": 662,
+          "state": 1,
+          "original_cost": 0.18899720907211304,
+          "corrected_cost": 0.18899720907211304,
+          "owner_at_or_before": [
+            {
+              "frame": 607,
+              "raw_id": 33639,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00123073",
+                  "iou": 0.8942322336259768,
+                  "box": [
+                    421.6852653290836,
+                    292.4002837149088,
+                    469.4179429403891,
+                    368.59575516384984
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 613,
+              "raw_id": 33924,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00123073",
+                  "iou": 0.9253119103294636,
+                  "box": [
+                    405.45673298056255,
+                    275.27016623591436,
+                    462.3492423610929,
+                    360.38816471026917
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 619,
+              "raw_id": 34153,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00123073",
+                  "iou": 0.8345588268549731,
+                  "box": [
+                    391.5019039809158,
+                    272.732924599615,
+                    452.89763207944367,
+                    360.6342958908618
+                  ]
+                }
+              ],
+              "kind": "own"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 586,
+          "box": [
+            457.5436656192351,
+            288.25532730319344,
+            488.4150287689206,
+            343.74870848467333
+          ],
+          "crop": [
+            417,
+            261,
+            528,
+            372
+          ],
+          "raw_id": 32813,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 587,
+          "box": [
+            457.0200613346444,
+            288.5802773048202,
+            488.35421752422815,
+            343.82116234999063
+          ],
+          "crop": [
+            418,
+            261,
+            528,
+            371
+          ],
+          "raw_id": 32856,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 588,
+          "box": [
+            456.4366400449415,
+            289.6595760927654,
+            488.1769559770971,
+            344.86153371038324
+          ],
+          "crop": [
+            417,
+            262,
+            527,
+            372
+          ],
+          "raw_id": 32894,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 589,
+          "box": [
+            456.11276056894735,
+            289.49582063172505,
+            487.87949133270587,
+            345.5536425920792
+          ],
+          "crop": [
+            416,
+            262,
+            528,
+            374
+          ],
+          "raw_id": 32937,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 589,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1d10d08-743fd86c",
+      "frame": 541,
+      "old_id": 261,
+      "raw_id": 13678,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00126633",
+          "iou": 0.664985607043705,
+          "box": [
+            0.0,
+            451.4898723888878,
+            68.99254676521693,
+            490.31726070807247
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00126633",
+          "iou": 0.8197422516101721,
+          "box": [
+            0.0,
+            449.8762163293933,
+            50.24054480801306,
+            477.12923303594357
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "gap_exclusion_of_own",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 7,
+      "column": 6,
+      "shape": [
+        12,
+        7
+      ],
+      "original_cost": 0.9365923404693604,
+      "corrected_cost": 0.9365923404693604,
+      "competitors": [],
+      "history": [
+        {
+          "frame": 523,
+          "box": [
+            -0.23444579929722664,
+            442.81689931105916,
+            77.28542107638188,
+            493.27823649269175
+          ],
+          "crop": [
+            0,
+            391,
+            155,
+            546
+          ],
+          "raw_id": 12996,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 525,
+          "box": [
+            -0.26181950419647393,
+            447.9830304583852,
+            73.69082684862465,
+            493.88053324605784
+          ],
+          "crop": [
+            0,
+            397,
+            148,
+            545
+          ],
+          "raw_id": 13061,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 526,
+          "box": [
+            -0.245391511863275,
+            450.30230051731274,
+            68.92787748493004,
+            493.3362015762272
+          ],
+          "crop": [
+            0,
+            403,
+            138,
+            541
+          ],
+          "raw_id": 13086,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 529,
+          "box": [
+            8.104843831427623,
+            454.9201478798768,
+            73.21343305634826,
+            493.94425883723756
+          ],
+          "crop": [
+            0,
+            409,
+            130,
+            539
+          ],
+          "raw_id": 13197,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 529,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1d10d08-743fd86c",
+      "frame": 1003,
+      "old_id": 597,
+      "raw_id": 22198,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00126668",
+          "iou": 0.8738360638098467,
+          "box": [
+            657.7139918919818,
+            375.9748876314352,
+            1280.0,
+            667.3957671532107
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00126668",
+          "iou": 0.910202736190283,
+          "box": [
+            1108.883858527023,
+            424.38367160515213,
+            1280.0,
+            663.5230644353134
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "gap_exclusion_of_own",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 7,
+      "column": 2,
+      "shape": [
+        10,
+        5
+      ],
+      "original_cost": 0.7875293493270874,
+      "corrected_cost": 0.7875293493270874,
+      "competitors": [
+        {
+          "row": 3,
+          "column": 2,
+          "tid": 637,
+          "state": 1,
+          "original_cost": 0.2823222279548645,
+          "corrected_cost": 0.2823222279548645,
+          "owner_at_or_before": [
+            {
+              "frame": 991,
+              "raw_id": 22007,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00126668",
+                  "iou": 0.8282454644643564,
+                  "box": [
+                    657.7139918919818,
+                    375.9748876314352,
+                    1280.0,
+                    667.3957671532107
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 997,
+              "raw_id": 22126,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00126668",
+                  "iou": 0.9776890400064002,
+                  "box": [
+                    857.1581818636953,
+                    393.4020498619733,
+                    1280.0,
+                    633.5096183716089
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 1003,
+              "raw_id": 22198,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00126668",
+                  "iou": 0.910202736190283,
+                  "box": [
+                    1108.883858527023,
+                    424.38367160515213,
+                    1280.0,
+                    663.5230644353134
+                  ]
+                }
+              ],
+              "kind": "own"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 988,
+          "box": [
+            526.5629795573134,
+            378.3093938269089,
+            1282.8419965081046,
+            649.7598463942559
+          ],
+          "crop": [
+            545,
+            0,
+            1265,
+            720
+          ],
+          "raw_id": 21940,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 989,
+          "box": [
+            562.9217726826018,
+            379.57923305210034,
+            1291.7226216098234,
+            653.215021439041
+          ],
+          "crop": [
+            560,
+            0,
+            1280,
+            720
+          ],
+          "raw_id": 21960,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 990,
+          "box": [
+            596.3222732592548,
+            380.2604874771482,
+            1293.6832203077533,
+            651.0338521427193
+          ],
+          "crop": [
+            560,
+            0,
+            1280,
+            720
+          ],
+          "raw_id": 21983,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 991,
+          "box": [
+            640.8104598003829,
+            379.6753132428921,
+            1293.134970308691,
+            642.1070495406786
+          ],
+          "crop": [
+            560,
+            0,
+            1280,
+            720
+          ],
+          "raw_id": 22005,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 991,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1e3e9f5-92377424",
+      "frame": 295,
+      "old_id": 261,
+      "raw_id": 12541,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00116597",
+          "iou": 0.82513408540053,
+          "box": [
+            509.53687218673855,
+            185.7086589712012,
+            532.5736373778107,
+            212.38280813981098
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00116597",
+          "iou": 0.8543071410175851,
+          "box": [
+            539.848405332886,
+            176.00896836443403,
+            564.097631849804,
+            201.4706562071979
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "gap_exclusion_of_own",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 19,
+      "column": 13,
+      "shape": [
+        23,
+        15
+      ],
+      "original_cost": 0.9820500016212463,
+      "corrected_cost": 0.9820500016212463,
+      "competitors": [],
+      "history": [
+        {
+          "frame": 280,
+          "box": [
+            508.3664402729819,
+            190.01036035764608,
+            535.002198443945,
+            214.92683869897917
+          ],
+          "crop": [
+            490,
+            170,
+            554,
+            234
+          ],
+          "raw_id": 11947,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 281,
+          "box": [
+            507.6346396012774,
+            187.00188134934712,
+            534.3308177641535,
+            213.01275356610304
+          ],
+          "crop": [
+            489,
+            168,
+            553,
+            232
+          ],
+          "raw_id": 11999,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 282,
+          "box": [
+            508.9016215014603,
+            184.77219740567514,
+            536.0475564213456,
+            209.875222296569
+          ],
+          "crop": [
+            490,
+            165,
+            554,
+            229
+          ],
+          "raw_id": 12048,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 283,
+          "box": [
+            508.27259536319997,
+            184.3995315290878,
+            535.5723712645539,
+            210.27184632810454
+          ],
+          "crop": [
+            490,
+            165,
+            554,
+            229
+          ],
+          "raw_id": 12094,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 283,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1e3e9f5-92377424",
+      "frame": 558,
+      "old_id": 826,
+      "raw_id": 25556,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00116633",
+          "iou": 0.793623501833521,
+          "box": [
+            501.0496429058173,
+            216.6264227802716,
+            513.1742561642762,
+            236.02580399380597
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00116633",
+          "iou": 0.8608691149100656,
+          "box": [
+            481.6502616922829,
+            219.0513454319634,
+            494.9873362765878,
+            236.02580399380597
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "gap_exclusion_of_own",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 20,
+      "column": 10,
+      "shape": [
+        26,
+        20
+      ],
+      "original_cost": 1.0,
+      "corrected_cost": 1.0,
+      "competitors": [
+        {
+          "row": 14,
+          "column": 10,
+          "tid": 855,
+          "state": 1,
+          "original_cost": 0.6740800142288208,
+          "corrected_cost": 0.6740800142288208,
+          "owner_at_or_before": [
+            {
+              "frame": 558,
+              "raw_id": 25556,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00116633",
+                  "iou": 0.8608691149100656,
+                  "box": [
+                    481.6502616922829,
+                    219.0513454319634,
+                    494.9873362765878,
+                    236.02580399380597
+                  ]
+                }
+              ],
+              "kind": "own"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 545,
+          "box": [
+            500.14947509765625,
+            218.66302490234375,
+            513.244384765625,
+            235.77316284179688
+          ],
+          "crop": [
+            475,
+            195,
+            539,
+            259
+          ],
+          "raw_id": 24636,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": false
+        },
+        {
+          "frame": 545,
+          "box": [
+            500.14947509765625,
+            218.66302490234375,
+            513.244384765625,
+            235.77316284179688
+          ],
+          "crop": [
+            475,
+            195,
+            539,
+            259
+          ],
+          "raw_id": 24636,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": false
+        },
+        {
+          "frame": 545,
+          "box": [
+            500.14947509765625,
+            218.66302490234375,
+            513.244384765625,
+            235.77316284179688
+          ],
+          "crop": [
+            475,
+            195,
+            539,
+            259
+          ],
+          "raw_id": 24636,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": false
+        },
+        {
+          "frame": 546,
+          "box": [
+            500.9986328125,
+            217.83187255859374,
+            513.9706665039063,
+            234.60258178710936
+          ],
+          "crop": [
+            475,
+            194,
+            539,
+            258
+          ],
+          "raw_id": 24698,
+          "raw_origin_method": "unique_exact_frame_score_class",
+          "public": true
+        }
+      ],
+      "reference_frame": 546,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1f4491b-cf446195",
+      "frame": 66,
+      "old_id": 107,
+      "raw_id": 8142,
+      "kind": "foreign",
+      "reference_hits": [
+        {
+          "identity": "00119342",
+          "iou": 0.6453872589209418,
+          "box": [
+            140.51208494319067,
+            236.37869460173448,
+            160.7226618992624,
+            252.73314607231612
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00119317",
+          "iou": 0.8943748668628274,
+          "box": [
+            109.39195874771892,
+            220.17390102628934,
+            160.03765369723774,
+            252.73314607231612
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "correct_rejection_of_foreign_by_gap",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 22,
+      "column": 4,
+      "shape": [
+        31,
+        22
+      ],
+      "original_cost": 0.872795820236206,
+      "corrected_cost": 0.872795820236206,
+      "competitors": [
+        {
+          "row": 8,
+          "column": 4,
+          "tid": 14,
+          "state": 1,
+          "original_cost": 0.34769630432128906,
+          "corrected_cost": 0.34769630432128906,
+          "owner_at_or_before": [
+            {
+              "frame": 24,
+              "raw_id": 2731,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00119300",
+                  "iou": 0.840580933331807,
+                  "box": [
+                    248.35061902800868,
+                    236.5671327210969,
+                    293.662701972928,
+                    256.00033578603376
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 60,
+              "raw_id": 7303,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00119317",
+                  "iou": 0.8773383631288802,
+                  "box": [
+                    161.2793272823582,
+                    222.05996928056035,
+                    192.57233108341276,
+                    253.95476161625058
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 66,
+              "raw_id": 8142,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00119317",
+                  "iou": 0.8943748668628274,
+                  "box": [
+                    109.39195874771892,
+                    220.17390102628934,
+                    160.03765369723774,
+                    252.73314607231612
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 38,
+          "box": [
+            118.88392876015439,
+            232.50244670817196,
+            160.88160812653229,
+            251.10956120116438
+          ],
+          "crop": [
+            98,
+            200,
+            182,
+            284
+          ],
+          "raw_id": 4338,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 40,
+          "box": [
+            119.89009207073666,
+            234.8448319934172,
+            172.08505750004565,
+            251.47431100955805
+          ],
+          "crop": [
+            94,
+            191,
+            198,
+            295
+          ],
+          "raw_id": 4628,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 47,
+          "box": [
+            141.62119427022992,
+            233.53860791175293,
+            169.81166069976345,
+            252.84095491825218
+          ],
+          "crop": [
+            124,
+            211,
+            188,
+            275
+          ],
+          "raw_id": 5611,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 48,
+          "box": [
+            141.01953885016005,
+            232.57387198787882,
+            165.25937409662978,
+            252.50341305640237
+          ],
+          "crop": [
+            121,
+            211,
+            185,
+            275
+          ],
+          "raw_id": 5750,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 48,
+      "future_observations": [],
+      "full_root_cause_closed": true,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1f4491b-cf446195",
+      "frame": 72,
+      "old_id": 107,
+      "raw_id": 8960,
+      "kind": "foreign",
+      "reference_hits": [
+        {
+          "identity": "00119342",
+          "iou": 0.6453872589209418,
+          "box": [
+            140.51208494319067,
+            236.37869460173448,
+            160.7226618992624,
+            252.73314607231612
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00119329",
+          "iou": 0.7076788406967292,
+          "box": [
+            101.89012226635596,
+            213.92375536271322,
+            156.0756844189033,
+            255.24515322847336
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "correct_rejection_of_foreign_by_gap",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 17,
+      "column": 15,
+      "shape": [
+        35,
+        19
+      ],
+      "original_cost": 0.9552115797996521,
+      "corrected_cost": 0.9552115797996521,
+      "competitors": [],
+      "history": [
+        {
+          "frame": 38,
+          "box": [
+            118.88392876015439,
+            232.50244670817196,
+            160.88160812653229,
+            251.10956120116438
+          ],
+          "crop": [
+            98,
+            200,
+            182,
+            284
+          ],
+          "raw_id": 4338,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 40,
+          "box": [
+            119.89009207073666,
+            234.8448319934172,
+            172.08505750004565,
+            251.47431100955805
+          ],
+          "crop": [
+            94,
+            191,
+            198,
+            295
+          ],
+          "raw_id": 4628,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 47,
+          "box": [
+            141.62119427022992,
+            233.53860791175293,
+            169.81166069976345,
+            252.84095491825218
+          ],
+          "crop": [
+            124,
+            211,
+            188,
+            275
+          ],
+          "raw_id": 5611,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 48,
+          "box": [
+            141.01953885016005,
+            232.57387198787882,
+            165.25937409662978,
+            252.50341305640237
+          ],
+          "crop": [
+            121,
+            211,
+            185,
+            275
+          ],
+          "raw_id": 5750,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 48,
+      "future_observations": [],
+      "full_root_cause_closed": true,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1f4491b-cf446195",
+      "frame": 258,
+      "old_id": 1102,
+      "raw_id": 32657,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00119408",
+          "iou": 0.6390619973373401,
+          "box": [
+            871.9393457691725,
+            267.21121409471135,
+            905.1702380006463,
+            289.6544742681792
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00119408",
+          "iou": 0.8604351571817359,
+          "box": [
+            886.293423807056,
+            265.84415904348435,
+            927.6835661064866,
+            288.99543991534904
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "head_true_positive_blocked_by_assignment",
+      "gate": null,
+      "head_score": 0.2041261740601067,
+      "head_accept": true,
+      "selected": false,
+      "emitted": false,
+      "row": 23,
+      "column": 5,
+      "shape": [
+        28,
+        15
+      ],
+      "original_cost": 0.7851454019546509,
+      "corrected_cost": 0.5851454138755798,
+      "competitors": [
+        {
+          "row": 6,
+          "column": 5,
+          "tid": 1072,
+          "state": 1,
+          "original_cost": 0.4262378215789795,
+          "corrected_cost": 0.4262378215789795,
+          "owner_at_or_before": [
+            {
+              "frame": 246,
+              "raw_id": 31697,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00119408",
+                  "iou": 0.669367542825848,
+                  "box": [
+                    857.059835007518,
+                    266.5912344796424,
+                    885.4548938095647,
+                    287.7945354229724
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 252,
+              "raw_id": 32141,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00119408",
+                  "iou": 0.6553471337476603,
+                  "box": [
+                    871.9393457691725,
+                    267.21121409471135,
+                    905.1702380006463,
+                    289.6544742681792
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 258,
+              "raw_id": 32657,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00119408",
+                  "iou": 0.8604351571817359,
+                  "box": [
+                    886.293423807056,
+                    265.84415904348435,
+                    927.6835661064866,
+                    288.99543991534904
+                  ]
+                }
+              ],
+              "kind": "own"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 251,
+          "box": [
+            863.0675048828125,
+            267.119873046875,
+            905.7217407226562,
+            289.6717834472656
+          ],
+          "crop": [
+            842,
+            236,
+            927,
+            321
+          ],
+          "raw_id": 32074,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": false
+        },
+        {
+          "frame": 251,
+          "box": [
+            863.0675048828125,
+            267.119873046875,
+            905.7217407226562,
+            289.6717834472656
+          ],
+          "crop": [
+            842,
+            236,
+            927,
+            321
+          ],
+          "raw_id": 32074,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": false
+        },
+        {
+          "frame": 251,
+          "box": [
+            863.0675048828125,
+            267.119873046875,
+            905.7217407226562,
+            289.6717834472656
+          ],
+          "crop": [
+            842,
+            236,
+            927,
+            321
+          ],
+          "raw_id": 32074,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": false
+        },
+        {
+          "frame": 252,
+          "box": [
+            861.1247375488282,
+            268.1812347412109,
+            906.7330261230469,
+            291.0185943603515
+          ],
+          "crop": [
+            838,
+            234,
+            929,
+            325
+          ],
+          "raw_id": 32145,
+          "raw_origin_method": "unique_exact_frame_score_class",
+          "public": true
+        }
+      ],
+      "reference_frame": 252,
+      "future_observations": [
+        {
+          "frame": 264,
+          "kind": "foreign",
+          "hits": [
+            {
+              "identity": "00119417",
+              "iou": 0.6261955179425094
+            }
+          ],
+          "box": [
+            874.3418579101562,
+            272.01483154296875,
+            908.7672729492188,
+            288.49029541015625
+          ]
+        },
+        {
+          "frame": 270,
+          "kind": "foreign",
+          "hits": [
+            {
+              "identity": "00119417",
+              "iou": 0.6758051104189295
+            }
+          ],
+          "box": [
+            898.2964477539062,
+            273.7618103027344,
+            919.1808471679688,
+            289.32208251953125
+          ]
+        }
+      ],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1f4491b-cf446195",
+      "frame": 1116,
+      "old_id": 3089,
+      "raw_id": 81810,
+      "kind": "foreign",
+      "reference_hits": [
+        {
+          "identity": "00119592",
+          "iou": 0.6809259914409572,
+          "box": [
+            297.3661639993359,
+            249.66767361763868,
+            335.3145983593978,
+            283.9138216986701
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00119602",
+          "iou": 0.7481745248371046,
+          "box": [
+            300.0602611922506,
+            258.3092295209869,
+            320.16689664264925,
+            277.35762100031195
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "correct_rejection_of_foreign_by_gap",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 13,
+      "column": 5,
+      "shape": [
+        25,
+        15
+      ],
+      "original_cost": 0.9756231904029846,
+      "corrected_cost": 0.9756231904029846,
+      "competitors": [],
+      "history": [
+        {
+          "frame": 1099,
+          "box": [
+            323.2720229682219,
+            253.85266472522932,
+            362.60401481148995,
+            282.36954336368643
+          ],
+          "crop": [
+            303,
+            229,
+            382,
+            308
+          ],
+          "raw_id": 80728,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1100,
+          "box": [
+            318.0762406563467,
+            251.2233665200089,
+            360.86007698084234,
+            281.2827981870579
+          ],
+          "crop": [
+            296,
+            223,
+            382,
+            309
+          ],
+          "raw_id": 80783,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1102,
+          "box": [
+            307.6994171508496,
+            249.04024556110622,
+            356.17036332441916,
+            282.23963909867473
+          ],
+          "crop": [
+            283,
+            217,
+            380,
+            314
+          ],
+          "raw_id": 80885,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1104,
+          "box": [
+            297.1659848001797,
+            250.96306131909373,
+            349.5349502064732,
+            283.3661908618664
+          ],
+          "crop": [
+            271,
+            215,
+            376,
+            320
+          ],
+          "raw_id": 81013,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 1104,
+      "future_observations": [],
+      "full_root_cause_closed": true,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1f4491b-cf446195",
+      "frame": 1122,
+      "old_id": 3089,
+      "raw_id": 82130,
+      "kind": "foreign",
+      "reference_hits": [
+        {
+          "identity": "00119592",
+          "iou": 0.6809259914409572,
+          "box": [
+            297.3661639993359,
+            249.66767361763868,
+            335.3145983593978,
+            283.9138216986701
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00119602",
+          "iou": 0.8772779049714992,
+          "box": [
+            274.13328390094705,
+            264.6586933474286,
+            305.3995885511407,
+            283.51467903394774
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "correct_rejection_of_foreign_by_gap",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 12,
+      "column": 3,
+      "shape": [
+        25,
+        16
+      ],
+      "original_cost": 0.9795622825622559,
+      "corrected_cost": 0.9795622825622559,
+      "competitors": [
+        {
+          "row": 7,
+          "column": 3,
+          "tid": 3171,
+          "state": 1,
+          "original_cost": 0.5843915939331055,
+          "corrected_cost": 0.5843915939331055,
+          "owner_at_or_before": [
+            {
+              "frame": 1116,
+              "raw_id": 81810,
+              "emitted": false,
+              "hits": [
+                {
+                  "identity": "00119602",
+                  "iou": 0.7481745248371046,
+                  "box": [
+                    300.0602611922506,
+                    258.3092295209869,
+                    320.16689664264925,
+                    277.35762100031195
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 1122,
+              "raw_id": 82130,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00119602",
+                  "iou": 0.8772779049714992,
+                  "box": [
+                    274.13328390094705,
+                    264.6586933474286,
+                    305.3995885511407,
+                    283.51467903394774
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 1099,
+          "box": [
+            323.2720229682219,
+            253.85266472522932,
+            362.60401481148995,
+            282.36954336368643
+          ],
+          "crop": [
+            303,
+            229,
+            382,
+            308
+          ],
+          "raw_id": 80728,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1100,
+          "box": [
+            318.0762406563467,
+            251.2233665200089,
+            360.86007698084234,
+            281.2827981870579
+          ],
+          "crop": [
+            296,
+            223,
+            382,
+            309
+          ],
+          "raw_id": 80783,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1102,
+          "box": [
+            307.6994171508496,
+            249.04024556110622,
+            356.17036332441916,
+            282.23963909867473
+          ],
+          "crop": [
+            283,
+            217,
+            380,
+            314
+          ],
+          "raw_id": 80885,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1104,
+          "box": [
+            297.1659848001797,
+            250.96306131909373,
+            349.5349502064732,
+            283.3661908618664
+          ],
+          "crop": [
+            271,
+            215,
+            376,
+            320
+          ],
+          "raw_id": 81013,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 1104,
+      "future_observations": [],
+      "full_root_cause_closed": true,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1f4491b-cf446195",
+      "frame": 1140,
+      "old_id": 3196,
+      "raw_id": 83368,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00119603",
+          "iou": 0.8723448944060679,
+          "box": [
+            460.3366017239278,
+            253.43464749260363,
+            479.13049984752666,
+            268.46976599148275
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00119603",
+          "iou": 0.8019809752733036,
+          "box": [
+            444.5404172154122,
+            251.69130923003445,
+            463.4811056745695,
+            267.92618505216933
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "gap_exclusion_of_own",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 32,
+      "column": 9,
+      "shape": [
+        39,
+        19
+      ],
+      "original_cost": 0.6980991959571838,
+      "corrected_cost": 0.6980991959571838,
+      "competitors": [
+        {
+          "row": 8,
+          "column": 9,
+          "tid": 3185,
+          "state": 1,
+          "original_cost": 0.29960983991622925,
+          "corrected_cost": 0.29960983991622925,
+          "owner_at_or_before": [
+            {
+              "frame": 1122,
+              "raw_id": 82138,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00119603",
+                  "iou": 0.6994566908371668,
+                  "box": [
+                    467.4469599668444,
+                    261.322478070453,
+                    481.91826152201554,
+                    274.4782067569722
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 1134,
+              "raw_id": 82947,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00119603",
+                  "iou": 0.8613587554438218,
+                  "box": [
+                    455.0672586251326,
+                    257.5296228273859,
+                    472.9662092190363,
+                    273.04204667543576
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 1140,
+              "raw_id": 83368,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00119603",
+                  "iou": 0.8019809752733036,
+                  "box": [
+                    444.5404172154122,
+                    251.69130923003445,
+                    463.4811056745695,
+                    267.92618505216933
+                  ]
+                }
+              ],
+              "kind": "own"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 1125,
+          "box": [
+            464.92929687500003,
+            256.0538818359375,
+            483.3380859375,
+            269.689013671875
+          ],
+          "crop": [
+            442,
+            231,
+            506,
+            295
+          ],
+          "raw_id": 82329,
+          "raw_origin_method": "unique_exact_frame_score_class",
+          "public": true
+        },
+        {
+          "frame": 1126,
+          "box": [
+            464.0877740242373,
+            254.19365974068225,
+            482.37744473079454,
+            268.1514457994323
+          ],
+          "crop": [
+            441,
+            229,
+            505,
+            293
+          ],
+          "raw_id": 82400,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1127,
+          "box": [
+            462.91276074812936,
+            254.55910874564006,
+            481.695295852989,
+            267.83852077122935
+          ],
+          "crop": [
+            440,
+            229,
+            504,
+            293
+          ],
+          "raw_id": 82478,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1128,
+          "box": [
+            461.00380302655157,
+            254.44774193213286,
+            480.124190711511,
+            267.99682186091854
+          ],
+          "crop": [
+            439,
+            229,
+            503,
+            293
+          ],
+          "raw_id": 82538,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 1128,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b1f4491b-cf446195",
+      "frame": 1194,
+      "old_id": 3290,
+      "raw_id": 86260,
+      "kind": "foreign",
+      "reference_hits": [
+        {
+          "identity": "00119614",
+          "iou": 0.5881322773856819,
+          "box": [
+            465.4153867677997,
+            234.8063565651627,
+            480.1408977175819,
+            249.5318675149449
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00119612",
+          "iou": 0.8275614325326847,
+          "box": [
+            466.1083657912855,
+            236.85573737342537,
+            487.2559724096824,
+            252.28192376646442
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "correct_rejection_of_foreign_by_gap",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 9,
+      "column": 8,
+      "shape": [
+        19,
+        15
+      ],
+      "original_cost": 0.9302918910980225,
+      "corrected_cost": 0.9302918910980225,
+      "competitors": [
+        {
+          "row": 14,
+          "column": 8,
+          "tid": 3311,
+          "state": 2,
+          "original_cost": 0.5484039783477783,
+          "corrected_cost": 0.5484039783477783,
+          "owner_at_or_before": [
+            {
+              "frame": 1194,
+              "raw_id": 86260,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00119612",
+                  "iou": 0.8275614325326847,
+                  "box": [
+                    466.1083657912855,
+                    236.85573737342537,
+                    487.2559724096824,
+                    252.28192376646442
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 1179,
+          "box": [
+            465.582275390625,
+            242.79547119140625,
+            482.5370178222656,
+            255.22251892089844
+          ],
+          "crop": [
+            442,
+            217,
+            506,
+            281
+          ],
+          "raw_id": 85456,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": false
+        },
+        {
+          "frame": 1180,
+          "box": [
+            464.80715026855466,
+            241.98823394775388,
+            482.4170440673828,
+            254.98091888427732
+          ],
+          "crop": [
+            442,
+            216,
+            506,
+            280
+          ],
+          "raw_id": 85505,
+          "raw_origin_method": "unique_exact_frame_score_class",
+          "public": true
+        },
+        {
+          "frame": 1181,
+          "box": [
+            464.29691279486855,
+            240.78074967152511,
+            482.3432130137218,
+            254.6278459513164
+          ],
+          "crop": [
+            441,
+            216,
+            505,
+            280
+          ],
+          "raw_id": 85555,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1182,
+          "box": [
+            464.5918081421256,
+            238.77228453587279,
+            481.63721304274657,
+            252.71016328453285
+          ],
+          "crop": [
+            441,
+            214,
+            505,
+            278
+          ],
+          "raw_id": 85604,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 1182,
+      "future_observations": [],
+      "full_root_cause_closed": true,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b2036451-aa924fd1",
+      "frame": 248,
+      "old_id": 160,
+      "raw_id": 12927,
+      "kind": "foreign",
+      "reference_hits": [
+        {
+          "identity": "00114976",
+          "iou": 0.8373751832669221,
+          "box": [
+            409.4101679579257,
+            303.73307696657804,
+            532.4083017587513,
+            365.2321438669909
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00114979",
+          "iou": 0.7026831315379352,
+          "box": [
+            332.27574506588246,
+            354.808573205904,
+            357.2923146524911,
+            372.52864332975173
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "correct_rejection_of_foreign_by_gap",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 7,
+      "column": 6,
+      "shape": [
+        8,
+        7
+      ],
+      "original_cost": 1.0,
+      "corrected_cost": 1.0,
+      "competitors": [
+        {
+          "row": 5,
+          "column": 6,
+          "tid": 54,
+          "state": 1,
+          "original_cost": 0.2878039479255676,
+          "corrected_cost": 0.2878039479255676,
+          "owner_at_or_before": [
+            {
+              "frame": 236,
+              "raw_id": 12510,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00114979",
+                  "iou": 0.8733446067174307,
+                  "box": [
+                    333.1167089586206,
+                    355.35050096656425,
+                    356.05261365330193,
+                    375.6557145280778
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 242,
+              "raw_id": 12720,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00114979",
+                  "iou": 0.775453182627352,
+                  "box": [
+                    334.1308777464265,
+                    354.808573205904,
+                    355.2076005202737,
+                    374.2297221773046
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 248,
+              "raw_id": 12927,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00114979",
+                  "iou": 0.7026831315379352,
+                  "box": [
+                    332.27574506588246,
+                    354.808573205904,
+                    357.2923146524911,
+                    372.52864332975173
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 223,
+          "box": [
+            403.53535047310135,
+            303.7702345576437,
+            525.5534435403127,
+            354.901854898294
+          ],
+          "crop": [
+            343,
+            207,
+            587,
+            451
+          ],
+          "raw_id": 12034,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 224,
+          "box": [
+            404.83137252923007,
+            303.74207203938533,
+            525.0649318200664,
+            352.6147625816947
+          ],
+          "crop": [
+            345,
+            208,
+            585,
+            448
+          ],
+          "raw_id": 12068,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 230,
+          "box": [
+            406.08624075694473,
+            304.52299281472597,
+            528.3548349210994,
+            352.7836791557809
+          ],
+          "crop": [
+            345,
+            206,
+            590,
+            451
+          ],
+          "raw_id": 12288,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 236,
+          "box": [
+            405.05445509690156,
+            304.34593791163223,
+            534.1562227499373,
+            357.89440369669956
+          ],
+          "crop": [
+            341,
+            202,
+            599,
+            460
+          ],
+          "raw_id": 12512,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 236,
+      "future_observations": [],
+      "full_root_cause_closed": true,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b2036451-aa924fd1",
+      "frame": 254,
+      "old_id": 160,
+      "raw_id": 13114,
+      "kind": "foreign",
+      "reference_hits": [
+        {
+          "identity": "00114976",
+          "iou": 0.8373751832669221,
+          "box": [
+            409.4101679579257,
+            303.73307696657804,
+            532.4083017587513,
+            365.2321438669909
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00114979",
+          "iou": 0.7397467730466775,
+          "box": [
+            332.27574506588246,
+            354.808573205904,
+            357.2923146524911,
+            376.6980715941865
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "correct_rejection_of_foreign_by_gap",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 7,
+      "column": 6,
+      "shape": [
+        8,
+        7
+      ],
+      "original_cost": 1.0,
+      "corrected_cost": 1.0,
+      "competitors": [
+        {
+          "row": 5,
+          "column": 6,
+          "tid": 54,
+          "state": 1,
+          "original_cost": 0.27480071783065796,
+          "corrected_cost": 0.27480071783065796,
+          "owner_at_or_before": [
+            {
+              "frame": 242,
+              "raw_id": 12720,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00114979",
+                  "iou": 0.775453182627352,
+                  "box": [
+                    334.1308777464265,
+                    354.808573205904,
+                    355.2076005202737,
+                    374.2297221773046
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 248,
+              "raw_id": 12927,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00114979",
+                  "iou": 0.7026831315379352,
+                  "box": [
+                    332.27574506588246,
+                    354.808573205904,
+                    357.2923146524911,
+                    372.52864332975173
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 254,
+              "raw_id": 13114,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00114979",
+                  "iou": 0.7397467730466775,
+                  "box": [
+                    332.27574506588246,
+                    354.808573205904,
+                    357.2923146524911,
+                    376.6980715941865
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 223,
+          "box": [
+            403.53535047310135,
+            303.7702345576437,
+            525.5534435403127,
+            354.901854898294
+          ],
+          "crop": [
+            343,
+            207,
+            587,
+            451
+          ],
+          "raw_id": 12034,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 224,
+          "box": [
+            404.83137252923007,
+            303.74207203938533,
+            525.0649318200664,
+            352.6147625816947
+          ],
+          "crop": [
+            345,
+            208,
+            585,
+            448
+          ],
+          "raw_id": 12068,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 230,
+          "box": [
+            406.08624075694473,
+            304.52299281472597,
+            528.3548349210994,
+            352.7836791557809
+          ],
+          "crop": [
+            345,
+            206,
+            590,
+            451
+          ],
+          "raw_id": 12288,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 236,
+          "box": [
+            405.05445509690156,
+            304.34593791163223,
+            534.1562227499373,
+            357.89440369669956
+          ],
+          "crop": [
+            341,
+            202,
+            599,
+            460
+          ],
+          "raw_id": 12512,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 236,
+      "future_observations": [],
+      "full_root_cause_closed": true,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b2036451-aa924fd1",
+      "frame": 937,
+      "old_id": 574,
+      "raw_id": 35274,
+      "kind": "foreign",
+      "reference_hits": [
+        {
+          "identity": "00115019",
+          "iou": 0.7394594056389372,
+          "box": [
+            479.03785342833004,
+            347.10082847736237,
+            491.941229951652,
+            377.4237633071691
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00115011",
+          "iou": 0.7712121274964984,
+          "box": [
+            484.8443728638249,
+            344.3850025448171,
+            506.3920250793194,
+            376.6403231646176
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "head_false_positive_blocked_by_assignment",
+      "gate": null,
+      "head_score": 0.5463815125420641,
+      "head_accept": true,
+      "selected": false,
+      "emitted": false,
+      "row": 17,
+      "column": 12,
+      "shape": [
+        20,
+        16
+      ],
+      "original_cost": 0.5983834862709045,
+      "corrected_cost": 0.3983834981918335,
+      "competitors": [
+        {
+          "row": 12,
+          "column": 12,
+          "tid": 528,
+          "state": 1,
+          "original_cost": 0.38637274503707886,
+          "corrected_cost": 0.38637274503707886,
+          "owner_at_or_before": [
+            {
+              "frame": 925,
+              "raw_id": 34741,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00115011",
+                  "iou": 0.7623603010970613,
+                  "box": [
+                    474.03630605666456,
+                    345.42735961092575,
+                    499.0528756432732,
+                    376.6980715941865
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 931,
+              "raw_id": 35022,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00115011",
+                  "iou": 0.6612177315605683,
+                  "box": [
+                    484.45987671775146,
+                    344.3850025448171,
+                    501.1375897754906,
+                    375.65571452807785
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 937,
+              "raw_id": 35274,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00115011",
+                  "iou": 0.7712121274964984,
+                  "box": [
+                    484.8443728638249,
+                    344.3850025448171,
+                    506.3920250793194,
+                    376.6403231646176
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 929,
+          "box": [
+            477.07489013671875,
+            346.9798583984375,
+            494.3138427734375,
+            378.8172912597656
+          ],
+          "crop": [
+            454,
+            331,
+            518,
+            395
+          ],
+          "raw_id": 34948,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": false
+        },
+        {
+          "frame": 929,
+          "box": [
+            477.07489013671875,
+            346.9798583984375,
+            494.3138427734375,
+            378.8172912597656
+          ],
+          "crop": [
+            454,
+            331,
+            518,
+            395
+          ],
+          "raw_id": 34948,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": false
+        },
+        {
+          "frame": 930,
+          "box": [
+            477.23981933593745,
+            346.9156707763672,
+            494.1015014648437,
+            379.0397003173828
+          ],
+          "crop": [
+            454,
+            331,
+            518,
+            395
+          ],
+          "raw_id": 34984,
+          "raw_origin_method": "unique_exact_frame_score_class",
+          "public": true
+        },
+        {
+          "frame": 931,
+          "box": [
+            478.0374223317355,
+            347.14643192392754,
+            494.632015208585,
+            379.0388465846338
+          ],
+          "crop": [
+            454,
+            331,
+            518,
+            395
+          ],
+          "raw_id": 35025,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 931,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b230132b-ff8f2719",
+      "frame": 751,
+      "old_id": 193,
+      "raw_id": 23763,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00117176",
+          "iou": 0.7259127005942224,
+          "box": [
+            604.594015602004,
+            352.5410383394195,
+            629.462748922234,
+            370.00206386213415
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00117176",
+          "iou": 0.6521783582506651,
+          "box": [
+            632.0963345980097,
+            352.5130238019108,
+            661.4341106639279,
+            377.4994432767095
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "gap_exclusion_of_own",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 8,
+      "column": 6,
+      "shape": [
+        10,
+        8
+      ],
+      "original_cost": 0.924700140953064,
+      "corrected_cost": 0.924700140953064,
+      "competitors": [],
+      "history": [
+        {
+          "frame": 736,
+          "box": [
+            595.2977423107554,
+            355.8976151873671,
+            619.9744513923416,
+            376.1550138401374
+          ],
+          "crop": [
+            576,
+            334,
+            640,
+            398
+          ],
+          "raw_id": 23449,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 737,
+          "box": [
+            598.5637683053975,
+            354.8602270157033,
+            623.4316476961386,
+            375.13389676110023
+          ],
+          "crop": [
+            579,
+            333,
+            643,
+            397
+          ],
+          "raw_id": 23471,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 738,
+          "box": [
+            599.227484338279,
+            352.96001233827,
+            626.1693322382716,
+            373.4525217606943
+          ],
+          "crop": [
+            581,
+            331,
+            645,
+            395
+          ],
+          "raw_id": 23499,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 739,
+          "box": [
+            602.1119728402319,
+            351.0283673939692,
+            629.5979441138037,
+            372.28894585109947
+          ],
+          "crop": [
+            584,
+            330,
+            648,
+            394
+          ],
+          "raw_id": 23524,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 739,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b230132b-ff8f2719",
+      "frame": 913,
+      "old_id": 300,
+      "raw_id": 27652,
+      "kind": "foreign",
+      "reference_hits": [
+        {
+          "identity": "00117176",
+          "iou": 0.9392617912342431,
+          "box": [
+            691.3666196060725,
+            329.8207750783501,
+            768.1889160661608,
+            390.5897339789495
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00117185",
+          "iou": 0.8465922361217714,
+          "box": [
+            748.8519037869858,
+            344.16034090250525,
+            858.3680310427928,
+            435.0840680831614
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "correct_rejection_of_foreign_by_gap",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 8,
+      "column": 3,
+      "shape": [
+        10,
+        8
+      ],
+      "original_cost": 0.9499696493148804,
+      "corrected_cost": 0.9499696493148804,
+      "competitors": [
+        {
+          "row": 4,
+          "column": 3,
+          "tid": 309,
+          "state": 1,
+          "original_cost": 0.3101365566253662,
+          "corrected_cost": 0.3101365566253662,
+          "owner_at_or_before": [
+            {
+              "frame": 901,
+              "raw_id": 27371,
+              "emitted": false,
+              "hits": [
+                {
+                  "identity": "00117185",
+                  "iou": 0.7712233171532278,
+                  "box": [
+                    713.8817331273932,
+                    325.641071408717,
+                    766.3008055593884,
+                    382.7490949816592
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 907,
+              "raw_id": 27525,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00117185",
+                  "iou": 0.8883661203010863,
+                  "box": [
+                    733.5073662064183,
+                    351.03892671448375,
+                    801.7519785903545,
+                    416.8534193892232
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 913,
+              "raw_id": 27652,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00117185",
+                  "iou": 0.8465922361217714,
+                  "box": [
+                    748.8519037869858,
+                    344.16034090250525,
+                    858.3680310427928,
+                    435.0840680831614
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 885,
+          "box": [
+            667.0020349890318,
+            327.1023772579682,
+            719.1855811003256,
+            375.7598334082083
+          ],
+          "crop": [
+            641,
+            299,
+            745,
+            403
+          ],
+          "raw_id": 27079,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 887,
+          "box": [
+            673.5674689970631,
+            324.5715208569413,
+            729.2833072482613,
+            375.99663950256655
+          ],
+          "crop": [
+            646,
+            295,
+            757,
+            406
+          ],
+          "raw_id": 27118,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 888,
+          "box": [
+            675.3081635891443,
+            324.32319825401794,
+            729.7139001406554,
+            375.9116388487654
+          ],
+          "crop": [
+            648,
+            296,
+            757,
+            405
+          ],
+          "raw_id": 27139,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 889,
+          "box": [
+            687.7138512992258,
+            327.72300667831945,
+            757.9708566870459,
+            384.04297804800456
+          ],
+          "crop": [
+            652,
+            285,
+            793,
+            426
+          ],
+          "raw_id": 27161,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 889,
+      "future_observations": [],
+      "full_root_cause_closed": true,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b23b2649-8349d2a1",
+      "frame": 544,
+      "old_id": 232,
+      "raw_id": 54943,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00130234",
+          "iou": 0.8289278260206085,
+          "box": [
+            976.3766645003625,
+            540.0382400943087,
+            1018.4269317011979,
+            555.3730282669886
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00130234",
+          "iou": 0.5846155166390912,
+          "box": [
+            976.4262053614035,
+            539.9490665444349,
+            1018.4764725622389,
+            555.2838547171149
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "head_false_negative",
+      "gate": null,
+      "head_score": -0.42674018303113653,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 22,
+      "column": 11,
+      "shape": [
+        25,
+        13
+      ],
+      "original_cost": 0.8043080568313599,
+      "corrected_cost": 0.8043080568313599,
+      "competitors": [
+        {
+          "row": 18,
+          "column": 11,
+          "tid": 474,
+          "state": 2,
+          "original_cost": 0.7517929077148438,
+          "corrected_cost": 0.7517929077148438,
+          "owner_at_or_before": [
+            {
+              "frame": 520,
+              "raw_id": 52454,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00130234",
+                  "iou": 0.6489736611212916,
+                  "box": [
+                    976.2280419172396,
+                    540.30576074393,
+                    1018.278309118075,
+                    555.64054891661
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 532,
+              "raw_id": 53737,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00130234",
+                  "iou": 0.5898165086847991,
+                  "box": [
+                    976.3271236393215,
+                    540.1274136441824,
+                    1018.3773908401569,
+                    555.4622018168624
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 544,
+              "raw_id": 54943,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00130234",
+                  "iou": 0.5846155166390912,
+                  "box": [
+                    976.4262053614035,
+                    539.9490665444349,
+                    1018.4764725622389,
+                    555.2838547171149
+                  ]
+                }
+              ],
+              "kind": "own"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 535,
+          "box": [
+            974.945154254806,
+            539.8933196821887,
+            1019.441501250617,
+            557.7867829935562
+          ],
+          "crop": [
+            953,
+            504,
+            1042,
+            593
+          ],
+          "raw_id": 54057,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 536,
+          "box": [
+            976.647313642273,
+            539.7523793213307,
+            1019.2044098117195,
+            557.9999080597639
+          ],
+          "crop": [
+            955,
+            506,
+            1040,
+            591
+          ],
+          "raw_id": 54155,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 537,
+          "box": [
+            977.4367196346759,
+            539.7758428543646,
+            1019.1534420303082,
+            558.039558470404
+          ],
+          "crop": [
+            957,
+            507,
+            1040,
+            590
+          ],
+          "raw_id": 54257,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 538,
+          "box": [
+            977.2183386273254,
+            539.8149439860917,
+            1019.0764867316748,
+            557.9086638432507
+          ],
+          "crop": [
+            956,
+            507,
+            1040,
+            591
+          ],
+          "raw_id": 54360,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 538,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b23f7012-32d284ce",
+      "frame": 1158,
+      "old_id": 824,
+      "raw_id": 36658,
+      "kind": "foreign",
+      "reference_hits": [
+        {
+          "identity": "00127191",
+          "iou": 0.8822237571774884,
+          "box": [
+            0.0,
+            345.3430005577245,
+            96.6998645526253,
+            462.82845988367467
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00127184",
+          "iou": 0.9330281826410238,
+          "box": [
+            0.0,
+            339.63190184049085,
+            131.7823281013465,
+            470.1713010915465
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "correct_rejection_of_foreign_by_gap",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 12,
+      "column": 0,
+      "shape": [
+        21,
+        12
+      ],
+      "original_cost": 1.0,
+      "corrected_cost": 1.0,
+      "competitors": [
+        {
+          "row": 2,
+          "column": 0,
+          "tid": 823,
+          "state": 1,
+          "original_cost": 0.22458595037460327,
+          "corrected_cost": 0.22458595037460327,
+          "owner_at_or_before": [
+            {
+              "frame": 1146,
+              "raw_id": 36197,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00127184",
+                  "iou": 0.8651518147009454,
+                  "box": [
+                    99.14747828858259,
+                    355.13345550155367,
+                    232.1344912755956,
+                    441.6158075053781
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 1152,
+              "raw_id": 36434,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00127184",
+                  "iou": 0.890575506067127,
+                  "box": [
+                    0.0,
+                    339.63190184049085,
+                    189.7091865190025,
+                    451.40626244920725
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 1158,
+              "raw_id": 36658,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00127184",
+                  "iou": 0.9330281826410238,
+                  "box": [
+                    0.0,
+                    339.63190184049085,
+                    131.7823281013465,
+                    470.1713010915465
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 1131,
+          "box": [
+            -1.2664103082674245,
+            343.7965357019033,
+            131.08050892408926,
+            460.54488890635594
+          ],
+          "crop": [
+            0,
+            270,
+            265,
+            535
+          ],
+          "raw_id": 35552,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1132,
+          "box": [
+            -1.0662259871066198,
+            343.56811395511136,
+            120.99576843744656,
+            462.35910078367056
+          ],
+          "crop": [
+            0,
+            281,
+            244,
+            525
+          ],
+          "raw_id": 35595,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1133,
+          "box": [
+            -0.8979046183655228,
+            342.6307049213941,
+            107.87959288824925,
+            468.6519486706951
+          ],
+          "crop": [
+            0,
+            280,
+            252,
+            532
+          ],
+          "raw_id": 35638,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1134,
+          "box": [
+            -0.6976262905191462,
+            341.95964169979993,
+            93.41777694816517,
+            467.6636176422489
+          ],
+          "crop": [
+            0,
+            279,
+            251,
+            530
+          ],
+          "raw_id": 35677,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 1134,
+      "future_observations": [],
+      "full_root_cause_closed": true,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b23f7012-32d284ce",
+      "frame": 1164,
+      "old_id": 824,
+      "raw_id": 36897,
+      "kind": "foreign",
+      "reference_hits": [
+        {
+          "identity": "00127191",
+          "iou": 0.8822237571774884,
+          "box": [
+            0.0,
+            345.3430005577245,
+            96.6998645526253,
+            462.82845988367467
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00127184",
+          "iou": 0.8345223650664961,
+          "box": [
+            0.0,
+            360.8445542187874,
+            53.45868855071309,
+            470.1713010915465
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "correct_rejection_of_foreign_by_gap",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 10,
+      "column": 4,
+      "shape": [
+        24,
+        12
+      ],
+      "original_cost": 1.0,
+      "corrected_cost": 1.0,
+      "competitors": [
+        {
+          "row": 2,
+          "column": 4,
+          "tid": 823,
+          "state": 1,
+          "original_cost": 0.3457387685775757,
+          "corrected_cost": 0.3457387685775757,
+          "owner_at_or_before": [
+            {
+              "frame": 1152,
+              "raw_id": 36434,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00127184",
+                  "iou": 0.890575506067127,
+                  "box": [
+                    0.0,
+                    339.63190184049085,
+                    189.7091865190025,
+                    451.40626244920725
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 1158,
+              "raw_id": 36658,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00127184",
+                  "iou": 0.9330281826410238,
+                  "box": [
+                    0.0,
+                    339.63190184049085,
+                    131.7823281013465,
+                    470.1713010915465
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 1164,
+              "raw_id": 36897,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00127184",
+                  "iou": 0.8345223650664961,
+                  "box": [
+                    0.0,
+                    360.8445542187874,
+                    53.45868855071309,
+                    470.1713010915465
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 1131,
+          "box": [
+            -1.2664103082674245,
+            343.7965357019033,
+            131.08050892408926,
+            460.54488890635594
+          ],
+          "crop": [
+            0,
+            270,
+            265,
+            535
+          ],
+          "raw_id": 35552,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1132,
+          "box": [
+            -1.0662259871066198,
+            343.56811395511136,
+            120.99576843744656,
+            462.35910078367056
+          ],
+          "crop": [
+            0,
+            281,
+            244,
+            525
+          ],
+          "raw_id": 35595,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1133,
+          "box": [
+            -0.8979046183655228,
+            342.6307049213941,
+            107.87959288824925,
+            468.6519486706951
+          ],
+          "crop": [
+            0,
+            280,
+            252,
+            532
+          ],
+          "raw_id": 35638,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 1134,
+          "box": [
+            -0.6976262905191462,
+            341.95964169979993,
+            93.41777694816517,
+            467.6636176422489
+          ],
+          "crop": [
+            0,
+            279,
+            251,
+            530
+          ],
+          "raw_id": 35677,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 1134,
+      "future_observations": [],
+      "full_root_cause_closed": true,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b242f6b2-0033bdfb",
+      "frame": 115,
+      "old_id": 70,
+      "raw_id": 4691,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00115864",
+          "iou": 0.6019043872437208,
+          "box": [
+            147.30081207164662,
+            373.29447676092843,
+            231.16466048493925,
+            421.0650233254622
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00115864",
+          "iou": 0.8371829312268337,
+          "box": [
+            146.25832850594873,
+            373.3135608966646,
+            232.06551765408238,
+            421.16624738741007
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "successful_own_assignment",
+      "gate": null,
+      "head_score": 0.5907234609601442,
+      "head_accept": true,
+      "selected": true,
+      "emitted": true,
+      "row": 14,
+      "column": 15,
+      "shape": [
+        19,
+        17
+      ],
+      "original_cost": 0.8300043344497681,
+      "corrected_cost": 0.630004346370697,
+      "competitors": [
+        {
+          "row": 14,
+          "column": 15,
+          "tid": 70,
+          "state": 2,
+          "original_cost": 0.8300043344497681,
+          "corrected_cost": 0.630004346370697,
+          "owner_at_or_before": [
+            {
+              "frame": 103,
+              "raw_id": 4169,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00115864",
+                  "iou": 0.8252228831203218,
+                  "box": [
+                    147.30081207164662,
+                    373.29447676092843,
+                    235.4109312906756,
+                    421.0650233254622
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 109,
+              "raw_id": 4411,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00115864",
+                  "iou": 0.6019043872437208,
+                  "box": [
+                    147.30081207164662,
+                    373.29447676092843,
+                    231.16466048493925,
+                    421.0650233254622
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 115,
+              "raw_id": 4691,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00115864",
+                  "iou": 0.8371829312268337,
+                  "box": [
+                    146.25832850594873,
+                    373.3135608966646,
+                    232.06551765408238,
+                    421.16624738741007
+                  ]
+                }
+              ],
+              "kind": "own"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 104,
+          "box": [
+            144.1714740805914,
+            376.6553928551685,
+            233.46553500896178,
+            419.1865287954906
+          ],
+          "crop": [
+            99,
+            308,
+            278,
+            487
+          ],
+          "raw_id": 4216,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 105,
+          "box": [
+            142.6609863718233,
+            376.44086917595797,
+            231.6940575817569,
+            419.1782312206075
+          ],
+          "crop": [
+            98,
+            309,
+            276,
+            487
+          ],
+          "raw_id": 4257,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 106,
+          "box": [
+            143.93064699678902,
+            376.1160881561656,
+            231.42627700264828,
+            418.803886659671
+          ],
+          "crop": [
+            100,
+            310,
+            275,
+            485
+          ],
+          "raw_id": 4296,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 109,
+          "box": [
+            145.29923074228404,
+            378.2611985714701,
+            211.94211291882908,
+            419.0575900948094
+          ],
+          "crop": [
+            112,
+            332,
+            245,
+            465
+          ],
+          "raw_id": 4411,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 109,
+      "future_observations": [
+        {
+          "frame": 115,
+          "kind": "own",
+          "hits": [
+            {
+              "identity": "00115864",
+              "iou": 0.8492244464983045
+            }
+          ],
+          "box": [
+            150.05624389648438,
+            376.0105895996094,
+            232.35482788085938,
+            418.6579895019531
+          ]
+        },
+        {
+          "frame": 121,
+          "kind": "own",
+          "hits": [
+            {
+              "identity": "00115864",
+              "iou": 0.8409417049795164
+            }
+          ],
+          "box": [
+            147.16796875,
+            376.8800048828125,
+            234.049560546875,
+            418.5499572753906
+          ]
+        },
+        {
+          "frame": 127,
+          "kind": "own",
+          "hits": [
+            {
+              "identity": "00115864",
+              "iou": 0.7355835406124202
+            }
+          ],
+          "box": [
+            150.45144653320312,
+            375.8181457519531,
+            229.6571044921875,
+            418.4870300292969
+          ]
+        },
+        {
+          "frame": 145,
+          "kind": "own",
+          "hits": [
+            {
+              "identity": "00115864",
+              "iou": 0.8850907559298749
+            }
+          ],
+          "box": [
+            144.95278930664062,
+            375.08245849609375,
+            235.12411499023438,
+            419.3075256347656
+          ]
+        },
+        {
+          "frame": 151,
+          "kind": "own",
+          "hits": [
+            {
+              "identity": "00115864",
+              "iou": 0.7809140397065926
+            }
+          ],
+          "box": [
+            143.36590576171875,
+            375.3117370605469,
+            234.40000915527344,
+            417.08270263671875
+          ]
+        }
+      ],
+      "full_root_cause_closed": true,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b242f6b2-0033bdfb",
+      "frame": 223,
+      "old_id": 151,
+      "raw_id": 9297,
+      "kind": "foreign",
+      "reference_hits": [
+        {
+          "identity": "00115859",
+          "iou": 0.7274306424575268,
+          "box": [
+            343.69083683695214,
+            357.37096123941717,
+            381.9072740885792,
+            393.46426308817604
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00115860",
+          "iou": 0.742328689620511,
+          "box": [
+            385.0919771928814,
+            348.8784196279445,
+            424.3699821459425,
+            400.8952369982146
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "correct_rejection_of_foreign_by_gap",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 18,
+      "column": 10,
+      "shape": [
+        21,
+        17
+      ],
+      "original_cost": 0.9703336954116821,
+      "corrected_cost": 0.9703336954116821,
+      "competitors": [
+        {
+          "row": 11,
+          "column": 10,
+          "tid": 20,
+          "state": 1,
+          "original_cost": 0.5609416961669922,
+          "corrected_cost": 0.5609416961669922,
+          "owner_at_or_before": [
+            {
+              "frame": 211,
+              "raw_id": 8781,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00115860",
+                  "iou": 0.8619946033700703,
+                  "box": [
+                    379.784138685711,
+                    348.8784196279445,
+                    424.3699821459425,
+                    400.8952369982146
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 217,
+              "raw_id": 9039,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00115860",
+                  "iou": 0.684297398385401,
+                  "box": [
+                    386.15354489431553,
+                    351.00155503081265,
+                    424.3699821459425,
+                    400.8952369982146
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 223,
+              "raw_id": 9297,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00115860",
+                  "iou": 0.742328689620511,
+                  "box": [
+                    385.0919771928814,
+                    348.8784196279445,
+                    424.3699821459425,
+                    400.8952369982146
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 208,
+          "box": [
+            328.9696516559497,
+            355.62466033897203,
+            382.6216347731267,
+            397.2356984974035
+          ],
+          "crop": [
+            302,
+            323,
+            409,
+            430
+          ],
+          "raw_id": 8639,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 209,
+          "box": [
+            329.16234422573024,
+            356.20768425748435,
+            383.68767655181375,
+            395.7048837846016
+          ],
+          "crop": [
+            302,
+            321,
+            411,
+            430
+          ],
+          "raw_id": 8691,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 210,
+          "box": [
+            330.98704757924054,
+            356.4230137650376,
+            383.5481051755021,
+            393.97276230270563
+          ],
+          "crop": [
+            305,
+            323,
+            410,
+            428
+          ],
+          "raw_id": 8737,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 211,
+          "box": [
+            333.4076546035254,
+            356.14738284265206,
+            383.8400115454833,
+            392.7027379775087
+          ],
+          "crop": [
+            308,
+            324,
+            409,
+            425
+          ],
+          "raw_id": 8786,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 211,
+      "future_observations": [],
+      "full_root_cause_closed": true,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b242f6b2-0033bdfb",
+      "frame": 516,
+      "old_id": 336,
+      "raw_id": 23338,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00115864",
+          "iou": 0.6720395631833631,
+          "box": [
+            143.05454126591027,
+            379.66388296953295,
+            210.99487415769164,
+            420.0034556240281
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00115864",
+          "iou": 0.7320131502532814,
+          "box": [
+            153.6702182802511,
+            379.66388296953295,
+            219.48741576916433,
+            417.88032022115993
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "gap_exclusion_of_own",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 17,
+      "column": 10,
+      "shape": [
+        24,
+        17
+      ],
+      "original_cost": 0.7745726108551025,
+      "corrected_cost": 0.7745726108551025,
+      "competitors": [
+        {
+          "row": 11,
+          "column": 10,
+          "tid": 351,
+          "state": 1,
+          "original_cost": 0.5879713296890259,
+          "corrected_cost": 0.5879713296890259,
+          "owner_at_or_before": [
+            {
+              "frame": 510,
+              "raw_id": 23061,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00115864",
+                  "iou": 0.795097135357366,
+                  "box": [
+                    143.05454126591027,
+                    379.66388296953295,
+                    214.1795772619939,
+                    422.1265910268963
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 516,
+              "raw_id": 23338,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00115864",
+                  "iou": 0.7320131502532814,
+                  "box": [
+                    153.6702182802511,
+                    379.66388296953295,
+                    219.48741576916433,
+                    417.88032022115993
+                  ]
+                }
+              ],
+              "kind": "own"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 501,
+          "box": [
+            140.3191736232566,
+            379.74444040673995,
+            207.77056640504088,
+            423.43824897702814
+          ],
+          "crop": [
+            107,
+            334,
+            242,
+            469
+          ],
+          "raw_id": 22594,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 502,
+          "box": [
+            139.39703042618507,
+            379.77434005110115,
+            203.8230815260175,
+            423.64526997270525
+          ],
+          "crop": [
+            107,
+            337,
+            236,
+            466
+          ],
+          "raw_id": 22643,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 503,
+          "box": [
+            139.0911356749237,
+            380.25043034902654,
+            200.0837376043749,
+            424.22425562841516
+          ],
+          "crop": [
+            109,
+            341,
+            231,
+            463
+          ],
+          "raw_id": 22701,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 504,
+          "box": [
+            139.42568037593813,
+            380.81334948998943,
+            198.52679490731308,
+            424.83301855219736
+          ],
+          "crop": [
+            110,
+            344,
+            228,
+            462
+          ],
+          "raw_id": 22765,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 504,
+      "future_observations": [
+        {
+          "frame": 522,
+          "kind": "unknown",
+          "hits": [],
+          "box": [
+            126.06009674072266,
+            379.9286804199219,
+            210.49693298339844,
+            429.0517578125
+          ]
+        },
+        {
+          "frame": 528,
+          "kind": "unknown",
+          "hits": [],
+          "box": [
+            109.34410858154297,
+            378.4471435546875,
+            203.47769165039062,
+            427.5062255859375
+          ]
+        }
+      ],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b251064f-5f6b663e",
+      "frame": 593,
+      "old_id": 350,
+      "raw_id": 15555,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00128812",
+          "iou": 0.677358810558586,
+          "box": [
+            586.1358785719028,
+            390.32713983049115,
+            596.4585797905604,
+            399.35950339681654
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00128812",
+          "iou": 0.7509122879923935,
+          "box": [
+            599.4872142068448,
+            378.2083947607475,
+            611.5285641715525,
+            388.03806820132525
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "gap_exclusion_of_own",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 6,
+      "column": 3,
+      "shape": [
+        9,
+        5
+      ],
+      "original_cost": 0.9871872067451477,
+      "corrected_cost": 0.9871872067451477,
+      "competitors": [
+        {
+          "row": 3,
+          "column": 3,
+          "tid": 356,
+          "state": 1,
+          "original_cost": 0.39107757806777954,
+          "corrected_cost": 0.39107757806777954,
+          "owner_at_or_before": [
+            {
+              "frame": 581,
+              "raw_id": 15443,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00128812",
+                  "iou": 0.5353767793944499,
+                  "box": [
+                    590.6282295491436,
+                    383.5471052629442,
+                    601.3751343926452,
+                    391.1331557407101
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 587,
+              "raw_id": 15513,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00128812",
+                  "iou": 0.6857698202098897,
+                  "box": [
+                    594.1491668514649,
+                    378.2083947607475,
+                    606.1632121677266,
+                    388.03806820132525
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 593,
+              "raw_id": 15555,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00128812",
+                  "iou": 0.7509122879923935,
+                  "box": [
+                    599.4872142068448,
+                    378.2083947607475,
+                    611.5285641715525,
+                    388.03806820132525
+                  ]
+                }
+              ],
+              "kind": "own"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 572,
+          "box": [
+            581.5556203815396,
+            391.8464843022455,
+            594.6728997730502,
+            402.05175429048717
+          ],
+          "crop": [
+            556,
+            365,
+            620,
+            429
+          ],
+          "raw_id": 15302,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 573,
+          "box": [
+            582.5278368683064,
+            391.124322208358,
+            595.4389172001933,
+            401.6053257400113
+          ],
+          "crop": [
+            557,
+            364,
+            621,
+            428
+          ],
+          "raw_id": 15316,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 574,
+          "box": [
+            583.7364572509873,
+            391.34426510450197,
+            596.1903615768549,
+            401.46599238532207
+          ],
+          "crop": [
+            558,
+            364,
+            622,
+            428
+          ],
+          "raw_id": 15331,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 575,
+          "box": [
+            584.2733189386362,
+            390.96332760127433,
+            596.8586992770616,
+            400.89826882032435
+          ],
+          "crop": [
+            559,
+            364,
+            623,
+            428
+          ],
+          "raw_id": 15344,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 575,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b251064f-5f6b663e",
+      "frame": 599,
+      "old_id": 350,
+      "raw_id": 15636,
+      "kind": "own",
+      "reference_hits": [
+        {
+          "identity": "00128812",
+          "iou": 0.677358810558586,
+          "box": [
+            586.1358785719028,
+            390.32713983049115,
+            596.4585797905604,
+            399.35950339681654
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00128812",
+          "iou": 0.7130752485819688,
+          "box": [
+            603.5293224301412,
+            374.87316274955884,
+            614.2870294934377,
+            385.6308698128554
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "gap_exclusion_of_own",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 6,
+      "column": 2,
+      "shape": [
+        9,
+        7
+      ],
+      "original_cost": 1.0,
+      "corrected_cost": 1.0,
+      "competitors": [
+        {
+          "row": 3,
+          "column": 2,
+          "tid": 356,
+          "state": 1,
+          "original_cost": 0.4241521954536438,
+          "corrected_cost": 0.4241521954536438,
+          "owner_at_or_before": [
+            {
+              "frame": 587,
+              "raw_id": 15513,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00128812",
+                  "iou": 0.6857698202098897,
+                  "box": [
+                    594.1491668514649,
+                    378.2083947607475,
+                    606.1632121677266,
+                    388.03806820132525
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 593,
+              "raw_id": 15555,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00128812",
+                  "iou": 0.7509122879923935,
+                  "box": [
+                    599.4872142068448,
+                    378.2083947607475,
+                    611.5285641715525,
+                    388.03806820132525
+                  ]
+                }
+              ],
+              "kind": "own"
+            },
+            {
+              "frame": 599,
+              "raw_id": 15636,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00128812",
+                  "iou": 0.7130752485819688,
+                  "box": [
+                    603.5293224301412,
+                    374.87316274955884,
+                    614.2870294934377,
+                    385.6308698128554
+                  ]
+                }
+              ],
+              "kind": "own"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 572,
+          "box": [
+            581.5556203815396,
+            391.8464843022455,
+            594.6728997730502,
+            402.05175429048717
+          ],
+          "crop": [
+            556,
+            365,
+            620,
+            429
+          ],
+          "raw_id": 15302,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 573,
+          "box": [
+            582.5278368683064,
+            391.124322208358,
+            595.4389172001933,
+            401.6053257400113
+          ],
+          "crop": [
+            557,
+            364,
+            621,
+            428
+          ],
+          "raw_id": 15316,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 574,
+          "box": [
+            583.7364572509873,
+            391.34426510450197,
+            596.1903615768549,
+            401.46599238532207
+          ],
+          "crop": [
+            558,
+            364,
+            622,
+            428
+          ],
+          "raw_id": 15331,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 575,
+          "box": [
+            584.2733189386362,
+            390.96332760127433,
+            596.8586992770616,
+            400.89826882032435
+          ],
+          "crop": [
+            559,
+            364,
+            623,
+            428
+          ],
+          "raw_id": 15344,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 575,
+      "future_observations": [],
+      "full_root_cause_closed": false,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    },
+    {
+      "video": "b251064f-5f6b663e",
+      "frame": 785,
+      "old_id": 401,
+      "raw_id": 20211,
+      "kind": "foreign",
+      "reference_hits": [
+        {
+          "identity": "00128815",
+          "iou": 0.7586185609720628,
+          "box": [
+            680.6531116052366,
+            386.77871128657756,
+            693.5564881285586,
+            396.77882809215214
+          ]
+        }
+      ],
+      "current_hits": [
+        {
+          "identity": "00128812",
+          "iou": 0.7034562986997299,
+          "box": [
+            693.928141697574,
+            389.0522432386692,
+            707.5804659205986,
+            398.8819166792469
+          ]
+        }
+      ],
+      "first_recorded_mechanism": "correct_rejection_of_foreign_by_gap",
+      "gate": "outside_observed_training_gap",
+      "head_score": null,
+      "head_accept": false,
+      "selected": false,
+      "emitted": false,
+      "row": 5,
+      "column": 2,
+      "shape": [
+        8,
+        6
+      ],
+      "original_cost": 1.0,
+      "corrected_cost": 1.0,
+      "competitors": [
+        {
+          "row": 4,
+          "column": 2,
+          "tid": 414,
+          "state": 1,
+          "original_cost": 0.2886420488357544,
+          "corrected_cost": 0.2886420488357544,
+          "owner_at_or_before": [
+            {
+              "frame": 767,
+              "raw_id": 19733,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00128812",
+                  "iou": 0.6905070758651187,
+                  "box": [
+                    698.0628694128827,
+                    387.4529664490683,
+                    710.0769147291443,
+                    400.7542282875039
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 779,
+              "raw_id": 20086,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00128812",
+                  "iou": 0.7615416690689552,
+                  "box": [
+                    695.8784975371988,
+                    387.8820464003292,
+                    710.0769147291443,
+                    397.7117198409069
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            },
+            {
+              "frame": 785,
+              "raw_id": 20211,
+              "emitted": true,
+              "hits": [
+                {
+                  "identity": "00128812",
+                  "iou": 0.7034562986997299,
+                  "box": [
+                    693.928141697574,
+                    389.0522432386692,
+                    707.5804659205986,
+                    398.8819166792469
+                  ]
+                }
+              ],
+              "kind": "foreign"
+            }
+          ]
+        }
+      ],
+      "history": [
+        {
+          "frame": 752,
+          "box": [
+            680.914251501121,
+            387.9112981720643,
+            693.8455241364858,
+            397.9445518888817
+          ],
+          "crop": [
+            655,
+            361,
+            719,
+            425
+          ],
+          "raw_id": 19274,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 753,
+          "box": [
+            680.896384192468,
+            388.06980185798136,
+            693.4630974273907,
+            398.0332751577521
+          ],
+          "crop": [
+            655,
+            361,
+            719,
+            425
+          ],
+          "raw_id": 19302,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 754,
+          "box": [
+            680.7858463018138,
+            388.10593382628576,
+            693.0645443217176,
+            397.972902558273
+          ],
+          "crop": [
+            655,
+            361,
+            719,
+            425
+          ],
+          "raw_id": 19330,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        {
+          "frame": 755,
+          "box": [
+            680.7869815533601,
+            388.0651001055535,
+            692.9120942600606,
+            397.72971092276316
+          ],
+          "crop": [
+            655,
+            361,
+            719,
+            425
+          ],
+          "raw_id": 19358,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        }
+      ],
+      "reference_frame": 755,
+      "future_observations": [],
+      "full_root_cause_closed": true,
+      "limitation": "First recorded blocking mechanism, not yet proof that lifting it repairs the complete trajectory."
+    }
+  ],
+  "counts": {
+    "head_false_negative": 2,
+    "gap_exclusion_of_own": 12,
+    "correct_rejection_of_foreign_by_gap": 12,
+    "head_true_positive_blocked_by_assignment": 1,
+    "head_false_positive_blocked_by_assignment": 1,
+    "successful_own_assignment": 1
+  },
+  "trace1102": [
+    {
+      "frame": 251,
+      "tid": 1102,
+      "raw_id": 32074,
+      "start_frame": 252,
+      "emitted": false,
+      "annotated_frame": false,
+      "hits": null,
+      "kind": "unlabelled",
+      "matrix_saved": false,
+      "box": [
+        863.0675659179688,
+        267.1198425292969,
+        905.7218017578125,
+        289.6717529296875
+      ]
+    },
+    {
+      "frame": 252,
+      "tid": 1102,
+      "raw_id": 32145,
+      "start_frame": 252,
+      "emitted": true,
+      "annotated_frame": true,
+      "hits": [
+        {
+          "identity": "00119408",
+          "iou": 0.6390619973373401,
+          "box": [
+            871.9393457691725,
+            267.21121409471135,
+            905.1702380006463,
+            289.6544742681792
+          ]
+        }
+      ],
+      "kind": "own",
+      "matrix_saved": false,
+      "box": [
+        860.6390380859375,
+        268.44659423828125,
+        906.98583984375,
+        291.3553161621094
+      ]
+    },
+    {
+      "frame": 261,
+      "tid": 1102,
+      "raw_id": 32889,
+      "start_frame": 252,
+      "emitted": true,
+      "annotated_frame": false,
+      "hits": null,
+      "kind": "unlabelled",
+      "matrix_saved": false,
+      "box": [
+        871.2453002929688,
+        272.9918212890625,
+        900.7664794921875,
+        288.75054931640625
+      ]
+    },
+    {
+      "frame": 264,
+      "tid": 1102,
+      "raw_id": 33109,
+      "start_frame": 252,
+      "emitted": true,
+      "annotated_frame": true,
+      "hits": [
+        {
+          "identity": "00119417",
+          "iou": 0.6115156647567336,
+          "box": [
+            878.2631454109861,
+            272.91502466131794,
+            904.3022892438814,
+            286.55457619283453
+          ]
+        }
+      ],
+      "kind": "foreign",
+      "matrix_saved": true,
+      "box": [
+        874.486572265625,
+        271.8543395996094,
+        909.4586791992188,
+        288.4615783691406
+      ]
+    }
+  ],
+  "script_sha256": "4b1da5dc0f5b9a0140aeddd90510a3d514c03be63baab4ea56ed88caeca2fd9f",
+  "source_protocol_sha256": "370731baae6160d910b7c33f01b6828ba62557dc530291066f54668a3184aa73",
+  "limitations": "Frame261 not annotated if marked false. No identity interpolated from endpoints."
+}

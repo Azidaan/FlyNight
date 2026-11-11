@@ -32048,6 +32048,90 @@
           "claim": "Снимок источников при завершении разбора"
         }
       ]
+    },
+    {
+      "id": "identity_failure_localization_20261112",
+      "title": "Локализация отказов личности — путь связи, назначение и физические детали",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-12",
+      "question": "Где впервые возникает каждый отказ в 29 сохранённых событиях и достаточна ли правильная оценка для назначения?",
+      "hypothesis": "Раздельная подстановка разрешения и проверка соответствий позволяют отделить доступность, считывание и назначение.",
+      "expected": "Установить причины в пределах наблюдаемого; обозначить отсутствующие измерения без подмены гипотезой.",
+      "acceptance": [
+        {
+          "criterion": "29 direct endpoint labels independently reproduced",
+          "met": true,
+          "evidence": "research_failure_localization_20261112/stage1.json; audit.json"
+        },
+        {
+          "criterion": "Saved assignment exactly reproduced and alternative solver optimal objective agrees",
+          "met": true,
+          "evidence": "research_failure_localization_20261112/stage2.json; audit.json"
+        },
+        {
+          "criterion": "Each altered permission effect recorded with collateral assignments and direct labels; no causal claim beyond one matrix",
+          "met": true,
+          "evidence": "research_failure_localization_20261112/stage2.json; ownership.json"
+        },
+        {
+          "criterion": "Physical correspondence intervention requires independent landmarks; absence recorded explicitly",
+          "met": true,
+          "evidence": "research_failure_localization_20261112/stage3.json; stage3_readiness.json"
+        },
+        {
+          "criterion": "All precise root causes established only when a distinguishing test supports them",
+          "met": false,
+          "evidence": "research_failure_localization_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_failure_localization_20261112/protocol.json",
+          "claim": "Условия до проверки исходов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_failure_localization_20261112/РЕЗУЛЬТАТ.md",
+          "claim": "Итог и реестр всех 29 событий"
+        },
+        {
+          "kind": "file",
+          "ref": "research_failure_localization_20261112/stage1.json",
+          "claim": "Независимые метки и путь связи"
+        },
+        {
+          "kind": "file",
+          "ref": "research_failure_localization_20261112/stage2.json",
+          "claim": "Подстановка разрешения на сохранённых матрицах"
+        },
+        {
+          "kind": "file",
+          "ref": "research_failure_localization_20261112/ownership.json",
+          "claim": "Принадлежность конкурирующих номеров"
+        },
+        {
+          "kind": "file",
+          "ref": "research_failure_localization_20261112/stage3.json",
+          "claim": "Граница проверки физических деталей"
+        },
+        {
+          "kind": "file",
+          "ref": "research_failure_localization_20261112/boundary_check.json",
+          "claim": "Точное равенство порогу не изменило два назначения"
+        },
+        {
+          "kind": "file",
+          "ref": "research_failure_localization_20261112/audit.json",
+          "claim": "Проверка результатов и неизменности входов"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Независимо подтверждены 29 меток: 16 своих, 13 чужих. Все 29 исходных назначений воспроизведены; подстановка разрешения при прежних пороге 0,8 и поправке 0,2 меняет назначение для 232/832 и 6 из 12 своих связей за допуском давности. Для 1102 на кадре 252 одновременно выданы два номера одной размеченной машине; на 258 её продолжает 1072. Отказ 1102 на 258 не доказан как ошибка принадлежности. Исправление арифметики двух пограничных стоимостей до ровно 0,8 не меняет назначений. Источники: research_failure_localization_20261112/stage1.json, stage2.json, ownership.json, boundary_check.json.",
+      "interpretation": "Разрешение головы причинно блокирует конкретное назначение 232/832; на части событий давность — только первый из нескольких барьеров. Метка своей пары не определяет, какой из нескольких номеров одной машины должен победить. Точная зрительная причина неверных оценок не установлена: отсутствуют независимо подтверждённые соответствия физических деталей. Для 1102 кадр 261 не размечен и матрица не сохранена. Источник research_failure_localization_20261112/stage3.json и stage1.json.",
+      "decision": "Пороги и рабочий трекер сохранить. Не повторять проверки согласия и не запускать полный трекер. Третий этап выполнен до проверки готовности и неизменяющих контролей; причинная подстановка физических соответствий не выполнена. Для её завершения нужна независимая разметка одних физических деталей с погрешностью; нормированные координаты рамок не подменяют её.",
+      "cannot_claim": "Не установлены все корневые причины недели и точная причина неверного зрительного порядка. Подстановка известных меток не является обученной моделью, улучшением HOTA или доказанным сохранением публичного ID. События повторяются на одних треках; 6/12 не независимая оценка обобщения. Все исходные отрицательные результаты сохраняются."
     }
   ],
   "manual_events": [

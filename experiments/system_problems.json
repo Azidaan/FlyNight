@@ -159,7 +159,8 @@
         "singleton_two_map_scores_20261108",
         "flyvis_two_integration_state_readout_20261111",
         "map_value_agreement_20261112",
-        "identity_weekly_causal_review_20261112"
+        "identity_weekly_causal_review_20261112",
+        "identity_failure_localization_20261112"
       ],
       "legacy": [
         "P1",
@@ -315,6 +316,20 @@
             "research_weekly_causal_audit_20261112/event_witnesses.json"
           ],
           "source_sha256": "99cdf8cafd2e65ab3c133eb6b248b5003a0d283f76de503e947f0fad5da8b7ca"
+        },
+        {
+          "date": "2026-11-12",
+          "component": "Полный модуль FlyVis и сопряжение со всей системой",
+          "fact": "Независимо проверены29прямых связей; правильное разрешение меняет назначение232/832 и6из12своих связей за допуском. На252у1102 и1072 одновременно однаGTцель; на258её продолжает1072. Это подтверждение проблемыС3 на новых событиях, не уникальная причина всех отказов. Источники research_failure_localization_20261112/stage1.json, stage2.json, ownership.json.",
+          "hypothesis": "Точная физическая причина неверных зрительных оценок пока не разделена; новых причин без вмешательства не объявлено.",
+          "discriminating_check": "Для проверки физических соответствий нужны независимые ключевые точки с погрешностью; подстановка координат рамки не заменяет эту разметку. Для261у1102 не сохранена матрица и нет прямой метки.",
+          "limitation": "Не выполнена физическая подстановка третьего этапа; нет нового полного трекера, HOTA или улучшения ядра.",
+          "evidence": [
+            "research_failure_localization_20261112/РЕЗУЛЬТАТ.md",
+            "research_failure_localization_20261112/audit.json",
+            "research_failure_localization_20261112/graph_review.json"
+          ],
+          "source_sha256": "3d19997eec06a023d592742531d62d73306e4ad4144fa5c7e7c0afe2de2165ec"
         }
       ],
       "revisions": [
@@ -1754,13 +1769,14 @@
       "cards": [
         "b1_full_tracker_pilot_v1",
         "history_pair_inputs_v1",
-        "spatial_identity_maps_v1_20261107"
+        "spatial_identity_maps_v1_20261107",
+        "identity_failure_localization_20261112"
       ],
       "legacy": [
         "P5"
       ],
       "first_seen": "2026-10-28",
-      "updated": "2026-11-07",
+      "updated": "2026-11-12",
       "cases": [
         {
           "date": "2026-10-28",
@@ -1783,6 +1799,20 @@
             "runs/spatial_identity_maps_20261107/native_diagnosis.json",
             "runs/spatial_identity_maps_20261107/competitor_histories.json"
           ]
+        },
+        {
+          "date": "2026-11-12",
+          "component": "Полный модуль FlyVis и сопряжение со всей системой",
+          "fact": "Независимо проверены29прямых связей; правильное разрешение меняет назначение232/832 и6из12своих связей за допуском. На252у1102 и1072 одновременно однаGTцель; на258её продолжает1072. Это подтверждение проблемыС3 на новых событиях, не уникальная причина всех отказов. Источники research_failure_localization_20261112/stage1.json, stage2.json, ownership.json.",
+          "hypothesis": "Точная физическая причина неверных зрительных оценок пока не разделена; новых причин без вмешательства не объявлено.",
+          "discriminating_check": "Для проверки физических соответствий нужны независимые ключевые точки с погрешностью; подстановка координат рамки не заменяет эту разметку. Для261у1102 не сохранена матрица и нет прямой метки.",
+          "limitation": "Не выполнена физическая подстановка третьего этапа; нет нового полного трекера, HOTA или улучшения ядра.",
+          "evidence": [
+            "research_failure_localization_20261112/РЕЗУЛЬТАТ.md",
+            "research_failure_localization_20261112/audit.json",
+            "research_failure_localization_20261112/graph_review.json"
+          ],
+          "source_sha256": "3d19997eec06a023d592742531d62d73306e4ad4144fa5c7e7c0afe2de2165ec"
         }
       ]
     },
@@ -1950,7 +1980,8 @@
       ],
       "cards": [
         "history_pair_inputs_v1",
-        "identity_weekly_causal_review_20261112"
+        "identity_weekly_causal_review_20261112",
+        "identity_failure_localization_20261112"
       ],
       "legacy": [],
       "first_seen": "2026-10-28",
@@ -2058,6 +2089,20 @@
             "research_weekly_causal_audit_20261112/event_witnesses.json"
           ],
           "source_sha256": "99cdf8cafd2e65ab3c133eb6b248b5003a0d283f76de503e947f0fad5da8b7ca"
+        },
+        {
+          "date": "2026-11-12",
+          "component": "Полный модуль FlyVis и сопряжение со всей системой",
+          "fact": "Независимо проверены29прямых связей; правильное разрешение меняет назначение232/832 и6из12своих связей за допуском. На252у1102 и1072 одновременно однаGTцель; на258её продолжает1072. Это подтверждение проблемыС3 на новых событиях, не уникальная причина всех отказов. Источники research_failure_localization_20261112/stage1.json, stage2.json, ownership.json.",
+          "hypothesis": "Точная физическая причина неверных зрительных оценок пока не разделена; новых причин без вмешательства не объявлено.",
+          "discriminating_check": "Для проверки физических соответствий нужны независимые ключевые точки с погрешностью; подстановка координат рамки не заменяет эту разметку. Для261у1102 не сохранена матрица и нет прямой метки.",
+          "limitation": "Не выполнена физическая подстановка третьего этапа; нет нового полного трекера, HOTA или улучшения ядра.",
+          "evidence": [
+            "research_failure_localization_20261112/РЕЗУЛЬТАТ.md",
+            "research_failure_localization_20261112/audit.json",
+            "research_failure_localization_20261112/graph_review.json"
+          ],
+          "source_sha256": "3d19997eec06a023d592742531d62d73306e4ad4144fa5c7e7c0afe2de2165ec"
         }
       ]
     },
