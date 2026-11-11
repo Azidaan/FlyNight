@@ -51,3 +51,12 @@ def test_semantic_branch_has_one_owner_and_is_reused(tmp_path):
     assert first==second
     assert tree.nodes[first]['number']=='6.1.1'
     assert tree.nodes[tree.nodes[first]['parent']]['title']=='Память'
+
+
+def test_hypothesis_week_uses_month_and_monday_boundaries():
+    from datetime import date
+    from scripts.obsidian_level_graph import hypothesis_week
+    assert hypothesis_week(date(2026,11,1))==(1,date(2026,11,1),date(2026,11,1))
+    assert hypothesis_week(date(2026,11,8))==(2,date(2026,11,2),date(2026,11,8))
+    assert hypothesis_week(date(2026,11,9))==(3,date(2026,11,9),date(2026,11,15))
+    assert hypothesis_week(date(2026,10,31))==(5,date(2026,10,26),date(2026,10,31))

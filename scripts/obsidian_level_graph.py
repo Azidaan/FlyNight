@@ -5,6 +5,8 @@ from urllib.parse import quote
 import hashlib
 import json
 import re
+from datetime import date, datetime, timedelta, timezone
+import calendar
 
 from scripts.build_obsidian_vault import ROOT, safe
 from scripts.obsidian_confirmed_results import GROUPS as RESULT_GROUPS, collect
@@ -139,6 +141,15 @@ class Tree:
         manifest=vault/'.graph-visible.json'
         self.previous=read(manifest) if manifest.exists() else {}
         self.old=self.previous.get('nodes',{})
+        # Preserve an explicit rename of a generated root in Obsidian.
+        for key,node in self.old.items():
+            if node['parent'] is not None or (vault/node['path']).exists():continue
+            candidates=[]
+            for p in (vault/FOLDER/node['section']).glob('*.md'):
+                text=p.read_text(encoding='utf8')
+                if 'пункт: "'+node['number']+'"' in text.split('---',2)[1] and re.search(r'^# '+re.escape(node['number'])+r'\. '+re.escape(node['title'])+r'$',text,re.M):
+                    candidates.append(p.relative_to(vault).as_posix())
+            if len(candidates)==1:node['path']=candidates[0]
         self.used=defaultdict(int)
         for node in self.old.values():
             self.used[node['parent']]=max(self.used[node['parent']],int(node['number'].split('.')[-1]))
@@ -160,6 +171,8 @@ class Tree:
             section=self.nodes[parent]['section']
             self.children[parent].append(key)
         path=f'{FOLDER}/{section}/{number}. {safe(title,85).rstrip(". ")}.md'
+        if parent is None and key in self.old and (self.vault/self.old[key]['path']).exists():
+            path=self.old[key]['path']
         self.nodes[key]=dict(number=number,title=title,section=section,parent=parent,path=path,body=body,color=color)
         return key
 
@@ -167,6 +180,7 @@ class Tree:
         # New thematic groups replace obsolete direct leaves. Number them from
         # one instead of inheriting the largest old leaf number (e.g. 121).
         roots={n['parent'] for k,n in self.nodes.items() if k.startswith('topic:') and not n['parent'].startswith('topic:')}
+        if any(k.startswith('hyp-month:') for k in self.nodes):roots.add('Гипотезы')
         def number_children(parent):
             for ordinal,key in enumerate(self.children.get(parent,[]),1):
                 node=self.nodes[key]
@@ -211,30 +225,66 @@ class Tree:
         for p,obj in [(config,graph),(self.vault/'.graph-visible.json',dict(version=2,files=sorted(rendered),nodes=meta,search=query))]:
             p.write_bytes((json.dumps(obj,ensure_ascii=False,indent=2)+'\n').encode())
 
-def hypotheses(tree,vault):
-    parent='Гипотезы'
-    paths={p.relative_to(vault).with_suffix('').as_posix() for folder in ['Гипотезы — подходы','Гипотезы — трекинг','Гипотезы — ядро FlyVis']
-           for p in (vault/folder).glob('*.md')}
-    root_targets=[m[1] for m in LINK.finditer((vault/'Гипотезы.md').read_text(encoding='utf8'))]
-    paths.update(root_targets)
-    seen=set()
-    def visit(path,up):
-        if path in seen:return
-        seen.add(path)
-        text=(vault/(path+'.md')).read_text(encoding='utf8')
-        if path.startswith('Гипотезы — ядро'):
-            up=tree.add('core-hub','Ядро FlyVis',up)
-        front=text.split('---',2)[1]
-        color='выполнено' if 'проверка-гипотезы/завершена' in front else 'ожидает' if 'проверка-гипотезы/не-завершена' in front else None
-        if path.startswith('Гипотезы — трекинг/Т10 '):color='без-положительного-итога'
-        k=tree.add('hyp:'+path,Path(path).name,up,original(vault,path),color)
-        tree.nodes[k]['body']=tree.nodes[k]['body'].replace(
-            'Зелёный означает завершение проверки, а не подтверждение пользы.',
-            'Фиолетовый означает завершённую проверку без подтверждённого положительного результата.')
-        for m in LINK.finditer(text):
-            if m[1] in paths and m[1] not in root_targets:visit(m[1],k)
-    for path in root_targets:visit(path,parent)
-    assert seen==paths
+def hypothesis_week(day):
+    first=day.replace(day=1)
+    number=(day.day+first.weekday()-1)//7+1
+    start=max(first,day-timedelta(days=day.weekday()))
+    end=min(day+timedelta(days=6-day.weekday()),day.replace(day=calendar.monthrange(day.year,day.month)[1]))
+    return number,start,end
+
+def hypotheses(tree,vault,as_of=None):
+    today=as_of or datetime.now(timezone(timedelta(hours=3))).date()
+    registry=read(ROOT/'experiments/hypothesis_calendar.json')['entries']
+    months=('Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь')
+    # Navigation groups are not hypotheses. Each real hypothesis appears once.
+    available={p.relative_to(vault).with_suffix('').as_posix()
+               for folder in ['Гипотезы — подходы','Гипотезы — трекинг','Гипотезы — ядро FlyVis']
+               for p in (vault/folder).glob('*.md') if not p.stem.startswith('Трекинг —')}
+    available.update(m[1] for m in LINK.finditer((vault/'Гипотезы.md').read_text(encoding='utf8')) if m[1].startswith('09 Запланировано/Б'))
+    assert available==set(registry),'Every hypothesis needs an explicit evidenced registration date'
+    def day_parent(day):
+        month='hyp-month:'+day.strftime('%Y-%m')
+        if month not in tree.nodes:
+            tree.add(month,months[day.month-1]+' '+str(day.year),'Гипотезы')
+        number,start,end=hypothesis_week(day)
+        week=month+':week:'+str(number)
+        if week not in tree.nodes:
+            current=start<=today<=end
+            tree.add(week,'Неделя №'+str(number),month,
+                     'Период: '+start.strftime('%d.%m.%Y')+' — '+end.strftime('%d.%m.%Y')+'. Неделя месяца, понедельник–воскресенье.'+
+                     (' Текущая неделя.' if current else ''),'в-работе' if current else None)
+            tree.nodes[week].update(week_start=start.isoformat(),week_end=end.isoformat(),current_week=current)
+        key='hyp-day:'+day.isoformat()
+        if key not in tree.nodes:
+            tree.add(key,day.strftime('%d.%m.%Y'),week,'Дата документированной регистрации гипотез и подходов.')
+            tree.nodes[key]['date']=day.isoformat()
+        return key
+    # Include the current week even when it has no new hypotheses; do not
+    # invent an empty day or a scientific hypothesis for it.
+    grouped=defaultdict(list)
+    for path,item in registry.items():grouped[date.fromisoformat(item['date'])].append((path,item))
+    for day,items in sorted(grouped.items()):
+        parent=day_parent(day)
+        for path,item in sorted(items):
+            text=(vault/(path+'.md')).read_text(encoding='utf8')
+            front=text.split('---',2)[1]
+            color='выполнено' if 'проверка-гипотезы/завершена' in front else 'ожидает' if 'проверка-гипотезы/не-завершена' in front else None
+            if path.startswith('Гипотезы — трекинг/Т10 '):color='без-положительного-итога'
+            body='Дата регистрации: '+day.strftime('%d.%m.%Y')+'. Основание: '+item['locator']+'.\n\n'+local_file(item['source'],'Источник даты')+'\n\n'
+            body+='Связанная тематическая ветвь: '+item['thematic_parent']+'.\n\n'+original(vault,path)
+            body=body.replace('Зелёный означает завершение проверки, а не подтверждение пользы.',
+                              'Фиолетовый означает завершённую проверку без подтверждённого положительного результата.')
+            key=tree.add('hyp:'+path,Path(path).name,parent,body,color)
+            tree.nodes[key].update(date=day.isoformat(),date_source=item['source'],date_locator=item['locator'])
+    current_month='hyp-month:'+today.strftime('%Y-%m')
+    current_number,start,end=hypothesis_week(today)
+    current_week=current_month+':week:'+str(current_number)
+    if current_week not in tree.nodes:
+        if current_month not in tree.nodes:tree.add(current_month,months[today.month-1]+' '+str(today.year),'Гипотезы')
+        tree.add(current_week,'Неделя №'+str(current_number),current_month,
+                 'Текущая неделя: '+start.strftime('%d.%m.%Y')+' — '+end.strftime('%d.%m.%Y')+
+                 '. Новых зарегистрированных гипотез пока нет.','в-работе')
+        tree.nodes[current_week].update(week_start=start.isoformat(),week_end=end.isoformat(),current_week=True)
 
 def experiments(tree,catalog):
     cards=catalog['experiments']

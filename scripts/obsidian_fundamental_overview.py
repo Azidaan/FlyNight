@@ -510,5 +510,7 @@ def main():
     if not (args.vault/'Гипотезы.md').exists() or args.authorize_core_dynamics:
         build(args.vault,args.preserve_note,authorize_core_dynamics=args.authorize_core_dynamics,
               authorize_tracking=not (args.vault/'Гипотезы.md').exists())
+    from scripts.obsidian_deferred_identity_hypotheses import build_source_notes
+    build_source_notes(args.vault)
     print(build_levels(args.vault))
     return 0

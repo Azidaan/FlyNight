@@ -88,6 +88,16 @@ def audit(vault):
         matches=[n for k,n in nodes.items() if k.startswith('plan:idea:09 Запланировано/Идеи из плана/'+item['id']+' ')]
         assert len(matches)==1 and matches[0]['color']==item['color']
         assert item['finding'] in (vault/matches[0]['path']).read_text(encoding='utf8')
+    calendar=read(ROOT/'experiments/hypothesis_calendar.json')['entries']
+    assert {k[4:] for k in nodes if k.startswith('hyp:')}==set(calendar)
+    current_weeks=[n for n in nodes.values() if n.get('current_week')]
+    assert len(current_weeks)==1 and current_weeks[0]['color']=='в-работе'
+    for source,item in calendar.items():
+        n=nodes['hyp:'+source]
+        assert n['date']==item['date'] and n['parent']=='hyp-day:'+item['date']
+        day=nodes[n['parent']];week=nodes[day['parent']];month=nodes[week['parent']]
+        assert week['week_start']<=item['date']<=week['week_end']
+        assert month['parent']=='Гипотезы'
     journal=(ROOT/'dissertation/ЕДИНЫЙ_ПЛАН.md').read_text(encoding='utf8').split('## Журнал изменений',1)[1]
     expected_entries=len(re.findall(r'^\*\*\d\d\.\d\d\.\d\d\d\d',journal,re.M))
     entries=sum(len(re.findall(r'^## \d\d:\d\d ',(vault/n['path']).read_text(encoding='utf8'),re.M))
