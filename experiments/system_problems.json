@@ -157,14 +157,15 @@
         "flyvis_local_shift_feasibility_20261108",
         "singleton_car_map_coverage_20261108",
         "singleton_two_map_scores_20261108",
-        "flyvis_two_integration_state_readout_20261111"
+        "flyvis_two_integration_state_readout_20261111",
+        "map_value_agreement_20261112"
       ],
       "legacy": [
         "P1",
         "P5"
       ],
       "first_seen": "2026-10-28",
-      "updated": "2026-11-11",
+      "updated": "2026-11-12",
       "cases": [
         {
           "date": "2026-10-28",
@@ -287,6 +288,19 @@
             "research_multistate_readout_20261111/audit.json"
           ],
           "source_sha256": "f874cf7588226319b4d7538964f4045ee656c7e474de51c6ebf46a31869e35e0"
+        },
+        {
+          "date": "2026-11-12",
+          "component": "Считыватель полного модуля FlyVis; ядро неизменно",
+          "fact": "На 26 связях C34: 17 своих / 1 чужих → 17 своих / 1 чужих. На пяти рабочих случаях: 2 своих / 1 чужих. Источник `research_agreement_readout_20261112/summary.json`: metrics, screen_metrics, cv_gates, screen_gates; покадровые оценки: predictions.json.",
+          "hypothesis": "Парные средние и амплитуды могут отражать освещение, фон и содержание; данный итог не устанавливает их причинную роль.",
+          "discriminating_check": "Оба допуска и согласованные обычные контроли выполнены; дальнейший расчёт этой версии остановлен по решению автора.",
+          "limitation": "Повторно используемые разработческие 26 связей и пять заранее известных случаев не являются независимым тестом. Не измерены назначение рамок, жизненный цикл публичного ID и HOTA (совместное качество обнаружения и связывания траекторий). Не доказана причина всех прежних ошибок и бесполезность средних/амплитуд вообще.",
+          "evidence": [
+            "research_agreement_readout_20261112/summary.json",
+            "research_agreement_readout_20261112/audit.json"
+          ],
+          "source_sha256": "5f6b500bee569366d6d4a98a5c3f516bd75915f2094d0d150d13b8a51973b23b"
         }
       ],
       "revisions": [

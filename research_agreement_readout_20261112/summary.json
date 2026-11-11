@@ -1,0 +1,165 @@
+{
+  "passed": true,
+  "metrics": {
+    "C34__agreement": {
+      "own_accept": 17,
+      "foreign_accept": 1,
+      "balanced_accuracy": 0.8416666666666667
+    },
+    "C34__variance_only": {
+      "own_accept": 17,
+      "foreign_accept": 1,
+      "balanced_accuracy": 0.8416666666666667
+    },
+    "R134_spatial__agreement": {
+      "own_accept": 17,
+      "foreign_accept": 2,
+      "balanced_accuracy": 0.7583333333333334
+    },
+    "R134_spatial__variance_only": {
+      "own_accept": 17,
+      "foreign_accept": 2,
+      "balanced_accuracy": 0.7583333333333334
+    },
+    "R134_temporal__agreement": {
+      "own_accept": 17,
+      "foreign_accept": 1,
+      "balanced_accuracy": 0.8416666666666667
+    },
+    "R134_temporal__variance_only": {
+      "own_accept": 16,
+      "foreign_accept": 2,
+      "balanced_accuracy": 0.7333333333333334
+    },
+    "C34__common_baseline": {
+      "own_accept": 17,
+      "foreign_accept": 1,
+      "balanced_accuracy": 0.8416666666666667
+    },
+    "R134_spatial__common_baseline": {
+      "own_accept": 17,
+      "foreign_accept": 2,
+      "balanced_accuracy": 0.7583333333333334
+    },
+    "R134_temporal__common_baseline": {
+      "own_accept": 16,
+      "foreign_accept": 2,
+      "balanced_accuracy": 0.7333333333333334
+    }
+  },
+  "cv_gates": {
+    "C34__agreement": false,
+    "C34__variance_only": false,
+    "R134_spatial__agreement": false,
+    "R134_spatial__variance_only": false,
+    "R134_temporal__agreement": true,
+    "R134_temporal__variance_only": false
+  },
+  "screen_metrics": {
+    "C34__agreement": {
+      "own_accept": 2,
+      "foreign_accept": 1,
+      "balanced_accuracy": 0.25
+    },
+    "C34__variance_only": {
+      "own_accept": 2,
+      "foreign_accept": 1,
+      "balanced_accuracy": 0.25
+    },
+    "R134_spatial__agreement": {
+      "own_accept": 3,
+      "foreign_accept": 1,
+      "balanced_accuracy": 0.375
+    },
+    "R134_spatial__variance_only": {
+      "own_accept": 3,
+      "foreign_accept": 1,
+      "balanced_accuracy": 0.375
+    },
+    "R134_temporal__agreement": {
+      "own_accept": 3,
+      "foreign_accept": 1,
+      "balanced_accuracy": 0.375
+    },
+    "R134_temporal__variance_only": {
+      "own_accept": 3,
+      "foreign_accept": 1,
+      "balanced_accuracy": 0.375
+    }
+  },
+  "screen_gates": {
+    "C34__agreement": false,
+    "C34__variance_only": false,
+    "R134_spatial__agreement": false,
+    "R134_spatial__variance_only": false,
+    "R134_temporal__agreement": false,
+    "R134_temporal__variance_only": false
+  },
+  "primary_joint_gate": false,
+  "component_advantage": false,
+  "intervals95": {
+    "C34__agreement minus C34__common_baseline": {
+      "low": 0.0,
+      "high": 0.0,
+      "valid": 3997
+    },
+    "R134_spatial__agreement minus R134_spatial__common_baseline": {
+      "low": 0.0,
+      "high": 0.0,
+      "valid": 3997
+    },
+    "R134_temporal__agreement minus R134_temporal__common_baseline": {
+      "low": 0.0,
+      "high": 0.27513157894736834,
+      "valid": 3997
+    },
+    "C34__variance_only minus C34__common_baseline": {
+      "low": 0.0,
+      "high": 0.0,
+      "valid": 3997
+    },
+    "R134_spatial__variance_only minus R134_spatial__common_baseline": {
+      "low": 0.0,
+      "high": 0.0,
+      "valid": 3997
+    },
+    "R134_temporal__variance_only minus R134_temporal__common_baseline": {
+      "low": 0.0,
+      "high": 0.0,
+      "valid": 3997
+    },
+    "C34__agreement minus C34__variance_only": {
+      "low": 0.0,
+      "high": 0.0,
+      "valid": 3997
+    },
+    "R134_spatial__agreement minus R134_spatial__variance_only": {
+      "low": 0.0,
+      "high": 0.0,
+      "valid": 3997
+    },
+    "R134_temporal__agreement minus R134_temporal__variance_only": {
+      "low": 0.0,
+      "high": 0.27513157894736834,
+      "valid": 3997
+    },
+    "C34__agreement minus R134_spatial__agreement": {
+      "low": -0.08333333333333326,
+      "high": 0.2727272727272727,
+      "valid": 3997
+    },
+    "C34__agreement minus R134_temporal__agreement": {
+      "low": -0.10526315789473685,
+      "high": 0.09999999999999998,
+      "valid": 3997
+    }
+  },
+  "omitted_bootstrap_draws": 3,
+  "fits": 126,
+  "new_maps": 0,
+  "new_core_calls": 0,
+  "full_tracker_run": false,
+  "actual_IDs_evaluated": false,
+  "decision": "Stop this bounded package. Primary not promoted.",
+  "scope": "26 reused development links, only6 foreign; five preselected diagnostic cases. Not HOTA, not actual assignment/public-ID survival."
+}

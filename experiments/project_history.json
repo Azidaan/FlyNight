@@ -31917,6 +31917,73 @@
       "obtained": "На26парах(20своих/6чужих) C34:17своих/2чужие как у последнего состояния; временной контроль16/4→18/4, пространственный17/3→18/3. Все52последнихсостояния совпали точно с архивом, независимая корреляционная сверка1,11e-15. Источник research_multistate_readout_20261111/summary.json:metrics,decision_changes,final_state_parity; audit.json.",
       "interpretation": "Равное смешивание с готовой головой не изменило решений FlyVis; критерий строгого улучшения не выполнен. Частная прибавка обычных контролей не является прибавкой ядра. Интервалы сравнений с обоими обычными совместными представлениями включают ноль.",
       "decision": "Не продвигать эту фиксированную версию к полному трекеру. Сохранить промежуточные карты для будущих отдельных протоколов, без автоматического обучения и без запуска слотов."
+    },
+    {
+      "id": "map_value_agreement_20261112",
+      "title": "Согласие значений карт — средние и амплитуды при прежнем сдвиге",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-12",
+      "question": "Помогают ли парные различия средних и амплитуд отличать своё продолжение от чужого?",
+      "hypothesis": "Корреляция удаляет парные средние и амплитуды; их сохранение коэффициентом согласия может изменить неверное зрительное решение.",
+      "expected": "Пройти оба заранее фиксированных допуска на готовых 26 связях и пяти рабочих случаях.",
+      "acceptance": [
+        {
+          "criterion": "C34 agreement own>=17, foreign<=1 with at least one strict improvement over ready common-scale baseline.",
+          "met": false,
+          "evidence": "research_agreement_readout_20261112/summary.json; research_agreement_readout_20261112/audit.json"
+        },
+        {
+          "criterion": "Preserve correct own70 and own1102; accept at least one of own232/own832 AND reject foreign574. All at threshold0.",
+          "met": false,
+          "evidence": "research_agreement_readout_20261112/summary.json; research_agreement_readout_20261112/audit.json"
+        },
+        {
+          "criterion": "Both primary gates and independent audit must pass. Otherwise stop this fixed version; no tuning, no tracker.",
+          "met": false,
+          "evidence": "research_agreement_readout_20261112/summary.json; research_agreement_readout_20261112/audit.json"
+        },
+        {
+          "criterion": "No unique FlyVis advantage without positive paired-video interval versus both matched ordinary agreement controls.",
+          "met": false,
+          "evidence": "research_agreement_readout_20261112/summary.json; research_agreement_readout_20261112/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_agreement_readout_20261112/protocol.json",
+          "claim": "Условия, входы и критерии до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "research_agreement_readout_20261112/summary.json",
+          "claim": "Измеренные сравнения и оба допуска"
+        },
+        {
+          "kind": "file",
+          "ref": "research_agreement_readout_20261112/predictions.json",
+          "claim": "Все оценки и обученные слои"
+        },
+        {
+          "kind": "file",
+          "ref": "research_agreement_readout_20261112/audit.json",
+          "claim": "Независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "research_agreement_readout_20261112/РЕЗУЛЬТАТ.md",
+          "claim": "Вывод, ограничения и решение"
+        }
+      ],
+      "tags": [
+        "fly-problem-P1"
+      ],
+      "done": "2026-11-12",
+      "obtained": "На 26 связях C34: 17 своих / 1 чужих → 17 своих / 1 чужих. На пяти рабочих случаях: 2 своих / 1 чужих. Источник `research_agreement_readout_20261112/summary.json`: metrics, screen_metrics, cv_gates, screen_gates; покадровые оценки: predictions.json.",
+      "interpretation": "Согласие значений не прошло совокупный критерий продолжения. Проверен внешний считыватель полного модуля, ядро FlyVis не менялось. Результат относится к этому коэффициенту при прежнем сдвиге и фиксированном обучении.",
+      "decision": "Остановить эту фиксированную реализацию после двух допусков; пороги и штраф не подбирать, полный трекер не запускать.",
+      "cannot_claim": "Повторно используемые разработческие 26 связей и пять заранее известных случаев не являются независимым тестом. Не измерены назначение рамок, жизненный цикл публичного ID и HOTA (совместное качество обнаружения и связывания траекторий). Не доказана причина всех прежних ошибок и бесполезность средних/амплитуд вообще."
     }
   ],
   "manual_events": [
