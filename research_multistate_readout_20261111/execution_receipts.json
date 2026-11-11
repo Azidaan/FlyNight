@@ -1,0 +1,126 @@
+{
+  "records": [
+    {
+      "id": "c59e17a95d0d41aa8bad68d68dffe853",
+      "resource_report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_multistate_readout_20261111\\recover.py",
+          "--audit-memory-worker=c59e17a95d0d41aa8bad68d68dffe853"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17691176960,
+        "reason": null,
+        "returncode": 1,
+        "owned": {
+          "17864": 1794427703.5533953,
+          "23224": 1794427703.5756135
+        },
+        "stop_errors": [],
+        "seconds": 16.031999999999243
+      },
+      "worker_log": "Traceback (most recent call last):\n  File \"E:\\Dissertation\\research_multistate_readout_20261111\\recover.py\", line 5, in <module>\n    import torch\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\__init__.py\", line 2204, in <module>\n    from torch import _VF as _VF, functional as functional  # usort: skip\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\functional.py\", line 8, in <module>\n    import torch.nn.functional as F\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\nn\\__init__.py\", line 8, in <module>\n    from torch.nn.modules import *  # usort: skip # noqa: F403\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\nn\\modules\\__init__.py\", line 1, in <module>\n    from .module import Module  # usort: skip\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\nn\\modules\\module.py\", line 17, in <module>\n    from torch.utils._python_dispatch import is_traceable_wrapper_subclass\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\utils\\__init__.py\", line 8, in <module>\n    from torch.utils import (\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\utils\\data\\__init__.py\", line 1, in <module>\n    from torch.utils.data.dataloader import (\n  File \"E:\\Dissertation\\.venv\\lib\\site-packages\\torch\\utils\\data\\dataloader.py\", line 17, in <module>\n    import queue\n  File \"E:\\Dissertation\\research_multistate_readout_20261111\\queue.py\", line 8, in <module>\n    me=psutil.Process(); write('executor.json',dict(pid=me.pid,birth=me.create_time(),deadline=STOP.isoformat(),\n  File \"E:\\Dissertation\\research_multistate_readout_20261111\\common.py\", line 29, in write\n    with path.open('x', encoding='utf8', newline='\\n') as f:\n  File \"E:\\Dissertation\\python310\\tools\\lib\\pathlib.py\", line 1119, in open\n    return self._accessor.open(self, mode, buffering, encoding, errors,\nFileExistsError: [Errno 17] File exists: 'E:\\\\Dissertation\\\\research_multistate_readout_20261111\\\\executor.json'\n"
+    },
+    {
+      "id": "a4c76b513e954e7aaae2643284e69e9e",
+      "resource_report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_multistate_readout_20261111\\launch_stage.py",
+          "recover.py",
+          "--audit-memory-worker=a4c76b513e954e7aaae2643284e69e9e"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 16111251456,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "21008": 1794427801.7482247,
+          "23732": 1794427801.7719223
+        },
+        "stop_errors": [],
+        "seconds": 82.32799999999952
+      },
+      "worker_log": "[2026-11-11 21:11:02] network_view:122 Initialized network view at E:\\Dissertation\\runs\\flyvis\\results\\flow\\0000\\000\n[2026-11-11 21:11:02] logging_utils:23 epe not in E:\\Dissertation\\runs\\flyvis\\results\\flow\\0000\\000\\validation, but 'loss' is. Falling back to 'loss'. You can rerun the ensemble validation to make appropriate recordings of the losses.\n[2026-11-11 21:11:10] network:222 Initialized network with NumberOfParams(free=734, fixed=2959) parameters.\n[2026-11-11 21:11:12] decoder:282 Initialized decoder with NumberOfParams(free=7427, fixed=0) parameters.\n[2026-11-11 21:11:12] decoder:283 DecoderGAVP(\n  (base): Sequential(\n    (0): Conv2dHexSpace(34, 8, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))\n    (1): BatchNorm2d(8, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)\n    (2): Softplus(beta=1.0, threshold=20.0)\n    (3): Dropout(p=0.5, inplace=False)\n  )\n  (decoder): Sequential(\n    (0): Conv2dHexSpace(8, 3, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))\n  )\n  (head): Sequential()\n)\nMIDPOINT_MAPS_READY 52\n"
+    },
+    {
+      "id": "d2a9808e04604980997af1ba30d2cf9e",
+      "resource_report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_multistate_readout_20261111\\launch_stage.py",
+          "audit.py",
+          "--audit-memory-worker=d2a9808e04604980997af1ba30d2cf9e"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17541537792,
+        "reason": null,
+        "returncode": 1,
+        "owned": {
+          "18556": 1794427889.3142767,
+          "1928": 1794427889.337806
+        },
+        "stop_errors": [],
+        "seconds": 5.890999999999622
+      },
+      "worker_log": "Traceback (most recent call last):\n  File \"E:\\Dissertation\\research_multistate_readout_20261111\\launch_stage.py\", line 15, in <module>\n    exec(compile(target.read_bytes(),str(target),'exec'),dict(__name__='__main__',__file__=str(target)))\n  File \"E:\\Dissertation\\research_multistate_readout_20261111\\audit.py\", line 42, in <module>\n    assert maxerr<1e-10,(maxerr,'independent interpolation/correlation disagreement')\nAssertionError: (2.472616353332846e-08, 'independent interpolation/correlation disagreement')\n"
+    },
+    {
+      "id": "10084c8805de488fb7f0dacb9b7ae0bf",
+      "resource_report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_multistate_readout_20261111\\launch_audit_recovery2.py",
+          "--audit-memory-worker=10084c8805de488fb7f0dacb9b7ae0bf"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17239703552,
+        "reason": null,
+        "returncode": 1,
+        "owned": {
+          "22576": 1794427961.378854,
+          "25376": 1794427961.4034295
+        },
+        "stop_errors": [],
+        "seconds": 6.20299999999952
+      },
+      "worker_log": "Traceback (most recent call last):\n  File \"E:\\Dissertation\\research_multistate_readout_20261111\\launch_audit_recovery2.py\", line 11, in <module>\n    exec(compile(target.read_bytes(),str(target),'exec'),dict(__name__='__main__',__file__=str(target)))\n  File \"E:\\Dissertation\\research_multistate_readout_20261111\\audit_recovery2.py\", line 24, in <module>\n    exec(compile(text.replace(needle,replacement),str(source),'exec'),dict(__name__='__main__',__file__=str(source)))\n  File \"E:\\Dissertation\\research_multistate_readout_20261111\\audit.py\", line 60, in <module>\n    contrasts['last_C34'].append(c-metric(ii,'C34','last_decision_score')['balanced_accuracy'])\nAssertionError\n"
+    },
+    {
+      "id": "26c75e840096484f9f8b745170725b8d",
+      "resource_report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_multistate_readout_20261111\\launch_audit_recovery3.py",
+          "--audit-memory-worker=26c75e840096484f9f8b745170725b8d"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 16877277184,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "14504": 1794428029.3852863,
+          "1176": 1794428029.411333
+        },
+        "stop_errors": [],
+        "seconds": 8.218000000000757
+      },
+      "worker_log": "MULTISTATE_RESULT False {'C34': {'last': {'own_accept': 17, 'foreign_accept': 2, 'own_reject': 3, 'foreign_reject': 4, 'balanced_accuracy': np.float64(0.7583333333333333), 'auc': np.float64(0.85)}, 'joint': {'own_accept': 17, 'foreign_accept': 2, 'own_reject': 3, 'foreign_reject': 4, 'balanced_accuracy': np.float64(0.7583333333333333), 'auc': np.float64(0.8666666666666667)}}, 'R134_temporal': {'last': {'own_accept': 16, 'foreign_accept': 4, 'own_reject': 4, 'foreign_reject': 2, 'balanced_accuracy': np.float64(0.5666666666666667), 'auc': np.float64(0.625)}, 'joint': {'own_accept': 18, 'foreign_accept': 4, 'own_reject': 2, 'foreign_reject': 2, 'balanced_accuracy': np.float64(0.6166666666666667), 'auc': np.float64(0.675)}}, 'R134_spatial': {'last': {'own_accept': 17, 'foreign_accept': 3, 'own_reject': 3, 'foreign_reject': 3, 'balanced_accuracy': np.float64(0.675), 'auc': np.float64(0.825)}, 'joint': {'own_accept': 18, 'foreign_accept': 3, 'own_reject': 2, 'foreign_reject': 3, 'balanced_accuracy': np.float64(0.7), 'auc': np.float64(0.8333333333333334)}}}\n"
+    }
+  ]
+}

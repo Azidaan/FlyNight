@@ -31845,6 +31845,78 @@
         }
       ],
       "done": "2026-11-09"
+    },
+    {
+      "id": "flyvis_two_integration_state_readout_20261111",
+      "title": "Считывание двух состояний FlyVis — равное объединение с готовой головой",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-11",
+      "question": "Поможет ли первое состояние того же прохода отличать свои продолжения от чужих при неизменном последнем состоянии?",
+      "hypothesis": "Равное объединение поканальных свидетельств первого и последнего шагов на одном общем сдвиге может дополнить готовое последнее считывание.",
+      "expected": "Не меньше принятых своих и не больше чужих относительно готового последнего C34; хотя бы одно строгое улучшение. Сравнить с обоими обычными совместными контролями.",
+      "acceptance": [
+        {
+          "criterion": "Math pass before recovery",
+          "met": true,
+          "evidence": "research_multistate_readout_20261111/math_checks.json"
+        },
+        {
+          "criterion": "All52 final-state parity max error<=1e-4, finite aligned midpoint maps, weights/state unchanged by tap",
+          "met": true,
+          "evidence": "research_multistate_readout_20261111/maps_complete.json"
+        },
+        {
+          "criterion": "All26 pairs retained, no future or unknown labels, same support/shifts/heads; old final scores reused",
+          "met": true,
+          "evidence": "research_multistate_readout_20261111/audit.json"
+        },
+        {
+          "criterion": "Preliminary C34 gate: own>=ready-final, foreign<=ready-final and at least one strict improvement",
+          "met": false,
+          "evidence": "research_multistate_readout_20261111/summary.json"
+        },
+        {
+          "criterion": "Unique empirical advantage needs positive lower95% video-paired interval versus both joint ordinary controls; no HOTA or public-ID claim",
+          "met": false,
+          "evidence": "research_multistate_readout_20261111/summary.json"
+        }
+      ],
+      "cannot_claim": "Разработческие26пар, не независимая оценка и не измерение сохранения публичного ID/HOTA. Два шага интегрирования не являются двумя глубинами графа. Отрицание равного смешивания не исключает обучаемое объединение.",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_multistate_readout_20261111/protocol.json",
+          "claim": "Критерии и источники зафиксированы до недостающих карт"
+        },
+        {
+          "kind": "file",
+          "ref": "research_multistate_readout_20261111/ОСНОВАНИЕ.md",
+          "claim": "Математика, контроль, прежние попытки и литературное основание"
+        },
+        {
+          "kind": "file",
+          "ref": "research_multistate_readout_20261111/summary.json",
+          "claim": "Сравнение решений и интервалы без подбора порога"
+        },
+        {
+          "kind": "file",
+          "ref": "research_multistate_readout_20261111/audit.json",
+          "claim": "Независимая сверка сохранённых карт"
+        },
+        {
+          "kind": "file",
+          "ref": "research_multistate_readout_20261111/РЕЗУЛЬТАТ.md",
+          "claim": "Итог, ограничения и технические восстановления"
+        }
+      ],
+      "tags": [
+        "fly-problem-P1"
+      ],
+      "done": "2026-11-11",
+      "obtained": "На26парах(20своих/6чужих) C34:17своих/2чужие как у последнего состояния; временной контроль16/4→18/4, пространственный17/3→18/3. Все52последнихсостояния совпали точно с архивом, независимая корреляционная сверка1,11e-15. Источник research_multistate_readout_20261111/summary.json:metrics,decision_changes,final_state_parity; audit.json.",
+      "interpretation": "Равное смешивание с готовой головой не изменило решений FlyVis; критерий строгого улучшения не выполнен. Частная прибавка обычных контролей не является прибавкой ядра. Интервалы сравнений с обоими обычными совместными представлениями включают ноль.",
+      "decision": "Не продвигать эту фиксированную версию к полному трекеру. Сохранить промежуточные карты для будущих отдельных протоколов, без автоматического обучения и без запуска слотов."
     }
   ],
   "manual_events": [

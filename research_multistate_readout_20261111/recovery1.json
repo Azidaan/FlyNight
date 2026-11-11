@@ -1,0 +1,16 @@
+{
+  "pid": 25120,
+  "birth": 1794427801.1204927,
+  "created": "2026-11-11T23:10:01.366825+03:00",
+  "original_failure": "torch import of queue resolved to task queue.py; no network calls or maps completed",
+  "unchanged_scientific_protocol_sha256": "be4ebe8164a50dc95b93615bddbbd0ae92ae8a1c907025ee54ca787d4e6e37ee",
+  "old_owned_processes_ended": true,
+  "sources": {
+    "launch_stage.py": "70380eeac03af11881b05a290c412f85a0d075095ad5fc1138dcc3ada4d55ef4",
+    "resume_recovery1.py": "b4be394b9dcf5af2855fe368851578a91494a8191ad44f4df12ae69d9733a05f",
+    "recover.py": "0e88fef814695d1cf082c4471432c31015da3de02e1ca3743c2875172f62c3cd",
+    "compare.py": "360585f281931f944b20289b201804372691e14779aa9b234690637bc62cb74c",
+    "audit.py": "a12dff66f2eebd46d54e9b7fc235a4ca98a3622af59f700029456c21b4257059"
+  },
+  "change": "Strip task folder from sys.path, explicitly load frozen common module, retain wrapper in supervisor re-entry."
+}

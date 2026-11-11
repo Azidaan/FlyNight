@@ -1,0 +1,10 @@
+{
+  "original_audit_max_error": 2.472616353332846e-08,
+  "corrected_audit_max_error": 1.1102230246251565e-15,
+  "unchanged_tolerance": 1e-10,
+  "cause": "Independent ordinary spatial branch averaged float32 endpoint maps; comparator casts all maps to float64 BEFORE neighborhood averaging. Midpoint branch was already float64.",
+  "original_audit_sha256": "a12dff66f2eebd46d54e9b7fc235a4ca98a3622af59f700029456c21b4257059",
+  "recovery_source_sha256": "d32bb9d50ae0aa48f17656a6030ddcdbf0aee8cdf686d7c6bee7f23feef53115",
+  "predictions_unchanged_sha256": "a2ec2721a2340dd49336d4de1aef9d1e0795459f5d6872418c3763945341d324",
+  "maps_complete_unchanged_sha256": "395b645ba00d7b8a7c88aef4827d23cf572fe631801580519da00379a779fc8e"
+}

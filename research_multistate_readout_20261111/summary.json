@@ -1,0 +1,129 @@
+{
+  "passed": true,
+  "edges": 26,
+  "own": 20,
+  "foreign": 6,
+  "videos": 20,
+  "metrics": {
+    "C34": {
+      "last": {
+        "own_accept": 17,
+        "foreign_accept": 2,
+        "own_reject": 3,
+        "foreign_reject": 4,
+        "balanced_accuracy": 0.7583333333333333,
+        "auc": 0.85
+      },
+      "joint": {
+        "own_accept": 17,
+        "foreign_accept": 2,
+        "own_reject": 3,
+        "foreign_reject": 4,
+        "balanced_accuracy": 0.7583333333333333,
+        "auc": 0.8666666666666667
+      }
+    },
+    "R134_temporal": {
+      "last": {
+        "own_accept": 16,
+        "foreign_accept": 4,
+        "own_reject": 4,
+        "foreign_reject": 2,
+        "balanced_accuracy": 0.5666666666666667,
+        "auc": 0.625
+      },
+      "joint": {
+        "own_accept": 18,
+        "foreign_accept": 4,
+        "own_reject": 2,
+        "foreign_reject": 2,
+        "balanced_accuracy": 0.6166666666666667,
+        "auc": 0.675
+      }
+    },
+    "R134_spatial": {
+      "last": {
+        "own_accept": 17,
+        "foreign_accept": 3,
+        "own_reject": 3,
+        "foreign_reject": 3,
+        "balanced_accuracy": 0.675,
+        "auc": 0.825
+      },
+      "joint": {
+        "own_accept": 18,
+        "foreign_accept": 3,
+        "own_reject": 2,
+        "foreign_reject": 3,
+        "balanced_accuracy": 0.7,
+        "auc": 0.8333333333333334
+      }
+    }
+  },
+  "paired_video_intervals": {
+    "last_C34": {
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "draws": 3999
+    },
+    "joint_R134_temporal": {
+      "ci95": [
+        -0.07499999999999996,
+        0.36249999999999993
+      ],
+      "draws": 3999
+    },
+    "joint_R134_spatial": {
+      "ci95": [
+        -0.09999999999999987,
+        0.2499999999999999
+      ],
+      "draws": 3999
+    }
+  },
+  "preliminary_C34_gate": false,
+  "decision_changes": [
+    {
+      "video": "02364369-bd3d1838",
+      "frame": 95,
+      "old_id": 142,
+      "raw_id": 12613,
+      "label": "own",
+      "signal": "R134_spatial",
+      "old": -0.00903880930454315,
+      "joint": 0.01594878605033534,
+      "corrected": true
+    },
+    {
+      "video": "02364369-bd3d1838",
+      "frame": 149,
+      "old_id": 578,
+      "raw_id": 20066,
+      "label": "own",
+      "signal": "R134_temporal",
+      "old": -0.1128418462190919,
+      "joint": 0.05750380533223806,
+      "corrected": true
+    },
+    {
+      "video": "02521568-a335c1a0",
+      "frame": 96,
+      "old_id": 190,
+      "raw_id": 6654,
+      "label": "own",
+      "signal": "R134_temporal",
+      "old": -0.3328742393264764,
+      "joint": 0.4380477617493993,
+      "corrected": true
+    }
+  ],
+  "independent_correlation_max_error": 1.1102230246251565e-15,
+  "checked_first_shift_vectors": 1482,
+  "final_state_parity": 0.0,
+  "threshold_tuning": false,
+  "new_training": false,
+  "actual_IDs_evaluated": false,
+  "scope": "Previously viewed development cohort; frozen-head equal fusion only. Not independent tracker validation or rejection of all multi-state readers."
+}

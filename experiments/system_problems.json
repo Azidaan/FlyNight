@@ -156,14 +156,15 @@
         "singleton_working_domain_inventory_v1_20261108",
         "flyvis_local_shift_feasibility_20261108",
         "singleton_car_map_coverage_20261108",
-        "singleton_two_map_scores_20261108"
+        "singleton_two_map_scores_20261108",
+        "flyvis_two_integration_state_readout_20261111"
       ],
       "legacy": [
         "P1",
         "P5"
       ],
       "first_seen": "2026-10-28",
-      "updated": "2026-11-08",
+      "updated": "2026-11-11",
       "cases": [
         {
           "date": "2026-10-28",
@@ -273,6 +274,19 @@
             "runs/singleton_car_map_coverage_20261108/inventory.json",
             "runs/singleton_two_map_scores_20261108/scores.json"
           ]
+        },
+        {
+          "date": "2026-11-11",
+          "component": "Считыватель полного модуля FlyVis; ядро неизменно",
+          "fact": "На26парах(20своих/6чужих) C34:17своих/2чужие как у последнего состояния; временной контроль16/4→18/4, пространственный17/3→18/3. Все52последнихсостояния совпали точно с архивом, независимая корреляционная сверка1,11e-15. Источник research_multistate_readout_20261111/summary.json:metrics,decision_changes,final_state_parity; audit.json.",
+          "hypothesis": "Два близких состояния могут менять ранги сходства, но равное смешивание с готовой головой недостаточно для исправления решений.",
+          "discriminating_check": "Эта версия не прошла предварительный допуск. Не заменять её незарегистрированным подбором весов или порога; иное обучаемое объединение требует отдельной постановки и тех же обычных контролей.",
+          "limitation": "Разработческие26пар, не независимая оценка и не измерение сохранения публичного ID/HOTA. Два шага интегрирования не являются двумя глубинами графа. Отрицание равного смешивания не исключает обучаемое объединение.",
+          "evidence": [
+            "research_multistate_readout_20261111/summary.json",
+            "research_multistate_readout_20261111/audit.json"
+          ],
+          "source_sha256": "f874cf7588226319b4d7538964f4045ee656c7e474de51c6ebf46a31869e35e0"
         }
       ],
       "revisions": [
