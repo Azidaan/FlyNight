@@ -1,0 +1,52 @@
+{
+  "source": "runs/domain_matched_native_20261109/id_fate.json",
+  "source_sha256": "a673f667718101f9beabb6106436cbab627a5c525486784ad041307ab8134208",
+  "reasons": {
+    "outside_observed_training_gap": {
+      "unknown": 2081,
+      "own": 12,
+      "foreign": 12
+    },
+    "native_first_already_matched": {
+      "unknown": 1261,
+      "own": 6
+    },
+    "head_accept": {
+      "unknown": 135,
+      "own": 2,
+      "foreign": 1
+    },
+    "insufficient_old_support": {
+      "unknown": 22
+    },
+    "head_refuse": {
+      "unknown": 77,
+      "own": 2
+    },
+    "not_car": {
+      "unknown": 915
+    },
+    "insufficient_reference_history": {
+      "unknown": 8
+    }
+  },
+  "known_excluded_gaps": {
+    "12": {
+      "own": 8,
+      "foreign": 4
+    },
+    "24": {
+      "foreign": 3,
+      "own": 1
+    },
+    "18": {
+      "foreign": 3,
+      "own": 2
+    },
+    "30": {
+      "foreign": 2,
+      "own": 1
+    }
+  },
+  "scope": "Counts of logged proposals after earlier selection; no threshold sweep or model evaluation."
+}

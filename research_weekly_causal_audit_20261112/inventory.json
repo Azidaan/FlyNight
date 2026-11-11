@@ -1,0 +1,3109 @@
+{
+  "period_msk": [
+    "2026-11-05",
+    "2026-11-12"
+  ],
+  "selection": "started OR done in inclusive date range, before this review card",
+  "count": 97,
+  "cards": [
+    {
+      "id": "flyvis_offset_recovery2_v1",
+      "title": "FlyVis — Проверка вычитания фонового смещения при движении",
+      "state": "completed_negative",
+      "started": "2026-11-04",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_offset_recovery2_20261104/protocol.json",
+          "claim": "Данные, условия, сравнения и критерий до расчёта"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_offset_recovery2_20261104/report.json",
+          "claim": "Сравнение всех условий"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_offset_recovery2_20261104/independent_audit.json",
+          "claim": "Независимый пересчёт"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_still_gate_v1",
+      "title": "FlyVis — Когда разрешать вычитание фонового смещения",
+      "state": "completed_negative",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_still_gate_20261105/protocol.json",
+          "claim": "Условия и ограничения до расчёта"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_still_gate_20261105/report.json",
+          "claim": "Условия и количественные результаты"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_still_gate_20261105/independent_audit.json",
+          "claim": "Независимый пересчёт"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_still_gate_20261105/observability_check.json",
+          "claim": "Неразличимость однотонных входов"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_robust_still_gate_v1",
+      "title": "FlyVis — Надёжность признака неподвижности при слабом движении и шуме",
+      "state": "inconclusive",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_still_robust_gate_20261105/protocol.json",
+          "claim": "Условия и ограничения до расчёта"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_still_robust_gate_20261105/report.json",
+          "claim": "Измерение признака или независимая проверка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_still_robust_gate_20261105/independent_audit.json",
+          "claim": "Измерение признака или независимая проверка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_still_robust_gate_20261105/local_motion_stress.json",
+          "claim": "Измерение признака или независимая проверка"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_local_motion_gate_v1",
+      "title": "FlyVis — локальный признак движения на неподвижном фоне",
+      "state": "completed_positive",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_local_motion_gate_20261105/protocol.json",
+          "claim": "Протокол зарегистрирован до расчёта"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_local_motion_gate_20261105/report.json",
+          "claim": "Результат или независимый пересчёт"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_local_motion_gate_20261105/independent_audit.json",
+          "claim": "Результат или независимый пересчёт"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_local_gate_stress_v1",
+      "title": "FlyVis — локальное движение при изменении условий",
+      "state": "completed_negative",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_local_gate_stress_20261105/protocol.json",
+          "claim": "Протокол зафиксирован до расчёта"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_local_gate_stress_20261105/report.json",
+          "claim": "Результат и независимый пересчёт"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_local_gate_stress_20261105/independent_audit.json",
+          "claim": "Результат и независимый пересчёт"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_brightness_gate_v1",
+      "title": "FlyVis — локальное движение с компенсацией общей яркости",
+      "state": "completed_negative",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_brightness_gate_20261105/protocol.json",
+          "claim": "Протокол и пороги до измерения"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_brightness_gate_20261105/report.json",
+          "claim": "Результат и независимый пересчёт"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_brightness_gate_20261105/independent_audit.json",
+          "claim": "Результат и независимый пересчёт"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_order_gate_v1",
+      "title": "FlyVis — локальный порядок яркости при движении и тени",
+      "state": "completed_negative",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_order_gate_20261105/protocol.json",
+          "claim": "Протокол до вычисления"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_order_gate_20261105/report.json",
+          "claim": "Результат или независимый пересчёт признака"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_order_gate_20261105/independent_audit.json",
+          "claim": "Результат или независимый пересчёт признака"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_counterfactual_static_v1",
+      "title": "FlyVis — ответ на удерживаемый первый кадр как контроль смещения",
+      "state": "infrastructure",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_counterfactual_static_20261105/protocol.json",
+          "claim": "Протокол до анализа"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_counterfactual_static_20261105/failure.json",
+          "claim": "Сохранённый отказ положительной калибровки"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_counterfactual_static_recovery1_v1",
+      "title": "FlyVis — ответ на удерживаемый первый кадр как контроль смещения",
+      "state": "completed_negative",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_counterfactual_static_recovery1_20261105/protocol.json",
+          "claim": "Протокол до анализа"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_counterfactual_static_recovery1_20261105/report.json",
+          "claim": "Исход, проверка или сохранённый отказ"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_counterfactual_static_recovery1_20261105/independent_audit.json",
+          "claim": "Исход, проверка или сохранённый отказ"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_counterfactual_static_20261105/failure.json",
+          "claim": "Исход, проверка или сохранённый отказ"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_internal_signal_probe_v1",
+      "title": "FlyVis — где доступен сигнал при развороте",
+      "state": "inconclusive",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_internal_signal_probe_20261105/protocol.json",
+          "claim": "Протокол до расчёта"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_internal_signal_probe_20261105/report.json",
+          "claim": "Результат и независимый пересчёт"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_internal_signal_probe_20261105/independent_audit.json",
+          "claim": "Результат и независимый пересчёт"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_equal_readout_v1",
+      "title": "FlyVis — считыватели с двумя входами на других сценах",
+      "state": "completed_negative",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_equal_readout_20261105/protocol.json",
+          "claim": "Протокол до расчёта"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_equal_readout_20261105/report.json",
+          "claim": "Результат и повторный пересчёт"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_equal_readout_20261105/independent_audit.json",
+          "claim": "Результат и повторный пересчёт"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_full_spatial_capture_probe_v1",
+      "title": "FlyVis — проверка сохранения пространственной активности T4/T5",
+      "state": "infrastructure",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_full_spatial_capture_probe_20261105/protocol.json",
+          "claim": "Протокол технической пробы"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_full_spatial_capture_probe_20261105/report.json",
+          "claim": "Результат или независимая сверка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_full_spatial_capture_probe_20261105/independent_audit.json",
+          "claim": "Результат или независимая сверка"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_t4t5_tensor_skill_probe_v1",
+      "title": "FlyVis — техническая проверка вмешательства T4/T5 в считывание",
+      "state": "infrastructure",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_t4t5_tensor_skill_probe_20261105/protocol.json",
+          "claim": "Протокол до пробы"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_t4t5_tensor_skill_probe_20261105/run_result.json",
+          "claim": "Проверка инструмента и независимый оценщик"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_t4t5_tensor_skill_probe_20261105/independent_audit.json",
+          "claim": "Проверка инструмента и независимый оценщик"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_t4t5_paired_eval_v1",
+      "title": "FlyVis — парная проверка вмешательства T4/T5 при развороте",
+      "state": "infrastructure",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_t4t5_paired_eval_20261105/protocol.json",
+          "claim": "Протокол до измерений"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_t4t5_paired_eval_20261105/failure_analysis.json",
+          "claim": "Анализ сохранённой ошибки запуска"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_t4t5_paired_eval_recovery1_v1",
+      "title": "FlyVis — парная проверка вмешательства T4/T5 при развороте",
+      "state": "completed_negative",
+      "started": "2026-11-05",
+      "done": "2026-11-05",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_t4t5_paired_eval_recovery1_20261105/protocol.json",
+          "claim": "Протокол до измерений"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_t4t5_paired_eval_recovery1_20261105/inference_completed.json",
+          "claim": "Выполненная серия и независимая оценка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_t4t5_paired_eval_recovery1_20261105/independent_audit.json",
+          "claim": "Выполненная серия и независимая оценка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_t4t5_paired_eval_recovery1_20261105/controller_result.json",
+          "claim": "Выполненная серия и независимая оценка"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_system_lifecycle_repair_20261106",
+      "title": "Авторская система — безопасный сброс трекеров и очистка истории",
+      "state": "infrastructure",
+      "started": "2026-11-06",
+      "done": "2026-11-06",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/parent_baseline.json",
+          "claim": "Состояние файлов до исправления и исходный коммит"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/lifecycle_parity.json",
+          "claim": "Сравнение исходного и исправленного исполнения"
+        },
+        {
+          "kind": "file",
+          "ref": "tests/test_tracker_lifecycle_reset.py",
+          "claim": "Воспроизводимые проверки сброса и истории"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_system_repairs_batch1_20261106",
+      "title": "Авторская система — загрузка, геометрия, время и достоверность кэшей",
+      "state": "infrastructure",
+      "started": "2026-11-06",
+      "done": "2026-11-06",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_system_fixes_20261106/loading_native_report.json",
+          "claim": "Строгая загрузка и явное устройство"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_system_fixes_20261106/connectome_transfer_native_report.json",
+          "claim": "Перенос свободных параметров по именам групп"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_system_fixes_20261106/motion/manifest.json",
+          "claim": "Геометрия и зависимые точки входа"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_system_fixes_20261106/motion/probe_k1_report.json",
+          "claim": "Дифференцируемое преобразование К1"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_timestamp_repair_20261106/real_D_v2/report.json",
+          "claim": "Новый временной путь Б1"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_timestamp_repair_20261106/independent_validation.json",
+          "claim": "Независимый пересчёт временной проверки"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/cache_native_v2/report.json",
+          "claim": "Совпадение детекций настоящего YOLO"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/integrated_1793990677683421900/result.json",
+          "claim": "Совместная проверка исправлений"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/geometry_calibration_counterevidence.json",
+          "claim": "Контрпример к автоматической поправке масштаба векторов"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_system_integrity_stable_packages_20261106",
+      "title": "Авторская система — проверенные защиты исполнения и отказ от неподтверждённой геометрии",
+      "state": "infrastructure",
+      "started": "2026-11-06",
+      "done": "2026-11-06",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/first_stable_remote_verification.json",
+          "claim": "Точное содержимое первого опубликованного пакета"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/second_stable_remote_verification.json",
+          "claim": "Точное содержимое второго опубликованного пакета"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/second_stable_package_final/validation.json",
+          "claim": "Объединённая и изолированная проверки"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/coordinate_only_roi_review/report.json",
+          "claim": "Независимое контрдоказательство автоматическому включению координат"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_system_fixes_20261106/calibration_guard/final_default_report.json",
+          "claim": "Совпадение обычного пути с исходным преобразователем"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_history_state_swap_v1",
+      "title": "FlyVis — влияние предыстории при полной подмене состояния",
+      "state": "inconclusive",
+      "started": "2026-11-06",
+      "done": "2026-11-06",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs\\flyvis_history_state_swap_20261106\\protocol.json",
+          "claim": "Условия до вычисления новых выходов"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_history_state_swap_20261106/inference_completed.json",
+          "claim": "Результат и независимая проверка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_history_state_swap_20261106/independent_audit.json",
+          "claim": "Результат и независимая проверка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_history_state_swap_20261106/controller_result.json",
+          "claim": "Результат и независимая проверка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_history_state_swap_20261106/ended_verified.json",
+          "claim": "Результат и независимая проверка"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_partial_state_swap_v1",
+      "title": "FlyVis — какие части состояния задерживают разворот и сохраняют движение",
+      "state": "completed_negative",
+      "started": "2026-11-06",
+      "done": "2026-11-07",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_partial_state_swap_20261106/protocol.json",
+          "claim": "Протокол до новых выходов"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_partial_state_swap_20261106/inference_completed.json",
+          "claim": "Завершённая проверка и первичный результат"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_partial_state_swap_20261106/independent_audit.json",
+          "claim": "Завершённая проверка и первичный результат"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_partial_state_swap_20261106/controller_result.json",
+          "claim": "Завершённая проверка и первичный результат"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_partial_state_swap_20261106/ended_verified.json",
+          "claim": "Завершённая проверка и первичный результат"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_system_integrity_final_20261106",
+      "title": "Авторская система — защита состояния от каскада ошибок и итоговая совместная проверка",
+      "state": "infrastructure",
+      "started": "2026-11-06",
+      "done": "2026-11-06",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/integrated_1793996598125382200/result.json",
+          "claim": "Итоговая совместная проверка без изменения исходников и без CUDA"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_repairs_20261106/integrated_1793996598125382200/tests.log",
+          "claim": "747 успешных тестов и два явно пропущенных"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/observation_independent/native_retry_report.json",
+          "claim": "Сохранность состояния настоящей модели при отказе и повторе"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/hdf5_transaction/actual_hdf5_links.json",
+          "claim": "Неизменность существующих HDF5 и проверка файловых ссылок"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/historical_residual_independent/report.json",
+          "claim": "Независимая проверка исторического Б1"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_timestamp_repair_20261106/independent_validation_v5.json",
+          "claim": "Ограниченная проверка нового временного пути"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/coordinate_only_roi_review/report.json",
+          "claim": "Контрдоказательство автоматическому включению геометрии"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/final_evidence_remote_verification.json",
+          "claim": "Проверка точного опубликованного содержимого набора патчей и доказательств"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/gitlab_branch_decision.json",
+          "claim": "Выбор основной ветки и прямое решение сохранить main"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_repairs_20261106/FINAL_AUDIT_REPORT.txt",
+          "claim": "Сводка технических результатов и незакрытых границ"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_state_subgroups_v1",
+      "title": "FlyVis — узкие группы памяти на новых изображениях",
+      "state": "completed_negative",
+      "started": "2026-11-07",
+      "done": "2026-11-07",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_state_subgroups_20261107/protocol.json",
+          "claim": "Условия и изображения до новых выходов"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_state_subgroups_ram_stream4_20261107/inference_completed.json",
+          "claim": "Завершённый опыт и независимая проверка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_state_subgroups_ram_stream4_20261107/independent_audit.json",
+          "claim": "Завершённый опыт и независимая проверка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_state_subgroups_ram_stream4_20261107/controller_result.json",
+          "claim": "Завершённый опыт и независимая проверка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_state_subgroups_ram_stream4_20261107/ended_verified.json",
+          "claim": "Завершённый опыт и независимая проверка"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_state_subgroups_ram_stream4_20261107/recovery_manifest.json",
+          "claim": "Проверенное восстановление исполнения и предел RAM"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_state_subgroups_ram_stream4_20261107/batch_equivalence.json",
+          "claim": "Проверенное восстановление исполнения и предел RAM"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_state_subgroups_ram_stream4_20261107/cached_input_equivalence.json",
+          "claim": "Проверенное восстановление исполнения и предел RAM"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_state_subgroups_ram_stream4_20261107/final_memory_usage.json",
+          "claim": "Проверенное восстановление исполнения и предел RAM"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_system_boundary_addendum_20261107",
+      "title": "Защита восстановления весов и оптимизатора; привязка полей движения к видео",
+      "state": "infrastructure",
+      "started": "2026-11-07",
+      "done": "2026-11-07",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/integrated_1794000756588983700/result.json",
+          "claim": "Совместная адресная проверка после дополнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_repairs_20261106/integrated_1794000756588983700/tests.log",
+          "claim": "Число успешных и пропущенных тестов"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/loading_constraint_followup/after_report.json",
+          "claim": "Штатные веса, точное совпадение и сохранность при отказе"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/loading_constraint_followup/report.json",
+          "claim": "Воспроизведение ошибок ограничений и экспоненты"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/final_loading_constraint_review/report.json",
+          "claim": "Независимый пересчёт массивов и проверка контрольных сумм"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/temporal_numpy_addendum_v3/manifest.json",
+          "claim": "Обратимый дополнительный патч проверки оптимизатора"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/late_temporal_boundary/optimizer_after_report.json",
+          "claim": "Отказ до изменения весов и безопасный следующий шаг прежнего оптимизатора"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/final_boundary_review/manifest.json",
+          "claim": "Привязка полей к видео и передача явно выбранного устройства"
+        },
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_repairs_20261106/late_temporal_boundary/time_report.json",
+          "claim": "Проверенные временные границы и незакрытые ограничения ресурсов"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_pair_support_overlap_v1",
+      "title": "Общие и раздельные колонки FlyVis у конкурирующих рамок",
+      "state": "infrastructure",
+      "started": "2026-11-07",
+      "done": "2026-11-07",
+      "evidence": [
+        {
+          "kind": "json",
+          "ref": "runs/flyvis_pair_support_overlap_20261107/protocol.json",
+          "claim": "Срезы, категории, контроль до подсчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_pair_support_overlap_20261107/recovery1/protocol.json",
+          "claim": "Исполнение с соединением по UID"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_pair_support_overlap_20261107/recovery1/report.json",
+          "claim": "Полные номера выборок и счётчики"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_pair_support_overlap_20261107/recovery1/audit.json",
+          "claim": "Сверка источников и независимая классификация всех строк"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_pair_support_overlap_20261107/recovery1/РЕЗУЛЬТАТ.md",
+          "claim": "Вывод и ограничения"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_exclusive_t4t5_v1",
+      "title": "Выбор цели по собственным ячейкам T4/T5 двух рамок",
+      "state": "completed_negative",
+      "started": "2026-11-07",
+      "done": "2026-11-07",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_exclusive_t4t5_20261107/protocol.json",
+          "claim": "Постановка до подсчёта результатов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_exclusive_t4t5_20261107/report.json",
+          "claim": "Первичный итог и все сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_exclusive_t4t5_20261107/measurement.json",
+          "claim": "Сверка масок и независимый пересчёт баллов выбора"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_exclusive_t4t5_20261107/РЕЗУЛЬТАТ.md",
+          "claim": "Числа, смысл и ограничения"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_atlas_readout_v1",
+      "title": "Какие выходные типы и колонки FlyVis меняют выбор из двух рамок",
+      "state": "completed_negative",
+      "started": "2026-11-07",
+      "done": "2026-11-07",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_atlas_readout_20261107/protocol.json",
+          "claim": "Фиксация до измерения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_atlas_readout_20261107/report.json",
+          "claim": "Все 34 типа и 721 позиция, сравнения и неопределённость"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_atlas_core_pulse_v1",
+      "title": "Краткое ослабление каждого из 65 типов внутри ядра FlyVis перед выбором продолжения",
+      "state": "inconclusive",
+      "started": "2026-11-07",
+      "done": "2026-11-07",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_atlas_core_20261107/protocol.json",
+          "claim": "Протокол с фактическими исходниками и входами; записан до GPU. Запись в каталоге сделана во время исполнения."
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_atlas_core_20261107/independent_audit.json",
+          "claim": "Все условия и перебор 65 типов в рекуррентном состоянии."
+        }
+      ]
+    },
+    {
+      "id": "flyvis_separate_inputs_v1",
+      "title": "Раздельные входы FlyVis для двух рамок при прежнем масштабе",
+      "state": "inconclusive",
+      "started": "2026-11-07",
+      "done": "2026-11-07",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_separate_inputs_20261107/protocol.json",
+          "claim": "Условия и контроли до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_separate_inputs_20261107/РЕЗУЛЬТАТ.md",
+          "claim": "Полный итог, обе главные проверки, ограничения и прежняя ошибка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_separate_inputs_20261107/activation_exposure.json",
+          "claim": "Все сохранённые карты и минимальная длина пути сигнала по реализации"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_two_frame_input_v1",
+      "title": "Два последних входа FlyVis — отдельные окна при одинаковой ранней памяти",
+      "state": "inconclusive",
+      "started": "2026-11-07",
+      "done": "2026-11-07",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_two_frame_input_20261107/protocol.json",
+          "claim": "Условия и первая проверка прохождения сигнала до измерения новых выходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_two_frame_input_20261107/РЕЗУЛЬТАТ.md",
+          "claim": "Полный итог и ограничения"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_cached_readout_comparison_v1",
+      "title": "Считыватели T4/T5 — сумма, обычная сеть и ΣΠ при неизменном ядре",
+      "state": "inconclusive",
+      "started": "2026-11-07",
+      "done": "2026-11-07",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_readout_comparison_20261107/protocol.json",
+          "claim": "Критерии, неизменные входы и переход к полному трекеру записаны до обучения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_readout_comparison_20261107/РЕЗУЛЬТАТ.md",
+          "claim": "Все сравнения, решение о полном трекере и ограничения"
+        }
+      ]
+    },
+    {
+      "id": "spatial_identity_maps_v1_20261107",
+      "title": "Пространственный образ прошлой цели — выбор продолжения среди соседних рамок",
+      "state": "completed_negative",
+      "started": "2026-11-07",
+      "done": "2026-11-07",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/execution_protocol.json",
+          "claim": "Условия до восстановления и сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/РЕЗУЛЬТАТ.md",
+          "claim": "Проверенный результат и ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/comparison_report.json",
+          "claim": "Проверенный результат и ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/bottleneck_report.json",
+          "claim": "Проверенный результат и ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/independent_audit.json",
+          "claim": "Проверенный результат и ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/native_diagnosis.json",
+          "claim": "Проверенный результат и ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/spatial_identity_maps_20261107/competitor_histories.json",
+          "claim": "Проверенный результат и ограничения"
+        }
+      ]
+    },
+    {
+      "id": "identity_assignment_v2_run_20261108",
+      "title": "Единственная рамка и конкурирующие ID — геометрия против пространственного сигнала FlyVis",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/execution_protocol.json",
+          "claim": "Прямое разрешение и условия до исполнения"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_assignment_protocol_20261108/protocol_v2.json",
+          "claim": "Постановка, контроли и критерии до опыта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/comparison_report.json",
+          "claim": "Исторические условные назначения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/independent_audit.json",
+          "claim": "Независимые матрицы, метки и интервалы условной проверки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/full_precision/comparison_report.json",
+          "claim": "Полный20val-пилот не прошёл критерии"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/full_precision/additional_report.json",
+          "claim": "Чужие, правильные, неизвестные и устойчивые возвраты"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/parent_full_result_review.json",
+          "claim": "Краткая сверка завершения и источников"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_assignment_20261108/full_precision/independent_audit.json",
+          "claim": "Отдельная сверка полного отрицательного результата без повторения трекера"
+        }
+      ]
+    },
+    {
+      "id": "singleton_free_cost_v1_20261108",
+      "title": "Единственная свободная рамка — возврат без изменения штатных назначений",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs\\singleton_free_20261108\\protocol.json",
+          "claim": "Фокус, прежний отрицательный опыт, новые действия, контроли и критерии до исполнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_free_20261108/comparison_report.json",
+          "claim": "Проверенный отрицательный этап первой проблемы"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_free_20261108/independent_audit.json",
+          "claim": "Проверенный отрицательный этап первой проблемы"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_free_20261108/technical.json",
+          "claim": "Проверенный отрицательный этап первой проблемы"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_free_20261108/free_verification_diagnosis.json",
+          "claim": "Проверенный отрицательный этап первой проблемы"
+        }
+      ]
+    },
+    {
+      "id": "singleton_own_template_v1_20261108",
+      "title": "Единственная свободная рамка — проверка по собственной прошлой карте цели",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/protocol.json",
+          "claim": "Конкретное действие, первоисточники, контроли, настройка и остановка до новых карт"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/inventory_recovery1.json",
+          "claim": "589последовательностей; готовые карты переиспользуются"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/comparison_report.json",
+          "claim": "Условный результат, не итог полного трекера"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/independent_audit.json",
+          "claim": "Независимая проверка условного результата"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/full/protocol.json",
+          "claim": "Полный пилот и критерии до его исходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/full/zero_parity.json",
+          "claim": "Точный нулевой полный выход"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_age_20261108/current_input_dependency.json",
+          "claim": "Граница причинного объяснения коротких возвратов по коду и готовым данным"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_age_20261108/dependency_sources_verified.json",
+          "claim": "Проверены реальная конфигурация модели, шаг интегрирования и источник входного сигнала"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/full/comparison_report.json",
+          "claim": "Полный отрицательный результат"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/full/independent_audit.json",
+          "claim": "Независимая проверка полного пилота"
+        }
+      ]
+    },
+    {
+      "id": "singleton_recency_control_v1_20261108",
+      "title": "Давность пропуска — контроль возврата без изображения и FlyVis",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_age_20261108/protocol.json",
+          "claim": "Контроль и условия до его настройки и запуска"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_verify_20261108/comparison_report.json",
+          "claim": "Исходный пространственный результат не переписывается"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_age_20261108/full/comparison_report.json",
+          "claim": "Полное сравнение давности и зрительных вариантов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_age_20261108/full/independent_audit.json",
+          "claim": "Независимая проверка контроля"
+        }
+      ]
+    },
+    {
+      "id": "singleton_error_source_audit_v1_20261108",
+      "title": "Возврат потерянного трека — чужой объект, смещение рамки или удаление дубликата",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_error_audit_20261108/protocol.json",
+          "claim": "Границы и определения до чтения итогов полного пилота"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_error_audit_20261108/report.json",
+          "claim": "Разделение прямой ошибки личности, рамки и удаления"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_admission_20261108/quality_protocol.json",
+          "claim": "Определения до подсчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_admission_20261108/quality_report.json",
+          "claim": "Неподходящие выходные рамки, исключения и границы вывода"
+        }
+      ]
+    },
+    {
+      "id": "singleton_native_confirm_inventory_v1_20261108",
+      "title": "Возврат старого ID после штатного подтверждения рамки — доступность сохранённых случаев",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_singleton_native_confirm_20261108/fit_inventory.py",
+          "claim": "Определения инвентаризации до подсчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_native_confirm_20261108/native_trace_complete.json",
+          "claim": "Точная сверка всего выхода и восстановленные события"
+        }
+      ]
+    },
+    {
+      "id": "native_confirm_identity_v1_20261108",
+      "title": "Старый ID только после штатного подтверждения новой рамки — причинная связь без дополнительных рамок",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_policy_20261108/protocol.json",
+          "claim": "Метод, контроли и критерии до новых исходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_policy_20261108/comparison_report.json",
+          "claim": "Отрицательный основной гейт при частном положительном счёте FlyVis"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_policy_20261108/independent_audit.json",
+          "claim": "Независимая проверка"
+        }
+      ]
+    },
+    {
+      "id": "native_confirm_empirical_risk_v1_20261108",
+      "title": "Старый ID после подтверждения — допуск без известных чужих связей при настройке",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_risk_20261108/protocol.json",
+          "claim": "Критерии и контроли до нового подбора"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_risk_20261108/full/protocol.json",
+          "claim": "Полный протокол до новых20valисходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_risk_20261108/comparison_report.json",
+          "claim": "Условный гейт пройден, не итог полного трекера"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_risk_20261108/full/comparison_report.json",
+          "claim": "Полный неопределённый результат при отсутствии добавленного вреда"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/native_confirm_risk_20261108/full/independent_audit.json",
+          "claim": "Независимая проверка полного результата"
+        }
+      ]
+    },
+    {
+      "id": "native_confirm_bbox_inventory_v1_20261108",
+      "title": "Одна свободная рамка — доступность обычной геометрии без требования двух рамок и ячеек FlyVis",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_confirmation_inventory_20261108/protocol.json",
+          "claim": "Постановка и нулевое условие до экспорта"
+        }
+      ]
+    },
+    {
+      "id": "bbox_singleton_geometry_pilot_v1_20261108",
+      "title": "Одна свободная рамка — геометрия без ограничения парой и обратная проверка движения",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_singleton_pilot_20261108/protocol.json",
+          "claim": "Условия до открытия новых меток fit20 и26"
+        }
+      ]
+    },
+    {
+      "id": "bbox_singleton_cost_control_v1_20261108",
+      "title": "Одна свободная рамка — малая поправка стоимости как контроль без FlyVis",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_cost_pilot_20261108/protocol.json",
+          "claim": "Граница подбора и контроля до расчёта"
+        }
+      ]
+    },
+    {
+      "id": "bbox_singleton_spatial_readiness_v1_20261108",
+      "title": "Одна свободная рамка — готовность сравнения прошлой пространственной карты при малой поправке",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_spatial_readiness_20261108/protocol.json",
+          "claim": "Доступность и граница восстановления до чтения сигналов"
+        }
+      ]
+    },
+    {
+      "id": "bbox_singleton_normalized_maps_v1_20261108",
+      "title": "Одна свободная рамка — пространственные карты при относительном выравнивании наблюдаемых рамок",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_normalized_signals_20261108/protocol.json",
+          "claim": "Условия, контроли и границы до новых карт"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/bbox_normalized_signals_20261108/comparison_report.json",
+          "claim": "Условный результат и неуспех выбранной геометрии"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/bbox_normalized_signals_20261108/independent_audit.json",
+          "claim": "Независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/bbox_normalized_signals_20261108/full/protocol.json",
+          "claim": "Полное испытание до20valисходов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/bbox_normalized_signals_20261108/full/comparison_report.json",
+          "claim": "Полный зарегистрированный результат и все контроли"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/bbox_normalized_signals_20261108/full/independent_audit.json",
+          "claim": "Независимая проверка физических выходов, метрик и возвратов"
+        }
+      ]
+    },
+    {
+      "id": "bbox_fit_readout_readiness_v1_20261108",
+      "title": "Одна свободная рамка — достаточно ли готовых положительных и чужих примеров подбора",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_fit_readout_readiness_20261108/protocol.json",
+          "claim": "Условия до проверки доступности"
+        }
+      ]
+    },
+    {
+      "id": "bbox_fit_maps_restoration_v1_20261108",
+      "title": "Одна свободная рамка — восстановить недостающие fit-карты с реальными чужими примерами",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_fit_maps_20261108/protocol.json",
+          "claim": "Постановка подготовки до новых данных"
+        }
+      ]
+    },
+    {
+      "id": "bbox_readout_fit_calibration_v1_20261108",
+      "title": "Одна свободная рамка — калибровка считывателя с исключением целого видео подбора",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/bbox_readout_calibration_20261108/protocol.json",
+          "claim": "Правило и межвидеовая проверка до новых порогов"
+        }
+      ]
+    },
+    {
+      "id": "singleton_working_domain_inventory_v1_20261108",
+      "title": "Одна свободная рамка — собрать правильные и чужие пары в действующем допуске",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_working_domain_20261108/protocol.json",
+          "claim": "Согласованный состав данных и ограничения до экспорта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_working_domain_20261108/all_zero_parity.json",
+          "claim": "Точное совпадение исходной выдачи до разметки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_working_domain_20261108/recovery2/report.json",
+          "claim": "Полная воронка и непройденная готовность классов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_working_domain_20261108/recovery2/independent_audit.json",
+          "claim": "Независимая сверка всех20видео"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_working_domain_20261108/worker.ended.json",
+          "claim": "Первоначальный отказ аудитора сохранён"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_working_domain_20261108/recovery1/deadline_result.json",
+          "claim": "Служебная ошибка восстановления сохранена"
+        }
+      ]
+    },
+    {
+      "id": "singleton_box_history_pairs_20261108",
+      "title": "Сохраняет ли история рамок правильные связи перед отсечением по стоимости",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_box_history_pairs_20261108/protocol.md",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_box_history_pairs_20261108/recovery1/result.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_box_history_pairs_20261108/recovery1/audit.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_box_history_pairs_20261108/conflict_review/evidence.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_box_history_pairs_20261108/conflict_review/veto_check.json",
+          "claim": "Первичный результат или проверка"
+        }
+      ]
+    },
+    {
+      "id": "singleton_birth_veto_transfer_20261108",
+      "title": "Сколько чужих и правильных связей исключает запрет по кадру рождения",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_birth_veto_transfer_20261108/protocol.md",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_birth_veto_transfer_20261108/result.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_birth_veto_transfer_20261108/five_cases/audit.json",
+          "claim": "Первичный результат или проверка"
+        }
+      ]
+    },
+    {
+      "id": "singleton_two_frames_46_20261108",
+      "title": "Возвращает ли проверка на двух кадрах ошибочно запрещённые правильные связи",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_two_frames_46_20261108/protocol.md",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_two_frames_46_20261108/result.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_two_frames_46_20261108/decisions.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_two_frames_46_20261108/map_availability.json",
+          "claim": "Первичный результат или проверка"
+        }
+      ]
+    },
+    {
+      "id": "singleton_id_fate_117_20261108",
+      "title": "Сколько машин действительно сохранили старый номер после передачи",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_id_fate_117_20261108/protocol.md",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_id_fate_117_20261108/recovery1/summary.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_id_fate_117_20261108/recovery1/extended_summary.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_id_fate_117_20261108/recovery1/returns.csv",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_id_fate_117_20261108/recovery1/audit.json",
+          "claim": "Первичный результат или проверка"
+        }
+      ]
+    },
+    {
+      "id": "singleton_identity_followup_20261108",
+      "title": "Почему правильное восстановление после разрыва теряется повторно",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_identity_followup_20261108/protocol.md",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_identity_followup_20261108/ownership.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_identity_followup_20261108/evidence.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_identity_followup_20261108/audit.json",
+          "claim": "Первичный результат или проверка"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_local_shift_feasibility_20261108",
+      "title": "При каких условиях сдвиг пространственных карт можно сравнить в координатах кадра",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_local_shift_feasibility_20261108/identifiability.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_local_shift_feasibility_20261108/mathematical_checks.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_local_shift_feasibility_20261108/label_availability.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/flyvis_local_shift_feasibility_20261108/audit.json",
+          "claim": "Первичный результат или проверка"
+        }
+      ]
+    },
+    {
+      "id": "singleton_car_map_coverage_20261108",
+      "title": "Есть ли прямые метки своих и чужих автомобилей и сопоставимые карты",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_car_map_coverage_20261108/inventory.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_car_map_coverage_20261108/raw_foreign_check.json",
+          "claim": "Первичный результат или проверка"
+        }
+      ]
+    },
+    {
+      "id": "singleton_two_map_scores_20261108",
+      "title": "Узнаёт ли пространственная карта машину после поиска сдвига на двух размеченных парах",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_two_map_scores_20261108/protocol.json",
+          "claim": "Первичный результат или проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_two_map_scores_20261108/scores.json",
+          "claim": "Первичный результат или проверка"
+        }
+      ]
+    },
+    {
+      "id": "singleton_matched_support_20261108",
+      "title": "Сравнение своих и чужих машин при одинаковых трёх ячейках карты",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_matched_support_20261108/protocol.json",
+          "claim": "Условия зафиксированы до восстановления карт и расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_matched_support_20261108/scores.json",
+          "claim": "Первичный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_matched_support_20261108/maps_complete.json",
+          "claim": "Первичный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_matched_support_20261108/audit.json",
+          "claim": "Первичный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_matched_support_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Первичный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_eight_input_20261108/crop_correction.json",
+          "claim": "Исправление описания масштаба без пересчёта оценок"
+        }
+      ]
+    },
+    {
+      "id": "singleton_eight_input_20261108",
+      "title": "Восемь простых временных признаков входа глаза против T4/T5",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_eight_input_20261108/protocol.json",
+          "claim": "Условия до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_eight_input_20261108/scores.json",
+          "claim": "Первичный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_eight_input_20261108/audit.json",
+          "claim": "Первичный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_eight_input_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Первичный результат и проверка"
+        }
+      ]
+    },
+    {
+      "id": "singleton_neighbor_input_20261108",
+      "title": "Среднее соседних ячеек в восьми признаках входа глаза против T4/T5",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_neighbor_input_20261108/protocol.json",
+          "claim": "Условия до оценки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_neighbor_input_20261108/scores.json",
+          "claim": "Первичный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_neighbor_input_20261108/audit.json",
+          "claim": "Первичный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_neighbor_input_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Первичный результат и проверка"
+        }
+      ]
+    },
+    {
+      "id": "singleton_forward_backward_20261108",
+      "title": "Проверка возврата к образцу при прямом и обратном сопоставлении карт",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/protocol.json",
+          "claim": "Постановка и математическая проверка до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/mathematical_checks.json",
+          "claim": "Постановка и математическая проверка до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/results.json",
+          "claim": "Первичный результат, проверка или литературное основание"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/audit.json",
+          "claim": "Первичный результат, проверка или литературное основание"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/geometry_control.json",
+          "claim": "Первичный результат, проверка или литературное основание"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/execution_receipt.json",
+          "claim": "Первичный результат, проверка или литературное основание"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Первичный результат, проверка или литературное основание"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_20261108/ЛИТЕРАТУРА.md",
+          "claim": "Первичный результат, проверка или литературное основание"
+        }
+      ]
+    },
+    {
+      "id": "singleton_forward_backward_transfer_20261108",
+      "title": "Проверка возврата пространственных карт на других размеченных своих и чужих парах",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/protocol.json",
+          "claim": "Условия до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/results.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/summary.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/audit.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/maps_complete.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/inventory_provenance.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_forward_backward_transfer_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Измеренный результат и проверка"
+        }
+      ]
+    },
+    {
+      "id": "singleton_support_size_20261108",
+      "title": "Три опорные ячейки против всей допустимой пространственной поддержки",
+      "state": "inconclusive",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/singleton_support_size_20261108/protocol.json",
+          "claim": "Условия до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_support_size_20261108/mathematical_checks.json",
+          "claim": "Результат сравнения и его проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_support_size_20261108/results.json",
+          "claim": "Результат сравнения и его проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_support_size_20261108/summary.json",
+          "claim": "Результат сравнения и его проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_support_size_20261108/audit.json",
+          "claim": "Результат сравнения и его проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/singleton_support_size_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Результат сравнения и его проверка"
+        }
+      ]
+    },
+    {
+      "id": "background_patch_gate_20261108",
+      "title": "Пространственный фильтр цели с реальными фоновыми примерами",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/background_patch_gate_20261108/protocol.json",
+          "claim": "Условия до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/background_patch_gate_20261108/summary.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/background_patch_gate_20261108/results.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/background_patch_gate_20261108/audit.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/background_patch_gate_20261108/mathematical_checks.json",
+          "claim": "Измеренный результат и проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/background_patch_gate_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Измеренный результат и проверка"
+        }
+      ]
+    },
+    {
+      "id": "full_decoder_outputs_20261108",
+      "title": "Восстановление26 карт активности из34 входов штатного декодера FlyVis",
+      "state": "infrastructure",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/full_decoder_outputs_20261108/protocol.json",
+          "claim": "Постановка до восстановления"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_decoder_outputs_20261108/completed.json",
+          "claim": "Проверенные восстановленные данные"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_decoder_outputs_20261108/input_readiness.json",
+          "claim": "Проверенные восстановленные данные"
+        }
+      ]
+    },
+    {
+      "id": "decoder34_identity_gate_20261108",
+      "title": "Все34 стандартные карты FlyVis против равных временных и пространственных признаков входа",
+      "state": "completed_negative",
+      "started": "2026-11-08",
+      "done": "2026-11-08",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/decoder34_identity_gate_20261108/protocol.json",
+          "claim": "Критерии и выбор до оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/decoder34_identity_gate_20261108/summary.json",
+          "claim": "Первичный итог или проверка качества меток"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/decoder34_identity_gate_20261108/results.json",
+          "claim": "Первичный итог или проверка качества меток"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/decoder34_identity_gate_20261108/audit.json",
+          "claim": "Первичный итог или проверка качества меток"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/decoder34_identity_gate_20261108/reference_evidence.json",
+          "claim": "Первичный итог или проверка качества меток"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/decoder34_identity_gate_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Первичный итог или проверка качества меток"
+        }
+      ]
+    },
+    {
+      "id": "template_identity_audit_20261108",
+      "title": "Память объекта — принадлежит ли последний шаблон прежней машине",
+      "state": "infrastructure",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/template_identity_audit_20261108/protocol.json",
+          "claim": "Фиксированные правила до сверки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/template_identity_audit_20261108/results.json",
+          "claim": "Прямое свидетельство и его ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/template_identity_audit_20261108/summary.json",
+          "claim": "Прямое свидетельство и его ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/template_identity_audit_20261108/РЕЗУЛЬТАТ.md",
+          "claim": "Прямое свидетельство и его ограничения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/template_identity_audit_20261108/direct_pair_scores.json",
+          "claim": "Готовые оценки пяти прямо размеченных пар без пересчёта"
+        }
+      ]
+    },
+    {
+      "id": "channel_balance_attribution_20261109",
+      "title": "Вклад ячеек и каналов — одинаковая нормировка пространственного сходства",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/channel_balance_attribution_20261109/protocol.json",
+          "claim": "Условия до разложения естественных карт и новых оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/channel_balance_attribution_20261109/attribution.json",
+          "claim": "Первичный разбор и зафиксированная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/channel_balance_attribution_20261109/summary.json",
+          "claim": "Первичный разбор и зафиксированная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/channel_balance_attribution_20261109/results.json",
+          "claim": "Первичный разбор и зафиксированная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/channel_balance_attribution_20261109/transfer.json",
+          "claim": "Первичный разбор и зафиксированная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/channel_balance_attribution_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Отдельная нормировка не принята; прежние результаты сохранены"
+        }
+      ]
+    },
+    {
+      "id": "clipped_anchor_readout_20261109",
+      "title": "Обрезка краем изображения — привязка пространственного шаблона к видимому краю",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/protocol.json",
+          "claim": "Условия до новых оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/summary.json",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/results.json",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/post_anchor_attribution.json",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/runtime_verification.json",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/strong_input_control.json",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/РАЗБОР.md",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/pair_88_144.png",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/clipped_anchor_readout_20261109/pair_73_106.png",
+          "claim": "Первичный итог, контроль или поячеечная проверка"
+        }
+      ]
+    },
+    {
+      "id": "frozen_reader_transfer_20261109",
+      "title": "Перенос совместного пространственного считывателя на другие видео с обрезкой и без неё",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/frozen_reader_transfer_20261109/protocol.json",
+          "claim": "Зафиксированное сравнение до новых оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/frozen_reader_transfer_20261109/comparison_protocol.json",
+          "claim": "Первичный результат, происхождение, ограничения или независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/frozen_reader_transfer_20261109/results.json",
+          "claim": "Первичный результат, происхождение, ограничения или независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/frozen_reader_transfer_20261109/summary.json",
+          "claim": "Первичный результат, происхождение, ограничения или независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/frozen_reader_transfer_20261109/audit.json",
+          "claim": "Первичный результат, происхождение, ограничения или независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/frozen_reader_transfer_20261109/external_inventory.json",
+          "claim": "Первичный результат, происхождение, ограничения или независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/frozen_reader_transfer_20261109/project_status_evidence.json",
+          "claim": "Первичный результат, происхождение, ограничения или независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/frozen_reader_transfer_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Первичный результат, происхождение, ограничения или независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/frozen_reader_transfer_20261109/label_grade.json",
+          "claim": "Неоднозначность прошлой личности и неопределённая строгаяAUROC"
+        }
+      ]
+    },
+    {
+      "id": "direct_memory_anchor_inventory_20261109",
+      "title": "Прямая разметка более ранней памяти — доступность своих и чужих пар",
+      "state": "infrastructure",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/direct_memory_anchor_inventory_20261109/protocol.json",
+          "claim": "Протокол, полный учёт и независимая проверка прямой разметки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/direct_memory_anchor_inventory_20261109/results.json",
+          "claim": "Протокол, полный учёт и независимая проверка прямой разметки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/direct_memory_anchor_inventory_20261109/audit.json",
+          "claim": "Протокол, полный учёт и независимая проверка прямой разметки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/direct_memory_anchor_inventory_20261109/literature_check.json",
+          "claim": "Протокол, полный учёт и независимая проверка прямой разметки"
+        }
+      ]
+    },
+    {
+      "id": "common_state_memory_20261109",
+      "title": "Ранняя и последняя память на одной истории состояния — проверка личности",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/protocol.json",
+          "claim": "Протокол до новых карт и оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/summary.json",
+          "claim": "Первичный результат, независимая сверка или граница интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/audit.json",
+          "claim": "Первичный результат, независимая сверка или граница интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/candidate_audit.json",
+          "claim": "Первичный результат, независимая сверка или граница интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/ownership_audit.json",
+          "claim": "Первичный результат, независимая сверка или граница интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/context_audit.json",
+          "claim": "Первичный результат, независимая сверка или граница интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/common_state_memory_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Первичный результат, независимая сверка или граница интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "research_gemini_memory_review_20261109/ПРОВЕРКА.md",
+          "claim": "Полный ответ Gemini проверен по коду и первичным статьям"
+        }
+      ]
+    },
+    {
+      "id": "free_candidate_identity_inventory_20261109",
+      "title": "Своя и чужая рамки в одном запросе — доступность чистого сравнения",
+      "state": "infrastructure",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/free_candidate_identity_inventory_20261109/protocol.json",
+          "claim": "Условия доступности и остановки до нового просмотра разметки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/free_candidate_identity_inventory_20261109/results.json",
+          "claim": "Полный учёт и отсутствие чистого сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/free_candidate_identity_inventory_20261109/audit.json",
+          "claim": "Полный учёт и отсутствие чистого сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/free_candidate_identity_inventory_20261109/ИТОГ.md",
+          "claim": "Полный учёт и отсутствие чистого сравнения"
+        }
+      ]
+    },
+    {
+      "id": "interpolation_constant_audit_20261109",
+      "title": "Ровный сигнал после интерполяции — проверка ложного сходства",
+      "state": "infrastructure",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/interpolation_constant_audit_20261109/protocol.json",
+          "claim": "Математическая проверка до нового вычисления"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/interpolation_constant_audit_20261109/fix_protocol.json",
+          "claim": "Формула и численная сверка до новых исправленных результатов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/interpolation_constant_audit_20261109/results.json",
+          "claim": "Ровный сигнал, численная правка и граница влияния на реальные оценки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/interpolation_constant_audit_20261109/fixed_invariant.json",
+          "claim": "Ровный сигнал, численная правка и граница влияния на реальные оценки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/interpolation_constant_audit_20261109/real_regression.json",
+          "claim": "Ровный сигнал, численная правка и граница влияния на реальные оценки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/interpolation_constant_audit_20261109/audit.json",
+          "claim": "Ровный сигнал, численная правка и граница влияния на реальные оценки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/interpolation_constant_audit_20261109/ИТОГ.md",
+          "claim": "Ровный сигнал, численная правка и граница влияния на реальные оценки"
+        }
+      ]
+    },
+    {
+      "id": "historical_direct_query_inventory_20261109",
+      "title": "Два объекта до общего назначения — прямые метки для проверки считывателя",
+      "state": "infrastructure",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/historical_direct_query_inventory_20261109/protocol.json",
+          "claim": "Пул до первого назначения и правила до новых GTметок"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/historical_direct_query_inventory_20261109/results.json",
+          "claim": "Прямые метки, учёт и выбор без оценок активности"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/historical_direct_query_inventory_20261109/audit.json",
+          "claim": "Прямые метки, учёт и выбор без оценок активности"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/historical_direct_query_inventory_20261109/ИТОГ.md",
+          "claim": "Прямые метки, учёт и выбор без оценок активности"
+        }
+      ]
+    },
+    {
+      "id": "historical_two_candidate_comparison_20261109",
+      "title": "Выбор своей из двух машин в одном запросе — FlyVis против входа и стоимости",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/historical_two_candidate_comparison_20261109/protocol.json",
+          "claim": "Правила и критерии до новых признаков и оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/historical_two_candidate_comparison_20261109/execution_protocol.json",
+          "claim": "Внутрикандидатный результат, контроли и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/historical_two_candidate_comparison_20261109/summary.json",
+          "claim": "Внутрикандидатный результат, контроли и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/historical_two_candidate_comparison_20261109/audit.json",
+          "claim": "Внутрикандидатный результат, контроли и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/historical_two_candidate_comparison_20261109/ИТОГ.md",
+          "claim": "Внутрикандидатный результат, контроли и независимая проверка"
+        }
+      ]
+    },
+    {
+      "id": "candidate_relative_alignment_20261109",
+      "title": "Привязка карты к конкретной рамке — диагностика координат на готовых картах",
+      "state": "infrastructure",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/candidate_relative_alignment_20261109/protocol.json",
+          "claim": "Математика и правила зафиксированы до новых оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/candidate_relative_alignment_20261109/readiness.json",
+          "claim": "Проверенный итог и границы интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/candidate_relative_alignment_20261109/audit.json",
+          "claim": "Проверенный итог и границы интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/candidate_relative_alignment_20261109/ИТОГ.md",
+          "claim": "Проверенный итог и границы интерпретации"
+        }
+      ]
+    },
+    {
+      "id": "historical_assignment_context_20261109",
+      "title": "Почему прежний ряд остался без рамки — порог, конкуренция и публичные владельцы",
+      "state": "infrastructure",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/historical_assignment_context_20261109/protocol.json",
+          "claim": "Правила до полного разбора контекста"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/historical_assignment_context_20261109/results.json",
+          "claim": "Проверенный итог и границы интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/historical_assignment_context_20261109/independent_audit.json",
+          "claim": "Проверенный итог и границы интерпретации"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/historical_assignment_context_20261109/ИТОГ.md",
+          "claim": "Проверенный итог и границы интерпретации"
+        }
+      ]
+    },
+    {
+      "id": "relative_joint_reader_20261109",
+      "title": "Один прошлый шаблон для двух рамок — относительные координаты и совместный считыватель",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/relative_joint_reader_20261109/protocol.json",
+          "claim": "Математика и критерии до новых оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/relative_joint_reader_20261109/summary.json",
+          "claim": "Полный результат и независимая проверка, без утверждения о выигрыше ID"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/relative_joint_reader_20261109/audit.json",
+          "claim": "Полный результат и независимая проверка, без утверждения о выигрыше ID"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/relative_joint_reader_20261109/ИТОГ.md",
+          "claim": "Полный результат и независимая проверка, без утверждения о выигрыше ID"
+        }
+      ]
+    },
+    {
+      "id": "relative_reader_transfer_20261109",
+      "title": "Относительный пространственный шаблон — перенос на три оставшихся видео",
+      "state": "inconclusive",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/relative_reader_transfer_20261109/protocol.json",
+          "claim": "Фиксация всех оставшихся новых видео до оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/relative_reader_transfer_20261109/summary.json",
+          "claim": "Описательный перенос и независимая проверка без ID-вывода"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/relative_reader_transfer_20261109/audit.json",
+          "claim": "Описательный перенос и независимая проверка без ID-вывода"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/relative_reader_transfer_20261109/ИТОГ.md",
+          "claim": "Описательный перенос и независимая проверка без ID-вывода"
+        }
+      ]
+    },
+    {
+      "id": "identity_channel_training_readiness_20261109",
+      "title": "Обучаемое решение о принадлежности — прямые метки и причинная опора",
+      "state": "infrastructure",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_training_readiness_20261109/protocol.json",
+          "claim": "Когорта, действие и критерии до новых подсчётов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_training_readiness_20261109/results.json",
+          "claim": "Прямые метки, причинность шаблона и независимый учёт"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_training_readiness_20261109/causal_reference_audit.json",
+          "claim": "Прямые метки, причинность шаблона и независимый учёт"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_training_readiness_20261109/execution_protocol.json",
+          "claim": "Прямые метки, причинность шаблона и независимый учёт"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_training_readiness_20261109/audit.json",
+          "claim": "Прямые метки, причинность шаблона и независимый учёт"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_training_readiness_20261109/ИТОГ.md",
+          "claim": "Прямые метки, причинность шаблона и независимый учёт"
+        }
+      ]
+    },
+    {
+      "id": "identity_channel_head_20261109",
+      "title": "Принадлежность рамки — обучаемые совпадения каналов",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_head_20261109/protocol.json",
+          "claim": "Условия зарегистрированы до извлечения признаков и обучения."
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_head_20261109/summary.json",
+          "claim": "Полный фиксированный результат и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_head_20261109/audit.json",
+          "claim": "Полный фиксированный результат и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_head_20261109/decision_changes.json",
+          "claim": "Полный фиксированный результат и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/identity_channel_head_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Полный фиксированный результат и независимая проверка"
+        }
+      ]
+    },
+    {
+      "id": "full_template_identity_20261109",
+      "title": "Целый пространственный шаблон без усечения всеми сдвигами",
+      "state": "inconclusive",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/full_template_identity_20261109/protocol.json",
+          "claim": "Механизм, условия и критерии до новой геометрии и сигналов."
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_identity_20261109/geometry_results.json",
+          "claim": "Фиксированные геометрия, сигналы и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_identity_20261109/comparison_protocol.json",
+          "claim": "Фиксированные геометрия, сигналы и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_identity_20261109/summary.json",
+          "claim": "Фиксированные геометрия, сигналы и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_identity_20261109/audit.json",
+          "claim": "Фиксированные геометрия, сигналы и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_identity_20261109/decision_changes.json",
+          "claim": "Фиксированные геометрия, сигналы и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_identity_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Фиксированные геометрия, сигналы и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "research_full_template_native_pilot_20261109/proposal.json",
+          "claim": "Подготовка следующего реального этапа, не выполненный результат"
+        }
+      ]
+    },
+    {
+      "id": "full_template_original_geometry_20261109",
+      "title": "Целый шаблон при прежней геометрии — прямой контроль",
+      "state": "inconclusive",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/full_template_identity_20261109/original_geometry_protocol.json",
+          "claim": "Условия до новых шести обучений; объяснительный характер после результата указан."
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_identity_20261109/original_geometry_results.json",
+          "claim": "Прямая неизменная геометрия и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_identity_20261109/original_geometry_audit.json",
+          "claim": "Прямая неизменная геометрия и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_identity_20261109/original_geometry_changes.json",
+          "claim": "Прямая неизменная геометрия и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_identity_20261109/ПРЕЖНЯЯ_ГЕОМЕТРИЯ.md",
+          "claim": "Прямая неизменная геометрия и независимая проверка"
+        },
+        {
+          "kind": "file",
+          "ref": "research_full_template_native_pilot_20261109/proposal_v2.json",
+          "claim": "Новый кандидат в ещё не выполненном проекте реальныхID"
+        }
+      ]
+    },
+    {
+      "id": "full_template_native_20261109",
+      "title": "Полный шаблон FlyVis — реальные назначения и судьба ID",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/protocol.json",
+          "claim": "Критерии и добавленный геометрический контроль до новых исходов."
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Отрицательный итог реального пилота и границы выводов"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/comparison_report.json",
+          "claim": "Полные метрики и пять сравнений"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/id_fate.json",
+          "claim": "Прямые собственность и судьбаID с исправленной точной привязкой"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/boundary_audit.json",
+          "claim": "Численная граница не объясняетC34"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/deployment_audit.json",
+          "claim": "Независимый аудит окончательных голов и нулевых контролей"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/РАЗЛОЖЕНИЕ_ГОЛОВЫ.md",
+          "claim": "Общий положительный уровень не равен информации о личности"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/centering_audit.json",
+          "claim": "Точная инвариантность всех213баллов при центрировании"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/full_template_native_20261109/integration_audit.json",
+          "claim": "Воспроизведение двух частей головы"
+        }
+      ]
+    },
+    {
+      "id": "geometry_coordinate_gate_20261109",
+      "title": "Геометрический допуск и чтение карт — согласованность координат",
+      "state": "inconclusive",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_geometry_consistency_20261109/coordinate_protocol.json",
+          "claim": "Условия до чтения измеренных координат"
+        },
+        {
+          "kind": "file",
+          "ref": "research_geometry_consistency_20261109/ОСНОВАНИЕ.md",
+          "claim": "Формулы, первичная литература и прежний8канальныйопыт"
+        },
+        {
+          "kind": "file",
+          "ref": "research_geometry_consistency_20261109/coordinate_report.json",
+          "claim": "Все213координатныхзапросов и явно известные личности"
+        },
+        {
+          "kind": "file",
+          "ref": "research_geometry_consistency_20261109/training_states_complete.json",
+          "claim": "Точные публичные свидетели восстановленных состояний и ноль чужих внутри необходимого допуска"
+        },
+        {
+          "kind": "file",
+          "ref": "research_geometry_consistency_20261109/training_state_protocol_v3.json",
+          "claim": "Условия восстановления, исходники и техническое исправление"
+        }
+      ]
+    },
+    {
+      "id": "working_domain_identity_inventory_20261109",
+      "title": "Обучающие свои и чужие — точный рабочий допуск трекера",
+      "state": "infrastructure",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_working_domain_identity_20261109/protocol.json",
+          "claim": "Отбор и критерии до новых данных"
+        },
+        {
+          "kind": "file",
+          "ref": "research_geometry_consistency_20261109/training_states_complete.json",
+          "claim": "Причина необходимости нового контекста"
+        },
+        {
+          "kind": "file",
+          "ref": "research_working_domain_identity_20261109/results.json",
+          "claim": "Рабочие свои/чужие, неизвестные и точные нативные выходы"
+        }
+      ]
+    },
+    {
+      "id": "coordinate_frozen_reader_screen_20261109",
+      "title": "Согласованные координаты карт — проверка с прежними весами",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_coordinate_reader_20261109/protocol.json",
+          "claim": "Единственная замена и критерии до новых баллов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_coordinate_reader_20261109/comparison.json",
+          "claim": "Отрицательный контроль с теми же весами и согласованными входами"
+        }
+      ]
+    },
+    {
+      "id": "domain_matched_identity_head_20261109",
+      "title": "Принадлежность рамки — обучение в рабочем геометрическом допуске",
+      "state": "inconclusive",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_domain_matched_reader_20261109/protocol.json",
+          "claim": "Одна правка и критерии до новых входов и оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "research_domain_matched_reader_20261109/protocol_v2.json",
+          "claim": "Симметричный критерий исходной цели до каких-либо признаков, обучения или баллов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_domain_matched_reader_20261109/ИТОГ.md",
+          "claim": "Итог и границы вывода"
+        },
+        {
+          "kind": "file",
+          "ref": "research_domain_matched_reader_20261109/summary.json",
+          "claim": "Четыре одинаковых проверки и заранее заданный допуск"
+        },
+        {
+          "kind": "file",
+          "ref": "research_domain_matched_reader_20261109/audit.json",
+          "claim": "Независимая матричная сверка без обучения"
+        },
+        {
+          "kind": "file",
+          "ref": "research_domain_matched_reader_20261109/inputs_complete.json",
+          "claim": "Все точные входы восстановлены с архивными свидетелями"
+        }
+      ]
+    },
+    {
+      "id": "domain_identity_delivery_preflight_20261109",
+      "title": "Новая голова принадлежности — доставка разрешения в общий решатель",
+      "state": "infrastructure",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/delivery_protocol.json",
+          "claim": "Условия до новых вычислений доставки"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/delivery_report.json",
+          "claim": "Завершённая проверка доставки новых разрешений без повторения готовых карт"
+        }
+      ]
+    },
+    {
+      "id": "domain_matched_native_identity_20261109",
+      "title": "Рабочее обучение FlyVis — нативные назначения и сохранение ID",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/protocol.json",
+          "claim": "Условия и критерии до новых траекторий"
+        },
+        {
+          "kind": "file",
+          "ref": "research_domain_matched_reader_20261109/summary.json",
+          "claim": "Заранее пройденный допуск на рабочих обучающих связях"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Полный итог фиксированной версии"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/comparison_report.json",
+          "claim": "Официальные метрики и парные интервалы"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/id_fate.json",
+          "claim": "Прямые свои/чужие и последующая судьбаID"
+        },
+        {
+          "kind": "file",
+          "ref": "runs/domain_matched_native_20261109/runtime_audit.json",
+          "claim": "Независимая сверка баллов и общего решателя"
+        }
+      ]
+    },
+    {
+      "id": "shift_profile_contrast_20261109",
+      "title": "Контраст пика совпадения — поканальные сдвиги вместо общего уровня",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_shift_contrast_20261109/protocol.json",
+          "claim": "Одно изменение и критерии до новых профилей и моделей"
+        },
+        {
+          "kind": "file",
+          "ref": "research_shift_contrast_20261109/REVIEW.md",
+          "claim": "Критика Gemini, первоисточник и отличие от прежних попыток"
+        },
+        {
+          "kind": "file",
+          "ref": "research_shift_contrast_20261109/summary.json",
+          "claim": "Все фиксированные контроли"
+        },
+        {
+          "kind": "file",
+          "ref": "research_shift_contrast_20261109/audit.json",
+          "claim": "Независимая проверка120моделей"
+        },
+        {
+          "kind": "file",
+          "ref": "research_shift_contrast_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Отрицательный итог конкретной реализации"
+        }
+      ]
+    },
+    {
+      "id": "visible_geometry_head_20261109",
+      "title": "Видимая часть шаблона — согласованные координаты при обучении",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_visible_geometry_head_20261109/protocol.json",
+          "claim": "Контроли и допуски до новых векторов и моделей"
+        },
+        {
+          "kind": "file",
+          "ref": "research_geometry_consistency_20261109/coordinate_math.json",
+          "claim": "Ранее проверенная алгебра,нефизическаяистинамасштаба"
+        },
+        {
+          "kind": "file",
+          "ref": "research_visible_geometry_head_20261109/summary.json",
+          "claim": "Частный выигрыш маски и отрицательное преобразование координат"
+        },
+        {
+          "kind": "file",
+          "ref": "research_visible_geometry_head_20261109/deployment_screen_protocol.json",
+          "claim": "Отдельный критерий до окончательных весов и рабочих баллов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_visible_geometry_head_20261109/deployment_screen.json",
+          "claim": "Те же три рабочие ошибки"
+        },
+        {
+          "kind": "file",
+          "ref": "research_visible_geometry_head_20261109/final_head_audit.json",
+          "claim": "Независимая арифметика и единственное изменение решений"
+        },
+        {
+          "kind": "file",
+          "ref": "research_visible_geometry_head_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Отрицательный перенос при сохранении частного выигрыша"
+        }
+      ]
+    },
+    {
+      "id": "identity_training_stability_20261109",
+      "title": "Принадлежность машины — устойчивость к составу обучения",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_identity_training_stability_20261109/protocol.json",
+          "claim": "Все готовые модели и границы вывода до новых рабочих оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_training_stability_20261109/comparison.json",
+          "claim": "Все неизменные и изменённые решения"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_training_stability_20261109/audit.json",
+          "claim": "Независимая арифметика готовых весов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_training_stability_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Отрицательная проверка объяснения одним видео"
+        }
+      ]
+    },
+    {
+      "id": "partitioned_correspondence_20261109",
+      "title": "Сопоставление прошлого шаблона — целое и отдельные части",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/math_checks.json",
+          "claim": "Математика до регистрации сравнения"
+        },
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/ОСНОВАНИЕ.md",
+          "claim": "История и первичный источник"
+        },
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/protocol.json",
+          "claim": "Одинаковые контроли и допуск до новых локальных признаков"
+        },
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/summary.json",
+          "claim": "Все отрицательные допуски"
+        },
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/decision_changes.json",
+          "claim": "У FlyVis ни одного изменённого решения"
+        },
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/audit.json",
+          "claim": "Независимая проверка180моделей"
+        },
+        {
+          "kind": "file",
+          "ref": "research_partitioned_correspondence_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Ограниченный отрицательный итог"
+        }
+      ]
+    },
+    {
+      "id": "signal_scale_identity_20261109",
+      "title": "Обучение принадлежности — выровнять шкалу сигналов",
+      "state": "completed_negative",
+      "started": "2026-11-09",
+      "done": "2026-11-09",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/math_checks.json",
+          "claim": "Точная алгебра штрафа и центрирования до нового обучения"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/protocol.json",
+          "claim": "Два заранее фиксированных варианта и обычные входные контроли"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/summary.json",
+          "claim": "Разработческий результат всех шести вариантов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/decision_changes.json",
+          "claim": "Исправления и новые отказы поштучно"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/uncertainty.json",
+          "claim": "Неподтверждённость разработческого эффекта"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/deployment_screen_protocol.json",
+          "claim": "Критерий до итоговых весов"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/deployment_screen.json",
+          "claim": "Ни одно рабочее решение не исправлено"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/final_head_audit.json",
+          "claim": "Независимая проверка итоговых весов и оценок"
+        },
+        {
+          "kind": "file",
+          "ref": "research_signal_scaling_20261109/РЕЗУЛЬТАТ.md",
+          "claim": "Итог и ограничения"
+        }
+      ]
+    },
+    {
+      "id": "flyvis_two_integration_state_readout_20261111",
+      "title": "Считывание двух состояний FlyVis — равное объединение с готовой головой",
+      "state": "completed_negative",
+      "started": "2026-11-11",
+      "done": "2026-11-11",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_multistate_readout_20261111/protocol.json",
+          "claim": "Критерии и источники зафиксированы до недостающих карт"
+        },
+        {
+          "kind": "file",
+          "ref": "research_multistate_readout_20261111/ОСНОВАНИЕ.md",
+          "claim": "Математика, контроль, прежние попытки и литературное основание"
+        },
+        {
+          "kind": "file",
+          "ref": "research_multistate_readout_20261111/summary.json",
+          "claim": "Сравнение решений и интервалы без подбора порога"
+        },
+        {
+          "kind": "file",
+          "ref": "research_multistate_readout_20261111/audit.json",
+          "claim": "Независимая сверка сохранённых карт"
+        },
+        {
+          "kind": "file",
+          "ref": "research_multistate_readout_20261111/РЕЗУЛЬТАТ.md",
+          "claim": "Итог, ограничения и технические восстановления"
+        }
+      ]
+    },
+    {
+      "id": "map_value_agreement_20261112",
+      "title": "Согласие значений карт — средние и амплитуды при прежнем сдвиге",
+      "state": "completed_negative",
+      "started": "2026-11-12",
+      "done": "2026-11-12",
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_agreement_readout_20261112/protocol.json",
+          "claim": "Условия, входы и критерии до расчёта"
+        },
+        {
+          "kind": "file",
+          "ref": "research_agreement_readout_20261112/summary.json",
+          "claim": "Измеренные сравнения и оба допуска"
+        },
+        {
+          "kind": "file",
+          "ref": "research_agreement_readout_20261112/predictions.json",
+          "claim": "Все оценки и обученные слои"
+        },
+        {
+          "kind": "file",
+          "ref": "research_agreement_readout_20261112/audit.json",
+          "claim": "Независимая сверка"
+        },
+        {
+          "kind": "file",
+          "ref": "research_agreement_readout_20261112/РЕЗУЛЬТАТ.md",
+          "claim": "Вывод, ограничения и решение"
+        }
+      ]
+    }
+  ],
+  "scope": "Catalog coverage, not a claim that every historical source was independently reproduced."
+}
