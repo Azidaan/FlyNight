@@ -1,0 +1,308 @@
+{
+  "variants": [
+    {
+      "variant": "primary_tracked_or_lost",
+      "source": "result.json",
+      "proposals": [
+        {
+          "video": "b23b2649-8349d2a1",
+          "frame": 544,
+          "tid": 483,
+          "raw_id": 54963,
+          "alias_raw_ids": [
+            54963
+          ],
+          "appearance_cost": 0.06089589005582596,
+          "cosine": 0.8782082198883481,
+          "proximity_iou": 0.5566938243185238
+        },
+        {
+          "video": "b242f6b2-0033bdfb",
+          "frame": 115,
+          "tid": 55,
+          "raw_id": 4698,
+          "alias_raw_ids": [
+            4698,
+            4699
+          ],
+          "appearance_cost": 0.02557882427062419,
+          "cosine": 0.9488423514587516,
+          "proximity_iou": 0.9492996322490099
+        },
+        {
+          "video": "b2036451-aa924fd1",
+          "frame": 937,
+          "tid": 574,
+          "raw_id": 35280,
+          "alias_raw_ids": [
+            35280,
+            35292
+          ],
+          "appearance_cost": 0.016770445108554466,
+          "cosine": 0.9664591097828911,
+          "proximity_iou": 0.7469874622175492
+        },
+        {
+          "video": "b2036451-aa924fd1",
+          "frame": 937,
+          "tid": 563,
+          "raw_id": 35295,
+          "alias_raw_ids": [
+            35295,
+            35297
+          ],
+          "appearance_cost": 0.07925033007876003,
+          "cosine": 0.8414993398424799,
+          "proximity_iou": 0.8318987261936271
+        }
+      ],
+      "own": 1,
+      "foreign": 0,
+      "unknown": 3,
+      "whole_pool_engineering_gate": false
+    },
+    {
+      "variant": "secondary_lost_only",
+      "source": "result_lost_only.json",
+      "proposals": [
+        {
+          "video": "b23b2649-8349d2a1",
+          "frame": 544,
+          "tid": 483,
+          "raw_id": 54963,
+          "alias_raw_ids": [
+            54963
+          ],
+          "appearance_cost": 0.06089589005582596,
+          "cosine": 0.8782082198883481,
+          "proximity_iou": 0.5566938243185238
+        },
+        {
+          "video": "b242f6b2-0033bdfb",
+          "frame": 115,
+          "tid": 55,
+          "raw_id": 4698,
+          "alias_raw_ids": [
+            4698,
+            4699
+          ],
+          "appearance_cost": 0.02557882427062419,
+          "cosine": 0.9488423514587516,
+          "proximity_iou": 0.9492996322490099
+        },
+        {
+          "video": "b2036451-aa924fd1",
+          "frame": 937,
+          "tid": 574,
+          "raw_id": 35280,
+          "alias_raw_ids": [
+            35280,
+            35292
+          ],
+          "appearance_cost": 0.016770445108554466,
+          "cosine": 0.9664591097828911,
+          "proximity_iou": 0.7469874622175492
+        },
+        {
+          "video": "b2036451-aa924fd1",
+          "frame": 937,
+          "tid": 563,
+          "raw_id": 35295,
+          "alias_raw_ids": [
+            35295,
+            35297
+          ],
+          "appearance_cost": 0.07925033007876003,
+          "cosine": 0.8414993398424799,
+          "proximity_iou": 0.8318987261936271
+        }
+      ],
+      "own": 1,
+      "foreign": 0,
+      "unknown": 3,
+      "whole_pool_engineering_gate": false
+    },
+    {
+      "variant": "final_native_episode",
+      "source": "result_episode.json",
+      "proposals": [
+        {
+          "video": "b2036451-aa924fd1",
+          "frame": 937,
+          "tid": 574,
+          "raw_id": 35280,
+          "alias_raw_ids": [
+            35280,
+            35292
+          ],
+          "appearance_cost": 0.016770445108554466,
+          "cosine": 0.9664591097828911,
+          "proximity_iou": 0.7469874622175492
+        }
+      ],
+      "own": 1,
+      "foreign": 0,
+      "unknown": 0,
+      "whole_pool_engineering_gate": true
+    }
+  ],
+  "final_targets": [
+    {
+      "old_case": 232,
+      "target_tid": 232,
+      "eligible_tids": [
+        232
+      ],
+      "target_decision": {
+        "tid": 232,
+        "action": "defer",
+        "reason": "candidate_alias_owned_by_frozen_native_assignment",
+        "raw_id": null,
+        "best_raw_id": 54943,
+        "cosine": 0.9324341582335585,
+        "appearance_cost": 0.03378292088322077,
+        "proximity_iou": 0.5403225685593699,
+        "alias_raw_ids": [
+          54943
+        ]
+      },
+      "target_evaluation_own": false,
+      "target_candidate_hits": []
+    },
+    {
+      "old_case": 70,
+      "target_tid": 70,
+      "eligible_tids": [
+        70
+      ],
+      "target_decision": {
+        "tid": 70,
+        "action": "defer",
+        "reason": "native_assignment_frozen",
+        "raw_id": null
+      },
+      "target_evaluation_own": false,
+      "target_candidate_hits": []
+    },
+    {
+      "old_case": 1102,
+      "target_tid": 1102,
+      "eligible_tids": [
+        1102
+      ],
+      "target_decision": {
+        "tid": 1102,
+        "action": "refuse",
+        "reason": "no_excluded_low_candidate_passes_fixed_appearance_and_proximity",
+        "raw_id": null
+      },
+      "target_evaluation_own": false,
+      "target_candidate_hits": []
+    },
+    {
+      "old_case": 574,
+      "target_tid": 574,
+      "eligible_tids": [
+        574
+      ],
+      "target_decision": {
+        "tid": 574,
+        "action": "continue",
+        "reason": "unassigned_mutual_low_candidate_passes_fixed_gates",
+        "raw_id": 35280,
+        "best_raw_id": 35280,
+        "cosine": 0.9664591097828911,
+        "appearance_cost": 0.016770445108554466,
+        "proximity_iou": 0.7469874622175492,
+        "alias_raw_ids": [
+          35280,
+          35292
+        ]
+      },
+      "target_evaluation_own": true,
+      "target_candidate_hits": [
+        {
+          "identity": "00115019",
+          "iou": 0.5343706443504401,
+          "box": [
+            475.6829755322663,
+            346.8427609468959,
+            489.4895884122208,
+            378.7141009595013
+          ]
+        }
+      ]
+    },
+    {
+      "old_case": 832,
+      "target_tid": 832,
+      "eligible_tids": [
+        832
+      ],
+      "target_decision": {
+        "tid": 832,
+        "action": "refuse",
+        "reason": "no_excluded_low_candidate_passes_fixed_appearance_and_proximity",
+        "raw_id": null
+      },
+      "target_evaluation_own": false,
+      "target_candidate_hits": []
+    }
+  ],
+  "controls": [
+    {
+      "mode": "disabled",
+      "target_continues": 0,
+      "all_pool_proposals": 0
+    },
+    {
+      "mode": "descriptor_permutation",
+      "target_continues": 0,
+      "all_pool_proposals": 0
+    },
+    {
+      "mode": "missing_competitors",
+      "target_continues": 0,
+      "all_pool_proposals": 0
+    },
+    {
+      "mode": "no_descriptors",
+      "target_continues": 0,
+      "all_pool_proposals": 0
+    },
+    {
+      "mode": "remove_all_target_own",
+      "target_continues": 0,
+      "all_pool_proposals": 0
+    }
+  ],
+  "fixed": {
+    "complete_reference_rows": 107,
+    "current_raw_candidates": 222,
+    "appearance_thresh": 0.8,
+    "appearance_cost_limit": "1-0.8 from source",
+    "proximity_iou": 0.5,
+    "nms_iou": 0.7,
+    "native_high": 0.25,
+    "native_low": 0.1
+  },
+  "final_scope": "Only lost rows exposed by native observable pre-core recovery episode may emit; all107 rows remain nearest-neighbor competitors. Caller passes explicit eligible_tids from shared canonical helper. No GT anchor filter, no hardcoded track/raw ID values.",
+  "history": "Primary and lost-only variants fail strict safety verification with3unknown proposals. Final observable-domain restriction is a late engineering response to that failure, separately registered and evaluated on the same5 cases. Do not present as independent heldout evidence.",
+  "decision": "Final candidate passes this bounded5-case engineering gate and is available for parent experimental module/adapter integration. It is not enabled in the full tracker here. No further recovery rule/threshold variant is proposed.",
+  "cannot_claim": [
+    "HOTA or full tracker improvement",
+    "Public-ID continuity or lifecycle correction",
+    "General safety on new frames",
+    "Correctness of excluded broad unknown proposals",
+    "An advantage attributable to the FlyVis core"
+  ],
+  "baseline_percent": {
+    "correct_optional_target574_before": 0,
+    "correct_optional_target574_after": 1,
+    "finite_relative_percent": null,
+    "reason": "Zero optional recovery baseline; full tracking ceiling not measured.",
+    "wrong_target_continues_without_own": 0,
+    "absent_own_cases": 5,
+    "final_unknown_new_proposals": 0
+  }
+}

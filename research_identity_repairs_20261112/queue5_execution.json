@@ -1,0 +1,66 @@
+{
+  "started": "2026-11-12T20:09:20.601643+03:00",
+  "parent": {
+    "pid": 23320,
+    "birth": 1794503360.4107556
+  },
+  "jobs": [
+    {
+      "entry": "research_identity_repairs_20261112/recovery574/worker_v4.py",
+      "token": "ac6a2066555f47149a26d7fc2930a101",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\ac6a2066555f47149a26d7fc2930a101\\memory_guard.json",
+      "started": "2026-11-12T20:09:20.612299+03:00",
+      "ended": "2026-11-12T20:09:21.744624+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_identity_repairs_20261112\\recovery574\\worker_v4.py",
+          "--audit-memory-worker=ac6a2066555f47149a26d7fc2930a101"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17689026560,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "25312": 1794503360.621524,
+          "21900": 1794503360.6473713
+        },
+        "stop_errors": [],
+        "seconds": 1.125
+      }
+    },
+    {
+      "entry": "research_identity_repairs_20261112/recovery574/audit_v4.py",
+      "token": "b8bf8e08ad7e407796500660853f8b07",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\b8bf8e08ad7e407796500660853f8b07\\memory_guard.json",
+      "started": "2026-11-12T20:09:22.091513+03:00",
+      "ended": "2026-11-12T20:09:24.627266+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_identity_repairs_20261112\\recovery574\\audit_v4.py",
+          "--audit-memory-worker=b8bf8e08ad7e407796500660853f8b07"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17509687296,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "16888": 1794503362.0999153,
+          "30408": 1794503362.1238613
+        },
+        "stop_errors": [],
+        "seconds": 2.5320000000065193
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-12T20:09:24.955162+03:00",
+  "passed": true
+}

@@ -1,0 +1,62 @@
+{
+  "completed_jobs": [
+    {
+      "entry": "research_identity_repairs_20261112/review/extract_bank.py",
+      "token": "a6179f92dae4436a93715a49bcaadd5c",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\a6179f92dae4436a93715a49bcaadd5c\\memory_guard.json",
+      "started": "2026-11-12T20:00:05.837770+03:00",
+      "ended": "2026-11-12T20:00:25.655999+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_identity_repairs_20261112\\review\\extract_bank.py",
+          "--go-protocol-sha256",
+          "c6d53335f1d6238cb38514a5075dd572d7e0c2f32a495086d2ea77fbe4fb0fb3",
+          "--audit-memory-worker=a6179f92dae4436a93715a49bcaadd5c"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 15219843072,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "19808": 1794502805.846726,
+          "8180": 1794502805.873539
+        },
+        "stop_errors": [],
+        "seconds": 19.813000000009197
+      }
+    },
+    {
+      "entry": "research_identity_repairs_20261112/review/audit_bank.py",
+      "token": "678304cf7b814f86b745606b968d05fc",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\678304cf7b814f86b745606b968d05fc\\memory_guard.json",
+      "started": "2026-11-12T20:00:26.692930+03:00",
+      "ended": "2026-11-12T20:00:35.497653+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_identity_repairs_20261112\\review\\audit_bank.py",
+          "--audit-memory-worker=678304cf7b814f86b745606b968d05fc"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17537900544,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "27932": 1794502826.7011309,
+          "17888": 1794502826.7255485
+        },
+        "stop_errors": [],
+        "seconds": 8.796999999991385
+      }
+    }
+  ],
+  "recorded": "2026-11-12T20:00:36.710404+03:00",
+  "note": "Closed bank jobs only; the still-running queue log is not bound as immutable input."
+}

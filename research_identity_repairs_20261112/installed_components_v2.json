@@ -1,0 +1,20 @@
+{
+  "installed": "2026-11-12T20:12:11.089768+03:00",
+  "policy": {
+    "source": "research_identity_repairs_20261112\\recovery574\\appearance_recovery_policy_v4.py",
+    "target": "tracking\\appearance_recovery_policy.py",
+    "sha256": "2bd80adcb3137d9d4176ad29b157bfa88202863a574b5cf9c161074954e7dd8c"
+  },
+  "adapter": {
+    "source": "research_identity_repairs_20261112/review/combined_adapter_v2.py",
+    "target": "tracking/identity_repair_adapter.py",
+    "sha256": "12ff447c1755f89f9a6a7e96f751ab1e2170ce877b694e5adb80e47657100730",
+    "only_import_names_changed": true,
+    "nonimport_AST_exact": true
+  },
+  "reference_history": {
+    "target": "tracking/reference_template_history.py",
+    "sha256": "a2e929916b3e85c8d4dcf142e6a35547c6fe13e0bf87ef379a9d000a5a22d0be"
+  },
+  "activation": "Reusable guarded components tested on saved cases only. No live tracker hook enabled, no full rollout."
+}

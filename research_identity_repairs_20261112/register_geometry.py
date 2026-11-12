@@ -1,0 +1,13 @@
+from common import *
+p=read(OUT/'geometry832/proposal_protocol.json');inputs=dict(p['inputs'])
+for n,h in inputs.items():assert sha(ROOT/n)==h,n
+for n in ['geometry832/proposal_protocol.json','geometry832/registration.py','geometry832/worker.py','geometry832/audit.py','run_queue.py','register_geometry.py']:
+ f=OUT/n;inputs[f.relative_to(ROOT).as_posix()]=sha(f)
+cat=read(ROOT/'experiments/project_history.json');identity='identity_repair_census832_20261112';assert not any(c['id']==identity for c in cat['experiments'])
+cat['experiments'].append(dict(id=identity,title='Сопоставление по изображениям и история образца без эталонных рамок',area='flyvis',state='running',started='2026-11-12',question=p['question'],hypothesis=p['hypothesis'],expected='Исполнимая правка считывания на прежних пяти случаях, без эталонной разметки в решении и без настройки весов или порога.',acceptance=[dict(criterion=c,met=None) for c in p['acceptance']],evidence=[dict(kind='file',ref=(OUT/'geometry832/proposal_protocol.json').relative_to(ROOT).as_posix())]))
+(ROOT/'experiments/project_history.json').write_bytes((json.dumps(cat,ensure_ascii=False,indent=2)+'\n').encode())
+tp=ROOT/'experiments/obsidian_experiment_topics.json';t=read(tp);t['topics'][identity]=['Сохранение личности','Исправление соответствия','Координаты и история образца'];tp.write_bytes((json.dumps(t,ensure_ascii=False,indent=2)+'\n').encode())
+save('queue1.json',dict(registered=now(),inputs=inputs,runner_sha256=sha(OUT/'run_queue.py'),jobs=[dict(entry=(OUT/'geometry832'/n).relative_to(ROOT).as_posix(),timeout=600) for n in ['worker.py','audit.py']],deadline='2026-11-13T07:35:00+03:00'))
+(OUT/'geometry832/GO.json').write_bytes((json.dumps(dict(approved=True,registered=now(),protocol_sha256=sha(OUT/'geometry832/proposal_protocol.json')),indent=2)+'\n').encode())
+journal('Постановка (`identity_repair_census832_20261112`): одна правка без эталонных рамок — Census, локальные сравнения яркости, выбирает перенос целого исходного шаблона по фиксированной медиане расхождений. Полная допустимая область поиска определяется вырезкой и исходными точками; сдвиг12пикселей не подставляется. Проверяется сочетание координат и уже сохранённой синтетической истории образца, все пять случаев, прежние головы и порог0. Источник research_identity_repairs_20261112/geometry832/proposal_protocol.json. Отдельная граница назначения: в832 текущую правильную рамку уже сопровождает активная773; восстановление старой832 не должно автоматически отнимать её номер. Исправление локального балла и действие полного сохранённого назначения оцениваются раздельно, без запуска трекера.')
+print('REGISTERED_GEOMETRY')

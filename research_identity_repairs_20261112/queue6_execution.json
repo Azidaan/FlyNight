@@ -1,0 +1,103 @@
+{
+  "started": "2026-11-12T20:10:12.318289+03:00",
+  "parent": {
+    "pid": 21736,
+    "birth": 1794503412.1306834
+  },
+  "jobs": [
+    {
+      "entry": "research_identity_repairs_20261112/review/component_checks.py",
+      "token": "8d699955c2e44ebda3991da5e302a5c7",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\8d699955c2e44ebda3991da5e302a5c7\\memory_guard.json",
+      "started": "2026-11-12T20:10:12.333927+03:00",
+      "ended": "2026-11-12T20:10:12.841479+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_identity_repairs_20261112\\review\\component_checks.py",
+          "--go-protocol-sha256",
+          "c6697aff34f54143e29b10d6d7badd22fa17304864b584ec507f1deaee65322a",
+          "--audit-memory-worker=8d699955c2e44ebda3991da5e302a5c7"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17889742848,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "6004": 1794503412.3424227,
+          "8312": 1794503412.3656871
+        },
+        "stop_errors": [],
+        "seconds": 0.5
+      }
+    },
+    {
+      "entry": "research_identity_repairs_20261112/review/combined_worker_v2.py",
+      "token": "339c274f1cbf48cabb759e44615356cf",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\339c274f1cbf48cabb759e44615356cf\\memory_guard.json",
+      "started": "2026-11-12T20:10:13.269258+03:00",
+      "ended": "2026-11-12T20:10:14.153418+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_identity_repairs_20261112\\review\\combined_worker_v2.py",
+          "--go-protocol-sha256",
+          "c6697aff34f54143e29b10d6d7badd22fa17304864b584ec507f1deaee65322a",
+          "--audit-memory-worker=339c274f1cbf48cabb759e44615356cf"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17777860608,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "17880": 1794503413.2771873,
+          "22464": 1794503413.3001812
+        },
+        "stop_errors": [],
+        "seconds": 0.875
+      }
+    },
+    {
+      "entry": "research_identity_repairs_20261112/review/assignment_audit_v2.py",
+      "token": "30dd446edb82490087a5a1e07013013f",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\30dd446edb82490087a5a1e07013013f\\memory_guard.json",
+      "started": "2026-11-12T20:10:14.477402+03:00",
+      "ended": "2026-11-12T20:10:16.480967+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_identity_repairs_20261112\\review\\assignment_audit_v2.py",
+          "--go",
+          "research_identity_repairs_20261112/review/combined_assignment_GO_v2.json",
+          "--decisions",
+          "research_identity_repairs_20261112/review/combined_decisions_v2.json",
+          "--output",
+          "research_identity_repairs_20261112/review/combined_assignment_result_v2.json",
+          "--audit-memory-worker=30dd446edb82490087a5a1e07013013f"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17607692288,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "30640": 1794503414.485929,
+          "20908": 1794503414.5109534
+        },
+        "stop_errors": [],
+        "seconds": 1.9839999999967404
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-12T20:10:16.770526+03:00",
+  "passed": true
+}

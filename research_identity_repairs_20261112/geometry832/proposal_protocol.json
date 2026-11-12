@@ -1,0 +1,104 @@
+{
+  "registered": "2026-11-12T19:52:42.899002+03:00",
+  "head": "e3d92e096f47e6f02590bf5fe8b34ca0899ab618",
+  "state": "proposed_waiting_parent_registration",
+  "action": "Replace detector-box-normalized correspondence by generic Census image registration and use cached reference terminal-image response; preserve existing current response, frozen head weights, 7 geometry features, source cells, and threshold0.",
+  "question": "Can one implementable label-free coordinate+reference-history repair rescue832 without losing own70/1102 or admitting foreign574 on all5 archived cases?",
+  "hypothesis": "Full-template raw-image Census registration can estimate a usable world translation outside the old residual search grid; combined with held reference response it may repair the measured coupled failure.",
+  "cases": "All5 archived cases from frozen stage protocol; IDs/labels are output/evaluation metadata only. register_translation accepts new generic case geometry/images, no old_id or GT.",
+  "algorithm": {
+    "grayscale": "Existing native raw-frame PNG decoded by cv2.IMREAD_GRAYSCALE; no rescaling.",
+    "descriptor": "5x5 Census:24 strict neighbor<center comparisons; 24bit Hamming per source pixel.",
+    "source_pixels": "All integer pixel centers inside archived reference_box, clipped to reference_crop with2px descriptor margin and image borders; ceil lower and floor upper inclusive.",
+    "domain": "ALL integer dx,dy keeping complete source pixel template and2px descriptor neighborhoods inside current_crop/image, AND all original full-template source map cells inside current eye convex hull; no arbitrary radius and no GT.",
+    "objective": "Lexicographic median Hamming (fixed50th percentile), total Hamming, squared distance to detector-center translation,dx,dy. Median averages middle two for even count; no trimming/adaptive parameter/search after outcomes.",
+    "mapping": "query=(source_world+estimated_translation-current_crop_min)*eye_size/current_crop_size. No detector-affine rescaling or old residual offset added after registration.",
+    "failure": "Empty template/no feasible full-support shift => registration not ready; no silently invented translation or acceptance."
+  },
+  "factorial": {
+    "coordinates": [
+      "originalC34savedquery",
+      "Census_registration"
+    ],
+    "reference_states": [
+      "index",
+      "terminal_hold"
+    ],
+    "current_state": "index",
+    "representations": [
+      "C34",
+      "R134_temporal",
+      "retina32"
+    ],
+    "heads": [
+      "native",
+      "agreement"
+    ],
+    "expected_rows_if_all_ready": 120
+  },
+  "acceptance": [
+    "Integrity and identity: all source hashes unchanged; original index channels reproduce saved original within1e-9.",
+    "Independent audit enumerates the ENTIRE same shift domain, direct Boolean Census rather than packed bit/popcount algorithm, every cost tuple and deterministic argmin; scalar channel/head and SciPy interpolation error<1e-9.",
+    "Primary useful repair: Census+referenceheld nativeC34 accepts own832, preserves acceptedown70/1102, and does not accept foreign574; report own232 separately and every all5 control. Cases exactly five.",
+    "Primary interaction evidence: compare all2x2 conditions; coordinate-only and held-only failures cannot be hidden. No head/threshold changes or registration tuning after outcomes.",
+    "If primary fails, retain implementation+exact errors and provide explicit defer/continue recommendation rather than promoting this universal repair. No full tracker or HOTA claim."
+  ],
+  "fixed": {
+    "core_calls": 0,
+    "new_fits": 0,
+    "tracker_calls": 0,
+    "threshold": 0,
+    "GT_used_for_registration": false,
+    "weights_changed": false
+  },
+  "literature": {
+    "title": "Non-parametric Local Transforms for Computing Visual Correspondence",
+    "authors": "Ramin Zabih and John Woodfill",
+    "year": 1994,
+    "url": "https://www.cs.cornell.edu/~rdz/Papers/ZW-ECCV94.pdf",
+    "doi": "10.1007/BFb0028345",
+    "role": "Census local intensity ordering and Hamming correspondence; our5x5 whole-template median aggregation and bounds are fixed engineering choices, not results promised by the paper."
+  },
+  "deadline": "2026-11-13T07:35:00+03:00",
+  "timeout_seconds": 180,
+  "execution": {
+    "device": "CPU",
+    "CUDA_VISIBLE_DEVICES": "",
+    "OMP_NUM_THREADS": 2,
+    "MKL_NUM_THREADS": 2,
+    "owner": "Parent scheduler only; worker requires GO.json approved:true; no manual duplicate."
+  },
+  "limits": "Five reused engineering cases; operational coordinate rule sees no GT, but effect is not generalized or deployed. Core maps held under synthetic input history reused from prior verified calculation; online full-module history path not measured here. Census can align a different visible surface under occlusion; no physical truth guaranteed.",
+  "inputs": {
+    "research_stage_localization_20261112/protocol.json": "860bc2efdeeba2280df354b7b61b43b2345bf10f8048fb9679ed034ebec62120",
+    "research_remaining_causes_20261112/geometry832/result.json": "e6514a41e096fb94c1e410a30162a69a67853309f05f894ee28ac35cf7cdbb4f",
+    "research_remaining_causes_20261112/geometry832/factorial_result.json": "cc3ad8427e5539758696669d6b12176024fb4545da91e4857744b7f4b0c18782",
+    "research_input_precision_probe_20261112/maps.npz": "efb4cdd0ff69469e8b1149442d9ed13125f169b22fc3771b5b369e3b8b9782df",
+    "research_input_precision_probe_20261112/expanded_inputs.npz": "16986dbfff29256d504b1352b17cce8133d0e1b61c5295a99dee39ebb2cb6b9b",
+    "research_terminal_response_probe_20261112/maps.npz": "f92e422e54c3f5f80ac8a258731745a9c3d825e382573ea4926fdffa89edc43d",
+    "research_terminal_response_probe_20261112/protocol.json": "d245ac46e276527258c1b32ee29a25eaa903e1ff6db9a317744df316f8a5b272",
+    "research_terminal_response_probe_20261112/audit.json": "212c57c2ae709e0933e191fbd3ca2789d4ef06d9bd3a6217aaf16bf0b16d0f0f",
+    "research_candidate_support_probe_20261112/scores.json": "d5d8813e9fac945fcb5b2005bfe82633786b9213810f3e9f344cc16db95a9d77",
+    "research_failure_localization_20261112/frame_manifest.json": "1b252374e14b6c1f894ba344e075140ca1d1b988629fe61835c43d7c0bfc489b",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "tracking/observed_spatial_reader.py": "66f391d4520edfc9a9f9c46d57157e04dbbcaf73a8d3d1013e931e28e16b045d",
+    "tracking/full_template_correspondence.py": "043c2214a5769aee5b6bafb8d8fdb3a63cd7faa04a28f576d9e22f7c238144f0",
+    "tracking/hex_linear_interpolation.py": "6398d9d9654328e13a9a04c335bed92b5202dabcf8b63ca19a69ebc925ab477e",
+    "tracking/channel_agreement_correspondence.py": "807948699b5f776c7134f51c9a68347afb1bdebeb01462b896607d1dfb8b4740",
+    "tracking/channel_balanced_correspondence.py": "f024871ccebbcb329bd147061d0bf621896eef64cf63a31154d2e244737502bd",
+    "research_failure_localization_20261112/frames/232_538_full.png": "0d757e01a48fb7078a556207b7f12bb82fe0a6056d3a18e56e92dfc23392fe47",
+    "research_failure_localization_20261112/frames/232_544_full.png": "ecbb8e1ac26f3d8f65dd5d87546956045eaef92b2364a844f7ba5ec6d1e0fd88",
+    "research_failure_localization_20261112/frames/70_109_full.png": "3d496afe4e80676a6a34deb066e04f68c2bf4a054b2ab735b616c8ff23bb7456",
+    "research_failure_localization_20261112/frames/70_115_full.png": "02f0317ae924747373dd16575e11e97c00bf902e7d15610d36b19b04e6d87e4c",
+    "research_failure_localization_20261112/frames/1102_252_full.png": "de6194d3d542ddcc418f1492502593c25ff250a1286b46a5e30a9e5d4310e219",
+    "research_failure_localization_20261112/frames/1102_258_full.png": "31483a02f4532335305c54d20be881bacb8471ff7dacfccd13a81e3bb1439baa",
+    "research_failure_localization_20261112/frames/574_931_full.png": "c7f04264996bf5d2e4bc08101be48d5bbee988de3f913a34d5f4e834711c1a4f",
+    "research_failure_localization_20261112/frames/574_937_full.png": "b844885d3d1b14e3214c669e631851b6d3c39f92d3ac993ce87d730cb360ad01",
+    "research_failure_localization_20261112/frames/832_534_full.png": "781f0b8bb6faf7ebadeeb4bcea4b1211df7b59acd66df02ebfbd13cbf79f4e7e",
+    "research_failure_localization_20261112/frames/832_540_full.png": "9fe0fda759d934b71609db6a752247f389e6686792441ea46acb3c7d809a25a0",
+    "research_identity_repairs_20261112/geometry832/audit.py": "b3c7b40e59d22db14b837c8f6c0ec7ac5226b1e605aedc31cb3353c2eff437c6",
+    "research_identity_repairs_20261112/geometry832/prepare.py": "42c387b835f969885059fa9eb8035840b78eb6843d26ffb3cda692b97ef6dad5",
+    "research_identity_repairs_20261112/geometry832/registration.py": "434f0233f46bf52793640c100e623c973cba44123da258380f6346f78a48a9c0",
+    "research_identity_repairs_20261112/geometry832/worker.py": "3c5d37ccbc4a222b409e9192d85be85ac26a1da55048c644be1d99ff714c6dbc"
+  }
+}

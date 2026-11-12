@@ -1,0 +1,38 @@
+{
+  "registered": "2026-11-12T20:17:40.949248+03:00",
+  "inputs": {
+    "research_identity_repairs_20261112/required_checks.py": "7989c84685a3c5e6b32a340536915618535b95f0935f4e263df3d78be5c501bc",
+    "research_identity_repairs_20261112/run_queue.py": "2c922fc799394a03d9bc35cef70891b5bce61b4005b229d0e1bc72296ea0ce93",
+    "research_identity_repairs_20261112/audit.json": "e902b64c2b45b4e6a3e6ad8a24d2e3c79d8e9e6db8b0018d0cee443a6914dc86",
+    "research_identity_repairs_20261112/text_review.json": "ed7ef365649a7b5b442b5639bf0b5b1fdae263cb86106e575ed293431afebfde",
+    "research_identity_repairs_20261112/РЕЗУЛЬТАТ.md": "4f0bbb552efe95919ad62f640752c3b9ce5179a7d21b814499528d8bef7d0f35",
+    "tests/test_identity_repair_components.py": "bce3a4d4296d35ba3d0b698c7ca530b0e133cc4a2db04bf1af9865402ec10ebb",
+    "tracking/census_correspondence.py": "434f0233f46bf52793640c100e623c973cba44123da258380f6346f78a48a9c0",
+    "tracking/reference_template_history.py": "a2e929916b3e85c8d4dcf142e6a35547c6fe13e0bf87ef379a9d000a5a22d0be",
+    "tracking/correspondence_repair_guard.py": "ce528c873d50f6082802903540e244052b4e183ade9e3102c1922136671208ff",
+    "tracking/appearance_recovery_policy.py": "2bd80adcb3137d9d4176ad29b157bfa88202863a574b5cf9c161074954e7dd8c",
+    "tracking/identity_repair_adapter.py": "12ff447c1755f89f9a6a7e96f751ab1e2170ce877b694e5adb80e47657100730",
+    "experiments/project_history.json": "65201facf810be0eb3ef59e444d76258b11f6ab4a2e30812af5d3ee1252bf0d4",
+    "experiments/system_problems.json": "4ceb2ab4ca5c67519c1017d8dbfd6f6ff3bcdbcadd265ece343a50071872a9d5",
+    "experiments/useful_literature.json": "31dd7f5216472ba4c7e5819839513c28d16db60b4149167da75274b178287096",
+    "experiments/obsidian_experiment_topics.json": "28af78d2c32c42b9c1feff0f6018505f48ca669cb13d5e9c6d989977b17e4a88"
+  },
+  "runner_sha256": "2c922fc799394a03d9bc35cef70891b5bce61b4005b229d0e1bc72296ea0ce93",
+  "jobs": [
+    {
+      "entry": "research_identity_repairs_20261112/required_checks.py",
+      "args": [
+        "validate"
+      ],
+      "timeout": 900
+    },
+    {
+      "entry": "research_identity_repairs_20261112/required_checks.py",
+      "args": [
+        "tests"
+      ],
+      "timeout": 900
+    }
+  ],
+  "deadline": "2026-11-13T07:35:00+03:00"
+}

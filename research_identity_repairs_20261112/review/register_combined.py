@@ -1,0 +1,19 @@
+"""Freeze combined engineering policy before any combined decisions."""
+import json,hashlib
+from pathlib import Path
+from datetime import datetime
+from zoneinfo import ZoneInfo
+ROOT=Path(__file__).resolve().parents[2];OUT=Path(__file__).resolve().parent
+def read(p):return json.loads(Path(p).read_text(encoding='utf8'))
+def sha(p):
+ h=hashlib.sha256()
+ with Path(p).open('rb') as f:
+  for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
+ return h.hexdigest()
+names=['combined_adapter.py','combined_worker.py','register_combined.py','assignment_audit.py','assignment_snapshots.json','reference_bank.npz','bank_result.json','bank_audit.json']
+inputs={str((OUT/n).relative_to(ROOT)).replace('\\','/'):sha(OUT/n) for n in names}
+for n in ['research_identity_repairs_20261112/recovery574/appearance_recovery_policy_v3.py','research_identity_repairs_20261112/recovery574/scope_addendum_v3.json','research_identity_repairs_20261112/geometry832/selection.py','research_identity_repairs_20261112/geometry832/result.json','research_identity_repairs_20261112/geometry832/audit.json','research_remaining_causes_20261112/independent_review/reid/low_descriptors.npz','research_remaining_causes_20261112/independent_review/reid/low_result.json']:inputs[n]=sha(ROOT/n)
+assert read(OUT/'bank_audit.json')['passed']
+p=dict(registered=datetime.now(ZoneInfo('Europe/Moscow')).isoformat(),inputs=inputs,scope='Engineeringrepair on5previouslyknownsavedcases; onlytargetnativeproposalheaddecisionmayuseCensus. AllotherC34votes andhistoricallyconditionedstatesfixed. targetdecision_without_core is matchedlocalcontrol, NOT wholetrackerwithoutFlyVis. No fulltracker/HOTA/independentgeneralization.',variants=['baseline','universal_census_negative_control','guarded_census_appearance_low','targetdecision_without_core_appearance_low'],policy='Originalpositivepreservedunlesscompleteappearancecontradiction; originalnegativeCensusmayauthorizeonlypositiveCensus+strictmutualsameclassappearancecos>=.6+predictedIoU>=.5+nootherowner. NMSgreedyconfidencepriorityIoU>.7 groupsborrowedfixed. SafevariantsfreezeALLactual_firstpairsANDALLsavedassignedowners; onlyunmatchedhighnewedgesmayreceiveoldalpha.2. Explicitdeferblocks unfrozen targetrowhighrelations; supportedexcludedlow recovery maystill addnewcostedgeonlylostrowstate2. Lowbranchallrawconf<=.1, purev3policycommon tobothsafevariants. Incomplete/tiedcompetitorsdefer. NoGTinputtopureadapter.',criterion=['BaselinecompleteLAPassignment reproduced; independentSciPyobjective checked.','Report ownobjectcoverage,oldIDrecovery andprotectedduplicate defer separately; neverstealactive773 toclaim832recovery.','574foreignheadvotealreadygloballyblocked is notnewassignmentbenefit; newownlowrecoverymustbeselectedwithoutactive/aliasownershipconflicts.','Alloriginalprotectedpairs unchangedforsafevariants; alladdedcolumns/rows/groupssatisfyfixedpolicy. Negative universalCensus preserved.','Comparetargetdecisionwithoutcore beforeclaiming newcorecontribution. Defer/incomplete/removedown controls come from separatelyregisteredrecovery policy.'],authorize_downstream_assignment_audit=True,deadline='2026-11-13T07:35:00+03:00',new_fits=0,new_model_calls=0,tracker_calls=0)
+with (OUT/'combined_protocol.json').open('x',encoding='utf8') as f:json.dump(p,f,ensure_ascii=False,indent=2,allow_nan=False)
+print('COMBINED_PROTOCOL_REGISTERED',sha(OUT/'combined_protocol.json'))

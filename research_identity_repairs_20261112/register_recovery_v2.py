@@ -1,0 +1,12 @@
+from common import *
+p=read(OUT/'recovery574/worker_addendum_v2.json');assert sha(OUT/'recovery574/worker_addendum_v2.json')=='a85e42e6f632a9daf0ab122a5ddee16ba78f2667140d647d40a24019c95bd61a'
+inputs={}
+for n,h in p['new_sources'].items():assert sha(OUT/'recovery574'/n)==h;inputs[(OUT/'recovery574'/n).relative_to(ROOT).as_posix()]=h
+for n in ['recovery574/proposal_protocol.json','recovery574/worker_addendum_v2.json','recovery574/descriptor_binding.json','recovery574/audit.py','run_queue.py','register_recovery_v2.py']:
+ f=OUT/n;inputs[f.relative_to(ROOT).as_posix()]=sha(f)
+inputs.update(read(OUT/'recovery574/descriptor_binding.json')['inputs'])
+save('recovery_v1_failure.json',dict(recorded=now(),failed_queue='queue2_execution.json',error='KeyError533: arbitrary competing reference has no exact GT clock anchor.',policy_may_have_computed_partial_case232=True,full_outcomes_saved=False,correction='Evaluation only: missing exact annotation remains unknown. Decision rule and gates unchanged. Earlier addendum repair_outcomes_computed:false describes agent preparation knowledge, not actual parent execution history.'))
+cat=read(ROOT/'experiments/project_history.json');c=next(c for c in cat['experiments'] if c['id']=='identity_repair_excluded_low_recovery_20261112');c['evidence'].extend(dict(kind='file',ref=(OUT/n).relative_to(ROOT).as_posix()) for n in ['recovery574/worker_addendum_v2.json','recovery_v1_failure.json']);(ROOT/'experiments/project_history.json').write_bytes((json.dumps(cat,ensure_ascii=False,indent=2)+'\n').encode())
+save('queue3.json',dict(registered=now(),inputs=inputs,runner_sha256=sha(OUT/'run_queue.py'),jobs=[dict(entry=(OUT/'recovery574'/n).relative_to(ROOT).as_posix(),timeout=600) for n in ['worker_v2.py','audit.py']],deadline='2026-11-13T07:35:00+03:00'))
+journal('Техническое исправление восстановления574: первый расчёт остановился в оценщике на отсутствии точной разметки исходного кадра533. Правило могло вычислить часть решений232, полный результат не сохранён. Вworker_v2 отсутствующая точная разметка остаётся неизвестной, ближайший размеченный кадр не подставляется. Исходные правило1/2состояний, пороги и строгий критерий отсутствия чужих/неизвестных продолжений сохранены. Источник research_identity_repairs_20261112/recovery_v1_failure.json и recovery574/worker_addendum_v2.json. Отдельный будущий вариант только для потерянных строкstate2 фиксируется как уточнение области действия, а не скрытая замена первичного варианта.')
+print('REGISTERED_RECOVERY_V2')

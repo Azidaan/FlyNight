@@ -1,0 +1,171 @@
+{
+  "variants": [
+    {
+      "variant": "primary_tracked_or_lost",
+      "state": "completed_negative",
+      "scope": "Только зарегистрированная инженерная проверка на пяти прежних случаях; независимое обобщение не измерено.",
+      "acceptance": [
+        {
+          "criterion": "Правильное дополнительное предложение восстановления для574",
+          "met": true,
+          "evidence": "result.json: records[mode=complete_recovery,old_case=574].target_evaluation_own"
+        },
+        {
+          "criterion": "Нет чужих или неопределённых новых предложений во всех пяти полных наборах конкурентов",
+          "met": false,
+          "evidence": {
+            "source": "result.json",
+            "own": 1,
+            "foreign": 0,
+            "unknown": 3
+          }
+        },
+        {
+          "criterion": "Все сохранённые штатные публичные назначения и занятые псевдонимы защищены от перехвата",
+          "met": true,
+          "evidence": "audit.json: protected_native_row_decisions and independently reconstructed policy"
+        },
+        {
+          "criterion": "В пяти контролях без собственных кандидатов целевые строки не продолжаются; контроли перестановки и отсутствия описателей сохранены полностью",
+          "met": true,
+          "evidence": "result.json: records[mode=remove_all_target_own/descriptor_permutation/missing_competitors/no_descriptors]"
+        },
+        {
+          "criterion": "Все107прошлых строк и222сырые детекции участвуют в конкуренции до подавления дублирующих рамок",
+          "met": true,
+          "evidence": "result.json: baseline; records[*].rows/candidates/result.cosine"
+        },
+        {
+          "criterion": "Правило не получает оценочную разметку и не содержит условий по известным значениям идентификаторов; разметка используется только во внешней оценке",
+          "met": true,
+          "evidence": "frozen puremodule and independent auditor"
+        },
+        {
+          "criterion": "Не заявлены исправление публичного идентификатора и прирост HOTA без проверки полного трекера",
+          "met": true,
+          "evidence": "Полный трекер и жизненный цикл не запускались; граница вывода явно сохранена в итоговом отчёте."
+        }
+      ],
+      "decision": "Широкая версия не принимается: сохранить три неопределённых предложения и локальный правильный результат574.",
+      "cannot_claim": [
+        "Прирост HOTA или качества полного трекера",
+        "Исправление публичного идентификатора и его жизненного цикла",
+        "Общая безопасность на новых кадрах",
+        "Правильность трёх неопределённых предложений широких версий",
+        "Польза, приписываемая ядру FlyVis"
+      ]
+    },
+    {
+      "variant": "secondary_lost_only",
+      "state": "completed_negative",
+      "scope": "Только зарегистрированная инженерная проверка на пяти прежних случаях; независимое обобщение не измерено.",
+      "acceptance": [
+        {
+          "criterion": "Правильное дополнительное предложение восстановления для574",
+          "met": true,
+          "evidence": "result_lost_only.json: records[mode=complete_recovery,old_case=574].target_evaluation_own"
+        },
+        {
+          "criterion": "Нет чужих или неопределённых новых предложений во всех пяти полных наборах конкурентов",
+          "met": false,
+          "evidence": {
+            "source": "result_lost_only.json",
+            "own": 1,
+            "foreign": 0,
+            "unknown": 3
+          }
+        },
+        {
+          "criterion": "Все сохранённые штатные публичные назначения и занятые псевдонимы защищены от перехвата",
+          "met": true,
+          "evidence": "audit_lost_only.json: protected_native_row_decisions and independently reconstructed policy"
+        },
+        {
+          "criterion": "В пяти контролях без собственных кандидатов целевые строки не продолжаются; контроли перестановки и отсутствия описателей сохранены полностью",
+          "met": true,
+          "evidence": "result_lost_only.json: records[mode=remove_all_target_own/descriptor_permutation/missing_competitors/no_descriptors]"
+        },
+        {
+          "criterion": "Все107прошлых строк и222сырые детекции участвуют в конкуренции до подавления дублирующих рамок",
+          "met": true,
+          "evidence": "result_lost_only.json: baseline; records[*].rows/candidates/result.cosine"
+        },
+        {
+          "criterion": "Правило не получает оценочную разметку и не содержит условий по известным значениям идентификаторов; разметка используется только во внешней оценке",
+          "met": true,
+          "evidence": "frozen puremodule and independent auditor"
+        },
+        {
+          "criterion": "Не заявлены исправление публичного идентификатора и прирост HOTA без проверки полного трекера",
+          "met": true,
+          "evidence": "Полный трекер и жизненный цикл не запускались; граница вывода явно сохранена в итоговом отчёте."
+        }
+      ],
+      "decision": "Широкая версия не принимается: сохранить три неопределённых предложения и локальный правильный результат574.",
+      "cannot_claim": [
+        "Прирост HOTA или качества полного трекера",
+        "Исправление публичного идентификатора и его жизненного цикла",
+        "Общая безопасность на новых кадрах",
+        "Правильность трёх неопределённых предложений широких версий",
+        "Польза, приписываемая ядру FlyVis"
+      ]
+    },
+    {
+      "variant": "final_native_episode",
+      "state": "completed_positive",
+      "scope": "Только зарегистрированная инженерная проверка на пяти прежних случаях; независимое обобщение не измерено.",
+      "acceptance": [
+        {
+          "criterion": "Правильное дополнительное предложение восстановления для574",
+          "met": true,
+          "evidence": "result_episode.json: records[mode=complete_recovery,old_case=574].target_evaluation_own"
+        },
+        {
+          "criterion": "Нет чужих или неопределённых новых предложений во всех пяти полных наборах конкурентов",
+          "met": true,
+          "evidence": {
+            "source": "result_episode.json",
+            "own": 1,
+            "foreign": 0,
+            "unknown": 0
+          }
+        },
+        {
+          "criterion": "Все сохранённые штатные публичные назначения и занятые псевдонимы защищены от перехвата",
+          "met": true,
+          "evidence": "audit_episode.json: protected_native_row_decisions and independently reconstructed policy"
+        },
+        {
+          "criterion": "В пяти контролях без собственных кандидатов целевые строки не продолжаются; контроли перестановки и отсутствия описателей сохранены полностью",
+          "met": true,
+          "evidence": "result_episode.json: records[mode=remove_all_target_own/descriptor_permutation/missing_competitors/no_descriptors]"
+        },
+        {
+          "criterion": "Все107прошлых строк и222сырые детекции участвуют в конкуренции до подавления дублирующих рамок",
+          "met": true,
+          "evidence": "result_episode.json: baseline; records[*].rows/candidates/result.cosine"
+        },
+        {
+          "criterion": "Правило не получает оценочную разметку и не содержит условий по известным значениям идентификаторов; разметка используется только во внешней оценке",
+          "met": true,
+          "evidence": "appearance_recovery_policy_v4.py with ordinary native identifier mapping only"
+        },
+        {
+          "criterion": "Не заявлены исправление публичного идентификатора и прирост HOTA без проверки полного трекера",
+          "met": true,
+          "evidence": "Полный трекер и жизненный цикл не запускались; граница вывода явно сохранена в итоговом отчёте."
+        }
+      ],
+      "decision": "Допустим как экспериментальный модуль ограниченного адаптера; полный исполняемый трекер не активируется.",
+      "cannot_claim": [
+        "Прирост HOTA или качества полного трекера",
+        "Исправление публичного идентификатора и его жизненного цикла",
+        "Общая безопасность на новых кадрах",
+        "Правильность трёх неопределённых предложений широких версий",
+        "Польза, приписываемая ядру FlyVis"
+      ]
+    }
+  ],
+  "no_further_variants": true,
+  "final_gate": "Local engineering positive only; primary and lost-only failures remain recorded."
+}

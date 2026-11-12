@@ -1,0 +1,58 @@
+{
+  "registered": "2026-11-12T20:10:11.866841+03:00",
+  "inputs": {
+    "research_identity_repairs_20261112/review/combined_adapter_v2.py": "b03a00a043a7d939abf7cc527965aaffff12767b073150c08f8c49e96049e1a3",
+    "research_identity_repairs_20261112/review/combined_worker_v2.py": "8b06d4acd858fbd0612cc5e61abbd51658c0b9a9276549fb814de8a647fbde71",
+    "research_identity_repairs_20261112/review/register_combined_v2.py": "24a432304ee92f705c78f5237f3bb711aeeb1553445c8335c7fd019e3cf15d70",
+    "research_identity_repairs_20261112/review/assignment_audit_v2.py": "129e5fc33deae1b689149c66d4436eaa7959d8c81962a30256476e203474e0b4",
+    "research_identity_repairs_20261112/review/component_checks.py": "c9257b0cfc072db05b0772e6806b4cd54fb413d315e2454f84fa336d48398682",
+    "research_identity_repairs_20261112/review/assignment_snapshots.json": "e1571d36b65830061c2a49dd9ff9664cf37b72f683faf03ac01587e55419f069",
+    "research_identity_repairs_20261112/review/reference_bank.npz": "0b1053b3aa9597ec2b52536c2ef74f08e25f47295af8cb6a5eb3f8f641b6038c",
+    "research_identity_repairs_20261112/review/bank_result.json": "97218499e125d2252e850fe2e28c0684bb43a791e73a716bd25e40b0906860b7",
+    "research_identity_repairs_20261112/review/bank_audit.json": "7e4cb738943156d55a33186134de6a5f7b51d4ed29d194c2fc11e120f18987f7",
+    "research_identity_repairs_20261112/review/combined_protocol.json": "df65388d3c9e9b7606364edb97dea71940e89e37feaf454eeaae18e8531773b0",
+    "research_identity_repairs_20261112/recovery574/appearance_recovery_policy_v4.py": "2bd80adcb3137d9d4176ad29b157bfa88202863a574b5cf9c161074954e7dd8c",
+    "research_identity_repairs_20261112/recovery574/appearance_recovery_policy_v3.py": "03518ccb48e66e4f02322e604c64cd2522a371e2dc08200df812e3d1e2ac93e4",
+    "research_identity_repairs_20261112/recovery574/scope_addendum_v3.json": "ce5597c664805d70cb60083847ac245bd9ad5f94914c37562bdd9ddfa1582cc2",
+    "research_identity_repairs_20261112/geometry832/selection.py": "ce528c873d50f6082802903540e244052b4e183ade9e3102c1922136671208ff",
+    "research_identity_repairs_20261112/geometry832/result.json": "d38e3e0c25fdc3b9f645b111155f6db914bdb317bd136542260ca4a197060660",
+    "research_identity_repairs_20261112/geometry832/audit.json": "e7ac8d61c5f7cc5a0e9d71e5717553beae281366d88c6c6b1936aca661d42c8c",
+    "research_remaining_causes_20261112/independent_review/reid/low_descriptors.npz": "bfa23a832205de925d162e1c6826bfae399bc920401de7f36b3d07d2ba4d53d9",
+    "research_remaining_causes_20261112/independent_review/reid/low_result.json": "25f1aa979b317cbfc2ceec28483d86498e3411806de6d89738fe0ace6f2fbfaa",
+    "research_identity_repairs_20261112/review/combined_protocol_v2.json": "c6697aff34f54143e29b10d6d7badd22fa17304864b584ec507f1deaee65322a",
+    "research_identity_repairs_20261112/run_queue.py": "2c922fc799394a03d9bc35cef70891b5bce61b4005b229d0e1bc72296ea0ce93",
+    "research_identity_repairs_20261112/register_combined.py": "c8837f611943c5bed533cba72d970be6bb74800ed3f2ec026f7e160ece8fa79f"
+  },
+  "runner_sha256": "2c922fc799394a03d9bc35cef70891b5bce61b4005b229d0e1bc72296ea0ce93",
+  "jobs": [
+    {
+      "entry": "research_identity_repairs_20261112/review/component_checks.py",
+      "args": [
+        "--go-protocol-sha256",
+        "c6697aff34f54143e29b10d6d7badd22fa17304864b584ec507f1deaee65322a"
+      ],
+      "timeout": 120
+    },
+    {
+      "entry": "research_identity_repairs_20261112/review/combined_worker_v2.py",
+      "args": [
+        "--go-protocol-sha256",
+        "c6697aff34f54143e29b10d6d7badd22fa17304864b584ec507f1deaee65322a"
+      ],
+      "timeout": 180
+    },
+    {
+      "entry": "research_identity_repairs_20261112/review/assignment_audit_v2.py",
+      "args": [
+        "--go",
+        "research_identity_repairs_20261112/review/combined_assignment_GO_v2.json",
+        "--decisions",
+        "research_identity_repairs_20261112/review/combined_decisions_v2.json",
+        "--output",
+        "research_identity_repairs_20261112/review/combined_assignment_result_v2.json"
+      ],
+      "timeout": 300
+    }
+  ],
+  "deadline": "2026-11-13T07:35:00+03:00"
+}

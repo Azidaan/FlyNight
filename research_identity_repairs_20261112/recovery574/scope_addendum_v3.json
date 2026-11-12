@@ -1,0 +1,21 @@
+{
+  "created": "2026-11-12T20:02:30.256578+03:00",
+  "parent_protocol_sha256": "4aa446d06cfa64f6f436de15523d3999a80d32b7704837f444da285dcf5655e9",
+  "technical_addendum_sha256": "a85e42e6f632a9daf0ab122a5ddee16ba78f2667140d647d40a24019c95bd61a",
+  "variant": "SECONDARY scope correction, not a silently substituted primary",
+  "registration_context": "Parent fixed lost-only secondary after original worker computed a partial first-case232 policy and failed during evaluation with missing GT anchor533. No final primary result file existed at failure. Primary registered tracked/lost rule remains unchanged and must be evaluated/reported. Lost-only choice is a pre-outcome scope decision for this variant, not gate tuning; parent may execute primary while preparing this file.",
+  "change": "Only unassigned state2 lost rows may receive new recovery proposals. State1 tracked rows now defer with row_not_lost. All5 target rows were already state2 as established by metadata before full outcomes.",
+  "unchanged": "All appearance/proximity/NMS/native thresholds, raw/reference descriptors, competition, frozen assigned ownership, negative controls, evaluation criteria and noGT decision boundary remain unchanged.",
+  "new_sources": {
+    "appearance_recovery_policy_v3.py": "03518ccb48e66e4f02322e604c64cd2522a371e2dc08200df812e3d1e2ac93e4",
+    "worker_v3.py": "27190dcc2ed00eb64e04efcd976a94ccd191beac4462b37ca8aeb733d30ec3d8",
+    "audit_v3.py": "5a9e0d8e92b854e3246fed209b5cdc3d52c47b532fb94ec56a5775d416284262",
+    "prepare_lost_only_v3.py": "edc23f78ab0da8f64c54dc633a9a0e8fd6bbddb7cf88dc620fb6242e6e0f5067"
+  },
+  "output_files": [
+    "result_lost_only.json",
+    "evaluation_arrays_lost_only.npz",
+    "audit_lost_only.json"
+  ],
+  "primary_output_preserved": true
+}

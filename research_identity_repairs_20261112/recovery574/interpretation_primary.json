@@ -1,0 +1,418 @@
+{
+  "variant": "Registered primary tracked-or-lost states1/2",
+  "targets": [
+    {
+      "old_case": 232,
+      "video": "b23b2649-8349d2a1",
+      "frame": 544,
+      "target_tid": 232,
+      "target_decision": {
+        "tid": 232,
+        "action": "defer",
+        "reason": "candidate_alias_owned_by_frozen_native_assignment",
+        "raw_id": null,
+        "best_raw_id": 54943,
+        "cosine": 0.9324341582335585,
+        "appearance_cost": 0.03378292088322077,
+        "proximity_iou": 0.5403225685593699,
+        "alias_raw_ids": [
+          54943
+        ]
+      },
+      "target_evaluation_own": false,
+      "target_candidate_hits": []
+    },
+    {
+      "old_case": 70,
+      "video": "b242f6b2-0033bdfb",
+      "frame": 115,
+      "target_tid": 70,
+      "target_decision": {
+        "tid": 70,
+        "action": "defer",
+        "reason": "native_assignment_frozen",
+        "raw_id": null
+      },
+      "target_evaluation_own": false,
+      "target_candidate_hits": []
+    },
+    {
+      "old_case": 1102,
+      "video": "b1f4491b-cf446195",
+      "frame": 258,
+      "target_tid": 1102,
+      "target_decision": {
+        "tid": 1102,
+        "action": "refuse",
+        "reason": "no_excluded_low_candidate_passes_fixed_appearance_and_proximity",
+        "raw_id": null
+      },
+      "target_evaluation_own": false,
+      "target_candidate_hits": []
+    },
+    {
+      "old_case": 574,
+      "video": "b2036451-aa924fd1",
+      "frame": 937,
+      "target_tid": 574,
+      "target_decision": {
+        "tid": 574,
+        "action": "continue",
+        "reason": "unassigned_mutual_low_candidate_passes_fixed_gates",
+        "raw_id": 35280,
+        "best_raw_id": 35280,
+        "cosine": 0.9664591097828911,
+        "appearance_cost": 0.016770445108554466,
+        "proximity_iou": 0.7469874622175492,
+        "alias_raw_ids": [
+          35280,
+          35292
+        ]
+      },
+      "target_evaluation_own": true,
+      "target_candidate_hits": [
+        {
+          "identity": "00115019",
+          "iou": 0.5343706443504401,
+          "box": [
+            475.6829755322663,
+            346.8427609468959,
+            489.4895884122208,
+            378.7141009595013
+          ]
+        }
+      ]
+    },
+    {
+      "old_case": 832,
+      "video": "b1cd1e94-549d0bfe",
+      "frame": 540,
+      "target_tid": 832,
+      "target_decision": {
+        "tid": 832,
+        "action": "refuse",
+        "reason": "no_excluded_low_candidate_passes_fixed_appearance_and_proximity",
+        "raw_id": null
+      },
+      "target_evaluation_own": false,
+      "target_candidate_hits": []
+    }
+  ],
+  "controls": [
+    {
+      "old_case": 232,
+      "mode": "disabled",
+      "target_decision": {
+        "tid": 232,
+        "action": "defer",
+        "reason": "branch_disabled",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 232,
+      "mode": "descriptor_permutation",
+      "target_decision": {
+        "tid": 232,
+        "action": "refuse",
+        "reason": "no_excluded_low_candidate_passes_fixed_appearance_and_proximity",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 232,
+      "mode": "missing_competitors",
+      "target_decision": {
+        "tid": 232,
+        "action": "defer",
+        "reason": "incomplete_competitor_descriptors",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 232,
+      "mode": "no_descriptors",
+      "target_decision": {
+        "tid": 232,
+        "action": "defer",
+        "reason": "incomplete_competitor_descriptors",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 232,
+      "mode": "remove_all_target_own",
+      "target_decision": {
+        "tid": 232,
+        "action": "refuse",
+        "reason": "no_excluded_low_candidate_passes_fixed_appearance_and_proximity",
+        "raw_id": null
+      },
+      "removed_raw_ids": [
+        54943,
+        54960,
+        54963,
+        55000
+      ]
+    },
+    {
+      "old_case": 70,
+      "mode": "disabled",
+      "target_decision": {
+        "tid": 70,
+        "action": "defer",
+        "reason": "branch_disabled",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 70,
+      "mode": "descriptor_permutation",
+      "target_decision": {
+        "tid": 70,
+        "action": "defer",
+        "reason": "native_assignment_frozen",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 70,
+      "mode": "missing_competitors",
+      "target_decision": {
+        "tid": 70,
+        "action": "defer",
+        "reason": "incomplete_competitor_descriptors",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 70,
+      "mode": "no_descriptors",
+      "target_decision": {
+        "tid": 70,
+        "action": "defer",
+        "reason": "incomplete_competitor_descriptors",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 70,
+      "mode": "remove_all_target_own",
+      "target_decision": {
+        "tid": 70,
+        "action": "defer",
+        "reason": "native_assignment_frozen",
+        "raw_id": null
+      },
+      "removed_raw_ids": [
+        4691,
+        4693,
+        4712
+      ]
+    },
+    {
+      "old_case": 1102,
+      "mode": "disabled",
+      "target_decision": {
+        "tid": 1102,
+        "action": "defer",
+        "reason": "branch_disabled",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 1102,
+      "mode": "descriptor_permutation",
+      "target_decision": {
+        "tid": 1102,
+        "action": "refuse",
+        "reason": "no_excluded_low_candidate_passes_fixed_appearance_and_proximity",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 1102,
+      "mode": "missing_competitors",
+      "target_decision": {
+        "tid": 1102,
+        "action": "defer",
+        "reason": "incomplete_competitor_descriptors",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 1102,
+      "mode": "no_descriptors",
+      "target_decision": {
+        "tid": 1102,
+        "action": "defer",
+        "reason": "incomplete_competitor_descriptors",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 1102,
+      "mode": "remove_all_target_own",
+      "target_decision": {
+        "tid": 1102,
+        "action": "refuse",
+        "reason": "no_excluded_low_candidate_passes_fixed_appearance_and_proximity",
+        "raw_id": null
+      },
+      "removed_raw_ids": [
+        32657
+      ]
+    },
+    {
+      "old_case": 574,
+      "mode": "disabled",
+      "target_decision": {
+        "tid": 574,
+        "action": "defer",
+        "reason": "branch_disabled",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 574,
+      "mode": "descriptor_permutation",
+      "target_decision": {
+        "tid": 574,
+        "action": "refuse",
+        "reason": "no_excluded_low_candidate_passes_fixed_appearance_and_proximity",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 574,
+      "mode": "missing_competitors",
+      "target_decision": {
+        "tid": 574,
+        "action": "defer",
+        "reason": "incomplete_competitor_descriptors",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 574,
+      "mode": "no_descriptors",
+      "target_decision": {
+        "tid": 574,
+        "action": "defer",
+        "reason": "incomplete_competitor_descriptors",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 574,
+      "mode": "remove_all_target_own",
+      "target_decision": {
+        "tid": 574,
+        "action": "refuse",
+        "reason": "no_excluded_low_candidate_passes_fixed_appearance_and_proximity",
+        "raw_id": null
+      },
+      "removed_raw_ids": [
+        35280,
+        35292
+      ]
+    },
+    {
+      "old_case": 832,
+      "mode": "disabled",
+      "target_decision": {
+        "tid": 832,
+        "action": "defer",
+        "reason": "branch_disabled",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 832,
+      "mode": "descriptor_permutation",
+      "target_decision": {
+        "tid": 832,
+        "action": "refuse",
+        "reason": "no_excluded_low_candidate_passes_fixed_appearance_and_proximity",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 832,
+      "mode": "missing_competitors",
+      "target_decision": {
+        "tid": 832,
+        "action": "defer",
+        "reason": "incomplete_competitor_descriptors",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 832,
+      "mode": "no_descriptors",
+      "target_decision": {
+        "tid": 832,
+        "action": "defer",
+        "reason": "incomplete_competitor_descriptors",
+        "raw_id": null
+      },
+      "removed_raw_ids": []
+    },
+    {
+      "old_case": 832,
+      "mode": "remove_all_target_own",
+      "target_decision": {
+        "tid": 832,
+        "action": "refuse",
+        "reason": "no_excluded_low_candidate_passes_fixed_appearance_and_proximity",
+        "raw_id": null
+      },
+      "removed_raw_ids": [
+        31468
+      ]
+    }
+  ],
+  "proposal_outcomes": {
+    "unknown": 3,
+    "own": 1
+  },
+  "criteria": {
+    "target574_correct_low_recovery": true,
+    "no_foreign_or_unknown_proposal": false,
+    "native_assignments_unchanged": true,
+    "all5_absent_own_targets_no_continue": true,
+    "descriptor_permutation_no_proposals": true,
+    "missing_and_no_descriptors_defer": true
+  },
+  "overall": "completed_negative against strict allpool primary engineering criterion: one correct574recovery andthreeunknown extra proposals. Zero observed labeledforeign is not evidence all proposals are safe.",
+  "decision": "Do not activate in full runtime or label as public-ID/HOTA fix. Retain true574 local recovery mechanism and explicit unknown cases. Lost-only secondary remains separately registered, with no gate tuning.",
+  "no_global_veto": "Refuse means no excluded-low recovery proposal; it never deletes a track or forbids Census/native matching.",
+  "baseline_percent": {
+    "target574_correct_optional_proposals_before": 0,
+    "target574_correct_optional_proposals_after": 1,
+    "relative_percent": null,
+    "reason": "Baseline0 prevents a finite relative percentage; full ID lifecycle/HOTA not evaluated.",
+    "ownless_target_false_continues": 0,
+    "ownless_target_count": 5,
+    "unknown_share_of_new_proposals_percent": 75.0
+  }
+}
