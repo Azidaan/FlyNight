@@ -1,0 +1,300 @@
+{
+  "created": "2026-11-12T22:15:09.293458+03:00",
+  "A_recovery": {
+    "events": 54,
+    "new_proposals": 6,
+    "primary": {
+      "own": 0,
+      "foreign": 0,
+      "unknown": 6
+    },
+    "historical": {
+      "own": 0,
+      "foreign": 0,
+      "unknown": 6
+    },
+    "eligible_decision_reasons": {
+      "native_assignment_frozen": 28,
+      "no_excluded_low_candidate_passes_fixed_appearance_and_proximity": 18,
+      "unassigned_mutual_low_candidate_passes_fixed_gates": 6,
+      "candidate_alias_owned_by_frozen_native_assignment": 2
+    },
+    "absolute_gate_accounting": {
+      "appearance_pass_exists_but_no_joint_proximity_pass": 7,
+      "no_low_appearance_pass": 11
+    },
+    "conclusion": "Inconclusive identity benefit, not6observed errors; no identifiable newuncoveredpositiveopportunity in1primary/2historical evaluableepisodes."
+  },
+  "recorded_transition": {
+    "last_reliable_anchor": 1159,
+    "lost_assignment_frame": 1160,
+    "recorded_lost_state_frame": 1161,
+    "current_anchor": 1165,
+    "GT_at1159": {
+      "2179": "00122657",
+      "2445": "00122746"
+    },
+    "GT_at1165": {
+      "2445": "00122657"
+    },
+    "missing_saved_frames_in1150to1165": [
+      1150,
+      1151,
+      1152,
+      1154,
+      1156,
+      1157,
+      1162
+    ],
+    "identity_error_interval": [
+      1159,
+      1165
+    ],
+    "exact_first_GT_error_frame_unknown": true,
+    "object2445_preexisted_loss": {
+      "first_saved_row_frame": 1110,
+      "stored_start_frames": [
+        1107
+      ],
+      "first_saved_assignment": [
+        1106,
+        103258
+      ],
+      "last_saved_assignment": [
+        1203,
+        115999
+      ],
+      "first_saved_public_emission": 1107
+    },
+    "scope": "Assignmentloss1160 is observed, not proof109699 shouldbelongto2179 atthatunannotatedframe. GTownerchange2445 acrossanchors confirmed; physical/neural rootcause remainsunproven."
+  },
+  "native_formula": {
+    "formula": "1-IoU(predicted_xyxy,current_native_box)*detection_confidence",
+    "direct_appearance_in_base_cost": false,
+    "direct_history_in_base_cost": false,
+    "history_via_saved_Kalman_mean": true,
+    "shared_detection_confidence": 0.9255288243293762,
+    "rows": [
+      {
+        "tid": 2179,
+        "row": 13,
+        "predicted_xyxy": [
+          1088.6292856169887,
+          253.39960733941524,
+          1230.0678163721736,
+          347.6917888021131
+        ],
+        "candidate_raw_id": 109699,
+        "candidate_box": [
+          923.8269653320312,
+          255.22842407226562,
+          1229.455322265625,
+          392.7422790527344
+        ],
+        "candidate_raw_box": [
+          923.8270263671875,
+          255.22842407226562,
+          1229.455322265625,
+          392.7422790527344
+        ],
+        "detection_confidence": 0.9255288243293762,
+        "scalar_float64_iou": 0.30751520564035856,
+        "typed_float32_iou": 0.3075152337551117,
+        "reconstructed_float32_cost": 0.7153857946395874,
+        "reconstructed_float64_cost": 0.7153858132602726,
+        "saved_base_cost": 0.7153857946395874,
+        "saved_corrected_cost": 0.7153857946395874,
+        "last_history": {
+          "frame": 1159,
+          "box": [
+            1082.1031571512851,
+            253.48867212293658,
+            1229.9299326259732,
+            347.696198257632
+          ],
+          "crop": [
+            984,
+            153,
+            1280,
+            449
+          ],
+          "raw_id": 109571,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        "state": 1,
+        "cls": 2
+      },
+      {
+        "tid": 2445,
+        "row": 16,
+        "predicted_xyxy": [
+          917.9669955781831,
+          256.7180253039618,
+          1247.9645501820726,
+          382.4701380654938
+        ],
+        "candidate_raw_id": 109699,
+        "candidate_box": [
+          923.8269653320312,
+          255.22842407226562,
+          1229.455322265625,
+          392.7422790527344
+        ],
+        "candidate_raw_box": [
+          923.8270263671875,
+          255.22842407226562,
+          1229.455322265625,
+          392.7422790527344
+        ],
+        "detection_confidence": 0.9255288243293762,
+        "scalar_float64_iou": 0.8523217041704354,
+        "typed_float32_iou": 0.8523215055465698,
+        "reconstructed_float32_cost": 0.21115189790725708,
+        "reconstructed_float64_cost": 0.21115169518872656,
+        "saved_base_cost": 0.21115189790725708,
+        "saved_corrected_cost": 0.21115189790725708,
+        "last_history": {
+          "frame": 1159,
+          "box": [
+            902.1008680405871,
+            257.61692326203354,
+            1220.8403448300933,
+            381.5280334926681
+          ],
+          "crop": [
+            643,
+            1,
+            1280,
+            638
+          ],
+          "raw_id": 109555,
+          "raw_origin_method": "native_current_detection_pointer",
+          "public": true
+        },
+        "state": 1,
+        "cls": 2
+      }
+    ],
+    "full_matrix_entries": 943,
+    "full_float32_formula_error": 0.0,
+    "neural_correction_changes": 0
+  },
+  "full_column_ranking_source": "column109699_metadata.json",
+  "target2179_rank_all": 3,
+  "target2179_only_admissible_high_edges": [
+    {
+      "raw_id": 109699,
+      "cls": 2,
+      "confidence": 0.9255288243293762,
+      "raw_xyxy": [
+        923.8270263671875,
+        255.22842407226562,
+        1229.455322265625,
+        392.7422790527344
+      ],
+      "column": 0,
+      "base_cost": 0.7153857946395874,
+      "corrected_cost": 0.7153857946395874
+    }
+  ],
+  "counterfactual_conditions": [
+    {
+      "condition": "native_baseline",
+      "owner": [
+        2445
+      ],
+      "target2179_assigned": false
+    },
+    {
+      "condition": "remove2445_only",
+      "owner": [
+        2316
+      ],
+      "target2179_assigned": false
+    },
+    {
+      "condition": "classmask_only",
+      "owner": [
+        2445
+      ],
+      "target2179_assigned": false
+    },
+    {
+      "condition": "classmask_and_remove2445",
+      "owner": [
+        2179
+      ],
+      "target2179_assigned": true
+    }
+  ],
+  "interpretation": "Inthisregisteredfourconditionmatrixcheck, neitherremoving2445alone norclassmaskalone returns2179; theircombination does. Thisrejects2445as thesole self-sufficientassignment-loss explanation andshows cross-class alternativecompetition. Itdoesnotproveown109699 orsafeuseofdeletingactive2445.",
+  "class_metadata": {
+    "actual_first_pairs": 611,
+    "cross_class": 6,
+    "events_with_cross_class": 6,
+    "percentage": 0.9819967266775778,
+    "directions": {
+      "2->2": 463,
+      "4->4": 5,
+      "2->4": 2,
+      "4->2": 3,
+      "0->0": 120,
+      "3->3": 17,
+      "4->3": 1
+    },
+    "meaning": "Saved detector-class labels differ, not proof ofGTidentity errors. Noactual0->2pairs inthese54A; the0->2rival2316 isonlythiscounterfactual."
+  },
+  "solver_checks": {
+    "baseline_reproduced": true,
+    "max_independent_objective_error": 3.552713678800501e-15,
+    "compatible_costs_unchanged": true
+  },
+  "B_metadata_only": {
+    "events": 25,
+    "proposals": 25,
+    "videos": 4,
+    "all_rows": 360,
+    "current_exact": 6,
+    "last_reference_exact": 7,
+    "strict_unique_last_reference_evaluable": 1,
+    "any_exact_history": 15,
+    "current_exact_and_any_history": 5,
+    "anchored_history_evaluable": 1,
+    "anchored_identity_present_current": 0,
+    "target_history_status": {
+      "no_exact_annotated_observation_in_saved_recent_history": 10,
+      "annotated_history_observation_unmatched_or_ambiguous": 9,
+      "consistent_exact_anchored_history": 6
+    }
+  },
+  "B_repair_outcomes_computed": false,
+  "no_more_intervention_variants": true,
+  "technical_failure_preserved": {
+    "first_proof_failed_error": 2.1457672119140625e-06,
+    "unchanged_acceptance_tolerance": 1e-06,
+    "fix": "Actualnative xyxy->xywh->tlwh->xyxy initialization arithmetic, not threshold relaxation.",
+    "corrected_typed_error": 0.0
+  },
+  "cannot_claim": [
+    "Fulltracker/HOTA improvement",
+    "CorrectGTidentityof109699 at1160",
+    "Deployabledeletionofactive2445",
+    "Classmaskalonefixes2179",
+    "All6detectorclassmismatchesareGTerrors",
+    "Bperformance",
+    "Uniquephysical/neuralcauseofearlierIDchange"
+  ],
+  "evidence": {
+    "summary_A.json": "1860f1ec672c404ccc3242d326c0912ada85a6c742c1b68c25ffcb5774b2d396",
+    "B_metadata_readiness.json": "d6945b77af544c5c5d95684aefea918b5bd600e776bad95ddba57daa12020b51",
+    "identity_transition_2179_2445.json": "ab0d0be5cfbb2fc827bf6289f615a1e42c14cea83383f9046cc33fbed17df85a",
+    "assignment_loss_protocol.json": "4fbdb6c87d7cccca24ab3dacba2ce11e5f613528a76eed432fbce051d56686cb",
+    "assignment_loss_protocol_v2.json": "0d1a45ddd9d541ab5c3461bde20801fa1ffce042947997b207cd32ddd2c76caf",
+    "assignment_loss_result_v2.json": "2d6e81a620d01467f8d0a437282fec1a97cbd6d1adea76ff5a9d447a38fcd706",
+    "column109699_metadata.json": "c1e142afe4c1b9cc4696f96328a468e3dfbc8d16073583547e71f2c168c25958",
+    "native_class_metadata_A.json": "2130dd2d0775d7677e3e3f6d6b366adbe47dd16d7a828113d5762a21ababb663",
+    "classmask_protocol.json": "8dfa3478b4da5fe6cef117fda666e5e4047faa8f4945cd0072974985044e4d7d",
+    "classmask_result.json": "139590682f898333d4937f7b32889e7d527ec46f61cda1e62088a276e8323f76"
+  }
+}

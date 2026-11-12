@@ -1,0 +1,68 @@
+{
+  "started": "2026-11-12T22:14:28.991479+03:00",
+  "parent": {
+    "pid": 29760,
+    "birth": 1794510868.7382069
+  },
+  "jobs": [
+    {
+      "entry": "research_identity_holdout_20261112/required_checks.py",
+      "token": "970e0914d4194a03bcced4f84b683a63",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\970e0914d4194a03bcced4f84b683a63\\memory_guard.json",
+      "started": "2026-11-12T22:14:29.041388+03:00",
+      "ended": "2026-11-12T22:15:31.782425+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_identity_holdout_20261112\\required_checks.py",
+          "validate",
+          "--audit-memory-worker=970e0914d4194a03bcced4f84b683a63"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 10754269184,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "8592": 1794510869.0520904,
+          "30496": 1794510869.0795279
+        },
+        "stop_errors": [],
+        "seconds": 62.73500000000058
+      }
+    },
+    {
+      "entry": "research_identity_holdout_20261112/required_checks.py",
+      "token": "e43bdb12d0be46dfb7a6e3c983a2f1bb",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\e43bdb12d0be46dfb7a6e3c983a2f1bb\\memory_guard.json",
+      "started": "2026-11-12T22:15:32.188572+03:00",
+      "ended": "2026-11-12T22:19:02.922174+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_identity_holdout_20261112\\required_checks.py",
+          "tests",
+          "--audit-memory-worker=e43bdb12d0be46dfb7a6e3c983a2f1bb"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 10908631040,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "6476": 1794510932.2005365,
+          "29028": 1794510932.237516
+        },
+        "stop_errors": [],
+        "seconds": 210.73399999999674
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-12T22:19:03.274454+03:00",
+  "passed": true
+}

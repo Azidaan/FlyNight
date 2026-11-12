@@ -1,0 +1,32 @@
+{
+  "created": "2026-11-12T21:53:20.288355+03:00",
+  "archive": "runs/domain_matched_native_20261109/rollouts/C34/b1ca2e5d-84cf9134.events.json.gz",
+  "native_protocol": "runs/domain_matched_native_20261109/protocol.json",
+  "detections": "runs/z13_val20_matched_20261024/cache/b1ca2e5d-84cf9134/detections/raw_video.npz",
+  "worker_sha256": "a972b58411d5891b4e5c8545965d5dc6ba0365f822f1e3073367d43a535916c8",
+  "inputs": {
+    "runs/domain_matched_native_20261109/rollouts/C34/b1ca2e5d-84cf9134.events.json.gz": "219f84cc272ff4c98a370680a68549f120ca979d8b763407c1161af2774f0caa",
+    "runs/domain_matched_native_20261109/protocol.json": "2a7b1a877e74c0a280a478ba1e1652c7c8d990fdb788e726bbd5c94c700ce1b5",
+    "runs/z13_val20_matched_20261024/cache/b1ca2e5d-84cf9134/detections/raw_video.npz": "a6259ea80b9d9cd74e447abb944469f2293dc3b4aff895d50885e7d010cb8c14",
+    "tracking/xywh_bytetrack.py": "85f5d5eaceabdd19cd7cb668fcd2153771466b3f539a8ffa374ddd6f9a946675",
+    "tracking/spatial_identity_assignment.py": "bef5b216dc53e8245db432b29c7822fc05e546c8cd3579fd4424bf5d8fc08098",
+    ".venv/Lib/site-packages/ultralytics/trackers/byte_tracker.py": "00c7c1ff8b1076fc89347071519ae0b06a30bfce00dded94826620e068b1928f",
+    ".venv/Lib/site-packages/ultralytics/trackers/utils/matching.py": "0c5dcddde75ce343ca9626273e3d95e2ea061bcf69f2e0ac0ef519ac1aaffe07",
+    ".venv/Lib/site-packages/ultralytics/utils/metrics.py": "56578b6b3fc83b8d87fed64c8895431f17adcb3e45b79199685cc4e45fe0037c",
+    "runs/full_template_native_20261109/native_runtime.py": "acd185b7dd7c0937d87c7cf85d6a872b915b159a34cbc81735c55e726a1af5ff",
+    "runs/domain_matched_native_20261109/runtime_adapter.py": "ac3779744c1ce609f85a5a1711064b8946d1726a8798a4499f0c2ceb73b5117b"
+  },
+  "question": "What creates nativecost2179≈0.715 versus2445≈0.211 at saved1160, and does removingONLY2445 from the unchanged first costmatrix give2179 the109699column?",
+  "known_before_probe": "Savedtrace shows2179 losesassignmentat1160, isLost1161, and2445 owns109699. ExactGT1159 maps2179→00122657,2445→00122746;1165 maps2445→00122657. NoGT at1160, so counterfactual assignment is not a correctness result.",
+  "method": "Independent scalarfloat64 andsource-equivalentfloat32 IoU/confidence formula onALLsavedrows×highcolumns. Formula candidate1−IoU*detconfidence includingfloat32 IoU-distance roundtrip. Appearance/history not directfeatures unless sourceaudit showsotherwise; history alreadyaffects savedKalmanmean.",
+  "intervention": "Baseline savedcorrectedfloat32matrix copiedidentitywitness; remove ONLYrowtid2445, allotherrows/columns/entries andcostlimit0.8 unchanged. Fullglobalfirstsolver, no frozenassignments andno downstream lifecycle replay. No safe-deploymentclaim for removinganactive competitor.",
+  "controls": "Reproduce actual_first exactly, identitycopyexact, preserve survivingentries exactly; independentSciPyaugmentedassignmentobjective withdummycost0.4 verifies LapJV optimum forbaseline/counterfactual.",
+  "acceptance": [
+    "Source/currentfingerprints compared witharchivedprotocol whereavailable; never labelcurrenthash historical ifabsent/mismatched.",
+    "Fullsavedbase matrix reproduced fromtypedformula within1e-6; scalar64 discrepancy reported, notsilentlymasked.",
+    "Baselineactual_first exact, unalteredremainingcostentries, independentassignmentobjectiveerror<1e-9.",
+    "Report actualnewowner of109699 and2179 assignedcolumn, evenifanotherrow wins; noGT1160 interpolation, nofulltracker/modelcalls orweightschanges."
+  ],
+  "safe_cutoff": "2026-11-13T07:35:00+03:00",
+  "maximum_seconds": 120
+}

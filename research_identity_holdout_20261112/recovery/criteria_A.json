@@ -1,0 +1,41 @@
+{
+  "state": "inconclusive",
+  "criteria": [
+    {
+      "criterion": "Technical independent audit and immutable frozen rule",
+      "met": true,
+      "evidence": "audit.json"
+    },
+    {
+      "criterion": "At leastone correct newpair andzero unknown/foreign in primary task",
+      "met": false,
+      "evidence": {
+        "correct": 0,
+        "foreign": 0,
+        "unknown": 6,
+        "source": "summary_A.json:totals.fixed_repair"
+      }
+    },
+    {
+      "criterion": "Same positive evidence in separate historicalexpectedID task",
+      "met": false,
+      "evidence": {
+        "correct": 0,
+        "foreign": 0,
+        "unknown": 6,
+        "source": "summary_A.json:totals.fixed_repair"
+      }
+    },
+    {
+      "criterion": "No testedrowcontinues in valid remove-own controls",
+      "met": true,
+      "evidence": "summary_A.json:controls;1primary/2historical tests, only2distinctcounterfactualpools"
+    },
+    {
+      "criterion": "Allselectedcases andcompetitors retained; unfavorable/unknown outcomes preserved",
+      "met": true,
+      "evidence": "result.json/event receipts andsummary_A.json"
+    }
+  ],
+  "interpretation": "Unmetpositiveevidence criteria arise fromannotationreadiness/absenceofnewobservablepositiveopportunity, not demonstrated algorithmicfailure. Do not tune thresholds to fix missing GT."
+}

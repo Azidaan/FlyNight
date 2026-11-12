@@ -181,7 +181,9 @@
         "remaining_causes_matched574_20261112",
         "remaining_causes_raw_candidates_20261112",
         "identity_repair_observed_episode_20261112",
-        "identity_repair_combined_assignment_20261112"
+        "identity_repair_combined_assignment_20261112",
+        "identity_repair_holdout_recovery_20261112",
+        "identity_native_assignment_loss_2179_20261112"
       ],
       "legacy": [
         "P1",
@@ -618,6 +620,19 @@
             "research_identity_repairs_20261112/review/combined_assignment_result_v2.json"
           ],
           "source_sha256": "27bdd457384ccc6f721bb10ce7812ea76cb0493cfa3c5b39422c084d1c8b0fa5"
+        },
+        {
+          "date": "2026-11-12",
+          "component": "Проверка переноса и более раннее сопоставление активных траекторий",
+          "fact": "Добавлено6связей неизвестной личности без удаления старых назначений и структурных конфликтов. На доступной истории сохранение целевого номера1/2→1/2, строгая оценка0/1→0/1; перенос пользы не доказан. Источники research_identity_holdout_20261112/review/matrix_result_A.json и review/compose_audit_A.json. Для1160точно воспроизведены943стоимости41×23по1−IoU×conf, нейронных изменений0. Удаление2445передаёт109699другому конкуренту2316, а2179остаётся без назначения. Роль полной геометрической конкуренции подтверждена; единственная причина2445опровергнута. Источник research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json. Это успех причинного разбора сохранённого решения, не исправление публичногоID.",
+          "hypothesis": "",
+          "discriminating_check": "Полная фиксированнаяA, контроль без нового целевого ядра и удаление только2445из сохранённой матрицы; источник research_identity_holdout_20261112/review/matrix_result_A.json и recovery/assignment_loss_result_v2.json.",
+          "limitation": "Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены.Точный первый ошибочный кадр переноса2445не известен.",
+          "evidence": [
+            "research_identity_holdout_20261112/review/compose_audit_A.json",
+            "research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json"
+          ],
+          "source_sha256": "2d6e81a620d01467f8d0a437282fec1a97cbd6d1adea76ff5a9d447a38fcd706"
         }
       ],
       "revisions": [
@@ -1159,7 +1174,9 @@
         "remaining_causes_matched574_20261112",
         "remaining_causes_raw_candidates_20261112",
         "identity_repair_observed_episode_20261112",
-        "identity_repair_combined_assignment_20261112"
+        "identity_repair_combined_assignment_20261112",
+        "identity_repair_holdout_recovery_20261112",
+        "identity_native_assignment_loss_2179_20261112"
       ],
       "legacy": [],
       "first_seen": "2026-10-28",
@@ -1661,6 +1678,19 @@
             "research_identity_repairs_20261112/review/combined_assignment_result_v2.json"
           ],
           "source_sha256": "27bdd457384ccc6f721bb10ce7812ea76cb0493cfa3c5b39422c084d1c8b0fa5"
+        },
+        {
+          "date": "2026-11-12",
+          "component": "Проверка переноса и более раннее сопоставление активных траекторий",
+          "fact": "Добавлено6связей неизвестной личности без удаления старых назначений и структурных конфликтов. На доступной истории сохранение целевого номера1/2→1/2, строгая оценка0/1→0/1; перенос пользы не доказан. Источники research_identity_holdout_20261112/review/matrix_result_A.json и review/compose_audit_A.json. Для1160точно воспроизведены943стоимости41×23по1−IoU×conf, нейронных изменений0. Удаление2445передаёт109699другому конкуренту2316, а2179остаётся без назначения. Роль полной геометрической конкуренции подтверждена; единственная причина2445опровергнута. Источник research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json. Это успех причинного разбора сохранённого решения, не исправление публичногоID.",
+          "hypothesis": "",
+          "discriminating_check": "Полная фиксированнаяA, контроль без нового целевого ядра и удаление только2445из сохранённой матрицы; источник research_identity_holdout_20261112/review/matrix_result_A.json и recovery/assignment_loss_result_v2.json.",
+          "limitation": "Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены.Точный первый ошибочный кадр переноса2445не известен.",
+          "evidence": [
+            "research_identity_holdout_20261112/review/compose_audit_A.json",
+            "research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json"
+          ],
+          "source_sha256": "2d6e81a620d01467f8d0a437282fec1a97cbd6d1adea76ff5a9d447a38fcd706"
         }
       ],
       "revisions": [
@@ -2096,7 +2126,9 @@
         "remaining_causes_matched574_20261112",
         "remaining_causes_raw_candidates_20261112",
         "identity_repair_observed_episode_20261112",
-        "identity_repair_combined_assignment_20261112"
+        "identity_repair_combined_assignment_20261112",
+        "identity_repair_holdout_recovery_20261112",
+        "identity_native_assignment_loss_2179_20261112"
       ],
       "legacy": [
         "P5"
@@ -2193,6 +2225,19 @@
             "research_identity_repairs_20261112/review/combined_assignment_result_v2.json"
           ],
           "source_sha256": "27bdd457384ccc6f721bb10ce7812ea76cb0493cfa3c5b39422c084d1c8b0fa5"
+        },
+        {
+          "date": "2026-11-12",
+          "component": "Проверка переноса и более раннее сопоставление активных траекторий",
+          "fact": "Добавлено6связей неизвестной личности без удаления старых назначений и структурных конфликтов. На доступной истории сохранение целевого номера1/2→1/2, строгая оценка0/1→0/1; перенос пользы не доказан. Источники research_identity_holdout_20261112/review/matrix_result_A.json и review/compose_audit_A.json. Для1160точно воспроизведены943стоимости41×23по1−IoU×conf, нейронных изменений0. Удаление2445передаёт109699другому конкуренту2316, а2179остаётся без назначения. Роль полной геометрической конкуренции подтверждена; единственная причина2445опровергнута. Источник research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json. Это успех причинного разбора сохранённого решения, не исправление публичногоID.",
+          "hypothesis": "",
+          "discriminating_check": "Полная фиксированнаяA, контроль без нового целевого ядра и удаление только2445из сохранённой матрицы; источник research_identity_holdout_20261112/review/matrix_result_A.json и recovery/assignment_loss_result_v2.json.",
+          "limitation": "Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены.Точный первый ошибочный кадр переноса2445не известен.",
+          "evidence": [
+            "research_identity_holdout_20261112/review/compose_audit_A.json",
+            "research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json"
+          ],
+          "source_sha256": "2d6e81a620d01467f8d0a437282fec1a97cbd6d1adea76ff5a9d447a38fcd706"
         }
       ]
     },
@@ -2375,7 +2420,9 @@
         "remaining_causes_matched574_20261112",
         "remaining_causes_raw_candidates_20261112",
         "identity_repair_observed_episode_20261112",
-        "identity_repair_combined_assignment_20261112"
+        "identity_repair_combined_assignment_20261112",
+        "identity_repair_holdout_recovery_20261112",
+        "identity_native_assignment_loss_2179_20261112"
       ],
       "legacy": [],
       "first_seen": "2026-10-28",
@@ -2645,6 +2692,19 @@
             "research_identity_repairs_20261112/review/combined_assignment_result_v2.json"
           ],
           "source_sha256": "27bdd457384ccc6f721bb10ce7812ea76cb0493cfa3c5b39422c084d1c8b0fa5"
+        },
+        {
+          "date": "2026-11-12",
+          "component": "Проверка переноса и более раннее сопоставление активных траекторий",
+          "fact": "Добавлено6связей неизвестной личности без удаления старых назначений и структурных конфликтов. На доступной истории сохранение целевого номера1/2→1/2, строгая оценка0/1→0/1; перенос пользы не доказан. Источники research_identity_holdout_20261112/review/matrix_result_A.json и review/compose_audit_A.json. Для1160точно воспроизведены943стоимости41×23по1−IoU×conf, нейронных изменений0. Удаление2445передаёт109699другому конкуренту2316, а2179остаётся без назначения. Роль полной геометрической конкуренции подтверждена; единственная причина2445опровергнута. Источник research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json. Это успех причинного разбора сохранённого решения, не исправление публичногоID.",
+          "hypothesis": "",
+          "discriminating_check": "Полная фиксированнаяA, контроль без нового целевого ядра и удаление только2445из сохранённой матрицы; источник research_identity_holdout_20261112/review/matrix_result_A.json и recovery/assignment_loss_result_v2.json.",
+          "limitation": "Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены.Точный первый ошибочный кадр переноса2445не известен.",
+          "evidence": [
+            "research_identity_holdout_20261112/review/compose_audit_A.json",
+            "research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json"
+          ],
+          "source_sha256": "2d6e81a620d01467f8d0a437282fec1a97cbd6d1adea76ff5a9d447a38fcd706"
         }
       ]
     },

@@ -1,0 +1,13 @@
+from common import *
+p=read(OUT/'recovery/assignment_loss_protocol.json');inputs=dict(p['inputs'])
+for n,h in inputs.items():assert sha(ROOT/n)==h,n
+for n in ['recovery/assignment_loss_probe.py','recovery/assignment_loss_protocol.json']:
+    inputs[(OUT/n).relative_to(ROOT).as_posix()]=sha(OUT/n)
+identity='identity_native_assignment_loss_2179_20261112';cat=read(ROOT/'experiments/project_history.json');assert not any(c['id']==identity for c in cat['experiments'])
+cat['experiments'].append(dict(id=identity,title='Потеря назначения до ветви восстановления: конкуренция2179 и2445',area='own_tracker',state='running',started='2026-11-12',question=p['question'],hypothesis='Потеря назначения2179 обусловлена полной конкуренцией по исходной геометрической стоимости до участия целевой ветви FlyVis; удаление2445 проверяет конкретную роль этого конкурента, без утверждения правильности неразмеченного кадра.',expected='Воспроизводимая формула исходной стоимости и причинный контроль одного конкурента, а не новая настройка весов.',acceptance=[dict(criterion=c,met=None) for c in p['acceptance']],evidence=[dict(kind='file',ref=(OUT/'recovery/assignment_loss_protocol.json').relative_to(ROOT).as_posix())]))
+(ROOT/'experiments/project_history.json').write_bytes((json.dumps(cat,ensure_ascii=False,indent=2)+'\n').encode())
+tp=ROOT/'experiments/obsidian_experiment_topics.json';t=read(tp);t['topics'][identity]=['Сохранение личности','Разрыв назначения до восстановления','Конкуренция геометрических прогнозов'];tp.write_bytes((json.dumps(t,ensure_ascii=False,indent=2)+'\n').encode())
+save('recovery/GO_assignment_loss.json',dict(approved=True,registered=now(),protocol_sha256=sha(OUT/'recovery/assignment_loss_protocol.json')))
+save('queue5.json',dict(registered=now(),inputs=inputs,runner_sha256=sha(OUT/'run_queue.py'),jobs=[dict(entry=(OUT/'recovery/assignment_loss_probe.py').relative_to(ROOT).as_posix(),timeout=120)],deadline='2026-11-13T07:35:00+03:00'))
+journal('Постановка дополнительного причинного разбора нового случая (`identity_native_assignment_loss_2179_20261112`): сохранённые события показывают потерю назначения2179 на1160 и переходвLost на1161;2445 ранее принадлежал другому размеченному объекту, а на1165 сопровождает машину2179. Источник research_identity_holdout_20261112/recovery/identity_transition_2179_2445.json. Текущий1160неразмечен: точный первый ошибочный кадр переноса личности не объявляется известным. До контрольного вычисления зарегистрированы воспроизведение всей исходной стоимости и удаление только конкурирующей строки2445 при неизменной полной матрице остальных строк, пороге0,8 и независимом решателе. Ни веса, ни полный трекер не меняются.')
+print('ASSIGNMENT_LOSS_PROBE_REGISTERED')

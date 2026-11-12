@@ -1,0 +1,954 @@
+{
+  "created": "2026-11-12T21:59:35.945057+03:00",
+  "events": 54,
+  "videos": 5,
+  "row_occurrences": 1211,
+  "raw_candidate_observations": 4916,
+  "totals": {
+    "baseline": {
+      "evaluations": 54,
+      "proposals": 0
+    },
+    "fixed_repair": {
+      "evaluations": 54,
+      "proposals": 6,
+      "primary_unknown": 6,
+      "historical_unknown": 6
+    },
+    "descriptor_permutation": {
+      "evaluations": 54,
+      "proposals": 0
+    },
+    "missing_competitors": {
+      "evaluations": 54,
+      "proposals": 0
+    },
+    "no_descriptors": {
+      "evaluations": 54,
+      "proposals": 0
+    },
+    "remove_all_historical_own": {
+      "evaluations": 2,
+      "proposals": 0
+    },
+    "remove_all_own": {
+      "evaluations": 1,
+      "proposals": 0
+    }
+  },
+  "controls": {
+    "remove_all_own": {
+      "invalid": 53,
+      "valid": 1,
+      "tested_refuse": 1
+    },
+    "remove_all_historical_own": {
+      "invalid": 52,
+      "valid": 2,
+      "tested_defer": 1,
+      "tested_refuse": 1
+    }
+  },
+  "unique_counterfactual_pools": 2,
+  "duplicate_primary_historical_counterfactual_pools": 1,
+  "eligible_episode_decision_reasons": {
+    "native_assignment_frozen": 28,
+    "no_excluded_low_candidate_passes_fixed_appearance_and_proximity": 18,
+    "unassigned_mutual_low_candidate_passes_fixed_gates": 6,
+    "candidate_alias_owned_by_frozen_native_assignment": 2
+  },
+  "absolute_gate_accounting": {
+    "appearance_pass_exists_but_no_joint_proximity_pass": 7,
+    "no_low_appearance_pass": 11
+  },
+  "absolute_gate_rows": [
+    {
+      "event_key": "b20d494a-cdebe83e|1002",
+      "tid": 834,
+      "low_groups": 144,
+      "appearance_passing": 1,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "appearance_pass_exists_but_no_joint_proximity_pass",
+      "source": "events/00001.json"
+    },
+    {
+      "event_key": "b20d494a-cdebe83e|1005",
+      "tid": 885,
+      "low_groups": 140,
+      "appearance_passing": 2,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "appearance_pass_exists_but_no_joint_proximity_pass",
+      "source": "events/00002.json"
+    },
+    {
+      "event_key": "b20d494a-cdebe83e|1038",
+      "tid": 987,
+      "low_groups": 221,
+      "appearance_passing": 0,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "no_low_appearance_pass",
+      "source": "events/00005.json"
+    },
+    {
+      "event_key": "b20d494a-cdebe83e|1056",
+      "tid": 979,
+      "low_groups": 183,
+      "appearance_passing": 6,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "appearance_pass_exists_but_no_joint_proximity_pass",
+      "source": "events/00009.json"
+    },
+    {
+      "event_key": "b20d494a-cdebe83e|1126",
+      "tid": 1431,
+      "low_groups": 171,
+      "appearance_passing": 3,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "appearance_pass_exists_but_no_joint_proximity_pass",
+      "source": "events/00013.json"
+    },
+    {
+      "event_key": "b20d494a-cdebe83e|1143",
+      "tid": 1262,
+      "low_groups": 181,
+      "appearance_passing": 9,
+      "proximity_passing": 2,
+      "joint_passing": 0,
+      "accounting_category": "appearance_pass_exists_but_no_joint_proximity_pass",
+      "source": "events/00014.json"
+    },
+    {
+      "event_key": "b230a7b2-c881c382|719",
+      "tid": 254,
+      "low_groups": 14,
+      "appearance_passing": 0,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "no_low_appearance_pass",
+      "source": "events/00015.json"
+    },
+    {
+      "event_key": "b230a7b2-c881c382|1082",
+      "tid": 337,
+      "low_groups": 15,
+      "appearance_passing": 1,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "appearance_pass_exists_but_no_joint_proximity_pass",
+      "source": "events/00016.json"
+    },
+    {
+      "event_key": "b230a7b2-c881c382|1083",
+      "tid": 337,
+      "low_groups": 12,
+      "appearance_passing": 1,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "appearance_pass_exists_but_no_joint_proximity_pass",
+      "source": "events/00017.json"
+    },
+    {
+      "event_key": "b1ca2e5d-84cf9134|48",
+      "tid": 70,
+      "low_groups": 4,
+      "appearance_passing": 0,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "no_low_appearance_pass",
+      "source": "events/00019.json"
+    },
+    {
+      "event_key": "b1ca2e5d-84cf9134|738",
+      "tid": 1,
+      "low_groups": 19,
+      "appearance_passing": 0,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "no_low_appearance_pass",
+      "source": "events/00028.json"
+    },
+    {
+      "event_key": "b1ca2e5d-84cf9134|1089",
+      "tid": 2374,
+      "low_groups": 21,
+      "appearance_passing": 0,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "no_low_appearance_pass",
+      "source": "events/00030.json"
+    },
+    {
+      "event_key": "b1ca2e5d-84cf9134|1164",
+      "tid": 2179,
+      "low_groups": 11,
+      "appearance_passing": 0,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "no_low_appearance_pass",
+      "source": "events/00031.json"
+    },
+    {
+      "event_key": "b1ca2e5d-84cf9134|1165",
+      "tid": 2179,
+      "low_groups": 8,
+      "appearance_passing": 0,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "no_low_appearance_pass",
+      "source": "events/00032.json"
+    },
+    {
+      "event_key": "b1ca2e5d-84cf9134|1208",
+      "tid": 2445,
+      "low_groups": 6,
+      "appearance_passing": 0,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "no_low_appearance_pass",
+      "source": "events/00033.json"
+    },
+    {
+      "event_key": "b23a79d1-43dfeecd|674",
+      "tid": 249,
+      "low_groups": 8,
+      "appearance_passing": 0,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "no_low_appearance_pass",
+      "source": "events/00035.json"
+    },
+    {
+      "event_key": "b200b84e-4a792877|1085",
+      "tid": 944,
+      "low_groups": 30,
+      "appearance_passing": 0,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "no_low_appearance_pass",
+      "source": "events/00050.json"
+    },
+    {
+      "event_key": "b200b84e-4a792877|1149",
+      "tid": 968,
+      "low_groups": 31,
+      "appearance_passing": 0,
+      "proximity_passing": 0,
+      "joint_passing": 0,
+      "accounting_category": "no_low_appearance_pass",
+      "source": "events/00052.json"
+    }
+  ],
+  "identifiable_cases": [
+    {
+      "event_key": "b1ca2e5d-84cf9134|649",
+      "tid": 1111,
+      "primary_evaluable": false,
+      "historical_evaluable": true,
+      "literal_reference": {
+        "exact": false,
+        "reason": "missing_exact_raw_frame_clock_anchor",
+        "hits": []
+      },
+      "expected_history": {
+        "valid": true,
+        "problems": [],
+        "expected_identity": "00122615",
+        "actual_source_anchor_frame": 643,
+        "all_annotated_history": [
+          {
+            "frame": 643,
+            "box": [
+              561.9758316974003,
+              296.1282963615603,
+              615.4630509492067,
+              344.60813793174657
+            ],
+            "evaluation": {
+              "exact": true,
+              "reason": "exact_clock_name_frameIndex_verified",
+              "hits": [
+                {
+                  "identity": "00122615",
+                  "box": [
+                    562.3308270676691,
+                    297.7443609022556,
+                    644.5664309637691,
+                    342.406015037594
+                  ],
+                  "iou": 0.6095710686835621
+                }
+              ]
+            }
+          }
+        ],
+        "descriptor_last_source_frame": 644,
+        "source_pixel_identity_assumed": false,
+        "task": "Secondary expected identity continuity from exact historical observation(s) to exact current GT; never labels unannotated last descriptor source."
+      },
+      "decision": {
+        "tid": 1111,
+        "action": "defer",
+        "reason": "native_assignment_frozen",
+        "raw_id": null
+      },
+      "own_raw_candidates": [
+        {
+          "candidate": {
+            "raw_id": 46466,
+            "cls": 2,
+            "confidence": 0.47442537546157837,
+            "box": [
+              563.9976196289062,
+              294.89715576171875,
+              624.603759765625,
+              344.3604431152344
+            ],
+            "slot": [
+              "b1ca2e5d-84cf9134|649",
+              6
+            ]
+          },
+          "current_evaluation": {
+            "exact": true,
+            "reason": "exact_clock_name_frameIndex_verified",
+            "hits": [
+              {
+                "identity": "00122615",
+                "box": [
+                  566.390977443609,
+                  297.7443609022556,
+                  644.8872180451127,
+                  343.7593984962406
+                ],
+                "iou": 0.6813990183489103
+              }
+            ]
+          }
+        }
+      ],
+      "existing_native_current_identity_claims": [
+        {
+          "tid": 1111,
+          "raw_id": 46466,
+          "reference": {
+            "exact": false,
+            "reason": "missing_exact_raw_frame_clock_anchor",
+            "hits": []
+          },
+          "candidate": {
+            "exact": true,
+            "reason": "exact_clock_name_frameIndex_verified",
+            "hits": [
+              {
+                "identity": "00122615",
+                "box": [
+                  566.390977443609,
+                  297.7443609022556,
+                  644.8872180451127,
+                  343.7593984962406
+                ],
+                "iou": 0.6813990183489103
+              }
+            ]
+          },
+          "outcome": "unknown"
+        }
+      ],
+      "same_tid_baseline": [
+        {
+          "tid": 1111,
+          "raw_id": 46466,
+          "outcome": "own",
+          "actual_source_anchor_frame": 643,
+          "source_pixel_identity_assumed": false
+        }
+      ],
+      "exact_gate_witness": [
+        {
+          "raw_id": 46466,
+          "aliases": [
+            46466
+          ],
+          "cosine": 0.883461939934266,
+          "appearance_cost": 0.058269030032866986,
+          "proximity_iou": 0.7881721149253902,
+          "same_class": true,
+          "excluded_low": false,
+          "appearance_pass": true,
+          "proximity_pass": true,
+          "occupied": true,
+          "reverse_nearest_tids": [
+            1212
+          ],
+          "strict_reverse_to_this_row": false,
+          "candidate_truth": {
+            "exact": true,
+            "reason": "exact_clock_name_frameIndex_verified",
+            "hits": [
+              {
+                "identity": "00122615",
+                "box": [
+                  566.390977443609,
+                  297.7443609022556,
+                  644.8872180451127,
+                  343.7593984962406
+                ],
+                "iou": 0.6813990183489103
+              }
+            ]
+          }
+        }
+      ],
+      "all_primary_own_raw_gate_observations": [],
+      "source": "events/00027.json"
+    },
+    {
+      "event_key": "b1ca2e5d-84cf9134|1165",
+      "tid": 2179,
+      "primary_evaluable": true,
+      "historical_evaluable": true,
+      "literal_reference": {
+        "exact": true,
+        "reason": "exact_clock_name_frameIndex_verified",
+        "hits": [
+          {
+            "identity": "00122657",
+            "box": [
+              1106.390977443609,
+              253.08270676691728,
+              1230.9022556390976,
+              347.8195488721804
+            ],
+            "iou": 0.8263548246312532
+          }
+        ]
+      },
+      "expected_history": {
+        "valid": true,
+        "problems": [],
+        "expected_identity": "00122657",
+        "actual_source_anchor_frame": 1159,
+        "all_annotated_history": [
+          {
+            "frame": 1159,
+            "box": [
+              1082.1031571512851,
+              253.48867212293658,
+              1229.9299326259732,
+              347.696198257632
+            ],
+            "evaluation": {
+              "exact": true,
+              "reason": "exact_clock_name_frameIndex_verified",
+              "hits": [
+                {
+                  "identity": "00122657",
+                  "box": [
+                    1106.390977443609,
+                    253.08270676691728,
+                    1230.9022556390976,
+                    347.8195488721804
+                  ],
+                  "iou": 0.8263548246312532
+                }
+              ]
+            }
+          }
+        ],
+        "descriptor_last_source_frame": 1159,
+        "source_pixel_identity_assumed": false,
+        "task": "Secondary expected identity continuity from exact historical observation(s) to exact current GT; never labels unannotated last descriptor source."
+      },
+      "decision": {
+        "tid": 2179,
+        "action": "refuse",
+        "reason": "no_excluded_low_candidate_passes_fixed_appearance_and_proximity",
+        "raw_id": null
+      },
+      "own_raw_candidates": [
+        {
+          "candidate": {
+            "raw_id": 110260,
+            "cls": 2,
+            "confidence": 0.8559107184410095,
+            "box": [
+              932.22265625,
+              253.1603240966797,
+              1280.0,
+              384.85076904296875
+            ],
+            "slot": [
+              "b1ca2e5d-84cf9134|1165",
+              1
+            ]
+          },
+          "current_evaluation": {
+            "exact": true,
+            "reason": "exact_clock_name_frameIndex_verified",
+            "hits": [
+              {
+                "identity": "00122657",
+                "box": [
+                  1011.6541353383458,
+                  251.72932330827066,
+                  1280.0,
+                  354.5864661654135
+                ],
+                "iou": 0.5893361530392492
+              }
+            ]
+          }
+        },
+        {
+          "candidate": {
+            "raw_id": 110318,
+            "cls": 2,
+            "confidence": 0.03037729114294052,
+            "box": [
+              933.2667846679688,
+              253.31973266601562,
+              1280.0,
+              395.9697265625
+            ],
+            "slot": [
+              "b1ca2e5d-84cf9134|1165",
+              16
+            ]
+          },
+          "current_evaluation": {
+            "exact": true,
+            "reason": "exact_clock_name_frameIndex_verified",
+            "hits": [
+              {
+                "identity": "00122657",
+                "box": [
+                  1011.6541353383458,
+                  251.72932330827066,
+                  1280.0,
+                  354.5864661654135
+                ],
+                "iou": 0.5447073773639202
+              }
+            ]
+          }
+        },
+        {
+          "candidate": {
+            "raw_id": 110366,
+            "cls": 2,
+            "confidence": 0.011605585925281048,
+            "box": [
+              934.195068359375,
+              253.157470703125,
+              1271.72705078125,
+              399.020751953125
+            ],
+            "slot": [
+              "b1ca2e5d-84cf9134|1165",
+              26
+            ]
+          },
+          "current_evaluation": {
+            "exact": true,
+            "reason": "exact_clock_name_frameIndex_verified",
+            "hits": [
+              {
+                "identity": "00122657",
+                "box": [
+                  1011.6541353383458,
+                  251.72932330827066,
+                  1280.0,
+                  354.5864661654135
+                ],
+                "iou": 0.5228119339585855
+              }
+            ]
+          }
+        }
+      ],
+      "existing_native_current_identity_claims": [
+        {
+          "tid": 2445,
+          "raw_id": 110260,
+          "reference": {
+            "exact": false,
+            "reason": "missing_exact_raw_frame_clock_anchor",
+            "hits": []
+          },
+          "candidate": {
+            "exact": true,
+            "reason": "exact_clock_name_frameIndex_verified",
+            "hits": [
+              {
+                "identity": "00122657",
+                "box": [
+                  1011.6541353383458,
+                  251.72932330827066,
+                  1280.0,
+                  354.5864661654135
+                ],
+                "iou": 0.5893361530392492
+              }
+            ]
+          },
+          "outcome": "unknown"
+        }
+      ],
+      "same_tid_baseline": [],
+      "exact_gate_witness": [
+        {
+          "raw_id": 110260,
+          "aliases": [
+            110260,
+            110318,
+            110366
+          ],
+          "cosine": 0.2815069583632921,
+          "appearance_cost": 0.35924652081835395,
+          "proximity_iou": 0.29119765176336593,
+          "same_class": true,
+          "excluded_low": false,
+          "appearance_pass": false,
+          "proximity_pass": false,
+          "occupied": true,
+          "reverse_nearest_tids": [
+            2445
+          ],
+          "strict_reverse_to_this_row": false,
+          "candidate_truth": {
+            "exact": true,
+            "reason": "exact_clock_name_frameIndex_verified",
+            "hits": [
+              {
+                "identity": "00122657",
+                "box": [
+                  1011.6541353383458,
+                  251.72932330827066,
+                  1280.0,
+                  354.5864661654135
+                ],
+                "iou": 0.5893361530392492
+              }
+            ]
+          }
+        }
+      ],
+      "all_primary_own_raw_gate_observations": [
+        {
+          "raw_id": 110260,
+          "confidence": 0.8559107184410095,
+          "is_excluded_low": false,
+          "raw_cosine": 0.2815069583632921,
+          "raw_proximity_iou": 0.29119765176336593,
+          "representative_raw_id": 110260,
+          "representative_is_this_raw": true,
+          "aliases": [
+            110260,
+            110318,
+            110366
+          ],
+          "any_alias_occupied": true
+        },
+        {
+          "raw_id": 110318,
+          "confidence": 0.03037729114294052,
+          "is_excluded_low": true,
+          "raw_cosine": 0.2964423773382163,
+          "raw_proximity_iou": 0.26907678730652085,
+          "representative_raw_id": 110260,
+          "representative_is_this_raw": false,
+          "aliases": [
+            110260,
+            110318,
+            110366
+          ],
+          "any_alias_occupied": true
+        },
+        {
+          "raw_id": 110366,
+          "confidence": 0.011605585925281048,
+          "is_excluded_low": true,
+          "raw_cosine": 0.3101722803149917,
+          "raw_proximity_iou": 0.2708834740074708,
+          "representative_raw_id": 110260,
+          "representative_is_this_raw": false,
+          "aliases": [
+            110260,
+            110318,
+            110366
+          ],
+          "any_alias_occupied": true
+        }
+      ],
+      "source": "events/00032.json"
+    }
+  ],
+  "new_proposals": [
+    {
+      "event_key": "b20d494a-cdebe83e|1102",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1102,
+      "tid": 1324,
+      "raw_id": 63406,
+      "alias_raw_ids": [
+        63406
+      ],
+      "appearance_cost": 0.12717818062305086,
+      "cosine": 0.7456436387538983,
+      "proximity_iou": 0.5680080266135039,
+      "detector_confidence": 0.0359308235347271,
+      "literal_last_source": {
+        "tid": 1324,
+        "raw_id": 63406,
+        "reference": {
+          "exact": false,
+          "reason": "missing_exact_raw_frame_clock_anchor",
+          "hits": []
+        },
+        "candidate": {
+          "exact": false,
+          "reason": "missing_exact_raw_frame_clock_anchor",
+          "hits": []
+        },
+        "outcome": "unknown"
+      },
+      "historical_expected": {
+        "tid": 1324,
+        "raw_id": 63406,
+        "outcome": "unknown",
+        "actual_source_anchor_frame": null,
+        "descriptor_last_source_frame": 1097,
+        "source_pixel_identity_assumed": false
+      },
+      "classification": "unknown, not a demonstrated wrong or correct association",
+      "source": "events/00011.json"
+    },
+    {
+      "event_key": "b1ca2e5d-84cf9134|465",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 465,
+      "tid": 464,
+      "raw_id": 32419,
+      "alias_raw_ids": [
+        32419
+      ],
+      "appearance_cost": 0.16922811841891883,
+      "cosine": 0.6615437631621623,
+      "proximity_iou": 0.6144593634741856,
+      "detector_confidence": 0.031642597168684006,
+      "literal_last_source": {
+        "tid": 464,
+        "raw_id": 32419,
+        "reference": {
+          "exact": false,
+          "reason": "missing_exact_raw_frame_clock_anchor",
+          "hits": []
+        },
+        "candidate": {
+          "exact": false,
+          "reason": "missing_exact_raw_frame_clock_anchor",
+          "hits": []
+        },
+        "outcome": "unknown"
+      },
+      "historical_expected": {
+        "tid": 464,
+        "raw_id": 32419,
+        "outcome": "unknown",
+        "actual_source_anchor_frame": null,
+        "descriptor_last_source_frame": 460,
+        "source_pixel_identity_assumed": false
+      },
+      "classification": "unknown, not a demonstrated wrong or correct association",
+      "source": "events/00022.json"
+    },
+    {
+      "event_key": "b1ca2e5d-84cf9134|466",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 466,
+      "tid": 464,
+      "raw_id": 32526,
+      "alias_raw_ids": [
+        32526
+      ],
+      "appearance_cost": 0.1642685544173923,
+      "cosine": 0.6714628911652154,
+      "proximity_iou": 0.6605439565195959,
+      "detector_confidence": 0.016815263777971268,
+      "literal_last_source": {
+        "tid": 464,
+        "raw_id": 32526,
+        "reference": {
+          "exact": false,
+          "reason": "missing_exact_raw_frame_clock_anchor",
+          "hits": []
+        },
+        "candidate": {
+          "exact": false,
+          "reason": "missing_exact_raw_frame_clock_anchor",
+          "hits": []
+        },
+        "outcome": "unknown"
+      },
+      "historical_expected": {
+        "tid": 464,
+        "raw_id": 32526,
+        "outcome": "unknown",
+        "actual_source_anchor_frame": null,
+        "descriptor_last_source_frame": 460,
+        "source_pixel_identity_assumed": false
+      },
+      "classification": "unknown, not a demonstrated wrong or correct association",
+      "source": "events/00023.json"
+    },
+    {
+      "event_key": "b1ca2e5d-84cf9134|1088",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 1088,
+      "tid": 2374,
+      "raw_id": 101461,
+      "alias_raw_ids": [
+        101461
+      ],
+      "appearance_cost": 0.10458338722094507,
+      "cosine": 0.7908332255581099,
+      "proximity_iou": 0.621535840268214,
+      "detector_confidence": 0.011716429144144058,
+      "literal_last_source": {
+        "tid": 2374,
+        "raw_id": 101461,
+        "reference": {
+          "exact": false,
+          "reason": "missing_exact_raw_frame_clock_anchor",
+          "hits": []
+        },
+        "candidate": {
+          "exact": false,
+          "reason": "missing_exact_raw_frame_clock_anchor",
+          "hits": []
+        },
+        "outcome": "unknown"
+      },
+      "historical_expected": {
+        "tid": 2374,
+        "raw_id": 101461,
+        "outcome": "unknown",
+        "actual_source_anchor_frame": null,
+        "descriptor_last_source_frame": 1083,
+        "source_pixel_identity_assumed": false
+      },
+      "classification": "unknown, not a demonstrated wrong or correct association",
+      "source": "events/00029.json"
+    },
+    {
+      "event_key": "b23a79d1-43dfeecd|868",
+      "video": "b23a79d1-43dfeecd",
+      "frame": 868,
+      "tid": 527,
+      "raw_id": 17664,
+      "alias_raw_ids": [
+        17664
+      ],
+      "appearance_cost": 0.17218449513674638,
+      "cosine": 0.6556310097265072,
+      "proximity_iou": 0.7483531332763546,
+      "detector_confidence": 0.028213823214173317,
+      "literal_last_source": {
+        "tid": 527,
+        "raw_id": 17664,
+        "reference": {
+          "exact": false,
+          "reason": "missing_exact_raw_frame_clock_anchor",
+          "hits": []
+        },
+        "candidate": {
+          "exact": true,
+          "reason": "exact_clock_name_frameIndex_verified",
+          "hits": []
+        },
+        "outcome": "unknown"
+      },
+      "historical_expected": {
+        "tid": 527,
+        "raw_id": 17664,
+        "outcome": "unknown",
+        "actual_source_anchor_frame": null,
+        "descriptor_last_source_frame": 863,
+        "source_pixel_identity_assumed": false
+      },
+      "classification": "unknown, not a demonstrated wrong or correct association",
+      "source": "events/00037.json"
+    },
+    {
+      "event_key": "b200b84e-4a792877|893",
+      "video": "b200b84e-4a792877",
+      "frame": 893,
+      "tid": 617,
+      "raw_id": 25967,
+      "alias_raw_ids": [
+        25967,
+        25977
+      ],
+      "appearance_cost": 0.0682182224653336,
+      "cosine": 0.8635635550693328,
+      "proximity_iou": 0.7013061900216438,
+      "detector_confidence": 0.027294429019093513,
+      "literal_last_source": {
+        "tid": 617,
+        "raw_id": 25967,
+        "reference": {
+          "exact": false,
+          "reason": "missing_exact_raw_frame_clock_anchor",
+          "hits": []
+        },
+        "candidate": {
+          "exact": false,
+          "reason": "missing_exact_raw_frame_clock_anchor",
+          "hits": []
+        },
+        "outcome": "unknown"
+      },
+      "historical_expected": {
+        "tid": 617,
+        "raw_id": 25967,
+        "outcome": "unknown",
+        "actual_source_anchor_frame": 883,
+        "descriptor_last_source_frame": 888,
+        "source_pixel_identity_assumed": false
+      },
+      "classification": "unknown, not a demonstrated wrong or correct association",
+      "source": "events/00046.json"
+    }
+  ],
+  "audit": {
+    "passed": true,
+    "events": 54,
+    "checked_row_decisions": 6168,
+    "scalar_pairs": 109191,
+    "checked_annotation_records": 6929,
+    "native_ownership_checks": 3112,
+    "maximum_scalar_cosine_error": 8.881784197001252e-16,
+    "maximum_scalar_iou_error": 0.0,
+    "shared": "Frozen descriptor bank, selected event metadata, underlying GT files and clock sources.",
+    "independent": "No production policy/worker/annotation helper import. Scalar fsum cosine, scalar IoU/NMS, full policy branches, controls and exact-clock labels reconstructed independently."
+  },
+  "conclusion": "Inconclusive for new-case identity benefit/safety: all6new proposals areunknown in bothregistered tasks. No demonstrated wrong newpair; no demonstrated correct newpair. The1primary/2historical evaluable episodes offer no identified uncovered low-confidence continuation opportunity.",
+  "known_case_2179": "GT00122657 iscurrentlycoveredbypublic2445. Previous2179 isnotrestored. Fixedbranch refusal explainedbyNMS/nativeownership pluslowappearance/proximity; snapshotalone cannotestablish thecauseof earlierIDtransition. Saved-native trace separatelylocalizes2179assignmentloss1160 andGTownerinterval1159to1165.",
+  "non_conclusions": [
+    "No evidence of algorithmic impossibility from absence of an observable positive opportunity",
+    "Unknown6 are not observed errors or successes",
+    "No fulltracker/HOTA/publicIDlifecycle improvement",
+    "No GT labelling of unannotated lastreference fromhistoricalexpectedID",
+    "No B descriptor/Census/policy outcomes"
+  ],
+  "source_hashes": {
+    "result.json": "a1eaf902a0f4a006d93387314b9f90408a5baff3ad5af78a31123549b582970d",
+    "audit.json": "b3c06d7aa9e07cb514eb567d1cc57dd34c5939fe6817c8242d259aa00d2ddd0f",
+    "runtime_cases.json": "f6057c9b739b9dccad16911ad359fb31023ea0d82f31329dbd7bcd39250d7679"
+  }
+}

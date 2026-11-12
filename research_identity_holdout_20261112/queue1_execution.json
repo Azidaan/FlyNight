@@ -1,0 +1,95 @@
+{
+  "started": "2026-11-12T21:15:38.711151+03:00",
+  "parent": {
+    "pid": 7588,
+    "birth": 1794507338.3714914
+  },
+  "jobs": [
+    {
+      "entry": "research_identity_holdout_20261112/review/extract_A.py",
+      "token": "bea8a46ce50244b192995b690895b35d",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\bea8a46ce50244b192995b690895b35d\\memory_guard.json",
+      "started": "2026-11-12T21:15:40.024835+03:00",
+      "ended": "2026-11-12T21:18:02.902616+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_identity_holdout_20261112\\review\\extract_A.py",
+          "--go-protocol-sha256",
+          "9d584b3f36b43c5b7ee2adc508a8b360c9aa29bf228f3eb14d49d3561a1f9b82",
+          "--audit-memory-worker=bea8a46ce50244b192995b690895b35d"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 9549746176,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "21900": 1794507340.0351665,
+          "29812": 1794507340.0648901
+        },
+        "stop_errors": [],
+        "seconds": 142.85899999999674
+      }
+    },
+    {
+      "entry": "research_identity_holdout_20261112/review/audit_A_bank.py",
+      "token": "938c1b535c53405f91dec958ff4783e9",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\938c1b535c53405f91dec958ff4783e9\\memory_guard.json",
+      "started": "2026-11-12T21:18:04.613665+03:00",
+      "ended": "2026-11-12T21:18:38.110776+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_identity_holdout_20261112\\review\\audit_A_bank.py",
+          "--audit-memory-worker=938c1b535c53405f91dec958ff4783e9"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 12350013440,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "21100": 1794507484.7057786,
+          "29188": 1794507484.7877054
+        },
+        "stop_errors": [],
+        "seconds": 33.421999999991385
+      }
+    },
+    {
+      "entry": "research_identity_holdout_20261112/correspondence/core_worker.py",
+      "token": "f293f9f1967f414d925a30351484d72b",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\f293f9f1967f414d925a30351484d72b\\memory_guard.json",
+      "started": "2026-11-12T21:18:39.701644+03:00",
+      "ended": "2026-11-12T21:20:09.367924+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_identity_holdout_20261112\\correspondence\\core_worker.py",
+          "--audit-memory-worker=f293f9f1967f414d925a30351484d72b"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 10312093696,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "25484": 1794507519.7190447,
+          "7756": 1794507519.7456188
+        },
+        "stop_errors": [],
+        "seconds": 89.64100000000326
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-12T21:20:09.672114+03:00",
+  "passed": true
+}

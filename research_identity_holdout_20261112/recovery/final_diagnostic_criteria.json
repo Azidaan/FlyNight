@@ -1,0 +1,40 @@
+{
+  "scope": "Late registered source/matrixdiagnosis onA; no newrepair choice orfullmodel evaluation.",
+  "acceptance": [
+    {
+      "criterion": "Reproduce all943savedbase costs fromactualnative geometry/confidence",
+      "met": true,
+      "evidence": "assignment_loss_result_v2.json: full_matrix_float32_formula_max_error=0"
+    },
+    {
+      "criterion": "Originalfirstassignment exact andidentitycopy same",
+      "met": true,
+      "evidence": "assignment_loss_result_v2.json: baseline_pairs"
+    },
+    {
+      "criterion": "Removeonly2445 returns2179",
+      "met": false,
+      "evidence": "assignment_loss_result_v2.json: owner2316; thisnegativecriterion preserved"
+    },
+    {
+      "criterion": "Classcompatibilitymaskalone returns2179",
+      "met": false,
+      "evidence": "classmask_result.json: classmask_only owner2445"
+    },
+    {
+      "criterion": "Combinedclassmask+remove2445 returns2179 inthisartificialmatrix",
+      "met": true,
+      "evidence": "classmask_result.json: classmask_and_remove2445"
+    },
+    {
+      "criterion": "Unchanged compatiblecosts/costlimit andindependentoptimalobjectives",
+      "met": true,
+      "evidence": "classmask_result.json andassignment_loss_result_v2.json"
+    },
+    {
+      "criterion": "ReportnoGT1160 andno deployable/fulltracker improvement",
+      "met": true,
+      "evidence": "final_causal_summary.json: cannot_claim"
+    }
+  ]
+}

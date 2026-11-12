@@ -1,0 +1,32 @@
+{
+  "registered": "2026-11-12T22:14:18.780551+03:00",
+  "inputs": {
+    "experiments/project_history.json": "21f5527b2cf5f8d0903e47646438e22f72645e50a121012bd9695dc1cfb78650",
+    "experiments/metrics_glossary.json": "10c077aa9e0817e69dd5131e6b7b0b06d607c4e876bea8158d6f716463cbb6aa",
+    "experiments/obsidian_experiment_topics.json": "4e3303510a5770c2c81d19692687a0228d79a345a1189bd86f8deef85ab8644e",
+    "experiments/system_problems.json": "9daa2ddcdac241c8a8c1b82fcf526d54eb3b12d02dae30c47f6c4676566f3eb5",
+    "AGENTS.md": "392fa10792c83c8a754bd3911ac219ccd4a482cef62da5b7cf5d9227d4b5c5af",
+    "scripts/validate_project_history.py": "a826f466b8e453edfa8393f2e70e2c74b472b94a4c6878a37227db47125ecf11",
+    "tests/test_project_history.py": "e2c0f24c4aaa587708fa55e4874555914dd16cfa622d31e578667c931bec93e6",
+    "tests/test_identity_repair_components.py": "bce3a4d4296d35ba3d0b698c7ca530b0e133cc4a2db04bf1af9865402ec10ebb",
+    "research_identity_holdout_20261112/required_checks.py": "7989c84685a3c5e6b32a340536915618535b95f0935f4e263df3d78be5c501bc"
+  },
+  "runner_sha256": "2c922fc799394a03d9bc35cef70891b5bce61b4005b229d0e1bc72296ea0ce93",
+  "jobs": [
+    {
+      "entry": "research_identity_holdout_20261112/required_checks.py",
+      "args": [
+        "validate"
+      ],
+      "timeout": 900
+    },
+    {
+      "entry": "research_identity_holdout_20261112/required_checks.py",
+      "args": [
+        "tests"
+      ],
+      "timeout": 900
+    }
+  ],
+  "deadline": "2026-11-13T07:35:00+03:00"
+}

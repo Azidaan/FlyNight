@@ -34392,6 +34392,358 @@
       "interpretation": "Проверка реализации на известных событиях. Частный положительный эффект не скрывает отрицательный общий критерий соответствующего варианта. Пять ранее исследованных событий, инженерная правка на знакомых случаях. Сохранённые состояния и прочие голоса FlyVis фиксированы. Не проверены полный трекер, последующие кадры, публичная выживаемость номеров, независимое обобщение и HOTA. Безопасная новая геометрия не восстанавливает старую832 поверх активной773. Дополнительная польза нового сигнала ядра в сопоставимом событийном контроле равна нулю.",
       "decision": "Сохранить реализованные компоненты как проверенный на этих пяти событиях экспериментальный адаптер. Не включать универсальныйCensus и не активировать полный трекер. Широкие варианты с тремя неопределёнными предложениями сохраняются отрицательными. Успех ограниченной ветви относится к внешнему виду, допуску слабого наблюдения и защите владельцев; следующий уровень проверки требует отдельных последовательностей, но в текущем поручении не запускается.",
       "cannot_claim": "Пять ранее исследованных событий, инженерная правка на знакомых случаях. Сохранённые состояния и прочие голоса FlyVis фиксированы. Не проверены полный трекер, последующие кадры, публичная выживаемость номеров, независимое обобщение и HOTA. Безопасная новая геометрия не восстанавливает старую832 поверх активной773. Дополнительная польза нового сигнала ядра в сопоставимом событийном контроле равна нулю."
+    },
+    {
+      "id": "identity_repair_holdout_selection_20261112",
+      "title": "Новые случаи вне выбора исправления",
+      "area": "flyvis",
+      "state": "infrastructure",
+      "started": "2026-11-12",
+      "question": "Переносится ли фиксированная правка за пределы пяти случаев её выбора?",
+      "hypothesis": "Фиксированные правила могут переноситься на новые эпизоды; отсутствие проверяемой личности ограничивает научный вывод отдельно от вычислительной исправности.",
+      "expected": "Независимый повтор на новых случаях с полным учётом отказов, неизвестной личности и конкуренции.",
+      "acceptance": [
+        {
+          "criterion": "Отбор только по зарегистрированным источникам и наблюдаемым условиям, без новых исходов или эталонной личности.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/leakage_audit.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "Исключены все обучающие видео и видео подробного прежнего разбора; резерв B не используется для выбора.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/leakage_audit.json; research_identity_holdout_20261112/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/review/proposed_selection_protocol_v2.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/review/leakage_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/РЕЗУЛЬТАТ.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/audit.json"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Черновой отбор исправлен до новых исходов: строгаяA54события/5видео, резервB25/4. Исключены200обучающих и11ранее подробно разобранных видео; источник research_identity_holdout_20261112/review/leakage_audit.json.",
+      "interpretation": "Техническая исправность и объяснение сохранённого решения не заменяют доказанного улучшения личности. Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены.",
+      "decision": "Сохранить первыйAи все отрицательные контроли. Новую правку не продвигать по неизвестным личностям. Подтверждённый прежний574остаётся положительным; дальнейшая работа должна учитывать более раннюю конкуренцию активных траекторий и наличие точной разметки.",
+      "cannot_claim": "Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены. Положительный разбор2179не означает, что найден точный первый ошибочный семантический кадр или восстановлен старый номер."
+    },
+    {
+      "id": "identity_repair_holdout_bank_20261112",
+      "title": "Признаки всех конкурентов на новых случаях",
+      "area": "flyvis",
+      "state": "infrastructure",
+      "started": "2026-11-12",
+      "question": "Переносится ли фиксированная правка за пределы пяти случаев её выбора?",
+      "hypothesis": "Фиксированные правила могут переноситься на новые эпизоды; отсутствие проверяемой личности ограничивает научный вывод отдельно от вычислительной исправности.",
+      "expected": "Независимый повтор на новых случаях с полным учётом отказов, неизвестной личности и конкуренции.",
+      "acceptance": [
+        {
+          "criterion": "SamefrozenMASAstatehashasold, eval/inference only.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/shared/extraction_audit.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "OneGPUowner canonicalmutex/systemreserve/deadline; sequentialdecodeonce/video.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/shared/extraction_audit.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "DuplicatefirstnewROIexact,CPU/GPUpreprocess exact; shapesfiniteunitnorm.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/shared/extraction_audit.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "Allsourcehashunchangedbeforeafter; saveexactrawpixelhash perframe. IndependentCPUbankauditverifiesallframekeys/slots/shapes/strictpastreferenceandpixelhashes withoutneuralforward.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/shared/extraction_audit.json; research_identity_holdout_20261112/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/shared/extraction_protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/shared/extraction_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/РЕЗУЛЬТАТ.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/audit.json"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Новые5901описатель на388кадрах,6127ссылок на области,1211конкурирующих историй и4916текущих рамок проверены; источник research_identity_holdout_20261112/shared/extraction_audit.json.",
+      "interpretation": "Техническая исправность и объяснение сохранённого решения не заменяют доказанного улучшения личности. Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены.",
+      "decision": "Сохранить первыйAи все отрицательные контроли. Новую правку не продвигать по неизвестным личностям. Подтверждённый прежний574остаётся положительным; дальнейшая работа должна учитывать более раннюю конкуренцию активных траекторий и наличие точной разметки.",
+      "cannot_claim": "Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены. Положительный разбор2179не означает, что найден точный первый ошибочный семантический кадр или восстановлен старый номер."
+    },
+    {
+      "id": "identity_repair_holdout_correspondence_20261112",
+      "title": "Перенос соответствия и истории образца на новые случаи",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-12",
+      "question": "Does the frozen guarded repair generalize to native events from videos not used to choose it?",
+      "hypothesis": "Фиксированные правила могут переноситься на новые эпизоды; отсутствие проверяемой личности ограничивает научный вывод отдельно от вычислительной исправности.",
+      "expected": "Независимый повтор на новых случаях с полным учётом отказов, неизвестной личности и конкуренции.",
+      "acceptance": [
+        {
+          "criterion": "Every input and frozenproduction fingerprint stable; original cached channels and native logits reproduce every saved native proposal within1e-9 before interpreting changes.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/matrix_result_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "Originalreference core maps match archived fullC34 within1e-4; frozen weights/terminalimage exact. Held reference is an actual core pass, no retinal proxy.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/matrix_result_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "Independent directBoolean Census audit enumerates whole fixed domain and deterministic tiecost; SciPy interpolation/scalar channels+head agree<1e-9.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/matrix_result_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "All54cases retained; emptyCensusdomain or constantmap is missing score, NOT fabricated0/-1e6. Frozenadapter float(None) failure is retained execution/readiness error with baseline preserved; productionpolicy is not patched on A.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/matrix_result_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "Actualcomplete savedmatrix replay preserves all frozenactive pairs and duplicate ownership; positive head vote alone is not recovered ID. Compare all4 variants under identical fullcompetition support.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/matrix_result_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "On exactly evaluable identities, report paired original/modified changes and unknown cases; do not use nearbyannotationframe as exactGT. Improvement of guarded versusbaseline and added benefit versus sameappearancewithoutnewcore are distinct requirements; absent evidence is not a confirmed model gain.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/matrix_result_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "A remains fixed first test after outcomes; any failure-driven change is a separatedevelopmentfix followed by untouchedB only under newparentregistration. Universal negativecontrol losses and zero/inconclusive outcomes remain explicit.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/matrix_result_A.json; research_identity_holdout_20261112/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/correspondence/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/review/matrix_result_A.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/РЕЗУЛЬТАТ.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/audit.json"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Все54регистрации доступны,94реальных прохода и432выхода проверены.7переходов отказ→принятие и7обратных, без доказательства правильности личности. Защищённые назначения совпали с тем же внешним видом без нового целевого сигнала ядра54/54; универсальная замена удалила7защищённых пар в8изменённых событиях. Источники research_identity_holdout_20261112/correspondence/summary_A.json и review/matrix_result_A.json.",
+      "interpretation": "Техническая исправность и объяснение сохранённого решения не заменяют доказанного улучшения личности. Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены.",
+      "decision": "Сохранить первыйAи все отрицательные контроли. Новую правку не продвигать по неизвестным личностям. Подтверждённый прежний574остаётся положительным; дальнейшая работа должна учитывать более раннюю конкуренцию активных траекторий и наличие точной разметки.",
+      "cannot_claim": "Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены. Положительный разбор2179не означает, что найден точный первый ошибочный семантический кадр или восстановлен старый номер."
+    },
+    {
+      "id": "identity_repair_holdout_recovery_20261112",
+      "title": "Перенос подтверждения исключённых детекций на новые случаи",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-12",
+      "question": "Переносится ли фиксированная правка за пределы пяти случаев её выбора?",
+      "hypothesis": "Фиксированные правила могут переноситься на новые эпизоды; отсутствие проверяемой личности ограничивает научный вывод отдельно от вычислительной исправности.",
+      "expected": "Независимый повтор на новых случаях с полным учётом отказов, неизвестной личности и конкуренции.",
+      "acceptance": [
+        {
+          "criterion": "Frozen policy andallinput/source/bank hashes unchanged before/after; no previousvideo leakage according to explicit exclusionledger.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/compose_audit_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "ALLselectedevents retained; full savedrows andrawcars preserved; originalpublicpairs/occupiedaliases neverseized andnewproposalsunique.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/compose_audit_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "Independent scalar fsum cosine/IoU/NMS/allpolicybranches, exactclock labels andallcounterfactualpool generation agree within1e-9. Technicalaudit passing is not the scientific gate.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/compose_audit_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "To claim boundedpositive recovery evidence: at leastone correctown NEWproposal on A andzero knownforeign orunknown NEWproposals. Otherwise report failure/uncertainty, do not promote or tune.",
+          "met": false,
+          "evidence": "research_identity_holdout_20261112/review/compose_audit_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "Apply the same newproposal own/foreign/unknown accounting to secondary historicalexpectedID continuity SEPARATELY. Anypositive result describes that task, neverprimary lastsource identity orphysicalpixels. Report annotationcoverage, conflicts andmissinglabels.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/compose_audit_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "On eachvalid remove-all-own control the testedrow mustnotcontinue; anycontinue is a recorded counterfactualfailure. Invalidcontrols remainexplicitunknown.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/compose_audit_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "Report every descriptor-permutation proposal andlabel; missing/no-descriptor controls mustdeferall. Do not remove unfavorable events.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/compose_audit_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "Compare baseline andfixedpolicy byevent/video andsourceobservability. Avoid treating repeated same-video events as independentpopulation evidence.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/compose_audit_A.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "No fulltracker/publicIDlifecycle/HOTAclaim, no new neuralcorecall orpolicytuning. Diagnose failures only throughregistered exactgates andsourcefacts; reservedB untouched.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/review/compose_audit_A.json; research_identity_holdout_20261112/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/recovery/proposed_protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/review/compose_audit_A.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/РЕЗУЛЬТАТ.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/audit.json"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Добавлено6связей неизвестной личности без удаления старых назначений и структурных конфликтов. На доступной истории сохранение целевого номера1/2→1/2, строгая оценка0/1→0/1; перенос пользы не доказан. Источники research_identity_holdout_20261112/review/matrix_result_A.json и review/compose_audit_A.json.",
+      "interpretation": "Техническая исправность и объяснение сохранённого решения не заменяют доказанного улучшения личности. Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены.",
+      "decision": "Сохранить первыйAи все отрицательные контроли. Новую правку не продвигать по неизвестным личностям. Подтверждённый прежний574остаётся положительным; дальнейшая работа должна учитывать более раннюю конкуренцию активных траекторий и наличие точной разметки.",
+      "cannot_claim": "Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены. Положительный разбор2179не означает, что найден точный первый ошибочный семантический кадр или восстановлен старый номер."
+    },
+    {
+      "id": "identity_native_assignment_loss_2179_20261112",
+      "title": "Потеря назначения до ветви восстановления: конкуренция2179 и2445",
+      "area": "own_tracker",
+      "state": "completed_positive",
+      "started": "2026-11-12",
+      "question": "What creates nativecost2179≈0.715 versus2445≈0.211 at saved1160, and does removingONLY2445 from the unchanged first costmatrix give2179 the109699column?",
+      "hypothesis": "Потеря назначения2179 обусловлена полной конкуренцией по исходной геометрической стоимости до участия целевой ветви FlyVis; удаление2445 проверяет конкретную роль этого конкурента, без утверждения правильности неразмеченного кадра.",
+      "expected": "Воспроизводимая формула исходной стоимости и причинный контроль одного конкурента, а не новая настройка весов.",
+      "acceptance": [
+        {
+          "criterion": "Source/currentfingerprints compared witharchivedprotocol whereavailable; never labelcurrenthash historical ifabsent/mismatched.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "Fullsavedbase matrix reproduced fromtypedformula within1e-6; scalar64 discrepancy reported, notsilentlymasked.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "Baselineactual_first exact, unalteredremainingcostentries, independentassignmentobjectiveerror<1e-9.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json; research_identity_holdout_20261112/audit.json"
+        },
+        {
+          "criterion": "Report actualnewowner of109699 and2179 assignedcolumn, evenifanotherrow wins; noGT1160 interpolation, nofulltracker/modelcalls orweightschanges.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json; research_identity_holdout_20261112/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/recovery/assignment_loss_protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/РЕЗУЛЬТАТ.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/audit.json"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Для1160точно воспроизведены943стоимости41×23по1−IoU×conf, нейронных изменений0. Удаление2445передаёт109699другому конкуренту2316, а2179остаётся без назначения. Роль полной геометрической конкуренции подтверждена; единственная причина2445опровергнута. Источник research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json. Это успех причинного разбора сохранённого решения, не исправление публичногоID.",
+      "interpretation": "Техническая исправность и объяснение сохранённого решения не заменяют доказанного улучшения личности. Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены.",
+      "decision": "Сохранить первыйAи все отрицательные контроли. Новую правку не продвигать по неизвестным личностям. Подтверждённый прежний574остаётся положительным; дальнейшая работа должна учитывать более раннюю конкуренцию активных траекторий и наличие точной разметки.",
+      "cannot_claim": "Сохранённые события новых для выбора правки видео внутри ранее использованной проверочной группы. Не полный трекер, не последующая траектория и не HOTA. Неизвестные личности не считаются ни доказанными ошибками, ни успехами. Прежние состояния и прочие голоса ядра сохранены. Результаты резерваBне вычислены. Положительный разбор2179не означает, что найден точный первый ошибочный семантический кадр или восстановлен старый номер."
+    },
+    {
+      "id": "identity_class_compatibility_diagnostic_20261112",
+      "title": "Роль совместимости классов в геометрической конкуренции",
+      "area": "own_tracker",
+      "state": "inconclusive",
+      "started": "2026-11-12",
+      "question": "Does class compatibility alone alter the1160 owner, and after removing2445 does it prevent class0rival2316 fromtaking109699?",
+      "hypothesis": "Одна проверка класса не устранит конкурента2445того же класса; дополнительное исключение2445проверяет роль межклассового конкурента2316. Это поздний причинный разбор без заявления о правильности1160.",
+      "expected": "Два зарегистрированных контроля на той же матрице, без подбора весов и рабочего изменения трекера.",
+      "acceptance": [
+        {
+          "criterion": "Baselineactual_first reproduced exactly.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/recovery/classmask_result.json; research_identity_holdout_20261112/audit_addendum.json"
+        },
+        {
+          "criterion": "Allunmaskedcompatibleentries unchanged exactly; no GT used in classmask.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/recovery/classmask_result.json; research_identity_holdout_20261112/audit_addendum.json"
+        },
+        {
+          "criterion": "IndependentLapJV/SciPyobjectiveerror<1e-9; report actual109699owner and2179assignment forBOTHcontrols regardlessoutcome.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/recovery/classmask_result.json; research_identity_holdout_20261112/audit_addendum.json"
+        },
+        {
+          "criterion": "No claimofown109699, actualGTerrorat1160, usefuldeployedclassfix orHOTA. No further intervention variants afterthese2.",
+          "met": true,
+          "evidence": "research_identity_holdout_20261112/recovery/classmask_result.json; research_identity_holdout_20261112/audit_addendum.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/recovery/classmask_protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_identity_holdout_20261112/audit_addendum.json"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Проверка классов отдельно не меняет владельца109699:остаётся2445,2179без назначения. Только сочетание удаления2445с проверкой класса передаёт109699к2179; удаление2445без проверки класса передавало его2316другого класса. Все совместимые стоимости и порог0,8сохранены. Источники research_identity_holdout_20261112/recovery/classmask_result.json и assignment_loss_result_v2.json. Во всех54Aнайдено6межклассовых исходных назначений из611; это метаданные детектора, не6доказанных ошибок личности; источник recovery/native_class_metadata_A.json.",
+      "interpretation": "Локализован механизм конкуренции в сохранённой геометрической матрице. Одна проверка класса не исправляет исходный отказ; сочетание с удалением активного конкурента не является допустимым рабочим исправлением.",
+      "decision": "Завершить ограниченный разбор без новых вариантов, изменений классового допуска, весов или полного трекера. РезультатAсохранён, резервBне использован для выбора.",
+      "cannot_claim": "Нет точной разметки1160, поэтому109699не объявляется своей рамкой2179. Не доказана полезность жёсткого классового ограничения или улучшение личности на последовательности."
     }
   ],
   "manual_events": [

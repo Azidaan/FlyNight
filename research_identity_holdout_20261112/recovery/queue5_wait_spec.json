@@ -1,0 +1,14 @@
+{
+  "created": "2026-11-12T21:56:23.383888+03:00",
+  "inputs": {
+    "research_identity_holdout_20261112/queue5.json": "f8ce33e95f50c5c57d605b44d9b4a570b147f3f4bd56bdca6c089b4e152282ac",
+    "research_identity_holdout_20261112/run_queue.py": "2c922fc799394a03d9bc35cef70891b5bce61b4005b229d0e1bc72296ea0ce93",
+    "research_identity_holdout_20261112/common.py": "4ebdd8ae5fc300c8a1b58932b0f81f72d4bbaa4eba20227e0e79a9e58b57ab84"
+  },
+  "waiter_sha256": "cacdaa3e6bca0fdb0f098bd15ebaf7a9c17792f98731c1d8e2c1e05470d57e68",
+  "predecessor_execution": "research_identity_holdout_20261112/queue4_execution.json",
+  "queue": "research_identity_holdout_20261112/queue5.json",
+  "runner": "research_identity_holdout_20261112/run_queue.py",
+  "maximum_seconds": 1800,
+  "rule": "Launch exactlyonce onlyafterqueue4completeANDpassed; existingqueue5execution=>no launch; stoponpredecessorfailure. Parent explicitlydelegatedsolequeue5ownership. HiddenIdleCPU, noGPU/fulltracker."
+}

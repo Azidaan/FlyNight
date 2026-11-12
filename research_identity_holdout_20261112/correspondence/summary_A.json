@@ -1,0 +1,2003 @@
+{
+  "passed": true,
+  "scope": "Immutable first A; all cases retained, no parameter/selection changes. B not read.",
+  "selection_sha256": "320cfc4d31eed16d7fd8876c9520f100093ffdb22643112d2eb6724eaf24376d",
+  "cases": 54,
+  "videos": 5,
+  "registration_ready": 54,
+  "sign_transitions": {
+    "negative_to_negative": 11,
+    "positive_to_positive": 29,
+    "positive_to_negative": 7,
+    "negative_to_positive": 7
+  },
+  "by_video": {
+    "b1ca2e5d-84cf9134": {
+      "negative_to_negative": 5,
+      "positive_to_positive": 6,
+      "positive_to_negative": 2,
+      "negative_to_positive": 2
+    },
+    "b200b84e-4a792877": {
+      "positive_to_positive": 12,
+      "positive_to_negative": 1,
+      "negative_to_positive": 1
+    },
+    "b20d494a-cdebe83e": {
+      "positive_to_positive": 7,
+      "negative_to_negative": 5,
+      "positive_to_negative": 3
+    },
+    "b230a7b2-c881c382": {
+      "negative_to_positive": 3,
+      "positive_to_positive": 1
+    },
+    "b23a79d1-43dfeecd": {
+      "positive_to_negative": 1,
+      "negative_to_negative": 1,
+      "positive_to_positive": 3,
+      "negative_to_positive": 1
+    }
+  },
+  "missing": [],
+  "details": [
+    {
+      "case_key": "b1ca2e5d-84cf9134|48|70|3556",
+      "event_key": "b1ca2e5d-84cf9134|48",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 48,
+      "old_id": 70,
+      "raw_id": 3556,
+      "scores": {
+        "original_index": -0.09997712902866573,
+        "original_terminal_hold": -0.36705039103442144,
+        "census_index": -0.6939918665540276,
+        "census_terminal_hold": -0.37545671818814885
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "negative_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          10,
+          -11
+        ],
+        "source_pixels": 2002,
+        "candidates": 4936,
+        "winning_median_hamming": 10.0,
+        "winning_mean_hamming": 9.841658341658341,
+        "median_ties": 79,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|230|303|14011",
+      "event_key": "b1ca2e5d-84cf9134|230",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 230,
+      "old_id": 303,
+      "raw_id": 14011,
+      "scores": {
+        "original_index": 0.06171193052234736,
+        "original_terminal_hold": 0.17016941318505863,
+        "census_index": 0.44304447602832386,
+        "census_terminal_hold": 0.5239285896038466
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -16,
+          8
+        ],
+        "source_pixels": 621,
+        "candidates": 760,
+        "winning_median_hamming": 7.0,
+        "winning_mean_hamming": 7.206119162640902,
+        "median_ties": 2,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|341|483|22533",
+      "event_key": "b1ca2e5d-84cf9134|341",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 341,
+      "old_id": 483,
+      "raw_id": 22533,
+      "scores": {
+        "original_index": 0.2946403330149697,
+        "original_terminal_hold": -0.2758195175729502,
+        "census_index": 0.32816825370066116,
+        "census_terminal_hold": -0.005252576027305
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": false,
+        "census_index": true,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "positive_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          9,
+          11
+        ],
+        "source_pixels": 1881,
+        "candidates": 2351,
+        "winning_median_hamming": 7.0,
+        "winning_mean_hamming": 7.828282828282828,
+        "median_ties": 3,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|465|464|32373",
+      "event_key": "b1ca2e5d-84cf9134|465",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 465,
+      "old_id": 464,
+      "raw_id": 32373,
+      "scores": {
+        "original_index": -0.29795506138424904,
+        "original_terminal_hold": -0.2278507630471301,
+        "census_index": 0.41599259629523777,
+        "census_terminal_hold": 0.8634194069864336
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "negative_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -9,
+          1
+        ],
+        "source_pixels": 6688,
+        "candidates": 3323,
+        "winning_median_hamming": 7.0,
+        "winning_mean_hamming": 7.718002392344498,
+        "median_ties": 6,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|466|464|32464",
+      "event_key": "b1ca2e5d-84cf9134|466",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 466,
+      "old_id": 464,
+      "raw_id": 32464,
+      "scores": {
+        "original_index": -0.29939113003729456,
+        "original_terminal_hold": -0.21044488738891792,
+        "census_index": 0.3486383795457224,
+        "census_terminal_hold": 0.8366141205513598
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "negative_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -11,
+          1
+        ],
+        "source_pixels": 6688,
+        "candidates": 3323,
+        "winning_median_hamming": 8.0,
+        "winning_mean_hamming": 8.276913875598087,
+        "median_ties": 14,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|569|1032|39176",
+      "event_key": "b1ca2e5d-84cf9134|569",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 569,
+      "old_id": 1032,
+      "raw_id": 39176,
+      "scores": {
+        "original_index": 0.0652414677899279,
+        "original_terminal_hold": -0.11316904839770758,
+        "census_index": -0.4849281598395382,
+        "census_terminal_hold": -0.3247390060989927
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": false,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "positive_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          113,
+          -55
+        ],
+        "source_pixels": 16102,
+        "candidates": 35064,
+        "winning_median_hamming": 11.0,
+        "winning_mean_hamming": 10.713265432865482,
+        "median_ties": 7561,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|644|1212|45960",
+      "event_key": "b1ca2e5d-84cf9134|644",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 644,
+      "old_id": 1212,
+      "raw_id": 45960,
+      "scores": {
+        "original_index": 0.4634919947250118,
+        "original_terminal_hold": 0.3984785368515864,
+        "census_index": 0.39922202562674447,
+        "census_terminal_hold": 0.8889814033820869
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          2,
+          0
+        ],
+        "source_pixels": 4505,
+        "candidates": 4998,
+        "winning_median_hamming": 7.0,
+        "winning_mean_hamming": 7.5829078801331855,
+        "median_ties": 4,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|645|1212|46063",
+      "event_key": "b1ca2e5d-84cf9134|645",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 645,
+      "old_id": 1212,
+      "raw_id": 46063,
+      "scores": {
+        "original_index": 0.5798430018707921,
+        "original_terminal_hold": 0.5646393088868846,
+        "census_index": 0.5061794130467139,
+        "census_terminal_hold": 0.888791214979157
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          3,
+          0
+        ],
+        "source_pixels": 4505,
+        "candidates": 4998,
+        "winning_median_hamming": 8.0,
+        "winning_mean_hamming": 8.053274139844618,
+        "median_ties": 7,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|649|1111|46466",
+      "event_key": "b1ca2e5d-84cf9134|649",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 649,
+      "old_id": 1111,
+      "raw_id": 46466,
+      "scores": {
+        "original_index": 0.7229153339090131,
+        "original_terminal_hold": 0.7756778070487076,
+        "census_index": 0.8338957976268946,
+        "census_terminal_hold": 1.0156693153983105
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          2,
+          0
+        ],
+        "source_pixels": 2448,
+        "candidates": 888,
+        "winning_median_hamming": 7.0,
+        "winning_mean_hamming": 7.245506535947713,
+        "median_ties": 3,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|738|1|56955",
+      "event_key": "b1ca2e5d-84cf9134|738",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 738,
+      "old_id": 1,
+      "raw_id": 56955,
+      "scores": {
+        "original_index": -0.08857447551673758,
+        "original_terminal_hold": -0.21944290964336566,
+        "census_index": -0.08138325337184449,
+        "census_terminal_hold": -0.06111211633585045
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "negative_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          36,
+          -1
+        ],
+        "source_pixels": 21168,
+        "candidates": 24386,
+        "winning_median_hamming": 10.0,
+        "winning_mean_hamming": 9.653250188964474,
+        "median_ties": 58,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|1088|2374|101390",
+      "event_key": "b1ca2e5d-84cf9134|1088",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 1088,
+      "old_id": 2374,
+      "raw_id": 101390,
+      "scores": {
+        "original_index": 0.7869796610398261,
+        "original_terminal_hold": 0.22506000633077328,
+        "census_index": 0.3721453025000503,
+        "census_terminal_hold": 1.114710758139303
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -3,
+          0
+        ],
+        "source_pixels": 31535,
+        "candidates": 67208,
+        "winning_median_hamming": 8.0,
+        "winning_mean_hamming": 8.630188679245283,
+        "median_ties": 5,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|1089|2374|101476",
+      "event_key": "b1ca2e5d-84cf9134|1089",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 1089,
+      "old_id": 2374,
+      "raw_id": 101476,
+      "scores": {
+        "original_index": 0.7138645006519546,
+        "original_terminal_hold": 0.421422967709167,
+        "census_index": 0.3301735036522605,
+        "census_terminal_hold": 1.0626500572927724
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -2,
+          0
+        ],
+        "source_pixels": 31535,
+        "candidates": 67208,
+        "winning_median_hamming": 9.0,
+        "winning_mean_hamming": 9.019660694466467,
+        "median_ties": 13,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|1164|2179|110163",
+      "event_key": "b1ca2e5d-84cf9134|1164",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 1164,
+      "old_id": 2179,
+      "raw_id": 110163,
+      "scores": {
+        "original_index": -0.8389283189470698,
+        "original_terminal_hold": -1.0822138117214324,
+        "census_index": -0.8901654241892314,
+        "census_terminal_hold": -0.38389279820739725
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "negative_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -2,
+          0
+        ],
+        "source_pixels": 13818,
+        "candidates": 14970,
+        "winning_median_hamming": 10.0,
+        "winning_mean_hamming": 10.268490374873354,
+        "median_ties": 4,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|1165|2179|110273",
+      "event_key": "b1ca2e5d-84cf9134|1165",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 1165,
+      "old_id": 2179,
+      "raw_id": 110273,
+      "scores": {
+        "original_index": -0.9696323084917274,
+        "original_terminal_hold": -0.9781132711979303,
+        "census_index": -1.0461297947682877,
+        "census_terminal_hold": -0.3941335083648624
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "negative_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          0,
+          0
+        ],
+        "source_pixels": 13818,
+        "candidates": 14970,
+        "winning_median_hamming": 11.0,
+        "winning_mean_hamming": 10.7016210739615,
+        "median_ties": 1656,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b1ca2e5d-84cf9134|1208|2445|116645",
+      "event_key": "b1ca2e5d-84cf9134|1208",
+      "video": "b1ca2e5d-84cf9134",
+      "frame": 1208,
+      "old_id": 2445,
+      "raw_id": 116645,
+      "scores": {
+        "original_index": -0.8547178357786684,
+        "original_terminal_hold": -1.3028084509729405,
+        "census_index": -0.8920198928239158,
+        "census_terminal_hold": -0.041955624020028615
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "negative_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -1,
+          0
+        ],
+        "source_pixels": 14536,
+        "candidates": 17989,
+        "winning_median_hamming": 6.0,
+        "winning_mean_hamming": 6.921917996697854,
+        "median_ties": 2,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|480|259|9823",
+      "event_key": "b200b84e-4a792877|480",
+      "video": "b200b84e-4a792877",
+      "frame": 480,
+      "old_id": 259,
+      "raw_id": 9823,
+      "scores": {
+        "original_index": 0.9249410224228336,
+        "original_terminal_hold": 0.8097130577625673,
+        "census_index": 0.8643869294331288,
+        "census_terminal_hold": 0.9012218520647688
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -8,
+          -6
+        ],
+        "source_pixels": 1014,
+        "candidates": 963,
+        "winning_median_hamming": 8.0,
+        "winning_mean_hamming": 8.800788954635108,
+        "median_ties": 2,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|482|262|9877",
+      "event_key": "b200b84e-4a792877|482",
+      "video": "b200b84e-4a792877",
+      "frame": 482,
+      "old_id": 262,
+      "raw_id": 9877,
+      "scores": {
+        "original_index": 0.6563582628173392,
+        "original_terminal_hold": 0.6730109022860351,
+        "census_index": 0.495630031619672,
+        "census_terminal_hold": 0.7308369886773847
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -6,
+          -2
+        ],
+        "source_pixels": 1353,
+        "candidates": 763,
+        "winning_median_hamming": 8.0,
+        "winning_mean_hamming": 8.732446415373245,
+        "median_ties": 3,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|752|509|17611",
+      "event_key": "b200b84e-4a792877|752",
+      "video": "b200b84e-4a792877",
+      "frame": 752,
+      "old_id": 509,
+      "raw_id": 17611,
+      "scores": {
+        "original_index": 0.4198912863577229,
+        "original_terminal_hold": 0.5240835811004607,
+        "census_index": -0.2456977486636196,
+        "census_terminal_hold": -0.21481959757295693
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "positive_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          11,
+          -8
+        ],
+        "source_pixels": 1440,
+        "candidates": 748,
+        "winning_median_hamming": 6.0,
+        "winning_mean_hamming": 6.607638888888889,
+        "median_ties": 4,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|754|512|17737",
+      "event_key": "b200b84e-4a792877|754",
+      "video": "b200b84e-4a792877",
+      "frame": 754,
+      "old_id": 512,
+      "raw_id": 17737,
+      "scores": {
+        "original_index": 0.8051766594863408,
+        "original_terminal_hold": 0.6467673278044279,
+        "census_index": 0.37308407590362136,
+        "census_terminal_hold": 0.24418535928798535
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          8,
+          -10
+        ],
+        "source_pixels": 928,
+        "candidates": 575,
+        "winning_median_hamming": 6.0,
+        "winning_mean_hamming": 6.09375,
+        "median_ties": 2,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|759|509|18069",
+      "event_key": "b200b84e-4a792877|759",
+      "video": "b200b84e-4a792877",
+      "frame": 759,
+      "old_id": 509,
+      "raw_id": 18069,
+      "scores": {
+        "original_index": 0.7488545107365336,
+        "original_terminal_hold": 0.8248425421123731,
+        "census_index": 0.4056312228310064,
+        "census_terminal_hold": 0.42021744988908516
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          10,
+          -4
+        ],
+        "source_pixels": 1406,
+        "candidates": 594,
+        "winning_median_hamming": 5.0,
+        "winning_mean_hamming": 5.276671408250356,
+        "median_ties": 2,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|788|524|19781",
+      "event_key": "b200b84e-4a792877|788",
+      "video": "b200b84e-4a792877",
+      "frame": 788,
+      "old_id": 524,
+      "raw_id": 19781,
+      "scores": {
+        "original_index": 0.3261139159876092,
+        "original_terminal_hold": 0.5920729732626273,
+        "census_index": 0.15789417388319837,
+        "census_terminal_hold": 0.4421957483781145
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -19,
+          3
+        ],
+        "source_pixels": 2808,
+        "candidates": 4428,
+        "winning_median_hamming": 8.0,
+        "winning_mean_hamming": 8.647792022792023,
+        "median_ties": 3,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|893|617|25932",
+      "event_key": "b200b84e-4a792877|893",
+      "video": "b200b84e-4a792877",
+      "frame": 893,
+      "old_id": 617,
+      "raw_id": 25932,
+      "scores": {
+        "original_index": -0.6344146050777186,
+        "original_terminal_hold": -0.6194336388951869,
+        "census_index": 0.2260863093441723,
+        "census_terminal_hold": 0.2734704485633088
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "negative_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -24,
+          0
+        ],
+        "source_pixels": 5590,
+        "candidates": 4144,
+        "winning_median_hamming": 7.0,
+        "winning_mean_hamming": 7.667620751341682,
+        "median_ties": 7,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|1014|792|36504",
+      "event_key": "b200b84e-4a792877|1014",
+      "video": "b200b84e-4a792877",
+      "frame": 1014,
+      "old_id": 792,
+      "raw_id": 36504,
+      "scores": {
+        "original_index": 0.5948800863553279,
+        "original_terminal_hold": 0.0005704938609026877,
+        "census_index": -0.4462854589815227,
+        "census_terminal_hold": 0.26875544155985154
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": false,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          19,
+          -1
+        ],
+        "source_pixels": 7954,
+        "candidates": 7734,
+        "winning_median_hamming": 8.0,
+        "winning_mean_hamming": 8.159290922806136,
+        "median_ties": 58,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|1024|824|37364",
+      "event_key": "b200b84e-4a792877|1024",
+      "video": "b200b84e-4a792877",
+      "frame": 1024,
+      "old_id": 824,
+      "raw_id": 37364,
+      "scores": {
+        "original_index": 0.6680468404059985,
+        "original_terminal_hold": 0.19464985110619681,
+        "census_index": 0.2806559228281129,
+        "census_terminal_hold": 0.18255686357799716
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          16,
+          1
+        ],
+        "source_pixels": 6003,
+        "candidates": 3886,
+        "winning_median_hamming": 7.0,
+        "winning_mean_hamming": 7.344494419456939,
+        "median_ties": 22,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|1038|792|38468",
+      "event_key": "b200b84e-4a792877|1038",
+      "video": "b200b84e-4a792877",
+      "frame": 1038,
+      "old_id": 792,
+      "raw_id": 38468,
+      "scores": {
+        "original_index": 0.13891332735152506,
+        "original_terminal_hold": 0.4985299128359282,
+        "census_index": 0.33204226368297574,
+        "census_terminal_hold": 0.23353523719697655
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          5,
+          -1
+        ],
+        "source_pixels": 9135,
+        "candidates": 6470,
+        "winning_median_hamming": 10.0,
+        "winning_mean_hamming": 9.57504105090312,
+        "median_ties": 320,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|1085|944|41885",
+      "event_key": "b200b84e-4a792877|1085",
+      "video": "b200b84e-4a792877",
+      "frame": 1085,
+      "old_id": 944,
+      "raw_id": 41885,
+      "scores": {
+        "original_index": 0.884787076578897,
+        "original_terminal_hold": 0.8776953054251331,
+        "census_index": 0.5530713710189914,
+        "census_terminal_hold": 1.130830438250361
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -15,
+          2
+        ],
+        "source_pixels": 7623,
+        "candidates": 7764,
+        "winning_median_hamming": 8.0,
+        "winning_mean_hamming": 8.232716778171323,
+        "median_ties": 18,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|1101|963|43065",
+      "event_key": "b200b84e-4a792877|1101",
+      "video": "b200b84e-4a792877",
+      "frame": 1101,
+      "old_id": 963,
+      "raw_id": 43065,
+      "scores": {
+        "original_index": 0.13309780300899543,
+        "original_terminal_hold": 0.07549909765150586,
+        "census_index": 0.181681039633677,
+        "census_terminal_hold": 0.4369297751100143
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          14,
+          5
+        ],
+        "source_pixels": 5852,
+        "candidates": 2669,
+        "winning_median_hamming": 9.0,
+        "winning_mean_hamming": 9.286568694463432,
+        "median_ties": 5,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|1149|968|46283",
+      "event_key": "b200b84e-4a792877|1149",
+      "video": "b200b84e-4a792877",
+      "frame": 1149,
+      "old_id": 968,
+      "raw_id": 46283,
+      "scores": {
+        "original_index": 0.9107761987328851,
+        "original_terminal_hold": 0.8178231871570409,
+        "census_index": 0.6071422020213983,
+        "census_terminal_hold": 0.30846217730817904
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -24,
+          0
+        ],
+        "source_pixels": 7448,
+        "candidates": 17488,
+        "winning_median_hamming": 9.0,
+        "winning_mean_hamming": 9.386009667024705,
+        "median_ties": 13,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b200b84e-4a792877|1150|968|46353",
+      "event_key": "b200b84e-4a792877|1150",
+      "video": "b200b84e-4a792877",
+      "frame": 1150,
+      "old_id": 968,
+      "raw_id": 46353,
+      "scores": {
+        "original_index": 0.7894028647813502,
+        "original_terminal_hold": 0.7705093729469423,
+        "census_index": 0.39695591150482024,
+        "census_terminal_hold": 0.12394476889961048
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -30,
+          -1
+        ],
+        "source_pixels": 7448,
+        "candidates": 17488,
+        "winning_median_hamming": 10.0,
+        "winning_mean_hamming": 10.051020408163266,
+        "median_ties": 62,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|385|264|11932",
+      "event_key": "b20d494a-cdebe83e|385",
+      "video": "b20d494a-cdebe83e",
+      "frame": 385,
+      "old_id": 264,
+      "raw_id": 11932,
+      "scores": {
+        "original_index": 0.6791845420589038,
+        "original_terminal_hold": 0.4406168336669012,
+        "census_index": 0.4545115947131064,
+        "census_terminal_hold": 0.6608969836918523
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -2,
+          1
+        ],
+        "source_pixels": 364,
+        "candidates": 1041,
+        "winning_median_hamming": 4.0,
+        "winning_mean_hamming": 4.84065934065934,
+        "median_ties": 1,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1002|834|39301",
+      "event_key": "b20d494a-cdebe83e|1002",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1002,
+      "old_id": 834,
+      "raw_id": 39301,
+      "scores": {
+        "original_index": -0.6781771598915958,
+        "original_terminal_hold": -1.059981331177256,
+        "census_index": -0.2272396560155106,
+        "census_terminal_hold": -0.28705457969984727
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "negative_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          16,
+          -2
+        ],
+        "source_pixels": 702,
+        "candidates": 712,
+        "winning_median_hamming": 6.0,
+        "winning_mean_hamming": 6.93019943019943,
+        "median_ties": 2,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1005|885|39911",
+      "event_key": "b20d494a-cdebe83e|1005",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1005,
+      "old_id": 885,
+      "raw_id": 39911,
+      "scores": {
+        "original_index": 0.010910399669560755,
+        "original_terminal_hold": 0.007223947748304371,
+        "census_index": -0.1283146651435143,
+        "census_terminal_hold": -0.206399370916806
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "positive_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          18,
+          -7
+        ],
+        "source_pixels": 418,
+        "candidates": 1043,
+        "winning_median_hamming": 7.0,
+        "winning_mean_hamming": 6.901913875598086,
+        "median_ties": 1,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": true
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1028|944|44481",
+      "event_key": "b20d494a-cdebe83e|1028",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1028,
+      "old_id": 944,
+      "raw_id": 44481,
+      "scores": {
+        "original_index": 0.6474163810219726,
+        "original_terminal_hold": 0.5728412246504107,
+        "census_index": -0.1780762928996516,
+        "census_terminal_hold": -0.22327987943974786
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "positive_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -6,
+          -8
+        ],
+        "source_pixels": 143,
+        "candidates": 1656,
+        "winning_median_hamming": 1.0,
+        "winning_mean_hamming": 1.5454545454545454,
+        "median_ties": 1,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1030|943|44927",
+      "event_key": "b20d494a-cdebe83e|1030",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1030,
+      "old_id": 943,
+      "raw_id": 44927,
+      "scores": {
+        "original_index": 1.0454787249133914,
+        "original_terminal_hold": 0.9848004504044074,
+        "census_index": 0.7709055974505967,
+        "census_terminal_hold": 0.4452682901726426
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -8,
+          -8
+        ],
+        "source_pixels": 154,
+        "candidates": 1633,
+        "winning_median_hamming": 3.5,
+        "winning_mean_hamming": 4.383116883116883,
+        "median_ties": 1,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1038|987|47000",
+      "event_key": "b20d494a-cdebe83e|1038",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1038,
+      "old_id": 987,
+      "raw_id": 47000,
+      "scores": {
+        "original_index": 0.7919694027551738,
+        "original_terminal_hold": 0.6938792418297335,
+        "census_index": 0.39152826845299726,
+        "census_terminal_hold": 0.3752400239774587
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -10,
+          -8
+        ],
+        "source_pixels": 154,
+        "candidates": 1808,
+        "winning_median_hamming": 4.5,
+        "winning_mean_hamming": 5.045454545454546,
+        "median_ties": 1,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1045|1032|48927",
+      "event_key": "b20d494a-cdebe83e|1045",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1045,
+      "old_id": 1032,
+      "raw_id": 48927,
+      "scores": {
+        "original_index": 0.8470271044479512,
+        "original_terminal_hold": 0.7142969970795146,
+        "census_index": -0.19320094445959085,
+        "census_terminal_hold": -0.2591957230994635
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "positive_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -4,
+          -5
+        ],
+        "source_pixels": 364,
+        "candidates": 1245,
+        "winning_median_hamming": 7.0,
+        "winning_mean_hamming": 8.063186813186814,
+        "median_ties": 1,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1049|943|50011",
+      "event_key": "b20d494a-cdebe83e|1049",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1049,
+      "old_id": 943,
+      "raw_id": 50011,
+      "scores": {
+        "original_index": 0.05507354220170413,
+        "original_terminal_hold": 0.24466223905331075,
+        "census_index": -0.3636304189268113,
+        "census_terminal_hold": 0.0345954802564733
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": false,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -18,
+          -6
+        ],
+        "source_pixels": 221,
+        "candidates": 1562,
+        "winning_median_hamming": 4.0,
+        "winning_mean_hamming": 4.289592760180995,
+        "median_ties": 2,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1051|1032|50516",
+      "event_key": "b20d494a-cdebe83e|1051",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1051,
+      "old_id": 1032,
+      "raw_id": 50516,
+      "scores": {
+        "original_index": 0.061279969968478065,
+        "original_terminal_hold": 0.08524102972913827,
+        "census_index": 0.2013932126769642,
+        "census_terminal_hold": 0.2332812639548172
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -34,
+          -6
+        ],
+        "source_pixels": 378,
+        "candidates": 1020,
+        "winning_median_hamming": 5.0,
+        "winning_mean_hamming": 6.0132275132275135,
+        "median_ties": 2,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1056|979|51829",
+      "event_key": "b20d494a-cdebe83e|1056",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1056,
+      "old_id": 979,
+      "raw_id": 51829,
+      "scores": {
+        "original_index": -0.3859717665523526,
+        "original_terminal_hold": -0.4549994558895177,
+        "census_index": -0.5830907263409468,
+        "census_terminal_hold": -0.6711338394544356
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "negative_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -34,
+          3
+        ],
+        "source_pixels": 672,
+        "candidates": 1589,
+        "winning_median_hamming": 5.0,
+        "winning_mean_hamming": 5.010416666666667,
+        "median_ties": 2,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1089|1284|60123",
+      "event_key": "b20d494a-cdebe83e|1089",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1089,
+      "old_id": 1284,
+      "raw_id": 60123,
+      "scores": {
+        "original_index": 0.6750223329443075,
+        "original_terminal_hold": 0.8912666485737979,
+        "census_index": 0.2963554237187498,
+        "census_terminal_hold": 0.7119443255985753
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -13,
+          0
+        ],
+        "source_pixels": 820,
+        "candidates": 1355,
+        "winning_median_hamming": 4.0,
+        "winning_mean_hamming": 4.421951219512195,
+        "median_ties": 1,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1102|1324|63301",
+      "event_key": "b20d494a-cdebe83e|1102",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1102,
+      "old_id": 1324,
+      "raw_id": 63301,
+      "scores": {
+        "original_index": -0.34598408138587905,
+        "original_terminal_hold": -0.47839527677790183,
+        "census_index": -0.4826794785713847,
+        "census_terminal_hold": -0.5305516409023181
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "negative_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          10,
+          0
+        ],
+        "source_pixels": 660,
+        "candidates": 807,
+        "winning_median_hamming": 10.0,
+        "winning_mean_hamming": 10.006060606060606,
+        "median_ties": 16,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1104|1367|63828",
+      "event_key": "b20d494a-cdebe83e|1104",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1104,
+      "old_id": 1367,
+      "raw_id": 63828,
+      "scores": {
+        "original_index": 0.9999285479830082,
+        "original_terminal_hold": 0.6987671859230542,
+        "census_index": 0.6857899228592839,
+        "census_terminal_hold": 0.13911272655822726
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -4,
+          -9
+        ],
+        "source_pixels": 528,
+        "candidates": 817,
+        "winning_median_hamming": 5.0,
+        "winning_mean_hamming": 5.808712121212121,
+        "median_ties": 1,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1126|1431|69218",
+      "event_key": "b20d494a-cdebe83e|1126",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1126,
+      "old_id": 1431,
+      "raw_id": 69218,
+      "scores": {
+        "original_index": -0.5861882064143424,
+        "original_terminal_hold": -0.6405818255811672,
+        "census_index": -0.34182005189362374,
+        "census_terminal_hold": -0.6124634504513166
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "negative_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          11,
+          1
+        ],
+        "source_pixels": 1320,
+        "candidates": 3751,
+        "winning_median_hamming": 3.0,
+        "winning_mean_hamming": 3.771212121212121,
+        "median_ties": 1,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b20d494a-cdebe83e|1143|1262|73685",
+      "event_key": "b20d494a-cdebe83e|1143",
+      "video": "b20d494a-cdebe83e",
+      "frame": 1143,
+      "old_id": 1262,
+      "raw_id": 73685,
+      "scores": {
+        "original_index": -0.5594525247159289,
+        "original_terminal_hold": -0.9461248479080704,
+        "census_index": -0.7793574960310249,
+        "census_terminal_hold": -0.993912649250354
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": false,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "negative_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          12,
+          4
+        ],
+        "source_pixels": 1188,
+        "candidates": 2756,
+        "winning_median_hamming": 9.0,
+        "winning_mean_hamming": 9.284511784511784,
+        "median_ties": 8,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b230a7b2-c881c382|719|254|10685",
+      "event_key": "b230a7b2-c881c382|719",
+      "video": "b230a7b2-c881c382",
+      "frame": 719,
+      "old_id": 254,
+      "raw_id": 10685,
+      "scores": {
+        "original_index": -0.3366010172745024,
+        "original_terminal_hold": -0.24718205141188354,
+        "census_index": 0.3843325416043746,
+        "census_terminal_hold": 0.4374644023769241
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "negative_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          1,
+          5
+        ],
+        "source_pixels": 1209,
+        "candidates": 742,
+        "winning_median_hamming": 7.0,
+        "winning_mean_hamming": 7.645161290322581,
+        "median_ties": 3,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b230a7b2-c881c382|1082|337|18630",
+      "event_key": "b230a7b2-c881c382|1082",
+      "video": "b230a7b2-c881c382",
+      "frame": 1082,
+      "old_id": 337,
+      "raw_id": 18630,
+      "scores": {
+        "original_index": -0.3516494979840032,
+        "original_terminal_hold": -0.3341176691633918,
+        "census_index": 0.5398296849837003,
+        "census_terminal_hold": 0.5765779700951983
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "negative_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          0,
+          0
+        ],
+        "source_pixels": 1482,
+        "candidates": 619,
+        "winning_median_hamming": 5.0,
+        "winning_mean_hamming": 5.315789473684211,
+        "median_ties": 1,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b230a7b2-c881c382|1083|337|18654",
+      "event_key": "b230a7b2-c881c382|1083",
+      "video": "b230a7b2-c881c382",
+      "frame": 1083,
+      "old_id": 337,
+      "raw_id": 18654,
+      "scores": {
+        "original_index": -0.3736319450460443,
+        "original_terminal_hold": -0.3431510949410025,
+        "census_index": 0.5805426321474569,
+        "census_terminal_hold": 0.6270568671177739
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "negative_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          0,
+          0
+        ],
+        "source_pixels": 1482,
+        "candidates": 619,
+        "winning_median_hamming": 5.0,
+        "winning_mean_hamming": 5.363697705802969,
+        "median_ties": 1,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b230a7b2-c881c382|1128|344|19651",
+      "event_key": "b230a7b2-c881c382|1128",
+      "video": "b230a7b2-c881c382",
+      "frame": 1128,
+      "old_id": 344,
+      "raw_id": 19651,
+      "scores": {
+        "original_index": 0.6326179715902669,
+        "original_terminal_hold": 0.7294049566524321,
+        "census_index": 0.9032892638277008,
+        "census_terminal_hold": 1.0490752469785198
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          0,
+          0
+        ],
+        "source_pixels": 1428,
+        "candidates": 736,
+        "winning_median_hamming": 5.0,
+        "winning_mean_hamming": 5.453081232492997,
+        "median_ties": 1,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b23a79d1-43dfeecd|31|17|692",
+      "event_key": "b23a79d1-43dfeecd|31",
+      "video": "b23a79d1-43dfeecd",
+      "frame": 31,
+      "old_id": 17,
+      "raw_id": 692,
+      "scores": {
+        "original_index": 0.5076187599259381,
+        "original_terminal_hold": 0.20106384446377124,
+        "census_index": 0.3914768925624992,
+        "census_terminal_hold": -0.05781126080429211
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "positive_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          0,
+          -6
+        ],
+        "source_pixels": 3726,
+        "candidates": 7158,
+        "winning_median_hamming": 8.0,
+        "winning_mean_hamming": 8.555823939881911,
+        "median_ties": 20,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": true
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b23a79d1-43dfeecd|674|249|11790",
+      "event_key": "b23a79d1-43dfeecd|674",
+      "video": "b23a79d1-43dfeecd",
+      "frame": 674,
+      "old_id": 249,
+      "raw_id": 11790,
+      "scores": {
+        "original_index": -0.07885230185225711,
+        "original_terminal_hold": -0.06634488039699415,
+        "census_index": 0.021177239068397302,
+        "census_terminal_hold": -0.04218479768610017
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": true,
+        "census_terminal_hold": false
+      },
+      "sign_transition": "negative_to_negative",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -7,
+          4
+        ],
+        "source_pixels": 840,
+        "candidates": 518,
+        "winning_median_hamming": 8.0,
+        "winning_mean_hamming": 8.413095238095238,
+        "median_ties": 2,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b23a79d1-43dfeecd|847|488|16845",
+      "event_key": "b23a79d1-43dfeecd|847",
+      "video": "b23a79d1-43dfeecd",
+      "frame": 847,
+      "old_id": 488,
+      "raw_id": 16845,
+      "scores": {
+        "original_index": 0.023748715492720063,
+        "original_terminal_hold": -0.11503279160038615,
+        "census_index": 0.07156621193778667,
+        "census_terminal_hold": 0.3111346698075331
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": false,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          14,
+          3
+        ],
+        "source_pixels": 1353,
+        "candidates": 878,
+        "winning_median_hamming": 6.0,
+        "winning_mean_hamming": 7.174427198817443,
+        "median_ties": 1,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b23a79d1-43dfeecd|868|527|17648",
+      "event_key": "b23a79d1-43dfeecd|868",
+      "video": "b23a79d1-43dfeecd",
+      "frame": 868,
+      "old_id": 527,
+      "raw_id": 17648,
+      "scores": {
+        "original_index": -0.10496625655885994,
+        "original_terminal_hold": -0.17064604689101986,
+        "census_index": 0.42101234686631606,
+        "census_terminal_hold": 0.5913112394572113
+      },
+      "accepted": {
+        "original_index": false,
+        "original_terminal_hold": false,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "negative_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -8,
+          0
+        ],
+        "source_pixels": 1519,
+        "candidates": 1988,
+        "winning_median_hamming": 4.0,
+        "winning_mean_hamming": 5.179723502304148,
+        "median_ties": 4,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b23a79d1-43dfeecd|869|527|17690",
+      "event_key": "b23a79d1-43dfeecd|869",
+      "video": "b23a79d1-43dfeecd",
+      "frame": 869,
+      "old_id": 527,
+      "raw_id": 17690,
+      "scores": {
+        "original_index": 0.012749518430380968,
+        "original_terminal_hold": -0.09598273993342388,
+        "census_index": 0.279414398319379,
+        "census_terminal_hold": 0.42042453548174374
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": false,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          -11,
+          0
+        ],
+        "source_pixels": 1519,
+        "candidates": 1824,
+        "winning_median_hamming": 5.0,
+        "winning_mean_hamming": 5.78275181040158,
+        "median_ties": 42,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    },
+    {
+      "case_key": "b23a79d1-43dfeecd|1093|718|25944",
+      "event_key": "b23a79d1-43dfeecd|1093",
+      "video": "b23a79d1-43dfeecd",
+      "frame": 1093,
+      "old_id": 718,
+      "raw_id": 25944,
+      "scores": {
+        "original_index": 0.29674268295221917,
+        "original_terminal_hold": 0.41824840055952106,
+        "census_index": 0.4888665874811724,
+        "census_terminal_hold": 0.7966333866064295
+      },
+      "accepted": {
+        "original_index": true,
+        "original_terminal_hold": true,
+        "census_index": true,
+        "census_terminal_hold": true
+      },
+      "sign_transition": "positive_to_positive",
+      "registration": {
+        "ready": true,
+        "translation": [
+          2,
+          -4
+        ],
+        "source_pixels": 666,
+        "candidates": 1150,
+        "winning_median_hamming": 5.0,
+        "winning_mean_hamming": 5.385885885885886,
+        "median_ties": 3,
+        "median_sum_ties": 1,
+        "selected_on_pixel_rectangle_boundary": false
+      },
+      "causal_limits": "Sign change is not identity correctness. Boundary or ambiguous Census objective is a descriptive symptom, not proven physical failure."
+    }
+  ],
+  "baseline_max_channel_error": 0.0,
+  "baseline_max_score_error": 0.0,
+  "audit_max_errors": {
+    "census_cost": 4.547473508864641e-13,
+    "coordinates": 0.0,
+    "source": 0.0,
+    "interpolation": 8.881784197001252e-16,
+    "channels": 1.6653345369377348e-15,
+    "head": 1.3322676295501878e-15
+  },
+  "result_sha256": "8da99872b7b5633b8979d67df50c39ef2d5193c629687b2e4baf435692ad6855",
+  "audit_sha256": "f72a5452fe751cc306e2e8d3b2c6ac4f21a3725db2c952d4deca45c1ee4589dd",
+  "missing_policy": "Preserve missing values; frozen parent composition may report real execution/readiness failure and keep baseline. Never fabricate0 orlarge negative score.",
+  "quality_claim": "No standalone identity/HOTA/generalization success claim; complete appearance, ownership and sameappearance-withoutnewcore comparisons are separate mandatory artifacts."
+}
