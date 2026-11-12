@@ -402,6 +402,28 @@
         "exp:time_semantics_probe_20261112",
         "sys:С1"
       ]
+    },
+    {
+      "id": "lappalainen2024_recurrent_history_control",
+      "title": "Рекуррентная зрительная динамика — Lappalainen и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Временная история",
+      "publication": "Janne K. Lappalainen et al. Connectome-constrained networks predict neural activity across the fly visual system. Nature 634, 1132–1140, 2024.",
+      "doi": "10.1038/s41586-024-07939-3",
+      "url": "https://www.nature.com/articles/s41586-024-07939-3",
+      "sections": "Описание рекуррентного устройства и временного объединения зрительной информации для оптического потока.",
+      "established": "Авторы строят рекуррентную модель по связям зрительной системы и обучают её вычислению оптического потока.",
+      "problem": "С1 — требуется отделить вклад предыстории состояния от последнего зрительного перехода.",
+      "application": "В проверке содержимого предыстории сохранены первый и последние два входа, временная схема и веса; ранние входы меняются отдельно у образца и кандидата.",
+      "limitation": "Наши фиксированные замены не изменили решений. Статья не доказывает причину отказов и не даёт готового правила сохранения личности.",
+      "evidence": [
+        "research_history_content_probe_20261112/protocol.json",
+        "research_history_content_probe_20261112/audit.json"
+      ],
+      "related": [
+        "exp:history_content_probe_20261112",
+        "sys:С1"
+      ]
     }
   ]
 }

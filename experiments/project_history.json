@@ -32277,6 +32277,68 @@
       "interpretation": "Временная семантика причинно меняет численные оценки при фиксированных остальных условиях, но проверенные изменения не исправляют решения. Нельзя объявлять найденное расхождение времени достаточной причиной отказов232/832/574. Удаление повторов и расширение пропусков проверены отдельно; готовые сдвиги, порог и обученные слои сохранены. Физические промежуточные изображения неизвестны: линейное заполнение и удержание являются двумя явными предположениями. Вывод не исключает всех возможных вариантов непрерывной истории.",
       "decision": "Не переносить эти изменения времени в рабочую систему и не подбирать длительности по пяти случаям. Сохранить несоответствие времени как установленное свойство реализации с недоказанным вкладом в ошибки. Следующий уровень — отделить влияние содержимого прежней истории от реакции на текущий вход; это не проверено данным опытом.",
       "cannot_claim": "Не установлена точная причина всех отказов, нет улучшения HOTA или подтверждённого дефекта весов ядра. Изменённая история оценивается прежними слоями; возможен сдвиг распределения признаков. Нет независимого теста или полного трекера."
+    },
+    {
+      "id": "history_content_probe_20261112",
+      "title": "Предыстория FlyVis — неизменный последний переход и раздельная история образца и кандидата",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-12",
+      "question": "Does earlier retinal content cause the incorrect own/foreign decision while the final two inputs, initial state and update count remain fixed?",
+      "hypothesis": "History before the final observed transition can alter the recurrent maps and their agreement; separating reference and candidate histories localizes any decision effect.",
+      "expected": "Отделить действие раннего содержимого истории от последнего перехода и времени; не приписывать эффект отдельному нейрону.",
+      "acceptance": [
+        {
+          "criterion": "All ten untouched core maps match frozen caches within1e-4 and all ten ordinary maps exactly; gate all original cases before interventions.",
+          "met": true,
+          "evidence": "research_history_content_probe_20261112/audit.json"
+        },
+        {
+          "criterion": "Identity maps and decisions exact; first and last two retinal inputs unchanged; same lengths and update counts; independent interpolation/agreement/scalar evaluator error below1e-9; immutable weights and inputs.",
+          "met": true,
+          "evidence": "research_history_content_probe_20261112/audit.json"
+        },
+        {
+          "criterion": "At least one predeclared BOTH-endpoint condition preserves own70/1102, accepts at least one own232/832 and rejects foreign574 at threshold0. All unilateral outcomes retained; no selecting a different mode per case.",
+          "met": false,
+          "evidence": "research_history_content_probe_20261112/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_history_content_probe_20261112/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_history_content_probe_20261112/scores.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_history_content_probe_20261112/audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_history_content_probe_20261112/replay.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_history_content_probe_20261112/baseline_gate.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_history_content_probe_20261112/execution_receipt.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_history_content_probe_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "На пяти известных случаях проверены восемь сочетаний историй и три представления: 120 оценок. Ни одно решение не изменилось. Во всех сочетаниях FlyVis принимает две свои пары и одну чужую; оба обычных контроля принимают три свои и одну чужую. При замене обеих предысторий первым входом / предпоследним входом оценки FlyVis: 232 −1,310997 / −1,201388; 832 −2,181159 / −1,270674; 574 +2,361382 / +2,381563. Исходные оценки соответственно −1,452065, −1,396481, +1,843682. Источник research_history_content_probe_20261112/scores.json, records/counts/decision_changes.",
+      "interpretation": "При неизменных первом и последних двух входах, числе обновлений и весах изменение более раннего содержимого причинно меняет оценки. Однако ни односторонние, ни совместные замены не устранили отказы 232/832 или неверное разрешение 574. Ни одна из двух фиксированных версий постоянной предыстории не прошла критерий. Это не доказывает отсутствие влияния всей памяти: начальный разгон и первый вход не менялись, а обучение считывателя осталось прежним.",
+      "decision": "Не внедрять постоянную предысторию и не подбирать её длину либо содержимое по пяти случаям. Сохранить отдельно отрицательный вывод об этой правке. Для дальнейшей локализации нужен контроль, отделяющий формирование карты от пространственного сравнения; текущий опыт не установил причину неправильного зрительного порядка.",
+      "cannot_claim": "Нет доказательства дефекта определённых нейронов или весов, общей вредности памяти, улучшения сохранения ID либо HOTA. Это пять повторно использованных разработческих случаев. Постоянная предыстория искусственна; возможен сдвиг распределения относительно обучения. Карты двух концов после вмешательства могут происходить из разных искусственных историй. Точная причина всех отказов недели остаётся открытой."
     }
   ],
   "manual_events": [
