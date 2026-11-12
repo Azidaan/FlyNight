@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "baseline_scores": 60,
+  "main_scores": 180,
+  "control_scores": 960,
+  "max_independent_score_error": 2.220446049250313e-15,
+  "max_decomposition_error": 3.1086244689504383e-15,
+  "main_gate_passed": false,
+  "effects574": [
+    {
+      "head": "native",
+      "scores": {
+        "identity": 0.3997342218243878,
+        "residual": 0.09711262497595197,
+        "trend_only": 0.86838297637101
+      },
+      "random_min": 0.3800533648767832,
+      "random_max": 0.42831774285227353,
+      "random_median": 0.40770640862886465,
+      "random_rejected": 0
+    },
+    {
+      "head": "agreement",
+      "scores": {
+        "identity": 1.2615732159624544,
+        "residual": 0.09957275476920091,
+        "trend_only": 2.1221890808050534
+      },
+      "random_min": 1.1893799030056136,
+      "random_max": 1.3505991689034023,
+      "random_median": 1.286227120851286,
+      "random_rejected": 0
+    }
+  ],
+  "variance574": {
+    "reference_median_trend_fraction": 0.5307963687905082,
+    "candidate_median_trend_fraction": 0.33500595189576465
+  },
+  "scope": "Orthogonal decomposition and frozen-reader effects; no claim a spatial plane equals background or a particular neural mechanism."
+}

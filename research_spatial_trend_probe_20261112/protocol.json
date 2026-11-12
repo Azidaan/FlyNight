@@ -1,0 +1,37 @@
+{
+  "registered": "2026-11-12T07:22:14.676166+03:00",
+  "head": "8b3ebda48077d72fae03ee2c16e17c800c9b559c",
+  "inputs": {
+    "research_candidate_support_probe_20261112/patches.npz": "536bb47761f7a7f8822ba77ba7f30993c74a8e6b127f8e6f431ed58968f9065d",
+    "research_candidate_support_probe_20261112/scores.json": "d5d8813e9fac945fcb5b2005bfe82633786b9213810f3e9f344cc16db95a9d77",
+    "research_candidate_support_probe_20261112/audit.json": "d6e32835b8d484ba2af97b978886fd92a94e886f8ca1baa2bfa006a595338087",
+    "tracking/channel_agreement_correspondence.py": "807948699b5f776c7134f51c9a68347afb1bdebeb01462b896607d1dfb8b4740",
+    "tracking/channel_balanced_correspondence.py": "f024871ccebbcb329bd147061d0bf621896eef64cf63a31154d2e244737502bd",
+    "research_spatial_trend_probe_20261112/common.py": "9834f2ea86fbad517cd692c027288493cc09534a13456759f519a11935eee7ae",
+    "research_spatial_trend_probe_20261112/register.py": "55a2a3e57bad3a79916919985cf7f7dda4453e5012390910801294b0339ef326",
+    "research_spatial_trend_probe_20261112/probe.py": "52baa1683980e7f75998e029f18d75b0bad02a343986f3e4e53a141c66cbb461"
+  },
+  "question": "Does shared linear spatial structure sufficiently explain false permission574 within the remaining candidate support?",
+  "hypothesis": "Broad spatial trends, rather than detailed object structure, may dominate the false similarity. Removing their rank2 centered projection may reject574 while retaining true70/1102.",
+  "method": "Use only archived paired patches at frozen correspondences for all5 cases,3 representations,2 heads and full/detector_and_annotation support. Project centered columns onto the2D span of centered query world coordinates. Keep original channel means in residual and trend-only arms. Orthogonality decomposes centered covariance and variance exactly. Evaluate frozen heads;16 seeded random centered rank2 projections control dimension removal. No selection of channels/mask/degree by outcome. A projected patch is an artificial readout diagnostic, not a valid alternative neural trajectory.",
+  "acceptance": [
+    "All60 full/clipped baseline scores reproduce within1e-9 before interventions; input hashes unchanged.",
+    "Independent least-squares decomposition reproduces covariance/variance sums and all main scores within1e-10.",
+    "Report false574 and true232/832/70/1102 for both supports and both heads; no threshold/model change. Main diagnostic outcome:574 rejected by both C34 heads in clipped support while70/1102 accepted. Failure retained; controls do not authorize deploying projection."
+  ],
+  "parameters": {
+    "random_seed": 20261112,
+    "random_controls": 16,
+    "spatial_rank": 2,
+    "modes": [
+      "identity",
+      "residual",
+      "trend_only"
+    ],
+    "supports": [
+      "full",
+      "detector_and_annotation"
+    ]
+  },
+  "limits": "Spatial trends can encode real object structure, not only background. Preserving means isolates covariance; frozen heads may be outside their training distribution after projection. Outcome cannot prove core weights defective or HOTA improved. Plane structure motivated by spatial receptive fields in Lappalainen etal2024, DOI10.1038/s41586-024-07939-3; exact projection is our diagnostic, not their published identity method."
+}
