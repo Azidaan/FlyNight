@@ -1,0 +1,40 @@
+{
+  "state": "draft_not_run_not_registered_as_experiment",
+  "prepared_date": "2026-11-12",
+  "purpose": "Locate the effect of input quantization before considering changes to the FlyVis core.",
+  "execution_block": "AGENTS.md section9.1: weekday computations stop07:40 Europe/Moscow until author returns or explicitly authorizes another window.",
+  "known_from_source": [
+    "runs/full_template_native_20261109/sparse_views.py: SparseFrames applies lamina processing to the full grayscale frame before cropping.",
+    "SparseViews.render resizes the processed crop to391x391, performs13x13 averaging, samples721 cells, then casts the result tofloat16.",
+    "runs/full_template_native_20261109/native_runtime.py: the saved retinal values feed both C34 and R1; promoting them tofloat32 does not restore discarded bits.",
+    "scripts/z13_target_model.py: R1 contains17 EMA channels and17 input-minus-EMA channels. Before storage/normalization rounding, each corresponding pair sums to the current retinal input.",
+    "research_fixed_crop_probe_20261112/render.py quantizes both native and independent rendered arrays tofloat16. Its exact reproduction check does not measure the effect of avoiding input quantization."
+  ],
+  "hypothesis_not_evidence": "Rounding may affect low-contrast distinctions, but its causal contribution to the observed identity errors is not measured. It must not be presented as a found cause.",
+  "registration_required_before_execution": {
+    "new_card": true,
+    "fingerprint": ["actual source files", "video", "saved retinal views", "retina checkpoints", "normalizations", "model weights", "frozen heads"],
+    "cases": "All five cases232,70,1102,574,832 and both endpoints, using complete original observation schedules.",
+    "fixed": ["original frames/crops/history", "retina preprocessing", "eye averaging and sampling", "FlyVis equations/weights/time steps", "readout coefficients", "saved correspondence shifts", "decision thresholds"],
+    "variant": "Preserve the native float32 retinal sample before its finalfloat16 cast. Change no other operation. Reconstruct float16 only for the exact baseline witness."
+  },
+  "stage1_cpu_inputs": {
+    "method": "Restore only required frames using validated sequential decoder/checkpoints. Retain nativefloat32 eye outputs before casting, alongside theirfloat16 copies. Independently verify averaging before the cast. Compare full arrays and sampled patch moments, not only final scores.",
+    "mandatory_baseline": "Every newly rendered float32 view cast tofloat16 must equal the original saved view exactly; otherwise stop and diagnose restoration. No tolerance relaxation.",
+    "outputs": ["before/after input hashes and immutable archive check", "per-view quantization errors", "number of changed cells", "patch means/variances/covariances", "same-render identity control"],
+    "limits": "Current retinal input is an image representation, not an object-ID label; raw-intensity similarity alone cannot establish true correspondence."
+  },
+  "stage2_frozen_module": {
+    "permission": "Only within a newly authorized computation window; one guarded model process, resource limits and deadline recorded before launch.",
+    "mandatory_baseline": "Reproduce every original endpoint map before changed-input passes, using previously registered map tolerances; identity copy exact. If a baseline fails, stop before interpretation.",
+    "arms": ["saved quantized inputs", "exact clone", "float32 before input storage quantization"],
+    "controls": "Apply the same input variant to ordinary R1-based temporal/spatial controls. Recompute each representation using its frozen rules and coefficients; do not train a new head.",
+    "outcome": "Report all five scores and all three representations. If the same own/foreign decisions remain, input quantization is not a sufficient correction for these cases. A change in one score or sign is a local sensitivity result, not proof of general improvement.",
+    "stop": "No full tracker, threshold changes, parameter search, training or extra precision variants. No promotion to tracking evaluation from this draft."
+  },
+  "scientific_text_review": {
+    "method_vs_object": "Input preparation and activity maps are investigated; restoration and precision comparison are methods.",
+    "duplication": "Previous float16 reproduction gates do not compare removal of quantization. Previous FP32/FP64 dynamics comparisons concern other numerical operations.",
+    "actual_vs_planned": "Only static source inspection and this specification are completed. Neither stage has run; no numerical or identity effect is claimed."
+  }
+}
