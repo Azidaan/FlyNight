@@ -1,0 +1,21 @@
+{
+  "registered": "2026-11-12T07:32:12.508911+03:00",
+  "head": "088329ed2dbbbc9aeb17013542ff05edb2141863",
+  "inputs": {
+    "research_spatial_trend_probe_20261112/parts.npz": "37a46225574b6d4e501635cdc0233a8fb11f66db9be804df8b8968caacc59391",
+    "research_spatial_trend_probe_20261112/result.json": "dbf14d137be1ee688cb40f431c1d15ae6b1f62877a24dc66a508c8212693a739",
+    "research_spatial_trend_probe_20261112/audit.json": "2cfa76f1251e1a98bcf321a957c700eecf94338ed28b04e49a797053e0729015",
+    "research_residual_alignment_probe_20261112/common.py": "663b363b17d32216738a775db7ce841f8067059ef8fd8c3158664a6f6411ed83",
+    "research_residual_alignment_probe_20261112/register.py": "62058257b36b57172c2a91e89bb7f361997ab071d2c2ff7008310d68b8113eef",
+    "research_residual_alignment_probe_20261112/probe.py": "ecd6c8607a09906442dbff02fdbc60a96b2198f69cbd4bb044cbbcd01737b600"
+  },
+  "question": "Is remaining false permission574 sustained by residual spatial covariance or by the fixed offset of the frozen reader?",
+  "hypothesis": "Remaining residual spatial covariance may be necessary for false permission even after removing linear spatial trends. Wrong order of own and foreign pairs may persist below the broad trend.",
+  "method": "All5cases,3representations,2supports,2heads. Reuse residual patches while retaining original channel means. Enumerate every cyclic row permutation of candidate, including identity. All channel means and variances stay fixed. Average covariance over all cyclic permutations equals0 exactly; both readers are affine in covariance under these fixed denominators. Independently verify direct loop scores against covariance coefficient expansion and average versus zero-covariance offset. Enumerate all permutations, select none for deployment. Cyclic order is stored sample order, not a physical motion or statistically justified null model.",
+  "acceptance": [
+    "All60 residual identity scores reproduced within1e-10 and input hashes unchanged.",
+    "All permutation scores match independent covariance coefficient expansion within1e-10; their averages match analytic zero-covariance scores.",
+    "Report whether zero-covariance574 is rejected in both C34 heads and whether own232/832 actually exceed this offset. No threshold or model tuning."
+  ],
+  "limits": "Cyclic permutations destroy spatial association but do not create a physically valid image or neural state. They are dependent controls, not independent samples or calibrated p-values. Zero covariance is an algebraic diagnostic; it is not retraining, a deployment threshold, or a neural intervention. No model forward or tracker."
+}
