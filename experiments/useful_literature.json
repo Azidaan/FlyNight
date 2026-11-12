@@ -375,14 +375,32 @@
         "sys:С2",
         "exp:signal_scale_identity_20261109"
       ],
-      "related": [
-        "sys:С2",
-        "exp:signal_scale_identity_20261109"
-      ],
       "evidence": [
         "research_signal_scaling_20261109/math_checks.json",
         "research_signal_scaling_20261109/summary.json",
         "research_signal_scaling_20261109/deployment_screen.json"
+      ]
+    },
+    {
+      "id": "rubanova2019_irregular_time",
+      "title": "Неравномерные интервалы наблюдений — Rubanova и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Временная история",
+      "publication": "Yulia Rubanova, Ricky T. Q. Chen, David Duvenaud. Latent ODEs for Irregularly-Sampled Time Series. NeurIPS, 2019.",
+      "doi": "10.48550/arXiv.1907.03907",
+      "url": "https://arxiv.org/abs/1907.03907",
+      "sections": "Проверены аннотация и положение о передаче интервала между наблюдениями в рекуррентную модель; полный алгоритм не воспроизводился.",
+      "established": "Авторы рассматривают модели непрерывной динамики для наблюдений с произвольными временными промежутками.",
+      "problem": "С1 — нужно отделить свойства реализации временной истории от причин неудачного различения объектов.",
+      "application": "Источник помог различить время по индексу наблюдения и реальные интервалы. В нашем контролируемом опыте отдельно изменены пропуски и повторы при фиксированных весах; оба заполнения пропусков явно обозначены предположениями.",
+      "limitation": "Архитектура Latent ODE в проект не внедрялась. Наши семь условий не исправили три ключевые ошибки; статья не доказывает причину отказов FlyVis.",
+      "evidence": [
+        "research_time_semantics_probe_20261112/protocol.json",
+        "research_time_semantics_probe_20261112/audit.json"
+      ],
+      "related": [
+        "exp:time_semantics_probe_20261112",
+        "sys:С1"
       ]
     }
   ]

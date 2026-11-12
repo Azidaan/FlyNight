@@ -32215,6 +32215,68 @@
       "interpretation": "Замена только одного из трёх сохранённых сдвигов недостаточна для исправления232. Различие FlyVis и временного контроля остаётся при одинаковом сдвиге; оно находится далее в различии представлений и/или их обученных считывателей. Для пространственного контроля выбор сдвига существенен: на сдвиге FlyVis он тоже ошибается. Не доказаны физическая правильность сдвигов, утрата информации ядром или невозможность других соответствий. Внеисходные сдвиги могут менять распределение признаков относительно обучения.",
       "decision": "Не заменять выбор сдвига готовым сдвигом другой ветви. Эта конкретная правка прекращена по отрицательному результату. Пороги, веса и полный трекер сохранить; физическая проверка третьего этапа остаётся незавершённой.",
       "cannot_claim": "Нет улучшения модели, независимого теста, HOTA или точной причины всех отказов. Проверены только три сохранённых сдвига. Последовательность видео, рекуррентное состояние и ядро не менялись."
+    },
+    {
+      "id": "time_semantics_probe_20261112",
+      "title": "Время наблюдений FlyVis — пропуски и повторы кадров при неизменных весах",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-12",
+      "question": "Does changing observation-index time, while keeping recorded observations and all scoring rules fixed, resolve the known identity failures?",
+      "hypothesis": "Fixed-step replay compresses missing frame intervals and advances padded duplicates. Separating these changes may alter the incorrect spatial evidence.",
+      "expected": "Отделить влияние временного порядка от остальных компонентов; не выдавать заполнение пропусков за реальные изображения.",
+      "acceptance": [
+        {
+          "criterion": "Original10C34maps match cached maps within1e-4 and all10ordinary maps exactly; stop before interventions on failure.",
+          "met": true,
+          "evidence": "research_time_semantics_probe_20261112/audit.json"
+        },
+        {
+          "criterion": "Cloned-input identity maps/scores exact; independent CPU reader and alternative interpolation reproduce all105scores within1e-9; all inputs and weights unchanged.",
+          "met": true,
+          "evidence": "research_time_semantics_probe_20261112/audit.json"
+        },
+        {
+          "criterion": "For either elapsed mode individually: retain correct own70/1102, accept at least one of own232/832 and reject foreign574 at fixed threshold0. Report every mode and case; never choose a mode for each case.",
+          "met": false,
+          "evidence": "research_time_semantics_probe_20261112/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_time_semantics_probe_20261112/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_time_semantics_probe_20261112/scores.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_time_semantics_probe_20261112/audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_time_semantics_probe_20261112/replay.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_time_semantics_probe_20261112/baseline_gate.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_time_semantics_probe_20261112/execution_receipt.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_time_semantics_probe_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "На пяти случаях проверены семь условий и три представления:105оценок. Все условия сохранили решения: FlyVis принимает2свои и1чужую, оба обычных контроля3свои и1чужую. У232 исходная оценка−1,452065; полное согласование времени даёт−1,393503 при линейном заполнении и−1,457348 при удержании. У832:−1,396481 → −2,096251/−1,319100; у574:1,843682 → 1,893772/1,828521. Все критерии исправления трёх ошибок не пройдены. Источник research_time_semantics_probe_20261112/scores.json.",
+      "interpretation": "Временная семантика причинно меняет численные оценки при фиксированных остальных условиях, но проверенные изменения не исправляют решения. Нельзя объявлять найденное расхождение времени достаточной причиной отказов232/832/574. Удаление повторов и расширение пропусков проверены отдельно; готовые сдвиги, порог и обученные слои сохранены. Физические промежуточные изображения неизвестны: линейное заполнение и удержание являются двумя явными предположениями. Вывод не исключает всех возможных вариантов непрерывной истории.",
+      "decision": "Не переносить эти изменения времени в рабочую систему и не подбирать длительности по пяти случаям. Сохранить несоответствие времени как установленное свойство реализации с недоказанным вкладом в ошибки. Следующий уровень — отделить влияние содержимого прежней истории от реакции на текущий вход; это не проверено данным опытом.",
+      "cannot_claim": "Не установлена точная причина всех отказов, нет улучшения HOTA или подтверждённого дефекта весов ядра. Изменённая история оценивается прежними слоями; возможен сдвиг распределения признаков. Нет независимого теста или полного трекера."
     }
   ],
   "manual_events": [
