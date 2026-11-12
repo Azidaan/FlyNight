@@ -1,0 +1,73 @@
+Warning: truncated output (original token count: 11024)
+Total output lines: 420
+
+подтверждённых сравнений в подборке: 58
+направлений 18, экспериментов 412, коммитов 764, событий 4139, метрик в словаре 52
+  [infrastructure     ] infra_bdd_baseline           метрик  5  доказательств  3
+  [closed             ] drb_v1_v2                    метрик  5  доказательств  3
+  [completed_negative ] drb_diagnostics              метрик  0  доказательств  2
+  [closed             ] fixed_filter                 метрик  2  доказательств  2
+  [closed             ] quality_map_gates            метрик  1  доказательств  4
+  [completed_positive ] confidence_calibration       метрик  2  доказательств  2
+  [completed_positive ] miss_ladder                  метрик  4  доказательств  3
+  [completed_positive ] age_first_appearance         метрик  4  доказательств  3
+  [running            ] birth_weighting              метрик  0  доказательств  2  · не подтверждено полей: 2
+  [completed_positive ] occlusion_attributes         метрик  2  доказательств  2
+  [closed             ] wavelet_motion               метрик  4  доказательств  4
+  [completed_positive ] tracker_zoo                  метрик  5  доказательств  5
+  [closed             ] tracker_thresholds           метрик  3  доказательств  3
+  [infrastructure     ] tracker10_marker             метрик  0  доказательств  2
+  [completed_positive ] xywh_bytetrack               метрик  4  доказательств  3
+  [completed_negative ] xywh_iou_second              метрик  5  доказательств  3
+  [infrastructure     ] video30_pipeline             метрик  0  доказательств  3
+  [infrastructure     ] flyvis_standalone            метрик  0  доказательств  2
+  [completed_negative ] flyvis_stress                метрик  8  доказательств  4
+  [completed_negative ] motion_confidence_audit      метрик  2  доказательств  2
+  [inconclusive       ] qmatch_gate                  метрик  5  доказательств  4
+  [inconclusive       ] qmatch_30hz_pseudo           метрик  4  доказательств  4
+  [infrastructure     ] bench_freeze_v1              метрик  2  доказательств  4
+  [planned            ] qmatch_candidate_shift       метрик  0  доказательств  1  · не подтверждено полей: 2
+  [completed_negative ] flyvis_internal_readout_v1   метрик  5  доказательств  5
+  [completed_negative ] flyvis_foveation_readout_v1  метрик  5  доказательств  6
+  [completed_negative ] flyvis_readout_nonlinear_diag метрик  2  доказательств  1
+  [infrastructure     ] event_dataset_v1             метрик  2  доказательств  1
+  [completed_positive ] event_heads_v1               метрик  6  доказательств  2
+  [completed_negative ] birth_policy_qbirth_v1       метрик  7  доказательств  3
+  [completed_positive ] birth_policy_deferred_v1     метрик  8  доказательств  3
+  [completed_negative ] flyvis_event_features_v1     метрик  3  доказательств  2
+  [completed_negative ] flyvis_fovea_motion_v1       метр…9224 tokens truncated…20261109 метрик  1  доказательств  8
+  [inconclusive       ] full_template_original_geometry_20261109 метрик  1  доказательств  6
+  [completed_negative ] full_template_native_20261109 метрик  4  доказательств  9
+  [inconclusive       ] geometry_coordinate_gate_20261109 метрик  0  доказательств  5
+  [infrastructure     ] working_domain_identity_inventory_20261109 метрик  0  доказательств  3
+  [completed_negative ] coordinate_frozen_reader_screen_20261109 метрик  0  доказательств  2
+  [inconclusive       ] domain_matched_identity_head_20261109 метрик  0  доказательств  6
+  [infrastructure     ] domain_identity_delivery_preflight_20261109 метрик  0  доказательств  2
+  [completed_negative ] domain_matched_native_identity_20261109 метрик  0  доказательств  6
+  [completed_negative ] shift_profile_contrast_20261109 метрик  0  доказательств  5
+  [completed_negative ] visible_geometry_head_20261109 метрик  0  доказательств  7
+  [completed_negative ] identity_training_stability_20261109 метрик  0  доказательств  4
+  [completed_negative ] partitioned_correspondence_20261109 метрик  0  доказательств  7
+  [completed_negative ] signal_scale_identity_20261109 метрик  0  доказательств  9
+  [completed_negative ] flyvis_two_integration_state_readout_20261111 метрик  0  доказательств  5
+  [completed_negative ] map_value_agreement_20261112 метрик  0  доказательств  5
+  [infrastructure     ] identity_weekly_causal_review_20261112 метрик  0  доказательств  6
+  [inconclusive       ] identity_failure_localization_20261112 метрик  0  доказательств 11
+  [completed_negative ] saved_shift_cross_probe_20261112 метрик  0  доказательств  4
+  [completed_negative ] time_semantics_probe_20261112 метрик  0  доказательств  7
+  [completed_negative ] history_content_probe_20261112 метрик  0  доказательств  7
+  [completed_negative ] surround_dependency_probe_20261112 метрик  0  доказательств  8
+  [completed_negative ] fixed_crop_probe_20261112    метрик  0  доказательств  9
+  [completed_negative ] terminal_response_probe_20261112 метрик  0  доказательств  9
+  [completed_negative ] image_correspondence_probe_20261112 метрик  0  доказательств  9
+  [completed_negative ] candidate_support_probe_20261112 метрик  0  доказательств  7
+  [inconclusive       ] id_birth_audit_20261112      метрик  0  доказательств  6
+  [inconclusive       ] id_state_reconstruction_20261112 метрик  0  доказательств  9
+  [infrastructure     ] detector_output_audit_20261112 метрик  0  доказательств  6
+  [inconclusive       ] camera_motion_probe_20261112 метрик  0  доказательств  5
+
+ПРЕДУПРЕЖДЕНИЯ (2):
+  ! Каталог: эксперимент 'fly_input_norm_hota_v1': файл runs/video_rate/<id>/motion/flyvis_tiled_lcn24.npz не найден на диске
+  ! Каталог: эксперимент 'fly_input_norm_hota_v1': файл runs/video_rate/<id>/bytetrack_motion_injection_gated.json не найден на диске
+
+OK: каталог согласован с источниками

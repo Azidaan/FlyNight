@@ -1,0 +1,56 @@
+{
+  "registered": "2026-11-12T07:00:33.463633+03:00",
+  "head": "06966add653b211c79544623c7ede61d9ed930d3",
+  "inputs": {
+    "data/bdd100k/videos/val/b23b2649-8349d2a1.mov": "d2ebbc0a6388f9867f835a6e868218262a7b200f452076c92d41f9cd8fc9f419",
+    "runs/z13_val20_matched_20261024/cache/b23b2649-8349d2a1/detections/raw_video.npz": "658b9bfbe125249720829f7d53b252c1e51f806ef741ba23d87f53b3cf5c5fbe",
+    "runs/domain_matched_native_20261109/rollouts/C34/b23b2649-8349d2a1.events.json.gz": "aa6a19d1b2e4ea229bfccad9154b95d49be795013cd6fff93ec8da508440aa87",
+    "research_id_birth_audit_20261112/drop232.json": "838886a656dadc508210030bb75cb9fd9df6b8e1d21d0307570dcd612b77aa89",
+    ".venv/Lib/site-packages/ultralytics/trackers/utils/matching.py": "0c5dcddde75ce343ca9626273e3d95e2ea061bcf69f2e0ac0ef519ac1aaffe07",
+    "research_camera_motion_probe_20261112/common.py": "59fdfb02e71daad755f7cf0a31e81547f3391d3b27ef87b8934c05c69c95caf3",
+    "research_camera_motion_probe_20261112/register.py": "2efe51569e0d85167b7a9466d0d422384a4ee9ccf697d31439bed01ff1a6d8d7",
+    "research_camera_motion_probe_20261112/probe.py": "a5c2e2b9e5a5dcd10762a139ed732e728e02f2a6c4892c6eac207c15dee0cd60"
+  },
+  "video": "b23b2649-8349d2a1",
+  "frames": [
+    537,
+    538,
+    539
+  ],
+  "question": "Does independently measured background displacement explain first assignment loss232 at539?",
+  "hypothesis": "Abrupt background displacement shifts observed boxes outside the uncompensated prediction; fixed background correction can remove the local rejection.",
+  "method": "Sequential decode, no neural model. Track Shi-Tomasi points using pyramidal Lucas-Kanade with forward/backward consistency. Exclude detector boxes conf>=0.1 expanded20px on both ends, and fixed target exclusion900,475,1100,620. Fit a similarity transform on even 80px grid cells with RANSAC; assess held-out odd cells. Fit both537->538 and538->539 before inspecting assignments. Primary full transform; residual H538_539 @ inverse(H537_538) checks double-counting existing camera drift. Evaluate target-row-only and all-row geometric corrections on the frozen full539 matrix; preserve original score correction differences. Reverse transform is a direction control. No trajectory replay.",
+  "parameters": {
+    "maxCorners": 2000,
+    "qualityLevel": 0.01,
+    "minDistance": 8,
+    "blockSize": 7,
+    "LKwindow": 21,
+    "LKlevels": 3,
+    "FBmax": 1,
+    "RANSACpx": 2,
+    "RANSACiterations": 2000,
+    "RANSACconfidence": 0.99,
+    "grid": 80,
+    "seed": 0,
+    "mask_margin": 20,
+    "target_exclusion": [
+      900,
+      475,
+      1100,
+      620
+    ]
+  },
+  "acceptance": [
+    "All original input hashes and saved539 cost matrix/assignment reproduce before intervention.",
+    "Both background transforms have at least50 train and50 heldout points, heldout median error<=2px and90th percentile<=5px; target excluded. Failed readiness remains inconclusive, no parameter search.",
+    "At unchanged cost limit0.8 report the exact selected raw detection and all competitor changes for every registered arm; no full-tracker or true-identity gain inferred."
+  ],
+  "fixed": {
+    "match_thresh": 0.8,
+    "score_fusion": true,
+    "tracker_calls": 0,
+    "neural_calls": 0
+  },
+  "limits": "Background transform is an image-motion estimate, not external camera pose. Dynamic unmasked objects, parallax and depth may remain. No direct GT annotation at539; even restored assignment cannot prove true identity. Camera correction is an isolated counterfactual, not unique physical cause. Literature BoT-SORT https://arxiv.org/abs/2206.14651 supports mechanism only."
+}

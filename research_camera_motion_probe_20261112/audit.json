@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "input_unchanged": true,
+  "source_verified": true,
+  "scalar_costs_exact": true,
+  "cost_entries": 2156,
+  "max_cost_error": 0.0,
+  "background_metrics_verified": [
+    {
+      "frames": [
+        537,
+        538
+      ],
+      "heldout_p90": 4.953859527828846,
+      "ready": true
+    },
+    {
+      "frames": [
+        538,
+        539
+      ],
+      "heldout_p90": 5.2223617322654405,
+      "ready": false
+    }
+  ],
+  "readiness_passed": false,
+  "competition": {
+    "full232": 0.7903428077697754,
+    "full474": 0.7877233028411865,
+    "residual232": 0.7856166958808899,
+    "residual474": 0.7879481911659241,
+    "full_to_residual_corner_max_pixels": 0.2528004055798192
+  },
+  "viewed": [
+    "background_538.jpg",
+    "background_539.jpg"
+  ],
+  "visual_observation": "Held-out points sample static buildings, canopy and foreground surfaces. Errors concentrate on some near/far structures. This is consistent with an imperfect global similarity model; the physical cause of residuals is not proved. The red excluded region contains the target; no fitted target points.",
+  "scope": "Arithmetic and measured image displacements verified. Camera-only sufficiency and true identity not established."
+}
