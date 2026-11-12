@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "E:\Dissertation\research_image_correspondence_probe_20261112\publish.py", line 45, in <module>
+    gen.ROOT=ROOT;gen.system_problems=load;gen.build(live);live_audit=aud.audit(live);assert live_audit['passed']
+  File "E:\Dissertation\scripts\obsidian_level_graph.py", line 443, in build
+    used_literature(tree)
+  File "E:\Dissertation\scripts\obsidian_level_graph.py", line 405, in used_literature
+    body=source['publication']+'\n\nDOI `'+source['doi']+'`.\n\n[Первичная статья]('+source['url']+')\n\n'
+KeyError: 'doi'

@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "old_id": 232,
+      "ready": true,
+      "retained": 76,
+      "total": 97,
+      "C34_mapping_discrepancy_median": 4.731949757487853
+    },
+    {
+      "old_id": 70,
+      "ready": true,
+      "retained": 66,
+      "total": 143,
+      "C34_mapping_discrepancy_median": 9.29359572249591
+    },
+    {
+      "old_id": 1102,
+      "ready": false,
+      "retained": 9,
+      "total": 98,
+      "C34_mapping_discrepancy_median": 4.515370296348091
+    },
+    {
+      "old_id": 574,
+      "ready": true,
+      "retained": 98,
+      "total": 120,
+      "C34_mapping_discrepancy_median": 3.827024821219667
+    },
+    {
+      "old_id": 832,
+      "ready": false,
+      "retained": 4,
+      "total": 149,
+      "C34_mapping_discrepancy_median": 16.246164893846558
+    }
+  ],
+  "records": 60,
+  "max_original_error": 8.881784197001252e-16,
+  "max_flow_interpolation_error": 1.1368683772161603e-13,
+  "max_map_interpolation_error": 8.881784197001252e-16,
+  "max_feature_error": 1.609823385706477e-15,
+  "max_score_error": 1.7763568394002505e-15,
+  "primary_met": false,
+  "secondary_met": false,
+  "independence": "Raw flow generation and image decode shared. Independent RegularGridInterpolator for fields, common-mask reconstruction, SciPy map interpolation, MSE concordance and scalar score sum. No independent physical landmarks."
+}

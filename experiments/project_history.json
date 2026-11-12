@@ -32545,6 +32545,76 @@
       "interpretation": "Ошибка перестановки пространственных индексов не обнаружена. Неверное разделение своих и чужих пар сохраняется после фиксированного удержания конечных изображений, когда оценки двух предысторий сближаются. Это отклоняет конкретную правку — использовать ответ после одной секунды удержания с прежним считывателем — и не поддерживает объяснение отказов только последним переходом. Полное установившееся состояние не доказано: остаточная динамика и различия предысторий ненулевые. Конечное представление, физические соответствия деталей и решающее правило ещё требуют разделения.",
       "decision": "Не внедрять удержание конечного изображения и не подбирать его длительность по этим пяти случаям. Следующая диагностика должна проверить физические соответствия и вклад локальных областей в ошибочный балл на сохранённых картах, прежде чем менять ядро или обучать новый считыватель.",
       "cannot_claim": "Не установлена точная причина всех отказов и не доказан дефект конкретного нейрона. Проверка ограничена пятью повторно использованными случаями и фиксированными головами решения; удержание синтетическое и не добавляет наблюдений. Координатная исправность не доказывает соответствие одной физической детали между рамками. Нет обучения, изменения порогов, полного трекера, выигрыша HOTA или независимой оценки обобщения."
+    },
+    {
+      "id": "image_correspondence_probe_20261112",
+      "title": "Соответствия деталей — независимое движение изображения при неизменных картах FlyVis",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-12",
+      "question": "Does independently estimated image displacement, replacing box-relative correspondence on the same saved maps, remove wrong identity decisions?",
+      "hypothesis": "Scaling each reference box into a changed candidate box can compare different visible parts. Independent local image motion may restore correspondence on a verified common subset.",
+      "expected": "Измерить вклад координат сравнения отдельно от выбора ячеек и изменения нейронных карт.",
+      "acceptance": [
+        {
+          "criterion": "All original scores reproduce within1e-9; unchanged maps and identity subset exact; independent score/interpolation checks within1e-9.",
+          "met": true,
+          "evidence": "research_image_correspondence_probe_20261112/audit.json"
+        },
+        {
+          "criterion": "Report readiness and source-to-query discrepancies for all five cases; approximate correspondences never labelled physical ground truth.",
+          "met": true,
+          "evidence": "research_image_correspondence_probe_20261112/audit.json"
+        },
+        {
+          "criterion": "Primary local action:232 original_subset rejects, LK and DIS accept, opposite_LK rejects; both own controls70/1102 ready and accepted by LK/DIS. Secondary:832 corrected and574 rejected with all five ready.",
+          "met": false,
+          "evidence": "research_image_correspondence_probe_20261112/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_image_correspondence_probe_20261112/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_image_correspondence_probe_20261112/scores.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_image_correspondence_probe_20261112/audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_image_correspondence_probe_20261112/correspondence.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_image_correspondence_probe_20261112/baseline_gate.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_image_correspondence_probe_20261112/membership_protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_image_correspondence_probe_20261112/box_membership.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_image_correspondence_probe_20261112/execution_receipt.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_image_correspondence_probe_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Независимые от оценок FlyVis методы движения изображения прошли заранее заданные проверки на 76 из 97 ячеек случая 232, 66 из 143 случая 70 и 98 из 120 случая 574. Для 1102 осталось 9 из 98, для 832 — 4 из 149 при минимуме 10; новые оценки для этих двух случаев не вычислялись. У 232 балл на одинаковом подмножестве: исходное совмещение −1,616400, Lucas–Kanade −2,462311, DIS −2,451064, противоположное движение −2,191166. Для чужой 574 соответственно +1,609828 / +2,398551 / +2,435174 / +3,259262. Свой 70 остаётся принят. Основной критерий исправления не пройден. Дополнительная геометрическая сверка 574: из 120 исходных точек сравнения 46 находятся только в рамке прежнего объекта, 56 только в рамке другого объекта, 14 в пересечении, 4 вне обеих рамок. Источники: research_image_correspondence_probe_20261112/correspondence.json, scores.json, audit.json, box_membership.json.",
+      "interpretation": "Совмещение по согласованному движению исходного изображения не исправляет отказ 232 и усиливает ложное разрешение 574. В пределах этой пробы неправильные координаты не являются достаточным объяснением обоих отказов. На 574 доказано смешение областей разных аннотированных рамок в исходной выборке сравнения: 50 из 120 точек вне рамки кандидата. Это локализованное свойство relative_template_plan с clip_to_candidate=False и полного шаблона; его причинный вклад в ложный балл ещё не проверен исключением этих точек. Рамки не являются масками видимых объектов, а согласие двух алгоритмов не гарантирует физического соответствия. Для 832 и 1102 проверка движения недостаточна; нельзя переносить выводы трёх пригодных случаев на них.",
+      "decision": "Не внедрять замену соответствий по этим методам и не ослаблять условия пригодности после результата. Следующее действие — проверка вклада точек вне аннотированной рамки кандидата на сохранённых картах с одинаковыми контролями поддержки; это диагностическое исключение по известной разметке, не готовое правило рабочего трекера. Для 832 сначала требуется пригодное независимое соответствие, а не повтор прежнего предположения.",
+      "cannot_claim": "Точная причина всех отказов не установлена. Не доказано, что конкретный нейрон испорчен, что все точки вне рамки принадлежат фону или что исключение этих точек исправит решение. Новых нейронных карт, вызовов ядра, обучения, полного трекера и изменений порога нет. Результаты относятся к пяти известным случаям; HOTA и обобщение не измерены."
     }
   ],
   "manual_events": [

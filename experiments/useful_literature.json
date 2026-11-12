@@ -459,6 +459,30 @@
           "reason": "Добавлена проверка фиксированного удержания конечного изображения; прежний текст сохранён."
         }
       ]
+    },
+    {
+      "id": "kroeger2016_image_correspondence",
+      "title": "Независимое движение изображения — Kroeger и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Соответствия физических деталей",
+      "publication": "Till Kroeger, Radu Timofte, Dengxin Dai, Luc Van Gool. Fast Optical Flow using Dense Inverse Search. 2016.",
+      "url": "https://arxiv.org/abs/1603.03590",
+      "sections": "Аннотация и описание поиска соответствий участков, объединения масштабов и уточнения.",
+      "established": "Метод DIS строит плотное поле движения изображения. Согласование с другим методом не является гарантией принадлежности объекту.",
+      "problem": "С1 — неверные оценки карт; С5 — неизвестные соответствия.",
+      "application": "DIS и Lucas–Kanade применены к исходным изображениям независимо от оценок FlyVis. На общем пригодном подмножестве двух ошибочных случаев исправления нет; ещё два случая не прошли проверку пригодности.",
+      "limitation": "Пять известных случаев, общие изображения и возможные общие ошибки двух методов. Полный трекер и HOTA не измерялись.",
+      "evidence": [
+        "research_image_correspondence_probe_20261112/protocol.json",
+        "research_image_correspondence_probe_20261112/correspondence.json",
+        "research_image_correspondence_probe_20261112/audit.json"
+      ],
+      "related": [
+        "exp:image_correspondence_probe_20261112",
+        "sys:С1",
+        "sys:С5"
+      ],
+      "doi": "10.48550/arXiv.1603.03590"
     }
   ]
 }

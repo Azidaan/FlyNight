@@ -1,0 +1,123 @@
+{
+  "passed": true,
+  "created": "2026-11-12T05:14:35.037247+03:00",
+  "records": [
+    {
+      "old_id": 232,
+      "total": 97,
+      "detector_box": [
+        987.3104858398438,
+        538.2578735351562,
+        1023.7550048828125,
+        554.6574096679688
+      ],
+      "annotated_candidate_box": [
+        976.4262053614035,
+        539.9490665444349,
+        1018.4764725622389,
+        555.2838547171149
+      ],
+      "outside_detector": 27,
+      "outside_annotation": 27,
+      "outside_both": 22,
+      "inside_detector_outside_annotation": 5,
+      "outside_detector_inside_annotation": 5,
+      "inside_both": 65
+    },
+    {
+      "old_id": 70,
+      "total": 143,
+      "detector_box": [
+        150.42056274414062,
+        375.820556640625,
+        233.6224822998047,
+        418.607421875
+      ],
+      "annotated_candidate_box": [
+        146.25832850594873,
+        373.3135608966646,
+        232.06551765408238,
+        421.16624738741007
+      ],
+      "outside_detector": 17,
+      "outside_annotation": 0,
+      "outside_both": 0,
+      "inside_detector_outside_annotation": 0,
+      "outside_detector_inside_annotation": 17,
+      "inside_both": 126
+    },
+    {
+      "old_id": 1102,
+      "total": 98,
+      "detector_box": [
+        888.275146484375,
+        266.40631103515625,
+        929.0458374023438,
+        290.11358642578125
+      ],
+      "annotated_candidate_box": [
+        886.293423807056,
+        265.84415904348435,
+        927.6835661064866,
+        288.99543991534904
+      ],
+      "outside_detector": 26,
+      "outside_annotation": 26,
+      "outside_both": 26,
+      "inside_detector_outside_annotation": 0,
+      "outside_detector_inside_annotation": 0,
+      "inside_both": 72
+    },
+    {
+      "old_id": 574,
+      "total": 120,
+      "detector_box": [
+        480.3653259277344,
+        343.91552734375,
+        505.2005615234375,
+        376.6492614746094
+      ],
+      "annotated_candidate_box": [
+        484.8443728638249,
+        344.3850025448171,
+        506.3920250793194,
+        376.6403231646176
+      ],
+      "outside_detector": 22,
+      "outside_annotation": 50,
+      "outside_both": 22,
+      "inside_detector_outside_annotation": 28,
+      "outside_detector_inside_annotation": 0,
+      "inside_both": 70
+    },
+    {
+      "old_id": 832,
+      "total": 149,
+      "detector_box": [
+        575.6935424804688,
+        379.9344482421875,
+        604.2857666015625,
+        405.70843505859375
+      ],
+      "annotated_candidate_box": [
+        562.1993679131763,
+        382.44254249776344,
+        604.4508364756507,
+        406.8586623814529
+      ],
+      "outside_detector": 0,
+      "outside_annotation": 13,
+      "outside_both": 0,
+      "inside_detector_outside_annotation": 13,
+      "outside_detector_inside_annotation": 0,
+      "inside_both": 136
+    }
+  ],
+  "sources": {
+    "protocol.json": "7865a9fe8767be68a9766bbb730a04676edd2c7ef393332e3279dbe577305816",
+    "correspondence.json": "32d5ab26e3167dafdc6d94c54d15bde0e1e35dbd95f39246edf04036df69e673",
+    "box_membership.json": "1404dd87c6134886266dff896109571574a51e3d95d7ea9b1031a681757f7cdb",
+    "detector_box_audit.py": "c885b2a00c3aff9ede58019c55922673e1c195b60e5874af7727810fad0da0f1"
+  },
+  "scope": "Exact set membership. Distinguishes full-template extent from detector/annotation discrepancy; neither is declared a causal explanation of score without a counterfactual."
+}

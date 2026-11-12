@@ -1,0 +1,1978 @@
+{
+  "registered": "2026-11-12T05:06:41.958490+03:00",
+  "head": "45dd6856eed723d693c49940a195c9d51f9046ec",
+  "inputs": {
+    "research_time_semantics_probe_20261112/common.py": "3386d1a2645f7dee7f8050b36ed12dd0db0a5979b6e8e3190b4f01c35015c2eb",
+    "research_time_semantics_probe_20261112/register.py": "565b0dcfb6ad05706b21a59805c33f4a78a943aa1933e486cd61b4c6b7dfc210",
+    "research_time_semantics_probe_20261112/worker.py": "9be8a43f4e50521c662c30eacae22a664d38650a7301fe6ceb04de0f546d362f",
+    "research_time_semantics_probe_20261112/audit.py": "cc4b5d51e29f6a65e6e21170ca6bd3e6ac4077ede23fb39636bc9df43e958bdf",
+    "research_agreement_readout_20261112/protocol.json": "01d42af8f5d2f2309646c48bf14b30dbb1307a9b88d489a8bfc131c69f029c44",
+    "research_agreement_readout_20261112/predictions.json": "594a29e899414fbf9adcf111cede174a40b2c47b4581786c5175093bbc349a9b",
+    "research_saved_shift_probe_20261112/time_path_observation.json": "74994be579017d283614da8703599d80115aa78ba7d6da2c6d3f7b8926a46dff",
+    "runs/domain_matched_native_20261109/execution_protocol.json": "1c10ba53f7972584aacfeef1b43d81a547b683e86a2b53755d3439f78bb968a3",
+    "runs/flyvis/results/flow/0000/000/_meta.yaml": "2aa8a9505324c82bbb4011ee2f7c375b5f8b1bddde1a5281e038baecf91fc5dd",
+    "tracking/flyvis_adapter.py": "5f0473a35c8b70270643d3f31b061d8a5be8bc79eb346053de07566b24e8d5ab",
+    "tracking/flyvis_checkpoint.py": "0280e2ef363f85a2a9455fcd2a2a8148e23daf2bf3d1c394eb6c93cff07fd30e",
+    "tracking/flyvis_activity.py": "cbed742a83d365275f59818fc7eee0912ba46e726e4c4c40f242f907dac29d3d",
+    "tracking/flyvis_motion.py": "f053f52a6f1bb6233884de818a4175c1bb01ab5dff6e0d037f2262bea5b3ffdc",
+    "tracking/gpu_lock.py": "18a1a4ded94df357383d2bb88432fb73c68756e957a2dbbb1d570d32667dc0b9",
+    "tracking/channel_agreement_correspondence.py": "807948699b5f776c7134f51c9a68347afb1bdebeb01462b896607d1dfb8b4740",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "runs/flyvis_repairs_20261106/unification_20261107/system_memory_guard.py": "72d4ecdda4c220b2bba17adda5787d1cc95ee5075e272d7e42d0d0d38f74daa9",
+    "tracking/observed_spatial_reader.py": "66f391d4520edfc9a9f9c46d57157e04dbbcaf73a8d3d1013e931e28e16b045d",
+    "tracking/full_template_correspondence.py": "043c2214a5769aee5b6bafb8d8fdb3a63cd7faa04a28f576d9e22f7c238144f0",
+    "tracking/channel_identity_head.py": "c39c2b3770aedf6fdab9b71a3e68dc35bea52768614cdcebf02823163cc0e79c",
+    "tracking/hex_linear_interpolation.py": "6398d9d9654328e13a9a04c335bed92b5202dabcf8b63ca19a69ebc925ab477e",
+    "tracking/channel_balanced_correspondence.py": "f024871ccebbcb329bd147061d0bf621896eef64cf63a31154d2e244737502bd",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "tracking/foveated_eyes.py": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
+    "tracking/offline_association.py": "b7d4ab568d25708df3601fe890b85b488f646ce010459e3110aa84ee78d54ceb",
+    "scripts/z13_target_model.py": "e7bc7967c8d5fdf04983ed3e01c5fae9d54dbc6ed7b4b17c4c10235beccd862a",
+    "runs/flyvis/results/flow/0000/000/best_chkpt": "d8a57a022aa18ca338599be713af9db29b89cde4b00098ffe42b78f0d583e46a",
+    "runs/z13_target_center_dev_20261018/C/normalization.json": "c06f1147f7f9da0d2d652d137c2c8a85257ba2737d1f7a1bbbde41235193fa4b",
+    "runs/z13_target_center_dev_20261018/R1/normalization.json": "2038ae665ef0c641cbbb1d6c5cb0133276780274073deea9498a38817c3825a8",
+    "tracking/retina.py": "71e51747fa9959652766da0179a3b75953c49f94159da155c52b10999b27c322",
+    "tracking/xywh_bytetrack.py": "85f5d5eaceabdd19cd7cb668fcd2153771466b3f539a8ffa374ddd6f9a946675",
+    "tracking/spatial_identity_assignment.py": "bef5b216dc53e8245db432b29c7822fc05e546c8cd3579fd4424bf5d8fc08098",
+    "tracking/z13_region_assignment.py": "4a79f30d337ef6c442b74a25f379c4a587b325210697490a23d2406a0c806a42",
+    "scripts/run_bdd_video_rate_experiment.py": "babb1eeac2f4a7ee8e2138e7863f437bd1f30cb5d179f938b0944ded65f91acc",
+    "tools/flyvis-runtime/flyvis/network/directories.py": "9d7d1f0107d6f05f2a2964485eadcc1df984e6d967f61830d34aa93ab84a3f18",
+    "tools/flyvis-runtime/flyvis/network/dynamics.py": "e77d9e049661321798f213b9c7e98b58945214ad94ab11c5c1ee930bfaacbc86",
+    "tools/flyvis-runtime/flyvis/network/ensemble.py": "0c9f15983af55214c696cd4a75f7649853321b0512c8008e891a708cffcb2dc4",
+    "tools/flyvis-runtime/flyvis/network/ensemble_view.py": "6f94616af1e54a4b30a45a0658cb0cda7541a3158e76873cd33b5383dbff2caa",
+    "tools/flyvis-runtime/flyvis/network/initialization.py": "5ae82fdaa0361afb0f1646aba1f8abfeb89870c6747ccdd968d5f88eda3ab82c",
+    "tools/flyvis-runtime/flyvis/network/network.py": "eb172be7db1727a2b1af9f4211c2e1a8655004e8602a4db677e56702a3dfeb43",
+    "tools/flyvis-runtime/flyvis/network/network_view.py": "7d61ed226588d352808a2bda975a63d63cea81df8e3b176ebb718f932509eb2c",
+    "tools/flyvis-runtime/flyvis/network/stimulus.py": "bed184c91e3c5908f6b6853929cb5996af7165580bc5bc6a6b65e51c25c827b0",
+    "tools/flyvis-runtime/flyvis/network/__init__.py": "26d0fd3d94bde5baa3432d508cada336e9a669633e71d0d55a991b10440ade98",
+    "runs/domain_matched_native_20261109/features/b23b2649-8349d2a1/c066d891ec1081fb09b2978d25888b63.C34.json": "aa4c6882949cac02a64644530714f2518b8cf1074dbe2f97eea1fed3a52679b9",
+    "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/fbc8faf2ddebfcdb940cb6b7bcc894b5.npy": "cabd88f0bb8fcd591647a17385a42bef61ea5bd0682124ed2241bf81a77036ff",
+    "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/5686b35fcb561b11d2c143b1fc39c6fb.npy": "30a09d5056df83f20fcb1943f3809a2ba737d9b99a89d69b8f4a788e818fc257",
+    "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/299a19ede46e1b3f16ea3d1275ce1b00.npy": "d9f0dd98aa7cc3f954ddee98f27c3bb79eb69ec6287c62e06bab924c91277ddc",
+    "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/7f0e0f135e6fa3acfceb487bbd0f499f.npy": "dc0f532d052a7bcd8b1dbddc5546506671610bdef57b32ff31c94c855f180383",
+    "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/b891ab0488e4741cc86adbc60ee673db.npy": "abde3178b91f9ebf0d7e1c9728dce5ecd154319d2fd6e2df12e887fd375f8412",
+    "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/9994fe73d6593236cc78cadb84a6158b.npy": "db32c8f6c750a1e2c8aa6116b92437c9ef4595404e6b3b47c977d570d1adaf45",
+    "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/793d3287df2578fcdc11b1ee49d69114.npy": "ae84f03d1b363c69aae87a9b22053d7e76d35c10d117ae2a88da00a15f8a74d9",
+    "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/2baf4a482cec67ca13e7476438e451f3.npy": "cef87c1ab4153324cb8a568129e22f2b3a7f0e692d2e7e6635c42f180a334e9b",
+    "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/c504a33e20eac0acffc355c7e92349ec.npy": "93841487fe0edc3b6258ca3e347df174e41933432231319e08cb7c5a559eb08d",
+    "runs/domain_matched_native_20261109/features/b23b2649-8349d2a1/58e0240bf3a1a857229f7536e135a14f.C34.npy": "34c95c7e76ef87ce25f72035223924464324a49b03ef29d515083e3a9effbe14",
+    "runs/identity_assignment_20261108/full_precision/features/b23b2649-8349d2a1/58e0240bf3a1a857229f7536e135a14f.R1.npy": "8fac3d7d08ed1128aa466e9a7239db64528e1474fbcf5ac361ca2a8ef5f943ac",
+    "runs/domain_matched_native_20261109/features/b23b2649-8349d2a1/c066d891ec1081fb09b2978d25888b63.C34.npy": "4d65945539250da07cf59d0b10f93787893991cfea68418125b2ade4435a64e0",
+    "runs/identity_assignment_20261108/full_precision/features/b23b2649-8349d2a1/c066d891ec1081fb09b2978d25888b63.R1.npy": "ac217e1139555c19b9c06eef72869453338766a36ee9722d48325a3e41145313",
+    "runs/domain_matched_native_20261109/features/b242f6b2-0033bdfb/6b527cb8d2a1a82d0b2d453308dfebed.C34.json": "4565b1dda823b30a30a68e5b3492067a2fbad215d287ef6a20e9f5cf3f5639d7",
+    "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/761972bab8cc3a3ee52283192a5af856.npy": "4e28e21d4c192d03091749c80c5681e63ae859b340c459abc93073570d7ee7ea",
+    "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/bd7c758f786375cd5ccb28ea239a24ff.npy": "f6a7abe228f941feac6d756d74d77c6626600cb4ee70934d12df44f5d2cd4074",
+    "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/03d06e49b87bd10edefc6315e14ca508.npy": "8031d1f0435331875b029f26026516cd93ce16849bd4a445eb59f75b1bf51c1a",
+    "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/dc4583a9b2eb564fb5d3f785a3902a99.npy": "0f118e0ae325e670fd6822e30f5b7b593f16e030c3012b8b64411be25ae90fab",
+    "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/a87eccdca72bce1145e8b4831b9e71c3.npy": "b2c5f52cf05cff1add768b35d573ea431717f67de75849526afc6c6f30f05b2d",
+    "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/47817f03242c67d93d7fa2d6f4c2b705.npy": "8d8216238936315019d90517b2c73a205ecc7b601b2146842c536363c7150650",
+    "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/489a63526c935cd8f727c6dfd838bf8f.npy": "94a32ccfe5b2e5fcee103c7ff4745324d79cd63a0722134be39316e91ba0727e",
+    "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/d85ec683e10d0a3cbc67af47643222a7.npy": "a545d496d7bb3f6da13cbe1e8969a90c2898722765c7e18eff39087c24424671",
+    "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/1d7f6295c0b14fff14b5565b8d887d5b.npy": "7cbd6eb1171c241c8411ec0175ea37cd8a4767b978d7de9eacab717183d026d5",
+    "runs/domain_matched_native_20261109/features/b242f6b2-0033bdfb/819eef9a5f815cb6d29f6b69f85a7ccc.C34.npy": "3e557f413d5d713e9633dd7b034114e255d12ba5e9c006685425a5618d7ee160",
+    "runs/domain_matched_native_20261109/features/b242f6b2-0033bdfb/819eef9a5f815cb6d29f6b69f85a7ccc.R1.npy": "e20f8aea8a01f25f482ea0496538dc9f81acbf23237a72f8f1190a54626616d4",
+    "runs/domain_matched_native_20261109/features/b242f6b2-0033bdfb/6b527cb8d2a1a82d0b2d453308dfebed.C34.npy": "e8dafabdf8a6135a04e4d9d72ad374a1a3ce9cbdc6cbe9c070dcfd642018542f",
+    "runs/domain_matched_native_20261109/features/b242f6b2-0033bdfb/6b527cb8d2a1a82d0b2d453308dfebed.R1.npy": "2266528886382bc11e542a3a9041236389160888f54ad36efc5d58f618382dbd",
+    "runs/domain_matched_native_20261109/features/b1f4491b-cf446195/a24cdcdbfb536a68af1aa58faa7fd259.C34.json": "8f25953d0cc2b15878a94ff68abb940486edf966f63ee0908daa654559d363f1",
+    "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/e6e02992894638ea1ed9073a33d36cc3.npy": "c398d91fd82b9aee9119f4c9b893bd4b78edef330a9a4cc835fc0381492db5c6",
+    "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/aac725c95824ec9f2630d0a643834439.npy": "b129c480f10be595d2fcc7c91c2b1d16cdba39c685dece9e9bef2f759d148a71",
+    "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/a64426106ce47235cf7289b4e7316b31.npy": "528b281ea499a1d26a7eb64c5882c62ec383010a15c4e1d98aa1431ce46f38ad",
+    "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/771dc822410bf6d7c7c2ad7f91a4621e.npy": "626ca52c4f7847b7e7c1c6107b95612e143e2e955602fc1f78c09163df23d54f",
+    "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/ca2d034a97d0d14542ae36105f647b2c.npy": "b98a7f025366494a43388eb311b95be2c2ceca25a921e1222ad8843fc174537a",
+    "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/57f6d52dfe5fc0c3735f58907f5e70eb.npy": "d0aca0beeec3ceddac75d7f296d616063be68babb02babf611376113b291bd9e",
+    "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/1127496dc82c82cf6754eaf1e8e2d2d4.npy": "3a749c809ded9ab0dc8811630207a942a641b74c3a3614337753384f372b3e7e",
+    "runs/domain_matched_native_20261109/features/b1f4491b-cf446195/aa231e976b8f0eb77771f481244e4b58.C34.npy": "e11f3dcbee1ceb1a13d76171a29aa2693a1d3dde84f96ce95c5a55f291113d27",
+    "runs/identity_assignment_20261108/full_precision/features/b1f4491b-cf446195/aa231e976b8f0eb77771f481244e4b58.R1.npy": "c180f6b4fa5b2b98dbfc82655ff97fca345566a8e48d57b7bc005272d322c0b0",
+    "runs/domain_matched_native_20261109/features/b1f4491b-cf446195/a24cdcdbfb536a68af1aa58faa7fd259.C34.npy": "81ad6cd3aa265bd39d34edfff10317a5c9603af2a690603d0f7afada98ce52fb",
+    "runs/identity_assignment_20261108/full_precision/features/b1f4491b-cf446195/a24cdcdbfb536a68af1aa58faa7fd259.R1.npy": "3c7369caee7872b487ab67c26443a508d2680d84ba5fafc6d3311dc6f62a074a",
+    "runs/domain_matched_native_20261109/features/b2036451-aa924fd1/cc74b277243bbc8b39ad02e8b1e98529.C34.json": "db00374d1d55cb60c7eff98b183e671d36aa53760b56ddf38c58170fd69a7274",
+    "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/1926af05475f546412df9edd36f7895e.npy": "826dbab02f6bf9542f2b339bf68e4bb5ff435f225ba5dd37de95d32955d522fb",
+    "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/aa3cbac77f65b1b4de422c7854c2308d.npy": "758a45d3b30c2da00f982ca46016acd29e1523435b41199d90d7f123931dde63",
+    "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/c9ccfae946cde7dad153510097541083.npy": "129dd8647b5e465bb3b19e95b1399cc3b6a4894ea0dcab2ef59e9b3ddf29a3e5",
+    "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/5f0dc18c606d3dc424c768f141d3320a.npy": "c213d47d5ae4754ce72fe54e0aa04b8451e75366eedecbb17d2864b86ec4f011",
+    "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/fec737b05b69c88881bdde6f8634fddc.npy": "115217640705aceb9231ea6a6866ccf7ab2d21f5393b106ec6add2d358bb7131",
+    "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/ce31fab0362cdbc8120d1e3146872745.npy": "5bd60b49a9cd1505bc50875fdeebbbfeb91e7f5fe6cc116b335eb5ae1087fda0",
+    "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/7705ec794b5a4e0bf497b7772153dd15.npy": "908b33a5175b6b211fa70df2e364cff1ed75fd680b84ba6673aebafa86cf7ada",
+    "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/6a0f82734cafdbac867292594dd97ff3.npy": "b4565b2194cd9893de85e532ef6e681aedff7876d99611d62d8a7f40e5154283",
+    "runs/domain_matched_native_20261109/features/b2036451-aa924fd1/ad1fdcfab33900b0494157d604bf2f13.C34.npy": "a8af53b9a097a10b36c2d1dedc5c53176b1061f8368af8c31d2e25d07995f115",
+    "runs/identity_assignment_20261108/full_precision/features/b2036451-aa924fd1/ad1fdcfab33900b0494157d604bf2f13.R1.npy": "96518c930bf71a70a56b8c9e16592a72ba78f17ea4f7563641d2cfafd9172eb6",
+    "runs/domain_matched_native_20261109/features/b2036451-aa924fd1/cc74b277243bbc8b39ad02e8b1e98529.C34.npy": "b81416592f3d6b322d12dd79243ce30dcf7295a283576e046096e28a8da52b56",
+    "runs/identity_assignment_20261108/full_precision/features/b2036451-aa924fd1/cc74b277243bbc8b39ad02e8b1e98529.R1.npy": "b02276ba8231ccc8088bcc909c624b409f70fc8caa02028d2e8c47b7bd1ab2a2",
+    "runs/domain_matched_native_20261109/features/b1cd1e94-549d0bfe/1a15acf0c20a58af8bef944d4dedaeaa.C34.json": "7aedc89ce593da76650fc79b481024d1fbe122db6e43ad5b00575760239021a9",
+    "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/97c3e53ca335dd896a5ed60ee9d7a388.npy": "5d34023ec26875e4d61c32025908fc6b3b7788d7b5b3eb2f44c718dc6b4d2292",
+    "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/47c44b4cdec1b57763ef0ecf64dc1022.npy": "a0d87e4deb4cb83861dbfbffaea81605f9c6e78aef88f1357b38a6f0543a7377",
+    "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/a76e7f7ed3c2d0ebe62eed0360a6c5e0.npy": "2c0df147aa203751b6c1deafe38799a14031b3e413fab7105522284e914e335f",
+    "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/d1bb8bef3676f2822740124d7d8853d5.npy": "ffe85f8c2797fec5d763e9c4fe0e6bd6b5f0bdacce5000e4efe10ef7f56f9c3c",
+    "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/9b554e8cf1417a506b5c0dd209bde1ab.npy": "76814aac38160ffbdf941a1833d534e245575c4be482a09a54674cba02a88a48",
+    "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/c3654a692e7fc40b5a13ed8c47ee4f80.npy": "9b35efe2f67b4962505cbb6dcab1f22fafca2d5f5fa0b0b9fa8e5bfcf2c20489",
+    "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/8f43134fb800fc46513d6b2dfdc25fcd.npy": "00ac4cb9c4693473c13e7f27ed4bf6ceecb6aec98aba21bbb145e6da6d4931cb",
+    "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/0c7a595a9fd333320c5d9eb6fcc6df99.npy": "935a579db8499a7374c52b13c225a696c55dc9b5a741fb03dbee0e0e414868d1",
+    "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/8599d4e4c697833fee7f68411e664feb.npy": "674e83ad07f88b6e98c4d36f4a05896936bf65c5778e10afbbf608db0a2c4af0",
+    "runs/domain_matched_native_20261109/features/b1cd1e94-549d0bfe/b7b93d2a8e67f862a18c2dd2abd6f918.C34.npy": "7bc4a3650c3c5cd53a1017f05ddac20aeb05772ede17d242b3cb0eba6e592c39",
+    "runs/domain_matched_native_20261109/features/b1cd1e94-549d0bfe/b7b93d2a8e67f862a18c2dd2abd6f918.R1.npy": "13d256fdccc7bfb3f99aa49fbc4ef245710f0f17e83fcd1203e8984af207c505",
+    "runs/domain_matched_native_20261109/features/b1cd1e94-549d0bfe/1a15acf0c20a58af8bef944d4dedaeaa.C34.npy": "0719eb3e049eda143a3a6c721f76b4831e74f571521373914f56206aa669d955",
+    "runs/domain_matched_native_20261109/features/b1cd1e94-549d0bfe/1a15acf0c20a58af8bef944d4dedaeaa.R1.npy": "68695eeebb05fb8522c71b3f02a93c9a801ec00dee6437b7b2207d82a8b02b10",
+    "research_failure_localization_20261112/frames/232_538_full.png": "0d757e01a48fb7078a556207b7f12bb82fe0a6056d3a18e56e92dfc23392fe47",
+    "research_failure_localization_20261112/frames/232_544_full.png": "ecbb8e1ac26f3d8f65dd5d87546956045eaef92b2364a844f7ba5ec6d1e0fd88",
+    "research_failure_localization_20261112/frames/70_109_full.png": "3d496afe4e80676a6a34deb066e04f68c2bf4a054b2ab735b616c8ff23bb7456",
+    "research_failure_localization_20261112/frames/70_115_full.png": "02f0317ae924747373dd16575e11e97c00bf902e7d15610d36b19b04e6d87e4c",
+    "research_failure_localization_20261112/frames/1102_252_full.png": "de6194d3d542ddcc418f1492502593c25ff250a1286b46a5e30a9e5d4310e219",
+    "research_failure_localization_20261112/frames/1102_258_full.png": "31483a02f4532335305c54d20be881bacb8471ff7dacfccd13a81e3bb1439baa",
+    "research_failure_localization_20261112/frames/574_931_full.png": "c7f04264996bf5d2e4bc08101be48d5bbee988de3f913a34d5f4e834711c1a4f",
+    "research_failure_localization_20261112/frames/574_937_full.png": "b844885d3d1b14e3214c669e631851b6d3c39f92d3ac993ce87d730cb360ad01",
+    "research_failure_localization_20261112/frames/832_534_full.png": "781f0b8bb6faf7ebadeeb4bcea4b1211df7b59acd66df02ebfbd13cbf79f4e7e",
+    "research_failure_localization_20261112/frames/832_540_full.png": "9fe0fda759d934b71609db6a752247f389e6686792441ea46acb3c7d809a25a0",
+    "research_image_correspondence_probe_20261112/common.py": "818b7c44bac5ecc8ea4b0aa8ab4399f64a7b3f7aa66d4f22b052f1f302e75e15",
+    "research_image_correspondence_probe_20261112/setup.py": "c503aa4610ac804ddbe5a3c70dc912e6361017361ca8d5e13a4f0b7bb705db99",
+    "research_image_correspondence_probe_20261112/register.py": "0db6e3b2f00a4910469ed79e27e951d45e266e6219aab9c0b42447da19c2b8ee",
+    "research_image_correspondence_probe_20261112/worker.py": "c0a0f15c4e55879752d9a3accb14dfe1a1c5cad984c13cafadce0eb607c91b1f",
+    "research_image_correspondence_probe_20261112/audit.py": "7dfd9f73f5913bd83f19da8e7cb7f4ad898582643e60aef97ab24a2ae0430b3d",
+    "research_failure_localization_20261112/frame_manifest.json": "1b252374e14b6c1f894ba344e075140ca1d1b988629fe61835c43d7c0bfc489b",
+    "research_failure_localization_20261112/stage3.json": "840c69808fb46c863237132a238a168cb8274407dd7a43d343c17364e6d6fa68"
+  },
+  "cases": [
+    {
+      "case": {
+        "video": "b23b2649-8349d2a1",
+        "frame": 544,
+        "old_id": 232,
+        "raw_id": 54943,
+        "geometry": [
+          0.8043080568313599,
+          6.0,
+          -0.13849539786168052,
+          -0.09831185900076249,
+          0.17643715778865535,
+          -0.13287274988716521,
+          3.332204510175204
+        ],
+        "reference_box": [
+          977.2183386273254,
+          539.8149439860917,
+          1019.0764867316748,
+          557.9086638432507
+        ],
+        "reference_crop": [
+          956,
+          507,
+          1040,
+          591
+        ],
+        "current_box": [
+          987.3104858398438,
+          538.2578735351562,
+          1023.7550048828125,
+          554.6574096679688
+        ],
+        "current_crop": [
+          957,
+          507,
+          1040,
+          590
+        ],
+        "label": "own",
+        "full_cells": 97,
+        "offsets": [
+          [
+            -5.585677749360614,
+            -2.792838874680307
+          ],
+          [
+            -5.585677749360614,
+            0.0
+          ],
+          [
+            -5.585677749360614,
+            2.792838874680307
+          ],
+          [
+            -2.792838874680307,
+            -4.189258312020461
+          ],
+          [
+            -2.792838874680307,
+            -1.3964194373401535
+          ],
+          [
+            -2.792838874680307,
+            1.3964194373401535
+          ],
+          [
+            -2.792838874680307,
+            4.189258312020461
+          ],
+          [
+            0.0,
+            -5.585677749360614
+          ],
+          [
+            0.0,
+            -2.792838874680307
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            2.792838874680307
+          ],
+          [
+            0.0,
+            5.585677749360614
+          ],
+          [
+            2.792838874680307,
+            -4.189258312020461
+          ],
+          [
+            2.792838874680307,
+            -1.3964194373401535
+          ],
+          [
+            2.792838874680307,
+            1.3964194373401535
+          ],
+          [
+            2.792838874680307,
+            4.189258312020461
+          ],
+          [
+            5.585677749360614,
+            -2.792838874680307
+          ],
+          [
+            5.585677749360614,
+            0.0
+          ],
+          [
+            5.585677749360614,
+            2.792838874680307
+          ]
+        ],
+        "keys": [
+          "58e0240bf3a1a857229f7536e135a14f",
+          "c066d891ec1081fb09b2978d25888b63"
+        ],
+        "old_variants": {
+          "C34": {
+            "winner": 6,
+            "channels": [
+              0.2000257002964031,
+              0.030601031536567538,
+              -0.04694989082872832,
+              0.12220222913794335,
+              0.20823825949687957,
+              0.27747272963403513,
+              0.00022261598483556223,
+              0.24124309818332215,
+              0.27640967092616425,
+              0.1205670896484673,
+              0.17734139296839485,
+              0.11229325266509449,
+              0.2676175768746378,
+              0.18230187237938364,
+              0.07193423346216511,
+              0.294980964950473,
+              0.20225665515578073,
+              0.19748996365171284,
+              0.13999865104413348,
+              -0.35547904297856725,
+              0.20867907603869057,
+              0.20731505628620386,
+              0.3007737115030361,
+              0.13249360752989736,
+              0.472308165673448,
+              -0.012972467923901313,
+              -0.06332213774970914,
+              0.1888761152529516,
+              0.10190452181066678,
+              0.209956112133533,
+              0.2221661568234943,
+              0.1660606472893465,
+              0.12633217277621095,
+              0.12656111861384203
+            ]
+          },
+          "R134_spatial": {
+            "winner": 2,
+            "scalar": 0.7070163896375772,
+            "channels": [
+              0.2734052925432559,
+              0.2954851966249728,
+              0.33475301742286917,
+              0.39286291092902914,
+              0.46431369704632675,
+              0.5384231470772531,
+              0.6043755691314763,
+              0.655856513342188,
+              0.6920143502547046,
+              0.7153776225024249,
+              0.729430467724147,
+              0.7372581391188148,
+              0.7411504026676323,
+              0.7426612343390664,
+              0.7427937949169664,
+              0.7421755782555906,
+              0.7411895252974228,
+              0.7007190015689457,
+              0.7048751711949549,
+              0.7112975875761444,
+              0.7255691719850009,
+              0.7482899294059752,
+              0.7758739095619465,
+              0.8035836228526634,
+              0.8279131370543097,
+              0.8473065882195326,
+              0.8617275046218609,
+              0.8719226384847404,
+              0.8788602300624127,
+              0.8834351306985372,
+              0.8863641883351263,
+              0.8881791807828723,
+              0.8892569611308782,
+              0.8898568349475826
+            ]
+          },
+          "R134_temporal": {
+            "winner": 5,
+            "scalar": 0.458259028286546,
+            "channels": [
+              0.5916598566275122,
+              0.5712626533853861,
+              0.5542510938415158,
+              0.5436246074245044,
+              0.5387951991820015,
+              0.53658403963512,
+              0.5337049168599894,
+              0.5285667176218728,
+              0.5213211773466131,
+              0.5129245358540456,
+              0.5043370991071278,
+              0.4962093053440321,
+              0.4888782246004123,
+              0.48246265474306954,
+              0.4769551009322827,
+              0.47228530358472903,
+              0.4683578451982943,
+              0.3379114194933973,
+              0.3642716003328721,
+              0.38884838686404577,
+              0.40862919363242206,
+              0.42210963827960724,
+              0.42918538240404963,
+              0.43070846230357174,
+              0.4280010774513361,
+              0.42246676301631325,
+              0.41534176957110663,
+              0.40758127151700313,
+              0.39984614936011015,
+              0.3925458326906813,
+              0.38590047889166035,
+              0.38000059955950355,
+              0.37485471451182517,
+              0.37042389057455216
+            ]
+          }
+        }
+      },
+      "sequence": [
+        [
+          535,
+          [
+            953,
+            504,
+            1042,
+            593
+          ]
+        ],
+        [
+          536,
+          [
+            955,
+            506,
+            1040,
+            591
+          ]
+        ],
+        [
+          537,
+          [
+            957,
+            507,
+            1040,
+            590
+          ]
+        ],
+        [
+          538,
+          [
+            956,
+            507,
+            1040,
+            591
+          ]
+        ],
+        [
+          540,
+          [
+            957,
+            507,
+            1040,
+            590
+          ]
+        ],
+        [
+          541,
+          [
+            957,
+            507,
+            1040,
+            590
+          ]
+        ],
+        [
+          542,
+          [
+            957,
+            507,
+            1040,
+            590
+          ]
+        ],
+        [
+          543,
+          [
+            957,
+            507,
+            1040,
+            590
+          ]
+        ],
+        [
+          544,
+          [
+            957,
+            507,
+            1040,
+            590
+          ]
+        ]
+      ],
+      "views": [
+        "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/fbc8faf2ddebfcdb940cb6b7bcc894b5.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/5686b35fcb561b11d2c143b1fc39c6fb.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/299a19ede46e1b3f16ea3d1275ce1b00.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/7f0e0f135e6fa3acfceb487bbd0f499f.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/b891ab0488e4741cc86adbc60ee673db.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/9994fe73d6593236cc78cadb84a6158b.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/793d3287df2578fcdc11b1ee49d69114.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/2baf4a482cec67ca13e7476438e451f3.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b23b2649-8349d2a1/c504a33e20eac0acffc355c7e92349ec.npy"
+      ],
+      "endpoints": [
+        {
+          "length": 4,
+          "paths": {
+            "C34": "runs/domain_matched_native_20261109/features/b23b2649-8349d2a1/58e0240bf3a1a857229f7536e135a14f.C34.npy",
+            "R1": "runs/identity_assignment_20261108/full_precision/features/b23b2649-8349d2a1/58e0240bf3a1a857229f7536e135a14f.R1.npy"
+          }
+        },
+        {
+          "length": 9,
+          "paths": {
+            "C34": "runs/domain_matched_native_20261109/features/b23b2649-8349d2a1/c066d891ec1081fb09b2978d25888b63.C34.npy",
+            "R1": "runs/identity_assignment_20261108/full_precision/features/b23b2649-8349d2a1/c066d891ec1081fb09b2978d25888b63.R1.npy"
+          }
+        }
+      ],
+      "ordinary_input_witness_exact": true
+    },
+    {
+      "case": {
+        "video": "b242f6b2-0033bdfb",
+        "frame": 115,
+        "old_id": 70,
+        "raw_id": 4691,
+        "geometry": [
+          0.8300043344497681,
+          6.0,
+          0.22192217227202868,
+          0.04763753399758248,
+          0.20108450075606932,
+          -0.03542972849695147,
+          4.127134385045092
+        ],
+        "reference_box": [
+          145.29923074228404,
+          378.2611985714701,
+          211.94211291882908,
+          419.0575900948094
+        ],
+        "reference_crop": [
+          112,
+          332,
+          245,
+          465
+        ],
+        "current_box": [
+          150.42056274414062,
+          375.820556640625,
+          233.6224822998047,
+          418.607421875
+        ],
+        "current_crop": [
+          111,
+          335,
+          240,
+          464
+        ],
+        "label": "own",
+        "full_cells": 143,
+        "offsets": [
+          [
+            -8.843989769820972,
+            -4.421994884910486
+          ],
+          [
+            -8.843989769820972,
+            0.0
+          ],
+          [
+            -8.843989769820972,
+            4.421994884910486
+          ],
+          [
+            -4.421994884910486,
+            -6.632992327365729
+          ],
+          [
+            -4.421994884910486,
+            -2.210997442455243
+          ],
+          [
+            -4.421994884910486,
+            2.210997442455243
+          ],
+          [
+            -4.421994884910486,
+            6.632992327365729
+          ],
+          [
+            0.0,
+            -8.843989769820972
+          ],
+          [
+            0.0,
+            -4.421994884910486
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            4.421994884910486
+          ],
+          [
+            0.0,
+            8.843989769820972
+          ],
+          [
+            4.421994884910486,
+            -6.632992327365729
+          ],
+          [
+            4.421994884910486,
+            -2.210997442455243
+          ],
+          [
+            4.421994884910486,
+            2.210997442455243
+          ],
+          [
+            4.421994884910486,
+            6.632992327365729
+          ],
+          [
+            8.843989769820972,
+            -4.421994884910486
+          ],
+          [
+            8.843989769820972,
+            0.0
+          ],
+          [
+            8.843989769820972,
+            4.421994884910486
+          ]
+        ],
+        "keys": [
+          "819eef9a5f815cb6d29f6b69f85a7ccc",
+          "6b527cb8d2a1a82d0b2d453308dfebed"
+        ],
+        "old_variants": {
+          "C34": {
+            "winner": 5,
+            "channels": [
+              0.7790903563913003,
+              0.9041067822577545,
+              0.7625187601543684,
+              0.8104254850913151,
+              0.5712091482572142,
+              0.5623020665996328,
+              0.713114276571459,
+              0.5700195727785997,
+              0.5902511987485058,
+              0.39795574139411694,
+              0.6481896721474593,
+              0.6738774705789211,
+              0.7700303845557305,
+              0.5914167817851365,
+              0.7705306573252334,
+              0.6325454642759119,
+              0.7410441084010511,
+              0.8507605052139317,
+              0.9218423348126399,
+              0.5224655598532619,
+              0.6429079038070193,
+              0.7918508827595612,
+              0.40984875942049737,
+              0.7113062516749598,
+              0.8787175533977196,
+              0.800759870516155,
+              0.465347501762091,
+              0.3858786824901239,
+              0.8123487937931059,
+              0.7707314507017956,
+              0.7116673959072481,
+              0.5623869428584761,
+              0.1019976950285642,
+              0.43502831344246506
+            ]
+          },
+          "R134_spatial": {
+            "winner": 1,
+            "scalar": 0.8551062649299267,
+            "channels": [
+              0.8916168601947226,
+              0.89536248771291,
+              0.8924098859493002,
+              0.8867152691765577,
+              0.8802655980362126,
+              0.8731968086291433,
+              0.8644567390212773,
+              0.8526627168211772,
+              0.8368832195220568,
+              0.8170920728088344,
+              0.7941621588059774,
+              0.769500501002958,
+              0.744587900389178,
+              0.7206461537956312,
+              0.6985023302662068,
+              0.6786027473347925,
+              0.6610979306336895,
+              0.9439710588377098,
+              0.9438126954795889,
+              0.9406945805756773,
+              0.9372627505663013,
+              0.9347370434807467,
+              0.9329930305358389,
+              0.9310166079058143,
+              0.9274975010381177,
+              0.9213759836805729,
+              0.9121923585698403,
+              0.9001590770191049,
+              0.8859931202112298,
+              0.8706392214316878,
+              0.8550191194150166,
+              0.8398780881717951,
+              0.8257314052285315,
+              0.8128779853693069
+            ]
+          },
+          "R134_temporal": {
+            "winner": 1,
+            "scalar": 0.5662208205489402,
+            "channels": [
+              0.8916168601947226,
+              0.89536248771291,
+              0.8924098859493002,
+              0.8867152691765577,
+              0.8802655980362126,
+              0.8731968086291433,
+              0.8644567390212773,
+              0.8526627168211772,
+              0.8368832195220568,
+              0.8170920728088344,
+              0.7941621588059774,
+              0.769500501002958,
+              0.744587900389178,
+              0.7206461537956312,
+              0.6985023302662068,
+              0.6786027473347925,
+              0.6610979306336895,
+              0.2583621125152444,
+              0.30315753830485537,
+              0.34740944449088906,
+              0.3799074135711218,
+              0.39162045728472955,
+              0.3852685267822976,
+              0.36992696245355366,
+              0.3526488095585034,
+              0.3367413926959179,
+              0.32321477555395545,
+              0.312092592377448,
+              0.3030714228617363,
+              0.29578738171344365,
+              0.28990772444253066,
+              0.2851542287317748,
+              0.2813023545443663,
+              0.27817338068097264
+            ]
+          }
+        }
+      },
+      "sequence": [
+        [
+          104,
+          [
+            99,
+            308,
+            278,
+            487
+          ]
+        ],
+        [
+          105,
+          [
+            98,
+            309,
+            276,
+            487
+          ]
+        ],
+        [
+          106,
+          [
+            100,
+            310,
+            275,
+            485
+          ]
+        ],
+        [
+          109,
+          [
+            112,
+            332,
+            245,
+            465
+          ]
+        ],
+        [
+          111,
+          [
+            113,
+            334,
+            242,
+            463
+          ]
+        ],
+        [
+          112,
+          [
+            112,
+            334,
+            241,
+            463
+          ]
+        ],
+        [
+          113,
+          [
+            112,
+            334,
+            241,
+            463
+          ]
+        ],
+        [
+          114,
+          [
+            111,
+            335,
+            240,
+            464
+          ]
+        ],
+        [
+          115,
+          [
+            111,
+            335,
+            240,
+            464
+          ]
+        ]
+      ],
+      "views": [
+        "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/761972bab8cc3a3ee52283192a5af856.npy",
+        "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/bd7c758f786375cd5ccb28ea239a24ff.npy",
+        "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/03d06e49b87bd10edefc6315e14ca508.npy",
+        "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/dc4583a9b2eb564fb5d3f785a3902a99.npy",
+        "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/a87eccdca72bce1145e8b4831b9e71c3.npy",
+        "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/47817f03242c67d93d7fa2d6f4c2b705.npy",
+        "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/489a63526c935cd8f727c6dfd838bf8f.npy",
+        "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/d85ec683e10d0a3cbc67af47643222a7.npy",
+        "runs/full_template_native_20261109/retinal/b242f6b2-0033bdfb/1d7f6295c0b14fff14b5565b8d887d5b.npy"
+      ],
+      "endpoints": [
+        {
+          "length": 4,
+          "paths": {
+            "C34": "runs/domain_matched_native_20261109/features/b242f6b2-0033bdfb/819eef9a5f815cb6d29f6b69f85a7ccc.C34.npy",
+            "R1": "runs/domain_matched_native_20261109/features/b242f6b2-0033bdfb/819eef9a5f815cb6d29f6b69f85a7ccc.R1.npy"
+          }
+        },
+        {
+          "length": 9,
+          "paths": {
+            "C34": "runs/domain_matched_native_20261109/features/b242f6b2-0033bdfb/6b527cb8d2a1a82d0b2d453308dfebed.C34.npy",
+            "R1": "runs/domain_matched_native_20261109/features/b242f6b2-0033bdfb/6b527cb8d2a1a82d0b2d453308dfebed.R1.npy"
+          }
+        }
+      ],
+      "ordinary_input_witness_exact": true
+    },
+    {
+      "case": {
+        "video": "b1f4491b-cf446195",
+        "frame": 258,
+        "old_id": 1102,
+        "raw_id": 32657,
+        "geometry": [
+          0.7851454019546509,
+          6.0,
+          -0.11212600356887013,
+          0.03738420480010461,
+          0.5422613055777328,
+          -0.05867428821278613,
+          3.6888794541139363
+        ],
+        "reference_box": [
+          861.1247375488282,
+          268.1812347412109,
+          906.7330261230469,
+          291.0185943603515
+        ],
+        "reference_crop": [
+          838,
+          234,
+          929,
+          325
+        ],
+        "current_box": [
+          888.275146484375,
+          266.40631103515625,
+          929.0458374023438,
+          290.11358642578125
+        ],
+        "current_crop": [
+          838,
+          234,
+          929,
+          325
+        ],
+        "label": "own",
+        "full_cells": 98,
+        "offsets": [
+          [
+            -6.051150895140665,
+            -3.0255754475703327
+          ],
+          [
+            -6.051150895140665,
+            0.0
+          ],
+          [
+            -6.051150895140665,
+            3.0255754475703327
+          ],
+          [
+            -3.0255754475703327,
+            -4.538363171355499
+          ],
+          [
+            -3.0255754475703327,
+            -1.5127877237851663
+          ],
+          [
+            -3.0255754475703327,
+            1.5127877237851663
+          ],
+          [
+            -3.0255754475703327,
+            4.538363171355499
+          ],
+          [
+            0.0,
+            -6.051150895140665
+          ],
+          [
+            0.0,
+            -3.0255754475703327
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            3.0255754475703327
+          ],
+          [
+            0.0,
+            6.051150895140665
+          ],
+          [
+            3.0255754475703327,
+            -4.538363171355499
+          ],
+          [
+            3.0255754475703327,
+            -1.5127877237851663
+          ],
+          [
+            3.0255754475703327,
+            1.5127877237851663
+          ],
+          [
+            3.0255754475703327,
+            4.538363171355499
+          ],
+          [
+            6.051150895140665,
+            -3.0255754475703327
+          ],
+          [
+            6.051150895140665,
+            0.0
+          ],
+          [
+            6.051150895140665,
+            3.0255754475703327
+          ]
+        ],
+        "keys": [
+          "aa231e976b8f0eb77771f481244e4b58",
+          "a24cdcdbfb536a68af1aa58faa7fd259"
+        ],
+        "old_variants": {
+          "C34": {
+            "winner": 2,
+            "channels": [
+              0.6022206909518604,
+              0.75702553155663,
+              0.7891176109949787,
+              0.7439731335275026,
+              0.565017201970082,
+              -0.07039991127634264,
+              0.5650971893213329,
+              0.5079209573997036,
+              0.329629375948167,
+              0.18298755443497905,
+              0.553378734595421,
+              0.4513500847995534,
+              0.5999803935490154,
+              0.5408687501526694,
+              0.6910130285123239,
+              0.3476692643767153,
+              0.52355484848816,
+              0.5940988902092799,
+              0.7927685273750569,
+              -0.03391347157000327,
+              0.5660870145655461,
+              0.7268952769612574,
+              0.18495040507367191,
+              0.5904750897876351,
+              0.7230446175069583,
+              0.6579648405818117,
+              0.4772374637705479,
+              0.5945041975545517,
+              0.7562043274534943,
+              0.7157041622682965,
+              0.5208836925865591,
+              0.3945563994626623,
+              0.2974233459713574,
+              0.18460198001004036
+            ]
+          },
+          "R134_spatial": {
+            "winner": 5,
+            "scalar": 0.6045498221087044,
+            "channels": [
+              0.6735324565540576,
+              0.6832081346639083,
+              0.6783058081440778,
+              0.6671957864322463,
+              0.6543177417220356,
+              0.6406028823963812,
+              0.6248824252265403,
+              0.6055802814028887,
+              0.5820968884949884,
+              0.5553035883927057,
+              0.5270599005517028,
+              0.49933932363263916,
+              0.4736143459134053,
+              0.45069075545265763,
+              0.43082689265908675,
+              0.41393216686693307,
+              0.39973589682102967,
+              0.8114922278620111,
+              0.8089801525399158,
+              0.7988228316386922,
+              0.7854887174012126,
+              0.7708058459737531,
+              0.7544139673154824,
+              0.7346941673068126,
+              0.70989564118938,
+              0.679205957900319,
+              0.6433404274420533,
+              0.6043384216832522,
+              0.5647652888360468,
+              0.5268881951387897,
+              0.49223646037447455,
+              0.46156753419301344,
+              0.43504923708904075,
+              0.41248360248442073
+            ]
+          },
+          "R134_temporal": {
+            "winner": 2,
+            "scalar": 0.3458201790455304,
+            "channels": [
+              0.5116399872916809,
+              0.5796336430461917,
+              0.6285622520323376,
+              0.6604850912352436,
+              0.6783070226694259,
+              0.6836781488969608,
+              0.6772100637499173,
+              0.6598010786469991,
+              0.6336290613497625,
+              0.6020135771289102,
+              0.5684659722912117,
+              0.5357978721910207,
+              0.5057745968626883,
+              0.47922722817488883,
+              0.4563423289639896,
+              0.4369375584968839,
+              0.4206571215637574,
+              0.2446827709896772,
+              0.2199003194371234,
+              0.196101794720154,
+              0.17469702311102725,
+              0.15588736576246565,
+              0.1394307232298815,
+              0.12501950549877344,
+              0.11241356927390489,
+              0.10144754703116715,
+              0.09199398735057447,
+              0.0839290960012065,
+              0.07711727383040108,
+              0.07141204598053626,
+              0.06666452076877619,
+              0.06273216644209936,
+              0.059485008301289104,
+              0.056808765227105706
+            ]
+          }
+        }
+      },
+      "sequence": [
+        [
+          251,
+          [
+            842,
+            236,
+            927,
+            321
+          ]
+        ],
+        [
+          251,
+          [
+            842,
+            236,
+            927,
+            321
+          ]
+        ],
+        [
+          251,
+          [
+            842,
+            236,
+            927,
+            321
+          ]
+        ],
+        [
+          252,
+          [
+            838,
+            234,
+            929,
+            325
+          ]
+        ],
+        [
+          254,
+          [
+            838,
+            234,
+            929,
+            325
+          ]
+        ],
+        [
+          255,
+          [
+            838,
+            234,
+            929,
+            325
+          ]
+        ],
+        [
+          256,
+          [
+            838,
+            234,
+            929,
+            325
+          ]
+        ],
+        [
+          257,
+          [
+            838,
+            234,
+            929,
+            325
+          ]
+        ],
+        [
+          258,
+          [
+            838,
+            234,
+            929,
+            325
+          ]
+        ]
+      ],
+      "views": [
+        "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/e6e02992894638ea1ed9073a33d36cc3.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/e6e02992894638ea1ed9073a33d36cc3.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/e6e02992894638ea1ed9073a33d36cc3.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/aac725c95824ec9f2630d0a643834439.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/a64426106ce47235cf7289b4e7316b31.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/771dc822410bf6d7c7c2ad7f91a4621e.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/ca2d034a97d0d14542ae36105f647b2c.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/57f6d52dfe5fc0c3735f58907f5e70eb.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b1f4491b-cf446195/1127496dc82c82cf6754eaf1e8e2d2d4.npy"
+      ],
+      "endpoints": [
+        {
+          "length": 4,
+          "paths": {
+            "C34": "runs/domain_matched_native_20261109/features/b1f4491b-cf446195/aa231e976b8f0eb77771f481244e4b58.C34.npy",
+            "R1": "runs/identity_assignment_20261108/full_precision/features/b1f4491b-cf446195/aa231e976b8f0eb77771f481244e4b58.R1.npy"
+          }
+        },
+        {
+          "length": 9,
+          "paths": {
+            "C34": "runs/domain_matched_native_20261109/features/b1f4491b-cf446195/a24cdcdbfb536a68af1aa58faa7fd259.C34.npy",
+            "R1": "runs/identity_assignment_20261108/full_precision/features/b1f4491b-cf446195/a24cdcdbfb536a68af1aa58faa7fd259.R1.npy"
+          }
+        }
+      ],
+      "ordinary_input_witness_exact": true
+    },
+    {
+      "case": {
+        "video": "b2036451-aa924fd1",
+        "frame": 937,
+        "old_id": 574,
+        "raw_id": 35274,
+        "geometry": [
+          0.5983834862709045,
+          6.0,
+          0.40318652296235147,
+          0.02603797435631377,
+          0.3885738567543481,
+          -0.08811640244234731,
+          4.060443010546419
+        ],
+        "reference_box": [
+          478.0374223317355,
+          347.14643192392754,
+          494.632015208585,
+          379.0388465846338
+        ],
+        "reference_crop": [
+          454,
+          331,
+          518,
+          395
+        ],
+        "current_box": [
+          480.3653259277344,
+          343.91552734375,
+          505.2005615234375,
+          376.6492614746094
+        ],
+        "current_crop": [
+          456,
+          331,
+          520,
+          395
+        ],
+        "label": "foreign",
+        "full_cells": 120,
+        "offsets": [
+          [
+            -4.255754475703325,
+            -2.1278772378516626
+          ],
+          [
+            -4.255754475703325,
+            0.0
+          ],
+          [
+            -4.255754475703325,
+            2.1278772378516626
+          ],
+          [
+            -2.1278772378516626,
+            -3.191815856777494
+          ],
+          [
+            -2.1278772378516626,
+            -1.0639386189258313
+          ],
+          [
+            -2.1278772378516626,
+            1.0639386189258313
+          ],
+          [
+            -2.1278772378516626,
+            3.191815856777494
+          ],
+          [
+            0.0,
+            -4.255754475703325
+          ],
+          [
+            0.0,
+            -2.1278772378516626
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            2.1278772378516626
+          ],
+          [
+            0.0,
+            4.255754475703325
+          ],
+          [
+            2.1278772378516626,
+            -3.191815856777494
+          ],
+          [
+            2.1278772378516626,
+            -1.0639386189258313
+          ],
+          [
+            2.1278772378516626,
+            1.0639386189258313
+          ],
+          [
+            2.1278772378516626,
+            3.191815856777494
+          ],
+          [
+            4.255754475703325,
+            -2.1278772378516626
+          ],
+          [
+            4.255754475703325,
+            0.0
+          ],
+          [
+            4.255754475703325,
+            2.1278772378516626
+          ]
+        ],
+        "keys": [
+          "ad1fdcfab33900b0494157d604bf2f13",
+          "cc74b277243bbc8b39ad02e8b1e98529"
+        ],
+        "old_variants": {
+          "C34": {
+            "winner": 2,
+            "channels": [
+              0.6703561783045922,
+              0.8541283370771441,
+              0.708700533443348,
+              0.7389546353527551,
+              0.2812940983855773,
+              0.24655493190074676,
+              0.4933221049098967,
+              0.42297776191565334,
+              0.3342301259933858,
+              0.2989341525791559,
+              0.5596617364770368,
+              0.40564678774910856,
+              0.8355535114893864,
+              0.6119079377787855,
+              0.6456333461951806,
+              0.4709840125376896,
+              0.6905708960031843,
+              0.7152169798708912,
+              0.9199731404073606,
+              0.8517619113442421,
+              0.5620019879397444,
+              0.7736427322862043,
+              0.3596690542347606,
+              0.6287735727802668,
+              0.9024981135340605,
+              0.7852343731033932,
+              0.6681680034069364,
+              0.42094477258906005,
+              0.6908140625219784,
+              0.770661514501081,
+              0.5910926227324577,
+              0.47583940062326063,
+              0.3712186929881077,
+              -0.25040604712344466
+            ]
+          },
+          "R134_spatial": {
+            "winner": 2,
+            "scalar": 0.8270414007867818,
+            "channels": [
+              0.7234022303638896,
+              0.7429305520955026,
+              0.7586973860725739,
+              0.770229423382833,
+              0.7777063443665078,
+              0.781816934053838,
+              0.7834581454438644,
+              0.7834782188097903,
+              0.7825472590235866,
+              0.7811347775588897,
+              0.7795416165337488,
+              0.7779461647345584,
+              0.7764455654916785,
+              0.7750862398527267,
+              0.7738844538471895,
+              0.7728394066857475,
+              0.7719412655797836,
+              0.8286628444117577,
+              0.8426573220755464,
+              0.8549385257368706,
+              0.8652688742261555,
+              0.873663955182489,
+              0.8803233160826425,
+              0.8855258554522168,
+              0.8895534533150538,
+              0.8926542398982169,
+              0.8950327891176245,
+              0.8968527152034449,
+              0.898242987675352,
+              0.899304409213958,
+              0.9001151871505989,
+              0.900735545841642,
+              0.9012115254660326,
+              0.901578096804267
+            ]
+          },
+          "R134_temporal": {
+            "winner": 6,
+            "scalar": 0.36372951857923597,
+            "channels": [
+              0.5135182186545804,
+              0.5549470895862197,
+              0.5938939924513529,
+              0.6284619863798726,
+              0.6576709440058607,
+              0.6814275919101735,
+              0.700223707937805,
+              0.7148155366854585,
+              0.7260022840573064,
+              0.7345110546196173,
+              0.7409539257988986,
+              0.7458233170518543,
+              0.7495043126600937,
+              0.7522923543482228,
+              0.7544111667895812,
+              0.7560286095950712,
+              0.7572699055332698,
+              0.041766279174233645,
+              0.029404712063000427,
+              0.020789338668052246,
+              0.01603319283060717,
+              0.014688025940120746,
+              0.016025457987034575,
+              0.019267559611382476,
+              0.023711875406667728,
+              0.02878407870148806,
+              0.03404961962769084,
+              0.039203437959442,
+              0.04404918392982321,
+              0.048475183156470876,
+              0.05243147880360768,
+              0.055910290809650515,
+              0.05893068765355049,
+              0.06152723130596008
+            ]
+          }
+        }
+      },
+      "sequence": [
+        [
+          929,
+          [
+            454,
+            331,
+            518,
+            395
+          ]
+        ],
+        [
+          929,
+          [
+            454,
+            331,
+            518,
+            395
+          ]
+        ],
+        [
+          930,
+          [
+            454,
+            331,
+            518,
+            395
+          ]
+        ],
+        [
+          931,
+          [
+            454,
+            331,
+            518,
+            395
+          ]
+        ],
+        [
+          933,
+          [
+            455,
+            331,
+            519,
+            395
+          ]
+        ],
+        [
+          934,
+          [
+            455,
+            331,
+            519,
+            395
+          ]
+        ],
+        [
+          935,
+          [
+            456,
+            331,
+            520,
+            395
+          ]
+        ],
+        [
+          936,
+          [
+            456,
+            331,
+            520,
+            395
+          ]
+        ],
+        [
+          937,
+          [
+            456,
+            331,
+            520,
+            395
+          ]
+        ]
+      ],
+      "views": [
+        "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/1926af05475f546412df9edd36f7895e.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/1926af05475f546412df9edd36f7895e.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/aa3cbac77f65b1b4de422c7854c2308d.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/c9ccfae946cde7dad153510097541083.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/5f0dc18c606d3dc424c768f141d3320a.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/fec737b05b69c88881bdde6f8634fddc.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/ce31fab0362cdbc8120d1e3146872745.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/7705ec794b5a4e0bf497b7772153dd15.npy",
+        "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/6a0f82734cafdbac867292594dd97ff3.npy"
+      ],
+      "endpoints": [
+        {
+          "length": 4,
+          "paths": {
+            "C34": "runs/domain_matched_native_20261109/features/b2036451-aa924fd1/ad1fdcfab33900b0494157d604bf2f13.C34.npy",
+            "R1": "runs/identity_assignment_20261108/full_precision/features/b2036451-aa924fd1/ad1fdcfab33900b0494157d604bf2f13.R1.npy"
+          }
+        },
+        {
+          "length": 9,
+          "paths": {
+            "C34": "runs/domain_matched_native_20261109/features/b2036451-aa924fd1/cc74b277243bbc8b39ad02e8b1e98529.C34.npy",
+            "R1": "runs/identity_assignment_20261108/full_precision/features/b2036451-aa924fd1/cc74b277243bbc8b39ad02e8b1e98529.R1.npy"
+          }
+        }
+      ],
+      "ordinary_input_witness_exact": true
+    },
+    {
+      "case": {
+        "video": "b1cd1e94-549d0bfe",
+        "frame": 540,
+        "old_id": 832,
+        "raw_id": 31468,
+        "geometry": [
+          0.8673145771026611,
+          6.0,
+          -0.022554695857251655,
+          0.07171867607335303,
+          0.3439057981970218,
+          -0.08671771570457744,
+          4.219507705176107
+        ],
+        "reference_box": [
+          565.3101014997933,
+          382.9067008261148,
+          594.5545421636084,
+          406.89693994603937
+        ],
+        "reference_crop": [
+          548,
+          363,
+          612,
+          427
+        ],
+        "current_box": [
+          575.6935424804688,
+          379.9344482421875,
+          604.2857666015625,
+          405.70843505859375
+        ],
+        "current_crop": [
+          546,
+          364,
+          610,
+          428
+        ],
+        "label": "own",
+        "full_cells": 149,
+        "offsets": [
+          [
+            -4.255754475703325,
+            -2.1278772378516626
+          ],
+          [
+            -4.255754475703325,
+            0.0
+          ],
+          [
+            -4.255754475703325,
+            2.1278772378516626
+          ],
+          [
+            -2.1278772378516626,
+            -3.191815856777494
+          ],
+          [
+            -2.1278772378516626,
+            -1.0639386189258313
+          ],
+          [
+            -2.1278772378516626,
+            1.0639386189258313
+          ],
+          [
+            -2.1278772378516626,
+            3.191815856777494
+          ],
+          [
+            0.0,
+            -4.255754475703325
+          ],
+          [
+            0.0,
+            -2.1278772378516626
+          ],
+          [
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            2.1278772378516626
+          ],
+          [
+            0.0,
+            4.255754475703325
+          ],
+          [
+            2.1278772378516626,
+            -3.191815856777494
+          ],
+          [
+            2.1278772378516626,
+            -1.0639386189258313
+          ],
+          [
+            2.1278772378516626,
+            1.0639386189258313
+          ],
+          [
+            2.1278772378516626,
+            3.191815856777494
+          ],
+          [
+            4.255754475703325,
+            -2.1278772378516626
+          ],
+          [
+            4.255754475703325,
+            0.0
+          ],
+          [
+            4.255754475703325,
+            2.1278772378516626
+          ]
+        ],
+        "keys": [
+          "b7b93d2a8e67f862a18c2dd2abd6f918",
+          "1a15acf0c20a58af8bef944d4dedaeaa"
+        ],
+        "old_variants": {
+          "C34": {
+            "winner": 9,
+            "channels": [
+              0.1128539439987975,
+              0.06785094795995572,
+              0.15737455092478078,
+              0.24494497308217097,
+              0.10606735767874302,
+              0.23870644062371102,
+              0.24471974785622225,
+              0.11287161908208869,
+              0.13539783952490436,
+              0.2020067829014843,
+              0.2004171801307006,
+              0.13631128796378605,
+              0.2285151373232955,
+              0.1852721848074954,
+              0.25468187466896325,
+              0.15550019551462588,
+              0.10499008169534498,
+              0.1160263057973823,
+              0.015671894943431932,
+              0.017612547739828992,
+              0.20168591103117944,
+              0.1425231491840717,
+              0.19260757603897657,
+              0.04603007557543029,
+              0.052916377880672466,
+              0.04168499357230301,
+              0.13690073885125176,
+              0.26057163293628,
+              0.021302143961715557,
+              0.22553579506380292,
+              0.08013956220424348,
+              0.10085764336691111,
+              0.23781924247035335,
+              0.2770158899526393
+            ]
+          },
+          "R134_spatial": {
+            "winner": 2,
+            "scalar": 0.12319097975775002,
+            "channels": [
+              0.034401947728631414,
+              0.014544317819773799,
+              0.0072093658470465454,
+              0.011796375234977497,
+              0.02663299466986769,
+              0.04927401325321628,
+              0.07641147130114519,
+              0.10422097006040093,
+              0.12937846853363494,
+              0.15000659172140784,
+              0.16577297261532686,
+              0.17730449851383467,
+              0.18554609637837496,
+              0.19138709284691963,
+              0.19553100846086865,
+              0.19849062950834254,
+              0.20062534378266775,
+              0.022043862037311637,
+              -0.002817270263383118,
+              -0.011267666771313634,
+              -0.004658303529422319,
+              0.014941285549175898,
+              0.044528601649820795,
+              0.08001781606743907,
+              0.11678092170107705,
+              0.1508386440888054,
+              0.17983382375906623,
+              0.20311223723831853,
+              0.22113886058844565,
+              0.234840561333328,
+              0.24518604174522907,
+              0.2530045445923826,
+              0.258944406697607,
+              0.26349078700317513
+            ]
+          },
+          "R134_temporal": {
+            "winner": 2,
+            "scalar": 0.12157929575123202,
+            "channels": [
+              0.034401947728631414,
+              0.014544317819773799,
+              0.0072093658470465454,
+              0.011796375234977497,
+              0.02663299466986769,
+              0.04927401325321628,
+              0.07641147130114519,
+              0.10422097006040093,
+              0.12937846853363494,
+              0.15000659172140784,
+              0.16577297261532686,
+              0.17730449851383467,
+              0.18554609637837496,
+              0.19138709284691963,
+              0.19553100846086865,
+              0.19849062950834254,
+              0.20062534378266775,
+              0.17797295441378178,
+              0.18799342798249222,
+              0.18860327962709036,
+              0.1813291833508634,
+              0.1691013909984764,
+              0.15510362083776302,
+              0.14160475802789055,
+              0.12971386736132953,
+              0.11973252507190058,
+              0.1115582011243982,
+              0.10494072139251626,
+              0.09960705178310825,
+              0.0953106578432292,
+              0.09184513744958087,
+              0.08904360113983827,
+              0.08677312170652984,
+              0.08492839715466233
+            ]
+          }
+        }
+      },
+      "sequence": [
+        [
+          522,
+          [
+            553,
+            360,
+            617,
+            424
+          ]
+        ],
+        [
+          523,
+          [
+            553,
+            361,
+            617,
+            425
+          ]
+        ],
+        [
+          524,
+          [
+            551,
+            362,
+            615,
+            426
+          ]
+        ],
+        [
+          534,
+          [
+            548,
+            363,
+            612,
+            427
+          ]
+        ],
+        [
+          536,
+          [
+            547,
+            363,
+            611,
+            427
+          ]
+        ],
+        [
+          537,
+          [
+            547,
+            363,
+            611,
+            427
+          ]
+        ],
+        [
+          538,
+          [
+            547,
+            364,
+            611,
+            428
+          ]
+        ],
+        [
+          539,
+          [
+            546,
+            364,
+            610,
+            428
+          ]
+        ],
+        [
+          540,
+          [
+            546,
+            364,
+            610,
+            428
+          ]
+        ]
+      ],
+      "views": [
+        "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/97c3e53ca335dd896a5ed60ee9d7a388.npy",
+        "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/47c44b4cdec1b57763ef0ecf64dc1022.npy",
+        "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/a76e7f7ed3c2d0ebe62eed0360a6c5e0.npy",
+        "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/d1bb8bef3676f2822740124d7d8853d5.npy",
+        "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/9b554e8cf1417a506b5c0dd209bde1ab.npy",
+        "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/c3654a692e7fc40b5a13ed8c47ee4f80.npy",
+        "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/8f43134fb800fc46513d6b2dfdc25fcd.npy",
+        "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/0c7a595a9fd333320c5d9eb6fcc6df99.npy",
+        "runs/full_template_native_20261109/retinal/b1cd1e94-549d0bfe/8599d4e4c697833fee7f68411e664feb.npy"
+      ],
+      "endpoints": [
+        {
+          "length": 4,
+          "paths": {
+            "C34": "runs/domain_matched_native_20261109/features/b1cd1e94-549d0bfe/b7b93d2a8e67f862a18c2dd2abd6f918.C34.npy",
+            "R1": "runs/domain_matched_native_20261109/features/b1cd1e94-549d0bfe/b7b93d2a8e67f862a18c2dd2abd6f918.R1.npy"
+          }
+        },
+        {
+          "length": 9,
+          "paths": {
+            "C34": "runs/domain_matched_native_20261109/features/b1cd1e94-549d0bfe/1a15acf0c20a58af8bef944d4dedaeaa.C34.npy",
+            "R1": "runs/domain_matched_native_20261109/features/b1cd1e94-549d0bfe/1a15acf0c20a58af8bef944d4dedaeaa.R1.npy"
+          }
+        }
+      ],
+      "ordinary_input_witness_exact": true
+    }
+  ],
+  "question": "Does independently estimated image displacement, replacing box-relative correspondence on the same saved maps, remove wrong identity decisions?",
+  "hypothesis": "Scaling each reference box into a changed candidate box can compare different visible parts. Independent local image motion may restore correspondence on a verified common subset.",
+  "action": "Test image-based correspondence as a replacement for box-relative coordinate mapping; reject promotion if controls or local criterion fail. No live tracker changes.",
+  "component": "Coordinate mapping of the external readout of the full FlyVis module; no neural-core replay or weight changes.",
+  "flow": {
+    "lk_window": [
+      11,
+      11
+    ],
+    "lk_max_level": 2,
+    "lk_iterations": 30,
+    "lk_epsilon": 0.01,
+    "lk_min_eigenvalue": 0.0001,
+    "dis_preset": "MEDIUM",
+    "consistency_pixels": 1.0,
+    "minimum_cells": 10,
+    "minimum_rank": 2,
+    "threads": 2,
+    "seed": 0
+  },
+  "modes": [
+    "original_full",
+    "original_subset",
+    "identity_subset",
+    "lk",
+    "dis",
+    "opposite_lk"
+  ],
+  "intervention": "Compute raw-grayscale forward/backward LK at original template cells, with zero initial displacement; compute full-frame DIS forward/backward separately. Common subset requires both LK statuses, LK forward-back <=1px, DIS forward-back <=1px, method agreement <=1px, LK/DIS endpoints inside candidate box, and eye-hull support for every compared query. Opposite_LK reverses displacement with same magnitude and no candidate-inside requirement, as deliberately wrong correspondence control. At least10 cells and rank2 required. Conditions fixed before results. GT labels not used to select correspondence.",
+  "controls": "Reproduce all original15 scores before changed comparisons. Original_subset and identity_subset use the identical common mask. Each arm retains its saved original shift for original modes; image-based modes use the same world points across arms. Geometry covariates, weights, normalization, maps and threshold remain fixed. Independently interpolate DIS fields, reconstruct subset and map sampling/scores. Report all cases including insufficient support. No fit or score-based correspondence search.",
+  "acceptance": [
+    "All original scores reproduce within1e-9; unchanged maps and identity subset exact; independent score/interpolation checks within1e-9.",
+    "Report readiness and source-to-query discrepancies for all five cases; approximate correspondences never labelled physical ground truth.",
+    "Primary local action:232 original_subset rejects, LK and DIS accept, opposite_LK rejects; both own controls70/1102 ready and accepted by LK/DIS. Secondary:832 corrected and574 rejected with all five ready."
+  ],
+  "fixed": {
+    "threshold": 0,
+    "new_fits": 0,
+    "tracker_calls": 0,
+    "core_calls": 0,
+    "new_neural_maps": 0
+  },
+  "deadline": "2026-11-12T07:40:00+03:00",
+  "literature": [
+    {
+      "title": "An Iterative Image Registration Technique with an Application to Stereo Vision",
+      "authors": "Lucas and Kanade",
+      "year": 1981,
+      "url": "https://courses.cs.duke.edu/cps274/fall11/papers/LucasKanade81.pdf"
+    },
+    {
+      "title": "Fast Optical Flow using Dense Inverse Search",
+      "authors": "Kroeger et al.",
+      "year": 2016,
+      "url": "https://arxiv.org/abs/1603.03590"
+    }
+  ],
+  "limitations": "Five reused engineering cases; two algorithms can share errors on background, aperture ambiguity, reflections and occlusion. Consistency checks are new diagnostic eligibility rules, not changes to tracker thresholds. Restricting common support can change scores: compare original_subset explicitly and never attribute mask-only gains to alignment. Frozen heads may be distribution-shifted. Missing support is inconclusive, not wrong identity. Candidate box restriction avoids following old object outside the candidate and calling that candidate accepted. No full tracking or HOTA inference."
+}
