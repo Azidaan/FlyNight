@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "viewed": [
+    "frames_773.png",
+    "frames_232.png"
+  ],
+  "frame522": [
+    {
+      "tid": 773,
+      "iou": 0.46300043615272823,
+      "fraction_detection_inside_GT": 0.6818488284441206,
+      "fraction_GT_covered": 0.5905891622968825
+    },
+    {
+      "tid": 832,
+      "iou": 0.49026950732386665,
+      "fraction_detection_inside_GT": 1.0,
+      "fraction_GT_covered": 0.49026950732386665
+    }
+  ],
+  "findings": "At522 the832 box lies completely inside the target annotation, but covers only49.03% of it. The773 box extends to the right; itsIoU is46.30%. Neither reaches the unchanged50% criterion; neither is labeled foreign on this basis. At519/520 the232 and474 boxes visibly overlap the same small car, consistent with the direct annotation520. On538->539 the target and surrounding background visibly shift; camera motion is a testable inference, not a measured causal conclusion.",
+  "limits": "Human inspection of low-resolution crops and instance boxes cannot provide exact physical-part correspondence or prove the initial identity of832 at unannotated518.",
+  "next_question": "Estimate background motion independently of the target and test whether compensating only the fixed539 prediction changes the one-frame assignment. Preregister before computing displacement. No whole-tracker run.",
+  "literature": {
+    "url": "https://arxiv.org/abs/2206.14651",
+    "doi": "10.48550/arXiv.2206.14651",
+    "role": "BoT-SORT supports the general mechanism of correcting camera motion in association; it does not prove the cause of this particular frame."
+  }
+}

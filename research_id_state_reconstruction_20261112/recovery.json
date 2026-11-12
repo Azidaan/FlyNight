@@ -1,0 +1,10 @@
+{
+  "reason": "All158 numeric states and393public boxes exact, but801 status at539 was Removed(3), not Lost(2). Archived BYTETracker._remove_stale_lost marks state3 at538 once538-507>30. merge_track_pools removes IDs using the prior removed list, so this already-marked track remains in the pool for the next pre-association snapshot at539.",
+  "correction": "Only restore observed status transition at native unchanged track_buffer30. No cost, assignment, threshold, source or original result overwritten.",
+  "source_functions": [
+    "BYTETracker._remove_stale_lost",
+    "merge_track_pools"
+  ],
+  "old": "reconstruction.json",
+  "new": "reconstruction_v2.json"
+}

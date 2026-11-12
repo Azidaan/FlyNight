@@ -1,0 +1,58 @@
+{
+  "registered": "2026-11-12T06:17:40.456450+03:00",
+  "posthoc": true,
+  "reason": "Reconstructed832 birth has negligible overlap with773; inspect whether initial physical identity is determinable. Also inspect first loss232.",
+  "specs": [
+    {
+      "video": "b1cd1e94-549d0bfe",
+      "frames": [
+        493,
+        500,
+        504,
+        518,
+        522,
+        528,
+        534,
+        540
+      ],
+      "crop": [
+        525,
+        350,
+        655,
+        435
+      ],
+      "ids": [
+        773,
+        801,
+        832
+      ],
+      "target": "00118997"
+    },
+    {
+      "video": "b23b2649-8349d2a1",
+      "frames": [
+        519,
+        520,
+        538,
+        539,
+        544
+      ],
+      "crop": [
+        940,
+        515,
+        1065,
+        590
+      ],
+      "ids": [
+        232,
+        474
+      ],
+      "target": "00130234"
+    }
+  ],
+  "inputs": {
+    "data/bdd100k/videos/val/b1cd1e94-549d0bfe.mov": "ec4d73bec2c91fd0d1cba6d890d24ffbfc2bb2d6d6bfcfdf437d8481148d60f9",
+    "data/bdd100k/videos/val/b23b2649-8349d2a1.mov": "d2ebbc0a6388f9867f835a6e868218262a7b200f452076c92d41f9cd8fc9f419"
+  },
+  "method": "Sequential raw video decode fromframe0. No learned model, no invented annotation. Exact annotation anchors only. Retain pixel crops enlarged with nearest-neighbor; boxes overlay public outputs and targetGT. Unknown physical identity stays unknown."
+}

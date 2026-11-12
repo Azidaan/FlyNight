@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "video": "b1cd1e94-549d0bfe",
+  "frame": 500,
+  "old": 773,
+  "new": 801,
+  "candidate_bottom": 418.5035400390625,
+  "maximum_allowed_full_box_bottom": 417.5443969831752,
+  "excess_pixels": 0.9591430558872958,
+  "proof": "Any allowed full-object box must contain the candidate box, hence its bottom must be>=candidate_bottom. The existing upper bound is lower than candidate_bottom, so even a continuous search cannot satisfy the vertical constraint. This is not merely a sparse-grid miss.",
+  "source_reconstruction_sha256": "b09f591017e2f1b590f2bc36b61bd04ba2aad679ecfdac1fc8823aa9fb4bfed4",
+  "threshold_multiplier_unchanged": 2
+}

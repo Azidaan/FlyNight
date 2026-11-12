@@ -1,0 +1,120 @@
+{
+  "passed": true,
+  "independent_steps": 560,
+  "mean_max_error": 7.105427357601002e-15,
+  "covariance_max_error": 5.684341886080801e-13,
+  "births": [
+    {
+      "video": "b23b2649-8349d2a1",
+      "frame": 519,
+      "new": 474,
+      "new_raw_id": 52356,
+      "new_confidence": 0.36424076557159424,
+      "old": [
+        {
+          "tid": 232,
+          "state": 1,
+          "confirmed": true,
+          "edges": [
+            {
+              "kind": "birth_detection",
+              "raw_id": 52356,
+              "confidence": 0.36424076557159424,
+              "iou": 0.7320517897605896,
+              "cost": 0.7333568930625916,
+              "allowed_at_unchanged_threshold": true,
+              "independent_cost": 0.7333568930625916
+            },
+            {
+              "kind": "actual_assigned_detection",
+              "raw_id": 52351,
+              "confidence": 0.5596960783004761,
+              "iou": 0.9571216106414795,
+              "cost": 0.46430277824401855,
+              "allowed_at_unchanged_threshold": true,
+              "independent_cost": 0.46430277824401855
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "video": "b1cd1e94-549d0bfe",
+      "frame": 500,
+      "new": 801,
+      "new_raw_id": 29726,
+      "new_confidence": 0.2876553237438202,
+      "old": [
+        {
+          "tid": 773,
+          "state": 2,
+          "confirmed": true,
+          "edges": [
+            {
+              "kind": "birth_detection",
+              "raw_id": 29726,
+              "confidence": 0.2876553237438202,
+              "iou": 0.3524637222290039,
+              "cost": 0.8986119031906128,
+              "allowed_at_unchanged_threshold": false,
+              "independent_cost": 0.8986119031906128
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "video": "b1cd1e94-549d0bfe",
+      "frame": 518,
+      "new": 832,
+      "new_raw_id": 30434,
+      "new_confidence": 0.2501920163631439,
+      "old": [
+        {
+          "tid": 773,
+          "state": 1,
+          "confirmed": true,
+          "edges": [
+            {
+              "kind": "birth_detection",
+              "raw_id": 30434,
+              "confidence": 0.2501920163631439,
+              "iou": 0.062240421772003174,
+              "cost": 0.9844279289245605,
+              "allowed_at_unchanged_threshold": false,
+              "independent_cost": 0.9844279289245605
+            },
+            {
+              "kind": "actual_assigned_detection",
+              "raw_id": 30430,
+              "confidence": 0.49374085664749146,
+              "iou": 0.8534818887710571,
+              "cost": 0.5786011219024658,
+              "allowed_at_unchanged_threshold": true,
+              "independent_cost": 0.5786011219024658
+            }
+          ]
+        },
+        {
+          "tid": 801,
+          "state": 2,
+          "confirmed": true,
+          "edges": [
+            {
+              "kind": "birth_detection",
+              "raw_id": 30434,
+              "confidence": 0.2501920163631439,
+              "iou": 0.0,
+              "cost": 1.0,
+              "allowed_at_unchanged_threshold": false,
+              "independent_cost": 1.0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "reconstruction_sha256": "b09f591017e2f1b590f2bc36b61bd04ba2aad679ecfdac1fc8823aa9fb4bfed4",
+  "script_sha256": "545ce3f04a956300f22d4e08258d4bc1d1789e9f454e59b2dab235343c85218b",
+  "limitations": "Independent per-coordinate Kalman algebra and native detection constructor; same measurements and observed assignment schedule. Pair costs do not reconstruct the missing full competing pool. No tracker object or global update instantiated."
+}

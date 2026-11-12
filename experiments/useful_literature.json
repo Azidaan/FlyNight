@@ -494,6 +494,29 @@
         "sys:С5"
       ],
       "doi": "10.48550/arXiv.1603.03590"
+    },
+    {
+      "id": "aharon2022_camera_motion_identity_audit",
+      "title": "Компенсация движения камеры — Aharon и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Согласование координат кадров",
+      "publication": "Nir Aharon, Roy Orfaig, Ben-Zion Bobrovsky. BoT-SORT: Robust Associations Multi-Pedestrian Tracking. 2022.",
+      "url": "https://arxiv.org/abs/2206.14651",
+      "doi": "10.48550/arXiv.2206.14651",
+      "sections": "Аннотация первичной публикации: сочетание движения, внешнего вида и компенсации движения камеры.",
+      "established": "В BoT-SORT компенсация движения камеры является отдельным компонентом сопоставления.",
+      "problem": "С5 — история и ошибки назначения; С1 — область действия FlyVis.",
+      "application": "Обосновывает следующую отдельную проверку смещения фона при потере232 на539; в текущем разборе компенсация ещё не применялась.",
+      "limitation": "Не является доказательством причины конкретного кадра и не обещает улучшение нашего стенда. Полный BoT-SORT здесь не запускался.",
+      "evidence": [
+        "research_id_state_reconstruction_20261112/visual_review.json",
+        "research_id_state_reconstruction_20261112/РЕЗУЛЬТАТ.md"
+      ],
+      "related": [
+        "exp:id_state_reconstruction_20261112",
+        "sys:С1",
+        "sys:С5"
+      ]
     }
   ]
 }

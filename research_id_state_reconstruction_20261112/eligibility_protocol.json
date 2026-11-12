@@ -1,0 +1,29 @@
+{
+  "registered": "2026-11-12T06:22:19.600169+03:00",
+  "posthoc": true,
+  "reason": "After exact state reconstruction, determine which original pre-readout gate prevented birth detections from being considered by FlyVis.",
+  "sources": {
+    "tracking/foveated_eyes.py": {
+      "current": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497",
+      "archived": "356c3f399871d14312a6644e4d2b93cf30debc4aca929797e240f70959841497"
+    },
+    "tracking/z13_readout.py": {
+      "current": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+      "archived": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d"
+    },
+    "tracking/z13_region_assignment.py": {
+      "current": "4a79f30d337ef6c442b74a25f379c4a587b325210697490a23d2406a0c806a42",
+      "archived": "4a79f30d337ef6c442b74a25f379c4a587b325210697490a23d2406a0c806a42"
+    },
+    "tracking/spatial_identity_assignment.py": {
+      "current": "bef5b216dc53e8245db432b29c7822fc05e546c8cd3579fd4424bf5d8fc08098",
+      "archived": "bef5b216dc53e8245db432b29c7822fc05e546c8cd3579fd4424bf5d8fc08098"
+    },
+    "runs/z13_local_peak_20261021/geometry.json": {
+      "current": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+      "archived": null
+    }
+  },
+  "script_sha256": "1e27cf30217cb3f2eff705bc8034634a1d1acb0f458b18261a759aedbe770e05",
+  "fixed": "Recompute existing gates literally; no map, head, tracker or threshold change. Stop at original first failing gate."
+}

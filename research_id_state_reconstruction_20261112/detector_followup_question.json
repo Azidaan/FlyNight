@@ -1,0 +1,24 @@
+{
+  "status": "open_question_not_causal_proof",
+  "video": "b23b2649-8349d2a1",
+  "frame": 519,
+  "raw_ids": [
+    52351,
+    52356
+  ],
+  "classes": [
+    2,
+    2
+  ],
+  "pair_iou": 0.7206111691540278,
+  "metadata_iou": 0.7,
+  "source_hashes": {
+    "runs/z13_val20_matched_20261024/cache/b23b2649-8349d2a1/detections/raw_video.npz": "658b9bfbe125249720829f7d53b252c1e51f806ef741ba23d87f53b3cf5c5fbe",
+    "runs/z13_val20_matched_20261024/cache/b23b2649-8349d2a1/detections/raw_video.json": "995d1351ed1410c52a01d767e848ab2ddbac11233a5cac22321673d203722e67",
+    ".venv/Lib/site-packages/ultralytics/utils/nms.py": "1ea2298aecc1af5945366fe47a6a764e7c8d50a3e16affd5c1bb9c8f846ec8d7",
+    ".venv/Lib/site-packages/ultralytics/models/yolo/detect/predict.py": "2f4d4e817782da56d9d6864084727a9576a5d276370cc1811435622941a2385d"
+  },
+  "observation": "Two same-class detector boxes survive despite pairIoU0.720611 exceeding metadataIoU0.7. Current non_max_suppression has an end2end/six-column output path that returns confidence-filtered boxes without overlap suppression.",
+  "missing": "Verify exact cached detector checkpoint mode, original extraction source and historical dependency provenance. Do not infer that this path was used from the model name or current source alone.",
+  "next": "After the registered trajectory analysis, inspect the frozen checkpoint and original extraction recipe without model inference or changing thresholds."
+}
