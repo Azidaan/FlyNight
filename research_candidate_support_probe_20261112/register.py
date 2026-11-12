@@ -1,0 +1,28 @@
+from common import *
+import shutil,subprocess
+old=read(ROOT/'research_time_semantics_probe_20261112/protocol.json');inputs=dict(old['inputs'])
+for n,h in inputs.items():assert sha(ROOT/n)==h,n
+for n in ['common.py','setup.py','register.py','worker.py','audit.py']:
+    path=OUT/n;inputs[path.relative_to(ROOT).as_posix()]=sha(path)
+for n in ['research_image_correspondence_probe_20261112/detector_box_audit.json','research_image_correspondence_probe_20261112/box_membership.json','runs/domain_matched_native_20261109/deployment.json','research_identity_training_stability_20261109/comparison.json','tracking/channel_balanced_correspondence.py']:
+    inputs[n]=sha(ROOT/n)
+save('protocol.json',dict(registered=now(),head=subprocess.check_output(['git','rev-parse','HEAD']).decode().strip(),inputs=inputs,cases=old['cases'],
+ question='Do samples outside the candidate detector box, or additional samples outside its annotation, cause the false permission574 under frozen native and agreement heads?',
+ hypothesis='The enlarged comparison support may mix the old object region into a different candidate. Excluding outside samples may remove false agreement without harming accepted own controls.',
+ action='Test strict candidate support as a possible readout correction; use annotation intersection only as an oracle diagnostic of detector extent, not an operational policy.',
+ component='Spatial support of external readout, existing maps and fixed winners; no neural replay.',
+ modes=['full','identity','detector','detector_and_annotation'],heads=['native','agreement'],
+ intervention='For each representation and saved winning query, full keeps all template cells; detector retains query points inside the actual candidate box; detector_and_annotation additionally requires its annotated instance box. Reference and current patches lose identical corresponding rows. No replacement of a query, change of map, shift or geometry covariate. Each mask keeps at least3 points or the result is undefined. Annotation does not imply foreground segmentation.',
+ controls='Reproduce all30 original scores (5cases x3representations x2heads) before mask evaluation. Clone identity exact. For each retained count k and original N, score every cyclic contiguous subset of k indices, starting at each of N positions. These are count-matched descriptive controls, not independent random samples or a significance test; no favorable subset selected. Report full distributions and all cases. Geometry feature for cell count stays original to isolate visual support.',
+ acceptance=['All original scores reproduced within1e-9 before mask comparisons, identity exact, frozen inputs and independent evaluation within1e-9.','Every intended mask and all deterministic count-matched controls reported; no threshold, fit or shift selection.','Primary: at least one common mask rejects574 with both native and agreement C34 heads while preserving acceptance70/1102 and not worsening232/832 decisions. Otherwise do not promote the correction. Count-matched specificity is reported separately, never substituted for this decision criterion.'],
+ fixed=dict(threshold=0,new_fits=0,tracker_calls=0,core_calls=0,new_maps=0),deadline='2026-11-12T07:40:00+03:00',
+ literature=dict(title='Learning Background-Aware Correlation Filters for Visual Tracking',authors='Galoogahi et al.',year=2017,url='https://openaccess.thecvf.com/content_iccv_2017/html/Galoogahi_Learning_Background-Aware_Correlation_ICCV_2017_paper.html',role='Motivates separating target and surrounding appearance; this probe is not a BACF implementation or training experiment.'),
+ limitations='Five reused engineering cases; known labels select annotation only for oracle diagnosis. A box is not segmentation; same-count cyclic masks do not match the exact spatial shape. Frozen heads may be distribution-shifted. Failure to fix a decision rules out this correction as sufficient, not every role of background. No full-ID or HOTA claim.'))
+(OUT/'before').mkdir()
+for n in ['experiments/project_history.json','experiments/obsidian_experiment_topics.json','experiments/system_problems.json','experiments/useful_literature.json','dissertation/ЕДИНЫЙ_ПЛАН.md']:shutil.copy2(ROOT/n,OUT/'before'/Path(n).name)
+path=ROOT/'experiments/project_history.json';raw=path.read_bytes();d=json.loads(raw);assert not any(c['id']==ID for c in d['experiments']);p=read(OUT/'protocol.json');rel=OUT.relative_to(ROOT).as_posix()
+d['experiments'].append(dict(id=ID,title='Границы кандидата — раздельное исключение точек вне детекции и разметки',area='flyvis',state='running',started='2026-11-12',question=p['question'],hypothesis=p['hypothesis'],expected='Установить вклад расширенной выборки и расхождения детекции с разметкой в ложное разрешение574.',acceptance=[dict(criterion=s,met=None) for s in p['acceptance']],evidence=[dict(kind='file',ref=rel+'/protocol.json')]))
+assert path.read_bytes()==raw;path.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+path=ROOT/'experiments/obsidian_experiment_topics.json';d=read(path);d['topics'][ID]=['Сохранение личности','Выбор продолжения среди рамок','Причины неверного сравнения карт'];path.write_text(json.dumps(d,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+journal('Постановка (`'+ID+'`): исключить отдельно точки вне рамки детектора и дополнительно вне разметки кандидата. Проверить исходную корреляционную голову и голову согласия при неизменных картах, весах, пороге и сдвигах. Для каждого числа ячеек — все циклические подмножества такого же размера; они не являются независимой статистической выборкой. Источник '+rel+'/protocol.json.')
+print('REGISTERED',len(inputs))
