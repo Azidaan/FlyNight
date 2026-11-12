@@ -33244,6 +33244,756 @@
       "interpretation": "Ответ «только вход» или «только ядро» не соответствует данным. У исходной схемы есть зависимый отFlyVis выбор пространственного соответствия; при нём простое сходство разных объектов превышает сходство своего продолжения ещё на пиксельных выборках. Отдельно подтверждено, что при другой привязке непосредственный ответFlyVis разворачивает правильный входной порядок232; фиксированное удержание того же изображения снимает этот разворот. Для конкретного отказа232 подтверждено совместное действие пространственной привязки и переходного ответа. Для832 и остаточного ложного разрешения574 полного физического объяснения пока нет.",
       "decision": "Не внедрять совместный вариант: общий критерий пяти случаев не пройден. При второй привязке и удержании обоих чужая574 остаётся положительной:0,01994 у исходного правила,0,00547 у согласия; исходное правило дополнительно отвергает1102 со значением−0,02886,832 остаётся отвергнутой. Пороги не ослаблять и не поднимать ради этих чисел. Сохранить подтверждённую причину отказа232 как взаимодействие двух узлов; отдельно продолжить поиск физических причин остаточного сходства и условий надёжного соответствия. Основной нерешённый вопрос не сводить к точности входа или общей бесполезностиFlyVis.",
       "cannot_claim": "Все новые разборы относятся к пяти давно известным случаям; дополнительная факторная проверка прямо отмечена как анализ после наблюдения разворота, а не независимый подтверждающий тест. Сырые выборки пикселей не равны всей информации полного изображения. Общая формула по разным каналам локализует измеренное сходство, но не измеряет всю различимость личности. Рамки не являются масками деталей объекта, физическая правильность привязок не установлена. Удержание1секунду — искусственный контроль с тем же конечным изображением, не доказательство равновесия и не реальное ожидание будущего кадра. Нейронное ядро заново не вызывалось; использованы прежние контролируемые состояния с проверенными входами и весами. Не установлена вина конкретного нейрона или связи. Нет новых весов, порогов, обучения, полного трекера иHOTA."
+    },
+    {
+      "id": "remaining_causes_geometry832_20261112",
+      "title": "Геометрия рамок и отказ своей пары832",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-12",
+      "question": "Does detector-relative correspondence explain the own832 rejection at a frozen readout?",
+      "hypothesis": "[{'rank': 1, 'status': 'deduction_from_saved_box_geometry_not_yet_causal', 'text': 'Detector-relative affine coordinates move source fractions farther than allowed residual search; GT-center or GT-box correspondence may rescue frozen heads.'}, {'rank': 2, 'status': 'alternative_hypothesis', 'text': 'Even GT-box coordinate diagnostics retain poor identity evidence because box-normalized geometry is not physical correspondence or cached activity is uninformative for frozen heads.'}, {'rank': 3, 'status': 'alternative_hypothesis', 'text': 'Search/support and frozen decoder calibration interact; a similarity increase alone may not cross zero.'}]",
+      "expected": "Установить достаточность конкретного вмешательства, сохранив отрицательные контроли и границу физического вывода.",
+      "acceptance": [
+        {
+          "criterion": "Identity witness reproduces archived index head channel vectors/scores within1e-9.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/geometry832/result.json; research_remaining_causes_20261112/geometry832/independent_audit.json; research_remaining_causes_20261112/geometry832/coordinate_audit.json"
+        },
+        {
+          "criterion": "All comparisons use identical source cell set, finite queries and identical saved geometry covariates; independently score saved patches and verify interpolation via SciPy within1e-9.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/geometry832/result.json; research_remaining_causes_20261112/geometry832/independent_audit.json; research_remaining_causes_20261112/geometry832/coordinate_audit.json"
+        },
+        {
+          "criterion": "Primary causal rescue criterion: own832 native C34 score crosses fixed zero under GT-center or GT-affine with original C34 offset on common support, while matched detector baseline stays nonpositive. Agreement and temporal heads are secondary fixed controls; report all outcomes, no selection.",
+          "met": false,
+          "evidence": "research_remaining_causes_20261112/geometry832/result.json; research_remaining_causes_20261112/geometry832/independent_audit.json; research_remaining_causes_20261112/geometry832/coordinate_audit.json"
+        },
+        {
+          "criterion": "Analytic reach: for each source cell compute GT-transform minus detector-affine displacement; compare required x/y intervals to full continuous residual min/max range and enumerate grid distances. Inability to reproduce a GT box coordinate map does not prove physical correspondence.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/geometry832/result.json; research_remaining_causes_20261112/geometry832/independent_audit.json; research_remaining_causes_20261112/geometry832/coordinate_audit.json"
+        },
+        {
+          "criterion": "If no rescue: reject sufficiency of tested coordinate repair; retain full results and propose next discriminating test instead of assigning a cause.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/geometry832/result.json; research_remaining_causes_20261112/geometry832/independent_audit.json; research_remaining_causes_20261112/geometry832/coordinate_audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/geometry832/proposed_protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/geometry832/result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/geometry832/independent_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/geometry832/coordinate_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Замена только координат не исправила C34 для 832: −0,398459784 → −0,685717186 при переносе центров и −0,671422393 при переносе долей эталонных рамок. Все 149 заданных эталонных переносов вне исходного диапазона остаточного поиска. Источники: research_remaining_causes_20261112/geometry832/result.json и coordinate_audit.json.",
+      "interpretation": "Подтверждён локальный результат указанной проверки; отрицательные контроли и пределы вывода сохранены. Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "decision": "Не внедрять нулевой сдвиг и не снижать глобально пороги. Следующая правка должна адресовать проверку пространственного соответствия с учётом истории либо отдельное восстановление по низкоуверенным детекциям с проверкой внешнего вида. Это предложения, а не выполненные изменения. Диагностики этой серии завершены.",
+      "cannot_claim": "Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "revisions": [
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "obtained",
+          "old": "832: C34 -0,398459784; толькоGTцентр -0,685717186; только синтетическая история образца -0,668466625; совместно +0,135427472. GTаффинный совместный вариант +0,140372216; взаимодействие среднего пространственного Pearson +0,599792942. Это достаточное совместное вмешательство в координаты и сохранённую карту ответа, не уникальная физическая причина. Источник research_remaining_causes_20261112/geometry832/factorial_result.json; summary.json. Все149GTкоординат вне исходного остаточного диапазона±4,25575пикселя; примерно12пикселей — разность правил, не физическое движение (coordinate_audit.json).",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "interpretation",
+          "old": "Подтверждённый локальный вычислительный эффект; все ограничения и неудачные контроли сохранены. Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "decision",
+          "old": "Не внедрять нулевой сдвиг и не снижать глобально confidence-порог. Исследовательский вывод переводит работу к двум конкретным узлам: проверяемое пространственное соответствие с учётом истории и отдельный путь восстановления по имеющимся низкоуверенным детекциям с проверкой внешнего вида/конкуренции. Это предложения для следующей регистрации, не выполненные изменения. Полный трекер остаётся запрещён текущим поручением; дальнейшие диагностики574 в этой серии завершены.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "cannot_claim",
+          "old": "Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        }
+      ]
+    },
+    {
+      "id": "remaining_causes_overlap574_20261112",
+      "title": "Перекрывающиеся объекты и ложное разрешение574",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-12",
+      "question": "Does the false permission for pair574 depend on coordinates lying in other annotated instance boxes at either endpoint?",
+      "hypothesis": "Overlapping/occluding instances may contaminate paired support. Rectangles only proxy ambiguity and do not establish visible pixel ownership.",
+      "expected": "Установить достаточность конкретного вмешательства, сохранив отрицательные контроли и границу физического вывода.",
+      "acceptance": [
+        {
+          "criterion": "Original full frozen scores reproduced within1e-9 for all30 outcomes before interpretation; identity exactly equal.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/result.json; research_remaining_causes_20261112/overlap574/audit.json; research_remaining_causes_20261112/overlap574/interpretation.json"
+        },
+        {
+          "criterion": "Independent audit reconstructs masks from annotations and scalar point-in-box checks, recomputes every saved score via independent implementation within1e-9; source/input hashes unchanged.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/result.json; research_remaining_causes_20261112/overlap574/audit.json; research_remaining_causes_20261112/overlap574/interpretation.json"
+        },
+        {
+          "criterion": "Support association evidence only if574 native C34 score crosses from >0 to <=0 under exclusive mask, sufficient support, and intervention score is below95% of same-count random controls. Report all representations/heads/cases and exact ranks; no multiple-case population inference.",
+          "met": false,
+          "evidence": "research_remaining_causes_20261112/overlap574/result.json; research_remaining_causes_20261112/overlap574/audit.json; research_remaining_causes_20261112/overlap574/interpretation.json"
+        },
+        {
+          "criterion": "A physical-source claim additionally requires independent actual visible-part evidence. Rectangle exclusion alone cannot close it; no closure if insufficient support.",
+          "met": false,
+          "evidence": "research_remaining_causes_20261112/overlap574/result.json; research_remaining_causes_20261112/overlap574/audit.json; research_remaining_causes_20261112/overlap574/interpretation.json"
+        },
+        {
+          "criterion": "Compare own232/70/1102/832 changes and missing support; no claim of useful fix if own decisions fail.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/result.json; research_remaining_causes_20261112/overlap574/audit.json; research_remaining_causes_20261112/overlap574/interpretation.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/overlap574/proposed_protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/overlap574/protocol_addendum_v2.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/overlap574/result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/overlap574/audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/overlap574/interpretation.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Ограничение обеих конечных точек эталонными рамками не исправило ложное разрешение 574: 0,546381513 → 0,582580756. Эксклюзивная область содержит 2 точки, ниже минимума 3; принадлежность видимых поверхностей неизвестна. Источники: research_remaining_causes_20261112/overlap574/result.json, interpretation.json и audit.json.",
+      "interpretation": "Подтверждён локальный результат указанной проверки; отрицательные контроли и пределы вывода сохранены. Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "decision": "Не внедрять нулевой сдвиг и не снижать глобально пороги. Следующая правка должна адресовать проверку пространственного соответствия с учётом истории либо отдельное восстановление по низкоуверенным детекциям с проверкой внешнего вида. Это предложения, а не выполненные изменения. Диагностики этой серии завершены.",
+      "cannot_claim": "Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "revisions": [
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "obtained",
+          "old": "ДвойнаяGTопора42точки не устранила574:0,546381513→0,582580756; эксклюзивнаяопора2точки, исходы неизвестны. Нет физическогодоказательствасмешенияповерхностей. 574: на одинаковых84точках удаление только остаточного сдвига(-4,255754;+2,127877) меняет ложный C34балл +0,613535591→-0,250792075; на42точках +0,582580756→-0,270389620. Карты, точки, веса,7геометрических признаков и порог0 неизменны. Локализован узел пространственного запроса. Общая правка нулём отклонена: своя1102 +0,351579071→-0,408544209. Источник research_remaining_causes_20261112/overlap574/matched_query_result.json; matched_query_audit.json.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "interpretation",
+          "old": "Подтверждённый локальный вычислительный эффект; все ограничения и неудачные контроли сохранены. Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "decision",
+          "old": "Не внедрять нулевой сдвиг и не снижать глобально confidence-порог. Исследовательский вывод переводит работу к двум конкретным узлам: проверяемое пространственное соответствие с учётом истории и отдельный путь восстановления по имеющимся низкоуверенным детекциям с проверкой внешнего вида/конкуренции. Это предложения для следующей регистрации, не выполненные изменения. Полный трекер остаётся запрещён текущим поручением; дальнейшие диагностики574 в этой серии завершены.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "cannot_claim",
+          "old": "Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        }
+      ]
+    },
+    {
+      "id": "remaining_causes_reid_20261112",
+      "title": "Массовое узнавание внешнего вида на точных рамках пяти случаев",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-12",
+      "question": "Различает ли готовая MASA-R50 свои и чужие текущие рамки для той же истории, без подбора порога?",
+      "hypothesis": "Полный кадр и готовые признаки внешнего вида могут сохранить различимость там, где ограниченное окно и выбранное считывание FlyVis её не используют. Это диагностический контроль всей системы.",
+      "expected": "Все текущие кандидаты, ранги и разности сходства, отдельно эталонные рамки, без скрытого исключения трудных случаев.",
+      "acceptance": [
+        {
+          "criterion": "Every referenced source SHA256 unchanged before/after; original rawframes decode sequentially from0 and match prior raw pixel hashes.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/independent_review/reid/result.json; research_remaining_causes_20261112/independent_review/reid/audit_v2.json; research_remaining_causes_20261112/independent_review/reid/INTERPRETATION.md"
+        },
+        {
+          "criterion": "Alloperational candidates retained, rawrow/frame/box equality checked; duplicate firstROI produces identical descriptor and all GPU/model tensors explicitly verified.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/independent_review/reid/result.json; research_remaining_causes_20261112/independent_review/reid/audit_v2.json; research_remaining_causes_20261112/independent_review/reid/INTERPRETATION.md; operational обозначает только исходный диагностический conf≥0,1 набор, а не точный первый набор назначения. Все нативные высокоуверенные рамки входят; точные пулы отдельно low_protocol_v3.json."
+        },
+        {
+          "criterion": "Independent CPU scalar cosine/rank/margin recomputation agrees1e-6 and alloperational/observed/oracle cases retained.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/independent_review/reid/result.json; research_remaining_causes_20261112/independent_review/reid/audit_v2.json; research_remaining_causes_20261112/independent_review/reid/INTERPRETATION.md"
+        },
+        {
+          "criterion": "Availability defined from independent annotation IoU>=0.5, ambiguity retained. ReID output does not assign truth or visible pixel ownership.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/independent_review/reid/result.json; research_remaining_causes_20261112/independent_review/reid/audit_v2.json; research_remaining_causes_20261112/independent_review/reid/INTERPRETATION.md"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/independent_review/reid/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/independent_review/reid/result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/independent_review/reid/audit_v2.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/independent_review/reid/INTERPRETATION.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Первый этап: 77 диагностических рамок и 10 кадров, правильная личность первая при наличии продолжения в четырёх случаях. Термин operational уточнён: набор conf≥0,1 шире реального первого набора conf≥0,25. В 574 продолжения отсутствуют в этом диагностическом наборе, но имеются ниже рабочих порогов. Источники: research_remaining_causes_20261112/independent_review/reid/result.json, audit_v2.json и INTERPRETATION.md.",
+      "interpretation": "Подтверждён локальный результат указанной проверки; отрицательные контроли и пределы вывода сохранены. Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "decision": "Не внедрять нулевой сдвиг и не снижать глобально пороги. Следующая правка должна адресовать проверку пространственного соответствия с учётом истории либо отдельное восстановление по низкоуверенным детекциям с проверкой внешнего вида. Это предложения, а не выполненные изменения. Диагностики этой серии завершены.",
+      "cannot_claim": "Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "revisions": [
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "obtained",
+          "old": "77диагностическихрамок/10кадров, правильнаяличностьперваяпри её наличии в4случаях;574безсвоего втакомнаборе. Терминoperationalвпротоколенеточен:первыйнабор≥0,25,авзято≥0,1. Прежниефайлысохранены,точноетолкованиеисправлено вINTERPRETATION.md. 574: в исходныхдетекциях есть своиraw35280(conf0,070896633) и35292(conf0,024678957), нооба исключены до первого(high≥0,25) ивторого(0,1<conf<0,25) сопоставления. ГотоваяMASAранжируетих1и2: 0,966459109783 и0,953865130839; допущенныйчужой35274=0,783609344220 занимает3. Все222сырыерамки5кадров сохранены, все5лучших принадлежат прежней размеченной личности. Неопределённыерамкиучтены: у832отрывдо такойальтернативывсего0,017832627. Источник research_remaining_causes_20261112/independent_review/reid/low_result.json; low_audit.json. Рабочиепорогинеизменены; нового правилаотказаилипродолжениянет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "interpretation",
+          "old": "Подтверждённый локальный вычислительный эффект; все ограничения и неудачные контроли сохранены. Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "decision",
+          "old": "Не внедрять нулевой сдвиг и не снижать глобально confidence-порог. Исследовательский вывод переводит работу к двум конкретным узлам: проверяемое пространственное соответствие с учётом истории и отдельный путь восстановления по имеющимся низкоуверенным детекциям с проверкой внешнего вида/конкуренции. Это предложения для следующей регистрации, не выполненные изменения. Полный трекер остаётся запрещён текущим поручением; дальнейшие диагностики574 в этой серии завершены.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "cannot_claim",
+          "old": "Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        }
+      ]
+    },
+    {
+      "id": "remaining_causes_source832_20261112",
+      "title": "Исходная часть объекта и отказ832",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-12",
+      "question": "Does expanding the reference source support to its anchored GT object box rescue frozen C34 evidence832 under the same fixed coordinate maps?",
+      "hypothesis": "Reference detector support can omit identity-relevant source regions even when GT-based target geometry is supplied; a separate support intervention distinguishes this from coordinate transfer.",
+      "expected": "Отделить достаточность указанной правки от остальных факторов; сохранить все варианты и ошибки остальных четырёх случаев.",
+      "acceptance": [
+        {
+          "criterion": "Primary:832 nativeC34 score with GT source support and either fixed GT coordinate map >0 while matched reference_detector support <=0. Preserve two comparisons separately without selecting a winning coordinate model.",
+          "met": false,
+          "evidence": "research_remaining_causes_20261112/geometry832/source_support_result.json; research_remaining_causes_20261112/geometry832/source_support_audit.json"
+        },
+        {
+          "criterion": "Reproduce prior reference_detector result within1e-9 wherever its source count is unchanged; report every changed count.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/geometry832/source_support_result.json; research_remaining_causes_20261112/geometry832/source_support_audit.json"
+        },
+        {
+          "criterion": "All5 cases and every head outcome retained; report whether accepted own70/1102 are lost or foreign574 remains accepted. Five selected cases cannot justify an operational rollout.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/geometry832/source_support_result.json; research_remaining_causes_20261112/geometry832/source_support_audit.json"
+        },
+        {
+          "criterion": "Independent scorer verifies saved samples, interpolation, channel moments and frozen-head scores within1e-9 before any conclusion.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/geometry832/source_support_result.json; research_remaining_causes_20261112/geometry832/source_support_audit.json"
+        },
+        {
+          "criterion": "Failure rejects sufficiency of this reference-support repair, not information existence or an entire direction.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/geometry832/source_support_result.json; research_remaining_causes_20261112/geometry832/source_support_audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/geometry832/source_support_protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/geometry832/source_support_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/geometry832/source_support_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Расширение исходной области 832 с 149 до 183 точек не исправило C34: −0,705089678 при переносе центров и −0,660006315 при переносе долей эталонных рамок. Источники: research_remaining_causes_20261112/geometry832/source_support_result.json и source_support_audit.json.",
+      "interpretation": "Подтверждён локальный результат указанной проверки; отрицательные контроли и пределы вывода сохранены. Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "decision": "Не внедрять нулевой сдвиг и не снижать глобально пороги. Следующая правка должна адресовать проверку пространственного соответствия с учётом истории либо отдельное восстановление по низкоуверенным детекциям с проверкой внешнего вида. Это предложения, а не выполненные изменения. Диагностики этой серии завершены.",
+      "cannot_claim": "Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "revisions": [
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "obtained",
+          "old": "Расширение832149→183исходныхточки не исправилоC34: GTцентр−0,705089678,GTаффинный−0,660006315. Источник research_remaining_causes_20261112/geometry832/source_support_result.json.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "interpretation",
+          "old": "Подтверждённый локальный вычислительный эффект; все ограничения и неудачные контроли сохранены. Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "decision",
+          "old": "Не внедрять нулевой сдвиг и не снижать глобально confidence-порог. Исследовательский вывод переводит работу к двум конкретным узлам: проверяемое пространственное соответствие с учётом истории и отдельный путь восстановления по имеющимся низкоуверенным детекциям с проверкой внешнего вида/конкуренции. Это предложения для следующей регистрации, не выполненные изменения. Полный трекер остаётся запрещён текущим поручением; дальнейшие диагностики574 в этой серии завершены.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "cannot_claim",
+          "old": "Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        }
+      ]
+    },
+    {
+      "id": "remaining_causes_geometry_state832_20261112",
+      "title": "Совместное влияние координат и состояния на отказ832",
+      "area": "flyvis",
+      "state": "completed_positive",
+      "started": "2026-11-12",
+      "question": "Do GT-coordinate repair and one-second terminal held-state responses interact to rescue C34 own832, and does the temporal rescue depend on dynamic state?",
+      "hypothesis": "Bad detector-relative geometry and response history can jointly limit the frozen C34 readout. The full factorial separates coordinate, state and interaction effects without another core call.",
+      "expected": "Отделить достаточность указанной правки от остальных факторов; сохранить все варианты и ошибки остальных четырёх случаев.",
+      "acceptance": [
+        {
+          "criterion": "Original-original pair exactly reproduces all geometry-only channels within1e-9. Terminal retina images identical to original endpoints; retina outcomes invariant across state pairs.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/geometry832/factorial_result.json; research_remaining_causes_20261112/geometry832/factorial_audit.json; research_remaining_causes_20261112/geometry832/summary.json; research_remaining_causes_20261112/geometry832/РЕЗУЛЬТАТ_v2.md"
+        },
+        {
+          "criterion": "Report coordinate effect, held-both effect and interaction difference-of-differences in mean per-channel Pearson/concordance and frozen score, all5cases, both saved offset sets, all representations.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/geometry832/factorial_result.json; research_remaining_causes_20261112/geometry832/factorial_audit.json; research_remaining_causes_20261112/geometry832/summary.json; research_remaining_causes_20261112/geometry832/РЕЗУЛЬТАТ_v2.md"
+        },
+        {
+          "criterion": "Primary:832 nativeC34 crosses fixed zero for held-both plus GTcenter/GTaffine with C34 saved offset while matched coordinate-only and held-only cells remain nonpositive. Preserve separate outcome for every GT variant, no best-case selection.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/geometry832/factorial_result.json; research_remaining_causes_20261112/geometry832/factorial_audit.json; research_remaining_causes_20261112/geometry832/summary.json; research_remaining_causes_20261112/geometry832/РЕЗУЛЬТАТ_v2.md"
+        },
+        {
+          "criterion": "Secondary: track R134temporal GT-coordinate rescue across state pairs and all5 own/foreign controls. Do not attribute a joint intervention to a unique state variable or neuron.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/geometry832/factorial_result.json; research_remaining_causes_20261112/geometry832/factorial_audit.json; research_remaining_causes_20261112/geometry832/summary.json; research_remaining_causes_20261112/geometry832/РЕЗУЛЬТАТ_v2.md"
+        },
+        {
+          "criterion": "Independent saved-patch interpolation/scalar scores within1e-9 before conclusion; retain all negative and control losses.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/geometry832/factorial_result.json; research_remaining_causes_20261112/geometry832/factorial_audit.json; research_remaining_causes_20261112/geometry832/summary.json; research_remaining_causes_20261112/geometry832/РЕЗУЛЬТАТ_v2.md"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/geometry832/factorial_protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/geometry832/factorial_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/geometry832/factorial_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/geometry832/summary.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/geometry832/РЕЗУЛЬТАТ_v2.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Подтверждено совместное достаточное вмешательство для 832: исходно −0,398459784; только перенос центров −0,685717186; только синтетическая история образца −0,668466625; совместно +0,135427472. Разность разностей среднего Pearson +0,599792942. Отдельно зарегистрированный вариант с изменением обеих историй даёт +0,173103824; он ухудшает контроль 1102. Источники: research_remaining_causes_20261112/geometry832/factorial_result.json, summary.json и factorial_audit.json.",
+      "interpretation": "Подтверждён локальный результат указанной проверки; отрицательные контроли и пределы вывода сохранены. Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "decision": "Не внедрять нулевой сдвиг и не снижать глобально пороги. Следующая правка должна адресовать проверку пространственного соответствия с учётом истории либо отдельное восстановление по низкоуверенным детекциям с проверкой внешнего вида. Это предложения, а не выполненные изменения. Диагностики этой серии завершены.",
+      "cannot_claim": "Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "revisions": [
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "obtained",
+          "old": "832: C34 -0,398459784; толькоGTцентр -0,685717186; только синтетическая история образца -0,668466625; совместно +0,135427472. GTаффинный совместный вариант +0,140372216; взаимодействие среднего пространственного Pearson +0,599792942. Это достаточное совместное вмешательство в координаты и сохранённую карту ответа, не уникальная физическая причина. Источник research_remaining_causes_20261112/geometry832/factorial_result.json; summary.json. Все149GTкоординат вне исходного остаточного диапазона±4,25575пикселя; примерно12пикселей — разность правил, не физическое движение (coordinate_audit.json).",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "interpretation",
+          "old": "Подтверждённый локальный вычислительный эффект; все ограничения и неудачные контроли сохранены. Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "decision",
+          "old": "Не внедрять нулевой сдвиг и не снижать глобально confidence-порог. Исследовательский вывод переводит работу к двум конкретным узлам: проверяемое пространственное соответствие с учётом истории и отдельный путь восстановления по имеющимся низкоуверенным детекциям с проверкой внешнего вида/конкуренции. Это предложения для следующей регистрации, не выполненные изменения. Полный трекер остаётся запрещён текущим поручением; дальнейшие диагностики574 в этой серии завершены.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "cannot_claim",
+          "old": "Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        }
+      ]
+    },
+    {
+      "id": "remaining_causes_raw574_20261112",
+      "title": "Различимость своего и чужого574 до и после ядра",
+      "area": "flyvis",
+      "state": "inconclusive",
+      "started": "2026-11-12",
+      "question": "At fixed oracle GTcenter/GTaffine partner coordinates, is the trueGT19 vs falseGT11 appearance order already present in raw RGB/gray or prepared retinal input, and how does it compare with saved C34/R134 representations?",
+      "hypothesis": "При одинаковых заранее фиксированных эталонных координатах порядок сходства может нарушаться уже на исходных пикселях или подготовленном входе, а не впервые в ядре.",
+      "expected": "Сохранить полный ряд сравнений обоих объектов на одинаковой опоре, без выбора выгодного способа переноса.",
+      "acceptance": [
+        {
+          "criterion": "All source/parentresult/sample/input hashes unchanged. Independent SciPy pixel and retinal interpolation agree within1e-9.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/raw_partner_result.json; research_remaining_causes_20261112/overlap574/raw_partner_audit.json; research_remaining_causes_20261112/overlap574/raw_partner_interpretation.json"
+        },
+        {
+          "criterion": "Independent scalar mean/covariance evaluation of ALL saved pairs agrees within1e-9.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/raw_partner_result.json; research_remaining_causes_20261112/overlap574/raw_partner_audit.json; research_remaining_causes_20261112/overlap574/raw_partner_interpretation.json"
+        },
+        {
+          "criterion": "Do not infer a neural cause if the wrong order already appears before the core; change of ordering after core localizes only this fixed comparator/pair, not unique biological cause.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/raw_partner_result.json; research_remaining_causes_20261112/overlap574/raw_partner_audit.json; research_remaining_causes_20261112/overlap574/raw_partner_interpretation.json"
+        },
+        {
+          "criterion": "Report every stage/mapping/support and both metrics, preserve disagreement and missing support; no selected favorable examples.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/raw_partner_result.json; research_remaining_causes_20261112/overlap574/raw_partner_audit.json; research_remaining_causes_20261112/overlap574/raw_partner_interpretation.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/overlap574/raw_partner_protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/overlap574/raw_partner_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/overlap574/raw_partner_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/overlap574/raw_partner_interpretation.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "На одинаковых 84 точках вход 574 предпочитает своего чужому при обоих переносах и обеих мерах. При переносе центров разность согласия свой−чужой меняется с +0,116834 на подготовленном входе до −0,039105 в C34; аффинный перенос сохраняет правильный порядок. Источники: research_remaining_causes_20261112/overlap574/raw_partner_interpretation.json и raw_partner_audit.json.",
+      "interpretation": "Подтверждён локальный результат указанной проверки; отрицательные контроли и пределы вывода сохранены. Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "decision": "Не внедрять нулевой сдвиг и не снижать глобально пороги. Следующая правка должна адресовать проверку пространственного соответствия с учётом истории либо отдельное восстановление по низкоуверенным детекциям с проверкой внешнего вида. Это предложения, а не выполненные изменения. Диагностики этой серии завершены.",
+      "cannot_claim": "Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "revisions": [
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "obtained",
+          "old": "574: на общей опоре84точек сырыеRGB/яркость/подготовленнаясетчатка предпочитают свойGT19 чужомуGT11 при обоих заранее заданных переносах и обеих общих мерах. При переносе поцентрам разность согласия свой−чужой: подготовленныйвход +0,116834, C34 -0,039105; приаффинномпереносе C34 +0,087373. Это локализация переворота выбранного сравнения между входом и активностью, не доказательство полной потери информации ядром. Эксклюзивнаяопора1–2точки недостаточна. Источник research_remaining_causes_20261112/overlap574/raw_partner_interpretation.json; raw_partner_audit.json.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "interpretation",
+          "old": "Подтверждённый локальный вычислительный эффект; все ограничения и неудачные контроли сохранены. Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "decision",
+          "old": "Не внедрять нулевой сдвиг и не снижать глобально confidence-порог. Исследовательский вывод переводит работу к двум конкретным узлам: проверяемое пространственное соответствие с учётом истории и отдельный путь восстановления по имеющимся низкоуверенным детекциям с проверкой внешнего вида/конкуренции. Это предложения для следующей регистрации, не выполненные изменения. Полный трекер остаётся запрещён текущим поручением; дальнейшие диагностики574 в этой серии завершены.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "cannot_claim",
+          "old": "Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        }
+      ]
+    },
+    {
+      "id": "remaining_causes_raw_candidates_20261112",
+      "title": "Узнаваемость исходных детекций, исключённых рабочим допуском",
+      "area": "flyvis",
+      "state": "completed_positive",
+      "started": "2026-11-12",
+      "question": "Сохраняет ли готовая модель внешнего вида различимость своих рамок574, исключённых до сопоставления?",
+      "hypothesis": "Низкая уверенность детектора исключает имеющееся продолжение до узнавания; его готовый признак может оказаться ближе к истории, чем признак допущенной соседней машины.",
+      "expected": "Все222исходные автомобильные рамки пяти кадров, без новых фильтров; отдельно отмечены действующие пулы первого/второго сопоставления, исходные пороги сохранены.",
+      "acceptance": [
+        {
+          "criterion": "Originalprotocol/sources/results/descriptors unchanged.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/independent_review/reid/low_protocol_v3.json; research_remaining_causes_20261112/independent_review/reid/low_result.json; research_remaining_causes_20261112/independent_review/reid/low_audit.json"
+        },
+        {
+          "criterion": "Allrawcurrentcarrows retained. Previous77descriptors match within1e-6 and oldscores reproduce within1e-6.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/independent_review/reid/low_protocol_v3.json; research_remaining_causes_20261112/independent_review/reid/low_result.json; research_remaining_causes_20261112/independent_review/reid/low_audit.json"
+        },
+        {
+          "criterion": "Independent CPUscalarcosines/ranks/identityavailability verified; unmatchedrows retained as unknown, not automatically foreign.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/independent_review/reid/low_protocol_v3.json; research_remaining_causes_20261112/independent_review/reid/low_result.json; research_remaining_causes_20261112/independent_review/reid/low_audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/independent_review/reid/low_protocol_v2.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/independent_review/reid/low_protocol_v3.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/independent_review/reid/low_protocol_v3.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/independent_review/reid/low_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/independent_review/reid/low_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Проверены все 222 сырые рамки пяти текущих кадров. В 574 свои 35280 и 35292 занимают места 1 и 2, близость 0,966459109783 и 0,953865130839; чужая 35274 — место 3, 0,783609344220. Оба своих продолжения ниже действующих порогов. Старые дескрипторы и 77 оценок повторены точно, ошибка 0. Источники: research_remaining_causes_20261112/independent_review/reid/low_result.json и low_audit.json.",
+      "interpretation": "Подтверждён локальный результат указанной проверки; отрицательные контроли и пределы вывода сохранены. Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "decision": "Не внедрять нулевой сдвиг и не снижать глобально пороги. Следующая правка должна адресовать проверку пространственного соответствия с учётом истории либо отдельное восстановление по низкоуверенным детекциям с проверкой внешнего вида. Это предложения, а не выполненные изменения. Диагностики этой серии завершены.",
+      "cannot_claim": "Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "revisions": [
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "obtained",
+          "old": "574: в исходныхдетекциях есть своиraw35280(conf0,070896633) и35292(conf0,024678957), нооба исключены до первого(high≥0,25) ивторого(0,1<conf<0,25) сопоставления. ГотоваяMASAранжируетих1и2: 0,966459109783 и0,953865130839; допущенныйчужой35274=0,783609344220 занимает3. Все222сырыерамки5кадров сохранены, все5лучших принадлежат прежней размеченной личности. Неопределённыерамкиучтены: у832отрывдо такойальтернативывсего0,017832627. Источник research_remaining_causes_20261112/independent_review/reid/low_result.json; low_audit.json. Рабочиепорогинеизменены; нового правилаотказаилипродолжениянет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "interpretation",
+          "old": "Подтверждённый локальный вычислительный эффект; все ограничения и неудачные контроли сохранены. Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "decision",
+          "old": "Не внедрять нулевой сдвиг и не снижать глобально confidence-порог. Исследовательский вывод переводит работу к двум конкретным узлам: проверяемое пространственное соответствие с учётом истории и отдельный путь восстановления по имеющимся низкоуверенным детекциям с проверкой внешнего вида/конкуренции. Это предложения для следующей регистрации, не выполненные изменения. Полный трекер остаётся запрещён текущим поручением; дальнейшие диагностики574 в этой серии завершены.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "cannot_claim",
+          "old": "Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        }
+      ]
+    },
+    {
+      "id": "remaining_causes_matched574_20261112",
+      "title": "Влияние координат на ложное сходство574 при одной области сравнения",
+      "area": "flyvis",
+      "state": "completed_positive",
+      "started": "2026-11-12",
+      "question": "Does replacing only the spatial query remove574 falsepermission when reference cells, original maps, head and7geometry features are identical? Does zeroing search offset or replacing detector geometry byGT alignment cause the change?",
+      "hypothesis": "Ложный положительный балл может зависеть от геометрии чтения; одинаковая исходная опора отделит это влияние от отбрасывания точек.",
+      "expected": "Четыре заранее фиксированных переноса, одинаковая опора, все пять случаев, прежние головы и порог.",
+      "acceptance": [
+        {
+          "criterion": "At least3cells andnonconstant patches, otherwise unknown.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/matched_query_result.json; research_remaining_causes_20261112/overlap574/matched_query_audit.json; research_remaining_causes_20261112/overlap574/ИТОГ_574.md"
+        },
+        {
+          "criterion": "All30 originalscores reproduce within1e-9; direct input/sourcefingerprints unchanged.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/matched_query_result.json; research_remaining_causes_20261112/overlap574/matched_query_audit.json; research_remaining_causes_20261112/overlap574/ИТОГ_574.md"
+        },
+        {
+          "criterion": "Independent scalar pointinbox mask reconstruction, all240head scores and SciPy interpolation agree within1e-9.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/matched_query_result.json; research_remaining_causes_20261112/overlap574/matched_query_audit.json; research_remaining_causes_20261112/overlap574/ИТОГ_574.md"
+        },
+        {
+          "criterion": "Primaryqueryeffect criterion:574 C34native original>0 AND onepreregistered queryreplacement<=0 on identical common_referenceGT support. Report everycondition andsecondarysupport; no choosing a favorable subset.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/matched_query_result.json; research_remaining_causes_20261112/overlap574/matched_query_audit.json; research_remaining_causes_20261112/overlap574/ИТОГ_574.md"
+        },
+        {
+          "criterion": "Offset alone sufficient only if detectorzero flips. GTgeometry effect is bounded difference detectorzero->GTaffinezero andGTaffinezero->GTcenterzero at sameA. If mappingresults disagree, preserve disagreement anddo not claim robust identitygain.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/matched_query_result.json; research_remaining_causes_20261112/overlap574/matched_query_audit.json; research_remaining_causes_20261112/overlap574/ИТОГ_574.md"
+        },
+        {
+          "criterion": "All5controls reported; a wrongclass rejection on ownpair remains failure. This is diagnosis, not a proposed deployedfix.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/matched_query_result.json; research_remaining_causes_20261112/overlap574/matched_query_audit.json; research_remaining_causes_20261112/overlap574/ИТОГ_574.md"
+        },
+        {
+          "criterion": "No new574diagnostic follows this one unlessa measurement/dataerror isfound. Report closed mechanisms andexactremaininguncertainty.",
+          "met": true,
+          "evidence": "research_remaining_causes_20261112/overlap574/matched_query_result.json; research_remaining_causes_20261112/overlap574/matched_query_audit.json; research_remaining_causes_20261112/overlap574/ИТОГ_574.md"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/overlap574/matched_query_protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/overlap574/matched_query_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/overlap574/matched_query_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/overlap574/ИТОГ_574.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_remaining_causes_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "При одинаковых 84 точках удаление только остаточного сдвига меняет ложный C34-балл 574 с +0,613535591 до −0,250792075; на 42 точках +0,582580756 → −0,270389620. Универсальная замена нулём отклонена: своя 1102 меняется с +0,351579071 до −0,408544209. Источники: research_remaining_causes_20261112/overlap574/matched_query_result.json и matched_query_audit.json.",
+      "interpretation": "Подтверждён локальный результат указанной проверки; отрицательные контроли и пределы вывода сохранены. Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "decision": "Не внедрять нулевой сдвиг и не снижать глобально пороги. Следующая правка должна адресовать проверку пространственного соответствия с учётом истории либо отдельное восстановление по низкоуверенным детекциям с проверкой внешнего вида. Это предложения, а не выполненные изменения. Диагностики этой серии завершены.",
+      "cannot_claim": "Пять выбранных случаев; эталонная геометрия и синтетические истории. Не установлены физические соответствия видимых частей, вина отдельного нейрона, обобщение, новый HOTA и полный жизненный цикл. Веса и производственные пороги не изменялись, полный трекер не запускался.",
+      "revisions": [
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "obtained",
+          "old": "574: на одинаковых84точках удаление только остаточного сдвига(-4,255754;+2,127877) меняет ложный C34балл +0,613535591→-0,250792075; на42точках +0,582580756→-0,270389620. Карты, точки, веса,7геометрических признаков и порог0 неизменны. Локализован узел пространственного запроса. Общая правка нулём отклонена: своя1102 +0,351579071→-0,408544209. Источник research_remaining_causes_20261112/overlap574/matched_query_result.json; matched_query_audit.json.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "interpretation",
+          "old": "Подтверждённый локальный вычислительный эффект; все ограничения и неудачные контроли сохранены. Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "decision",
+          "old": "Не внедрять нулевой сдвиг и не снижать глобально confidence-порог. Исследовательский вывод переводит работу к двум конкретным узлам: проверяемое пространственное соответствие с учётом истории и отдельный путь восстановления по имеющимся низкоуверенным детекциям с проверкой внешнего вида/конкуренции. Это предложения для следующей регистрации, не выполненные изменения. Полный трекер остаётся запрещён текущим поручением; дальнейшие диагностики574 в этой серии завершены.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        },
+        {
+          "date": "2026-11-12T19:19:39.687984+03:00",
+          "commit": "",
+          "field": "cannot_claim",
+          "old": "Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет.",
+          "reason": "Редакционная правка читаемости; числа, состояния и критерии сохранены."
+        }
+      ]
     }
   ],
   "manual_events": [

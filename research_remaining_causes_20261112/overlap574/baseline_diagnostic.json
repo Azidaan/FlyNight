@@ -1,0 +1,18 @@
+{
+  "case": 232,
+  "representation": "C34",
+  "head": "native",
+  "scores": {
+    "replayed": -0.42674028256197366,
+    "archived": -0.42674018303113653
+  },
+  "expected_frozen_score": -0.42674018303113653,
+  "replayed_minus_expected": -9.953083712765931e-08,
+  "archived_minus_expected": 0.0,
+  "map_max_errors": {
+    "0": 1.3828277587890625e-05,
+    "1": 1.3828277587890625e-05
+  },
+  "root_cause": "maps.npz index is an independently replayed neural output whose original parity gate allowed1e-4; prior candidate-support frozen score used archived endpoint files directly. Comparing them with1e-9 is invalid baseline provenance. Fix is archived files, not relaxed tolerance.",
+  "intervention_outcomes_computed": false
+}

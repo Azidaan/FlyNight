@@ -1,0 +1,83 @@
+{
+  "recorded": "2026-11-12T19:10:15.552497+03:00",
+  "incident": "Agent added an unnecessary inner memoryguard while parent had already registered and completed the guarded raw comparison. Parent message about completed queue arrived after the edit. Agent restored exact original bytes; no rerun and no new results.",
+  "temporary_change": {
+    "file": "raw_partner_worker.py",
+    "added_then_removed_lines": [
+      "ROOT=Path(__file__).resolve().parents[2];OUT=Path(__file__).resolve().parent;sys.path.insert(0,str(ROOT))",
+      "sys.path.insert(0,str(ROOT/'runs/flyvis_repairs_20261106/unification_20261107'))",
+      "from system_memory_guard import guard_entrypoint",
+      "guard=guard_entrypoint(timeout=120)"
+    ],
+    "protocol_source_hash_temporarily_updated": true,
+    "temporary_protocol_sha256": "1dcb328c66e3aa03fa71eea880beca99de3bfb66a364ddd35c4a642aa8183405"
+  },
+  "restored": {
+    "protocol_sha256": "eb86c0c0de9c81aeb7cecd6d48ad40f4c529f178234ed3e61dbcfc6126687812",
+    "worker_sha256": "f763c3d1144e15b57ef61d0052ffa6e6ad9db33046680387a9ccef4920d8f95f",
+    "expected_original_protocol_sha256": "eb86c0c0de9c81aeb7cecd6d48ad40f4c529f178234ed3e61dbcfc6126687812"
+  },
+  "external_guard_proof": "research_remaining_causes_20261112/queue3_execution.json",
+  "guarded_jobs": [
+    {
+      "entry": "research_remaining_causes_20261112/overlap574/raw_partner_worker.py",
+      "token": "8dcc5079b7584f74b8a5e9ebf46d95db",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\8dcc5079b7584f74b8a5e9ebf46d95db\\memory_guard.json",
+      "started": "2026-11-12T19:07:26.815802+03:00",
+      "ended": "2026-11-12T19:07:28.565800+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\overlap574\\raw_partner_worker.py",
+          "--audit-memory-worker=8dcc5079b7584f74b8a5e9ebf46d95db"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17828843520,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "13192": 1794499646.824622,
+          "25148": 1794499646.852709
+        },
+        "stop_errors": [],
+        "seconds": 1.75
+      }
+    },
+    {
+      "entry": "research_remaining_causes_20261112/overlap574/raw_partner_audit.py",
+      "token": "95d37477dd9b48da91a131d82210b9ed",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\95d37477dd9b48da91a131d82210b9ed\\memory_guard.json",
+      "started": "2026-11-12T19:07:28.874782+03:00",
+      "ended": "2026-11-12T19:07:29.392960+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\overlap574\\raw_partner_audit.py",
+          "--audit-memory-worker=95d37477dd9b48da91a131d82210b9ed"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17828110336,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "18944": 1794499648.8947291,
+          "21992": 1794499648.9246833
+        },
+        "stop_errors": [],
+        "seconds": 0.5
+      }
+    }
+  ],
+  "results_unchanged": {
+    "raw_result_sha256": "812acb18939a2162f00fb5b7e4ff85bbc2e3277aca16185c26d9fe0b8d5831b8",
+    "raw_audit_sha256": "68d3322a5d77aef063660fb27f4f7d8438341364290fd22ffea646fbc8e95fdb"
+  },
+  "reruns": 0,
+  "scientific_conditions_changed": false
+}

@@ -1,0 +1,14 @@
+from common import *
+rp=OUT/'independent_review/reid/low_protocol_v2.json';p=read(rp);assert sha(rp)=='c62d7ece93ccfabb014c5e6fd0555cd853404f3e1f97559e9677beeb134188ed'
+inputs={}
+for n,h in p['inputs'].items():assert sha(ROOT/n)==h,n;inputs[n]=h
+for n in ['independent_review/reid/low_protocol_v2.json','run_queue.py','register_low.py']:
+ f=OUT/n;inputs[f.relative_to(ROOT).as_posix()]=sha(f)
+cat=read(ROOT/'experiments/project_history.json');identity='remaining_causes_raw_candidates_20261112';assert not any(c['id']==identity for c in cat['experiments'])
+cat['experiments'].append(dict(id=identity,title='Узнаваемость исходных детекций, исключённых рабочим допуском',area='flyvis',state='running',started='2026-11-12',question='Сохраняет ли готовая модель внешнего вида различимость своих рамок574, исключённых до сопоставления?',hypothesis='Низкая уверенность детектора исключает имеющееся продолжение до узнавания; его готовый признак может оказаться ближе к истории, чем признак допущенной соседней машины.',expected='Все222исходные автомобильные рамки пяти кадров, без новых фильтров; отдельно отмечены действующие пулы первого/второго сопоставления, исходные пороги сохранены.',acceptance=[dict(criterion=c,met=None) for c in p['acceptance']],evidence=[dict(kind='file',ref=rp.relative_to(ROOT).as_posix())]))
+(ROOT/'experiments/project_history.json').write_text(json.dumps(cat,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+tp=ROOT/'experiments/obsidian_experiment_topics.json';t=read(tp);t['topics'][identity]=['Сохранение личности','Причины отказов','Сравнение с признаками внешнего вида'];tp.write_text(json.dumps(t,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+jobs=[dict(entry=(OUT/'independent_review/reid/low_worker_v2.py').relative_to(ROOT).as_posix(),args=['--go-protocol-sha256',sha(rp)],timeout=1200),dict(entry=(OUT/'independent_review/reid/low_audit_v2.py').relative_to(ROOT).as_posix(),timeout=180)]
+save('queue4.json',dict(registered=now(),inputs=inputs,runner_sha256=sha(OUT/'run_queue.py'),jobs=jobs,deadline='2026-11-13T07:35:00+03:00'))
+journal('Постановка проверки исключённых детекций (`remaining_causes_raw_candidates_20261112`): все222исходные автомобильные рамки пяти текущих кадров без нового фильтра; готоваяMASA,5общих карт полного кадра,5сохранённых прежних образцов. Рабочиепороги≥0,25и(0,1;0,25)неизменны и размечены какфлаги, а не заменены. Перед интерпретацией новых рамок требуется повторить прежние77дескрипторов/баллов с допуском1e-6 и независимый пересчёт. Источник independent_review/reid/low_protocol_v2.json. Подтверждённыеправки832неустраняютвсе5ошибок, дальнейшееувеличениедопусканеобосновано. Последнийразличающий574опыт будетсравниватьстарыеиновыекоординатынаОДНОЙобщейопоре,чтобыотделитьгеометриюотчислаточек;посленегобезновыхданныхсериядиагностикпрекращается.')
+print('REGISTERED_LOW',sum(len(c['candidates']) for c in p['cases']))

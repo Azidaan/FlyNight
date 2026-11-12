@@ -1,0 +1,4805 @@
+{
+  "registered": "2026-11-12T19:07:48.449455+03:00",
+  "inputs": {
+    "research_remaining_causes_20261112/independent_review/reid/protocol.json": "ce02d7bd1e816f467d81842a5d9b384e6f434e0a9e31b35d8b5db0ae3bbd1582",
+    "research_remaining_causes_20261112/independent_review/reid/result.json": "e43c9cff7f4f3acc315122acc1b7393feca839fc969ebac9e393883b0166e14c",
+    "research_remaining_causes_20261112/independent_review/reid/descriptors.npz": "103fcc637702291338d46e11a82609f4f36f328d936e5a8d963d6ed686a084e3",
+    "research_remaining_causes_20261112/independent_review/reid/common.py": "da1ba510018b60ac4b8b49ab792c1bbf59a741e4f7abfb0d9d1953718a38b9bb",
+    "research_remaining_causes_20261112/independent_review/reid/low_register.py": "1a42441fd60a52f522b736497218c0f07469052446603169139856bed4d67842",
+    "research_remaining_causes_20261112/independent_review/reid/low_worker.py": "41582aaad601d173905c020856578b74474f0eb2851cd6d89dfb721deddf2a24",
+    "research_remaining_causes_20261112/independent_review/reid/low_audit.py": "cf218768ad19ebff52f5e67615bacaac1d33efa6edc88781fb217f2f9d292486",
+    "runs/domain_matched_native_20261109/protocol.json": "2a7b1a877e74c0a280a478ba1e1652c7c8d990fdb788e726bbd5c94c700ce1b5",
+    "runs/domain_matched_native_20261109/runtime_adapter.py": "ac3779744c1ce609f85a5a1711064b8946d1726a8798a4499f0c2ceb73b5117b",
+    "runs/full_template_native_20261109/native_runtime.py": "acd185b7dd7c0937d87c7cf85d6a872b915b159a34cbc81735c55e726a1af5ff",
+    "tracking/offline_association.py": "b7d4ab568d25708df3601fe890b85b488f646ce010459e3110aa84ee78d54ceb",
+    ".venv/Lib/site-packages/ultralytics/trackers/byte_tracker.py": "00c7c1ff8b1076fc89347071519ae0b06a30bfce00dded94826620e068b1928f",
+    "research_remaining_causes_20261112/independent_review/reid/low_protocol.json": "7043d617a34fd41cd907b869a4177a0879597dca06bd2d8ac2f990a95f5e565f",
+    "research_remaining_causes_20261112/independent_review/reid/low_worker_v2.py": "6cb1e13ca19ef90225c86d9e15a2852d5e67fa379061b434d7ec66c7e272d413",
+    "research_remaining_causes_20261112/independent_review/reid/low_audit_v2.py": "e6876869b433cf3eedcb91f4718a901faf15d2afbe3acc896cee57419e439f12",
+    "research_remaining_causes_20261112/independent_review/reid/low_protocol_v2.json": "c62d7ece93ccfabb014c5e6fd0555cd853404f3e1f97559e9677beeb134188ed",
+    "research_remaining_causes_20261112/independent_review/reid/low_worker_v3.py": "1d4a52e6ada3ca6f9f5ed99addc70803e135e236ccd51df2cdc87cb257db420d",
+    "research_remaining_causes_20261112/independent_review/reid/low_audit_v3.py": "5c3467e48fe0dc5d9f82ba858a50882f77c326cb2124f1f1aafc31ce8740c7b0"
+  },
+  "original_protocol_sha256": "ce02d7bd1e816f467d81842a5d9b384e6f434e0a9e31b35d8b5db0ae3bbd1582",
+  "cases": [
+    {
+      "old_id": 232,
+      "label": "own",
+      "video": "b23b2649-8349d2a1",
+      "reference_frame": 538,
+      "current_frame": 544,
+      "reference_box": [
+        977.2183386273254,
+        539.8149439860917,
+        1019.0764867316748,
+        557.9086638432507
+      ],
+      "reference_raw_id": 54360,
+      "identity": "00130234",
+      "reference_hits": [
+        {
+          "identity": "00130234",
+          "iou": 0.8203872839073939,
+          "box": [
+            976.3766645003625,
+            540.0382400943087,
+            1018.4269317011979,
+            555.3730282669886
+          ]
+        }
+      ],
+      "desired": {
+        "raw_id": 54943,
+        "box": [
+          987.3104858398438,
+          538.2578735351562,
+          1023.7550048828125,
+          554.6574096679688
+        ],
+        "confidence": 0.3621754050254822,
+        "cls": 2,
+        "hits": [
+          {
+            "identity": "00130234",
+            "iou": 0.5846155166390912,
+            "box": [
+              976.4262053614035,
+              539.9490665444349,
+              1018.4764725622389,
+              555.2838547171149
+            ]
+          }
+        ],
+        "operational": true
+      },
+      "candidates": [
+        {
+          "raw_id": 54932,
+          "box": [
+            170.25218200683594,
+            535.1365966796875,
+            400.2847900390625,
+            716.5573120117188
+          ],
+          "confidence": 0.9645664691925049,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130228",
+              "iou": 0.9719006450515686,
+              "box": [
+                170.94414787666324,
+                534.6251294717553,
+                403.4674527926062,
+                718.1961596685524
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 54933,
+          "box": [
+            700.225830078125,
+            529.7290649414062,
+            759.5870361328125,
+            553.009033203125
+          ],
+          "confidence": 0.8238372802734375,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130221",
+              "iou": 0.888319267040683,
+              "box": [
+                698.8128435981197,
+                528.9140307545216,
+                760.0031869970521,
+                551.7584256234563
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 54934,
+          "box": [
+            133.4910430908203,
+            535.0440063476562,
+            185.93142700195312,
+            551.156982421875
+          ],
+          "confidence": 0.7835871577262878,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130217",
+              "iou": 0.8373809405909644,
+              "box": [
+                138.3092980638993,
+                534.6251294717553,
+                187.26157278304518,
+                551.7584256234563
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 54936,
+          "box": [
+            842.7469482421875,
+            535.7042846679688,
+            892.7236328125,
+            552.875
+          ],
+          "confidence": 0.7394552826881409,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 54938,
+          "box": [
+            183.75279235839844,
+            534.7978515625,
+            214.22201538085938,
+            555.976806640625
+          ],
+          "confidence": 0.6599010229110718,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130219",
+              "iou": 0.6486515075102934,
+              "box": [
+                185.629830292407,
+                534.6251294717553,
+                211.73771014261814,
+                550.9425543781373
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 54940,
+          "box": [
+            782.74853515625,
+            535.750244140625,
+            845.3302612304688,
+            553.18212890625
+          ],
+          "confidence": 0.5250841379165649,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 54941,
+          "box": [
+            756.01611328125,
+            536.4898071289062,
+            792.747314453125,
+            552.1260986328125
+          ],
+          "confidence": 0.4284154176712036,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130222",
+              "iou": 0.6994608851153763,
+              "box": [
+                755.1079595251375,
+                537.0727432077126,
+                791.8221655644969,
+                548.4949406421799
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 54942,
+          "box": [
+            945.0206909179688,
+            539.304443359375,
+            985.020263671875,
+            553.9987182617188
+          ],
+          "confidence": 0.4185740053653717,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 54943,
+          "box": [
+            987.3104858398438,
+            538.2578735351562,
+            1023.7550048828125,
+            554.6574096679688
+          ],
+          "confidence": 0.3621754050254822,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130234",
+              "iou": 0.5846155166390912,
+              "box": [
+                976.4262053614035,
+                539.9490665444349,
+                1018.4764725622389,
+                555.2838547171149
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 54944,
+          "box": [
+            918.37744140625,
+            534.9478759765625,
+            949.2847900390625,
+            550.6023559570312
+          ],
+          "confidence": 0.2590770125389099,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130225",
+              "iou": 0.5453797151970992,
+              "box": [
+                905.2282686638515,
+                532.177515735798,
+                948.4694446657637,
+                549.3108118874991
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 54945,
+          "box": [
+            1121.33349609375,
+            529.6725463867188,
+            1164.208984375,
+            594.7389526367188
+          ],
+          "confidence": 0.22329863905906677,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130232",
+              "iou": 0.863488751036661,
+              "box": [
+                1120.6182774280933,
+                531.361644490479,
+                1166.307067165963,
+                590.9202453987731
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 54947,
+          "box": [
+            120.49319458007812,
+            540.0610961914062,
+            140.4042205810547,
+            552.7574462890625
+          ],
+          "confidence": 0.21479924023151398,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130235",
+              "iou": 0.7645916879698386,
+              "box": [
+                120.74208786756633,
+                539.9371996295997,
+                139.42890065222468,
+                550.4993112035371
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 54948,
+          "box": [
+            782.4384765625,
+            535.4718017578125,
+            839.6097412109375,
+            553.29833984375
+          ],
+          "confidence": 0.18455040454864502,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 54949,
+          "box": [
+            81.95826721191406,
+            534.05712890625,
+            109.36625671386719,
+            551.5416870117188
+          ],
+          "confidence": 0.17697970569133759,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130218",
+              "iou": 0.8263748371078795,
+              "box": [
+                85.27766711815792,
+                534.6251294717553,
+                108.93793323241177,
+                551.7584256234563
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 54950,
+          "box": [
+            902.2725830078125,
+            534.803466796875,
+            948.316650390625,
+            551.8480224609375
+          ],
+          "confidence": 0.14992232620716095,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130225",
+              "iou": 0.6941164432003522,
+              "box": [
+                905.2282686638515,
+                532.177515735798,
+                948.4694446657637,
+                549.3108118874991
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 54951,
+          "box": [
+            695.6115112304688,
+            535.87060546875,
+            707.9747314453125,
+            550.4077758789062
+          ],
+          "confidence": 0.138501837849617,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 54952,
+          "box": [
+            695.6561279296875,
+            533.3856811523438,
+            707.926513671875,
+            547.0204467773438
+          ],
+          "confidence": 0.12134577333927155,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 54955,
+          "box": [
+            899.1353759765625,
+            533.7140502929688,
+            950.2877807617188,
+            552.3043212890625
+          ],
+          "confidence": 0.09614517539739609,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130225",
+              "iou": 0.6629019822589346,
+              "box": [
+                905.2282686638515,
+                532.177515735798,
+                948.4694446657637,
+                549.3108118874991
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54956,
+          "box": [
+            82.24775695800781,
+            533.562744140625,
+            118.49129486083984,
+            552.142578125
+          ],
+          "confidence": 0.08519900590181351,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130218",
+              "iou": 0.6019884066391482,
+              "box": [
+                85.27766711815792,
+                534.6251294717553,
+                108.93793323241177,
+                551.7584256234563
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54957,
+          "box": [
+            944.6256103515625,
+            539.5101318359375,
+            970.5624389648438,
+            552.7413330078125
+          ],
+          "confidence": 0.08268103003501892,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54959,
+          "box": [
+            81.8898696899414,
+            533.906494140625,
+            108.63569641113281,
+            550.47314453125
+          ],
+          "confidence": 0.07003843039274216,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130218",
+              "iou": 0.7739643085139445,
+              "box": [
+                85.27766711815792,
+                534.6251294717553,
+                108.93793323241177,
+                551.7584256234563
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54960,
+          "box": [
+            982.7633056640625,
+            539.94970703125,
+            1018.3395385742188,
+            554.7432250976562
+          ],
+          "confidence": 0.0681207999587059,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130234",
+              "iou": 0.8161779710566678,
+              "box": [
+                976.4262053614035,
+                539.9490665444349,
+                1018.4764725622389,
+                555.2838547171149
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54962,
+          "box": [
+            754.0765991210938,
+            532.9555053710938,
+            774.9498901367188,
+            545.9085693359375
+          ],
+          "confidence": 0.06446481496095657,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54963,
+          "box": [
+            975.6383056640625,
+            539.98876953125,
+            1005.7100830078125,
+            554.0650024414062
+          ],
+          "confidence": 0.05996173247694969,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130234",
+              "iou": 0.6284380019106247,
+              "box": [
+                976.4262053614035,
+                539.9490665444349,
+                1018.4764725622389,
+                555.2838547171149
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54964,
+          "box": [
+            205.3937225341797,
+            425.76605224609375,
+            706.314697265625,
+            597.5597534179688
+          ],
+          "confidence": 0.055264052003622055,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54965,
+          "box": [
+            926.6116943359375,
+            533.8168334960938,
+            951.2694091796875,
+            548.2943725585938
+          ],
+          "confidence": 0.05346280336380005,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54966,
+          "box": [
+            755.8622436523438,
+            533.3512573242188,
+            790.855224609375,
+            547.1468505859375
+          ],
+          "confidence": 0.048802122473716736,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130222",
+              "iou": 0.6414375619475001,
+              "box": [
+                755.1079595251375,
+                537.0727432077126,
+                791.8221655644969,
+                548.4949406421799
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54967,
+          "box": [
+            902.0130615234375,
+            537.6806640625,
+            921.1141967773438,
+            551.3489990234375
+          ],
+          "confidence": 0.048004891723394394,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54968,
+          "box": [
+            761.6456909179688,
+            532.9720458984375,
+            797.4833374023438,
+            548.1600952148438
+          ],
+          "confidence": 0.04580650478601456,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130222",
+              "iou": 0.5318484862398846,
+              "box": [
+                755.1079595251375,
+                537.0727432077126,
+                791.8221655644969,
+                548.4949406421799
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54969,
+          "box": [
+            1120.8397216796875,
+            528.7364501953125,
+            1163.85595703125,
+            594.132568359375
+          ],
+          "confidence": 0.04536168649792671,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130232",
+              "iou": 0.8619634946478594,
+              "box": [
+                1120.6182774280933,
+                531.361644490479,
+                1166.307067165963,
+                590.9202453987731
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54970,
+          "box": [
+            927.2997436523438,
+            535.5283813476562,
+            950.0460815429688,
+            550.1841430664062
+          ],
+          "confidence": 0.044080473482608795,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54971,
+          "box": [
+            1000.2645874023438,
+            538.271728515625,
+            1025.9111328125,
+            553.7409057617188
+          ],
+          "confidence": 0.04203130304813385,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54972,
+          "box": [
+            81.9570541381836,
+            534.6058959960938,
+            117.59069061279297,
+            554.6507568359375
+          ],
+          "confidence": 0.03743644431233406,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130218",
+              "iou": 0.5675411368804227,
+              "box": [
+                85.27766711815792,
+                534.6251294717553,
+                108.93793323241177,
+                551.7584256234563
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54974,
+          "box": [
+            1020.8973388671875,
+            540.6888427734375,
+            1053.2152099609375,
+            553.1029052734375
+          ],
+          "confidence": 0.03663169965147972,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54975,
+          "box": [
+            84.91291809082031,
+            534.43701171875,
+            114.12273406982422,
+            554.4227294921875
+          ],
+          "confidence": 0.03520010784268379,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130218",
+              "iou": 0.6944036482326208,
+              "box": [
+                85.27766711815792,
+                534.6251294717553,
+                108.93793323241177,
+                551.7584256234563
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54976,
+          "box": [
+            920.83154296875,
+            534.36328125,
+            948.7367553710938,
+            548.3795166015625
+          ],
+          "confidence": 0.03327915072441101,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130225",
+              "iou": 0.5202442010386875,
+              "box": [
+                905.2282686638515,
+                532.177515735798,
+                948.4694446657637,
+                549.3108118874991
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54977,
+          "box": [
+            752.325439453125,
+            536.5518188476562,
+            775.5956420898438,
+            551.506591796875
+          ],
+          "confidence": 0.03115972876548767,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54978,
+          "box": [
+            902.146728515625,
+            532.2823486328125,
+            949.6787109375,
+            550.5628662109375
+          ],
+          "confidence": 0.031052378937602043,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130225",
+              "iou": 0.8430216216963797,
+              "box": [
+                905.2282686638515,
+                532.177515735798,
+                948.4694446657637,
+                549.3108118874991
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54979,
+          "box": [
+            833.3173828125,
+            538.255615234375,
+            860.9938354492188,
+            552.3609619140625
+          ],
+          "confidence": 0.028811579570174217,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54980,
+          "box": [
+            962.5841064453125,
+            539.5283813476562,
+            989.677490234375,
+            553.8697509765625
+          ],
+          "confidence": 0.028677821159362793,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54982,
+          "box": [
+            1125.59814453125,
+            531.2306518554688,
+            1162.572021484375,
+            558.6565551757812
+          ],
+          "confidence": 0.027089837938547134,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54983,
+          "box": [
+            1045.80078125,
+            538.3597412109375,
+            1077.89697265625,
+            553.26025390625
+          ],
+          "confidence": 0.02647828310728073,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54984,
+          "box": [
+            100.93046569824219,
+            528.7593994140625,
+            134.19326782226562,
+            548.654541015625
+          ],
+          "confidence": 0.026438690721988678,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54985,
+          "box": [
+            114.63880920410156,
+            536.893798828125,
+            159.55345153808594,
+            552.2709350585938
+          ],
+          "confidence": 0.026020994409918785,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54986,
+          "box": [
+            880.3905029296875,
+            536.64453125,
+            919.2205810546875,
+            551.9765625
+          ],
+          "confidence": 0.02575632929801941,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54987,
+          "box": [
+            1126.18896484375,
+            536.688720703125,
+            1140.80908203125,
+            553.5853271484375
+          ],
+          "confidence": 0.025126216933131218,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54988,
+          "box": [
+            115.65080261230469,
+            539.3154296875,
+            136.23974609375,
+            553.0792846679688
+          ],
+          "confidence": 0.025031298398971558,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130235",
+              "iou": 0.5162560754022367,
+              "box": [
+                120.74208786756633,
+                539.9371996295997,
+                139.42890065222468,
+                550.4993112035371
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54990,
+          "box": [
+            127.95699310302734,
+            537.4924926757812,
+            160.2326202392578,
+            550.8756103515625
+          ],
+          "confidence": 0.023876864463090897,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54991,
+          "box": [
+            818.1142578125,
+            531.9424438476562,
+            849.7332763671875,
+            548.6129150390625
+          ],
+          "confidence": 0.023377107456326485,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54992,
+          "box": [
+            203.4884033203125,
+            536.7601318359375,
+            229.06753540039062,
+            554.75927734375
+          ],
+          "confidence": 0.022526901215314865,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54994,
+          "box": [
+            1012.5294799804688,
+            541.216796875,
+            1042.5992431640625,
+            552.4171142578125
+          ],
+          "confidence": 0.02235536277294159,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54995,
+          "box": [
+            826.216064453125,
+            540.0166015625,
+            848.3446655273438,
+            551.93408203125
+          ],
+          "confidence": 0.020033488050103188,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54996,
+          "box": [
+            1127.6278076171875,
+            531.342529296875,
+            1149.133056640625,
+            549.0635986328125
+          ],
+          "confidence": 0.0195961631834507,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54997,
+          "box": [
+            124.01560974121094,
+            538.6951904296875,
+            139.61572265625,
+            547.7637939453125
+          ],
+          "confidence": 0.019367573782801628,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130235",
+              "iou": 0.5528328232292948,
+              "box": [
+                120.74208786756633,
+                539.9371996295997,
+                139.42890065222468,
+                550.4993112035371
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 54998,
+          "box": [
+            1127.728271484375,
+            530.7234497070312,
+            1161.8577880859375,
+            548.0406494140625
+          ],
+          "confidence": 0.018825575709342957,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55000,
+          "box": [
+            970.6142578125,
+            537.8837890625,
+            1018.8344116210938,
+            554.2314453125
+          ],
+          "confidence": 0.01837497390806675,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130234",
+              "iou": 0.7213796499152826,
+              "box": [
+                976.4262053614035,
+                539.9490665444349,
+                1018.4764725622389,
+                555.2838547171149
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55002,
+          "box": [
+            373.35662841796875,
+            564.6027221679688,
+            401.83197021484375,
+            583.095947265625
+          ],
+          "confidence": 0.016442932188510895,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55003,
+          "box": [
+            901.5765380859375,
+            531.0643310546875,
+            924.295654296875,
+            549.0189208984375
+          ],
+          "confidence": 0.015974892303347588,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55004,
+          "box": [
+            188.74510192871094,
+            534.1900634765625,
+            215.63987731933594,
+            549.556640625
+          ],
+          "confidence": 0.015705270692706108,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130219",
+              "iou": 0.6921945385611118,
+              "box": [
+                185.629830292407,
+                534.6251294717553,
+                211.73771014261814,
+                550.9425543781373
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55005,
+          "box": [
+            996.2894287109375,
+            537.989013671875,
+            1057.690185546875,
+            553.6812744140625
+          ],
+          "confidence": 0.015388285741209984,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55007,
+          "box": [
+            1019.0740966796875,
+            536.341064453125,
+            1081.244384765625,
+            553.847412109375
+          ],
+          "confidence": 0.014786616899073124,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55008,
+          "box": [
+            1029.12451171875,
+            537.7538452148438,
+            1071.147216796875,
+            553.0614013671875
+          ],
+          "confidence": 0.014308326877653599,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55009,
+          "box": [
+            896.4453125,
+            535.837646484375,
+            926.37939453125,
+            551.453857421875
+          ],
+          "confidence": 0.014303753152489662,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55010,
+          "box": [
+            778.3029174804688,
+            536.606689453125,
+            810.1868896484375,
+            552.3992919921875
+          ],
+          "confidence": 0.013653945177793503,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55012,
+          "box": [
+            155.53289794921875,
+            535.3863525390625,
+            186.2308349609375,
+            549.9918823242188
+          ],
+          "confidence": 0.01329259853810072,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00130217",
+              "iou": 0.5345800083984248,
+              "box": [
+                138.3092980638993,
+                534.6251294717553,
+                187.26157278304518,
+                551.7584256234563
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55013,
+          "box": [
+            843.639892578125,
+            533.6173095703125,
+            881.88818359375,
+            545.856689453125
+          ],
+          "confidence": 0.01309103611856699,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55014,
+          "box": [
+            751.2304077148438,
+            535.8057861328125,
+            774.9957885742188,
+            550.8006591796875
+          ],
+          "confidence": 0.012814142741262913,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55017,
+          "box": [
+            789.23291015625,
+            531.2054443359375,
+            847.4281005859375,
+            550.3357543945312
+          ],
+          "confidence": 0.012182398699223995,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55018,
+          "box": [
+            103.52885437011719,
+            535.646728515625,
+            122.61180114746094,
+            557.89013671875
+          ],
+          "confidence": 0.011556983925402164,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55019,
+          "box": [
+            786.0821533203125,
+            531.475830078125,
+            845.7262573242188,
+            550.1810913085938
+          ],
+          "confidence": 0.011325408704578876,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55020,
+          "box": [
+            217.2383270263672,
+            538.134765625,
+            234.85546875,
+            553.4158935546875
+          ],
+          "confidence": 0.010938327759504318,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55021,
+          "box": [
+            1057.7705078125,
+            538.8178100585938,
+            1080.015380859375,
+            554.1187744140625
+          ],
+          "confidence": 0.010655013844370842,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55022,
+          "box": [
+            698.060546875,
+            531.3634033203125,
+            714.8741455078125,
+            546.3765258789062
+          ],
+          "confidence": 0.010509411804378033,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 55023,
+          "box": [
+            1107.20361328125,
+            314.46636962890625,
+            1279.833251953125,
+            719.641845703125
+          ],
+          "confidence": 0.010493254289031029,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        }
+      ],
+      "oracle_current_same_identity": [
+        {
+          "identity": "00130234",
+          "box": [
+            976.4262053614035,
+            539.9490665444349,
+            1018.4764725622389,
+            555.2838547171149
+          ]
+        }
+      ],
+      "reference_crop": [
+        956,
+        507,
+        1040,
+        591
+      ],
+      "current_crop": [
+        957,
+        507,
+        1040,
+        590
+      ]
+    },
+    {
+      "old_id": 70,
+      "label": "own",
+      "video": "b242f6b2-0033bdfb",
+      "reference_frame": 109,
+      "current_frame": 115,
+      "reference_box": [
+        145.29923074228404,
+        378.2611985714701,
+        211.94211291882908,
+        419.0575900948094
+      ],
+      "reference_raw_id": 4411,
+      "identity": "00115864",
+      "reference_hits": [
+        {
+          "identity": "00115864",
+          "iou": 0.6451100209768603,
+          "box": [
+            147.30081207164662,
+            373.29447676092843,
+            231.16466048493925,
+            421.0650233254622
+          ]
+        }
+      ],
+      "desired": {
+        "raw_id": 4691,
+        "box": [
+          150.42056274414062,
+          375.820556640625,
+          233.6224822998047,
+          418.607421875
+        ],
+        "confidence": 0.2921225428581238,
+        "cls": 2,
+        "hits": [
+          {
+            "identity": "00115864",
+            "iou": 0.8371829312268337,
+            "box": [
+              146.25832850594873,
+              373.3135608966646,
+              232.06551765408238,
+              421.16624738741007
+            ]
+          }
+        ],
+        "operational": true
+      },
+      "candidates": [
+        {
+          "raw_id": 4676,
+          "box": [
+            402.40789794921875,
+            347.7681884765625,
+            498.91937255859375,
+            416.7735290527344
+          ],
+          "confidence": 0.8969968557357788,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115848",
+              "iou": 0.9653805512408582,
+              "box": [
+                402.0770604158268,
+                346.7552842250763,
+                498.6797212463284,
+                415.75718481829176
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4677,
+          "box": [
+            583.4878540039062,
+            347.0279235839844,
+            642.41357421875,
+            394.4836120605469
+          ],
+          "confidence": 0.8902206420898438,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115851",
+              "iou": 0.8557777843644385,
+              "box": [
+                585.7282727639233,
+                342.50901341933996,
+                644.1144963427979,
+                394.5258307896101
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4678,
+          "box": [
+            689.4411010742188,
+            333.11322021484375,
+            786.881103515625,
+            411.84222412109375
+          ],
+          "confidence": 0.8856509923934937,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115854",
+              "iou": 0.9226480437092385,
+              "box": [
+                686.5747749183332,
+                333.10493187793804,
+                785.2951956019441,
+                414.69205640984785
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4679,
+          "box": [
+            293.0172119140625,
+            350.6928405761719,
+            389.1634216308594,
+            408.48651123046875
+          ],
+          "confidence": 0.7671570777893066,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115860",
+              "iou": 0.704012855091315,
+              "box": [
+                283.1814778552094,
+                338.2627426136036,
+                387.2151125957496,
+                411.5109140125554
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4680,
+          "box": [
+            0.5421244502067566,
+            377.9727783203125,
+            88.58624267578125,
+            439.87158203125
+          ],
+          "confidence": 0.7044971585273743,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115862",
+              "iou": 0.8078477525909112,
+              "box": [
+                0,
+                375.4176121637966,
+                92.09929159707424,
+                448.6657835627484
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4681,
+          "box": [
+            672.135498046875,
+            335.2372741699219,
+            707.1431884765625,
+            398.4455261230469
+          ],
+          "confidence": 0.671593427658081,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115855",
+              "iou": 0.817947596505463,
+              "box": [
+                669.9791606985175,
+                332.3653605972765,
+                708.5391123933962,
+                402.5230504865697
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4682,
+          "box": [
+            0.0,
+            384.6043701171875,
+            28.97810173034668,
+            453.63909912109375
+          ],
+          "confidence": 0.6672149896621704,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115865",
+              "iou": 0.7242915715784041,
+              "box": [
+                0,
+                396.64896619247827,
+                30.52836491389737,
+                448.6657835627484
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4683,
+          "box": [
+            74.46821594238281,
+            380.82318115234375,
+            161.2091064453125,
+            427.5005798339844
+          ],
+          "confidence": 0.6371689438819885,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115863",
+              "iou": 0.8297774294648801,
+              "box": [
+                65.56009906122215,
+                379.66388296953295,
+                161.1011921902897,
+                430.61913263836897
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4686,
+          "box": [
+            248.7980194091797,
+            364.93914794921875,
+            299.10107421875,
+            406.2637939453125
+          ],
+          "confidence": 0.5034062266349792,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115846",
+              "iou": 0.7487337645271945,
+              "box": [
+                252.3960145136209,
+                357.37096123941717,
+                296.98185797385247,
+                407.26464320681913
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4687,
+          "box": [
+            472.0723571777344,
+            340.74981689453125,
+            536.758056640625,
+            400.9731140136719
+          ],
+          "confidence": 0.49057140946388245,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115849",
+              "iou": 0.8559234639437993,
+              "box": [
+                476.38679951621265,
+                337.20117491216956,
+                534.7730230950872,
+                400.8952369982146
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4688,
+          "box": [
+            523.0487670898438,
+            345.4966735839844,
+            552.0564575195312,
+            391.1040954589844
+          ],
+          "confidence": 0.42722877860069275,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115850",
+              "iou": 0.8227153735030417,
+              "box": [
+                519.9110752750101,
+                343.5705811207741,
+                550.6965386165986,
+                391.34112768530787
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4689,
+          "box": [
+            640.8065185546875,
+            349.94439697265625,
+            669.1629638671875,
+            369.99041748046875
+          ],
+          "confidence": 0.392983078956604,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4690,
+          "box": [
+            229.2638397216797,
+            364.28924560546875,
+            299.31268310546875,
+            407.63397216796875
+          ],
+          "confidence": 0.3326700031757355,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115846",
+              "iou": 0.5728738444008483,
+              "box": [
+                252.3960145136209,
+                357.37096123941717,
+                296.98185797385247,
+                407.26464320681913
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4691,
+          "box": [
+            150.42056274414062,
+            375.820556640625,
+            233.6224822998047,
+            418.607421875
+          ],
+          "confidence": 0.2921225428581238,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115864",
+              "iou": 0.8371829312268337,
+              "box": [
+                146.25832850594873,
+                373.3135608966646,
+                232.06551765408238,
+                421.16624738741007
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4692,
+          "box": [
+            473.5414733886719,
+            341.6180419921875,
+            536.71484375,
+            401.2260437011719
+          ],
+          "confidence": 0.2733813226222992,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115849",
+              "iou": 0.8601844429761666,
+              "box": [
+                476.38679951621265,
+                337.20117491216956,
+                534.7730230950872,
+                400.8952369982146
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 4693,
+          "box": [
+            149.39756774902344,
+            376.74102783203125,
+            210.3340301513672,
+            417.25201416015625
+          ],
+          "confidence": 0.1983480304479599,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115864",
+              "iou": 0.6012015001045655,
+              "box": [
+                146.25832850594873,
+                373.3135608966646,
+                232.06551765408238,
+                421.16624738741007
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 4694,
+          "box": [
+            555.3272705078125,
+            347.8419189453125,
+            586.66650390625,
+            382.3326416015625
+          ],
+          "confidence": 0.1345401555299759,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 4695,
+          "box": [
+            354.25494384765625,
+            327.8241882324219,
+            448.8475341796875,
+            386.9111022949219
+          ],
+          "confidence": 0.12343364953994751,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 4698,
+          "box": [
+            544.6629028320312,
+            353.5920104980469,
+            569.11376953125,
+            386.3817138671875
+          ],
+          "confidence": 0.06284001469612122,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4699,
+          "box": [
+            543.1241455078125,
+            352.9653015136719,
+            566.873291015625,
+            386.25115966796875
+          ],
+          "confidence": 0.06169325113296509,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4700,
+          "box": [
+            83.26032257080078,
+            381.1394958496094,
+            160.06585693359375,
+            426.9733581542969
+          ],
+          "confidence": 0.05748787522315979,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115863",
+              "iou": 0.7231024609125816,
+              "box": [
+                65.56009906122215,
+                379.66388296953295,
+                161.1011921902897,
+                430.61913263836897
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4701,
+          "box": [
+            229.78048706054688,
+            366.8467712402344,
+            266.8021240234375,
+            402.37762451171875
+          ],
+          "confidence": 0.04329837113618851,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4702,
+          "box": [
+            32.23069381713867,
+            386.7588806152344,
+            88.92823791503906,
+            438.4306640625
+          ],
+          "confidence": 0.032309070229530334,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4705,
+          "box": [
+            383.7593994140625,
+            357.87841796875,
+            410.6437683105469,
+            388.6602783203125
+          ],
+          "confidence": 0.024518536403775215,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4706,
+          "box": [
+            190.1072998046875,
+            378.436279296875,
+            233.12632751464844,
+            415.53643798828125
+          ],
+          "confidence": 0.019142091274261475,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4707,
+          "box": [
+            292.7503967285156,
+            355.7857360839844,
+            365.3095397949219,
+            408.69635009765625
+          ],
+          "confidence": 0.015113713219761848,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115860",
+              "iou": 0.5038072124578415,
+              "box": [
+                283.1814778552094,
+                338.2627426136036,
+                387.2151125957496,
+                411.5109140125554
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4708,
+          "box": [
+            64.47589111328125,
+            385.79949951171875,
+            118.9482421875,
+            425.8985290527344
+          ],
+          "confidence": 0.014647279866039753,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4710,
+          "box": [
+            352.3908386230469,
+            353.74285888671875,
+            389.4423522949219,
+            399.562744140625
+          ],
+          "confidence": 0.01312763337045908,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4711,
+          "box": [
+            759.74560546875,
+            324.7301025390625,
+            825.999755859375,
+            386.62127685546875
+          ],
+          "confidence": 0.012780281715095043,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4712,
+          "box": [
+            161.33604431152344,
+            376.52874755859375,
+            230.06207275390625,
+            416.6802673339844
+          ],
+          "confidence": 0.012437266297638416,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115864",
+              "iou": 0.672037063100737,
+              "box": [
+                146.25832850594873,
+                373.3135608966646,
+                232.06551765408238,
+                421.16624738741007
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4713,
+          "box": [
+            231.1084442138672,
+            366.76861572265625,
+            266.228515625,
+            393.0142517089844
+          ],
+          "confidence": 0.01152038760483265,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4714,
+          "box": [
+            10.356364250183105,
+            380.5769958496094,
+            87.43627166748047,
+            438.8307800292969
+          ],
+          "confidence": 0.011230021715164185,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115862",
+              "iou": 0.6655983704193862,
+              "box": [
+                0,
+                375.4176121637966,
+                92.09929159707424,
+                448.6657835627484
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4715,
+          "box": [
+            552.3953247070312,
+            349.7810974121094,
+            580.2041625976562,
+            384.48895263671875
+          ],
+          "confidence": 0.01044205017387867,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 4716,
+          "box": [
+            562.1121826171875,
+            349.97515869140625,
+            588.9458618164062,
+            380.81390380859375
+          ],
+          "confidence": 0.010128747671842575,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        }
+      ],
+      "oracle_current_same_identity": [
+        {
+          "identity": "00115864",
+          "box": [
+            146.25832850594873,
+            373.3135608966646,
+            232.06551765408238,
+            421.16624738741007
+          ]
+        }
+      ],
+      "reference_crop": [
+        112,
+        332,
+        245,
+        465
+      ],
+      "current_crop": [
+        111,
+        335,
+        240,
+        464
+      ]
+    },
+    {
+      "old_id": 1102,
+      "label": "own",
+      "video": "b1f4491b-cf446195",
+      "reference_frame": 252,
+      "current_frame": 258,
+      "reference_box": [
+        861.1247375488282,
+        268.1812347412109,
+        906.7330261230469,
+        291.0185943603515
+      ],
+      "reference_raw_id": 32145,
+      "identity": "00119408",
+      "reference_hits": [
+        {
+          "identity": "00119408",
+          "iou": 0.6645277504885498,
+          "box": [
+            871.9393457691725,
+            267.21121409471135,
+            905.1702380006463,
+            289.6544742681792
+          ]
+        }
+      ],
+      "desired": {
+        "raw_id": 32657,
+        "box": [
+          888.275146484375,
+          266.40631103515625,
+          929.0458374023438,
+          290.11358642578125
+        ],
+        "confidence": 0.8509321212768555,
+        "cls": 2,
+        "hits": [
+          {
+            "identity": "00119408",
+            "iou": 0.8604351571817359,
+            "box": [
+              886.293423807056,
+              265.84415904348435,
+              927.6835661064866,
+              288.99543991534904
+            ]
+          }
+        ],
+        "operational": true
+      },
+      "candidates": [
+        {
+          "raw_id": 32652,
+          "box": [
+            280.072265625,
+            173.655029296875,
+            525.0299072265625,
+            392.7799072265625
+          ],
+          "confidence": 0.959648072719574,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119397",
+              "iou": 0.973067541565386,
+              "box": [
+                281.96673082537967,
+                173.1126499929524,
+                522.2708334101544,
+                394.0590471218709
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32654,
+          "box": [
+            669.8438720703125,
+            242.5619354248047,
+            813.9530639648438,
+            368.8036804199219
+          ],
+          "confidence": 0.9472777843475342,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119309",
+              "iou": 0.9486317384454246,
+              "box": [
+                671.8099146727541,
+                240.4119579200626,
+                811.9253076783336,
+                367.77190576686513
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32655,
+          "box": [
+            92.30166625976562,
+            233.79173278808594,
+            153.58213806152344,
+            263.122314453125
+          ],
+          "confidence": 0.8581805229187012,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119411",
+              "iou": 0.8969835831725368,
+              "box": [
+                90.03813237363198,
+                234.19628389829467,
+                151.12585597763402,
+                262.58371224960314
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32656,
+          "box": [
+            500.7818603515625,
+            251.18136596679688,
+            545.7059326171875,
+            292.259521484375
+          ],
+          "confidence": 0.8560752868652344,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119310",
+              "iou": 0.8824469482507711,
+              "box": [
+                501.31552052879675,
+                250.4717644878501,
+                549.5499364731876,
+                291.6384166045103
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32657,
+          "box": [
+            888.275146484375,
+            266.40631103515625,
+            929.0458374023438,
+            290.11358642578125
+          ],
+          "confidence": 0.8509321212768555,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119408",
+              "iou": 0.8604351571817359,
+              "box": [
+                886.293423807056,
+                265.84415904348435,
+                927.6835661064866,
+                288.99543991534904
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32658,
+          "box": [
+            0.0,
+            223.09178161621094,
+            33.23891830444336,
+            265.28765869140625
+          ],
+          "confidence": 0.8005164861679077,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119406",
+              "iou": 0.8265011132679931,
+              "box": [
+                0,
+                225.6028128039409,
+                33.57826661841797,
+                260.77453245473
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32659,
+          "box": [
+            13.657485961914062,
+            225.6340789794922,
+            96.78662109375,
+            264.0214538574219
+          ],
+          "confidence": 0.7849665880203247,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119415",
+              "iou": 0.9460524564991063,
+              "box": [
+                14.141263653508226,
+                225.6028128039409,
+                93.74041865266241,
+                264.4768187337604
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32660,
+          "box": [
+            228.3507080078125,
+            240.9200439453125,
+            292.41973876953125,
+            265.3133544921875
+          ],
+          "confidence": 0.7828421592712402,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119416",
+              "iou": 0.7619554416832945,
+              "box": [
+                229.7994394070306,
+                237.6352432107898,
+                291.8127345807903,
+                262.6256755942452
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32661,
+          "box": [
+            595.52197265625,
+            260.28228759765625,
+            614.729248046875,
+            278.53216552734375
+          ],
+          "confidence": 0.7634266018867493,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119311",
+              "iou": 0.8367480866931393,
+              "box": [
+                596.9612934684196,
+                259.5234659218427,
+                613.9120446283493,
+                278.2206322881771
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32662,
+          "box": [
+            550.4315185546875,
+            259.8804931640625,
+            572.8123779296875,
+            278.03411865234375
+          ],
+          "confidence": 0.749706506729126,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119389",
+              "iou": 0.8500515020060804,
+              "box": [
+                550.2320032461201,
+                260.42355577566093,
+                571.7197011994883,
+                276.7774264252573
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32663,
+          "box": [
+            184.2144012451172,
+            230.58078002929688,
+            254.14047241210938,
+            264.2841491699219
+          ],
+          "confidence": 0.7429196238517761,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119412",
+              "iou": 0.7580785806845622,
+              "box": [
+                182.59528934939266,
+                225.16392033196925,
+                252.01315708121317,
+                261.7001040244876
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32664,
+          "box": [
+            631.477783203125,
+            261.6062316894531,
+            646.0106201171875,
+            275.0406494140625
+          ],
+          "confidence": 0.6651561260223389,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119410",
+              "iou": 0.6614923791836416,
+              "box": [
+                632.2552227994665,
+                263.8633232273253,
+                645.2747947159143,
+                273.78299706842824
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32665,
+          "box": [
+            572.968994140625,
+            259.11956787109375,
+            589.4947509765625,
+            273.4140625
+          ],
+          "confidence": 0.6041396856307983,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119394",
+              "iou": 0.7613575152028839,
+              "box": [
+                573.5501569396456,
+                260.6253991502206,
+                587.8096880862312,
+                273.64497106666823
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32666,
+          "box": [
+            817.7197265625,
+            262.9496154785156,
+            858.3170166015625,
+            284.97003173828125
+          ],
+          "confidence": 0.5519271492958069,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119393",
+              "iou": 0.8959407310937819,
+              "box": [
+                815.0251944015124,
+                263.398341354065,
+                858.5477633793519,
+                285.438620453821
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 32667,
+          "box": [
+            179.95355224609375,
+            233.85150146484375,
+            196.17620849609375,
+            244.04830932617188
+          ],
+          "confidence": 0.24958975613117218,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 32669,
+          "box": [
+            866.195556640625,
+            272.07769775390625,
+            891.4447021484375,
+            286.96240234375
+          ],
+          "confidence": 0.14959076046943665,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 32670,
+          "box": [
+            190.9320526123047,
+            225.95005798339844,
+            254.3248748779297,
+            248.93783569335938
+          ],
+          "confidence": 0.13999585807323456,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119412",
+              "iou": 0.5422553512730007,
+              "box": [
+                182.59528934939266,
+                225.16392033196925,
+                252.01315708121317,
+                261.7001040244876
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 32671,
+          "box": [
+            197.82467651367188,
+            226.1356658935547,
+            252.52056884765625,
+            240.70013427734375
+          ],
+          "confidence": 0.12537918984889984,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 32673,
+          "box": [
+            658.13671875,
+            264.64752197265625,
+            678.4715576171875,
+            283.1435241699219
+          ],
+          "confidence": 0.11660119146108627,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119414",
+              "iou": 0.6706419041777772,
+              "box": [
+                657.6743870172929,
+                260.14344553691166,
+                675.6537958542921,
+                282.46271167939335
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 32675,
+          "box": [
+            184.37222290039062,
+            230.2222137451172,
+            254.70083618164062,
+            263.0274658203125
+          ],
+          "confidence": 0.11355391144752502,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119412",
+              "iou": 0.7844594263912138,
+              "box": [
+                182.59528934939266,
+                225.16392033196925,
+                252.01315708121317,
+                261.7001040244876
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 32676,
+          "box": [
+            659.2811889648438,
+            260.3671569824219,
+            687.7982788085938,
+            284.05487060546875
+          ],
+          "confidence": 0.10496582090854645,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119414",
+              "iou": 0.5059393615400579,
+              "box": [
+                657.6743870172929,
+                260.14344553691166,
+                675.6537958542921,
+                282.46271167939335
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 32677,
+          "box": [
+            961.0595092773438,
+            267.6966247558594,
+            993.6199951171875,
+            293.6568603515625
+          ],
+          "confidence": 0.08433733880519867,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32678,
+          "box": [
+            657.7232666015625,
+            262.9136962890625,
+            677.0086669921875,
+            282.49407958984375
+          ],
+          "confidence": 0.07771121710538864,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119414",
+              "iou": 0.8182580235394511,
+              "box": [
+                657.6743870172929,
+                260.14344553691166,
+                675.6537958542921,
+                282.46271167939335
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32679,
+          "box": [
+            798.323486328125,
+            263.909423828125,
+            813.15576171875,
+            279.772216796875
+          ],
+          "confidence": 0.07672520726919174,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119367",
+              "iou": 0.6837450898538976,
+              "box": [
+                800.8896591779408,
+                262.49937469627037,
+                812.0492922491817,
+                280.4787835332695
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32680,
+          "box": [
+            188.4808349609375,
+            225.7463836669922,
+            256.9014587402344,
+            258.65765380859375
+          ],
+          "confidence": 0.07530290633440018,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119412",
+              "iou": 0.775238297251279,
+              "box": [
+                182.59528934939266,
+                225.16392033196925,
+                252.01315708121317,
+                261.7001040244876
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32681,
+          "box": [
+            267.2897033691406,
+            239.35617065429688,
+            296.51593017578125,
+            256.15631103515625
+          ],
+          "confidence": 0.06800749897956848,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32682,
+          "box": [
+            16.13818359375,
+            225.6187744140625,
+            96.6317367553711,
+            264.1007080078125
+          ],
+          "confidence": 0.05994204431772232,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119415",
+              "iou": 0.9315830388661384,
+              "box": [
+                14.141263653508226,
+                225.6028128039409,
+                93.74041865266241,
+                264.4768187337604
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32683,
+          "box": [
+            285.0697937011719,
+            243.83694458007812,
+            301.2108459472656,
+            258.66461181640625
+          ],
+          "confidence": 0.053004246205091476,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32684,
+          "box": [
+            198.08990478515625,
+            225.8365478515625,
+            253.66964721679688,
+            243.57870483398438
+          ],
+          "confidence": 0.049463167786598206,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32685,
+          "box": [
+            263.8059387207031,
+            242.0588836669922,
+            297.1658630371094,
+            264.6136474609375
+          ],
+          "confidence": 0.04886223375797272,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32688,
+          "box": [
+            960.7130126953125,
+            242.41741943359375,
+            1011.1141967773438,
+            289.79510498046875
+          ],
+          "confidence": 0.04284534230828285,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32689,
+          "box": [
+            960.9508056640625,
+            266.7593078613281,
+            997.3541870117188,
+            294.26739501953125
+          ],
+          "confidence": 0.04218289628624916,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32690,
+          "box": [
+            864.9701538085938,
+            273.6610107421875,
+            881.4010009765625,
+            286.40533447265625
+          ],
+          "confidence": 0.041547615081071854,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32692,
+          "box": [
+            662.1419677734375,
+            264.6595764160156,
+            684.6642456054688,
+            284.11712646484375
+          ],
+          "confidence": 0.03620188310742378,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32693,
+          "box": [
+            85.12284851074219,
+            229.769775390625,
+            99.55366516113281,
+            242.29855346679688
+          ],
+          "confidence": 0.03252086415886879,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32695,
+          "box": [
+            123.24581146240234,
+            234.1805877685547,
+            154.07977294921875,
+            261.5667724609375
+          ],
+          "confidence": 0.02917172759771347,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32696,
+          "box": [
+            620.200927734375,
+            256.5998840332031,
+            632.86767578125,
+            267.9618225097656
+          ],
+          "confidence": 0.02853638306260109,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32697,
+          "box": [
+            281.24420166015625,
+            243.91220092773438,
+            299.9984436035156,
+            263.0058898925781
+          ],
+          "confidence": 0.026615235954523087,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32698,
+          "box": [
+            807.8209228515625,
+            269.3299560546875,
+            823.228271484375,
+            281.76507568359375
+          ],
+          "confidence": 0.025783300399780273,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32699,
+          "box": [
+            91.665771484375,
+            234.76031494140625,
+            123.22244262695312,
+            261.5289001464844
+          ],
+          "confidence": 0.02124977670609951,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32700,
+          "box": [
+            815.7470703125,
+            262.1418151855469,
+            835.8614501953125,
+            280.6355285644531
+          ],
+          "confidence": 0.02063538134098053,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32701,
+          "box": [
+            961.83642578125,
+            273.05718994140625,
+            990.8829956054688,
+            294.1309814453125
+          ],
+          "confidence": 0.01952158845961094,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32702,
+          "box": [
+            756.3858642578125,
+            241.4603729248047,
+            791.9498291015625,
+            253.0290985107422
+          ],
+          "confidence": 0.017814183607697487,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32705,
+          "box": [
+            539.8088989257812,
+            253.73684692382812,
+            553.36083984375,
+            272.3818359375
+          ],
+          "confidence": 0.016524046659469604,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32706,
+          "box": [
+            869.7613525390625,
+            270.33282470703125,
+            896.6134033203125,
+            288.18353271484375
+          ],
+          "confidence": 0.016412727534770966,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32708,
+          "box": [
+            269.92626953125,
+            239.5210418701172,
+            291.52581787109375,
+            247.87680053710938
+          ],
+          "confidence": 0.014157537370920181,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32710,
+          "box": [
+            877.8168334960938,
+            269.74029541015625,
+            894.9500732421875,
+            286.90814208984375
+          ],
+          "confidence": 0.01362842321395874,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32712,
+          "box": [
+            854.2897338867188,
+            270.8655090332031,
+            872.0018310546875,
+            285.550048828125
+          ],
+          "confidence": 0.013154235668480396,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32713,
+          "box": [
+            959.3675537109375,
+            241.75991821289062,
+            1011.0685424804688,
+            294.4022216796875
+          ],
+          "confidence": 0.012419373728334904,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32714,
+          "box": [
+            960.9647827148438,
+            263.7460021972656,
+            997.0458984375,
+            291.8768310546875
+          ],
+          "confidence": 0.012407799251377583,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32716,
+          "box": [
+            806.4808349609375,
+            263.6495361328125,
+            825.9127197265625,
+            281.29901123046875
+          ],
+          "confidence": 0.011726250872015953,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32722,
+          "box": [
+            620.80615234375,
+            259.63409423828125,
+            631.7586059570312,
+            268.63153076171875
+          ],
+          "confidence": 0.010323027148842812,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 32724,
+          "box": [
+            678.9147338867188,
+            268.2464599609375,
+            693.0450439453125,
+            287.5055847167969
+          ],
+          "confidence": 0.0101650170981884,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        }
+      ],
+      "oracle_current_same_identity": [
+        {
+          "identity": "00119408",
+          "box": [
+            886.293423807056,
+            265.84415904348435,
+            927.6835661064866,
+            288.99543991534904
+          ]
+        }
+      ],
+      "reference_crop": [
+        838,
+        234,
+        929,
+        325
+      ],
+      "current_crop": [
+        838,
+        234,
+        929,
+        325
+      ]
+    },
+    {
+      "old_id": 574,
+      "label": "foreign",
+      "video": "b2036451-aa924fd1",
+      "reference_frame": 931,
+      "current_frame": 937,
+      "reference_box": [
+        478.0374223317355,
+        347.14643192392754,
+        494.632015208585,
+        379.0388465846338
+      ],
+      "reference_raw_id": 35025,
+      "identity": "00115019",
+      "reference_hits": [
+        {
+          "identity": "00115019",
+          "iou": 0.7373681203732675,
+          "box": [
+            479.03785342833004,
+            347.10082847736237,
+            491.941229951652,
+            377.4237633071691
+          ]
+        }
+      ],
+      "desired": {
+        "raw_id": 35274,
+        "box": [
+          480.3653259277344,
+          343.91552734375,
+          505.2005615234375,
+          376.6492614746094
+        ],
+        "confidence": 0.7442550659179688,
+        "cls": 2,
+        "hits": [
+          {
+            "identity": "00115011",
+            "iou": 0.7712121274964984,
+            "box": [
+              484.8443728638249,
+              344.3850025448171,
+              506.3920250793194,
+              376.6403231646176
+            ]
+          }
+        ],
+        "operational": true
+      },
+      "candidates": [
+        {
+          "raw_id": 35263,
+          "box": [
+            0.0,
+            345.51806640625,
+            138.40623474121094,
+            513.6532592773438
+          ],
+          "confidence": 0.9396593570709229,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115015",
+              "iou": 0.9732616268013308,
+              "box": [
+                0,
+                347.5120737431431,
+                138.39733076966579,
+                511.16213312220776
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35264,
+          "box": [
+            121.91046142578125,
+            343.1728210449219,
+            287.65045166015625,
+            455.82659912109375
+          ],
+          "confidence": 0.9366380572319031,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115014",
+              "iou": 0.9246647204990037,
+              "box": [
+                126.93140304247015,
+                340.21557428038227,
+                285.36967709099133,
+                454.8748515523384
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35266,
+          "box": [
+            258.39068603515625,
+            339.12176513671875,
+            364.52410888671875,
+            424.50103759765625
+          ],
+          "confidence": 0.9200108051300049,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115013",
+              "iou": 0.8853162359658984,
+              "box": [
+                258.26839337216535,
+                343.34264547870833,
+                362.50409998303456,
+                420.4770683707515
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35267,
+          "box": [
+            917.400390625,
+            171.68515014648438,
+            1279.8017578125,
+            640.6825561523438
+          ],
+          "confidence": 0.9181143641471863,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115002",
+              "iou": 0.9490634612230234,
+              "box": [
+                915.9957020867499,
+                170.31137250466548,
+                1280,
+                662.303907707968
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35268,
+          "box": [
+            353.2370300292969,
+            345.20025634765625,
+            401.4750671386719,
+            409.1961364746094
+          ],
+          "confidence": 0.9110587239265442,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115012",
+              "iou": 0.9668569816623437,
+              "box": [
+                353.1228863880563,
+                345.42735961092575,
+                401.07131142905615,
+                407.96878357744725
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35269,
+          "box": [
+            444.2100524902344,
+            342.9097900390625,
+            486.22088623046875,
+            383.45098876953125
+          ],
+          "confidence": 0.8796065449714661,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115010",
+              "iou": 0.7821503890170272,
+              "box": [
+                451.00681747895186,
+                343.34264547870833,
+                484.36224359442997,
+                383.66932444995734
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35270,
+          "box": [
+            389.4317321777344,
+            347.09521484375,
+            429.3287048339844,
+            397.5302734375
+          ],
+          "confidence": 0.8772812485694885,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115017",
+              "iou": 0.8590094409431533,
+              "box": [
+                391.5226747711935,
+                344.9013031960141,
+                430.1373971697676,
+                395.632300587325
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35271,
+          "box": [
+            696.05126953125,
+            346.8489685058594,
+            751.445068359375,
+            393.84906005859375
+          ],
+          "confidence": 0.869988739490509,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115004",
+              "iou": 0.8422333633693312,
+              "box": [
+                698.1430752700334,
+                347.5120737431431,
+                756.51507097212,
+                395.46049878414294
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35272,
+          "box": [
+            415.5962829589844,
+            346.07708740234375,
+            456.9311218261719,
+            390.09344482421875
+          ],
+          "confidence": 0.8640451431274414,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115009",
+              "iou": 0.7924510138992599,
+              "box": [
+                417.3010141815971,
+                343.0747393893955,
+                454.82586856151,
+                394.15023562872136
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35273,
+          "box": [
+            508.8537292480469,
+            341.90155029296875,
+            538.6506958007812,
+            365.267333984375
+          ],
+          "confidence": 0.8207614421844482,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115006",
+              "iou": 0.7545591712959898,
+              "box": [
+                508.43408923825143,
+                341.257931346491,
+                534.4930158909688,
+                363.1474297347735
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35274,
+          "box": [
+            480.3653259277344,
+            343.91552734375,
+            505.2005615234375,
+            376.6492614746094
+          ],
+          "confidence": 0.7442550659179688,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115011",
+              "iou": 0.7712121274964984,
+              "box": [
+                484.8443728638249,
+                344.3850025448171,
+                506.3920250793194,
+                376.6403231646176
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35275,
+          "box": [
+            686.9962768554688,
+            336.3615417480469,
+            741.6016845703125,
+            384.3070983886719
+          ],
+          "confidence": 0.683540403842926,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35276,
+          "box": [
+            677.892822265625,
+            339.08465576171875,
+            699.9981689453125,
+            379.5326843261719
+          ],
+          "confidence": 0.6718421578407288,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35277,
+          "box": [
+            737.08544921875,
+            337.54461669921875,
+            777.8517456054688,
+            414.60260009765625
+          ],
+          "confidence": 0.2947474420070648,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115020",
+              "iou": 0.6183988656395377,
+              "box": [
+                735.6679296499462,
+                349.5967878753605,
+                769.0233557654244,
+                412.138211841882
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 35278,
+          "box": [
+            535.3507080078125,
+            344.1515808105469,
+            549.1720581054688,
+            361.9844970703125
+          ],
+          "confidence": 0.11514726281166077,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 35279,
+          "box": [
+            538.0672607421875,
+            344.6426696777344,
+            552.3560180664062,
+            361.11798095703125
+          ],
+          "confidence": 0.08017947524785995,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35280,
+          "box": [
+            478.70013427734375,
+            346.2166748046875,
+            494.7383728027344,
+            376.9639892578125
+          ],
+          "confidence": 0.07089663296937943,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115019",
+              "iou": 0.5343706443504401,
+              "box": [
+                475.6829755322663,
+                346.8427609468959,
+                489.4895884122208,
+                378.7141009595013
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35282,
+          "box": [
+            498.4992370605469,
+            345.1287841796875,
+            511.6352233886719,
+            365.0894775390625
+          ],
+          "confidence": 0.061677660793066025,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35283,
+          "box": [
+            583.2368774414062,
+            338.03814697265625,
+            601.229736328125,
+            361.2413024902344
+          ],
+          "confidence": 0.04984932020306587,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35284,
+          "box": [
+            584.3011474609375,
+            339.77130126953125,
+            601.1165771484375,
+            365.00091552734375
+          ],
+          "confidence": 0.04795625060796738,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35285,
+          "box": [
+            537.6122436523438,
+            343.9693603515625,
+            550.7930908203125,
+            361.24859619140625
+          ],
+          "confidence": 0.04636245220899582,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35286,
+          "box": [
+            933.4871826171875,
+            321.82989501953125,
+            961.5184326171875,
+            360.3969421386719
+          ],
+          "confidence": 0.045582957565784454,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35287,
+          "box": [
+            551.09033203125,
+            345.55731201171875,
+            563.12744140625,
+            358.3797302246094
+          ],
+          "confidence": 0.03977613151073456,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35288,
+          "box": [
+            751.4450073242188,
+            338.1844787597656,
+            777.4884643554688,
+            356.59429931640625
+          ],
+          "confidence": 0.036553654819726944,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35289,
+          "box": [
+            924.3819580078125,
+            321.03021240234375,
+            962.5428466796875,
+            371.74676513671875
+          ],
+          "confidence": 0.035768892616033554,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35290,
+          "box": [
+            924.3402099609375,
+            319.7169189453125,
+            962.6847534179688,
+            395.4120788574219
+          ],
+          "confidence": 0.03114973194897175,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35292,
+          "box": [
+            478.6657409667969,
+            347.205322265625,
+            492.8201904296875,
+            379.05072021484375
+          ],
+          "confidence": 0.02467895671725273,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00115019",
+              "iou": 0.6203737631646212,
+              "box": [
+                475.6829755322663,
+                346.8427609468959,
+                489.4895884122208,
+                378.7141009595013
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35293,
+          "box": [
+            748.5760498046875,
+            338.03668212890625,
+            777.1376953125,
+            361.061279296875
+          ],
+          "confidence": 0.023747693747282028,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35294,
+          "box": [
+            934.9281005859375,
+            321.2908935546875,
+            961.4892578125,
+            346.24993896484375
+          ],
+          "confidence": 0.022159678861498833,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35295,
+          "box": [
+            47.732357025146484,
+            327.0466613769531,
+            178.82723999023438,
+            376.06842041015625
+          ],
+          "confidence": 0.022037992253899574,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35296,
+          "box": [
+            934.3922119140625,
+            322.3955383300781,
+            960.2576904296875,
+            344.318603515625
+          ],
+          "confidence": 0.018974952399730682,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35297,
+          "box": [
+            48.08552169799805,
+            326.6961975097656,
+            188.51742553710938,
+            374.653076171875
+          ],
+          "confidence": 0.018873726949095726,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35298,
+          "box": [
+            534.0148315429688,
+            342.4088134765625,
+            550.8056030273438,
+            362.186279296875
+          ],
+          "confidence": 0.017222831025719643,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35299,
+          "box": [
+            561.010986328125,
+            339.3392333984375,
+            578.468994140625,
+            354.9990234375
+          ],
+          "confidence": 0.016258124262094498,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35300,
+          "box": [
+            498.8140563964844,
+            345.75616455078125,
+            509.13165283203125,
+            369.79150390625
+          ],
+          "confidence": 0.013974994421005249,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35301,
+          "box": [
+            755.790283203125,
+            337.42169189453125,
+            778.3751220703125,
+            355.64373779296875
+          ],
+          "confidence": 0.010925568640232086,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35302,
+          "box": [
+            862.8631591796875,
+            316.1514892578125,
+            913.1925048828125,
+            346.73974609375
+          ],
+          "confidence": 0.010757715441286564,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35303,
+          "box": [
+            541.1331787109375,
+            341.8448486328125,
+            557.9635620117188,
+            359.79931640625
+          ],
+          "confidence": 0.010439902544021606,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35304,
+          "box": [
+            892.1732177734375,
+            322.98468017578125,
+            961.8793334960938,
+            364.2647399902344
+          ],
+          "confidence": 0.010404984466731548,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 35305,
+          "box": [
+            931.7557373046875,
+            321.7548828125,
+            961.0253295898438,
+            369.23016357421875
+          ],
+          "confidence": 0.010204204358160496,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        }
+      ],
+      "oracle_current_same_identity": [
+        {
+          "identity": "00115019",
+          "box": [
+            475.6829755322663,
+            346.8427609468959,
+            489.4895884122208,
+            378.7141009595013
+          ]
+        }
+      ],
+      "reference_crop": [
+        454,
+        331,
+        518,
+        395
+      ],
+      "current_crop": [
+        456,
+        331,
+        520,
+        395
+      ]
+    },
+    {
+      "old_id": 832,
+      "label": "own",
+      "video": "b1cd1e94-549d0bfe",
+      "reference_frame": 534,
+      "current_frame": 540,
+      "reference_box": [
+        565.3101014997933,
+        382.9067008261148,
+        594.5545421636084,
+        406.89693994603937
+      ],
+      "reference_raw_id": 31244,
+      "identity": "00118997",
+      "reference_hits": [
+        {
+          "identity": "00118997",
+          "iou": 0.6217060774478432,
+          "box": [
+            562.1993679131763,
+            382.44254249776344,
+            608.2983077102841,
+            406.8586623814529
+          ]
+        }
+      ],
+      "desired": {
+        "raw_id": 31468,
+        "box": [
+          575.6935424804688,
+          379.9344482421875,
+          604.2857666015625,
+          405.70843505859375
+        ],
+        "confidence": 0.38384413719177246,
+        "cls": 2,
+        "hits": [
+          {
+            "identity": "00118997",
+            "iou": 0.6029241193285082,
+            "box": [
+              562.1993679131763,
+              382.44254249776344,
+              604.4508364756507,
+              406.8586623814529
+            ]
+          }
+        ],
+        "operational": true
+      },
+      "candidates": [
+        {
+          "raw_id": 31460,
+          "box": [
+            622.1021728515625,
+            374.5918884277344,
+            732.7777709960938,
+            480.1512451171875
+          ],
+          "confidence": 0.9501639604568481,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00118936",
+              "iou": 0.9422492001270828,
+              "box": [
+                621.4424052177615,
+                373.22413308929447,
+                728.5060026318828,
+                479.9606066940598
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 31461,
+          "box": [
+            0.0,
+            303.7653503417969,
+            301.62152099609375,
+            639.359619140625
+          ],
+          "confidence": 0.9243738651275635,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00118988",
+              "iou": 0.8846430997845078,
+              "box": [
+                0,
+                305.6603773584905,
+                298.86792452830184,
+                677.8867924528302
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 31462,
+          "box": [
+            489.3876647949219,
+            372.405029296875,
+            541.1780395507812,
+            413.75372314453125
+          ],
+          "confidence": 0.9025975465774536,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119000",
+              "iou": 0.8698480270386558,
+              "box": [
+                488.18233492858053,
+                375.3553046547923,
+                539.8170049691034,
+                413.07736032418353
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 31463,
+          "box": [
+            536.269775390625,
+            380.385498046875,
+            565.973388671875,
+            407.42352294921875
+          ],
+          "confidence": 0.7917396426200867,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00118989",
+              "iou": 0.8204927298764612,
+              "box": [
+                535.5673472791178,
+                380.6134984215712,
+                561.9153905252771,
+                408.03171294298664
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 31468,
+          "box": [
+            575.6935424804688,
+            379.9344482421875,
+            604.2857666015625,
+            405.70843505859375
+          ],
+          "confidence": 0.38384413719177246,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00118997",
+              "iou": 0.6029241193285082,
+              "box": [
+                562.1993679131763,
+                382.44254249776344,
+                604.4508364756507,
+                406.8586623814529
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": true,
+          "native_second": false
+        },
+        {
+          "raw_id": 31469,
+          "box": [
+            555.2822265625,
+            376.46746826171875,
+            582.9775390625,
+            405.4095458984375
+          ],
+          "confidence": 0.24718621373176575,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": true,
+          "native_first": false,
+          "native_second": true
+        },
+        {
+          "raw_id": 31470,
+          "box": [
+            285.964599609375,
+            358.67041015625,
+            309.84185791015625,
+            387.900634765625
+          ],
+          "confidence": 0.05523398518562317,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119001",
+              "iou": 0.6971178095064452,
+              "box": [
+                287.15148700709835,
+                358.5528028183055,
+                313.09925716100884,
+                382.60195564388107
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31472,
+          "box": [
+            286.64215087890625,
+            358.63946533203125,
+            311.95703125,
+            388.20306396484375
+          ],
+          "confidence": 0.034190740436315536,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119001",
+              "iou": 0.7639957077734587,
+              "box": [
+                287.15148700709835,
+                358.5528028183055,
+                313.09925716100884,
+                382.60195564388107
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31473,
+          "box": [
+            286.97210693359375,
+            359.06365966796875,
+            309.0491943359375,
+            380.770751953125
+          ],
+          "confidence": 0.029343433678150177,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119001",
+              "iou": 0.7570053577552953,
+              "box": [
+                287.15148700709835,
+                358.5528028183055,
+                313.09925716100884,
+                382.60195564388107
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31474,
+          "box": [
+            569.0875244140625,
+            380.84039306640625,
+            586.21142578125,
+            404.24627685546875
+          ],
+          "confidence": 0.02849549800157547,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31476,
+          "box": [
+            609.820068359375,
+            378.33544921875,
+            629.706787109375,
+            402.0851745605469
+          ],
+          "confidence": 0.027074463665485382,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31477,
+          "box": [
+            570.8214111328125,
+            381.89398193359375,
+            587.8150024414062,
+            404.40087890625
+          ],
+          "confidence": 0.02496291697025299,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31478,
+          "box": [
+            621.831787109375,
+            386.1526794433594,
+            640.1043701171875,
+            404.5208740234375
+          ],
+          "confidence": 0.018304845318198204,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31479,
+          "box": [
+            603.7677612304688,
+            379.34954833984375,
+            627.5613403320312,
+            400.5877685546875
+          ],
+          "confidence": 0.016822611913084984,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31484,
+          "box": [
+            597.8050537109375,
+            381.3636474609375,
+            615.5297241210938,
+            400.4364929199219
+          ],
+          "confidence": 0.015669649466872215,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31487,
+          "box": [
+            619.5965576171875,
+            386.71331787109375,
+            634.172607421875,
+            403.36334228515625
+          ],
+          "confidence": 0.013190880417823792,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31488,
+          "box": [
+            608.7315673828125,
+            384.2638854980469,
+            625.4378051757812,
+            401.0475769042969
+          ],
+          "confidence": 0.012538141570985317,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31489,
+          "box": [
+            291.4673767089844,
+            358.73046875,
+            322.19091796875,
+            389.4874267578125
+          ],
+          "confidence": 0.011801286600530148,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31491,
+          "box": [
+            554.0149536132812,
+            378.3558349609375,
+            577.1373901367188,
+            405.4893798828125
+          ],
+          "confidence": 0.01111900806427002,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31492,
+          "box": [
+            287.571044921875,
+            359.3076171875,
+            310.3102722167969,
+            382.09503173828125
+          ],
+          "confidence": 0.010856018401682377,
+          "cls": 2,
+          "hits": [
+            {
+              "identity": "00119001",
+              "iou": 0.8303686068059208,
+              "box": [
+                287.15148700709835,
+                358.5528028183055,
+                313.09925716100884,
+                382.60195564388107
+              ]
+            }
+          ],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        },
+        {
+          "raw_id": 31493,
+          "box": [
+            600.0546875,
+            382.14361572265625,
+            616.5110473632812,
+            401.379638671875
+          ],
+          "confidence": 0.010746024549007416,
+          "cls": 2,
+          "hits": [],
+          "previous_diagnostic_ge_point1": false,
+          "native_first": false,
+          "native_second": false
+        }
+      ],
+      "oracle_current_same_identity": [
+        {
+          "identity": "00118997",
+          "box": [
+            562.1993679131763,
+            382.44254249776344,
+            604.4508364756507,
+            406.8586623814529
+          ]
+        }
+      ],
+      "reference_crop": [
+        548,
+        363,
+        612,
+        427
+      ],
+      "current_crop": [
+        546,
+        364,
+        610,
+        428
+      ]
+    }
+  ],
+  "videos": {
+    "b23b2649-8349d2a1": {
+      "video_path": "data/bdd100k/videos/val/b23b2649-8349d2a1.mov",
+      "detections": "runs/z13_val20_matched_20261024/cache/b23b2649-8349d2a1/detections/raw_video.npz"
+    },
+    "b242f6b2-0033bdfb": {
+      "video_path": "data/bdd100k/videos/val/b242f6b2-0033bdfb.mov",
+      "detections": "runs/z13_val20_matched_20261024/cache/b242f6b2-0033bdfb/detections/raw_video.npz"
+    },
+    "b1f4491b-cf446195": {
+      "video_path": "data/bdd100k/videos/val/b1f4491b-cf446195.mov",
+      "detections": "runs/z13_val20_matched_20261024/cache/b1f4491b-cf446195/detections/raw_video.npz"
+    },
+    "b2036451-aa924fd1": {
+      "video_path": "data/bdd100k/videos/val/b2036451-aa924fd1.mov",
+      "detections": "runs/z13_val20_matched_20261024/cache/b2036451-aa924fd1/detections/raw_video.npz"
+    },
+    "b1cd1e94-549d0bfe": {
+      "video_path": "data/bdd100k/videos/val/b1cd1e94-549d0bfe.mov",
+      "detections": "runs/z13_val20_matched_20261024/cache/b1cd1e94-549d0bfe/detections/raw_video.npz"
+    }
+  },
+  "environment": {
+    "python": "3.10.11",
+    "packages": {
+      "numpy": "2.2.6",
+      "torch": "2.10.0+cu130",
+      "torchvision": "0.25.0+cu130",
+      "opencv-python": "4.13.0.92",
+      "psutil": "7.2.2"
+    }
+  },
+  "deadline": "2026-11-13T07:35:00+03:00",
+  "batch_size": 16,
+  "expected_raw_frame_hashes": {
+    "b1cd1e94-549d0bfe|534": "8ddf5c9f81598d8594d21ec9049f766b179cea2c706c6fdbd4b62b381487fe8b",
+    "b1cd1e94-549d0bfe|540": "31cfd19757ba7bb4448ea96b0c2769637a0c558c4b10b92c591c0cb7a2d69a2b",
+    "b1f4491b-cf446195|252": "a23be0dce60d2d374f4ad3c62f104cc9aa17c0332b2f832c6ec41ec7a101cbc9",
+    "b1f4491b-cf446195|258": "6cfb83a0cbe68656a1f9ded34c69ab283e7659ea7e31595e94ad557fd7f70e9c",
+    "b2036451-aa924fd1|931": "0c5d573ea22b02846bda634bdbd358ab9a18238e3f612b83cdf36a684d911820",
+    "b2036451-aa924fd1|937": "f2cb1513d2abdbfbc2d108416894e5b967ac2bfa15fa89d5984739df4e16a85c",
+    "b23b2649-8349d2a1|538": "0ebd4fedf70bf770ec9a6774c7dbc11b5ee07b985716fab2e2a31c956c6614ac",
+    "b23b2649-8349d2a1|544": "a7a107c61c8223c6efa1292f3e8ba33928dfd876d684593fe0914198abb1de94",
+    "b242f6b2-0033bdfb|109": "91b6491ccde2859c27556ca872804b054e4e4c53768ac5caff544019239de092",
+    "b242f6b2-0033bdfb|115": "6a2053d894e89e8f7b0a89677448653a9ee30312ac522bd26e7bc8f3484dc546"
+  },
+  "method": "Allsavedrawcarclass2detections at all5currentframes, no additional confidence filter and no operational threshold change. Reuse5original frozen reference descriptors, recompute5currentframefeaturemaps in oneGPUowner, embed allboxes16perbatch. Reproduce77previouscandidate descriptors/scores before newinterpretation. Keep prior conf>=.1 diagnostic set, actual native_first conf>=.25 and native_second .1<conf<.25 as three distinct flags. No new threshold, fit, tracker, or appearanceconditionselection.",
+  "acceptance": [
+    "Originalprotocol/sources/results/descriptors unchanged.",
+    "Allrawcurrentcarrows retained. Previous77descriptors match within1e-6 and oldscores reproduce within1e-6.",
+    "Independent CPUscalarcosines/ranks/identityavailability verified; unmatchedrows retained as unknown, not automatically foreign."
+  ],
+  "limits": "Posthoc followup motivated by raw574 ownGTdetections below original native lowgate. No threshold deployment, fulltracker, rejectionpolicy, HOTA, or physicalsurfacecorrespondence tested. Native firstpool is stricter than old conf>=.1 diagnostic candidate set.",
+  "registered_v2": "2026-11-12T19:08:16.913463+03:00",
+  "addendum": "Before anylowcandidate descriptors/results: explicitly rank within truefirsthigh>=.25 and secondlow(.1,.25) onlywheneligible; allrawcompetitive margins include unmatched/ambiguous alternatives. Original77candidatepool was diagnostic conf>=.1, not exactnativefirstpool. Originalsources/protocol preserved.",
+  "registered_v3": "2026-11-12T19:13:24.720948+03:00",
+  "batch_recovery": "Failedv2 preserved: original current232 batches used original source_boxes17diagnostic+1oracle in chunks16,2 with NOduplicate. v2interleaved newrawboxes and appendedduplicate before oldparity; descriptorraw54952 differed0.00018023094162344933. v3must first reproduce ALLoriginal currentframe source_boxes in EXACTsavedorder/batch16 includingoracle, strict1e-6 unchanged. Newuniqueboxes separatelybatched on SAMEframefeatures; duplicateguard applies onlynewchunk. No lowresult waspublished, noGPUTHRESHOLDrelaxation."
+}

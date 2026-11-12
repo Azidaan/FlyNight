@@ -1,0 +1,14 @@
+from common import *
+rp=OUT/'overlap574/matched_query_protocol.json';p=read(rp);assert sha(rp)=='45d2caf9ccfde633634754af6a333bb55787e19653525b2d3eb8fa57b7600f06';inputs={}
+for n,h in p['inputs'].items():assert sha(ROOT/n)==h,n;inputs[n]=h
+for n,h in p['sources'].items():assert sha(OUT/'overlap574'/n)==h,n;inputs[(OUT/'overlap574'/n).relative_to(ROOT).as_posix()]=h
+for n in ['overlap574/matched_query_protocol.json','run_queue.py','register_matched.py']:
+ f=OUT/n;inputs[f.relative_to(ROOT).as_posix()]=sha(f)
+cat=read(ROOT/'experiments/project_history.json');identity='remaining_causes_matched574_20261112';assert not any(c['id']==identity for c in cat['experiments'])
+cat['experiments'].append(dict(id=identity,title='Влияние координат на ложное сходство574 при одной области сравнения',area='flyvis',state='running',started='2026-11-12',question=p['question'],hypothesis='Ложный положительный балл может зависеть от геометрии чтения; одинаковая исходная опора отделит это влияние от отбрасывания точек.',expected='Четыре заранее фиксированных переноса, одинаковая опора, все пять случаев, прежние головы и порог.',acceptance=[dict(criterion=c,met=None) for c in p['acceptance']],evidence=[dict(kind='file',ref=rp.relative_to(ROOT).as_posix())]))
+(ROOT/'experiments/project_history.json').write_text(json.dumps(cat,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+tp=ROOT/'experiments/obsidian_experiment_topics.json';t=read(tp);t['topics'][identity]=['Сохранение личности','Причины отказов','Геометрия и смешение объектов'];tp.write_text(json.dumps(t,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+with (OUT/'overlap574/GO_matched.json').open('x',encoding='utf8') as f:json.dump(dict(approved=True,registered=now(),protocol_sha256=sha(rp)),f,indent=2)
+save('queue5.json',dict(registered=now(),inputs=inputs,runner_sha256=sha(OUT/'run_queue.py'),jobs=[dict(entry=(OUT/'overlap574'/n).relative_to(ROOT).as_posix(),timeout=180) for n in ['matched_query_worker.py','matched_query_audit.py']],deadline='2026-11-13T07:35:00+03:00'))
+journal('Постановка последней574проверки (`remaining_causes_matched574_20261112`): исходный перенос, тот же перенос без остаточного сдвига, перенос поGTрамкам и поихцентрам на строгоодинаковыхисходныхточках. Все240баллов, пятьслучаев, точныйисходныйконтроль. Источник overlap574/matched_query_protocol.json. Это проверка достаточности замены координат, не доказательство физических соответствий. МассовыйнизкоуверенныйReIDостановлен прежнимдопускомповтора: raw54952, разностьдескриптора0,000180231>1e-6. Вновомпакетедругиесостав/размеробластей; готовитсяотдельнаяверсия,котораясначалавточностивоспроизведётисторическиепакеты,потомотдельнообработаетновыеобласти. Ослаблятьдопускзапрещено,повторныйнеуспехзавершитэтулинию. Источник queue4_execution.json иегоисходныйworkerlog.')
+print('REGISTERED_MATCHED')

@@ -1,0 +1,39 @@
+{
+  "registered": "2026-11-12T19:10:29.453755+03:00",
+  "inputs": {
+    "research_remaining_causes_20261112/independent_review/reid/protocol.json": "ce02d7bd1e816f467d81842a5d9b384e6f434e0a9e31b35d8b5db0ae3bbd1582",
+    "research_remaining_causes_20261112/independent_review/reid/result.json": "e43c9cff7f4f3acc315122acc1b7393feca839fc969ebac9e393883b0166e14c",
+    "research_remaining_causes_20261112/independent_review/reid/descriptors.npz": "103fcc637702291338d46e11a82609f4f36f328d936e5a8d963d6ed686a084e3",
+    "research_remaining_causes_20261112/independent_review/reid/common.py": "da1ba510018b60ac4b8b49ab792c1bbf59a741e4f7abfb0d9d1953718a38b9bb",
+    "research_remaining_causes_20261112/independent_review/reid/low_register.py": "1a42441fd60a52f522b736497218c0f07469052446603169139856bed4d67842",
+    "research_remaining_causes_20261112/independent_review/reid/low_worker.py": "41582aaad601d173905c020856578b74474f0eb2851cd6d89dfb721deddf2a24",
+    "research_remaining_causes_20261112/independent_review/reid/low_audit.py": "cf218768ad19ebff52f5e67615bacaac1d33efa6edc88781fb217f2f9d292486",
+    "runs/domain_matched_native_20261109/protocol.json": "2a7b1a877e74c0a280a478ba1e1652c7c8d990fdb788e726bbd5c94c700ce1b5",
+    "runs/domain_matched_native_20261109/runtime_adapter.py": "ac3779744c1ce609f85a5a1711064b8946d1726a8798a4499f0c2ceb73b5117b",
+    "runs/full_template_native_20261109/native_runtime.py": "acd185b7dd7c0937d87c7cf85d6a872b915b159a34cbc81735c55e726a1af5ff",
+    "tracking/offline_association.py": "b7d4ab568d25708df3601fe890b85b488f646ce010459e3110aa84ee78d54ceb",
+    ".venv/Lib/site-packages/ultralytics/trackers/byte_tracker.py": "00c7c1ff8b1076fc89347071519ae0b06a30bfce00dded94826620e068b1928f",
+    "research_remaining_causes_20261112/independent_review/reid/low_protocol.json": "7043d617a34fd41cd907b869a4177a0879597dca06bd2d8ac2f990a95f5e565f",
+    "research_remaining_causes_20261112/independent_review/reid/low_worker_v2.py": "6cb1e13ca19ef90225c86d9e15a2852d5e67fa379061b434d7ec66c7e272d413",
+    "research_remaining_causes_20261112/independent_review/reid/low_audit_v2.py": "e6876869b433cf3eedcb91f4718a901faf15d2afbe3acc896cee57419e439f12",
+    "research_remaining_causes_20261112/independent_review/reid/low_protocol_v2.json": "c62d7ece93ccfabb014c5e6fd0555cd853404f3e1f97559e9677beeb134188ed",
+    "research_remaining_causes_20261112/run_queue.py": "bf026dbf830339ee1bbacb33eda46b8f095b1c5cd8b6d6dc944c451d97dcff44",
+    "research_remaining_causes_20261112/register_low.py": "b92d12f74d41336362b62e5fe66068acb6442ddd793f00e5c14d15135c95c5eb"
+  },
+  "runner_sha256": "bf026dbf830339ee1bbacb33eda46b8f095b1c5cd8b6d6dc944c451d97dcff44",
+  "jobs": [
+    {
+      "entry": "research_remaining_causes_20261112/independent_review/reid/low_worker_v2.py",
+      "args": [
+        "--go-protocol-sha256",
+        "c62d7ece93ccfabb014c5e6fd0555cd853404f3e1f97559e9677beeb134188ed"
+      ],
+      "timeout": 1200
+    },
+    {
+      "entry": "research_remaining_causes_20261112/independent_review/reid/low_audit_v2.py",
+      "timeout": 180
+    }
+  ],
+  "deadline": "2026-11-13T07:35:00+03:00"
+}

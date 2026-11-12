@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "E:\Dissertation\research_remaining_causes_20261112\overlap574\worker.py", line 74, in <module>
+    expected=next(s['score'] for s in previous['records'] if s['old_id']==r['old_id'] and s['representation']==arm and s['head']==head and s['mode']=='full');assert z is not None and abs(z['score']-expected)<1e-9;baseline.append(dict(old_id=r['old_id'],representation=arm,head=head,error=abs(z['score']-expected)))
+AssertionError

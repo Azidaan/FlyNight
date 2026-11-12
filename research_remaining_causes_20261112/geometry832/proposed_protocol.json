@@ -1,0 +1,115 @@
+{
+  "registered": "2026-11-12T18:53:25.895746+03:00",
+  "head": "74a25aca49c2eb9e67b988f7b0265254910f2e61",
+  "state": "proposed_waiting_parent_registration",
+  "question": "Does detector-relative correspondence explain the own832 rejection at a frozen readout?",
+  "hypotheses": [
+    {
+      "rank": 1,
+      "status": "deduction_from_saved_box_geometry_not_yet_causal",
+      "text": "Detector-relative affine coordinates move source fractions farther than allowed residual search; GT-center or GT-box correspondence may rescue frozen heads."
+    },
+    {
+      "rank": 2,
+      "status": "alternative_hypothesis",
+      "text": "Even GT-box coordinate diagnostics retain poor identity evidence because box-normalized geometry is not physical correspondence or cached activity is uninformative for frozen heads."
+    },
+    {
+      "rank": 3,
+      "status": "alternative_hypothesis",
+      "text": "Search/support and frozen decoder calibration interact; a similarity increase alone may not cross zero."
+    }
+  ],
+  "cases": [
+    232,
+    70,
+    1102,
+    574,
+    832
+  ],
+  "interventions": [
+    "detector_affine_saved_offset",
+    "gt_center_saved_offset",
+    "gt_affine_saved_offset",
+    "gt_center_zero_offset",
+    "gt_affine_zero_offset"
+  ],
+  "query_offsets": [
+    "original_C34_winner",
+    "original_R134_temporal_winner"
+  ],
+  "representations": [
+    "C34",
+    "R134_temporal",
+    "retina32"
+  ],
+  "heads": [
+    "native",
+    "agreement"
+  ],
+  "supports": [
+    "original_full_identity_witness",
+    "common_eye_valid_intersection_of_all_interventions"
+  ],
+  "control": "All five archived cases; original source cell membership, cached maps, frozen 7 geometry covariates and frozen heads unchanged. GT boxes chosen by highest IoU car match >=0.5 at exactly anchored raw frames. Foreign574 uses separate source/current identities, explicitly not physical same-object ground truth.",
+  "criteria": [
+    "Identity witness reproduces archived index head channel vectors/scores within1e-9.",
+    "All comparisons use identical source cell set, finite queries and identical saved geometry covariates; independently score saved patches and verify interpolation via SciPy within1e-9.",
+    "Primary causal rescue criterion: own832 native C34 score crosses fixed zero under GT-center or GT-affine with original C34 offset on common support, while matched detector baseline stays nonpositive. Agreement and temporal heads are secondary fixed controls; report all outcomes, no selection.",
+    "Analytic reach: for each source cell compute GT-transform minus detector-affine displacement; compare required x/y intervals to full continuous residual min/max range and enumerate grid distances. Inability to reproduce a GT box coordinate map does not prove physical correspondence.",
+    "If no rescue: reject sufficiency of tested coordinate repair; retain full results and propose next discriminating test instead of assigning a cause."
+  ],
+  "limits": "Posthoc GT-geometry oracle diagnostic of a readout, not an operational algorithm, a neural-core mechanism, physical keypoint truth, trajectory recovery or HOTA. Five selected archived cases give no generalization claim. No label enters neural model: no forward is run.",
+  "fixed": {
+    "core_calls": 0,
+    "tracker_calls": 0,
+    "new_fits": 0,
+    "threshold": 0,
+    "weights_changed": false,
+    "production_changes": false
+  },
+  "runtime": {
+    "device": "cpu",
+    "CUDA_VISIBLE_DEVICES": "",
+    "OMP_NUM_THREADS": 2,
+    "MKL_NUM_THREADS": 2,
+    "timeout_seconds": 180,
+    "deadline": "2026-11-13T07:35:00+03:00"
+  },
+  "entrypoints": {
+    "worker": "research_remaining_causes_20261112/geometry832/worker.py",
+    "independent_audit": "research_remaining_causes_20261112/geometry832/audit.py"
+  },
+  "inputs": {
+    "AGENTS.md": "392fa10792c83c8a754bd3911ac219ccd4a482cef62da5b7cf5d9227d4b5c5af",
+    "research_stage_localization_20261112/protocol.json": "860bc2efdeeba2280df354b7b61b43b2345bf10f8048fb9679ed034ebec62120",
+    "research_stage_localization_20261112/result.json": "4aad29d7c74f28ece1edec3c7031bafd865927a17952afc19d99dc56aa86f7e1",
+    "research_stage_localization_20261112/frozen_head_results.json": "b87203139e87238174e7e1504fbb10000f2e1480a40f68184225f68aab2b8306",
+    "research_input_precision_probe_20261112/maps.npz": "efb4cdd0ff69469e8b1149442d9ed13125f169b22fc3771b5b369e3b8b9782df",
+    "research_input_precision_probe_20261112/expanded_inputs.npz": "16986dbfff29256d504b1352b17cce8133d0e1b61c5295a99dee39ebb2cb6b9b",
+    "research_input_precision_probe_20261112/scores.json": "a9829a7d24525e76a6e3d3c41e66e9506e50395bbff353b05abbb99aa5a6cd2f",
+    "research_candidate_support_probe_20261112/scores.json": "d5d8813e9fac945fcb5b2005bfe82633786b9213810f3e9f344cc16db95a9d77",
+    "research_failure_localization_20261112/stage1.json": "b6f4d755d19e1c79ac829abb33b258d4f94315f582c092dc1326b3fe3aead557",
+    "research_failure_localization_20261112/common.py": "b506ed75b3db49c444bd0546621a0d79ae12daeaab336419eff53681cc374950",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "tracking/full_template_correspondence.py": "043c2214a5769aee5b6bafb8d8fdb3a63cd7faa04a28f576d9e22f7c238144f0",
+    "tracking/observed_spatial_reader.py": "66f391d4520edfc9a9f9c46d57157e04dbbcaf73a8d3d1013e931e28e16b045d",
+    "tracking/hex_linear_interpolation.py": "6398d9d9654328e13a9a04c335bed92b5202dabcf8b63ca19a69ebc925ab477e",
+    "tracking/channel_agreement_correspondence.py": "807948699b5f776c7134f51c9a68347afb1bdebeb01462b896607d1dfb8b4740",
+    "tracking/channel_balanced_correspondence.py": "f024871ccebbcb329bd147061d0bf621896eef64cf63a31154d2e244737502bd",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "data/bdd100k/labels/box_track_20/val/b1cd1e94-549d0bfe.json": "4713d0bf5ba22a6308b57cfd1cb709a7e2303a50ca0aeb26474c1a03e3e623dd",
+    "runs/identity_assignment_20261108/full_precision/runtime_inputs/b1cd1e94-549d0bfe.json": "d949fe6187c22bc92dd59b6c00b2da1a92fc498b78485441f4a7e71b7c4ddc42",
+    "data/bdd100k/labels/box_track_20/val/b1f4491b-cf446195.json": "0b9380825eb8bc7e4db25c8ce1d2d4aad1835e10643e2929cd2b7ee804e487c3",
+    "runs/identity_assignment_20261108/full_precision/runtime_inputs/b1f4491b-cf446195.json": "3fa6726ad1f601df2bc74f99416dceedf0e9a22f221bcd0b60e289e88cce00fa",
+    "data/bdd100k/labels/box_track_20/val/b2036451-aa924fd1.json": "e0c076fb93ff5e460a4dbe1182503f66c2f4ef282b5af2f8b01bd5c0c1aff78f",
+    "runs/identity_assignment_20261108/full_precision/runtime_inputs/b2036451-aa924fd1.json": "51ae3c787f06d6a286116cb7ab312e36e0aa97249259e7dd9945bad8c1652fd5",
+    "data/bdd100k/labels/box_track_20/val/b23b2649-8349d2a1.json": "1d1372c04c0b05fb85bbcdf2284d72fe7588d5399b52daf7dee5e6c4573ce9ea",
+    "runs/identity_assignment_20261108/full_precision/runtime_inputs/b23b2649-8349d2a1.json": "f3a7ca50083700a9d6c4f02a2e6f165299e3af5c7eb724d19c1aeb9895ec2961",
+    "data/bdd100k/labels/box_track_20/val/b242f6b2-0033bdfb.json": "34134a2781ef16e4ec7a913a903406467d1eda96ef917204470c0ae3a485a9fc",
+    "runs/identity_assignment_20261108/full_precision/runtime_inputs/b242f6b2-0033bdfb.json": "13323db9dc6f587a3ae59c606b18be3f56bebac8ea361e918aeb52e5f44fbdd3",
+    "research_remaining_causes_20261112/geometry832/audit.py": "5698d85b8ad0bd35586b4e9cd3f9b8cf1b9999ce775e2bb770e4f50e0d2389e9",
+    "research_remaining_causes_20261112/geometry832/prepare.py": "a69a73e090bdb7280fdb08b6b5f96201f52af95f4c413831d135ca20baeabd45",
+    "research_remaining_causes_20261112/geometry832/worker.py": "64aaf4292284a8d91a209978866167409d85b00659781f9a8631c4a16a765646"
+  }
+}

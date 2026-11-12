@@ -1,0 +1,1569 @@
+{
+  "passed": true,
+  "checked_at": "2026-11-12T19:17:41.224795+03:00",
+  "head": "74a25aca49c2eb9e67b988f7b0265254910f2e61",
+  "audits": {
+    "geometry832/independent_audit.json": {
+      "passed": true,
+      "records": 360,
+      "max_errors": {
+        "interpolation": 1.7763568394002505e-15,
+        "channels": 1.1102230246251565e-15,
+        "score": 8.881784197001252e-16,
+        "source": 0.0
+      },
+      "shared_dependencies": "Saved patch generator and source annotations shared; independent SciPy interpolation and scalar channel/head scoring do not call production scoring helpers.",
+      "limits": "Checks saved patches and frozen-head arithmetic, not biological validity or physical correspondence."
+    },
+    "geometry832/coordinate_audit.json": {
+      "passed": true,
+      "max_coordinate_error": 0.0,
+      "evidence": [
+        {
+          "old_id": 232,
+          "reference_raw_frame": 538,
+          "current_raw_frame": 544,
+          "reference_identity": "00130234",
+          "current_identity": "00130234",
+          "same_annotation_identity": true,
+          "reach": {
+            "gt_center": {
+              "cells": 97,
+              "continuous_rectangle_reachable": 19,
+              "unreachable_by_any_allowed_offset": 78,
+              "required_min": [
+                -9.897188190035877,
+                1.5333583974946805
+              ],
+              "required_max": [
+                -4.840311062733463,
+                3.102383076850515
+              ],
+              "allowed_min": [
+                -5.585677749360614,
+                -5.585677749360614
+              ],
+              "allowed_max": [
+                5.585677749360614,
+                5.585677749360614
+              ],
+              "min_distance_to_continuous_rectangle": 0.0,
+              "max_distance_to_continuous_rectangle": 4.311510440675263,
+              "min_distance_to_discrete_grid": 0.09556778682308799,
+              "max_distance_to_discrete_grid": 4.4542727941134155,
+              "proof": "A point outside the bounding rectangle is outside every allowed discrete shift and every continuous domain contained in that rectangle. Inside rectangle does not prove reachable in the hexagonal search domain."
+            },
+            "gt_affine": {
+              "cells": 97,
+              "continuous_rectangle_reachable": 19,
+              "unreachable_by_any_allowed_offset": 78,
+              "required_min": [
+                -9.897188190035877,
+                1.5333583974946805
+              ],
+              "required_max": [
+                -4.840311062733463,
+                3.102383076850515
+              ],
+              "allowed_min": [
+                -5.585677749360614,
+                -5.585677749360614
+              ],
+              "allowed_max": [
+                5.585677749360614,
+                5.585677749360614
+              ],
+              "min_distance_to_continuous_rectangle": 0.0,
+              "max_distance_to_continuous_rectangle": 4.311510440675263,
+              "min_distance_to_discrete_grid": 0.09556778682308799,
+              "max_distance_to_discrete_grid": 4.4542727941134155,
+              "proof": "A point outside the bounding rectangle is outside every allowed discrete shift and every continuous domain contained in that rectangle. Inside rectangle does not prove reachable in the hexagonal search domain."
+            }
+          }
+        },
+        {
+          "old_id": 70,
+          "reference_raw_frame": 109,
+          "current_raw_frame": 115,
+          "reference_identity": "00115864",
+          "current_identity": "00115864",
+          "same_annotation_identity": true,
+          "reach": {
+            "gt_center": {
+              "cells": 143,
+              "continuous_rectangle_reachable": 29,
+              "unreachable_by_any_allowed_offset": 114,
+              "required_min": [
+                -21.090682115223103,
+                0.5590525743837134
+              ],
+              "required_max": [
+                -5.708158629258406,
+                2.484215846937275
+              ],
+              "allowed_min": [
+                -8.843989769820972,
+                -8.843989769820972
+              ],
+              "allowed_max": [
+                8.843989769820972,
+                8.843989769820972
+              ],
+              "min_distance_to_continuous_rectangle": 0.0,
+              "max_distance_to_continuous_rectangle": 12.246692345402131,
+              "min_distance_to_discrete_grid": 0.6778858918396926,
+              "max_distance_to_discrete_grid": 12.434595500873032,
+              "proof": "A point outside the bounding rectangle is outside every allowed discrete shift and every continuous domain contained in that rectangle. Inside rectangle does not prove reachable in the hexagonal search domain."
+            },
+            "gt_affine": {
+              "cells": 143,
+              "continuous_rectangle_reachable": 29,
+              "unreachable_by_any_allowed_offset": 114,
+              "required_min": [
+                -20.626045449666748,
+                0.5949534731353765
+              ],
+              "required_max": [
+                -6.678087647530219,
+                2.4522703203165293
+              ],
+              "allowed_min": [
+                -8.843989769820972,
+                -8.843989769820972
+              ],
+              "allowed_max": [
+                8.843989769820972,
+                8.843989769820972
+              ],
+              "min_distance_to_continuous_rectangle": 0.0,
+              "max_distance_to_continuous_rectangle": 11.782055679845776,
+              "min_distance_to_discrete_grid": 0.6196896435995445,
+              "max_distance_to_discrete_grid": 11.981651101211881,
+              "proof": "A point outside the bounding rectangle is outside every allowed discrete shift and every continuous domain contained in that rectangle. Inside rectangle does not prove reachable in the hexagonal search domain."
+            }
+          }
+        },
+        {
+          "old_id": 1102,
+          "reference_raw_frame": 252,
+          "current_raw_frame": 258,
+          "reference_identity": "00119408",
+          "current_identity": "00119408",
+          "same_annotation_identity": true,
+          "reach": {
+            "gt_center": {
+              "cells": 98,
+              "continuous_rectangle_reachable": 38,
+              "unreachable_by_any_allowed_offset": 60,
+              "required_min": [
+                -8.602166214259569,
+                -0.06378109023404477
+              ],
+              "required_max": [
+                -4.751151282140995,
+                0.7341005250719377
+              ],
+              "allowed_min": [
+                -6.051150895140665,
+                -6.051150895140665
+              ],
+              "allowed_max": [
+                6.051150895140665,
+                6.051150895140665
+              ],
+              "min_distance_to_continuous_rectangle": 0.0,
+              "max_distance_to_continuous_rectangle": 2.5510153191189033,
+              "min_distance_to_discrete_grid": 0.053996357613176615,
+              "max_distance_to_discrete_grid": 2.6545400240512884,
+              "proof": "A point outside the bounding rectangle is outside every allowed discrete shift and every continuous domain contained in that rectangle. Inside rectangle does not prove reachable in the hexagonal search domain."
+            },
+            "gt_affine": {
+              "cells": 98,
+              "continuous_rectangle_reachable": 30,
+              "unreachable_by_any_allowed_offset": 68,
+              "required_min": [
+                -15.071982739657756,
+                0.2966113473885912
+              ],
+              "required_max": [
+                -2.3064578373920313,
+                0.4336973445632566
+              ],
+              "allowed_min": [
+                -6.051150895140665,
+                -6.051150895140665
+              ],
+              "allowed_max": [
+                6.051150895140665,
+                6.051150895140665
+              ],
+              "min_distance_to_continuous_rectangle": 0.0,
+              "max_distance_to_continuous_rectangle": 9.02083184451709,
+              "min_distance_to_discrete_grid": 0.5903982312840615,
+              "max_distance_to_discrete_grid": 9.031251328234356,
+              "proof": "A point outside the bounding rectangle is outside every allowed discrete shift and every continuous domain contained in that rectangle. Inside rectangle does not prove reachable in the hexagonal search domain."
+            }
+          }
+        },
+        {
+          "old_id": 574,
+          "reference_raw_frame": 931,
+          "current_raw_frame": 937,
+          "reference_identity": "00115019",
+          "current_identity": "00115011",
+          "same_annotation_identity": false,
+          "reach": {
+            "gt_center": {
+              "cells": 120,
+              "continuous_rectangle_reachable": 75,
+              "unreachable_by_any_allowed_offset": 45,
+              "required_min": [
+                -0.3394060008923816,
+                0.6463742692952792
+              ],
+              "required_max": [
+                7.057312519286143,
+                1.4581472712578716
+              ],
+              "allowed_min": [
+                -4.255754475703325,
+                -4.255754475703325
+              ],
+              "allowed_max": [
+                4.255754475703325,
+                4.255754475703325
+              ],
+              "min_distance_to_continuous_rectangle": 0.0,
+              "max_distance_to_continuous_rectangle": 2.8015580435828173,
+              "min_distance_to_discrete_grid": 0.3539373901324946,
+              "max_distance_to_discrete_grid": 2.988124227522056,
+              "proof": "A point outside the bounding rectangle is outside every allowed discrete shift and every continuous domain contained in that rectangle. Inside rectangle does not prove reachable in the hexagonal search domain."
+            },
+            "gt_affine": {
+              "cells": 120,
+              "continuous_rectangle_reachable": 60,
+              "unreachable_by_any_allowed_offset": 60,
+              "required_min": [
+                3.0679078934239215,
+                0.5507226238407839
+              ],
+              "required_max": [
+                5.649794752147329,
+                1.699977052223801
+              ],
+              "allowed_min": [
+                -4.255754475703325,
+                -4.255754475703325
+              ],
+              "allowed_max": [
+                4.255754475703325,
+                4.255754475703325
+              ],
+              "min_distance_to_continuous_rectangle": 0.0,
+              "max_distance_to_continuous_rectangle": 1.394040276444004,
+              "min_distance_to_discrete_grid": 0.47164259210390846,
+              "max_distance_to_discrete_grid": 1.7318165888233248,
+              "proof": "A point outside the bounding rectangle is outside every allowed discrete shift and every continuous domain contained in that rectangle. Inside rectangle does not prove reachable in the hexagonal search domain."
+            }
+          }
+        },
+        {
+          "old_id": 832,
+          "reference_raw_frame": 534,
+          "current_raw_frame": 540,
+          "reference_identity": "00118997",
+          "current_identity": "00118997",
+          "same_annotation_identity": true,
+          "reach": {
+            "gt_center": {
+              "cells": 149,
+              "continuous_rectangle_reachable": 0,
+              "unreachable_by_any_allowed_offset": 149,
+              "required_min": [
+                -12.266122775895951,
+                1.2150710873648336
+              ],
+              "required_max": [
+                -11.696645622397568,
+                2.943256796389335
+              ],
+              "allowed_min": [
+                -4.255754475703325,
+                -4.255754475703325
+              ],
+              "allowed_max": [
+                4.255754475703325,
+                4.255754475703325
+              ],
+              "min_distance_to_continuous_rectangle": 7.440891146694243,
+              "max_distance_to_continuous_rectangle": 8.010368300192626,
+              "min_distance_to_discrete_grid": 7.441050600698632,
+              "max_distance_to_discrete_grid": 8.054268299443049,
+              "proof": "A point outside the bounding rectangle is outside every allowed discrete shift and every continuous domain contained in that rectangle. Inside rectangle does not prove reachable in the hexagonal search domain."
+            },
+            "gt_affine": {
+              "cells": 149,
+              "continuous_rectangle_reachable": 0,
+              "unreachable_by_any_allowed_offset": 149,
+              "required_min": [
+                -12.317311604186784,
+                1.2150710873648336
+              ],
+              "required_max": [
+                -10.755647391007983,
+                2.943256796389335
+              ],
+              "allowed_min": [
+                -4.255754475703325,
+                -4.255754475703325
+              ],
+              "allowed_max": [
+                4.255754475703325,
+                4.255754475703325
+              ],
+              "min_distance_to_continuous_rectangle": 6.499892915304658,
+              "max_distance_to_continuous_rectangle": 8.061557128483459,
+              "min_distance_to_discrete_grid": 6.500075453072248,
+              "max_distance_to_discrete_grid": 8.10517987897152,
+              "proof": "A point outside the bounding rectangle is outside every allowed discrete shift and every continuous domain contained in that rectangle. Inside rectangle does not prove reachable in the hexagonal search domain."
+            }
+          }
+        }
+      ],
+      "script_sha256": "9ea4e7965c781e59075874b87a785d4ac6a054929aa38b922ac4be1ca41a38bb",
+      "independence": "Scalar formulas; rawframe-to-annotation clocks independently read; no worker or production transform imports.",
+      "limits": "Proves relation of specified GT-box coordinate maps to the entire bounded search domain, not physical-part correspondence, neural failure causation, operational recovery or HOTA."
+    },
+    "geometry832/source_support_audit.json": {
+      "passed": true,
+      "prefix": "source_support",
+      "records": 270,
+      "max_errors": {
+        "interpolation": 8.881784197001252e-16,
+        "channels": 1.3322676295501878e-15,
+        "scores": 1.7763568394002505e-15,
+        "source": 0.0
+      },
+      "shared": "Saved source maps/queries; independent SciPy interpolation and scalar formulas, no production scoring helper imports."
+    },
+    "geometry832/factorial_audit.json": {
+      "passed": true,
+      "prefix": "factorial",
+      "records": 1200,
+      "max_errors": {
+        "interpolation": 1.7763568394002505e-15,
+        "channels": 2.4424906541753444e-15,
+        "scores": 3.552713678800501e-15,
+        "source": 0.0
+      },
+      "shared": "Saved source maps/queries; independent SciPy interpolation and scalar formulas, no production scoring helper imports."
+    },
+    "overlap574/audit.json": {
+      "passed": true,
+      "checked_scores": 18508,
+      "max_absolute_error": 1.7763568394002505e-15,
+      "mask_reconstruction": "independent scalar point-in-box; annotations saved by worker share original labels and anchor routing",
+      "score_reconstruction": "independent einsum moments and math.fsum linear head; no tracking/readout code imports",
+      "limitations": "Shared archived maps, frozen heads, GT labels and coordinate generator. Pixelownership not proven."
+    },
+    "overlap574/raw_partner_audit.json": {
+      "passed": true,
+      "checked_pairs": 24,
+      "max_scalar_moment_error": 8.881784197001252e-16,
+      "shared": "Labels/maps/coordinates same as main registered GT oracle; independent scalar moments."
+    },
+    "overlap574/matched_query_audit.json": {
+      "passed": true,
+      "checked_scores": 240,
+      "max_scalar_score_error": 1.3322676295501878e-15,
+      "max_scipy_interpolation_error": 8.881784197001252e-16,
+      "shared": "Original maps/heads/GT labels and stored queries; masks reconstructed independently and interpolation rerun through SciPy."
+    },
+    "independent_review/reid/audit_v2.json": {
+      "passed": true,
+      "checked_scores": 87,
+      "max_scalar_error": 2.220446049250313e-16,
+      "new_model_calls": 0,
+      "source_checksums_verified": true,
+      "operational_candidates_complete": true,
+      "dtype_recovery": "Original float32 detector box arithmetic reproduced exactly; independent float64 IoU produces identical identity sets and availability. Original failed auditor and results preserved.",
+      "scope": "Independent scalar cosine/ranks/availability and recorded frame hashes; stored descriptors shared. No independent neural forward or physical correspondence proof."
+    },
+    "independent_review/reid/low_audit.json": {
+      "passed": true,
+      "checked_scores": 222,
+      "max_scalar_error": 2.220446049250313e-16,
+      "summary": [
+        {
+          "old_id": 232,
+          "raw_candidates": 74,
+          "own_candidates": [
+            {
+              "raw_id": 54943,
+              "confidence": 0.3621754050254822,
+              "cosine": 0.9324341582335584,
+              "rank": 1,
+              "native_first": true,
+              "native_second": false
+            },
+            {
+              "raw_id": 54960,
+              "confidence": 0.0681207999587059,
+              "cosine": 0.8974576050315823,
+              "rank": 2,
+              "native_first": false,
+              "native_second": false
+            },
+            {
+              "raw_id": 54963,
+              "confidence": 0.05996173247694969,
+              "cosine": 0.6180503351086517,
+              "rank": 5,
+              "native_first": false,
+              "native_second": false
+            },
+            {
+              "raw_id": 55000,
+              "confidence": 0.01837497390806675,
+              "cosine": 0.7988631279201189,
+              "rank": 3,
+              "native_first": false,
+              "native_second": false
+            }
+          ],
+          "top": [
+            {
+              "raw_id": 54943,
+              "cosine": 0.9324341582335584,
+              "rank": 1,
+              "own": true,
+              "unmatched": false
+            },
+            {
+              "raw_id": 54960,
+              "cosine": 0.8974576050315823,
+              "rank": 2,
+              "own": true,
+              "unmatched": false
+            },
+            {
+              "raw_id": 55000,
+              "cosine": 0.7988631279201189,
+              "rank": 3,
+              "own": true,
+              "unmatched": false
+            }
+          ]
+        },
+        {
+          "old_id": 70,
+          "raw_candidates": 34,
+          "own_candidates": [
+            {
+              "raw_id": 4691,
+              "confidence": 0.2921225428581238,
+              "cosine": 0.805792015668423,
+              "rank": 2,
+              "native_first": true,
+              "native_second": false
+            },
+            {
+              "raw_id": 4693,
+              "confidence": 0.1983480304479599,
+              "cosine": 0.9279948116074795,
+              "rank": 1,
+              "native_first": false,
+              "native_second": true
+            },
+            {
+              "raw_id": 4712,
+              "confidence": 0.012437266297638416,
+              "cosine": 0.79053906556655,
+              "rank": 3,
+              "native_first": false,
+              "native_second": false
+            }
+          ],
+          "top": [
+            {
+              "raw_id": 4693,
+              "cosine": 0.9279948116074795,
+              "rank": 1,
+              "own": true,
+              "unmatched": false
+            },
+            {
+              "raw_id": 4691,
+              "cosine": 0.805792015668423,
+              "rank": 2,
+              "own": true,
+              "unmatched": false
+            },
+            {
+              "raw_id": 4712,
+              "cosine": 0.79053906556655,
+              "rank": 3,
+              "own": true,
+              "unmatched": false
+            }
+          ]
+        },
+        {
+          "old_id": 1102,
+          "raw_candidates": 53,
+          "own_candidates": [
+            {
+              "raw_id": 32657,
+              "confidence": 0.8509321212768555,
+              "cosine": 0.7212694053917608,
+              "rank": 1,
+              "native_first": true,
+              "native_second": false
+            }
+          ],
+          "top": [
+            {
+              "raw_id": 32657,
+              "cosine": 0.7212694053917608,
+              "rank": 1,
+              "own": true,
+              "unmatched": false
+            },
+            {
+              "raw_id": 32655,
+              "cosine": 0.47725443120537814,
+              "rank": 2,
+              "own": false,
+              "unmatched": false
+            },
+            {
+              "raw_id": 32706,
+              "cosine": 0.4522405242067259,
+              "rank": 3,
+              "own": false,
+              "unmatched": true
+            }
+          ]
+        },
+        {
+          "old_id": 574,
+          "raw_candidates": 40,
+          "own_candidates": [
+            {
+              "raw_id": 35280,
+              "confidence": 0.07089663296937943,
+              "cosine": 0.9664591097828911,
+              "rank": 1,
+              "native_first": false,
+              "native_second": false
+            },
+            {
+              "raw_id": 35292,
+              "confidence": 0.02467895671725273,
+              "cosine": 0.9538651308386439,
+              "rank": 2,
+              "native_first": false,
+              "native_second": false
+            }
+          ],
+          "top": [
+            {
+              "raw_id": 35280,
+              "cosine": 0.9664591097828911,
+              "rank": 1,
+              "own": true,
+              "unmatched": false
+            },
+            {
+              "raw_id": 35292,
+              "cosine": 0.9538651308386439,
+              "rank": 2,
+              "own": true,
+              "unmatched": false
+            },
+            {
+              "raw_id": 35274,
+              "cosine": 0.7836093442198145,
+              "rank": 3,
+              "own": false,
+              "unmatched": false
+            }
+          ]
+        },
+        {
+          "old_id": 832,
+          "raw_candidates": 21,
+          "own_candidates": [
+            {
+              "raw_id": 31468,
+              "confidence": 0.38384413719177246,
+              "cosine": 0.7223511985383954,
+              "rank": 1,
+              "native_first": true,
+              "native_second": false
+            }
+          ],
+          "top": [
+            {
+              "raw_id": 31468,
+              "cosine": 0.7223511985383954,
+              "rank": 1,
+              "own": true,
+              "unmatched": false
+            },
+            {
+              "raw_id": 31469,
+              "cosine": 0.7045185713976851,
+              "rank": 2,
+              "own": false,
+              "unmatched": true
+            },
+            {
+              "raw_id": 31474,
+              "cosine": 0.6888685773670598,
+              "rank": 3,
+              "own": false,
+              "unmatched": true
+            }
+          ]
+        }
+      ],
+      "model_calls": 0,
+      "threshold_changed": false,
+      "scope": "Independent scalar cosines/ranks and complete raw-car candidate inventory. Identity IoUsets checked in original float32 and independent float64; no new fulltracker or rejectionpolicy."
+    }
+  },
+  "verified_inputs": {
+    "AGENTS.md": "392fa10792c83c8a754bd3911ac219ccd4a482cef62da5b7cf5d9227d4b5c5af",
+    "research_stage_localization_20261112/protocol.json": "860bc2efdeeba2280df354b7b61b43b2345bf10f8048fb9679ed034ebec62120",
+    "research_stage_localization_20261112/result.json": "4aad29d7c74f28ece1edec3c7031bafd865927a17952afc19d99dc56aa86f7e1",
+    "research_stage_localization_20261112/frozen_head_results.json": "b87203139e87238174e7e1504fbb10000f2e1480a40f68184225f68aab2b8306",
+    "research_input_precision_probe_20261112/maps.npz": "efb4cdd0ff69469e8b1149442d9ed13125f169b22fc3771b5b369e3b8b9782df",
+    "research_input_precision_probe_20261112/expanded_inputs.npz": "16986dbfff29256d504b1352b17cce8133d0e1b61c5295a99dee39ebb2cb6b9b",
+    "research_input_precision_probe_20261112/scores.json": "a9829a7d24525e76a6e3d3c41e66e9506e50395bbff353b05abbb99aa5a6cd2f",
+    "research_candidate_support_probe_20261112/scores.json": "d5d8813e9fac945fcb5b2005bfe82633786b9213810f3e9f344cc16db95a9d77",
+    "research_failure_localization_20261112/stage1.json": "b6f4d755d19e1c79ac829abb33b258d4f94315f582c092dc1326b3fe3aead557",
+    "research_failure_localization_20261112/common.py": "b506ed75b3db49c444bd0546621a0d79ae12daeaab336419eff53681cc374950",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "tracking/full_template_correspondence.py": "043c2214a5769aee5b6bafb8d8fdb3a63cd7faa04a28f576d9e22f7c238144f0",
+    "tracking/observed_spatial_reader.py": "66f391d4520edfc9a9f9c46d57157e04dbbcaf73a8d3d1013e931e28e16b045d",
+    "tracking/hex_linear_interpolation.py": "6398d9d9654328e13a9a04c335bed92b5202dabcf8b63ca19a69ebc925ab477e",
+    "tracking/channel_agreement_correspondence.py": "807948699b5f776c7134f51c9a68347afb1bdebeb01462b896607d1dfb8b4740",
+    "tracking/channel_balanced_correspondence.py": "f024871ccebbcb329bd147061d0bf621896eef64cf63a31154d2e244737502bd",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "data/bdd100k/labels/box_track_20/val/b1cd1e94-549d0bfe.json": "4713d0bf5ba22a6308b57cfd1cb709a7e2303a50ca0aeb26474c1a03e3e623dd",
+    "runs/identity_assignment_20261108/full_precision/runtime_inputs/b1cd1e94-549d0bfe.json": "d949fe6187c22bc92dd59b6c00b2da1a92fc498b78485441f4a7e71b7c4ddc42",
+    "data/bdd100k/labels/box_track_20/val/b1f4491b-cf446195.json": "0b9380825eb8bc7e4db25c8ce1d2d4aad1835e10643e2929cd2b7ee804e487c3",
+    "runs/identity_assignment_20261108/full_precision/runtime_inputs/b1f4491b-cf446195.json": "3fa6726ad1f601df2bc74f99416dceedf0e9a22f221bcd0b60e289e88cce00fa",
+    "data/bdd100k/labels/box_track_20/val/b2036451-aa924fd1.json": "e0c076fb93ff5e460a4dbe1182503f66c2f4ef282b5af2f8b01bd5c0c1aff78f",
+    "runs/identity_assignment_20261108/full_precision/runtime_inputs/b2036451-aa924fd1.json": "51ae3c787f06d6a286116cb7ab312e36e0aa97249259e7dd9945bad8c1652fd5",
+    "data/bdd100k/labels/box_track_20/val/b23b2649-8349d2a1.json": "1d1372c04c0b05fb85bbcdf2284d72fe7588d5399b52daf7dee5e6c4573ce9ea",
+    "runs/identity_assignment_20261108/full_precision/runtime_inputs/b23b2649-8349d2a1.json": "f3a7ca50083700a9d6c4f02a2e6f165299e3af5c7eb724d19c1aeb9895ec2961",
+    "data/bdd100k/labels/box_track_20/val/b242f6b2-0033bdfb.json": "34134a2781ef16e4ec7a913a903406467d1eda96ef917204470c0ae3a485a9fc",
+    "runs/identity_assignment_20261108/full_precision/runtime_inputs/b242f6b2-0033bdfb.json": "13323db9dc6f587a3ae59c606b18be3f56bebac8ea361e918aeb52e5f44fbdd3",
+    "research_remaining_causes_20261112/geometry832/audit.py": "5698d85b8ad0bd35586b4e9cd3f9b8cf1b9999ce775e2bb770e4f50e0d2389e9",
+    "research_remaining_causes_20261112/geometry832/prepare.py": "a69a73e090bdb7280fdb08b6b5f96201f52af95f4c413831d135ca20baeabd45",
+    "research_remaining_causes_20261112/geometry832/worker.py": "64aaf4292284a8d91a209978866167409d85b00659781f9a8631c4a16a765646",
+    "research_remaining_causes_20261112/geometry832/proposed_protocol.json": "0fe49f271e49c79114b97765f19d5ef3322da56d2000ede5dfa8212685ee014a",
+    "research_failure_localization_20261112/frame_manifest.json": "1b252374e14b6c1f894ba344e075140ca1d1b988629fe61835c43d7c0bfc489b",
+    "research_failure_localization_20261112/frames/1102_252_full.png": "de6194d3d542ddcc418f1492502593c25ff250a1286b46a5e30a9e5d4310e219",
+    "research_failure_localization_20261112/frames/1102_258_full.png": "31483a02f4532335305c54d20be881bacb8471ff7dacfccd13a81e3bb1439baa",
+    "research_failure_localization_20261112/frames/232_538_full.png": "0d757e01a48fb7078a556207b7f12bb82fe0a6056d3a18e56e92dfc23392fe47",
+    "research_failure_localization_20261112/frames/232_544_full.png": "ecbb8e1ac26f3d8f65dd5d87546956045eaef92b2364a844f7ba5ec6d1e0fd88",
+    "research_failure_localization_20261112/frames/574_931_full.png": "c7f04264996bf5d2e4bc08101be48d5bbee988de3f913a34d5f4e834711c1a4f",
+    "research_failure_localization_20261112/frames/574_937_full.png": "b844885d3d1b14e3214c669e631851b6d3c39f92d3ac993ce87d730cb360ad01",
+    "research_failure_localization_20261112/frames/70_109_full.png": "3d496afe4e80676a6a34deb066e04f68c2bf4a054b2ab735b616c8ff23bb7456",
+    "research_failure_localization_20261112/frames/70_115_full.png": "02f0317ae924747373dd16575e11e97c00bf902e7d15610d36b19b04e6d87e4c",
+    "research_failure_localization_20261112/frames/832_534_full.png": "781f0b8bb6faf7ebadeeb4bcea4b1211df7b59acd66df02ebfbd13cbf79f4e7e",
+    "research_failure_localization_20261112/frames/832_540_full.png": "9fe0fda759d934b71609db6a752247f389e6686792441ea46acb3c7d809a25a0",
+    "research_remaining_causes_20261112/overlap574/prepare.py": "6f1e2878d56974521d93e3b92818ab0dbc14911b1a9310a552e3a3f56d6849a2",
+    "research_remaining_causes_20261112/overlap574/worker.py": "644d3ffb638f9351847f22d7bbdde06dbb197a8f3a3a00606369463b66ef6554",
+    "research_remaining_causes_20261112/overlap574/audit.py": "82f7048e43a4e1f2bdea593bbb927bbac4d8e817b8873694c00f05b11cb5ac80",
+    "research_remaining_causes_20261112/overlap574/proposed_protocol.json": "4d9894d1482b2cb4b400da2c4cf25d1ea7e56a34f2688b08596478f55aa2628c",
+    "research_remaining_causes_20261112/register.py": "f00001d1775d2ffb82e3fd451cf1ceb2ca32d80bfa5fd9a7eb681c35afc2f499",
+    "research_remaining_causes_20261112/supervise_jobs.py": "acebe389b56c9ebc89d41b990b049a87b8e063e086c40cd799aa353d88ee731c",
+    "research_remaining_causes_20261112/geometry832/coordinate_audit.py": "9ea4e7965c781e59075874b87a785d4ac6a054929aa38b922ac4be1ca41a38bb",
+    "data/bdd100k/videos/val/b1cd1e94-549d0bfe.mov": "ec4d73bec2c91fd0d1cba6d890d24ffbfc2bb2d6d6bfcfdf437d8481148d60f9",
+    "data/bdd100k/videos/val/b1f4491b-cf446195.mov": "74248d75241e703a09b9ce813ea30be1a773d6eae5cf70ad7c2713d8bef88376",
+    "data/bdd100k/videos/val/b2036451-aa924fd1.mov": "401a7b4daeae9757598b6421e76f44d65727eb49de358ea6a56cf33f3052ba81",
+    "data/bdd100k/videos/val/b23b2649-8349d2a1.mov": "d2ebbc0a6388f9867f835a6e868218262a7b200f452076c92d41f9cd8fc9f419",
+    "data/bdd100k/videos/val/b242f6b2-0033bdfb.mov": "88c8b3584c32554ee15c9d8c0d893146889402f867f0f85ba98ac9e2c8f8c370",
+    "research_remaining_causes_20261112/independent_review/reid/audit.py": "51364f54eb03311ff9363be60183487e6efaf0a4150b69cf19abbf9fffd156aa",
+    "research_remaining_causes_20261112/independent_review/reid/common.py": "da1ba510018b60ac4b8b49ab792c1bbf59a741e4f7abfb0d9d1953718a38b9bb",
+    "research_remaining_causes_20261112/independent_review/reid/register.py": "a88e1f134e7513c919f6ef8e068d4a279581d9b90aee29b556efb23b5216a4a3",
+    "research_remaining_causes_20261112/independent_review/reid/worker.py": "1db9f10a4ea3499acb6bf857118923b654bef18093c6cb633d5b68f36d54fed8",
+    "runs/domain_matched_native_20261109/protocol.json": "2a7b1a877e74c0a280a478ba1e1652c7c8d990fdb788e726bbd5c94c700ce1b5",
+    "runs/flyvis_repairs_20261106/unification_20261107/system_memory_guard.py": "72d4ecdda4c220b2bba17adda5787d1cc95ee5075e272d7e42d0d0d38f74daa9",
+    "runs/z13_val20_matched_20261024/cache/b1cd1e94-549d0bfe/detections/raw_video.npz": "84bdf597de7e46e6118f6d9791db881f680875d8d1dab1143b583214c748bf55",
+    "runs/z13_val20_matched_20261024/cache/b1f4491b-cf446195/detections/raw_video.npz": "758d13a32e10ad8bd47e1a236e517e666710edfed08e683f4cd19f4d78db61f4",
+    "runs/z13_val20_matched_20261024/cache/b2036451-aa924fd1/detections/raw_video.npz": "0f8b416b773d0adb22d85d8f5ffce58710c9432ce3ce79e8d418e11e3f05c4a2",
+    "runs/z13_val20_matched_20261024/cache/b23b2649-8349d2a1/detections/raw_video.npz": "658b9bfbe125249720829f7d53b252c1e51f806ef741ba23d87f53b3cf5c5fbe",
+    "runs/z13_val20_matched_20261024/cache/b242f6b2-0033bdfb/detections/raw_video.npz": "ef241ea183e94e4a5e9e96fa60ad290d24fdb9ce6d30c5fac4b91eb37500147a",
+    "tracking/gpu_lock.py": "18a1a4ded94df357383d2bb88432fb73c68756e957a2dbbb1d570d32667dc0b9",
+    "tracking/masa_r50.py": "181f52a2f3b1964554818dd7ddcdeb4bc8c203ff4794eedc1b3e7ee8166569d7",
+    "weights/masa/masa_r50.pth": "082670efc6e8820eff8257f78ea14dfb52d6cdbe2910ecccf0901a74f4a0fd76",
+    "research_remaining_causes_20261112/independent_review/reid/protocol.json": "ce02d7bd1e816f467d81842a5d9b384e6f434e0a9e31b35d8b5db0ae3bbd1582",
+    "research_remaining_causes_20261112/geometry832/result.json": "e6514a41e096fb94c1e410a30162a69a67853309f05f894ee28ac35cf7cdbb4f",
+    "research_remaining_causes_20261112/geometry832/paired_samples.npz": "d8c00bc4281987efea648e6f41aa78427a7869b8808e4ea9f9ea987db20818d3",
+    "research_remaining_causes_20261112/run_queue.py": "bf026dbf830339ee1bbacb33eda46b8f095b1c5cd8b6d6dc944c451d97dcff44",
+    "research_remaining_causes_20261112/register_reid_and_audits.py": "3d2a03c263c1b91da8387b3281020e329a66b41d054f463d3f92784a33ea8bbc",
+    "research_remaining_causes_20261112/geometry832/source_support_worker.py": "2b40fb08772439b01166cc52e999f72eab9e207ba6348dc298af7adbb159e2d3",
+    "research_remaining_causes_20261112/geometry832/prepare_support.py": "5bd6d456bbd8eb17fd7326e4a6992db880f47d5f87a48824dc20b7fb68039585",
+    "research_remaining_causes_20261112/geometry832/source_support_protocol.json": "180107d6a254d3aa37059ca901239f392dce1a769612800759b38bf9a0469856",
+    "research_remaining_causes_20261112/geometry832/audit_addendum.py": "4f108c7d322021e80e3a5a62b53ff25b6a5269861b2621aee358d6046aceb570",
+    "research_remaining_causes_20261112/geometry832/factorial_worker.py": "93baffb91e1483eb8e4d56ce2f77bbd823a85c85499d152ed075dfd5ff4a4adf",
+    "research_remaining_causes_20261112/geometry832/prepare_factorial.py": "aa769f8960d1f0072ddc5f6e08e281296de90c0e4e15feacda5d8d2baaeb25ad",
+    "research_terminal_response_probe_20261112/protocol.json": "d245ac46e276527258c1b32ee29a25eaa903e1ff6db9a317744df316f8a5b272",
+    "research_terminal_response_probe_20261112/replay.json": "73b0763cafd510a20eb2f3568ef21049c112e2a0551c9674e6d646bf3291bdae",
+    "research_terminal_response_probe_20261112/audit.json": "212c57c2ae709e0933e191fbd3ca2789d4ef06d9bd3a6217aaf16bf0b16d0f0f",
+    "research_terminal_response_probe_20261112/maps.npz": "f92e422e54c3f5f80ac8a258731745a9c3d825e382573ea4926fdffa89edc43d",
+    "research_terminal_response_probe_20261112/expanded_inputs.npz": "5566bef3410475dc213d73ed69353a1772ed3d1658da23611df4491dce19bb81",
+    "research_remaining_causes_20261112/geometry832/factorial_protocol.json": "0e155b988b241a687619cba3fa368c23d6d4f6b2606f9d6a032901a35abd8c46",
+    "runs/domain_matched_native_20261109/features/b1cd1e94-549d0bfe/1a15acf0c20a58af8bef944d4dedaeaa.C34.npy": "0719eb3e049eda143a3a6c721f76b4831e74f571521373914f56206aa669d955",
+    "runs/domain_matched_native_20261109/features/b1cd1e94-549d0bfe/1a15acf0c20a58af8bef944d4dedaeaa.R1.npy": "68695eeebb05fb8522c71b3f02a93c9a801ec00dee6437b7b2207d82a8b02b10",
+    "runs/domain_matched_native_20261109/features/b1cd1e94-549d0bfe/b7b93d2a8e67f862a18c2dd2abd6f918.C34.npy": "7bc4a3650c3c5cd53a1017f05ddac20aeb05772ede17d242b3cb0eba6e592c39",
+    "runs/domain_matched_native_20261109/features/b1cd1e94-549d0bfe/b7b93d2a8e67f862a18c2dd2abd6f918.R1.npy": "13d256fdccc7bfb3f99aa49fbc4ef245710f0f17e83fcd1203e8984af207c505",
+    "runs/domain_matched_native_20261109/features/b1f4491b-cf446195/a24cdcdbfb536a68af1aa58faa7fd259.C34.npy": "81ad6cd3aa265bd39d34edfff10317a5c9603af2a690603d0f7afada98ce52fb",
+    "runs/domain_matched_native_20261109/features/b1f4491b-cf446195/aa231e976b8f0eb77771f481244e4b58.C34.npy": "e11f3dcbee1ceb1a13d76171a29aa2693a1d3dde84f96ce95c5a55f291113d27",
+    "runs/domain_matched_native_20261109/features/b2036451-aa924fd1/ad1fdcfab33900b0494157d604bf2f13.C34.npy": "a8af53b9a097a10b36c2d1dedc5c53176b1061f8368af8c31d2e25d07995f115",
+    "runs/domain_matched_native_20261109/features/b2036451-aa924fd1/cc74b277243bbc8b39ad02e8b1e98529.C34.npy": "b81416592f3d6b322d12dd79243ce30dcf7295a283576e046096e28a8da52b56",
+    "runs/domain_matched_native_20261109/features/b23b2649-8349d2a1/58e0240bf3a1a857229f7536e135a14f.C34.npy": "34c95c7e76ef87ce25f72035223924464324a49b03ef29d515083e3a9effbe14",
+    "runs/domain_matched_native_20261109/features/b23b2649-8349d2a1/c066d891ec1081fb09b2978d25888b63.C34.npy": "4d65945539250da07cf59d0b10f93787893991cfea68418125b2ade4435a64e0",
+    "runs/domain_matched_native_20261109/features/b242f6b2-0033bdfb/6b527cb8d2a1a82d0b2d453308dfebed.C34.npy": "e8dafabdf8a6135a04e4d9d72ad374a1a3ce9cbdc6cbe9c070dcfd642018542f",
+    "runs/domain_matched_native_20261109/features/b242f6b2-0033bdfb/6b527cb8d2a1a82d0b2d453308dfebed.R1.npy": "2266528886382bc11e542a3a9041236389160888f54ad36efc5d58f618382dbd",
+    "runs/domain_matched_native_20261109/features/b242f6b2-0033bdfb/819eef9a5f815cb6d29f6b69f85a7ccc.C34.npy": "3e557f413d5d713e9633dd7b034114e255d12ba5e9c006685425a5618d7ee160",
+    "runs/domain_matched_native_20261109/features/b242f6b2-0033bdfb/819eef9a5f815cb6d29f6b69f85a7ccc.R1.npy": "e20f8aea8a01f25f482ea0496538dc9f81acbf23237a72f8f1190a54626616d4",
+    "runs/identity_assignment_20261108/full_precision/features/b1f4491b-cf446195/a24cdcdbfb536a68af1aa58faa7fd259.R1.npy": "3c7369caee7872b487ab67c26443a508d2680d84ba5fafc6d3311dc6f62a074a",
+    "runs/identity_assignment_20261108/full_precision/features/b1f4491b-cf446195/aa231e976b8f0eb77771f481244e4b58.R1.npy": "c180f6b4fa5b2b98dbfc82655ff97fca345566a8e48d57b7bc005272d322c0b0",
+    "runs/identity_assignment_20261108/full_precision/features/b2036451-aa924fd1/ad1fdcfab33900b0494157d604bf2f13.R1.npy": "96518c930bf71a70a56b8c9e16592a72ba78f17ea4f7563641d2cfafd9172eb6",
+    "runs/identity_assignment_20261108/full_precision/features/b2036451-aa924fd1/cc74b277243bbc8b39ad02e8b1e98529.R1.npy": "b02276ba8231ccc8088bcc909c624b409f70fc8caa02028d2e8c47b7bd1ab2a2",
+    "runs/identity_assignment_20261108/full_precision/features/b23b2649-8349d2a1/58e0240bf3a1a857229f7536e135a14f.R1.npy": "8fac3d7d08ed1128aa466e9a7239db64528e1474fbcf5ac361ca2a8ef5f943ac",
+    "runs/identity_assignment_20261108/full_precision/features/b23b2649-8349d2a1/c066d891ec1081fb09b2978d25888b63.R1.npy": "ac217e1139555c19b9c06eef72869453338766a36ee9722d48325a3e41145313",
+    "research_remaining_causes_20261112/overlap574/worker_v2.py": "4e55b55a309be9b10ff047ebed7885febdf89af15efe45f1626704ec957fcfc7",
+    "research_remaining_causes_20261112/overlap574/protocol_addendum_v2.json": "7521382d0160569e7cf327100a7ab2207a0ea6eed4a4175bae521a07457e7512",
+    "research_remaining_causes_20261112/overlap574/baseline_diagnostic.json": "fb4a3d85b229ba4942e62a197eba42e5a6c64128eaf775765247910523d65a33",
+    "research_remaining_causes_20261112/register_followups.py": "5d83e39018e19743d602bef0686d4b3f1c56be03b3cafc70e317eafcdcdb3329",
+    "research_remaining_causes_20261112/overlap574/result.json": "f08149bb75ff874ef04258689722fa14bb448748e78fd88d876372ff090b1873",
+    "research_remaining_causes_20261112/overlap574/samples.npz": "2af658d3c9d9fb2c8042a041fd0636c16960b296c89588e5788ab5b8af33be7f",
+    "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/c9ccfae946cde7dad153510097541083.npy": "129dd8647b5e465bb3b19e95b1399cc3b6a4894ea0dcab2ef59e9b3ddf29a3e5",
+    "runs/identity_assignment_20261108/full_precision/retinal/b2036451-aa924fd1/6a0f82734cafdbac867292594dd97ff3.npy": "b4565b2194cd9893de85e532ef6e681aedff7876d99611d62d8a7f40e5154283",
+    "research_remaining_causes_20261112/overlap574/raw_partner_worker.py": "f763c3d1144e15b57ef61d0052ffa6e6ad9db33046680387a9ccef4920d8f95f",
+    "research_remaining_causes_20261112/overlap574/raw_partner_audit.py": "240f5a10494accdc9146fcd8a757c58f1392dd11c98cffb4e9c7677229e501b4",
+    "research_remaining_causes_20261112/overlap574/prepare_raw.py": "946fce5d4350d6e7ed772fe2a05e417d8a9c3e21ba57283128b2cd527f0f669d",
+    "research_remaining_causes_20261112/overlap574/raw_partner_protocol.json": "eb86c0c0de9c81aeb7cecd6d48ad40f4c529f178234ed3e61dbcfc6126687812",
+    "research_remaining_causes_20261112/independent_review/reid/audit_v2.py": "4df510490430f1dfee0449fc58dbd5cbcee400bcbe0ea9cb0d976fbb934e2281",
+    "research_remaining_causes_20261112/independent_review/reid/audit_recovery.json": "426fdad97979c2d634dd4ef741e9d47c17e9a5abdf19bdfe98c7c682a3c888c6",
+    "research_remaining_causes_20261112/register_raw_and_recovery.py": "fa58b6c333b690e2c110958592bee4b832db36d467edd56334fa28d32b036f2f",
+    "research_remaining_causes_20261112/independent_review/reid/result.json": "e43c9cff7f4f3acc315122acc1b7393feca839fc969ebac9e393883b0166e14c",
+    "research_remaining_causes_20261112/independent_review/reid/descriptors.npz": "103fcc637702291338d46e11a82609f4f36f328d936e5a8d963d6ed686a084e3",
+    "research_remaining_causes_20261112/independent_review/reid/low_register.py": "1a42441fd60a52f522b736497218c0f07469052446603169139856bed4d67842",
+    "research_remaining_causes_20261112/independent_review/reid/low_worker.py": "41582aaad601d173905c020856578b74474f0eb2851cd6d89dfb721deddf2a24",
+    "research_remaining_causes_20261112/independent_review/reid/low_audit.py": "cf218768ad19ebff52f5e67615bacaac1d33efa6edc88781fb217f2f9d292486",
+    "runs/domain_matched_native_20261109/runtime_adapter.py": "ac3779744c1ce609f85a5a1711064b8946d1726a8798a4499f0c2ceb73b5117b",
+    "runs/full_template_native_20261109/native_runtime.py": "acd185b7dd7c0937d87c7cf85d6a872b915b159a34cbc81735c55e726a1af5ff",
+    "tracking/offline_association.py": "b7d4ab568d25708df3601fe890b85b488f646ce010459e3110aa84ee78d54ceb",
+    ".venv/Lib/site-packages/ultralytics/trackers/byte_tracker.py": "00c7c1ff8b1076fc89347071519ae0b06a30bfce00dded94826620e068b1928f",
+    "research_remaining_causes_20261112/independent_review/reid/low_protocol.json": "7043d617a34fd41cd907b869a4177a0879597dca06bd2d8ac2f990a95f5e565f",
+    "research_remaining_causes_20261112/independent_review/reid/low_worker_v2.py": "6cb1e13ca19ef90225c86d9e15a2852d5e67fa379061b434d7ec66c7e272d413",
+    "research_remaining_causes_20261112/independent_review/reid/low_audit_v2.py": "e6876869b433cf3eedcb91f4718a901faf15d2afbe3acc896cee57419e439f12",
+    "research_remaining_causes_20261112/independent_review/reid/low_protocol_v2.json": "c62d7ece93ccfabb014c5e6fd0555cd853404f3e1f97559e9677beeb134188ed",
+    "research_remaining_causes_20261112/register_low.py": "b92d12f74d41336362b62e5fe66068acb6442ddd793f00e5c14d15135c95c5eb",
+    "research_remaining_causes_20261112/overlap574/matched_query_worker.py": "e97b7b8aef2863b9eb0389db232baca3a66f3edb0c6b6804818c943ebc5e3e90",
+    "research_remaining_causes_20261112/overlap574/matched_query_audit.py": "73105ca60184980adc8b9214e296750d82b782aa2d49b4de1a60de905e2ea22e",
+    "research_remaining_causes_20261112/overlap574/prepare_matched.py": "cf1d6ae44286b0940bab80292d2a098e4b97d6e295a2200db054f4bc61bfd296",
+    "research_remaining_causes_20261112/overlap574/matched_query_protocol.json": "45d2caf9ccfde633634754af6a333bb55787e19653525b2d3eb8fa57b7600f06",
+    "research_remaining_causes_20261112/register_matched.py": "b1a5454b91db1d20cb5b1679b3b215b29c57a7c67fbf78aa11d0e6c282a757a9",
+    "research_remaining_causes_20261112/independent_review/reid/low_worker_v3.py": "1d4a52e6ada3ca6f9f5ed99addc70803e135e236ccd51df2cdc87cb257db420d",
+    "research_remaining_causes_20261112/independent_review/reid/low_audit_v3.py": "5c3467e48fe0dc5d9f82ba858a50882f77c326cb2124f1f1aafc31ce8740c7b0",
+    "research_remaining_causes_20261112/independent_review/reid/low_protocol_v3.json": "e4fcd9774101844adcb44f5293a7f0413f0b4d9c15b9acc575afc4ab156f1c49",
+    "research_remaining_causes_20261112/register_low_v3.py": "e3e35ff78fc2054927a9c9816ef9292eceaf757483413daea4e7f2babfe33602"
+  },
+  "scientific_artifacts": {
+    "research_remaining_causes_20261112/geometry832/832_geometry_reference_state.png": "b3781ea3421d0536e1e09f9c0d58fa220d37b62c76eda085a7125f0240d9b65c",
+    "research_remaining_causes_20261112/geometry832/832_geometry_reference_state.svg": "a6feaebac9ffbea365b0e3d72d6be1b3ac3d5660245fb53a1f15d098995395e9",
+    "research_remaining_causes_20261112/geometry832/audit.py": "5698d85b8ad0bd35586b4e9cd3f9b8cf1b9999ce775e2bb770e4f50e0d2389e9",
+    "research_remaining_causes_20261112/geometry832/audit_addendum.py": "4f108c7d322021e80e3a5a62b53ff25b6a5269861b2621aee358d6046aceb570",
+    "research_remaining_causes_20261112/geometry832/coordinate_audit.json": "d98e593b7e21df4135760c1d4c835e2a4a002738527b66cd53cb4c39f9363a29",
+    "research_remaining_causes_20261112/geometry832/coordinate_audit.py": "9ea4e7965c781e59075874b87a785d4ac6a054929aa38b922ac4be1ca41a38bb",
+    "research_remaining_causes_20261112/geometry832/factorial_audit.json": "59bd6041664f74cf03e529eebf1d46ce9694b10fd9a30dc59b56d3879b48bc15",
+    "research_remaining_causes_20261112/geometry832/factorial_GO.json": "3bf7d1d707d5afcbfaec726683467cdb8e9d705eeeaf927bff5da56eb37d0d57",
+    "research_remaining_causes_20261112/geometry832/factorial_protocol.json": "0e155b988b241a687619cba3fa368c23d6d4f6b2606f9d6a032901a35abd8c46",
+    "research_remaining_causes_20261112/geometry832/factorial_result.json": "cc3ad8427e5539758696669d6b12176024fb4545da91e4857744b7f4b0c18782",
+    "research_remaining_causes_20261112/geometry832/factorial_samples.npz": "d7d64efb95d2d47f170c1be36ef1c028ebf17e6f492cbf426dfcbdda89f60b24",
+    "research_remaining_causes_20261112/geometry832/factorial_worker.py": "93baffb91e1483eb8e4d56ce2f77bbd823a85c85499d152ed075dfd5ff4a4adf",
+    "research_remaining_causes_20261112/geometry832/figure_manifest.json": "b271104254727927126e8f2ba6055458b346d9cd050816909c1cf034d9399a46",
+    "research_remaining_causes_20261112/geometry832/GO.json": "98c2fc1c4a78644dea036199b36374b099295314591955ce52caefc2a4ef0c31",
+    "research_remaining_causes_20261112/geometry832/independent_audit.json": "1f153f0b43c5dca270f9072c3a9945d418f9951393578c4a8b84d4b09897bf72",
+    "research_remaining_causes_20261112/geometry832/paired_samples.npz": "d8c00bc4281987efea648e6f41aa78427a7869b8808e4ea9f9ea987db20818d3",
+    "research_remaining_causes_20261112/geometry832/plot.py": "8b39739dc3870ca4ff3e68212c361e09263b976c6c94acde22e48e2bcdf71508",
+    "research_remaining_causes_20261112/geometry832/prepare.py": "a69a73e090bdb7280fdb08b6b5f96201f52af95f4c413831d135ca20baeabd45",
+    "research_remaining_causes_20261112/geometry832/prepare_factorial.py": "aa769f8960d1f0072ddc5f6e08e281296de90c0e4e15feacda5d8d2baaeb25ad",
+    "research_remaining_causes_20261112/geometry832/prepare_support.py": "5bd6d456bbd8eb17fd7326e4a6992db880f47d5f87a48824dc20b7fb68039585",
+    "research_remaining_causes_20261112/geometry832/proposed_protocol.json": "0fe49f271e49c79114b97765f19d5ef3322da56d2000ede5dfa8212685ee014a",
+    "research_remaining_causes_20261112/geometry832/report_v2.py": "b129840d71e84cd874aa622afff3069813434a42d656fcec27a486c9d233c6ef",
+    "research_remaining_causes_20261112/geometry832/result.json": "e6514a41e096fb94c1e410a30162a69a67853309f05f894ee28ac35cf7cdbb4f",
+    "research_remaining_causes_20261112/geometry832/source_support_audit.json": "4f9b1023da90a9e76cb091e7ed85c66da3e62121ece74da561a7b58dd177f3a1",
+    "research_remaining_causes_20261112/geometry832/source_support_GO.json": "4a87337a26960d8c47e6f029fb2dbed40be9164f269eb2a01929c19786313536",
+    "research_remaining_causes_20261112/geometry832/source_support_protocol.json": "180107d6a254d3aa37059ca901239f392dce1a769612800759b38bf9a0469856",
+    "research_remaining_causes_20261112/geometry832/source_support_result.json": "25f5636f570d05561d284be8fc92a270005b19e683269a3971bea7ca98ef95c4",
+    "research_remaining_causes_20261112/geometry832/source_support_samples.npz": "71108614df1f7f29d89db6d1a5f6d0608ce27c603d49d51af7df1accfd8a1425",
+    "research_remaining_causes_20261112/geometry832/source_support_worker.py": "2b40fb08772439b01166cc52e999f72eab9e207ba6348dc298af7adbb159e2d3",
+    "research_remaining_causes_20261112/geometry832/status.json": "d3b1fc0eefbbd7b6a2d9d94c1edf5988df6b130871dc86edfa8c2965632b0122",
+    "research_remaining_causes_20261112/geometry832/summarize.py": "d5e6721b638b49e4cb774b06e0d5daf30793dc4558d132e2c40f95cb1614a738",
+    "research_remaining_causes_20261112/geometry832/summary.json": "e44cbea3813197aa12bb241a5bc6feb2f66824eee25739e1c8256d08e7c2c828",
+    "research_remaining_causes_20261112/geometry832/text_review.json": "d551428b0f7581f53265753d52d1f160393667bbf3457354c9e8a3fa27f0e17a",
+    "research_remaining_causes_20261112/geometry832/worker.py": "64aaf4292284a8d91a209978866167409d85b00659781f9a8631c4a16a765646",
+    "research_remaining_causes_20261112/geometry832/РЕЗУЛЬТАТ.md": "e80372fab535cda6023e75195624827c092416641b1d9225143b8aa9cb9126bf",
+    "research_remaining_causes_20261112/geometry832/РЕЗУЛЬТАТ_v2.md": "3fdcfceb99dca34f0f060d1d8a9a1b706a642f36c819de9d292d612585de1163",
+    "research_remaining_causes_20261112/overlap574/audit.json": "b3431c18869c2f91090cff435a4fa98badf216585e4e75481876a5eb8f9b82c4",
+    "research_remaining_causes_20261112/overlap574/audit.py": "82f7048e43a4e1f2bdea593bbb927bbac4d8e817b8873694c00f05b11cb5ac80",
+    "research_remaining_causes_20261112/overlap574/baseline_diagnostic.json": "fb4a3d85b229ba4942e62a197eba42e5a6c64128eaf775765247910523d65a33",
+    "research_remaining_causes_20261112/overlap574/baseline_diagnostic.py": "03d47bf7819db921d4fffe80be259f4417bb46cb62d8d97ffba5e0c9d171d3b6",
+    "research_remaining_causes_20261112/overlap574/coordination_incident.json": "0fefb340213f07a4b22f9d949bdc08850eed2cf52336b4569409142c815a9cc7",
+    "research_remaining_causes_20261112/overlap574/GO.json": "217665476d9870586a4fd5869265d641bf162e9cd0a1517516775ce0f8aed65d",
+    "research_remaining_causes_20261112/overlap574/GO_matched.json": "9dc325e8b21c066281a0b7977c05ad8840f3d5eac15049a9ce50de1b1dc14be4",
+    "research_remaining_causes_20261112/overlap574/GO_raw.json": "9bc565734c9e33653298f46419bd8a3a97d41ab25c2e6ac1e6ccfb698134a6ae",
+    "research_remaining_causes_20261112/overlap574/GO_v2.json": "88cc10ad4a2431b2684fe3104959f50c66fc1dac9e89fe8ec60c3b23cc112a69",
+    "research_remaining_causes_20261112/overlap574/interpretation.json": "7cf01d6ae199c9d5cfd4c9fff356ef21953eeb0a9979dfb1763a2dad13b9218d",
+    "research_remaining_causes_20261112/overlap574/matched_query_audit.json": "3e3d08ac8e5d3d8096e2d45008af2d02733722f2f70c816ee00e53bc03f461f9",
+    "research_remaining_causes_20261112/overlap574/matched_query_audit.py": "73105ca60184980adc8b9214e296750d82b782aa2d49b4de1a60de905e2ea22e",
+    "research_remaining_causes_20261112/overlap574/matched_query_interpretation.json": "1136bd8965f235fb7bdca36788c5c4912a300d0b264be69f9d9cc2557e6764c9",
+    "research_remaining_causes_20261112/overlap574/matched_query_protocol.json": "45d2caf9ccfde633634754af6a333bb55787e19653525b2d3eb8fa57b7600f06",
+    "research_remaining_causes_20261112/overlap574/matched_query_result.json": "8917c76ba4129e056ab4b71a8324bfa2709c23cdcf2b35a8b0f18985aafee55e",
+    "research_remaining_causes_20261112/overlap574/matched_query_samples.npz": "10ba199c92c4900aee215a52e9d8be0e41446c0567e4bcbc172c664f25adc37d",
+    "research_remaining_causes_20261112/overlap574/matched_query_worker.py": "e97b7b8aef2863b9eb0389db232baca3a66f3edb0c6b6804818c943ebc5e3e90",
+    "research_remaining_causes_20261112/overlap574/native_context_574.png": "16f752c76174a4f7880be0cf8125f8eb8de9f81fc30adee81d6e2c7df7d64150",
+    "research_remaining_causes_20261112/overlap574/overlay.py": "49c24d8622f5fb8301a62b2017dcf3381fa460a8ef4ecc78ff96cd55dd64ee49",
+    "research_remaining_causes_20261112/overlap574/overlay_manifest.json": "891458454952858763548bbed4aa9a2f4e64da3461dead3f3959a140a99cfd21",
+    "research_remaining_causes_20261112/overlap574/prepare.py": "6f1e2878d56974521d93e3b92818ab0dbc14911b1a9310a552e3a3f56d6849a2",
+    "research_remaining_causes_20261112/overlap574/prepare_matched.py": "cf1d6ae44286b0940bab80292d2a098e4b97d6e295a2200db054f4bc61bfd296",
+    "research_remaining_causes_20261112/overlap574/prepare_raw.py": "946fce5d4350d6e7ed772fe2a05e417d8a9c3e21ba57283128b2cd527f0f669d",
+    "research_remaining_causes_20261112/overlap574/prepare_v2.py": "5c20677dd24b728d0a78672bcd68cfe9ba02654fe7da9413fd882c02e2cb767f",
+    "research_remaining_causes_20261112/overlap574/proposed_protocol.json": "4d9894d1482b2cb4b400da2c4cf25d1ea7e56a34f2688b08596478f55aa2628c",
+    "research_remaining_causes_20261112/overlap574/protocol_addendum_v2.json": "7521382d0160569e7cf327100a7ab2207a0ea6eed4a4175bae521a07457e7512",
+    "research_remaining_causes_20261112/overlap574/raw_partner_audit.json": "68d3322a5d77aef063660fb27f4f7d8438341364290fd22ffea646fbc8e95fdb",
+    "research_remaining_causes_20261112/overlap574/raw_partner_audit.py": "240f5a10494accdc9146fcd8a757c58f1392dd11c98cffb4e9c7677229e501b4",
+    "research_remaining_causes_20261112/overlap574/raw_partner_interpretation.json": "6e347c8c87a046e8e637c1e32e3a73b06e4d1fda3bdfa6b1eaf84eb1ed6b70eb",
+    "research_remaining_causes_20261112/overlap574/raw_partner_protocol.json": "eb86c0c0de9c81aeb7cecd6d48ad40f4c529f178234ed3e61dbcfc6126687812",
+    "research_remaining_causes_20261112/overlap574/raw_partner_result.json": "812acb18939a2162f00fb5b7e4ff85bbc2e3277aca16185c26d9fe0b8d5831b8",
+    "research_remaining_causes_20261112/overlap574/raw_partner_samples.npz": "d9cab335b41178e7ab11e7ef88a3842ccb57f8632d92483ec43fa8de54a7445c",
+    "research_remaining_causes_20261112/overlap574/raw_partner_worker.py": "f763c3d1144e15b57ef61d0052ffa6e6ad9db33046680387a9ccef4920d8f95f",
+    "research_remaining_causes_20261112/overlap574/result.json": "f08149bb75ff874ef04258689722fa14bb448748e78fd88d876372ff090b1873",
+    "research_remaining_causes_20261112/overlap574/samples.npz": "2af658d3c9d9fb2c8042a041fd0636c16960b296c89588e5788ab5b8af33be7f",
+    "research_remaining_causes_20261112/overlap574/summarize.py": "2118d7f1eb020e3e2a41c8eb9113e802104af028d83e5a9d629778fe2d03abb8",
+    "research_remaining_causes_20261112/overlap574/summarize_matched.py": "a04fa35025ccd28d9c3cfa5ed55b8478f04e7db7551a486436f11e5d125317ac",
+    "research_remaining_causes_20261112/overlap574/summarize_raw.py": "db48f0d7b58c9b572fefc9b62371c212f0aa5f815375c1ecd12093e80eeb04bf",
+    "research_remaining_causes_20261112/overlap574/worker.py": "644d3ffb638f9351847f22d7bbdde06dbb197a8f3a3a00606369463b66ef6554",
+    "research_remaining_causes_20261112/overlap574/worker_v2.py": "4e55b55a309be9b10ff047ebed7885febdf89af15efe45f1626704ec957fcfc7",
+    "research_remaining_causes_20261112/overlap574/ИТОГ_574.md": "7129764f6eeac3350fdfc6f0e18c863f5bfb1108a834d31716692257c1434a4f",
+    "research_remaining_causes_20261112/overlap574/РЕЗУЛЬТАТ_ИСХОДНЫЙ_ВХОД.md": "37f6cdd2f92936e562f4b194ad3e74b64ec750c22e3af8b359fe858ff78b1741",
+    "research_remaining_causes_20261112/overlap574/РЕЗУЛЬТАТ_ОСНОВНОЙ.md": "ea93dd168c11343dab97d9f90324b2999a21b5c1a159989e0f329fa4164fc04b",
+    "research_remaining_causes_20261112/independent_review/reid/audit.py": "51364f54eb03311ff9363be60183487e6efaf0a4150b69cf19abbf9fffd156aa",
+    "research_remaining_causes_20261112/independent_review/reid/audit_recovery.json": "426fdad97979c2d634dd4ef741e9d47c17e9a5abdf19bdfe98c7c682a3c888c6",
+    "research_remaining_causes_20261112/independent_review/reid/audit_v2.json": "62cd28fb7dd4e213dc7c620fb74efe2ebc3e6da4722eba3b0430762dddb80860",
+    "research_remaining_causes_20261112/independent_review/reid/audit_v2.py": "4df510490430f1dfee0449fc58dbd5cbcee400bcbe0ea9cb0d976fbb934e2281",
+    "research_remaining_causes_20261112/independent_review/reid/common.py": "da1ba510018b60ac4b8b49ab792c1bbf59a741e4f7abfb0d9d1953718a38b9bb",
+    "research_remaining_causes_20261112/independent_review/reid/descriptors.npz": "103fcc637702291338d46e11a82609f4f36f328d936e5a8d963d6ed686a084e3",
+    "research_remaining_causes_20261112/independent_review/reid/INTERPRETATION.md": "b4fd46e8a0224345f304eee0400d878b9efe07cfff7ccb050db084d1f6b54c9c",
+    "research_remaining_causes_20261112/independent_review/reid/low_audit.json": "18acb2ce4e700dcc3c44d97d1199047cb0abd9b7fd9d23a1dc4f4bd8f7174fa4",
+    "research_remaining_causes_20261112/independent_review/reid/low_audit.py": "cf218768ad19ebff52f5e67615bacaac1d33efa6edc88781fb217f2f9d292486",
+    "research_remaining_causes_20261112/independent_review/reid/low_audit_v2.py": "e6876869b433cf3eedcb91f4718a901faf15d2afbe3acc896cee57419e439f12",
+    "research_remaining_causes_20261112/independent_review/reid/low_audit_v3.py": "5c3467e48fe0dc5d9f82ba858a50882f77c326cb2124f1f1aafc31ce8740c7b0",
+    "research_remaining_causes_20261112/independent_review/reid/low_batch_diagnostic.json": "49280f6b3117675d2be9d018153865236f2f63e3fa3fda30c01de5e49599b63f",
+    "research_remaining_causes_20261112/independent_review/reid/low_descriptors.npz": "bfa23a832205de925d162e1c6826bfae399bc920401de7f36b3d07d2ba4d53d9",
+    "research_remaining_causes_20261112/independent_review/reid/low_failure_v2.json": "ff46f5deac27317be6eb69405de6ced9fb376e5c6f9e198b00a0494954a5234e",
+    "research_remaining_causes_20261112/independent_review/reid/low_protocol.json": "7043d617a34fd41cd907b869a4177a0879597dca06bd2d8ac2f990a95f5e565f",
+    "research_remaining_causes_20261112/independent_review/reid/low_protocol_v2.json": "c62d7ece93ccfabb014c5e6fd0555cd853404f3e1f97559e9677beeb134188ed",
+    "research_remaining_causes_20261112/independent_review/reid/low_protocol_v3.json": "e4fcd9774101844adcb44f5293a7f0413f0b4d9c15b9acc575afc4ab156f1c49",
+    "research_remaining_causes_20261112/independent_review/reid/low_register.py": "1a42441fd60a52f522b736497218c0f07469052446603169139856bed4d67842",
+    "research_remaining_causes_20261112/independent_review/reid/low_result.json": "25f1aa979b317cbfc2ceec28483d86498e3411806de6d89738fe0ace6f2fbfaa",
+    "research_remaining_causes_20261112/independent_review/reid/low_status.json": "aa38df3dd171517739b5fc0c7d24d2dc1dfb14c7537f66d6ad7188898b3cc179",
+    "research_remaining_causes_20261112/independent_review/reid/low_worker.py": "41582aaad601d173905c020856578b74474f0eb2851cd6d89dfb721deddf2a24",
+    "research_remaining_causes_20261112/independent_review/reid/low_worker_v2.py": "6cb1e13ca19ef90225c86d9e15a2852d5e67fa379061b434d7ec66c7e272d413",
+    "research_remaining_causes_20261112/independent_review/reid/low_worker_v3.py": "1d4a52e6ada3ca6f9f5ed99addc70803e135e236ccd51df2cdc87cb257db420d",
+    "research_remaining_causes_20261112/independent_review/reid/protocol.json": "ce02d7bd1e816f467d81842a5d9b384e6f434e0a9e31b35d8b5db0ae3bbd1582",
+    "research_remaining_causes_20261112/independent_review/reid/register.py": "a88e1f134e7513c919f6ef8e068d4a279581d9b90aee29b556efb23b5216a4a3",
+    "research_remaining_causes_20261112/independent_review/reid/result.json": "e43c9cff7f4f3acc315122acc1b7393feca839fc969ebac9e393883b0166e14c",
+    "research_remaining_causes_20261112/independent_review/reid/status.json": "047a25e47532c0de5e14eb3553ee2ef1712ec4e6aa0f4981fe5733ea9fba158b",
+    "research_remaining_causes_20261112/independent_review/reid/worker.py": "1db9f10a4ea3499acb6bf857118923b654bef18093c6cb633d5b68f36d54fed8"
+  },
+  "all_owned_workers_ended": true,
+  "ended_processes": [
+    {
+      "pid": 18796,
+      "birth": 1794499194.2631698,
+      "ended": true
+    },
+    {
+      "pid": 28304,
+      "birth": 1794499194.2956204,
+      "ended": true
+    },
+    {
+      "pid": 22472,
+      "birth": 1794499194.271005,
+      "ended": true
+    },
+    {
+      "pid": 27112,
+      "birth": 1794499194.2992508,
+      "ended": true
+    },
+    {
+      "pid": 23224,
+      "birth": 1794499332.731469,
+      "ended": true
+    },
+    {
+      "pid": 25964,
+      "birth": 1794499332.76471,
+      "ended": true
+    },
+    {
+      "pid": 26628,
+      "birth": 1794499349.313554,
+      "ended": true
+    },
+    {
+      "pid": 17920,
+      "birth": 1794499349.344714,
+      "ended": true
+    },
+    {
+      "pid": 5324,
+      "birth": 1794499351.084644,
+      "ended": true
+    },
+    {
+      "pid": 24652,
+      "birth": 1794499351.11604,
+      "ended": true
+    },
+    {
+      "pid": 26436,
+      "birth": 1794499414.019833,
+      "ended": true
+    },
+    {
+      "pid": 29032,
+      "birth": 1794499414.04814,
+      "ended": true
+    },
+    {
+      "pid": 21608,
+      "birth": 1794499462.2797341,
+      "ended": true
+    },
+    {
+      "pid": 23380,
+      "birth": 1794499462.3041947,
+      "ended": true
+    },
+    {
+      "pid": 29928,
+      "birth": 1794499467.1428027,
+      "ended": true
+    },
+    {
+      "pid": 27872,
+      "birth": 1794499467.169158,
+      "ended": true
+    },
+    {
+      "pid": 11244,
+      "birth": 1794499470.886976,
+      "ended": true
+    },
+    {
+      "pid": 6392,
+      "birth": 1794499470.9142132,
+      "ended": true
+    },
+    {
+      "pid": 18528,
+      "birth": 1794499473.3943343,
+      "ended": true
+    },
+    {
+      "pid": 29304,
+      "birth": 1794499473.4244015,
+      "ended": true
+    },
+    {
+      "pid": 30020,
+      "birth": 1794499482.493725,
+      "ended": true
+    },
+    {
+      "pid": 4556,
+      "birth": 1794499482.518829,
+      "ended": true
+    },
+    {
+      "pid": 29140,
+      "birth": 1794499487.1774328,
+      "ended": true
+    },
+    {
+      "pid": 28180,
+      "birth": 1794499487.2013633,
+      "ended": true
+    },
+    {
+      "pid": 7556,
+      "birth": 1794499643.1913905,
+      "ended": true
+    },
+    {
+      "pid": 23536,
+      "birth": 1794499643.2154703,
+      "ended": true
+    },
+    {
+      "pid": 13192,
+      "birth": 1794499646.824622,
+      "ended": true
+    },
+    {
+      "pid": 25148,
+      "birth": 1794499646.852709,
+      "ended": true
+    },
+    {
+      "pid": 18944,
+      "birth": 1794499648.8947291,
+      "ended": true
+    },
+    {
+      "pid": 21992,
+      "birth": 1794499648.9246833,
+      "ended": true
+    },
+    {
+      "pid": 28836,
+      "birth": 1794499829.9601688,
+      "ended": true
+    },
+    {
+      "pid": 27044,
+      "birth": 1794499829.9851704,
+      "ended": true
+    },
+    {
+      "pid": 20328,
+      "birth": 1794500009.037446,
+      "ended": true
+    },
+    {
+      "pid": 30716,
+      "birth": 1794500009.0607903,
+      "ended": true
+    },
+    {
+      "pid": 29648,
+      "birth": 1794500011.258979,
+      "ended": true
+    },
+    {
+      "pid": 17792,
+      "birth": 1794500011.2840405,
+      "ended": true
+    },
+    {
+      "pid": 25996,
+      "birth": 1794500063.7234523,
+      "ended": true
+    },
+    {
+      "pid": 24344,
+      "birth": 1794500063.7472177,
+      "ended": true
+    },
+    {
+      "pid": 17728,
+      "birth": 1794500083.1508155,
+      "ended": true
+    },
+    {
+      "pid": 19728,
+      "birth": 1794500083.176114,
+      "ended": true
+    }
+  ],
+  "guards": {
+    "f67ef0f2b7e245588ac6f1624a944ecb": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\f67ef0f2b7e245588ac6f1624a944ecb\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\geometry832\\worker.py",
+          "--audit-memory-worker=f67ef0f2b7e245588ac6f1624a944ecb"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 12118642688,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "18796": 1794499194.2631698,
+          "28304": 1794499194.2956204
+        },
+        "stop_errors": [],
+        "seconds": 9.421000000002095
+      }
+    },
+    "79674555814a429a9fd0d7eb41e8f4c6": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\79674555814a429a9fd0d7eb41e8f4c6\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\overlap574\\worker.py",
+          "--audit-memory-worker=79674555814a429a9fd0d7eb41e8f4c6"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 12118032384,
+        "reason": null,
+        "returncode": 1,
+        "owned": {
+          "22472": 1794499194.271005,
+          "27112": 1794499194.2992508
+        },
+        "stop_errors": [],
+        "seconds": 7.89100000000326
+      }
+    },
+    "327a154336914b67b61438e8ada81c99": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\327a154336914b67b61438e8ada81c99\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\geometry832\\audit.py",
+          "--audit-memory-worker=327a154336914b67b61438e8ada81c99"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 12493148160,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "23224": 1794499332.731469,
+          "25964": 1794499332.76471
+        },
+        "stop_errors": [],
+        "seconds": 15.5
+      }
+    },
+    "7ba37863d91f45bf9c87907bb8879be8": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\7ba37863d91f45bf9c87907bb8879be8\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\geometry832\\coordinate_audit.py",
+          "--audit-memory-worker=7ba37863d91f45bf9c87907bb8879be8"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 12529664000,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "26628": 1794499349.313554,
+          "17920": 1794499349.344714
+        },
+        "stop_errors": [],
+        "seconds": 0.75
+      }
+    },
+    "9c5dd57f45504590b594dde5222d56e9": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\9c5dd57f45504590b594dde5222d56e9\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\independent_review\\reid\\worker.py",
+          "--go-protocol-sha256",
+          "ce02d7bd1e816f467d81842a5d9b384e6f434e0a9e31b35d8b5db0ae3bbd1582",
+          "--audit-memory-worker=9c5dd57f45504590b594dde5222d56e9"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 10453254144,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "5324": 1794499351.084644,
+          "24652": 1794499351.11604
+        },
+        "stop_errors": [],
+        "seconds": 61.96800000000803
+      }
+    },
+    "aeed35fe5e6844a59ed2c10a499d86cd": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\aeed35fe5e6844a59ed2c10a499d86cd\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\independent_review\\reid\\audit.py",
+          "--audit-memory-worker=aeed35fe5e6844a59ed2c10a499d86cd"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17716285440,
+        "reason": null,
+        "returncode": 1,
+        "owned": {
+          "26436": 1794499414.019833,
+          "29032": 1794499414.04814
+        },
+        "stop_errors": [],
+        "seconds": 1.125
+      }
+    },
+    "ed2216c944624bd0b91ba2db8a4a1b20": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\ed2216c944624bd0b91ba2db8a4a1b20\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\overlap574\\worker_v2.py",
+          "--audit-memory-worker=ed2216c944624bd0b91ba2db8a4a1b20"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17695334400,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "21608": 1794499462.2797341,
+          "23380": 1794499462.3041947
+        },
+        "stop_errors": [],
+        "seconds": 4.51600000000326
+      }
+    },
+    "cf9c601d4dda40a7b96c08a15ddff8b1": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\cf9c601d4dda40a7b96c08a15ddff8b1\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\overlap574\\audit.py",
+          "--audit-memory-worker=cf9c601d4dda40a7b96c08a15ddff8b1"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17450258432,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "29928": 1794499467.1428027,
+          "27872": 1794499467.169158
+        },
+        "stop_errors": [],
+        "seconds": 3.3910000000032596
+      }
+    },
+    "1fc61002f3e749e6a53191d379491b08": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\1fc61002f3e749e6a53191d379491b08\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\geometry832\\source_support_worker.py",
+          "--audit-memory-worker=1fc61002f3e749e6a53191d379491b08"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17830621184,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "11244": 1794499470.886976,
+          "6392": 1794499470.9142132
+        },
+        "stop_errors": [],
+        "seconds": 2.125
+      }
+    },
+    "36c8b1c88b7540038c75a4ce091af1c4": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\36c8b1c88b7540038c75a4ce091af1c4\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\geometry832\\audit_addendum.py",
+          "source_support",
+          "--audit-memory-worker=36c8b1c88b7540038c75a4ce091af1c4"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17879912448,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "18528": 1794499473.3943343,
+          "29304": 1794499473.4244015
+        },
+        "stop_errors": [],
+        "seconds": 8.718999999997322
+      }
+    },
+    "7a3389250ea4474cb85717753d6e9fd8": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\7a3389250ea4474cb85717753d6e9fd8\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\geometry832\\factorial_worker.py",
+          "--audit-memory-worker=7a3389250ea4474cb85717753d6e9fd8"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17851985920,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "30020": 1794499482.493725,
+          "4556": 1794499482.518829
+        },
+        "stop_errors": [],
+        "seconds": 4.328000000008615
+      }
+    },
+    "48b3bf546b5d4dc28e722c11a78f3cff": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\48b3bf546b5d4dc28e722c11a78f3cff\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\geometry832\\audit_addendum.py",
+          "factorial",
+          "--audit-memory-worker=48b3bf546b5d4dc28e722c11a78f3cff"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17784131584,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "29140": 1794499487.1774328,
+          "28180": 1794499487.2013633
+        },
+        "stop_errors": [],
+        "seconds": 38.437999999994645
+      }
+    },
+    "4bc3dc2052d749729b1f190be8e1710b": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\4bc3dc2052d749729b1f190be8e1710b\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\independent_review\\reid\\audit_v2.py",
+          "--audit-memory-worker=4bc3dc2052d749729b1f190be8e1710b"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17893302272,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "7556": 1794499643.1913905,
+          "23536": 1794499643.2154703
+        },
+        "stop_errors": [],
+        "seconds": 3.2969999999913853
+      }
+    },
+    "8dcc5079b7584f74b8a5e9ebf46d95db": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\8dcc5079b7584f74b8a5e9ebf46d95db\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\overlap574\\raw_partner_worker.py",
+          "--audit-memory-worker=8dcc5079b7584f74b8a5e9ebf46d95db"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17828843520,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "13192": 1794499646.824622,
+          "25148": 1794499646.852709
+        },
+        "stop_errors": [],
+        "seconds": 1.75
+      }
+    },
+    "95d37477dd9b48da91a131d82210b9ed": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\95d37477dd9b48da91a131d82210b9ed\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\overlap574\\raw_partner_audit.py",
+          "--audit-memory-worker=95d37477dd9b48da91a131d82210b9ed"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17828110336,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "18944": 1794499648.8947291,
+          "21992": 1794499648.9246833
+        },
+        "stop_errors": [],
+        "seconds": 0.5
+      }
+    },
+    "4bdabe76cbcc4bef9d93dc6afc7d9f8c": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\4bdabe76cbcc4bef9d93dc6afc7d9f8c\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\independent_review\\reid\\low_worker_v2.py",
+          "--go-protocol-sha256",
+          "c62d7ece93ccfabb014c5e6fd0555cd853404f3e1f97559e9677beeb134188ed",
+          "--audit-memory-worker=4bdabe76cbcc4bef9d93dc6afc7d9f8c"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 15915032576,
+        "reason": null,
+        "returncode": 1,
+        "owned": {
+          "28836": 1794499829.9601688,
+          "27044": 1794499829.9851704
+        },
+        "stop_errors": [],
+        "seconds": 11.062000000005355
+      }
+    },
+    "0853db6f7d3d4789a119edb10a7d8627": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\0853db6f7d3d4789a119edb10a7d8627\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\overlap574\\matched_query_worker.py",
+          "--audit-memory-worker=0853db6f7d3d4789a119edb10a7d8627"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 18103083008,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "20328": 1794500009.037446,
+          "30716": 1794500009.0607903
+        },
+        "stop_errors": [],
+        "seconds": 1.889999999999418
+      }
+    },
+    "98ba8c4ebe8a49c188baec9ac26da52a": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\98ba8c4ebe8a49c188baec9ac26da52a\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\overlap574\\matched_query_audit.py",
+          "--audit-memory-worker=98ba8c4ebe8a49c188baec9ac26da52a"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 18099798016,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "29648": 1794500011.258979,
+          "17792": 1794500011.2840405
+        },
+        "stop_errors": [],
+        "seconds": 2.625
+      }
+    },
+    "fbf16f5aad7e41cc8265f07797bd1540": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\fbf16f5aad7e41cc8265f07797bd1540\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\independent_review\\reid\\low_worker_v3.py",
+          "--go-protocol-sha256",
+          "e4fcd9774101844adcb44f5293a7f0413f0b4d9c15b9acc575afc4ab156f1c49",
+          "--audit-memory-worker=fbf16f5aad7e41cc8265f07797bd1540"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 15766614016,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "25996": 1794500063.7234523,
+          "24344": 1794500063.7472177
+        },
+        "stop_errors": [],
+        "seconds": 19.110000000000582
+      }
+    },
+    "c5b57b264d354eb29b3a3d5b237c016c": {
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\c5b57b264d354eb29b3a3d5b237c016c\\memory_guard.json",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_remaining_causes_20261112\\independent_review\\reid\\low_audit_v3.py",
+          "--audit-memory-worker=c5b57b264d354eb29b3a3d5b237c016c"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17828904960,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "17728": 1794500083.1508155,
+          "19728": 1794500083.176114
+        },
+        "stop_errors": [],
+        "seconds": 6.172000000005937
+      }
+    }
+  },
+  "failed_attempts_preserved": [
+    "workers_batch.json:overlap574",
+    "queue1_execution.json:original_ReID_audit",
+    "queue4_execution.json:low_v2_batch_parity"
+  ],
+  "limits": "Independent arithmetic/provenance; cached neural maps and annotations shared, no independent neural forward. Exact visible-part correspondence and full tracker not evaluated."
+}

@@ -1,0 +1,16 @@
+{
+  "registered": "2026-11-12T19:05:19.165877+03:00",
+  "reason": "Original auditor compared entire hits dictionaries exactly although register used float32 archived boxes while JSON roundtrip audit used float64, changing IoU by at most2.973777291082058e-08. Allidentitysets andGTboxes independently checked exact. Preserve original source and scientific results; reproduce original float32 arithmetic exactly plus independent float64 identityset agreement.",
+  "original_auditor_sha256": "51364f54eb03311ff9363be60183487e6efaf0a4150b69cf19abbf9fffd156aa",
+  "new_auditor_sha256": "4df510490430f1dfee0449fc58dbd5cbcee400bcbe0ea9cb0d976fbb934e2281",
+  "protocol_sha256": "ce02d7bd1e816f467d81842a5d9b384e6f434e0a9e31b35d8b5db0ae3bbd1582",
+  "result_sha256": "e43c9cff7f4f3acc315122acc1b7393feca839fc969ebac9e393883b0166e14c",
+  "observed_diagnostic": {
+    "identities_exact": true,
+    "gt_boxes_exact": true,
+    "max_iou_dtype_difference": 2.973777291082058e-08
+  },
+  "model_forward_repeated": false,
+  "scientific_thresholds_changed": false,
+  "score_tolerance_unchanged": 1e-06
+}

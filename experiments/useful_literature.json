@@ -573,6 +573,30 @@
         "sys:С5"
       ],
       "sections": "Numerical accuracy: floating point arithmetic; finite precision and dependence on evaluation order. The current document is general support, not a replacement for local code verification."
+    },
+    {
+      "id": "li2024_masa_identity_diagnostic",
+      "title": "Готовые признаки соответствия объектов — MASA, Li и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Независимый контроль внешнего вида",
+      "publication": "Siyuan Li, Lei Ke, Martin Danelljan, Luigi Piccinelli, Mattia Segu, Luc Van Gool, Fisher Yu. Matching Anything by Segmenting Anything. CVPR2024,18963–18973.",
+      "doi": "10.48550/arXiv.2406.04221",
+      "url": "https://arxiv.org/abs/2406.04221",
+      "sections": "Аннотация и официальный код; локальная замороженная реализация tracking/masa_r50.py и ранее загруженные веса.",
+      "established": "Авторы обучают признаки соответствия объектов по преобразованиям статических изображений и областямSAM; адаптер работает с внешними детекторами.",
+      "problem": "С2/С5: отделить наличие своего кандидата от различимости внешнего вида.",
+      "application": "574: в исходныхдетекциях есть своиraw35280(conf0,070896633) и35292(conf0,024678957), нооба исключены до первого(high≥0,25) ивторого(0,1<conf<0,25) сопоставления. ГотоваяMASAранжируетих1и2: 0,966459109783 и0,953865130839; допущенныйчужой35274=0,783609344220 занимает3. Все222сырыерамки5кадров сохранены, все5лучших принадлежат прежней размеченной личности. Неопределённыерамкиучтены: у832отрывдо такойальтернативывсего0,017832627. Источник research_remaining_causes_20261112/independent_review/reid/low_result.json; low_audit.json. Рабочиепорогинеизменены; нового правилаотказаилипродолжениянет.",
+      "limitation": "Пять ранее выбранных случаев, диагностическая эталонная геометрия и синтетические истории. Замена истории меняет её содержание и число шагов ядра, а не один временной параметр. Не доказаны физические соответствия видимых частей, вина отдельного нейрона, обобщение, независимый выигрыш ядра против MASA, HOTA или полный жизненный цикл. Ложный балл574 в сохранённом полном назначении был заблокирован конкуренцией; его нельзя выдавать за случившуюся там смену публичногоID. Новых вызовов ядраFlyVis, обучений, изменений производственных весов/порогов и запусков полного трекера нет. Полное поле зрения MASA отличается от малого окнаFlyVis; вклад архитектуры, предобучения и поля зрения здесь не разделён.",
+      "evidence": [
+        "research_remaining_causes_20261112/independent_review/reid/low_protocol_v3.json",
+        "research_remaining_causes_20261112/independent_review/reid/low_result.json",
+        "research_remaining_causes_20261112/independent_review/reid/low_audit.json"
+      ],
+      "related": [
+        "exp:remaining_causes_raw_candidates_20261112",
+        "sys:С2",
+        "sys:С5"
+      ]
     }
   ]
 }
