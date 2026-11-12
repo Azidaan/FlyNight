@@ -1,0 +1,1867 @@
+{
+  "created": "2026-11-12T03:18:31.416617+03:00",
+  "inspection": "Exploratory: five sequences were inspected before writing this checker. No preregistered causal outcome claimed.",
+  "sources": {
+    "research_agreement_readout_20261112/protocol.json": "01d42af8f5d2f2309646c48bf14b30dbb1307a9b88d489a8bfc131c69f029c44",
+    "runs/domain_matched_native_20261109/execution_protocol.json": "1c10ba53f7972584aacfeef1b43d81a547b683e86a2b53755d3439f78bb968a3",
+    "runs/domain_matched_native_20261109/runtime_adapter.py": "ac3779744c1ce609f85a5a1711064b8946d1726a8798a4499f0c2ceb73b5117b",
+    "runs/full_template_native_20261109/native_runtime.py": "acd185b7dd7c0937d87c7cf85d6a872b915b159a34cbc81735c55e726a1af5ff",
+    "tracking/z13_readout.py": "c0358ca029d2bfbca778c91457bffb6d425382f1ff238db846f1fd1b71d11a2d",
+    "scripts/z13_target_model.py": "e7bc7967c8d5fdf04983ed3e01c5fae9d54dbc6ed7b4b17c4c10235beccd862a",
+    "research_domain_matched_reader_20261109/compute.py": "9a54b545d7c55c6888f8808d4cd7813c3774d348989bd7e94ccd226b1eff510d"
+  },
+  "deployed_source_matches": {
+    "runs/domain_matched_native_20261109/runtime_adapter.py": true,
+    "runs/full_template_native_20261109/native_runtime.py": true,
+    "tracking/z13_readout.py": true,
+    "scripts/z13_target_model.py": true
+  },
+  "source_call": "self.backbone.step(state, x[:, j - 1], x[:, j])",
+  "source_line": 76,
+  "records": [
+    {
+      "dataset": "train",
+      "video": "00ed2e85-95394dfd",
+      "frame": 924,
+      "old_id": 1480,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "55b9d0010de434f75227c85f1046714b",
+          "frames": [
+            915,
+            916,
+            917,
+            918
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "5d8b4d1ab58635fd171613aaf997fba8",
+          "frames": [
+            915,
+            916,
+            917,
+            918,
+            920,
+            921,
+            922,
+            923,
+            924
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "017e2d3b-765af5a6",
+      "frame": 98,
+      "old_id": 156,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "64f203b1a1bcf8b03f431f22db8a8b3b",
+          "frames": [
+            90,
+            90,
+            91,
+            92
+          ],
+          "frame_deltas": [
+            0,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 2,
+          "duplicate_transitions": 1,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "5ab11ec51950c7116a5d7ce58a3ce417",
+          "frames": [
+            90,
+            90,
+            91,
+            92,
+            94,
+            95,
+            96,
+            97,
+            98
+          ],
+          "frame_deltas": [
+            0,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 8,
+          "duplicate_transitions": 1,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02006c28-c2c5e796",
+      "frame": 575,
+      "old_id": 535,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "a8da70f2a7d15e84b73a68a82088fe1a",
+          "frames": [
+            565,
+            566,
+            568,
+            569
+          ],
+          "frame_deltas": [
+            1,
+            2,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 4,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "36897fd73435d1a6359cf06eff48f893",
+          "frames": [
+            565,
+            566,
+            568,
+            569,
+            571,
+            572,
+            573,
+            574,
+            575
+          ],
+          "frame_deltas": [
+            1,
+            2,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 10,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 2,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "0232c9f2-5600d649",
+      "frame": 1049,
+      "old_id": 640,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "19d7cb3eec17d04ae329c0601f13812c",
+          "frames": [
+            1040,
+            1041,
+            1042,
+            1043
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "9f9926888ca79fde5ccc42dea88e9708",
+          "frames": [
+            1040,
+            1041,
+            1042,
+            1043,
+            1045,
+            1046,
+            1047,
+            1048,
+            1049
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02364369-bd3d1838",
+      "frame": 56,
+      "old_id": 198,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "8546c65b12261c7d3ea4ed3bae9f2e26",
+          "frames": [
+            48,
+            48,
+            49,
+            50
+          ],
+          "frame_deltas": [
+            0,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 2,
+          "duplicate_transitions": 1,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "faa7bf554ca0703e5f2ca7700c74b804",
+          "frames": [
+            48,
+            48,
+            49,
+            50,
+            52,
+            53,
+            54,
+            55,
+            56
+          ],
+          "frame_deltas": [
+            0,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 8,
+          "duplicate_transitions": 1,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02364369-bd3d1838",
+      "frame": 95,
+      "old_id": 142,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "0ec9a49066427034fa74470b5e91bc19",
+          "frames": [
+            86,
+            87,
+            88,
+            89
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "1f8ebf780dbc9e65d2fbd1471b1f0f88",
+          "frames": [
+            86,
+            87,
+            88,
+            89,
+            91,
+            92,
+            93,
+            94,
+            95
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02364369-bd3d1838",
+      "frame": 113,
+      "old_id": 391,
+      "label": "foreign",
+      "endpoints": [
+        {
+          "key": "8618156f949c7ab52e7bab986da2078f",
+          "frames": [
+            103,
+            104,
+            105,
+            107
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            2
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 4,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "adfaa7107ae31a2bf6d8b608639e787e",
+          "frames": [
+            103,
+            104,
+            105,
+            107,
+            109,
+            110,
+            111,
+            112,
+            113
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 10,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 2,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02364369-bd3d1838",
+      "frame": 149,
+      "old_id": 578,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "c9124dbc730e5ad18a5b698bca6498d9",
+          "frames": [
+            141,
+            141,
+            142,
+            143
+          ],
+          "frame_deltas": [
+            0,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 2,
+          "duplicate_transitions": 1,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "a6df4d82b9a8b3705c218b110b39a289",
+          "frames": [
+            141,
+            141,
+            142,
+            143,
+            145,
+            146,
+            147,
+            148,
+            149
+          ],
+          "frame_deltas": [
+            0,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 8,
+          "duplicate_transitions": 1,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02521568-a335c1a0",
+      "frame": 72,
+      "old_id": 193,
+      "label": "foreign",
+      "endpoints": [
+        {
+          "key": "96348003c71b512c128ffe4f64939995",
+          "frames": [
+            65,
+            65,
+            65,
+            66
+          ],
+          "frame_deltas": [
+            0,
+            0,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 1,
+          "duplicate_transitions": 2,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "7ccba9301ae32ac26fa8e03503b7bf11",
+          "frames": [
+            65,
+            65,
+            65,
+            66,
+            68,
+            69,
+            70,
+            71,
+            72
+          ],
+          "frame_deltas": [
+            0,
+            0,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 7,
+          "duplicate_transitions": 2,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02521568-a335c1a0",
+      "frame": 96,
+      "old_id": 190,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "5075b1212f88f5698ce92efc3fa82a32",
+          "frames": [
+            87,
+            88,
+            89,
+            90
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "9c4db5159073c3f0e920c7fdc5e45a66",
+          "frames": [
+            87,
+            88,
+            89,
+            90,
+            92,
+            93,
+            94,
+            95,
+            96
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02521568-dd1da95c",
+      "frame": 587,
+      "old_id": 1435,
+      "label": "foreign",
+      "endpoints": [
+        {
+          "key": "7ea3a75c4298878b14a86d2e51ae4379",
+          "frames": [
+            577,
+            577,
+            578,
+            581
+          ],
+          "frame_deltas": [
+            0,
+            1,
+            3
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 4,
+          "duplicate_transitions": 1,
+          "skipped_video_frames": 2,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "79ffa017b8609c91610ac2a9af771d98",
+          "frames": [
+            577,
+            577,
+            578,
+            581,
+            583,
+            584,
+            585,
+            586,
+            587
+          ],
+          "frame_deltas": [
+            0,
+            1,
+            3,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 10,
+          "duplicate_transitions": 1,
+          "skipped_video_frames": 3,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "0252f2b5-2e69185a",
+      "frame": 297,
+      "old_id": 107,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "59f75ab9bb0870c71e8ad9667ccd0a3a",
+          "frames": [
+            288,
+            289,
+            290,
+            291
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "7f44d817dcc913e16b108fbedaa3fcae",
+          "frames": [
+            288,
+            289,
+            290,
+            291,
+            293,
+            294,
+            295,
+            296,
+            297
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "0252f2b5-2e69185a",
+      "frame": 447,
+      "old_id": 544,
+      "label": "foreign",
+      "endpoints": [
+        {
+          "key": "26d2effc43f01b9daef348c69c1ec5d4",
+          "frames": [
+            440,
+            440,
+            440,
+            441
+          ],
+          "frame_deltas": [
+            0,
+            0,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 1,
+          "duplicate_transitions": 2,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "0c18101f9667b372a80ce8784618313f",
+          "frames": [
+            440,
+            440,
+            440,
+            441,
+            443,
+            444,
+            445,
+            446,
+            447
+          ],
+          "frame_deltas": [
+            0,
+            0,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 7,
+          "duplicate_transitions": 2,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02927def-14c4c3cb",
+      "frame": 667,
+      "old_id": 734,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "5cf39a54b7bc8f3b33fa0cf7fe36b044",
+          "frames": [
+            658,
+            659,
+            660,
+            661
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "c9bd1834773fc774ba2dab7dea561394",
+          "frames": [
+            658,
+            659,
+            660,
+            661,
+            663,
+            664,
+            665,
+            666,
+            667
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02a70c1f-6df7ce64",
+      "frame": 743,
+      "old_id": 1671,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "086168cdb79b3bfe090f59deb2e946eb",
+          "frames": [
+            734,
+            735,
+            736,
+            737
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "3f7952bb914a39ee8ed72eb606e95cda",
+          "frames": [
+            734,
+            735,
+            736,
+            737,
+            739,
+            740,
+            741,
+            742,
+            743
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02a70c1f-6df7ce64",
+      "frame": 905,
+      "old_id": 2372,
+      "label": "foreign",
+      "endpoints": [
+        {
+          "key": "b37a671b20a6a8274581c2226363759d",
+          "frames": [
+            896,
+            897,
+            898,
+            899
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "5cf03fd53ea81b627c56edeba6977b92",
+          "frames": [
+            896,
+            897,
+            898,
+            899,
+            901,
+            902,
+            903,
+            904,
+            905
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02a70c1f-6f18e57f",
+      "frame": 844,
+      "old_id": 490,
+      "label": "foreign",
+      "endpoints": [
+        {
+          "key": "8a0d149a4f8d8ccde80080053adcd6d2",
+          "frames": [
+            837,
+            837,
+            837,
+            838
+          ],
+          "frame_deltas": [
+            0,
+            0,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 1,
+          "duplicate_transitions": 2,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "dee24b0937b1a7f0fe412e661254171c",
+          "frames": [
+            837,
+            837,
+            837,
+            838,
+            840,
+            841,
+            842,
+            843,
+            844
+          ],
+          "frame_deltas": [
+            0,
+            0,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 7,
+          "duplicate_transitions": 2,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02bb67ae-8c3d61f8",
+      "frame": 1132,
+      "old_id": 376,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "3240fd92aae87542d6ee571bd25a89f0",
+          "frames": [
+            1123,
+            1124,
+            1125,
+            1126
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "bd9f0b9927e9db1fa56aa763b16e02c3",
+          "frames": [
+            1123,
+            1124,
+            1125,
+            1126,
+            1128,
+            1129,
+            1130,
+            1131,
+            1132
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02c928dc-b7de7ec8",
+      "frame": 893,
+      "old_id": 902,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "0386ab0eb8188eadd129e70d7d674949",
+          "frames": [
+            886,
+            886,
+            886,
+            887
+          ],
+          "frame_deltas": [
+            0,
+            0,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 1,
+          "duplicate_transitions": 2,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "f3811671dcb33e29141ab3dc3e7679f6",
+          "frames": [
+            886,
+            886,
+            886,
+            887,
+            889,
+            890,
+            891,
+            892,
+            893
+          ],
+          "frame_deltas": [
+            0,
+            0,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 7,
+          "duplicate_transitions": 2,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02cdc06d-5502f174",
+      "frame": 827,
+      "old_id": 1,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "440f50c1f326020006fb918f4585061f",
+          "frames": [
+            818,
+            819,
+            820,
+            821
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "51db41ee3b1c685eb1415fc26220a6fa",
+          "frames": [
+            818,
+            819,
+            820,
+            821,
+            823,
+            824,
+            825,
+            826,
+            827
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02d478d1-42ca3cfb",
+      "frame": 894,
+      "old_id": 866,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "3b8e09b9b598eb9750bff5970e9cc634",
+          "frames": [
+            885,
+            886,
+            887,
+            888
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "1347a1a05ec6162ac36632b2070a77b2",
+          "frames": [
+            885,
+            886,
+            887,
+            888,
+            890,
+            891,
+            892,
+            893,
+            894
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02d5e1be-87ae2130",
+      "frame": 316,
+      "old_id": 474,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "1a1ce13a9a70252ae6dea9ab35c59bab",
+          "frames": [
+            309,
+            309,
+            309,
+            310
+          ],
+          "frame_deltas": [
+            0,
+            0,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 1,
+          "duplicate_transitions": 2,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "4b1769798fd33165c370a9d23bb00b44",
+          "frames": [
+            309,
+            309,
+            309,
+            310,
+            312,
+            313,
+            314,
+            315,
+            316
+          ],
+          "frame_deltas": [
+            0,
+            0,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 7,
+          "duplicate_transitions": 2,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02d5e1be-98109303",
+      "frame": 261,
+      "old_id": 227,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "3452fbc87ee10cac083044c095aeeb36",
+          "frames": [
+            252,
+            253,
+            254,
+            255
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "9727569ec465de35e7e40eb941013845",
+          "frames": [
+            252,
+            253,
+            254,
+            255,
+            257,
+            258,
+            259,
+            260,
+            261
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "02ef72c1-6e9a4af4",
+      "frame": 965,
+      "old_id": 394,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "733af9c7c41bf30ff2ceb6ead2c048b8",
+          "frames": [
+            956,
+            957,
+            958,
+            959
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "907de04712deda26480489ef86f067c2",
+          "frames": [
+            956,
+            957,
+            958,
+            959,
+            961,
+            962,
+            963,
+            964,
+            965
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "03164aef-f18deb04",
+      "frame": 709,
+      "old_id": 1653,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "3399ed1dd2281504534763fca86ca63b",
+          "frames": [
+            701,
+            701,
+            702,
+            703
+          ],
+          "frame_deltas": [
+            0,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 2,
+          "duplicate_transitions": 1,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "b4bcc6e92573888efb41d77709a804ee",
+          "frames": [
+            701,
+            701,
+            702,
+            703,
+            705,
+            706,
+            707,
+            708,
+            709
+          ],
+          "frame_deltas": [
+            0,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 8,
+          "duplicate_transitions": 1,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "train",
+      "video": "03626025-876e549e",
+      "frame": 1054,
+      "old_id": 759,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "d787c77d5800e0d6ef26014045d8b97c",
+          "frames": [
+            1045,
+            1046,
+            1047,
+            1048
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "f96b4babf37166db07dc00a738f38765",
+          "frames": [
+            1045,
+            1046,
+            1047,
+            1048,
+            1050,
+            1051,
+            1052,
+            1053,
+            1054
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "screen",
+      "video": "b23b2649-8349d2a1",
+      "frame": 544,
+      "old_id": 232,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "58e0240bf3a1a857229f7536e135a14f",
+          "frames": [
+            535,
+            536,
+            537,
+            538
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 3,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": true
+        },
+        {
+          "key": "c066d891ec1081fb09b2978d25888b63",
+          "frames": [
+            535,
+            536,
+            537,
+            538,
+            540,
+            541,
+            542,
+            543,
+            544
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 9,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "screen",
+      "video": "b242f6b2-0033bdfb",
+      "frame": 115,
+      "old_id": 70,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "819eef9a5f815cb6d29f6b69f85a7ccc",
+          "frames": [
+            104,
+            105,
+            106,
+            109
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            3
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 5,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 2,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "6b527cb8d2a1a82d0b2d453308dfebed",
+          "frames": [
+            104,
+            105,
+            106,
+            109,
+            111,
+            112,
+            113,
+            114,
+            115
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            3,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 11,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 3,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "screen",
+      "video": "b1f4491b-cf446195",
+      "frame": 258,
+      "old_id": 1102,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "aa231e976b8f0eb77771f481244e4b58",
+          "frames": [
+            251,
+            251,
+            251,
+            252
+          ],
+          "frame_deltas": [
+            0,
+            0,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 1,
+          "duplicate_transitions": 2,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "a24cdcdbfb536a68af1aa58faa7fd259",
+          "frames": [
+            251,
+            251,
+            251,
+            252,
+            254,
+            255,
+            256,
+            257,
+            258
+          ],
+          "frame_deltas": [
+            0,
+            0,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 7,
+          "duplicate_transitions": 2,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "screen",
+      "video": "b2036451-aa924fd1",
+      "frame": 937,
+      "old_id": 574,
+      "label": "foreign",
+      "endpoints": [
+        {
+          "key": "ad1fdcfab33900b0494157d604bf2f13",
+          "frames": [
+            929,
+            929,
+            930,
+            931
+          ],
+          "frame_deltas": [
+            0,
+            1,
+            1
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 2,
+          "duplicate_transitions": 1,
+          "skipped_video_frames": 0,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "cc74b277243bbc8b39ad02e8b1e98529",
+          "frames": [
+            929,
+            929,
+            930,
+            931,
+            933,
+            934,
+            935,
+            936,
+            937
+          ],
+          "frame_deltas": [
+            0,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 8,
+          "duplicate_transitions": 1,
+          "skipped_video_frames": 1,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    },
+    {
+      "dataset": "screen",
+      "video": "b1cd1e94-549d0bfe",
+      "frame": 540,
+      "old_id": 832,
+      "label": "own",
+      "endpoints": [
+        {
+          "key": "b7b93d2a8e67f862a18c2dd2abd6f918",
+          "frames": [
+            522,
+            523,
+            524,
+            534
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            10
+          ],
+          "observed_transitions": 3,
+          "video_frame_span": 12,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 9,
+          "uniform_unit_intervals": false
+        },
+        {
+          "key": "1a15acf0c20a58af8bef944d4dedaeaa",
+          "frames": [
+            522,
+            523,
+            524,
+            534,
+            536,
+            537,
+            538,
+            539,
+            540
+          ],
+          "frame_deltas": [
+            1,
+            1,
+            10,
+            2,
+            1,
+            1,
+            1,
+            1
+          ],
+          "observed_transitions": 8,
+          "video_frame_span": 18,
+          "duplicate_transitions": 0,
+          "skipped_video_frames": 10,
+          "uniform_unit_intervals": false
+        }
+      ],
+      "reference_to_current_video_gap": 6,
+      "reference_to_current_update_calls": 5
+    }
+  ],
+  "counts": {
+    "train": {
+      "pairs": 26,
+      "nonunit_current_sequences": 26,
+      "mismatched_reference_to_current_count": 26
+    },
+    "screen": {
+      "pairs": 5,
+      "nonunit_current_sequences": 5,
+      "mismatched_reference_to_current_count": 5
+    }
+  },
+  "finding": "Feature replay uses one fixed backbone.step per successive stored observation, without passing elapsed frame count. Histories contain skipped frames and padded duplicate frames. Initial fade-in is excluded from these transition counts.",
+  "limitation": "Source-level and sequence-level fact, not measured causal contribution to a wrong identity decision. Duplicate warmup is explicit padding; do not call it an accidental extra observation. Missing video inputs are not reconstructed. Training and runtime both use observation-index time; equality of this convention does not establish physical-time fidelity.",
+  "new_core_calls": 0
+}

@@ -32165,6 +32165,56 @@
           "reason": "Дополнено точным арифметическим разложением сохранённых оценок; прежний вывод и незавершённость физической проверки сохраняются."
         }
       ]
+    },
+    {
+      "id": "saved_shift_cross_probe_20261112",
+      "title": "Одинаковый сдвиг сравнения — отделение выбора координат от зрительных признаков",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-12",
+      "question": "Is the saved shift chooser sufficient to explain the wrong FlyVis decision in own232, and what occurs in all other archived pairs?",
+      "hypothesis": "Different selected shifts can confound the comparison between FlyVis and ordinary-image heads. Exchange only the three already selected shifts while keeping maps, support, geometry and each fitted head fixed.",
+      "expected": "Проверить достаточность замены выбранного сдвига для объяснения отказа232, сохранив все остальные случаи и ограничения.",
+      "acceptance": [
+        {
+          "criterion": "All93diagonal scores and saved feature vectors reproduced within1e-10; original maps and sources unchanged.",
+          "met": true,
+          "evidence": "research_saved_shift_probe_20261112/audit.json"
+        },
+        {
+          "criterion": "All279raw feature vectors and scores saved; independent interpolation/formula/score audit agrees within1e-9.",
+          "met": true,
+          "evidence": "research_saved_shift_probe_20261112/audit.json"
+        },
+        {
+          "criterion": "A shift-only explanation for232 requires at least one prespecified replacement to change its C34decision. Failure rejects only these substitutions, not all possible physical correspondences.",
+          "met": false,
+          "evidence": "research_saved_shift_probe_20261112/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_saved_shift_probe_20261112/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_saved_shift_probe_20261112/raw.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_saved_shift_probe_20261112/audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_saved_shift_probe_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Все 93 исходные оценки воспроизведены; независимо проверены 279 перекрёстных оценок. Для своей232 FlyVis даёт −1,452064 при собственном сдвиге, −2,400672 при пространственном и −1,922243 при временном сдвиге контроля. Временной контроль обычного изображения на сдвиге FlyVis принимает232 с оценкой0,252832; пространственный отвергает с −0,337327. У832 и574 знак FlyVis не исправляется ни одной заменой. У1102 пространственный сдвиг превращает правильное принятие в отказ −0,432049. На26связях FlyVis: собственный сдвиг17своих/1чужая; пространственный12/1; временной8/1. Источники research_saved_shift_probe_20261112/raw.json, audit.json.",
+      "interpretation": "Замена только одного из трёх сохранённых сдвигов недостаточна для исправления232. Различие FlyVis и временного контроля остаётся при одинаковом сдвиге; оно находится далее в различии представлений и/или их обученных считывателей. Для пространственного контроля выбор сдвига существенен: на сдвиге FlyVis он тоже ошибается. Не доказаны физическая правильность сдвигов, утрата информации ядром или невозможность других соответствий. Внеисходные сдвиги могут менять распределение признаков относительно обучения.",
+      "decision": "Не заменять выбор сдвига готовым сдвигом другой ветви. Эта конкретная правка прекращена по отрицательному результату. Пороги, веса и полный трекер сохранить; физическая проверка третьего этапа остаётся незавершённой.",
+      "cannot_claim": "Нет улучшения модели, независимого теста, HOTA или точной причины всех отказов. Проверены только три сохранённых сдвига. Последовательность видео, рекуррентное состояние и ядро не менялись."
     }
   ],
   "manual_events": [
