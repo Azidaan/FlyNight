@@ -1,0 +1,26 @@
+{
+  "created": "2026-11-12T02:55:40.595407+03:00",
+  "head": "4019a8832699bdc3efbb73f0b03e6ba2f37fc266",
+  "inputs": {
+    "research_agreement_readout_20261112/protocol.json": "01d42af8f5d2f2309646c48bf14b30dbb1307a9b88d489a8bfc131c69f029c44",
+    "research_agreement_readout_20261112/features.json": "0414cd6ebacdc6ad4fc5584d71521e3c5e7ec2affdb92f7f8d25a5eaa737077a",
+    "research_agreement_readout_20261112/predictions.json": "594a29e899414fbf9adcf111cede174a40b2c47b4581786c5175093bbc349a9b",
+    "runs/domain_matched_native_20261109/deployment.json": "7fda2c96c5064b7425ad853298149c66f2f6b5e943d8e3e686ddb61e22798989",
+    "research_signal_scaling_20261109/deployment.json": "89b3fb0505d4db801fbf284f772fe5f7fd5f5eb14c244e8bd1a2625616c9725f",
+    "research_signal_scaling_20261109/deployment_screen.json": "bc9c46dfdc9547d0a03bdbf8f7675336ecfdebc1c9fed1af08219332e8892438",
+    "research_identity_training_stability_20261109/comparison.json": "4f1e4e669fc5ed5c0f50b41949d5d7daec38f1a8822cac8ccc13781e9d416987",
+    "research_domain_matched_reader_20261109/features.json": "15a25be182ee42090de1639caf734e6837c2f3d29c34321bf0ac841ce1c2b9ef",
+    "tracking/channel_identity_head.py": "c39c2b3770aedf6fdab9b71a3e68dc35bea52768614cdcebf02823163cc0e79c",
+    "research_failure_localization_20261112/score_path_audit.py": "48d4777cf3abee89e9fe545e5c2883058a26cfd80084fb6b7981147807a574f4"
+  },
+  "question": "Does the wrong score order arise in geometry or in the weighted visual term of the saved reader?",
+  "method": "Exact linear sum, centered at the training signal mean. Report every channel and geometry contribution, all five cases for native/common/agreement heads, all26 held-out agreement evaluations. No causal neuron claim; centering is a reference convention, not a deployed alternative.",
+  "acceptance": [
+    "Reconstruct all stored scores within1e-12 using independent math.fsum and raw coefficient expansion.",
+    "Report all cases and all channels without selecting by outcome; unchanged thresholds and weights."
+  ],
+  "action": "Decide whether geometry-only changes could explain the current visual score failures; no new shift search or physical correspondence surrogate.",
+  "new_fits": 0,
+  "new_maps": 0,
+  "tracker_calls": 0
+}
