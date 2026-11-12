@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "source_hashes": {
+    ".venv/Lib/site-packages/ultralytics/engine/model.py": "e31c7232a4cc4c4e95b5c297d12574ca94e93d35e9bb2dc96744e5c457215317",
+    ".venv/Lib/site-packages/ultralytics/engine/predictor.py": "2dc81388c66a10a069bfea549c77b4b7113a49f6de97c4b071169a8213e083d0",
+    ".venv/Lib/site-packages/ultralytics/cfg/default.yaml": "f6e19ab7228826341cc6370bcc8c78d10478d2bd604e25a13d9975b5efc9b410"
+  },
+  "trace": [
+    "Model._reset_ckpt_args keeps onlyimgsz,data,task,single_cls; no end2end override retained from training args.",
+    "Model.predict merges overrides, commonpredictdefaults, explicitkwargs; recovered extraction supplies no end2end.",
+    "Local defaultend2end isNone; BasePredictor.setup_model only overrides model.end2end for non-None argument.",
+    "Checkpoint head resolvesend2endTrue and is passed to detection postprocessor."
+  ],
+  "limitation": "Current installed source dispatch evidence. These internal file fingerprints were not recorded in the old cache passport; they are not retroactively attributed to2026-10-24."
+}

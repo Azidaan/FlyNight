@@ -517,6 +517,30 @@
         "sys:С1",
         "sys:С5"
       ]
+    },
+    {
+      "id": "ultralytics_end2end_output_identity_audit",
+      "title": "Готовые рамки без подавления — документация Ultralytics",
+      "problem_group": "Сохранение личности",
+      "method_group": "Режим выхода детектора",
+      "publication": "Ultralytics. Understanding End-to-End Detection in Ultralytics YOLO26. Official documentation, accessed2026-11-12.",
+      "url": "https://docs.ultralytics.com/guides/end2end-detection",
+      "doi": "",
+      "sections": "How End-to-End Detection Works: one-to-one output and confidence filtering withoutIoU suppression.",
+      "established": "Ветка готовогоone-to-one выхода может использоваться без подавления перекрытий поIoU.",
+      "problem": "С5 — происхождение конкурирующихID; С1 — отделение ошибок входа от вкладаFlyVis.",
+      "application": "Сверено с режимом точных сохранённых весов и локальным кодом8.4.84. На сохранённом кадре519 отсутствие подавления оставляет рамку52356, явное подавление0,7 удаляет её.",
+      "limitation": "Текущая документация уже используетnms и новые значения режима по умолчанию. Для исторического вывода приоритет имеют старый код извлечения, веса и сохранённые результаты; историческиеvendor-хеши неполны.",
+      "evidence": [
+        "research_detector_output_audit_20261112/protocol.json",
+        "research_detector_output_audit_20261112/checkpoint.json",
+        "research_detector_output_audit_20261112/audit.json"
+      ],
+      "related": [
+        "exp:detector_output_audit_20261112",
+        "sys:С1",
+        "sys:С5"
+      ]
     }
   ]
 }

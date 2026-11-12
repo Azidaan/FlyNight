@@ -1,0 +1,48 @@
+{
+  "registered": "2026-11-12T06:40:08.148580+03:00",
+  "head": "e581f8ca0d88ce0ddbaf354fd1567ec46261e655",
+  "inputs": {
+    "runs/z13_val20_matched_20261024/cache/b23b2649-8349d2a1/detections/raw_video.npz": "658b9bfbe125249720829f7d53b252c1e51f806ef741ba23d87f53b3cf5c5fbe",
+    "runs/z13_val20_matched_20261024/cache/b23b2649-8349d2a1/detections/raw_video.json": "995d1351ed1410c52a01d767e848ab2ddbac11233a5cac22321673d203722e67",
+    ".venv/Lib/site-packages/ultralytics/utils/nms.py": "1ea2298aecc1af5945366fe47a6a764e7c8d50a3e16affd5c1bb9c8f846ec8d7",
+    ".venv/Lib/site-packages/ultralytics/models/yolo/detect/predict.py": "2f4d4e817782da56d9d6864084727a9576a5d276370cc1811435622941a2385d",
+    "weights/baseline_seed42/best.pt": "15cd5efb77b90401464589f62b299537ce2d2e086b4146f5c4ee7556cbd0c7c7",
+    "scripts/z13_val20_inputs_20261024.py": "2262112f91ab48304976bc7a7ab07db32aa70d438645896b95364f3385a0ce63",
+    "scripts/z13_val20_inputs_recovery1_20261024.py": "db1895290b79b04227f7fab0eb84314a8bce5398ac95c2e37e294c37297078b8",
+    "runs/z13_val20_matched_20261024/inputs_recovery1/protocol.json": "0227860dc8eae2097bba5a2ff66748ae84a11797b1bab05b64499783fec43778",
+    "runs/z13_val20_matched_20261024/inputs_recovery1/jobs/b23b2649-8349d2a1.json": "ce1cbe4e5119fd0e0087c4a98dc9f2aceec9d7118cccb911aaa48e82a05fb047",
+    ".venv/Lib/site-packages/ultralytics/nn/modules/head.py": "5701116d86881827ac9e1e7462dfaa44c33937bd68e23324763459685729e06f",
+    ".venv/Lib/site-packages/ultralytics/nn/tasks.py": "664c1422c8575a08b6d0a4e9f246f2799e949c7829d16942d0fc896e9f2d0e24",
+    ".venv/Lib/site-packages/ultralytics/nn/autobackend.py": "e3a662cbced2273555e50d58cd73434c718a6b16c4255f5868a2022da161ac11",
+    "research_id_state_reconstruction_20261112/audit.json": "ad316ee9c8747cce8d1b520fe4a0e187c582f4f0205778cbc4d832da05542e98",
+    "research_detector_output_audit_20261112/common.py": "c76ffe61eb2a03cd9bab241d95293b00965e053b0d02a78ca6b12300301a9a58",
+    "research_detector_output_audit_20261112/register.py": "e21e9529c5d764ac50a82ca4f844a2881fb64b98ab39169221bce5712d63263a",
+    "research_detector_output_audit_20261112/inspect_model.py": "18b2ffc305199333b362a96a5dc5540bd884d936f100b66fc742d1abc30e5290",
+    "research_detector_output_audit_20261112/archived_detection_cache.py": "6d62ae01b7d17e4c6e00e03ef18275a6689a679880f1c1bbf145df6ce9e28e89",
+    "research_detector_output_audit_20261112/source_recovery.json": "ac83960cd6745e0d128cf9bd1b50a503d6c4c861a0316f7fbce2f3bb752a0f38"
+  },
+  "question": "Why did same-class overlapping boxes52351/52356 survive the detector when the cache metadata saysIoU0.7?",
+  "hypothesis": "The frozen detector uses a final-output branch without overlap suppression; metadata records the passed argument but not whether it is applied.",
+  "cases": {
+    "video": "b23b2649-8349d2a1",
+    "frame": 519,
+    "raw_ids": [
+      52351,
+      52356
+    ]
+  },
+  "method": "Load exact trusted local checkpoint on CPU for metadata only. Record serialized head mode and one-to-one submodules. Inspect original extraction function recovered by SHA256, predictor dispatch and postprocessor branch. Apply only the existing postprocessor to saved final boxes; compare with explicit class-aware greedy suppression at the SAME0.7 as an offline mechanism control. Check whole saved frame and literal IDs, not only selected two boxes.",
+  "acceptance": [
+    "Exact checkpoint/cache/extraction provenance verified; absent historical vendor fingerprints disclosed.",
+    "No model forward, no tracker, no core, no threshold change. Original saved arrays remain byte-identical.",
+    "Observed output route and independent geometry distinguish no suppression from suppression at the unchanged metadata threshold; do not claim full-tracker improvement."
+  ],
+  "fixed": {
+    "conf": 0.01,
+    "iou": 0.7,
+    "detector_forward_calls": 0,
+    "tracker_calls": 0,
+    "flyvis_calls": 0
+  },
+  "limits": "Current vendor source fingerprints cannot be assigned retroactively to the old process. Loading the checkpoint exposes stored model structure; no historical raw pre-postprocessing tensor was saved. A diagnostic output mask is not a rerun of downstream trajectories."
+}

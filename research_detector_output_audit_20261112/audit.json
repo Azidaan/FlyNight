@@ -1,0 +1,191 @@
+{
+  "passed": true,
+  "frame": 519,
+  "counts": {
+    "original": 97,
+    "native_final_output": 97,
+    "explicit_fixed_NMS": 76,
+    "suppressed": 21
+  },
+  "pair_iou": 0.7206111691540278,
+  "explicit_suppressed": [
+    {
+      "raw_id": 52356,
+      "suppressed_by": 52351,
+      "iou": 0.7206111691540278,
+      "score": 0.36424076557159424,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52363,
+      "suppressed_by": 52358,
+      "iou": 0.8770648988804343,
+      "score": 0.2248181402683258,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52365,
+      "suppressed_by": 52364,
+      "iou": 0.7195516037745266,
+      "score": 0.16941560804843903,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52368,
+      "suppressed_by": 52361,
+      "iou": 0.9495292497906105,
+      "score": 0.15392419695854187,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52369,
+      "suppressed_by": 52359,
+      "iou": 0.962288394188174,
+      "score": 0.13505378365516663,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52385,
+      "suppressed_by": 52374,
+      "iou": 0.9354899363408679,
+      "score": 0.04784328490495682,
+      "class_id": 3
+    },
+    {
+      "raw_id": 52386,
+      "suppressed_by": 52378,
+      "iou": 0.73828838043878,
+      "score": 0.04748719558119774,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52387,
+      "suppressed_by": 52374,
+      "iou": 0.8878447302985091,
+      "score": 0.04683135822415352,
+      "class_id": 3
+    },
+    {
+      "raw_id": 52390,
+      "suppressed_by": 52372,
+      "iou": 0.8330442268628974,
+      "score": 0.037795405834913254,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52397,
+      "suppressed_by": 52359,
+      "iou": 0.7486300436649315,
+      "score": 0.02840210311114788,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52413,
+      "suppressed_by": 52383,
+      "iou": 0.759000739212835,
+      "score": 0.01715051755309105,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52415,
+      "suppressed_by": 52377,
+      "iou": 0.7405311281024777,
+      "score": 0.016056012362241745,
+      "class_id": 0
+    },
+    {
+      "raw_id": 52425,
+      "suppressed_by": 52382,
+      "iou": 0.8878447302985091,
+      "score": 0.01281858328729868,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52426,
+      "suppressed_by": 52411,
+      "iou": 0.962288394188174,
+      "score": 0.012598098255693913,
+      "class_id": 3
+    },
+    {
+      "raw_id": 52429,
+      "suppressed_by": 52399,
+      "iou": 0.793468054054022,
+      "score": 0.01163963507860899,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52430,
+      "suppressed_by": 52380,
+      "iou": 0.8045719557246597,
+      "score": 0.01147695817053318,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52433,
+      "suppressed_by": 52393,
+      "iou": 0.7971438081282969,
+      "score": 0.011118216440081596,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52435,
+      "suppressed_by": 52357,
+      "iou": 0.7290678313086771,
+      "score": 0.010684025473892689,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52439,
+      "suppressed_by": 52347,
+      "iou": 0.8903210998812293,
+      "score": 0.010206394828855991,
+      "class_id": 2
+    },
+    {
+      "raw_id": 52441,
+      "suppressed_by": 52392,
+      "iou": 0.901747431587783,
+      "score": 0.010072493925690651,
+      "class_id": 7
+    },
+    {
+      "raw_id": 52442,
+      "suppressed_by": 52348,
+      "iou": 0.7012845767050121,
+      "score": 0.010012682527303696,
+      "class_id": 2
+    }
+  ],
+  "greedy_keep_exact": true,
+  "overlap_suppression_invocations": 0,
+  "old_predict_calls": [
+    {
+      "line": 228,
+      "keywords": [
+        "imgsz",
+        "conf",
+        "iou",
+        "device",
+        "verbose"
+      ],
+      "iou": "iou"
+    },
+    {
+      "line": 254,
+      "keywords": [
+        "imgsz",
+        "conf",
+        "iou",
+        "device",
+        "verbose"
+      ],
+      "iou": "iou"
+    }
+  ],
+  "current_predict_keywords_same": true,
+  "checkpoint_nms_free_structure_verified": true,
+  "input_hashes_unchanged": true,
+  "script_sha256": "be5408fd6c49623cfb0372c0bf06296c0eb278287e3370e5ca3b3fe590a7d5a3",
+  "limitations": "Independent scalar greedy suppression uses saved final detections. The historical raw pre-postprocessing output and old vendor file hashes were not captured, so no claim of bitwise historical neural-forward replay. No safety or tracking gain is inferred from deleting21boxes."
+}
