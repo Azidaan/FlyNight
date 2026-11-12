@@ -1,0 +1,122 @@
+{
+  "passed": true,
+  "variants": [
+    {
+      "variant": "baseline",
+      "correct": 18,
+      "wrong": 1,
+      "lost_known_correct": 0,
+      "new_wrong": 0,
+      "unknown_changed": 0,
+      "target2179_assigned1160": false,
+      "target2179_assigned1165": false,
+      "rollback": "baseline_restored",
+      "verdict": "baseline"
+    },
+    {
+      "variant": "identity",
+      "correct": 18,
+      "wrong": 1,
+      "lost_known_correct": 0,
+      "new_wrong": 0,
+      "unknown_changed": 0,
+      "target2179_assigned1160": false,
+      "target2179_assigned1165": false,
+      "rollback": "baseline_restored",
+      "verdict": "baseline"
+    },
+    {
+      "variant": "confidence_0",
+      "correct": 18,
+      "wrong": 1,
+      "lost_known_correct": 0,
+      "new_wrong": 0,
+      "unknown_changed": 9,
+      "target2179_assigned1160": false,
+      "target2179_assigned1165": false,
+      "rollback": "baseline_restored",
+      "verdict": "no_target_recovery_unverified_changes"
+    },
+    {
+      "variant": "confidence_2",
+      "correct": 15,
+      "wrong": 1,
+      "lost_known_correct": 3,
+      "new_wrong": 0,
+      "unknown_changed": 0,
+      "target2179_assigned1160": false,
+      "target2179_assigned1165": false,
+      "rollback": "baseline_restored",
+      "verdict": "measured_worse"
+    },
+    {
+      "variant": "appearance_0.1",
+      "correct": 18,
+      "wrong": 1,
+      "lost_known_correct": 0,
+      "new_wrong": 0,
+      "unknown_changed": 3,
+      "target2179_assigned1160": false,
+      "target2179_assigned1165": false,
+      "rollback": "baseline_restored",
+      "verdict": "no_target_recovery_unverified_changes"
+    },
+    {
+      "variant": "appearance_0.25",
+      "correct": 18,
+      "wrong": 1,
+      "lost_known_correct": 0,
+      "new_wrong": 0,
+      "unknown_changed": 7,
+      "target2179_assigned1160": false,
+      "target2179_assigned1165": false,
+      "rollback": "baseline_restored",
+      "verdict": "no_target_recovery_unverified_changes"
+    },
+    {
+      "variant": "appearance_0.5",
+      "correct": 18,
+      "wrong": 3,
+      "lost_known_correct": 0,
+      "new_wrong": 2,
+      "unknown_changed": 13,
+      "target2179_assigned1160": false,
+      "target2179_assigned1165": false,
+      "rollback": "baseline_restored",
+      "verdict": "measured_worse"
+    },
+    {
+      "variant": "appearance_1.0",
+      "correct": 18,
+      "wrong": 3,
+      "lost_known_correct": 0,
+      "new_wrong": 2,
+      "unknown_changed": 14,
+      "target2179_assigned1160": false,
+      "target2179_assigned1165": false,
+      "rollback": "baseline_restored",
+      "verdict": "measured_worse"
+    },
+    {
+      "variant": "permuted_appearance_0.25",
+      "correct": 18,
+      "wrong": 1,
+      "lost_known_correct": 0,
+      "new_wrong": 0,
+      "unknown_changed": 7,
+      "target2179_assigned1160": false,
+      "target2179_assigned1165": false,
+      "rollback": "baseline_restored",
+      "verdict": "no_target_recovery_unverified_changes"
+    }
+  ],
+  "frames": [
+    1159,
+    1160,
+    1165
+  ],
+  "decisions": 27,
+  "default_restored": true,
+  "promoted_variant": null,
+  "conclusion": "Registeredsmallweightfamily didnotrecover2179; somevariantsmeasurablyworse, othersonlyunverifiednewlinks. Keepnativebaseline. Exactlabelsabsent1160. No fulltracker/neuralcore calls."
+}

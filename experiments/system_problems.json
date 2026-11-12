@@ -1176,7 +1176,8 @@
         "identity_repair_observed_episode_20261112",
         "identity_repair_combined_assignment_20261112",
         "identity_repair_holdout_recovery_20261112",
-        "identity_native_assignment_loss_2179_20261112"
+        "identity_native_assignment_loss_2179_20261112",
+        "association_weights_2179_copy_20261112"
       ],
       "legacy": [],
       "first_seen": "2026-10-28",
@@ -1691,6 +1692,19 @@
             "research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json"
           ],
           "source_sha256": "2d6e81a620d01467f8d0a437282fec1a97cbd6d1adea76ff5a9d447a38fcd706"
+        },
+        {
+          "date": "2026-11-12",
+          "component": "Раннее сопоставление всей системы, смесь геометрии и внешности",
+          "fact": "Фиксированная проба9вариантов/27назначений не восстановила2179. Геометрия и внешность обе дают меньшую стоимость2445в целевом столбце; крупные веса внешности добавляют2новые известные ошибки, квадрат уверенности теряет3правильных назначения.",
+          "hypothesis": "",
+          "discriminating_check": "Все конкуренты, исходный/тождественный/переставленный контроль, независимый пересчёт стоимости и назначения, точная разметка только1159/1165.",
+          "limitation": "Один знакомый случай, сохранённые состояния, без полного трекера. Порядок двух рёбер не доказывает результат всех глобальных назначений;1160неразмечен.",
+          "evidence": [
+            "research_assignment_weights_2179_20261112/summary.json",
+            "research_assignment_weights_2179_20261112/pairwise_dominance.json"
+          ],
+          "source_sha256": "a035f8407f3b02c1ebb3cec92c5dc7f3c152c2933b4501d637497b8f59e7b2cc"
         }
       ],
       "revisions": [
@@ -2422,7 +2436,8 @@
         "identity_repair_observed_episode_20261112",
         "identity_repair_combined_assignment_20261112",
         "identity_repair_holdout_recovery_20261112",
-        "identity_native_assignment_loss_2179_20261112"
+        "identity_native_assignment_loss_2179_20261112",
+        "association_weights_2179_copy_20261112"
       ],
       "legacy": [],
       "first_seen": "2026-10-28",
@@ -2705,6 +2720,19 @@
             "research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json"
           ],
           "source_sha256": "2d6e81a620d01467f8d0a437282fec1a97cbd6d1adea76ff5a9d447a38fcd706"
+        },
+        {
+          "date": "2026-11-12",
+          "component": "Раннее сопоставление всей системы, смесь геометрии и внешности",
+          "fact": "Фиксированная проба9вариантов/27назначений не восстановила2179. Геометрия и внешность обе дают меньшую стоимость2445в целевом столбце; крупные веса внешности добавляют2новые известные ошибки, квадрат уверенности теряет3правильных назначения.",
+          "hypothesis": "",
+          "discriminating_check": "Все конкуренты, исходный/тождественный/переставленный контроль, независимый пересчёт стоимости и назначения, точная разметка только1159/1165.",
+          "limitation": "Один знакомый случай, сохранённые состояния, без полного трекера. Порядок двух рёбер не доказывает результат всех глобальных назначений;1160неразмечен.",
+          "evidence": [
+            "research_assignment_weights_2179_20261112/summary.json",
+            "research_assignment_weights_2179_20261112/pairwise_dominance.json"
+          ],
+          "source_sha256": "a035f8407f3b02c1ebb3cec92c5dc7f3c152c2933b4501d637497b8f59e7b2cc"
         }
       ]
     },

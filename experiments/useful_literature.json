@@ -621,6 +621,30 @@
         "sys:С1",
         "sys:С5"
       ]
+    },
+    {
+      "id": "wojke2017_appearance_association_weight_probe",
+      "title": "Внешность при сопоставлении объектов — Wojke и соавторы",
+      "problem_group": "Сохранение личности",
+      "method_group": "Объединение геометрии и внешности",
+      "publication": "Nicolai Wojke, Alex Bewley, Dietrich Paulus. Simple Online and Realtime Tracking with a Deep Association Metric. 2017.",
+      "url": "https://arxiv.org/abs/1703.07402",
+      "doi": "10.48550/arXiv.1703.07402",
+      "sections": "Первичная постановка дополнения SORTинформацией внешнего вида для сопоставления.",
+      "established": "Авторы включают признаки внешнего вида в сопоставление траекторий и наблюдений.",
+      "problem": "С2/С5: раннее геометрическое назначение при конкуренции и потеря личности.",
+      "application": "Обосновывает рассмотрение отдельного веса готового признака внешности. Наша конкретная смесь сIoUиMASA—зарегистрированная инженерная проба, а не воспроизведение исходного DeepSORT. На2179ни один проверенный вес не дал восстановления.",
+      "limitation": "Литература не гарантирует перенос на наши классы, историю и MASA; полный DeepSORTне запускался. Данные1159/1160/1165известны заранее, обобщение не измерено.",
+      "evidence": [
+        "research_assignment_weights_2179_20261112/protocol.json",
+        "research_assignment_weights_2179_20261112/summary.json",
+        "research_assignment_weights_2179_20261112/pairwise_dominance.json"
+      ],
+      "related": [
+        "exp:association_weights_2179_copy_20261112",
+        "sys:С2",
+        "sys:С5"
+      ]
     }
   ]
 }

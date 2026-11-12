@@ -34744,6 +34744,84 @@
       "interpretation": "Локализован механизм конкуренции в сохранённой геометрической матрице. Одна проверка класса не исправляет исходный отказ; сочетание с удалением активного конкурента не является допустимым рабочим исправлением.",
       "decision": "Завершить ограниченный разбор без новых вариантов, изменений классового допуска, весов или полного трекера. РезультатAсохранён, резервBне использован для выбора.",
       "cannot_claim": "Нет точной разметки1160, поэтому109699не объявляется своей рамкой2179. Не доказана полезность жёсткого классового ограничения или улучшение личности на последовательности."
+    },
+    {
+      "id": "association_weights_2179_copy_20261112",
+      "title": "Проба весов сопоставления на копии случая2179",
+      "area": "own_tracker",
+      "state": "completed_negative",
+      "started": "2026-11-12",
+      "question": "Поможет ли изменение веса геометрии, уверенности или внешности в сохранённой конкуренции2179?",
+      "hypothesis": "Внешность может изменить порядок конкурентов, но улучшение личности и отсутствие ухудшения требуют отдельной точной разметки; изменениеуверенности само по себе не меняет порядок строк одного столбца.",
+      "expected": "Малая фиксированная проверка без обучения ядра и без замены рабочих настроек; все изменения копии возвращаются.",
+      "acceptance": [
+        {
+          "criterion": "Originalbasegeometry formula exactfloat32, actual_first reproduced; identitycopy exact andoriginalsourcearrays unchanged.",
+          "met": true,
+          "evidence": "research_assignment_weights_2179_20261112/audit.json; research_assignment_weights_2179_20261112/provenance.json; research_assignment_weights_2179_20261112/summary.json"
+        },
+        {
+          "criterion": "ALLrow/candidatecompetition retained at1159/1160/1165; no GT/futureinputs or newclassfilters; nativecorrected-minus-base deltas fixed.",
+          "met": true,
+          "evidence": "research_assignment_weights_2179_20261112/audit.json; research_assignment_weights_2179_20261112/provenance.json; research_assignment_weights_2179_20261112/summary.json"
+        },
+        {
+          "criterion": "Only preregistered 2confidencepowers/4appearanceweights andone cyclicnegativecontrol; no adaptivegrid, refitting or newtrackerstate.",
+          "met": true,
+          "evidence": "research_assignment_weights_2179_20261112/audit.json; research_assignment_weights_2179_20261112/provenance.json; research_assignment_weights_2179_20261112/summary.json"
+        },
+        {
+          "criterion": "Independent scalar cost differences<1e-6 andSciPy augmentedassignmentobjective<1e-9; exactpast/currentclock GT evaluation separate fromruntime.",
+          "met": true,
+          "evidence": "research_assignment_weights_2179_20261112/audit.json; research_assignment_weights_2179_20261112/provenance.json; research_assignment_weights_2179_20261112/summary.json"
+        },
+        {
+          "criterion": "Rollbackeveryvariant oncopy; confirmedworse includes losingpreviousknowncorrectID or addingnewwrongID. Unknownnewchangesdo not authorize promotion; baselineactivebytesrestoredafterall.",
+          "met": true,
+          "evidence": "research_assignment_weights_2179_20261112/audit.json; research_assignment_weights_2179_20261112/provenance.json; research_assignment_weights_2179_20261112/summary.json"
+        },
+        {
+          "criterion": "No production/core/checkpoint/fulltrackerchange, no newdownloads; computationaloutputs<5MiB excluding requiredrecords/graphpublication copies, allownTEMP/cacheonE.",
+          "met": true,
+          "evidence": "research_assignment_weights_2179_20261112/audit.json; research_assignment_weights_2179_20261112/provenance.json; research_assignment_weights_2179_20261112/summary.json"
+        },
+        {
+          "criterion": "Report ALLvariants andall3frames, targetID andknowncorrect/wrong/unknownpool; favorable2179assignmentonunannotated1160 isnotidentitysuccess.",
+          "met": true,
+          "evidence": "research_assignment_weights_2179_20261112/audit.json; research_assignment_weights_2179_20261112/provenance.json; research_assignment_weights_2179_20261112/summary.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_assignment_weights_2179_20261112/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_assignment_weights_2179_20261112/summary.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_assignment_weights_2179_20261112/pairwise_dominance.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_assignment_weights_2179_20261112/provenance.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_assignment_weights_2179_20261112/storage_summary.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_assignment_weights_2179_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Проверены9фиксированных вариантов на3сохранённых состояниях,27матриц. Ни один не назначил2179на1160или1165. Базовый вариант сохраняет18известных правильных назначений и1неправильное на1159/1165; квадрат уверенности теряет3правильных, веса внешности0,5и1добавляют по2новые ошибки. Источник research_assignment_weights_2179_20261112/summary.json. Все настройки копии восстановлены; модели/ядро/полный трекер не менялись. Объём расчётных артефактов 1595949байт; источник storage_summary.json.",
+      "interpretation": "В этой фиксированной пробе веса не исправили отказ. Геометрическая стоимость и стоимость внешности обе предпочитают2445над2179в рассматриваемом столбце; любая их выпуклая смесь сохраняет этот локальный порядок. Это не доказательство невозможности другого глобального назначения или всех методов внешности. Источник research_assignment_weights_2179_20261112/pairwise_dominance.json.",
+      "decision": "Откатить все пробованные параметры копии и сохранить исходные рабочие настройки. Не продвигать варианты с ухудшением либо неизвестными новыми назначениями. Не расширять подбор на этом случае; следующий метод должен менять доступное различение/память или раннее сопоставление, а не повторять ту же сетку весов.",
+      "cannot_claim": "Один ранее разобранный случай и3фиксированных состояния, без обновления дальнейшей истории. Точной разметки1160нет. Нет оценки HOTA, выигрыша полного трекера, независимого обобщения или обучения ядра. Суммы18правильных/1неправильное условны по доступным историческим идентичностям, а не точность всех объектов."
     }
   ],
   "manual_events": [

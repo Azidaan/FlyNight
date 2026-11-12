@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "E:\Dissertation\research_assignment_weights_2179_20261112\disk_inventory.py", line 19, in <module>
+    if path.exists() and path not in paths:paths.append(path)
+  File "E:\Dissertation\python310\tools\lib\pathlib.py", line 1290, in exists
+    self.stat()
+  File "E:\Dissertation\python310\tools\lib\pathlib.py", line 1097, in stat
+    return self._accessor.stat(self, follow_symlinks=follow_symlinks)
+PermissionError: [WinError 5] Отказано в доступе: 'C:\\Users\\Егор\\AppData\\Local\\pip\\Cache'
