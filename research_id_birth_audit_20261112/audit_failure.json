@@ -1,0 +1,7 @@
+{
+  "script": "audit.py",
+  "exit_code": 1,
+  "location": "assert maxerr<1e-12",
+  "reason": "The independent scalar check used double precision for detector area whereas archived vectorized matching kept that multiplication in float32. v2 reproduces this explicit operation; original audit preserved and thresholds/labels unchanged.",
+  "fix": "audit_v2.py; exact area convention, unchanged tolerance"
+}

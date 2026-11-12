@@ -1,0 +1,149 @@
+{
+  "passed": true,
+  "video": "b23b2649-8349d2a1",
+  "frame": 539,
+  "tid": 232,
+  "predicted_box": [
+    977.3591299319472,
+    539.7826564804948,
+    1018.9694101076872,
+    557.914065377375
+  ],
+  "initial_state": 1,
+  "saved_high_min_cost": 0.9412195682525635,
+  "max_iou_all": 0.2070216930039952,
+  "max_iou_low": 0.18813286219474418,
+  "best_detections": [
+    {
+      "raw_id": 54471,
+      "confidence": 0.2839338779449463,
+      "cls": 2,
+      "box": [
+        977.9274291992188,
+        551.19140625,
+        1012.4730834960938,
+        568.5479736328125
+      ],
+      "iou": 0.2070216930039952,
+      "score_fused_cost": 0.9412195278866475,
+      "plain_iou_cost": 0.7929783069960048,
+      "stage": "high"
+    },
+    {
+      "raw_id": 54512,
+      "confidence": 0.027620717883110046,
+      "cls": 2,
+      "box": [
+        972.2604370117188,
+        551.123779296875,
+        1028.23095703125,
+        568.5888671875
+      ],
+      "iou": 0.194934749277136,
+      "score_fused_cost": 0.9946157622846015,
+      "plain_iou_cost": 0.805065250722864,
+      "stage": "excluded"
+    },
+    {
+      "raw_id": 54488,
+      "confidence": 0.050347063690423965,
+      "cls": 2,
+      "box": [
+        962.9248046875,
+        550.3075561523438,
+        1013.960693359375,
+        569.4798583984375
+      ],
+      "iou": 0.1914105301301255,
+      "score_fused_cost": 0.9903630418485208,
+      "plain_iou_cost": 0.8085894698698746,
+      "stage": "excluded"
+    },
+    {
+      "raw_id": 54475,
+      "confidence": 0.14420215785503387,
+      "cls": 2,
+      "box": [
+        965.90869140625,
+        550.6494140625,
+        1012.654541015625,
+        569.1509399414062
+      ],
+      "iou": 0.18813286219474418,
+      "score_fused_cost": 0.9728708353080742,
+      "plain_iou_cost": 0.8118671378052558,
+      "stage": "low"
+    },
+    {
+      "raw_id": 54480,
+      "confidence": 0.1061011403799057,
+      "cls": 2,
+      "box": [
+        989.460205078125,
+        551.3875732421875,
+        1020.0841064453125,
+        567.62353515625
+      ],
+      "iou": 0.1818497470929565,
+      "score_fused_cost": 0.9807055344556399,
+      "plain_iou_cost": 0.8181502529070435,
+      "stage": "low"
+    },
+    {
+      "raw_id": 54493,
+      "confidence": 0.04046478122472763,
+      "cls": 2,
+      "box": [
+        976.7828369140625,
+        555.4390869140625,
+        1012.22216796875,
+        569.2431640625
+      ],
+      "iou": 0.0745525595565602,
+      "score_fused_cost": 0.9969832469878003,
+      "plain_iou_cost": 0.9254474404434399,
+      "stage": "excluded"
+    },
+    {
+      "raw_id": 54521,
+      "confidence": 0.023073619231581688,
+      "cls": 2,
+      "box": [
+        1005.45361328125,
+        553.347900390625,
+        1029.690673828125,
+        566.2149658203125
+      ],
+      "iou": 0.061432921007765984,
+      "score_fused_cost": 0.998582520172383,
+      "plain_iou_cost": 0.938567078992234,
+      "stage": "excluded"
+    },
+    {
+      "raw_id": 54486,
+      "confidence": 0.060213834047317505,
+      "cls": 2,
+      "box": [
+        961.6224975585938,
+        554.2114868164062,
+        996.708251953125,
+        568.3548583984375
+      ],
+      "iou": 0.06076257751071639,
+      "score_fused_cost": 0.9963412522414825,
+      "plain_iou_cost": 0.9392374224892837,
+      "stage": "excluded"
+    }
+  ],
+  "low_count": 9,
+  "high_count": 14,
+  "total_detections": 107,
+  "no_first_match": true,
+  "no_second_match_possible": true,
+  "plain_iou_second_also_cannot_match": true,
+  "first_unassigned_after": 538,
+  "later_state": 2,
+  "source_readout_proposals": [],
+  "scope": "Exact algorithmic failure at the first loss after538. No annotation at539, so no ground-truth identity or physical cause is invented. The previously known score-fused second-stage impossibility is not sufficient to explain this case: removing fusion still cannot match any low-score box at the unchanged0.5 threshold.",
+  "script_sha256": "302b19827124a07d3dcf3302f1a4c37bcd1ae98dab9a1579d21c4f6a9aff26c0"
+}
