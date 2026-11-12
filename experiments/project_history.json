@@ -32339,6 +32339,72 @@
       "interpretation": "При неизменных первом и последних двух входах, числе обновлений и весах изменение более раннего содержимого причинно меняет оценки. Однако ни односторонние, ни совместные замены не устранили отказы 232/832 или неверное разрешение 574. Ни одна из двух фиксированных версий постоянной предыстории не прошла критерий. Это не доказывает отсутствие влияния всей памяти: начальный разгон и первый вход не менялись, а обучение считывателя осталось прежним.",
       "decision": "Не внедрять постоянную предысторию и не подбирать её длину либо содержимое по пяти случаям. Сохранить отдельно отрицательный вывод об этой правке. Для дальнейшей локализации нужен контроль, отделяющий формирование карты от пространственного сравнения; текущий опыт не установил причину неправильного зрительного порядка.",
       "cannot_claim": "Нет доказательства дефекта определённых нейронов или весов, общей вредности памяти, улучшения сохранения ID либо HOTA. Это пять повторно использованных разработческих случаев. Постоянная предыстория искусственна; возможен сдвиг распределения относительно обучения. Карты двух концов после вмешательства могут происходить из разных искусственных историй. Точная причина всех отказов недели остаётся открытой."
+    },
+    {
+      "id": "surround_dependency_probe_20261112",
+      "title": "Окружение карты FlyVis — неизменные входы обычных признаков и вмешательство вне их области",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-12",
+      "question": "Does retinal input outside the exact dependencies of the ordinary local reader cause the additional rejection of own pair232 by the FlyVis path?",
+      "hypothesis": "Lateral and recurrent processing can carry outside-input changes into the compared C34 maps while both ordinary readers remain exactly invariant.",
+      "expected": "Отделить влияние входного окружения через ядро от прямого изменения сравниваемых обычных признаков.",
+      "acceptance": [
+        {
+          "criterion": "All untouched10C34 maps match cached maps within1e-4 and10ordinary maps exactly; stop before interventions if not.",
+          "met": true,
+          "evidence": "research_surround_dependency_probe_20261112/audit.json"
+        },
+        {
+          "criterion": "Identity exact, protected inputs exact, ordinary control scores exact, independent support reconstruction and score error below1e-9; weights/inputs unchanged.",
+          "met": true,
+          "evidence": "research_surround_dependency_probe_20261112/audit.json"
+        },
+        {
+          "criterion": "Primary local diagnostic: at least one BOTH-endpoint replacement accepts own232 while retaining own70/1102. Report other cases and unilateral effects; do not call this resolution of all three errors. Secondary: also accept own832 and reject foreign574, reported separately.",
+          "met": false,
+          "evidence": "research_surround_dependency_probe_20261112/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_surround_dependency_probe_20261112/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_surround_dependency_probe_20261112/scores.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_surround_dependency_probe_20261112/audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_surround_dependency_probe_20261112/replay.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_surround_dependency_probe_20261112/baseline_gate.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_surround_dependency_probe_20261112/execution_receipt.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_surround_dependency_probe_20261112/crop_observation.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_surround_dependency_probe_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "На пяти случаях проверены восемь сочетаний вмешательств и три представления, 120 оценок. Обе обычные оценки во всех условиях совпали точно с исходными. Решения FlyVis также сохранились: две свои пары приняты, одна чужая принята. Для232 исходный балл −1,452065; серое окружение у обоих концов −1,376530, замороженное −1,327592. Для832: −1,396481 → −1,383704 / −1,363531; для574: +1,843682 → +1,756685 / +1,866990. Основной критерий исправления232 и вторичный критерий исправления всех трёх ошибок не пройдены. Источники research_surround_dependency_probe_20261112/scores.json и audit.json.",
+      "interpretation": "Изменение только входов вне точных зависимостей обычных признаков меняет оценку FlyVis при неизменности обычных оценок. Это причинный эффект окружения через нейронную обработку, но ни один вариант не исправил решения. Проверенные замены внешней области не являются достаточным исправлением232. Они не исключают влияние окружения внутри защищённой области или иных способов взаимодействия. Защищённая область не является физической маской машины.",
+      "decision": "Не внедрять отсечение или замораживание окружения, не подбирать радиус и заполнитель по этим случаям. Следующая проверяемая версия — изменение координат входного окна до рекуррентной обработки; наблюдение о разных вырезках сохранено отдельно и не объявляется причиной. Нужен контроль входа в одних координатах при неизменных конечных окнах и сохранении полезного движения.",
+      "cannot_claim": "Не установлены конкретный виновный нейрон, дефект весов или корневая причина всех отказов. Серый заполнитель может менять адаптацию и создавать искусственную границу. Сохранённые области определены вычислительными зависимостями, могут содержать фон и исключать части объекта. Пять повторно использованных случаев не являются независимым итоговым тестом. Нет улучшения ID или HOTA; трекер не запускался."
     }
   ],
   "manual_events": [
