@@ -32405,6 +32405,76 @@
       "interpretation": "Изменение только входов вне точных зависимостей обычных признаков меняет оценку FlyVis при неизменности обычных оценок. Это причинный эффект окружения через нейронную обработку, но ни один вариант не исправил решения. Проверенные замены внешней области не являются достаточным исправлением232. Они не исключают влияние окружения внутри защищённой области или иных способов взаимодействия. Защищённая область не является физической маской машины.",
       "decision": "Не внедрять отсечение или замораживание окружения, не подбирать радиус и заполнитель по этим случаям. Следующая проверяемая версия — изменение координат входного окна до рекуррентной обработки; наблюдение о разных вырезках сохранено отдельно и не объявляется причиной. Нужен контроль входа в одних координатах при неизменных конечных окнах и сохранении полезного движения.",
       "cannot_claim": "Не установлены конкретный виновный нейрон, дефект весов или корневая причина всех отказов. Серый заполнитель может менять адаптацию и создавать искусственную границу. Сохранённые области определены вычислительными зависимостями, могут содержать фон и исключать части объекта. Пять повторно использованных случаев не являются независимым итоговым тестом. Нет улучшения ID или HOTA; трекер не запускался."
+    },
+    {
+      "id": "fixed_crop_probe_20261112",
+      "title": "Входное окно FlyVis — неподвижные координаты истории при сохранении конечных наблюдений",
+      "area": "flyvis",
+      "state": "completed_negative",
+      "started": "2026-11-12",
+      "question": "Does changing crop coordinates before recurrent processing cause the extra rejection of own232, compared with processing the same terminal images with fixed endpoint crops?",
+      "hypothesis": "Changes in crop origin and scale induce retinal changes in addition to scene motion. Re-rendering prior observations in fixed endpoint coordinates may remove that component before the core.",
+      "expected": "Отделить смену координат входа до ядра от последующего совмещения карт.",
+      "acceptance": [
+        {
+          "criterion": "Exact original retinal restoration and terminal input parity; independently aggregated rendered views error<=0.001; all ten original core maps parity<=1e-4 and ordinary maps exact before changed core passes.",
+          "met": true,
+          "evidence": "research_fixed_crop_probe_20261112/audit.json"
+        },
+        {
+          "criterion": "Identity exact, immutable inputs/weights, independent reconstruction of all frame/crop schedules and independent scores within1e-9.",
+          "met": true,
+          "evidence": "research_fixed_crop_probe_20261112/audit.json"
+        },
+        {
+          "criterion": "Primary local criterion: either BOTH-endpoint condition accepts232 and preserves70/1102. Secondary: additionally accept832 and reject574. Every case, unilateral effect and ordinary control reported; no selection of mode per case.",
+          "met": false,
+          "evidence": "research_fixed_crop_probe_20261112/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_fixed_crop_probe_20261112/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_fixed_crop_probe_20261112/scores.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_fixed_crop_probe_20261112/audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_fixed_crop_probe_20261112/render_manifest.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_fixed_crop_probe_20261112/retinal_baseline_gate.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_fixed_crop_probe_20261112/replay.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_fixed_crop_probe_20261112/baseline_gate.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_fixed_crop_probe_20261112/execution_receipt.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_fixed_crop_probe_20261112/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-12",
+      "obtained": "Из видео точно восстановлены45исходных наблюдений; всего получены74различных входа глаза. На пяти случаях проверены восемь сочетаний и три представления,120оценок. Ни одно решение не изменилось: FlyVis принимает две свои пары и одну чужую, оба обычных контроля три свои и одну чужую. Для232 исходный балл −1,452065; неподвижное окно последнего перехода у обоих концов −1,492523, всей истории −1,604931. Для832: −1,396481 → −1,885031 / −2,759268; для574: +1,843682 → +1,843682 / +2,147785. Основной критерий исправления232 и вторичный критерий всех трёх ошибок не пройдены. Источники research_fixed_crop_probe_20261112/retinal_baseline_gate.json, render_manifest.json, scores.json, audit.json.",
+      "interpretation": "Смена координат входного окна влияет на карты и оценки при сохранении конечных изображений. Но приведение последнего перехода или всей истории к конечному окну не исправило решения и ухудшило оценки232/832. Нельзя объявлять изменение окна достаточной причиной этих отказов или считать фиксированное окно принятым исправлением. Неподвижное окно может менять ранее видимую часть объекта, начальную адаптацию и распределение признаков; это не независимая разметка физических соответствий.",
+      "decision": "Не внедрять неподвижное окно и не подбирать его положение по пяти случаям. Сохранить отрицательный результат этой конкретной правки. Следующий различающий вопрос — сохраняется ли дополнительный отказ232 в установившемся ответе на то же конечное изображение; он отделит переходную динамику от статического представления. Эта проверка ещё не выполнена.",
+      "cannot_claim": "Не установлена корневая причина всех отказов и нет доказанного дефекта определённых нейронов. Пять повторно использованных случаев не дают независимой оценки обобщения. Общее движение камеры сохраняется; вычисление прежних кадров в конечном окне требует повторного извлечения входов. Нет нового обучения, изменения порога, полного трекера или улучшения HOTA."
     }
   ],
   "manual_events": [

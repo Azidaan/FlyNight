@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "executions": {
+    "render": {
+      "guard": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_fixed_crop_probe_20261112\\render.py",
+          "--audit-memory-worker=be1d3626046844fdbc6b485f1e494cb9"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 15940911104,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "29912": 1794446817.623134,
+          "25236": 1794446817.6479883
+        },
+        "stop_errors": [],
+        "seconds": 48.437000000005355
+      },
+      "process_checks": [
+        {
+          "pid": 29912,
+          "create_time": 1794446817.623134,
+          "ended_or_PID_reused": true
+        },
+        {
+          "pid": 25236,
+          "create_time": 1794446817.6479883,
+          "ended_or_PID_reused": true
+        }
+      ],
+      "all_owned_ended": true
+    },
+    "core": {
+      "guard": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_fixed_crop_probe_20261112\\worker.py",
+          "--audit-memory-worker=32884eda61a94031bbc16b9e6c8316da"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 15244386304,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "2064": 1794446909.204634,
+          "18788": 1794446909.2294233
+        },
+        "stop_errors": [],
+        "seconds": 26.81199999999808
+      },
+      "process_checks": [
+        {
+          "pid": 2064,
+          "create_time": 1794446909.204634,
+          "ended_or_PID_reused": true
+        },
+        {
+          "pid": 18788,
+          "create_time": 1794446909.2294233,
+          "ended_or_PID_reused": true
+        }
+      ],
+      "all_owned_ended": true
+    }
+  },
+  "all_owned_ended": true
+}
