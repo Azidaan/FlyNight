@@ -1,0 +1,7 @@
+{
+  "failure": "Preview guard expected current live journal index to match regenerated before-plan baseline.",
+  "verified_cause": "The preceding430843cb documentation commit added a journal entry without rebuilding the graph. Existing live index is byte-identical to HEAD, while regeneration changes its latest-day label. It is not a foreign manual edit.",
+  "head_note_sha256": "eddd61c53602b08dd9f64a0794d944e8154b2ef6b85bd986fad03bcb0d4fb608",
+  "rule": "Allow regeneration also for notes verified byte-identical to HEAD; preserve protection for foreign dirty notes.",
+  "helper_sha256": "4e9242d7f1b71f5bb7fe673a2e08916a3b212be3f8b2af090dd19744740b107a"
+}

@@ -550,6 +550,29 @@
         "sys:С1",
         "sys:С5"
       ]
+    },
+    {
+      "id": "pytorch_input_precision_audit_20261112",
+      "title": "Точность вычислений и порядок суммирования — документацияPyTorch",
+      "problem_group": "Сохранение личности",
+      "method_group": "Численная проверка входа",
+      "publication": "PyTorch. Numerical accuracy. Official documentation, accessed2026-11-12.",
+      "url": "https://docs.pytorch.org/docs/2.15/notes/numerical_accuracy.html",
+      "doi": "",
+      "established": "Ограниченная точность операций и зависимость численного результата от вычислительного пути.",
+      "problem": "Отделение ошибки численной проверки от искажений входаFlyVis.",
+      "application": "После остановки64битного эталона зарегистрирована независимая32битная сумма; она совпала с нативной свёрткой на45входах.",
+      "limitation": "Текущая документация не доказывает механизм конкретного локального запуска; он проверен кодом и массивами. Не доказательство пользы32битного входа.",
+      "evidence": [
+        "research_input_precision_probe_20261112/render_manifest.json",
+        "research_input_precision_probe_20261112/replay_addendum.json"
+      ],
+      "related": [
+        "exp:input_precision_probe_20261112",
+        "sys:С1",
+        "sys:С5"
+      ],
+      "sections": "Numerical accuracy: floating point arithmetic; finite precision and dependence on evaluation order. The current document is general support, not a replacement for local code verification."
     }
   ]
 }

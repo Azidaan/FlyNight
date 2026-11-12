@@ -1,0 +1,9 @@
+{
+  "registered": "2026-11-12T07:56:15.962428",
+  "original_failure": "float64 sum reference difference1.243762010605387e-6 exceeds1e-6; no core run.",
+  "original_source_sha256": "1a77106c09d76ee5bfed0ed3781a9090f2a99736de1c6a1cf70ffa903acb283e",
+  "diagnostic_source_sha256": "b6c0003d43cad73d90a29f6a4debb7ed40de0a3e040b557ed28a74460696c21b",
+  "new_action": "Record float64 reference errors; additionally check independent sequentialfloat32 summation at SAME1e-6. No quality outcomes computed; all inputs/scientific variants fixed.",
+  "old_criterion": "Retained as failed if float64 discrepancy exceeds original bound; no backdated pass.",
+  "goal": "Determine whether typed floating point accumulation explains reference discrepancy before deciding scientific readiness."
+}

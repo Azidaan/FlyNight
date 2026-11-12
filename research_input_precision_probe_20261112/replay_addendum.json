@@ -1,0 +1,9 @@
+{
+  "registered_before_core_replay": "2026-11-12T07:57:18.374745",
+  "render_v2_source_sha256": "b6c0003d43cad73d90a29f6a4debb7ed40de0a3e040b557ed28a74460696c21b",
+  "render_manifest_sha256": "2855ca40ba4f998242ebf0f91f3aa5d44661f7a9b15e1a863173c1179eaf1c3a",
+  "original_float64_reference_gate_met": false,
+  "corrected_typed_reference": "Independent sequentialfloat32 accumulation; SAME1e-6 bound, all views pass. The actual renderer and source inputs were unchanged. Float64 mismatch retained as arithmetic error of nativefloat32 vs real-sum reference.",
+  "criterion_addendum": "Prerecorded precision32 diagnostic replay may proceed only with exact float16 archive witness and typedfloat32 verification. Original criterion is not retrospectively marked met. All scientific inputs/weights/thresholds/heads fixed; classification outcomes not evaluated yet.",
+  "documented_limit": "A typed reference verifies nativefloat32 implementation, not exact real arithmetic; float64 errors separately reported."
+}

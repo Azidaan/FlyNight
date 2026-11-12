@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "all_owned_ended": true,
+  "reports": [
+    {
+      "phase": "render_failed",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_input_precision_probe_20261112\\render.py",
+          "--audit-memory-worker=5cf0963261204adb8389f433f0f5a46d"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 16773709824,
+        "reason": null,
+        "returncode": 1,
+        "owned": {
+          "21596": 1794459268.263103,
+          "25152": 1794459268.2862892
+        },
+        "stop_errors": [],
+        "seconds": 20.718000000000757
+      },
+      "all_owned_ended": true,
+      "ended": [
+        21596,
+        25152
+      ]
+    },
+    {
+      "phase": "render_v2",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_input_precision_probe_20261112\\render_v2.py",
+          "--audit-memory-worker=551e89d1f50248d0bc0e799237d04e0e"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 16776323072,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "4408": 1794459377.7515745,
+          "1624": 1794459377.7760313
+        },
+        "stop_errors": [],
+        "seconds": 25.718000000000757
+      },
+      "all_owned_ended": true,
+      "ended": [
+        4408,
+        1624
+      ]
+    },
+    {
+      "phase": "replay",
+      "report": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_input_precision_probe_20261112\\worker.py",
+          "--audit-memory-worker=11c389f15f24421bbeba96dedde109bf"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 16044658688,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "24672": 1794459440.145406,
+          "8016": 1794459440.16848
+        },
+        "stop_errors": [],
+        "seconds": 23.56300000000192
+      },
+      "all_owned_ended": true,
+      "ended": [
+        24672,
+        8016
+      ]
+    }
+  ],
+  "archive_inputs_unchanged": true,
+  "weights_unchanged": true
+}
