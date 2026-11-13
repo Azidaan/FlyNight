@@ -1,0 +1,72 @@
+{
+  "registered": "2026-11-13T23:24:00.733113+03:00",
+  "head": "bf565df4fc02720e790cf6fe55d733d47baa82a0",
+  "server_head": "bf565df4fc02720e790cf6fe55d733d47baa82a0",
+  "question": "Does history representation/update cause or reinforce the 2179 competition failure?",
+  "hypothesis": "Competing track history may already contain a broad mixed observation; later updates may reinforce this. Alternatives: initial geometry dominance or insufficient descriptor separation even with earlier/raw observations.",
+  "action": "Copy-only history selector replacing latest filtered descriptor by earliest retained raw or raw-history gallery; no production promotion without exact non-harm evidence.",
+  "policies": [
+    "native",
+    "latest",
+    "latest_raw",
+    "earliest_filtered",
+    "earliest_raw",
+    "gallery_raw",
+    "freeze2445_1158",
+    "freeze2445_1159",
+    "swap_latest_negative"
+  ],
+  "alphas": [
+    0.25,
+    1.0
+  ],
+  "frames": [
+    1159,
+    1160,
+    1165
+  ],
+  "acceptance": [
+    "Reproduce all previous native and appearance matrices at fixed alpha .25 and 1 within 1e-6; retain every row and candidate, threshold .8 and archived neural delta.",
+    "Change only descriptors of rows 2179/2445; compare latest filtered, latest raw, earliest retained filtered/raw, minimum distance over all retained raw history, and isolated 2445 freeze at1158/1159. No tuned weights or GT in runtime.",
+    "Independent scalar cosine and independent assignment solver objective agree; exact labels are evaluation-only, unannotated frames remain unknown.",
+    "Any loss of baseline known-correct assignments or new known-wrong assignment rejects promotion; unknown added links cannot establish benefit.",
+    "Record trajectory/box provenance and exact-anchor raw-versus-filtered ownership separately from descriptor evidence; do not claim first physical ID switch without exact labels.",
+    "All source inputs and production settings unchanged; no core/full-tracker/training/download calls; at most one frozen MASA feature extraction for missing observations, all temporary outputs on E."
+  ],
+  "inputs": {
+    "research_assignment_weights_2179_20261112/runtime.json": "53ea7e7c76a263fec6bc2c291a362d9356a58ee8061bc62484753edcae05c71d",
+    "research_assignment_weights_2179_20261112/descriptor_plan.json": "8dbaf9bf513732d99fbe47934732af68a4f3b87fa86cc6a8cdcce05de12c6bb5",
+    "research_assignment_weights_2179_20261112/descriptors.npz": "f2c181257f8cd914cbf5da140734a22d6ad93760b2ca10940388a47997bba59c",
+    "research_assignment_weights_2179_20261112/evaluation_plan.json": "33ac54eaee8e8216782cd713d86743dce905a2ee9d650517c8c651016031e726",
+    "research_assignment_weights_2179_20261112/summary.json": "a035f8407f3b02c1ebb3cec92c5dc7f3c152c2933b4501d637497b8f59e7b2cc",
+    "research_assignment_weights_2179_20261112/result.json": "7565fc7123b821fc32bac128cb44b57550ab7638eb9aa3a40c36331ff0c105c7",
+    "runs/domain_matched_native_20261109/rollouts/C34/b1ca2e5d-84cf9134.events.json.gz": "219f84cc272ff4c98a370680a68549f120ca979d8b763407c1161af2774f0caa",
+    "runs/z13_val20_matched_20261024/cache/b1ca2e5d-84cf9134/detections/raw_video.npz": "a6259ea80b9d9cd74e447abb944469f2293dc3b4aff895d50885e7d010cb8c14",
+    "runs/identity_assignment_20261108/full_precision/runtime_inputs/b1ca2e5d-84cf9134.json": "5f53f33bab405f8248d6d2ec13ce2b95d33b69e3382d613f96df31b6b079878b",
+    "data/bdd100k/labels/box_track_20/val/b1ca2e5d-84cf9134.json": "3670c1528375f80ccb0a1b1bf5daffa576e6980d5051004b16b6685be4ac3c47",
+    "weights/masa/masa_r50.pth": "082670efc6e8820eff8257f78ea14dfb52d6cdbe2910ecccf0901a74f4a0fd76",
+    "tracking/masa_r50.py": "181f52a2f3b1964554818dd7ddcdeb4bc8c203ff4794eedc1b3e7ee8166569d7",
+    "tracking/gpu_lock.py": "18a1a4ded94df357383d2bb88432fb73c68756e957a2dbbb1d570d32667dc0b9",
+    "data/bdd100k/videos/val/b1ca2e5d-84cf9134.mov": "56cb37548cd826fceec39436cee16556856ba2842e57e5d50a8491396d1b55cc",
+    "research_memory_2179_20261113/audit.py": "31d023d46c0cdad0fbaebbe3994e705cbc4af8aca06f85ec36c917654ffe40a3",
+    "research_memory_2179_20261113/common.py": "613c65cc81191a04d7e339732db356c14460b1411ffa9ae4913aabe39a865ef1",
+    "research_memory_2179_20261113/extract.py": "ce80260984a08e4b5eda211e7d89fe05bc0a8d823a7668e58878bc4a28379441",
+    "research_memory_2179_20261113/register.py": "4b379d3b9db7072c799a0cd188ebc3e494b2c61e57d005682adbe1a1f43fbb2a",
+    "research_memory_2179_20261113/run_queue.py": "2c922fc799394a03d9bc35cef70891b5bce61b4005b229d0e1bc72296ea0ce93",
+    "research_memory_2179_20261113/trace.py": "bb30cdfc8322fa1cb6c1eeeb1c42a4b1f73647c807726f2cf2945fe674c1943b",
+    "research_memory_2179_20261113/worker.py": "7d313839d023ba02d6f6abd3fd6ffa5e74b59c2ba304c49662ced96ed36749c9",
+    "research_memory_2179_20261113/descriptor_plan.json": "b5fc24597ff480f2cfca9e97b0c1b800f27a3baf5702956f3eab75321212ba4f"
+  },
+  "literature": [
+    {
+      "url": "https://arxiv.org/html/1703.07402",
+      "role": "Deep SORT stores a gallery of associated appearance descriptors and uses nearest cosine distance; motivates raw-history gallery control, not claimed unchanged algorithm."
+    },
+    {
+      "url": "https://github.com/nwojke/deep_sort/blob/master/deep_sort/nn_matching.py",
+      "role": "Official implementation of bounded gallery updates; no claimed guarantee against contaminated associations."
+    }
+  ],
+  "scope": "Three frozen full assignment matrices of one known case. Two-row descriptor interventions. Not lifecycle replay, unseen validation or HOTA.",
+  "deadline": "2026-11-16T07:35:00+03:00"
+}

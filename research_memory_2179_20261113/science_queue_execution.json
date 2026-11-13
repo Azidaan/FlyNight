@@ -1,0 +1,39 @@
+{
+  "started": "2026-11-13T23:24:19.635579+03:00",
+  "parent": {
+    "pid": 2684,
+    "birth": 1794601459.0251312
+  },
+  "jobs": [
+    {
+      "entry": "research_memory_2179_20261113/trace.py",
+      "token": "c3bdb47eac494805ae0e8c08e97a84e6",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\c3bdb47eac494805ae0e8c08e97a84e6\\memory_guard.json",
+      "started": "2026-11-13T23:24:20.234934+03:00",
+      "ended": "2026-11-13T23:24:23.156237+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_memory_2179_20261113\\trace.py",
+          "--audit-memory-worker=c3bdb47eac494805ae0e8c08e97a84e6"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17794027520,
+        "reason": null,
+        "returncode": 1,
+        "owned": {
+          "24932": 1794601460.2436068,
+          "27216": 1794601460.2686095
+        },
+        "stop_errors": [],
+        "seconds": 2.9219999999986612
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-13T23:24:23.417947+03:00",
+  "passed": false
+}

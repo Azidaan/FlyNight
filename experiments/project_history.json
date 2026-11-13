@@ -34822,6 +34822,83 @@
       "interpretation": "В этой фиксированной пробе веса не исправили отказ. Геометрическая стоимость и стоимость внешности обе предпочитают2445над2179в рассматриваемом столбце; любая их выпуклая смесь сохраняет этот локальный порядок. Это не доказательство невозможности другого глобального назначения или всех методов внешности. Источник research_assignment_weights_2179_20261112/pairwise_dominance.json.",
       "decision": "Откатить все пробованные параметры копии и сохранить исходные рабочие настройки. Не продвигать варианты с ухудшением либо неизвестными новыми назначениями. Не расширять подбор на этом случае; следующий метод должен менять доступное различение/память или раннее сопоставление, а не повторять ту же сетку весов.",
       "cannot_claim": "Один ранее разобранный случай и3фиксированных состояния, без обновления дальнейшей истории. Точной разметки1160нет. Нет оценки HOTA, выигрыша полного трекера, независимого обобщения или обучения ядра. Суммы18правильных/1неправильное условны по доступным историческим идентичностям, а не точность всех объектов."
+    },
+    {
+      "id": "history_representation_2179_20261113",
+      "title": "Память объекта2179 — исходная рамка и обновление образцов",
+      "area": "own_tracker",
+      "state": "completed_negative",
+      "started": "2026-11-13",
+      "question": "В какой части памяти возникает поддержка конкурирующего номера2445?",
+      "hypothesis": "Сглаженная рамка может захватывать соседа; обновления способны закрепить ошибку. Проверяется заменой только исторических образцов двух конкурентов при прежней полной матрице.",
+      "expected": "Разделить влияние исходной рамки, возраста образца и обновления памяти без полного трекера.",
+      "acceptance": [
+        {
+          "criterion": "Reproduce all previous native and appearance matrices at fixed alpha .25 and 1 within 1e-6; retain every row and candidate, threshold .8 and archived neural delta.",
+          "met": true,
+          "evidence": "research_memory_2179_20261113/audit.json; research_memory_2179_20261113/summary.json"
+        },
+        {
+          "criterion": "Change only descriptors of rows 2179/2445; compare latest filtered, latest raw, earliest retained filtered/raw, minimum distance over all retained raw history, and isolated 2445 freeze at1158/1159. No tuned weights or GT in runtime.",
+          "met": true,
+          "evidence": "research_memory_2179_20261113/audit.json; research_memory_2179_20261113/summary.json"
+        },
+        {
+          "criterion": "Independent scalar cosine and independent assignment solver objective agree; exact labels are evaluation-only, unannotated frames remain unknown.",
+          "met": true,
+          "evidence": "research_memory_2179_20261113/audit.json; research_memory_2179_20261113/summary.json"
+        },
+        {
+          "criterion": "Any loss of baseline known-correct assignments or new known-wrong assignment rejects promotion; unknown added links cannot establish benefit.",
+          "met": true,
+          "evidence": "research_memory_2179_20261113/audit.json; research_memory_2179_20261113/summary.json"
+        },
+        {
+          "criterion": "Record trajectory/box provenance and exact-anchor raw-versus-filtered ownership separately from descriptor evidence; do not claim first physical ID switch without exact labels.",
+          "met": true,
+          "evidence": "research_memory_2179_20261113/audit.json; research_memory_2179_20261113/summary.json"
+        },
+        {
+          "criterion": "All source inputs and production settings unchanged; no core/full-tracker/training/download calls; at most one frozen MASA feature extraction for missing observations, all temporary outputs on E.",
+          "met": false,
+          "evidence": "research_memory_2179_20261113/feature_recovery_protocol.json; research_memory_2179_20261113/provenance.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_memory_2179_20261113/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_memory_2179_20261113/summary.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_memory_2179_20261113/audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_memory_2179_20261113/source_localization.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_memory_2179_20261113/trace_v2.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_memory_2179_20261113/provenance.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_memory_2179_20261113/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-13",
+      "obtained": "Шесть замен исторических образцов не восстановили2179на1160/1165; всего54матрицы,18известных правильных назначений остаются18. Источник research_memory_2179_20261113/summary.json. Исходная/сглаженная рамка, ранний образец, набор прошлых образцов и заморозка2445проверены при прежних весах0,25/1. Отрицательный контроль меняет целевое назначение, но добавляет ошибку2445на1159. Два технических отказа сохранены; восстановление размера пакета MASAдаёт точное совпадение повторных признаков.",
+      "interpretation": "Последующие обновления усиливают предпочтение2445, но заморозка до потери номера не исправляет его: обновление после1159не является необходимой причиной отказа на этих состояниях. Замена только сглаженной рамки исходной также недостаточна. Факт пересечения прямоугольников не доказывает единственную причину смешения признаков. Источник research_memory_2179_20261113/audit.json; trace_v2.json.",
+      "decision": "Не продвигать проверенные варианты памяти. Отказаться от этой простой замены образцов; следующий кандидат должен менять сравниваемое содержимое области и отделять доступную часть объекта от соседа/фона. Полный трекер остаётся запрещён.",
+      "cannot_claim": "Один знакомый случай, три фиксированных состояния; без развёртывания жизненного цикла и без HOTA. Нет точной разметки1160, единственная физическая причина и первый неверный кадр переноса не установлены. Новые назначения неизвестной личности не считаются успехом. Было два технических запуска извлечения признаков вместо одного, повтор устранял нарушение воспроизводимости без ослабления допуска."
     }
   ],
   "manual_events": [

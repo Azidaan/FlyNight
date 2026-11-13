@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "sources": {
+    "runs/domain_matched_native_20261109/runtime_adapter.py": {
+      "sha256": "ac3779744c1ce609f85a5a1711064b8946d1726a8798a4499f0c2ceb73b5117b",
+      "matches_historical_execution_receipt": true,
+      "fragments": [
+        {
+          "line": 53,
+          "text": "    def after(self,tracker):"
+        },
+        {
+          "line": 59,
+          "text": "            self.histories[tid][-1].update(raw_id=None if rid<0 else rid,raw_origin_method=method,public=tid in public)"
+        }
+      ]
+    },
+    "runs/full_template_native_20261109/native_runtime.py": {
+      "sha256": "acd185b7dd7c0937d87c7cf85d6a872b915b159a34cbc81735c55e726a1af5ff",
+      "matches_historical_execution_receipt": true,
+      "fragments": [
+        {
+          "line": 194,
+          "text": "    def after(self,tracker):"
+        },
+        {
+          "line": 198,
+          "text": "            self.histories.setdefault(tid,deque(maxlen=4)).append(dict(frame=self.frame,"
+        },
+        {
+          "line": 199,
+          "text": "                box=np.asarray(t.xyxy,np.float64).tolist(),crop=list(crop_box(tuple(t.mean[:4]),(1280,720)))))"
+        }
+      ]
+    }
+  },
+  "fact": "Planner.after stores the filtered t.xyxy box; runtime adapter adds raw_id provenance afterward without replacing that box. Thus filtered and raw boxes are genuinely different input routes, not swapped file versions.",
+  "limit": "Code path and stored input provenance, not proof that this choice alone caused an ID switch."
+}

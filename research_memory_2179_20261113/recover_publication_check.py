@@ -1,0 +1,6 @@
+from common import *
+source=(OUT/'verify_publication.py').read_text(encoding='utf8')
+source=source.replace("assert staged==set(manifest['files']),(staged-set(manifest['files']),set(manifest['files'])-staged)", "assert staged <= set(manifest['files']), staged-set(manifest['files'])\n# Manifest also contains intentionally unchanged tracked files. The exact byte\n# comparison below verifies every requested index entry, including those files.")
+source=source.replace("save('publication_verification.json'", "save('publication_verification_v2.json'")
+with (OUT/'verify_publication_v2.py').open('x',encoding='utf8',newline='\n') as f:f.write(source)
+save('publication_check_recovery.json',dict(registered=now(),reason='Manifest requested useful_literature.json unchanged from HEAD. Git diff correctly omits unchanged index entries; first checker incorrectly required exact filename equality. Replacement rejects all unrequested staged changes and compares every requested index blob byte-for-byte, so omitted changed content cannot pass.',first_assertion_extra=[],first_assertion_missing=['experiments/useful_literature.json'],old_source_sha256=sha(OUT/'verify_publication.py'),new_source_sha256=sha(OUT/'verify_publication_v2.py'),science_unchanged=True))
