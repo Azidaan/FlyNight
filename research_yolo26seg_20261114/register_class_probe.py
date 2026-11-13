@@ -1,0 +1,7 @@
+from common import *
+events=read(OUT/'case2179.json')['events']+[e for e in read(OUT/'holdout/manifest.json')['events'] if e['id']=='B_night_rain']
+images=sorted({r['image'] for e in events for r in e['roles']})
+save('class_filter_protocol.json',dict(registered=now(),images=images,intervention='Remove only new-segmentation classcar filter (classes=None instead of[2]), preserving conf0.25 and all other settings. Inspect all outputs to distinguish wrong predicted class from missing segmentation. This is post-hoc diagnosis, not a replacement score.',source_sha256=sha(OUT/'class_filter_probe.py')))
+inputs=dict(read(OUT/'protocol.json')['inputs']);inputs[(OUT/'class_filter_probe.py').relative_to(ROOT).as_posix()]=sha(OUT/'class_filter_probe.py');inputs.update({n:sha(ROOT/n) for n in images})
+save('class_filter_queue.json',dict(runner_sha256=sha(OUT/'run_queue.py'),deadline=read(OUT/'protocol.json')['deadline'],inputs=inputs,jobs=[dict(entry=(OUT/'class_filter_probe.py').relative_to(ROOT).as_posix(),timeout=300)]))
+journal('Дополнительная локализация после основных результатов: проверяется, не скрывает ли целевую машину фильтр класса новой сети сегментации. Для2179 и ночного нового случая снимается только classes=[2]; уверенность0,25 и остальные условия сохранены. Исходные результаты не заменяются, пороги не подбираются. Источник '+OUT.relative_to(ROOT).as_posix()+'/class_filter_protocol.json.')

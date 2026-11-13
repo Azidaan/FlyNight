@@ -1,0 +1,17 @@
+{
+  "question": "Do saved retinal values and current mask PNGs denote the same sequential raw frames?",
+  "method": "Sequential VideoCapture.read from raw frame0; restore verified Lamina state at1100, process1100..1165. Independently regenerate13x13 CPU BoxEye for every actually used retinal record. Compare float16 values exactly and three mask-source PNGs pixel-for-pixel. No new neural forward, no reader refit, no mask changes.",
+  "inputs": {
+    "data\\bdd100k\\videos\\val\\b1ca2e5d-84cf9134.mov": "56cb37548cd826fceec39436cee16556856ba2842e57e5d50a8491396d1b55cc",
+    "runs\\identity_assignment_20261108\\full_precision\\processed\\b1ca2e5d-84cf9134.checkpoints\\001100.json": "b5d373a95b8dcfda9aca1a559f6bdce36ee50ab6c9fc394c53f9c8c87c105714",
+    "runs\\identity_assignment_20261108\\full_precision\\processed\\b1ca2e5d-84cf9134.checkpoints\\001100.pkl": "3659af8aaf6e0e1ca7bb03b0e811dcd5c40e73e315a7e92aa4c2ec9291db1d86",
+    "tracking\\retina.py": "71e51747fa9959652766da0179a3b75953c49f94159da155c52b10999b27c322",
+    "research_yolo26seg_20261114\\flyvis_probe\\protocol.json": "c45530ef51cbd9e3804ee46a2a540985a36fb507059f16db3b7226a8a1e7bfb6",
+    "research_yolo26seg_20261114\\flyvis_probe\\result.json": "6e8cc31e10e5525f44518b225094f14220c4096cba14776d38dd2f27e469775f",
+    "research_yolo26seg_20261114\\flyvis_probe\\predictions.npz": "995e41e8292d593e346df73097c839fa6442dae740eec2bda4b057792bd0062c",
+    "research_yolo26seg_20261114\\flyvis_probe\\alignment_check_v2.py": "94289477afccaab2f0345cef2120801397629be6823c30879aa5678c22e27d66"
+  },
+  "expected_retina_source_sha256": "71e51747fa9959652766da0179a3b75953c49f94159da155c52b10999b27c322",
+  "acceptance": "All9 retinal721 vectors exact in archivedfloat16; all3 sourcePNG pixels equal same-index sequentialdecode; otherwise do not finalize mask scientific conclusion.",
+  "explanation": "Rawgray/255 differs by design: archive uses stateful nonlinear Lamina before BoxEye. Reconstruct that path, not merely gray normalization."
+}

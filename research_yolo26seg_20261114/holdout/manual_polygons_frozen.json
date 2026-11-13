@@ -1,0 +1,276 @@
+{
+  "frozen_at": "2026-11-14T01:36:16.491857+03:00",
+  "polygons": {
+    "B_day_shop": {
+      "ref": {
+        "target": [
+          [
+            [
+              943,
+              332
+            ],
+            [
+              960,
+              329
+            ],
+            [
+              969,
+              334
+            ],
+            [
+              966,
+              345
+            ],
+            [
+              942,
+              345
+            ]
+          ]
+        ],
+        "competitor": [
+          [
+            [
+              914,
+              339
+            ],
+            [
+              931,
+              339
+            ],
+            [
+              933,
+              347
+            ],
+            [
+              912,
+              348
+            ]
+          ]
+        ]
+      },
+      "query": {
+        "target": [
+          [
+            [
+              960,
+              329
+            ],
+            [
+              981,
+              327
+            ],
+            [
+              987,
+              334
+            ],
+            [
+              982,
+              344
+            ],
+            [
+              957,
+              345
+            ]
+          ]
+        ],
+        "competitor": [
+          [
+            [
+              902,
+              339
+            ],
+            [
+              923,
+              336
+            ],
+            [
+              925,
+              346
+            ],
+            [
+              904,
+              350
+            ]
+          ]
+        ]
+      }
+    },
+    "B_night_rain": {
+      "ref": {
+        "target": [
+          [
+            [
+              936,
+              396
+            ],
+            [
+              965,
+              397
+            ],
+            [
+              970,
+              410
+            ],
+            [
+              937,
+              412
+            ]
+          ]
+        ],
+        "competitor": [
+          [
+            [
+              723,
+              369
+            ],
+            [
+              801,
+              370
+            ],
+            [
+              808,
+              414
+            ],
+            [
+              717,
+              414
+            ]
+          ]
+        ]
+      },
+      "query": {
+        "target": [
+          [
+            [
+              963,
+              397
+            ],
+            [
+              1006,
+              399
+            ],
+            [
+              1010,
+              414
+            ],
+            [
+              963,
+              416
+            ]
+          ]
+        ],
+        "competitor": [
+          [
+            [
+              743,
+              371
+            ],
+            [
+              824,
+              372
+            ],
+            [
+              831,
+              418
+            ],
+            [
+              737,
+              418
+            ]
+          ]
+        ]
+      }
+    },
+    "B_dusk_queue": {
+      "ref": {
+        "target": [
+          [
+            [
+              734,
+              286
+            ],
+            [
+              805,
+              286
+            ],
+            [
+              811,
+              332
+            ],
+            [
+              734,
+              333
+            ]
+          ]
+        ],
+        "competitor": [
+          [
+            [
+              552,
+              310
+            ],
+            [
+              679,
+              309
+            ],
+            [
+              687,
+              364
+            ],
+            [
+              548,
+              366
+            ]
+          ]
+        ]
+      },
+      "query": {
+        "target": [
+          [
+            [
+              739,
+              282
+            ],
+            [
+              812,
+              283
+            ],
+            [
+              817,
+              329
+            ],
+            [
+              737,
+              330
+            ]
+          ]
+        ],
+        "competitor": [
+          [
+            [
+              547,
+              307
+            ],
+            [
+              674,
+              307
+            ],
+            [
+              682,
+              360
+            ],
+            [
+              544,
+              364
+            ]
+          ]
+        ]
+      }
+    }
+  },
+  "outcomes_read": false,
+  "image_method": "Sequential cv2.read from frame0; candidate_frames/ and old continuity/ are superseded seek previews and must not enter model computation.",
+  "reason": "Conservative patches inside physically identifiable vehicle body, excluding obvious pole/neighbor/background; incomplete visible-object segmentation.",
+  "visual_review_inputs": "frames/*_grid.png and frames/*_detail.png; sequential originals frames/{video}_{frame}.png",
+  "uncertainty": "Union of fixed detector boxes for both objects, enlarged5pixels, minus visible cores. Contains uncertain vehicle/occluder/background pixels; it is not an object silhouette. Remaining scene is not pure background."
+}

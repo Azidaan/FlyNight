@@ -1,0 +1,5 @@
+from common import *
+save('benchmark_addendum.json',dict(registered=now(),reason='User requests model latency and memory. Existing query-pipeline benchmark includes MASA and both resident networks; add isolated segmentation-only measurement without changing inference settings.',settings=read(OUT/'protocol.json')['settings'],warmup=10,repeats=30,frames=[1159,1164,1165],source_sha256=sha(OUT/'benchmark_seg.py')))
+inputs=dict(read(OUT/'protocol.json')['inputs']);inputs[(OUT/'benchmark_seg.py').relative_to(ROOT).as_posix()]=sha(OUT/'benchmark_seg.py')
+save('benchmark_queue.json',dict(runner_sha256=sha(OUT/'run_queue.py'),deadline=read(OUT/'protocol.json')['deadline'],inputs=inputs,jobs=[dict(entry=(OUT/'benchmark_seg.py').relative_to(ROOT).as_posix(),timeout=300)]))
+journal('Дополнение до замера: отдельно измеряется YOLO26n-seg в собственном процессе, поскольку исходный замер пути запроса включает MASA и обе загруженные сети. Настройки960/FP32/порог0,25,10прогревов/30повторов неизменны. Источник '+OUT.relative_to(ROOT).as_posix()+'/benchmark_addendum.json. Обработка новых случаев остаётся после2179; полный трекер не запускается.')

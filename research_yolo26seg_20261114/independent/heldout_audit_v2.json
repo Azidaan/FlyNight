@@ -1,0 +1,1143 @@
+{
+  "passed": true,
+  "audited": "2026-11-14T01:39:33.268933+03:00",
+  "stage": "heldout",
+  "vector_count": 144,
+  "timing_count": 270,
+  "device": {
+    "torch": "2.10.0+cu130",
+    "gpu": "NVIDIA GeForce RTX 5070",
+    "gpu_total_bytes": 12820348928,
+    "end2end": true,
+    "model_dtype": "torch.float32",
+    "model_parameter_count": 2722980,
+    "after_fusion_hashes": {
+      "masa": "a902f2f909413fed01f74980f5be640044dbfce8b19f408e754e670f4d634dbd",
+      "seg": "0159dab71b4ce121edca18594d6ad9c7b2c7851118d04bce9972a7d25ec2f668"
+    },
+    "settings": {
+      "imgsz": 960,
+      "conf": 0.25,
+      "iou": 0.7,
+      "max_det": 300,
+      "retina_masks": true,
+      "rect": true,
+      "half": false,
+      "batch": 1,
+      "classes": [
+        2
+      ],
+      "device": 0,
+      "verbose": false,
+      "save": false
+    }
+  },
+  "assignments": [
+    {
+      "event": "B_day_shop",
+      "frame": 537,
+      "roles": [
+        "target_ref",
+        "competitor_ref"
+      ],
+      "selected": [
+        4,
+        2
+      ],
+      "objective": 1.25566183177927,
+      "optimal_count": 1,
+      "top1_collisions": {},
+      "independently_optimal": true
+    },
+    {
+      "event": "B_day_shop",
+      "frame": 543,
+      "roles": [
+        "query"
+      ],
+      "selected": [
+        3
+      ],
+      "objective": 0.8954796319229562,
+      "optimal_count": 1,
+      "top1_collisions": {},
+      "independently_optimal": true
+    },
+    {
+      "event": "B_night_rain",
+      "frame": 529,
+      "roles": [
+        "target_ref",
+        "competitor_ref"
+      ],
+      "selected": [
+        -1,
+        1
+      ],
+      "objective": 0.9621943645469747,
+      "optimal_count": 1,
+      "top1_collisions": {
+        "1": [
+          "target_ref",
+          "competitor_ref"
+        ]
+      },
+      "independently_optimal": true
+    },
+    {
+      "event": "B_night_rain",
+      "frame": 534,
+      "roles": [
+        "query"
+      ],
+      "selected": [
+        1
+      ],
+      "objective": 0.028854817975494856,
+      "optimal_count": 1,
+      "top1_collisions": {},
+      "independently_optimal": true
+    },
+    {
+      "event": "B_dusk_queue",
+      "frame": 145,
+      "roles": [
+        "target_ref",
+        "competitor_ref"
+      ],
+      "selected": [
+        2,
+        0
+      ],
+      "objective": 1.7581063207166006,
+      "optimal_count": 1,
+      "top1_collisions": {},
+      "independently_optimal": true
+    },
+    {
+      "event": "B_dusk_queue",
+      "frame": 150,
+      "roles": [
+        "query"
+      ],
+      "selected": [
+        3
+      ],
+      "objective": 0.8568949704551118,
+      "optimal_count": 1,
+      "top1_collisions": {},
+      "independently_optimal": true
+    }
+  ],
+  "pixel_coverages": [
+    {
+      "mask_pixels": 1611,
+      "target_core_pixels": 396,
+      "target_core_intersection": 386,
+      "target_core_coverage": 0.9747474747474747,
+      "mask_fraction_in_target_core": 0.23960273122284295,
+      "other_physical_core": {
+        "intersection": 0,
+        "mask_fraction": 0.0,
+        "core_coverage": 0.0
+      },
+      "event": "B_day_shop",
+      "role": "target_ref",
+      "selected": 4,
+      "missing": false,
+      "unclassified_pixels": 1225,
+      "covers_both_physical_cores": false
+    },
+    {
+      "mask_pixels": 444,
+      "target_core_pixels": 189,
+      "target_core_intersection": 189,
+      "target_core_coverage": 1.0,
+      "mask_fraction_in_target_core": 0.42567567567567566,
+      "other_physical_core": {
+        "intersection": 0,
+        "mask_fraction": 0.0,
+        "core_coverage": 0.0
+      },
+      "event": "B_day_shop",
+      "role": "competitor_ref",
+      "selected": 2,
+      "missing": false,
+      "unclassified_pixels": 255,
+      "covers_both_physical_cores": false
+    },
+    {
+      "mask_pixels": 1276,
+      "target_core_pixels": 464,
+      "target_core_intersection": 456,
+      "target_core_coverage": 0.9827586206896551,
+      "mask_fraction_in_target_core": 0.3573667711598746,
+      "other_physical_core": {
+        "intersection": 0,
+        "mask_fraction": 0.0,
+        "core_coverage": 0.0
+      },
+      "event": "B_day_shop",
+      "role": "query",
+      "selected": 3,
+      "missing": false,
+      "unclassified_pixels": 820,
+      "covers_both_physical_cores": false
+    },
+    {
+      "mask_pixels": 0,
+      "target_core_pixels": 498,
+      "target_core_intersection": 0,
+      "target_core_coverage": 0.0,
+      "mask_fraction_in_target_core": null,
+      "other_physical_core": {
+        "intersection": 0,
+        "mask_fraction": null,
+        "core_coverage": 0.0
+      },
+      "event": "B_night_rain",
+      "role": "target_ref",
+      "selected": null,
+      "missing": true,
+      "unclassified_pixels": 0,
+      "covers_both_physical_cores": false
+    },
+    {
+      "mask_pixels": 15027,
+      "target_core_pixels": 3890,
+      "target_core_intersection": 3890,
+      "target_core_coverage": 1.0,
+      "mask_fraction_in_target_core": 0.2588673720636188,
+      "other_physical_core": {
+        "intersection": 0,
+        "mask_fraction": 0.0,
+        "core_coverage": 0.0
+      },
+      "event": "B_night_rain",
+      "role": "competitor_ref",
+      "selected": 1,
+      "missing": false,
+      "unclassified_pixels": 11137,
+      "covers_both_physical_cores": false
+    },
+    {
+      "mask_pixels": 16489,
+      "target_core_pixels": 828,
+      "target_core_intersection": 0,
+      "target_core_coverage": 0.0,
+      "mask_fraction_in_target_core": 0.0,
+      "other_physical_core": {
+        "intersection": 4203,
+        "mask_fraction": 0.2548972041967372,
+        "core_coverage": 1.0
+      },
+      "event": "B_night_rain",
+      "role": "query",
+      "selected": 1,
+      "missing": false,
+      "unclassified_pixels": 12286,
+      "covers_both_physical_cores": false
+    },
+    {
+      "mask_pixels": 11629,
+      "target_core_pixels": 3564,
+      "target_core_intersection": 3564,
+      "target_core_coverage": 1.0,
+      "mask_fraction_in_target_core": 0.3064751913320148,
+      "other_physical_core": {
+        "intersection": 0,
+        "mask_fraction": 0.0,
+        "core_coverage": 0.0
+      },
+      "event": "B_dusk_queue",
+      "role": "target_ref",
+      "selected": 2,
+      "missing": false,
+      "unclassified_pixels": 8065,
+      "covers_both_physical_cores": false
+    },
+    {
+      "mask_pixels": 23868,
+      "target_core_pixels": 7576,
+      "target_core_intersection": 7576,
+      "target_core_coverage": 1.0,
+      "mask_fraction_in_target_core": 0.3174124350594939,
+      "other_physical_core": {
+        "intersection": 0,
+        "mask_fraction": 0.0,
+        "core_coverage": 0.0
+      },
+      "event": "B_dusk_queue",
+      "role": "competitor_ref",
+      "selected": 0,
+      "missing": false,
+      "unclassified_pixels": 16292,
+      "covers_both_physical_cores": false
+    },
+    {
+      "mask_pixels": 12471,
+      "target_core_pixels": 3721,
+      "target_core_intersection": 3721,
+      "target_core_coverage": 1.0,
+      "mask_fraction_in_target_core": 0.29837222355865606,
+      "other_physical_core": {
+        "intersection": 0,
+        "mask_fraction": 0.0,
+        "core_coverage": 0.0
+      },
+      "event": "B_dusk_queue",
+      "role": "query",
+      "selected": 3,
+      "missing": false,
+      "unclassified_pixels": 8750,
+      "covers_both_physical_cores": false
+    }
+  ],
+  "comparisons": [
+    {
+      "event": "B_day_shop",
+      "arm": "full",
+      "fill": "imagenet_mean",
+      "level": -1,
+      "target_cosine": 0.5213554710171301,
+      "competitor_cosine": 0.33290018776140806,
+      "margin_target_minus_competitor": 0.18845528325572203,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "full",
+      "fill": "imagenet_mean",
+      "level": 0,
+      "target_cosine": 0.5213554710171301,
+      "competitor_cosine": 0.33290018776140806,
+      "margin_target_minus_competitor": 0.18845528325572203,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "full",
+      "fill": "black",
+      "level": -1,
+      "target_cosine": 0.5213554710171301,
+      "competitor_cosine": 0.33290018776140806,
+      "margin_target_minus_competitor": 0.18845528325572203,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "full",
+      "fill": "black",
+      "level": 0,
+      "target_cosine": 0.5213554710171301,
+      "competitor_cosine": 0.33290018776140806,
+      "margin_target_minus_competitor": 0.18845528325572203,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "rectangle",
+      "fill": "imagenet_mean",
+      "level": -1,
+      "target_cosine": 0.8859386128395051,
+      "competitor_cosine": 0.7501319721906647,
+      "margin_target_minus_competitor": 0.1358066406488404,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "rectangle",
+      "fill": "imagenet_mean",
+      "level": 0,
+      "target_cosine": 0.8859386128395051,
+      "competitor_cosine": 0.7501319721906647,
+      "margin_target_minus_competitor": 0.1358066406488404,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "rectangle",
+      "fill": "black",
+      "level": -1,
+      "target_cosine": 0.8741435062988833,
+      "competitor_cosine": 0.7514602200010646,
+      "margin_target_minus_competitor": 0.12268328629781866,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "rectangle",
+      "fill": "black",
+      "level": 0,
+      "target_cosine": 0.8741435062988833,
+      "competitor_cosine": 0.7514602200010646,
+      "margin_target_minus_competitor": 0.12268328629781866,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "manual",
+      "fill": "imagenet_mean",
+      "level": -1,
+      "target_cosine": 0.8259834155158211,
+      "competitor_cosine": 0.6569151372023639,
+      "margin_target_minus_competitor": 0.16906827831345717,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "manual",
+      "fill": "imagenet_mean",
+      "level": 0,
+      "target_cosine": 0.8259834155158211,
+      "competitor_cosine": 0.6569151372023639,
+      "margin_target_minus_competitor": 0.16906827831345717,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "manual",
+      "fill": "black",
+      "level": -1,
+      "target_cosine": 0.8461190802694233,
+      "competitor_cosine": 0.7223808713983381,
+      "margin_target_minus_competitor": 0.12373820887108522,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "manual",
+      "fill": "black",
+      "level": 0,
+      "target_cosine": 0.8461190802694233,
+      "competitor_cosine": 0.7223808713983381,
+      "margin_target_minus_competitor": 0.12373820887108522,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "automatic",
+      "fill": "imagenet_mean",
+      "level": -1,
+      "target_cosine": 0.830367487802779,
+      "competitor_cosine": 0.5564147097630654,
+      "margin_target_minus_competitor": 0.27395277803971363,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "automatic",
+      "fill": "imagenet_mean",
+      "level": 0,
+      "target_cosine": 0.830367487802779,
+      "competitor_cosine": 0.5564147097630654,
+      "margin_target_minus_competitor": 0.27395277803971363,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "automatic",
+      "fill": "black",
+      "level": -1,
+      "target_cosine": 0.839768309705625,
+      "competitor_cosine": 0.42380650526298774,
+      "margin_target_minus_competitor": 0.41596180444263725,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_day_shop",
+      "arm": "automatic",
+      "fill": "black",
+      "level": 0,
+      "target_cosine": 0.839768309705625,
+      "competitor_cosine": 0.42380650526298774,
+      "margin_target_minus_competitor": 0.41596180444263725,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "full",
+      "fill": "imagenet_mean",
+      "level": -1,
+      "target_cosine": 0.7408712810827679,
+      "competitor_cosine": 0.10839173268432334,
+      "margin_target_minus_competitor": 0.6324795483984446,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "full",
+      "fill": "imagenet_mean",
+      "level": 0,
+      "target_cosine": 0.7623141765565331,
+      "competitor_cosine": 0.1083603390323448,
+      "margin_target_minus_competitor": 0.6539538375241883,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "full",
+      "fill": "black",
+      "level": -1,
+      "target_cosine": 0.7408712810827679,
+      "competitor_cosine": 0.10839173268432334,
+      "margin_target_minus_competitor": 0.6324795483984446,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "full",
+      "fill": "black",
+      "level": 0,
+      "target_cosine": 0.7623141765565331,
+      "competitor_cosine": 0.1083603390323448,
+      "margin_target_minus_competitor": 0.6539538375241883,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "rectangle",
+      "fill": "imagenet_mean",
+      "level": -1,
+      "target_cosine": 0.8603929609670957,
+      "competitor_cosine": 0.6833213836721371,
+      "margin_target_minus_competitor": 0.1770715772949586,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "rectangle",
+      "fill": "imagenet_mean",
+      "level": 0,
+      "target_cosine": 0.9401958617763544,
+      "competitor_cosine": 0.751599850419283,
+      "margin_target_minus_competitor": 0.18859601135707138,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "rectangle",
+      "fill": "black",
+      "level": -1,
+      "target_cosine": 0.7791703731176989,
+      "competitor_cosine": 0.554613283203391,
+      "margin_target_minus_competitor": 0.2245570899143079,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "rectangle",
+      "fill": "black",
+      "level": 0,
+      "target_cosine": 0.8726521172268279,
+      "competitor_cosine": 0.6617248315084593,
+      "margin_target_minus_competitor": 0.2109272857183686,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "manual",
+      "fill": "imagenet_mean",
+      "level": -1,
+      "target_cosine": 0.8348156205293861,
+      "competitor_cosine": 0.35537640701663165,
+      "margin_target_minus_competitor": 0.4794392135127544,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "manual",
+      "fill": "imagenet_mean",
+      "level": 0,
+      "target_cosine": 0.9391567333645623,
+      "competitor_cosine": 0.44717639981142804,
+      "margin_target_minus_competitor": 0.49198033355313425,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "manual",
+      "fill": "black",
+      "level": -1,
+      "target_cosine": 0.6590181496223042,
+      "competitor_cosine": 0.2972422711860796,
+      "margin_target_minus_competitor": 0.3617758784362246,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "manual",
+      "fill": "black",
+      "level": 0,
+      "target_cosine": 0.734287002032577,
+      "competitor_cosine": 0.3481503223412638,
+      "margin_target_minus_competitor": 0.3861366796913132,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "automatic",
+      "fill": "imagenet_mean",
+      "level": -1,
+      "target_cosine": 0.3453711936395836,
+      "competitor_cosine": 0.005532416748258923,
+      "margin_target_minus_competitor": 0.33983877689132463,
+      "all_required_masks_present": false,
+      "target_preferred": false,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "automatic",
+      "fill": "imagenet_mean",
+      "level": 0,
+      "target_cosine": 0.4067416103341223,
+      "competitor_cosine": -0.015437265962794216,
+      "margin_target_minus_competitor": 0.4221788762969165,
+      "all_required_masks_present": false,
+      "target_preferred": false,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "automatic",
+      "fill": "black",
+      "level": -1,
+      "target_cosine": 0.2059610392204376,
+      "competitor_cosine": 0.20767268641622733,
+      "margin_target_minus_competitor": -0.0017116471957897283,
+      "all_required_masks_present": false,
+      "target_preferred": false,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_night_rain",
+      "arm": "automatic",
+      "fill": "black",
+      "level": 0,
+      "target_cosine": 0.22653051989238254,
+      "competitor_cosine": 0.16261885136590395,
+      "margin_target_minus_competitor": 0.06391166852647859,
+      "all_required_masks_present": false,
+      "target_preferred": false,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "full",
+      "fill": "imagenet_mean",
+      "level": -1,
+      "target_cosine": 0.9659136333503172,
+      "competitor_cosine": 0.27802082959305824,
+      "margin_target_minus_competitor": 0.6878928037572589,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "full",
+      "fill": "imagenet_mean",
+      "level": 0,
+      "target_cosine": 0.9659136333503172,
+      "competitor_cosine": 0.3350362615930073,
+      "margin_target_minus_competitor": 0.63087737175731,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "full",
+      "fill": "black",
+      "level": -1,
+      "target_cosine": 0.9659136333503172,
+      "competitor_cosine": 0.27802082959305824,
+      "margin_target_minus_competitor": 0.6878928037572589,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "full",
+      "fill": "black",
+      "level": 0,
+      "target_cosine": 0.9659136333503172,
+      "competitor_cosine": 0.3350362615930073,
+      "margin_target_minus_competitor": 0.63087737175731,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "rectangle",
+      "fill": "imagenet_mean",
+      "level": -1,
+      "target_cosine": 0.9909059694152289,
+      "competitor_cosine": 0.8292394065937736,
+      "margin_target_minus_competitor": 0.1616665628214553,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "rectangle",
+      "fill": "imagenet_mean",
+      "level": 0,
+      "target_cosine": 0.9909059694152289,
+      "competitor_cosine": 0.8241348175396523,
+      "margin_target_minus_competitor": 0.16677115187557656,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "rectangle",
+      "fill": "black",
+      "level": -1,
+      "target_cosine": 0.9886788843629563,
+      "competitor_cosine": 0.7168784707655314,
+      "margin_target_minus_competitor": 0.2718004135974249,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "rectangle",
+      "fill": "black",
+      "level": 0,
+      "target_cosine": 0.9886788843629563,
+      "competitor_cosine": 0.7250720951584291,
+      "margin_target_minus_competitor": 0.2636067892045272,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "manual",
+      "fill": "imagenet_mean",
+      "level": -1,
+      "target_cosine": 0.9843295304733176,
+      "competitor_cosine": 0.7771725115395732,
+      "margin_target_minus_competitor": 0.20715701893374439,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "manual",
+      "fill": "imagenet_mean",
+      "level": 0,
+      "target_cosine": 0.9843295304733176,
+      "competitor_cosine": 0.8212859040216455,
+      "margin_target_minus_competitor": 0.16304362645167214,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "manual",
+      "fill": "black",
+      "level": -1,
+      "target_cosine": 0.9886613550583306,
+      "competitor_cosine": 0.6379180407240577,
+      "margin_target_minus_competitor": 0.35074331433427297,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "manual",
+      "fill": "black",
+      "level": 0,
+      "target_cosine": 0.9886613550583306,
+      "competitor_cosine": 0.7140700686027388,
+      "margin_target_minus_competitor": 0.27459128645559183,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "automatic",
+      "fill": "imagenet_mean",
+      "level": -1,
+      "target_cosine": 0.9865747924654331,
+      "competitor_cosine": 0.7898450564852316,
+      "margin_target_minus_competitor": 0.1967297359802015,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "automatic",
+      "fill": "imagenet_mean",
+      "level": 0,
+      "target_cosine": 0.9865747924654331,
+      "competitor_cosine": 0.8173890519217976,
+      "margin_target_minus_competitor": 0.16918574054363555,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "automatic",
+      "fill": "black",
+      "level": -1,
+      "target_cosine": 0.9798632735009136,
+      "competitor_cosine": 0.6411457025090093,
+      "margin_target_minus_competitor": 0.33871757099190436,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    },
+    {
+      "event": "B_dusk_queue",
+      "arm": "automatic",
+      "fill": "black",
+      "level": 0,
+      "target_cosine": 0.9798632735009136,
+      "competitor_cosine": 0.6993217624633821,
+      "margin_target_minus_competitor": 0.28054151103753155,
+      "all_required_masks_present": true,
+      "target_preferred": true,
+      "scope": "Physical target/competitor descriptor comparison; no assertion of public-ID correctness for mixed detector box."
+    }
+  ],
+  "parity": [
+    {
+      "event": "B_day_shop",
+      "role": "target_ref",
+      "level": -1,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_day_shop",
+      "role": "target_ref",
+      "level": 0,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_day_shop",
+      "role": "competitor_ref",
+      "level": -1,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_day_shop",
+      "role": "competitor_ref",
+      "level": 0,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_day_shop",
+      "role": "query",
+      "level": -1,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_day_shop",
+      "role": "query",
+      "level": 0,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_night_rain",
+      "role": "target_ref",
+      "level": -1,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_night_rain",
+      "role": "target_ref",
+      "level": 0,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_night_rain",
+      "role": "competitor_ref",
+      "level": -1,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_night_rain",
+      "role": "competitor_ref",
+      "level": 0,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_night_rain",
+      "role": "query",
+      "level": -1,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_night_rain",
+      "role": "query",
+      "level": 0,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_dusk_queue",
+      "role": "target_ref",
+      "level": -1,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_dusk_queue",
+      "role": "target_ref",
+      "level": 0,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_dusk_queue",
+      "role": "competitor_ref",
+      "level": -1,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_dusk_queue",
+      "role": "competitor_ref",
+      "level": 0,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_dusk_queue",
+      "role": "query",
+      "level": -1,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    },
+    {
+      "event": "B_dusk_queue",
+      "role": "query",
+      "level": 0,
+      "control": "full_fill_identity",
+      "max_abs_error": 0.0
+    }
+  ],
+  "timing": [
+    {
+      "count": 30,
+      "min_ms": 96.75660000357311,
+      "median_ms": 128.88905000363593,
+      "p95_ms": 153.79081999672053,
+      "max_ms": 168.035200003942,
+      "mean_ms": 131.58660000068872,
+      "event": "B_day_shop",
+      "arm": "full",
+      "peak_gpu_allocated_bytes": 774455808,
+      "peak_gpu_reserved_bytes": 933232640,
+      "peak_process_rss_bytes": 2618376192,
+      "registered_performance_gate": true
+    },
+    {
+      "count": 30,
+      "min_ms": 136.36179999593878,
+      "median_ms": 161.9107000005897,
+      "p95_ms": 190.55680000019493,
+      "max_ms": 196.03909999568714,
+      "mean_ms": 164.8227366657617,
+      "event": "B_day_shop",
+      "arm": "manual",
+      "peak_gpu_allocated_bytes": 774455808,
+      "peak_gpu_reserved_bytes": 933232640,
+      "peak_process_rss_bytes": 2618376192,
+      "registered_performance_gate": true
+    },
+    {
+      "count": 30,
+      "min_ms": 189.51489999744808,
+      "median_ms": 211.37575000466313,
+      "p95_ms": 233.59030500287187,
+      "max_ms": 254.76560000242898,
+      "mean_ms": 211.1472300006426,
+      "event": "B_day_shop",
+      "arm": "automatic",
+      "peak_gpu_allocated_bytes": 774455808,
+      "peak_gpu_reserved_bytes": 933232640,
+      "peak_process_rss_bytes": 2618376192,
+      "registered_performance_gate": false
+    },
+    {
+      "count": 30,
+      "min_ms": 73.40709999698447,
+      "median_ms": 127.65700000090874,
+      "p95_ms": 144.39365500002168,
+      "max_ms": 147.38490000308957,
+      "mean_ms": 117.80377333319241,
+      "event": "B_night_rain",
+      "arm": "full",
+      "peak_gpu_allocated_bytes": 771137536,
+      "peak_gpu_reserved_bytes": 941621248,
+      "peak_process_rss_bytes": 2630930432,
+      "registered_performance_gate": true
+    },
+    {
+      "count": 30,
+      "min_ms": 99.13139999844134,
+      "median_ms": 154.99914999963949,
+      "p95_ms": 185.02256500214565,
+      "max_ms": 285.48179999779677,
+      "mean_ms": 155.14700000057928,
+      "event": "B_night_rain",
+      "arm": "manual",
+      "peak_gpu_allocated_bytes": 771137536,
+      "peak_gpu_reserved_bytes": 941621248,
+      "peak_process_rss_bytes": 2630930432,
+      "registered_performance_gate": true
+    },
+    {
+      "count": 30,
+      "min_ms": 155.06599999935133,
+      "median_ms": 194.69884999853093,
+      "p95_ms": 231.12275499806853,
+      "max_ms": 247.338100001798,
+      "mean_ms": 196.91292999947714,
+      "event": "B_night_rain",
+      "arm": "automatic",
+      "peak_gpu_allocated_bytes": 770891776,
+      "peak_gpu_reserved_bytes": 941621248,
+      "peak_process_rss_bytes": 2630930432,
+      "registered_performance_gate": false
+    },
+    {
+      "count": 30,
+      "min_ms": 67.4010000002454,
+      "median_ms": 70.00745000186726,
+      "p95_ms": 76.04614499796298,
+      "max_ms": 76.98600000003353,
+      "mean_ms": 70.33332999950896,
+      "event": "B_dusk_queue",
+      "arm": "full",
+      "peak_gpu_allocated_bytes": 774484480,
+      "peak_gpu_reserved_bytes": 941621248,
+      "peak_process_rss_bytes": 2648215552,
+      "registered_performance_gate": true
+    },
+    {
+      "count": 30,
+      "min_ms": 90.588499995647,
+      "median_ms": 95.50249999665539,
+      "p95_ms": 101.90297000008285,
+      "max_ms": 108.65449999982957,
+      "mean_ms": 96.02854999999788,
+      "event": "B_dusk_queue",
+      "arm": "manual",
+      "peak_gpu_allocated_bytes": 774484480,
+      "peak_gpu_reserved_bytes": 941621248,
+      "peak_process_rss_bytes": 2648215552,
+      "registered_performance_gate": true
+    },
+    {
+      "count": 30,
+      "min_ms": 118.58940000092844,
+      "median_ms": 124.9913000028755,
+      "p95_ms": 135.48290999569872,
+      "max_ms": 155.00660000543576,
+      "mean_ms": 126.66776333353482,
+      "event": "B_dusk_queue",
+      "arm": "automatic",
+      "peak_gpu_allocated_bytes": 774484480,
+      "peak_gpu_reserved_bytes": 941621248,
+      "peak_process_rss_bytes": 2648215552,
+      "registered_performance_gate": true
+    }
+  ],
+  "primary_hashes": {
+    "results.json": "329df7d3dc3117249e3408849396d0f75eb5604f892a16b4a78b4adbe1c1face",
+    "vectors.npz": "0d0c6b0b575f97ce0ce42a55acd03871408e91c86c8382c5e6df5ded26825a41",
+    "masks.npz": "eb999f18fbe99a12dfaded2775279368202bd4627f0eb4d3d46e8989400656fd",
+    "device.json": "4e89edc15841bb8f34cf8b481c7db308fb5cf5d38509b34076563ec2af3ecaf4",
+    "execution_protocol.json": "1f51528f2c5616a4b784d4f0755eec2d787487fad2188a1b43603ed85f813637"
+  },
+  "limitations": [
+    "Partial manual cores are not complete GT contours; unknown pixels are not counted as definite segmentation error.",
+    "Automatic similarity when any required mask is missing is retained numerically but rejected as valid identity evidence.",
+    "Query timing excludes frame I/O, historical reference recomputation and human annotation; both networks resident; reserved allocator cache can reflect preceding arms.",
+    "No full tracker or population-level improvement demonstrated."
+  ]
+}

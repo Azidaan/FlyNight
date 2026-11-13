@@ -1,0 +1,905 @@
+{
+  "passed": true,
+  "created": "2026-11-14T01:33:15.115469+03:00",
+  "protocol_sha256": "c45530ef51cbd9e3804ee46a2a540985a36fb507059f16db3b7226a8a1e7bfb6",
+  "source_sha256": "d5ce333a5f90cff7e1af8553f6fff66aa218f6d8ab67a444848c82ec02f57689",
+  "prediction_receipt_sha256": "bded0738ecd45bd642ecfde334b44096549bf5d0365c92e3bc2c95c9842ec54a",
+  "counts": [
+    {
+      "frame": 1159,
+      "role": "fit",
+      "cells_by_class": [
+        563,
+        22,
+        13
+      ],
+      "unknown_cells": 123,
+      "pixels_by_class": [
+        55278,
+        2872,
+        1866
+      ],
+      "confident_core_pixels_outside_eye": [
+        0,
+        0
+      ],
+      "total_core_pixels_whole_frame": [
+        2872,
+        4680
+      ],
+      "core_pixels_in_crop": [
+        2872,
+        1866
+      ]
+    },
+    {
+      "frame": 1164,
+      "role": "evaluation",
+      "cells_by_class": [
+        495,
+        12,
+        58
+      ],
+      "unknown_cells": 156,
+      "pixels_by_class": [
+        45945,
+        1782,
+        6912
+      ],
+      "confident_core_pixels_outside_eye": [
+        0,
+        0
+      ],
+      "total_core_pixels_whole_frame": [
+        1782,
+        7213
+      ],
+      "core_pixels_in_crop": [
+        1782,
+        6912
+      ]
+    },
+    {
+      "frame": 1165,
+      "role": "evaluation",
+      "cells_by_class": [
+        494,
+        12,
+        56
+      ],
+      "unknown_cells": 159,
+      "pixels_by_class": [
+        45641,
+        1743,
+        6611
+      ],
+      "confident_core_pixels_outside_eye": [
+        0,
+        0
+      ],
+      "total_core_pixels_whole_frame": [
+        1743,
+        6877
+      ],
+      "core_pixels_in_crop": [
+        1743,
+        6611
+      ]
+    }
+  ],
+  "scores": [
+    {
+      "arm": "FlyVis34",
+      "frame": 1159,
+      "role": "fit",
+      "confusion": [
+        [
+          37436,
+          11962,
+          5880
+        ],
+        [
+          661,
+          2211,
+          0
+        ],
+        [
+          93,
+          5,
+          1768
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 37436,
+          "fn": 17842,
+          "fp": 754,
+          "iou": 0.6681182181610509,
+          "recall": 0.6772314483157856
+        },
+        {
+          "class_index": 1,
+          "tp": 2211,
+          "fn": 661,
+          "fp": 11967,
+          "iou": 0.14899925871015568,
+          "recall": 0.7698467966573816
+        },
+        {
+          "class_index": 2,
+          "tp": 1768,
+          "fn": 98,
+          "fp": 5880,
+          "iou": 0.22824683707720114,
+          "recall": 0.947481243301179
+        }
+      ],
+      "car_mean_iou": 0.1886230478936784,
+      "valid_pixels": 60016
+    },
+    {
+      "arm": "Retina_history34",
+      "frame": 1159,
+      "role": "fit",
+      "confusion": [
+        [
+          38839,
+          3462,
+          12977
+        ],
+        [
+          1606,
+          17,
+          1249
+        ],
+        [
+          289,
+          89,
+          1488
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 38839,
+          "fn": 16439,
+          "fp": 1895,
+          "iou": 0.6793241565074424,
+          "recall": 0.7026122508050219
+        },
+        {
+          "class_index": 1,
+          "tp": 17,
+          "fn": 2855,
+          "fp": 3551,
+          "iou": 0.0026467382842908296,
+          "recall": 0.005919220055710306
+        },
+        {
+          "class_index": 2,
+          "tp": 1488,
+          "fn": 378,
+          "fp": 14226,
+          "iou": 0.0924683072334079,
+          "recall": 0.797427652733119
+        }
+      ],
+      "car_mean_iou": 0.04755752275884936,
+      "valid_pixels": 60016
+    },
+    {
+      "arm": "Retina_current1",
+      "frame": 1159,
+      "role": "fit",
+      "confusion": [
+        [
+          38741,
+          0,
+          16537
+        ],
+        [
+          1526,
+          0,
+          1346
+        ],
+        [
+          260,
+          0,
+          1606
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 38741,
+          "fn": 16537,
+          "fp": 1786,
+          "iou": 0.6789043880555166,
+          "recall": 0.700839393610478
+        },
+        {
+          "class_index": 1,
+          "tp": 0,
+          "fn": 2872,
+          "fp": 0,
+          "iou": 0.0,
+          "recall": 0.0
+        },
+        {
+          "class_index": 2,
+          "tp": 1606,
+          "fn": 260,
+          "fp": 17883,
+          "iou": 0.08132057319357942,
+          "recall": 0.8606645230439443
+        }
+      ],
+      "car_mean_iou": 0.04066028659678971,
+      "valid_pixels": 60016
+    },
+    {
+      "arm": "Raw_gray1",
+      "frame": 1159,
+      "role": "fit",
+      "confusion": [
+        [
+          27688,
+          0,
+          27590
+        ],
+        [
+          1142,
+          0,
+          1730
+        ],
+        [
+          371,
+          0,
+          1495
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 27688,
+          "fn": 27590,
+          "fp": 1513,
+          "iou": 0.4875420401119896,
+          "recall": 0.500886428597272
+        },
+        {
+          "class_index": 1,
+          "tp": 0,
+          "fn": 2872,
+          "fp": 0,
+          "iou": 0.0,
+          "recall": 0.0
+        },
+        {
+          "class_index": 2,
+          "tp": 1495,
+          "fn": 371,
+          "fp": 29320,
+          "iou": 0.04793817738728917,
+          "recall": 0.8011789924973205
+        }
+      ],
+      "car_mean_iou": 0.023969088693644586,
+      "valid_pixels": 60016
+    },
+    {
+      "arm": "Raw_RGB3",
+      "frame": 1159,
+      "role": "fit",
+      "confusion": [
+        [
+          26317,
+          4273,
+          24688
+        ],
+        [
+          662,
+          891,
+          1319
+        ],
+        [
+          325,
+          0,
+          1541
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 26317,
+          "fn": 28961,
+          "fp": 987,
+          "iou": 0.4677330489647205,
+          "recall": 0.476084518253193
+        },
+        {
+          "class_index": 1,
+          "tp": 891,
+          "fn": 1981,
+          "fp": 4273,
+          "iou": 0.12470258922323303,
+          "recall": 0.3102367688022284
+        },
+        {
+          "class_index": 2,
+          "tp": 1541,
+          "fn": 325,
+          "fp": 26007,
+          "iou": 0.05528647795357514,
+          "recall": 0.8258306538049304
+        }
+      ],
+      "car_mean_iou": 0.08999453358840409,
+      "valid_pixels": 60016
+    },
+    {
+      "arm": "FlyVis34",
+      "frame": 1164,
+      "role": "evaluation",
+      "confusion": [
+        [
+          28874,
+          11900,
+          5171
+        ],
+        [
+          624,
+          1158,
+          0
+        ],
+        [
+          2628,
+          2843,
+          1441
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 28874,
+          "fn": 17071,
+          "fp": 3252,
+          "iou": 0.5869057056324573,
+          "recall": 0.6284470562629231
+        },
+        {
+          "class_index": 1,
+          "tp": 1158,
+          "fn": 624,
+          "fp": 14743,
+          "iou": 0.07007564296520423,
+          "recall": 0.6498316498316499
+        },
+        {
+          "class_index": 2,
+          "tp": 1441,
+          "fn": 5471,
+          "fp": 5171,
+          "iou": 0.11925846230240834,
+          "recall": 0.20847800925925927
+        }
+      ],
+      "car_mean_iou": 0.09466705263380629,
+      "valid_pixels": 54639
+    },
+    {
+      "arm": "Retina_history34",
+      "frame": 1164,
+      "role": "evaluation",
+      "confusion": [
+        [
+          30922,
+          5128,
+          9895
+        ],
+        [
+          843,
+          399,
+          540
+        ],
+        [
+          2825,
+          1050,
+          3037
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 30922,
+          "fn": 15023,
+          "fp": 3668,
+          "iou": 0.6232640638542317,
+          "recall": 0.6730220916312983
+        },
+        {
+          "class_index": 1,
+          "tp": 399,
+          "fn": 1383,
+          "fp": 6178,
+          "iou": 0.05012562814070352,
+          "recall": 0.2239057239057239
+        },
+        {
+          "class_index": 2,
+          "tp": 3037,
+          "fn": 3875,
+          "fp": 10435,
+          "iou": 0.17507349974058914,
+          "recall": 0.43938078703703703
+        }
+      ],
+      "car_mean_iou": 0.11259956394064632,
+      "valid_pixels": 54639
+    },
+    {
+      "arm": "Retina_current1",
+      "frame": 1164,
+      "role": "evaluation",
+      "confusion": [
+        [
+          31116,
+          0,
+          14829
+        ],
+        [
+          857,
+          0,
+          925
+        ],
+        [
+          2932,
+          0,
+          3980
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 31116,
+          "fn": 14829,
+          "fp": 3789,
+          "iou": 0.6256484497526843,
+          "recall": 0.6772445315050604
+        },
+        {
+          "class_index": 1,
+          "tp": 0,
+          "fn": 1782,
+          "fp": 0,
+          "iou": 0.0,
+          "recall": 0.0
+        },
+        {
+          "class_index": 2,
+          "tp": 3980,
+          "fn": 2932,
+          "fp": 15754,
+          "iou": 0.17559339980587665,
+          "recall": 0.5758101851851852
+        }
+      ],
+      "car_mean_iou": 0.08779669990293833,
+      "valid_pixels": 54639
+    },
+    {
+      "arm": "Raw_gray1",
+      "frame": 1164,
+      "role": "evaluation",
+      "confusion": [
+        [
+          24174,
+          0,
+          21771
+        ],
+        [
+          800,
+          0,
+          982
+        ],
+        [
+          1183,
+          0,
+          5729
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 24174,
+          "fn": 21771,
+          "fp": 1983,
+          "iou": 0.5043815723585378,
+          "recall": 0.52615083251714
+        },
+        {
+          "class_index": 1,
+          "tp": 0,
+          "fn": 1782,
+          "fp": 0,
+          "iou": 0.0,
+          "recall": 0.0
+        },
+        {
+          "class_index": 2,
+          "tp": 5729,
+          "fn": 1183,
+          "fp": 22753,
+          "iou": 0.19312320916905446,
+          "recall": 0.8288483796296297
+        }
+      ],
+      "car_mean_iou": 0.09656160458452723,
+      "valid_pixels": 54639
+    },
+    {
+      "arm": "Raw_RGB3",
+      "frame": 1164,
+      "role": "evaluation",
+      "confusion": [
+        [
+          23325,
+          2514,
+          20106
+        ],
+        [
+          580,
+          351,
+          851
+        ],
+        [
+          1087,
+          0,
+          5825
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 23325,
+          "fn": 22620,
+          "fp": 1667,
+          "iou": 0.4898975048307149,
+          "recall": 0.5076722167809338
+        },
+        {
+          "class_index": 1,
+          "tp": 351,
+          "fn": 1431,
+          "fp": 2514,
+          "iou": 0.08170391061452514,
+          "recall": 0.19696969696969696
+        },
+        {
+          "class_index": 2,
+          "tp": 5825,
+          "fn": 1087,
+          "fp": 20957,
+          "iou": 0.2090135993397682,
+          "recall": 0.8427372685185185
+        }
+      ],
+      "car_mean_iou": 0.14535875497714668,
+      "valid_pixels": 54639
+    },
+    {
+      "arm": "FlyVis34",
+      "frame": 1165,
+      "role": "evaluation",
+      "confusion": [
+        [
+          28284,
+          12521,
+          4836
+        ],
+        [
+          609,
+          1134,
+          0
+        ],
+        [
+          2865,
+          2502,
+          1244
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 28284,
+          "fn": 17357,
+          "fp": 3474,
+          "iou": 0.575872951236893,
+          "recall": 0.6197059661269473
+        },
+        {
+          "class_index": 1,
+          "tp": 1134,
+          "fn": 609,
+          "fp": 15023,
+          "iou": 0.06763688417034475,
+          "recall": 0.6506024096385542
+        },
+        {
+          "class_index": 2,
+          "tp": 1244,
+          "fn": 5367,
+          "fp": 4836,
+          "iou": 0.1086747619463615,
+          "recall": 0.18817122976856754
+        }
+      ],
+      "car_mean_iou": 0.08815582305835312,
+      "valid_pixels": 53995
+    },
+    {
+      "arm": "Retina_history34",
+      "frame": 1165,
+      "role": "evaluation",
+      "confusion": [
+        [
+          30489,
+          5571,
+          9581
+        ],
+        [
+          737,
+          227,
+          779
+        ],
+        [
+          3019,
+          965,
+          2627
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 30489,
+          "fn": 15152,
+          "fp": 3756,
+          "iou": 0.6172237180395571,
+          "recall": 0.6680177910212309
+        },
+        {
+          "class_index": 1,
+          "tp": 227,
+          "fn": 1516,
+          "fp": 6536,
+          "iou": 0.027418770382896484,
+          "recall": 0.13023522662076878
+        },
+        {
+          "class_index": 2,
+          "tp": 2627,
+          "fn": 3984,
+          "fp": 10360,
+          "iou": 0.15479347121560308,
+          "recall": 0.39736802299198304
+        }
+      ],
+      "car_mean_iou": 0.09110612079924978,
+      "valid_pixels": 53995
+    },
+    {
+      "arm": "Retina_current1",
+      "frame": 1165,
+      "role": "evaluation",
+      "confusion": [
+        [
+          30757,
+          0,
+          14884
+        ],
+        [
+          837,
+          0,
+          906
+        ],
+        [
+          3099,
+          0,
+          3512
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 30757,
+          "fn": 14884,
+          "fp": 3936,
+          "iou": 0.6203884865966073,
+          "recall": 0.6738897044324182
+        },
+        {
+          "class_index": 1,
+          "tp": 0,
+          "fn": 1743,
+          "fp": 0,
+          "iou": 0.0,
+          "recall": 0.0
+        },
+        {
+          "class_index": 2,
+          "tp": 3512,
+          "fn": 3099,
+          "fp": 15790,
+          "iou": 0.15677871523592696,
+          "recall": 0.5312358190893964
+        }
+      ],
+      "car_mean_iou": 0.07838935761796348,
+      "valid_pixels": 53995
+    },
+    {
+      "arm": "Raw_gray1",
+      "frame": 1165,
+      "role": "evaluation",
+      "confusion": [
+        [
+          24834,
+          0,
+          20807
+        ],
+        [
+          756,
+          0,
+          987
+        ],
+        [
+          1103,
+          0,
+          5508
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 24834,
+          "fn": 20807,
+          "fp": 1859,
+          "iou": 0.522821052631579,
+          "recall": 0.5441160360202449
+        },
+        {
+          "class_index": 1,
+          "tp": 0,
+          "fn": 1743,
+          "fp": 0,
+          "iou": 0.0,
+          "recall": 0.0
+        },
+        {
+          "class_index": 2,
+          "tp": 5508,
+          "fn": 1103,
+          "fp": 21794,
+          "iou": 0.19390952297130787,
+          "recall": 0.833156859779156
+        }
+      ],
+      "car_mean_iou": 0.09695476148565393,
+      "valid_pixels": 53995
+    },
+    {
+      "arm": "Raw_RGB3",
+      "frame": 1165,
+      "role": "evaluation",
+      "confusion": [
+        [
+          23618,
+          2020,
+          20003
+        ],
+        [
+          410,
+          461,
+          872
+        ],
+        [
+          1103,
+          0,
+          5508
+        ]
+      ],
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 23618,
+          "fn": 22023,
+          "fp": 1513,
+          "iou": 0.5008694914535352,
+          "recall": 0.5174733244232159
+        },
+        {
+          "class_index": 1,
+          "tp": 461,
+          "fn": 1282,
+          "fp": 2020,
+          "iou": 0.12250863672601647,
+          "recall": 0.26448651749856567
+        },
+        {
+          "class_index": 2,
+          "tp": 5508,
+          "fn": 1103,
+          "fp": 20875,
+          "iou": 0.20039292730844793,
+          "recall": 0.833156859779156
+        }
+      ],
+      "car_mean_iou": 0.1614507820172322,
+      "valid_pixels": 53995
+    }
+  ],
+  "fit_seconds": {
+    "FlyVis34": 0.06561280000460101,
+    "Retina_history34": 0.0007760000007692724,
+    "Retina_current1": 0.0003184000015608035,
+    "Raw_gray1": 0.0003171999996993691,
+    "Raw_RGB3": 0.0004278999986127019
+  },
+  "prediction_seconds": {
+    "FlyVis34_1159": 0.0007723000016994774,
+    "FlyVis34_1164": 0.0006857000043964945,
+    "FlyVis34_1165": 0.0010148000001208857,
+    "Retina_history34_1159": 0.0007167999938246794,
+    "Retina_history34_1164": 0.0008598000058555044,
+    "Retina_history34_1165": 0.0009572999988449737,
+    "Retina_current1_1159": 0.0009334999995189719,
+    "Retina_current1_1164": 0.0009265000044251792,
+    "Retina_current1_1165": 0.000869700001203455,
+    "Raw_gray1_1159": 0.0010975999975926243,
+    "Raw_gray1_1164": 0.0009044000034919009,
+    "Raw_gray1_1165": 0.0009302000034949742,
+    "Raw_RGB3_1159": 0.00112269999954151,
+    "Raw_RGB3_1164": 0.0009209999989252537,
+    "Raw_RGB3_1165": 0.0008901999972295016
+  },
+  "total_seconds": 1.563136900003883,
+  "rss_bytes": 106565632,
+  "peak_working_set_bytes": 132153344,
+  "label_access_log": [
+    {
+      "frame": 1159,
+      "time": "2026-11-14T01:33:13.953440+03:00"
+    },
+    {
+      "frame": 1159,
+      "time": "2026-11-14T01:33:14.463658+03:00"
+    },
+    {
+      "frame": 1164,
+      "time": "2026-11-14T01:33:14.687995+03:00"
+    },
+    {
+      "frame": 1165,
+      "time": "2026-11-14T01:33:14.885391+03:00"
+    }
+  ],
+  "scope": "Frozen archived neural maps; first-frame supervised three-class per-cell readout. Same-scene same-object transfer, not independent-video generalization or full silhouette ground truth.",
+  "new_core_calls": 0,
+  "gpu_calls": 0,
+  "full_tracker_calls": 0,
+  "original_maps_unchanged": true,
+  "feature_dimensions": {
+    "FlyVis34": 34,
+    "Retina_history34": 34,
+    "Retina_current1": 1,
+    "Raw_gray1": 1,
+    "Raw_RGB3": 3
+  },
+  "warnings": [
+    "Onlyknownpixelsinsideeyeareevaluated;uncertainfullsilhouettenotgroundtruth.",
+    "Featuresretainarchivedmovingcropandmissing1160historystep;notnewcontinuousvideoeye.",
+    "Matchedhistory34controlhassamefeaturecount;RGB/graycontrolshavefewerfeaturesbutsamefixedlearner.",
+    "OldretinalfeaturesincludeLamina preprocessing;rawRGBandgraycontrolsuseoriginalpixels."
+  ]
+}

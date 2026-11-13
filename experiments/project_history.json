@@ -35093,6 +35093,155 @@
       "interpretation": "Подтверждён условный причинный вклад выбора уровня признаков; предпочтение существует даже на однотонном входе. Совместное выделение видимой части и согласование мелкого масштаба различают два объекта в этой диагностике. Одной причины «сосед» или «фон» не установлено. Предыдущая IoU-метка не доказывает владельца видимого содержания110260.",
       "decision": "Сохранить положительный локальный результат и исправление интерпретации прежней ошибки. Не внедрять ручные маски или общий уровень без автоматической проверки на новых случаях. По поручению автора зарегистрировать гипотезу лёгкой сегментации отдельных объектов.",
       "cannot_claim": "Один знакомый случай, ручные консервативные маски, два заполнения; нет независимого обобщения, HOTA, полного назначения или жизненного цикла. Автоматическая SAM здесь сливает машины; перестановка GT-ID не доказана. Нет изменения ядра FlyVis или рабочих моделей."
+    },
+    {
+      "id": "yolo26n_seg_visible_part_20261114",
+      "title": "Лёгкие автоматические маски машин — YOLO26n-seg на2179 и новых случаях",
+      "area": "own_tracker",
+      "state": "completed_negative",
+      "started": "2026-11-14",
+      "question": "Может ли готовая малая сеть выделить доступную часть машины и сохранить правильное сходство при приемлемой вычислительной цене?",
+      "hypothesis": "Автоматические маски могут заменить ручное выделение видимых частей; альтернативы — слияние соседей, пропуск маленькой части и отсутствие улучшения представления.",
+      "expected": "Сравнить полную рамку, геометрическое ограничение, ручные и автоматические маски; измерить скорость и память на фиксированном оборудовании.",
+      "acceptance": [
+        {
+          "criterion": "Before outcomes: fixed pretrained official YOLO26n-seg, image960 FP32 batch1 conf0.25 max_det300 retina_masks=True rect=True, no tuning/training or production edits.",
+          "met": true,
+          "evidence": "research_yolo26seg_20261114/summary.json; research_yolo26seg_20261114/independent/heldout_audit_v2.json"
+        },
+        {
+          "criterion": "Preserve original frame/ROI/MASA batch slot. Compare full, geometric rectangle, manual visible core, automatic masks at both native and common fine level0. Two predefined fills.",
+          "met": true,
+          "evidence": "research_yolo26seg_20261114/summary.json; research_yolo26seg_20261114/independent/heldout_audit_v2.json"
+        },
+        {
+          "criterion": "Mask matching uses classcar and maximum-IoU one-to-one Hungarian over requested ROIs with dummy missing choices, no manual labels in selection; report missing, duplicate claims and merge evidence.",
+          "met": true,
+          "evidence": "research_yolo26seg_20261114/summary.json; research_yolo26seg_20261114/independent/heldout_audit_v2.json"
+        },
+        {
+          "criterion": "Original full descriptors reproduce within1e-5; independently recompute cosine distances and manual-core coverage/contamination. Manual cores are partial diagnostic annotations, not full contours.",
+          "met": true,
+          "evidence": "research_yolo26seg_20261114/summary.json; research_yolo26seg_20261114/independent/heldout_audit_v2.json"
+        },
+        {
+          "criterion": "Heldout cases selected and manual masks fixed without YOLO/MASA outcomes; evaluate after2179 with same code and settings even if2179fails, as cheap transfer diagnostic, no promotion/fulltracker.",
+          "met": true,
+          "evidence": "research_yolo26seg_20261114/summary.json; research_yolo26seg_20261114/independent/heldout_audit_v2.json"
+        },
+        {
+          "criterion": "Benchmark warm10 repeat30 synchronized CUDA, full preprocessing/postprocessing/matching/CPU mask transfer included; cached image I/O and human annotation time excluded and disclosed. Peak allocated/reserved GPU and processRAM recorded.",
+          "met": true,
+          "evidence": "research_yolo26seg_20261114/summary.json; research_yolo26seg_20261114/independent/heldout_audit_v2.json"
+        },
+        {
+          "criterion": "Performance promotion gate: per-query automatic pipeline median <=200ms (5Hz observation interval), p95 <=200ms, peak GPU reserved <=8GiB and no memoryguard stop; quality requires target correct and no known correct-to-wrong regression in evaluated events, failures included. Pilot does not establish population gain.",
+          "met": false,
+          "evidence": "research_yolo26seg_20261114/summary.json; research_yolo26seg_20261114/independent/heldout_audit_v2.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/summary.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/РЕЗУЛЬТАТ.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/independent/2179_audit_v2.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/independent/heldout_audit_v2.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/independent/seg_only_benchmark_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/holdout/seek_failure_receipt.json"
+        }
+      ],
+      "done": "2026-11-14",
+      "obtained": "На2179 маска объединяет цель и соседа. На3новыхпарах полнаярамка/ручныемаски3/3, автоматические2/3; отсутствующая опора не засчитана успехом. YOLO26n-seg отдельно: медиана36,73мс, p9546,07мс, резерв120МиБ PyTorch наRTX5070,960,FP32. Источники research_yolo26seg_20261114/summary.json; independent/heldout_audit_v2.json; independent/seg_only_benchmark_audit.json.",
+      "interpretation": "Автоматическая маска не является готовой заменой ручной видимой части: смешение2179 и пропуск/подмена цели ночью подтверждены сохранёнными пикселями. Численная похожесть пустого заполнения не свидетельствует об идентичности.",
+      "decision": "Не переносить эту конфигурацию в рабочий трекер. Сохранить отрицательную проверку и локализацию ошибок; не подбирать пороги по этим случаям.",
+      "cannot_claim": "Три заранее выбранные наблюдаемые пары из резерваB, частичные ручные ядра и один знакомый2179. Не исправление всех старых отказов, не полная разметка контуров, не независимый итог полного трекера/HOTA. Скорость измерена на общем компьютере; PyTorchпамять исключает драйвер и чужие приложения."
+    },
+    {
+      "id": "flyvis_visible_mask_reader_20261114",
+      "title": "Маска из готовых карт FlyVis — малый считыватель видимой машины",
+      "area": "own_tracker",
+      "state": "completed_negative",
+      "started": "2026-11-14",
+      "question": "Можно ли малым считывателем готовых карт FlyVis выделить видимые части двух машин лучше согласованного входного контроля?",
+      "hypothesis": "Замороженные карты FlyVis могут содержать информацию для разделения видимых частей двух машин; альтернатива — такую же информацию даёт вход глаза.",
+      "expected": "Получить реальную маску на следующих кадрах после обучения только малого считывателя и сравнить с согласованным входным контролем.",
+      "acceptance": [
+        {
+          "criterion": "Exact hashes/shapes/finite values and no changes to input assets.",
+          "met": true,
+          "evidence": "research_yolo26seg_20261114/flyvis_probe/acceptance.json; research_yolo26seg_20261114/flyvis_probe/independent_assignment_review.json"
+        },
+        {
+          "criterion": "No evaluation label or coordinate feature enters fit or prediction.",
+          "met": true,
+          "evidence": "research_yolo26seg_20261114/flyvis_probe/acceptance.json; research_yolo26seg_20261114/flyvis_probe/independent_assignment_review.json"
+        },
+        {
+          "criterion": "Both car classes IoU>=0.5 on both held-outframes required for local mask feasibility.",
+          "met": false,
+          "evidence": "research_yolo26seg_20261114/flyvis_probe/acceptance.json; research_yolo26seg_20261114/flyvis_probe/independent_assignment_review.json"
+        },
+        {
+          "criterion": "Additional FlyVis benefit requires better mean held-out per-core IoU than dimension-matched retinal-history control on BOTHframes; one-scene diagnostic only.",
+          "met": false,
+          "evidence": "research_yolo26seg_20261114/flyvis_probe/acceptance.json; research_yolo26seg_20261114/flyvis_probe/independent_assignment_review.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/flyvis_probe/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/flyvis_probe/result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/flyvis_probe/acceptance.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/flyvis_probe/alignment_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/flyvis_probe/column_order_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/flyvis_probe/independent_assignment_review.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_yolo26seg_20261114/flyvis_probe/РЕЗУЛЬТАТ.md"
+        }
+      ],
+      "done": "2026-11-14",
+      "obtained": "На двух следующих кадрах среднее IoU известных частей FlyVis9,47%/8,82%, равный по размерности контроль истории входа11,26%/9,11%. Все9входов глаза и3PNG воспроизведены точно. Источники research_yolo26seg_20261114/flyvis_probe/result.json; alignment_audit.json; independent_assignment_review.json.",
+      "interpretation": "Этот линейный считыватель выдаёт реальные маски, но они захватывают окружение и не проходят критерий качества или добавочного вклада ядра. Более связные цветные области не дают лучшего совпадения с ручными частями.",
+      "decision": "Сохранить реальный снимок и отрицательный результат; не переносить этот считыватель в систему и не объявлять невозможной сегментацию ядром в другой постановке.",
+      "cannot_claim": "Один обучающий кадр и два кадра тех же машин, частичные ручные ядра, меняющееся поле глаза, только22/13уверенныхучебныхячеек двух машин. Не независимое обобщение, не полные силуэты, не обучение ядра, не скорость полного FlyVis или трекера."
     }
   ],
   "manual_events": [

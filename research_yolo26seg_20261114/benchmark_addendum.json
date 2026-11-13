@@ -1,0 +1,28 @@
+{
+  "registered": "2026-11-14T01:33:43.102917+03:00",
+  "reason": "User requests model latency and memory. Existing query-pipeline benchmark includes MASA and both resident networks; add isolated segmentation-only measurement without changing inference settings.",
+  "settings": {
+    "imgsz": 960,
+    "conf": 0.25,
+    "iou": 0.7,
+    "max_det": 300,
+    "retina_masks": true,
+    "rect": true,
+    "half": false,
+    "batch": 1,
+    "classes": [
+      2
+    ],
+    "device": 0,
+    "verbose": false,
+    "save": false
+  },
+  "warmup": 10,
+  "repeats": 30,
+  "frames": [
+    1159,
+    1164,
+    1165
+  ],
+  "source_sha256": "e4ce8473d7c9cb9e97ef892312bb558ea536d550756f8c6aacd1df1c683b1ad1"
+}

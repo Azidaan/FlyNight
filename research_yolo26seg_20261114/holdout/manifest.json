@@ -1,0 +1,282 @@
+{
+  "frozen_at": "2026-11-14T01:36:17.344011+03:00",
+  "events": [
+    {
+      "id": "B_day_shop",
+      "video": "b20b69d2-ca16c907",
+      "event_frame": 543,
+      "roles": [
+        {
+          "role": "target_ref",
+          "frame": 537,
+          "image": "research_yolo26seg_20261114/holdout/frames/b20b69d2-ca16c907_537.png",
+          "image_sha256": "c8a5c0f7ea1781c69df1450d92d57d73c129e6f1d2e533efb9c6879e3528ac31",
+          "box": [
+            939.3048095703125,
+            325.07965087890625,
+            999.4478759765625,
+            354.51416015625
+          ],
+          "raw_id": 21381,
+          "manual_key": "B_day_shop__ref__target",
+          "other_manual_key": "B_day_shop__ref__competitor",
+          "uncertain_key": "B_day_shop__ref__uncertain",
+          "physical_identity": "Бордовая машина перед магазином, слева от большого чёрного пикапа; в запросе часть закрыта ближним столбом.",
+          "physical_identity_status": "visually_continuous_in_sequential_frames; GT only corroboration, no IoU ownership",
+          "gt_id_corroboration": "00128254",
+          "box_source": "original_saved_YOLO26_detector_raw_video.npz",
+          "class_id": 2
+        },
+        {
+          "role": "competitor_ref",
+          "frame": 537,
+          "image": "research_yolo26seg_20261114/holdout/frames/b20b69d2-ca16c907_537.png",
+          "image_sha256": "c8a5c0f7ea1781c69df1450d92d57d73c129e6f1d2e533efb9c6879e3528ac31",
+          "box": [
+            880.020263671875,
+            331.95941162109375,
+            939.0128784179688,
+            355.9945983886719
+          ],
+          "raw_id": 21388,
+          "manual_key": "B_day_shop__ref__competitor",
+          "other_manual_key": "B_day_shop__ref__target",
+          "uncertain_key": "B_day_shop__ref__uncertain",
+          "physical_identity": "Белый компактный автомобиль перед тем же магазином, слева от бордовой машины.",
+          "physical_identity_status": "visually_continuous_in_sequential_frames; GT only corroboration, no IoU ownership",
+          "gt_id_corroboration": "00128251",
+          "box_source": "original_saved_YOLO26_detector_raw_video.npz",
+          "class_id": 2
+        },
+        {
+          "role": "query",
+          "frame": 543,
+          "image": "research_yolo26seg_20261114/holdout/frames/b20b69d2-ca16c907_543.png",
+          "image_sha256": "7699eb0dbc7cee17a835633e87912af462635ffae9a71c6baf81962922486c0a",
+          "box": [
+            955.5821533203125,
+            322.23687744140625,
+            1003.0204467773438,
+            352.78472900390625
+          ],
+          "raw_id": 21638,
+          "manual_key": "B_day_shop__query__target",
+          "other_manual_key": "B_day_shop__query__competitor",
+          "uncertain_key": "B_day_shop__query__uncertain",
+          "physical_identity": "Бордовая машина перед магазином, слева от большого чёрного пикапа; в запросе часть закрыта ближним столбом.",
+          "physical_identity_status": "visually_continuous_in_sequential_frames; GT only corroboration, no IoU ownership",
+          "gt_id_corroboration": "00128254",
+          "box_source": "original_saved_YOLO26_detector_raw_video.npz",
+          "class_id": 2
+        }
+      ],
+      "masks": "research_yolo26seg_20261114/holdout/manual_masks.npz",
+      "split_provenance": {
+        "source": "research_identity_holdout_20261112/review/selected_events_B_RESERVED_v2.json",
+        "split": "B_RESERVED",
+        "scope": "Новая диагностическая пара на кадрах резервного события543; целевая ROI сохранена из исходного предложения, второй физический автомобиль выбран по видимости до исходов. Не вывод об исправлении старого отказа."
+      },
+      "additional_competitor_query": {
+        "frame": 543,
+        "raw_id": 21653,
+        "box": [
+          897.3421630859375,
+          329.12451171875,
+          972.885986328125,
+          355.3059997558594
+        ],
+        "manual_key": "B_day_shop__query__competitor"
+      },
+      "manual_scope": "Conservative visible cores, not full object masks; same fixed detector boxes in full/manual/auto.",
+      "identity_evidence": "research_yolo26seg_20261114/holdout/sequential_clock_audit.json; corrected sequential visual continuity review"
+    },
+    {
+      "id": "B_night_rain",
+      "video": "b23f7012-fab06dac",
+      "event_frame": 534,
+      "roles": [
+        {
+          "role": "target_ref",
+          "frame": 529,
+          "image": "research_yolo26seg_20261114/holdout/frames/b23f7012-fab06dac_529.png",
+          "image_sha256": "d40ff60f3a9ee959e70ddad40192d4316518832f7e38cf27666b5389940671c5",
+          "box": [
+            826.7598876953125,
+            318.5679931640625,
+            986.2084350585938,
+            433.26861572265625
+          ],
+          "raw_id": 10515,
+          "manual_key": "B_night_rain__ref__target",
+          "other_manual_key": "B_night_rain__ref__competitor",
+          "uncertain_key": "B_night_rain__ref__uncertain",
+          "physical_identity": "Тёмный автомобиль справа с белой номерной площадкой, часть левой стороны закрыта соседней машиной; уверенная часть — видимая задняя панель.",
+          "physical_identity_status": "visually_continuous_in_sequential_frames; GT only corroboration, no IoU ownership",
+          "gt_id_corroboration": "00117875",
+          "box_source": "original_saved_YOLO26_detector_raw_video.npz",
+          "class_id": 2
+        },
+        {
+          "role": "competitor_ref",
+          "frame": 529,
+          "image": "research_yolo26seg_20261114/holdout/frames/b23f7012-fab06dac_529.png",
+          "image_sha256": "d40ff60f3a9ee959e70ddad40192d4316518832f7e38cf27666b5389940671c5",
+          "box": [
+            676.0255737304688,
+            333.3337097167969,
+            833.508544921875,
+            447.313720703125
+          ],
+          "raw_id": 10510,
+          "manual_key": "B_night_rain__ref__competitor",
+          "other_manual_key": "B_night_rain__ref__target",
+          "uncertain_key": "B_night_rain__ref__uncertain",
+          "physical_identity": "Синий/тёмный автомобиль слева с жёлтой номерной площадкой и двумя яркими задними фонарями.",
+          "physical_identity_status": "visually_continuous_in_sequential_frames; GT only corroboration, no IoU ownership",
+          "gt_id_corroboration": "00117874",
+          "box_source": "original_saved_YOLO26_detector_raw_video.npz",
+          "class_id": 2
+        },
+        {
+          "role": "query",
+          "frame": 534,
+          "image": "research_yolo26seg_20261114/holdout/frames/b23f7012-fab06dac_534.png",
+          "image_sha256": "2d484bd458fe40c2798e8379221bcf60a7381fad86ea05fdedeebf4cade59a8c",
+          "box": [
+            847.7054443359375,
+            317.83087158203125,
+            1062.287841796875,
+            439.51611328125
+          ],
+          "raw_id": 10759,
+          "manual_key": "B_night_rain__query__target",
+          "other_manual_key": "B_night_rain__query__competitor",
+          "uncertain_key": "B_night_rain__query__uncertain",
+          "physical_identity": "Тёмный автомобиль справа с белой номерной площадкой, часть левой стороны закрыта соседней машиной; уверенная часть — видимая задняя панель.",
+          "physical_identity_status": "visually_continuous_in_sequential_frames; GT only corroboration, no IoU ownership",
+          "gt_id_corroboration": "00117875",
+          "box_source": "original_saved_YOLO26_detector_raw_video.npz",
+          "class_id": 2
+        }
+      ],
+      "masks": "research_yolo26seg_20261114/holdout/manual_masks.npz",
+      "split_provenance": {
+        "source": "research_identity_holdout_20261112/review/selected_events_B_RESERVED_v2.json",
+        "split": "B_RESERVED",
+        "scope": "Новая диагностическая пара на кадрах резервного события534; исходные детекторные ROI, физическая проверка по последовательности. Не оценка продолженного трекера."
+      },
+      "additional_competitor_query": {
+        "frame": 534,
+        "raw_id": 10757,
+        "box": [
+          681.7802734375,
+          332.6984558105469,
+          855.97412109375,
+          455.5699157714844
+        ],
+        "manual_key": "B_night_rain__query__competitor"
+      },
+      "manual_scope": "Conservative visible cores, not full object masks; same fixed detector boxes in full/manual/auto.",
+      "identity_evidence": "research_yolo26seg_20261114/holdout/sequential_clock_audit.json; corrected sequential visual continuity review"
+    },
+    {
+      "id": "B_dusk_queue",
+      "video": "b216243d-ad4306b9",
+      "event_frame": 150,
+      "roles": [
+        {
+          "role": "target_ref",
+          "frame": 145,
+          "image": "research_yolo26seg_20261114/holdout/frames/b216243d-ad4306b9_145.png",
+          "image_sha256": "f41c0c66dd9c81a52396e36e265488875171b0f8a35eeec1ae18ffccedc10432",
+          "box": [
+            707.58203125,
+            247.4941864013672,
+            827.5225830078125,
+            351.6349792480469
+          ],
+          "raw_id": 11594,
+          "manual_key": "B_dusk_queue__ref__target",
+          "other_manual_key": "B_dusk_queue__ref__competitor",
+          "uncertain_key": "B_dusk_queue__ref__uncertain",
+          "physical_identity": "Ближняя чёрная машина справа от светлого автомобиля, с жёлтой номерной площадкой; уверенная часть ниже заднего стекла.",
+          "physical_identity_status": "visually_continuous_in_sequential_frames; GT only corroboration, no IoU ownership",
+          "gt_id_corroboration": "00121867",
+          "box_source": "original_saved_YOLO26_detector_raw_video.npz",
+          "class_id": 2
+        },
+        {
+          "role": "competitor_ref",
+          "frame": 145,
+          "image": "research_yolo26seg_20261114/holdout/frames/b216243d-ad4306b9_145.png",
+          "image_sha256": "f41c0c66dd9c81a52396e36e265488875171b0f8a35eeec1ae18ffccedc10432",
+          "box": [
+            520.9691162109375,
+            257.6641540527344,
+            712.46044921875,
+            412.530517578125
+          ],
+          "raw_id": 11592,
+          "manual_key": "B_dusk_queue__ref__competitor",
+          "other_manual_key": "B_dusk_queue__ref__target",
+          "uncertain_key": "B_dusk_queue__ref__uncertain",
+          "physical_identity": "Крупный светлый автомобиль слева на переднем плане, с широкой светлой задней панелью.",
+          "physical_identity_status": "visually_continuous_in_sequential_frames; GT only corroboration, no IoU ownership",
+          "gt_id_corroboration": "00121859",
+          "box_source": "original_saved_YOLO26_detector_raw_video.npz",
+          "class_id": 2
+        },
+        {
+          "role": "query",
+          "frame": 150,
+          "image": "research_yolo26seg_20261114/holdout/frames/b216243d-ad4306b9_150.png",
+          "image_sha256": "07b53578baa3ea19c82f91d76585bef9dfdff584ca0102c6b586a471c1a7e27d",
+          "box": [
+            710.1332397460938,
+            246.00018310546875,
+            834.9432983398438,
+            350.845703125
+          ],
+          "raw_id": 11998,
+          "manual_key": "B_dusk_queue__query__target",
+          "other_manual_key": "B_dusk_queue__query__competitor",
+          "uncertain_key": "B_dusk_queue__query__uncertain",
+          "physical_identity": "Ближняя чёрная машина справа от светлого автомобиля, с жёлтой номерной площадкой; уверенная часть ниже заднего стекла.",
+          "physical_identity_status": "visually_continuous_in_sequential_frames; GT only corroboration, no IoU ownership",
+          "gt_id_corroboration": "00121867",
+          "box_source": "original_saved_YOLO26_detector_raw_video.npz",
+          "class_id": 2
+        }
+      ],
+      "masks": "research_yolo26seg_20261114/holdout/manual_masks.npz",
+      "split_provenance": {
+        "source": "research_identity_holdout_20261112/review/selected_events_B_RESERVED_v2.json",
+        "split": "B_RESERVED",
+        "scope": "Новая диагностическая пара крупных видимых машин на кадрах резервного события150. Это не исходная крошечная цель old_id215 и не проверка исправления её сохранённого отказа."
+      },
+      "additional_competitor_query": {
+        "frame": 150,
+        "raw_id": 11997,
+        "box": [
+          517.7491455078125,
+          252.63047790527344,
+          705.9072265625,
+          406.99920654296875
+        ],
+        "manual_key": "B_dusk_queue__query__competitor"
+      },
+      "manual_scope": "Conservative visible cores, not full object masks; same fixed detector boxes in full/manual/auto.",
+      "identity_evidence": "research_yolo26seg_20261114/holdout/sequential_clock_audit.json; corrected sequential visual continuity review"
+    }
+  ],
+  "masks_sha256": "32d96d13e0cf4c14f85cbf84e602d17b24388e0a9df3eb64a620a00484bde34a",
+  "manual_polygons_sha256": "c1ba3627d9fde802d1531ae85595241f50fd4c34ecf611b54aaeb5403b1b33b5",
+  "outcomes_read": false,
+  "pairs": 3,
+  "videos": 3,
+  "scope": "Outcome-blind new diagnostic pairs on reserved video frames; not full tracker improvement or correction of every source old_id failure.",
+  "source_selection": "frozen_pairs.json and selection_disposition_25.json",
+  "input_correction": "All manifest images sequentially decoded; seek previews were rejected before any model outcome.",
+  "comparison": "Root freezes full/manual/auto at native and common_level0 MASA, identical ROI, class-car automatic maxIoU mapping; manual labels never used for automatic choice.",
+  "limitation": "Small selected diagnostic sample, conservative core area differs across objects; missing auto mask remains a failure/unknown of extraction, not omitted. Manual cores cannot validate full-mask recall or full silhouette quality."
+}

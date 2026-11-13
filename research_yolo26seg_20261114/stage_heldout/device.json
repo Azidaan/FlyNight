@@ -1,0 +1,28 @@
+{
+  "torch": "2.10.0+cu130",
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "gpu_total_bytes": 12820348928,
+  "end2end": true,
+  "model_dtype": "torch.float32",
+  "model_parameter_count": 2722980,
+  "after_fusion_hashes": {
+    "masa": "a902f2f909413fed01f74980f5be640044dbfce8b19f408e754e670f4d634dbd",
+    "seg": "0159dab71b4ce121edca18594d6ad9c7b2c7851118d04bce9972a7d25ec2f668"
+  },
+  "settings": {
+    "imgsz": 960,
+    "conf": 0.25,
+    "iou": 0.7,
+    "max_det": 300,
+    "retina_masks": true,
+    "rect": true,
+    "half": false,
+    "batch": 1,
+    "classes": [
+      2
+    ],
+    "device": 0,
+    "verbose": false,
+    "save": false
+  }
+}

@@ -2761,6 +2761,19 @@
             "research_visible_part_2179_20261114/assignment_audit/independent_audit.json"
           ],
           "source_sha256": "a119a75abf19ba7ef03df7398d36ed646c76eb5ee7a64b89055a8de5881d4fd1"
+        },
+        {
+          "date": "2026-11-14",
+          "component": "Автоматические маски и считывание активности",
+          "fact": "Автомаски2179смешивают видимые части; на3новыхпарах3/3→2/3. Считыватель готовойFlyVisне превысилсогласованныйвходнойконтроль. Источники research_yolo26seg_20261114/summary.json; flyvis_probe/independent_assignment_review.json.",
+          "hypothesis": "Другое обучение масок/считывателя может помочь, но это не проверено.",
+          "discriminating_check": "Фиксированные полнаярамка/геометрия/ручнаямаска/автомаска; новыефизическиепары; проверка всехвыходныхмасок и входного времени; независимый пересчёт.",
+          "limitation": "Три выбранные пары и локальный случай, не полныйтрекер.",
+          "evidence": [
+            "research_yolo26seg_20261114/summary.json",
+            "research_yolo26seg_20261114/holdout/seek_failure_receipt.json"
+          ],
+          "source_sha256": "8a2752c791b9e68dc28b440b4127dd2f155f1aee30f7f33a983dcc3eafe925e8"
         }
       ]
     },

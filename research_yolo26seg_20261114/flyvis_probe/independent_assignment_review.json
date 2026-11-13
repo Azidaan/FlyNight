@@ -1,0 +1,883 @@
+{
+  "passed": true,
+  "created": "2026-11-14T01:42:27.891121+03:00",
+  "reviewer": "assignment_audit",
+  "independent_method": "Numpy-only reconstruction from stored391raster receptor labels, manual known pixels and exact eye support; boolean intersections/unions and full confusion checked. Models reproduced by augmented least squares using1159labels only. No producer probe import/execution, noTorch/GPU/core/tracker.",
+  "input_sha256": {
+    "research_yolo26seg_20261114/flyvis_probe/protocol.json": "c45530ef51cbd9e3804ee46a2a540985a36fb507059f16db3b7226a8a1e7bfb6",
+    "research_yolo26seg_20261114/flyvis_probe/result.json": "6e8cc31e10e5525f44518b225094f14220c4096cba14776d38dd2f27e469775f",
+    "research_yolo26seg_20261114/flyvis_probe/models.npz": "2886e011992f8d20ced863425a075193928269300ab21016f6513771c9259a39",
+    "research_yolo26seg_20261114/flyvis_probe/predictions.npz": "995e41e8292d593e346df73097c839fa6442dae740eec2bda4b057792bd0062c",
+    "research_yolo26seg_20261114/flyvis_probe/prediction_receipt.json": "bded0738ecd45bd642ecfde334b44096549bf5d0365c92e3bc2c95c9842ec54a",
+    "research_yolo26seg_20261114/flyvis_probe/alignment_audit.json": "0bdc5d0599ac627f59f6e7efb40d1485bf725d5bdf366265c624d6badcac6929",
+    "research_yolo26seg_20261114/flyvis_probe/probe.py": "d5ce333a5f90cff7e1af8553f6fff66aa218f6d8ab67a444848c82ec02f57689"
+  },
+  "all37_protocol_hashes_match": true,
+  "alignment_protocol_hashes_match": true,
+  "alignment_receipt_passed": true,
+  "alignment_scope": "Read-only audit of source-bound alignment receipt and current decoded PNG pixel hashes; retinal alignment Torch reconstruction was not rerun by this reviewer.",
+  "no_evaluation_fit_labels": {
+    "training_frames": [
+      1159
+    ],
+    "evaluation_frames": [
+      1164,
+      1165
+    ],
+    "stored_models_reproduced_from_training_only": true,
+    "prediction_receipt_precedes_evaluation_label_access": true,
+    "source_calls": [
+      {
+        "line": 89,
+        "argument": "1159"
+      },
+      {
+        "line": 160,
+        "argument": "frame"
+      }
+    ],
+    "conclusion": "Saved code, coefficient reconstruction and receipt agree: evaluation members were used only for scoring after models and all predictions were saved."
+  },
+  "training_accepted_cells_by_class": [
+    563,
+    22,
+    13
+  ],
+  "fit_parameter_checks": [
+    {
+      "arm": "FlyVis34",
+      "method": "Independent weighted augmented least-squares with ridge rows and unpenalized intercept; only1159 labels.",
+      "maximum_parameter_error": 1.9984014443252818e-15
+    },
+    {
+      "arm": "Retina_history34",
+      "method": "Independent weighted augmented least-squares with ridge rows and unpenalized intercept; only1159 labels.",
+      "maximum_parameter_error": 2.4424906541753444e-15
+    },
+    {
+      "arm": "Retina_current1",
+      "method": "Independent weighted augmented least-squares with ridge rows and unpenalized intercept; only1159 labels.",
+      "maximum_parameter_error": 2.886579864025407e-15
+    },
+    {
+      "arm": "Raw_gray1",
+      "method": "Independent weighted augmented least-squares with ridge rows and unpenalized intercept; only1159 labels.",
+      "maximum_parameter_error": 2.4424906541753444e-15
+    },
+    {
+      "arm": "Raw_RGB3",
+      "method": "Independent weighted augmented least-squares with ridge rows and unpenalized intercept; only1159 labels.",
+      "maximum_parameter_error": 2.3314683517128287e-15
+    }
+  ],
+  "score_and_raster_checks": [
+    {
+      "arm": "FlyVis34",
+      "frame": 1159,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "Retina_history34",
+      "frame": 1159,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "Retina_current1",
+      "frame": 1159,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "Raw_gray1",
+      "frame": 1159,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "Raw_RGB3",
+      "frame": 1159,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "FlyVis34",
+      "frame": 1164,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "Retina_history34",
+      "frame": 1164,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "Retina_current1",
+      "frame": 1164,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "Raw_gray1",
+      "frame": 1164,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "Raw_RGB3",
+      "frame": 1164,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "FlyVis34",
+      "frame": 1165,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "Retina_history34",
+      "frame": 1165,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "Retina_current1",
+      "frame": 1165,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "Raw_gray1",
+      "frame": 1165,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    },
+    {
+      "arm": "Raw_RGB3",
+      "frame": 1165,
+      "maximum_score_error": 0.0,
+      "raster_consistent_with_scores": true
+    }
+  ],
+  "metrics": [
+    {
+      "arm": "FlyVis34",
+      "frame": 1159,
+      "role": "fit",
+      "car_mean_iou": 0.1886230478936784,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 37436,
+          "fn": 17842,
+          "fp": 754,
+          "iou": 0.6681182181610509
+        },
+        {
+          "class_index": 1,
+          "tp": 2211,
+          "fn": 661,
+          "fp": 11967,
+          "iou": 0.14899925871015568
+        },
+        {
+          "class_index": 2,
+          "tp": 1768,
+          "fn": 98,
+          "fp": 5880,
+          "iou": 0.22824683707720114
+        }
+      ],
+      "confusion": [
+        [
+          37436,
+          11962,
+          5880
+        ],
+        [
+          661,
+          2211,
+          0
+        ],
+        [
+          93,
+          5,
+          1768
+        ]
+      ],
+      "valid_pixels": 60016
+    },
+    {
+      "arm": "Retina_history34",
+      "frame": 1159,
+      "role": "fit",
+      "car_mean_iou": 0.04755752275884936,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 38839,
+          "fn": 16439,
+          "fp": 1895,
+          "iou": 0.6793241565074424
+        },
+        {
+          "class_index": 1,
+          "tp": 17,
+          "fn": 2855,
+          "fp": 3551,
+          "iou": 0.0026467382842908296
+        },
+        {
+          "class_index": 2,
+          "tp": 1488,
+          "fn": 378,
+          "fp": 14226,
+          "iou": 0.0924683072334079
+        }
+      ],
+      "confusion": [
+        [
+          38839,
+          3462,
+          12977
+        ],
+        [
+          1606,
+          17,
+          1249
+        ],
+        [
+          289,
+          89,
+          1488
+        ]
+      ],
+      "valid_pixels": 60016
+    },
+    {
+      "arm": "Retina_current1",
+      "frame": 1159,
+      "role": "fit",
+      "car_mean_iou": 0.04066028659678971,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 38741,
+          "fn": 16537,
+          "fp": 1786,
+          "iou": 0.6789043880555166
+        },
+        {
+          "class_index": 1,
+          "tp": 0,
+          "fn": 2872,
+          "fp": 0,
+          "iou": 0.0
+        },
+        {
+          "class_index": 2,
+          "tp": 1606,
+          "fn": 260,
+          "fp": 17883,
+          "iou": 0.08132057319357942
+        }
+      ],
+      "confusion": [
+        [
+          38741,
+          0,
+          16537
+        ],
+        [
+          1526,
+          0,
+          1346
+        ],
+        [
+          260,
+          0,
+          1606
+        ]
+      ],
+      "valid_pixels": 60016
+    },
+    {
+      "arm": "Raw_gray1",
+      "frame": 1159,
+      "role": "fit",
+      "car_mean_iou": 0.023969088693644586,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 27688,
+          "fn": 27590,
+          "fp": 1513,
+          "iou": 0.4875420401119896
+        },
+        {
+          "class_index": 1,
+          "tp": 0,
+          "fn": 2872,
+          "fp": 0,
+          "iou": 0.0
+        },
+        {
+          "class_index": 2,
+          "tp": 1495,
+          "fn": 371,
+          "fp": 29320,
+          "iou": 0.04793817738728917
+        }
+      ],
+      "confusion": [
+        [
+          27688,
+          0,
+          27590
+        ],
+        [
+          1142,
+          0,
+          1730
+        ],
+        [
+          371,
+          0,
+          1495
+        ]
+      ],
+      "valid_pixels": 60016
+    },
+    {
+      "arm": "Raw_RGB3",
+      "frame": 1159,
+      "role": "fit",
+      "car_mean_iou": 0.08999453358840409,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 26317,
+          "fn": 28961,
+          "fp": 987,
+          "iou": 0.4677330489647205
+        },
+        {
+          "class_index": 1,
+          "tp": 891,
+          "fn": 1981,
+          "fp": 4273,
+          "iou": 0.12470258922323303
+        },
+        {
+          "class_index": 2,
+          "tp": 1541,
+          "fn": 325,
+          "fp": 26007,
+          "iou": 0.05528647795357514
+        }
+      ],
+      "confusion": [
+        [
+          26317,
+          4273,
+          24688
+        ],
+        [
+          662,
+          891,
+          1319
+        ],
+        [
+          325,
+          0,
+          1541
+        ]
+      ],
+      "valid_pixels": 60016
+    },
+    {
+      "arm": "FlyVis34",
+      "frame": 1164,
+      "role": "evaluation",
+      "car_mean_iou": 0.09466705263380629,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 28874,
+          "fn": 17071,
+          "fp": 3252,
+          "iou": 0.5869057056324573
+        },
+        {
+          "class_index": 1,
+          "tp": 1158,
+          "fn": 624,
+          "fp": 14743,
+          "iou": 0.07007564296520423
+        },
+        {
+          "class_index": 2,
+          "tp": 1441,
+          "fn": 5471,
+          "fp": 5171,
+          "iou": 0.11925846230240834
+        }
+      ],
+      "confusion": [
+        [
+          28874,
+          11900,
+          5171
+        ],
+        [
+          624,
+          1158,
+          0
+        ],
+        [
+          2628,
+          2843,
+          1441
+        ]
+      ],
+      "valid_pixels": 54639
+    },
+    {
+      "arm": "Retina_history34",
+      "frame": 1164,
+      "role": "evaluation",
+      "car_mean_iou": 0.11259956394064632,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 30922,
+          "fn": 15023,
+          "fp": 3668,
+          "iou": 0.6232640638542317
+        },
+        {
+          "class_index": 1,
+          "tp": 399,
+          "fn": 1383,
+          "fp": 6178,
+          "iou": 0.05012562814070352
+        },
+        {
+          "class_index": 2,
+          "tp": 3037,
+          "fn": 3875,
+          "fp": 10435,
+          "iou": 0.17507349974058914
+        }
+      ],
+      "confusion": [
+        [
+          30922,
+          5128,
+          9895
+        ],
+        [
+          843,
+          399,
+          540
+        ],
+        [
+          2825,
+          1050,
+          3037
+        ]
+      ],
+      "valid_pixels": 54639
+    },
+    {
+      "arm": "Retina_current1",
+      "frame": 1164,
+      "role": "evaluation",
+      "car_mean_iou": 0.08779669990293833,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 31116,
+          "fn": 14829,
+          "fp": 3789,
+          "iou": 0.6256484497526843
+        },
+        {
+          "class_index": 1,
+          "tp": 0,
+          "fn": 1782,
+          "fp": 0,
+          "iou": 0.0
+        },
+        {
+          "class_index": 2,
+          "tp": 3980,
+          "fn": 2932,
+          "fp": 15754,
+          "iou": 0.17559339980587665
+        }
+      ],
+      "confusion": [
+        [
+          31116,
+          0,
+          14829
+        ],
+        [
+          857,
+          0,
+          925
+        ],
+        [
+          2932,
+          0,
+          3980
+        ]
+      ],
+      "valid_pixels": 54639
+    },
+    {
+      "arm": "Raw_gray1",
+      "frame": 1164,
+      "role": "evaluation",
+      "car_mean_iou": 0.09656160458452723,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 24174,
+          "fn": 21771,
+          "fp": 1983,
+          "iou": 0.5043815723585378
+        },
+        {
+          "class_index": 1,
+          "tp": 0,
+          "fn": 1782,
+          "fp": 0,
+          "iou": 0.0
+        },
+        {
+          "class_index": 2,
+          "tp": 5729,
+          "fn": 1183,
+          "fp": 22753,
+          "iou": 0.19312320916905446
+        }
+      ],
+      "confusion": [
+        [
+          24174,
+          0,
+          21771
+        ],
+        [
+          800,
+          0,
+          982
+        ],
+        [
+          1183,
+          0,
+          5729
+        ]
+      ],
+      "valid_pixels": 54639
+    },
+    {
+      "arm": "Raw_RGB3",
+      "frame": 1164,
+      "role": "evaluation",
+      "car_mean_iou": 0.14535875497714668,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 23325,
+          "fn": 22620,
+          "fp": 1667,
+          "iou": 0.4898975048307149
+        },
+        {
+          "class_index": 1,
+          "tp": 351,
+          "fn": 1431,
+          "fp": 2514,
+          "iou": 0.08170391061452514
+        },
+        {
+          "class_index": 2,
+          "tp": 5825,
+          "fn": 1087,
+          "fp": 20957,
+          "iou": 0.2090135993397682
+        }
+      ],
+      "confusion": [
+        [
+          23325,
+          2514,
+          20106
+        ],
+        [
+          580,
+          351,
+          851
+        ],
+        [
+          1087,
+          0,
+          5825
+        ]
+      ],
+      "valid_pixels": 54639
+    },
+    {
+      "arm": "FlyVis34",
+      "frame": 1165,
+      "role": "evaluation",
+      "car_mean_iou": 0.08815582305835312,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 28284,
+          "fn": 17357,
+          "fp": 3474,
+          "iou": 0.575872951236893
+        },
+        {
+          "class_index": 1,
+          "tp": 1134,
+          "fn": 609,
+          "fp": 15023,
+          "iou": 0.06763688417034475
+        },
+        {
+          "class_index": 2,
+          "tp": 1244,
+          "fn": 5367,
+          "fp": 4836,
+          "iou": 0.1086747619463615
+        }
+      ],
+      "confusion": [
+        [
+          28284,
+          12521,
+          4836
+        ],
+        [
+          609,
+          1134,
+          0
+        ],
+        [
+          2865,
+          2502,
+          1244
+        ]
+      ],
+      "valid_pixels": 53995
+    },
+    {
+      "arm": "Retina_history34",
+      "frame": 1165,
+      "role": "evaluation",
+      "car_mean_iou": 0.09110612079924978,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 30489,
+          "fn": 15152,
+          "fp": 3756,
+          "iou": 0.6172237180395571
+        },
+        {
+          "class_index": 1,
+          "tp": 227,
+          "fn": 1516,
+          "fp": 6536,
+          "iou": 0.027418770382896484
+        },
+        {
+          "class_index": 2,
+          "tp": 2627,
+          "fn": 3984,
+          "fp": 10360,
+          "iou": 0.15479347121560308
+        }
+      ],
+      "confusion": [
+        [
+          30489,
+          5571,
+          9581
+        ],
+        [
+          737,
+          227,
+          779
+        ],
+        [
+          3019,
+          965,
+          2627
+        ]
+      ],
+      "valid_pixels": 53995
+    },
+    {
+      "arm": "Retina_current1",
+      "frame": 1165,
+      "role": "evaluation",
+      "car_mean_iou": 0.07838935761796348,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 30757,
+          "fn": 14884,
+          "fp": 3936,
+          "iou": 0.6203884865966073
+        },
+        {
+          "class_index": 1,
+          "tp": 0,
+          "fn": 1743,
+          "fp": 0,
+          "iou": 0.0
+        },
+        {
+          "class_index": 2,
+          "tp": 3512,
+          "fn": 3099,
+          "fp": 15790,
+          "iou": 0.15677871523592696
+        }
+      ],
+      "confusion": [
+        [
+          30757,
+          0,
+          14884
+        ],
+        [
+          837,
+          0,
+          906
+        ],
+        [
+          3099,
+          0,
+          3512
+        ]
+      ],
+      "valid_pixels": 53995
+    },
+    {
+      "arm": "Raw_gray1",
+      "frame": 1165,
+      "role": "evaluation",
+      "car_mean_iou": 0.09695476148565393,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 24834,
+          "fn": 20807,
+          "fp": 1859,
+          "iou": 0.522821052631579
+        },
+        {
+          "class_index": 1,
+          "tp": 0,
+          "fn": 1743,
+          "fp": 0,
+          "iou": 0.0
+        },
+        {
+          "class_index": 2,
+          "tp": 5508,
+          "fn": 1103,
+          "fp": 21794,
+          "iou": 0.19390952297130787
+        }
+      ],
+      "confusion": [
+        [
+          24834,
+          0,
+          20807
+        ],
+        [
+          756,
+          0,
+          987
+        ],
+        [
+          1103,
+          0,
+          5508
+        ]
+      ],
+      "valid_pixels": 53995
+    },
+    {
+      "arm": "Raw_RGB3",
+      "frame": 1165,
+      "role": "evaluation",
+      "car_mean_iou": 0.1614507820172322,
+      "classes": [
+        {
+          "class_index": 0,
+          "tp": 23618,
+          "fn": 22023,
+          "fp": 1513,
+          "iou": 0.5008694914535352
+        },
+        {
+          "class_index": 1,
+          "tp": 461,
+          "fn": 1282,
+          "fp": 2020,
+          "iou": 0.12250863672601647
+        },
+        {
+          "class_index": 2,
+          "tp": 5508,
+          "fn": 1103,
+          "fp": 20875,
+          "iou": 0.20039292730844793
+        }
+      ],
+      "confusion": [
+        [
+          23618,
+          2020,
+          20003
+        ],
+        [
+          410,
+          461,
+          872
+        ],
+        [
+          1103,
+          0,
+          5508
+        ]
+      ],
+      "valid_pixels": 53995
+    }
+  ],
+  "scientific_gate": {
+    "local_feasibility_met": false,
+    "additional_flyvis_benefit_met": false
+  },
+  "interpretation_ru": "Числа воспроизведены без расхождений: средний IoU двух уверенных частей FlyVis на1164равен0,09466705263380629, на1165—0,08815582305835312. Оба зарегистрированных научных допуска не пройдены. Это отрицательный результат данного линейного считывания сохранённых карт; он не доказывает невозможность иной сегментации или пользу полного трекера.",
+  "holdout_manual_masks_stay_frozen": true,
+  "holdout_scope": "This review reads another experiment after holdout masks were frozen; no heldout mask, case, ROI or criterion is changed in response.",
+  "new_core_calls": 0,
+  "gpu_calls": 0,
+  "torch_imported": false,
+  "full_tracker_calls": 0
+}
