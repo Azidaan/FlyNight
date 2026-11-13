@@ -1,0 +1,301 @@
+{
+  "passed": true,
+  "checked_utc": "2026-11-13T21:52:01.105408+00:00",
+  "scope": "Read-only source and saved-result audit; no model, CUDA or full-tracker execution.",
+  "source_hashes": {
+    "tracking/masa_r50.py": "181f52a2f3b1964554818dd7ddcdeb4bc8c203ff4794eedc1b3e7ee8166569d7",
+    "tools/masa_ref/deform_fusion.py": "1d8a1ed2c726606e9aeefc115c36460ca6bf78d14906edf58d52645ffc528b86",
+    "tools/masa_ref/masa_track_head.py": "8e3ac591d1be4bb046cb8927aeef96eec1c4cc69357e29f2183d9019d7176149",
+    "tools/masa_ref/masa.py": "1439cd038d15183f15766522d13cef8d2783922b93e40fac665677bd47489c44",
+    "research_assignment_weights_2179_20261112/runtime.json": "53ea7e7c76a263fec6bc2c291a362d9356a58ee8061bc62484753edcae05c71d",
+    "research_assignment_weights_2179_20261112/result.json": "7565fc7123b821fc32bac128cb44b57550ab7638eb9aa3a40c36331ff0c105c7",
+    "research_assignment_weights_2179_20261112/pairwise_dominance.json": "2541cb56a4cf6af91215274dbd2e5b1371bd83fae392765d117843daa178ae95",
+    "research_memory_2179_20261113/feature_recovery_protocol.json": "b62706f7da26cb129403168bdd8613b43c63829b9c4b8b3874b1df47233e9902",
+    "research_memory_2179_20261113/feature_result.json": "4ca72a5b270d5a3c1f6d984ec42b800e045ad978be63135018b1dd85a30d8630",
+    "research_memory_2179_20261113/extract_v2.py": "503ba0f47935216846c7520291d0075cd7b1ad36831c1d6a8dd187b0fb08b33d",
+    "research_memory_2179_20261113/trace_v2.json": "731f4ae84abad60cad8ab8dc0a58f78994344563bf31da2c67ba6db4b12c5125"
+  },
+  "source_lines": {
+    "tracking/masa_r50.py": [
+      {
+        "line": 126,
+        "text": "        self.norm = nn.GroupNorm(16, c)"
+      },
+      {
+        "line": 134,
+        "text": "            offset = offset.contiguous().reshape(b, -1)[:, : offset.shape[1] * ho * wo].reshape(b, offset.shape[1], ho, wo)"
+      },
+      {
+        "line": 135,
+        "text": "            mask = mask.contiguous().reshape(b, -1)[:, : mask.shape[1] * ho * wo].reshape(b, mask.shape[1], ho, wo)"
+      },
+      {
+        "line": 181,
+        "text": "    def features(self, img):"
+      },
+      {
+        "line": 187,
+        "text": "    def embed_boxes(self, feats, boxes, scale):"
+      },
+      {
+        "line": 192,
+        "text": "        area = ((b[:, 2] - b[:, 0]) * (b[:, 3] - b[:, 1])).clamp(min=1e-6).sqrt()"
+      },
+      {
+        "line": 193,
+        "text": "        lvl = torch.floor(torch.log2(area / 56 + 1e-6)).clamp(0, 3).long()"
+      },
+      {
+        "line": 199,
+        "text": "                out[m] = roi_align(feats[i], rois.to(feats[i].dtype), 7, spatial_scale=1.0 / s, sampling_ratio=0, aligned=True)"
+      },
+      {
+        "line": 233,
+        "text": "def preprocess(frame_bgr: np.ndarray, device=\"cuda\"):"
+      },
+      {
+        "line": 237,
+        "text": "    img = cv2.resize(frame_bgr, (int(round(w * s)), int(round(h * s))), interpolation=cv2.INTER_LINEAR)[:, :, ::-1].astype(np.float32)"
+      }
+    ],
+    "tools/masa_ref/deform_fusion.py": [
+      {
+        "line": 50,
+        "text": "        norm_cfg=dict(type=\"GN\", num_groups=16, requires_grad=True),"
+      },
+      {
+        "line": 127,
+        "text": "                if not self.fix_upsample:"
+      },
+      {
+        "line": 131,
+        "text": "                        self.spatial_conv_high(x[level + 1], offsets[2], masks[2]),"
+      }
+    ]
+  },
+  "routing": [
+    {
+      "frame": 1159,
+      "references": [
+        {
+          "tid": 2179,
+          "frame": 1158,
+          "box": [
+            1074.4987930956254,
+            253.71041825219407,
+            1230.4368403873334,
+            346.1970244690852
+          ],
+          "resized_geometric_size": 96.07390746411563,
+          "level": 0
+        },
+        {
+          "tid": 2445,
+          "frame": 1158,
+          "box": [
+            888.547778133986,
+            257.85588166727155,
+            1217.8895344521875,
+            376.74990940025134
+          ],
+          "resized_geometric_size": 158.3045528782028,
+          "level": 1
+        }
+      ],
+      "candidates": [
+        {
+          "raw_id": 109555,
+          "box": [
+            900.553466796875,
+            257.9931945800781,
+            1204.668212890625,
+            383.7151794433594
+          ],
+          "resized_geometric_size": 156.4279453399021,
+          "level": 1
+        },
+        {
+          "raw_id": 109571,
+          "box": [
+            1082.63916015625,
+            253.41275024414062,
+            1229.6094970703125,
+            348.55645751953125
+          ],
+          "resized_geometric_size": 94.60081255809035,
+          "level": 0
+        }
+      ]
+    },
+    {
+      "frame": 1160,
+      "references": [
+        {
+          "tid": 2179,
+          "frame": 1159,
+          "box": [
+            1082.1031571512851,
+            253.48867212293658,
+            1229.9299326259732,
+            347.696198257632
+          ],
+          "resized_geometric_size": 94.40811766432603,
+          "level": 0
+        },
+        {
+          "tid": 2445,
+          "frame": 1159,
+          "box": [
+            902.1008680405871,
+            257.61692326203354,
+            1220.8403448300933,
+            381.5280334926681
+          ],
+          "resized_geometric_size": 158.9875214088337,
+          "level": 1
+        }
+      ],
+      "candidates": [
+        {
+          "raw_id": 109699,
+          "box": [
+            923.8269653320312,
+            255.22842407226562,
+            1229.455322265625,
+            392.7422790527344
+          ],
+          "resized_geometric_size": 164.00611413634098,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "frame": 1165,
+      "references": [
+        {
+          "tid": 2445,
+          "frame": 1164,
+          "box": [
+            943.952115102513,
+            253.2699960626931,
+            1281.8262639729464,
+            387.9484766678747
+          ],
+          "resized_geometric_size": 170.65403975179993,
+          "level": 1
+        },
+        {
+          "tid": 2179,
+          "frame": 1159,
+          "box": [
+            1082.1031571512851,
+            253.48867212293658,
+            1229.9299326259732,
+            347.696198257632
+          ],
+          "resized_geometric_size": 94.40811766432603,
+          "level": 0
+        }
+      ],
+      "candidates": [
+        {
+          "raw_id": 110260,
+          "box": [
+            932.22265625,
+            253.16033935546875,
+            1280.0,
+            384.85076904296875
+          ],
+          "resized_geometric_size": 171.2055098814566,
+          "level": 1
+        }
+      ]
+    }
+  ],
+  "exact_anchor_ambiguity": {
+    "frame": 1159,
+    "tid": 2445,
+    "raw_id": 109555,
+    "expected_from_past": "00122746",
+    "current_unique_hit_rule": [
+      "00122746",
+      "00122729"
+    ],
+    "exact_overlap_values": [
+      {
+        "identity": "00122746",
+        "iou": 0.7227149466959932,
+        "covered_object_fraction": 1.0
+      },
+      {
+        "identity": "00122729",
+        "iou": 0.5037385679216657,
+        "covered_object_fraction": 0.864278823969545
+      },
+      {
+        "identity": "00122733",
+        "iou": 0.25678212240477005,
+        "covered_object_fraction": 0.5160809872474199
+      },
+      {
+        "identity": "00122741",
+        "iou": 0.24072378460857902,
+        "covered_object_fraction": 0.83295476775639
+      },
+      {
+        "identity": "00122657",
+        "iou": 0.21425952032174583,
+        "covered_object_fraction": 0.7483919532029351
+      },
+      {
+        "identity": "00122748",
+        "iou": 0.04824609236395111,
+        "covered_object_fraction": 0.10043375091865245
+      }
+    ]
+  },
+  "batch_error_bounds": {
+    "component_max_error": 0.00010757893323898315,
+    "dimension": 256,
+    "records": [
+      {
+        "frame": 1160,
+        "measured_appearance_margin": 0.31188206002116203,
+        "reference_l2_bound": 0.0017212629318237305,
+        "two_edge_margin_bound_fixed_unit_query": 0.0017212629318237305,
+        "margin_exceeds_bound": true
+      },
+      {
+        "frame": 1165,
+        "measured_appearance_margin": 0.3465034607797861,
+        "reference_l2_bound": 0.0017212629318237305,
+        "two_edge_margin_bound_fixed_unit_query": 0.0017212629318237305,
+        "margin_exceeds_bound": true
+      }
+    ],
+    "limitation": "Analytical bound for reported repeated reference vectors and fixed unit query. Not an empirical bound on every unseen ROI. Misranking predates failed memory extraction; final matched-batch overlap error is0."
+  },
+  "verified_official_config_agreement": [
+    "RGB conversion",
+    "ImageNet mean/std",
+    "long side1024",
+    "padding divisor32",
+    "ResNet50 caffe stride placement",
+    "three DeformFusion blocks",
+    "four embedding convs",
+    "GN32 embedding normalization",
+    "ROIAlign7x7 adaptive sampling",
+    "FPN size threshold56"
+  ],
+  "official_sources": [
+    "https://raw.githubusercontent.com/siyuanliii/masa/main/configs/masa-one/masa_r50_plug_and_play.py",
+    "https://raw.githubusercontent.com/open-mmlab/mmdetection/main/mmdet/models/roi_heads/roi_extractors/single_level_roi_extractor.py",
+    "https://raw.githubusercontent.com/open-mmlab/mmcv/main/mmcv/ops/csrc/common/cuda/modulated_deform_conv_cuda_kernel.cuh"
+  ],
+  "limitations": [
+    "No full numerical parity test against official MMCV/MASA was run.",
+    "ROI level mismatch is a confirmed routing difference, not yet a proven cause of wrong similarity.",
+    "Whole-frame dependency is confirmed architecture; its measured contribution requires root pixel intervention.",
+    "Current annotation overlap cannot identify visible pixels or prove unique membership."
+  ]
+}

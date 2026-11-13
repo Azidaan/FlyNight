@@ -1,0 +1,588 @@
+{
+  "passed": true,
+  "inputs": {
+    "E:\\Dissertation\\research_visible_part_2179_20261114\\feature_outputs.json": "f8fb928613cc25117b5043ff86d4c6dc4d1dd4d205f787b704c05110551107a5",
+    "E:\\Dissertation\\research_visible_part_2179_20261114\\feature_outputs.npz": "f1a46dbf89d1183b9d806ac436881a496c58e551ed91631389d3acf176b216d9"
+  },
+  "evaluator_sha256": "53fcdba6875bfe02db46018ab17c5847845aa73179096731cd8f23402ddd8011",
+  "definition": "Gap=d(target red-core reference, query)-d(competitor black-core reference, query). Positive favors competitor reference. Core masks are conservative manual visible regions; unselected own-car pixels may exist in uncertain group. A physical-car label still requires annotation audit.",
+  "warning": "Joint subset1 from pixel_audit retains the same red-car group inside both original reference canvases; it is NOT the clean own-car reference comparison. This file uses target subset1 and competitor subset2.",
+  "rows": [
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 0,
+      "target_distance": 0.2587177973873393,
+      "competitor_distance": 0.2370107358706776,
+      "gap": 0.021707061516661685
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 1,
+      "target_distance": 0.17897974369174607,
+      "competitor_distance": 0.14224099880397678,
+      "gap": 0.03673874488776929
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 2,
+      "target_distance": 0.18583714443620603,
+      "competitor_distance": 0.008377170217746033,
+      "gap": 0.17745997421846
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 3,
+      "target_distance": 0.17524423937448474,
+      "competitor_distance": 0.038531477513863654,
+      "gap": 0.1367127618606211
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 4,
+      "target_distance": 0.3861335332826879,
+      "competitor_distance": 0.2790656385719077,
+      "gap": 0.10706789471078021
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 5,
+      "target_distance": 0.35322707151691163,
+      "competitor_distance": 0.2770552171641515,
+      "gap": 0.07617185435276014
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 6,
+      "target_distance": 0.4272192541110236,
+      "competitor_distance": 0.3132466078402111,
+      "gap": 0.11397264627081255
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 7,
+      "target_distance": 0.40546941998178654,
+      "competitor_distance": 0.3209764077243506,
+      "gap": 0.08449301225743594
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 8,
+      "target_distance": 0.5335359474904512,
+      "competitor_distance": 0.533918074275518,
+      "gap": -0.000382126785066772
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 9,
+      "target_distance": 0.5206346506412197,
+      "competitor_distance": 0.5336099961376901,
+      "gap": -0.012975345496470392
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 10,
+      "target_distance": 0.5072912894119503,
+      "competitor_distance": 0.4797132537354618,
+      "gap": 0.027578035676488533
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 11,
+      "target_distance": 0.4982353757979432,
+      "competitor_distance": 0.48388204332896556,
+      "gap": 0.014353332468977631
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 12,
+      "target_distance": 0.532928244487551,
+      "competitor_distance": 0.5268092807325881,
+      "gap": 0.006118963754962903
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 13,
+      "target_distance": 0.5204686088427153,
+      "competitor_distance": 0.5249754431284429,
+      "gap": -0.004506834285727623
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 14,
+      "target_distance": 0.5255489374748944,
+      "competitor_distance": 0.48903343489936685,
+      "gap": 0.03651550257552755
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 15,
+      "target_distance": 0.5166710068708343,
+      "competitor_distance": 0.4900357399890554,
+      "gap": 0.02663526688177892
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 16,
+      "target_distance": 0.22733255168040833,
+      "competitor_distance": 0.09250860457553989,
+      "gap": 0.13482394710486845
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 17,
+      "target_distance": 0.21567363273843043,
+      "competitor_distance": 0.08796061600153393,
+      "gap": 0.1277130167368965
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 18,
+      "target_distance": 0.23471442080297789,
+      "competitor_distance": 0.11203295648956596,
+      "gap": 0.12268146431341193
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 19,
+      "target_distance": 0.22025260098756183,
+      "competitor_distance": 0.11137747568236839,
+      "gap": 0.10887512530519344
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 20,
+      "target_distance": 0.41760810276189175,
+      "competitor_distance": 0.32880571470159303,
+      "gap": 0.08880238806029872
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 21,
+      "target_distance": 0.4037571827965884,
+      "competitor_distance": 0.3143809721786415,
+      "gap": 0.08937621061794687
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 22,
+      "target_distance": 0.4023694651273543,
+      "competitor_distance": 0.33177567054351376,
+      "gap": 0.07059379458384052
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 23,
+      "target_distance": 0.3911528540954956,
+      "competitor_distance": 0.3217383306894471,
+      "gap": 0.06941452340604848
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 24,
+      "target_distance": 0.5161788836108913,
+      "competitor_distance": 0.5057594621227031,
+      "gap": 0.010419421488188196
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 25,
+      "target_distance": 0.5122888687940537,
+      "competitor_distance": 0.501853997111893,
+      "gap": 0.010434871682160618
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 26,
+      "target_distance": 0.4920657822136988,
+      "competitor_distance": 0.47193698577410226,
+      "gap": 0.02012879643959653
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 27,
+      "target_distance": 0.49114762382652527,
+      "competitor_distance": 0.4702066848957903,
+      "gap": 0.020940938930734954
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 28,
+      "target_distance": 0.5197521649273449,
+      "competitor_distance": 0.5049221688533865,
+      "gap": 0.014829996073958407
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 29,
+      "target_distance": 0.519773176065098,
+      "competitor_distance": 0.5000507530752754,
+      "gap": 0.01972242298982263
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 30,
+      "target_distance": 0.5084059149122709,
+      "competitor_distance": 0.48690323715405454,
+      "gap": 0.021502677758216404
+    },
+    {
+      "fill": "imagenet_mean",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 31,
+      "target_distance": 0.507422290390659,
+      "competitor_distance": 0.47980316163832154,
+      "gap": 0.027619128752337463
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 0,
+      "target_distance": 0.38810411810756534,
+      "competitor_distance": 0.372234210270704,
+      "gap": 0.01586990783686132
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 1,
+      "target_distance": 0.3590405734188525,
+      "competitor_distance": 0.286210588602422,
+      "gap": 0.07282998481643049
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 2,
+      "target_distance": 0.40409025506104834,
+      "competitor_distance": 0.020891147731195325,
+      "gap": 0.383199107329853
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 3,
+      "target_distance": 0.3619215088395722,
+      "competitor_distance": 0.08898104711071925,
+      "gap": 0.27294046172885295
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 4,
+      "target_distance": 0.5109966833464819,
+      "competitor_distance": 0.32643434248527403,
+      "gap": 0.18456234086120782
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 5,
+      "target_distance": 0.4660530372599997,
+      "competitor_distance": 0.32225663724549836,
+      "gap": 0.14379640001450134
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 6,
+      "target_distance": 0.47892186846455653,
+      "competitor_distance": 0.24923911105845709,
+      "gap": 0.22968275740609945
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 7,
+      "target_distance": 0.4517617355778369,
+      "competitor_distance": 0.27616809462497505,
+      "gap": 0.17559364095286184
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 8,
+      "target_distance": 0.5176426343470666,
+      "competitor_distance": 0.42139470967943654,
+      "gap": 0.09624792466763005
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 9,
+      "target_distance": 0.5116734292459767,
+      "competitor_distance": 0.4230680675298479,
+      "gap": 0.08860536171612882
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 10,
+      "target_distance": 0.5030620415720192,
+      "competitor_distance": 0.34930622914802967,
+      "gap": 0.1537558124239895
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 11,
+      "target_distance": 0.4982969728235264,
+      "competitor_distance": 0.3532325402613493,
+      "gap": 0.1450644325621771
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 12,
+      "target_distance": 0.5083697345196404,
+      "competitor_distance": 0.39984772684285913,
+      "gap": 0.10852200767678127
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 13,
+      "target_distance": 0.505543103899186,
+      "competitor_distance": 0.4028113220954933,
+      "gap": 0.10273178180369269
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 14,
+      "target_distance": 0.5022728688137595,
+      "competitor_distance": 0.35659556485457516,
+      "gap": 0.14567730395918438
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 15,
+      "target_distance": 0.4979282693699394,
+      "competitor_distance": 0.3612067180019284,
+      "gap": 0.136721551368011
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 16,
+      "target_distance": 0.3957395744255406,
+      "competitor_distance": 0.17648848697794844,
+      "gap": 0.21925108744759214
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 17,
+      "target_distance": 0.3906827442765828,
+      "competitor_distance": 0.17968465044863136,
+      "gap": 0.21099809382795143
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 18,
+      "target_distance": 0.4090443852314615,
+      "competitor_distance": 0.1572598725253722,
+      "gap": 0.2517845127060893
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 19,
+      "target_distance": 0.41055125868950104,
+      "competitor_distance": 0.17458559077210956,
+      "gap": 0.2359656679173915
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 20,
+      "target_distance": 0.4799914181794909,
+      "competitor_distance": 0.3100652860272503,
+      "gap": 0.16992613215224062
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 21,
+      "target_distance": 0.4674890934884983,
+      "competitor_distance": 0.2914886605990607,
+      "gap": 0.17600043288943762
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 22,
+      "target_distance": 0.4780179541253172,
+      "competitor_distance": 0.3058360359701563,
+      "gap": 0.17218191815516093
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 23,
+      "target_distance": 0.4668851221712777,
+      "competitor_distance": 0.299367676215351,
+      "gap": 0.1675174459559267
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 24,
+      "target_distance": 0.49970009039843066,
+      "competitor_distance": 0.39067793938870693,
+      "gap": 0.10902215100972373
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 25,
+      "target_distance": 0.5045725270452608,
+      "competitor_distance": 0.3844274885905218,
+      "gap": 0.120145038454739
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 26,
+      "target_distance": 0.48679957140482805,
+      "competitor_distance": 0.3517251801966859,
+      "gap": 0.13507439120814213
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 27,
+      "target_distance": 0.4901210869145216,
+      "competitor_distance": 0.3503988191860596,
+      "gap": 0.13972226772846202
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 28,
+      "target_distance": 0.4995084310554871,
+      "competitor_distance": 0.3849476506565938,
+      "gap": 0.11456078039889328
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 29,
+      "target_distance": 0.5037608592148587,
+      "competitor_distance": 0.375107604723348,
+      "gap": 0.12865325449151072
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 30,
+      "target_distance": 0.4929804954370359,
+      "competitor_distance": 0.37809199565120655,
+      "gap": 0.11488849978582938
+    },
+    {
+      "fill": "black",
+      "target_reference_subset": 1,
+      "competitor_reference_subset": 2,
+      "query_subset": 31,
+      "target_distance": 0.4974434510613668,
+      "competitor_distance": 0.3719230815515645,
+      "gap": 0.12552036950980228
+    }
+  ]
+}

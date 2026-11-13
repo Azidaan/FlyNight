@@ -1,0 +1,64 @@
+{
+  "completed": true,
+  "elapsed_seconds": 6.375,
+  "source_sha256": "6b4a1fb00fac13ded6f8f71f22e14e482c2b8062fd74a120830c7283b062d2fa",
+  "prompts_sha256": "2b91ed89245938b854e3edd1aa60d063cf21a1f9536aedb8e24eacad2b548439",
+  "weights_sha256": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69",
+  "mask_sha256": "be5d241d7ae361cb67aa6370c26911f10867753b177e2d913ed7da1db7abc55d",
+  "records": [
+    {
+      "frame": 1159,
+      "scores": {
+        "target": 0.8598001003265381,
+        "neighbor": 0.6714592576026917,
+        "person_gray": 0.912463366985321,
+        "person_red": 0.852105438709259,
+        "cart": 0.8759422302246094
+      },
+      "pixel_counts": {
+        "target": 7073,
+        "neighbor": 7128,
+        "occluder": 24703,
+        "background": 882696
+      },
+      "image_sha256": "40df6ac7ad76e0a25b16fb9375d6e1d2d811ae9b30c3bc41ca4a0f84f13dd279"
+    },
+    {
+      "frame": 1164,
+      "scores": {
+        "target": 0.7362959384918213,
+        "neighbor": 0.8212485313415527,
+        "person_gray": 0.8960854411125183,
+        "person_red": 0.7070099711418152,
+        "cart": 0.9274013638496399
+      },
+      "pixel_counts": {
+        "target": 345,
+        "neighbor": 14002,
+        "occluder": 23646,
+        "background": 883607
+      },
+      "image_sha256": "a73bb45700b58c835e6a9927c5a06460f52c290f77b21efc4c256f72d88923e0"
+    },
+    {
+      "frame": 1165,
+      "scores": {
+        "target": 0.7351006865501404,
+        "neighbor": 0.8151475191116333,
+        "person_gray": 0.9013930559158325,
+        "person_red": 0.5974037051200867,
+        "cart": 0.9369104504585266
+      },
+      "pixel_counts": {
+        "target": 276,
+        "neighbor": 14337,
+        "occluder": 23556,
+        "background": 883431
+      },
+      "image_sha256": "a7fda97e56e47d10e3b682b853fb5b5973ba7f3b8e5e1ca07b95497e78d98e71"
+    }
+  ],
+  "scope": "Diagnostic image-prompted SAM masks. No segmentation GT. Raw and visibility-priority masks both retained. Human QA required.",
+  "precision": "FP32",
+  "mask_threshold": 0
+}

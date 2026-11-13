@@ -26,6 +26,9 @@ def build_source_notes(vault_path):
         text += '## Первичные источники и граница переноса\n\n'
         for source in item['sources']:
             text += '[' + source['title'] + '](' + source['url'] + '). ' + source['supports'] + '\n\n'
-        text += 'Полная запись: [Единый план, раздел 7.12](' + (ROOT / 'dissertation/ЕДИНЫЙ_ПЛАН.md').as_uri() + ').\n'
+        if item.get('record_source'):
+            text += 'Полная постановка и источники: [запись гипотезы](' + (ROOT / item['record_source']).as_uri() + ').\n'
+        else:
+            text += 'Полная запись: [Единый план, раздел 7.12](' + (ROOT / 'dissertation/ЕДИНЫЙ_ПЛАН.md').as_uri() + ').\n'
         vault.write(path, text)
     return vault.written

@@ -1,0 +1,94 @@
+{
+  "passed": true,
+  "pixel_vectors": 192,
+  "level_vectors": 72,
+  "native_reproduction_max_error": 0,
+  "red_core_comparisons": [
+    {
+      "fill": "imagenet_mean",
+      "mode": "red_query_clean_refs",
+      "native_gap": 0.03673874488776929,
+      "level0_gap": -0.010822665949779098,
+      "level1_gap": 0.015550048074415679,
+      "native_minus_level0": 0.04756141083754839,
+      "native_minus_level1": 0.021188696813353614
+    },
+    {
+      "fill": "black",
+      "mode": "red_query_clean_refs",
+      "native_gap": 0.07282998481643049,
+      "level0_gap": -0.027480905323129468,
+      "level1_gap": 0.05376582431588972,
+      "native_minus_level0": 0.10031089013955996,
+      "native_minus_level1": 0.019064160500540772
+    }
+  ],
+  "black_core_comparisons": [
+    {
+      "fill": "imagenet_mean",
+      "mode": "black_query_clean_refs",
+      "native_gap": 0.17745997421846,
+      "level0_gap": 0.14058413000530212,
+      "level1_gap": 0.1551684121027046,
+      "native_minus_level0": 0.03687584421315787,
+      "native_minus_level1": 0.022291562115755392
+    },
+    {
+      "fill": "black",
+      "mode": "black_query_clean_refs",
+      "native_gap": 0.383199107329853,
+      "level0_gap": 0.35301729503028517,
+      "level1_gap": 0.3641897686701734,
+      "native_minus_level0": 0.030181812299567845,
+      "native_minus_level1": 0.01900933865967963
+    }
+  ],
+  "blank_comparisons": [
+    {
+      "fill": "imagenet_mean",
+      "mode": "blank",
+      "native_gap": 0.15758901605900572,
+      "level0_gap": 0.029173539887859923,
+      "level1_gap": 0.010807125601200618,
+      "native_minus_level0": 0.1284154761711458,
+      "native_minus_level1": 0.1467818904578051
+    },
+    {
+      "fill": "black",
+      "mode": "blank",
+      "native_gap": 0.1731031684316009,
+      "level0_gap": 0.06228891562788391,
+      "level1_gap": 0.13014084674267612,
+      "native_minus_level0": 0.11081425280371698,
+      "native_minus_level1": 0.042962321688924776
+    }
+  ],
+  "full_comparisons": [
+    {
+      "fill": "imagenet_mean",
+      "mode": "full",
+      "native_gap": 0.34650346213030364,
+      "level0_gap": 0.3296842030411962,
+      "level1_gap": 0.35805193039603755,
+      "native_minus_level0": 0.01681925908910742,
+      "native_minus_level1": -0.011548468265733913
+    },
+    {
+      "fill": "black",
+      "mode": "full",
+      "native_gap": 0.34650346213030364,
+      "level0_gap": 0.3296842030411962,
+      "level1_gap": 0.35805193039603755,
+      "native_minus_level0": 0.01681925908910742,
+      "native_minus_level1": -0.011548468265733913
+    }
+  ],
+  "conditional_physical_choices_native": 2,
+  "conditional_physical_choices_clean_common_level0": 4,
+  "conditional_choices_total": 4,
+  "relative_change_percent": 100,
+  "scope": "Two physical visible-core queries on one event under two fill controls, manual conservative masks. Four conditions are not four independent objects/videos. No HOTA, assignment lifecycle or automatic segmentation success.",
+  "production_changes": 0,
+  "core_calls": 0,
+  "tracker_calls": 0
+}

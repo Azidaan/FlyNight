@@ -1,0 +1,321 @@
+{
+  "created": "2026-11-14T00:55:20.383666+03:00",
+  "file": "masks_reviewed.npz",
+  "sha256": "e56f4392a3bb1a1f54e33dc31d8acb32f31c80d79a95697055c932f03e3c10cd",
+  "automatic_source": "masks.npz",
+  "automatic_sha256": "be5d241d7ae361cb67aa6370c26911f10867753b177e2d913ed7da1db7abc55d",
+  "keys": "{frame}_target, {frame}_neighbor, {frame}_occluder, {frame}_background, {frame}_uncertain",
+  "frames": [
+    1159,
+    1164,
+    1165
+  ],
+  "semantic": {
+    "red": "Conservative visible core of far2179SUV; manual polygons intersect SAM, not full silhouette.",
+    "black": "Conservative visible core of near2445SUV; manual polygons intersect SAM, not full silhouette.",
+    "foreground": "SAM gray pedestrian/red pedestrian/cart union.",
+    "background": "Outside both raw SAM vehicle masks and foreground. May include unannotated distant objects, therefore remaining scene rather than pure road background.",
+    "uncertain": "Unassigned raw vehicle-mask region; must not silently treat as clean background."
+  },
+  "polygons": {
+    "1159": {
+      "red": [
+        [
+          [
+            1122,
+            255
+          ],
+          [
+            1190,
+            255
+          ],
+          [
+            1210,
+            266
+          ],
+          [
+            1220,
+            281
+          ],
+          [
+            1205,
+            294
+          ],
+          [
+            1167,
+            292
+          ],
+          [
+            1130,
+            278
+          ]
+        ]
+      ],
+      "black": [
+        [
+          [
+            941,
+            268
+          ],
+          [
+            1020,
+            265
+          ],
+          [
+            1040,
+            280
+          ],
+          [
+            1020,
+            309
+          ],
+          [
+            947,
+            309
+          ],
+          [
+            916,
+            322
+          ],
+          [
+            905,
+            310
+          ],
+          [
+            920,
+            283
+          ]
+        ]
+      ]
+    },
+    "1164": {
+      "red": [
+        [
+          [
+            1122,
+            254
+          ],
+          [
+            1189,
+            255
+          ],
+          [
+            1210,
+            265
+          ],
+          [
+            1219,
+            280
+          ],
+          [
+            1208,
+            288
+          ],
+          [
+            1166,
+            280
+          ],
+          [
+            1140,
+            269
+          ]
+        ]
+      ],
+      "black": [
+        [
+          [
+            1003,
+            269
+          ],
+          [
+            1078,
+            264
+          ],
+          [
+            1086,
+            276
+          ],
+          [
+            1068,
+            311
+          ],
+          [
+            995,
+            311
+          ],
+          [
+            964,
+            317
+          ],
+          [
+            961,
+            305
+          ],
+          [
+            987,
+            284
+          ]
+        ],
+        [
+          [
+            1170,
+            307
+          ],
+          [
+            1263,
+            305
+          ],
+          [
+            1275,
+            327
+          ],
+          [
+            1261,
+            350
+          ],
+          [
+            1170,
+            342
+          ]
+        ]
+      ]
+    },
+    "1165": {
+      "red": [
+        [
+          [
+            1122,
+            254
+          ],
+          [
+            1189,
+            255
+          ],
+          [
+            1210,
+            265
+          ],
+          [
+            1219,
+            280
+          ],
+          [
+            1208,
+            288
+          ],
+          [
+            1166,
+            280
+          ],
+          [
+            1140,
+            269
+          ]
+        ]
+      ],
+      "black": [
+        [
+          [
+            1010,
+            270
+          ],
+          [
+            1086,
+            264
+          ],
+          [
+            1091,
+            276
+          ],
+          [
+            1072,
+            311
+          ],
+          [
+            1002,
+            311
+          ],
+          [
+            967,
+            318
+          ],
+          [
+            963,
+            305
+          ],
+          [
+            990,
+            285
+          ]
+        ],
+        [
+          [
+            1170,
+            307
+          ],
+          [
+            1270,
+            305
+          ],
+          [
+            1277,
+            328
+          ],
+          [
+            1264,
+            350
+          ],
+          [
+            1170,
+            342
+          ]
+        ]
+      ]
+    }
+  },
+  "records": [
+    {
+      "frame": 1159,
+      "counts": {
+        "red": 2872,
+        "black": 4680,
+        "foreground": 24703,
+        "background": 882696,
+        "uncertain": 6649
+      },
+      "sam_overlap_pixels": 509,
+      "all_classes_disjoint": true
+    },
+    {
+      "frame": 1164,
+      "counts": {
+        "red": 1782,
+        "black": 7213,
+        "foreground": 23646,
+        "background": 883607,
+        "uncertain": 5352
+      },
+      "sam_overlap_pixels": 6640,
+      "all_classes_disjoint": true
+    },
+    {
+      "frame": 1165,
+      "counts": {
+        "red": 1743,
+        "black": 6877,
+        "foreground": 23556,
+        "background": 883431,
+        "uncertain": 5993
+      },
+      "sam_overlap_pixels": 6310,
+      "all_classes_disjoint": true
+    }
+  ],
+  "limitation": "Raw SAM merges cars on1164/1165. This conservative visual-core diagnostic does not prove complete visible-object segmentation. Do not interpret black-only/core effects as sole neighbor cause while uncertain pixels remain uncontrolled. No MASA outcomes consulted.",
+  "review_status": "Original images and diagnostic masks visually checked before any MASA outcomes. Five components form a disjoint exhaustive partition. Target/neighbor are conservative manually delimited visible cores, not complete contours.",
+  "reviewed_images": [
+    "1159_core_review.png",
+    "1164_core_review.png",
+    "1165_core_review.png"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "registered": "2026-11-14T00:59:42.817462+03:00",
+  "observation": "Independent pixel audit finds preference on fully blank images. Native ROI scale routes target through level0 and competitor/query level1.",
+  "hypothesis": "Scale-route/ROI differences cause part of blank-image preference; holding common level distinguishes level contribution from semantic pixels.",
+  "conditions": [
+    "native",
+    "common_level0",
+    "common_level1"
+  ],
+  "inputs": [
+    "blank",
+    "full",
+    "red_query_clean_refs",
+    "black_query_clean_refs"
+  ],
+  "fills": [
+    "imagenet_mean",
+    "black"
+  ],
+  "acceptance": [
+    "Native identity reproduces saved descriptors within1e-5.",
+    "Keep image canvas, ROI boxes, batchslot, weights and all nonlevel calculations fixed.",
+    "Independent cosine recomputation; blank effect not called identity improvement."
+  ],
+  "sha256": "97224351f0cdb2544bf7e279c6edeedc6ba7f3c587425f7353563eb6a5b62801"
+}

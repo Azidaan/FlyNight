@@ -1,0 +1,73 @@
+{
+  "passed": true,
+  "audited_at": "2026-11-14T01:01:54.193195+03:00",
+  "mask_frozen_at": "2026-11-14T00:55:20.383666+03:00",
+  "pixel_job_started_at": "2026-11-14T00:56:12.301111+03:00",
+  "fixed_before_pixel_job_seconds": 51.917445,
+  "evidence_of_before_outcomes": "Mask metadata creation time precedes guarded pixel worker start; this audit reads queue metadata but no feature outputs or measured similarity outcomes.",
+  "mask_sha256": "e56f4392a3bb1a1f54e33dc31d8acb32f31c80d79a95697055c932f03e3c10cd",
+  "raw_failed_mask_sha256": "be5d241d7ae361cb67aa6370c26911f10867753b177e2d913ed7da1db7abc55d",
+  "raw_failed_masks_retained": true,
+  "records": [
+    {
+      "frame": 1159,
+      "counts": {
+        "target": 2872,
+        "neighbor": 4680,
+        "occluder": 24703,
+        "background": 882696,
+        "uncertain": 6649
+      },
+      "sum_pixels": 921600,
+      "disjoint_exhaustive": true,
+      "raw_vehicle_overlap_pixels": 509
+    },
+    {
+      "frame": 1164,
+      "counts": {
+        "target": 1782,
+        "neighbor": 7213,
+        "occluder": 23646,
+        "background": 883607,
+        "uncertain": 5352
+      },
+      "sum_pixels": 921600,
+      "disjoint_exhaustive": true,
+      "raw_vehicle_overlap_pixels": 6640
+    },
+    {
+      "frame": 1165,
+      "counts": {
+        "target": 1743,
+        "neighbor": 6877,
+        "occluder": 23556,
+        "background": 883431,
+        "uncertain": 5993
+      },
+      "sum_pixels": 921600,
+      "disjoint_exhaustive": true,
+      "raw_vehicle_overlap_pixels": 6310
+    }
+  ],
+  "current_provenance_verified": {
+    "research_visible_part_2179_20261114\\mask_review\\extract_masks.py": "6b4a1fb00fac13ded6f8f71f22e14e482c2b8062fd74a120830c7283b062d2fa",
+    "research_visible_part_2179_20261114\\mask_review\\prompts.json": "2b91ed89245938b854e3edd1aa60d063cf21a1f9536aedb8e24eacad2b548439",
+    "weights\\sam2_official_20261027\\sam2.1_hiera_tiny.pt": "7402e0d864fa82708a20fbd15bc84245c2f26dff0eb43a4b5b93452deb34be69",
+    "research_visible_part_2179_20261114\\frames\\1159.png": "40df6ac7ad76e0a25b16fb9375d6e1d2d811ae9b30c3bc41ca4a0f84f13dd279",
+    "research_visible_part_2179_20261114\\frames\\1164.png": "a73bb45700b58c835e6a9927c5a06460f52c290f77b21efc4c256f72d88923e0",
+    "research_visible_part_2179_20261114\\frames\\1165.png": "a7fda97e56e47d10e3b682b853fb5b5973ba7f3b8e5e1ca07b95497e78d98e71"
+  },
+  "construction_sources_now": {
+    "finalize_masks.py": "45c83941d1ea68e0fae9ea95176fd095a2624c73a3a3ca440606d022c991882b",
+    "export_reviewed.py": "5436dd7baebd33cb3289db59f8428a6e1321205c03bf8c0c1d18f9bf49fe0157",
+    "masks_reviewed.json": "2f9051771ca772a28457668cfd10169ffe4082a2f10edbf9997720e4f331fc8e",
+    "prompts.json": "2b91ed89245938b854e3edd1aa60d063cf21a1f9536aedb8e24eacad2b548439"
+  },
+  "visual_review": "All three core panels visually inspected in agent before similarity outcomes; parent independently inspected 1159 and 1165. Image-only manual cores do not constitute segmentation ground truth.",
+  "limitations": [
+    "Target and neighbor masks are conservative visible cores, not entire object silhouettes.",
+    "Raw SAM masks merge the cars on 1164 and 1165; uncertain pixels remain an explicit fifth group.",
+    "Background means scene outside raw masks and can contain other distant objects.",
+    "This audit verifies partition and provenance, not automatic segmentation accuracy or persistent identity."
+  ]
+}
