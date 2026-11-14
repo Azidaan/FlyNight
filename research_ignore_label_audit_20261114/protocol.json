@@ -1,0 +1,38 @@
+{
+  "registered": "2026-11-14T08:15:08.134534+03:00",
+  "head": "5e6d62f3dc222ff6eab4d65982b989d6a2ad4bf4",
+  "inputs": {
+    "research_missing_candidate_repair_20261114/cases.json": "2a328b560d2de58887d1191ec6c44150a41c79cb3dc23998442d69d87e4c48e0",
+    "research_return_cycle_20261114/cases.json": "d642f08b3459e0ad005199fe2728609c815d67835fd4c3954de0e26e42586401",
+    "research_supervised_contour_reader_20261114/dataset.json": "ebf48090bc4dba9990af177d4334d400e2d768fac9551a2a06b65a8a1abb63a8",
+    "research_supervised_contour_reader_20261114/result.json": "22b577bd0debd1f8ba208d5ecd8840d03a08ea14b0fc01ce9c4b669b96c390e9",
+    "research_official_contours_20261114/cases.json": "e7730e05027e94501c0c44c93c72322d243cb4dfa2809477a3b468e278d82b4c",
+    "research_missing_candidate_repair_20261114/detection_result.json": "f177f5c7f3d632d8eb0aa836ebe7a17c02ea49c9d2132b3feb08b76b56c8a0a8",
+    "research_observation_geometry_20261114/scored_candidates.json": "e69e6fec10898f9aabd0243b956f0887e0cc80da01a6f279efd848f9313bfba8",
+    "research_return_cycle_20261114/result.json": "48dfc33beb385fb99ae3de321d379d17b462544720c75946c1f754b667747705",
+    "data/bdd100k/extracted/BDD100K/MOTS 2020 Labels/bdd100k_seg_track_20_labels_trainval.zip": "e1a2971585feffea05dc05e178e493883d07def25c51976791fd16eb37572608",
+    "research_official_contours_20261114/official.py": "6909356198383ed6967ba4835be0103395982958ac64b8f731060a1f116426b5",
+    "research_ignore_label_audit_20261114/run.py": "0a05f1aa7fa5a97305ad9a84d298b986cbe92e2962453e8e3718b13c32762ba9",
+    "research_ignore_label_audit_20261114/register.py": "d3925f1235439693b2f916d195f4e7cdf4a1b7d23053c82a65e75eb25a711384",
+    "research_ignore_label_audit_20261114/official.py": "6909356198383ed6967ba4835be0103395982958ac64b8f731060a1f116426b5",
+    "research_ignore_label_audit_20261114/common.py": "2c7a8c0b2ca3de852b821287d8ad0f9b7be9a1c8384d30b3fc36825d8966b7d3",
+    "research_ignore_label_audit_20261114/run_queue.py": "2c922fc799394a03d9bc35cef70891b5bce61b4005b229d0e1bc72296ea0ce93"
+  },
+  "criteria": [
+    "На одном точном экземпляре независимо подтвердить расхождение ключа программы, полей JSON и пиксельного признака исключения обеих форм разметки.",
+    "На всех заявленных прежних наборах показать число реально отброшенных размеченных примеров и пересчитать доступность и назначения; прежние результаты и критерии сохранить в истории.",
+    "Проверить каждый затронутый экземпляр по полному растровому полю, перечислить несоответствия и явно назвать части проекта, на которые проверка не распространяется."
+  ],
+  "selection": "Frozen selected examples across mask reader, single target propagation, two-owner return, missing-box comparison. Enumerate current frames 0,1,2,4 and both source IDs, spellings ignored,ignore,crowd,iscrowd vs old ignore,crowd, identity-level counts and per-pixel flag byte low two bits. Keep absent label distinct from ignored. Count with and without excluded cases, no replacement, no inference. https://github.com/bdd100k/bdd100k/blob/master/doc/source/format.rst",
+  "files": {
+    "missing": "research_missing_candidate_repair_20261114/cases.json",
+    "cycle": "research_return_cycle_20261114/cases.json",
+    "reader": "research_supervised_contour_reader_20261114/dataset.json",
+    "reader_result": "research_supervised_contour_reader_20261114/result.json",
+    "single": "research_official_contours_20261114/cases.json",
+    "scores": "research_missing_candidate_repair_20261114/detection_result.json",
+    "roi": "research_observation_geometry_20261114/scored_candidates.json",
+    "cycle_result": "research_return_cycle_20261114/result.json"
+  },
+  "labelzip": "data/bdd100k/extracted/BDD100K/MOTS 2020 Labels/bdd100k_seg_track_20_labels_trainval.zip"
+}

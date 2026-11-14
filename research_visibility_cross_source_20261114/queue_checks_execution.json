@@ -1,0 +1,39 @@
+{
+  "started": "2026-11-14T08:15:12.220965+03:00",
+  "parent": {
+    "pid": 8064,
+    "birth": 1794633312.0366936
+  },
+  "jobs": [
+    {
+      "entry": "research_visibility_cross_source_20261114/checks.py",
+      "token": "642372ca39044a72ba8665693812b0b7",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\642372ca39044a72ba8665693812b0b7\\memory_guard.json",
+      "started": "2026-11-14T08:15:12.222966+03:00",
+      "ended": "2026-11-14T08:19:19.009428+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_visibility_cross_source_20261114\\checks.py",
+          "--audit-memory-worker=642372ca39044a72ba8665693812b0b7"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 15723524096,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "18800": 1794633312.232014,
+          "20320": 1794633312.2561684
+        },
+        "stop_errors": [],
+        "seconds": 246.78100000000268
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-14T08:19:19.010510+03:00",
+  "passed": true
+}

@@ -1,0 +1,66 @@
+{
+  "started": "2026-11-14T08:14:19.385080+03:00",
+  "parent": {
+    "pid": 29176,
+    "birth": 1794633259.1980116
+  },
+  "jobs": [
+    {
+      "entry": "research_mask_failure_stage_20261114/run.py",
+      "token": "c4af97af3df44037aa8db8ac4fc2441b",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\c4af97af3df44037aa8db8ac4fc2441b\\memory_guard.json",
+      "started": "2026-11-14T08:14:19.388721+03:00",
+      "ended": "2026-11-14T08:15:03.894219+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_mask_failure_stage_20261114\\run.py",
+          "--audit-memory-worker=c4af97af3df44037aa8db8ac4fc2441b"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 14317658112,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "26984": 1794633259.396382,
+          "21644": 1794633259.4251533
+        },
+        "stop_errors": [],
+        "seconds": 44.5
+      }
+    },
+    {
+      "entry": "research_mask_failure_stage_20261114/evaluate.py",
+      "token": "e07d67337480400bb3a249a556e470b1",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\e07d67337480400bb3a249a556e470b1\\memory_guard.json",
+      "started": "2026-11-14T08:15:03.900100+03:00",
+      "ended": "2026-11-14T08:15:07.031876+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_mask_failure_stage_20261114\\evaluate.py",
+          "--audit-memory-worker=e07d67337480400bb3a249a556e470b1"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17120747520,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "17496": 1794633303.9078977,
+          "30656": 1794633303.9338949
+        },
+        "stop_errors": [],
+        "seconds": 3.125
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-14T08:15:07.033293+03:00",
+  "passed": true
+}

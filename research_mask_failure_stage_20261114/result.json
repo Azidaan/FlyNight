@@ -1,0 +1,477 @@
+{
+  "scientific_passed": true,
+  "breakdown": {
+    "no_visible_reference": 5,
+    "temporal_prediction_sufficient_intervention": 4,
+    "no_sufficient_current_mask": 4
+  },
+  "errors": [
+    {
+      "case": "b1c66a42-6f7d68ca_149",
+      "video": "b1c66a42-6f7d68ca",
+      "frame": 1,
+      "slot": 0,
+      "split": "diagnostic",
+      "id": "385524",
+      "status": "wrong",
+      "stage": "no_visible_reference",
+      "initial_valid_overlap": 0.9463503649635037,
+      "prior_overlap": null,
+      "truepast_prior_overlap": null,
+      "initial_quality_failed": false,
+      "visible": false,
+      "best_current_mask_iou": 0,
+      "scores": {
+        "runtime": {
+          "action": 3,
+          "status": "wrong",
+          "iou": null
+        },
+        "prior_labels_only": {
+          "action": 3,
+          "status": "wrong",
+          "iou": null
+        },
+        "query_labels_only": {
+          "action": null,
+          "status": "deferred",
+          "iou": null
+        }
+      }
+    },
+    {
+      "case": "b1c66a42-6f7d68ca_149",
+      "video": "b1c66a42-6f7d68ca",
+      "frame": 2,
+      "slot": 0,
+      "split": "diagnostic",
+      "id": "385524",
+      "status": "wrong",
+      "stage": "no_visible_reference",
+      "initial_valid_overlap": 0.9463503649635037,
+      "prior_overlap": null,
+      "truepast_prior_overlap": null,
+      "initial_quality_failed": false,
+      "visible": false,
+      "best_current_mask_iou": 0,
+      "scores": {
+        "runtime": {
+          "action": 0,
+          "status": "wrong",
+          "iou": null
+        },
+        "prior_labels_only": {
+          "action": 0,
+          "status": "wrong",
+          "iou": null
+        },
+        "query_labels_only": {
+          "action": null,
+          "status": "deferred",
+          "iou": null
+        }
+      }
+    },
+    {
+      "case": "b1c66a42-6f7d68ca_149",
+      "video": "b1c66a42-6f7d68ca",
+      "frame": 4,
+      "slot": 0,
+      "split": "diagnostic",
+      "id": "385524",
+      "status": "wrong",
+      "stage": "no_visible_reference",
+      "initial_valid_overlap": 0.9463503649635037,
+      "prior_overlap": null,
+      "truepast_prior_overlap": null,
+      "initial_quality_failed": false,
+      "visible": false,
+      "best_current_mask_iou": 0,
+      "scores": {
+        "runtime": {
+          "action": 0,
+          "status": "wrong",
+          "iou": null
+        },
+        "prior_labels_only": {
+          "action": 0,
+          "status": "wrong",
+          "iou": null
+        },
+        "query_labels_only": {
+          "action": null,
+          "status": "deferred",
+          "iou": null
+        }
+      }
+    },
+    {
+      "case": "b1c66a42-6f7d68ca_49",
+      "video": "b1c66a42-6f7d68ca",
+      "frame": 4,
+      "slot": 0,
+      "split": "diagnostic",
+      "id": "160319",
+      "status": "wrong",
+      "stage": "no_visible_reference",
+      "initial_valid_overlap": 0.9108178532403127,
+      "prior_overlap": null,
+      "truepast_prior_overlap": null,
+      "initial_quality_failed": false,
+      "visible": false,
+      "best_current_mask_iou": 0,
+      "scores": {
+        "runtime": {
+          "action": 12,
+          "status": "wrong",
+          "iou": null
+        },
+        "prior_labels_only": {
+          "action": null,
+          "status": "deferred",
+          "iou": null
+        },
+        "query_labels_only": {
+          "action": null,
+          "status": "deferred",
+          "iou": null
+        }
+      }
+    },
+    {
+      "case": "b1c9c847-3bda4659_49",
+      "video": "b1c9c847-3bda4659",
+      "frame": 4,
+      "slot": 0,
+      "split": "diagnostic",
+      "id": "163091",
+      "status": "wrong",
+      "stage": "temporal_prediction_sufficient_intervention",
+      "initial_valid_overlap": 0.9361569753529553,
+      "prior_overlap": 0.0007640414318831017,
+      "truepast_prior_overlap": 0.00083809856388319,
+      "initial_quality_failed": false,
+      "visible": true,
+      "best_current_mask_iou": 0.9545158589898614,
+      "scores": {
+        "runtime": {
+          "action": 1,
+          "status": "wrong",
+          "iou": 0.0014849732791145415
+        },
+        "prior_labels_only": {
+          "action": 1,
+          "status": "wrong",
+          "iou": 0.0014849732791145415
+        },
+        "query_labels_only": {
+          "action": 0,
+          "status": "correct",
+          "iou": 0.9545158589898614
+        }
+      }
+    },
+    {
+      "case": "b1c9c847-3bda4659_49",
+      "video": "b1c9c847-3bda4659",
+      "frame": 4,
+      "slot": 1,
+      "split": "diagnostic",
+      "id": "179325",
+      "status": "wrong",
+      "stage": "temporal_prediction_sufficient_intervention",
+      "initial_valid_overlap": 0.8681987821646042,
+      "prior_overlap": 0.0,
+      "truepast_prior_overlap": 0.0,
+      "initial_quality_failed": false,
+      "visible": true,
+      "best_current_mask_iou": 0.9197471570662783,
+      "scores": {
+        "runtime": {
+          "action": 4,
+          "status": "wrong",
+          "iou": 0.0
+        },
+        "prior_labels_only": {
+          "action": 4,
+          "status": "wrong",
+          "iou": 0.0
+        },
+        "query_labels_only": {
+          "action": 1,
+          "status": "correct",
+          "iou": 0.9197471570662783
+        }
+      }
+    },
+    {
+      "case": "b1cebfb7-284f5117_149",
+      "video": "b1cebfb7-284f5117",
+      "frame": 4,
+      "slot": 0,
+      "split": "diagnostic",
+      "id": "247824",
+      "status": "wrong",
+      "stage": "no_visible_reference",
+      "initial_valid_overlap": 0.904883128905346,
+      "prior_overlap": null,
+      "truepast_prior_overlap": null,
+      "initial_quality_failed": false,
+      "visible": false,
+      "best_current_mask_iou": 0,
+      "scores": {
+        "runtime": {
+          "action": 1,
+          "status": "wrong",
+          "iou": null
+        },
+        "prior_labels_only": {
+          "action": 1,
+          "status": "wrong",
+          "iou": null
+        },
+        "query_labels_only": {
+          "action": null,
+          "status": "deferred",
+          "iou": null
+        }
+      }
+    },
+    {
+      "case": "b1d0091f-75824d0d_49",
+      "video": "b1d0091f-75824d0d",
+      "frame": 4,
+      "slot": 1,
+      "split": "diagnostic",
+      "id": "51998",
+      "status": "wrong",
+      "stage": "no_sufficient_current_mask",
+      "initial_valid_overlap": 0.7439446366782007,
+      "prior_overlap": 0.3469387755102041,
+      "truepast_prior_overlap": 0.41295546558704455,
+      "initial_quality_failed": false,
+      "visible": true,
+      "best_current_mask_iou": 0.4642857142857143,
+      "scores": {
+        "runtime": {
+          "action": 4,
+          "status": "wrong",
+          "iou": 0.4642857142857143
+        },
+        "prior_labels_only": {
+          "action": 4,
+          "status": "wrong",
+          "iou": 0.4642857142857143
+        },
+        "query_labels_only": {
+          "action": null,
+          "status": "deferred",
+          "iou": 0.0
+        }
+      }
+    },
+    {
+      "case": "b1d0091f-f2c2d2ae_149",
+      "video": "b1d0091f-f2c2d2ae",
+      "frame": 2,
+      "slot": 1,
+      "split": "diagnostic",
+      "id": "193985",
+      "status": "wrong",
+      "stage": "temporal_prediction_sufficient_intervention",
+      "initial_valid_overlap": 0.8557768924302789,
+      "prior_overlap": 0.5182529335071708,
+      "truepast_prior_overlap": 0.5123580494321978,
+      "initial_quality_failed": false,
+      "visible": true,
+      "best_current_mask_iou": 0.8754171301446051,
+      "scores": {
+        "runtime": {
+          "action": 7,
+          "status": "wrong",
+          "iou": 0.4996746909564086
+        },
+        "prior_labels_only": {
+          "action": 7,
+          "status": "wrong",
+          "iou": 0.4996746909564086
+        },
+        "query_labels_only": {
+          "action": 9,
+          "status": "correct",
+          "iou": 0.8754171301446051
+        }
+      }
+    },
+    {
+      "case": "b1d22ed6-f1cac061_149",
+      "video": "b1d22ed6-f1cac061",
+      "frame": 1,
+      "slot": 1,
+      "split": "fresh",
+      "id": "934118",
+      "status": "wrong",
+      "stage": "no_sufficient_current_mask",
+      "initial_valid_overlap": 0.3288707799767171,
+      "prior_overlap": 0.41185410334346506,
+      "truepast_prior_overlap": 0.7966963151207116,
+      "initial_quality_failed": true,
+      "visible": true,
+      "best_current_mask_iou": 0.4082426127527216,
+      "scores": {
+        "runtime": {
+          "action": 6,
+          "status": "wrong",
+          "iou": 0.4082426127527216
+        },
+        "prior_labels_only": {
+          "action": null,
+          "status": "deferred",
+          "iou": 0.0
+        },
+        "query_labels_only": {
+          "action": null,
+          "status": "deferred",
+          "iou": 0.0
+        }
+      }
+    },
+    {
+      "case": "b1d22ed6-f1cac061_149",
+      "video": "b1d22ed6-f1cac061",
+      "frame": 2,
+      "slot": 1,
+      "split": "fresh",
+      "id": "934118",
+      "status": "wrong",
+      "stage": "no_sufficient_current_mask",
+      "initial_valid_overlap": 0.3288707799767171,
+      "prior_overlap": 0.23898431665421957,
+      "truepast_prior_overlap": 0.5738295318127251,
+      "initial_quality_failed": true,
+      "visible": true,
+      "best_current_mask_iou": 0.3453703703703704,
+      "scores": {
+        "runtime": {
+          "action": 7,
+          "status": "wrong",
+          "iou": 0.3453703703703704
+        },
+        "prior_labels_only": {
+          "action": null,
+          "status": "deferred",
+          "iou": 0.0
+        },
+        "query_labels_only": {
+          "action": null,
+          "status": "deferred",
+          "iou": 0.0
+        }
+      }
+    },
+    {
+      "case": "b1d3907b-2278601b_49",
+      "video": "b1d3907b-2278601b",
+      "frame": 4,
+      "slot": 1,
+      "split": "fresh",
+      "id": "66706",
+      "status": "wrong",
+      "stage": "no_sufficient_current_mask",
+      "initial_valid_overlap": 0.5055737704918033,
+      "prior_overlap": 0.5343915343915344,
+      "truepast_prior_overlap": 0.7000663570006636,
+      "initial_quality_failed": false,
+      "visible": true,
+      "best_current_mask_iou": 0.45861887190300477,
+      "scores": {
+        "runtime": {
+          "action": 2,
+          "status": "wrong",
+          "iou": 0.45861887190300477
+        },
+        "prior_labels_only": {
+          "action": null,
+          "status": "deferred",
+          "iou": 0.0
+        },
+        "query_labels_only": {
+          "action": null,
+          "status": "deferred",
+          "iou": 0.0
+        }
+      }
+    },
+    {
+      "case": "b1d7b3ac-0bdb47dc_149",
+      "video": "b1d7b3ac-0bdb47dc",
+      "frame": 4,
+      "slot": 0,
+      "split": "fresh",
+      "id": "241217",
+      "status": "wrong",
+      "stage": "temporal_prediction_sufficient_intervention",
+      "initial_valid_overlap": 0.9095549529430531,
+      "prior_overlap": 0.0011028900930943448,
+      "truepast_prior_overlap": 0.0011250151444346366,
+      "initial_quality_failed": false,
+      "visible": true,
+      "best_current_mask_iou": 0.9764982622700686,
+      "scores": {
+        "runtime": {
+          "action": 1,
+          "status": "wrong",
+          "iou": 0.001570834268353731
+        },
+        "prior_labels_only": {
+          "action": 1,
+          "status": "wrong",
+          "iou": 0.001570834268353731
+        },
+        "query_labels_only": {
+          "action": 0,
+          "status": "correct",
+          "iou": 0.9764982622700686
+        }
+      }
+    }
+  ],
+  "stats": {
+    "runtime": {
+      "fresh": {
+        "correct": 10,
+        "wrong": 4,
+        "deferred": 4
+      },
+      "diagnostic": {
+        "wrong": 9,
+        "deferred": 7,
+        "correct": 20
+      }
+    },
+    "prior_labels_only": {
+      "fresh": {
+        "correct": 10,
+        "deferred": 7,
+        "wrong": 1
+      },
+      "diagnostic": {
+        "wrong": 10,
+        "deferred": 7,
+        "correct": 19
+      }
+    },
+    "query_labels_only": {
+      "fresh": {
+        "correct": 12,
+        "deferred": 6
+      },
+      "diagnostic": {
+        "deferred": 9,
+        "correct": 27
+      }
+    }
+  },
+  "checked_all_correct_and_deferred_on_same_clips": 41,
+  "scope": "Observed stage split and isolated interventions; replacing labels is a diagnostic ceiling, never a deployable repair. Stage cannot distinguish every upstream cause of a missing current observation."
+}
