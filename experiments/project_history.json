@@ -36146,6 +36146,64 @@
       "interpretation": "С доступными двумя пригодными масками цвет с глубиной верно различил все 38 пар. На единственном исправленном цветовой перестановке вертикальное положение дало то же решение; отдельное преимущество глубины не доказано. Вариант суммы двух рангов с разрешением равенства по цвету на двух альтернативах не меняет определённое цветовое решение — это следствие устройства правила, а не недостаток сети глубины.",
       "decision": "Не добавлять нейросеть глубины в основной трекер. Для 15 нерешённых случаев сначала проверить отсутствие исходной рамки или ошибки самой маски.",
       "cannot_claim": "Верность глубины в метрах и реальный порядок по расстоянию не измерялись. Новые видео не использованы для выбора исходного правила глубины, но уже использованы в проверке одиночной маски. Не оценивались публичные ID, полный трекер и вклад FlyVis."
+    },
+    {
+      "id": "official_candidates_2179_20261114",
+      "title": "Какая машина стоит за рамкой 110260",
+      "area": "own_tracker",
+      "state": "completed_negative",
+      "started": "2026-11-14",
+      "question": "Доступна ли дальняя машина среди исходных наблюдений и повторяется ли исправление внешности по проверенным пикселям?",
+      "hypothesis": "Предпочтение номера 2445 может соответствовать реальному содержанию видимой части широкой рамки, а прежняя правка внешности зависеть от ошибочной ручной маски.",
+      "expected": "Оценить сырые и допустимые кандидаты, затем проверить считывание внешнего вида по двум независимым официальным контурам.",
+      "acceptance": [
+        {
+          "criterion": "At exact1165 enumerate all class-car raw detections, split by existing confidence bands. Independently segment each saved box with the same SAM2 image model. Determine whether any previously allowed high-authority candidate actually covers far target (official mask IoU>=.5); distinguish lost candidate, misassigned candidate and inadequate prompt, using official past-frame identity binding. No tuning and no forcing ownership.",
+          "met": true,
+          "evidence": "research_official_candidates_2179_20261114/result.json; research_official_candidates_2179_20261114/audit.json"
+        },
+        {
+          "criterion": "Compare previous appearance claim on two independent official instances: references are each track own box on exact1159, not earlier mixed clock 1164. At1165 and1171, use documented target and rival instance masks and their own boxes or mixed single box; force same FPN level0 vs original, ImageNet vs black fill, both objects. Both permutations must retain correct identity for both fills, and improve over full mixed ROI; otherwise withdraw that proposed repair as a general mechanism. Manual masks here are an oracle diagnostic, not automatic tracking.",
+          "met": false,
+          "evidence": "research_official_candidates_2179_20261114/result.json; research_official_candidates_2179_20261114/audit.json"
+        },
+        {
+          "criterion": "Use only matched real image/detection and stored weight hashes; reproduce groundtruth mask decoding and scalar cosine scores independently. Include failures and missing evidence.",
+          "met": true,
+          "evidence": "research_official_candidates_2179_20261114/result.json; research_official_candidates_2179_20261114/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_official_candidates_2179_20261114/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_official_candidates_2179_20261114/РЕЗУЛЬТАТ.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_official_candidates_2179_20261114/candidate_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_official_candidates_2179_20261114/appearance_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_official_candidates_2179_20261114/audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_official_candidates_2179_20261114/actual_candidates.jpg"
+        }
+      ],
+      "done": "2026-11-14",
+      "obtained": "На 1165 у выданной 2445 рамки 110260 IoU автоматической маски с дальней машиной 0,0356, с соседом 0,8115. Среди 27 автомобильных исходных рамок лучшая для дальней машины — 110359, IoU 0,4166, уверенность 0,013; среди высоких — 110260 с IoU 0,0356. На 1171 появилась рамка 111062 с уверенностью 0,20016 и IoU 0,814, не присвоенная никакому номеру. Источник: research_official_candidates_2179_20261114/candidate_result.json.",
+      "interpretation": "Условия двух кадров различны: на 1165 выбранный генератор наблюдений не даёт полноценного отдельного кандидата дальней машины. На 1171 подходящий кандидат низкой уверенности есть, но старая 2179 потеряна, а штатная вторая стадия сравнивает такие рамки только с ещё активными строками. Ни стоимость, ни рабочие пороги в опыте не менялись. Эта стадийность подтверждена записью состояния и точной версией исполнявшегося исходника.",
+      "decision": "Сохранить 2445 на занятой рамке; на исследовательской копии проверить отложенное восстановление 2179 по свободной рамке 111062. Прежнее исправление общего масштаба признаков как доказательство физического различения не сохраняется.",
+      "cannot_claim": "Проверено три точных кадра одного видео. Маска SAM 2 по рамке — наблюдаемый результат этого способа выделения, не утверждение об отсутствии информации в исходных пикселях. Синхронизированные образцы обеих машин на 1159 заменяют прежнее смешение времён 1159/1164; это не побайтное повторение первоначального опыта."
     }
   ],
   "manual_events": [
