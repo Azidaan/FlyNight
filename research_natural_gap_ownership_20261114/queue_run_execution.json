@@ -1,0 +1,66 @@
+{
+  "started": "2026-11-14T08:24:35.550646+03:00",
+  "parent": {
+    "pid": 28792,
+    "birth": 1794633875.364712
+  },
+  "jobs": [
+    {
+      "entry": "research_natural_gap_ownership_20261114/prepare.py",
+      "token": "5944d2b6a82245b28d393a8054fbc6cb",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\5944d2b6a82245b28d393a8054fbc6cb\\memory_guard.json",
+      "started": "2026-11-14T08:24:35.555207+03:00",
+      "ended": "2026-11-14T08:24:38.687295+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_natural_gap_ownership_20261114\\prepare.py",
+          "--audit-memory-worker=5944d2b6a82245b28d393a8054fbc6cb"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 16580202496,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "27844": 1794633875.5643125,
+          "31664": 1794633875.5905988
+        },
+        "stop_errors": [],
+        "seconds": 3.125
+      }
+    },
+    {
+      "entry": "research_natural_gap_ownership_20261114/run.py",
+      "token": "79384581f7f44ee09278c48ed1872fbe",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\79384581f7f44ee09278c48ed1872fbe\\memory_guard.json",
+      "started": "2026-11-14T08:24:38.690943+03:00",
+      "ended": "2026-11-14T08:25:34.574161+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_natural_gap_ownership_20261114\\run.py",
+          "--audit-memory-worker=79384581f7f44ee09278c48ed1872fbe"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 13965082624,
+        "reason": null,
+        "returncode": 1,
+        "owned": {
+          "30332": 1794633878.6967747,
+          "19468": 1794633878.7218132
+        },
+        "stop_errors": [],
+        "seconds": 55.875
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-14T08:25:34.576200+03:00",
+  "passed": false
+}

@@ -1,0 +1,111 @@
+{
+  "scientific_passed": false,
+  "old_ok": false,
+  "fresh_wrong_reduction": false,
+  "fresh_correct_kept": false,
+  "stats": {
+    "diagnostic": {
+      "stats": {
+        "original_status": {
+          "correct": 89,
+          "wrong": 9,
+          "deferred": 28
+        },
+        "cycle_status": {
+          "correct": 89,
+          "wrong": 7,
+          "deferred": 30
+        },
+        "motion_status": {
+          "correct": 69,
+          "wrong": 5,
+          "deferred": 52
+        }
+      },
+      "change": {
+        "correct": {
+          "mean": -0.1515151515151515,
+          "interval": [
+            -0.24242424242424246,
+            -0.06818181818181818
+          ]
+        },
+        "wrong": {
+          "mean": -0.0303030303030303,
+          "interval": [
+            -0.060606060606060615,
+            0.0
+          ]
+        }
+      },
+      "videos": 11
+    },
+    "fresh": {
+      "stats": {
+        "original_status": {
+          "correct": 54,
+          "wrong": 4,
+          "deferred": 20
+        },
+        "cycle_status": {
+          "correct": 52,
+          "wrong": 4,
+          "deferred": 22
+        },
+        "motion_status": {
+          "correct": 40,
+          "wrong": 3,
+          "deferred": 35
+        }
+      },
+      "change": {
+        "correct": {
+          "mean": -0.16666666666666669,
+          "interval": [
+            -0.3095238095238095,
+            -0.047619047619047616
+          ]
+        },
+        "wrong": {
+          "mean": -0.011904761904761904,
+          "interval": [
+            -0.03571428571428571,
+            0.0
+          ]
+        }
+      },
+      "videos": 7
+    }
+  },
+  "old": [
+    {
+      "frame": 1165,
+      "original": [],
+      "accepted": [],
+      "overlaps": [
+        [],
+        []
+      ]
+    },
+    {
+      "frame": 1171,
+      "original": [
+        [
+          0,
+          111062
+        ]
+      ],
+      "accepted": [],
+      "overlaps": [
+        [
+          0.01676847526649898
+        ],
+        [
+          0.1550163207489068
+        ]
+      ]
+    }
+  ],
+  "seconds_median": 0.17776764999871375,
+  "scope": "Independent propagation conditional on same initialization, same current detector and segmentation proposals. Independent algorithms, not independent data. No proposals introduced by flow; policy can only abstain."
+}

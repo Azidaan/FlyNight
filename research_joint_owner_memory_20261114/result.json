@@ -1,0 +1,165 @@
+{
+  "scientific_passed": false,
+  "improved": false,
+  "safe": true,
+  "hardcase": true,
+  "stats": {
+    "fresh": {
+      "stats": {
+        "fixed_separate": {
+          "correct": 54,
+          "wrong": 4,
+          "deferred": 20
+        },
+        "fixed_exclusive": {
+          "correct": 54,
+          "wrong": 4,
+          "deferred": 20
+        },
+        "ordinary_separate": {
+          "correct": 57,
+          "wrong": 3,
+          "deferred": 18
+        },
+        "ordinary_exclusive": {
+          "correct": 57,
+          "wrong": 3,
+          "deferred": 18
+        }
+      },
+      "changes": {
+        "fixed_exclusive": {
+          "mean": 0.0,
+          "interval": [
+            0.0,
+            0.0
+          ]
+        },
+        "ordinary_separate": {
+          "mean": 0.03571428571428571,
+          "interval": [
+            0.0,
+            0.08333333333333333
+          ]
+        },
+        "ordinary_exclusive": {
+          "mean": 0.03571428571428571,
+          "interval": [
+            0.0,
+            0.08333333333333333
+          ]
+        }
+      }
+    },
+    "diagnostic": {
+      "stats": {
+        "fixed_separate": {
+          "correct": 89,
+          "wrong": 9,
+          "deferred": 28
+        },
+        "fixed_exclusive": {
+          "correct": 89,
+          "wrong": 9,
+          "deferred": 28
+        },
+        "ordinary_separate": {
+          "correct": 92,
+          "wrong": 5,
+          "deferred": 29
+        },
+        "ordinary_exclusive": {
+          "correct": 92,
+          "wrong": 5,
+          "deferred": 29
+        }
+      },
+      "changes": {
+        "fixed_exclusive": {
+          "mean": 0.0,
+          "interval": [
+            0.0,
+            0.0
+          ]
+        },
+        "ordinary_separate": {
+          "mean": 0.022727272727272728,
+          "interval": [
+            0.0,
+            0.05303030303030303
+          ]
+        },
+        "ordinary_exclusive": {
+          "mean": 0.022727272727272728,
+          "interval": [
+            0.0,
+            0.05303030303030303
+          ]
+        }
+      }
+    }
+  },
+  "hard_example": [
+    {
+      "case": "b1d7b3ac-0bdb47dc_149",
+      "video": "b1d7b3ac-0bdb47dc",
+      "split": "fresh",
+      "offset": 4,
+      "slot": 0,
+      "arm": "fixed_separate",
+      "action": 1,
+      "status": "wrong",
+      "target_iou": 0.001570834268353731,
+      "prior_iou": 0.0011028900930943448,
+      "visible": true,
+      "common_pixels": 19840,
+      "tie_foreground_pixels": 0
+    },
+    {
+      "case": "b1d7b3ac-0bdb47dc_149",
+      "video": "b1d7b3ac-0bdb47dc",
+      "split": "fresh",
+      "offset": 4,
+      "slot": 0,
+      "arm": "fixed_exclusive",
+      "action": 1,
+      "status": "wrong",
+      "target_iou": 0.001570834268353731,
+      "prior_iou": 0.0007331378299120235,
+      "visible": true,
+      "common_pixels": 19840,
+      "tie_foreground_pixels": 0
+    },
+    {
+      "case": "b1d7b3ac-0bdb47dc_149",
+      "video": "b1d7b3ac-0bdb47dc",
+      "split": "fresh",
+      "offset": 4,
+      "slot": 0,
+      "arm": "ordinary_separate",
+      "action": 0,
+      "status": "correct",
+      "target_iou": 0.9764982622700686,
+      "prior_iou": 0.976139748359674,
+      "visible": true,
+      "common_pixels": 755,
+      "tie_foreground_pixels": 0
+    },
+    {
+      "case": "b1d7b3ac-0bdb47dc_149",
+      "video": "b1d7b3ac-0bdb47dc",
+      "split": "fresh",
+      "offset": 4,
+      "slot": 0,
+      "arm": "ordinary_exclusive",
+      "action": 0,
+      "status": "correct",
+      "target_iou": 0.9764982622700686,
+      "prior_iou": 0.970000212012636,
+      "visible": true,
+      "common_pixels": 755,
+      "tie_foreground_pixels": 0
+    }
+  ],
+  "scope": "2 by 2 factorial. Same SAM2 and detection heads; only temporal memory and pixel ownership readout changed. Tested reused scenes; no representation or threshold change."
+}

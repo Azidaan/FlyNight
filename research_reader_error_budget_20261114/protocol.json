@@ -1,0 +1,26 @@
+{
+  "registered": "2026-11-14T08:23:45.910792+03:00",
+  "head": "f08e432c837e7737edc3f998b8aacd6c493b891b",
+  "inputs": {
+    "research_supervised_contour_reader_20261114/protocol.json": "9db588e2e896bf526d8940c4d1ae7204f1a95eaac54edce6965f8ad1dace2724",
+    "research_supervised_contour_reader_20261114/dataset.json": "ebf48090bc4dba9990af177d4334d400e2d768fac9551a2a06b65a8a1abb63a8",
+    "research_supervised_contour_reader_20261114/dataset.npz": "a36c61eb3f2a90b758d1741e55c02d838853b50a841312efa2a42a3bc479be53",
+    "research_supervised_contour_reader_20261114/predictions.npz": "3d45b895c27918b805122abac6e1d889a46559387b786221bb6e48073363fbee",
+    "research_supervised_contour_reader_20261114/models.npz": "57720f483c27980f708b21e083dab4eb57ceae4129120180b2c09494afe14d35",
+    "research_supervised_contour_reader_20261114/result.json": "22b577bd0debd1f8ba208d5ecd8840d03a08ea14b0fc01ce9c4b669b96c390e9",
+    "runs/z13_local_peak_20261021/geometry.json": "354983200eab61e2aad4d8d3e98886f245d8aba5b5f30aeeda2e8400ee6b7e36",
+    "data/bdd100k/extracted/BDD100K/MOTS 2020 Images/bdd100k_seg_track_20_images.zip": "69c5e4aa53053be038e0c404af57ee8dfa2a7d5b63c6a41e6d2e11ec04decb9e",
+    "research_reader_error_budget_20261114/run.py": "daea600a676b2a7f4b3b1022ac4c724a9a4495025f76f9585b942e8d63f22886",
+    "research_reader_error_budget_20261114/evaluate.py": "432a77465e9e318f7b5dd82d2438464fd1d07602c722eeed43df4611341e37ff",
+    "research_reader_error_budget_20261114/register.py": "7c3846634ecfe73134f7159811d3be9c967bd6f16c19fa381942ce86b3b87578",
+    "research_reader_error_budget_20261114/official.py": "6909356198383ed6967ba4835be0103395982958ac64b8f731060a1f116426b5",
+    "research_reader_error_budget_20261114/common.py": "2c7a8c0b2ca3de852b821287d8ad0f9b7be9a1c8384d30b3fc36825d8966b7d3",
+    "research_reader_error_budget_20261114/run_queue.py": "2c922fc799394a03d9bc35cef70891b5bce61b4005b229d0e1bc72296ea0ce93"
+  },
+  "criteria": [
+    "Граница качества: для каждой отложенной карты дать и проверить точный математический максимум пересечения по произвольной бинарной маске на неизменной сетке; отделить его от рабочего прогноза.",
+    "Долевые метки улучшают среднее и результат минимум на двух из трёх видео, снижают ложные выделения внутри рамки без потери полноты относительно прежнего считывателя FlyVis.",
+    "При тех же долевых метках итоговый FlyVis выше и варианта без ядра, и геометрии; семейство сети, регуляризация, число шагов, метрика и внешние данные неизменны."
+  ],
+  "selection": "Paired 59 training requests 8 videos vs 11 test views 3 videos. Frozen C34, Retina34, Geometry and RGB. Same 70-32-3 MLP, 200 fullbatch Adam 0.01, seeds42/43/44, identical train-only normalization. Original hard labels use purity gate, new targets use fractional labelled pixel mass per Voronoi cell over the same evaluated footprint, equal videos/requests/classes, ignored pixels not labelled. Class mass normalized within training request. No GT at inference; oracle per-cell IoU computed from test labels diagnostic only. Every requested box already fixed. Research motive Tang et al., CVPR 2021 boundary patches https://openaccess.thecvf.com/content/CVPR2021/html/Tang_Look_Closer_To_Segment_Better_Boundary_Patch_Refinement_for_Instance_CVPR_2021_paper.html ; not their model. No core inference or tracker."
+}
