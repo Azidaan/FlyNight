@@ -1,0 +1,39 @@
+{
+  "started": "2026-11-14T07:28:11.631211+03:00",
+  "parent": {
+    "pid": 22632,
+    "birth": 1794630491.4506304
+  },
+  "jobs": [
+    {
+      "entry": "research_mask_ownership_adapter_20261114/checks.py",
+      "token": "d6df954e395b4b4aba336117cf26cab2",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\d6df954e395b4b4aba336117cf26cab2\\memory_guard.json",
+      "started": "2026-11-14T07:28:11.635463+03:00",
+      "ended": "2026-11-14T07:32:09.777902+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_mask_ownership_adapter_20261114\\checks.py",
+          "--audit-memory-worker=d6df954e395b4b4aba336117cf26cab2"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 16298291200,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "30272": 1794630491.643141,
+          "31756": 1794630491.6680737
+        },
+        "stop_errors": [],
+        "seconds": 238.125
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-14T07:32:09.778935+03:00",
+  "passed": true
+}
