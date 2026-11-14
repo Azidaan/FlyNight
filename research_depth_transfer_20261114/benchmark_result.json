@@ -1,0 +1,89 @@
+{
+  "records": [
+    {
+      "input_size": 518,
+      "repeat": 0,
+      "seconds": 0.0728982000000542,
+      "peak_allocated_bytes": 434708480,
+      "peak_reserved_bytes": 593494016,
+      "rss_bytes": 1242996736
+    },
+    {
+      "input_size": 518,
+      "repeat": 1,
+      "seconds": 0.07396159999916563,
+      "peak_allocated_bytes": 434708480,
+      "peak_reserved_bytes": 593494016,
+      "rss_bytes": 1244688384
+    },
+    {
+      "input_size": 518,
+      "repeat": 2,
+      "seconds": 0.07569270000385586,
+      "peak_allocated_bytes": 434708480,
+      "peak_reserved_bytes": 593494016,
+      "rss_bytes": 1244688384
+    },
+    {
+      "input_size": 518,
+      "repeat": 3,
+      "seconds": 0.06631719999859342,
+      "peak_allocated_bytes": 434708480,
+      "peak_reserved_bytes": 593494016,
+      "rss_bytes": 1248452608
+    },
+    {
+      "input_size": 518,
+      "repeat": 4,
+      "seconds": 0.06028559999685967,
+      "peak_allocated_bytes": 434708480,
+      "peak_reserved_bytes": 593494016,
+      "rss_bytes": 1248493568
+    },
+    {
+      "input_size": 1036,
+      "repeat": 0,
+      "seconds": 0.4509987999990699,
+      "peak_allocated_bytes": 4847633408,
+      "peak_reserved_bytes": 7140802560,
+      "rss_bytes": 1246138368
+    },
+    {
+      "input_size": 1036,
+      "repeat": 1,
+      "seconds": 0.39287809999950696,
+      "peak_allocated_bytes": 4847633408,
+      "peak_reserved_bytes": 7140802560,
+      "rss_bytes": 1253634048
+    },
+    {
+      "input_size": 1036,
+      "repeat": 2,
+      "seconds": 0.39735909999581054,
+      "peak_allocated_bytes": 4847633408,
+      "peak_reserved_bytes": 7140802560,
+      "rss_bytes": 1253634048
+    },
+    {
+      "input_size": 1036,
+      "repeat": 3,
+      "seconds": 0.3929285999984131,
+      "peak_allocated_bytes": 4847633408,
+      "peak_reserved_bytes": 7140802560,
+      "rss_bytes": 1249898496
+    },
+    {
+      "input_size": 1036,
+      "repeat": 4,
+      "seconds": 0.4044253999963985,
+      "peak_allocated_bytes": 4847633408,
+      "peak_reserved_bytes": 7140802560,
+      "rss_bytes": 1249927168
+    }
+  ],
+  "device": "NVIDIA GeForce RTX 5070",
+  "cpu_gpu_nrmse": 1.0517388773223502e-06,
+  "device_gate_passed": true,
+  "source_unchanged": true,
+  "scope": "GPU float32, explicit device, one warmup per size then5repeats; image already decoded, includes preprocessing/network/CPU output, no tracker. Allocated/reserved exclude non-PyTorch CUDA context. CPU comparison uses frozen1036map of same frame; not a paired timing comparison."
+}

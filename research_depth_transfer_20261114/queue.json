@@ -1,0 +1,25 @@
+{
+  "runner_sha256": "2c922fc799394a03d9bc35cef70891b5bce61b4005b229d0e1bc72296ea0ce93",
+  "deadline": "2026-11-14T08:55:00+03:00",
+  "inputs": {
+    "research_depth_transfer_20261114/worker.py": "4f753a8fb78a9371d2785d42adc777dbd5134275324ad6dca27c5d14851a05fe",
+    "research_depth_transfer_20261114/protocol.json": "c10433720b4c695ebc3f5c0fff6721f5533bbfeaae108c19ba98b08e389f2504",
+    "research_depth_transfer_20261114/common.py": "2c7a8c0b2ca3de852b821287d8ad0f9b7be9a1c8384d30b3fc36825d8966b7d3"
+  },
+  "jobs": [
+    {
+      "entry": "research_depth_transfer_20261114/worker.py",
+      "args": [
+        "benchmark"
+      ],
+      "timeout": 600
+    },
+    {
+      "entry": "research_depth_transfer_20261114/worker.py",
+      "args": [
+        "holdout"
+      ],
+      "timeout": 600
+    }
+  ]
+}
