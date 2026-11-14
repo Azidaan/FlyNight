@@ -1,0 +1,66 @@
+{
+  "started": "2026-11-14T05:50:20.605063+03:00",
+  "parent": {
+    "pid": 27080,
+    "birth": 1794624620.4072728
+  },
+  "jobs": [
+    {
+      "entry": "research_depth_mask_choice_20261114/worker.py",
+      "token": "92ef95b291a14f5f8c0e053b7bd090ab",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\92ef95b291a14f5f8c0e053b7bd090ab\\memory_guard.json",
+      "started": "2026-11-14T05:50:20.609887+03:00",
+      "ended": "2026-11-14T05:50:39.211005+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_depth_mask_choice_20261114\\worker.py",
+          "--audit-memory-worker=92ef95b291a14f5f8c0e053b7bd090ab"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 15212617728,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "1148": 1794624620.618848,
+          "9356": 1794624620.6466784
+        },
+        "stop_errors": [],
+        "seconds": 18.593000000000757
+      }
+    },
+    {
+      "entry": "research_depth_mask_choice_20261114/choose.py",
+      "token": "f5d2018c3ba14d8c8013af163516ed4e",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\f5d2018c3ba14d8c8013af163516ed4e\\memory_guard.json",
+      "started": "2026-11-14T05:50:39.343500+03:00",
+      "ended": "2026-11-14T05:50:45.276681+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_depth_mask_choice_20261114\\choose.py",
+          "--audit-memory-worker=f5d2018c3ba14d8c8013af163516ed4e"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 16555237376,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "7308": 1794624639.3511064,
+          "19364": 1794624639.3744109
+        },
+        "stop_errors": [],
+        "seconds": 5.921999999998661
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-14T05:50:45.347764+03:00",
+  "passed": true
+}

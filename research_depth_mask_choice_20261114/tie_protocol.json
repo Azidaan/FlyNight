@@ -1,0 +1,18 @@
+{
+  "registered": "2026-11-14T05:52:35.845495+03:00",
+  "parent_sha256": "0c55170cdf6d946c085c4c6fa787c57b5739d5984a00cd994cca83c2a901aeb3",
+  "reason": "On nighttime1093 all four RGB+depth rank sums equal5. Ordinary SAM is picked by list order even though RGB favors optical flow. Check a deterministic tie policy and whether a true target candidate exists on old1171.",
+  "rules": [
+    "Keep exact two-feature summed ranks. Only among tied minima choose the candidate with the lower raw RGB distance; remaining ties keep original order. No epsilon or fitted parameter. Apply symmetrically to RGB+Depth and RGB+Y.",
+    "Evaluate all frames/controls, preserve original failed primary. Report oracle range at1171 and forced-choice edge outputs."
+  ],
+  "inputs": {
+    "research_depth_mask_choice_20261114/choices.json": "cf1deb301cb6e39bd6a7cb0e1145b98ddf1f6d7b01a6d7025260d2fa58db28ae",
+    "research_depth_mask_choice_20261114/result.json": "73161fce32f74ead4e4fea7d93fc798e76a8a7e63b557687765c36b6d77678db",
+    "research_depth_mask_choice_20261114/audit.json": "2536a174b4470595b7f1a1fd4d71f6e48f49d49a54815769838e5106f928b3cd",
+    "research_depth_mask_choice_20261114/descriptors.npz": "015c3e546297dc62415bbea60feb499fb32518472844af33df9e8073576bf336",
+    "research_depth_mask_choice_20261114/protocol.json": "0c55170cdf6d946c085c4c6fa787c57b5739d5984a00cd994cca83c2a901aeb3",
+    "research_depth_mask_choice_20261114/tie_probe.py": "bd841e0d1c5397414f1ec87da160263fc6ef460c8d7bf0d5eb788d97decdd276"
+  },
+  "scope": "Post-result bug diagnosis and candidate repair on explored queries; no independent validation or production promotion."
+}

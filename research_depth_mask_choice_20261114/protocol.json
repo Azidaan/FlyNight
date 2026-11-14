@@ -1,0 +1,127 @@
+{
+  "registered": "2026-11-14T05:50:19.777984+03:00",
+  "head": "fb8ea8a387c03e4946d1d6690fd8b281c12fae48",
+  "cases": [
+    {
+      "id": "old2179",
+      "video": "b1ca2e5d-84cf9134",
+      "reference": 1159,
+      "queries": [
+        1165,
+        1171,
+        1183,
+        1195,
+        1207
+      ],
+      "image_dir": "research_mask_propagation_20261114",
+      "image_pattern": "frame_{frame}.png"
+    },
+    {
+      "id": "b2036451-aa924fd1_765",
+      "video": "b2036451-aa924fd1",
+      "reference": 765,
+      "queries": [
+        771,
+        777,
+        789
+      ],
+      "image_dir": "research_mask_memory_transfer_20261114",
+      "image_pattern": "b2036451-aa924fd1_{frame}.png"
+    },
+    {
+      "id": "b23a79d1-43dfeecd_1087",
+      "video": "b23a79d1-43dfeecd",
+      "reference": 1087,
+      "queries": [
+        1093,
+        1099,
+        1111
+      ],
+      "image_dir": "research_mask_memory_transfer_20261114",
+      "image_pattern": "b23a79d1-43dfeecd_{frame}.png"
+    },
+    {
+      "id": "b251064f-5f6b663e_323",
+      "video": "b251064f-5f6b663e",
+      "reference": 323,
+      "queries": [
+        329,
+        335,
+        347
+      ],
+      "image_dir": "research_mask_memory_transfer_20261114",
+      "image_pattern": "b251064f-5f6b663e_{frame}.png"
+    }
+  ],
+  "inputs": {
+    "research_depth_mask_choice_20261114/common.py": "2c7a8c0b2ca3de852b821287d8ad0f9b7be9a1c8384d30b3fc36825d8966b7d3",
+    "research_depth_mask_choice_20261114/worker.py": "e2f8089a712bf8ecce8b60d8e6135206fe1d1f3a2977e6c7f80cbdaae249cd74",
+    "research_depth_mask_choice_20261114/choose.py": "58aa0596f012f0acedf833f3076e9d6c9f737cd3194a19a4d3ef354ff78ae9b3",
+    "research_depth_mask_choice_20261114/prepare.py": "1404f4fc02aa6be26f528e44f207132882b61e82bca189136211d5f3abb429d9",
+    "research_mask_propagation_20261114/protocol.json": "79b543945ade6d1248d196e098b02eb99ea20ee433e13f9131cecbab72b8cbd1",
+    "research_mask_propagation_20261114/predictions.npz": "c66d5ed04fe6c3a232a5ebc881e9ca0c80d7ee294305ebecf192bb5d4c998876",
+    "research_mask_propagation_20261114/memory_predictions.npz": "17029442284ee4c5ad442ae3a1accd94cb78362c0cb6ed1d73d90a4c1eb12d10",
+    "research_mask_propagation_20261114/evaluation_truth.npz": "3d417f600aed95b145573d01e3649826f91df9123020cabe03ae4b3b3c292e6b",
+    "research_mask_memory_transfer_20261114/protocol.json": "19f67e129b1f78d103fcc3790ba11119b541d72d7db09e64ca87f7726dedce77",
+    "research_mask_memory_transfer_20261114/initial_masks.npz": "10d3cf04d731367dff84a5bb676500cf51e4b974a0b9fd332a97cce3ab295ebd",
+    "research_mask_memory_transfer_20261114/predictions.npz": "4d887303415c3884ba1a2458b162f3a0aea394f28fc84bcb555f19524972cff0",
+    "research_mask_memory_transfer_20261114/query_cores.npz": "2d02af4eb889c9f1fe88917474f48b03502efaa1fedee7879b850cbc904e5579",
+    "research_visible_part_2179_20261114/mask_review/masks_reviewed.npz": "e56f4392a3bb1a1f54e33dc31d8acb32f31c80d79a95697055c932f03e3c10cd",
+    "weights/depth_anything_v2_small/depth_anything_v2_vits.pth": "715fade13be8f229f8a70cc02066f656f2423a59effd0579197bbf57860e1378",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2.py": "d22df8d0da44c8525ebed898fd9c33b3acfcda919a84d577cc2a08bfd3d50ac1",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dpt.py": "7cc9a29b41d31e1628e5c8b8705e25ae95bc6490f779dbb695297ce2341566f5",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/attention.py": "0d2410ce8b8b4499a6b0cdab939ae2bceab8971efd8660d999b0f3088f28cbf7",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/block.py": "093266ea08084c7cce7b8ddd779ecfaaa13055735faa8a7d68b5924f385b395b",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/drop_path.py": "949100aac4d9c19c9d65319dbd362886c5d46a72d7586ba4fd500e9f1d51570c",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/layer_scale.py": "356817b5d1390737128cbcc03a5333fd3060b73beae478772282ccb851d0ef85",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/mlp.py": "c18c5b3f021408597a473bb710070ec3fb3b39f5a2e42e88ae83ced425a608b5",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/patch_embed.py": "b3f82e19926c9cfb63f10136aca5e8a723bde1ad62dae1d04f90d405f9439baf",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/swiglu_ffn.py": "df81d9901240214edc1831ce1b77558dcd6227b29a2f000fc5f546df55d2d09a",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/__init__.py": "e3c28c7b775165b6844000eb69f44d104d6c3803ac7da5d59f6ac3ecfb46d9d8",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/util/blocks.py": "351aa24b8af4bef923ebe3bed5e5e8503b08e39bf06ee045d6444a485a2036a8",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/util/transform.py": "a97df1dbb687457a40c387fdc3482edee7ddc5c142c7d2735ca6235a8ae2885f",
+    "research_mask_propagation_20261114/frame_1159.png": "40df6ac7ad76e0a25b16fb9375d6e1d2d811ae9b30c3bc41ca4a0f84f13dd279",
+    "research_mask_propagation_20261114/frame_1165.png": "a7fda97e56e47d10e3b682b853fb5b5973ba7f3b8e5e1ca07b95497e78d98e71",
+    "research_mask_propagation_20261114/frame_1171.png": "aacf6e9688bf90e9f91a78a95c43a13341ca3180011f89a35f8f2e3d3a224df5",
+    "research_mask_propagation_20261114/frame_1183.png": "5691121c895b36fddf0d445de4ef8d100b9b899604b6724115302514202e536d",
+    "research_mask_propagation_20261114/frame_1195.png": "37051bcdae97eba1e13cd6210a19188be313533099c4ab679c02e98c25636d12",
+    "research_mask_propagation_20261114/frame_1207.png": "d2b70aa1ca74fcc46f0c67cc7152f5f59e589e1f1ae476c2215c4749cec61d26",
+    "research_mask_memory_transfer_20261114/b2036451-aa924fd1_765.png": "1f6fd6d13b1276b03ce71d04768861a1c305fd93c31d952d3287014fa67d7667",
+    "research_mask_memory_transfer_20261114/b2036451-aa924fd1_771.png": "09f1387296332381d98c9d104eec816b8b2c4f1b008140f97513f8fa71f44c63",
+    "research_mask_memory_transfer_20261114/b2036451-aa924fd1_777.png": "b7e2435c6feae832ffba888806296ca9721cdfb11916388ee35ebdf05a4c2452",
+    "research_mask_memory_transfer_20261114/b2036451-aa924fd1_789.png": "4c9630531de0eb06aa61ea2ddc7634301b4167ec26e2d5fc37b6fe5e86dddc95",
+    "research_mask_memory_transfer_20261114/b23a79d1-43dfeecd_1087.png": "ea68dc1e7efb0d1a6fd0869be2089f4f8ed59879c9804f2053303e55a5fbda45",
+    "research_mask_memory_transfer_20261114/b23a79d1-43dfeecd_1093.png": "f5cbd2f11920fb503d332ddb74aa458a073583c3e3de8f0b94b036d831b3adad",
+    "research_mask_memory_transfer_20261114/b23a79d1-43dfeecd_1099.png": "066f3c80776c2397fbe5bdbffcffdaabc75063d4d6801c0111f818434a14d763",
+    "research_mask_memory_transfer_20261114/b23a79d1-43dfeecd_1111.png": "79d9b9490fc4c392d2836411283e66a5797d473d973b1dd2b1c372951f8c3f82",
+    "research_mask_memory_transfer_20261114/b251064f-5f6b663e_323.png": "ace79540e8f1a9c648b6f69961d464c725e75110da3b3523267ff809f63a94ad",
+    "research_mask_memory_transfer_20261114/b251064f-5f6b663e_329.png": "15a4919c02e97c66236c4f8aec10d0b06ff35d57b1732421f1663b49e9527013",
+    "research_mask_memory_transfer_20261114/b251064f-5f6b663e_335.png": "ece63aea9a192e3a40cab4b94bb29c44186668a758bd5ffb292a67fc4457da10",
+    "research_mask_memory_transfer_20261114/b251064f-5f6b663e_347.png": "15f01c224dcdd545e2ef7a2cd139bf906e56188276df45502ac3ba3d15185b88"
+  },
+  "weight": "weights/depth_anything_v2_small/depth_anything_v2_vits.pth",
+  "depth_size": 1036,
+  "depth": "Frozen DA2Small explicitcuda float32/TF32off; native full RGB frame at fixed1036. Convert each full depthmap into normalized empirical midrank to remove arbitrary monotonic scale. No metric-distance claim.",
+  "candidates": [
+    "ordinary",
+    "first_only",
+    "flow",
+    "static"
+  ],
+  "features": "For each mask, 5quantiles [.1,.25,.5,.75,.9] per originalRGBchannel/255, normalizeddepthrank and normalizedy coordinate. Distance per feature=mean absolute quantile difference to same feature on firstmanualtargetmask. Secondary fixed518 resolution not tested in this gate.",
+  "selectors": [
+    "RGB",
+    "Depth",
+    "Y",
+    "RGB+Depth",
+    "RGB+Y"
+  ],
+  "combination": "For singlefeature choose smallest distance. In fusion convert four candidate feature distances to withinframe average ranks for ties, add two equal rank vectors, choose lowest summed rank. Candidate order ordinary, first_only, flow, static resolves remainingties. No training or parametersearch. Empty masks abstain and cannot be selected by feature distance; all-empty frame yields no mask. The nonempty static candidate causes a known risk when target disappears; report all edgecases, not hide them.",
+  "evaluation": "Past masks, frozen candidate outputs, exact querymanual visiblecores from existingexperiments. Same data previously inspected, so this evaluates mechanism and feasibility, not independent validation. Video-equal means over old2179/day/night; fourthscene has no visiblepositive and remains an explicit false-continuation test.",
+  "acceptance": [
+    "RGB+depth selector exceeds RGB-only by mean knownpixelIoU on at least2of3scenes with visible targets, and overallvideo-equal mean is higher.",
+    "Depth fusion exceeds RGB+vertical-coordinate and meets or exceeds best constant candidate method by video-equal mean on the same visiblequeries. Report best attainable candidate eachframe (oracle; not deployable) and forced-selection false foreground on edgequeries.",
+    "No query truth is read by inference/choice, no weights or thresholds fitted. Source files unchanged; exact choices and counts reconstructed independently."
+  ],
+  "deadline": "2026-11-14T08:55:00+03:00"
+}

@@ -35700,6 +35700,68 @@
       "interpretation": "Заморозка предсказанной памяти переносится неодинаково, но поле наблюдения существенно меняет результат в ночной сцене. Удаление внешнего контекста и увеличение изображения не равнозначны.",
       "decision": "Основную правку не внедрять. Сохранить обычную память и контроль движения. Диагностический выбор окна требует независимой проверки; отдельно проверить глубину как дополнительный признак выбора готовой маски.",
       "cannot_claim": "Устойчивое улучшение на всех видео, физическое отсутствие цели при отсутствии различимой разметки, полный контур, сохранение ID/HOTA или вклад ядра FlyVis. Шесть видимых запросов из двух видео, а не шесть независимых сцен."
+    },
+    {
+      "id": "depth_mask_choice_20261114",
+      "title": "Выбор маски по цвету и относительной глубине",
+      "area": "own_tracker",
+      "state": "completed_negative",
+      "started": "2026-11-14",
+      "question": "Даёт ли глубина дополнительную информацию при выборе маски одной машины среди конкурирующих продолжений?",
+      "hypothesis": "Сохранение относительной глубины видимой поверхности может отличать свою машину от внешне похожего ближнего соседа.",
+      "expected": "Готовые маски двух режимов памяти, движения и положения; одни и те же запросы для цвета, глубины и простого геометрического контроля, без подбора порогов.",
+      "acceptance": [
+        {
+          "criterion": "RGB+depth selector exceeds RGB-only by mean knownpixelIoU on at least2of3scenes with visible targets, and overallvideo-equal mean is higher.",
+          "met": false,
+          "evidence": "research_depth_mask_choice_20261114/result.json; audit.json"
+        },
+        {
+          "criterion": "Depth fusion exceeds RGB+vertical-coordinate and meets or exceeds best constant candidate method by video-equal mean on the same visiblequeries. Report best attainable candidate eachframe (oracle; not deployable) and forced-selection false foreground on edgequeries.",
+          "met": true,
+          "evidence": "research_depth_mask_choice_20261114/result.json; audit.json"
+        },
+        {
+          "criterion": "No query truth is read by inference/choice, no weights or thresholds fitted. Source files unchanged; exact choices and counts reconstructed independently.",
+          "met": true,
+          "evidence": "research_depth_mask_choice_20261114/result.json; audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_depth_mask_choice_20261114/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_depth_mask_choice_20261114/РЕЗУЛЬТАТ.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_depth_mask_choice_20261114/choices.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_depth_mask_choice_20261114/result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_depth_mask_choice_20261114/audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_depth_mask_choice_20261114/tie_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_depth_mask_choice_20261114/tie_audit.json"
+        }
+      ],
+      "done": "2026-11-14",
+      "obtained": "Цвет+глубина улучшил2/3сцен, но общий средний IoU0,6587 ниже цвета0,6646. Цвет+высота0,6325; лучшая постоянная стратегия0,5799. Источник: research_depth_mask_choice_20261114/result.json. После изменения только разрешения точной ничьей0,6830 на тех же сценах; tie_result.json. На1171 даже лучший из4кандидатов даёт лишь0,0021.",
+      "interpretation": "На1093 основной отрицательный выбор вызван точной ничьей суммы рангов и порядком списка. На1171 проблема раньше: пригодной маски нет среди кандидатов. На краю принудительный непустой выбор создаёт ложное продолжение.",
+      "decision": "Не внедрять. Проверить построение кандидата при смене доступной части машины и роль более раннего образца; глубину сохранить как дополнительный исследовательский сигнал.",
+      "cannot_claim": "Независимая польза глубины после исправления ничьей, метрическая глубина, улучшение полного трекера, HOTA или вклад ядра FlyVis. Сравнение условно на четырёх замороженных кандидатах и частичной ручной разметке."
     }
   ],
   "manual_events": [
