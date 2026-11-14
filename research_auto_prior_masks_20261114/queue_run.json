@@ -1,0 +1,19 @@
+{
+  "runner_sha256": "2c922fc799394a03d9bc35cef70891b5bce61b4005b229d0e1bc72296ea0ce93",
+  "deadline": "2026-11-14T08:55:00+03:00",
+  "inputs": {
+    "research_auto_prior_masks_20261114/worker.py": "de041c0e7e11b09c329e10f0a79107a9a82e3bb7e0da5ebbc47a2aeaec1c5fbc",
+    "research_auto_prior_masks_20261114/evaluate.py": "7fc7ab498a12d32d3fc5242072400d743b27783a1e48fe6f03bcf0666e224dbc",
+    "research_auto_prior_masks_20261114/protocol.json": "086826c0b4bc58fe1f7ed2257b3b7627ae627b044b1bec4b5687d16a67c86b46"
+  },
+  "jobs": [
+    {
+      "entry": "research_auto_prior_masks_20261114/worker.py",
+      "timeout": 900
+    },
+    {
+      "entry": "research_auto_prior_masks_20261114/evaluate.py",
+      "timeout": 180
+    }
+  ]
+}

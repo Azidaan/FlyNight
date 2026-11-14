@@ -1,0 +1,66 @@
+{
+  "started": "2026-11-14T06:16:11.222048+03:00",
+  "parent": {
+    "pid": 32552,
+    "birth": 1794626171.0295975
+  },
+  "jobs": [
+    {
+      "entry": "research_auto_prior_masks_20261114/worker.py",
+      "token": "2112d6d56aec4edea6ed2cc76224da7e",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\2112d6d56aec4edea6ed2cc76224da7e\\memory_guard.json",
+      "started": "2026-11-14T06:16:11.226100+03:00",
+      "ended": "2026-11-14T06:17:02.943663+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_auto_prior_masks_20261114\\worker.py",
+          "--audit-memory-worker=2112d6d56aec4edea6ed2cc76224da7e"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 13511360512,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "15840": 1794626171.2347274,
+          "2920": 1794626171.2586095
+        },
+        "stop_errors": [],
+        "seconds": 51.70300000000134
+      }
+    },
+    {
+      "entry": "research_auto_prior_masks_20261114/evaluate.py",
+      "token": "a3da246c7df94288b347d20d9c56b1c8",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\a3da246c7df94288b347d20d9c56b1c8\\memory_guard.json",
+      "started": "2026-11-14T06:17:02.947535+03:00",
+      "ended": "2026-11-14T06:17:04.455820+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_auto_prior_masks_20261114\\evaluate.py",
+          "--audit-memory-worker=a3da246c7df94288b347d20d9c56b1c8"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 16915263488,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "30820": 1794626222.9550967,
+          "28728": 1794626222.980723
+        },
+        "stop_errors": [],
+        "seconds": 1.5
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-14T06:17:04.456862+03:00",
+  "passed": true
+}
