@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "primary_metric_checks": [
+    {
+      "frame": 1165,
+      "variant": "sam"
+    },
+    {
+      "frame": 1165,
+      "variant": "flow"
+    },
+    {
+      "frame": 1165,
+      "variant": "static"
+    },
+    {
+      "frame": 1171,
+      "variant": "sam"
+    },
+    {
+      "frame": 1171,
+      "variant": "flow"
+    },
+    {
+      "frame": 1171,
+      "variant": "static"
+    },
+    {
+      "frame": 1183,
+      "variant": "sam"
+    },
+    {
+      "frame": 1183,
+      "variant": "flow"
+    },
+    {
+      "frame": 1183,
+      "variant": "static"
+    },
+    {
+      "frame": 1195,
+      "variant": "sam"
+    },
+    {
+      "frame": 1195,
+      "variant": "flow"
+    },
+    {
+      "frame": 1195,
+      "variant": "static"
+    },
+    {
+      "frame": 1207,
+      "variant": "sam"
+    },
+    {
+      "frame": 1207,
+      "variant": "flow"
+    },
+    {
+      "frame": 1207,
+      "variant": "static"
+    }
+  ],
+  "memory_metric_records": 10,
+  "baseline_replay_exact_frames": 49,
+  "source_unchanged": true,
+  "initial_memory_only_has_no_retained_selfpredictions": true,
+  "primary_negative_preserved": true,
+  "artifacts": {
+    "protocol.json": "79b543945ade6d1248d196e098b02eb99ea20ee433e13f9131cecbab72b8cbd1",
+    "result.json": "67a3d1832c59d974da170f0a287197976965ceee81a397124dae95c4995a94b2",
+    "predictions.npz": "c66d5ed04fe6c3a232a5ebc881e9ca0c80d7ee294305ebecf192bb5d4c998876",
+    "scores.npz": "5321a97bc3ee51778eae3e1872a311c37128140d81ea93856d0286609dbfbcb9",
+    "manual_query_cores_v2.npz": "8ab383a697fb53393154d3d8c955e6cb301b4e501c90bb964bebeac2833e7ded",
+    "memory_protocol_v2.json": "c2f7444c2bbd1be5c5e6966f98c65d16394992201afd370f277c080fada004fd",
+    "memory_result.json": "2328f62b620baf0f0a755f8ca36ae80859bbed2274585940b72952830c211754",
+    "memory_predictions.npz": "17029442284ee4c5ad442ae3a1accd94cb78362c0cb6ed1d73d90a4c1eb12d10",
+    "memory_scores.npz": "1ec4793dc8c609cb403872419bc2e6ee0fd6492cc9050e4c581d87e73319904f",
+    "memory_evaluation.json": "b566ae85c0e1d759c3e5fea81c40a6be83df5680b744c2c450559b31dcd0f266"
+  },
+  "scope": "Independent confusion-count recomputation and array/replay/hash checks; conditioning-memory invariance is asserted inside the recorded worker, not independently reconstructed from saved tensors."
+}
