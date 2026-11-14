@@ -1,0 +1,7057 @@
+{
+  "rows": [
+    {
+      "case": 232,
+      "video": "b23b2649-8349d2a1",
+      "frame": 544,
+      "expected": "00130234",
+      "target_raw": 54943,
+      "candidate_label": "own",
+      "literal_owner": 474,
+      "previous_stop": 538,
+      "target_base": 0.8043080568313599,
+      "target_corrected": 0.8043080568313599,
+      "winner_base": 0.7517929077148438,
+      "winner_corrected": 0.7517929077148438,
+      "original_selection": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          8,
+          7
+        ],
+        [
+          18,
+          11
+        ],
+        [
+          19,
+          9
+        ],
+        [
+          20,
+          10
+        ],
+        [
+          24,
+          2
+        ]
+      ],
+      "objective": 13.473830616474153,
+      "counterfactual": {
+        "corrected__none": {
+          "eligible": true,
+          "winner": 474,
+          "old_assigned": null,
+          "objective": 13.473830616474153,
+          "changes_other_rows": []
+        },
+        "corrected__remove_winner": {
+          "eligible": true,
+          "winner": null,
+          "old_assigned": null,
+          "objective": 13.122037708759308,
+          "changes_other_rows": []
+        },
+        "corrected__remove_target": {
+          "eligible": true,
+          "winner": 474,
+          "old_assigned": null,
+          "objective": 13.073830616474153,
+          "changes_other_rows": []
+        },
+        "corrected__remove_target_adjustment": {
+          "eligible": true,
+          "winner": 474,
+          "old_assigned": null,
+          "objective": 13.473830616474153,
+          "changes_other_rows": []
+        },
+        "corrected__remove_winner_adjustment": {
+          "eligible": true,
+          "winner": 474,
+          "old_assigned": null,
+          "objective": 13.473830616474153,
+          "changes_other_rows": []
+        },
+        "corrected__force_target": {
+          "eligible": false,
+          "cost": 0.8043080568313599
+        },
+        "without_all_votes__none": {
+          "eligible": true,
+          "winner": 474,
+          "old_assigned": null,
+          "objective": 13.473830616474153,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_winner": {
+          "eligible": true,
+          "winner": null,
+          "old_assigned": null,
+          "objective": 13.122037708759308,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_target": {
+          "eligible": true,
+          "winner": 474,
+          "old_assigned": null,
+          "objective": 13.073830616474153,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_target_adjustment": {
+          "eligible": true,
+          "winner": 474,
+          "old_assigned": null,
+          "objective": 13.473830616474153,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_winner_adjustment": {
+          "eligible": true,
+          "winner": 474,
+          "old_assigned": null,
+          "objective": 13.473830616474153,
+          "changes_other_rows": []
+        },
+        "without_all_votes__force_target": {
+          "eligible": false,
+          "cost": 0.8043080568313599
+        }
+      },
+      "provenance": {
+        "232": {
+          "first_emitted_in_window": 454,
+          "last_emitted_before_query": 538,
+          "all_exact_past": [
+            {
+              "frame": 455,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 461,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 467,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 472,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 480,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 486,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 491,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 496,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 502,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 508,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 514,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 520,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 526,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 532,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 538,
+              "identities": [
+                "00130234"
+              ]
+            }
+          ],
+          "unique_target_frames": [
+            455,
+            461,
+            467,
+            472,
+            480,
+            486,
+            491,
+            496,
+            502,
+            508,
+            514,
+            520,
+            526,
+            532,
+            538
+          ],
+          "other_unique_ids": [],
+          "ambiguous_or_unmatched": 0
+        },
+        "474": {
+          "first_emitted_in_window": 520,
+          "last_emitted_before_query": 534,
+          "all_exact_past": [
+            {
+              "frame": 520,
+              "identities": [
+                "00130234"
+              ]
+            },
+            {
+              "frame": 532,
+              "identities": [
+                "00130234"
+              ]
+            }
+          ],
+          "unique_target_frames": [
+            520,
+            532
+          ],
+          "other_unique_ids": [],
+          "ambiguous_or_unmatched": 0
+        },
+        "old_geometry": {
+          "predicted_box": [
+            977.4434166335332,
+            539.7154415518131,
+            1019.0536968092731,
+            557.8468504486933
+          ],
+          "raw_box": [
+            987.3104858398438,
+            538.2578735351562,
+            1023.7550048828125,
+            554.6574096679688
+          ],
+          "shape_iou": 0.540322561859168,
+          "confidence": 0.3621754050254822,
+          "computed_native_cost": 0.8043084573142496,
+          "expected_cost_without_confidence": 0.45967743814083195,
+          "reconstruction_error": 4.0048288973970614e-07,
+          "center_delta": [
+            -7.2841886399249915,
+            2.323504398690716
+          ]
+        },
+        "winner_geometry": {
+          "predicted_box": [
+            991.4055857185659,
+            539.5981726258134,
+            1021.4494710657908,
+            556.7380317849726
+          ],
+          "raw_box": [
+            987.3104858398438,
+            538.2578735351562,
+            1023.7550048828125,
+            554.6574096679688
+          ],
+          "shape_iou": 0.6853218892735764,
+          "confidence": 0.3621754050254822,
+          "computed_native_cost": 0.7517932671795138,
+          "expected_cost_without_confidence": 0.3146781107264236,
+          "reconstruction_error": 3.594646700300075e-07,
+          "center_delta": [
+            0.8947830308502489,
+            1.7104606038304837
+          ]
+        }
+      },
+      "timeline": [
+        {
+          "frame": 454,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 45812,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 455,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 45922,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.7575163195033876
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 456,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 46037,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 457,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 46146,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 458,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 46253,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 459,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 46371,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 460,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 46476,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 461,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 46573,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.7872285505914937
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 462,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 46674,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 463,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 46771,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 464,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 46867,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 465,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 46960,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 466,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 47064,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 467,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 47168,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.7431012066064752
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 468,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 47275,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 469,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 47375,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 470,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 47484,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 471,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 47593,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 472,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 47690,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.7533795049668032
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 473,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 47789,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 474,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 47894,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 475,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 48005,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 476,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 48112,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 477,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 48218,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 478,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 48325,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 479,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 48429,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 480,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 48533,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.7372273312939893
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 481,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 48633,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 482,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 48738,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 483,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 48838,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 484,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 48945,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 485,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 49051,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 486,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 49159,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.7863982171481743
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 487,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 49263,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 488,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 49368,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 489,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 49473,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 490,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 49574,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 491,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 49680,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.7782483334257491
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 492,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 49792,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 493,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 494,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 49962,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 495,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 496,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 50163,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.8988257719863371
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 497,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 498,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 50374,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 499,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 500,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 50551,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 501,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 50620,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 502,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 50720,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.661127485710322
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 503,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 50809,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 504,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 50900,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 505,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 50997,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 506,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 51094,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 507,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 51199,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 508,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 51309,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.8485634333484227
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 509,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 51406,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 510,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 51513,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 511,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 51610,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 512,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 51698,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 513,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 51793,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 514,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 51887,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.825342589590234
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 515,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 51981,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 516,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 52075,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 517,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 52166,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 518,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 52261,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 519,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 52351,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 520,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 52450,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.8274888549315792
+                ]
+              ]
+            },
+            {
+              "tid": 474,
+              "raw": 52454,
+              "start": 520,
+              "hits": [
+                [
+                  "00130234",
+                  0.6489736611212916
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 521,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 52546,
+              "start": 215,
+              "hits": null
+            },
+            {
+              "tid": 474,
+              "raw": 52548,
+              "start": 520,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 522,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 52645,
+              "start": 215,
+              "hits": null
+            },
+            {
+              "tid": 474,
+              "raw": 52649,
+              "start": 520,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 523,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 52746,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 524,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 52853,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 525,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 52969,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 526,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 53080,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.789274445278604
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 527,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 474,
+              "raw": 53182,
+              "start": 520,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 528,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 53292,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 529,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 53401,
+              "start": 215,
+              "hits": null
+            },
+            {
+              "tid": 474,
+              "raw": 53399,
+              "start": 520,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 530,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 53509,
+              "start": 215,
+              "hits": null
+            },
+            {
+              "tid": 474,
+              "raw": 53512,
+              "start": 520,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 531,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 53621,
+              "start": 215,
+              "hits": null
+            },
+            {
+              "tid": 474,
+              "raw": 53620,
+              "start": 520,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 532,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 53735,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.8220277349403226
+                ]
+              ]
+            },
+            {
+              "tid": 474,
+              "raw": 53737,
+              "start": 520,
+              "hits": [
+                [
+                  "00130234",
+                  0.5898165086847991
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 533,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 474,
+              "raw": 53845,
+              "start": 520,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 534,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 474,
+              "raw": 53955,
+              "start": 520,
+              "hits": null
+            },
+            {
+              "tid": 232,
+              "raw": 53954,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 535,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 54057,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 536,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 54155,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 537,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 54257,
+              "start": 215,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 538,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 232,
+              "raw": 54360,
+              "start": 215,
+              "hits": [
+                [
+                  "00130234",
+                  0.8289278260206085
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 539,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 540,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 541,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 542,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 543,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 544,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 474,
+              "raw": 54943,
+              "start": 520,
+              "hits": [
+                [
+                  "00130234",
+                  0.5846155166390912
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 545,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 546,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 547,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 548,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 549,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 550,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 551,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 552,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 553,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 554,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 555,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 556,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 557,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 558,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 559,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 560,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 561,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 562,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 563,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 564,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 565,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 566,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 567,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 568,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 569,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 570,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 571,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 572,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 573,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 574,
+          "exact": true,
+          "owners": []
+        }
+      ]
+    },
+    {
+      "case": 70,
+      "video": "b242f6b2-0033bdfb",
+      "frame": 115,
+      "expected": "00115864",
+      "target_raw": 4691,
+      "candidate_label": "own",
+      "literal_owner": 70,
+      "previous_stop": 109,
+      "target_base": 0.8300043344497681,
+      "target_corrected": 0.630004346370697,
+      "winner_base": 0.8300043344497681,
+      "winner_corrected": 0.630004346370697,
+      "original_selection": [
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          8
+        ],
+        [
+          2,
+          0
+        ],
+        [
+          3,
+          11
+        ],
+        [
+          4,
+          1
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          12
+        ],
+        [
+          8,
+          5
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          14,
+          15
+        ],
+        [
+          16,
+          7
+        ],
+        [
+          17,
+          9
+        ],
+        [
+          18,
+          10
+        ]
+      ],
+      "objective": 9.093455505371093,
+      "counterfactual": {
+        "corrected__none": {
+          "eligible": true,
+          "winner": 70,
+          "old_assigned": 4691,
+          "objective": 9.093455505371093,
+          "changes_other_rows": []
+        },
+        "corrected__remove_winner": {
+          "eligible": true,
+          "winner": null,
+          "old_assigned": null,
+          "objective": 8.863451159000396,
+          "changes_other_rows": []
+        },
+        "corrected__remove_target": {
+          "eligible": true,
+          "winner": null,
+          "old_assigned": null,
+          "objective": 8.863451159000396,
+          "changes_other_rows": []
+        },
+        "corrected__remove_target_adjustment": {
+          "eligible": true,
+          "winner": null,
+          "old_assigned": null,
+          "objective": 9.263451159000397,
+          "changes_other_rows": []
+        },
+        "corrected__remove_winner_adjustment": {
+          "eligible": true,
+          "winner": null,
+          "old_assigned": null,
+          "objective": 9.263451159000397,
+          "changes_other_rows": []
+        },
+        "corrected__force_target": {
+          "eligible": true,
+          "winner": 70,
+          "old_assigned": 4691,
+          "objective": 9.093455505371093,
+          "changes_other_rows": []
+        },
+        "without_all_votes__none": {
+          "eligible": true,
+          "winner": null,
+          "old_assigned": null,
+          "objective": 9.263451159000397,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_winner": {
+          "eligible": true,
+          "winner": null,
+          "old_assigned": null,
+          "objective": 8.863451159000396,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_target": {
+          "eligible": true,
+          "winner": null,
+          "old_assigned": null,
+          "objective": 8.863451159000396,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_target_adjustment": {
+          "eligible": true,
+          "winner": null,
+          "old_assigned": null,
+          "objective": 9.263451159000397,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_winner_adjustment": {
+          "eligible": true,
+          "winner": null,
+          "old_assigned": null,
+          "objective": 9.263451159000397,
+          "changes_other_rows": []
+        },
+        "without_all_votes__force_target": {
+          "eligible": false,
+          "cost": 0.8300043344497681
+        }
+      },
+      "provenance": {
+        "70": {
+          "first_emitted_in_window": 72,
+          "last_emitted_before_query": 109,
+          "all_exact_past": [
+            {
+              "frame": 73,
+              "identities": [
+                "00115864"
+              ]
+            },
+            {
+              "frame": 79,
+              "identities": [
+                "00115864"
+              ]
+            },
+            {
+              "frame": 91,
+              "identities": [
+                "00115864"
+              ]
+            },
+            {
+              "frame": 97,
+              "identities": [
+                "00115864"
+              ]
+            },
+            {
+              "frame": 103,
+              "identities": [
+                "00115864"
+              ]
+            },
+            {
+              "frame": 109,
+              "identities": [
+                "00115864"
+              ]
+            }
+          ],
+          "unique_target_frames": [
+            73,
+            79,
+            91,
+            97,
+            103,
+            109
+          ],
+          "other_unique_ids": [],
+          "ambiguous_or_unmatched": 0
+        },
+        "old_geometry": {
+          "predicted_box": [
+            142.92871616947693,
+            378.78870793967695,
+            207.5534331959589,
+            419.3973701749139
+          ],
+          "raw_box": [
+            150.42056274414062,
+            375.820556640625,
+            233.6224822998047,
+            418.607421875
+          ],
+          "shape_iou": 0.5819324784023211,
+          "confidence": 0.2921225428581238,
+          "computed_native_cost": 0.8300044046373838,
+          "expected_cost_without_confidence": 0.4180675215976789,
+          "reconstruction_error": 7.018761571941923e-08,
+          "center_delta": [
+            -16.780447839254748,
+            1.8790497994829138
+          ]
+        },
+        "winner_geometry": {
+          "predicted_box": [
+            142.92871616947693,
+            378.78870793967695,
+            207.5534331959589,
+            419.3973701749139
+          ],
+          "raw_box": [
+            150.42056274414062,
+            375.820556640625,
+            233.6224822998047,
+            418.607421875
+          ],
+          "shape_iou": 0.5819324784023211,
+          "confidence": 0.2921225428581238,
+          "computed_native_cost": 0.8300044046373838,
+          "expected_cost_without_confidence": 0.4180675215976789,
+          "reconstruction_error": 7.018761571941923e-08,
+          "center_delta": [
+            -16.780447839254748,
+            1.8790497994829138
+          ]
+        }
+      },
+      "timeline": [
+        {
+          "frame": 25,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 26,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 27,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 28,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 29,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 30,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 31,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 32,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 33,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 34,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 35,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 36,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 37,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 38,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 39,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 40,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 41,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 42,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 43,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 44,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 45,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 46,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 47,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 48,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 49,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 50,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 51,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 52,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 53,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 54,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 55,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 56,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 57,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 58,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 59,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 60,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 61,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 62,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 63,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 64,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 65,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 66,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 67,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 68,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 69,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 70,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 71,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 72,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 2863,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 73,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 2889,
+              "start": 72,
+              "hits": [
+                [
+                  "00115864",
+                  0.762453218861709
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 74,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 2921,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 75,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 2957,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 76,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 2993,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 77,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3030,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 78,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3068,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 79,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3106,
+              "start": 72,
+              "hits": [
+                [
+                  "00115864",
+                  0.8109165937985366
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 80,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3144,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 81,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3184,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 82,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3219,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 83,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3261,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 84,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3303,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 85,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 86,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 87,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3447,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 88,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3496,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 89,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 90,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 91,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3644,
+              "start": 72,
+              "hits": [
+                [
+                  "00115864",
+                  0.5719575503758144
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 92,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 93,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 94,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 95,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3816,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 96,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3856,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 97,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3906,
+              "start": 72,
+              "hits": [
+                [
+                  "00115864",
+                  0.8429670211495645
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 98,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3944,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 99,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 3987,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 100,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 101,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 4088,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 102,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 4129,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 103,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 4169,
+              "start": 72,
+              "hits": [
+                [
+                  "00115864",
+                  0.8252228831203218
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 104,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 4216,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 105,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 4257,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 106,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 4296,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 107,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 108,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 109,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 4411,
+              "start": 72,
+              "hits": [
+                [
+                  "00115864",
+                  0.6019043872437208
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 110,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 111,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 112,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 113,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 114,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 115,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 4691,
+              "start": 72,
+              "hits": [
+                [
+                  "00115864",
+                  0.8371829312268337
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 116,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 117,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 4771,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 118,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 4814,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 119,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 4853,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 120,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 121,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 4942,
+              "start": 72,
+              "hits": [
+                [
+                  "00115864",
+                  0.8367177564500328
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 122,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 4989,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 123,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5027,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 124,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5076,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 125,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5121,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 126,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5158,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 127,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5194,
+              "start": 72,
+              "hits": [
+                [
+                  "00115864",
+                  0.721466465885487
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 128,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5225,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 129,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5265,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 130,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5301,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 131,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5337,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 132,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5377,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 133,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 134,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 135,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5494,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 136,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5525,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 137,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5561,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 138,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5596,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 139,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 140,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5680,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 141,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5715,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 142,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5756,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 143,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5797,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 144,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5833,
+              "start": 72,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 145,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 70,
+              "raw": 5873,
+              "start": 72,
+              "hits": [
+                [
+                  "00115864",
+                  0.914881575164965
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": 1102,
+      "video": "b1f4491b-cf446195",
+      "frame": 258,
+      "expected": "00119408",
+      "target_raw": 32657,
+      "candidate_label": "own",
+      "literal_owner": 1072,
+      "previous_stop": 252,
+      "target_base": 0.7851454019546509,
+      "target_corrected": 0.5851454138755798,
+      "winner_base": 0.4262378215789795,
+      "winner_corrected": 0.4262378215789795,
+      "original_selection": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          9
+        ],
+        [
+          3,
+          1
+        ],
+        [
+          4,
+          0
+        ],
+        [
+          5,
+          10
+        ],
+        [
+          6,
+          5
+        ],
+        [
+          7,
+          14
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          13
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          12,
+          7
+        ],
+        [
+          13,
+          8
+        ],
+        [
+          14,
+          6
+        ]
+      ],
+      "objective": 12.013872754573821,
+      "counterfactual": {
+        "corrected__none": {
+          "eligible": true,
+          "winner": 1072,
+          "old_assigned": null,
+          "objective": 12.013872754573821,
+          "changes_other_rows": []
+        },
+        "corrected__remove_winner": {
+          "eligible": true,
+          "winner": 1102,
+          "old_assigned": 32657,
+          "objective": 11.772780346870423,
+          "changes_other_rows": []
+        },
+        "corrected__remove_target": {
+          "eligible": true,
+          "winner": 1072,
+          "old_assigned": null,
+          "objective": 11.613872754573823,
+          "changes_other_rows": []
+        },
+        "corrected__remove_target_adjustment": {
+          "eligible": true,
+          "winner": 1072,
+          "old_assigned": null,
+          "objective": 12.013872754573821,
+          "changes_other_rows": []
+        },
+        "corrected__remove_winner_adjustment": {
+          "eligible": true,
+          "winner": 1072,
+          "old_assigned": null,
+          "objective": 12.013872754573821,
+          "changes_other_rows": []
+        },
+        "corrected__force_target": {
+          "eligible": true,
+          "winner": 1102,
+          "old_assigned": 32657,
+          "objective": 12.172780346870422,
+          "changes_other_rows": []
+        },
+        "without_all_votes__none": {
+          "eligible": true,
+          "winner": 1072,
+          "old_assigned": null,
+          "objective": 12.013872754573821,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_winner": {
+          "eligible": true,
+          "winner": 1102,
+          "old_assigned": 32657,
+          "objective": 11.972780334949494,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_target": {
+          "eligible": true,
+          "winner": 1072,
+          "old_assigned": null,
+          "objective": 11.613872754573823,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_target_adjustment": {
+          "eligible": true,
+          "winner": 1072,
+          "old_assigned": null,
+          "objective": 12.013872754573821,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_winner_adjustment": {
+          "eligible": true,
+          "winner": 1072,
+          "old_assigned": null,
+          "objective": 12.013872754573821,
+          "changes_other_rows": []
+        },
+        "without_all_votes__force_target": {
+          "eligible": true,
+          "winner": 1102,
+          "old_assigned": 32657,
+          "objective": 12.372780334949493,
+          "changes_other_rows": []
+        }
+      },
+      "provenance": {
+        "1072": {
+          "first_emitted_in_window": 236,
+          "last_emitted_before_query": 257,
+          "all_exact_past": [
+            {
+              "frame": 240,
+              "identities": [
+                "00119408"
+              ]
+            },
+            {
+              "frame": 246,
+              "identities": [
+                "00119408"
+              ]
+            },
+            {
+              "frame": 252,
+              "identities": [
+                "00119408"
+              ]
+            }
+          ],
+          "unique_target_frames": [
+            240,
+            246,
+            252
+          ],
+          "other_unique_ids": [],
+          "ambiguous_or_unmatched": 0
+        },
+        "1102": {
+          "first_emitted_in_window": 252,
+          "last_emitted_before_query": 252,
+          "all_exact_past": [
+            {
+              "frame": 252,
+              "identities": [
+                "00119408"
+              ]
+            }
+          ],
+          "unique_target_frames": [
+            252
+          ],
+          "other_unique_ids": [],
+          "ambiguous_or_unmatched": 0
+        },
+        "old_geometry": {
+          "predicted_box": [
+            861.1247375488282,
+            268.1812347412109,
+            906.7330261230469,
+            291.0185943603516
+          ],
+          "raw_box": [
+            888.275146484375,
+            266.40631103515625,
+            929.0458374023438,
+            290.11358642578125
+          ],
+          "shape_iou": 0.25249306692382584,
+          "confidence": 0.8509321212768555,
+          "computed_native_cost": 0.7851455389548099,
+          "expected_cost_without_confidence": 0.7475069330761741,
+          "reconstruction_error": 1.370001589950931e-07,
+          "center_delta": [
+            -24.73161010742183,
+            1.3399658203125
+          ]
+        },
+        "winner_geometry": {
+          "predicted_box": [
+            884.9255518864153,
+            269.60973868578526,
+            926.1168930270129,
+            292.91703778661395
+          ],
+          "raw_box": [
+            888.275146484375,
+            266.40631103515625,
+            929.0458374023438,
+            290.11358642578125
+          ],
+          "shape_iou": 0.6742750097628105,
+          "confidence": 0.8509321212768555,
+          "computed_native_cost": 0.42623773561855927,
+          "expected_cost_without_confidence": 0.3257249902371895,
+          "reconstruction_error": -8.596042022634975e-08,
+          "center_delta": [
+            -3.1392694866452757,
+            3.003439505730853
+          ]
+        }
+      },
+      "timeline": [
+        {
+          "frame": 168,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 169,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 170,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 171,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 172,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 173,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 174,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 175,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 176,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 177,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 178,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 179,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 180,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 181,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 182,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 183,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 184,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 185,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 186,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 187,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 188,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 189,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 190,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 191,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 192,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 193,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 194,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 195,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 196,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 197,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 198,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 199,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 200,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 201,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 202,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 203,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 204,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 205,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 206,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 207,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 208,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 209,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 210,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 211,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 212,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 213,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 214,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 215,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 216,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 217,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 218,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 219,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 220,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 221,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 222,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 223,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 224,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 225,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 226,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 227,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 228,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 229,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 230,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 231,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 232,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 233,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 234,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 235,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 236,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31021,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 237,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31107,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 238,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31183,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 239,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31250,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 240,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31313,
+              "start": 236,
+              "hits": [
+                [
+                  "00119408",
+                  0.8242489808914526
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 241,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31377,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 242,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31442,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 243,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31503,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 244,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31564,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 245,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31627,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 246,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31697,
+              "start": 236,
+              "hits": [
+                [
+                  "00119408",
+                  0.669367542825848
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 247,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31779,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 248,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31854,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 249,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 31929,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 250,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 32003,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 251,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 32069,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 252,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 32141,
+              "start": 236,
+              "hits": [
+                [
+                  "00119408",
+                  0.6553471337476603
+                ]
+              ]
+            },
+            {
+              "tid": 1102,
+              "raw": 32145,
+              "start": 252,
+              "hits": [
+                [
+                  "00119408",
+                  0.6390619973373401
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 253,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 32219,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 254,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 32306,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 255,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 32388,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 256,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 32481,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 257,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 32576,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 258,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 32657,
+              "start": 236,
+              "hits": [
+                [
+                  "00119408",
+                  0.8604351571817359
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 259,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 32730,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 260,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 32806,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 261,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 32877,
+              "start": 236,
+              "hits": null
+            },
+            {
+              "tid": 1102,
+              "raw": 32889,
+              "start": 252,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 262,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 32941,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 263,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 33026,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 264,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 33105,
+              "start": 236,
+              "hits": [
+                [
+                  "00119408",
+                  0.8707451568360138
+                ]
+              ]
+            },
+            {
+              "tid": 1102,
+              "raw": 33109,
+              "start": 252,
+              "hits": [
+                [
+                  "00119417",
+                  0.6115156647567336
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 265,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 33194,
+              "start": 236,
+              "hits": null
+            },
+            {
+              "tid": 1102,
+              "raw": 33199,
+              "start": 252,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 266,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 33266,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 267,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 33333,
+              "start": 236,
+              "hits": null
+            },
+            {
+              "tid": 1102,
+              "raw": 33347,
+              "start": 252,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 268,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 33404,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 269,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 33466,
+              "start": 236,
+              "hits": null
+            },
+            {
+              "tid": 1102,
+              "raw": 33478,
+              "start": 252,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 270,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 33548,
+              "start": 236,
+              "hits": [
+                [
+                  "00119408",
+                  0.913802287069917
+                ]
+              ]
+            },
+            {
+              "tid": 1102,
+              "raw": 33561,
+              "start": 252,
+              "hits": [
+                [
+                  "00119417",
+                  0.7243489638461619
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 271,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 33623,
+              "start": 236,
+              "hits": null
+            },
+            {
+              "tid": 1102,
+              "raw": 33632,
+              "start": 252,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 272,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 33702,
+              "start": 236,
+              "hits": null
+            },
+            {
+              "tid": 1102,
+              "raw": 33713,
+              "start": 252,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 273,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 33801,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 274,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 33885,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 275,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 33952,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 276,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 34018,
+              "start": 236,
+              "hits": [
+                [
+                  "00119408",
+                  0.8853028670591653
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 277,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 34076,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 278,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 279,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 34189,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 280,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 34247,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 281,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 282,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 34366,
+              "start": 236,
+              "hits": [
+                [
+                  "00119408",
+                  0.9412066864395939
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 283,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 34435,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 284,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 34506,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 285,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 1072,
+              "raw": 34596,
+              "start": 236,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 286,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 287,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 288,
+          "exact": true,
+          "owners": []
+        }
+      ]
+    },
+    {
+      "case": 574,
+      "video": "b2036451-aa924fd1",
+      "frame": 937,
+      "expected": "00115019",
+      "target_raw": 35274,
+      "candidate_label": "foreign",
+      "literal_owner": 528,
+      "previous_stop": 931,
+      "target_base": 0.5983834862709045,
+      "target_corrected": 0.3983834981918335,
+      "winner_base": 0.38637274503707886,
+      "winner_corrected": 0.38637274503707886,
+      "original_selection": [
+        [
+          0,
+          9
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          11
+        ],
+        [
+          3,
+          5
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          8,
+          1
+        ],
+        [
+          9,
+          3
+        ],
+        [
+          10,
+          4
+        ],
+        [
+          11,
+          14
+        ],
+        [
+          12,
+          12
+        ],
+        [
+          13,
+          10
+        ],
+        [
+          14,
+          13
+        ],
+        [
+          19,
+          15
+        ]
+      ],
+      "objective": 5.456773734092712,
+      "counterfactual": {
+        "corrected__none": {
+          "eligible": true,
+          "winner": 528,
+          "old_assigned": null,
+          "objective": 5.456773734092712,
+          "changes_other_rows": []
+        },
+        "corrected__remove_winner": {
+          "eligible": true,
+          "winner": 574,
+          "old_assigned": 35274,
+          "objective": 5.068784487247467,
+          "changes_other_rows": []
+        },
+        "corrected__remove_target": {
+          "eligible": true,
+          "winner": 528,
+          "old_assigned": null,
+          "objective": 5.056773734092713,
+          "changes_other_rows": []
+        },
+        "corrected__remove_target_adjustment": {
+          "eligible": true,
+          "winner": 528,
+          "old_assigned": null,
+          "objective": 5.456773734092712,
+          "changes_other_rows": []
+        },
+        "corrected__remove_winner_adjustment": {
+          "eligible": true,
+          "winner": 528,
+          "old_assigned": null,
+          "objective": 5.456773734092712,
+          "changes_other_rows": []
+        },
+        "corrected__force_target": {
+          "eligible": true,
+          "winner": 574,
+          "old_assigned": 35274,
+          "objective": 5.468784487247467,
+          "changes_other_rows": []
+        },
+        "without_all_votes__none": {
+          "eligible": true,
+          "winner": 528,
+          "old_assigned": null,
+          "objective": 5.456773734092712,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_winner": {
+          "eligible": true,
+          "winner": 574,
+          "old_assigned": 35274,
+          "objective": 5.268784475326538,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_target": {
+          "eligible": true,
+          "winner": 528,
+          "old_assigned": null,
+          "objective": 5.056773734092713,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_target_adjustment": {
+          "eligible": true,
+          "winner": 528,
+          "old_assigned": null,
+          "objective": 5.456773734092712,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_winner_adjustment": {
+          "eligible": true,
+          "winner": 528,
+          "old_assigned": null,
+          "objective": 5.456773734092712,
+          "changes_other_rows": []
+        },
+        "without_all_votes__force_target": {
+          "eligible": true,
+          "winner": 574,
+          "old_assigned": 35274,
+          "objective": 5.668784475326538,
+          "changes_other_rows": []
+        }
+      },
+      "provenance": {
+        "528": {
+          "first_emitted_in_window": 885,
+          "last_emitted_before_query": 936,
+          "all_exact_past": [
+            {
+              "frame": 895,
+              "identities": [
+                "00115011"
+              ]
+            },
+            {
+              "frame": 901,
+              "identities": [
+                "00115011"
+              ]
+            },
+            {
+              "frame": 907,
+              "identities": [
+                "00115011"
+              ]
+            },
+            {
+              "frame": 913,
+              "identities": [
+                "00115011"
+              ]
+            },
+            {
+              "frame": 919,
+              "identities": [
+                "00115011"
+              ]
+            },
+            {
+              "frame": 925,
+              "identities": [
+                "00115011"
+              ]
+            },
+            {
+              "frame": 931,
+              "identities": [
+                "00115011"
+              ]
+            }
+          ],
+          "unique_target_frames": [],
+          "other_unique_ids": [
+            "00115011"
+          ],
+          "ambiguous_or_unmatched": 0
+        },
+        "574": {
+          "first_emitted_in_window": 930,
+          "last_emitted_before_query": 931,
+          "all_exact_past": [
+            {
+              "frame": 931,
+              "identities": [
+                "00115019"
+              ]
+            }
+          ],
+          "unique_target_frames": [
+            931
+          ],
+          "other_unique_ids": [],
+          "ambiguous_or_unmatched": 0
+        },
+        "old_geometry": {
+          "predicted_box": [
+            479.97589917749076,
+            347.51874624877104,
+            496.44476122575065,
+            379.3041089417647
+          ],
+          "raw_box": [
+            480.3653259277344,
+            343.91552734375,
+            505.2005615234375,
+            376.6492614746094
+          ],
+          "shape_iou": 0.5396236340692528,
+          "confidence": 0.7442550659179688,
+          "computed_native_cost": 0.5983823766548944,
+          "expected_cost_without_confidence": 0.46037636593074716,
+          "reconstruction_error": -1.1096160101864427e-06,
+          "center_delta": [
+            -4.572613523965231,
+            3.1290331860881793
+          ]
+        },
+        "winner_geometry": {
+          "predicted_box": [
+            482.7443421060377,
+            344.29779717938504,
+            506.9741477051829,
+            377.0957854809492
+          ],
+          "raw_box": [
+            480.3653259277344,
+            343.91552734375,
+            505.2005615234375,
+            376.6492614746094
+          ],
+          "shape_iou": 0.8244836824715521,
+          "confidence": 0.7442550659179688,
+          "computed_native_cost": 0.3863738425538453,
+          "expected_cost_without_confidence": 0.17551631752844787,
+          "reconstruction_error": 1.0975167664684093e-06,
+          "center_delta": [
+            2.076301180024359,
+            0.41439692098742853
+          ]
+        }
+      },
+      "timeline": [
+        {
+          "frame": 847,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 848,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 849,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 850,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 851,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 852,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 853,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 854,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 855,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 856,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 857,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 858,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 859,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 860,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 861,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 862,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 863,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 864,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 865,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 866,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 867,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 868,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 869,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 870,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 871,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 872,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 873,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 874,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 875,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 876,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 877,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 878,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 879,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 880,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 881,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 882,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 883,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 884,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 885,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 32806,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 886,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 32849,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 887,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 888,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 889,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 890,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 891,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33086,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 892,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33133,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 893,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33174,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 894,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33221,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 895,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33267,
+              "start": 885,
+              "hits": [
+                [
+                  "00115011",
+                  0.8281317031598794
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 896,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33312,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 897,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33365,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 898,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33413,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 899,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33463,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 900,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33522,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 901,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33575,
+              "start": 885,
+              "hits": [
+                [
+                  "00115011",
+                  0.8219229412985998
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 902,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 903,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33671,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 904,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33724,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 905,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33767,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 906,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33818,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 907,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33870,
+              "start": 885,
+              "hits": [
+                [
+                  "00115011",
+                  0.6334220102025796
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 908,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33922,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 909,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 33978,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 910,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34033,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 911,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34091,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 912,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34144,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 913,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34194,
+              "start": 885,
+              "hits": [
+                [
+                  "00115011",
+                  0.6653058085702487
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 914,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34238,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 915,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34286,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 916,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34336,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 917,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34387,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 918,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34431,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 919,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34474,
+              "start": 885,
+              "hits": [
+                [
+                  "00115011",
+                  0.6852147629347092
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 920,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 921,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34561,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 922,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34602,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 923,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34645,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 924,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34685,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 925,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34741,
+              "start": 885,
+              "hits": [
+                [
+                  "00115011",
+                  0.7623603010970613
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 926,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34790,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 927,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34851,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 928,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34897,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 929,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34946,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 930,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 34980,
+              "start": 885,
+              "hits": null
+            },
+            {
+              "tid": 574,
+              "raw": 34984,
+              "start": 930,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 931,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35022,
+              "start": 885,
+              "hits": [
+                [
+                  "00115011",
+                  0.6612177315605683
+                ]
+              ]
+            },
+            {
+              "tid": 574,
+              "raw": 35025,
+              "start": 930,
+              "hits": [
+                [
+                  "00115019",
+                  0.7394594056389372
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 932,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35060,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 933,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35107,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 934,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35152,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 935,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35191,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 936,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35232,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 937,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35274,
+              "start": 885,
+              "hits": [
+                [
+                  "00115011",
+                  0.7712121274964984
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 938,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35318,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 939,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35361,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 940,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35404,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 941,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35453,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 942,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35499,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 943,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35554,
+              "start": 885,
+              "hits": [
+                [
+                  "00115011",
+                  0.8139355220378607
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 944,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35608,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 945,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35671,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 946,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35731,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 947,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35783,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 948,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35844,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 949,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35909,
+              "start": 885,
+              "hits": [
+                [
+                  "00115011",
+                  0.6956903743779523
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 950,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 35970,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 951,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36027,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 952,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36087,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 953,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36139,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 954,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36200,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 955,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36257,
+              "start": 885,
+              "hits": [
+                [
+                  "00115011",
+                  0.8152474937176173
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 956,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36326,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 957,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36384,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 958,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36450,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 959,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36512,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 960,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36565,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 961,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36625,
+              "start": 885,
+              "hits": [
+                [
+                  "00115011",
+                  0.8959914549957276
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 962,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36672,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 963,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36730,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 964,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36788,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 965,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36848,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 966,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36915,
+              "start": 885,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 967,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 528,
+              "raw": 36974,
+              "start": 885,
+              "hits": [
+                [
+                  "00115011",
+                  0.8968980501077662
+                ]
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "case": 832,
+      "video": "b1cd1e94-549d0bfe",
+      "frame": 540,
+      "expected": "00118997",
+      "target_raw": 31468,
+      "candidate_label": "own",
+      "literal_owner": 773,
+      "previous_stop": 534,
+      "target_base": 0.8673145771026611,
+      "target_corrected": 0.8673145771026611,
+      "winner_base": 0.7024744749069214,
+      "winner_corrected": 0.7024744749069214,
+      "original_selection": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          5
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          4
+        ],
+        [
+          8,
+          8
+        ]
+      ],
+      "objective": 5.531822526454926,
+      "counterfactual": {
+        "corrected__none": {
+          "eligible": true,
+          "winner": 773,
+          "old_assigned": null,
+          "objective": 5.531822526454926,
+          "changes_other_rows": []
+        },
+        "corrected__remove_winner": {
+          "eligible": true,
+          "winner": null,
+          "old_assigned": null,
+          "objective": 5.229348051548005,
+          "changes_other_rows": []
+        },
+        "corrected__remove_target": {
+          "eligible": true,
+          "winner": 773,
+          "old_assigned": null,
+          "objective": 5.1318225264549255,
+          "changes_other_rows": []
+        },
+        "corrected__remove_target_adjustment": {
+          "eligible": true,
+          "winner": 773,
+          "old_assigned": null,
+          "objective": 5.531822526454926,
+          "changes_other_rows": []
+        },
+        "corrected__remove_winner_adjustment": {
+          "eligible": true,
+          "winner": 773,
+          "old_assigned": null,
+          "objective": 5.531822526454926,
+          "changes_other_rows": []
+        },
+        "corrected__force_target": {
+          "eligible": false,
+          "cost": 0.8673145771026611
+        },
+        "without_all_votes__none": {
+          "eligible": true,
+          "winner": 773,
+          "old_assigned": null,
+          "objective": 5.531822526454926,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_winner": {
+          "eligible": true,
+          "winner": null,
+          "old_assigned": null,
+          "objective": 5.229348051548005,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_target": {
+          "eligible": true,
+          "winner": 773,
+          "old_assigned": null,
+          "objective": 5.1318225264549255,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_target_adjustment": {
+          "eligible": true,
+          "winner": 773,
+          "old_assigned": null,
+          "objective": 5.531822526454926,
+          "changes_other_rows": []
+        },
+        "without_all_votes__remove_winner_adjustment": {
+          "eligible": true,
+          "winner": 773,
+          "old_assigned": null,
+          "objective": 5.531822526454926,
+          "changes_other_rows": []
+        },
+        "without_all_votes__force_target": {
+          "eligible": false,
+          "cost": 0.8673145771026611
+        }
+      },
+      "provenance": {
+        "773": {
+          "first_emitted_in_window": 480,
+          "last_emitted_before_query": 539,
+          "all_exact_past": [
+            {
+              "frame": 481,
+              "identities": [
+                "00118997"
+              ]
+            },
+            {
+              "frame": 493,
+              "identities": [
+                "00118997"
+              ]
+            },
+            {
+              "frame": 522,
+              "identities": []
+            },
+            {
+              "frame": 528,
+              "identities": [
+                "00118997"
+              ]
+            }
+          ],
+          "unique_target_frames": [
+            481,
+            493,
+            528
+          ],
+          "other_unique_ids": [],
+          "ambiguous_or_unmatched": 1
+        },
+        "832": {
+          "first_emitted_in_window": 519,
+          "last_emitted_before_query": 534,
+          "all_exact_past": [
+            {
+              "frame": 522,
+              "identities": []
+            },
+            {
+              "frame": 534,
+              "identities": [
+                "00118997"
+              ]
+            }
+          ],
+          "unique_target_frames": [
+            534
+          ],
+          "other_unique_ids": [],
+          "ambiguous_or_unmatched": 1
+        },
+        "old_geometry": {
+          "predicted_box": [
+            563.3182123823533,
+            383.8766489536098,
+            592.6985958717039,
+            407.98485151557156
+          ],
+          "raw_box": [
+            575.6935424804688,
+            379.9344482421875,
+            604.2857666015625,
+            405.70843505859375
+          ],
+          "shape_iou": 0.3456732347316984,
+          "confidence": 0.38384413719177246,
+          "computed_native_cost": 0.8673153554641222,
+          "expected_cost_without_confidence": 0.6543267652683016,
+          "reconstruction_error": 7.783614610623601e-07,
+          "center_delta": [
+            -11.981250413987027,
+            3.1093085842000505
+          ]
+        },
+        "winner_geometry": {
+          "predicted_box": [
+            578.885070529137,
+            381.75412306050265,
+            603.1561910988517,
+            406.2497422162581
+          ],
+          "raw_box": [
+            575.6935424804688,
+            379.9344482421875,
+            604.2857666015625,
+            405.70843505859375
+          ],
+          "shape_iou": 0.7751211171464868,
+          "confidence": 0.38384413719177246,
+          "computed_native_cost": 0.702474303569784,
+          "expected_cost_without_confidence": 0.2248788828535132,
+          "reconstruction_error": -1.7133713736683376e-07,
+          "center_delta": [
+            1.0309762729787053,
+            1.1804909879897423
+          ]
+        }
+      },
+      "timeline": [
+        {
+          "frame": 450,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 451,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 452,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 453,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 454,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 455,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 456,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 457,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 458,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 459,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 460,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 461,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 462,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 463,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 464,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 465,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 466,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 467,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 468,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 469,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 470,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 471,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 472,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 473,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 474,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 475,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 476,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 477,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 478,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 479,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 480,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 28552,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 481,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 28596,
+              "start": 480,
+              "hits": [
+                [
+                  "00118997",
+                  0.7916802596469662
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 482,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 483,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 484,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 485,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 486,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 487,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 488,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 489,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 490,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 491,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 29154,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 492,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 29206,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 493,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 29258,
+              "start": 480,
+              "hits": [
+                [
+                  "00118997",
+                  0.6870652141272373
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 494,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 495,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 29380,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 496,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 497,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 498,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 499,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 500,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 501,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 502,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 503,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 504,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 505,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 506,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 507,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 508,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 509,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 510,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 511,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30171,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 512,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30207,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 513,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30229,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 514,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30270,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 515,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30310,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 516,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 517,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30385,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 518,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30430,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 519,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30484,
+              "start": 480,
+              "hits": null
+            },
+            {
+              "tid": 832,
+              "raw": 30486,
+              "start": 519,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 520,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30528,
+              "start": 480,
+              "hits": null
+            },
+            {
+              "tid": 832,
+              "raw": 30527,
+              "start": 519,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 521,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30580,
+              "start": 480,
+              "hits": null
+            },
+            {
+              "tid": 832,
+              "raw": 30578,
+              "start": 519,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 522,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30626,
+              "start": 480,
+              "hits": []
+            },
+            {
+              "tid": 832,
+              "raw": 30627,
+              "start": 519,
+              "hits": []
+            }
+          ]
+        },
+        {
+          "frame": 523,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30663,
+              "start": 480,
+              "hits": null
+            },
+            {
+              "tid": 832,
+              "raw": 30664,
+              "start": 519,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 524,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30712,
+              "start": 480,
+              "hits": null
+            },
+            {
+              "tid": 832,
+              "raw": 30716,
+              "start": 519,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 525,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30767,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 526,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30824,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 527,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30881,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 528,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30929,
+              "start": 480,
+              "hits": [
+                [
+                  "00118997",
+                  0.5359610699536096
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 529,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 30988,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 530,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31045,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 531,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31098,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 532,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31147,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 533,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31195,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 534,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 832,
+              "raw": 31244,
+              "start": 519,
+              "hits": [
+                [
+                  "00118997",
+                  0.6254415768131609
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 535,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 536,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31316,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 537,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31354,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 538,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31398,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 539,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31433,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 540,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31468,
+              "start": 480,
+              "hits": [
+                [
+                  "00118997",
+                  0.6029241193285082
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 541,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31505,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 542,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31548,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 543,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31600,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 544,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31639,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 545,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31687,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 546,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31734,
+              "start": 480,
+              "hits": [
+                [
+                  "00118997",
+                  0.6358583201455638
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 547,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31774,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 548,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31825,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 549,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31882,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 550,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31929,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 551,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 31978,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 552,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 32021,
+              "start": 480,
+              "hits": [
+                [
+                  "00118997",
+                  0.7617909352486255
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 553,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 32080,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 554,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 32123,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 555,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 32174,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 556,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 32217,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 557,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 32259,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 558,
+          "exact": true,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 32294,
+              "start": 480,
+              "hits": [
+                [
+                  "00118997",
+                  0.7018501979737066
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "frame": 559,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 32330,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 560,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 32370,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 561,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 562,
+          "exact": false,
+          "owners": [
+            {
+              "tid": 773,
+              "raw": 32466,
+              "start": 480,
+              "hits": null
+            }
+          ]
+        },
+        {
+          "frame": 563,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 564,
+          "exact": true,
+          "owners": []
+        },
+        {
+          "frame": 565,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 566,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 567,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 568,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 569,
+          "exact": false,
+          "owners": []
+        },
+        {
+          "frame": 570,
+          "exact": true,
+          "owners": []
+        }
+      ]
+    }
+  ],
+  "no_weight_or_threshold_changes": true,
+  "source_hashes_checked": true
+}

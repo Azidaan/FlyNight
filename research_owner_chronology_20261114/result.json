@@ -1,0 +1,132 @@
+{
+  "scientific_passed": true,
+  "classification": [
+    {
+      "case": 232,
+      "state": "own_cost_ineligible",
+      "old_cost": 0.8043080568313599,
+      "winner": 474,
+      "winner_cost": 0.7517929077148438,
+      "on_remove_winner": null,
+      "on_remove_old_adjustment": 474,
+      "forced_objective_increase": null,
+      "old_confirmed_frames": [
+        455,
+        461,
+        467,
+        472,
+        480,
+        486,
+        491,
+        496,
+        502,
+        508,
+        514,
+        520,
+        526,
+        532,
+        538
+      ],
+      "winner_confirmed_frames": [
+        520,
+        532
+      ],
+      "winner_other_unique_ids": [],
+      "old_other_unique_ids": []
+    },
+    {
+      "case": 70,
+      "state": "old_recovered_by_adjustment",
+      "old_cost": 0.630004346370697,
+      "winner": 70,
+      "winner_cost": 0.630004346370697,
+      "on_remove_winner": null,
+      "on_remove_old_adjustment": null,
+      "forced_objective_increase": 0.0,
+      "old_confirmed_frames": [
+        73,
+        79,
+        91,
+        97,
+        103,
+        109
+      ],
+      "winner_confirmed_frames": [
+        73,
+        79,
+        91,
+        97,
+        103,
+        109
+      ],
+      "winner_other_unique_ids": [],
+      "old_other_unique_ids": []
+    },
+    {
+      "case": 1102,
+      "state": "eligible_loses_to_other",
+      "old_cost": 0.5851454138755798,
+      "winner": 1072,
+      "winner_cost": 0.4262378215789795,
+      "on_remove_winner": 1102,
+      "on_remove_old_adjustment": 1072,
+      "forced_objective_increase": 0.15890759229660034,
+      "old_confirmed_frames": [
+        252
+      ],
+      "winner_confirmed_frames": [
+        240,
+        246,
+        252
+      ],
+      "winner_other_unique_ids": [],
+      "old_other_unique_ids": []
+    },
+    {
+      "case": 574,
+      "state": "foreign_box_retained_by_other",
+      "old_cost": 0.3983834981918335,
+      "winner": 528,
+      "winner_cost": 0.38637274503707886,
+      "on_remove_winner": 574,
+      "on_remove_old_adjustment": 528,
+      "forced_objective_increase": 0.012010753154754639,
+      "old_confirmed_frames": [
+        931
+      ],
+      "winner_confirmed_frames": [],
+      "winner_other_unique_ids": [
+        "00115011"
+      ],
+      "old_other_unique_ids": []
+    },
+    {
+      "case": 832,
+      "state": "own_cost_ineligible",
+      "old_cost": 0.8673145771026611,
+      "winner": 773,
+      "winner_cost": 0.7024744749069214,
+      "on_remove_winner": null,
+      "on_remove_old_adjustment": 773,
+      "forced_objective_increase": null,
+      "old_confirmed_frames": [
+        534
+      ],
+      "winner_confirmed_frames": [
+        481,
+        493,
+        528
+      ],
+      "winner_other_unique_ids": [],
+      "old_other_unique_ids": []
+    }
+  ],
+  "paragraphs": [
+    "232, кадр 544. Стоимость старой ветви 0.804308, победитель 474 при стоимости 0.751793. Старая ветвь превышает предел 0,8. Удаление победителя само по себе не возвращает ей рамку. Подтверждённых точными прошлыми рамками наблюдений этой машины: у старого номера 15, у победителя 2. Другие однозначные номера в истории победителя: нет.",
+    "70, кадр 115. Стоимость старой ветви 0.630004, победитель 70 при стоимости 0.630004. Убрана только поправка искомого ребра: старая ветвь перестаёт владеть рамкой. В исходной матрице это ребро превышало предел. Подтверждённых точными прошлыми рамками наблюдений этой машины: у старого номера 6, у победителя 6. Другие однозначные номера в истории победителя: нет.",
+    "1102, кадр 258. Стоимость старой ветви 0.585145, победитель 1072 при стоимости 0.426238. Старая ветвь была допустима. Удаление только победителя возвращает ей рамку; принудительная выдача ей ухудшает общее решение. Подтверждённых точными прошлыми рамками наблюдений этой машины: у старого номера 1, у победителя 3. Другие однозначные номера в истории победителя: нет.",
+    "574, кадр 937. Стоимость старой ветви 0.398383, победитель 528 при стоимости 0.386373. Рамка относится к другому официальному номеру. После положительного голоса старая ветвь тоже допустима; фактически рамка осталась у действующего владельца. Это не проверка своей рамки 35280. Подтверждённых точными прошлыми рамками наблюдений этой машины: у старого номера 1, у победителя 0. Другие однозначные номера в истории победителя: 00115011.",
+    "832, кадр 540. Стоимость старой ветви 0.867315, победитель 773 при стоимости 0.702474. Старая ветвь превышает предел 0,8. Удаление победителя само по себе не возвращает ей рамку. Подтверждённых точными прошлыми рамками наблюдений этой машины: у старого номера 1, у победителя 3. Другие однозначные номера в истории победителя: нет."
+  ],
+  "scope": "Counterfactuals explain the observed optimizer using saved numeric evidence. Similar box labels are not physical proof through overlap. Counts count past annotated frames within 90-frame window."
+}
