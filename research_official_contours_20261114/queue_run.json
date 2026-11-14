@@ -1,0 +1,26 @@
+{
+  "runner_sha256": "2c922fc799394a03d9bc35cef70891b5bce61b4005b229d0e1bc72296ea0ce93",
+  "deadline": "2026-11-14T08:55:00+03:00",
+  "inputs": {
+    "research_official_contours_20261114/common.py": "2c7a8c0b2ca3de852b821287d8ad0f9b7be9a1c8384d30b3fc36825d8966b7d3",
+    "research_official_contours_20261114/official.py": "6909356198383ed6967ba4835be0103395982958ac64b8f731060a1f116426b5",
+    "research_official_contours_20261114/protocol.json": "ea294577613ab3671b7520a0fc3e1c3c6a27ba5b4c371b1c6b3366844ee8d985",
+    "research_official_contours_20261114/prepare.py": "27e8d09cebb0cd06c48b26a5a96f4679f929b2caab24df0de35e070dd06a0d0a",
+    "research_official_contours_20261114/run.py": "8c49f2cf7c2660f84a66c411211a25ecd9d59d576b4bdb57cc92520923b55f14",
+    "research_official_contours_20261114/evaluate.py": "61a6c0633c700bbd23e573f95767de50bcb9ae23cabca9e04ab03dd7ccd67b15"
+  },
+  "jobs": [
+    {
+      "entry": "research_official_contours_20261114/prepare.py",
+      "timeout": 600
+    },
+    {
+      "entry": "research_official_contours_20261114/run.py",
+      "timeout": 1800
+    },
+    {
+      "entry": "research_official_contours_20261114/evaluate.py",
+      "timeout": 600
+    }
+  ]
+}

@@ -1,0 +1,140 @@
+{
+  "target": "545237",
+  "past_covered": [
+    {
+      "identity": "545237",
+      "covered": 4119,
+      "area": 9867,
+      "box": [
+        1000.0,
+        254.0,
+        1237.0,
+        345.0
+      ]
+    },
+    {
+      "identity": "528577",
+      "covered": 38,
+      "area": 6696,
+      "box": [
+        965.0,
+        266.0,
+        1128.0,
+        398.0
+      ]
+    },
+    {
+      "identity": "329321",
+      "covered": 0,
+      "area": 231,
+      "box": [
+        582.0,
+        315.0,
+        590.0,
+        347.0
+      ]
+    },
+    {
+      "identity": "453058",
+      "covered": 0,
+      "area": 280,
+      "box": [
+        358.0,
+        314.0,
+        368.0,
+        340.0
+      ]
+    }
+  ],
+  "past_known_pixels": 4157,
+  "exact_frames": [
+    1165,
+    1171
+  ],
+  "excluded_unaligned": [
+    1183,
+    1195,
+    1207
+  ],
+  "records": [
+    {
+      "frame": 1165,
+      "method": "manual",
+      "tp": 0,
+      "fp": 2489,
+      "fn": 866,
+      "target_pixels": 866,
+      "predicted_pixels": 2489,
+      "other_car_pixels": 2489,
+      "iou": 0.0,
+      "recall": 0.0,
+      "precision": 0.0
+    },
+    {
+      "frame": 1165,
+      "method": "yolo",
+      "tp": 149,
+      "fp": 10591,
+      "fn": 717,
+      "target_pixels": 866,
+      "predicted_pixels": 10740,
+      "other_car_pixels": 10322,
+      "iou": 0.013005149690145762,
+      "recall": 0.1720554272517321,
+      "precision": 0.013873370577281191
+    },
+    {
+      "frame": 1165,
+      "method": "box",
+      "tp": 182,
+      "fp": 3184,
+      "fn": 684,
+      "target_pixels": 866,
+      "predicted_pixels": 3366,
+      "other_car_pixels": 3098,
+      "iou": 0.044938271604938275,
+      "recall": 0.21016166281755197,
+      "precision": 0.0540701128936423
+    },
+    {
+      "frame": 1171,
+      "method": "manual",
+      "tp": 1535,
+      "fp": 20,
+      "fn": 2095,
+      "target_pixels": 3630,
+      "predicted_pixels": 1555,
+      "other_car_pixels": 20,
+      "iou": 0.42054794520547945,
+      "recall": 0.4228650137741047,
+      "precision": 0.9871382636655949
+    },
+    {
+      "frame": 1171,
+      "method": "yolo",
+      "tp": 2894,
+      "fp": 207,
+      "fn": 736,
+      "target_pixels": 3630,
+      "predicted_pixels": 3101,
+      "other_car_pixels": 5,
+      "iou": 0.7542350794891842,
+      "recall": 0.7972451790633609,
+      "precision": 0.9332473395678813
+    },
+    {
+      "frame": 1171,
+      "method": "box",
+      "tp": 3214,
+      "fp": 292,
+      "fn": 416,
+      "target_pixels": 3630,
+      "predicted_pixels": 3506,
+      "other_car_pixels": 167,
+      "iou": 0.8194798572157063,
+      "recall": 0.8853994490358127,
+      "precision": 0.9167142042213349
+    }
+  ],
+  "source": "MOTS stable instance ID bound at past frame1141 only; box-track ID is a separate namespace. Skipped all query indices without exact saved image alignment."
+}
