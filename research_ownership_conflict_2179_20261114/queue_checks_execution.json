@@ -1,0 +1,39 @@
+{
+  "started": "2026-11-14T08:46:19.439212+03:00",
+  "parent": {
+    "pid": 28688,
+    "birth": 1794635179.254414
+  },
+  "jobs": [
+    {
+      "entry": "research_ownership_conflict_2179_20261114/checks.py",
+      "token": "b2ca964955e94c12a8f39c2b3ec77dcc",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\b2ca964955e94c12a8f39c2b3ec77dcc\\memory_guard.json",
+      "started": "2026-11-14T08:46:19.441584+03:00",
+      "ended": "2026-11-14T08:50:28.613176+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_ownership_conflict_2179_20261114\\checks.py",
+          "--audit-memory-worker=b2ca964955e94c12a8f39c2b3ec77dcc"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 15568494592,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "400": 1794635179.4931633,
+          "21436": 1794635179.516064
+        },
+        "stop_errors": [],
+        "seconds": 249.125
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-14T08:50:28.614193+03:00",
+  "passed": true
+}

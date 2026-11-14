@@ -1,0 +1,66 @@
+{
+  "started": "2026-11-14T08:45:29.153409+03:00",
+  "parent": {
+    "pid": 30408,
+    "birth": 1794635128.9687376
+  },
+  "jobs": [
+    {
+      "entry": "research_gap_appearance_recovery_20261114/run.py",
+      "token": "5526e2fdbb51447ebc7bbff8ce902dec",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\5526e2fdbb51447ebc7bbff8ce902dec\\memory_guard.json",
+      "started": "2026-11-14T08:45:29.157042+03:00",
+      "ended": "2026-11-14T08:45:49.511123+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_gap_appearance_recovery_20261114\\run.py",
+          "--audit-memory-worker=5526e2fdbb51447ebc7bbff8ce902dec"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 14227460096,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "25100": 1794635129.1644623,
+          "5284": 1794635129.1911747
+        },
+        "stop_errors": [],
+        "seconds": 20.343000000000757
+      }
+    },
+    {
+      "entry": "research_gap_appearance_recovery_20261114/evaluate.py",
+      "token": "64a6d1e587ee4336a7e6022674a94d9e",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\64a6d1e587ee4336a7e6022674a94d9e\\memory_guard.json",
+      "started": "2026-11-14T08:45:49.528744+03:00",
+      "ended": "2026-11-14T08:45:50.303377+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_gap_appearance_recovery_20261114\\evaluate.py",
+          "--audit-memory-worker=64a6d1e587ee4336a7e6022674a94d9e"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 17170669568,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "13960": 1794635149.5520873,
+          "17056": 1794635149.5815673
+        },
+        "stop_errors": [],
+        "seconds": 0.75
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-14T08:45:50.304449+03:00",
+  "passed": true
+}

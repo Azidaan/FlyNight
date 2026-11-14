@@ -1,0 +1,66 @@
+{
+  "started": "2026-11-14T08:41:05.361852+03:00",
+  "parent": {
+    "pid": 4012,
+    "birth": 1794634865.118894
+  },
+  "jobs": [
+    {
+      "entry": "research_memory_gap_transfer_20261114/run.py",
+      "token": "d16b001e8cf848fe963de8139e182975",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\d16b001e8cf848fe963de8139e182975\\memory_guard.json",
+      "started": "2026-11-14T08:41:05.365394+03:00",
+      "ended": "2026-11-14T08:42:20.476047+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_memory_gap_transfer_20261114\\run.py",
+          "--audit-memory-worker=d16b001e8cf848fe963de8139e182975"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 14060449792,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "32552": 1794634865.3727407,
+          "12348": 1794634865.3968756
+        },
+        "stop_errors": [],
+        "seconds": 75.10899999999674
+      }
+    },
+    {
+      "entry": "research_memory_gap_transfer_20261114/evaluate.py",
+      "token": "9f144a511d674960a7b7575c2e9992e1",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\9f144a511d674960a7b7575c2e9992e1\\memory_guard.json",
+      "started": "2026-11-14T08:42:20.481888+03:00",
+      "ended": "2026-11-14T08:42:22.487135+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_memory_gap_transfer_20261114\\evaluate.py",
+          "--audit-memory-worker=9f144a511d674960a7b7575c2e9992e1"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 16698572800,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "19660": 1794634940.489486,
+          "24756": 1794634940.517746
+        },
+        "stop_errors": [],
+        "seconds": 2.0
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-14T08:42:22.488240+03:00",
+  "passed": true
+}

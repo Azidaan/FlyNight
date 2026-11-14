@@ -1,0 +1,102 @@
+{
+  "scientific_passed": false,
+  "old1176_passed": true,
+  "no_extra_errors": true,
+  "gain": false,
+  "stats": {
+    "jaccard": {
+      "correct": 89,
+      "wrong": 9,
+      "deferred": 28
+    },
+    "prior_coverage": {
+      "correct": 89,
+      "wrong": 9,
+      "deferred": 28
+    },
+    "both_coverages": {
+      "correct": 89,
+      "wrong": 9,
+      "deferred": 28
+    }
+  },
+  "case1176": {
+    "jaccard": {
+      "far": null,
+      "candidate_score": 0.33838940981798127,
+      "best_score": 0.4600253807106599,
+      "best_raw": 111784,
+      "source_correct_when_proposed": false
+    },
+    "prior_coverage": {
+      "far": 111813,
+      "candidate_score": 0.9619002822201317,
+      "best_score": 0.9619002822201317,
+      "best_raw": 111813,
+      "source_correct_when_proposed": true
+    },
+    "both_coverages": {
+      "far": null,
+      "candidate_score": 0.3429865265276458,
+      "best_score": 0.48212801330008315,
+      "best_raw": 111784,
+      "source_correct_when_proposed": false
+    }
+  },
+  "old": [
+    {
+      "frame": 1165,
+      "method": "jaccard",
+      "far": null,
+      "near_original": [
+        110260
+      ]
+    },
+    {
+      "frame": 1165,
+      "method": "prior_coverage",
+      "far": null,
+      "near_original": [
+        110260
+      ]
+    },
+    {
+      "frame": 1165,
+      "method": "both_coverages",
+      "far": null,
+      "near_original": [
+        110260
+      ]
+    },
+    {
+      "frame": 1171,
+      "method": "jaccard",
+      "far": 111062,
+      "near_original": [
+        111047
+      ]
+    },
+    {
+      "frame": 1171,
+      "method": "prior_coverage",
+      "far": 111062,
+      "near_original": [
+        111047
+      ]
+    },
+    {
+      "frame": 1171,
+      "method": "both_coverages",
+      "far": 111062,
+      "near_original": [
+        111047
+      ]
+    }
+  ],
+  "mean": 0.0,
+  "interval": [
+    0.0,
+    0.0
+  ],
+  "scope": "No hidden ignore information at prediction. Use asymmetric spatial overlap as secondary observation, keep existing assignments. Known diagnostic cases and previously reused 11 videos; no complete-tracker claim."
+}
