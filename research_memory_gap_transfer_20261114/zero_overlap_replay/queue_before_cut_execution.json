@@ -1,0 +1,40 @@
+{
+  "started": "2026-11-14T08:56:14.292294+03:00",
+  "parent": {
+    "pid": 28180,
+    "birth": 1794635774.115069
+  },
+  "jobs": [
+    {
+      "entry": "research_memory_gap_transfer_20261114/zero_overlap_replay/before_cut.py",
+      "token": "c8e6fb187b8f448e8beac3278f36f05f",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\c8e6fb187b8f448e8beac3278f36f05f\\memory_guard.json",
+      "started": "2026-11-14T08:56:14.295407+03:00",
+      "ended": "2026-11-14T08:56:40.576892+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_memory_gap_transfer_20261114\\zero_overlap_replay\\before_cut.py",
+          "verify",
+          "--audit-memory-worker=c8e6fb187b8f448e8beac3278f36f05f"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 14275379200,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "31152": 1794635774.302554,
+          "21456": 1794635774.326605
+        },
+        "stop_errors": [],
+        "seconds": 26.281000000002678
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-14T08:56:40.617547+03:00",
+  "passed": true
+}

@@ -1,0 +1,40 @@
+{
+  "started": "2026-11-14T08:55:02.895070+03:00",
+  "parent": {
+    "pid": 31188,
+    "birth": 1794635702.7198312
+  },
+  "jobs": [
+    {
+      "entry": "research_memory_gap_transfer_20261114/zero_overlap_replay/presence.py",
+      "token": "5b429da1120147d0a8de27b40a9cd94d",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\5b429da1120147d0a8de27b40a9cd94d\\memory_guard.json",
+      "started": "2026-11-14T08:55:02.898234+03:00",
+      "ended": "2026-11-14T08:55:29.363621+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_memory_gap_transfer_20261114\\zero_overlap_replay\\presence.py",
+          "verify",
+          "--audit-memory-worker=5b429da1120147d0a8de27b40a9cd94d"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 14392578048,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "5060": 1794635702.9056945,
+          "17556": 1794635702.9289832
+        },
+        "stop_errors": [],
+        "seconds": 26.45300000000134
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-14T08:55:29.364663+03:00",
+  "passed": true
+}
