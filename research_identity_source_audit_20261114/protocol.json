@@ -1,0 +1,37 @@
+{
+  "registered": "2026-11-14T06:43:45.891629+03:00",
+  "head": "831b3b69823148aa76ef1cb8cb6c3fb70b1de272",
+  "video": "b1cd1e94-549d0bfe",
+  "labelzip": "data/bdd100k/extracted/BDD100K/MOTS 2020 Labels/bdd100k_seg_track_20_labels_trainval.zip",
+  "imagezip": "data/bdd100k/extracted/BDD100K/MOTS 2020 Images/bdd100k_seg_track_20_images.zip",
+  "inputs": {
+    "data/bdd100k/extracted/BDD100K/MOTS 2020 Labels/bdd100k_seg_track_20_labels_trainval.zip": "e1a2971585feffea05dc05e178e493883d07def25c51976791fd16eb37572608",
+    "data/bdd100k/extracted/BDD100K/MOTS 2020 Images/bdd100k_seg_track_20_images.zip": "69c5e4aa53053be038e0c404af57ee8dfa2a7d5b63c6a41e6d2e11ec04decb9e",
+    "runs/domain_matched_native_20261109/protocol.json": "2a7b1a877e74c0a280a478ba1e1652c7c8d990fdb788e726bbd5c94c700ce1b5",
+    "runs/domain_matched_native_20261109/rollouts/C34/b1cd1e94-549d0bfe.events.json.gz": "742972fdb4c6f0d0e354ac813e023f7cf79f10b9bfdc019da99698e75b93372d",
+    "runs/domain_matched_native_20261109/rollouts/C34/b1cd1e94-549d0bfe.npz": "296205fd70e3572131eef1be293348c69578f2f2924399ade007f42114e0abd1",
+    "runs/z13_val20_matched_20261024/cache/b1cd1e94-549d0bfe/alignment.json": "4e31438920d8e97193827acb6ebd9d7dc3bff8142f2616fe862c82ffc5f9b4fb",
+    "runs/z13_val20_matched_20261024/cache/b1cd1e94-549d0bfe/detections/raw_video.npz": "84bdf597de7e46e6118f6d9791db881f680875d8d1dab1143b583214c748bf55",
+    "data/bdd100k/labels/box_track_20/val/b1cd1e94-549d0bfe.json": "4713d0bf5ba22a6308b57cfd1cb709a7e2303a50ca0aeb26474c1a03e3e623dd",
+    "research_weekly_causal_audit_20261112/native_five_cases.json": "977667e48fa80edfe7c7cad2aca3cae4d3eef19259ebad87d916eca6ebd00a67",
+    "research_identity_repairs_20261112/review/combined_assignment_result_v2.json": "27bdd457384ccc6f721bb10ce7812ea76cb0493cfa3c5b39422c084d1c8b0fa5",
+    "research_identity_source_audit_20261114/audit_source.py": "9335bd24878e94e5fff667f825ef4229e81020e79d2e09ba87bb7820151dd302",
+    "research_identity_source_audit_20261114/official.py": "6909356198383ed6967ba4835be0103395982958ac64b8f731060a1f116426b5",
+    "research_identity_source_audit_20261114/common.py": "2c7a8c0b2ca3de852b821287d8ad0f9b7be9a1c8384d30b3fc36825d8966b7d3",
+    "research_identity_source_audit_20261114/register.py": "6a146afe6bc1cf623d9b349b5570d52e5e55c7832c52126a5aac9af449d5897e",
+    "research_identity_holdout_20261112/recovery/summary_A.json": "1860f1ec672c404ccc3242d326c0912ada85a6c742c1b68c25ffcb5774b2d396"
+  },
+  "rules": [
+    "Reproduce directly archived owner and first assignment matrix for track832 and rival773 at frame540 and all available snapshots between the two official annotated frames. Missing snapshot stays unknown; pre-existing assignments are not overwritten.",
+    "At prior and query exact clocks test independent official instance-mask and box-track labels for agreement on a unique same object. If reference datasets disagree, no favorable physical repair claim or owner replacement; output both sources and rendered original sequence.",
+    "For the six unscored links in previous holdout, inventory independent MOTS coverage before claiming any resolved. No nearest-time label substitution."
+  ],
+  "indices": [
+    528,
+    534,
+    540,
+    546
+  ],
+  "method": "Compare original exact BDD MOT and MOTS labels, no reannotation or forcing IDs to align. All categories for MOTS on selected ROI, not only cars. Baseline-first and corrected matrices checked using assignment solver and second objective. Remove rival row only as a diagnostic on the known frame; do not infer actual eligibility from a counterfactual.",
+  "scope": "Historical causality and independent sources, no new tracking."
+}

@@ -1,0 +1,26 @@
+from official import *
+import gzip,shutil
+r=read(OUT/'result.json');v=read(OUT/'protocol.json')['video'];base=ROOT/'runs/domain_matched_native_20261109/rollouts/C34';native=json.load(gzip.open(base/(v+'.events.json.gz')));out=np.load(base/(v+'.npz'))['outputs'];verified=0
+for row in r['timeline']:
+ for tid in (832,773):
+  sel=out[(out[:,0]==row['frame'])&(out[:,5]==tid)];assert (len(sel)>0)==bool(row['owners'].get(str(tid),{}).get('public',False));verified+=1
+src=next(s for s in native['events'] if s['frame']==540);tids=[q['tid'] for q in src['rows']];col=src['high_raw_ids'].index(31468);assert src['C']==src['corrected'];assert src['C'][tids.index(832)][col]>.8 and src['C'][tids.index(773)][col]<.8
+z=zipfile.ZipFile(ROOT/read(OUT/'protocol.json')['labelzip']);ar=read(ROOT/f'runs/z13_val20_matched_20261024/cache/{v}/alignment.json')['matches'];coverage=[]
+for item in r['prior_unknown_coverage']:
+ if item['has_video']:
+  path=ROOT/f"runs/z13_val20_matched_20261024/cache/{item['video']}/alignment.json";clock=read(path)['matches'];exact=item['frame'] in {x['video_frame_index'] for x in clock}
+ else:exact=False
+ coverage.append(dict(event=item['event'],direct_independent_annotation=exact))
+assert not any(x['direct_independent_annotation'] for x in coverage)
+save('audit.json',dict(passed=True,public_row_checks=verified,confirm_no_corrected_cost_at540=True,cost_832=src['C'][tids.index(832)][col],cost_773=src['C'][tids.index(773)][col],proposal_annotation_coverage=coverage,result_sha256=sha(OUT/'result.json')))
+summary='На 540 стоимость рамки 31468 для 832 составляет 0,867315, для 773 — 0,702474 при неизменном пределе 0,8. Новая проверка не изменила ни одной стоимости всей матрицы; удаление одной строки 773 не возвращает 832. Воспроизведены 12 полных сохранённых назначений. Источник: research_identity_source_audit_20261114/result.json.'
+meaning='Решение программы на 540 объяснено: собственное ребро 832 уже выше предела. Номер 773 существовал раньше: он выдавался на 530–533, на 534 появилась 832, на 535 ни один номер не выдан, начиная с 536 вновь выдавалась 773. Для 535 не сохранилась матрица, поэтому причина отсутствия пары на этом кадре не установлена.'
+source='На 534 и 540 разметка рамок MOT показывает один автомобиль 00118997. Независимая разметка контуров MOTS в области этой машины указывает на 534 автомобиль 95942, а на 540 грузовик 97295. На 528 и 546 соответственно повторяются первый и второй номера MOTS. Рамки двух продуктов перекрываются с коэффициентами 0,815 и 0,647 на 534 и 540; изображения обоих продуктов совпадают побайтно. Это документированный конфликт источников, а не доказательство того, какой из них верно отражает физическую личность. Не переносить старую 832 поверх 773 по этому случаю.'
+limit='Нельзя утверждать ни истинную смену физического объекта, ни ошибку конкретного разметчика. Полный трекер не запускался. Три из шести прежних неопределённых заявок находятся в видео MOTS, но ни одна из этих трёх не попала на точный кадр разметки, поэтому все шесть остаются неоценёнными.'
+(OUT/'РЕЗУЛЬТАТ.md').write_text(summary+'\n\n'+meaning+'\n\n'+source+'\n\n'+limit+' Источники: protocol.json, result.json, owner_sequence.jpg и audit.json.\n',encoding='utf8');cat=read(ROOT/'experiments/project_history.json');card=next(c for c in cat['experiments'] if c['id']=='identity_source_audit_20261114');card.update(state='inconclusive',done='2026-11-14',obtained=summary,interpretation=meaning+' '+source,decision='Сохранить защиту текущего владельца. Для научной оценки физической личности использовать случаи согласованной независимой разметки и отдельно отмечать конфликтующие.',cannot_claim=limit)
+for a,val in zip(card['acceptance'],[True,False,True]):a.update(met=val,evidence=rel(OUT/'result.json')+'; '+rel(OUT/'audit.json'))
+card['evidence'] += [dict(kind='file',ref=rel(OUT/n)) for n in ['РЕЗУЛЬТАТ.md','result.json','audit.json','owner_sequence.jpg']];(ROOT/'experiments/project_history.json').write_text(json.dumps(cat,ensure_ascii=False,indent=2)+'\n',encoding='utf8');topics=read(ROOT/'experiments/obsidian_experiment_topics.json');topics['topics'][card['id']]=['Сохранение личности','Ответственность за назначение','Сверка двух разметок случая 832'];(ROOT/'experiments/obsidian_experiment_topics.json').write_text(json.dumps(topics,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+journal('Проверена история назначения 832/773. '+summary+' '+source+' '+limit)
+src=ROOT/'research_official_contours_20261114';shutil.copyfile(src/'verify_staging.py',OUT/'verify_staging.py');(OUT/'checks.py').write_text((src/'checks.py').read_text(encoding='utf8').replace('official_contours_final_tests','identity_source_final_tests'),encoding='utf8')
+(OUT/'publish.py').write_text((src/'publish.py').read_text(encoding='utf8').replace("identity='official_contours_20261114'","identity='identity_source_audit_20261114'").replace("'initial_official.npz','predictions.npz','initial_teacher.npz'","'owner_sequence.jpg','protocol.json'"),encoding='utf8')
+for name,entry,args in [('checks','checks.py',[]),('publication','publish.py',['prepare'])]:save('queue_'+name+'.json',dict(runner_sha256=sha(OUT/'run_queue.py'),deadline='2026-11-14T08:55:00+03:00',inputs={rel(OUT/n):sha(OUT/n) for n in [entry,'common.py']},jobs=[dict(entry=rel(OUT/entry),args=args,timeout=600)]))
