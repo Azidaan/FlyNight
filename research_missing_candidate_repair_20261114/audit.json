@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "full_baseline_unchanged": 74,
+  "independent_future_confusions": 0,
+  "failure_breakdown": {
+    "familiar": {
+      "insufficient_overlap_full_car / still_missing": 5
+    },
+    "fresh": {
+      "insufficient_overlap_full_car / still_missing": 1
+    }
+  },
+  "examples": {
+    "insufficient_overlap_full_car / still_missing": [
+      [
+        "b1c66a42-6f7d68ca_149",
+        1
+      ],
+      [
+        "b1c9c847-3bda4659_149",
+        1
+      ],
+      [
+        "b1ceb32e-3f481b43_49",
+        1
+      ],
+      [
+        "b1d0a191-03dcecc2_149",
+        0
+      ],
+      [
+        "b1d0a191-06deb55d_149",
+        0
+      ],
+      [
+        "b1d0a191-2ed2269e_149",
+        1
+      ]
+    ]
+  },
+  "timings": {
+    "familiar": {
+      "full": 0.020959399997082073,
+      "extra_tiles": 0.07967909999570111,
+      "full_candidates": 40.0,
+      "raw_tile_candidates": 103.0,
+      "additional_not_selected_for_two_references": 103.0,
+      "duplicates_of_full": 50.0
+    },
+    "fresh": {
+      "full": 0.02054484999825945,
+      "extra_tiles": 0.08473054999558371,
+      "full_candidates": 28.0,
+      "raw_tile_candidates": 101.5,
+      "additional_not_selected_for_two_references": 101.5,
+      "duplicates_of_full": 43.5
+    }
+  },
+  "result_sha256": "89ab2b01c63d4f0d53eb2ed75b31abc45a9e467fcfa045fabd12a7af5884c64f",
+  "detection_sha256": "f177f5c7f3d632d8eb0aa836ebe7a17c02ea49c9d2132b3feb08b76b56c8a0a8"
+}

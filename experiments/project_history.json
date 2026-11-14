@@ -36262,6 +36262,60 @@
       "interpretation": "На 2179 проверенный слой восстановления закрыл два разных отказа в правильной последовательности. Заранее заданное преимущество формы над обоими геометрическими контролями на других видео не доказано.",
       "decision": "Оставить компонент в исследовательской копии; отдельно проверить безопасность восстановления после реального пропуска на неиспользованных видео с зафиксированным правилом.",
       "cannot_claim": "Проверка из сохранённой истории и пар объектов с известной начальной привязкой. У старого случая первичная привязка 1141 восстановлена ретроспективно. Применение решения не проигрывает изменённое будущее трекера и не измеряет переключения номера на полном видео. Не изменялись ядро FlyVis, исходные веса, производственные пороги или полный трекер."
+    },
+    {
+      "id": "missing_candidate_repair_20261114",
+      "title": "Возврат отсутствующей рамки повторным обзором исходного кадра",
+      "area": "own_tracker",
+      "state": "completed_negative",
+      "started": "2026-11-14",
+      "question": "Почему до сопоставления не дошла рамка автомобиля и можно ли вернуть её вторым наблюдением без изменения порогов?",
+      "hypothesis": "Некоторые объекты теряются из-за разрешения всего кадра или класса детекции, а не из-за весов сопоставления.",
+      "expected": "Сравнить исходный детектор и четыре фиксированных окна, проверить новые рамки по полным будущим контурам.",
+      "acceptance": [
+        {
+          "criterion": "Retain and classify every former missing source separately: insufficient overlap of fullframe car, other-class output, detector suppressing source below .01 cannot be diagnosed without its logits. Preserve exact baseline detection/assignment once comparator settings are verified.",
+          "met": true,
+          "evidence": "research_missing_candidate_repair_20261114/result.json; research_missing_candidate_repair_20261114/audit.json"
+        },
+        {
+          "criterion": "On eight fresh validation videos, fixed second-pass tiling recovers at least one reference object omitted by baseline and paired per-video availability increases with 95% lower bound >0; do not remove already matched baseline boxes. Confirm recovered objects by separate future full-mask tracking at IoU>=.50, same SAM memory, no changes to thresholds.",
+          "met": false,
+          "evidence": "research_missing_candidate_repair_20261114/result.json; research_missing_candidate_repair_20261114/audit.json"
+        },
+        {
+          "criterion": "Report the number of extra *unmatched* boxes and duplicates per frame and detector cost. No automatic deployment or free improvement if candidate burden grows. Retrospective oracle box assignment is not a runtime identity rule.",
+          "met": true,
+          "evidence": "research_missing_candidate_repair_20261114/result.json; research_missing_candidate_repair_20261114/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_missing_candidate_repair_20261114/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_missing_candidate_repair_20261114/РЕЗУЛЬТАТ.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_missing_candidate_repair_20261114/result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_missing_candidate_repair_20261114/detection_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_missing_candidate_repair_20261114/audit.json"
+        }
+      ],
+      "done": "2026-11-14",
+      "obtained": "Повторный обзор четырёх фиксированных частей при прежних настройках YOLO26s. Знакомые эпизоды: исходная рамка у 37 из 42 объектов, дополнительно найдено 0; средняя по видео прибавка +0.000 [+0.000; +0.000]. Из видимых будущих контуров возвращённых объектов 0/0 достигли перекрытия 0,5. Новая серия: исходная рамка у 31 из 32 объектов, дополнительно найдено 0; средняя по видео прибавка +0.000 [+0.000; +0.000]. Из видимых будущих контуров возвращённых объектов 0/0 достигли перекрытия 0,5. Источник: research_missing_candidate_repair_20261114/result.json, stats. На свежих кадрах медиана времени одного полного обзора 20.5 мс, дополнительно четыре окна 84.7 мс. Медиана дополнительных автомобильных рамок до объединения 101.5; из них повторяют целый кадр при перекрытии не меньше 0,7: 43.5. Неназначенные двум проверяемым машинам рамки не обязательно ложные. Источник: audit.json, timings.",
+      "interpretation": "Ни одна отсутствующая автомобильная рамка не восстановилась; проверять продолжение по новым рамкам было не на чем. Во всех шести пропусках даже лучшая автомобильная рамка имела перекрытие ниже 0,5. В одном новом эпизоде дополнительное окно покрыло объект рамкой другого класса. Нехватка пересечения с проверочной рамкой объясняет отказ этого оценщика, но сама по себе не доказывает, что машина пропала из изображения или детектор не видел её. Проверка масок по всем исходным прямоугольникам нужна отдельно.",
+      "decision": "Не включать повторный обзор в рабочий трекер: заранее заданный критерий на новой серии не выполнен.",
+      "cannot_claim": "Оценка доступности по известному положению цели в прошлом. Выбор правильного нового кандидата при реальной потере номера и метрики полного трекера не измерялись. Изменение разрешения детали и окружения при обрезке не разделено."
     }
   ],
   "manual_events": [
