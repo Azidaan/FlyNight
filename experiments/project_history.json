@@ -35494,6 +35494,82 @@
       "interpretation": "Глубина разделяет видимые части, но преимущество основного варианта над простым геометрическим контролем по заданному правилу не подтверждено. Увеличение разрешения не является универсальным улучшением.",
       "decision": "Сохранить оба варианта и отрицательный общий критерий. Не менять рабочую систему. Далее проверять, как задаётся личность выбранной машины.",
       "cannot_claim": "Сохранение ID, полный контур, метрическая глубина, преимущество на произвольных видео, скорость всего трекера. Разметка консервативная ручная; новые видео уже были в архиве и проверке считывателя."
+    },
+    {
+      "id": "reference_conditioned_masks_20261114",
+      "title": "Выделение машины по её прошлому образцу",
+      "area": "own_tracker",
+      "state": "completed_negative",
+      "started": "2026-11-14",
+      "question": "Помогает ли явный прошлый образец цели выделять её доступную часть при перекрытии?",
+      "hypothesis": "Считыватель может использовать образец цели и помех; вклад FlyVis требует равных контрольных признаков.",
+      "expected": "Три пары кадров, хорошие и неверные прошлые образцы, два заранее заданных считывателя; один недостаточный пример отдельно.",
+      "acceptance": [
+        {
+          "criterion": "Primary correct-reference ridge FlyVis+G has target recall>=0.5 and known-inside-nontarget FPR<=0.1 on each of3primaryqueries.",
+          "met": false,
+          "evidence": "research_reference_conditioned_masks_20261114/summary.json; audit.json; result.json → readiness"
+        },
+        {
+          "criterion": "Primary mean targetIoU exceeds identical Retina+G and wins on>=2of3queries; report Geometry and RGB+G separately without omitting stronger controls.",
+          "met": true,
+          "evidence": "research_reference_conditioned_masks_20261114/summary.json; audit.json; result.json → readiness"
+        },
+        {
+          "criterion": "Correct reference has higher mean targetIoU than wrong-target and shuffled-label controls; do not claim identity use solely from label-permutation code.",
+          "met": true,
+          "evidence": "research_reference_conditioned_masks_20261114/summary.json; audit.json; result.json → readiness"
+        },
+        {
+          "criterion": "Require>=3referencecells perclass with unchanged0.9purity; otherwise record not-ready and do not fit that case. Only reference data used in fitting; frozen query masks used for evaluation.",
+          "met": true,
+          "evidence": "research_reference_conditioned_masks_20261114/summary.json; audit.json; result.json → readiness"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_reference_conditioned_masks_20261114/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_reference_conditioned_masks_20261114/РЕЗУЛЬТАТ.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_reference_conditioned_masks_20261114/summary.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_reference_conditioned_masks_20261114/audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_reference_conditioned_masks_20261114/capacity_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_reference_conditioned_masks_20261114/diagnostics_audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_reference_conditioned_masks_20261114/position_result.json"
+        }
+      ],
+      "done": "2026-11-14",
+      "obtained": "Основной считыватель не прошёл качество: 2179 insideFPR=0,3419; средний IoU FlyVis/вход/геометрия/RGB=0,2730/0,1838/0,2757/0,3033 (research_reference_conditioned_masks_20261114/summary.json). В двух запросах внутри рамки нет известных отрицательных пикселей, FPR неопределён. Последующие диагностические результаты и их ограничения: РЕЗУЛЬТАТ.md; capacity_result.json; color_result.json; tensor_result.json; position_result.json.",
+      "interpretation": "Подтверждены недостаточная выразительность/регуляризация исходного считывателя на прошлом образце, вклад цвета на2179 и ошибка нулевого знаменателя. Перенос на следующий кадр остаётся проблемой. Высокий результат прошлых признаков объясним позиционной памятью: копия прошлой ручной маски в нормированных координатах текущего окна на2179 IoU0,8722 (position_result.json). Этот контроль не читает текущие пиксели, но использует геометрию текущего окна; неподвижная маска полного кадра здесь не проверялась.",
+      "decision": "Завершить диагностическую серию этой реализации; не переносить её в рабочий трекер. Далее проверять рабочий перенос маски при изменении перекрытия и автоматическую инициализацию. Сохранить исходный отрицательный критерий.",
+      "cannot_claim": "Все причины ошибок, общее отсутствие информации в FlyVis, сохранение ID/HOTA, независимый успех на новых видео, автоматическое получение начальной маски. Последующие проверки являются объясняющими, не заменяют первичный исход.",
+      "revisions": [
+        {
+          "date": "2026-11-14",
+          "commit": "46e75aadaf8dea98cfa8c047e7bb4b7426c94eae",
+          "field": "interpretation",
+          "old": "Подтверждены недостаточная выразительность/регуляризация исходного считывателя на прошлом образце, вклад цвета на2179 и ошибка нулевого знаменателя. Перенос на следующий кадр остаётся проблемой. Высокий результат прошлых признаков объясним позиционной памятью: копия прошлой ручной маски на2179 IoU0,8722 (position_result.json).",
+          "reason": "Уточнение системы координат контроля: копия использует текущее окно и не является неподвижной маской полного кадра."
+        }
+      ]
     }
   ],
   "manual_events": [

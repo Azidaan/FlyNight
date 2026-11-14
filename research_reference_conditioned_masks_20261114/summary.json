@@ -1,0 +1,26 @@
+{
+  "scientific_passed": false,
+  "quality_passed": false,
+  "increment_passed": true,
+  "means": {
+    "FlyVis+G": 0.27304352893582,
+    "Retina+G": 0.18379533705605447,
+    "Geometry": 0.2756990987941215,
+    "RGB+G": 0.3032557821167452,
+    "FlyVis": 0.22227057266831088,
+    "Retina": 0.14100743674161628
+  },
+  "wins_over_retina": 3,
+  "reference_control_means": {
+    "correct": 0.27304352893582,
+    "wrong_target": 0.007174196608561604,
+    "shuffled_labels": 0.05347607493490598
+  },
+  "reference_control_passed": true,
+  "cannot_evaluate_inside_fpr_cases": [
+    "day_shop",
+    "new_night"
+  ],
+  "explicit_failure": "old2179 has substantial known inside false positives; other2query ROIs contain0annotated negativepixels, so their0FPR was an undefined denominator, not a passed separation test.",
+  "source": "result.json preserved unchanged; undefined sentinel corrected only in this audit/summary."
+}
