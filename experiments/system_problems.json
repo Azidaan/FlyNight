@@ -184,7 +184,8 @@
         "identity_repair_combined_assignment_20261112",
         "identity_repair_holdout_recovery_20261112",
         "identity_native_assignment_loss_2179_20261112",
-        "flyvis_multiscene_masks_20261114"
+        "flyvis_multiscene_masks_20261114",
+        "mask_inside_roi_20261114"
       ],
       "legacy": [
         "P1",
@@ -647,6 +648,19 @@
             "research_flyvis_multiscene_masks_20261114/audit.json"
           ],
           "source_sha256": "6ee0567a9e39eab2b992751846069afbba001936e083c444f0eca660ea74b16e"
+        },
+        {
+          "date": "2026-11-14",
+          "component": "Внешний считыватель масок",
+          "fact": "Четыре учебных кадра трёх видео после остановки на одном недостаточном кадре. На трёх новых видео средний IoU уверенных участков: FlyVis 0,245804; контроль 0,171638; геометрия 0,767929. Источник: research_mask_inside_roi_20261114/summary.json → new_video_mean_iou. Условия полноты и ложных захватов не выполнены ни на одном из трёх новых кадров: result.json.",
+          "hypothesis": "Отсутствие отдельного образца выбранной машины может ограничивать разделение похожих объектов; причинный вклад не измерен.",
+          "discriminating_check": "Равный контроль без FlyVis, геометрия, три новых для обучения видео, ручные видимые участки.",
+          "limitation": "Полный контур, устойчивое различение личности, преимущество ядра FlyVis или улучшение HOTA. Тестовые видео новые для обучения считывателя, но ранее присутствовали в архиве проекта.",
+          "evidence": [
+            "research_mask_inside_roi_20261114/result.json",
+            "research_mask_inside_roi_20261114/audit.json"
+          ],
+          "source_sha256": "78a9d54be7e9f060e480e7849c169f93e0dd0578484284bd65976db0b9a7a282"
         }
       ],
       "revisions": [

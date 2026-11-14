@@ -1,0 +1,51 @@
+{
+  "registered": "2026-11-14T03:37:20.797412+03:00",
+  "head": "1b8ae6a8a95bbb03067dbe9aedd65bcd31d27191",
+  "source_commit": "a561b849ebae10a6f5ef49e26c83cbbcd36c71bf",
+  "inputs": {
+    "weights/depth_anything_v2_small/depth_anything_v2_vits.pth": "715fade13be8f229f8a70cc02066f656f2423a59effd0579197bbf57860e1378",
+    "research_visible_part_2179_20261114/mask_review/masks_reviewed.npz": "e56f4392a3bb1a1f54e33dc31d8acb32f31c80d79a95697055c932f03e3c10cd",
+    "research_depth_order_20261114/probe.py": "18e9c0cfd2b06d35981c3b0b74503e40ec748d1e8a9e38c281602ff4609a3677",
+    "research_depth_order_20261114/common.py": "2c7a8c0b2ca3de852b821287d8ad0f9b7be9a1c8384d30b3fc36825d8966b7d3",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2.py": "d22df8d0da44c8525ebed898fd9c33b3acfcda919a84d577cc2a08bfd3d50ac1",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dpt.py": "7cc9a29b41d31e1628e5c8b8705e25ae95bc6490f779dbb695297ce2341566f5",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/attention.py": "0d2410ce8b8b4499a6b0cdab939ae2bceab8971efd8660d999b0f3088f28cbf7",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/block.py": "093266ea08084c7cce7b8ddd779ecfaaa13055735faa8a7d68b5924f385b395b",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/drop_path.py": "949100aac4d9c19c9d65319dbd362886c5d46a72d7586ba4fd500e9f1d51570c",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/layer_scale.py": "356817b5d1390737128cbcc03a5333fd3060b73beae478772282ccb851d0ef85",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/mlp.py": "c18c5b3f021408597a473bb710070ec3fb3b39f5a2e42e88ae83ced425a608b5",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/patch_embed.py": "b3f82e19926c9cfb63f10136aca5e8a723bde1ad62dae1d04f90d405f9439baf",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/swiglu_ffn.py": "df81d9901240214edc1831ce1b77558dcd6227b29a2f000fc5f546df55d2d09a",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/dinov2_layers/__init__.py": "e3c28c7b775165b6844000eb69f44d104d6c3803ac7da5d59f6ac3ecfb46d9d8",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/util/blocks.py": "351aa24b8af4bef923ebe3bed5e5e8503b08e39bf06ee045d6444a485a2036a8",
+    "third_party/depth_anything_v2/Depth-Anything-V2-a561b849ebae10a6f5ef49e26c83cbbcd36c71bf/depth_anything_v2/util/transform.py": "a97df1dbb687457a40c387fdc3482edee7ddc5c142c7d2735ca6235a8ae2885f",
+    "research_visible_part_2179_20261114/frames/1159.png": "40df6ac7ad76e0a25b16fb9375d6e1d2d811ae9b30c3bc41ca4a0f84f13dd279",
+    "research_visible_part_2179_20261114/frames/1164.png": "a73bb45700b58c835e6a9927c5a06460f52c290f77b21efc4c256f72d88923e0",
+    "research_visible_part_2179_20261114/frames/1165.png": "a7fda97e56e47d10e3b682b853fb5b5973ba7f3b8e5e1ca07b95497e78d98e71",
+    "research_depth_order_20261114/probe_v2.py": "e44e7f227216797aee5d75620d02a69bf7b73f15f3e9dcbb3bd46021fe073b1c"
+  },
+  "frames": [
+    1159,
+    1164,
+    1165
+  ],
+  "model": "Depth Anything V2 Small, official vits, frozen pretrained weights, CPU two threads, full frame, input_size518",
+  "question": "Does predicted inverse depth put the manually reviewed farther target car behind its nearer neighboring car on old2179?",
+  "expected": "Median inverse depth target < neighbor on all three frames; rank separation >0.75 on every frame.",
+  "acceptance": [
+    "median(target)<median(neighbor) on all 3 frames",
+    "P(inverse_depth_neighbor>inverse_depth_target)+0.5*ties>0.75 on all 3 frames",
+    "All inputs unchanged; no training, threshold adjustment, tracker or FlyVis-core changes."
+  ],
+  "evaluation": "Existing reviewed visible cores only. Target farther and neighbor nearer by scene occlusion interpretation, not measured 3D ground truth. Occluder combines people and bin: report combined without fabricated separation. Save maps before evaluation. Compare full target-reference/query ROI median as contamination diagnostic. No across-frame raw-scale comparison. This is one familiar episode, not independent validation.",
+  "budget": "3 CPU inferences + 1 same-frame warm-up, <=600 seconds. Weights and source only on E.",
+  "references": [
+    "https://github.com/DepthAnything/Depth-Anything-V2",
+    "https://github.com/DepthAnything/Depth-Anything-V2/issues/174",
+    "https://arxiv.org/abs/2406.09414"
+  ],
+  "amendment": {
+    "time": "2026-11-14T03:39:36.831397+03:00",
+    "reason": "Official image2tensor chose CUDA under supervisor despite requested CPU environment; warm-up failed before predictions. Explicit CPU preprocessing with identical operations, source model unchanged. No scientific parameter change."
+  }
+}

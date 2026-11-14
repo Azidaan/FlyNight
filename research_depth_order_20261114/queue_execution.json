@@ -1,0 +1,40 @@
+{
+  "started": "2026-11-14T03:37:36.573797+03:00",
+  "parent": {
+    "pid": 31348,
+    "birth": 1794616656.3684256
+  },
+  "jobs": [
+    {
+      "entry": "research_depth_order_20261114/probe.py",
+      "token": "42865a2451284122bfd78c3a14181fef",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\42865a2451284122bfd78c3a14181fef\\memory_guard.json",
+      "started": "2026-11-14T03:37:36.576854+03:00",
+      "ended": "2026-11-14T03:37:45.232903+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_depth_order_20261114\\probe.py",
+          "run",
+          "--audit-memory-worker=42865a2451284122bfd78c3a14181fef"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 15482875904,
+        "reason": null,
+        "returncode": 1,
+        "owned": {
+          "30916": 1794616656.5854447,
+          "25684": 1794616656.6105795
+        },
+        "stop_errors": [],
+        "seconds": 8.656999999999243
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-14T03:37:45.317517+03:00",
+  "passed": false
+}

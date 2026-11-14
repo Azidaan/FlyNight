@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "comparisons": [
+    {
+      "file": "depth_maps.npz",
+      "frame": 1159,
+      "rank_probability": 0.8684155000833274,
+      "target_median": 1.4063684940338135,
+      "neighbor_median": 1.624546766281128,
+      "gate": true
+    },
+    {
+      "file": "depth_maps.npz",
+      "frame": 1164,
+      "rank_probability": 0.3268360313394742,
+      "target_median": 1.383100986480713,
+      "neighbor_median": 1.3502671718597412,
+      "gate": false
+    },
+    {
+      "file": "depth_maps.npz",
+      "frame": 1165,
+      "rank_probability": 0.27609889067059906,
+      "target_median": 1.389582872390747,
+      "neighbor_median": 1.3442126512527466,
+      "gate": false
+    },
+    {
+      "file": "resolution_maps.npz",
+      "frame": 1159,
+      "rank_probability": 0.9129536134323739,
+      "target_median": 1.2781920433044434,
+      "neighbor_median": 1.5101289749145508,
+      "gate": true
+    },
+    {
+      "file": "resolution_maps.npz",
+      "frame": 1164,
+      "rank_probability": 0.8750175243197101,
+      "target_median": 1.3775274753570557,
+      "neighbor_median": 1.523964524269104,
+      "gate": true
+    },
+    {
+      "file": "resolution_maps.npz",
+      "frame": 1165,
+      "rank_probability": 0.8607808745941617,
+      "target_median": 1.3763628005981445,
+      "neighbor_median": 1.4866738319396973,
+      "gate": true
+    }
+  ],
+  "source_unchanged": true,
+  "hashes": {
+    "result.json": "23e1872348daad0eda6bdb6a1c1f72fc8b54ae0966cc3dbdc2272680be2c4ef7",
+    "resolution_result.json": "5e4f7bf93df0357ee345c0ef0be528541e6c7a796e4dff664781b6af49accd68",
+    "depth_maps.npz": "322fcb41987fb3fdef3d36a1e284a265559d3bf57c61ccb11c128d2ad48f3510",
+    "resolution_maps.npz": "6c814d6d0d549674b95a9206336924387b63d28e1fa3ddaaff96a334937c1b36"
+  },
+  "scope": "Independent rank-statistic and median recomputation; does not supply metric 3D truth."
+}

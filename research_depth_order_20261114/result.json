@@ -1,0 +1,116 @@
+{
+  "records": [
+    {
+      "frame": 1159,
+      "regions": {
+        "target": {
+          "n": 2872,
+          "median": 1.4063684940338135,
+          "q10": 1.2929762601852417,
+          "q90": 1.5135148763656616
+        },
+        "neighbor": {
+          "n": 4680,
+          "median": 1.624546766281128,
+          "q10": 1.4035394191741943,
+          "q90": 1.7480285167694092
+        },
+        "occluder": {
+          "n": 24703,
+          "median": 2.4343671798706055,
+          "q10": 1.8621008396148682,
+          "q90": 2.8941595554351807
+        },
+        "background": {
+          "n": 882696,
+          "median": 2.0329737663269043,
+          "q10": 0.261343777179718,
+          "q90": 13.218589782714844
+        }
+      },
+      "pair_rank_probability": 0.8684155000833274,
+      "correct_median_order": true,
+      "gate": true,
+      "full_roi_median": 1.480766773223877,
+      "roi_source": "1159reference",
+      "seconds": 2.4279210999957286
+    },
+    {
+      "frame": 1164,
+      "regions": {
+        "target": {
+          "n": 1782,
+          "median": 1.383100986480713,
+          "q10": 1.3169455528259277,
+          "q90": 1.573643684387207
+        },
+        "neighbor": {
+          "n": 7213,
+          "median": 1.3502671718597412,
+          "q10": 1.2324483394622803,
+          "q90": 1.4458719491958618
+        },
+        "occluder": {
+          "n": 23646,
+          "median": 2.2268385887145996,
+          "q10": 1.7247281074523926,
+          "q90": 2.8268661499023438
+        },
+        "background": {
+          "n": 883607,
+          "median": 2.0029120445251465,
+          "q10": 0.2707523703575134,
+          "q90": 13.099794387817383
+        }
+      },
+      "pair_rank_probability": 0.3268360313394742,
+      "correct_median_order": false,
+      "gate": false,
+      "full_roi_median": 1.5255968570709229,
+      "roi_source": "1165query;1164diagnostic uses next frame ROI",
+      "seconds": 2.345122900005663
+    },
+    {
+      "frame": 1165,
+      "regions": {
+        "target": {
+          "n": 1743,
+          "median": 1.389582872390747,
+          "q10": 1.3263611793518066,
+          "q90": 1.485032320022583
+        },
+        "neighbor": {
+          "n": 6877,
+          "median": 1.3442126512527466,
+          "q10": 1.2986516952514648,
+          "q90": 1.4227979183197021
+        },
+        "occluder": {
+          "n": 23556,
+          "median": 2.2531776428222656,
+          "q10": 1.7610747814178467,
+          "q90": 2.947068214416504
+        },
+        "background": {
+          "n": 883431,
+          "median": 2.0103490352630615,
+          "q10": 0.26347485184669495,
+          "q90": 13.01785659790039
+        }
+      },
+      "pair_rank_probability": 0.27609889067059906,
+      "correct_median_order": false,
+      "gate": false,
+      "full_roi_median": 1.4955129623413086,
+      "roi_source": "1165query;1164diagnostic uses next frame ROI",
+      "seconds": 2.4167811999941478
+    }
+  ],
+  "scientific_passed": false,
+  "seconds_median": 2.4167811999941478,
+  "device": "CPU, 2threads",
+  "parameters": 24785089,
+  "depth_maps_sha256": "322fcb41987fb3fdef3d36a1e284a265559d3bf57c61ccb11c128d2ad48f3510",
+  "source_unchanged": true,
+  "scope": "One familiar episode; ordinal scene interpretation only, no metric depth truth, no identity or tracker metric."
+}

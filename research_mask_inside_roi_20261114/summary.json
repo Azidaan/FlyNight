@@ -1,0 +1,19 @@
+{
+  "scientific_passed": false,
+  "quality_passed": false,
+  "increment_passed": true,
+  "new_video_mean_iou": {
+    "FlyVis": 0.2458044580181867,
+    "Control": 0.17163849474812384,
+    "Geometry": 0.7679293387486407
+  },
+  "new_video_wins": 3,
+  "scope": "Three manually annotated visible-core image tests from unseen training videos; one seed ensemble, not identity tracking or complete segmentation.",
+  "limitations": [
+    "Only four training frames from three videos.",
+    "Conservative manual cores omit unknown boundaries; apparent geometry IoU=1 on one case is not a full contour score.",
+    "Old1164 uses1165query ROI, so diagnostic only; old1165 has same-video training1159.",
+    "No reference appearance vector conditions target identity: classes rely on ROI location and observed features.",
+    "This compound reader change does not isolate individual architecture or training-label effects."
+  ]
+}
