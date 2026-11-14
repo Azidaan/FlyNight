@@ -35637,6 +35637,69 @@
       "interpretation": "Подтверждён причинный вклад собственной обновляемой памяти SAM2 в дрейф на соседа и отсутствие восстановления после перекрытия этого эпизода. Сохранение первого образца исправляет восстановление частично, а не весь контур и не сам момент перекрытия.",
       "decision": "Основной отрицательный исход сохранить. Проверить частичную правку памяти на других видео до изменения рабочей системы.",
       "cannot_claim": "Все причины ошибок FlyVis, полноценное выделение кузова, автоматическая инициализация маски, преимущество на новых видео, сохранение ID/HOTA. Разметка поздних кадров — консервативные видимые области, не полные контуры; дополнительное окно соседа размечено после результата и служит только диагностике."
+    },
+    {
+      "id": "mask_memory_transfer_20261114",
+      "title": "Проверка памяти масок на других видео",
+      "area": "own_tracker",
+      "state": "completed_negative",
+      "started": "2026-11-14",
+      "question": "Помогает ли сохранение первого образца на видео, не использованных для выбора этой правки памяти?",
+      "hypothesis": "Запрет сохранения ошибочных промежуточных масок может улучшить восстановление, но ухудшить приспособление к новому виду цели.",
+      "expected": "Три видео, по три последующих запроса, обычная и исправленная память, неподвижная маска и оптическое движение; все параметры фиксированы.",
+      "acceptance": [
+        {
+          "criterion": "Frozen-first-memory mode: recall>=0.5 and known-negativeFPR<=0.1 on every visible-target query. Query without visible positivepixels is scored separately for false foreground, not called an IoUwin.",
+          "met": false,
+          "evidence": "Дневная полнота на771 ниже0,5. research_mask_memory_transfer_20261114/result.json; audit.json"
+        },
+        {
+          "criterion": "Mean knownpixelIoU of frozen-first-memory exceeds ordinarySAM on at least2of3videos and overall; all scenes and unfavorable differences retained. Require>=2visible queries pervideo, otherwise increment criterion is inconclusive.",
+          "met": null,
+          "evidence": "Не определён: нет двух видимых запросов в третьем видео. Среди двух оцениваемых сцен выигрыш1/2. research_mask_memory_transfer_20261114/result.json; audit.json"
+        },
+        {
+          "criterion": "Report static firstmask and Farneback controls and first-mask initialization quality. No querylabels/boxes/clicks used in inference.",
+          "met": true,
+          "evidence": "Все четыре варианта и полные площади сохранены; текущие метки не поданы модели. research_mask_memory_transfer_20261114/result.json; audit.json"
+        },
+        {
+          "criterion": "Exact sequential frame alignment and unchanged checkpoints, thresholds, sourceinputs; primary outputs independently recounted.",
+          "met": true,
+          "evidence": "Аудит контрольных сумм и пересчёт показателей пройдены. research_mask_memory_transfer_20261114/result.json; audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_mask_memory_transfer_20261114/design.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_mask_memory_transfer_20261114/РЕЗУЛЬТАТ.md"
+        },
+        {
+          "kind": "file",
+          "ref": "research_mask_memory_transfer_20261114/result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_mask_memory_transfer_20261114/audit.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_mask_memory_transfer_20261114/field_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_mask_memory_transfer_20261114/annotation_views.json"
+        }
+      ],
+      "done": "2026-11-14",
+      "obtained": "Дневная сцена: обычная/первичная память/движение IoU0,4970/0,5345/0,6466; ночная0,8155/0,6879/0,9119. На771 полнота0,4631; третья сцена без различимой цели на3запросах, обе нейронные версии пусты. Источник research_mask_memory_transfer_20261114/result.json. Диагностическое увеличение окна ночной сцены с обычной памятью дало0,9498, с первой памятью0,8386; field_result.json.",
+      "interpretation": "Заморозка предсказанной памяти переносится неодинаково, но поле наблюдения существенно меняет результат в ночной сцене. Удаление внешнего контекста и увеличение изображения не равнозначны.",
+      "decision": "Основную правку не внедрять. Сохранить обычную память и контроль движения. Диагностический выбор окна требует независимой проверки; отдельно проверить глубину как дополнительный признак выбора готовой маски.",
+      "cannot_claim": "Устойчивое улучшение на всех видео, физическое отсутствие цели при отсутствии различимой разметки, полный контур, сохранение ID/HOTA или вклад ядра FlyVis. Шесть видимых запросов из двух видео, а не шесть независимых сцен."
     }
   ],
   "manual_events": [

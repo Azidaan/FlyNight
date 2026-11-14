@@ -1,0 +1,39 @@
+{
+  "started": "2026-11-14T05:41:34.935585+03:00",
+  "parent": {
+    "pid": 29084,
+    "birth": 1794624094.727922
+  },
+  "jobs": [
+    {
+      "entry": "research_mask_memory_transfer_20261114/checks.py",
+      "token": "2497e4b2750f459bb00e9f998ce397b2",
+      "report": "E:\\Dissertation\\runs\\flyvis_repairs_20261106\\unification_20261107\\uncapped_checks\\2497e4b2750f459bb00e9f998ce397b2\\memory_guard.json",
+      "started": "2026-11-14T05:41:35.061875+03:00",
+      "ended": "2026-11-14T05:45:19.381484+03:00",
+      "result": {
+        "command": [
+          "E:\\Dissertation\\.venv\\Scripts\\python.exe",
+          "-u",
+          "E:\\Dissertation\\research_mask_memory_transfer_20261114\\checks.py",
+          "--audit-memory-worker=2497e4b2750f459bb00e9f998ce397b2"
+        ],
+        "limit_active": false,
+        "limit_bytes": null,
+        "reserve_bytes": 6853494374,
+        "minimum_available_bytes": 16061362176,
+        "reason": null,
+        "returncode": 0,
+        "owned": {
+          "29976": 1794624095.069729,
+          "30944": 1794624095.0961723
+        },
+        "stop_errors": [],
+        "seconds": 224.31199999999808
+      }
+    }
+  ],
+  "complete": true,
+  "ended": "2026-11-14T05:45:19.693187+03:00",
+  "passed": true
+}
