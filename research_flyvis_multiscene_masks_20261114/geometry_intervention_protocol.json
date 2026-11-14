@@ -1,0 +1,19 @@
+{
+  "registered": "2026-11-14T03:05:42.096235+03:00",
+  "observed": "All4 geometry-conditioned arms give identical test masks, main audit passed. Hypothesis: box membership determines this fixed readout output.",
+  "inputs": {
+    "research_flyvis_multiscene_masks_20261114/models.npz": "fa420923944c243d358361e69f18cde0d4592ef15cbefeb39f722f0c20c90570",
+    "research_flyvis_multiscene_masks_20261114/features.npz": "6e769c14fa27571238ac2f416a91afa7709a9d7dae81aa41bd8233bd2c6dc68e",
+    "research_flyvis_multiscene_masks_20261114/predictions.npz": "f5e68b22a7aca4bde92f185dd2086f1f2a29fa8610aeffc55d6d95ad6ae7eba0",
+    "research_flyvis_multiscene_masks_20261114/result.json": "6ee0567a9e39eab2b992751846069afbba001936e083c444f0eca660ea74b16e",
+    "research_flyvis_multiscene_masks_20261114/geometry_intervention.py": "f69c5b7cbebea616931453ece9db64cf7ffdbc9375a0e0359c0725efe5f7e0a2"
+  },
+  "interventions": [
+    "identity copy",
+    "set standardized FlyVis34 channels to0, leave G6 unchanged",
+    "set standardized G6 to0, leave FlyVis34 unchanged",
+    "permute721 FlyVis cells seed42, same geometry"
+  ],
+  "outcome": "Count changed per-cell labels on all8 fixed testframes; compare baseline labels to actual supplied-box-membership feature. No fit, no threshold change, no new model promotion.",
+  "counterargument": "This would show reliance of this ridge reader on geometry, not absence of information in all FlyVis representations. Sparse manual cores and strong regularization can mask contour failures."
+}

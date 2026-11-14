@@ -1,0 +1,20 @@
+{
+  "runner_sha256": "2c922fc799394a03d9bc35cef70891b5bce61b4005b229d0e1bc72296ea0ce93",
+  "deadline": "2026-11-16T07:35:00+03:00",
+  "inputs": {
+    "research_flyvis_multiscene_masks_20261114/protocol.json": "975539aaf75747df3b8ed6b9410d52ed3c0b1f8c28a5e4894a4d8d225f0143b5",
+    "research_flyvis_multiscene_masks_20261114/prepare_data_v3.py": "02212b4b6b1fb5441a081e01a3ebae4ea8fb6510d61254cbae3494cd46301423",
+    "research_flyvis_multiscene_masks_20261114/teacher.py": "dbb84675a59a7834521846cd9598dc9924de4ab272eaafd034c9fd9c7946e995",
+    "research_flyvis_multiscene_masks_20261114/common.py": "2c7a8c0b2ca3de852b821287d8ad0f9b7be9a1c8384d30b3fc36825d8966b7d3"
+  },
+  "jobs": [
+    {
+      "entry": "research_flyvis_multiscene_masks_20261114/prepare_data_v3.py",
+      "timeout": 1200
+    },
+    {
+      "entry": "research_flyvis_multiscene_masks_20261114/teacher.py",
+      "timeout": 1200
+    }
+  ]
+}

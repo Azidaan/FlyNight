@@ -183,14 +183,15 @@
         "identity_repair_observed_episode_20261112",
         "identity_repair_combined_assignment_20261112",
         "identity_repair_holdout_recovery_20261112",
-        "identity_native_assignment_loss_2179_20261112"
+        "identity_native_assignment_loss_2179_20261112",
+        "flyvis_multiscene_masks_20261114"
       ],
       "legacy": [
         "P1",
         "P5"
       ],
       "first_seen": "2026-10-28",
-      "updated": "2026-11-12",
+      "updated": "2026-11-14",
       "cases": [
         {
           "date": "2026-10-28",
@@ -633,6 +634,19 @@
             "research_identity_holdout_20261112/recovery/assignment_loss_result_v2.json"
           ],
           "source_sha256": "2d6e81a620d01467f8d0a437282fec1a97cbd6d1adea76ff5a9d447a38fcd706"
+        },
+        {
+          "date": "2026-11-14",
+          "component": "Условный считыватель масок из готовых карт FlyVis",
+          "fact": "Принято 15 учебных кадров из9 видео (research_flyvis_multiscene_masks_20261114/fit_result.json). На8 кадрах из4 отдельных видео: FlyVis+рамка 67,08%, равный контроль 67,08%, только рамка 67,08%; research_flyvis_multiscene_masks_20261114/result.json → summary.all. Это IoU по уверенным участкам, а не полный контур. Нейтрализация FlyVis изменила0решений, геометрии872; research_flyvis_multiscene_masks_20261114/geometry_intervention.json.",
+          "hypothesis": "",
+          "discriminating_check": "Общие рамки, история, обучение и ручные проверочные участки; контроль без ядра и отдельный контроль геометрии.",
+          "limitation": "Не измерены HOTA, сохранение ID, качество полного контура или перенос на произвольные видео. Не доказана причина каждой ошибки; не приписывать эффект ядру без равного контроля. Учитель может ошибаться, ручная разметка выполнена агентом и содержит только уверенные участки.",
+          "evidence": [
+            "research_flyvis_multiscene_masks_20261114/result.json",
+            "research_flyvis_multiscene_masks_20261114/audit.json"
+          ],
+          "source_sha256": "6ee0567a9e39eab2b992751846069afbba001936e083c444f0eca660ea74b16e"
         }
       ],
       "revisions": [

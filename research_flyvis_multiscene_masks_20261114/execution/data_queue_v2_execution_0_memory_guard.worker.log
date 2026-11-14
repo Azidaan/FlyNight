@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "E:\Dissertation\research_flyvis_multiscene_masks_20261114\prepare_data_v2.py", line 49, in <module>
+    hx=np.stack([np.load(ROOT[t['path']],allow_pickle=False) for t in r['retinal']]).astype(float);ema=np.repeat(hx[:1],17,axis=0);taus=np.geomspace(1.5,32,17)
+  File "E:\Dissertation\research_flyvis_multiscene_masks_20261114\prepare_data_v2.py", line 49, in <listcomp>
+    hx=np.stack([np.load(ROOT[t['path']],allow_pickle=False) for t in r['retinal']]).astype(float);ema=np.repeat(hx[:1],17,axis=0);taus=np.geomspace(1.5,32,17)
+TypeError: 'WindowsPath' object is not subscriptable

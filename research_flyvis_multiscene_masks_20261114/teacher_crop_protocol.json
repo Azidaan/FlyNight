@@ -1,0 +1,8 @@
+{
+  "registered": "2026-11-14T02:58:19.333909+03:00",
+  "reason": "Only16of125 fullframe teacher masks satisfy fixed gates. Test reader has not been fitted. Need adequate training supervision before model evaluation.",
+  "intervention": "On rejected TRAIN frames only, run same fixed teacher on original FlyVis crop resized391. Same bbox matching IoU0.5 and purity0.8; retain previous fullframe positives. Manual review excludes unverifiable/merged masks before fitting. Keep fullframe baseline outputs unchanged.",
+  "reader_unchanged": true,
+  "evaluation_videos_untouched": true,
+  "source_sha256": "7d7cc14790e06e82e14b7a6fe7005bb1273222c799931138d2a143219534fd6c"
+}

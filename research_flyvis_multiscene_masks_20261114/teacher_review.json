@@ -1,0 +1,12 @@
+{
+  "created": "2026-11-14T03:03:24.409651+03:00",
+  "source": "qa/teacher_accepted_v2_0.png and qa/teacher_accepted_v2_1.png",
+  "exclude_ids": {
+    "b1e3e9f5-92377424_266": "Small blurred vehicle, individual silhouette cannot be verified visually.",
+    "b20b69d2-ca16c907_538": "Very small partly occluded vehicle adjacent to pole and foreground vehicle; cannot verify teacher instance boundary."
+  },
+  "review": "All17 automatically accepted teacher overlays viewed before fitting; remaining are still approximate pseudo-labels, not manually corrected dense contours.",
+  "teacher_result": "teacher_combined_result.json",
+  "teacher_masks": "teacher_combined_masks.npz",
+  "no_reader_outcomes_seen": true
+}

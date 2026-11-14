@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "created": "2026-11-14T03:04:20.099482+03:00",
+  "coefficient_checks": [
+    {
+      "size": "small",
+      "arm": "FlyVis34_G6",
+      "max_coefficient_error": 5.440092820663267e-15
+    },
+    {
+      "size": "small",
+      "arm": "Retina_history34_G6",
+      "max_coefficient_error": 5.88418203051333e-15
+    },
+    {
+      "size": "small",
+      "arm": "Geometry6",
+      "max_coefficient_error": 5.440092820663267e-15
+    },
+    {
+      "size": "small",
+      "arm": "RGB3_G6",
+      "max_coefficient_error": 4.773959005888173e-15
+    },
+    {
+      "size": "small",
+      "arm": "FlyVis34",
+      "max_coefficient_error": 5.773159728050814e-15
+    },
+    {
+      "size": "small",
+      "arm": "Retina_history34",
+      "max_coefficient_error": 4.9960036108132044e-15
+    },
+    {
+      "size": "all",
+      "arm": "FlyVis34_G6",
+      "max_coefficient_error": 3.1086244689504383e-15
+    },
+    {
+      "size": "all",
+      "arm": "Retina_history34_G6",
+      "max_coefficient_error": 2.886579864025407e-15
+    },
+    {
+      "size": "all",
+      "arm": "Geometry6",
+      "max_coefficient_error": 7.549516567451064e-15
+    },
+    {
+      "size": "all",
+      "arm": "RGB3_G6",
+      "max_coefficient_error": 8.326672684688674e-15
+    },
+    {
+      "size": "all",
+      "arm": "FlyVis34",
+      "max_coefficient_error": 5.440092820663267e-15
+    },
+    {
+      "size": "all",
+      "arm": "Retina_history34",
+      "max_coefficient_error": 5.10702591327572e-15
+    }
+  ],
+  "max_prediction_error": 5.950795411990839e-14,
+  "confusion_tables_recomputed": 96,
+  "nearest_tie_policy_validated": true,
+  "source_checks": 1151,
+  "all_sources_unchanged": true,
+  "train_test_videos_disjoint": true,
+  "training_labels_independently_sampled": true,
+  "alignment": true,
+  "limitations": "Evaluator shares stored features, teacher and manual labels, and cv2 resize/hull with primary. Solver uses separate augmented least-squares system, metrics use independent bincount; it is not an independent human annotation.",
+  "source_sha256": "7004d30bacb412c1b82d97b6cc4750a30618e471ceec95d7e20607c072edc19e"
+}

@@ -1,0 +1,6 @@
+{
+  "phase": "registration, before calculations",
+  "reason": "Some verified maps were computed directly and legitimately have no reused_from key. First registration assumed all maps were reused; it stopped before writing protocol or catalog. Dependent launcher was incorrectly attempted and exited because queue did not exist.",
+  "recovery": "Reuse-source hashes verified when recorded; actual map and metadata hashes verified for every record. Re-registered successfully; failed script and launcher log retained.",
+  "scientific_run_started": false
+}
