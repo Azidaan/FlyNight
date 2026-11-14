@@ -1,0 +1,199 @@
+{
+  "registered": "2026-11-14T06:04:22.495500+03:00",
+  "head": "c5dda52def49f6ae0f7dfebad41216dc96f56ed8",
+  "selection": "Before1159 choose largest groundtruthbbox for00122657 within preceding60rawframes, earliest tie. Used only for locating a diagnostic past reference; not a tracker-accessible GT or claim that largest box means complete view.",
+  "choices": [
+    {
+      "frame": 1099,
+      "area": 15195.341737803157,
+      "box": {
+        "x1": 1077.96992481203,
+        "x2": 1262.03007518797,
+        "y1": 251.72932330827066,
+        "y2": 334.2857142857143
+      },
+      "attributes": {
+        "occluded": true,
+        "truncated": true,
+        "crowd": false
+      }
+    },
+    {
+      "frame": 1105,
+      "area": 5863.101362428631,
+      "box": {
+        "x1": 1111.8045112781954,
+        "x2": 1243.0827067669172,
+        "y1": 251.72932330827066,
+        "y2": 296.390977443609
+      },
+      "attributes": {
+        "occluded": true,
+        "truncated": true,
+        "crowd": false
+      }
+    },
+    {
+      "frame": 1111,
+      "area": 21397.297755667383,
+      "box": {
+        "x1": 979.1729323308268,
+        "x2": 1218.7218045112782,
+        "y1": 250.37593984962405,
+        "y2": 339.69924812030075
+      },
+      "attributes": {
+        "occluded": true,
+        "truncated": true,
+        "crowd": false
+      }
+    },
+    {
+      "frame": 1117,
+      "area": 22170.252699417728,
+      "box": {
+        "x1": 975.1127819548872,
+        "x2": 1216.015037593985,
+        "y1": 250.37593984962405,
+        "y2": 342.406015037594
+      },
+      "attributes": {
+        "occluded": true,
+        "truncated": true,
+        "crowd": false
+      }
+    },
+    {
+      "frame": 1123,
+      "area": 24910.396291480578,
+      "box": {
+        "x1": 975.1127819548872,
+        "x2": 1245.7894736842104,
+        "y1": 250.37593984962405,
+        "y2": 342.406015037594
+      },
+      "attributes": {
+        "occluded": true,
+        "truncated": true,
+        "crowd": false
+      }
+    },
+    {
+      "frame": 1129,
+      "area": 26375.713720391188,
+      "box": {
+        "x1": 975.1127819548872,
+        "x2": 1245.7894736842104,
+        "y1": 250.37593984962405,
+        "y2": 347.8195488721804
+      },
+      "attributes": {
+        "occluded": true,
+        "truncated": true,
+        "crowd": false
+      }
+    },
+    {
+      "frame": 1135,
+      "area": 25980.078014585317,
+      "box": {
+        "x1": 975.1127819548872,
+        "x2": 1241.7293233082705,
+        "y1": 250.37593984962405,
+        "y2": 347.8195488721804
+      },
+      "attributes": {
+        "occluded": true,
+        "truncated": true,
+        "crowd": false
+      }
+    },
+    {
+      "frame": 1141,
+      "area": 26412.34665611397,
+      "box": {
+        "x1": 958.8721804511277,
+        "x2": 1237.6691729323309,
+        "y1": 253.08270676691728,
+        "y2": 347.8195488721804
+      },
+      "attributes": {
+        "occluded": true,
+        "truncated": true,
+        "crowd": false
+      }
+    },
+    {
+      "frame": 1147,
+      "area": 22501.780767708755,
+      "box": {
+        "x1": 998.1203007518795,
+        "x2": 1235.639097744361,
+        "y1": 253.08270676691728,
+        "y2": 347.8195488721804
+      },
+      "attributes": {
+        "occluded": true,
+        "truncated": true,
+        "crowd": false
+      }
+    },
+    {
+      "frame": 1153,
+      "area": 18591.214879303527,
+      "box": {
+        "x1": 1037.3684210526314,
+        "x2": 1233.609022556391,
+        "y1": 253.08270676691728,
+        "y2": 347.8195488721804
+      },
+      "attributes": {
+        "occluded": true,
+        "truncated": true,
+        "crowd": false
+      }
+    }
+  ],
+  "selected": {
+    "frame": 1141,
+    "area": 26412.34665611397,
+    "box": {
+      "x1": 958.8721804511277,
+      "x2": 1237.6691729323309,
+      "y1": 253.08270676691728,
+      "y2": 347.8195488721804
+    },
+    "attributes": {
+      "occluded": true,
+      "truncated": true,
+      "crowd": false
+    }
+  },
+  "video": "data/bdd100k/videos/val/b1ca2e5d-84cf9134.mov",
+  "reference_frames": [
+    1141,
+    1159
+  ],
+  "queries": [
+    1165,
+    1171,
+    1183,
+    1195,
+    1207
+  ],
+  "arms": [
+    "2x3 factorial: ordinary vs no self-generated memory; initialization from1141alone,1159alone,both1141+1159. Earliermanual annotation contains visible parts only. For1159alone use original49-frame sequence; forboth and1141alone use contiguous67frames1141..1207, no prompts after1159.",
+    "If earlierframe has distinct visible front and rear cores, also compare area-matched front-only and rear-only mask on1141 with same no-self-update rule. Fix polygons before inference; if no such parts, stop this diagnostic."
+  ],
+  "acceptance": [
+    "At1171, two prior reference masks (1141and1159) without self-update recover>=50% labeled targetpixels and <=10% knownnegative pixels. Compare exact same two-seed schedule to 1159alone.",
+    "Across all5queries, mean knownIoU of two reference masks without selfupdate exceeds1159alone and first1141alone; report ordinary selfupdates and every unfavorable change.",
+    "Same1159-only baseline reproduces archived baseline masks on all5queries; no future annotation is fed, query truth used only after outputs. Manual prior ID/masks remain a diagnosticprivilege."
+  ],
+  "scope": "Follow-up on known historical failure, pastGT/manual initialization for diagnosis; no independent validation or automatic initial mask. Keep prior negative primaryresults unchanged.",
+  "source_hashes": {
+    "runs/z13_val20_matched_20261024/cache/b1ca2e5d-84cf9134/alignment.json": "5103a385d20dfbd9fe3e14dd508845b3214ef737c4872c39a9bb4cad22cb6f2a",
+    "data/bdd100k/labels/box_track_20/val/b1ca2e5d-84cf9134.json": "3670c1528375f80ccb0a1b1bf5daffa576e6980d5051004b16b6685be4ac3c47"
+  },
+  "deadline": "2026-11-14T08:55:00+03:00"
+}
