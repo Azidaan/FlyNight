@@ -503,9 +503,14 @@ def build(vault_path,preserve=(),authorize_masa=False,refresh_masa=False,authori
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--vault',type=Path,default=ROOT/'ObsidianFlyVis')
+    parser.add_argument('--sarov-only', action='store_true', help='Создать отдельный холст «Граф 1. Саров» и его заметки')
     parser.add_argument('--preserve-note',action='append',default=[])
     parser.add_argument('--authorize-core-dynamics',action='store_true',help='Применить прямо порученное добавление гипотезы Я1')
     args=parser.parse_args()
+    if args.sarov_only:
+        from scripts.obsidian_sarov import create_board
+        print(create_board(args.vault))
+        return 0
     from scripts.obsidian_level_graph import build as build_levels
     if not (args.vault/'Гипотезы.md').exists() or args.authorize_core_dynamics:
         build(args.vault,args.preserve_note,authorize_core_dynamics=args.authorize_core_dynamics,
