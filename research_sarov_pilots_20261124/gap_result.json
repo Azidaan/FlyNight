@@ -1,0 +1,1024 @@
+{
+  "cohorts": {
+    "known": {
+      "ordinary": {
+        "episodes": 4,
+        "full": 0,
+        "return_correct": 0,
+        "return_wrong": 0,
+        "gap_wrong": 0,
+        "gap_unknown": 0,
+        "wrong_rival": 1
+      },
+      "precut": {
+        "episodes": 4,
+        "full": 1,
+        "return_correct": 1,
+        "return_wrong": 0,
+        "gap_wrong": 0,
+        "gap_unknown": 0,
+        "wrong_rival": 1
+      },
+      "wins": 1,
+      "losses": 0,
+      "interval": [
+        0.0,
+        0.75
+      ]
+    },
+    "new_video": {
+      "ordinary": {
+        "episodes": 4,
+        "full": 1,
+        "return_correct": 2,
+        "return_wrong": 0,
+        "gap_wrong": 1,
+        "gap_unknown": 0,
+        "wrong_rival": 0
+      },
+      "precut": {
+        "episodes": 4,
+        "full": 1,
+        "return_correct": 2,
+        "return_wrong": 0,
+        "gap_wrong": 1,
+        "gap_unknown": 0,
+        "wrong_rival": 1
+      },
+      "wins": 0,
+      "losses": 0,
+      "interval": [
+        0.0,
+        0.0
+      ]
+    },
+    "new_episode": {
+      "ordinary": {
+        "episodes": 16,
+        "full": 5,
+        "return_correct": 6,
+        "return_wrong": 3,
+        "gap_wrong": 1,
+        "gap_unknown": 8,
+        "wrong_rival": 1
+      },
+      "precut": {
+        "episodes": 16,
+        "full": 7,
+        "return_correct": 8,
+        "return_wrong": 3,
+        "gap_wrong": 1,
+        "gap_unknown": 8,
+        "wrong_rival": 1
+      },
+      "wins": 2,
+      "losses": 0,
+      "interval": [
+        0.0,
+        0.3125
+      ]
+    }
+  },
+  "changes": [
+    {
+      "case": "b1d0a191-28f0e779_55_58",
+      "cohort": "known",
+      "frame": 3,
+      "last": true,
+      "before": [
+        [
+          1,
+          2
+        ]
+      ],
+      "after": [
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          2
+        ]
+      ],
+      "verified_target": "correct",
+      "truth_overlap": [
+        [
+          0.0,
+          0.0,
+          7.195883954378096e-05,
+          0.952603578913429,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.8918183212350476,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "ids": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "case": "b1d10d08-743fd86c_0_2",
+      "cohort": "new_video",
+      "frame": 2,
+      "last": true,
+      "before": [],
+      "after": [
+        [
+          1,
+          2
+        ]
+      ],
+      "verified_target": "wait",
+      "truth_overlap": [
+        [
+          0.0,
+          0.0,
+          0.04527428949107733,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "ids": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "case": "b1d22449-15fb948f_72_80",
+      "cohort": "new_episode",
+      "frame": 8,
+      "last": true,
+      "before": [],
+      "after": [
+        [
+          0,
+          0
+        ]
+      ],
+      "verified_target": "correct",
+      "truth_overlap": [
+        [
+          0.7923857868020304
+        ],
+        [
+          0.0
+        ]
+      ],
+      "ids": [
+        0
+      ]
+    },
+    {
+      "case": "b1d7b3ac-5744370e_41_44",
+      "cohort": "new_episode",
+      "frame": 3,
+      "last": true,
+      "before": [
+        [
+          1,
+          0
+        ]
+      ],
+      "after": [
+        [
+          0,
+          3
+        ],
+        [
+          1,
+          0
+        ]
+      ],
+      "verified_target": "correct",
+      "truth_overlap": [
+        [
+          0.0017153298280941193,
+          0.0,
+          0.0,
+          0.8369175627240143,
+          0.0
+        ],
+        [
+          0.9159912608358588,
+          0.0,
+          0.0,
+          0.000631224575676813,
+          0.0
+        ]
+      ],
+      "ids": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "events": [
+    {
+      "case": "b1d0091f-75824d0d_35_37",
+      "video": "b1d0091f-75824d0d",
+      "cohort": "known",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d0091f-75824d0d_35_37",
+      "video": "b1d0091f-75824d0d",
+      "cohort": "known",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d0a191-28f0e779_55_58",
+      "video": "b1d0a191-28f0e779",
+      "cohort": "known",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d0a191-28f0e779_55_58",
+      "video": "b1d0a191-28f0e779",
+      "cohort": "known",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d10d08-da110fcb_1_3",
+      "video": "b1d10d08-da110fcb",
+      "cohort": "known",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d10d08-da110fcb_1_3",
+      "video": "b1d10d08-da110fcb",
+      "cohort": "known",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d7b3ac-0bdb47dc_3_5",
+      "video": "b1d7b3ac-0bdb47dc",
+      "cohort": "known",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 1
+    },
+    {
+      "case": "b1d7b3ac-0bdb47dc_3_5",
+      "video": "b1d7b3ac-0bdb47dc",
+      "cohort": "known",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 1
+    },
+    {
+      "case": "b1ca2e5d-84cf9134_109_111",
+      "video": "b1ca2e5d-84cf9134",
+      "cohort": "new_video",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1ca2e5d-84cf9134_109_111",
+      "video": "b1ca2e5d-84cf9134",
+      "cohort": "new_video",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1cd1e94-549d0bfe_4_7",
+      "video": "b1cd1e94-549d0bfe",
+      "cohort": "new_video",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wrong",
+        "correct"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1cd1e94-549d0bfe_4_7",
+      "video": "b1cd1e94-549d0bfe",
+      "cohort": "new_video",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wrong",
+        "correct"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d0a191-de8948f6_62_67",
+      "video": "b1d0a191-de8948f6",
+      "cohort": "new_video",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d0a191-de8948f6_62_67",
+      "video": "b1d0a191-de8948f6",
+      "cohort": "new_video",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d10d08-743fd86c_0_2",
+      "video": "b1d10d08-743fd86c",
+      "cohort": "new_video",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d10d08-743fd86c_0_2",
+      "video": "b1d10d08-743fd86c",
+      "cohort": "new_video",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 1
+    },
+    {
+      "case": "b1c66a42-6f7d68ca_22_25",
+      "video": "b1c66a42-6f7d68ca",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1c66a42-6f7d68ca_22_25",
+      "video": "b1c66a42-6f7d68ca",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1c9c847-3bda4659_29_32",
+      "video": "b1c9c847-3bda4659",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wrong",
+        "wrong"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1c9c847-3bda4659_29_32",
+      "video": "b1c9c847-3bda4659",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wrong",
+        "wrong"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d0091f-75824d0d_73_79",
+      "video": "b1d0091f-75824d0d",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d0091f-75824d0d_73_79",
+      "video": "b1d0091f-75824d0d",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d0091f-f2c2d2ae_36_38",
+      "video": "b1d0091f-f2c2d2ae",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d0091f-f2c2d2ae_36_38",
+      "video": "b1d0091f-f2c2d2ae",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d0a191-2ed2269e_189_195",
+      "video": "b1d0a191-2ed2269e",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wrong"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d0a191-2ed2269e_189_195",
+      "video": "b1d0a191-2ed2269e",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wrong"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d0a191-65deaeef_109_112",
+      "video": "b1d0a191-65deaeef",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait",
+        "wrong"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d0a191-65deaeef_109_112",
+      "video": "b1d0a191-65deaeef",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait",
+        "wrong"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d10d08-5b108225_56_59",
+      "video": "b1d10d08-5b108225",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d10d08-5b108225_56_59",
+      "video": "b1d10d08-5b108225",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d10d08-c35503b8_30_32",
+      "video": "b1d10d08-c35503b8",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d10d08-c35503b8_30_32",
+      "video": "b1d10d08-c35503b8",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d10d08-da110fcb_9_11",
+      "video": "b1d10d08-da110fcb",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 1
+    },
+    {
+      "case": "b1d10d08-da110fcb_9_11",
+      "video": "b1d10d08-da110fcb",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 1
+    },
+    {
+      "case": "b1d10d08-ec660956_131_133",
+      "video": "b1d10d08-ec660956",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d10d08-ec660956_131_133",
+      "video": "b1d10d08-ec660956",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d22449-15fb948f_72_80",
+      "video": "b1d22449-15fb948f",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d22449-15fb948f_72_80",
+      "video": "b1d22449-15fb948f",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d22ed6-f1cac061_134_136",
+      "video": "b1d22ed6-f1cac061",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d22ed6-f1cac061_134_136",
+      "video": "b1d22ed6-f1cac061",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d3907b-2278601b_108_114",
+      "video": "b1d3907b-2278601b",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d3907b-2278601b_108_114",
+      "video": "b1d3907b-2278601b",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d4b62c-60aab822_76_79",
+      "video": "b1d4b62c-60aab822",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "unknown",
+        "unknown",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d4b62c-60aab822_76_79",
+      "video": "b1d4b62c-60aab822",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "unknown",
+        "unknown",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d7b3ac-0bdb47dc_8_15",
+      "video": "b1d7b3ac-0bdb47dc",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "correct"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d7b3ac-0bdb47dc_8_15",
+      "video": "b1d7b3ac-0bdb47dc",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "correct"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d7b3ac-5744370e_41_44",
+      "video": "b1d7b3ac-5744370e",
+      "cohort": "new_episode",
+      "mode": "ordinary",
+      "sequence": [
+        "wait",
+        "wait",
+        "wait"
+      ],
+      "full": false,
+      "rival_wrong": 0
+    },
+    {
+      "case": "b1d7b3ac-5744370e_41_44",
+      "video": "b1d7b3ac-5744370e",
+      "cohort": "new_episode",
+      "mode": "precut",
+      "sequence": [
+        "wait",
+        "wait",
+        "correct"
+      ],
+      "full": true,
+      "rival_wrong": 0
+    }
+  ],
+  "independent_matrices": 164,
+  "ended": "2026-11-24T02:47:55+03:00",
+  "source": "gap_rows/",
+  "scanned": [
+    {
+      "video": "b1ca2e5d-84cf9134",
+      "cohort": "new_video",
+      "found": true
+    },
+    {
+      "video": "b1cd1e94-549d0bfe",
+      "cohort": "new_video",
+      "found": true
+    },
+    {
+      "video": "b1d0a191-de8948f6",
+      "cohort": "new_video",
+      "found": true
+    },
+    {
+      "video": "b1d10d08-743fd86c",
+      "cohort": "new_video",
+      "found": true
+    },
+    {
+      "video": "b1c66a42-6f7d68ca",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1c9c847-3bda4659",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1cebfb7-284f5117",
+      "cohort": "new_episode",
+      "found": false
+    },
+    {
+      "video": "b1d0091f-75824d0d",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1d0091f-f2c2d2ae",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1d0a191-03dcecc2",
+      "cohort": "new_episode",
+      "found": false
+    },
+    {
+      "video": "b1d0a191-28f0e779",
+      "cohort": "new_episode",
+      "found": false
+    },
+    {
+      "video": "b1d0a191-2ed2269e",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1d0a191-5490450b",
+      "cohort": "new_episode",
+      "found": false
+    },
+    {
+      "video": "b1d0a191-65deaeef",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1d10d08-5b108225",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1d10d08-c35503b8",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1d10d08-da110fcb",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1d10d08-ec660956",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1d22449-15fb948f",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1d22ed6-f1cac061",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1d3907b-2278601b",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1d4b62c-60aab822",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1d7b3ac-0bdb47dc",
+      "cohort": "new_episode",
+      "found": true
+    },
+    {
+      "video": "b1d7b3ac-5744370e",
+      "cohort": "new_episode",
+      "found": true
+    }
+  ]
+}

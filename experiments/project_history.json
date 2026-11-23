@@ -37163,6 +37163,114 @@
       "interpretation": "Изменялось только основание сравнения масок в дополнительной выдаче, все занятые рамки и исходные назначения сохранены. Большая область может покрывать прежнюю машину, хотя не является её видимым продолжением.",
       "decision": "Сохранить диагностический результат и не менять рабочие пороги.",
       "cannot_claim": "Данные повторно используются для проверки механизма. Результат одного кадра не означает устойчивого восстановления номера."
+    },
+    {
+      "id": "sarov_precut_return_20261124",
+      "title": "Возврат маски до обнуления при подтверждении текущим наблюдением",
+      "area": "own_tracker",
+      "state": "inconclusive",
+      "started": "2026-11-24",
+      "question": "Возврат маски до обнуления при подтверждении текущим наблюдением",
+      "hypothesis": "Only for an empty video mask and nonpositive native presence score, admit that owner's raw decoder contour into the existing reciprocal matching rule. Both owners compete with every current YOLO/SAM mask without ground truth. Native SAM2 state updates and all thresholds stay fixed.",
+      "expected": "Воспроизвести исходные назначения и оценки совпадения на четырёх известных эпизодах.",
+      "acceptance": [
+        {
+          "criterion": "Воспроизвести исходные назначения и оценки совпадения на четырёх известных эпизодах.",
+          "met": true,
+          "evidence": "research_sarov_pilots_20261124/gap_result.json, cohorts; research_sarov_pilots_20261124/audit.json"
+        },
+        {
+          "criterion": "В группе новых видео и отдельно среди новых эпизодов не увеличивается число неверных выдач целевого номера во время пропуска и при возвращении.",
+          "met": true,
+          "evidence": "research_sarov_pilots_20261124/gap_result.json, cohorts; research_sarov_pilots_20261124/audit.json"
+        },
+        {
+          "criterion": "На новых видео растёт число полностью правильных эпизодов, нижняя граница парного 95-процентного интервала по видео выше нуля. Иначе перенос не подтверждён.",
+          "met": false,
+          "evidence": "research_sarov_pilots_20261124/gap_result.json, cohorts; research_sarov_pilots_20261124/audit.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_sarov_pilots_20261124/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_sarov_pilots_20261124/gap_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_sarov_pilots_20261124/gap_selection.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_sarov_pilots_20261124/audit.json"
+        }
+      ],
+      "done": "2026-11-24",
+      "obtained": "Четыре известных эпизода: полностью верно 0 → 1. Четыре других видео: 1 → 1, неверных назначений соседу 0 → 1. Шестнадцать новых эпизодов в ранее исследованных видео: 5 → 7, парный 95%-й интервал разницы от 0 до +31,25 п. п. Источник research_sarov_pilots_20261124/gap_result.json, cohorts.",
+      "interpretation": "Проверка текущим наблюдением вернула отдельные хорошие контуры. На других видео устойчивое улучшение сохранения номера не подтверждено.",
+      "decision": "Оставить диагностический оракул. Перед переносом правила требуется отдельно решить, когда можно доверять соперничающей ветви.",
+      "cannot_claim": "Начальная рамка привязана по прошлой разметке. Проверка двух владельцев и четырёх других видео не измеряет качество полного трекера."
+    },
+    {
+      "id": "sarov_coordinate_transformer_20261124",
+      "title": "Точность и задержка малого трансформера сопоставления машин",
+      "area": "own_tracker",
+      "state": "completed_negative",
+      "started": "2026-11-24",
+      "question": "Точность и задержка малого трансформера сопоставления машин",
+      "hypothesis": "Frozen constant-velocity box IoU control; learned candidate-set transformer width 32, four attention heads, one block, feedforward width 64, trained on matched real YOLO detections. Use candidate features relative to source prediction, a wait choice, and one-to-one assignment. Fit 8 epochs on CPU. Common geometry control and matched local-only neural control. Profile pre-processing, forward, transfer to decision and joint assignment on identical real frames warm, one CPU thread and batch one frame. Interleave timing order and report paired p50/p95 and memory. Estimate total from archived separately measured pipeline, not a live full tracker measurement.",
+      "expected": "Увеличить долю правильных назначений на конкурирующих строках относительно геометрии без роста ложных назначений при отсутствии наблюдения.",
+      "acceptance": [
+        {
+          "criterion": "Увеличить долю правильных назначений на конкурирующих строках относительно геометрии без роста ложных назначений при отсутствии наблюдения.",
+          "met": false,
+          "evidence": "research_sarov_pilots_20261124/confirmation_result.json"
+        },
+        {
+          "criterion": "Дополнительная задержка сопоставления на уровне 95-го процентиля укладывается в запас времени для исходного потока BDD100K 5 кадров/с. Отдельно показать запас для 25 и 30 кадров/с.",
+          "met": true,
+          "evidence": "research_sarov_pilots_20261124/live_result.json"
+        },
+        {
+          "criterion": "Проверить различие между моделью с вниманием и обучаемым контролем без обмена информацией между кандидатами.",
+          "met": true,
+          "evidence": "research_sarov_pilots_20261124/transformer_result.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_sarov_pilots_20261124/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_sarov_pilots_20261124/transformer_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_sarov_pilots_20261124/confirmation_protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_sarov_pilots_20261124/confirmation_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_sarov_pilots_20261124/live_result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_sarov_pilots_20261124/confirmation_audit.json"
+        }
+      ],
+      "done": "2026-11-24",
+      "obtained": "На первой группе из 20 видео геометрия и трансформер дали 7423 и 8073 правильных выбора из 8521 при конкуренции; ложные выдачи при отсутствии пригодного кандидата 97 и 216 из 678. Источник research_sarov_pilots_20261124/transformer_result.json. На следующих 20 видео верно 4870 и 5353 из 5709, локальная нейросеть дала 5354. После сохранения ожиданий геометрии верно 4866, ложных выдач 49, у геометрии 49. Источник research_sarov_pilots_20261124/confirmation_result.json. На 80 кадрах JPEG, YOLO26s и назначение заняли в среднем 29,05 и 29,93 мс; средняя добавка участка назначения 1,06 мс. Источник research_sarov_pilots_20261124/live_result.json.",
+      "interpretation": "На обеих независимых от обучения группах сеть чаще продолжала наблюдаемый объект и чаще присваивала наблюдение при отсутствии пригодной рамки. Изолированный вклад внимания относительно локальной обученной сети не подтвердился.",
+      "decision": "Сохранить модель для сравнения. Следующая задача — качество решения ждать и защита от чужой рамки при конкуренции. В рабочий трекер вариант не внедрять.",
+      "cannot_claim": "Перенос на сквозные номера, точное изменение скорости полного трекера, эффективность трансформера на десять миллионов параметров и вклад FlyVis здесь не измерялись."
     }
   ],
   "manual_events": [

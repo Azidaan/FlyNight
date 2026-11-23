@@ -1,0 +1,27 @@
+{
+  "date_msk": "2026-11-24",
+  "stop_msk": "2026-11-24T07:40:00+03:00",
+  "scope": "Two isolated association experiments. Frozen detector, SAM 2, project weights and thresholds. No full tracker.",
+  "oracle": {
+    "id": "sarov_precut_return_20261124",
+    "title": "Возврат маски до обнуления при подтверждении текущим наблюдением",
+    "selection": "Four known zero-overlap replay cases for implementation only. Primary: every other official MOTS val video outside all 28 videos in the previous gap protocol, one first eligible gap per video. Supplement: first eligible gap starting strictly after the old return in each of the 20 earlier videos. Same event definition as original including source area >=512, 1 to 7 intervening frames, two initial owners. Report each cohort separately. The independent-video cohort may be small.",
+    "action": "Only for an empty video mask and nonpositive native presence score, admit that owner's raw decoder contour into the existing reciprocal matching rule. Both owners compete with every current YOLO/SAM mask without ground truth. Native SAM2 state updates and all thresholds stay fixed.",
+    "criteria": [
+      "Воспроизвести исходные назначения и оценки совпадения на четырёх известных эпизодах.",
+      "В группе новых видео и отдельно среди новых эпизодов не увеличивается число неверных выдач целевого номера во время пропуска и при возвращении.",
+      "На новых видео растёт число полностью правильных эпизодов, нижняя граница парного 95-процентного интервала по видео выше нуля. Иначе перенос не подтверждён."
+    ]
+  },
+  "transformer": {
+    "id": "sarov_coordinate_transformer_20261124",
+    "title": "Точность и задержка малого трансформера сопоставления машин",
+    "selection": "First 24 train videos in the project's fixed train selection, then 20 official val videos from the 960 detector cache ranked by SHA-256(video), excluding all 32 MOTS val videos. One-step scenes, sampled every third labelled frame, history of up to 3 consecutive source frames. Car detections with confidence >0.1. Source owners require two past detections matched to the same official car, never the future. Keep current candidates and waits. Matching to official IDs only for forming aligned starting histories and scoring. Report hard competition and missing observations separately. One seed 42; no holdout tuning.",
+    "conditions": "Frozen constant-velocity box IoU control; learned candidate-set transformer width 32, four attention heads, one block, feedforward width 64, trained on matched real YOLO detections. Use candidate features relative to source prediction, a wait choice, and one-to-one assignment. Fit 8 epochs on CPU. Common geometry control and matched local-only neural control. Profile pre-processing, forward, transfer to decision and joint assignment on identical real frames warm, one CPU thread and batch one frame. Interleave timing order and report paired p50/p95 and memory. Estimate total from archived separately measured pipeline, not a live full tracker measurement.",
+    "criteria": [
+      "Увеличить долю правильных назначений на конкурирующих строках относительно геометрии без роста ложных назначений при отсутствии наблюдения.",
+      "Дополнительная задержка сопоставления на уровне 95-го процентиля укладывается в запас времени для исходного потока BDD100K 5 кадров/с. Отдельно показать запас для 25 и 30 кадров/с.",
+      "Проверить различие между моделью с вниманием и обучаемым контролем без обмена информацией между кандидатами."
+    ]
+  }
+}
