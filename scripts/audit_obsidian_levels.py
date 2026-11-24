@@ -5,16 +5,42 @@ from urllib.parse import quote
 import re
 
 from scripts.obsidian_level_graph import ACTIVE, COLORS, FOLDER, LINK, ROOT, SECTION_NAMES, read
+from scripts.obsidian_sarov import NOTES, read_topics
+
+
+def audit_sarov(vault, manifest):
+    spine = manifest.get('sequences', {}).get(NOTES, [])
+    if not spine:
+        assert not (vault/NOTES).is_dir(), 'Цепочка Сарова отсутствует на общем графе'
+        return set(), set()
+    assert spine == [f'{NOTES}/{title}.md' for title, _ in read_topics()]
+    files = {p.relative_to(vault).as_posix() for p in (vault/NOTES).rglob('*.md')}
+    edges = {(p, match[1]+'.md') for p in files
+             for match in LINK.finditer((vault/p).read_text(encoding='utf-8'))}
+    assert all(dst in files for _, dst in edges), 'Внешняя связь из цепочки Сарова'
+    assert {(src,dst) for src,dst in edges if src in spine and dst in spine} == set(zip(spine,spine[1:]))
+    reached = {spine[0]}
+    while True:
+        expanded = reached | {v for a,b in edges if a in reached or b in reached for v in (a,b)}
+        if expanded == reached:
+            break
+        reached = expanded
+    assert reached == files, 'Не все заметки Сарова присоединены к цепочке'
+    return files, edges
 
 def audit(vault):
     manifest=read(vault/'.graph-visible.json')
     nodes=manifest['nodes']
     settings=read(vault/'.obsidian/graph.json')
-    assert settings['search']==manifest['search']==f'path:"{FOLDER}/" tag:#{ACTIVE}'
+    series_files, series_edges = audit_sarov(vault, manifest)
+    query=f'path:"{FOLDER}/" tag:#{ACTIVE}'
+    if series_files:
+        query=rf'({query}) OR path:/^{NOTES}\/.+\.md$/'
+    assert settings['search']==manifest['search']==query
     assert settings['hideUnresolved'] and not settings['showAttachments'] and not settings['showTags']
     assert settings['colorGroups']==[dict(query='tag:#граф-проекта/'+k,color=dict(a=1,rgb=v)) for k,v in COLORS.items()]
     by_path={n['path']:k for k,n in nodes.items()}
-    assert len(by_path)==len(nodes) and sorted(by_path)==manifest['files']
+    assert len(by_path)==len(nodes) and sorted(set(by_path) | series_files)==manifest['files']
     assert len({n['number'] for n in nodes.values()})==len(nodes),'Duplicate hierarchy number'
     found=set()
     edges=set()
@@ -115,5 +141,7 @@ def audit(vault):
                 assert quote(nodes[target]['path'][:-3],safe='') in text
                 reverse=(vault/nodes[target]['path']).read_text(encoding='utf8')
                 assert quote(nodes[key]['path'][:-3],safe='') in reverse
-    return dict(passed=True,note_count=len(nodes),components=len(roots),edges=len(edges),sections=sections,
+    if series_files:
+        sections[NOTES]=len(series_files)
+    return dict(passed=True,note_count=len(nodes)+len(series_files),components=len(roots)+bool(series_files),edges=len(edges)+len(series_edges),sections=sections,
                 journal_entries=entries,missing_targets=[],external_edges=[],empty_leaves=empty_leaves,experiments=len(visible_cards),catalog_experiments=len(catalog['experiments']))

@@ -1,6 +1,33 @@
 from scripts.obsidian_level_graph import ACTIVE, Tree
 
 
+def test_sarov_chain_stays_visible_alongside_existing_tree_after_rebuild(tmp_path):
+    from scripts.audit_obsidian_levels import audit_sarov
+    from scripts.obsidian_level_graph import read
+    from scripts.obsidian_sarov import create_notes, update_graph_filter
+
+    tree = Tree(tmp_path)
+    tree.add('Термины', 'Термины')
+    tree.save()
+    base = read(tmp_path / '.graph-visible.json')
+    root = create_notes(tmp_path)
+    update_graph_filter(tmp_path)
+    manifest = read(tmp_path / '.graph-visible.json')
+    files, edges = audit_sarov(tmp_path, manifest)
+    assert root.name == 'Граф 1. Саров.md'
+    assert len(files) == 10 and len(edges) == 9
+    child = 'Саров/1.6.1 SAM 2 — память при перекрытии.md'
+    assert ('Саров/1.6 Диффузия и SAM 3D.md', child) in edges
+    assert sum(child in edge for edge in edges) == 1
+    assert set(manifest['files']) == set(base['files']) | files
+    assert manifest['nodes'] == base['nodes']
+    assert read(tmp_path / '.obsidian/graph.json')['search'] == (
+        f'({base["search"]}) OR ' + r'path:/^Саров\/.+\.md$/'
+    )
+    tree.save()
+    assert read(tmp_path / '.graph-visible.json') == manifest
+
+
 def test_new_sibling_keeps_existing_numbers_and_renamed_note_survives(tmp_path):
     def generate(children):
         tree = Tree(tmp_path)

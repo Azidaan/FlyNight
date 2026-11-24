@@ -12,6 +12,7 @@ from scripts.build_obsidian_vault import ROOT, safe
 from scripts.obsidian_confirmed_results import GROUPS as RESULT_GROUPS, collect
 from scripts.obsidian_fly_problems import GROUPS, PROBLEMS, status_of
 from scripts.obsidian_system_problems import load as system_problems
+from scripts.obsidian_sarov import create_notes, include_in_graph
 
 FOLDER = 'Карта проекта'
 ACTIVE = 'граф-проекта/видно'
@@ -217,12 +218,14 @@ class Tree:
                 dest.write_bytes(text.replace(ACTIVE,'граф-проекта/архив',1).encode())
         meta={k:{f:v for f,v in n.items() if f!='body'} for k,n in self.nodes.items()}
         query=f'path:"{FOLDER}/" tag:#{ACTIVE}'
+        manifest=dict(version=2,files=sorted(rendered),nodes=meta,search=query)
+        include_in_graph(self.vault, manifest)
         config=self.vault/'.obsidian/graph.json'
         graph=read(config) if config.exists() else {}
-        graph.update(search=query,hideUnresolved=True,showAttachments=False,showTags=False,showOrphans=True,
+        graph.update(search=manifest['search'],hideUnresolved=True,showAttachments=False,showTags=False,showOrphans=True,
                      colorGroups=[dict(query='tag:#граф-проекта/'+k,color=dict(a=1,rgb=v)) for k,v in COLORS.items()])
         config.parent.mkdir(exist_ok=True)
-        for p,obj in [(config,graph),(self.vault/'.graph-visible.json',dict(version=2,files=sorted(rendered),nodes=meta,search=query))]:
+        for p,obj in [(config,graph),(self.vault/'.graph-visible.json',manifest)]:
             p.write_bytes((json.dumps(obj,ensure_ascii=False,indent=2)+'\n').encode())
 
 def hypothesis_week(day):
@@ -417,6 +420,7 @@ def used_literature(tree):
 
 
 def build(vault):
+    create_notes(vault)
     tree=Tree(vault)
     for name in SECTION_NAMES:tree.add(name,name)
     catalog=read(ROOT/'experiments/project_history.json')
