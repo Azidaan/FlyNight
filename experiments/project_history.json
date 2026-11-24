@@ -37271,6 +37271,106 @@
       "interpretation": "На обеих независимых от обучения группах сеть чаще продолжала наблюдаемый объект и чаще присваивала наблюдение при отсутствии пригодной рамки. Изолированный вклад внимания относительно локальной обученной сети не подтвердился.",
       "decision": "Сохранить модель для сравнения. Следующая задача — качество решения ждать и защита от чужой рамки при конкуренции. В рабочий трекер вариант не внедрять.",
       "cannot_claim": "Перенос на сквозные номера, точное изменение скорости полного трекера, эффективность трансформера на десять миллионов параметров и вклад FlyVis здесь не измерялись."
+    },
+    {
+      "id": "sarov_depth_order_screen_20261124",
+      "title": "Порядок ближе–дальше для различения двух машин",
+      "area": "own_tracker",
+      "state": "completed_negative",
+      "started": "2026-11-24",
+      "question": "Можно ли распознать пару машин по сохранению порядка ближе–дальше, и есть ли здесь измеримая задача для SAM 3D Objects?",
+      "hypothesis": "Относительная глубина пары сохранится чаще, чем её вертикальный порядок в кадре.",
+      "expected": "Сравнить две перестановки тех же наблюдений без переобучения и новых порогов.",
+      "acceptance": [
+        {
+          "criterion": "With automatic observations, the ordinal depth rule must correct more height-order errors than it introduces. Record whether the existing color and vertical-position control still leaves any measurable error among the adequately paired automatic observations. No tuning. This screens a tracking cue, not a SAM 3D inference or a measurement of physical distance.",
+          "met": false,
+          "evidence": "research_sarov_depth_order_20261124/result.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_sarov_depth_order_20261124/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_sarov_depth_order_20261124/result.json"
+        }
+      ],
+      "done": "2026-11-24",
+      "obtained": "Саров 1.6. Глубина по медиане маски дала 38 правильных соответствий, вертикальный порядок — 38 из 53. При расхождении решений выигрыши глубины и высоты — 0 и 0. Проверена гипотеза о порядке на старых масках. Скорость и точность SAM 3D Objects не измерялись. Источник research_sarov_depth_order_20261124/result.json, groups.auto.",
+      "interpretation": "Оценивалось сохранение номеров по порядку двух объектов на изображении. Физическое расстояние до камеры не размечено.",
+      "decision": "Использовать отбор спорных эпизодов для отдельной проверки 3D-положения при наличии подходящего оборудования.",
+      "cannot_claim": "Данные уже изучались. Результат не измеряет точность SAM 3D, метрическую глубину и полный трекер."
+    },
+    {
+      "id": "sarov_sam2_two_car_swap_20261124",
+      "title": "Две перекрывающиеся машины после совместной перестановки номеров",
+      "area": "own_tracker",
+      "state": "completed_negative",
+      "started": "2026-11-24",
+      "question": "Различает ли локальная SAM 2 две машины, которые одновременно поменяли местами геометрия и трансформер?",
+      "hypothesis": "Initialize two independent ordinary SAM 2 video memories on the two preceding YOLO detections. Predict the next frame and use the frozen single-frame SAM 2 image masks for all YOLO car candidates with detector confidence >0.1. Use the same strict reciprocal IoU >0.5 assignment. Official box IDs score the decisions, not their pixel contours. Compare a two-candidate diagnostic and the decision with all candidates. No full tracker, thresholds or working weights changed.",
+      "expected": "Прошлый номер каждой из двух машин получает свою текущую рамку среди всех детекций. Отдельно считать ожидания и ошибки.",
+      "acceptance": [
+        {
+          "criterion": "Прошлый номер каждой из двух машин получает свою текущую рамку среди всех детекций. Отдельно считать ожидания и ошибки.",
+          "met": false,
+          "evidence": "research_sarov_sam2_overlap_20261124/result.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_sarov_sam2_overlap_20261124/protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_sarov_sam2_overlap_20261124/result.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_sarov_sam2_overlap_20261124/masks.jpg"
+        }
+      ],
+      "done": "2026-11-24",
+      "obtained": "На переходе b242f6b2-f5da110f, кадры 171 и 172, локальная SAM 2 правильно назначила 1 из 2 машин, ожиданий 1, ошибочных назначений 0. Учитывались все 14 текущих рамок. Источник research_sarov_sam2_overlap_20261124/result.json.",
+      "interpretation": "Это проверка двух старых номеров на одном заранее найденном конфликте рамок.",
+      "decision": "Судить о переносе только после независимых примеров перекрытия.",
+      "cannot_claim": "Точная пиксельная разметка этих двух масок и результат полного трекера не оценивались."
+    },
+    {
+      "id": "sarov_sam2_one_frame_earlier_20261124",
+      "title": "Начало памяти SAM 2 на один кадр раньше при перекрытии двух машин",
+      "area": "own_tracker",
+      "state": "completed_positive",
+      "started": "2026-11-24",
+      "question": "Достаточно ли дать каждой машине дополнительный кадр истории, чтобы сохранить оба номера на кадре 172?",
+      "hypothesis": "Два парных запуска локальной SAM 2 на ранее выбранном эпизоде b242f6b2-f5da110f. Контроль начинается с прошлых рамок YOLO на кадре 171. Опыт начинается с рамок для тех же двух прежних номеров на кадре 170. Затем модель переносит маски до кадра 172 без подсказок. Разметка прошлых рамок задаёт соответствие при инициализации обеих ветвей. Текущие маски по всем 14 детекциям, веса, настройка памяти и исходное правило взаимного максимума выше 0,5 общие. Текущие номера используются только для оценки.",
+      "expected": "Обе машины сохранят номера при более раннем начале памяти.",
+      "acceptance": [
+        {
+          "criterion": "Контроль воспроизводит сохранённые пиксельные маски и все 28 оценок сходства. Ранний старт назначает обеим машинам правильные текущие рамки без ошибочной выдачи номера. Независимые видео этой проверкой не охвачены.",
+          "met": true,
+          "evidence": "research_sarov_sam2_overlap_20261124/earlier_result.json"
+        }
+      ],
+      "evidence": [
+        {
+          "kind": "file",
+          "ref": "research_sarov_sam2_overlap_20261124/earlier_protocol.json"
+        },
+        {
+          "kind": "file",
+          "ref": "research_sarov_sam2_overlap_20261124/earlier_result.json"
+        }
+      ],
+      "done": "2026-11-24",
+      "obtained": "На кадре 172 контроль с началом на кадре 171 воспроизведён по пикселям и всем 28 оценкам. При начале на кадре 170 правильных назначений 2 из 2, ожиданий 0, ошибочных назначений 0. Источник research_sarov_sam2_overlap_20261124/earlier_result.json.",
+      "interpretation": "Сравнение измеряет эффект выбора предыдущего момента инициализации на одном эпизоде.",
+      "decision": "Отдельно проверять перенос на других перекрытиях.",
+      "cannot_claim": "Нет оценки точности пиксельных границ и переноса на новые видео."
     }
   ],
   "manual_events": [

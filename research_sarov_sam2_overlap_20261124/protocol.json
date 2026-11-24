@@ -1,0 +1,8 @@
+{
+  "id": "sarov_sam2_two_car_swap_20261124",
+  "question": "Различает ли локальная SAM 2 две машины, которые одновременно поменяли местами геометрия и трансформер?",
+  "selection": "All rows from 40 held-out videos in the two transformer pilots. Select every two-owner, two-candidate exact swap shared by geometry and the transformer with both reference IDs evaluable. Exactly one such pair was identified before running SAM 2. Retrospective difficult-case diagnosis. No generalization claim.",
+  "action": "Initialize two independent ordinary SAM 2 video memories on the two preceding YOLO detections. Predict the next frame and use the frozen single-frame SAM 2 image masks for all YOLO car candidates with detector confidence >0.1. Use the same strict reciprocal IoU >0.5 assignment. Official box IDs score the decisions, not their pixel contours. Compare a two-candidate diagnostic and the decision with all candidates. No full tracker, thresholds or working weights changed.",
+  "criterion": "Прошлый номер каждой из двух машин получает свою текущую рамку среди всех детекций. Отдельно считать ожидания и ошибки.",
+  "scope": "Картинка отображает реальные выходы SAM 2. SAM 3D исключена из этого запуска по решению автора."
+}

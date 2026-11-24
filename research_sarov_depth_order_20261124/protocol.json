@@ -1,0 +1,8 @@
+{
+  "id": "sarov_depth_order_screen_20261124",
+  "registered_msk_date": "2026-11-24",
+  "question": "Можно ли распознать пару машин по сохранению порядка ближе–дальше, и есть ли здесь измеримая задача для SAM 3D Objects?",
+  "selection": "All archived two-owner queries for which both cars were officially visible in research_depth_identity_competition_20261114. Keep missing automatic candidates in the denominator. Separate automatic masks and annotated masks. These data are previously studied.",
+  "test": "Rank the two objects by their individual median image-wide relative depth inside their masks. Match the two subsequent candidates by preserving that ordering. A tied order defers. Control uses the identical rule with median vertical pixel coordinate instead of depth. Only at scoring reveal the officially matched permutation. Also recompute existing distribution matching for depth, height and color fusions as a consistency check.",
+  "criterion": "With automatic observations, the ordinal depth rule must correct more height-order errors than it introduces. Record whether the existing color and vertical-position control still leaves any measurable error among the adequately paired automatic observations. No tuning. This screens a tracking cue, not a SAM 3D inference or a measurement of physical distance."
+}
